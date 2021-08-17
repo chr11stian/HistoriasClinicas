@@ -1,0 +1,9 @@
+<app-top-menu (style1)="number=$event" (hiddenMenu1)="hidden=$event"></app-top-menu>
+<div class="p-grid">
+    <div *ngIf="hidden" class="margin-side-bar p-col-12 p-md-12 p-lg-3">
+        <app-side-bar></app-side-bar>
+    </div>
+    <div class="margin-router p-col-12 p-md-12 p-lg-{{number}}">
+        <router-outlet></router-outlet>
+    </div>
+</div>

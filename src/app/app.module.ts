@@ -1,41 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { DialogModule } from 'primeng/dialog';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { RatingModule } from 'primeng/rating';
-import { ToolbarModule } from 'primeng/toolbar';
 import { ConfirmationService } from 'primeng/api';
+import {AppRoutingModule} from './app-routing.module';
+
 
 import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { PrimeModule } from './shared/prime/prime.module'
+import { ChartModule } from 'primeng/chart';
+
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        LoginComponent,
+        NotFoundComponent
     ],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        FormsModule,
-        TableModule,
         HttpClientModule,
-        InputTextModule,
-        DialogModule,
-        ToolbarModule,
-        ConfirmDialogModule,
-        RatingModule,
-        InputNumberModule,
-        InputTextareaModule,
-        RadioButtonModule,
-        ButtonModule
+        AppRoutingModule,
+        FormsModule,
+        PrimeModule,
+        ReactiveFormsModule,
+        ChartModule
     ],
     providers: [ConfirmationService],
     bootstrap: [AppComponent]
