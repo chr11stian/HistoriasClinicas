@@ -1,74 +1,37 @@
-<html>
-<head>
 
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="login.component.css">
-</head>
-<body style="background-image: url(../../assets/images/login_image_background_2.png); ">
+<html style="background-image: url(../../assets/images/descanso-cusco.jpg);
+  background-size: 100%">
 
-<div class="container">
-    <div class="frame">
-        <div class="d-flex alig-items-center; cabecera_logo">
-            <img class="d-flex alig-items-center; logo_Region" src="../../../assets/images/Logo_Gore.png">
+<div class="login-page container">
+    <div class="form">
+        <div class="d-flex alig-items-center;">
+            <img class="d-flex alig-items-center; logo_Region" src="../../assets/images/Logo_Gore.png">
         </div>
-        <div class="d-flex alig-items-center; container_titulo_principal">
-            <h6 class="titulo_principal" style="color: #4d4d4d">HISTORIAS CLINICAS</h6>
-        </div>
+        <form class="login-form">
+            <h4 class="titulo_principal" style="color: #4d4d4d">HISTORIAS CLINICAS</h4>
+            <p class="titulo_principal" style="color: #4d4d4d">Iniciar Sesión</p>
 
-        <div ng-app ng-init="checked = false">
-
-            <form class="containerDatosSesion">
-
-                <div class="usuario">
-                    <div class="p-inputgroup">
-                        <span class="span">
-                            <button class="butonIcon" pButton disabled=true
-                                    icon="pi pi-user">
-                            </button></span>
-                        <input type="text" name="usuario" pInputText placeholder="Usuario" [(ngModel)]="usuario">
-                    </div>
-                </div>
-
-                <div class="p-inputgroup" style="margin-top: 2%;">
-                    <span class="spanLock">
-                        <button class="butonIcon" pButton disabled=true
-                                icon="pi pi-lock">
-                        </button>
-                    </span>
-                    <p-password weakLabel="Debil" mediumLabel="Medio" strongLabel="Fuerte"
-                                promptLabel="Ingrese una Contraseña" [toggleMask]="true" name="password"
-                                placeholder="Contraseña" [(ngModel)]="password">
-                    </p-password>
-                </div>
-                <p class="mensajeContrasenia">¿Has perdido tu contraseña?</p>
-            </form>
-
-            <div class="d-flex justify-content-center alig-items-center; containerRecordarContrasenia">
-                <div class="checkRecordar">
-                    <input clas="checkRecordar" type="checkbox" id="checkbox"/>
-                    <label for="checkbox">
-                        <span class="ui">
-                        </span>Recordar Contraseña</label>
-                </div>
+            <div class="ui-grid-row">
+                <input type="text" pInputText class="p-inputtext-sm pi-user" placeholder="Usuario">
             </div>
-        </div>
-
-        <div class="d-flex justify-content-center" style="padding-top: 7%;">
-            <button pButton class="button_ingresar" (click)="Ingresar()">Ingresar</button>
-        </div>
-
-        <div class="d-flex ; containerLogos">
-            <div class="logo_izquierda">
-                <img src="../../../assets/images/gerencia_salud_logo.png">
+            <p-password
+                    placeholder="Contraseña"
+                    weakLabel="Debil"
+                    mediumLabel="Medio"
+                    strongLabel="Fuerte"
+                    promptLabel="Ingrese una Contraseña" [toggleMask]="true"
+                    name="password">
+            </p-password>
+            <div class="ui-grid-row">
+                <button pButton type="submit" label="Iniciar" (click)="Ingresar()"></button>
             </div>
-
-            <div class="logo_derecha">
-                <img src="../../../assets/images/Winay.png">
-            </div>
-        </div>
+            <p class="message">Usuario?
+                <a href="#">Olvido la contraseña</a>
+            </p>
+        </form>
     </div>
 </div>
-</body>
+
 </html>
+
+

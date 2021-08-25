@@ -1,463 +1,91 @@
-html, body * {
+.form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #ffffff;
+    width: 83%;
+    margin: 1px 0 12px;
+    padding: 12px;
     box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
 }
 
-.body {
-    background: linear-gradient(
-            rgba(246, 247, 249, 0.8),
-            rgba(246, 247, 249, 0.8)),
-    url(https://dl.dropboxusercontent.com/u/22006283/preview/codepen/sky-clouds-cloudy-mountain.jpg) no-repeat center center fixed;
-    background-size: cover;
-}
-
-.container {
-    width: 100%;
-    height: 100%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    padding-right: 1px;
-}
-
-.frame {
-    height: 500px;
-    width: 350px;
-    /*background: linear-gradient(rgba(35, 43, 85, 0.75), rgba(35, 43, 85, 0.95)),;*/
-    background-color: #FDFDFD;
-    background-size: cover;
-    margin-left: auto;
-    margin-right: auto;
-    border-top: solid 1px rgba(255, 255, 255, .5);
-    border-radius: 5px;
-    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    transition: all .5s ease;
-}
-
-.frame-long {
-    height: 615px;
-}
-
-.frame-short {
-    height: 400px;
-    margin-top: 50px;
-    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.1);
-}
-
-/* Container del logo y logo de la Region*/
-.cabecera_logo {
-    width: 100%;
-    height: 18%;
-    opacity: 1;
-    transition: all .5s ease;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5%;
-}
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
 .logo_Region {
-
-    width: 33%;
-    height: 100%;
+    width: 40%;
+    height: 60%;
 }
 
-/*=============================================*/
-
-/* Container titulo principal y titulo */
-.container_titulo_principal {
-    width: 100%;
-    height: 10%;
-    justify-content: center;
-    align-items: end;
-    margin-top: 5%;
-}
-
-.titulo_principal {
-
-    font-family: Spartan;
-}
-
-/*=======================================*/
-
-
-/* Form de inputs para credenciales */
-.containerDatosSesion {
-    width: 100%;
-    height: 30%;
-    margin-top: 5%;
-    flex-direction: column;
-    justify-content: center;
-    margin-left: 15%;
-
-}
-
-.usuario {
-    height: 50%;
-    width: 70%;
-    margin-top: 5%;
-
-}
-
-.span {
-    width: 10%;
-}
-
-.spanLock {
-    width: 7%;
-}
-
-.butonIcon {
-    background-color: #BF0D21;
-    border-color: #BF0D21;
-    height: 100%;
-    width: 100%;
-}
-
-.eye_icon {
-    background-color: #BF0D21;
-    border-color: #BF0D21;
-    height: 100%;
-    width: 10%;
-}
-
-.password {
-    height: 50%;
-    width: 100%;
-    background-color: rgb(131, 124, 131);
-}
 
 p-password >>> .p-password input {
-    width: 13.81rem;
-}
-
-.mensajeContrasenia {
-    font-family: Spartan;
-    font-weight: normal;
+    width: 15rem;
     font-size: 12px;
-    color: #BF0D21;
-    margin-left: 25%;
+    padding: 12px;
+    font-family: "Roboto", sans-serif;
 }
 
-.containerRecordarContrasenia {
-    height: 20%;
-    width: 100%;
+
+.login-page {
+    width: 350px;
+    padding: 8% 0px 5%;
+    margin: auto;
 }
 
-.checkRecordar {
-    margin-right: 15%;
-}
-
-.containerSigin {
-    width: 100%;
-    height: 20%;
-    background-color: beige;
-    justify-content: center;
-}
-
-.button_ingresar {
-    height: 50%;
-    width: 30%;
-
+.form {
     border-radius: 10px;
-    border-style: solid;
-    border-color: #BF0D21;
-    background-color: #BF0D21;
-    justify-content: center;
-    color: #ffffff;
-    font-family: Spartan;
-}
-
-.containerLogos {
-    margin-top: 0%;
-    height: 30%;
-    padding-top: 0%;
-    flex-direction: row;
-    justify-content: space-around;
-
-}
-
-.logo_izquierda {
-    margin-right: 5%;
-    height: 1%;
-    width: 2%;
-}
-
-.logo_derecha {
-    margin-top: 4%;
-    margin-left: 20%;
-    height: 40%;
-    width: 35%;
-}
-
-/*=======================================*/
-
-.nav-up {
-    transform: translateY(-100px);
-    opacity: 0;
-}
-
-li {
-    padding-left: 10px;
-    font-size: 18px;
-    display: inline;
-    text-align: left;
-    text-transform: uppercase;
-    padding-right: 10px;
-    color: #ffffff;
-}
-
-.signin-active a {
-    padding-bottom: 10px;
-    color: #757476;
-    text-decoration: none;
-    border-bottom: solid 2px #1059FF;
-    transition: all .25s ease;
-    cursor: pointer;
-}
-
-.signin-inactive a {
-    padding-bottom: 0;
-    color: rgba(82, 27, 27, 0.3);
-    text-decoration: none;
-    border-bottom: none;
-    cursor: pointer;
-}
-
-.signup-active a {
-    cursor: pointer;
-    color: #757476;
-    text-decoration: none;
-    border-bottom: solid 2px #1059FF;
-    padding-bottom: 10px;
-}
-
-.signup-inactive a {
-    cursor: pointer;
-    color: rgba(255, 255, 255, .3);
-    text-decoration: none;
-    transition: all .25s ease;
-}
-
-.form-signin {
-    width: 430px;
-    height: 100px;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    padding-top: 55px;
-    transition: opacity .5s ease, transform .5s ease;
-
-}
-
-.form-signin-left {
-    transform: translateX(-400px);
-    opacity: .0;
-}
-
-.form-signup {
-    width: 430px;
-    height: 375px;
-    font-size: 16px;
-    font-weight: 300;
-    padding-left: 37px;
-    padding-right: 37px;
-    padding-top: 55px;
     position: relative;
-    top: -375px;
-    left: 400px;
-    opacity: 0;
-    transition: all .5s ease;
-}
-
-.form-signup-left {
-    transform: translateX(-399px);
-    opacity: 1;
-}
-
-.form-signup-down {
-    top: 0px;
-    opacity: 0;
-}
-
-.success {
-    width: 80%;
-    height: 150px;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 350px;
+    margin: 0px auto 0;
+    padding: 30px;
     text-align: center;
-    position: relative;
-    top: -890px;
-    left: 450px;
-    opacity: .0;
-    transition: all .8s .4s ease;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
-.success-left {
-    transform: translateX(-406px);
-    opacity: 1;
-}
-
-.successtext {
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 300;
-    margin-top: -35px;
-    padding-left: 37px;
-    padding-right: 37px;
-}
-
-#check path {
-    stroke: #ffffff;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: .85px;
-    stroke-dasharray: 60px 300px;
-    stroke-dashoffset: -166px;
-    fill: rgba(255, 255, 255, .0);
-    transition: stroke-dashoffset 2s ease .5s, fill 1.5s ease 1.0s;
-}
-
-#check.checked path {
-    stroke-dashoffset: 33px;
-    fill: rgba(255, 255, 255, .03);
-}
-
-/*=========== Color de letra del label usuario y contrasena cuando se esta escribiendo =============*/
-.form-signin input, .form-signup input {
-    color: #861414;
-    font-size: 13px;
-}
-
-/*===================================================================================================*/
-
-/*========================= Estilo de label para usuario y contrasena ===============================*/
-.form-styling {
-    width: 100%;
-    height: 35px;
-    padding-left: 15px;
-    border: none;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    background: #E4E5E7;
-}
-
-/*===================================================================================================*/
-
-label {
-    font-weight: 400;
+.form button {
+    font-family: "Roboto", sans-serif;
     text-transform: uppercase;
-    font-size: 10px;
-    padding-left: 15px;
-    padding-bottom: 10px;
-    color: #BF0D21;
-    display: block;
+    outline: 0;
+    background: #AF0017;
+    width: 35%;
+    margin: 15px;
+    padding: 10px;
+    color: #ffeaf3;
+    font-size: 14px;
+    border-color: #AF0017;
+    /*-webkit-transition: all 0.3 ease;*/
+    /*transition: all 0.3 ease;*/
+    cursor: pointer;
 }
 
-:focus {
-    outline: none;
+.form button:hover, .form button:active, .form button:focus {
+    border-color: #AF0017;
+    background-color: #ffffff;
+    color: #AF0017;
 }
 
-.form-signin input:focus, textarea:focus, .form-signup input:focus, textarea:focus {
-    background: rgba(255, 255, 255, .3);
-    border: none;
-    padding-right: 40px;
-    transition: background .5s ease;
+.form .message {
+    margin: 15px 0 0;
+    color: #333232;
+    font-size: 12px;
 }
 
-[type="checkbox"]:not(:checked),
-[type="checkbox"]:checked {
-    position: absolute;
+.form .message a {
+    color: #AF0017;
+    text-decoration: none;
+}
+
+.form .register-form {
     display: none;
 }
 
-[type="checkbox"]:not(:checked) + label,
-[type="checkbox"]:checked + label {
-    position: relative;
-    padding-left: 65px;
-    padding-top: 2px;
-    cursor: pointer;
-    margin-top: 0px;
-}
-
-[type="checkbox"]:not(:checked) + label:before,
-[type="checkbox"]:checked + label:before,
-[type="checkbox"]:not(:checked) + label:after,
-[type="checkbox"]:checked + label:after {
-    content: '';
-    position: absolute;
-}
-
-/* ===== Cheked si estilos, color rojo, padding left*/
-[type="checkbox"]:not(:checked) + label:before,
-[type="checkbox"]:checked + label:before {
-    width: 52px;
-    height: 20px;
-    background: #E4E5E7;
-    border-radius: 30px;
-    border-color: #BF0D21;
-    left: 5px;
-    top: 0px;
-    transition: all .2s ease;
-}
-
-[type="checkbox"]:not(:checked) + label:after,
-[type="checkbox"]:checked + label:after {
-    width: 10px;
-    height: 10px;
-    background: #BF0D21;
-    border-radius: 30px;
-    border-color: #BF0D21;
-    top: 5px;
-    left: 10px;
-    transition: all .2s ease;
-}
-
-/* on checked */
-[type="checkbox"]:checked + label:before {
-    background: #BF0D21;
-}
-
-[type="checkbox"]:checked + label:after {
-    background: #ffffff;
-    top: 7px;
-    left: 45px;
-}
-
-[type="checkbox"]:checked + label .ui,
-[type="checkbox"]:not(:checked) + label .ui:before,
-[type="checkbox"]:checked + label .ui:after {
-    position: absolute;
-    left: 6px;
-    width: 65px;
-    border-radius: 30px;
-    border-color: #BF0D21;
-    font-family: Spartan;
-    font-size: 10px;
-    font-weight: bold;
-    line-height: 22px;
-    transition: all .2s ease;
-}
-
-/*====================== Texto de checkbox =====================*/
-
-/*  Label No */
-[type="checkbox"]:not(:checked) + label .ui:before {
-    content: "no";
-    left: 32px;
-    color: #BF0D21;
-    font-family: Spartan;
-    top: 0px;
-}
-
-/*  Label Yes */
-[type="checkbox"]:checked + label .ui:after {
-    content: "SI";
-    color: #ffffff;
-    font-family: Spartan;
-}
-
-/*===============================================================*/
-
-[type="checkbox"]:focus + label:before {
-    box-sizing: border-box;
-    margin-top: -1px;
+html {
+    margin: auto;
+    height: 101vh;
+    width: auto;
+    webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
