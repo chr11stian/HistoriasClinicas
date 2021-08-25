@@ -18,7 +18,7 @@ import { ChartModule } from 'primeng/chart';
     declarations: [
         AppComponent,
         LoginComponent,
-        NotFoundComponent
+        NotFoundComponent,
     ],
     imports: [
         BrowserModule,

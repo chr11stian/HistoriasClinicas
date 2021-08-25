@@ -80,9 +80,9 @@ p-password >>> .p-password input {
     display: none;
 }
 
-html {
+body {
     margin: auto;
-    height: 101vh;
+    height: 95vh;
     width: auto;
     webkit-background-size: cover;
     -moz-background-size: cover;
