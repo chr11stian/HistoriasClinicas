@@ -44,10 +44,12 @@ export class SideBarComponent implements OnInit {
                 ]
             },
             {
-                label: 'HISTORIA CLINICA',
+                label: 'Historia Clinica',
                 icon: 'pi pi-file',
-                routerLink: 'historia',
-                items: []
+
+                items: [{
+                    label: 'Personal de Salud',routerLink: 'historia/personal-salud'
+                }]
             },
         ]
     }
