@@ -10,8 +10,8 @@ import { LoginInterface } from './login.interface';
 })
 export class LoginComponent implements OnInit {
 
-  usuario = '1';
-  password = '2';
+  usuario = '';
+  password = '';
 
   constructor(
     private router: Router,
