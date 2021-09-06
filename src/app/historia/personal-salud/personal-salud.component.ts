@@ -15,7 +15,6 @@ export class PersonalSaludComponent implements OnInit {
     personalDialog: boolean;
 
     submitted: boolean;
-    statuses: any[];
 
 
     constructor(private personalService: PersonalService,
@@ -27,16 +26,19 @@ export class PersonalSaludComponent implements OnInit {
     ngOnInit() {
         this.personalService.getPersonal()
             .subscribe(personals => this.personals = personals);
-        this.statuses = [
-            {label: 'INSTOCK', value: 'instock'},
-            {label: 'LOWSTOCK', value: 'lowstock'},
-            {label: 'OUTOFSTOCK', value: 'outofstock'}
-        ];
     }
 
 
     openNew() {
-        // this.personal = {};
+        this.personal = {
+            apellidos: "",
+            dni: "",
+            id: 0,
+            nombres: "",
+            profesion: "",
+            sexo: "",
+            tipo_contrato: ""
+        }
         this.submitted = false;
         this.personalDialog = true;
     }
@@ -83,13 +85,21 @@ export class PersonalSaludComponent implements OnInit {
 
             this.personals = [...this.personals];
             this.personalDialog = false;
-            // this.personal;
+            this.personal = {
+                apellidos: "",
+                dni: "",
+                id: 0,
+                nombres: "",
+                profesion: "",
+                sexo: "",
+                tipo_contrato: ""
+            };
         }
     }
 
     deleteSelectedPersonal() {
         this.confirmationService.confirm({
-            message: '¿Estás segura de que quieres eliminar?',
+            message: '¿Estás segura que quieres eliminar?',
             header: 'Confirma',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
@@ -112,7 +122,7 @@ export class PersonalSaludComponent implements OnInit {
 
     deletePersonal(personal: Personal) {
         this.confirmationService.confirm({
-            message: '¿Estás segura de que quieres eliminar? ' + personal.id + '?',
+            message: '¿Estás segura que quieres eliminar? ' + personal.id + '?',
             header: 'Confirma',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {

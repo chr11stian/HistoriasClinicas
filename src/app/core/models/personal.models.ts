@@ -5,4 +5,5 @@ export interface Personal {
     nombres: string;
     sexo: string;
     profesion: string;
+    tipo_contrato: string;
 }

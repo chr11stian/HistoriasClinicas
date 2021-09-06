@@ -1,26 +1,28 @@
 <div class="p-card">
     <p-toolbar styleClass="p-mb-4">
+
         <ng-template pTemplate="left">
+            <h3 class="p-m-0">Personales de salud</h3>
+        </ng-template>
+
+        <ng-template pTemplate="right">
             <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success p-mr-2"
                     (click)="openNew()"></button>
             <button pButton pRipple label="Delete" icon="pi pi-trash" class="p-button-danger"
                     (click)="deleteSelectedPersonal()"
                     [disabled]="!selectedPersonal || !selectedPersonal.length"></button>
-        </ng-template>
-
-        <ng-template pTemplate="right">
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
         </ng-template>
     </p-toolbar>
 
     <p-table #dt [value]="personals" [rows]="10" [paginator]="true"
-             [globalFilterFields]="['dni','name','surname']"
+             [globalFilterFields]="['nombres','dni','apellidos']"
              [(selection)]="selectedPersonal" [rowHover]="true" dataKey="id"
              currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
              [showCurrentPageReport]="true">
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
-                <h5 class="p-m-0">Personales de salud</h5>
+                <!--                <h5 class="p-m-0">Personales de salud</h5>-->
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text"
@@ -32,43 +34,56 @@
 
         <ng-template class="ng-template" pTemplate="header">
             <tr>
-                <th style="width: 2rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                <!--                <th style="width: 2rem">-->
+                <!--                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>-->
+                <!--                </th>-->
+                <th pSortableColumn="nro">NRO
+                    <p-sortIcon field="nro"></p-sortIcon>
                 </th>
                 <th pSortableColumn="dni">DNI
                     <p-sortIcon field="dni"></p-sortIcon>
                 </th>
-                <th pSortableColumn="name">NOMBRES
-                    <p-sortIcon field="name"></p-sortIcon>
+                <th pSortableColumn="nombres">NOMBRES
+                    <p-sortIcon field="nombres"></p-sortIcon>
                 </th>
-                <th pSortableColumn="surname">APELLIDOS
-                    <p-sortIcon field="surname"></p-sortIcon>
+                <th pSortableColumn="apellidos">APELLIDOS
+                    <p-sortIcon field="apellidos"></p-sortIcon>
                 </th>
 
                 <th pSortableColumn="sexo">SEXO
                     <p-sortIcon field="sexo"></p-sortIcon>
                 </th>
-                <th pSortableColumn="professional">PROFESION
-                    <p-sortIcon field="professional"></p-sortIcon>
+                <th pSortableColumn="profesion">PROFESION
+                    <p-sortIcon field="profesion"></p-sortIcon>
                 </th>
 
+                <th pSortableColumn="tipo_contrato">TIPO CONTRATO
+                    <p-sortIcon field="tipo_contrato"></p-sortIcon>
+                </th>
+
+                <th pSortableColumn="tipo_contrato"> COLEGIO PROFESIONAL
+                    <p-sortIcon field="tipo_contrato"></p-sortIcon>
+                </th>
 
                 <th></th>
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-personal>
-            <tr>
+        <ng-template pTemplate="body">
+            <tr *ngFor="let personal of personals">
                 <td>
-                    <p-tableCheckbox [value]="personal"></p-tableCheckbox>
+                    <!--                    <p-tableCheckbox [value]="personal"></p-tableCheckbox>-->
+                    <!--                    {{personal + 1}}-->
+
                 </td>
                 <td>{{personal.dni}}</td>
                 <td>{{personal.nombres}}</td>
                 <td>{{personal.apellidos}}</td>
                 <td>{{personal.sexo}}</td>
                 <td>{{personal.profesion}}</td>
+                <td>{{personal.tipo_contrato}}</td>
                 <td>
-                    <!--                    <p-rating [ngModel]="personal" [readonly]="true" [cancel]="false"></p-rating>-->
+                    <!--                <p-rating [ngModel]="personal" [readonly]="true" [cancel]="false"></p-rating>-->
                 </td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
@@ -95,14 +110,14 @@
                 <label>DNI</label>
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input type="number" id="dni" [(ngModel)]="personal.dni">
+                    <p-inputNumber type="text" id="dni" [(ngModel)]="personal.dni"></p-inputNumber>
                 </div>
             </div>
             <div class="p-field p-col">
                 <label>APELLIDOS</label>
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input id="apellidos" [(ngModel)]="personal.apellidos">
+                    <input style="width: 15rem" type="text" id="apellidos" [(ngModel)]="personal.apellidos" pInputText>
                 </div>
             </div>
         </div>

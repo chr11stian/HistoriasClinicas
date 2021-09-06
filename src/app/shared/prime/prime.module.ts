@@ -21,6 +21,7 @@ import {CardModule} from 'primeng/card';
 import {RatingModule} from "primeng/rating";
 import {DialogModule} from "primeng/dialog";
 import {RadioButtonModule} from "primeng/radiobutton";
+import {MegaMenuModule} from "primeng/megamenu";
 
 const importsApi = [
     DialogModule,
@@ -54,7 +55,8 @@ const importsApi = [
     InputNumberModule,
     InputTextareaModule,
     RadioButtonModule,
-    ButtonModule
+    ButtonModule,
+    MegaMenuModule
 
 ];
 

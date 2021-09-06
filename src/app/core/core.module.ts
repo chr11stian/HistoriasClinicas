@@ -12,6 +12,8 @@ import {TopMenuComponent} from './top-menu/top-menu.component';
 import {SharedModule} from "primeng/api";
 import {ToastModule} from "primeng/toast";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
+import {MegaMenuModule} from "primeng/megamenu";
+import {TabMenuModule} from "primeng/tabmenu";
 
 
 
@@ -35,7 +37,9 @@ import {ConfirmPopupModule} from "primeng/confirmpopup";
         ReactiveFormsModule,
         SharedModule,
         ToastModule,
-        ConfirmPopupModule
+        ConfirmPopupModule,
+        TabMenuModule,
+
     ]
 })
 export class CoreModule {

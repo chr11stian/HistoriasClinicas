@@ -43,7 +43,41 @@ p-autocomplete >>> .p-inputtext {
     background-color:none;
     width: 90% !important;
 }
-.menu{ 
-    background-color: #ffffff !important;
-    height: 44vw !important;
+/*.menu{*/
+/*    background-color: #ffffff !important;*/
+/*    height: 44vw !important;*/
+/*}*/
+
+p-menu >>> .p-menu {
+    border: 2px solid #e9ecef;
+    border-radius: 2px;
 }
+
+/*p-menu >>> .p-menuitem >p {*/
+/*    background: #AF0017;*/
+/*}*/
+
+
+p-menu>>> .p-submenu-header {
+    color: #AF0017;
+}
+
+p-menu>>> .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text{
+    color: #333232;
+
+}
+
+p-menu>>> .p-menuitem-link:not(.p-disabled):hover{
+    background: #d9dfe3;
+    /*color: #965656;*/
+}
+
+p-menu>>> .p-menuitem-link {
+    border-radius: 10px;
+}
+
+
+/*pi-file>>> .pi-file {*/
+/*    color: #AF0017;*/
+/*}*/
+

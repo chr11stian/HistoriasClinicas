@@ -3,6 +3,7 @@ import {MenuItem} from 'primeng/api'
 import {trigger, state, style, transition, animate} from '@angular/animations';
 import {Router} from '@angular/router';
 import {FilterService} from 'primeng/api';
+import {PanelMenuModule} from 'primeng/panelmenu'
 
 @Component({
     selector: 'app-side-bar',
@@ -24,7 +25,7 @@ import {FilterService} from 'primeng/api';
     ]
 })
 export class SideBarComponent implements OnInit {
-    items: MenuItem[]
+    items: MenuItem[];
     filteredRoutes: any[];
     selectedRoute: any;
     @Input() active: boolean;
@@ -36,20 +37,47 @@ export class SideBarComponent implements OnInit {
 
     ngOnInit(): void {
         this.items = [
+            // {
+            //     label: 'ROL',
+            //     icon: 'pi pi-home',
+            //     routerLink: 'rol',
+            //     items: []
+            // },
             {
-                label: 'ROL',
-                icon: 'pi pi-home',
-                routerLink: 'rol',
+                icon: 'pi pi-file',
+                label: 'ADMINISTRADOR DEL SISTEMA',
+
+
                 items: [
+                    {
+                        icon: 'pi pi-file',
+                        label: 'Personal de Salud', routerLink: 'historia/personal-salud'
+                    },
+                    {
+                        icon: 'pi pi-file',
+                        label: 'Usuarios', routerLink: 'historia/personal-salud'
+                    }
                 ]
             },
             {
-                label: 'Historia Clinica',
                 icon: 'pi pi-file',
+                label: 'FUNCIONES ADMINISTRATIVAS',
 
-                items: [{
-                    label: 'Personal de Salud',routerLink: 'historia/personal-salud'
-                }]
+
+                items: [
+                    {
+                        icon: 'pi pi-file',
+                        label: 'Rol de Guardias', routerLink: 'historia/personal-salud'
+                    },
+                    {
+                        icon: 'pi pi-file',
+                        label: 'Cupos', routerLink: 'historia/personal-salud'
+                    },
+                    {
+                        icon: 'pi pi-file',
+                        label: 'Historias Clinicas', routerLink: 'historia/personal-salud'
+                    }
+                ]
             },
         ]
     }
