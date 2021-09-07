@@ -141,7 +141,7 @@ export class PersonalSaludComponent implements OnInit {
     createId(): number {
         let id = null;
         let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (var i = 0; i < 5; i++) {
+        for (let i = 0; i < 5; i++) {
             id += chars.charAt(Math.floor(Math.random() * chars.length));
         }
         return id;

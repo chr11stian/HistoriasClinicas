@@ -8,6 +8,7 @@ import {PersonalSaludComponent} from './personal-salud/personal-salud.component'
 import {CoreModule} from "../core/core.module";
 import {ToolbarModule} from "primeng/toolbar";
 import {FormsModule} from "@angular/forms";
+import {SplitterModule} from "primeng/splitter";
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import {FormsModule} from "@angular/forms";
         ToolbarModule,
         FormsModule,
         PrimeModule,
+        SplitterModule,
     ]
 })
 export class HistoriaModule {

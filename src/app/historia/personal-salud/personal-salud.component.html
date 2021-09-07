@@ -43,11 +43,13 @@
                 <th pSortableColumn="dni">DNI
                     <p-sortIcon field="dni"></p-sortIcon>
                 </th>
-                <th pSortableColumn="nombres">NOMBRES
-                    <p-sortIcon field="nombres"></p-sortIcon>
-                </th>
+
                 <th pSortableColumn="apellidos">APELLIDOS
                     <p-sortIcon field="apellidos"></p-sortIcon>
+                </th>
+
+                <th pSortableColumn="nombres">NOMBRES
+                    <p-sortIcon field="nombres"></p-sortIcon>
                 </th>
 
                 <th pSortableColumn="sexo">SEXO
@@ -69,22 +71,16 @@
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body">
-            <tr *ngFor="let personal of personals">
-                <td>
-                    <!--                    <p-tableCheckbox [value]="personal"></p-tableCheckbox>-->
-                    <!--                    {{personal + 1}}-->
+        <ng-template pTemplate="body" let-personal>
 
-                </td>
-                <td>{{personal.dni}}</td>
-                <td>{{personal.nombres}}</td>
-                <td>{{personal.apellidos}}</td>
-                <td>{{personal.sexo}}</td>
-                <td>{{personal.profesion}}</td>
-                <td>{{personal.tipo_contrato}}</td>
-                <td>
-                    <!--                <p-rating [ngModel]="personal" [readonly]="true" [cancel]="false"></p-rating>-->
-                </td>
+            <tr *ngFor="let person of personals; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{person.dni}}</td>
+                <td>{{person.apellidos}}</td>
+                <td>{{person.nombres}}</td>
+                <td>{{person.sexo}}</td>
+                <td>{{person.profesion}}</td>
+                <td>{{person.tipo_contrato}}</td>
                 <td>
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
                             (click)="editPersonal(personal)"></button>
@@ -92,6 +88,7 @@
                             (click)="deletePersonal(personal)"></button>
                 </td>
             </tr>
+
         </ng-template>
         <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
@@ -102,23 +99,45 @@
 </div>
 
 
-<p-dialog [(visible)]="personalDialog" [style]="{width: '750px'}" header="Registrar Pacientes" [modal]="true"
+<p-dialog [(visible)]="personalDialog" [style]="{width: '1350px'}" header="Registrar Pacientes" [modal]="true"
           styleClass="p-fluid">
-    <ng-template pTemplate="content">
-        <div class="p-formgrid p-grid">
-            <div class="p-field p-col">
-                <label>DNI</label>
-                <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <p-inputNumber type="text" id="dni" [(ngModel)]="personal.dni"></p-inputNumber>
-                </div>
+    <ng-template pTemplate="body">
+
+        <div class="col-4">
+            <label>DNI</label>
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class=pi-wallet></i></span>
+                <input style="width: 15rem" type="number" id="dni" [(ngModel)]="personal.dni"
+                       pInputText>
             </div>
-            <div class="p-field p-col">
-                <label>APELLIDOS</label>
-                <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input style="width: 15rem" type="text" id="apellidos" [(ngModel)]="personal.apellidos" pInputText>
-                </div>
+        </div>
+
+        <div class="col-4">
+            <label>APELLIDOS</label>
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input style="width: 15rem" type="text" id="apellidos" [(ngModel)]="personal.apellidos"
+                       pInputText>
+            </div>
+        </div>
+
+
+        <div class="p-field col-4">
+            <label>NOMBRES</label>
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input style="width: 15rem" type="text" id="nombres" [(ngModel)]="personal.nombres" pInputText>
+            </div>
+        </div>
+
+    </ng-template>
+    <ng-template pTemplate="right">
+        <div class="col-4">
+            <label>DNI</label>
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class=pi-wallet></i></span>
+                <input style="width: 15rem" type="number" id="dni" [(ngModel)]="personal.dni"
+                       pInputText>
             </div>
         </div>
     </ng-template>
