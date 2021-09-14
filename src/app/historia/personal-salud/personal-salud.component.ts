@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Personal} from "../../core/models/personal.models";
-import {PersonalService} from '../../core/services/persona0-services/personal.service';
+import {PersonalService} from '../../core/services/personal-services/personal.service';
 import {ConfirmationService, MessageService} from "primeng/api";
 
 @Component({
