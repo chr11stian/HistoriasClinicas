@@ -1,9 +1,12 @@
 export interface Personal {
-    id: number;
-    dni: string;
-    apellidos: string;
-    nombres: string;
-    sexo: string;
-    profesion: string;
-    tipo_contrato: string;
+    id?: number;
+    nro_doc?: string;
+    apellidos?: string;
+    nombres?: string;
+    sexo?: string;
+    profesion?: string;
+    tipo_contrato?: string;
+    colegio_profesional?: string
+    fecha_nacimiento?: string;
+
 }
