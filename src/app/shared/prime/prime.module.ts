@@ -46,10 +46,8 @@ const importsApi = [
     CardModule,
     RatingModule,
     TableModule,
-
     InputTextModule,
     DialogModule,
-
     ConfirmDialogModule,
     RatingModule,
     InputNumberModule,

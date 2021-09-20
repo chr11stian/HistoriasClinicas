@@ -8,14 +8,16 @@ import {CoreModule} from "../core/core.module";
 import {ToolbarModule} from "primeng/toolbar";
 import {FormsModule} from "@angular/forms";
 import {SplitterModule} from "primeng/splitter";
+import {UsuariosComponent} from './usuarios/usuarios.component';
 
 @NgModule({
     declarations: [
         PersonalSaludComponent,
-
+        UsuariosComponent,
     ],
     exports: [
         PersonalSaludComponent,
+        UsuariosComponent,
     ],
 
     imports: [
