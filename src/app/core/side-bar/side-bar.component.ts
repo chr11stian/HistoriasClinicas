@@ -56,10 +56,6 @@ export class SideBarComponent implements OnInit {
                     {
                         icon: 'pi pi-file',
                         label: 'Usuarios', routerLink: 'historia/usuarios'
-                    },
-                    {
-                        icon: 'pi pi-file',
-                        label: 'Cupos', routerLink: 'historia/cupos'
                     }
                 ]
             },
@@ -75,7 +71,7 @@ export class SideBarComponent implements OnInit {
                     },
                     {
                         icon: 'pi pi-file',
-                        label: 'Cupos', routerLink: 'historia/personal-salud'
+                        label: 'Cupos', routerLink: 'historia/cupos'
                     },
                     {
                         icon: 'pi pi-file',
