@@ -1,7 +1,8 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {PersonalSaludComponent} from "./personal-salud/personal-salud.component";
-import {UsuariosComponent} from "./usuarios/usuarios.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CuposComponent } from './cupos/cupos.component';
+import { PersonalSaludComponent } from "./personal-salud/personal-salud.component";
+import { UsuariosComponent } from "./usuarios/usuarios.component";
 
 const routes: Routes = [
     {
@@ -23,6 +24,10 @@ const routes: Routes = [
         component: UsuariosComponent
         // loadChildren: () => import('src/app/historia/historia.module').then(n => n.HistoriaModule),
     },
+    {
+        path: "cupos",
+        component: CuposComponent
+    }
 
 ];
 
