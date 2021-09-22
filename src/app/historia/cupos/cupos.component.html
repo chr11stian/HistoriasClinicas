@@ -1,11 +1,57 @@
 <div class="p-card">
     <p-toolbar styleClass="p-mb-4">
+
         <ng-template pTemplate="left">
             <h3 class="p-m-0">Cupos</h3>
         </ng-template>
+
         <ng-template pTemplate="right" class="button">
-            
+            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2" (click)="openModal()"></button>
+
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
         </ng-template>
         
     </p-toolbar>
+    <p-table #dt [value]="listaCupos" [rows]="10" [paginator]="true" [globalFilterFields]="['dni']"
+        [(selection)]="selectedCupo" [rowHover]="true" datakey="id"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas" responsiveLayout="scroll"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input type="text" pInputText (input)="dt.filterGlobal($event.tarjet.value,'contains')"
+                        placeholder="DNI...">
+                </span>
+            </div>
+        </ng-template>
+        <ng-template class="ng-template" pTemplate="header">
+            <tr>
+                <!-- <th style="text-align: center">#</th> -->
+                <th style="text-align: center">DNI</th>
+                <th style="text-align: center">APELLIDOS</th>
+                <th style="text-align: center">NOMBRES</th>
+                <th style="text-align: center">SERVICIO(UPS)</th>
+                <th style="text-align: center">HORARIO A.</th>
+                <th style="text-align: center">FECHA A.</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-cupo style="text-align: center;">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ cupo.dni }}</td>
+                <td style="text-align: center">{{ cupo.apellidos }}</td>
+                <td style="text-align: center">{{ cupo.nombres }}</td>
+                <td style="text-align: center">{{ cupo.servicio }}</td>
+                <td style="text-align: center">{{ cupo.horarioAtencion }}</td>
+                <td style="text-align: center">{{ cupo.fechaAtencion }}</td>
+            </tr>
+        </ng-template>
+
+    </p-table>
 </div>
+
+
+<p-dialog [(visible)]="cuposDialog" [style]="{width: '1080px'}" header="Registrar Cupos" [modal]="true" >
+
+</p-dialog>
