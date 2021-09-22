@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-cupos',
+    providers:[DynamicDialogConfig],
     templateUrl: './cupos.component.html',
     styleUrls: ['./cupos.component.css']
 })
@@ -10,6 +16,10 @@ export class CuposComponent implements OnInit {
     selectedCupo: any;
     cupos: any;
     cuposDialog:boolean;
+    usuarioDialog: boolean;
+    subscription: Subscription;
+
+
     listaCupos: any = [{
         dni: '72745818',
         apellidos: 'MOROCCO LAYME',
@@ -33,7 +43,10 @@ export class CuposComponent implements OnInit {
         fechaAtencion: '20/08/2021'
     }]
 
-    constructor() { }
+    constructor(
+        private config: DynamicDialogConfig,
+        private router: Router
+    ) { }
 
     ngOnInit(): void {
         // this.cupos =
@@ -41,11 +54,24 @@ export class CuposComponent implements OnInit {
     }
 
     ngOnDestroy(): void {
+        this.subscription.unsubscribe();
 
     }
 
     openModal() {
-        console.log('duelo!!! ')
+        this.cuposDialog = true;
+    }
+    
+    aceptarDialogCupos(){
+        console.log('aceptar Dialog 1')
+    }
+
+    closeDialogCupos(){
+        console.log('se cerro el dialog')
+    }
+
+    openDialog2(){
+
     }
 }
 

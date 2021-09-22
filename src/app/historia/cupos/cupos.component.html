@@ -52,6 +52,22 @@
 </div>
 
 
-<p-dialog [(visible)]="cuposDialog" [style]="{width: '1080px'}" header="Registrar Cupos" [modal]="true" >
+<p-dialog [(visible)]="cuposDialog" [style]="{width: '1080px'}" header="Registrar Cupos" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="p-field col-6">
+                <label>SERVICIO (UPS)</label>
+            </div>
+            <div class="p-field col-6">
+                <label>PERSONA QUE ATIENDE</label>
+            </div>
+        </div>
+    </ng-template>
 
+    <ng-template pTemplate=footer>
+        <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogCupos()"></button>
+        <button pButton type="button" label="Guardar" (click)="aceptarDialogCupos()"></button>
+    </ng-template>
+    
+    
 </p-dialog>
