@@ -141,12 +141,7 @@ export class SideBarComponent implements OnInit {
                         label: 'Personal de Salud', icon: 'pi pi-pw pi-file', routerLink: 'historia/personal-salud',
                     },
                     {
-<<<<<<< HEAD
                         label: 'Usuarios', icon: 'pi pi-pw pi-file', routerLink: 'historia/usuarios',
-=======
-                        icon: 'pi pi-file',
-                        label: 'Usuarios', routerLink: 'historia/usuarios'
->>>>>>> c27e13312ca231f90f0c4dfd141c8f81c6b54aad
                     }
                 ],
             },
@@ -163,15 +158,7 @@ export class SideBarComponent implements OnInit {
                 items: [
                     {
                         icon: 'pi pi-file',
-<<<<<<< HEAD
                         label: 'Enfermeria', routerLink: 'historia/enfermeria'
-=======
-                        label: 'Rol de Guardias', routerLink: 'historia/personal-salud'
-                    },
-                    {
-                        icon: 'pi pi-file',
-                        label: 'Cupos', routerLink: 'historia/cupos'
->>>>>>> c27e13312ca231f90f0c4dfd141c8f81c6b54aad
                     },
                     {
                         icon: 'pi pi-file',
