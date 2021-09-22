@@ -8,14 +8,16 @@ html {
 }
 
 
-.lg\:col-3 {
-    flex: 0 0 auto;
-    padding: 0.5rem;
-    width: 13.5%;
-}
+/*.lg\:col-3 {*/
+/*    flex: 0 0 auto;*/
+/*    padding: 0.5rem;*/
+/*    width: 15%;*/
+/*    background: #f8f9fa;*/
+/*}*/
 
-.lg\:col-9 {
-    flex: 0 0 auto;
-    padding: 0.5rem;
-    width: 86.5%;
-}
+/*.lg\:col-9 {*/
+/*    display: flex;*/
+/*    flex: 0 0 auto;*/
+/*    padding: 0.5rem;*/
+/*    width: 85%;*/
+/*}*/
