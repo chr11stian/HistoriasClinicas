@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-cupos',
-    providers:[DynamicDialogConfig],
+    providers: [DynamicDialogConfig],
     templateUrl: './cupos.component.html',
     styleUrls: ['./cupos.component.css']
 })
@@ -15,10 +15,65 @@ export class CuposComponent implements OnInit {
 
     selectedCupo: any;
     cupos: any;
-    cuposDialog:boolean;
+    cuposDialog: boolean;
     usuarioDialog: boolean;
     subscription: Subscription;
+    selectedServicio: any;
+    listaPersonal: any;
+    personalSelected: string = '';
 
+    listaHorarios: any = [{
+        hour: '08:00',
+        today: true,
+        tomorrow: false
+    }, {
+        hour: '08:30',
+        today: true,
+        tomorrow: false
+    }]
+
+
+    servicios: any = [{
+        codServicio: '1',
+        nombreServicio: 'MEDICINA GENERAL'
+    }, {
+        codServicio: '2',
+        nombreServicio: 'OBSTETRICIA'
+    }, {
+        codServicio: '3',
+        nombreServicio: 'PEDIATRIA'
+    }, {
+        codServicio: '4',
+        nombreServicio: 'ENFERMERIA'
+    }, {
+        codServicio: '5',
+        nombreServicio: 'ODONTOLOGIA'
+    }, {
+        codServicio: '6',
+        nombreServicio: 'ADMINISTRACION'
+    }]
+
+    listaPersonalAux: any = [{
+        nro: 1,
+        apellidos: 'Morocco layme',
+        nombres: 'jonathan',
+        codServicio: '1'
+    }, {
+        nro: 2,
+        apellidos: 'pimentel cruz',
+        nombres: 'jimmy',
+        codServicio: '1'
+    }, {
+        nro: 1,
+        apellidos: 'farfan saravia',
+        nombres: 'banesa',
+        codServicio: '2'
+    }, {
+        nro: 2,
+        apellidos: 'mejia pinto',
+        nombres: 'abel',
+        codServicio: '3'
+    }];
 
     listaCupos: any = [{
         dni: '72745818',
@@ -49,7 +104,6 @@ export class CuposComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        // this.cupos =
         console.log('lista de cupos', this.listaCupos);
     }
 
@@ -61,17 +115,45 @@ export class CuposComponent implements OnInit {
     openModal() {
         this.cuposDialog = true;
     }
-    
-    aceptarDialogCupos(){
-        console.log('aceptar Dialog 1')
+
+    aceptarDialogCupos() {
+        console.log('selected servicio ', this.selectedServicio)
+        this.cuposDialog = false;
+        this.openDialog2();
     }
 
-    closeDialogCupos(){
-        console.log('se cerro el dialog')
+    closeDialogCupos() {
+        this.cuposDialog = false;
     }
 
-    openDialog2(){
+    openDialog2() {
+        this.usuarioDialog = true;
+    }
 
+    onRowSelect(event) {
+        console.log('event', event.data);
+        this.personalSelected = event.data.apellidos + ' ' + event.data.nombres
+    }
+
+    onRowUnselect(event) {
+        console.log('no seleccionar');
+    }
+
+    selectRowHorario(event) {
+        console.log(event)
+    }
+
+    unselectHorario(event) {
+        console.log(event)
+    }
+
+    changeServicioSelected(event) {
+        this.personalSelected = '';
+        console.log(event)
+        this.listaPersonal = this.listaPersonalAux.filter(item => item.codServicio == event.codServicio)
+    }
+
+    clickDiv(event) {
+        console.log('click desde un div', event);
     }
 }
-

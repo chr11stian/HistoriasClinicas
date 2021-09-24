@@ -1,0 +1,15 @@
+.hora,
+.hoy,
+.maniana {
+    background: rgb(41, 182, 197);
+    border: 1px solid black;
+    width: 4em;
+    height: 3em;
+    /* text-align: center; */
+    margin: 0.5px;
+    padding: auto;
+}
+
+/* .table{
+    background: red;
+} */

@@ -6,11 +6,12 @@
         </ng-template>
 
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2" (click)="openModal()"></button>
+            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                (click)="openModal()"></button>
 
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
         </ng-template>
-        
+
     </p-toolbar>
     <p-table #dt [value]="listaCupos" [rows]="10" [paginator]="true" [globalFilterFields]="['dni']"
         [(selection)]="selectedCupo" [rowHover]="true" datakey="id"
@@ -47,20 +48,79 @@
                 <td style="text-align: center">{{ cupo.fechaAtencion }}</td>
             </tr>
         </ng-template>
-
     </p-table>
 </div>
 
-
-<p-dialog [(visible)]="cuposDialog" [style]="{width: '1080px'}" header="Registrar Cupos" [modal]="true" styleClass="p-fluid">
+<!--                 INICIO DIALOG DE CUPOS             -->
+<p-dialog [(visible)]="cuposDialog" [style]="{width: '1080px'}" header="Registrar Cupos" [modal]="true"
+    styleClass="p-fluid">
     <ng-template pTemplate="body">
         <div class="grid">
-            <div class="p-field col-6">
+            <div class="p-field col-5">
                 <label>SERVICIO (UPS)</label>
+                <div class="col-10">
+                    <p-dropdown [options]="servicios" [(ngModel)]="selectedServicio"
+                        placeholder="Seleccione un servicio" optionLabel="nombreServicio" [showClear]="false"
+                        (ngModelChange)="changeServicioSelected($event)">
+                    </p-dropdown>
+                </div>
+                <div class="card mt-4">
+                    <p-table [value]="listaPersonal" selectionMode="single" [(selection)]="selectedPersonal"
+                        responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)"
+                        (onRowUnselect)="onRowUnselect($event)">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Nro</th>
+                                <th>Apellidos</th>
+                                <th>Nombres</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-data>
+                            <tr [pSelectableRow]="data">
+                                <td>{{ data.nro }}</td>
+                                <td>{{ data.apellidos }}</td>
+                                <td>{{ data.nombres }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
             </div>
-            <div class="p-field col-6">
+            <!-- <div class="col-1"></div> -->
+            <div class="p-field col-5 ml-4">
                 <label>PERSONA QUE ATIENDE</label>
+                <div class="col-6">
+                    <h4>{{ personalSelected }}</h4>
+
+                    <div class="tabla">
+                        <div class="col-4 flex table" *ngFor="let item of listaHorarios">
+                            <div class=" hora p-4" [value]="item.hour" (click)="clickDiv($event)">{{ item.hour }}</div>
+                            <div class=" hoy p-4">{{ item.today }}</div>
+                            <div class=" maniana p-4">{{ item.tomorrow }}</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="card mt-4 col-6"> -->
+                <p-table [value]="listaHorarios" styleClass="p-datatable-gridlines" selectionMode="single"
+                    [(selection)]="selectedHorario" responsiveLayout="scroll" (onRoWSelect)="selectRowHorario($event)"
+                    (onRowUnselect)="unselectHorario($event)" [cellSelection]="'single'">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Hora</th>
+                            <th>Hoy</th>
+                            <th>Mañana</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-data1>
+                        <tr [pSelectableRow]="data1">
+                            <td>{{ data1.hour }}</td>
+                            <td>{{ data1.today }}</td>
+                            <td>{{ data1.tomorrow }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+
             </div>
+
         </div>
     </ng-template>
 
@@ -68,6 +128,23 @@
         <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogCupos()"></button>
         <button pButton type="button" label="Guardar" (click)="aceptarDialogCupos()"></button>
     </ng-template>
-    
-    
+
+</p-dialog>
+<!--                 FIN DIALOG DE CUPOS             -->
+
+<p-dialog [(visible)]="usuarioDialog" [style]="{width: '1080px'}" header="Datos del Paciente" [modal]="true"
+    styleClass="p-fluid">
+
+    <ng-template pTemplate>
+        <div class="datosPersonales border-1">
+            <div class="grid">
+                <div class="p-field col-6">
+                    <label>nombre:</label>
+                </div>
+                <div class="p-field col-6">
+                    <label>nombre:</label>
+                </div>
+            </div>
+        </div>
+    </ng-template>
 </p-dialog>
