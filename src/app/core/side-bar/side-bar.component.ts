@@ -142,15 +142,26 @@ export class SideBarComponent implements OnInit {
                     },
                     {
                         label: 'Usuarios', icon: 'pi pi-pw pi-file', routerLink: 'historia/usuarios',
+                    },
+
+                    {
+                        label: 'Ubicacion', icon: 'pi pi-pw pi-file', routerLink: 'historia/ubicacion',
                     }
                 ],
             },
             {
                 label: 'Funciones Administrativas',
-                items: [{
-                    icon: 'pi pi-file',
-                    label: 'Cupos', routerLink: 'historia/cupos'
-                }],
+                items: [
+                    {
+                        icon: 'pi pi-file',
+                        label: 'Cupos', routerLink: 'historia/cupos'
+                    },
+
+                    {
+                        icon: 'pi pi-file',
+                        label: 'Tipo Personal', routerLink: 'mantenimientos/tipo-personal'
+                    }
+                ],
             },
 
             {

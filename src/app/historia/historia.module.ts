@@ -9,13 +9,15 @@ import {ToolbarModule} from "primeng/toolbar";
 import {FormsModule} from "@angular/forms";
 import {SplitterModule} from "primeng/splitter";
 import {UsuariosComponent} from './usuarios/usuarios.component';
-import { CuposComponent } from './cupos/cupos.component';
+import {CuposComponent} from './cupos/cupos.component';
+import { UbicacionComponent } from './ubicacion/ubicacion.component';
 
 @NgModule({
     declarations: [
         PersonalSaludComponent,
         UsuariosComponent,
         CuposComponent,
+        UbicacionComponent,
     ],
     exports: [
         PersonalSaludComponent,

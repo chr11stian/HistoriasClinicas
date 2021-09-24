@@ -15,8 +15,6 @@ import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {MegaMenuModule} from "primeng/megamenu";
 import {TabMenuModule} from "primeng/tabmenu";
 
-
-
 @NgModule({
     declarations: [
         LayoutPrincipalComponent,
@@ -28,6 +26,7 @@ import {TabMenuModule} from "primeng/tabmenu";
     exports: [
         TopMenuComponent,
         SideBarComponent,
+
     ],
     imports: [
         CommonModule,
