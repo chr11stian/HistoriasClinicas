@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { UbicacionService } from "src/app/core/services/ubicacion/ubicacion.service";
 
 @Component({
   selector: "app-rol-guardia",
@@ -6,6 +7,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
+  dataUbi: any[] = [];
   data = [
     {
       apellidos: "huaman rojas",
@@ -37,7 +39,7 @@ export class RolGuardiaComponent implements OnInit {
   fechaHoy = new Date(2021, 10, 2);
   mes: number = 0;
   mesActual: any[] = [];
-  constructor() {
+  constructor(private ubicacion: UbicacionService) {
     //calculamos nro dias del mes
     this.mes = this.numeroDiasMes();
     this.generarMes();
