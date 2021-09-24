@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable, Subject, throwError} from "rxjs";
 import {environment} from "../../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
-import {tap} from "rxjs/operators";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {catchError, retry, tap} from "rxjs/operators";
 import {Ubicacion} from "../../models/ubicacion.models";
 
 @Injectable({
@@ -33,7 +33,13 @@ export class UbicacionService {
             )
     }
 
-    // getUbicacion(): Observable<Ubicacion[]> {
-    //     return this.http.get<Ubicacion[]>(`${this.base_url}/historiasclinicas/ubicacion/listar`);
-    // }
+
+    getUbicacion1(): Observable<Ubicacion[]> {
+        return this.http.get<Ubicacion[]>(`${this.base_url}/historiasclinicas/ubicacion/listar`);
+    }
+
+    private handleError(error: HttpErrorResponse): Observable<any> {
+        console.log(error)
+        return throwError('Ubicacion algo salió mal')
+    }
 }

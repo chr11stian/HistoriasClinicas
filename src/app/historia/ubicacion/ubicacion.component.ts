@@ -13,11 +13,11 @@ import {PrimeNGConfig} from "primeng/api";
 export class UbicacionComponent implements OnInit {
 
 
-    ubicacions: Ubicacion[] = [];
+    ubicacions: Ubicacion[];
     ubicacion: Ubicacion;
     selected_ubicacion: Ubicacion[];
     personalDialog: boolean;
-    subscription: Subscription;
+    da: any;
     submitted: boolean;
     loading = true;
 
@@ -27,14 +27,25 @@ export class UbicacionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.primengConfig.ripple = true;
-        this.ubicacionService.getUbicacion().toPromise().then(data => {
-            this.ubicacions = data
-        })
+        // this.ubicacion = this.da
+        // this.ubicacionService.getUbicacion().toPromise().then(data => {
+        //     this.ubicacions = data
+        // })
+
+        // this.getUbicacion();
 
         this.ubicacionService.getUbicacion().subscribe(res => {
             console.log(res)
         });
     }
+
+    // getUbicacion():  {
+    //     return this.ubicacionService.getUbicacion().toPromise()
+    //         .then(ubicacions => {
+    //             this.ubicacions = [...ubicacions];
+    //         }).catch((err) => {
+    //             console.log('Error', err);
+    //         });
+    // }
 
 }
