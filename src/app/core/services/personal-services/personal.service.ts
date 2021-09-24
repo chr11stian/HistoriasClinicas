@@ -13,7 +13,12 @@ export class PersonalService {
 
     private _refresh = new Subject<void>();
 
-    private baseUrl: string = environment.baseUrl;
+    // private baseUrl: string = environment.baseUrl;
+
+    base_url = environment.baseUrl;
+    private personales: Personal[] = [];
+
+
 
     constructor(private http: HttpClient) {
     }
@@ -22,34 +27,42 @@ export class PersonalService {
         return this._refresh;
     }
 
+    // getPersonals() {
+    //     return this.http.get<Personal[]>(`${this.base_url}/historiasclinicas/api/personal`)
+    //         .pipe(
+    //             tap((personales) => this.personales = personales)
+    //         )
+    // }
+
+
     getPersonal(): Observable<Personal[]> {
-        return this.http.get<Personal[]>(`${this.baseUrl}/personal`);
+        return this.http.get<Personal[]>(`${this.base_url}/historiasclinicas/api/personal`);
     }
 
-    agregarPersonal(personal: Personal): Observable<Personal> {
-        return this.http.post<Personal>(`${this.baseUrl}/personal`, personal)
-            .pipe(
-                tap(() => {
-                    this._refresh.next();
-                })
-            )
-    }
-
-
-    actualizarPersonal(personal: Personal): Observable<Personal> {
-        return this.http.put<Personal>(`${this.baseUrl}/personal/${personal.id}`, personal)
-            .pipe(
-                tap(() => {
-                    this._refresh.next();
-                })
-            )
-    }
-
-    getPersonalPorId(id: string): Observable<Personal> {
-        return this.http.get<Personal>(`${this.baseUrl}/personal/${id}`);
-    }
-
-    borrarPersoal(id: string): Observable<any> {
-        return this.http.delete<any>(`${this.baseUrl}/personal/${id}`);
-    }
+    // agregarPersonal(personal: Personal): Observable<Personal> {
+    //     return this.http.post<Personal>(`${this.baseUrl}/personal`, personal)
+    //         .pipe(
+    //             tap(() => {
+    //                 this._refresh.next();
+    //             })
+    //         )
+    // }
+    //
+    //
+    // actualizarPersonal(personal: Personal): Observable<Personal> {
+    //     return this.http.put<Personal>(`${this.baseUrl}/personal/${personal.id}`, personal)
+    //         .pipe(
+    //             tap(() => {
+    //                 this._refresh.next();
+    //             })
+    //         )
+    // }
+    //
+    // getPersonalPorId(id: string): Observable<Personal> {
+    //     return this.http.get<Personal>(`${this.baseUrl}/personal/${id}`);
+    // }
+    //
+    // borrarPersoal(id: string): Observable<any> {
+    //     return this.http.delete<any>(`${this.baseUrl}/personal/${id}`);
+    // }
 }

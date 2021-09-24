@@ -1,12 +1,28 @@
+import {
+    ColegioProfesional, DescripcionUsuarioRoles,
+    InformacionPersonalDescripcion,
+    TipoPersonal
+} from "./mantenimiento.models";
+
 export interface Personal {
-    id?: number;
+    id?: string;
+    tipoDoc?: string;
     nro_doc?: string;
-    apellidos?: string;
-    nombres?: string;
+    apePaterno?: string;
+    apeMaterno?: string;
+    primerNombre?: string;
+    otrosNombres?: string;
+    fechaNacimiento?: string;
     sexo?: string;
     profesion?: string;
-    tipo_contrato?: string;
-    colegio_profesional?: string
-    fecha_nacimiento?: string;
-
+    tipoContrato?: string;
+    tipoPersonal?: TipoPersonal[];
+    colegioProfesional?: ColegioProfesional[];
+    colegiatura?: string;
+    tipoUsuario?: string;
+    detalleIpres?: InformacionPersonalDescripcion[];
+    roles?: DescripcionUsuarioRoles[];
 }
+
+
+
