@@ -132,19 +132,97 @@
 </p-dialog>
 <!--                 FIN DIALOG DE CUPOS             -->
 
+<!--                INICIO MODAL DE USUARIOS         -->
 <p-dialog [(visible)]="usuarioDialog" [style]="{width: '1080px'}" header="Datos del Paciente" [modal]="true"
     styleClass="p-fluid">
 
     <ng-template pTemplate>
-        <div class="datosPersonales border-1">
-            <div class="grid">
+        <div class="datosPersonales border-1 m-3">
+            <div class="grid m-2">
+                <div class="p-field col-3">
+                    <label class="ml-2 font-bold">Nombre:</label>
+                    <input type="text" pInputText [(ngModel)]="nombre" />
+                </div>
+                <div class="p-field col-3">
+                    <label class="ml-2 font-bold">A. Paterno</label>
+                    <input type="text" pInputText [(ngModel)]="nombre" />
+                </div>
+                <div class="p-field col-3">
+                    <label class="ml-2 font-bold">A. Materno</label>
+                    <input type="text" pInputText [(ngModel)]="nombre" />
+                </div>
+                <div class="p-field col-3">
+                    <label class="ml-2 font-bold">Sexo</label>
+                    <input type="text" pInputText [(ngModel)]="nombre" />
+                </div>
+            </div>
+            <div class="grid m-2">
+                <div class="p-field col-2">
+                    <label class="ml-2 font-bold">fecha</label>
+                    <input type="date" pInputText [(ngModel)]="fecha" />
+                </div>
+                <div class="p-field col-2">
+                    <label class="ml-2 font-bold">Estado Civil</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                </div>
+            </div>
+            <div class="grid m-2">
+                <div class="p-field col-3">
+                    <label class="ml-2 font-bold">Telefono</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                </div>
+                <div class="p-field col-3">
+                    <label class="ml-2 font-bold">Nacionalidad</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                </div>
+                <div class="p-field col-2">
+                    <label class="ml-2 font-bold">Departamento</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                </div>
+                <div class="p-field col-2">
+                    <label class="ml-2 font-bold">Provincia</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                </div>
+                <div class="p-field col-2">
+                    <label class="ml-2 font-bold">Distrito</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                </div>
+            </div>
+            <div class="grid m-2">
                 <div class="p-field col-6">
-                    <label>nombre:</label>
+                    <label class="ml-2 font-bold">Centro Poblado</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
                 </div>
                 <div class="p-field col-6">
-                    <label>nombre:</label>
+                    <label class="ml-2 font-bold">Domicilio Actual</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                </div>
+            </div>
+        </div>
+        <div class="datosExtra margin-1 m-3">
+            <div class="grid m-2">
+                <div class="p-field col-2">
+                    <label class="ml-2 font-bold">Tipo Seguro</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                </div>
+                <div class="p-field col-2">
+                    <label class="ml-2 font-bold">Transeunte</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                </div>
+                <div class="p-field col-3">
+                    <label class="ml-2 font-bold">Etapa de Vida del Paciente</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                </div>
+                <div class="p-field col-2">
+                    <label class="ml-2 font-bold">Edad</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                </div>
+                <div class="p-field col-2">
+                    <label class="ml-2 font-bold">Dias</label>
+                    <input type="text" pInputText [(ngModel)]="estadoCivil" />
                 </div>
             </div>
         </div>
     </ng-template>
 </p-dialog>
+<!--            FIN MODAL DE USUARIOS                -->

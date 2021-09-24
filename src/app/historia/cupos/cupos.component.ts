@@ -21,6 +21,9 @@ export class CuposComponent implements OnInit {
     selectedServicio: any;
     listaPersonal: any;
     personalSelected: string = '';
+    nombre: string;
+    estadoCivil:string;
+    fecha: Date;
 
     listaHorarios: any = [{
         hour: '08:00',
@@ -124,6 +127,13 @@ export class CuposComponent implements OnInit {
 
     closeDialogCupos() {
         this.cuposDialog = false;
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Se cancelo la reserva de cupo',
+            showConfirmButton: false,
+            timer: 1500
+          })
     }
 
     openDialog2() {

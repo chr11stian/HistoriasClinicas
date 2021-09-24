@@ -9,11 +9,8 @@ import {tap} from "rxjs/operators";
     providedIn: 'root'
 })
 export class UsuariosService {
-
     private _refresh = new Subject<void>();
-
     private baseUrl: string = environment.baseUrl;
-
     constructor(private http: HttpClient) {
     }
 

@@ -14,11 +14,14 @@ const routes: Routes = [
         path: "login",
         component: LoginComponent
     },
+
+
     {
         path: "dashboard",
         loadChildren: () => import('src/app/core/core.module').then(n => n.CoreModule),
 
     },
+
     // {
     //     path: "historia",
     //     // loadChildren: () => import('src/app/historia/historia.module').then(n => n.HistoriaModule),

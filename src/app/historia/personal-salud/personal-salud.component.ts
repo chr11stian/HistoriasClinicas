@@ -22,6 +22,8 @@ export class PersonalSaludComponent implements OnInit, OnDestroy {
     personalDialog: boolean;
     subscription: Subscription;
     submitted: boolean;
+    loading = true;
+
 
     constructor(
         private personalService: PersonalService,
@@ -32,7 +34,8 @@ export class PersonalSaludComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this.personalService.getPersonal().subscribe(personals => this.personals = personals);
+        this.personalService.getPersonal().subscribe(personals => this.personals = personals)
+
         this.subscription = this.personalService.refresh.subscribe(() => {
             this.personalService.getPersonal().subscribe(personals => this.personals = personals);
         })
@@ -69,34 +72,34 @@ export class PersonalSaludComponent implements OnInit, OnDestroy {
     }
 
 
-    save() {
-        if (this.personal.nro_doc.trim().length == 0) {
-            return;
-        }
-        if (this.personal.id == null) {
-            this.personalService.agregarPersonal(this.personal)
-                .subscribe(personal =>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Agregado',
-                        text: 'Personal de Salud',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                );
-        } else {
-            this.personalService.actualizarPersonal(this.personal)
-                .subscribe(personal => Swal.fire({
-                        icon: 'success',
-                        title: 'Actualizado',
-                        text: 'Personal de Salud',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                );
-        }
-        this.personals = [...this.personals];
-        this.personalDialog = false;
-        this.personal = {};
-    }
+    // save() {
+    //     if (this.personal.nro_doc.trim().length == 0) {
+    //         return;
+    //     }
+    //     if (this.personal.id == null) {
+    //         this.personalService.agregarPersonal(this.personal)
+    //             .subscribe(personal =>
+    //                 Swal.fire({
+    //                     icon: 'success',
+    //                     title: 'Agregado',
+    //                     text: 'Personal de Salud',
+    //                     showConfirmButton: false,
+    //                     timer: 2000
+    //                 })
+    //             );
+    //     } else {
+    //         this.personalService.actualizarPersonal(this.personal)
+    //             .subscribe(personal => Swal.fire({
+    //                     icon: 'success',
+    //                     title: 'Actualizado',
+    //                     text: 'Personal de Salud',
+    //                     showConfirmButton: false,
+    //                     timer: 2000
+    //                 })
+    //             );
+    //     }
+    //     this.personals = [...this.personals];
+    //     this.personalDialog = false;
+    //     this.personal = {};
+    // }
 }

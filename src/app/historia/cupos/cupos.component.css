@@ -10,6 +10,15 @@
     padding: auto;
 }
 
+.datosPersonales,
+.datosExtra{
+    border: 1px solid;
+    border-radius: 10px;
+}
+/* .p-field{
+    font-weight: bold;
+} */
+
 /* .table{
     background: red;
 } */
