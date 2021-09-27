@@ -4,16 +4,18 @@ import {PersonalService} from '../../core/services/personal-services/personal.se
 
 
 import Swal from "sweetalert2";
-import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {Router} from "@angular/router";
 
 import {Subscription} from "rxjs";
+import {TipoPersonalModalComponent} from "../../mantenimientos/component/tipo-personal-modal/tipo-personal-modal.component";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-personal-salud',
-    providers: [DynamicDialogRef, DynamicDialogConfig],
+    providers: [DynamicDialogRef, DynamicDialogConfig, DialogService],
     templateUrl: './personal-salud.component.html',
-    styleUrls: ['./personal-salud.component.css']
+    styleUrls: ['./personal-salud.component.css'],
 })
 export class PersonalSaludComponent implements OnInit, OnDestroy {
     personals: Personal[];
@@ -24,21 +26,29 @@ export class PersonalSaludComponent implements OnInit, OnDestroy {
     submitted: boolean;
     loading = true;
 
+    data: any;
+
 
     constructor(
         private personalService: PersonalService,
+        public dialogService: DialogService,
+        private messageService: MessageService,
         public config: DynamicDialogConfig,
         private router: Router,
     ) {
+        this.getpersonal();
     }
 
     ngOnInit() {
-
-        this.personalService.getPersonal().subscribe(personals => this.personals = personals)
-
         this.subscription = this.personalService.refresh.subscribe(() => {
             this.personalService.getPersonal().subscribe(personals => this.personals = personals);
         })
+    }
+
+    getpersonal() {
+        this.personalService.getPersonal().subscribe((resp: any) => {
+            this.data = resp.object;
+        });
     }
 
     ngOnDestroy(): void {
@@ -65,6 +75,16 @@ export class PersonalSaludComponent implements OnInit, OnDestroy {
         this.submitted = false;
     }
 
+    agregar() {
+        const ref = this.dialogService.open(TipoPersonalModalComponent, {
+            header: "Ingrese Personal",
+            width: "60%",
+        });
+        ref.onClose.subscribe(() => {
+            this.messageService.add({severity: "info", summary: "Car Selected"});
+        });
+    }
+
 
     editPersonal(personal: Personal) {
         this.personal = {...personal};
@@ -72,34 +92,34 @@ export class PersonalSaludComponent implements OnInit, OnDestroy {
     }
 
 
-    // save() {
-    //     if (this.personal.nro_doc.trim().length == 0) {
-    //         return;
-    //     }
-    //     if (this.personal.id == null) {
-    //         this.personalService.agregarPersonal(this.personal)
-    //             .subscribe(personal =>
-    //                 Swal.fire({
-    //                     icon: 'success',
-    //                     title: 'Agregado',
-    //                     text: 'Personal de Salud',
-    //                     showConfirmButton: false,
-    //                     timer: 2000
-    //                 })
-    //             );
-    //     } else {
-    //         this.personalService.actualizarPersonal(this.personal)
-    //             .subscribe(personal => Swal.fire({
-    //                     icon: 'success',
-    //                     title: 'Actualizado',
-    //                     text: 'Personal de Salud',
-    //                     showConfirmButton: false,
-    //                     timer: 2000
-    //                 })
-    //             );
-    //     }
-    //     this.personals = [...this.personals];
-    //     this.personalDialog = false;
-    //     this.personal = {};
-    // }
+    save() {
+        if (this.personal.nro_doc.trim().length == 0) {
+            return;
+        }
+        if (this.personal.id == null) {
+            this.personalService.agregarPersonal(this.personal)
+                .subscribe(personal =>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Agregado',
+                        text: 'Personal de Salud',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                );
+        } else {
+            this.personalService.actualizarPersonal(this.personal)
+                .subscribe(personal => Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizado',
+                        text: 'Personal de Salud',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                );
+        }
+        this.personals = [...this.personals];
+        this.personalDialog = false;
+        this.personal = {};
+    }
 }

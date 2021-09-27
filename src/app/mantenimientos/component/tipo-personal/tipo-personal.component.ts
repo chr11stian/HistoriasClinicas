@@ -30,6 +30,7 @@ export class TipoPersonalComponent implements OnInit {
       this.data = resp.object;
     });
   }
+
   agregar() {
     const ref = this.dialogService.open(TipoPersonalModalComponent, {
       header: "Ingrese Tipo de personal",

@@ -1,73 +1,54 @@
-<div class="p-card">
-    <p-toolbar styleClass="p-mb-4">
-
-        <ng-template pTemplate="left">
-            <h3 class="p-m-0">Personales de salud</h3>
-        </ng-template>
-
-        <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                    (click)="openNew()"></button>
-
-            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
-        </ng-template>
-    </p-toolbar>
-
-    <p-table #dt [value]="personals" [rows]="10" [paginator]="true"
-             [globalFilterFields]="['nombres','dni','apellidos']"
-             [(selection)]="selectedPersonal" [rowHover]="true" dataKey="id"
-             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
-             [showCurrentPageReport]="true">
-        <ng-template pTemplate="caption">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                <!--                <h5 class="p-m-0">Personales de salud</h5>-->
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text"
-                           (input)="dt.filterGlobal($event.target.value,'contains')"
-                           placeholder="Buscar..."/>
-                </span>
-            </div>
-        </ng-template>
-
-        <ng-template class="ng-template" pTemplate="header">
-            <tr>
-                <th style="text-align: center">DNI</th>
-                <th style="text-align: center">APELLIDOS</th>
-                <th style="text-align: center">NOMBRES</th>
-                <th style="text-align: center">SEXO</th>
-                <th style="text-align: center">PROFESION</th>
-                <th style="text-align: center">TIPO CONTRATO</th>
-                <th style="text-align: center"> COLEGIO PROFESIONAL</th>
-                <th style="text-align: center"> EDITAR / ESTADO</th>
-
-            </tr>
-        </ng-template>
-
-        <ng-template pTemplate="body" let-personal style="text-align: center">
-            <tr style="text-align: center">
-                <td style="text-align: center">{{personal.nro_doc}}</td>
-<!--                <td style="text-align: center">{{personal.apellidos}}</td>-->
-<!--                <td style="text-align: center">{{personal.nombres}}</td>-->
-<!--                <td style="text-align: center">{{personal.sexo}}</td>-->
-<!--                <td style="text-align: center">{{personal.profesion}}</td>-->
-<!--                <td style="text-align: center">{{personal.tipo_contrato}}</td>-->
-<!--                <td style="text-align: center">{{personal.colegio_profesional}}</td>-->
-                <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
-                            (click)="editPersonal(personal)"></button>
-                    <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success "
-                            (click)="deletePersonal(personal)"></button>
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="p-d-flex p-ai-center p-jc-between">
-                En total ahi {{personals ? personals.length : 0 }} Personales.
-            </div>
-        </ng-template>
-    </p-table>
-</div>
+<p-table
+        [value]="data"
+        #dt
+        styleClass="p-datatable-gridlines   "
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="true"
+        [autoLayout]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+    <ng-template pTemplate="caption">
+        <div class="flex justify-content-between">
+            <h3>Lista de Personales</h3>
+            <button pButton type="button" label="Agregar" icon="pi pi-plus"
+                    (click)="openNew()" pTooltip="Agregar tipo de personal" tooltipPosition="bottom"
+                    class="p-button-danger p-button-sm" pRipple
+            ></button>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+        <tr>
+            <th>Nro</th>
+            <th>Numero Doc</th>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Nombres</th>
+            <!--            <th>Otros Nombres</th>-->
+            <!--            <th>Sexo</th>-->
+            <th>Profesion</th>
+            <th>Tipo Comtrato</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr>
+            <td>{{ rowIndex + 1 }}</td>
+            <td>{{ rowData.nro_doc }}</td>
+            <td>{{ rowData.apeMaterno }}</td>
+            <td>{{ rowData.apellidoMaterno }}</td>
+            <td>{{ rowData.nombre }}</td>
+            <!--            <td>{{ rowData.otrosNombres }}</td>-->
+            <!--            <td>{{ rowData.sexo }}</td>-->
+            <td>{{ rowData.profesion }}</td>
+            <td>{{ rowData.tipoContrato }}</td>
+            <td style="text-align: center">
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
+                        (click)="editPersonal(rowData)"></button>
+                <!--                <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success "-->
+                <!--                ></button>-->
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
 
 
 <p-dialog [(visible)]="personalDialog" [style]="{width: '1080px'}" header="Registrar Pacientes" [modal]="true"
@@ -90,7 +71,7 @@
                 <label>APELLIDOS</label>
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input style="width: 15rem" type="text" id="apellidos" [(ngModel)]="personal.apellidos"
+                    <input style="width: 15rem" type="text" id="apellidos" [(ngModel)]="personal.apePaterno"
                            pInputText>
                 </div>
             </div>
@@ -100,7 +81,7 @@
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
                     <input style="width: 15rem" type="text" id="nombres"
-                           [(ngModel)]="personal.nombres" pInputText>
+                           [(ngModel)]="personal.apeMaterno" pInputText>
                 </div>
             </div>
 
@@ -109,7 +90,7 @@
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
                     <input style="width: 15rem" type="text" id="otro_nombre"
-                           [(ngModel)]="personal.nombres" pInputText>
+                           [(ngModel)]="personal.primerNombre" pInputText>
                 </div>
             </div>
         </div>
@@ -121,7 +102,7 @@
                 <label>FECHA NACIMIENTO</label>
                 <div class="p-inputgroup">
                     <input style="width: 15rem" type="text" id="fecha_nacimiento"
-                           [(ngModel)]="personal.fecha_nacimiento"
+                           [(ngModel)]="personal.fechaNacimiento"
                            pInputText>
                 </div>
             </div>
@@ -137,7 +118,8 @@
             <div class="p-field col-3">
                 <label>ESTADO CIVIL</label>
                 <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="estado_civil" [(ngModel)]="personal.nombres" pInputText>
+                    <input style="width: 15rem" type="text" id="estado_civil" [(ngModel)]="personal.otrosNombres"
+                           pInputText>
                 </div>
             </div>
         </div>
@@ -157,7 +139,7 @@
                 <label>COLEGIO PROFESIONAL</label>
                 <div class="p-inputgroup">
                     <input style="width: 15rem" type="text" id="colegio_profesional"
-                           [(ngModel)]="personal.colegio_profesional"
+                           [(ngModel)]="personal.colegioProfesional"
                            pInputText>
                 </div>
             </div>
@@ -165,7 +147,7 @@
             <div class="p-field col-4">
                 <label>TIPO DE CONTRATO</label>
                 <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="tipo_contrato" [(ngModel)]="personal.tipo_contrato"
+                    <input style="width: 15rem" type="text" id="tipo_contrato" [(ngModel)]="personal.tipoContrato"
                            pInputText>
                 </div>
             </div>
@@ -182,6 +164,3 @@
         <!--        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>-->
     </ng-template>
 </p-dialog>
-
-
-<!--<p-confirmDialog [style]="{width: '250px'}"></p-confirmDialog>-->
