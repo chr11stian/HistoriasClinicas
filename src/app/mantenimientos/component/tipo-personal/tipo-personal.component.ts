@@ -22,18 +22,18 @@ export class TipoPersonalComponent implements OnInit {
     public dialogService: DialogService,
     private messageService: MessageService
   ) {
-    // this.getTipoPersonal();
+    this.getTipoPersonal();
   }
 
   getTipoPersonal() {
     this.tipoPersonalService.getTipoPersonal().subscribe((resp: any) => {
-      console.log(resp.object);
+      this.data = resp.object;
     });
   }
   agregar() {
     const ref = this.dialogService.open(TipoPersonalModalComponent, {
-      header: "Choose a Car",
-      width: "70%",
+      header: "Ingrese Tipo de personal",
+      width: "60%",
     });
     ref.onClose.subscribe(() => {
       this.messageService.add({ severity: "info", summary: "Car Selected" });
