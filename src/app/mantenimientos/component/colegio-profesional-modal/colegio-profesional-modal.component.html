@@ -1,0 +1,19 @@
+<div class="p-fluid grid">
+    <div class="p-field col-12 md:col-6">
+        <label for="codigo">Codigo</label>
+        <input type="text" pInputText id="codigo" required autofocus />
+      </div>
+      <div class="p-field col-12 md:col-6">
+      <label for="nombre">Nombre colegio profesional</label>
+      <input type="text" pInputText id="nombre" required />
+    </div>
+  </div>
+  <div class="ui-dialog-footer p-text-right p-mt-3">
+    <p-button
+      icon="pi pi-save"
+      label="Guardar"
+      (onClick)="save()"
+      styleClass="p-button-info p-button-sm"
+    >
+    </p-button>
+  </div>

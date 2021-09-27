@@ -8,12 +8,17 @@ import {TipoPersonalModalComponent} from './component/tipo-personal-modal/tipo-p
 import {UbicacionComponent} from "./component/ubicacion/ubicacion.component";
 import {ToolbarModule} from "primeng/toolbar";
 import {FormsModule} from "@angular/forms";
+import {ColegioProfesionalComponent} from "./component/colegio-profesional/colegio-profesional.component";
+import {ColegioProfesionalModalComponent} from "./component/colegio-profesional-modal/colegio-profesional-modal.component";
 
 @NgModule({
     declarations: [
         TipoPersonalComponent,
         TipoPersonalModalComponent,
-        UbicacionComponent],
+        UbicacionComponent,
+        ColegioProfesionalComponent,
+        ColegioProfesionalModalComponent
+    ],
 
 
     exports: [
