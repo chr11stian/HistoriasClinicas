@@ -1,38 +1,44 @@
-import {Component, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
-import {TipoPersonal} from "../../../core/models/mantenimiento.models";
-import {PersonalService} from "../../../core/services/personal-services/personal.service";
-import {TipoPersonalService} from "../../services/tipo-personal/tipo-personal.service";
+import { Component, OnInit } from "@angular/core";
+import { MessageService } from "primeng/api";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { Subscription } from "rxjs";
+import { TipoPersonal } from "../../../core/models/mantenimiento.models";
+import { PersonalService } from "../../../core/services/personal-services/personal.service";
+import { TipoPersonalService } from "../../services/tipo-personal/tipo-personal.service";
+import { TipoPersonalModalComponent } from "../tipo-personal-modal/tipo-personal-modal.component";
 
 @Component({
-    selector: 'app-tipo-personal',
-    templateUrl: './tipo-personal.component.html',
-    styleUrls: ['./tipo-personal.component.css']
+  selector: "app-tipo-personal",
+  templateUrl: "./tipo-personal.component.html",
+  styleUrls: ["./tipo-personal.component.css"],
+  providers: [DialogService],
 })
 export class TipoPersonalComponent implements OnInit {
-    tipo_personals: TipoPersonal[];
-    tipo_personal: TipoPersonal;
-    selected_tipo_personals: TipoPersonal[];
-    personalDialog: boolean;
-    subscription: Subscription;
-    submitted: boolean;
-    loading = true;
+  data: any[] = [];
+  isUpdate: boolean = false;
 
-    constructor(
-        private tipo_personalService: TipoPersonalService,
-    ) {
-    }
+  constructor(
+    private tipoPersonalService: TipoPersonalService,
+    public dialogService: DialogService,
+    private messageService: MessageService
+  ) {
+    // this.getTipoPersonal();
+  }
 
-    ngOnInit(): void {
-        this.tipo_personalService.getTipo_Personal().toPromise().then(tipoPersonals => {
-            this.tipo_personals = [...tipoPersonals];
-            this.loading = false;
-        })
-            .catch((err) => {
-                this.loading = false;
-                console.log('error', err)
-            })
+  getTipoPersonal() {
+    this.tipoPersonalService.getTipoPersonal().subscribe((resp: any) => {
+      console.log(resp.object);
+    });
+  }
+  agregar() {
+    const ref = this.dialogService.open(TipoPersonalModalComponent, {
+      header: "Choose a Car",
+      width: "70%",
+    });
+    ref.onClose.subscribe(() => {
+      this.messageService.add({ severity: "info", summary: "Car Selected" });
+    });
+  }
 
-    }
-
+  ngOnInit(): void {}
 }
