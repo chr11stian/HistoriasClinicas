@@ -3,7 +3,7 @@ import {BehaviorSubject, Observable, Subject, throwError} from "rxjs";
 import {environment} from "../../../../environments/environment";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {catchError, retry, tap} from "rxjs/operators";
-import {Ubicacion} from "../../../core/models/ubicacion.models";
+import {Departamentos, Provincias, Ubicacion} from "../../../core/models/ubicacion.models";
 import {Personal} from "../../../core/models/personal.models";
 
 @Injectable({
@@ -33,10 +33,21 @@ export class UbicacionService {
     //     return this._refresh;
     // }
 
-    getUbicacion() {
-        return this.http
-            .get<Ubicacion[]>(`${this.base_url}/historiasclinicas/api/ubicacion/listar`)
-            .pipe(tap((ubicacions) => (this.ubicacions = ubicacions)));
+    getUbicacion(): Observable<Ubicacion[]> {
+        return this.http.get<Ubicacion[]>(`${this.base_url}/historiasclinicas/api/ubicacion/listar?page=1`);
+    }
+
+    getUbicacionUbigeo(ubigeo: string) {
+        return this.http.get<Ubicacion[]>(`${this.base_url}/historiasclinicas/api/ubicacion/ubigeo/${ubigeo}`);
+    }
+
+    getDepartamentos(): Observable<Departamentos[]> {
+        return this.http.get<Departamentos[]>(`${this.base_url}/historiasclinicas/api/ubicacion/departamentos`);
+
+    }
+
+    getProvincias(id: string): Observable<Provincias[]> {
+        return this.http.get<Provincias[]>(`${this.base_url}/historiasclinicas/api/ubicacion/provincias/${id}`);
     }
 
     agregarPersonal(ubicacion: Ubicacion): Observable<Personal> {

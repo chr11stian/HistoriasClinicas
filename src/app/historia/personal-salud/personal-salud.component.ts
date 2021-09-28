@@ -93,9 +93,6 @@ export class PersonalSaludComponent implements OnInit, OnDestroy {
 
 
     save() {
-        if (this.personal.nro_doc.trim().length == 0) {
-            return;
-        }
         if (this.personal.id == null) {
             this.personalService.agregarPersonal(this.personal)
                 .subscribe(personal =>

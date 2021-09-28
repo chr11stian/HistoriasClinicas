@@ -36,11 +36,11 @@ export class PersonalService {
 
 
     getPersonal(): Observable<Personal[]> {
-        return this.http.get<Personal[]>(`${this.base_url}/historiasclinicas/api/personal`);
+        return this.http.get<Personal[]>(`${this.base_url}/historiasclinicas/api/listarpersonal`);
     }
 
     agregarPersonal(personal: Personal): Observable<Personal> {
-        return this.http.post<Personal>(`${this.base_url}/personal`, personal)
+        return this.http.post<Personal>(`${this.base_url}/historiasclinicas/api/listarpersonal`, personal)
             .pipe(
                 tap(() => {
                     this._refresh.next();

@@ -10,6 +10,8 @@ import {ToolbarModule} from "primeng/toolbar";
 import {FormsModule} from "@angular/forms";
 import {ColegioProfesionalComponent} from "./component/colegio-profesional/colegio-profesional.component";
 import {ColegioProfesionalModalComponent} from "./component/colegio-profesional-modal/colegio-profesional-modal.component";
+import {TreeSelectModule} from "primeng/treeselect";
+import {MultiSelectModule} from "primeng/multiselect";
 
 @NgModule({
     declarations: [
@@ -31,7 +33,9 @@ import {ColegioProfesionalModalComponent} from "./component/colegio-profesional-
         MantenimentosRoutingModule,
         PrimeModule,
         ToolbarModule,
-        FormsModule
+        FormsModule,
+        TreeSelectModule,
+        MultiSelectModule
     ],
 })
 export class MantenimientosModule {
