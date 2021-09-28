@@ -14,6 +14,8 @@ import {ToastModule} from "primeng/toast";
 import {ConfirmPopupModule} from "primeng/confirmpopup";
 import {MegaMenuModule} from "primeng/megamenu";
 import {TabMenuModule} from "primeng/tabmenu";
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @NgModule({
     declarations: [
@@ -38,7 +40,8 @@ import {TabMenuModule} from "primeng/tabmenu";
         ToastModule,
         ConfirmPopupModule,
         TabMenuModule,
-
+        ButtonModule,
+        RippleModule
     ]
 })
 export class CoreModule {

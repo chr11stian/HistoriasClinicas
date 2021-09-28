@@ -7,9 +7,8 @@ import {PrimeModule} from "../shared/prime/prime.module";
 import {TipoPersonalModalComponent} from './component/tipo-personal-modal/tipo-personal-modal.component';
 import {UbicacionComponent} from "./component/ubicacion/ubicacion.component";
 import {ToolbarModule} from "primeng/toolbar";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ColegioProfesionalComponent} from "./component/colegio-profesional/colegio-profesional.component";
-import {ColegioProfesionalModalComponent} from "./component/colegio-profesional-modal/colegio-profesional-modal.component";
 import {TreeSelectModule} from "primeng/treeselect";
 import {MultiSelectModule} from "primeng/multiselect";
 
@@ -19,7 +18,6 @@ import {MultiSelectModule} from "primeng/multiselect";
         TipoPersonalModalComponent,
         UbicacionComponent,
         ColegioProfesionalComponent,
-        ColegioProfesionalModalComponent
     ],
 
 
@@ -35,7 +33,8 @@ import {MultiSelectModule} from "primeng/multiselect";
         ToolbarModule,
         FormsModule,
         TreeSelectModule,
-        MultiSelectModule
+        MultiSelectModule,
+        ReactiveFormsModule
     ],
 })
 export class MantenimientosModule {
