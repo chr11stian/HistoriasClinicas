@@ -59,7 +59,8 @@ export class ColegioProfesionalComponent implements OnInit {
               text: '',
               showConfirmButton: false,
             })
-            this.getColegioProfesional() 
+            this.getColegioProfesional();
+            this.guardarNuevo(); 
         }
       )
     } 
