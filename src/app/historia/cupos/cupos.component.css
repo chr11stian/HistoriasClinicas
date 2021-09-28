@@ -11,10 +11,12 @@
 }
 
 .datosPersonales,
-.datosExtra{
+.datosExtra,
+.datosServicio {
     border: 1px solid;
     border-radius: 10px;
 }
+
 /* .p-field{
     font-weight: bold;
 } */

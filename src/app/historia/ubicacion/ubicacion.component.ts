@@ -50,9 +50,10 @@ export class UbicacionComponent implements OnInit {
     }
 
     prueba(){
-        this.ubicacionService.getUbicacion().subscribe(res=>{
-            console.log('res de prueba ', res)
-            // this.ubicacion = res.object;
-        })
+        this.ubicacionService.getUbicacion();
+        // this.ubicacionService.getUbicacion().subscribe(res=>{
+        //     console.log('res de prueba ', res)
+        //     // this.ubicacion = res.object;
+        // })
     }
 }

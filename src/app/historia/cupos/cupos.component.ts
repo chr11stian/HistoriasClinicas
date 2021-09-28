@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { formatDate } from '@angular/common';
+import { PrimeNGConfig } from 'primeng/api';
 
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
@@ -22,17 +25,120 @@ export class CuposComponent implements OnInit {
     listaPersonal: any;
     personalSelected: string = '';
     nombre: string;
-    estadoCivil:string;
+    estadoCivil: string;
     fecha: Date;
+    selectedTipoDocumento: string;
+    justifyOptions: any[];
+    value1: any;
+    value3: any;
+    stateOptions: any[];
+    cellHour: any;
+    cellHoy: any;
+    cellTomorrow: any;
 
-    listaHorarios: any = [{
-        hour: '08:00',
-        today: true,
-        tomorrow: false
+    today: Date = new Date();
+    jsToday: string = ''
+
+    citas: any = [{
+        fechaRegistro: '28/09/2021',
+        nroCupo: '01',
+        descripcion: 'CITA DEL ESTOMAGO',
+        horaAtencion: '08:00',
+        horaAtencionFin: '08:30',
+        ambiente: 'CONSULTORIO 2',
+        paciente: {
+            nombre: 'JONATHAN',
+            apellidos: 'MOROCCO LAYME',
+            tipoDoc: '1',
+            nroDoc: '72745818',
+        },
+        rol: {
+            personal: 'PERSONAL 1',
+            turno: 'MAÑANA',
+            docPersonal: '70707070',
+            idRol: '01'
+        },
+        ipress: {
+            idIpress: '001',
+            nombre: 'IPRESS 01',
+            servicio: 'servicio 1'
+        },
+        estado: '1'
     }, {
-        hour: '08:30',
-        today: true,
-        tomorrow: false
+        fechaRegistro: '28/09/2021',
+        nroCupo: '02',
+        descripcion: 'CITA DEL ESTOMAGO',
+        horaAtencion: '08:30',
+        horaAtencionFin: '09:00',
+        ambiente: 'CONSULTORIO 2',
+        paciente: {
+            nombre: 'JONATHAN',
+            apellidos: 'MOROCCO LAYME',
+            tipoDoc: '1',
+            nroDoc: '72745818',
+        },
+        rol: {
+            personal: 'PERSONAL 1',
+            turno: 'MAÑANA',
+            docPersonal: '70707070',
+            idRol: '01'
+        },
+        ipress: {
+            idIpress: '001',
+            nombre: 'IPRESS 01',
+            servicio: 'servicio 1'
+        },
+        estado: '1'
+    }, {
+        fechaRegistro: '28/09/2021',
+        nroCupo: '03',
+        descripcion: 'CITA DEL ESTOMAGO',
+        horaAtencion: '09:00',
+        horaAtencionFin: '09:30',
+        ambiente: 'CONSULTORIO 2',
+        paciente: {
+            nombre: 'JONATHAN',
+            apellidos: 'MOROCCO LAYME',
+            tipoDoc: '1',
+            nroDoc: '72745818',
+        },
+        rol: {
+            personal: 'PERSONAL 1',
+            turno: 'MAÑANA',
+            docPersonal: '70707070',
+            idRol: '01'
+        },
+        ipress: {
+            idIpress: '001',
+            nombre: 'IPRESS 02',
+            servicio: 'servicio 1'
+        },
+        estado: '1'
+    },{
+        fechaRegistro: '28/09/2021',
+        nroCupo: '04',
+        descripcion: 'CITA DEL ESTOMAGO',
+        horaAtencion: '12:00',
+        horaAtencionFin: '12:30',
+        ambiente: 'CONSULTORIO 2',
+        paciente: {
+            nombre: 'JONATHAN',
+            apellidos: 'MOROCCO LAYME',
+            tipoDoc: '1',
+            nroDoc: '72745818',
+        },
+        rol: {
+            personal: 'PERSONAL 1',
+            turno: 'MAÑANA',
+            docPersonal: '70707070',
+            idRol: '01'
+        },
+        ipress: {
+            idIpress: '001',
+            nombre: 'IPRESS 03',
+            servicio: 'servicio 1'
+        },
+        estado: '1'
     }]
 
 
@@ -94,20 +200,45 @@ export class CuposComponent implements OnInit {
         fechaAtencion: '20/08/2021'
     }, {
         dni: '72745810',
-        apellidos: 'LAYME LAYME',
-        nombres: 'JAVIER',
+        apellidos: 'OTRO EJEMPLO',
+        nombres: 'NO KIEB',
         servicio: 'MEDICINA GENERAL',
         horarioAtencion: '09:00 am',
         fechaAtencion: '20/08/2021'
     }]
 
+
+
     constructor(
         private config: DynamicDialogConfig,
-        private router: Router
-    ) { }
+        private router: Router,
+        private primeNGConfig: PrimeNGConfig
+    ) {
+        this.justifyOptions = [
+            { icon: "pi pi-align-left", justify: "Left" },
+            { icon: "pi pi-align-right", justify: "Right" },
+            { icon: "pi pi-align-center", justify: "Center" },
+            { icon: "pi pi-align-justify", justify: "Justify" }
+        ];
+
+        this.stateOptions = [
+            { label: "Off", value: "off" },
+            { label: "On", value: "on" }
+        ];
+    }
 
     ngOnInit(): void {
+        this.today.getHours();
+        let minutes;
         console.log('lista de cupos', this.listaCupos);
+        this.primeNGConfig.ripple = true;
+        console.log('hoy', this.today);
+        this.today.setMinutes(this.today.getMinutes() + 30)
+        this.jsToday = formatDate(this.today, 'hh:mm:ss z', 'en-GB', '-0500');
+        console.log('tiempo suma ', this.today)
+
+
+        console.log('hora nueva ', this.jsToday);
     }
 
     ngOnDestroy(): void {
@@ -133,7 +264,7 @@ export class CuposComponent implements OnInit {
             title: 'Se cancelo la reserva de cupo',
             showConfirmButton: false,
             timer: 1500
-          })
+        })
     }
 
     openDialog2() {
@@ -163,7 +294,7 @@ export class CuposComponent implements OnInit {
         this.listaPersonal = this.listaPersonalAux.filter(item => item.codServicio == event.codServicio)
     }
 
-    clickDiv(event) {
-        console.log('click desde un div', event);
+    clickTable(event) {
+        console.log('click desde un div ', event);
     }
 }
