@@ -67,19 +67,19 @@
         </ng-template>
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
           <tr>
-            <th style="width:3rem">Nro</th>
-            <th>ID SIS</th>
-            <th>Nombre</th>
-            <th style="width:8rem">Estado</th>
-            <th style="width:8rem">Acción</th>
+            <th style="text-align: center">Nro</th>
+            <th style="text-align: center">ID SIS</th>
+            <th style="text-align: center">Nombre</th>
+            <th style="text-align: center; width:8rem">Estado</th>
+            <th style="text-align: center; width:8rem">Acción</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-          <tr>
-            <td>{{ rowIndex + 1 }}</td>
-            <td>{{ rowData.idSis }}</td>
-            <td>{{ rowData.nombre }}</td>
-            <td>
+          <tr style="text-align: center">
+            <td style="text-align: center">{{ rowIndex + 1 }}</td>
+            <td style="text-align: center">{{ rowData.idSis }}</td>
+            <td style="text-align: center">{{ rowData.nombre }}</td>
+            <td style="text-align: center">
                 <p-tag *ngIf="rowData.estado" styleClass="p-mr-2" severity="success" value="Activo" [rounded]="true"></p-tag>
                 <p-tag *ngIf="!rowData.estado" styleClass="p-mr-2" severity="danger" value="Desactivado" [rounded]="true"></p-tag>
             </td>
