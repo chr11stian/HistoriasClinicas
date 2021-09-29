@@ -1,5 +1,5 @@
 <div class="grid">
-    <div class="col-5">
+    <div class="col-4">
       <p-card class="m-0 ">
           <h2 *ngIf="!isUpdate">Ingrese nueva especialidad</h2>
           <h2 *ngIf="isUpdate">Edite especialidad</h2>
@@ -49,7 +49,7 @@
           
       </p-card>
     </div>
-  <div class="col-7">
+  <div class="col-8">
       <p-table
         [value]="datosprueba"
         #dt
@@ -67,11 +67,11 @@
         </ng-template>
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
           <tr>
-            <th>Nro</th>
+            <th style="width:3rem">Nro</th>
             <th>ID SIS</th>
             <th>Nombre</th>
-            <th>Estado</th>
-            <th>Acción</th>
+            <th style="width:8rem">Estado</th>
+            <th style="width:8rem">Acción</th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
