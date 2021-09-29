@@ -46,9 +46,16 @@ export class UbicacionService {
 
     }
 
-    getProvincias(id: string): Observable<Provincias[]> {
-        return this.http.get<Provincias[]>(`${this.base_url}/historiasclinicas/api/ubicacion/provincias/${id}`);
+
+    getProvincia(iddd) {
+        return this.http.get<any>(`${this.base_url}/${this.bd}/api/ubicacion/provincias`, iddd)
     }
+
+
+    getProvinciasId(id: string): Observable<Provincias> {
+        return this.http.get<Provincias>(`${this.base_url}/historiasclinicas/api/ubicacion/provincias/${id}`);
+    }
+
 
     agregarPersonal(ubicacion: Ubicacion): Observable<Personal> {
         return this.http.post<Personal>(`${this.base_url}/historiasclinicas/api/save/cpp`, ubicacion)

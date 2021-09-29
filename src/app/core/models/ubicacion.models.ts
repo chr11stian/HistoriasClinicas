@@ -23,6 +23,6 @@ export interface Departamentos {
 }
 
 export interface Provincias {
-    id?: string;
+    iddd: string;
     provincia?: string;
 }

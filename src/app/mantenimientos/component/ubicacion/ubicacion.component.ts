@@ -36,6 +36,7 @@ export class UbicacionComponent implements OnInit {
 
     ngOnInit(): void {
         this.getDepartamentos();
+
         this.getProvincia('21');
     }
 
@@ -56,7 +57,7 @@ export class UbicacionComponent implements OnInit {
     }
 
     getProvincia(id: string) {
-        this.ubicacionService.getProvincias(id!).subscribe((resp: any) => {
+        this.ubicacionService.getProvinciasId(id).subscribe((resp: any) => {
             this.dataProvincias = resp.object;
             console.log(resp)
         });
