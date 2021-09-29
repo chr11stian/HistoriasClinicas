@@ -35,6 +35,8 @@ export class CuposComponent implements OnInit {
     cellHour: any;
     cellHoy: any;
     cellTomorrow: any;
+    selectedHorario: any;
+    selectedPersonal: any;
 
     today: Date = new Date();
     jsToday: string = ''
@@ -114,7 +116,7 @@ export class CuposComponent implements OnInit {
             servicio: 'servicio 1'
         },
         estado: '1'
-    },{
+    }, {
         fechaRegistro: '28/09/2021',
         nroCupo: '04',
         descripcion: 'CITA DEL ESTOMAGO',
@@ -229,21 +231,22 @@ export class CuposComponent implements OnInit {
 
     ngOnInit(): void {
         this.today.getHours();
+        let listHorarios: any = [];
         let minutes;
         console.log('lista de cupos', this.listaCupos);
         this.primeNGConfig.ripple = true;
         console.log('hoy', this.today);
-        this.today.setMinutes(this.today.getMinutes() + 30)
-        this.jsToday = formatDate(this.today, 'hh:mm:ss z', 'en-GB', '-0500');
-        console.log('tiempo suma ', this.today)
-
-
+        this.today.setMinutes(this.today.getMinutes() + 30);
+        this.jsToday = formatDate(this.today, 'hh:mm:ss a', 'en-GB', '-0500');
+        console.log('tiempo suma ', this.today);
         console.log('hora nueva ', this.jsToday);
+
+
+        // this.today = this.jsToday.
     }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
-
     }
 
     openModal() {

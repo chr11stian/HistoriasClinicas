@@ -56,68 +56,64 @@
 <!--                 INICIO DIALOG DE CUPOS             -->
 <p-dialog [(visible)]="cuposDialog" [style]="{width: '1080px'}" header="Registrar Cupos" [modal]="true"
     styleClass="p-fluid">
-    <ng-template pTemplate="body">
-        <div class="grid">
-            <div class="p-field col-5">
-                <label>SERVICIO (UPS)</label>
-                <div class="col-10">
-                    <p-dropdown [options]="servicios" [(ngModel)]="selectedServicio"
-                        placeholder="Seleccione un servicio" optionLabel="nombreServicio" [showClear]="false"
-                        (ngModelChange)="changeServicioSelected($event)">
-                    </p-dropdown>
-                </div>
-                <div class="card mt-4">
-                    <p-table [value]="listaPersonal" selectionMode="single" [(selection)]="selectedPersonal"
-                        responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)"
-                        (onRowUnselect)="onRowUnselect($event)">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th>Nro</th>
-                                <th>Apellidos</th>
-                                <th>Nombres</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-data>
-                            <tr [pSelectableRow]="data">
-                                <td>{{ data.nro }}</td>
-                                <td>{{ data.apellidos }}</td>
-                                <td>{{ data.nombres }}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
+    <div class="grid">
+        <div class="p-field col-5">
+            <label>SERVICIO (UPS)</label>
+            <div class="col-10">
+                <p-dropdown [options]="servicios" [(ngModel)]="selectedServicio" placeholder="Seleccione un servicio"
+                    optionLabel="nombreServicio" [showClear]="false" (ngModelChange)="changeServicioSelected($event)">
+                </p-dropdown>
             </div>
-            <!-- <div class="col-1"></div> -->
-            <div class="p-field col-5 ml-4">
-                <label>PERSONA QUE ATIENDE</label>
-                <div lass="col-6">
-                    <h4>{{ personalSelected }}</h4>
-                </div>
-                <p-table [value]="citas" styleClass="p-datatable-gridlines" selectionMode="single"
-                    [(selection)]="selectedHorario" responsiveLayout="scroll" (onRoWSelect)="selectRowHorario($event)"
-                    (onRowUnselect)="unselectHorario($event)" [cellSelection]="'single'">
+            <div class="card mt-4">
+                <p-table [value]="listaPersonal" selectionMode="single" [(selection)]="selectedPersonal"
+                    responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)"
+                    (onRowUnselect)="onRowUnselect($event)">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>Hora Inicio</th>
-                            <th>Hora Fin</th>
-                            <th>Asignado</th>
-                            <th>Nombre</th>
-                            <th style="width: 3rem">
-                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                            </th>
+                            <th>Nro</th>
+                            <th>Apellidos</th>
+                            <th>Nombres</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-data1>
-                        <tr [pSelectableRow]="data1">
-                            <td>{{ data1.horaAtencion }}</td>
-                            <td>{{ data1.horaAtencionFin }}</td>
-                            <td>{{ data1.nroCupo}}</td>
-                            <td>{{ data1.ipress.nombre}}</td>
+                    <ng-template pTemplate="body" let-data>
+                        <tr [pSelectableRow]="data">
+                            <td>{{ data.nro }}</td>
+                            <td>{{ data.apellidos }}</td>
+                            <td>{{ data.nombres }}</td>
                         </tr>
                     </ng-template>
                 </p-table>
+            </div>
+        </div>
+        <div class="p-field col-5 ml-4">
+            <label>PERSONA QUE ATIENDE</label>
+            <div lass="col-6">
+                <h4>{{ personalSelected }}</h4>
+            </div>
+            <p-table [value]="citas" [(selection)]="selectedHorario" dataKey="code">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Hora Inicio</th>
+                        <th>Hora Fin</th>
+                        <th>Asignado</th>
+                        <th>Nombre</th>
+                        <th>Disponible</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data1>
+                    <tr>
+                        <td>{{ data1.horaAtencion }}</td>
+                        <td>{{ data1.horaAtencionFin }}</td>
+                        <td>{{ data1.nroCupo }}</td>
+                        <td>{{ data1.ipress.nombre }}</td>
+                        <td>
+                            <p-tableCheckbox [value]="data1"></p-tableCheckbox>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
 
-                <!-- <p-table [value]="listaHorarios" dataKey="id" (ngModelChange)="clickTable($event)">
+            <!-- <p-table [value]="listaHorarios" dataKey="id" (ngModelChange)="clickTable($event)">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Hora</th>
@@ -165,15 +161,8 @@
                         <p-table [value]=""></p-table>
                     </div>
                 </p-table> -->
-            </div>
         </div>
-        <p-selectButton [options]="justifyOptions" [(ngModel)]="value3">
-            <ng-template let-item>
-                <i [class]="item.icon"></i>
-            </ng-template>
-        </p-selectButton>
-    </ng-template>
-
+    </div>
     <ng-template pTemplate=footer>
         <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogCupos()"></button>
         <button pButton type="button" label="Guardar" (click)="aceptarDialogCupos()"></button>
