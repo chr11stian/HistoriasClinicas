@@ -45,13 +45,42 @@ export class UbicacionService {
         return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/ubigeo/${ubigeo}`);
     }
 
-    getProvinciasId(id: string) {
+    getProvinciasId2(id: string) {
         return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/provincias/${id}`);
     }
 
 
-    private handleError(error: HttpErrorResponse): Observable<any> {
-        console.log(error);
-        return throwError("Ubicacion algo salió mal");
+    getProvinces(id: string) {
+        return this.http.post(`${this.base_url}/${this.bd}` + '/api/ubicacion/provincias', {
+            selector: {
+                id: {
+                    "$regex": id + "(?i)"
+                }
+            },
+            fields: ["nombre", "id"]
+        })
     }
+
+    getDistritos(id: string) {
+        return this.http.post(`${this.base_url}/${this.bd}` + '/api/ubicacion/distritos', {
+            selector: {
+                id: {
+                    "$regex": id + "(?i)"
+                }
+            },
+            fields: ["nombre", "id"]
+        })
+    }
+
+    getCentrosPoblados(id: string) {
+        return this.http.post(`${this.base_url}/${this.bd}` + '/api/ubicacion/ccpp', {
+            selector: {
+                id: {
+                    "$regex": id + "(?i)"
+                }
+            },
+            fields: ["nombre", "id"]
+        })
+    }
+
 }
