@@ -4,12 +4,20 @@ import { TipoPersonalComponent } from "./component/tipo-personal/tipo-personal.c
 import { CoreModule } from "../core/core.module";
 import { MantenimentosRoutingModule } from "./mantenimentos-routing.module";
 import { PrimeModule } from "../shared/prime/prime.module";
-import { TipoPersonalModalComponent } from './component/tipo-personal-modal/tipo-personal-modal.component';
+import { TipoPersonalModalComponent } from "./component/tipo-personal-modal/tipo-personal-modal.component";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [TipoPersonalComponent, TipoPersonalModalComponent],
   exports: [TipoPersonalComponent],
 
-  imports: [CommonModule, CoreModule, MantenimentosRoutingModule, PrimeModule],
+  imports: [
+    CommonModule,
+    CoreModule,
+    MantenimentosRoutingModule,
+    PrimeModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
 })
 export class MantenimientosModule {}
