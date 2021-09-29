@@ -1,5 +1,5 @@
 export interface Ubicacion {
-    id?: number;
+    id?: string;
     ubigeo?: string;
     iddd?: string;
     departamento?: string;
@@ -10,8 +10,19 @@ export interface Ubicacion {
     idccpp?: string;
     ccpp?: string;
     latitude?: string;
-    longitude?: string;
-    poblacion?: string;
+    longitude?: boolean;
+    poblacion?: boolean;
     altura?: string;
     es_Capital?: string;
+}
+
+
+export interface Departamentos {
+    id?: string;
+    departamento?: string;
+}
+
+export interface Provincias {
+    id?: string;
+    provincia?: string;
 }

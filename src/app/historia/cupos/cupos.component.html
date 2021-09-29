@@ -25,7 +25,6 @@
                         placeholder="DNI...">
                 </span>
             </div>
-
         </ng-template>
 
         <ng-template class="ng-template" pTemplate="header">
@@ -90,7 +89,7 @@
             <div lass="col-6">
                 <h4>{{ personalSelected }}</h4>
             </div>
-            <p-table [value]="citas" [(selection)]="selectedHorario" dataKey="code">
+            <p-table [value]="citas" [(selection)]="selectedHorario" dataKey="nroCupo">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Hora Inicio</th>
@@ -100,72 +99,23 @@
                         <th>Disponible</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-data1>
+                <ng-template pTemplate="body" let-data>
                     <tr>
-                        <td>{{ data1.horaAtencion }}</td>
-                        <td>{{ data1.horaAtencionFin }}</td>
-                        <td>{{ data1.nroCupo }}</td>
-                        <td>{{ data1.ipress.nombre }}</td>
+                        <td>{{ data.horaAtencion }}</td>
+                        <td>{{ data.horaAtencionFin }}</td>
+                        <td>{{ data.nroCupo }}</td>
+                        <td>{{ data.ipress.nombre }}</td>
                         <td>
-                            <p-tableCheckbox [value]="data1"></p-tableCheckbox>
+                            <p-tableCheckbox [value]="data"></p-tableCheckbox>
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
-
-            <!-- <p-table [value]="listaHorarios" dataKey="id" (ngModelChange)="clickTable($event)">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Hora</th>
-                            <th>Hoy</th>
-                            <th>Mañana</th>
-                        </tr>
-                    </ng-template>
-                     <ng-template pTemplate="body" let-item>
-                        <tr>
-                            <td pEditableColumn>
-                                <p-cellEditor>
-                                    <ng-template pTemplate="text">
-                                        <input type="text" pInputText [(ngModel)]="cellHour">
-                                    </ng-template>
-                                    <ng-template pTemplate="output">
-                                        {{ item.hour }}
-                                    </ng-template>
-                                </p-cellEditor>
-                            </td>
-
-                            <td pEditableColumn>
-                                <p-cellEditor >
-                                    <ng-template pTemplate="input">
-                                        <input type="text" pInputText [(ngModel)]="cellHoy" [disabled]="item.today">
-                                    </ng-template>
-                                    <ng-template pTemplate="output">
-                                        {{ item.today }}
-                                    </ng-template>
-                                </p-cellEditor>
-                            </td>
-
-                            <td pEditableColumn>
-                                <p-cellEditor>
-                                    <ng-template pTemplate="input">
-                                        <input type="text" pInputText [(ngModel)]="cellTomorrow">
-                                    </ng-template>
-                                    <ng-template pTemplate="output">
-                                        {{ item.tomorrow }}
-                                    </ng-template>
-                                </p-cellEditor>
-                            </td>
-                        </tr>
-                    </ng-template> 
-                    <div class="card">
-                        <p-table [value]=""></p-table>
-                    </div>
-                </p-table> -->
         </div>
     </div>
     <ng-template pTemplate=footer>
         <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogCupos()"></button>
-        <button pButton type="button" label="Guardar" (click)="aceptarDialogCupos()"></button>
+        <button pButton type="button" label="Siguiente" (click)="aceptarDialogCupos()"></button>
     </ng-template>
 
 </p-dialog>
@@ -182,8 +132,8 @@
                     <div class="grid m-2">
                         <div class="p-field col-3">
                             <label class="ml-2 font-bold">Tipo de Documento</label>
-                            <p-dropdown [options]="servicios" [(ngModel)]="selectedTipoDocumento"
-                                placeholder="Tipo Documento" optionLabel="nombreServicio" [showClear]="false"
+                            <p-dropdown [options]="docIdentidad" [(ngModel)]="selectedTipoDocumento"
+                                placeholder="Tipo Documento" optionLabel="abreviatura" [showClear]="false"
                                 (ngModelChange)="changeServicioSelected($event)">
                             </p-dropdown>
                         </div>
@@ -303,6 +253,10 @@
                 </div>
             </div>
         </div>
+    </ng-template>
+    <ng-template pTemplate=footer>
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="cancelarPersona()"></button>
+        <button pButton type="button" label="Guardar" (click)="GuardarPersona()"></button>
     </ng-template>
 </p-dialog>
 <!--                FIN MODAL DE USUARIOS                -->

@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "apellidos": "huaman rojas",
+      "nombres": "Ignacio",
+      "especialidad": "obstetricia"
+    },
+    {
+      "apellidos": "vargas rojas",
+      "nombres": "fidel",
+      "especialidad": "obstetricia"
+    },
+    {
+      "apellidos": "quispe palomino",
+      "nombres": "dany",
+      "especialidad": "obstetricia"
+    },
+    {
+      "apellidos": "huaman rimachi",
+      "nombres": "jefrey",
+      "especialidad": "obstetricia"
+    },
+    {
+      "apellidos": "mamani huaman",
+      "nombres": "juan",
+      "especialidad": "obstetricia"
+    }
+  ]
+}

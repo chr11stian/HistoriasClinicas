@@ -142,10 +142,6 @@ export class SideBarComponent implements OnInit {
                     },
                     {
                         label: 'Usuarios', icon: 'pi pi-pw pi-file', routerLink: 'historia/usuarios',
-                    },
-
-                    {
-                        label: 'Ubicacion', icon: 'pi pi-pw pi-file', routerLink: 'historia/ubicacion',
                     }
                 ],
             },
@@ -160,6 +156,11 @@ export class SideBarComponent implements OnInit {
                     {
                         icon: 'pi pi-file',
                         label: 'Tipo Personal', routerLink: 'mantenimientos/tipo-personal'
+                    },
+
+                    {
+                        icon: 'pi pi-pw pi-file',
+                        label: 'Colegio Profesional', routerLink: 'mantenimientos/colegio-profesional',
                     }
                 ],
             },
@@ -174,6 +175,20 @@ export class SideBarComponent implements OnInit {
                     {
                         icon: 'pi pi-file',
                         label: 'Medicina General', routerLink: 'historia/medicina_general'
+                    }
+                ],
+            },
+
+            {
+                label: 'Mantenimientos',
+                items: [
+                    {
+                        icon: 'pi pi-file',
+                        label: 'Tipo Personal', routerLink: 'mantenimientos/tipo-personal'
+                    },
+
+                    {
+                        label: 'Ubicacion', icon: 'pi pi-pw pi-file', routerLink: 'mantenimientos/ubicacion',
                     }
                 ],
             },

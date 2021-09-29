@@ -20,10 +20,10 @@ const routes: Routes = [
                 component: InicioComponent,
             },
 
-            {
-                path: "rol",
-                loadChildren: () => import('src/app/rol/rol.module').then(n => n.RolModule),
-            },
+            // {
+            //     path: "rol",
+            //     loadChildren: () => import('src/app/rol/rol.module').then(n => n.RolModule),
+            // },
             {
                 path: "historia",
                 loadChildren: () => import('src/app/historia/historia.module').then(n => n.HistoriaModule),

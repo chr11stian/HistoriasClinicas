@@ -7,6 +7,7 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { Cupo } from '../../core/models/cupo.models';
 
 @Component({
     selector: 'app-cupos',
@@ -35,14 +36,14 @@ export class CuposComponent implements OnInit {
     cellHour: any;
     cellHoy: any;
     cellTomorrow: any;
-    selectedHorario: any;
+    selectedHorario: Cupo;
     selectedPersonal: any;
 
     today: Date = new Date();
     jsToday: string = ''
 
-    citas: any = [{
-        fechaRegistro: '28/09/2021',
+    citas: Cupo[] = [{
+        fecharegistro: '28/09/2021',
         nroCupo: '01',
         descripcion: 'CITA DEL ESTOMAGO',
         horaAtencion: '08:00',
@@ -67,7 +68,7 @@ export class CuposComponent implements OnInit {
         },
         estado: '1'
     }, {
-        fechaRegistro: '28/09/2021',
+        fecharegistro: '28/09/2021',
         nroCupo: '02',
         descripcion: 'CITA DEL ESTOMAGO',
         horaAtencion: '08:30',
@@ -92,7 +93,7 @@ export class CuposComponent implements OnInit {
         },
         estado: '1'
     }, {
-        fechaRegistro: '28/09/2021',
+        fecharegistro: '28/09/2021',
         nroCupo: '03',
         descripcion: 'CITA DEL ESTOMAGO',
         horaAtencion: '09:00',
@@ -117,7 +118,7 @@ export class CuposComponent implements OnInit {
         },
         estado: '1'
     }, {
-        fechaRegistro: '28/09/2021',
+        fecharegistro: '28/09/2021',
         nroCupo: '04',
         descripcion: 'CITA DEL ESTOMAGO',
         horaAtencion: '12:00',
@@ -209,8 +210,26 @@ export class CuposComponent implements OnInit {
         fechaAtencion: '20/08/2021'
     }]
 
-
-
+    docIdentidad: any = [{
+        id: '001',
+        nombre: 'Documento Nacional de Identidad',
+        longitud: '8',
+        estado: '1',
+        abreviatura: 'DNI'
+    }, {
+        id: '002',
+        nombre: 'Pasaporte',
+        longitud: '12',
+        estado: '1',
+        abreviatura: 'PASAPORTE'
+    }, {
+        id: '003',
+        nombre: 'CARNET DE EXTRANJERIA',
+        longitud: '12',
+        estado: '1',
+        abreviatura: '	CARNET EXT'
+    }]
+    
     constructor(
         private config: DynamicDialogConfig,
         private router: Router,
@@ -250,10 +269,17 @@ export class CuposComponent implements OnInit {
     }
 
     openModal() {
+        this.selectedHorario = null;
         this.cuposDialog = true;
     }
 
     aceptarDialogCupos() {
+        let auxCupo: any = this.selectedHorario;
+        if (auxCupo.length != 1) {
+            console.log('no se puede seleccionar 2 horarios al mismo tiempo')
+            return;
+        }
+        console.log('horario ', this.selectedHorario)
         console.log('selected servicio ', this.selectedServicio)
         this.cuposDialog = false;
         this.openDialog2();
@@ -261,6 +287,7 @@ export class CuposComponent implements OnInit {
 
     closeDialogCupos() {
         this.cuposDialog = false;
+        this.selectedHorario = {};
         Swal.fire({
             position: 'center',
             icon: 'error',
@@ -299,5 +326,16 @@ export class CuposComponent implements OnInit {
 
     clickTable(event) {
         console.log('click desde un div ', event);
+    }
+
+    GuardarPersona() {
+        this.selectedHorario = {};
+        this.usuarioDialog = false;
+    }
+    cancelarPersona() {
+        console.log('cancelar')
+        this.selectedHorario = {};
+        this.usuarioDialog = false;
+
     }
 }

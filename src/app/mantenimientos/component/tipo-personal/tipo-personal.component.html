@@ -1,1 +1,47 @@
-<p>tipo-personal works!</p>
+<p-table
+  [value]="data"
+  #dt
+  styleClass="p-datatable-gridlines   "
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [paginator]="true"
+  [autoLayout]="true"
+  currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between">
+      <h3>Lista de tipos de personal</h3>
+      <button
+        pButton
+        type="button"
+        label="Agregar"
+        icon="pi pi-plus"
+        (click)="agregar()"
+        pTooltip="Agregar tipo de personal"
+        tooltipPosition="bottom"
+        class="p-button-danger p-button-sm"
+        pRipple
+      ></button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+    <tr>
+      <th>Nro</th>
+      <th>Nombre</th>
+      <th>Profesinal</th>
+      <th>Abreviatura</th>
+      <th>Especialidad</th>
+      <th>Estado</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+    <tr>
+      <td>{{ rowIndex + 1 }}</td>
+      <td>{{ rowData.nombre }}</td>
+      <td>{{ rowData.esProfesional }}</td>
+      <td>{{ rowData.abreviatura }}</td>
+      <td>{{ rowData.especialidad }}</td>
+      <td>{{ rowData.estado }}</td>
+    </tr>
+  </ng-template>
+</p-table>
