@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
-import { PrimeNGConfig } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -229,11 +229,12 @@ export class CuposComponent implements OnInit {
         estado: '1',
         abreviatura: '	CARNET EXT'
     }]
-    
+
     constructor(
         private config: DynamicDialogConfig,
         private router: Router,
-        private primeNGConfig: PrimeNGConfig
+        private primeNGConfig: PrimeNGConfig,
+        private messageService: MessageService,
     ) {
         this.justifyOptions = [
             { icon: "pi pi-align-left", justify: "Left" },
@@ -276,7 +277,14 @@ export class CuposComponent implements OnInit {
     aceptarDialogCupos() {
         let auxCupo: any = this.selectedHorario;
         if (auxCupo.length != 1) {
-            console.log('no se puede seleccionar 2 horarios al mismo tiempo')
+            this.messageService.add({severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario' });
+            // Swal.fire({
+            //     position: 'center',
+            //     icon: 'warning',
+            //     title: 'Debe seleccionar solo un horario',
+            //     showConfirmButton: false,
+            //     timer: 1500
+            // })
             return;
         }
         console.log('horario ', this.selectedHorario)
