@@ -189,6 +189,11 @@ export class SideBarComponent implements OnInit {
                     {
                         icon: 'pi pi-pw pi-file',
                         label: 'Colegio Profesional', routerLink: 'mantenimientos/colegio-profesional',
+                    },
+
+                    {
+                        icon: 'pi pi-pw pi-file',
+                        label: 'Especialidad', routerLink: 'mantenimientos/especialidad',
                     }
                 ],
             },

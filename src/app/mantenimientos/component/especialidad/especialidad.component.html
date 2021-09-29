@@ -1,0 +1,107 @@
+<div class="grid">
+    <div class="col-5">
+      <p-card class="m-0 ">
+          <h2 *ngIf="!isUpdate">Ingrese nueva especialidad</h2>
+          <h2 *ngIf="isUpdate">Edite especialidad</h2>
+        
+          <form [formGroup]='form'>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label id="idSis">ID SIS:</label>
+                    <input type="text" pInputText formControlName='idSis' required autofocus />
+                </div>
+            </div>
+            <br/>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label id="nombre">Nombre Especialidad:</label>
+                    <input type="text" pInputText formControlName='nombre' required />
+                </div>
+            </div>
+        </form> 
+            <h4>Estado:</h4>
+            <div class="flex justify-content-center">
+                <div class="p-field-radiobutton mr-7">
+                    <p-radioButton (onClick)="test()" name="estado" value=true [(ngModel)]="estado" inputId="estado1"></p-radioButton>
+                    <label for="estado1">Activo</label>
+                </div>
+                <div class="p-field-radiobutton ml-7">
+                    <p-radioButton (onClick)="test()" name="estado" value=false [(ngModel)]="estado" inputId="estado2"></p-radioButton>
+                    <label for="estado2"> Desactivado</label>
+                </div>
+            </div>           
+            <br/>
+            <div class="flex justify-content-end">
+                <button *ngIf="!isUpdate" pButton type="button" label="Guardar Nuevo" (click)="saveForm()" class="m-1 w-9rem"></button>
+                <button *ngIf="isUpdate" pButton type="button" label="Guardar edición" (click)="editarDatos()" class="m-1 w-9rem"></button>
+                <button
+                  pButton
+                  type="button"
+                  label="Nuevo"
+                  icon="pi pi-plus"
+                  (click)="guardarNuevo()"
+                  pTooltip="Agregar especialidad"
+                  tooltipPosition="right"
+                  class="p-button-danger m-1 w-9rem"
+                  pRipple
+                ></button>
+            </div>
+          
+      </p-card>
+    </div>
+  <div class="col-7">
+      <p-table
+        [value]="datosprueba"
+        #dt
+        styleClass="p-datatable-gridlines"
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="true"
+        [autoLayout]="true"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
+      >
+        <ng-template pTemplate="caption">
+          <div class="flex justify-content-between">
+            <h3>Lista de especialidades</h3>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+          <tr>
+            <th>Nro</th>
+            <th>ID SIS</th>
+            <th>Nombre</th>
+            <th>Estado</th>
+            <th>Acción</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+          <tr>
+            <td>{{ rowIndex + 1 }}</td>
+            <td>{{ rowData.idSis }}</td>
+            <td>{{ rowData.nombre }}</td>
+            <td>
+                <p-tag *ngIf="rowData.estado" styleClass="p-mr-2" severity="success" value="Activo" [rounded]="true"></p-tag>
+                <p-tag *ngIf="!rowData.estado" styleClass="p-mr-2" severity="danger" value="Desactivado" [rounded]="true"></p-tag>
+            </td>
+            <td>
+                <button pButton
+                  (click)="editar(rowData)"
+                  pTooltip="Editar especialidad"
+                  pRipple type="button" 
+                  icon="pi pi-pencil" 
+                  class="p-button-rounded m-1">
+                </button>
+                <button pButton
+                  (click)="eliminar(rowData)"
+                  pTooltip="Eliminar especialidad"
+                  pRipple type="button" 
+                  icon="pi pi-times" 
+                  class="p-button-rounded p-button-danger m-1">
+                </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+  </div>
+</div>
+
