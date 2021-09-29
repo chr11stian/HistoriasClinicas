@@ -1,5 +1,5 @@
 <div class="grid">
-    <div class="col-5">
+    <div class="col-4">
         <p-card class="m-0 ">
             <h2 *ngIf="!isUpdate">Ingrese nuevo colegio profesional</h2>
             <h2 *ngIf="isUpdate">Edite colegio profesional</h2>
@@ -39,7 +39,7 @@
             </form>
         </p-card>
     </div>
-    <div class="col-7">
+    <div class="col-8">
         <p-table
                 [value]="data"
                 #dt
@@ -80,7 +80,7 @@
                                 (click)="eliminar(rowData)"
                                 pTooltip="Eliminar colegio profesional"
                                 pRipple type="button"
-                                icon="pi pi-times"
+                                icon="pi pi-trash"
                                 class="p-button-rounded p-button-danger m-1">
                         </button>
                     </td>
