@@ -19,7 +19,7 @@ export class UbicacionComponent implements OnInit {
     departamento: Departamentos;
     selected_Departamentos: any;
 
-    provincia: Provincias
+    provincias: Provincias[]
     ubicacionDialog: boolean;
     data: any;
     dataDepartamntos: any;
@@ -37,7 +37,7 @@ export class UbicacionComponent implements OnInit {
     ngOnInit(): void {
         this.getDepartamentos();
 
-        this.getProvincia('21');
+        this.geID(2);
     }
 
 
@@ -56,13 +56,20 @@ export class UbicacionComponent implements OnInit {
 
     }
 
-    getProvincia(id: string) {
+    // getProvinciaID(id) {
+    //     this.ubicacionService.getProvinciasId(id).subscribe((resp: any) => {
+    //         this.dataProvincias = resp;
+    //         console.log(resp)
+    //     });
+    // }
+
+    geID(id) {
         this.ubicacionService.getProvinciasId(id).subscribe((resp: any) => {
             this.dataProvincias = resp.object;
-            console.log(resp)
-        });
+            console.log("result");
+        })
+        // console.log("result");
     }
-
 
     editUbicacion(ubicacion: Ubicacion) {
         this.ubicacion = {...ubicacion};

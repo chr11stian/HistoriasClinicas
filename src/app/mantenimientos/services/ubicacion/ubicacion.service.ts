@@ -33,32 +33,20 @@ export class UbicacionService {
     //     return this._refresh;
     // }
 
-    getUbicacion(): Observable<Ubicacion[]> {
-        return this.http.get<Ubicacion[]>(`${this.base_url}/historiasclinicas/api/ubicacion/listar?page=1`);
+    getUbicacion() {
+        return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/listar?page=1`);
+    }
+
+    getDepartamentos() {
+        return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/departamentos`);
     }
 
     getUbicacionUbigeo(ubigeo: string) {
-        return this.http.get<Ubicacion[]>(`${this.base_url}/historiasclinicas/api/ubicacion/ubigeo/${ubigeo}`);
+        return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/ubigeo/${ubigeo}`);
     }
 
-    getDepartamentos(): Observable<Departamentos[]> {
-        return this.http.get<Departamentos[]>(`${this.base_url}/historiasclinicas/api/ubicacion/departamentos`);
-
-    }
-
-
-    getProvincia(iddd) {
-        return this.http.get<any>(`${this.base_url}/${this.bd}/api/ubicacion/provincias`, iddd)
-    }
-
-
-    getProvinciasId(id: string): Observable<Provincias> {
-        return this.http.get<Provincias>(`${this.base_url}/historiasclinicas/api/ubicacion/provincias/${id}`);
-    }
-
-
-    agregarPersonal(ubicacion: Ubicacion): Observable<Personal> {
-        return this.http.post<Personal>(`${this.base_url}/historiasclinicas/api/save/cpp`, ubicacion)
+    getProvinciasId(id: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/provincias/${id}`);
     }
 
 

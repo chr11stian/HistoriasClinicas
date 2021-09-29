@@ -16,7 +16,7 @@
         type="button"
         label="Agregar"
         icon="pi pi-plus"
-        (click)="agregar()"
+        (click)="isUpdate = false; agregarActualizar()"
         pTooltip="Agregar tipo de personal"
         tooltipPosition="bottom"
         class="p-button-danger p-button-sm"
@@ -26,22 +26,97 @@
   </ng-template>
   <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
     <tr>
-      <th>Nro</th>
-      <th>Nombre</th>
-      <th>Profesinal</th>
-      <th>Abreviatura</th>
-      <th>Especialidad</th>
-      <th>Estado</th>
+      <th class="text-center">Nro</th>
+      <th class="text-center">Nombre</th>
+      <th class="text-center">Es profesinal</th>
+      <th class="text-center">Abreviatura</th>
+      <th class="text-center">Especialidad</th>
+      <th class="text-center">Estado</th>
+      <th class="text-center">Acciones</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
     <tr>
-      <td>{{ rowIndex + 1 }}</td>
-      <td>{{ rowData.nombre }}</td>
-      <td>{{ rowData.esProfesional }}</td>
-      <td>{{ rowData.abreviatura }}</td>
-      <td>{{ rowData.especialidad }}</td>
-      <td>{{ rowData.estado }}</td>
+      <td class="text-center text-800">{{ rowIndex + 1 }}</td>
+      <td class="text-center text-800">{{ rowData.nombre }}</td>
+      <td class="text-center text-800">
+        <span class="p-column-title">Es profesional</span>
+        <div *ngIf="rowData.esProfesional; else inactive">
+          <!-- <p-tag
+            icon="pi pi-check"
+            styleClass="p-mr-2"
+            severity="success"
+            value="Activo"
+          >
+          </p-tag> -->
+          Si
+        </div>
+        <ng-template #inactive>
+          <!-- <p-tag
+            icon="pi pi-times"
+            styleClass="p-mr-2"
+            severity="warning"
+            value="Inactivo"
+          >
+          </p-tag> -->
+          No
+        </ng-template>
+      </td>
+      <td class="text-center text-800">{{ rowData.abreviatura }}</td>
+      <td class="text-center text-800">{{ rowData.especialidad }}</td>
+      <td class="text-center text-800">
+        <span class="p-column-title">Estado</span>
+        <div *ngIf="rowData.estado; else inactive1">
+          <!-- <p-tag
+            icon="pi pi-check"
+            styleClass="p-mr-2"
+            severity="success"
+            value="Activo"
+          >
+          </p-tag> -->
+          Activo
+        </div>
+        <ng-template #inactive1>
+          <!-- <p-tag
+            icon="pi pi-times"
+            styleClass="p-mr-2"
+            severity="warning"
+            value="Inactivo"
+          >
+          </p-tag> -->
+          No Activo
+        </ng-template>
+      </td>
+      <td class="flex justify-content-between">
+        <span class="p-column-title">Acciones</span>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          (click)="isUpdate = true; agregarActualizar(rowIndex)"
+          pTooltip="Editar tipo personal"
+          tooltipPosition="bottom"
+          class="p-button-raised p-button-info p-button-rounded"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          (click)="deleteTP(rowIndex)"
+          icon="pi pi-trash"
+          pTooltip="Eliminar tipo personal"
+          tooltipPosition="bottom"
+          class="p-button-raised p-button-danger p-button-rounded"
+        ></button>
+      </td>
     </tr>
   </ng-template>
 </p-table>
+<p-confirmDialog
+  [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
+  [style]="{ width: '25vw' }"
+  key="positionDialog"
+  [baseZIndex]="10000"
+>
+</p-confirmDialog>
