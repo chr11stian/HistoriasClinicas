@@ -23,6 +23,21 @@ export interface Departamentos {
 }
 
 export interface Provincias {
-    id?: string;
+    iddd: string;
     provincia?: string;
+}
+
+export interface filtroIds {
+    departamento: number;
+    provincia: number;
+    distrito: number;
+    comunidad: number;
+    ccpp: number;
+}
+
+export interface Filtro{
+    iddd: string;
+    idpp: string;
+    iddis: string;
+    idccpp: string;
 }

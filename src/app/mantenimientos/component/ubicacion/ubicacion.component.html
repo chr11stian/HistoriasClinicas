@@ -63,11 +63,10 @@
 
 
 <p-dialog [(visible)]="ubicacionDialog" [style]="{width: '1080px'}" header="Registrar Ubicación"
-          [modal]="true" [responsive]="dataDepartamntos"
+          [modal]="true" [responsive]="departamentos"
           styleClass="p-fluid">
     <br>
     <ng-template pTemplate="body">
-
         <div class="grid">
             <div class="p-field col-4">
                 <label>CENTRO POBLADO</label>
@@ -83,7 +82,7 @@
             <div class=" col-4">
                 <label>DEPARTAMENTO</label>
                 <div class="p-field">
-                    <p-dropdown inputId="dropdown" [options]="dataDepartamntos"
+                    <p-dropdown inputId="dropdown" [options]="departamentos"
                                 [(ngModel)]="ubicacion.departamento"
                                 optionLabel="departamento"
                                 defaultLabel="Seleccione un Departamento"
@@ -96,7 +95,7 @@
             <div class="p-field col-4">
                 <label>PROVINCIA</label>
                 <div class="p-field">
-                    <p-dropdown inputId="dropdown" [options]="data"
+                    <p-dropdown inputId="dropdown" [options]="provincias"
                                 [(ngModel)]="ubicacion.provincia"
                                 optionLabel="provincia"
                                 defaultLabel="Seleccione un Departamento"
