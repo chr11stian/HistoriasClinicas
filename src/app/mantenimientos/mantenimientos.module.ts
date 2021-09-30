@@ -1,3 +1,4 @@
+
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { TipoPersonalComponent } from "./component/tipo-personal/tipo-personal.component";
@@ -15,6 +16,7 @@ import { EspecialidadComponent } from "./component/especialidad/especialidad.com
 import { TipoTurnoComponent } from "./component/tipo-turno/tipo-turno.component";
 import { TipoTurnoModalComponent } from "./component/tipo-turno-modal/tipo-turno-modal.component";
 import { RolGuardiaComponent } from './component/rol-guardia/rol-guardia.component';
+
 
 @NgModule({
   declarations: [
