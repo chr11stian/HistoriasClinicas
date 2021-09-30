@@ -31,27 +31,14 @@
   </div>
   <div class="p-field col-12 md:col-6">
     <label for="name">Abreviatura</label>
-    <input
-      type="text"
-      pInputText
-      id="name"
-      formControlName="abreviatura"
-      autofocus
-    />
+    <input type="text" pInputText id="name" formControlName="abreviatura" />
     <small class="p-error" *ngIf="isInvalid('abreviatura')">
       *Nombre del tipo personal es necesario
     </small>
   </div>
   <div class="p-field col-12 md:col-6">
     <label for="name">Especialidad</label>
-    <input
-      type="text"
-      pInputText
-      id="name"
-      formControlName="especialidad"
-      required
-      autofocus
-    />
+    <input type="text" pInputText id="name" formControlName="especialidad" />
     <small class="p-error" *ngIf="isInvalid('especialidad')">
       *Nombre del tipo personal es necesario
     </small>

@@ -6,9 +6,11 @@ import { MantenimentosRoutingModule } from "./mantenimentos-routing.module";
 import { PrimeModule } from "../shared/prime/prime.module";
 import { TipoPersonalModalComponent } from "./component/tipo-personal-modal/tipo-personal-modal.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { TipoTurnoComponent } from './component/tipo-turno/tipo-turno.component';
+import { TipoTurnoModalComponent } from './component/tipo-turno-modal/tipo-turno-modal.component';
 
 @NgModule({
-  declarations: [TipoPersonalComponent, TipoPersonalModalComponent],
+  declarations: [TipoPersonalComponent, TipoPersonalModalComponent, TipoTurnoComponent, TipoTurnoModalComponent],
   exports: [TipoPersonalComponent],
 
   imports: [
