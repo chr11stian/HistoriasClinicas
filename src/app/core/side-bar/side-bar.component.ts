@@ -110,118 +110,136 @@
 //     }
 // }
 
-
-import {Component, Input, OnInit} from '@angular/core';
-import {FilterService, MenuItem} from 'primeng/api';
-import {Router} from "@angular/router";
+import { Component, Input, OnInit } from "@angular/core";
+import { FilterService, MenuItem } from "primeng/api";
+import { Router } from "@angular/router";
 
 @Component({
-    selector: 'app-side-bar',
-    templateUrl: './side-bar.component.html',
-    styleUrls: ['./side-bar.component.css'],
+  selector: "app-side-bar",
+  templateUrl: "./side-bar.component.html",
+  styleUrls: ["./side-bar.component.css"],
 })
 export class SideBarComponent implements OnInit {
-    model: MenuItem[];
-    items: MenuItem[];
-    filteredRoutes: any[];
-    selectedRoute: any;
-    @Input() active: boolean;
+  model: MenuItem[];
+  items: MenuItem[];
+  filteredRoutes: any[];
+  selectedRoute: any;
+  @Input() active: boolean;
 
-    activeSubmenus: { [key: string]: boolean } = {};
+  activeSubmenus: { [key: string]: boolean } = {};
 
-    constructor(private filterService: FilterService, private router: Router) {
+  constructor(private filterService: FilterService, private router: Router) {}
+
+  ngOnInit() {
+    this.model = [
+      {
+        label: "Administrador del Sistema",
+        items: [
+          {
+            label: "Personal de Salud",
+            icon: "pi pi-pw pi-file",
+            routerLink: "historia/personal-salud",
+          },
+          {
+            label: "Usuarios",
+            icon: "pi pi-pw pi-file",
+            routerLink: "historia/usuarios",
+          },
+        ],
+      },
+      {
+        label: "Funciones Administrativas",
+        items: [
+          {
+            icon: "pi pi-file",
+            label: "Cupos",
+            routerLink: "historia/cupos",
+          },
+
+          {
+            icon: "pi pi-file",
+            label: "Tipo Personal",
+            routerLink: "mantenimientos/tipo-personal",
+          },
+        ],
+      },
+
+      {
+        label: "Funciones Asistenciales",
+        items: [
+          {
+            icon: "pi pi-file",
+            label: "Enfermeria",
+            routerLink: "historia/enfermeria",
+          },
+          {
+            icon: "pi pi-file",
+            label: "Medicina General",
+            routerLink: "historia/medicina_general",
+          },
+        ],
+      },
+
+      {
+        label: "Mantenimientos",
+        items: [
+          {
+            icon: "pi pi-file",
+            label: "Tipo Personal",
+            routerLink: "mantenimientos/tipo-personal",
+          },
+          {
+            icon: "pi pi-pw pi-file",
+            label: "Tipo Turno",
+            routerLink: "mantenimientos/tipo-turno",
+          },
+          {
+            label: "Ubicacion",
+            icon: "pi pi-pw pi-file",
+            routerLink: "mantenimientos/ubicacion",
+          },
+
+          {
+            icon: "pi pi-pw pi-file",
+            label: "Colegio Profesional",
+            routerLink: "mantenimientos/colegio-profesional",
+          },
+
+          {
+            icon: "pi pi-pw pi-file",
+            label: "Especialidad",
+            routerLink: "mantenimientos/especialidad",
+          },
+        ],
+      },
+    ];
+  }
+
+  filterGroupedRoute(event) {
+    let query = event.query;
+    let filteredGroups = [];
+
+    for (let optgroup of this.items) {
+      let filteredSubOptions = this.filterService.filter(
+        optgroup.items,
+        ["label"],
+        query,
+        "contains"
+      );
+      if (filteredSubOptions && filteredSubOptions.length) {
+        filteredGroups.push({
+          label: optgroup.label,
+          url: optgroup.url,
+          items: filteredSubOptions,
+        });
+      }
     }
 
-    ngOnInit() {
-        this.model = [
-            {
-                label: 'Administrador del Sistema',
-                items: [
-                    {
-                        label: 'Personal de Salud', icon: 'pi pi-pw pi-file', routerLink: 'historia/personal-salud',
-                    },
-                    {
-                        label: 'Usuarios', icon: 'pi pi-pw pi-file', routerLink: 'historia/usuarios',
-                    }
-                ],
-            },
-            {
-                label: 'Funciones Administrativas',
-                items: [
-                    {
-                        icon: 'pi pi-file',
-                        label: 'Cupos', routerLink: 'historia/cupos'
-                    },
+    this.filteredRoutes = filteredGroups;
+  }
 
-                    {
-                        icon: 'pi pi-file',
-                        label: 'Tipo Personal', routerLink: 'mantenimientos/tipo-personal'
-                    }
-                ],
-            },
-
-            {
-                label: 'Funciones Asistenciales',
-                items: [
-                    {
-                        icon: 'pi pi-file',
-                        label: 'Enfermeria', routerLink: 'historia/enfermeria'
-                    },
-                    {
-                        icon: 'pi pi-file',
-                        label: 'Medicina General', routerLink: 'historia/medicina_general'
-                    }
-                ],
-            },
-
-            {
-                label: 'Mantenimientos',
-                items: [
-                    {
-                        icon: 'pi pi-file',
-                        label: 'Tipo Personal', routerLink: 'mantenimientos/tipo-personal'
-                    },
-
-                    {
-                        label: 'Ubicacion', icon: 'pi pi-pw pi-file', routerLink: 'mantenimientos/ubicacion',
-                    },
-
-                    {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Colegio Profesional', routerLink: 'mantenimientos/colegio-profesional',
-                    },
-
-                    {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Especialidad', routerLink: 'mantenimientos/especialidad',
-                    }
-                ],
-            },
-
-        ];
-    }
-
-
-    filterGroupedRoute(event) {
-        let query = event.query;
-        let filteredGroups = [];
-
-        for (let optgroup of this.items) {
-            let filteredSubOptions = this.filterService.filter(optgroup.items, ['label'], query, "contains");
-            if (filteredSubOptions && filteredSubOptions.length) {
-                filteredGroups.push({
-                    label: optgroup.label,
-                    url: optgroup.url,
-                    items: filteredSubOptions
-                });
-            }
-        }
-
-        this.filteredRoutes = filteredGroups;
-    }
-
-    onSelect(event) {
-        this.selectedRoute = null;
-        this.router.navigate([event.url]);
-    }
+  onSelect(event) {
+    this.selectedRoute = null;
+    this.router.navigate([event.url]);
+  }
 }
