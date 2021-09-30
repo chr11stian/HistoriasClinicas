@@ -12,6 +12,8 @@ import {ColegioProfesionalComponent} from "./component/colegio-profesional/coleg
 import {TreeSelectModule} from "primeng/treeselect";
 import {MultiSelectModule} from "primeng/multiselect";
 import { EspecialidadComponent } from './component/especialidad/especialidad.component';
+import { GrupoEtarioComponent } from './component/grupo-etario/grupo-etario.component';
+
 
 @NgModule({
     declarations: [
@@ -20,6 +22,7 @@ import { EspecialidadComponent } from './component/especialidad/especialidad.com
         UbicacionComponent,
         ColegioProfesionalComponent,
         EspecialidadComponent,
+        GrupoEtarioComponent,
     ],
 
 
