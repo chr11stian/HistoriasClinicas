@@ -65,7 +65,6 @@ export class TipoPersonalModalComponent implements OnInit {
     }
   }
   actualizar(tipoPersonalInput) {
-    console.log(tipoPersonalInput);
     this.tipoPersonalService.updateTipoPersonal(tipoPersonalInput).subscribe(
       (resp) => {
         console.log(resp);
@@ -77,35 +76,29 @@ export class TipoPersonalModalComponent implements OnInit {
     );
   }
   agregar(tipoPersonalInput) {
-    console.log("hola mundo desde agregar");
-    console.log(tipoPersonalInput);
-
-    // this.tipoPersonalService.addTipoPersonal(tipoPersonalInput).subscribe(
-    //   (resp) => {
-    //     console.log(resp);
-    this.ref.close("agregado");
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
-    console.log(this.tipoPersonalFG);
+    this.tipoPersonalService.addTipoPersonal(tipoPersonalInput).subscribe(
+      (resp) => {
+        // console.log(resp);
+        this.ref.close("agregado");
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   ngOnInit(): void {
-    console.log(this.config);
     if (this.config.data.id != "") {
       this.idTipoPersonal = this.config.data.id;
       this.tipoPersonalService
         .getTipoPersonal(this.config.data.id)
         .subscribe((res: any) => {
           let resp = res.object;
-          console.log(resp);
           this.getFC("nombreTipoPersonal").setValue(resp.nombre);
           this.getFC("esProfesional").setValue(resp.esProfesional);
           this.getFC("abreviatura").setValue(resp.abreviatura);
           this.getFC("especialidad").setValue(resp.especialidad);
-          this.getFC("tps").setValue(resp.tps);
+          this.getFC("estado").setValue(resp.estado);
         });
     }
   }

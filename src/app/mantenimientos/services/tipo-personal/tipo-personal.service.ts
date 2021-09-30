@@ -23,13 +23,13 @@ export class TipoPersonalService {
 
   addTipoPersonal(personal: any) {
     return this.http.post(
-      `${this.base_url}/${this.bd}/api/tipopersonal/insert`,
+      `${this.base_url}/${this.bd}/api/tipopersonal`,
       personal
     );
   }
   updateTipoPersonal(personal: any) {
-    return this.http.post(
-      `${this.base_url}/${this.bd}/api/tipopersonal/update`,
+    return this.http.put(
+      `${this.base_url}/${this.bd}/api/tipopersonal`,
       personal
     );
   }
