@@ -37,6 +37,42 @@ export class UbicacionService {
         return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/listar?page=1`);
     }
 
+    getDatosSistema() {
+        return this.http.post(`${this.base_url}/${this.bd}` + '/api/ubicacion/ubigeo', {
+            selector: {
+                tipoDoc: 'sistema'
+            },
+            limit: 1000000,
+            fields: [
+                '_id',
+                '_rev',
+                'tipoFuente',
+                'nombre',
+                'tipo',
+                'location',
+                'red',
+                'microRed',
+                'nombre',
+                'ubigeo',
+                'sectorLocalidad',
+                'coordenadas',
+                'ipress',
+                'activo',
+                'equipoDosificador',
+                'numeroSistema',
+                'sectorAbastecido',
+                'nombreMuestreador',
+                'enlaces',
+                'componentes'
+            ]
+        })
+            .pipe(
+                retry(3),
+                catchError(this.handleError)
+            )
+    }
+
+
     getDepartamentos() {
         return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/departamentos`);
     }

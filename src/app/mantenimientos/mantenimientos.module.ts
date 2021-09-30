@@ -11,10 +11,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ColegioProfesionalComponent} from "./component/colegio-profesional/colegio-profesional.component";
 import {TreeSelectModule} from "primeng/treeselect";
 import {MultiSelectModule} from "primeng/multiselect";
-import { EspecialidadComponent } from './component/especialidad/especialidad.component';
+import {EspecialidadComponent} from './component/especialidad/especialidad.component';
+import {FiltroComponent} from "./component/ubicacion/filtro/filtro.component";
 
 @NgModule({
     declarations: [
+        FiltroComponent,
         TipoPersonalComponent,
         TipoPersonalModalComponent,
         UbicacionComponent,

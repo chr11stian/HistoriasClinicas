@@ -26,6 +26,7 @@ import { ToastModule } from "primeng/toast";
 import { SelectButtonModule } from "primeng/selectbutton";
 
 const importsApi = [
+  SelectButtonModule,
   DialogModule,
   InputNumberModule,
   RadioButtonModule,
