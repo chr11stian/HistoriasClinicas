@@ -32,8 +32,8 @@
             </div>           
             <br/>
             <div class="flex justify-content-end">
-                <button *ngIf="!isUpdate" pButton type="button" label="Guardar Nuevo" (click)="saveForm()" class="m-1 w-9rem"></button>
-                <button *ngIf="isUpdate" pButton type="button" label="Guardar edición" (click)="editarDatos()" class="m-1 w-9rem"></button>
+                <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar Nuevo" (click)="saveForm()" class="m-1 w-9rem"></button>
+                <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar edición" (click)="editarDatos()" class="m-1 w-9rem"></button>
                 <button
                   pButton
                   type="button"
