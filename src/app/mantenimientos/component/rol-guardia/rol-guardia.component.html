@@ -1,0 +1,72 @@
+<p-table
+  rowExpandMode="single"
+  scrollDirection="both"
+  sortMode="single"
+  selectionMode="single"
+  [resizableColumns]="'false'"
+  #dt
+  styleClass="p-datatable p-datatable-gridlines p-mt-3"
+  [value]="data"
+  [rowHover]="true"
+  [rows]="15"
+  [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[5, 10, 15]"
+  [paginator]="true"
+  currentPageReportTemplate="mostrando {first} de {last} de {totalRecords} entradas"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th
+        rowSpan="2"
+        colSpan="3"
+        class="text-center frozenCol"
+        style="background-color: #48dbfb"
+      >
+        Personal por servicio(UPS)
+      </th>
+      <th colSpan="31" style="background-color: #48dbfb">Mes de Agosto</th>
+    </tr>
+    <tr>
+      <th *ngFor="let dia of mesActual" [style]="dia.bg">
+        {{ dia.abreviatura }}
+      </th>
+    </tr>
+    <tr>
+      <th class="frozenCol" pFrozenColumn [frozen]="true">Nro</th>
+      <th class="frozenCol" pFrozenColumn [frozen]="true">Apellidos</th>
+      <th class="frozenCol" pFrozenColumn [frozen]="true">Nombres</th>
+      <th
+        *ngFor="let dia of mesActual"
+        [style]="
+          dia.diaSemana === 'Lun'
+            ? 'background-color:#ffd700;'
+            : 'background-color:white;'
+        "
+      >
+        {{ dia.dia }}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+    <tr>
+      <td class="border-500 text-900 frozenCol" pFrozenColumn>
+        {{ i + 1 }}
+      </td>
+      <td
+        class="border-500 text-900 frozenCol"
+        style="background-color: #f3a683"
+        pFrozenColumn
+      >
+        {{ rowData.nombres }}
+      </td>
+      <td
+        class="border-500 text-900 frozenCol"
+        style="background-color: #f3a683"
+        pFrozenColumn
+      >
+        {{ rowData.apellidos }}
+      </td>
+      <td *ngFor="let dia of mesActual" class="border-500 text-900">N</td>
+    </tr>
+  </ng-template>
+</p-table>
