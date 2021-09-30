@@ -14,7 +14,7 @@
     </p-toolbar>
 
     <p-table
-            [value]="data"
+            [value]="dataUbicacion"
             #dt
             styleClass="p-datatable-gridlines   "
             [rows]="10"
@@ -67,120 +67,118 @@
           styleClass="p-fluid">
     <br>
 
-    <app-filtro (eventFiltros)="filtrar($event)"></app-filtro>
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="p-field col-4">
+                <label>CENTRO POBLADO</label>
+                <div class="p-inputgroup">
+                    <input style="width: 15rem" type="text" id="ccpp" [(ngModel)]="ubicacion.ccpp"
+                           pInputText>
+                </div>
+            </div>
+        </div>
 
-<!--    <ng-template pTemplate="body">-->
-<!--        <div class="grid">-->
-<!--            <div class="p-field col-4">-->
-<!--                <label>CENTRO POBLADO</label>-->
-<!--                <div class="p-inputgroup">-->
-<!--                    <input style="width: 15rem" type="text" id="ccpp" [(ngModel)]="ubicacion.ccpp"-->
-<!--                           pInputText>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <br>
+        <div class="grid">
+            <div class=" col-4">
+                <label>DEPARTAMENTO</label>
+                <div class="p-field">
+                    <p-dropdown inputId="dropdown" [options]="dataDepartamntos"
+                                [(ngModel)]="ubicacion.departamento"
+                                optionLabel="departamento"
+                                defaultLabel="Seleccione un Departamento"
+                                id="departamento">
+                    </p-dropdown>
+                </div>
 
-<!--        <br>-->
-<!--        <div class="grid">-->
-<!--            <div class=" col-4">-->
-<!--                <label>DEPARTAMENTO</label>-->
-<!--                <div class="p-field">-->
-<!--                    <p-dropdown inputId="dropdown" [options]="dataDepartamntos"-->
-<!--                                [(ngModel)]="ubicacion.departamento"-->
-<!--                                optionLabel="departamento"-->
-<!--                                defaultLabel="Seleccione un Departamento"-->
-<!--                                id="departamento">-->
-<!--                    </p-dropdown>-->
-<!--                </div>-->
+            </div>
 
-<!--            </div>-->
-
-<!--            <div class="p-field col-4">-->
-<!--                <label>PROVINCIA</label>-->
-<!--                <div class="p-field">-->
-<!--                    <p-dropdown inputId="dropdown" [options]="provincias"-->
-<!--                                [(ngModel)]="ubicacion.provincia"-->
-<!--                                optionLabel="provincia"-->
-<!--                                defaultLabel="Seleccione un Departamento"-->
-<!--                                id="provincia">-->
-<!--                    </p-dropdown>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="p-field col-4">
+                <label>PROVINCIA</label>
+                <div class="p-field">
+                    <p-dropdown inputId="dropdown" [options]="dataUbicacion"
+                                [(ngModel)]="ubicacion.provincia"
+                                optionLabel="provincia"
+                                defaultLabel="Seleccione un Departamento"
+                                id="provincia">
+                    </p-dropdown>
+                </div>
+            </div>
 
 
-<!--            <div class="p-field col-4">-->
-<!--                <label>DISTRITO</label>-->
-<!--                <div class="p-inputgroup">-->
-<!--                    <input style="width: 15rem" type="text" id="distrito" [(ngModel)]="ubicacion.distrito"-->
-<!--                           pInputText>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="p-field col-4">
+                <label>DISTRITO</label>
+                <div class="p-inputgroup">
+                    <input style="width: 15rem" type="text" id="distrito" [(ngModel)]="ubicacion.distrito"
+                           pInputText>
+                </div>
+            </div>
 
 
-<!--        </div>-->
-<!--        <br>-->
+        </div>
+        <br>
 
-<!--        <div class="grid">-->
+        <div class="grid">
 
-<!--            <div class="p-field col-4">-->
-<!--                <label>POBLACION</label>-->
-<!--                <div class="p-inputgroup">-->
-<!--                    <input style="width: 15rem" type="text" id="poblacion"-->
-<!--                           [(ngModel)]="ubicacion.poblacion" pInputText>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="p-field col-4">
+                <label>POBLACION</label>
+                <div class="p-inputgroup">
+                    <input style="width: 15rem" type="text" id="poblacion"
+                           [(ngModel)]="ubicacion.poblacion" pInputText>
+                </div>
+            </div>
 
-<!--            <div class="p-field col-4">-->
-<!--                <label>UBIGEO</label>-->
-<!--                <div class="p-inputgroup">-->
-<!--                    <input style="width: 15rem" type="text" id="ubigeo"-->
-<!--                           [(ngModel)]="ubicacion.ubigeo"-->
-<!--                           pInputText>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="p-field col-4">
+                <label>UBIGEO</label>
+                <div class="p-inputgroup">
+                    <input style="width: 15rem" type="text" id="ubigeo"
+                           [(ngModel)]="ubicacion.ubigeo"
+                           pInputText>
+                </div>
+            </div>
 
-<!--            <div class="p-field col-4">-->
-<!--                <label>LATITUD</label>-->
-<!--                <div class="p-inputgroup">-->
-<!--                    <input style="width: 15rem" type="text" id="latitude" [(ngModel)]="ubicacion.latitude"-->
-<!--                           pInputText>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="p-field col-4">
+                <label>LATITUD</label>
+                <div class="p-inputgroup">
+                    <input style="width: 15rem" type="text" id="latitude" [(ngModel)]="ubicacion.latitude"
+                           pInputText>
+                </div>
+            </div>
 
-<!--        </div>-->
-<!--        <br>-->
+        </div>
+        <br>
 
-<!--        <div class="grid">-->
+        <div class="grid">
 
-<!--            <div class="p-field col-4">-->
-<!--                <label>LONGITUD</label>-->
-<!--                <div class="p-inputgroup">-->
-<!--                    <input style="width: 15rem" type="text" id="longitude" [(ngModel)]="ubicacion.longitude"-->
-<!--                           pInputText>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="p-field col-4">
+                <label>LONGITUD</label>
+                <div class="p-inputgroup">
+                    <input style="width: 15rem" type="text" id="longitude" [(ngModel)]="ubicacion.longitude"
+                           pInputText>
+                </div>
+            </div>
 
-<!--            <div class="p-field col-4">-->
-<!--                <label>ALTURA</label>-->
-<!--                <div class="p-inputgroup">-->
-<!--                    <input style="width: 15rem" type="text" id="altura" [(ngModel)]="ubicacion.altura"-->
-<!--                           pInputText>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="p-field col-4">
+                <label>ALTURA</label>
+                <div class="p-inputgroup">
+                    <input style="width: 15rem" type="text" id="altura" [(ngModel)]="ubicacion.altura"
+                           pInputText>
+                </div>
+            </div>
 
-<!--            <div class="p-field col-4">-->
-<!--                <label>ES CAPITAL</label>-->
-<!--                <div class="p-inputgroup">-->
-<!--                    <input style="width: 15rem" type="text" id="es-capital"-->
-<!--                           [(ngModel)]="ubicacion.es_Capital"-->
-<!--                           pInputText>-->
-<!--                </div>-->
-<!--            </div>-->
+            <div class="p-field col-4">
+                <label>ES CAPITAL</label>
+                <div class="p-inputgroup">
+                    <input style="width: 15rem" type="text" id="es-capital"
+                           [(ngModel)]="ubicacion.es_Capital"
+                           pInputText>
+                </div>
+            </div>
 
-<!--        </div>-->
+        </div>
 
 
-<!--    </ng-template>-->
+    </ng-template>
 
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
