@@ -11,6 +11,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ColegioProfesionalComponent} from "./component/colegio-profesional/colegio-profesional.component";
 import {TreeSelectModule} from "primeng/treeselect";
 import {MultiSelectModule} from "primeng/multiselect";
+import { EspecialidadComponent } from './component/especialidad/especialidad.component';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import {MultiSelectModule} from "primeng/multiselect";
         TipoPersonalModalComponent,
         UbicacionComponent,
         ColegioProfesionalComponent,
+        EspecialidadComponent,
     ],
 
 

@@ -33,30 +33,54 @@ export class UbicacionService {
     //     return this._refresh;
     // }
 
-    getUbicacion(): Observable<Ubicacion[]> {
-        return this.http.get<Ubicacion[]>(`${this.base_url}/historiasclinicas/api/ubicacion/listar?page=1`);
+    getUbicacion() {
+        return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/listar?page=1`);
+    }
+
+    getDepartamentos() {
+        return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/departamentos`);
     }
 
     getUbicacionUbigeo(ubigeo: string) {
-        return this.http.get<Ubicacion[]>(`${this.base_url}/historiasclinicas/api/ubicacion/ubigeo/${ubigeo}`);
+        return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/ubigeo/${ubigeo}`);
     }
 
-    getDepartamentos(): Observable<Departamentos[]> {
-        return this.http.get<Departamentos[]>(`${this.base_url}/historiasclinicas/api/ubicacion/departamentos`);
-
-    }
-
-    getProvincias(id: string): Observable<Provincias[]> {
-        return this.http.get<Provincias[]>(`${this.base_url}/historiasclinicas/api/ubicacion/provincias/${id}`);
-    }
-
-    agregarPersonal(ubicacion: Ubicacion): Observable<Personal> {
-        return this.http.post<Personal>(`${this.base_url}/historiasclinicas/api/save/cpp`, ubicacion)
+    getProvinciasId2(id: string) {
+        return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/provincias/${id}`);
     }
 
 
-    private handleError(error: HttpErrorResponse): Observable<any> {
-        console.log(error);
-        return throwError("Ubicacion algo salió mal");
+    getProvinces(id: string) {
+        return this.http.post(`${this.base_url}/${this.bd}` + '/api/ubicacion/provincias', {
+            selector: {
+                id: {
+                    "$regex": id + "(?i)"
+                }
+            },
+            fields: ["nombre", "id"]
+        })
     }
+
+    getDistritos(id: string) {
+        return this.http.post(`${this.base_url}/${this.bd}` + '/api/ubicacion/distritos', {
+            selector: {
+                id: {
+                    "$regex": id + "(?i)"
+                }
+            },
+            fields: ["nombre", "id"]
+        })
+    }
+
+    getCentrosPoblados(id: string) {
+        return this.http.post(`${this.base_url}/${this.bd}` + '/api/ubicacion/ccpp', {
+            selector: {
+                id: {
+                    "$regex": id + "(?i)"
+                }
+            },
+            fields: ["nombre", "id"]
+        })
+    }
+
 }

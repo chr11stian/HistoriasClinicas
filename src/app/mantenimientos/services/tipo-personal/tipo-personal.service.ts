@@ -13,8 +13,29 @@ export class TipoPersonalService {
   bd = environment.bd;
   constructor(private http: HttpClient) {}
 
-  getTipoPersonal() {
+  getTipoPersonales() {
     // return this.http.get(`${this.base_url}/${this.bd}/ubicacion/listar`);
     return this.http.get(`${this.base_url}/${this.bd}/api/tipopersonal`);
+  }
+  getTipoPersonal(id: string) {
+    return this.http.get(`${this.base_url}/${this.bd}/api/tipopersonal/${id}`);
+  }
+
+  addTipoPersonal(personal: any) {
+    return this.http.post(
+      `${this.base_url}/${this.bd}/api/tipopersonal/insert`,
+      personal
+    );
+  }
+  updateTipoPersonal(personal: any) {
+    return this.http.post(
+      `${this.base_url}/${this.bd}/api/tipopersonal/update`,
+      personal
+    );
+  }
+  deleteTipoPersonal(id: string) {
+    return this.http.delete(
+      `${this.base_url}/${this.bd}/api/tipopersonal/${id}`
+    );
   }
 }
