@@ -3,7 +3,7 @@
   #dt
   styleClass="p-datatable-gridlines   "
   [rows]="10"
-  [rowsPerPageOptions]="[10, 25, 50]"
+  [rowsPerPageOptions]="[5, 10, 15]"
   [paginator]="true"
   [autoLayout]="true"
   currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
@@ -28,7 +28,7 @@
     <tr>
       <th class="text-center">Nro</th>
       <th class="text-center">Nombre</th>
-      <th class="text-center">Es profesinal</th>
+      <th class="text-center">Es profesional</th>
       <th class="text-center">Abreviatura</th>
       <th class="text-center">Especialidad</th>
       <th class="text-center">Estado</th>
@@ -63,7 +63,29 @@
         </ng-template>
       </td>
       <td class="text-center text-800">{{ rowData.abreviatura }}</td>
-      <td class="text-center text-800">{{ rowData.especialidad }}</td>
+      <td class="text-center text-800">
+        <span class="p-column-title">Es profesional</span>
+        <div *ngIf="rowData.esProfesional; else inactive">
+          <!-- <p-tag
+            icon="pi pi-check"
+            styleClass="p-mr-2"
+            severity="success"
+            value="Activo"
+          >
+          </p-tag> -->
+          Si
+        </div>
+        <ng-template #inactive>
+          <!-- <p-tag
+            icon="pi pi-times"
+            styleClass="p-mr-2"
+            severity="warning"
+            value="Inactivo"
+          >
+          </p-tag> -->
+          No
+        </ng-template>
+      </td>
       <td class="text-center text-800">
         <span class="p-column-title">Estado</span>
         <div *ngIf="rowData.estado; else inactive1">
@@ -120,3 +142,4 @@
   [baseZIndex]="10000"
 >
 </p-confirmDialog>
+<p-toast></p-toast>
