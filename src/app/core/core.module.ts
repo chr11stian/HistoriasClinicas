@@ -16,6 +16,8 @@ import {MegaMenuModule} from "primeng/megamenu";
 import {TabMenuModule} from "primeng/tabmenu";
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { InputNumberModule } from "primeng/inputnumber";
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 @NgModule({
     declarations: [
@@ -41,7 +43,9 @@ import { RippleModule } from 'primeng/ripple';
         ConfirmPopupModule,
         TabMenuModule,
         ButtonModule,
-        RippleModule
+        RippleModule,
+        InputNumberModule,
+        SelectButtonModule
     ]
 })
 export class CoreModule {

@@ -128,7 +128,7 @@ export class SideBarComponent implements OnInit {
 
   activeSubmenus: { [key: string]: boolean } = {};
 
-  constructor(private filterService: FilterService, private router: Router) {}
+  constructor(private filterService: FilterService, private router: Router) { }
 
   ngOnInit() {
     this.model = [
@@ -212,8 +212,12 @@ export class SideBarComponent implements OnInit {
           },
           {
             icon: 'pi pi-pw pi-file',
+            label: 'Grupo Etario', routerLink: 'mantenimientos/grupo-etario',
+          },
+          {
+            icon: 'pi pi-pw pi-file',
             label: 'Documentos de Identidad', routerLink: 'mantenimientos/documentoIdentidad',
-        }
+          },
         ],
       },
     ];

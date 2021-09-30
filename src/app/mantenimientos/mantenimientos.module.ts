@@ -15,7 +15,9 @@ import { MultiSelectModule } from "primeng/multiselect";
 import { EspecialidadComponent } from "./component/especialidad/especialidad.component";
 import { TipoTurnoComponent } from "./component/tipo-turno/tipo-turno.component";
 import { TipoTurnoModalComponent } from "./component/tipo-turno-modal/tipo-turno-modal.component";
+import { GrupoEtarioComponent } from './component/grupo-etario/grupo-etario.component';
 import { RolGuardiaComponent } from './component/rol-guardia/rol-guardia.component';
+import { DocumentoIdentidadComponent } from "./component/documento-identidad/documento-identidad.component";
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { RolGuardiaComponent } from './component/rol-guardia/rol-guardia.compone
     EspecialidadComponent,
     TipoTurnoComponent,
     TipoTurnoModalComponent,
+    GrupoEtarioComponent,
     RolGuardiaComponent,
+    DocumentoIdentidadComponent
   ],
 
   exports: [TipoPersonalComponent, UbicacionComponent],
