@@ -14,7 +14,7 @@
     </p-toolbar>
 
     <p-table
-            [value]="data"
+            [value]="dataUbicacion"
             #dt
             styleClass="p-datatable-gridlines   "
             [rows]="10"
@@ -63,9 +63,10 @@
 
 
 <p-dialog [(visible)]="ubicacionDialog" [style]="{width: '1080px'}" header="Registrar Ubicación"
-          [modal]="true" [responsive]="departamentos"
+          [modal]="true" [responsive]="dataDepartamntos"
           styleClass="p-fluid">
     <br>
+
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="p-field col-4">
@@ -82,7 +83,7 @@
             <div class=" col-4">
                 <label>DEPARTAMENTO</label>
                 <div class="p-field">
-                    <p-dropdown inputId="dropdown" [options]="departamentos"
+                    <p-dropdown inputId="dropdown" [options]="dataDepartamntos"
                                 [(ngModel)]="ubicacion.departamento"
                                 optionLabel="departamento"
                                 defaultLabel="Seleccione un Departamento"
@@ -95,7 +96,7 @@
             <div class="p-field col-4">
                 <label>PROVINCIA</label>
                 <div class="p-field">
-                    <p-dropdown inputId="dropdown" [options]="provincias"
+                    <p-dropdown inputId="dropdown" [options]="dataUbicacion"
                                 [(ngModel)]="ubicacion.provincia"
                                 optionLabel="provincia"
                                 defaultLabel="Seleccione un Departamento"
