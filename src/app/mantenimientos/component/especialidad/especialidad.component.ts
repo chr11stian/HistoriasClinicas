@@ -15,24 +15,8 @@ export class EspecialidadComponent implements OnInit {
   data: any[] = [];
   isUpdate: boolean = false;
   idUpdate: string = "";
-  estado: boolean=true;
+  estado: boolean;
 
-  datosprueba: any[] = [{
-    "idSis": "0001",
-    "nombre": "especialidad1",
-    "estado": true
-  },
-  {
-    "idSis": "0002",
-    "nombre": "especialidad2",
-    "estado": true
-  },
-  {
-    "idSis": "0003",
-    "nombre": "especialidad3",
-    "estado": false
-  }
-  ]
   constructor(
     private especialidadservice: EspecialidadService,
     private formBuilder: FormBuilder
@@ -43,7 +27,7 @@ export class EspecialidadComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      idSis: ['', [Validators.required]],
+      idSIS: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
     })
   }
@@ -56,14 +40,13 @@ export class EspecialidadComponent implements OnInit {
   }
 
   saveForm() {
-    console.log("guardar");
     this.isUpdate=false;
     const req = {
-      idSis: this.form.value.idSis,
+      idSIS: this.form.value.idSIS,
       nombre: this.form.value.nombre,
       estado: this.estado
     }
-    if (req.idSis.trim()!=="" || req.nombre.trim()!==""){
+    if (req.idSIS.trim()!=="" || req.nombre.trim()!==""){
       this.especialidadservice.createEspecialidad(req).subscribe(
         result => {
             Swal.fire({
@@ -88,18 +71,20 @@ export class EspecialidadComponent implements OnInit {
   guardarNuevo(){
     this.isUpdate=false;
     this.form.reset();
+    this.estado= true;
   }
   editar(rowData) {
     this.isUpdate=true;
-    this.form.get('idSis').setValue(rowData.idSis);
+    this.form.get('idSIS').setValue(rowData.idSIS);
     this.form.get('nombre').setValue(rowData.nombre);
+    console.log(rowData.estado, typeof(rowData.estado));
     this.estado = rowData.estado;
     this.idUpdate=rowData.id;
   }
   editarDatos(rowData){
     const req = {
       id: this.idUpdate,
-      idSis: this.form.value.idSis,
+      idSIS: this.form.value.idSIS,
       nombre: this.form.value.nombre,
       estado: this.estado
     }
@@ -151,9 +136,7 @@ export class EspecialidadComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-  test(){
-    console.log(this.estado)
+    this.estado= true;
   }
 
 }

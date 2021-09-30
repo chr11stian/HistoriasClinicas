@@ -8,7 +8,7 @@
             <div class="p-fluid grid flex justify-content-center">
                 <div class="p-field col-12 md:col-12">
                     <label id="idSis">ID SIS:</label>
-                    <input type="text" pInputText formControlName='idSis' required autofocus />
+                    <input type="text" pInputText formControlName='idSIS' required autofocus />
                 </div>
             </div>
             <br/>
@@ -22,11 +22,11 @@
             <h4>Estado:</h4>
             <div class="flex justify-content-center">
                 <div class="p-field-radiobutton mr-4">
-                    <p-radioButton (onClick)="test()" name="estado" value=true [(ngModel)]="estado" inputId="estado1"></p-radioButton>
+                    <p-radioButton name="estado" [value]=true [(ngModel)]="estado" inputId="estado1"></p-radioButton>
                     <label for="estado1">Activo</label>
                 </div>
                 <div class="p-field-radiobutton ml-4">
-                    <p-radioButton (onClick)="test()" name="estado" value=false [(ngModel)]="estado" inputId="estado2"></p-radioButton>
+                    <p-radioButton name="estado" [value]=false [(ngModel)]="estado" inputId="estado2"></p-radioButton>
                     <label for="estado2"> Desactivado</label>
                 </div>
             </div>           
@@ -51,7 +51,7 @@
     </div>
   <div class="col-8">
       <p-table
-        [value]="datosprueba"
+        [value]="data"
         #dt
         styleClass="p-datatable-gridlines"
         [rows]="10"
@@ -77,7 +77,7 @@
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
           <tr style="text-align: center">
             <td style="text-align: center">{{ rowIndex + 1 }}</td>
-            <td style="text-align: center">{{ rowData.idSis }}</td>
+            <td style="text-align: center">{{ rowData.idSIS }}</td>
             <td style="text-align: center">{{ rowData.nombre }}</td>
             <td style="text-align: center">
                 <p-tag *ngIf="rowData.estado" styleClass="p-mr-2" severity="success" value="Activo" [rounded]="true"></p-tag>
