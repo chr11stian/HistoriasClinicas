@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RolGuardiaComponent } from './rol-guardia.component';
+import { EspecialidadComponent } from './especialidad.component';
 
-describe('RolGuardiaComponent', () => {
-  let component: RolGuardiaComponent;
-  let fixture: ComponentFixture<RolGuardiaComponent>;
+describe('EspecialidadComponent', () => {
+  let component: EspecialidadComponent;
+  let fixture: ComponentFixture<EspecialidadComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ RolGuardiaComponent ]
+      declarations: [ EspecialidadComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RolGuardiaComponent);
+    fixture = TestBed.createComponent(EspecialidadComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

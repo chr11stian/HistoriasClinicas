@@ -1,11 +1,262 @@
 <div class="p-card">
     <p-toolbar styleClass="p-mb-4">
+
         <ng-template pTemplate="left">
             <h3 class="p-m-0">Cupos</h3>
         </ng-template>
+
         <ng-template pTemplate="right" class="button">
-            
+            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                (click)="openModal()"></button>
+
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
         </ng-template>
-        
+
     </p-toolbar>
+    <p-table #dt [value]="listaCupos" [rows]="10" [paginator]="true" [globalFilterFields]="['dni']"
+        [(selection)]="selectedCupo" [rowHover]="true" datakey="id"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas" responsiveLayout="scroll"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input type="text" pInputText (input)="dt.filterGlobal($event.tarjet.value,'contains')"
+                        placeholder="DNI...">
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template class="ng-template" pTemplate="header">
+            <tr>
+                <!-- <th style="text-align: center">#</th> -->
+                <th style="text-align: center">DNI</th>
+                <th style="text-align: center">APELLIDOS</th>
+                <th style="text-align: center">NOMBRES</th>
+                <th style="text-align: center">SERVICIO(UPS)</th>
+                <th style="text-align: center">HORARIO A.</th>
+                <th style="text-align: center">FECHA A.</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-cupo style="text-align: center;">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ cupo.dni }}</td>
+                <td style="text-align: center">{{ cupo.apellidos }}</td>
+                <td style="text-align: center">{{ cupo.nombres }}</td>
+                <td style="text-align: center">{{ cupo.servicio }}</td>
+                <td style="text-align: center">{{ cupo.horarioAtencion }}</td>
+                <td style="text-align: center">{{ cupo.fechaAtencion }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
+
+<!--                 INICIO DIALOG DE CUPOS             -->
+<p-dialog [(visible)]="cuposDialog" [style]="{width: '1080px'}" header="Registrar Cupos" [modal]="true"
+    styleClass="p-fluid">
+    <div class="grid">
+        <div class="p-field col-5">
+            <label>SERVICIO (UPS)</label>
+            <div class="col-10">
+                <p-dropdown [options]="servicios" [(ngModel)]="selectedServicio" placeholder="Seleccione un servicio"
+                    optionLabel="nombreServicio" [showClear]="false" (ngModelChange)="changeServicioSelected($event)">
+                </p-dropdown>
+            </div>
+            <div class="card mt-4">
+                <p-table [value]="listaPersonal" selectionMode="single" [(selection)]="selectedPersonal"
+                    responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)"
+                    (onRowUnselect)="onRowUnselect($event)">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nro</th>
+                            <th>Apellidos</th>
+                            <th>Nombres</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-data>
+                        <tr [pSelectableRow]="data">
+                            <td>{{ data.nro }}</td>
+                            <td>{{ data.apellidos }}</td>
+                            <td>{{ data.nombres }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div class="p-field col-5 ml-4">
+            <label>PERSONA QUE ATIENDE</label>
+            <div lass="col-6">
+                <h4>{{ personalSelected }}</h4>
+            </div>
+            <p-table [value]="citas" [(selection)]="selectedHorario" dataKey="nroCupo">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Hora Inicio</th>
+                        <th>Hora Fin</th>
+                        <th>Asignado</th>
+                        <th>Nombre</th>
+                        <th>Disponible</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data>
+                    <tr>
+                        <td>{{ data.horaAtencion }}</td>
+                        <td>{{ data.horaAtencionFin }}</td>
+                        <td>{{ data.nroCupo }}</td>
+                        <td>{{ data.ipress.nombre }}</td>
+                        <td>
+                            <p-tableCheckbox [value]="data"></p-tableCheckbox>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+    <ng-template pTemplate=footer>
+        <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogCupos()"></button>
+        <button pButton type="button" label="Siguiente" (click)="aceptarDialogCupos()"></button>
+    </ng-template>
+
+</p-dialog>
+<!--                 FIN DIALOG DE CUPOS             -->
+
+<!--                INICIO MODAL DE USUARIOS         -->
+<p-dialog [(visible)]="usuarioDialog" [style]="{width: '1200px'}" header="Datos del Paciente" [modal]="true"
+    styleClass="p-fluid">
+
+    <ng-template pTemplate>
+        <div class="grid">
+            <div class="col-9">
+                <div class="datosPersonales border-1 m-3">
+                    <div class="grid m-2">
+                        <div class="p-field col-3">
+                            <label class="ml-2 font-bold">Tipo de Documento</label>
+                            <p-dropdown [options]="docIdentidad" [(ngModel)]="selectedTipoDocumento"
+                                placeholder="Tipo Documento" optionLabel="abreviatura" [showClear]="false"
+                                (ngModelChange)="changeServicioSelected($event)">
+                            </p-dropdown>
+                        </div>
+                        <div class="p-field col-3">
+                            <label class="ml-2 font-bold">Nro Documento:</label>
+                            <input type="text" pInputText [(ngModel)]="nombre" />
+                        </div>
+                    </div>
+                    <div class="grid m-2">
+                        <div class="p-field col-3">
+                            <label class="ml-2 font-bold">Nombre:</label>
+                            <input type="text" pInputText [(ngModel)]="nombre" />
+                        </div>
+                        <div class="p-field col-3">
+                            <label class="ml-2 font-bold">A. Paterno</label>
+                            <input type="text" pInputText [(ngModel)]="nombre" />
+                        </div>
+                        <div class="p-field col-3">
+                            <label class="ml-2 font-bold">A. Materno</label>
+                            <input type="text" pInputText [(ngModel)]="nombre" />
+                        </div>
+                        <div class="p-field col-3">
+                            <label class="ml-2 font-bold">Sexo</label>
+                            <input type="text" pInputText [(ngModel)]="nombre" />
+                        </div>
+                    </div>
+                    <div class="grid m-2">
+                        <div class="p-field col-3">
+                            <label class="ml-3 font-bold">fecha</label>
+                            <input type="date" pInputText [(ngModel)]="fecha" />
+                        </div>
+                        <div class="p-field col-3">
+                            <label class="ml-2 font-bold">Estado Civil</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                    </div>
+                    <div class="grid m-2">
+                        <div class="p-field col-3">
+                            <label class="ml-2 font-bold">Telefono</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                        <div class="p-field col-3">
+                            <label class="ml-2 font-bold">Nacionalidad</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                        <div class="p-field col-2">
+                            <label class="ml-2 font-bold">Departamento</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                        <div class="p-field col-2">
+                            <label class="ml-2 font-bold">Provincia</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                        <div class="p-field col-2">
+                            <label class="ml-2 font-bold">Distrito</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                    </div>
+                    <div class="grid m-2">
+                        <div class="p-field col-6">
+                            <label class="ml-2 font-bold">Centro Poblado</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                        <div class="p-field col-6">
+                            <label class="ml-2 font-bold">Domicilio Actual</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                    </div>
+                </div>
+                <div class="datosExtra margin-1 m-3">
+                    <div class="grid m-2">
+                        <div class="p-field col-2">
+                            <label class="ml-2 font-bold">Tipo Seguro</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                        <div class="p-field col-2">
+                            <label class="ml-2 font-bold">Transeunte</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                        <div class="p-field col-3">
+                            <label class="ml-2 font-bold">Etapa de Vida del Paciente</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                        <div class="p-field col-2">
+                            <label class="ml-2 font-bold">Edad</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                        <div class="p-field col-2">
+                            <label class="ml-2 font-bold">Dias</label>
+                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="datosServicio margin-1 m-3">
+                    <div class="pfield col-12">
+                        <label class="ml-2 font-bold">Servicio</label>
+                        <p>MEDICINA</p>
+                    </div>
+                    <div class="p-field col-12">
+                        <label class="ml-2 font-bold">Ambiente</label>
+                        <p>MEDICINA</p>
+                    </div>
+                </div>
+                <div class="datosServicio margin-1 m-3">
+                    <div class="p-field col-12">
+                        <label class="ml-2 font-bold">Personal de Salud</label>
+                        <p>ALGIEN RANDOM</p>
+                    </div>
+                </div>
+                <div class="datosServicio margin-1 m-3">
+                    <div class="p-field col-12">
+                        <label class="ml-2 font-bold">Hora</label>
+                        <p>10:00 am</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate=footer>
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="cancelarPersona()"></button>
+        <button pButton type="button" label="Guardar" (click)="GuardarPersona()"></button>
+    </ng-template>
+</p-dialog>
+<!--                FIN MODAL DE USUARIOS                -->

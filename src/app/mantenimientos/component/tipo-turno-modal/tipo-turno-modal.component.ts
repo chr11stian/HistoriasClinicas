@@ -75,7 +75,7 @@ export class TipoTurnoModalComponent implements OnInit {
     console.log(tipoPersonalInput);
     this.tipoTurnoService.updateTipoTurno(tipoPersonalInput).subscribe(
       (resp) => {
-        // console.log(resp);
+        //  console.log(resp);
         this.ref.close("actualizado");
       },
       (error) => {

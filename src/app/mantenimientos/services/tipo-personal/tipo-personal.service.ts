@@ -20,6 +20,7 @@ export class TipoPersonalService {
   getTipoPersonal(id: string) {
     return this.http.get(`${this.base_url}/${this.bd}/api/tipopersonal/${id}`);
   }
+
   addTipoPersonal(personal: any) {
     return this.http.post(
       `${this.base_url}/${this.bd}/api/tipopersonal`,

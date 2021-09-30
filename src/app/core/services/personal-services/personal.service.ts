@@ -36,33 +36,33 @@ export class PersonalService {
 
 
     getPersonal(): Observable<Personal[]> {
-        return this.http.get<Personal[]>(`${this.base_url}/historiasclinicas/api/personal`);
+        return this.http.get<Personal[]>(`${this.base_url}/historiasclinicas/api/listarpersonal`);
     }
 
-    // agregarPersonal(personal: Personal): Observable<Personal> {
-    //     return this.http.post<Personal>(`${this.baseUrl}/personal`, personal)
-    //         .pipe(
-    //             tap(() => {
-    //                 this._refresh.next();
-    //             })
-    //         )
-    // }
-    //
-    //
-    // actualizarPersonal(personal: Personal): Observable<Personal> {
-    //     return this.http.put<Personal>(`${this.baseUrl}/personal/${personal.id}`, personal)
-    //         .pipe(
-    //             tap(() => {
-    //                 this._refresh.next();
-    //             })
-    //         )
-    // }
-    //
-    // getPersonalPorId(id: string): Observable<Personal> {
-    //     return this.http.get<Personal>(`${this.baseUrl}/personal/${id}`);
-    // }
-    //
-    // borrarPersoal(id: string): Observable<any> {
-    //     return this.http.delete<any>(`${this.baseUrl}/personal/${id}`);
-    // }
+    agregarPersonal(personal: Personal): Observable<Personal> {
+        return this.http.post<Personal>(`${this.base_url}/historiasclinicas/api/listarpersonal`, personal)
+            .pipe(
+                tap(() => {
+                    this._refresh.next();
+                })
+            )
+    }
+
+
+    actualizarPersonal(personal: Personal): Observable<Personal> {
+        return this.http.put<Personal>(`${this.base_url}/personal/${personal.id}`, personal)
+            .pipe(
+                tap(() => {
+                    this._refresh.next();
+                })
+            )
+    }
+
+    getPersonalPorId(id: string): Observable<Personal> {
+        return this.http.get<Personal>(`${this.base_url}/personal/${id}`);
+    }
+
+    borrarPersoal(id: string): Observable<any> {
+        return this.http.delete<any>(`${this.base_url}/personal/${id}`);
+    }
 }
