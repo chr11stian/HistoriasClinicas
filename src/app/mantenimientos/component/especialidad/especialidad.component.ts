@@ -20,7 +20,7 @@ export class EspecialidadComponent implements OnInit {
   constructor(
     private especialidadservice: EspecialidadService,
     private formBuilder: FormBuilder
-  ) { 
+  ) {
     this.buildForm();
     this.getEspecialidad();
   }
@@ -40,48 +40,49 @@ export class EspecialidadComponent implements OnInit {
   }
 
   saveForm() {
-    this.isUpdate=false;
+    this.isUpdate = false;
     const req = {
       idSIS: this.form.value.idSIS,
       nombre: this.form.value.nombre,
       estado: this.estado
     }
-    if (req.idSIS.trim()!=="" || req.nombre.trim()!==""){
+    if (req.idSIS.trim() !== "" || req.nombre.trim() !== "") {
       this.especialidadservice.createEspecialidad(req).subscribe(
         result => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Agregado correctamente',
-              text: '',
-              showConfirmButton: false,
-            })
-            this.getEspecialidad();
-            this.guardarNuevo(); 
+          Swal.fire({
+            icon: 'success',
+            title: 'Agregado correctamente',
+            text: '',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          this.getEspecialidad();
+          this.guardarNuevo();
         }
       )
-    } 
-    else{
+    }
+    else {
       Swal.fire({
         icon: 'error',
         title: 'Error',
         text: 'Ingresa datos correctos!'
       })
-    } 
+    }
   }
-  guardarNuevo(){
-    this.isUpdate=false;
+  guardarNuevo() {
+    this.isUpdate = false;
     this.form.reset();
-    this.estado= true;
+    this.estado = true;
   }
   editar(rowData) {
-    this.isUpdate=true;
+    this.isUpdate = true;
     this.form.get('idSIS').setValue(rowData.idSIS);
     this.form.get('nombre').setValue(rowData.nombre);
-    console.log(rowData.estado, typeof(rowData.estado));
+    console.log(rowData.estado, typeof (rowData.estado));
     this.estado = rowData.estado;
-    this.idUpdate=rowData.id;
+    this.idUpdate = rowData.id;
   }
-  editarDatos(rowData){
+  editarDatos(rowData) {
     const req = {
       id: this.idUpdate,
       idSIS: this.form.value.idSIS,
@@ -90,21 +91,21 @@ export class EspecialidadComponent implements OnInit {
     }
     this.especialidadservice.editEspecialidad(req).subscribe(
       result => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Editado correctamente',
-            text: '',
-            showConfirmButton: false,
-            timer: 1000
-          })
-          this.getEspecialidad();
-          this.guardarNuevo();
+        Swal.fire({
+          icon: 'success',
+          title: 'Editado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.getEspecialidad();
+        this.guardarNuevo();
       }
     )
   }
 
-  eliminar(rowData){
-    this.isUpdate=false;
+  eliminar(rowData) {
+    this.isUpdate = false;
     Swal.fire({
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
@@ -116,7 +117,7 @@ export class EspecialidadComponent implements OnInit {
       if (result.isConfirmed) {
         this.especialidadservice.deleteEspecialidad(rowData.id).subscribe(
           result => {
-              this.getEspecialidad() 
+            this.getEspecialidad()
           }
         );
         Swal.fire({
@@ -124,14 +125,14 @@ export class EspecialidadComponent implements OnInit {
           title: 'Eliminado correctamente',
           text: '',
           showConfirmButton: false,
-          timer: 1000
+          timer: 1500
         })
-      } 
+      }
     })
   }
 
   ngOnInit(): void {
-    this.estado= true;
+    this.estado = true;
   }
 
 }

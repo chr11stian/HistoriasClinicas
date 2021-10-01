@@ -17,6 +17,7 @@ import { TipoTurnoComponent } from "./component/tipo-turno/tipo-turno.component"
 import { TipoTurnoModalComponent } from "./component/tipo-turno-modal/tipo-turno-modal.component";
 import { GrupoEtarioComponent } from './component/grupo-etario/grupo-etario.component';
 import { RolGuardiaComponent } from './component/rol-guardia/rol-guardia.component';
+import { EtniaComponent } from './component/etnia/etnia.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { RolGuardiaComponent } from './component/rol-guardia/rol-guardia.compone
     TipoTurnoModalComponent,
     GrupoEtarioComponent,
     RolGuardiaComponent,
+    EtniaComponent,
   ],
 
   exports: [TipoPersonalComponent, UbicacionComponent],

@@ -61,6 +61,7 @@ export class GrupoEtarioComponent implements OnInit {
             title: 'Agregado correctamente',
             text: '',
             showConfirmButton: false,
+            timer: 1500,
           })
           this.getGrupoEtario();
           this.grupoEtarioDialog = false;
@@ -71,6 +72,7 @@ export class GrupoEtarioComponent implements OnInit {
 
   openNew() {
     this.isUpdate = false;
+    this.form.reset();
     this.form.get('descripcion').setValue("");
     this.form.get('edadMinima').setValue(0);
     this.form.get('edadMaxima').setValue(0);
@@ -105,7 +107,7 @@ export class GrupoEtarioComponent implements OnInit {
           title: 'Agregado correctamente',
           text: '',
           showConfirmButton: false,
-          timer: 1000,
+          timer: 1500,
         })
         this.getGrupoEtario();
         this.grupoEtarioDialog = false;
@@ -134,7 +136,7 @@ export class GrupoEtarioComponent implements OnInit {
           title: 'Eliminado correctamente',
           text: '',
           showConfirmButton: false,
-          timer: 1000
+          timer: 1500
         })
       }
     })

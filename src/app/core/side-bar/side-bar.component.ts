@@ -214,6 +214,11 @@ export class SideBarComponent implements OnInit {
           {
               icon: 'pi pi-pw pi-file',
               label: 'Grupo Etario', routerLink: 'mantenimientos/grupo-etario',
+          },
+
+          {
+              icon: 'pi pi-pw pi-file',
+              label: 'Etnia', routerLink: 'mantenimientos/etnia',
           }
         ],
       },

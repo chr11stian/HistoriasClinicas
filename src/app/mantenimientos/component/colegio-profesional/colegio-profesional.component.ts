@@ -128,7 +128,7 @@ export class ColegioProfesionalComponent implements OnInit {
                     text: '',
                     showConfirmButton: false,
                     timer: 1000
-                  })
+                })
             }
         })
     }
