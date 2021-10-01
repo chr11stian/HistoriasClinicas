@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {MessageService} from "primeng/api";
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {ColegioProfesionalService} from '../../services/colegio-profesional/colegio-profesional.service';
-import {FormGroup, FormBuilder, Validators, Form} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { MessageService } from "primeng/api";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { ColegioProfesionalService } from '../../services/colegio-profesional/colegio-profesional.service';
+import { FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
 import Swal from "sweetalert2";
 
 @Component({
@@ -58,7 +58,7 @@ export class ColegioProfesionalComponent implements OnInit {
                         title: 'Agregado correctamente',
                         text: 'Colegio Profesional',
                         showConfirmButton: false,
-                        timer: 2000
+                        timer: 1000
                     })
                     this.getColegioProfesional();
                     this.guardarNuevo();
@@ -91,31 +91,19 @@ export class ColegioProfesionalComponent implements OnInit {
             codigo: this.form.value.codigo,
             nombre: this.form.value.nombre,
         }
-        Swal.fire({
-            showCancelButton: true,
-            confirmButtonText: 'Editar',
-            icon: 'warning',
-            title: 'Estas seguro de editar estos datos',
-            text: '',
-            showConfirmButton: true,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.colegioProfesionalservice.editColegioProfesional(req).subscribe(
-                    result => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Editado correctamente',
-                            text: 'Colegio Profesional',
-                            showConfirmButton: false,
-                            timer: 2000
-                        })
-                        this.getColegioProfesional();
-                        this.guardarNuevo();
-                    }
-                )
+        this.colegioProfesionalservice.editColegioProfesional(req).subscribe(
+            result => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Editado correctamente',
+                    text: 'Colegio Profesional',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+                this.getColegioProfesional();
+                this.guardarNuevo();
             }
-        })
-
+        )
     }
 
     eliminar(rowData) {
@@ -134,7 +122,13 @@ export class ColegioProfesionalComponent implements OnInit {
                         this.getColegioProfesional()
                     }
                 );
-                Swal.fire('Eliminado!', '', 'success');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Eliminado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
             }
         })
     }

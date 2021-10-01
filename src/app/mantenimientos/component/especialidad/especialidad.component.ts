@@ -88,30 +88,19 @@ export class EspecialidadComponent implements OnInit {
       nombre: this.form.value.nombre,
       estado: this.estado
     }
-    Swal.fire({
-      showCancelButton: true,
-      confirmButtonText: 'Editar',
-      icon: 'warning',
-      title: 'Estas seguro de editar estos datos',
-      text: '',
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.especialidadservice.editEspecialidad(req).subscribe(
-          result => {
-              Swal.fire({
-                icon: 'success',
-                title: 'Editado correctamente',
-                text: '',
-                showConfirmButton: false,
-              })
-              this.getEspecialidad();
-              this.guardarNuevo();
-          }
-        )
-      } 
-    })
-    
+    this.especialidadservice.editEspecialidad(req).subscribe(
+      result => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Editado correctamente',
+            text: '',
+            showConfirmButton: false,
+            timer: 1000
+          })
+          this.getEspecialidad();
+          this.guardarNuevo();
+      }
+    )
   }
 
   eliminar(rowData){
@@ -130,7 +119,13 @@ export class EspecialidadComponent implements OnInit {
               this.getEspecialidad() 
           }
         );
-        Swal.fire('Eliminado!', '', 'success');
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1000
+        })
       } 
     })
   }
