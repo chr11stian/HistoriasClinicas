@@ -120,6 +120,7 @@ import {Router} from "@angular/router";
     styleUrls: ["./side-bar.component.css"],
 })
 export class SideBarComponent implements OnInit {
+
     model: MenuItem[];
     items: MenuItem[];
     filteredRoutes: any[];
@@ -211,16 +212,23 @@ export class SideBarComponent implements OnInit {
                         label: "Especialidad",
                         routerLink: "mantenimientos/especialidad",
                     },
-
                     {
                         icon: 'pi pi-pw pi-file',
                         label: 'Grupo Etario', routerLink: 'mantenimientos/grupo-etario',
                     },
                     {
                         icon: 'pi pi-pw pi-file',
-                        label: 'Categoria Establecimiento', routerLink: 'mantenimientos/categoria-establecimiento',
+                        label: 'Documentos de Identidad', routerLink: 'mantenimientos/documento-identidad',
                     },
 
+                    {
+                        icon: 'pi pi-pw pi-file',
+                        label: 'Etnia', routerLink: 'mantenimientos/etnia',
+                    },
+                    {
+                        icon: 'pi pi-pw pi-file',
+                        label: 'Categoria Establecimiento', routerLink: 'mantenimientos/categoria-establecimiento',
+                    },
                 ],
             },
         ];
@@ -244,13 +252,7 @@ export class SideBarComponent implements OnInit {
                     items: filteredSubOptions,
                 });
             }
+
         }
-
-        this.filteredRoutes = filteredGroups;
-    }
-
-    onSelect(event) {
-        this.selectedRoute = null;
-        this.router.navigate([event.url]);
     }
 }

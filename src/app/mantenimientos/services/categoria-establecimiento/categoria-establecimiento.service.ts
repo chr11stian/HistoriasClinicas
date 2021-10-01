@@ -1,15 +1,22 @@
 import {Injectable} from '@angular/core';
 import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {Subject} from "rxjs";
+import {tap} from "rxjs/operators";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CategoriaEstablecimientoService {
+    private _refresh = new Subject<void>();
     base_url = environment.baseUrl;
     bd = environment.bd;
 
     constructor(private http: HttpClient) {
+    }
+
+    get refresh() {
+        return this._refresh;
     }
 
     getCategoriaEstablecimiento() {

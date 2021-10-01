@@ -25,8 +25,8 @@ export class GrupoEtarioComponent implements OnInit {
   ) {
     this.buildForm();
     this.getGrupoEtario();
-    this.stateOptions = [{label: 'Si', value: 'S'}, {label: 'No', value: 'N'}];
-    this.sexoList =  [{label: 'Femenino', value: 'Femenino'}, {label: 'Masculino', value: 'Masculino'}, {label: 'Ambos', value: 'Ambos'}];
+    this.stateOptions = [{ label: 'Si', value: 'S' }, { label: 'No', value: 'N' }];
+    this.sexoList = [{ label: 'Femenino', value: 'Femenino' }, { label: 'Masculino', value: 'Masculino' }, { label: 'Ambos', value: 'Ambos' }];
   }
 
   buildForm() {
@@ -61,6 +61,7 @@ export class GrupoEtarioComponent implements OnInit {
             title: 'Agregado correctamente',
             text: '',
             showConfirmButton: false,
+            timer: 1500,
           })
           this.getGrupoEtario();
           this.grupoEtarioDialog = false;
@@ -71,6 +72,7 @@ export class GrupoEtarioComponent implements OnInit {
 
   openNew() {
     this.isUpdate = false;
+    this.form.reset();
     this.form.get('descripcion').setValue("");
     this.form.get('edadMinima').setValue(0);
     this.form.get('edadMaxima').setValue(0);
@@ -97,32 +99,20 @@ export class GrupoEtarioComponent implements OnInit {
       esGestante: this.form.value.esGestante,
       sexo: this.form.value.sexo,
     }
-    Swal.fire({
-      target: document.getElementById('dialogg'),
-      showCancelButton: true,
-      confirmButtonText: 'Editar',
-      icon: 'warning',
-      title: 'Estas seguro de editar estos datos',
-      text: '',
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.grupoetarioservice.editGrupoEtario(req).subscribe(
-          result => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Editado correctamente',
-              text: '',
-              showConfirmButton: false,
-            })
-            this.getGrupoEtario();
-            this.grupoEtarioDialog = false;
-          }
-        )
-      }
-    })
-    
 
+    this.grupoetarioservice.editGrupoEtario(req).subscribe(
+      result => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Agregado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        this.getGrupoEtario();
+        this.grupoEtarioDialog = false;
+      }
+    )
   }
 
   eliminar(rowData) {
@@ -141,7 +131,13 @@ export class GrupoEtarioComponent implements OnInit {
             this.getGrupoEtario()
           }
         );
-        Swal.fire('Eliminado!', '', 'success');
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     })
   }
@@ -172,10 +168,10 @@ export class GrupoEtarioComponent implements OnInit {
     if (gestante == "S") return true;
     else return false;
   }
-  valorSexo(){
+  valorSexo() {
     console.log(this.form.value.sexo)
   }
-  titulo(){
+  titulo() {
     if (this.isUpdate) return "Edite Grupo Etario";
     else return "Ingrese Nuevo Grupo Etario";
   }

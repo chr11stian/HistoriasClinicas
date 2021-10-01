@@ -2,7 +2,7 @@
     <p-toolbar styleClass="p-mb-4">
 
         <ng-template pTemplate="left">
-            <h3 class="p-m-0">Lista de Ubicaciones</h3>
+            <h3 class="p-m-0">Lista de Categorias</h3>
         </ng-template>
 
         <ng-template pTemplate="right" class="button">
@@ -29,6 +29,7 @@
                 <th>Nivel del IPRESS</th>
                 <th>Abreviatura</th>
                 <th>Descripcion</th>
+                <th style="text-align: center">Accion</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -39,10 +40,12 @@
                 <td>{{ rowData.descripcion }}</td>
 
                 <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
-                            (click)="editUbicacion(rowData)"></button>
-                    <!--                <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success "-->
-                    <!--                ></button>-->
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                            (click)="editar(rowData)">
+                    </button>
+                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar etnia" pRipple type="button"
+                            icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                    </button>
                 </td>
 
             </tr>
@@ -52,31 +55,42 @@
 </div>
 
 
-<p-dialog [(visible)]="CategoriaDialog" [style]="{width: '1080px'}" header="Registrar Ubicación"
-          [modal]="true" [responsive]="dataCategoriaEstablecimiento"
-          styleClass="p-fluid">
-    <br>
+<p-dialog [(visible)]="CategoriaDialog" [style]="{width: '720px'}" [modal]="true"
+          styleClass="p-fluid " autoZIndex>
+    <ng-template pTemplate="header">
+        <h3>{{titulo()}}</h3>
+    </ng-template>
 
     <ng-template pTemplate="body">
-        <div class="grid">
-            <div class="p-field col-4">
-                <label>CENTRO POBLADO</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="ccpp"
-                           [(ngModel)]="dataCategoriaEstablecimiento.abreviastura"
-                           pInputText>
+        <form [formGroup]='form'>
+            <div class="grid">
+                <div class="p-field col-6">
+                    <label>Nivel de IPRESS</label>
+                    <input type="text" pInputText formControlName='nivel' required/>
+                </div>
+
+                <div class="p-field col-6">
+                    <label>Abreviatura</label>
+                    <input type="text" pInputText formControlName='abreviatura' required/>
                 </div>
             </div>
-        </div>
+            <br>
 
+            <div class="grid">
+                <div class="p-field col-12">
+                    <label id="descripcion">Descripcion:</label>
+                    <input type="text" pInputText formControlName='descripcion' required/>
+                </div>
+            </div>
 
+        </form>
     </ng-template>
 
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
-        <button pButton type="button" label="Guardar" (click)="save()"></button>
-
-        <!--        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>-->
-        <!--        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>-->
+        <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"
+                (click)="saveForm()"></button>
+        <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"
+                (click)="editarDatos()"></button>
     </ng-template>
 </p-dialog>
