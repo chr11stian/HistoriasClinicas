@@ -32,18 +32,19 @@ import { RolGuardiaComponent } from './component/rol-guardia/rol-guardia.compone
     RolGuardiaComponent,
   ],
 
-  exports: [TipoPersonalComponent, UbicacionComponent],
+    exports: [TipoPersonalComponent, UbicacionComponent],
 
-  imports: [
-    CommonModule,
-    CoreModule,
-    MantenimentosRoutingModule,
-    PrimeModule,
-    ToolbarModule,
-    FormsModule,
-    TreeSelectModule,
-    MultiSelectModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        CommonModule,
+        CoreModule,
+        MantenimentosRoutingModule,
+        PrimeModule,
+        ToolbarModule,
+        FormsModule,
+        TreeSelectModule,
+        MultiSelectModule,
+        ReactiveFormsModule,
+    ],
 })
-export class MantenimientosModule {}
+export class MantenimientosModule {
+}

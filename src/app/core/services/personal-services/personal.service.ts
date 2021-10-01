@@ -19,20 +19,12 @@ export class PersonalService {
     private personales: Personal[] = [];
 
 
-
     constructor(private http: HttpClient) {
     }
 
     get refresh() {
         return this._refresh;
     }
-
-    // getPersonals() {
-    //     return this.http.get<Personal[]>(`${this.base_url}/historiasclinicas/api/personal`)
-    //         .pipe(
-    //             tap((personales) => this.personales = personales)
-    //         )
-    // }
 
 
     getPersonal(): Observable<Personal[]> {
