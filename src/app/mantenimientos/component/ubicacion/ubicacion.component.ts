@@ -1,9 +1,9 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
-import {UbicacionService} from "../../services/ubicacion/ubicacion.service";
-import {Departamentos, Filtro, Provincias, Ubicacion} from "../../../core/models/ubicacion.models";
-import {PrimeNGConfig} from "primeng/api";
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { UbicacionService } from "../../services/ubicacion/ubicacion.service";
+import { Departamentos, Filtro, Provincias, Ubicacion } from "../../../core/models/ubicacion.models";
+import { PrimeNGConfig } from "primeng/api";
 import Swal from "sweetalert2";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'app-ubicacion',
@@ -14,10 +14,14 @@ export class UbicacionComponent implements OnInit {
     form: FormGroup;
     @Output() eventFiltros = new EventEmitter<any>();
     dataDepartamntos: any;
+    dataProvincia: any;
+    dataDistrito: any;
 
     dataUbicacion: any;
     ubicacion: Ubicacion;
     ubicacions: Ubicacion[];
+    iddd: string;
+
 
 
     ubicacionDialog: boolean;
@@ -25,7 +29,7 @@ export class UbicacionComponent implements OnInit {
     loading = true;
 
     constructor(private ubicacionService: UbicacionService,
-                private formBuilder: FormBuilder,
+        private formBuilder: FormBuilder,
     ) {
         this.getUbicacion();
     }
@@ -33,7 +37,6 @@ export class UbicacionComponent implements OnInit {
     ngOnInit(): void {
         // this.getDepartamentos();
         this.getDepartamentos();
-
     }
 
 
@@ -47,14 +50,12 @@ export class UbicacionComponent implements OnInit {
     getDepartamentos() {
         this.ubicacionService.getDepartamentos().subscribe((resp: any) => {
             this.dataDepartamntos = resp.object;
-            // console.log(resp)
+            console.log('dep ', this.dataDepartamntos)
         });
-
     }
 
-
     editUbicacion(ubicacion: Ubicacion) {
-        this.ubicacion = {...ubicacion};
+        this.ubicacion = { ...ubicacion };
         this.ubicacionDialog = true;
     }
 
@@ -76,5 +77,27 @@ export class UbicacionComponent implements OnInit {
         this.ubicacionDialog = false;
         this.submitted = false;
     }
+    selectedDepartamento() {
+        let aux: any = this.ubicacion.departamento
+        let dpto = {
+            iddd: aux.iddd
+        }
+        this.iddd = aux.iddd
+        this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
+            this.dataProvincia = res.object;
+            console.log('data pro', this.dataProvincia)
+        })
+    }
 
+    selectedProvincia() {
+        let aux: any = this.ubicacion.provincia;
+        let provincia = {
+            iddd: this.iddd,
+            idpp: aux.idpp
+        };
+        this.ubicacionService.getDistritos(provincia).subscribe((res: any) => {
+            this.dataDistrito = res.object;
+            console.log('distrito ', this.dataDistrito)
+        })
+    }
 }
