@@ -39,4 +39,5 @@ export class UbicacionService {
     getDistritos(data){
         return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/distritos`, data);
     }
+    
 }

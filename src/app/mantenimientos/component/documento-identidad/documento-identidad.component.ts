@@ -74,13 +74,19 @@ export class DocumentoIdentidadComponent implements OnInit {
         }).then((result) => {
             if (result.isConfirmed) {
                 if (this.update) {
-                    console.log('actualizar ', this.update, this.id)
-                    this.docIdentidadService.putDocumentoIdentidad(this.id, this.datosDocIdentidad).subscribe(res => {
+                    this.datosDocIdentidad = {
+                        nombre: this.datosDocIdentidad.nombre,
+                        abreviatura: this.datosDocIdentidad.abreviatura,
+                        longitud: this.datosDocIdentidad.longitud,
+                        id: this.id
+                    }
+                    console.log( 'actualizar ',this.datosDocIdentidad)
+                    this.docIdentidadService.putDocumentoIdentidad(this.datosDocIdentidad).subscribe(res => {
                         this.limpiarCampos();
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
-                            title: 'Se guardo con exito',
+                            title: 'Se Actualizo con exito',
                             showConfirmButton: false,
                             timer: 1500
                         });
@@ -123,5 +129,8 @@ export class DocumentoIdentidadComponent implements OnInit {
         this.id = row.id
     }
 
+    eliminar(row){
+        console.log('row', row)
+    }
 
 }

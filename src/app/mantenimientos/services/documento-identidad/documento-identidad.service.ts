@@ -20,7 +20,7 @@ export class DocumentoIdentidadService {
         return this.http.post(`${this.base_url}/${this.bd}/api/documentoidentidad`, data)
     }
 
-    putDocumentoIdentidad(id, data) {
-        return this.http.put<any>(`${this.base_url}/${this.bd}/api/documentoidentidad/${id}`, data)
+    putDocumentoIdentidad(data) {
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/documentoidentidad/`, data)
     }
 }
