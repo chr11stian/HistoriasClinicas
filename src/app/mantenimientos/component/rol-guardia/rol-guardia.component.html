@@ -16,33 +16,57 @@
 >
   <ng-template pTemplate="header">
     <tr>
-      <th
-        rowSpan="2"
-        colSpan="3"
-        class="text-center frozenCol"
-        style="background-color: #48dbfb"
-      >
+      <th rowSpan="2" colSpan="3" class="text-center frozenCol">
         Personal por servicio(UPS)
+        <div>
+          <p-dropdown
+            [options]="personalServicio"
+            [(ngModel)]="selectedPersonalServicio"
+            optionLabel="name"
+            styleClass="my-2 py-1"
+          ></p-dropdown>
+        </div>
       </th>
-      <th colSpan="31" style="background-color: #48dbfb">Mes de Agosto</th>
+      <th colSpan="31" style="background-color: #dfe6e9">Mes de Agosto</th>
     </tr>
     <tr>
-      <th *ngFor="let dia of mesActual" [style]="dia.bg">
+      <th
+        *ngFor="let dia of mesActual"
+        [style]="
+          dia.bg == 'background-color:#dfe6e9'
+            ? 'background-color:#f3a683;'
+            : 'background-color:white;'
+        "
+      >
         {{ dia.abreviatura }}
       </th>
     </tr>
     <tr>
-      <th class="frozenCol" pFrozenColumn [frozen]="true">Nro</th>
-      <th class="frozenCol" pFrozenColumn [frozen]="true">Apellidos</th>
-      <th class="frozenCol" pFrozenColumn [frozen]="true">Nombres</th>
       <th
-        *ngFor="let dia of mesActual"
-        [style]="
-          dia.diaSemana === 'Lun'
-            ? 'background-color:#ffd700;'
-            : 'background-color:white;'
-        "
+        class="frozenCol"
+        pFrozenColumn
+        [frozen]="true"
+        style="background-color: #dfe6e9"
       >
+        Nro
+      </th>
+      <th
+        class="frozenCol"
+        pFrozenColumn
+        [frozen]="true"
+        style="background-color: #dfe6e9"
+      >
+        Apellidos
+      </th>
+      <th
+        class="frozenCol"
+        pFrozenColumn
+        [frozen]="true"
+        style="background-color: #dfe6e9"
+      >
+        Nombres
+      </th>
+      <th *ngFor="let dia of mesActual" [style]="dia.bg">
         {{ dia.dia }}
       </th>
     </tr>
