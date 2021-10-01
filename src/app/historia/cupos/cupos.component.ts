@@ -257,12 +257,9 @@ export class CuposComponent implements OnInit {
         this.primeNGConfig.ripple = true;
         console.log('hoy', this.today);
         this.today.setMinutes(this.today.getMinutes() + 30);
-        this.jsToday = formatDate(this.today, 'hh:mm:ss a', 'en-GB', '-0500');
+        this.jsToday = formatDate(this.today, 'HH:mm:ss a', 'en-ES', '-0500');
         console.log('tiempo suma ', this.today);
         console.log('hora nueva ', this.jsToday);
-
-
-        // this.today = this.jsToday.
     }
 
     ngOnDestroy(): void {
@@ -278,13 +275,6 @@ export class CuposComponent implements OnInit {
         let auxCupo: any = this.selectedHorario;
         if (auxCupo.length != 1) {
             this.messageService.add({severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario' });
-            // Swal.fire({
-            //     position: 'center',
-            //     icon: 'warning',
-            //     title: 'Debe seleccionar solo un horario',
-            //     showConfirmButton: false,
-            //     timer: 1500
-            // })
             return;
         }
         console.log('horario ', this.selectedHorario)
@@ -318,22 +308,10 @@ export class CuposComponent implements OnInit {
         console.log('no seleccionar');
     }
 
-    selectRowHorario(event) {
-        console.log(event)
-    }
-
-    unselectHorario(event) {
-        console.log(event)
-    }
-
     changeServicioSelected(event) {
         this.personalSelected = '';
         console.log(event)
         this.listaPersonal = this.listaPersonalAux.filter(item => item.codServicio == event.codServicio)
-    }
-
-    clickTable(event) {
-        console.log('click desde un div ', event);
     }
 
     GuardarPersona() {

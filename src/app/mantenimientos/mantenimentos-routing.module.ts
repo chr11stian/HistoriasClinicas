@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { ColegioProfesionalComponent } from "./component/colegio-profesional/colegio-profesional.component";
+import { DocumentoIdentidadComponent } from "./component/documento-identidad/documento-identidad.component";
 import { EspecialidadComponent } from "./component/especialidad/especialidad.component";
 import { EtniaComponent } from "./component/etnia/etnia.component";
 import { GrupoEtarioComponent } from "./component/grupo-etario/grupo-etario.component";
@@ -55,6 +56,10 @@ const routes: Routes = [
   {
     path: "rol-guardia",
     component: RolGuardiaComponent,
+  },
+  {
+    path: "documento-identidad",
+    component: DocumentoIdentidadComponent,
   },
   {
     path: "etnia",
