@@ -33,8 +33,10 @@ export class UbicacionService {
     }
 
     getProvincias(data) {
-        return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/provincias`, data);
+        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/provincias`, data);
     }
 
-
+    getDistritos(data){
+        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/distritos`, data);
+    }
 }

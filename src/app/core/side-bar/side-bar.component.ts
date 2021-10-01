@@ -216,7 +216,7 @@ export class SideBarComponent implements OnInit {
           },
           {
             icon: 'pi pi-pw pi-file',
-            label: 'Documentos de Identidad', routerLink: 'mantenimientos/documentoIdentidad',
+            label: 'Documentos de Identidad', routerLink: 'mantenimientos/documento-identidad',
           },
         ],
       },

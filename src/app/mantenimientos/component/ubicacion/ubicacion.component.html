@@ -87,34 +87,34 @@
                                 [(ngModel)]="ubicacion.departamento"
                                 optionLabel="departamento"
                                 defaultLabel="Seleccione un Departamento"
-                                id="departamento">
+                                id="departamento" 
+                                (onChange)="selectedDepartamento()">
                     </p-dropdown>
                 </div>
-
             </div>
-
             <div class="p-field col-4">
                 <label>PROVINCIA</label>
                 <div class="p-field">
-                    <p-dropdown inputId="dropdown" [options]="dataUbicacion"
+                    <p-dropdown inputId="dropdown" [options]="dataProvincia"
                                 [(ngModel)]="ubicacion.provincia"
                                 optionLabel="provincia"
                                 defaultLabel="Seleccione un Departamento"
-                                id="provincia">
+                                id="provincia"
+                                (onChange)="selectedProvincia()">
                     </p-dropdown>
                 </div>
             </div>
-
-
             <div class="p-field col-4">
                 <label>DISTRITO</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="distrito" [(ngModel)]="ubicacion.distrito"
-                           pInputText>
+                <div class="p-field">
+                    <p-dropdown inputId="dropdown" [options]="dataDistrito"
+                                [(ngModel)]="ubicacion.distrito"
+                                optionLabel="distrito"
+                                defaultLabel="Seleccione un distrito"
+                                id="distrito">
+                    </p-dropdown>
                 </div>
             </div>
-
-
         </div>
         <br>
 
