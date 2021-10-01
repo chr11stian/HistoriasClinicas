@@ -80,7 +80,7 @@ export class DocumentoIdentidadComponent implements OnInit {
                         longitud: this.datosDocIdentidad.longitud,
                         id: this.id
                     }
-                    console.log( 'actualizar ',this.datosDocIdentidad)
+                    console.log('actualizar ', this.datosDocIdentidad)
                     this.docIdentidadService.putDocumentoIdentidad(this.datosDocIdentidad).subscribe(res => {
                         this.limpiarCampos();
                         Swal.fire({
@@ -90,20 +90,20 @@ export class DocumentoIdentidadComponent implements OnInit {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                    })
-                } else {
-                    console.log('no se actualiza ')
-                }
-                this.docIdentidadService.postDocumentoIdentidad(this.datosDocIdentidad).subscribe(res => {
-                    this.limpiarCampos();
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Se guardo con exito',
-                        showConfirmButton: false,
-                        timer: 1500
                     });
-                });
+                } else {
+                    this.docIdentidadService.postDocumentoIdentidad(this.datosDocIdentidad).subscribe(res => {
+                        this.limpiarCampos();
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Se guardo con exito',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        this.getDocumentosIdentidad();
+                    });
+                }
             } else if (result.isDenied) {
                 this.limpiarCampos();
                 Swal.fire('No se Guardo', '', 'info')
@@ -129,8 +129,32 @@ export class DocumentoIdentidadComponent implements OnInit {
         this.id = row.id
     }
 
-    eliminar(row){
-        console.log('row', row)
-    }
+    eliminar(row) {
+        console.log('row', row.id)
+        this.docIdentidadService.deleteDocumentoIdentidadById(row.id).subscribe((res: any) => {
+            console.log(res)
+        })
 
+        Swal.fire({
+            title: '¿Seguro que desea eliminar este documento?',
+            showDenyButton: true,
+            confirmButtonText: 'Eliminar',
+            denyButtonText: `Cancelar`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.docIdentidadService.deleteDocumentoIdentidadById(row.id).subscribe((res: any) => {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Se Elimino con exito',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    this.getDocumentosIdentidad();
+                });
+            } else if (result.isDenied) {
+                Swal.fire('No se elimino el documento', '', 'info')
+            }
+        })
+    }
 }

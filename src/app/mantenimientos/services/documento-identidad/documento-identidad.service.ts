@@ -23,4 +23,8 @@ export class DocumentoIdentidadService {
     putDocumentoIdentidad(data) {
         return this.http.put<any>(`${this.base_url}/${this.bd}/api/documentoidentidad/`, data)
     }
+
+    deleteDocumentoIdentidadById(id){
+        return this.http.delete(`${this.base_url}/${this.bd}/api/documentoidentidad/${id}`)
+    }
 }
