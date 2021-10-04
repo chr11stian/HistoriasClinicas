@@ -41,6 +41,10 @@ export class RolGuardiaComponent implements OnInit {
       especialidad: "obstetricia",
     },
   ];
+  // changeComponentVacunas(event, dropdown: Dropdown) {
+  //   console.log(this.selectedOption);
+  //   this.vacuna = event.value;
+  // }
   // fechaHoy = new Date(2021, 10, 2);
   fechaHoy = new Date(2021, 10, 2);
   mes: number = 0;
@@ -126,6 +130,9 @@ export class RolGuardiaComponent implements OnInit {
     //     }
     //   }
     // });
+  }
+  cambiar(valor: string) {
+    console.log(valor);
   }
 
   ngOnInit(): void {}
