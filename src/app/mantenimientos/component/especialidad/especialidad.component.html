@@ -1,8 +1,8 @@
 <div class="grid">
-    <div class="col-4">
+    <div class="col-4 mt-5">
       <p-card class="m-0 ">
-          <h2 *ngIf="!isUpdate">Ingrese nueva especialidad</h2>
-          <h2 *ngIf="isUpdate">Edite especialidad</h2>
+          <h2 *ngIf="!isUpdate">Ingrese Nueva Especialidad</h2>
+          <h2 *ngIf="isUpdate">Edite Especialidad</h2>
         
           <form [formGroup]='form'>
             <div class="p-fluid grid flex justify-content-center">
@@ -32,8 +32,8 @@
             </div>           
             <br/>
             <div class="flex justify-content-end">
-                <button *ngIf="!isUpdate" pButton type="button" label="Guardar Nuevo" (click)="saveForm()" class="m-1 w-9rem"></button>
-                <button *ngIf="isUpdate" pButton type="button" label="Guardar edición" (click)="editarDatos()" class="m-1 w-9rem"></button>
+                <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar Nuevo" (click)="saveForm()" class="m-1 w-9rem"></button>
+                <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar edición" (click)="editarDatos()" class="m-1 w-9rem"></button>
                 <button
                   pButton
                   type="button"
@@ -58,11 +58,12 @@
         [rowsPerPageOptions]="[10, 25, 50]"
         [paginator]="true"
         [autoLayout]="true"
-        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+        [showCurrentPageReport]="true" 
       >
         <ng-template pTemplate="caption">
           <div class="flex justify-content-between">
-            <h3>Lista de especialidades</h3>
+            <h3>Lista de Especialidades</h3>
           </div>
         </ng-template>
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
@@ -88,7 +89,7 @@
                   (click)="editar(rowData)"
                   pTooltip="Editar especialidad"
                   pRipple type="button" 
-                  icon="pi pi-pencil" 
+                  icon="pi pi-pencil"
                   class="p-button-rounded m-1">
                 </button>
                 <button pButton

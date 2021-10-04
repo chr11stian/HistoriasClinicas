@@ -1,0 +1,95 @@
+<div class="p-card">
+    <p-toolbar styleClass="p-mb-4">
+
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Lista de Condicion de Pacientes</h3>
+        </ng-template>
+
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                (click)="openNew()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+        [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true" 
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Nombre</th>
+                <th style="text-align: center">Edad mínima</th>
+                <th style="text-align: center">Edad máxima</th>
+                <th style="text-align: center">Sexo</th>
+                <th style="text-align: center">Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.nombre }}</td>
+                <td style="text-align: center">{{ rowData.edadMinima }}</td>
+                <td style="text-align: center">{{ rowData.edadMaxima }}</td>
+                <td style="text-align: center">{{ valorSexo(rowData.idSexo) }}</td>
+                <td style="text-align: center">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                        (click)="editar(rowData)">
+                    </button>
+                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar condicion paciente" pRipple type="button"
+                        icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
+
+
+<p-dialog [(visible)]="condicionPacienteDialog" [style]="{width: '600px'}" [modal]="true"
+    styleClass="p-fluid " autoZIndex>
+    <ng-template pTemplate="header">
+        <h3>{{titulo()}}</h3>
+    </ng-template>
+
+    <ng-template pTemplate="body">
+        <form [formGroup]='form'>
+            <div class="grid">
+                <div class="p-field col-12">
+                    <label id="nombre">Nombre:</label>
+                    <input type="text" pInputText formControlName='nombre' required />
+                </div>
+            </div>
+            <br>
+            <div class="grid">
+                <div class="p-field col-4">
+                    <label>Edad Minima</label>
+                    <p-inputNumber formControlName='edadMinima' mode="decimal" [showButtons]="true"
+                        inputId="minmax-buttons" [min]="0" [max]="150">
+                    </p-inputNumber>
+                </div>
+                <div class="p-field col-4">
+                    <label>Edad Maxima</label>
+                    <p-inputNumber formControlName='edadMaxima' mode="decimal" [showButtons]="true"
+                        inputId="minmax-buttons" [min]="0" [max]="150">
+                    </p-inputNumber>
+                </div>
+                <div class="p-field col-4">
+                    <label>Sexo</label>
+                    <div class="p-field">
+                        <p-dropdown inputId="dropdown" [options]="sexoList" formControlName="idSexo" optionLabel="label" optionValue="value"
+                            defaultLabel="Seleccione sexo" id="idSexo">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
+        <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar" (click)="saveForm()" ></button>
+        <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar" (click)="editarDatos()" ></button>
+    </ng-template>
+</p-dialog>

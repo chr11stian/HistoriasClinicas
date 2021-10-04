@@ -27,6 +27,11 @@ export interface Provincias {
     provincia?: string;
 }
 
+export interface Distrito {
+    iddis?: string,
+    distrito?: string
+}
+
 export interface filtroIds {
     departamento: number;
     provincia: number;
@@ -35,7 +40,7 @@ export interface filtroIds {
     ccpp: number;
 }
 
-export interface Filtro{
+export interface Filtro {
     iddd: string;
     idpp: string;
     iddis: string;

@@ -1,67 +1,63 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
 import Swal from "sweetalert2";
-import { EspecialidadService } from '../../services/especialidad/especialidad.service';
+import { CondicionPacienteRiesgoService } from '../../services/condicion-paciente-riesgo/condicion-paciente-riesgo.service';
 
 @Component({
-  selector: 'app-especialidad',
-  templateUrl: './especialidad.component.html',
-  styleUrls: ['./especialidad.component.css']
+  selector: 'app-condicion-paciente-riesgo',
+  templateUrl: './condicion-paciente-riesgo.component.html',
+  styleUrls: ['./condicion-paciente-riesgo.component.css']
 })
-export class EspecialidadComponent implements OnInit {
+export class CondicionPacienteRiesgoComponent implements OnInit {
   // Creacion del formulario
   form: FormGroup;
 
   data: any[] = [];
   isUpdate: boolean = false;
   idUpdate: string = "";
-  estado: boolean;
-
   constructor(
-    private especialidadservice: EspecialidadService,
+    private condicionPacienteRiesgoservice: CondicionPacienteRiesgoService,
     private formBuilder: FormBuilder
   ) {
     this.buildForm();
-    this.getEspecialidad();
+    this.getCondicionPacienteRiesgo();
   }
 
   buildForm() {
     this.form = this.formBuilder.group({
-      idSIS: ['', [Validators.required]],
+      idcpr: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
     })
   }
 
-  getEspecialidad() {
-    this.especialidadservice.getEspecialidad().subscribe((res: any) => {
+  getCondicionPacienteRiesgo() {
+    this.condicionPacienteRiesgoservice.getCondicionPacienteRiesgo().subscribe((res: any) => {
       this.data = res.object;
-      console.log(this.data);
     });
   }
 
   saveForm() {
+    console.log("guardar");
     this.isUpdate = false;
     const req = {
-      idSIS: this.form.value.idSIS,
+      idcpr: this.form.value.idcpr,
       nombre: this.form.value.nombre,
-      estado: this.estado
     }
-    if (req.idSIS.trim() !== "" || req.nombre.trim() !== "") {
-      this.especialidadservice.createEspecialidad(req).subscribe(
+    if (req.idcpr.trim() !== "" || req.nombre.trim() !== "") {
+      this.condicionPacienteRiesgoservice.createCondicionPacienteRiesgo(req).subscribe(
         result => {
           Swal.fire({
             icon: 'success',
             title: 'Agregado correctamente',
-            text: '',
+            text: 'Condicion Paciente Riesgo',
             showConfirmButton: false,
-            timer: 1500,
+            timer: 1000
           })
-          this.getEspecialidad();
+          this.getCondicionPacienteRiesgo();
           this.guardarNuevo();
         }
       )
-    }
-    else {
+    } else {
       Swal.fire({
         icon: 'error',
         title: 'Error',
@@ -69,36 +65,35 @@ export class EspecialidadComponent implements OnInit {
       })
     }
   }
+
   guardarNuevo() {
     this.isUpdate = false;
     this.form.reset();
-    this.estado = true;
   }
+
   editar(rowData) {
     this.isUpdate = true;
-    this.form.get('idSIS').setValue(rowData.idSIS);
-    this.form.get('nombre').setValue(rowData.nombre);
-    console.log(rowData.estado, typeof (rowData.estado));
-    this.estado = rowData.estado;
+    this.form.get('idcpr').setValue(rowData.idcpr)
+    this.form.get('nombre').setValue(rowData.nombre)
     this.idUpdate = rowData.id;
   }
+
   editarDatos(rowData) {
     const req = {
       id: this.idUpdate,
-      idSIS: this.form.value.idSIS,
+      idcpr: this.form.value.idcpr,
       nombre: this.form.value.nombre,
-      estado: this.estado
     }
-    this.especialidadservice.editEspecialidad(req).subscribe(
+    this.condicionPacienteRiesgoservice.editCondicionPacienteRiesgo(req).subscribe(
       result => {
         Swal.fire({
           icon: 'success',
           title: 'Editado correctamente',
-          text: '',
+          text: 'Condicion Paciente Riesgo',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
-        this.getEspecialidad();
+        this.getCondicionPacienteRiesgo();
         this.guardarNuevo();
       }
     )
@@ -115,9 +110,9 @@ export class EspecialidadComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.especialidadservice.deleteEspecialidad(rowData.id).subscribe(
+        this.condicionPacienteRiesgoservice.deleteCondicionPacienteRiesgo(rowData.id).subscribe(
           result => {
-            this.getEspecialidad()
+            this.getCondicionPacienteRiesgo()
           }
         );
         Swal.fire({
@@ -125,14 +120,13 @@ export class EspecialidadComponent implements OnInit {
           title: 'Eliminado correctamente',
           text: '',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
       }
     })
   }
 
   ngOnInit(): void {
-    this.estado = true;
   }
 
 }

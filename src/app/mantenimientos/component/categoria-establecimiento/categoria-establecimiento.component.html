@@ -1,0 +1,96 @@
+<div class="p-card">
+    <p-toolbar styleClass="p-mb-4">
+
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Lista de Categorias</h3>
+        </ng-template>
+
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                    (click)="openNew()"></button>
+
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table
+            [value]="dataCategoriaEstablecimiento"
+            #dt
+            styleClass="p-datatable-gridlines   "
+            [rows]="10"
+            [rowsPerPageOptions]="[10, 25, 50]"
+            [paginator]="true"
+            [autoLayout]="true"
+            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th>Nro</th>
+                <th>Nivel del IPRESS</th>
+                <th>Abreviatura</th>
+                <th>Descripcion</th>
+                <th style="text-align: center">Accion</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td>{{ rowIndex + 1 }}</td>
+                <td>{{ rowData.nivel }}</td>
+                <td>{{ rowData.abreviatura }}</td>
+                <td>{{ rowData.descripcion }}</td>
+
+                <td style="text-align: center">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                            (click)="editar(rowData)">
+                    </button>
+                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar etnia" pRipple type="button"
+                            icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                    </button>
+                </td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
+
+
+<p-dialog [(visible)]="CategoriaDialog" [style]="{width: '720px'}" [modal]="true"
+          styleClass="p-fluid " autoZIndex>
+    <ng-template pTemplate="header">
+        <h3>{{titulo()}}</h3>
+    </ng-template>
+
+    <ng-template pTemplate="body">
+        <form [formGroup]='form'>
+            <div class="grid">
+                <div class="p-field col-6">
+                    <label>Nivel de IPRESS</label>
+                    <input type="text" pInputText formControlName='nivel' required/>
+                </div>
+
+                <div class="p-field col-6">
+                    <label>Abreviatura</label>
+                    <input type="text" pInputText formControlName='abreviatura' required/>
+                </div>
+            </div>
+            <br>
+
+            <div class="grid">
+                <div class="p-field col-12">
+                    <label id="descripcion">Descripcion:</label>
+                    <input type="text" pInputText formControlName='descripcion' required/>
+                </div>
+            </div>
+
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
+        <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"
+                (click)="saveForm()"></button>
+        <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"
+                (click)="editarDatos()"></button>
+    </ng-template>
+</p-dialog>
