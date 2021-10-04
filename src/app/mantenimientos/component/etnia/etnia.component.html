@@ -34,9 +34,9 @@
                 <td style="text-align: center">{{ rowData.codigoHIS }}</td>
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                        (click)="editar(rowData)">
+                        (click)="editar(rowData)" pTooltip="Editar">
                     </button>
-                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar etnia" pRipple type="button"
+                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar" pRipple type="button"
                         icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                     </button>
                 </td>
