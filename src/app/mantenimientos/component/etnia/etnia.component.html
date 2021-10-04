@@ -12,7 +12,7 @@
     </p-toolbar>
 
     <p-table [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-        [paginator]="true" [autoLayout]="true"
+        [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true" 
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
