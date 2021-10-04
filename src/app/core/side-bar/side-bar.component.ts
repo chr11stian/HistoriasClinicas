@@ -235,6 +235,10 @@ export class SideBarComponent implements OnInit {
                     },
                     {
                         icon: 'pi pi-pw pi-file',
+                        label: 'Nombre Comercial UPS', routerLink: 'mantenimientos/nombre-comercial-ups',
+                    },
+                    {
+                        icon: 'pi pi-pw pi-file',
                         label: 'Condicion Paciente Riesgo', routerLink: 'mantenimientos/condicion-paciente-riesgo',
                     },
                     {
