@@ -2,7 +2,7 @@
     <p-toolbar styleClass="p-mb-4">
 
         <ng-template pTemplate="left">
-            <h3 class="p-m-0">Lista de Categorias</h3>
+            <h3 class="p-m-0">Nombre comercial UPS</h3>
         </ng-template>
 
         <ng-template pTemplate="right" class="button">
@@ -14,7 +14,7 @@
     </p-toolbar>
 
     <p-table
-            [value]="dataCategoriaEstablecimiento"
+            [value]="datanombreComercialUPS"
             #dt
             styleClass="p-datatable-gridlines   "
             [rows]="10"
@@ -26,24 +26,27 @@
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
                 <th>Nro</th>
-                <th>Nivel del IPRESS</th>
+                <th>Nombre</th>
                 <th>Abreviatura</th>
-                <th>Descripcion</th>
+                <th>Tipo Servicio</th>
+                <th>ICONO</th>
                 <th style="text-align: center">Accion</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
                 <td>{{ rowIndex + 1 }}</td>
-                <td>{{ rowData.nivel }}</td>
+                <td>{{ rowData.nombre }}</td>
                 <td>{{ rowData.abreviatura }}</td>
-                <td>{{ rowData.descripcion }}</td>
+                <td>{{ rowData.tipoServicio }}</td>
+                <td>{{ rowData.iconPath }}</td>
 
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                            pTooltip="Editar categoria" (click)="editar(rowData)">
+                            pTooltip="Editar Nombre comercial UPS" (click)="edit(rowData)">
                     </button>
-                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar categoria" pRipple type="button"
+                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar Nombre comercial UPS" pRipple
+                            type="button"
                             icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                     </button>
                 </td>
@@ -55,7 +58,7 @@
 </div>
 
 
-<p-dialog [(visible)]="CategoriaDialog" [style]="{width: '720px'}" [modal]="true"
+<p-dialog [(visible)]="nombreComercialUPSDialog" [style]="{width: '720px'}" [modal]="true"
           styleClass="p-fluid " autoZIndex>
     <ng-template pTemplate="header">
         <h3>{{titulo()}}</h3>
@@ -65,23 +68,30 @@
         <form [formGroup]='form'>
             <div class="grid">
                 <div class="p-field col-6">
-                    <label>Nivel de IPRESS</label>
-                    <input type="text" pInputText formControlName='nivel' required/>
+                    <label>NOMBRE</label>
+                    <input type="text" pInputText formControlName='nombre' required/>
                 </div>
 
                 <div class="p-field col-6">
-                    <label>Abreviatura</label>
+                    <label>ABREVIATURA</label>
                     <input type="text" pInputText formControlName='abreviatura' required/>
                 </div>
             </div>
             <br>
 
             <div class="grid">
-                <div class="p-field col-12">
-                    <label id="descripcion">Descripcion:</label>
-                    <input type="text" pInputText formControlName='descripcion' required/>
+                <div class="p-field col-6">
+                    <label id="tipoServicio">TIPO SERVICIO:</label>
+                    <input type="text" pInputText formControlName='tipoServicio' required/>
+                </div>
+
+
+                <div class="p-field col-6">
+                    <label id="iconPath">ICONO:</label>
+                    <input type="text" pInputText formControlName='iconPath' required/>
                 </div>
             </div>
+
 
         </form>
     </ng-template>
