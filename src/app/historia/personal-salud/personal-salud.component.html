@@ -2,7 +2,7 @@
     <p-toolbar styleClass="p-mb-4">
 
         <ng-template pTemplate="left">
-            <h3 class="p-m-0">Lista de Ubicaciones</h3>
+            <h3 class="p-m-0">Lista de Personal de Salud</h3>
         </ng-template>
 
         <ng-template pTemplate="right" class="button">
@@ -27,29 +27,40 @@
                 <th>Numero Doc</th>
                 <th>Apellido Paterno</th>
                 <th>Apellido Materno</th>
-                <th>Nombres</th>
-                <!--            <th>Otros Nombres</th>-->
-                <!--            <th>Sexo</th>-->
-                <th>Profesion</th>
-                <th>Tipo Comtrato</th>
+                <th>Primer Nombre</th>
+                <th>Otros Nombres</th>
+                <th>Fecha Nacimiento</th>
+                <th>Tipo Personal</th>
+                <th>Colegio Profesional</th>
+                <th>Colegiatura</th>
+                <th>Especialidad</th>
+                <th>Estado</th>
+                <th>Tipo Contrato</th>
+                <th>Sexo</th>
+                <th>IPRESS</th>               
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
                 <td>{{ rowIndex + 1 }}</td>
-                <td>{{ rowData.nro_doc }}</td>
+                <td>{{ rowData.nroDoc }}</td>
+                <td>{{ rowData.apePaterno }}</td>
                 <td>{{ rowData.apeMaterno }}</td>
-                <td>{{ rowData.apellidoMaterno }}</td>
-                <td>{{ rowData.nombre }}</td>
-                <!--            <td>{{ rowData.otrosNombres }}</td>-->
-                <!--            <td>{{ rowData.sexo }}</td>-->
-                <td>{{ rowData.profesion }}</td>
+                <td>{{ rowData.primerNombre }}</td>
+                <td>{{ rowData.otrosNombres }}</td>
+                <td>{{ rowData.fechaNacimiento }}</td>
+                <td>{{ rowData.tipoPersonal.nombre }}</td>
+                <td>{{ rowData.colegioProfesional.nombre }}</td>
+                <td>{{ rowData.colegiatura }}</td>
+                <td>{{ rowData.especialidad.nombre }}</td>
+                <td>{{ rowData.estado }}</td>
                 <td>{{ rowData.tipoContrato }}</td>
+                <td>{{ rowData.sexo }}</td>
+                <td>{{ rowData.detalleIpress.eess }}</td>
+                
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
-                            (click)="editPersonal(rowData)"></button>
-                    <!--                <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success "-->
-                    <!--                ></button>-->
+                            (click)="editar(rowData)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -57,116 +68,98 @@
 </div>
 
 
-<p-dialog [(visible)]="personalDialog" [style]="{width: '1080px'}" header="Registrar Pacientes" [modal]="true"
-          styleClass="p-fluid">
+<p-dialog [(visible)]="personalDialog" [style]="{width: '720px'}" [modal]="true"
+    styleClass="p-fluid " autoZIndex>
+    <ng-template pTemplate="header">
+        <h3>{{titulo()}}</h3>
+    </ng-template>
+
     <ng-template pTemplate="body">
-        <div class="grid">
-            <div class="col-2">
-                <label>DOCUMENTO IDENTIDAD</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="nro_doc"
-                           [(ngModel)]="personal.nro_doc"
-                           pInputText>
-                    <p-button icon="pi pi-search"></p-button>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="grid">
-            <div class="p-field col-4">
-                <label>APELLIDOS</label>
-                <div class="p-inputgroup">
+        <form [formGroup]='form'>
+            <div class="grid">
+                <div class="p-inputgroup col-12">
+                    <label id="nroDoc">Nro Doc:</label>
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input style="width: 15rem" type="text" id="apellidos" [(ngModel)]="personal.apePaterno"
-                           pInputText>
+                    <input type="text" pInputText formControlName='nroDoc' placeholder="Nro Documento">         
                 </div>
             </div>
+            <br>
+            <div class="grid">
+                <div class="p-field col-4">
+                    <label>Tipo Doc:</label>
+                    <div class="p-field">
+                        <p-dropdown inputId="dropdown" [options]="docList" formControlName="tipoDoc" optionLabel="label" optionValue="value"
+                            defaultLabel="Seleccione Tipo de documento" id="tipodocid">
+                        </p-dropdown>
+                    </div>
+                </div>
+                
+                <div class="p-field col-4">
+                    <label>Apellido Paterno:</label>
+                    <input type="text" pInputText formControlName='apePaterno' required />
+                </div>
 
-            <div class="p-field col-4">
-                <label>NOMBRE</label>
-                <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input style="width: 15rem" type="text" id="nombres"
-                           [(ngModel)]="personal.apeMaterno" pInputText>
+                <div class="p-field col-4">
+                    <label>Apellido Materno:</label>
+                    <input type="text" pInputText formControlName='apeMaterno' required />
+                </div>
+                <div class="p-field col-4">
+                    <label>Nombre:</label>
+                    <input type="text" pInputText formControlName='primerNombre' required />
+                </div>
+                <div class="p-field col-4">
+                    <label>Otros Nombres:</label>
+                    <input type="text" pInputText formControlName='otrosNombres' required />
+                </div>
+
+                <div class="p-field col-4">
+                    <label>Fecha de Nacimiento:</label>
+                    <input type="text" pInputText formControlName='fechaNacimiento' required />
+                </div>
+
+                <div class="p-field col-4">
+                    <label>Tipo de Personal:</label>
+                    <input type="text" pInputText formControlName='tipoPersonal' required />
+                </div>
+                <div class="p-field col-4">
+                    <label>Colegio Profesional:</label>
+                    <input type="text" pInputText formControlName='colegioProfesional' required />
+                </div>
+
+                <div class="p-field col-4">
+                    <label>Colegiatura:</label>
+                    <input type="text" pInputText formControlName='colegiatura' required />
+                </div>
+
+                <div class="p-field col-4">
+                    <label>Especialidad:</label>
+                    <input type="text" pInputText formControlName='especialidad' required />
+                </div>
+                <div class="p-field col-4">
+                    <label>Estado:</label>
+                    <input type="text" pInputText formControlName='estado' required />
+                </div>
+                <div class="p-field col-4">
+                    <label>Tipo Contrato:</label>
+                    <input type="text" pInputText formControlName='tipoContrato' required />
+                </div>
+
+                <div class="p-field col-4">
+                    <label>Sexo:</label>
+                    <input type="text" pInputText formControlName='sexo' required />
+                </div>
+
+                <div class="p-field col-4">
+                    <label>IPRESS:</label>
+                    <input type="text" pInputText formControlName='detalleIpress' required />
                 </div>
             </div>
-
-            <div class="p-field col-4">
-                <label>OTRO NOMBRE</label>
-                <div class="p-inputgroup">
-                    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input style="width: 15rem" type="text" id="otro_nombre"
-                           [(ngModel)]="personal.primerNombre" pInputText>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="grid">
-
-            <div class="p-field col-3">
-                <label>FECHA NACIMIENTO</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="fecha_nacimiento"
-                           [(ngModel)]="personal.fechaNacimiento"
-                           pInputText>
-                </div>
-            </div>
-
-            <div class="p-field col-3">
-                <label>SEXO</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="sexo" [(ngModel)]="personal.sexo"
-                           pInputText>
-                </div>
-            </div>
-
-            <div class="p-field col-3">
-                <label>ESTADO CIVIL</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="estado_civil" [(ngModel)]="personal.otrosNombres"
-                           pInputText>
-                </div>
-            </div>
-        </div>
-
-        <br>
-
-        <div class="grid">
-            <div class="p-field col-4">
-                <label>PROFESION</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="profesion" [(ngModel)]="personal.profesion"
-                           pInputText>
-                </div>
-            </div>
-
-            <div class="p-field col-4">
-                <label>COLEGIO PROFESIONAL</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="colegio_profesional"
-                           [(ngModel)]="personal.colegioProfesional"
-                           pInputText>
-                </div>
-            </div>
-
-            <div class="p-field col-4">
-                <label>TIPO DE CONTRATO</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="tipo_contrato" [(ngModel)]="personal.tipoContrato"
-                           pInputText>
-                </div>
-            </div>
-        </div>
-
-
+        </form>
     </ng-template>
 
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
-        <button pButton type="button" label="Guardar" (click)="save()"></button>
-
-        <!--        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>-->
-        <!--        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>-->
+        <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar" (click)="saveForm()" ></button>
+        <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar" (click)="editarDatos()" ></button>
     </ng-template>
 </p-dialog>
