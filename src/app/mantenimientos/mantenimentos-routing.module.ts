@@ -13,6 +13,7 @@ import {DocumentoIdentidadComponent} from "./component/documento-identidad/docum
 
 import {EtniaComponent} from "./component/etnia/etnia.component";
 import {CategoriaEstablecimientoComponent} from "./component/categoria-establecimiento/categoria-establecimiento.component";
+import { CondicionPacienteComponent } from "./component/condicion-paciente/condicion-paciente.component";
 
 
 const routes: Routes = [
@@ -74,6 +75,10 @@ const routes: Routes = [
     {
         path: "categoria-establecimiento",
         component: CategoriaEstablecimientoComponent,
+    },
+    {
+        path: "condicion-paciente",
+        component: CondicionPacienteComponent,
     },
 ];
 

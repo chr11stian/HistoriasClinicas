@@ -229,6 +229,10 @@ export class SideBarComponent implements OnInit {
                         icon: 'pi pi-pw pi-file',
                         label: 'Categoria Establecimiento', routerLink: 'mantenimientos/categoria-establecimiento',
                     },
+                    {
+                        icon: 'pi pi-pw pi-file',
+                        label: 'Condicion Paciente', routerLink: 'mantenimientos/condicion-paciente',
+                    },
                 ],
             },
         ];

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
 import Swal from "sweetalert2";
-import { GrupoEtarioService } from '../../services/grupo-etario/grupo-etario.service';
+import { CondicionPacienteService } from '../../services/condicion-paciente/condicion-paciente.service';
 
 @Component({
-  selector: 'app-grupo-etario',
-  templateUrl: './grupo-etario.component.html',
-  styleUrls: ['./grupo-etario.component.css']
+  selector: 'app-condicion-paciente',
+  templateUrl: './condicion-paciente.component.html',
+  styleUrls: ['./condicion-paciente.component.css']
 })
-export class GrupoEtarioComponent implements OnInit {
+export class CondicionPacienteComponent implements OnInit {
   // Creacion del formulario
   form: FormGroup;
 
@@ -18,31 +18,29 @@ export class GrupoEtarioComponent implements OnInit {
 
   stateOptions: any[];
   sexoList: any[];
-  grupoEtarioDialog: boolean;
+  condicionPacienteDialog: boolean;
   constructor(
-    private grupoetarioservice: GrupoEtarioService,
+    private condicionpacienteservice: CondicionPacienteService,
     private formBuilder: FormBuilder
   ) {
     this.buildForm();
-    this.getGrupoEtario();
-    this.stateOptions = [{ label: 'Si', value: 'S' }, { label: 'No', value: 'N' }];
-    this.sexoList = [{ label: 'Femenino', value: 'Femenino' }, 
-                     { label: 'Masculino', value: 'Masculino' }, 
-                     { label: 'Ambos', value: 'Ambos' },
-                     { label: 'Otro', value: 'Otro' }];
-  }
+    this.getCondicionPaciente();
+    this.sexoList = [{ label: 'Femenino', value: "1" }, 
+                     { label: 'Masculino', value: "2" }, 
+                     { label: 'Ambos', value: "3" },
+                     { label: 'Otro', value: "4" }];
+   }
 
-  buildForm() {
+   buildForm() {
     this.form = this.formBuilder.group({
-      descripcion: ['', [Validators.required]],
+      nombre: ['', [Validators.required]],
       edadMaxima: ['', [Validators.required]],
       edadMinima: ['', [Validators.required]],
-      esGestante: ['', [Validators.required]],
-      sexo: ['', [Validators.required]],
+      idSexo: ['', [Validators.required]],
     })
   }
-  getGrupoEtario() {
-    this.grupoetarioservice.getGrupoEtario().subscribe((res: any) => {
+  getCondicionPaciente() {
+    this.condicionpacienteservice.getCondicionPaciente().subscribe((res: any) => {
       this.data = res.object;
     });
   }
@@ -50,14 +48,13 @@ export class GrupoEtarioComponent implements OnInit {
   saveForm() {
     this.isUpdate = false;
     const req = {
-      descripcion: this.form.value.descripcion,
+      nombre: this.form.value.nombre,
       edadMaxima: this.form.value.edadMaxima,
       edadMinima: this.form.value.edadMinima,
-      esGestante: this.form.value.esGestante,
-      sexo: this.form.value.sexo
+      idSexo: this.form.value.idSexo
     }
-    if (req.descripcion.trim() !== "") {
-      this.grupoetarioservice.createGrupoEtario(req).subscribe(
+    if (req.nombre.trim() !== "") {
+      this.condicionpacienteservice.createCondicionPaciente(req).subscribe(
         result => {
           Swal.fire({
             icon: 'success',
@@ -66,8 +63,8 @@ export class GrupoEtarioComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           })
-          this.getGrupoEtario();
-          this.grupoEtarioDialog = false;
+          this.getCondicionPaciente();
+          this.condicionPacienteDialog = false;
         }
       )
     }
@@ -76,34 +73,31 @@ export class GrupoEtarioComponent implements OnInit {
   openNew() {
     this.isUpdate = false;
     this.form.reset();
-    this.form.get('descripcion').setValue("");
+    this.form.get('nombre').setValue("");
     this.form.get('edadMinima').setValue(0);
     this.form.get('edadMaxima').setValue(0);
-    this.form.get('esGestante').setValue("S");
-    this.form.get('sexo').setValue("Femenino");
-    this.grupoEtarioDialog = true;
+    this.form.get('idSexo').setValue("1");
+    this.condicionPacienteDialog = true;
   }
   editar(rowData) {
     this.isUpdate = true;
-    this.form.get('descripcion').setValue(rowData.descripcion);
+    this.form.get('nombre').setValue(rowData.nombre);
     this.form.get('edadMinima').setValue(rowData.edadMinima);
     this.form.get('edadMaxima').setValue(rowData.edadMaxima);
-    this.form.get('esGestante').setValue(rowData.esGestante);
-    this.form.get('sexo').setValue(rowData.sexo);
+    this.form.get('idSexo').setValue(rowData.idSexo);
     this.idUpdate = rowData.id;
-    this.grupoEtarioDialog = true;
+    this.condicionPacienteDialog = true;
   }
   editarDatos(rowData) {
     const req = {
       id: this.idUpdate,
-      descripcion: this.form.value.descripcion,
+      nombre: this.form.value.nombre,
       edadMaxima: this.form.value.edadMaxima,
       edadMinima: this.form.value.edadMinima,
-      esGestante: this.form.value.esGestante,
-      sexo: this.form.value.sexo,
+      idSexo: this.form.value.idSexo,
     }
 
-    this.grupoetarioservice.editGrupoEtario(req).subscribe(
+    this.condicionpacienteservice.editCondicionPaciente(req).subscribe(
       result => {
         Swal.fire({
           icon: 'success',
@@ -112,8 +106,8 @@ export class GrupoEtarioComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         })
-        this.getGrupoEtario();
-        this.grupoEtarioDialog = false;
+        this.getCondicionPaciente();
+        this.condicionPacienteDialog = false;
       }
     )
   }
@@ -129,9 +123,9 @@ export class GrupoEtarioComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.grupoetarioservice.deleteGrupoEtario(rowData.id).subscribe(
+        this.condicionpacienteservice.deleteCondicionPaciente(rowData.id).subscribe(
           result => {
-            this.getGrupoEtario()
+            this.getCondicionPaciente()
           }
         );
         Swal.fire({
@@ -153,22 +147,17 @@ export class GrupoEtarioComponent implements OnInit {
       showConfirmButton: false,
       timer: 1000
     })
-    this.grupoEtarioDialog = false;
+    this.condicionPacienteDialog = false;
   }
   
-  verificarGestante(gestante) {
-    if (gestante == "S") return true;
-    else return false;
-  }
-
-  titulo() {
-    if (this.isUpdate) return "Edite Grupo Etario";
-    else return "Ingrese Nuevo Grupo Etario";
-  }
   valorSexo(valor) {
     for (let i=0; i<this.sexoList.length; i++){
       if (valor===this.sexoList[i].value) return this.sexoList[i].label;
     }
+  }
+  titulo() {
+    if (this.isUpdate) return "Edite Condicion Paciente";
+    else return "Ingrese Nueva Condicion Paciente";
   }
   ngOnInit(): void {
   }
