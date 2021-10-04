@@ -41,9 +41,9 @@
 
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                            (click)="editar(rowData)">
+                            pTooltip="Editar categoria" (click)="editar(rowData)">
                     </button>
-                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar etnia" pRipple type="button"
+                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar categoria" pRipple type="button"
                             icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                     </button>
                 </td>

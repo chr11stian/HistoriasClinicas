@@ -19,6 +19,7 @@ import {RolGuardiaComponent} from './component/rol-guardia/rol-guardia.component
 import {DocumentoIdentidadComponent} from "./component/documento-identidad/documento-identidad.component";
 import {EtniaComponent} from './component/etnia/etnia.component';
 import {CategoriaEstablecimientoComponent} from './component/categoria-establecimiento/categoria-establecimiento.component';
+import { NombreComercialUPSComponent } from './component/nombre-comercial-ups/nombre-comercial-ups.component';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import {CategoriaEstablecimientoComponent} from './component/categoria-estableci
         DocumentoIdentidadComponent,
         EtniaComponent,
         CategoriaEstablecimientoComponent,
+        NombreComercialUPSComponent,
     ],
 
     exports: [TipoPersonalComponent, UbicacionComponent],

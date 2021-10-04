@@ -8,16 +8,16 @@ import {tap} from "rxjs/operators";
     providedIn: 'root'
 })
 export class CategoriaEstablecimientoService {
-    private _refresh = new Subject<void>();
+    // private _refresh = new Subject<void>();
     base_url = environment.baseUrl;
     bd = environment.bd;
 
     constructor(private http: HttpClient) {
     }
 
-    get refresh() {
-        return this._refresh;
-    }
+    // get refresh() {
+    //     return this._refresh;
+    // }
 
     getCategoriaEstablecimiento() {
         return this.http.get(`${this.base_url}/${this.bd}/api/categoriaestablecimiento`);
