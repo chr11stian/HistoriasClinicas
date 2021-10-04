@@ -1,6 +1,6 @@
 import {
     ColegioProfesional, DescripcionUsuarioRoles,
-    InformacionPersonalDescripcion,
+    InformacionPersonalDescripcion, Especialidad,
     TipoPersonal
 } from "./mantenimiento.models";
 
@@ -14,14 +14,15 @@ export interface Personal {
     otrosNombres?: string;
     fechaNacimiento?: string;
     sexo?: string;
-    profesion?: string;
     tipoContrato?: string;
     tipoPersonal?: TipoPersonal[];
     colegioProfesional?: ColegioProfesional[];
     colegiatura?: string;
     tipoUsuario?: string;
-    detalleIpres?: InformacionPersonalDescripcion[];
+    especialidad?: Especialidad[];
+    detalleIpress?: InformacionPersonalDescripcion[];
     roles?: DescripcionUsuarioRoles[];
+    estado?: boolean;
 }
 
 
