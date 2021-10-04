@@ -1,6 +1,6 @@
 export interface TipoPersonal {
   id: string;
-  nombreTipoPersonal?: string;
+  nombre?: string;
   esProfesional?: boolean;
   abreviatura?: string;
   especialidad?: string;
@@ -149,7 +149,7 @@ export interface TipoServicio {
 export interface InformacionPersonalDescripcion {
   idIpress?: string;
   eess?: string;
-  fechainicio?: string;
+  fechaInicio?: string;
   fechaFin?: string;
   estado?: string;
 }
