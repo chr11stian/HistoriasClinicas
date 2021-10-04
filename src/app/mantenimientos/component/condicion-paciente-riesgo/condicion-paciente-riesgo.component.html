@@ -1,20 +1,20 @@
 <div class="grid">
     <div class="col-4 mt-5">
         <p-card class="m-0">
-            <h2 *ngIf="!isUpdate">Ingrese Nuevo Colegio Profesional</h2>
-            <h2 *ngIf="isUpdate">Edite Colegio Profesional</h2>
+            <h2 *ngIf="!isUpdate">Ingrese Nueva Condición</h2>
+            <h2 *ngIf="isUpdate">Edite Condición</h2>
 
             <form [formGroup]='form'>
                 <div class="p-fluid grid flex justify-content-center">
                     <div class="p-field col-12 md:col-12">
-                        <label id="codigo">Código:</label>
-                        <input type="text" pInputText formControlName='codigo' required autofocus/>
+                        <label id="idcpr">ID CPR:</label>
+                        <input type="text" pInputText formControlName='idcpr' required autofocus/>
                     </div>
                 </div>
                 <br/>
                 <div class="p-fluid grid flex justify-content-center">
                     <div class="p-field col-12 md:col-12">
-                        <label id="nombre">Nombre colegio profesional:</label>
+                        <label id="nombre">Nombre CPR:</label>
                         <input type="text" pInputText formControlName='nombre' required/>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                             label="Nuevo"
                             icon="pi pi-plus"
                             (click)="guardarNuevo()"
-                            pTooltip="Agregar colegio profesional"
+                            pTooltip="Agregar condicion"
                             tooltipPosition="right"
                             class="p-button-danger m-1 w-9rem"
                             pRipple
@@ -53,13 +53,13 @@
         >
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
-                    <h3>Lista de colegios profesionales</h3>
+                    <h3>Lista de Condicion Paciente de Riesgo</h3>
                 </div>
             </ng-template>
             <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                 <tr>
                     <th style="text-align: center">Nro</th>
-                    <th style="text-align: center">Codigo</th>
+                    <th style="text-align: center">ID CPR</th>
                     <th style="text-align: center">Nombre</th>
                     <th style="text-align: center; width:8rem">Acción</th>
                 </tr>
@@ -67,7 +67,7 @@
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr style="text-align: center">
                     <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.codigo }}</td>
+                    <td style="text-align: center">{{ rowData.idcpr }}</td>
                     <td style="text-align: center">{{ rowData.nombre }}</td>
                     <td style="text-align: center">
                         <button pButton

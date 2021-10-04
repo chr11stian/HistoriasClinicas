@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 
-import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Cupo } from '../../core/models/cupo.models';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
 
 @Component({
     selector: 'app-cupos',
@@ -38,6 +40,8 @@ export class CuposComponent implements OnInit {
     cellTomorrow: any;
     selectedHorario: Cupo;
     selectedPersonal: any;
+    formUsuarios: FormGroup;
+    formCupos: FormGroup;
 
     today: Date = new Date();
     jsToday: string = ''
@@ -235,6 +239,8 @@ export class CuposComponent implements OnInit {
         private router: Router,
         private primeNGConfig: PrimeNGConfig,
         private messageService: MessageService,
+        private fb: FormBuilder,
+        public dialogService: DialogService
     ) {
         this.justifyOptions = [
             { icon: "pi pi-align-left", justify: "Left" },
@@ -250,6 +256,7 @@ export class CuposComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        
         this.today.getHours();
         let listHorarios: any = [];
         let minutes;
@@ -260,10 +267,37 @@ export class CuposComponent implements OnInit {
         this.jsToday = formatDate(this.today, 'HH:mm:ss a', 'en-ES', '-0500');
         console.log('tiempo suma ', this.today);
         console.log('hora nueva ', this.jsToday);
+        
     }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
+    }
+
+    inicializarForm(){
+
+        this.formUsuarios = this.fb.group({
+            tipoDocumento: new FormControl(''),
+            nroDocumento: new FormControl(''),
+            nombre: new FormControl(''),
+            apellidoPaterno: new FormControl(''),
+            apellidoMaterno: new FormControl(''),
+            sexo: new FormControl(''),
+            fecha: new FormControl(''),
+            estadoCivil: new FormControl(''),
+            telefono: new FormControl(''),
+            nacionalidad: new FormControl(''),
+            departamento: new FormControl(''),
+            provincia: new FormControl(''),
+            distrito: new FormControl(''),
+            centroPblado: new FormControl(''),
+            domicilioActual: new FormControl(''),
+            tipoSeguro: new FormControl(''),
+            transeuntes: new FormControl(''),
+            estapaVida: new FormControl(''),
+            edad: new FormControl(''),
+            dias: new FormControl(''),
+        })
     }
 
     openModal() {

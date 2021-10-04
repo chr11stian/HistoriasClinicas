@@ -12,7 +12,7 @@
     </p-toolbar>
 
     <p-table [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-        [paginator]="true" [autoLayout]="true"
+        [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true" 
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
@@ -31,12 +31,12 @@
                 <td style="text-align: center">{{ rowData.descripcion }}</td>
                 <td style="text-align: center">{{ valorTipoEtnia(rowData.tipoEtnia) }}</td>
                 <td style="text-align: center">{{ rowData.codigoSIS }}</td>
-                <td style="text-align: center">{{ rowData.codigoSIS }}</td>
+                <td style="text-align: center">{{ rowData.codigoHIS }}</td>
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                        (click)="editar(rowData)">
+                        (click)="editar(rowData)" pTooltip="Editar">
                     </button>
-                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar etnia" pRipple type="button"
+                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar" pRipple type="button"
                         icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                     </button>
                 </td>

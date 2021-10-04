@@ -15,6 +15,13 @@ import {EtniaComponent} from "./component/etnia/etnia.component";
 import {CategoriaEstablecimientoComponent} from "./component/categoria-establecimiento/categoria-establecimiento.component";
 import { RedServiciosSaludComponent } from "./component/red-servicios-salud/red-servicios-salud.component";
 
+import {NombreComercialUPSComponent} from "./component/nombre-comercial-ups/nombre-comercial-ups.component";
+
+import {CondicionPacienteComponent} from "./component/condicion-paciente/condicion-paciente.component";
+import {} from "./component/condicion-paciente/condicion-paciente.component";
+import {CondicionPacienteRiesgoComponent} from "./component/condicion-paciente-riesgo/condicion-paciente-riesgo.component";
+import {TipoSeguroComponent} from "./component/tipo-seguro/tipo-seguro.component";
+
 
 const routes: Routes = [
     {
@@ -75,6 +82,22 @@ const routes: Routes = [
     {
         path: "categoria-establecimiento",
         component: CategoriaEstablecimientoComponent,
+    },
+    {
+        path: "nombre-comercial-ups",
+        component: NombreComercialUPSComponent,
+    },
+    {
+        path: "condicion-paciente",
+        component: CondicionPacienteComponent,
+    },
+    {
+        path: "condicion-paciente-riesgo",
+        component: CondicionPacienteRiesgoComponent,
+    },
+    {
+        path: "tipo-seguro",
+        component: TipoSeguroComponent,
     },
     {
         path: "red-servicios-salud",

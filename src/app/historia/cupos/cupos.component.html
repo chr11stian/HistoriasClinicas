@@ -142,24 +142,26 @@
                             <input type="text" pInputText [(ngModel)]="nombre" />
                         </div>
                     </div>
-                    <div class="grid m-2">
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">Nombre:</label>
-                            <input type="text" pInputText [(ngModel)]="nombre" />
+                    <form [formGroup]="formUsuarios">
+                        <div class="grid m-2">
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">Nombre:</label>
+                                <input type="text" pInputTextformcontrolName="nombre" />
+                            </div>
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">A. Paterno</label>
+                                <input type="text" pInputText formcontrolName="apellidoPaterno" />
+                            </div>
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">A. Materno</label>
+                                <input type="text" pInputText formcontrolName="apellidoMaterno" />
+                            </div>
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">Sexo</label>
+                                <input type="text" pInputText formcontrolName="sexo" />
+                            </div>
                         </div>
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">A. Paterno</label>
-                            <input type="text" pInputText [(ngModel)]="nombre" />
-                        </div>
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">A. Materno</label>
-                            <input type="text" pInputText [(ngModel)]="nombre" />
-                        </div>
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">Sexo</label>
-                            <input type="text" pInputText [(ngModel)]="nombre" />
-                        </div>
-                    </div>
+                    </form>
                     <div class="grid m-2">
                         <div class="p-field col-3">
                             <label class="ml-3 font-bold">fecha</label>

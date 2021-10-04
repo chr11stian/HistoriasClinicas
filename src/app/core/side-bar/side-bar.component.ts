@@ -233,6 +233,22 @@ export class SideBarComponent implements OnInit {
                         icon: 'pi pi-pw pi-file',
                         label: 'Red de Servicios de Salud', routerLink: 'mantenimientos/red-servicios-salud',
                     },
+                    {  
+                        icon: 'pi pi-pw pi-file',
+                        label: 'Condicion Paciente', routerLink: 'mantenimientos/condicion-paciente',
+                    },
+                    {
+                        icon: 'pi pi-pw pi-file',
+                        label: 'Nombre Comercial UPS', routerLink: 'mantenimientos/nombre-comercial-ups',
+                    },
+                    {
+                        icon: 'pi pi-pw pi-file',
+                        label: 'Condicion Paciente Riesgo', routerLink: 'mantenimientos/condicion-paciente-riesgo',
+                    },
+                    {
+                        icon: 'pi pi-pw pi-file',
+                        label: 'Tipo Seguro', routerLink: 'mantenimientos/tipo-seguro',
+                    },
                 ],
             },
         ];
