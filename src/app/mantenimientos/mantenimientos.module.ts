@@ -20,6 +20,7 @@ import {DocumentoIdentidadComponent} from "./component/documento-identidad/docum
 import {EtniaComponent} from './component/etnia/etnia.component';
 import {CategoriaEstablecimientoComponent} from './component/categoria-establecimiento/categoria-establecimiento.component';
 import { CondicionPacienteComponent } from './component/condicion-paciente/condicion-paciente.component';
+import { CondicionPacienteRiesgoComponent } from './component/condicion-paciente-riesgo/condicion-paciente-riesgo.component';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { CondicionPacienteComponent } from './component/condicion-paciente/condi
         EtniaComponent,
         CategoriaEstablecimientoComponent,
         CondicionPacienteComponent,
+        CondicionPacienteRiesgoComponent,
     ],
 
     exports: [TipoPersonalComponent, UbicacionComponent],
