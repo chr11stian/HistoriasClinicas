@@ -16,9 +16,10 @@ import {CategoriaEstablecimientoComponent} from "./component/categoria-estableci
 
 import {NombreComercialUPSComponent} from "./component/nombre-comercial-ups/nombre-comercial-ups.component";
 
-
 import {CondicionPacienteComponent} from "./component/condicion-paciente/condicion-paciente.component";
+import {} from "./component/condicion-paciente/condicion-paciente.component";
 import {CondicionPacienteRiesgoComponent} from "./component/condicion-paciente-riesgo/condicion-paciente-riesgo.component";
+import {TipoSeguroComponent} from "./component/tipo-seguro/tipo-seguro.component";
 
 
 const routes: Routes = [
@@ -93,6 +94,10 @@ const routes: Routes = [
     {
         path: "condicion-paciente-riesgo",
         component: CondicionPacienteRiesgoComponent,
+    },
+    {
+        path: "tipo-seguro",
+        component: TipoSeguroComponent,
     },
 ];
 

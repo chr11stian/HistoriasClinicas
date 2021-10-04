@@ -38,10 +38,10 @@
                 </td>
                 <td style="text-align: center">{{ valorSexo(rowData.sexo) }}</td>
                 <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1" pTooltip="Editar"
                         (click)="editar(rowData)">
                     </button>
-                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar grupo etario" pRipple type="button"
+                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar" pRipple type="button"
                         icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                     </button>
                 </td>
