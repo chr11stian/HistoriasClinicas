@@ -23,6 +23,7 @@ import {NombreComercialUPSComponent} from './component/nombre-comercial-ups/nomb
 import {CondicionPacienteComponent} from './component/condicion-paciente/condicion-paciente.component';
 import { CondicionPacienteRiesgoComponent } from './component/condicion-paciente-riesgo/condicion-paciente-riesgo.component';
 import { TipoSeguroComponent } from './component/tipo-seguro/tipo-seguro.component';
+import { MicroRedComponent } from './component/micro-red/micro-red.component';
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { TipoSeguroComponent } from './component/tipo-seguro/tipo-seguro.compone
         CondicionPacienteComponent,
         CondicionPacienteRiesgoComponent,
         TipoSeguroComponent,
+        MicroRedComponent,
     ],
 
     exports: [TipoPersonalComponent, UbicacionComponent],

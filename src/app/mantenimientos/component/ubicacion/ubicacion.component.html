@@ -34,7 +34,7 @@
                 <th>Latitude</th>
                 <th>Longitude</th>
                 <th>Altura</th>
-                <th>Editar</th>
+                <th style="text-align: center">Estado</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -51,8 +51,8 @@
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
                             (click)="editUbicacion(rowData)"></button>
-                    <!--                <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success "-->
-                    <!--                ></button>-->
+                    <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success "
+                    ></button>
                 </td>
 
             </tr>
@@ -72,7 +72,7 @@
             <div class="p-field col-4">
                 <label>CENTRO POBLADO</label>
                 <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="ccpp" [(ngModel)]="ubicacion.ccpp"
+                    <input style="width: 15rem" type="text" id="ccpp" [(ngModel)]="dataUbicacion.ccpp"
                            pInputText>
                 </div>
             </div>
@@ -88,7 +88,7 @@
 
                                 [options]="dataDepartamntos"
 
-                                [(ngModel)]="ubicacion.departamento"
+                                [(ngModel)]="dataUbicacion.departamento"
                                 (onChange)="selectedDepartamento()"
                                 [showClear]="true"
                                 optionLabel="departamento"
@@ -111,7 +111,7 @@
                             placeholder="-TODOS-"
                             id="provincia"
                             [showClear]="true"
-                            [(ngModel)]="ubicacion.provincia"
+                            [(ngModel)]="dataUbicacion.provincia"
                             (onChange)="selectedProvincia()">
 
                     </p-dropdown>
@@ -123,7 +123,7 @@
                     <p-dropdown inputId="dropdown"
                                 [autoDisplayFirst]="false"
                                 [options]="dataDistrito"
-                                [(ngModel)]="ubicacion.distrito"
+                                [(ngModel)]="dataUbicacion.distrito"
                                 optionLabel="distrito"
                                 defaultLabel="Seleccione un distrito"
                                 placeholder="-TODOS-"

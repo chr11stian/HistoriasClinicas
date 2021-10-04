@@ -3,7 +3,7 @@ import {UbicacionService} from "../../services/ubicacion/ubicacion.service";
 import {Departamentos, Filtro, Provincias, Ubicacion} from "../../../core/models/ubicacion.models";
 import {PrimeNGConfig} from "primeng/api";
 import Swal from "sweetalert2";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
     selector: 'app-ubicacion',
@@ -11,31 +11,32 @@ import {FormBuilder, FormGroup} from "@angular/forms";
     styleUrls: ['./ubicacion.component.css']
 })
 export class UbicacionComponent implements OnInit {
+    dataUbicacion: any;
+    isUpdate: boolean = false;
+    idUpdate: string = "";
     form: FormGroup;
-    @Output() eventFiltros = new EventEmitter<any>();
+
+    ubicacionDialog: boolean;
+
+
     dataDepartamntos: any;
     dataProvincia: any;
     dataDistrito: any;
 
-    dataUbicacion: any;
-    ubicacion: Ubicacion;
-    ubicacions: Ubicacion[];
+    submitted: boolean;
+
+
     iddd: string;
 
-
-    ubicacionDialog: boolean;
-    submitted: boolean;
-    loading = true;
 
     constructor(private ubicacionService: UbicacionService,
                 private formBuilder: FormBuilder,
     ) {
         this.getUbicacion();
+        this.getDepartamentos();
     }
 
     ngOnInit(): void {
-        // this.getDepartamentos();
-        this.getDepartamentos();
     }
 
 
@@ -53,14 +54,29 @@ export class UbicacionComponent implements OnInit {
         });
     }
 
+    buildForm() {
+        this.form = this.formBuilder.group({
+            departamento: ['', [Validators.required]],
+            provincia: ['', [Validators.required]],
+            distrito: ['', [Validators.required]],
+            ccpp: ['', [Validators.required]],
+            latitude: ['', [Validators.required]],
+            longitude: ['', [Validators.required]],
+            poblacion: ['', [Validators.required]],
+            altura: ['', [Validators.required]],
+            es_Capital: ['', [Validators.required]],
+        })
+    }
+
+
     editUbicacion(ubicacion: Ubicacion) {
-        this.ubicacion = {...ubicacion};
+        this.dataUbicacion = {...ubicacion};
         this.ubicacionDialog = true;
     }
 
 
     openNew() {
-        this.ubicacion = {};
+        this.dataUbicacion = {};
         this.submitted = false;
         this.ubicacionDialog = true;
     }
@@ -78,7 +94,7 @@ export class UbicacionComponent implements OnInit {
     }
 
     selectedDepartamento() {
-        let aux: any = this.ubicacion.departamento
+        let aux: any = this.dataUbicacion.departamento
         let dpto = {
             iddd: aux.iddd
         }
@@ -90,7 +106,7 @@ export class UbicacionComponent implements OnInit {
     }
 
     selectedProvincia() {
-        let aux: any = this.ubicacion.provincia;
+        let aux: any = this.dataUbicacion.provincia;
         let provincia = {
             iddd: this.iddd,
             idpp: aux.idpp
