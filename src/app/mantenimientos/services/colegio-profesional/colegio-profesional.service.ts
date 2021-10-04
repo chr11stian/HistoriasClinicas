@@ -9,18 +9,18 @@ import { ColegioProfesional } from 'src/app/core/models/mantenimiento.models';
 export class ColegioProfesionalService {
   base_url = environment.baseUrl;
   bd = environment.bd;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getColegioProfesional() {
     return this.http.get(`${this.base_url}/${this.bd}/api/colegioprofesional`);
   }
-  createColegioProfesional(colegio){
+  createColegioProfesional(colegio) {
     return this.http.post<any>(`${this.base_url}/${this.bd}/api/colegioprofesional`, colegio)
   }
-  deleteColegioProfesional(id){
+  deleteColegioProfesional(id) {
     return this.http.delete(`${this.base_url}/${this.bd}/api/colegioprofesional/${id}`)
   }
-  editColegioProfesional(colegio){
+  editColegioProfesional(colegio) {
     return this.http.put<any>(`${this.base_url}/${this.bd}/api/colegioprofesional`, colegio)
   }
 }

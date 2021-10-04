@@ -1,0 +1,88 @@
+<div class="p-card">
+    <p-toolbar class="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Red de Servicios de Salud</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                (click)="openDialogAgregarRedServicios()"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table #dt [value]="listarRedServiciosSalud" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
+        [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas" responsiveLayout="scroll"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
+    </p-table>
+</div>
+
+<!--            INICIO DE DIALOG ADD RED SERVICIO SALUD              -->
+
+<p-dialog [(visible)]="agregarRedServicio" [style]="{width: '1080px'}" header="Registrar Red de Servicios de Salud"
+    [modal]="true" styleClass="p-fluid" autoZIndex>
+    <form [formGroup]='formRedServicio'>
+
+
+        <div class="grid">
+            <div class="p-field col-5">
+                <label>Nombre Red</label>
+                <input type="text" pInputText formControlName="nombreRed" />
+            </div>
+            <div class="p-field col-5">
+                <label>DISA</label>
+                <input type="text" pInputText formControlName="disa" />
+            </div>
+            <div class="p-field col-2">
+                <label>Ubigeo</label>
+                <input type="text" pInputText formControlName="ubigeo" />
+            </div>
+        </div>
+    </form>
+    <div class="grid mt-3">
+        <div class=" col-4">
+            <label>DEPARTAMENTO</label>
+            <div class="p-field">
+                <p-dropdown inputId="dropdown" [options]="dataDepartamentos" [(ngModel)]="ubicacion.departamento"
+                    optionLabel="departamento" placeholder="Seleccione un Departamento" id="departamento"
+                    [showClear]="true" (onChange)="selectedDepartamento()">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-field col-4">
+            <label>PROVINCIA</label>
+            <div class="p-field">
+                <p-dropdown inputId="dropdown" [options]="dataProvincia" [(ngModel)]="ubicacion.provincia"
+                    optionLabel="provincia" placeholder="Seleccione una provincia" id="provincia"
+                    (onChange)="selectedProvincia()">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-field col-4">
+            <label>DISTRITO</label>
+            <div class="p-field">
+                <p-dropdown inputId="dropdown" [options]="dataDistrito" [(ngModel)]="ubicacion.distrito"
+                    optionLabel="distrito" placeholder="Seleccione un distrito" id="distrito" [showClear]="true">
+
+                </p-dropdown>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]='formRedServicio'>
+        <div class="grid mt-3">
+            <div class="p-field col-5">
+                <label>Nombre EESS</label>
+                <input type="text" pInputText formControlName="nombreEESS" />
+            </div>
+            <div class="p-field col-5">
+                <label>Categoria</label>
+                <input type="text" pInputText formControlName="categoria" />
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate=footer>
+        <button pButton type="button" label="cancelar" class="p-button-danger"
+            (click)="closeDialogRedServicio()"></button>
+        <button pButton type="button" label="Aceptar" (click)="aceptarDialogRedServicio()"></button>
+    </ng-template>
+
+</p-dialog>

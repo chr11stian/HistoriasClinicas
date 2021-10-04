@@ -53,7 +53,7 @@ export class DocumentoIdentidadComponent implements OnInit {
         }
     }
 
-    GuardarPersona() {
+    GuardarDocumentoIdentidad() {
         this.recuperarDatos();
         if (this.datosDocIdentidad.nombre == '' || this.datosDocIdentidad.abreviatura == '' || this.datosDocIdentidad.longitud == '') {
             Swal.fire({
