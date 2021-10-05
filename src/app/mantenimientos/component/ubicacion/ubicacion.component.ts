@@ -18,7 +18,6 @@ export class UbicacionComponent implements OnInit {
 
     ubicacionDialog: boolean;
 
-
     dataDepartamntos: any;
     dataProvincia: any;
     dataDistrito: any;
@@ -37,6 +36,7 @@ export class UbicacionComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.buildForm();
     }
 
 
@@ -56,6 +56,7 @@ export class UbicacionComponent implements OnInit {
 
     buildForm() {
         this.form = this.formBuilder.group({
+            ubigeo: ['', [Validators.required]],
             departamento: ['', [Validators.required]],
             provincia: ['', [Validators.required]],
             distrito: ['', [Validators.required]],
@@ -68,18 +69,44 @@ export class UbicacionComponent implements OnInit {
         })
     }
 
+    edit(rowData) {
+        this.isUpdate = true;
+        this.form.get('ubigeo').setValue(rowData.ubigeo);
+        this.form.get('departamento').setValue(rowData.departamento);
+        this.form.get('provincia').setValue(rowData.provincia);
+        this.form.get('distrito').setValue(rowData.distrito);
+        this.form.get('ccpp').setValue(rowData.ccpp);
+        this.form.get('latitude').setValue(rowData.latitude);
+        this.form.get('longitude').setValue(rowData.longitude);
+        this.form.get('poblacion').setValue(rowData.poblacion);
+        this.form.get('altura').setValue(rowData.altura);
+        this.form.get('es_Capital').setValue(rowData.es_Capital);
+        this.idUpdate = rowData.id;
+        this.ubicacionDialog = true;
+    }
+
+    openNew() {
+        this.isUpdate = false;
+        this.form.reset();
+        this.form.get('ubigeo').setValue("");
+        this.form.get('departamento').setValue("");
+        this.form.get('provincia').setValue("");
+        this.form.get('distrito').setValue("");
+        this.form.get('ccpp').setValue("");
+        this.form.get('latitude').setValue("");
+        this.form.get('longitude').setValue("");
+        this.form.get('poblacion').setValue("");
+        this.form.get('altura').setValue("");
+        this.form.get('es_Capital').setValue("");
+        this.ubicacionDialog = true;
+    }
+
 
     editUbicacion(ubicacion: Ubicacion) {
         this.dataUbicacion = {...ubicacion};
         this.ubicacionDialog = true;
     }
 
-
-    openNew() {
-        this.dataUbicacion = {};
-        this.submitted = false;
-        this.ubicacionDialog = true;
-    }
 
     canceled() {
         Swal.fire({

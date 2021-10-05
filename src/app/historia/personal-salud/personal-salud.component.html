@@ -37,7 +37,7 @@
                 <th>Estado</th>
                 <th>Tipo Contrato</th>
                 <th>Sexo</th>
-                <th>IPRESS</th>               
+                <th>IPRESS</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -57,7 +57,7 @@
                 <td>{{ rowData.tipoContrato }}</td>
                 <td>{{ rowData.sexo }}</td>
                 <td>{{ rowData.detalleIpress.eess }}</td>
-                
+
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
                             (click)="editar(rowData)"></button>
@@ -80,7 +80,7 @@
                 <div class="p-inputgroup col-12">
                     <label id="nroDoc">Nro Doc:</label>
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input type="text" pInputText formControlName='nroDoc' placeholder="Nro Documento">         
+                    <input type="text" pInputText formControlName='nroDoc' placeholder="Nro Documento">
                 </div>
             </div>
             <br>
@@ -93,7 +93,7 @@
                         </p-dropdown>
                     </div>
                 </div>
-                
+
                 <div class="p-field col-4">
                     <label>Apellido Paterno:</label>
                     <input type="text" pInputText formControlName='apePaterno' required />
