@@ -10,6 +10,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SplitterModule} from "primeng/splitter";
 import {UsuariosComponent} from './usuarios/usuarios.component';
 import {CuposComponent} from './cupos/cupos.component';
+import {TreeSelectModule} from 'primeng/treeselect';
+import {DividerModule} from 'primeng/divider';
+import {CalendarModule} from 'primeng/calendar';
 
 @NgModule({
     declarations: [
@@ -31,6 +34,9 @@ import {CuposComponent} from './cupos/cupos.component';
         FormsModule,
         SplitterModule,
         ReactiveFormsModule,
+        TreeSelectModule,
+        DividerModule,
+        CalendarModule
     ]
 })
 export class HistoriaModule {

@@ -7,20 +7,23 @@
 
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                    (click)="openNew()"></button>
+                (click)="openNew()"></button>
 
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
         </ng-template>
     </p-toolbar>
-    <p-table
-            [value]="data"
-            #dt
-            styleClass="p-datatable-gridlines   "
-            [rows]="10"
-            [rowsPerPageOptions]="[10, 25, 50]"
-            [paginator]="true"
-            [autoLayout]="true"
-            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+    <p-table [value]="data" #dt [globalFilterFields]="['primerNombre','nroDoc','apPaterno']"
+        styleClass="p-datatable-gridlines   " [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+        [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value,'contains')"
+                        placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
                 <th>Nro</th>
@@ -37,7 +40,8 @@
                 <th>Estado</th>
                 <th>Tipo Contrato</th>
                 <th>Sexo</th>
-                <th>IPRESS</th>               
+                <th>IPRESS</th>
+                <th>Acción</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -50,17 +54,17 @@
                 <td>{{ rowData.otrosNombres }}</td>
                 <td>{{ rowData.fechaNacimiento }}</td>
                 <td>{{ rowData.tipoPersonal.nombre }}</td>
-                <td>{{ rowData.colegioProfesional.nombre }}</td>
+                <td>{{ rowData.colegioProfesional[0].nombre }}</td>
                 <td>{{ rowData.colegiatura }}</td>
-                <td>{{ rowData.especialidad.nombre }}</td>
+                <td>{{ rowData.especialidad[0].nombre }}</td>
                 <td>{{ rowData.estado }}</td>
                 <td>{{ rowData.tipoContrato }}</td>
                 <td>{{ rowData.sexo }}</td>
-                <td>{{ rowData.detalleIpress.eess }}</td>
-                
+                <td>{{ rowData.detalleIpress[0].eess }}</td>
+
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
-                            (click)="editar(rowData)"></button>
+                        (click)="editar(rowData)"></button>
                 </td>
             </tr>
         </ng-template>
@@ -68,90 +72,135 @@
 </div>
 
 
-<p-dialog [(visible)]="personalDialog" [style]="{width: '720px'}" [modal]="true"
-    styleClass="p-fluid " autoZIndex>
+<p-dialog [(visible)]="personalDialog" [style]="{width: '1200px'}" [modal]="true" styleClass="p-fluid " autoZIndex>
     <ng-template pTemplate="header">
         <h3>{{titulo()}}</h3>
     </ng-template>
 
     <ng-template pTemplate="body">
         <form [formGroup]='form'>
-            <div class="grid">
-                <div class="p-inputgroup col-12">
-                    <label id="nroDoc">Nro Doc:</label>
-                    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input type="text" pInputText formControlName='nroDoc' placeholder="Nro Documento">         
-                </div>
-            </div>
-            <br>
-            <div class="grid">
-                <div class="p-field col-4">
-                    <label>Tipo Doc:</label>
-                    <div class="p-field">
-                        <p-dropdown inputId="dropdown" [options]="docList" formControlName="tipoDoc" optionLabel="label" optionValue="value"
-                            defaultLabel="Seleccione Tipo de documento" id="tipodocid">
+            <div>
+                <label>DNI o otra Identificacion:</label>
+                <div class="grid">
+                    <div class="p-field col-3 pr-1">
+                        <p-dropdown [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-right"
+                            inputId="dropdown" [options]="docList" formControlName="tipoDoc" optionLabel="nombre"
+                            optionValue="id" defaultLabel="Tipo de documento" id="docid">
                         </p-dropdown>
                     </div>
+                    <div class="p-inputgroup col-2">
+                        <input type="text" pInputText formControlName='nroDoc' placeholder="Nro Documento">
+                        <button type="button" pButton pRipple icon="pi pi-search"
+                            class="p-button-outlined p-button-secondary"></button>
+                    </div>
                 </div>
-                
-                <div class="p-field col-4">
-                    <label>Apellido Paterno:</label>
-                    <input type="text" pInputText formControlName='apePaterno' required />
+            </div> 
+            <p-divider align="left">
+                <div class="p-d-inline-flex p-ai-center">
+                    <i class="pi pi-angle-double-right p-mr-2"></i>
+                    <b> Datos Personales</b>
                 </div>
-
-                <div class="p-field col-4">
-                    <label>Apellido Materno:</label>
-                    <input type="text" pInputText formControlName='apeMaterno' required />
-                </div>
-                <div class="p-field col-4">
-                    <label>Nombre:</label>
-                    <input type="text" pInputText formControlName='primerNombre' required />
-                </div>
-                <div class="p-field col-4">
-                    <label>Otros Nombres:</label>
-                    <input type="text" pInputText formControlName='otrosNombres' required />
-                </div>
-
-                <div class="p-field col-4">
-                    <label>Fecha de Nacimiento:</label>
-                    <input type="text" pInputText formControlName='fechaNacimiento' required />
+            </p-divider>
+            <br/>
+            <div class="grid ">
+                <label class="col-9 p-0 pl-2">Apellidos y Nombres:</label>
+                <label class="col-3 p-0 pl-2">Sexo:</label>
+            </div>
+            <div class="grid">
+                <div class="p-field col-3">
+                    <input type="text" placeholder="Ap. Paterno" pInputText formControlName='apePaterno' required />
                 </div>
 
-                <div class="p-field col-4">
+                <div class="p-field col-3">
+                    <input type="text" placeholder="Ap. Materno" pInputText formControlName='apeMaterno' required />
+                </div>
+
+                <div class="p-field col-3">
+                    <input type="text" placeholder="Nombres" pInputText formControlName='primerNombre' required />
+                </div>
+                <div class="p-field col-3">
+                    <input type="text" placeholder="Sexo" pInputText formControlName='sexo' required />
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="p-field col-3">
+                    <label>Fecha Nacimiento:</label>
+                    <input type="text" placeholder="Fecha Nacimiento" pInputText formControlName='fechaNacimiento' required />
+                </div>
+                <div class="p-field col-3">
+                    <label>Estado Civil:</label>
+                    <input type="text" placeholder="Estado Civil" pInputText formControlName='estadoCivil' required />
+                </div>
+                <div class="p-field col-6">
+                    <label>Domicilio Actual:</label>
+                    <input type="text" placeholder="Domicilio Actual" pInputText formControlName='domicilioActual' required />
+                </div>
+            </div>
+            <div class="grid">
+                <div class="p-field col-3">
+                    <label>Nacionalidad:</label>
+                    <input type="text" placeholder="Nacionalidad" pInputText formControlName='nacionalidad' required />
+                </div>
+                <div class="p-field col-3">
+                    <label>Departamento:</label>
+                    <input type="text" placeholder="Departamento" pInputText formControlName='departamento' required />
+                </div>
+                <div class="p-field col-3">
+                    <label>Provincia:</label>
+                    <input type="text" placeholder="Provincia" pInputText formControlName='provincia' required />
+                </div>
+                <div class="p-field col-3">
+                    <label>Distrito:</label>
+                    <input type="text" placeholder="Distrito" pInputText formControlName='distrito' required />
+                </div>
+            </div>
+            <p-divider align="left">
+                <div class="p-d-inline-flex p-ai-center">
+                    <i class="pi pi-angle-double-right p-mr-2"></i>
+                    <b> Datos Profesionales</b>
+                </div>
+            </p-divider>
+            <br/>
+            <div class="grid">
+                <div class="p-field col-3 pt-0">
                     <label>Tipo de Personal:</label>
-                    <input type="text" pInputText formControlName='tipoPersonal' required />
+                    <p-dropdown [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
+                            inputId="dropdown" [options]="tiposPersonalList" formControlName="tipoPersonal" optionLabel="nombre"
+                            optionValue="id" placeholder="Tipo de Personal" id="tipoid"  required>
+                    </p-dropdown>
                 </div>
-                <div class="p-field col-4">
-                    <label>Colegio Profesional:</label>
-                    <input type="text" pInputText formControlName='colegioProfesional' required />
-                </div>
-
-                <div class="p-field col-4">
-                    <label>Colegiatura:</label>
-                    <input type="text" pInputText formControlName='colegiatura' required />
-                </div>
-
-                <div class="p-field col-4">
+                <div class="p-field col-3 pt-0">
                     <label>Especialidad:</label>
-                    <input type="text" pInputText formControlName='especialidad' required />
+                    <p-dropdown [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
+                            inputId="dropdown" [options]="especialidadesList" formControlName="especialidad" optionLabel="nombre"
+                            optionValue="id"  placeholder="Especialidad" id="despecid"  required>
+                    </p-dropdown>
+                </div>
+                <div class="p-field col-4 pt-0">
+                    <label>Colegio Profesional:</label>
+                    <p-dropdown [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
+                            inputId="dropdown" [options]="colegiosList" formControlName="colegioProfesional" optionLabel="nombre"
+                            optionValue="id"  placeholder="Colegio Profesional" id="despecid"  required>
+                    </p-dropdown>
+                </div>
+                <div class="p-field col-2 pt-0">
+                    <label>Colegiatura:</label>
+                    <input type="text" placeholder="Colegiatura" pInputText formControlName='colegiatura' required />
+                </div>
+            </div>
+            <div class="grid">
+                <div class="p-field col-4">
+                    <label>Tipo Contrato:</label>
+                    <input type="text" placeholder="Tipo Contrato" pInputText formControlName='tipoContrato' required />
+                </div>
+                <div class="p-field col-4">
+                    <label>IPRESS:</label>
+                    <input type="text" placeholder="IPRESS" pInputText formControlName='detalleIpress' required />
                 </div>
                 <div class="p-field col-4">
                     <label>Estado:</label>
-                    <input type="text" pInputText formControlName='estado' required />
-                </div>
-                <div class="p-field col-4">
-                    <label>Tipo Contrato:</label>
-                    <input type="text" pInputText formControlName='tipoContrato' required />
-                </div>
-
-                <div class="p-field col-4">
-                    <label>Sexo:</label>
-                    <input type="text" pInputText formControlName='sexo' required />
-                </div>
-
-                <div class="p-field col-4">
-                    <label>IPRESS:</label>
-                    <input type="text" pInputText formControlName='detalleIpress' required />
+                    <input type="text" placeholder="Estado" pInputText formControlName='estado' required />
                 </div>
             </div>
         </form>
@@ -159,7 +208,9 @@
 
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
-        <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar" (click)="saveForm()" ></button>
-        <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar" (click)="editarDatos()" ></button>
+        <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"
+            (click)="saveForm()"></button>
+        <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"
+            (click)="editarDatos()"></button>
     </ng-template>
 </p-dialog>

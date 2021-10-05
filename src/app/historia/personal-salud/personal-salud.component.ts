@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { PersonalService } from '../../core/services/personal-services/personal.service';
 import {FormBuilder, Validators, FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
+import { Personal } from 'src/app/core/models/personal.models';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
+import { ColegioProfesional, DocumentoIdentidad, Especialidad, TipoPersonal } from 'src/app/core/models/mantenimiento.models';
+import { TipoPersonalService } from 'src/app/mantenimientos/services/tipo-personal/tipo-personal.service';
+import { EspecialidadService } from 'src/app/mantenimientos/services/especialidad/especialidad.service';
+import { ColegioProfesionalService } from 'src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service';
 
 
 @Component({
@@ -13,19 +20,55 @@ export class PersonalSaludComponent implements OnInit{
     // Creacion del formulario
     form: FormGroup;
 
-    data: any[] = [];
+    data: Personal[] = [];
     isUpdate: boolean = false;
     idUpdate: string = "";
+    docList: DocumentoIdentidad[];
+    tiposPersonalList: TipoPersonal[];
+    especialidadesList: Especialidad[];
+    colegiosList: ColegioProfesional[];
 
     personalDialog: boolean;
     constructor(
         private personalservice: PersonalService,
+        private documentoservice: DocumentoIdentidadService,
+        private tipoPersonalservice: TipoPersonalService,
+        private especialidadservice: EspecialidadService,
+        private colegioservice: ColegioProfesionalService,
         private formBuilder: FormBuilder
     ) {
         this.buildForm();
         this.getPersonal();
+        this.getDocumentos();
+        this.getTiposPersonal();
+        this.getEspecialidades();
+        this.getColegios();
     }
 
+    getDocumentos(){
+        this.documentoservice.getDocumentosIdentidad().subscribe((res: any) => {
+            this.docList = res.object;
+            console.log(this.docList);
+        });
+    }
+    getTiposPersonal(){
+        this.tipoPersonalservice.getTipoPersonales().subscribe((res: any) => {
+            this.tiposPersonalList = res.object;
+            console.log(this.tiposPersonalList);
+        });
+    }
+    getEspecialidades(){
+        this.especialidadservice.getEspecialidad().subscribe((res: any) => {
+            this.especialidadesList = res.object;
+            console.log(this.especialidadesList);
+        });
+    }
+    getColegios(){
+        this.colegioservice.getColegioProfesional().subscribe((res: any) => {
+            this.colegiosList = res.object;
+            console.log(this.colegiosList);
+        });
+    }
     buildForm() {
         this.form = this.formBuilder.group({
             tipoDoc: ['', [Validators.required]],
@@ -43,12 +86,18 @@ export class PersonalSaludComponent implements OnInit{
             tipoContrato: ['', [Validators.required]],
             sexo: ['', [Validators.required]],
             detalleIpress: ['', [Validators.required]],
+            estadoCivil: ['', [Validators.required]],
+            domicilioActual: ['', [Validators.required]],
+            nacionalidad: ['', [Validators.required]],
+            departamento: ['', [Validators.required]],
+            provincia: ['', [Validators.required]],
+            distrito: ['', [Validators.required]],
         })
     }
     getPersonal() {
         this.personalservice.getPersonal().subscribe((res: any) => {
-            this.data = res.object; 
-            console.log(this.data)
+            this.data = res.object;
+            console.log(this.data);
         });
     }
     saveForm() {
@@ -117,7 +166,7 @@ export class PersonalSaludComponent implements OnInit{
         this.form.get('otrosNombres').setValue(rowData.otrosNombres);
         this.form.get('fechaNacimiento').setValue(rowData.fechaNacimiento);
         this.form.get('tipoPersonal').setValue(rowData.tipoPersonal.nombre);
-        this.form.get('colegioProfesional').setValue(rowData.colegioProfesional);
+        this.form.get('colegioProfesional').setValue(rowData.colegioProfesional.nombre);
         this.form.get('colegiatura').setValue(rowData.colegiatura);
         this.form.get('especialidad').setValue(rowData.especialidad.nombre);
         this.form.get('estado').setValue(rowData.estado);
