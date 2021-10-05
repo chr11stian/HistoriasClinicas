@@ -13,6 +13,7 @@ import {CuposComponent} from './cupos/cupos.component';
 import {TreeSelectModule} from 'primeng/treeselect';
 import {DividerModule} from 'primeng/divider';
 import {CalendarModule} from 'primeng/calendar';
+import {InputMaskModule} from 'primeng/inputmask';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import {CalendarModule} from 'primeng/calendar';
         ReactiveFormsModule,
         TreeSelectModule,
         DividerModule,
-        CalendarModule
+        CalendarModule,
+        InputMaskModule
     ]
 })
 export class HistoriaModule {

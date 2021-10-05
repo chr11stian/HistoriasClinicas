@@ -72,7 +72,7 @@
 </div>
 
 
-<p-dialog [(visible)]="personalDialog" [style]="{width: '1200px'}" [modal]="true" styleClass="p-fluid " autoZIndex>
+<p-dialog [(visible)]="personalDialog" [style]="{width: '1100px'}" [modal]="true" styleClass="p-fluid " autoZIndex>
     <ng-template pTemplate="header">
         <h3>{{titulo()}}</h3>
     </ng-template>
@@ -82,13 +82,13 @@
             <div>
                 <label>DNI o otra Identificacion:</label>
                 <div class="grid">
-                    <div class="p-field col-3 pr-1">
+                    <div class="p-field col-4 pr-1">
                         <p-dropdown [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-right"
                             inputId="dropdown" [options]="docList" formControlName="tipoDoc" optionLabel="nombre"
                             optionValue="id" defaultLabel="Tipo de documento" id="docid">
                         </p-dropdown>
                     </div>
-                    <div class="p-inputgroup col-2">
+                    <div class="p-inputgroup col-3">
                         <input type="text" pInputText formControlName='nroDoc' placeholder="Nro Documento">
                         <button type="button" pButton pRipple icon="pi pi-search"
                             class="p-button-outlined p-button-secondary"></button>
@@ -126,7 +126,7 @@
             <div class="grid">
                 <div class="p-field col-3">
                     <label>Fecha Nacimiento:</label>
-                    <input type="text" placeholder="Fecha Nacimiento" pInputText formControlName='fechaNacimiento' required />
+                    <p-inputMask mask="99/99/9999" slotChar="dd/mm/yyyy" placeholder="Fecha Nacimiento" formControlName='fechaNacimiento' required></p-inputMask>
                 </div>
                 <div class="p-field col-3">
                     <label>Estado Civil:</label>
