@@ -12,7 +12,7 @@
     </p-toolbar>
 
     <p-table [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-        [paginator]="true" [autoLayout]="true"
+        [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true" 
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
@@ -36,16 +36,12 @@
                     <p-tag *ngIf="verificarGestante(rowData.esGestante)" styleClass="p-mr-2" severity="primary" value="Gestante" [rounded]="true"></p-tag>
                     <p-tag *ngIf="!verificarGestante(rowData.esGestante)" styleClass="p-mr-2" severity="danger" value="No Gestante" [rounded]="true"></p-tag>
                 </td>
+                <td style="text-align: center">{{ valorSexo(rowData.sexo) }}</td>
                 <td style="text-align: center">
-                    <p-tag *ngIf="verificarFemenino(rowData.sexo)" styleClass="p-mr-2" severity="danger" value="Femenino" [rounded]="true"></p-tag>
-                    <p-tag *ngIf="verificarMasculino(rowData.sexo)" styleClass="p-mr-2" severity="primary" value="Masculino" [rounded]="true"></p-tag>
-                    <p-tag *ngIf="verificarAmbos(rowData.sexo)" styleClass="p-mr-2" severity="success" value="Ambos" [rounded]="true"></p-tag>
-                </td>
-                <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1" pTooltip="Editar"
                         (click)="editar(rowData)">
                     </button>
-                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar grupo etario" pRipple type="button"
+                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar" pRipple type="button"
                         icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                     </button>
                 </td>

@@ -1,8 +1,8 @@
 <div class="grid">
-    <div class="col-4">
-        <p-card class="m-0 ">
-            <h2 *ngIf="!isUpdate">Ingrese nuevo colegio profesional</h2>
-            <h2 *ngIf="isUpdate">Edite colegio profesional</h2>
+    <div class="col-4 mt-5">
+        <p-card class="m-0">
+            <h2 *ngIf="!isUpdate">Ingrese Nuevo Colegio Profesional</h2>
+            <h2 *ngIf="isUpdate">Edite Colegio Profesional</h2>
 
             <form [formGroup]='form'>
                 <div class="p-fluid grid flex justify-content-center">
@@ -20,9 +20,9 @@
                 </div>
                 <br/>
                 <div class="flex justify-content-end">
-                    <button *ngIf="!isUpdate" pButton type="button" label="Guardar Nuevo" (click)="saveForm()"
+                    <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar Nuevo" (click)="saveForm()"
                             class="m-1 w-9rem"></button>
-                    <button *ngIf="isUpdate" pButton type="button" label="Guardar edición" (click)="editarDatos()"
+                    <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar edición" (click)="editarDatos()"
                             class="m-1 w-9rem"></button>
                     <button
                             pButton
@@ -48,7 +48,8 @@
                 [rowsPerPageOptions]="[10, 25, 50]"
                 [paginator]="true"
                 [autoLayout]="true"
-                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
+                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                [showCurrentPageReport]="true" 
         >
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
@@ -71,14 +72,14 @@
                     <td style="text-align: center">
                         <button pButton
                                 (click)="editar(rowData)"
-                                pTooltip="Editar colegio profesional"
+                                pTooltip="Editar"
                                 pRipple type="button"
                                 icon="pi pi-pencil"
                                 class="p-button-rounded m-1">
                         </button>
                         <button pButton
                                 (click)="eliminar(rowData)"
-                                pTooltip="Eliminar colegio profesional"
+                                pTooltip="Eliminar"
                                 pRipple type="button"
                                 icon="pi pi-trash"
                                 class="p-button-rounded p-button-danger m-1">

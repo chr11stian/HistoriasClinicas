@@ -1,60 +1,34 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable, pipe, Subject} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, pipe, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-import {Personal} from '../../../core/models/personal.models';
-import {environment} from '../../../../environments/environment';
+import { Personal } from '../../../core/models/personal.models';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class PersonalService {
-
-    private _refresh = new Subject<void>();
-
-    // private baseUrl: string = environment.baseUrl;
-
     base_url = environment.baseUrl;
+    bd = environment.bd;
+    private _refresh = new Subject<void>();
     private personales: Personal[] = [];
 
 
     constructor(private http: HttpClient) {
     }
 
-    get refresh() {
-        return this._refresh;
+    getPersonal() :Observable<Personal[]> {
+        return this.http.get<Personal[]>(`${this.base_url}/${this.bd}/api/personal`);
     }
-
-
-    getPersonal(): Observable<Personal[]> {
-        return this.http.get<Personal[]>(`${this.base_url}/historiasclinicas/api/listarpersonal`);
+    createPersonal(personal: Personal): Observable<Personal>  {
+        return this.http.post<any>(`${this.base_url}/${this.bd}/api/personal`, personal)
     }
-
-    agregarPersonal(personal: Personal): Observable<Personal> {
-        return this.http.post<Personal>(`${this.base_url}/historiasclinicas/api/listarpersonal`, personal)
-            .pipe(
-                tap(() => {
-                    this._refresh.next();
-                })
-            )
+    deletePersonal(id) {
+        return this.http.delete(`${this.base_url}/${this.bd}/api/personal/${id}`)
     }
-
-
-    actualizarPersonal(personal: Personal): Observable<Personal> {
-        return this.http.put<Personal>(`${this.base_url}/personal/${personal.id}`, personal)
-            .pipe(
-                tap(() => {
-                    this._refresh.next();
-                })
-            )
-    }
-
-    getPersonalPorId(id: string): Observable<Personal> {
-        return this.http.get<Personal>(`${this.base_url}/personal/${id}`);
-    }
-
-    borrarPersoal(id: string): Observable<any> {
-        return this.http.delete<any>(`${this.base_url}/personal/${id}`);
+    editPersonal(personal: Personal): Observable<Personal> {
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/personal`, personal)
     }
 }

@@ -12,6 +12,8 @@ export interface dayType {
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
+  personalServicio: any[];
+  selectedPersonalServicio: any;
   data = [
     {
       apellidos: "huaman rojas",
@@ -39,6 +41,10 @@ export class RolGuardiaComponent implements OnInit {
       especialidad: "obstetricia",
     },
   ];
+  // changeComponentVacunas(event, dropdown: Dropdown) {
+  //   console.log(this.selectedOption);
+  //   this.vacuna = event.value;
+  // }
   // fechaHoy = new Date(2021, 10, 2);
   fechaHoy = new Date(2021, 10, 2);
   mes: number = 0;
@@ -49,6 +55,13 @@ export class RolGuardiaComponent implements OnInit {
     this.generarMes();
     this.ColorearTabla();
     console.log(this.fechaHoy);
+    this.personalServicio = [
+      { name: "Medicina", code: "ME" },
+      { name: "Obstetricia", code: "OB" },
+      { name: "Pediatria", code: "PE" },
+      { name: "Enfermeria", code: "EN" },
+      { name: "Administracion", code: "AD" },
+    ];
   }
   numeroDiasMes() {
     return new Date(
@@ -85,8 +98,8 @@ export class RolGuardiaComponent implements OnInit {
   ColorearTabla() {
     // let colorR = '#ef6b55'
     // let colorB = '#ffffff'
-    let colorR = "background-color:red";
-    let colorB = "background-color:yellow";
+    let colorR = "background-color:#dfe6e9";
+    let colorB = "background-color:white";
     let hasColor = true; //primera semana en pintar rojo
     this.mesActual.forEach((day) => {
       if (hasColor) {
@@ -117,6 +130,9 @@ export class RolGuardiaComponent implements OnInit {
     //     }
     //   }
     // });
+  }
+  cambiar(valor: string) {
+    console.log(valor);
   }
 
   ngOnInit(): void {}

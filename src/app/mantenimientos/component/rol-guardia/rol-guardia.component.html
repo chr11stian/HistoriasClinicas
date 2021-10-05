@@ -1,3 +1,4 @@
+<div #calendarWrapper></div>
 <p-table
   rowExpandMode="single"
   scrollDirection="both"
@@ -8,41 +9,80 @@
   styleClass="p-datatable p-datatable-gridlines p-mt-3"
   [value]="data"
   [rowHover]="true"
-  [rows]="15"
-  [showCurrentPageReport]="true"
-  [rowsPerPageOptions]="[5, 10, 15]"
-  [paginator]="true"
-  currentPageReportTemplate="mostrando {first} de {last} de {totalRecords} entradas"
 >
   <ng-template pTemplate="header">
     <tr>
-      <th
-        rowSpan="2"
-        colSpan="3"
-        class="text-center frozenCol"
-        style="background-color: #48dbfb"
-      >
-        Personal por servicio(UPS)
+      <th rowSpan="2" colSpan="3" class="text-center frozenCol">
+        <strong>
+          <label class="line-height-4" for="username2" class="text-base">
+            Personal por servicio(UPS):</label
+          >
+        </strong>
+        <div>
+          <p-dropdown
+            [options]="personalServicio"
+            #dd
+            [(ngModel)]="selectedPersonalServicio"
+            optionLabel="name"
+            optionValue="code"
+            styleClass="my-2 py-1"
+            (onChange)="changeComponentVacunas($event, dd)"
+          ></p-dropdown>
+        </div>
       </th>
-      <th colSpan="31" style="background-color: #48dbfb">Mes de Agosto</th>
+      <th colSpan="31" style="background-color: #dfe6e9; padding: 10px">
+        <div>
+          <p-calendar
+            [appendTo]="calendarWrapper"
+            [(ngModel)]="dateValue"
+            (onSelect)="cambiar($event)"
+            view="month"
+            dateFormat="mm/yy"
+            [yearNavigator]="true"
+            yearRange="2000:2030"
+          ></p-calendar>
+        </div>
+      </th>
     </tr>
     <tr>
-      <th *ngFor="let dia of mesActual" [style]="dia.bg">
-        {{ dia.abreviatura }}
-      </th>
-    </tr>
-    <tr>
-      <th class="frozenCol" pFrozenColumn [frozen]="true">Nro</th>
-      <th class="frozenCol" pFrozenColumn [frozen]="true">Apellidos</th>
-      <th class="frozenCol" pFrozenColumn [frozen]="true">Nombres</th>
       <th
         *ngFor="let dia of mesActual"
         [style]="
-          dia.diaSemana === 'Lun'
-            ? 'background-color:#ffd700;'
+          dia.bg == 'background-color:#dfe6e9'
+            ? 'background-color:#f3a683;'
             : 'background-color:white;'
         "
       >
+        {{ dia.abreviatura }}
+      </th>
+      <th rowspan="2">Horas</th>
+    </tr>
+    <tr>
+      <th
+        class="frozenCol"
+        pFrozenColumn
+        [frozen]="true"
+        style="background-color: #dfe6e9"
+      >
+        Nro
+      </th>
+      <th
+        class="frozenCol"
+        pFrozenColumn
+        [frozen]="true"
+        style="background-color: #dfe6e9"
+      >
+        Apellidos
+      </th>
+      <th
+        class="frozenCol"
+        pFrozenColumn
+        [frozen]="true"
+        style="background-color: #dfe6e9"
+      >
+        Nombres
+      </th>
+      <th *ngFor="let dia of mesActual" [style]="dia.bg">
         {{ dia.dia }}
       </th>
     </tr>
@@ -67,6 +107,55 @@
         {{ rowData.apellidos }}
       </td>
       <td *ngFor="let dia of mesActual" class="border-500 text-900">N</td>
+      <td class="border-500 text-900">8</td>
     </tr>
   </ng-template>
 </p-table>
+<p-card>
+  <h3 style="color: red" class="text-xl">Leyenda</h3>
+  <div class="grid">
+    <div class="col-10">
+      <div class="grid borde">
+        <div class="col-3">
+          <span
+            ><h3>M-Mañana</h3>
+            <h3>T-Tarde</h3>
+            <h3>M/T-Mañana Tarde</h3></span
+          >
+        </div>
+        <div class="col-3">
+          <span
+            ><h3>GD-Guardia diurna</h3>
+            <h3>GN-Guardia Nocturna</h3>
+            <h3>T/GN-Tarde Guardia Nocturna</h3></span
+          >
+        </div>
+        <div class="col-2">
+          <span
+            ><h3>N-Noche</h3>
+            <h3>R-Reten</h3>
+            <h3>L-Libre</h3></span
+          >
+        </div>
+        <div class="col-3">
+          <span
+            ><h3>V-Vacaciones</h3>
+            <h3>O-Onomastico</h3>
+            <h3>GD(GN)-Guardia Diurna y Nocturna</h3></span
+          >
+        </div>
+        <div class="col-1">
+          <span><h3>F-Feriado</h3> </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-2 flex align-content-center flex-wrap card-container">
+      <button
+        pButton
+        type="button"
+        label="Asignar"
+        class="p-button-danger p-button-lg px-7 mx-3"
+      ></button>
+    </div>
+  </div>
+</p-card>

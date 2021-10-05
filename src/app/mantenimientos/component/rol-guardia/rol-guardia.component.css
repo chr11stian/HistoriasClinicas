@@ -5,17 +5,16 @@ p-table >>> .p-datatable .p-datatable-thead > tr > th {
   text-align: center;
   font-size: small;
   word-wrap: break-word;
-  padding: 0.2rem;
+  padding: 0rem;
   border: 1px solid #b6b6b6;
-  background-color: #dddddd;
+  /* background-color: #dddddd; */
 }
 p-table >>> .p-datatable .p-datatable-tbody > tr > td {
   text-align: center;
   font-size: small;
   word-wrap: break-word;
-  color: rgb(103, 175, 243);
 }
-.frozenCol {
+/* .frozenCol {
   background: inherit;
   grid-area: topright;
   border: solid 1px black;
@@ -40,4 +39,8 @@ p-table >>> .p-datatable .p-datatable-tbody > tr > td {
 .frozenCol-th::after {
   position: absolute;
   overflow-x: auto;
+} */
+.borde {
+  border: solid 1px black;
+  border-radius: 10px;
 }

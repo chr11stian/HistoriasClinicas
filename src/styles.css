@@ -6,7 +6,9 @@ html {
     font-size: 13px;
     font-weight: normal;
 }
-
+label{
+    font-weight: bold;
+}
 /*.lg\:col-3 {*/
 /*    flex: 0 0 auto;*/
 /*    padding: 0.5rem;*/
