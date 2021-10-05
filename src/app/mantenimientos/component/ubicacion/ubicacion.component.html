@@ -69,56 +69,87 @@
 
     <ng-template pTemplate="body">
         <form [formGroup]='form'>
+            <!--            <div class="grid">-->
+            <!--                <div class=" col-4">-->
+            <!--                    <label>DEPARTAMENTO</label>-->
+            <!--                    <div class="p-field">-->
+            <!--                        <p-dropdown inputId="dropdown"-->
+            <!--                                    [autoDisplayFirst]="false"-->
+            <!--                                    [options]="dataDepartamntos"-->
+            <!--                                    (onChange)="selectedDepartamento()"-->
+            <!--                                    [showClear]="true"-->
+            <!--                                    optionLabel="departamento"-->
+            <!--                                    defaultLabel="Seleccione un Departamento"-->
+            <!--                                    placeholder="-TODOS-"-->
+            <!--                                    id="departamento">-->
+            <!--                        </p-dropdown>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="p-field col-4">-->
+            <!--                    <label>PROVINCIA</label>-->
+            <!--                    <div class="p-field">-->
+            <!--                        <p-dropdown-->
+            <!--                                inputId="dropdown"-->
+            <!--                                [autoDisplayFirst]="false"-->
+            <!--                                [options]="dataProvincia"-->
+            <!--                                optionLabel="provincia"-->
+            <!--                                defaultLabel="Seleccione un Departamento"-->
+            <!--                                placeholder="-TODOS-"-->
+            <!--                                id="provincia"-->
+            <!--                                [showClear]="true"-->
+            <!--                                (onChange)="selectedProvincia()">-->
+
+            <!--                        </p-dropdown>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="p-field col-4">-->
+            <!--                    <label>DISTRITO</label>-->
+            <!--                    <div class="p-field">-->
+            <!--                        <p-dropdown inputId="dropdown"-->
+            <!--                                    [autoDisplayFirst]="false"-->
+            <!--                                    [options]="dataDistrito"-->
+            <!--                                    optionLabel="distrito"-->
+            <!--                                    defaultLabel="Seleccione un distrito"-->
+            <!--                                    placeholder="-TODOS-"-->
+            <!--                                    id="distrito"-->
+            <!--                                    [showClear]="true">-->
+            <!--                        </p-dropdown>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--            <div class="p-field p-col-12 p-md-4">-->
+            <!--                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="cities" [(ngModel)]="value7"-->
+            <!--                            optionLabel="name" class="ng-invalid ng-dirty" placeholder="Dropdown"></p-dropdown>-->
+            <!--            </div>-->
             <div class="grid">
-                <div class=" col-4">
+                <div class="p-field col-4">
                     <label>DEPARTAMENTO</label>
-                    <div class="p-field">
-                        <p-dropdown inputId="dropdown"
-                                    [autoDisplayFirst]="false"
-                                    [options]="dataDepartamntos"
-                                    (onChange)="selectedDepartamento()"
-                                    [showClear]="true"
-                                    optionLabel="departamento"
-                                    defaultLabel="Seleccione un Departamento"
-                                    placeholder="-TODOS-"
-                                    id="departamento">
-                        </p-dropdown>
-                    </div>
+                    <p-dropdown
+                            inputId="dropdown-departamento"
+                            [autoDisplayFirst]="false"
+                            [options]="dataDepartamntos"
+                            placeholder="-TODOS-"
+                            optionLabel="departamento"
+                            id="departamento"
+                            type="text">
+                    </p-dropdown>
                 </div>
+
                 <div class="p-field col-4">
                     <label>PROVINCIA</label>
-                    <div class="p-field">
-                        <p-dropdown
-                                inputId="dropdown"
-                                [autoDisplayFirst]="false"
-                                [options]="dataProvincia"
-                                optionLabel="provincia"
-                                defaultLabel="Seleccione un Departamento"
-                                placeholder="-TODOS-"
-                                id="provincia"
-                                [showClear]="true"
-                                [(ngModel)]="dataUbicacion.provincia"
-                                (onChange)="selectedProvincia()">
-
-                        </p-dropdown>
+                    <div class="p-inputgroup">
+                        <input type="text" pInputText formControlName='provincia' required/>
                     </div>
                 </div>
+
                 <div class="p-field col-4">
                     <label>DISTRITO</label>
-                    <div class="p-field">
-                        <p-dropdown inputId="dropdown"
-                                    [autoDisplayFirst]="false"
-                                    [options]="dataDistrito"
-                                    [(ngModel)]="dataUbicacion.distrito"
-                                    optionLabel="distrito"
-                                    defaultLabel="Seleccione un distrito"
-                                    placeholder="-TODOS-"
-                                    id="distrito"
-                                    [showClear]="true">
-                        </p-dropdown>
+                    <div class="p-inputgroup">
+                        <input type="text" pInputText formControlName='distrito' required/>
                     </div>
                 </div>
             </div>
+            <br>
 
             <div class="grid">
                 <div class="p-field col-6">
@@ -135,6 +166,30 @@
                 <div class="p-field col-3">
                     <label>POBLACION</label>
                     <input type="text" pInputText formControlName='poblacion' required/>
+                </div>
+            </div>
+            <br>
+
+            <div class="grid">
+                <div class="p-field col-3">
+                    <label>LATITUD</label>
+                    <div class="p-inputgroup">
+                        <input type="text" pInputText formControlName='latitude' required/>
+                    </div>
+                </div>
+                <div class="p-field col-3">
+                    <label>LONGITUD</label>
+                    <input type="text" pInputText formControlName='longitude' required/>
+                </div>
+
+                <div class="p-field col-3">
+                    <label>ALTURA</label>
+                    <input type="text" pInputText formControlName='altura' required/>
+                </div>
+
+                <div class="p-field col-3">
+                    <label>CAPITAL</label>
+                    <input type="text" pInputText formControlName='es_Capital' required/>
                 </div>
             </div>
         </form>
