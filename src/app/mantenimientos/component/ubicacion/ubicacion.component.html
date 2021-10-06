@@ -125,21 +125,26 @@
                 <div class="p-field col-4">
                     <label>DEPARTAMENTO</label>
                     <p-dropdown
-                            inputId="dropdown-departamento"
-                            [autoDisplayFirst]="false"
+                            inputId="dropdown"
+                            [autoDisplayFirst]="true"
                             [options]="dataDepartamntos"
-                            placeholder="-TODOS-"
                             optionLabel="departamento"
+                            formControlName="departamento"
+                            [ngClass]="isInvalid('departamento') ? 'ng-invalid ng-dirty p-inputtext' : 'p-inputtext '"
                             id="departamento"
-                            type="text">
+                            [showClear]="true">
                     </p-dropdown>
                 </div>
 
                 <div class="p-field col-4">
                     <label>PROVINCIA</label>
-                    <div class="p-inputgroup">
-                        <input type="text" pInputText formControlName='provincia' required/>
-                    </div>
+                    <p-dropdown
+                            [options]="dataProvincia"
+                            inputId="dropdown-provincia"
+                            formControlName="departamento"
+                            optionLabel="provincia"
+                            id="provincia">
+                    </p-dropdown>
                 </div>
 
                 <div class="p-field col-4">

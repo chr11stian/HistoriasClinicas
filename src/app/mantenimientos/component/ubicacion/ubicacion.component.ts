@@ -1,9 +1,8 @@
 import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 import {UbicacionService} from "../../services/ubicacion/ubicacion.service";
 import {Departamentos, Filtro, Provincias, Ubicacion} from "../../../core/models/ubicacion.models";
-import {PrimeNGConfig} from "primeng/api";
 import Swal from "sweetalert2";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
     selector: 'app-ubicacion',
@@ -31,12 +30,23 @@ export class UbicacionComponent implements OnInit {
     constructor(private ubicacionService: UbicacionService,
                 private formBuilder: FormBuilder,
     ) {
+        this.buildForm();
         this.getUbicacion();
         this.getDepartamentos();
     }
 
     ngOnInit(): void {
-        this.buildForm();
+
+    }
+
+    getFU(control: string): AbstractControl {
+        return this.form.get(control)
+    }
+
+
+    isInvalid(control: string): boolean {
+        const formUbicacion: AbstractControl = this.form.get(control)
+        return (formUbicacion.invalid && (formUbicacion.dirty || formUbicacion.touched))
     }
 
 
@@ -105,6 +115,10 @@ export class UbicacionComponent implements OnInit {
     editUbicacion(ubicacion: Ubicacion) {
         this.dataUbicacion = {...ubicacion};
         this.ubicacionDialog = true;
+    }
+
+    limpiar() {
+        this.form.reset();
     }
 
 
