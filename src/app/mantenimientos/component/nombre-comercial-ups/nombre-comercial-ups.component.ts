@@ -94,7 +94,7 @@ export class NombreComercialUPSComponent implements OnInit {
         const req = {
             id: this.idUpdate,
             nombre: this.form.value.nombre,
-            abreviatura: this.form.value.abreviatura,
+            abreivatura: this.form.value.abreviatura,
             tipoServicio: this.form.value.tipoServicio,
             iconPath: this.form.value.iconPath,
         }

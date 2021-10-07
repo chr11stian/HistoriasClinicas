@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { InputNumberModule } from "primeng/inputnumber";
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {TreeSelectModule} from 'primeng/treeselect';
 
 @NgModule({
     declarations: [
@@ -45,7 +46,8 @@ import {SelectButtonModule} from 'primeng/selectbutton';
         ButtonModule,
         RippleModule,
         InputNumberModule,
-        SelectButtonModule
+        SelectButtonModule,
+        TreeSelectModule
     ]
 })
 export class CoreModule {
