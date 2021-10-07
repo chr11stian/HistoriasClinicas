@@ -59,11 +59,107 @@
 </div>
 
 
-<p-dialog [(visible)]="ubicacionDialog" [style]="{width: '1080px'}" header="Registrar Ubicación"
-          [modal]="true" [responsive]="dataDepartamntos"
-          styleClass="p-fluid">
-    <br>
+<p-dialog [(visible)]="ubicacionEditarDialog" [style]="{width: '980px'}" [modal]="true"
+          styleClass="p-fluid " autoZIndex>
+    <ng-template pTemplate="header">
+        <h3>{{titulo()}}</h3>
+    </ng-template>
 
+    <br>
+    <ng-template pTemplate="body">
+        <form [formGroup]='form'>
+            <div class="grid">
+                <div class="p-field col-4">
+                    <label>DEPARTAMENTO</label>
+                    <input type="text" pInputText formControlName='departamento' required readonly/>
+                </div>
+
+
+                <div class="p-field col-4">
+                    <label>PROVINCIA</label>
+                    <input type="text" pInputText formControlName='provincia' required readonly/>
+                </div>
+
+
+                <div class="p-field col-4">
+                    <label>DISTRITO</label>
+                    <input type="text" pInputText formControlName='distrito' required readonly/>
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="grid">
+
+                <div class="p-field col-2">
+                    <label>UBIGEO</label>
+                    <input type="text" pInputText formControlName='ubigeo' readonly/>
+                </div>
+
+
+                <div class="p-field col-6">
+                    <label>CENTRO POBLADO</label>
+                    <div class="p-field">
+                        <p-dropdown
+                                inputId="dropdown"
+                                [options]="dataCCPP"
+                                formControlName='ccpp'
+                                optionValue='ccpp'
+                                optionLabel="ccpp"
+                                defaultLabel="Seleccione un distrito"
+                                id="ccpp1">
+                        </p-dropdown>
+                    </div>
+                </div>
+
+
+                <div class="p-field col-4">
+                    <label>POBLACION</label>
+                    <input type="text" pInputText formControlName='poblacion' required/>
+                </div>
+            </div>
+            <br>
+
+            <div class="grid">
+                <div class="p-field col-3">
+                    <label>LATITUD</label>
+                    <div class="p-inputgroup">
+                        <input type="text" pInputText formControlName='latitude' required/>
+                    </div>
+                </div>
+                <div class="p-field col-3">
+                    <label>LONGITUD</label>
+                    <input type="text" pInputText formControlName='longitude' required/>
+                </div>
+
+                <div class="p-field col-3">
+                    <label>ALTURA</label>
+                    <input type="text" pInputText formControlName='altura' required/>
+                </div>
+
+                <div class="p-field col-3">
+                    <label>CAPITAL</label>
+                    <input type="text" pInputText formControlName='es_Capital' required/>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
+        <button pButton type="button" label="Actualizar" class="p-button-primary" (click)="editarDatos()"></button>
+    </ng-template>
+</p-dialog>
+
+
+<p-dialog [(visible)]="ubicacionDialog" [style]="{width: '980px'}" [modal]="true"
+          styleClass="p-fluid " autoZIndex>
+    <ng-template pTemplate="header">
+        <h3>{{titulo()}}</h3>
+    </ng-template>
+
+    <br>
     <ng-template pTemplate="body">
         <form [formGroup]='form'>
             <div class="grid">
@@ -73,7 +169,8 @@
                         <p-dropdown inputId="dropdown"
                                     [options]="dataDepartamntos"
                                     (onChange)="selectedDepartamento()"
-                                    formControlName="departamento"
+                                    formControlName='departamento'
+                                    optionValue='departamento'
                                     optionLabel="departamento"
                                     defaultLabel="Seleccione un Departamento"
                                     id="departamento">
@@ -114,6 +211,14 @@
             <br>
 
             <div class="grid">
+
+
+                <div class="p-field col-2">
+                    <label>UBIGEO</label>
+                    <input type="text" pInputText formControlName='ubigeo' required readonly/>
+                </div>
+
+
                 <div class="p-field col-4">
                     <label>CENTRO POBLADO</label>
                     <div class="p-field">
@@ -121,20 +226,12 @@
                                 inputId="dropdown"
                                 [options]="dataCCPP"
                                 formControlName="ccpp"
+                                optionValue="ccpp"
                                 optionLabel="ccpp"
                                 defaultLabel="Seleccione un distrito"
                                 id="ccpp">
                         </p-dropdown>
                     </div>
-                </div>
-                <div class="p-field col-3">
-                    <label>UBIGEO</label>
-                    <input type="text" pInputText formControlName='ubigeo' required/>
-                </div>
-
-                <div class="p-field col-3">
-                    <label>POBLACION</label>
-                    <input type="text" pInputText formControlName='poblacion' required/>
                 </div>
             </div>
             <br>
@@ -166,9 +263,7 @@
 
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
-        <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"
-                (click)="saveForm()"></button>
-        <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"
-                (click)="editarDatos()"></button>
+        <button pButton type="button" label="Guardar" class="p-button-primary" (click)="saveForm()"></button>
     </ng-template>
 </p-dialog>
+

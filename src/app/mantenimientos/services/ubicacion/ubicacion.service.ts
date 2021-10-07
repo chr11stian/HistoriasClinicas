@@ -47,10 +47,10 @@ export class UbicacionService {
     saveCCPP(data) {
         return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/save/cpp`, data);
     }
-    
-    editarCCPP(data) {
-        return this.http.put(`${this.base_url}/${this.bd}/ubicacion/actualizar/ccpp`, data)
-    }
 
+
+    editarCCPP(id, data) {
+        return this.http.put(`${this.base_url}/${this.bd}/api/ubicacion/actualizar/ccpp/${id}`, data)
+    }
 
 }

@@ -16,6 +16,7 @@ export class UbicacionComponent implements OnInit {
     form: FormGroup;
 
     ubicacionDialog: boolean;
+    ubicacionEditarDialog: boolean;
 
     dataDepartamntos: any;
     dataProvincia: any;
@@ -59,9 +60,13 @@ export class UbicacionComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             ubigeo: ['', [Validators.required]],
+            iddd: ['', [Validators.required]],
             departamento: ['', [Validators.required]],
+            idpp: ['', [Validators.required]],
             provincia: ['', [Validators.required]],
+            iddis: ['', [Validators.required]],
             distrito: ['', [Validators.required]],
+            idccpp: ['', [Validators.required]],
             ccpp: ['', [Validators.required]],
             latitude: ['', [Validators.required]],
             longitude: ['', [Validators.required]],
@@ -71,12 +76,16 @@ export class UbicacionComponent implements OnInit {
         })
     }
 
-    edit(rowData: Ubicacion) {
+    edit(rowData) {
         this.isUpdate = true;
         this.form.get('ubigeo').setValue(rowData.ubigeo);
+        this.form.get('iddd').setValue(rowData.iddd);
         this.form.get('departamento').setValue(rowData.departamento);
+        this.form.get('idpp').setValue(rowData.idpp);
         this.form.get('provincia').setValue(rowData.provincia);
+        this.form.get('iddis').setValue(rowData.iddis);
         this.form.get('distrito').setValue(rowData.distrito);
+        this.form.get('idccpp').setValue(rowData.idccpp);
         this.form.get('ccpp').setValue(rowData.ccpp);
         this.form.get('latitude').setValue(rowData.latitude);
         this.form.get('longitude').setValue(rowData.longitude);
@@ -84,15 +93,22 @@ export class UbicacionComponent implements OnInit {
         this.form.get('altura').setValue(rowData.altura);
         this.form.get('es_Capital').setValue(rowData.es_Capital);
         this.idUpdate = rowData.id;
-        this.ubicacionDialog = true;
+        this.ubicacionEditarDialog = true;
 
-        console.log(rowData.departamento);
+        // let aux = {
+        //     iddd: rowData.iddd,
+        //     idpp: rowData.idpp,
+        //     iddis: rowData.iddis
+        // }
+        // this.ubicacionService.getCentroPoblado(aux).subscribe((res: any) => {
+        //     this.dataCCPP = res.object;
+        //     console.log('Centro Poblado ', res)
+        // })
     }
 
     openNew() {
         this.isUpdate = false;
         this.form.reset();
-        this.form.get('ubigeo').setValue("");
         this.form.get('departamento').setValue("");
         this.form.get('provincia').setValue("");
         this.form.get('distrito').setValue("");
@@ -103,17 +119,15 @@ export class UbicacionComponent implements OnInit {
         this.form.get('altura').setValue("");
         this.form.get('es_Capital').setValue("");
         this.ubicacionDialog = true;
-
-
     }
 
     saveForm() {
         this.isUpdate = false;
         const req = {
-            ubigeo: this.form.value.ubigeo,
-            departamento: this.form.value.departamento,
-            provincia: this.form.value.provincia,
-            distrito: this.form.value.distrito,
+            iddd: this.form.value.iddd,
+            idpp: this.form.value.idpp,
+            iddis: this.form.value.iddis,
+            idccpp: this.form.value.idccpp,
             ccpp: this.form.value.ccpp,
             latitude: this.form.value.latitude,
             longitude: this.form.value.longitude,
@@ -121,7 +135,8 @@ export class UbicacionComponent implements OnInit {
             altura: this.form.value.altura,
             es_Capital: this.form.value.es_Capital,
         }
-        if (req.ubigeo.trim() !== "") {
+
+        if (req.ccpp.trim() !== "") {
             this.ubicacionService.saveCCPP(req).subscribe(
                 result => {
                     Swal.fire({
@@ -136,36 +151,41 @@ export class UbicacionComponent implements OnInit {
                 }
             )
         }
+
+        console.log(req)
     }
 
     editarDatos() {
         const req = {
+            id: this.idUpdate,
             ubigeo: this.form.value.ubigeo,
-            departamento: this.form.value.departamento,
-            provincia: this.form.value.provincia,
-            distrito: this.form.value.distrito,
+            iddd: this.form.value.iddd,
+            idpp: this.form.value.idpp,
+            iddis: this.form.value.iddis,
+            idccpp: this.form.value.idccpp,
             ccpp: this.form.value.ccpp,
             latitude: this.form.value.latitude,
             longitude: this.form.value.longitude,
             poblacion: this.form.value.poblacion,
             altura: this.form.value.altura,
             es_Capital: this.form.value.es_Capital,
-
         }
-        
-        this.ubicacionService.editarCCPP(req).subscribe(
+        let id = req.id;
+        this.ubicacionService.editarCCPP(id, req).subscribe(
             result => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Agregado correctamente',
-                    text: 'Nombre Comercial UPS',
+                    text: 'Ubicacion',
                     showConfirmButton: false,
                     timer: 1500,
                 })
                 this.getUbicacion();
-                this.ubicacionDialog = false;
+                this.ubicacionEditarDialog = false;
             }
         )
+        console.log(req);
+
     }
 
     canceled() {
@@ -177,6 +197,7 @@ export class UbicacionComponent implements OnInit {
             timer: 1000
         })
         this.ubicacionDialog = false;
+        this.ubicacionEditarDialog = false;
         this.submitted = false;
     }
 
@@ -186,13 +207,14 @@ export class UbicacionComponent implements OnInit {
             departamento: this.form.value.departamento,
             iddd: this.form.value.iddd,
         }
-        let rowData = dpto.departamento;
+        let rowData = dpto.departamento.iddd;
         console.log(rowData)
-        this.ubicacionService.getProvincias(rowData).subscribe((res: any) => {
-            this.dataProvincia = res.object;
-            console.log('data pro', res)
-        })
+        // this.ubicacionService.getProvincias(rowData).subscribe((res: any) => {
+        //     this.dataProvincia = res.object;
+        //     console.log('data pro', res)
+        // })
     }
+
 
     selectedProvincia() {
         const rowData = {
@@ -234,5 +256,11 @@ export class UbicacionComponent implements OnInit {
             this.dataCCPP = res.object;
             console.log('Centro Poblado ', res)
         })
+
+    }
+
+    titulo() {
+        if (this.isUpdate) return "ACTUALIZAR CENTRO POBLADO";
+        else return "INGRESE UN NUEVO CENTRO POBLADO";
     }
 }
