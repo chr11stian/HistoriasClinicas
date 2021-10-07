@@ -18,6 +18,7 @@ export class DocumentoIdentidadComponent implements OnInit {
     datosDocIdentidad: any;
     update: boolean = false;
     id: string;
+    agregarDoc:boolean;
 
 
     constructor(
@@ -156,5 +157,9 @@ export class DocumentoIdentidadComponent implements OnInit {
                 Swal.fire('No se elimino el documento', '', 'info')
             }
         })
+    }
+
+    openDialogAgregarDoc(){
+        this.agregarDoc = true;
     }
 }
