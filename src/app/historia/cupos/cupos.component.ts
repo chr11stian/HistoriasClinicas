@@ -45,6 +45,7 @@ export class CuposComponent implements OnInit {
 
     today: Date = new Date();
     jsToday: string = ''
+    selected: any;
 
     citas: Cupo[] = [{
         fecharegistro: '28/09/2021',
@@ -240,7 +241,6 @@ export class CuposComponent implements OnInit {
         private primeNGConfig: PrimeNGConfig,
         private messageService: MessageService,
         private fb: FormBuilder,
-        public dialogService: DialogService
     ) {
         this.justifyOptions = [
             { icon: "pi pi-align-left", justify: "Left" },
@@ -256,7 +256,7 @@ export class CuposComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
+
         this.today.getHours();
         let listHorarios: any = [];
         let minutes;
@@ -267,14 +267,14 @@ export class CuposComponent implements OnInit {
         this.jsToday = formatDate(this.today, 'HH:mm:ss a', 'en-ES', '-0500');
         console.log('tiempo suma ', this.today);
         console.log('hora nueva ', this.jsToday);
-        
+        this.inicializarForm();
     }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
 
-    inicializarForm(){
+    inicializarForm() {
 
         this.formUsuarios = this.fb.group({
             tipoDocumento: new FormControl(''),
@@ -308,7 +308,7 @@ export class CuposComponent implements OnInit {
     aceptarDialogCupos() {
         let auxCupo: any = this.selectedHorario;
         if (auxCupo.length != 1) {
-            this.messageService.add({severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario' });
+            this.messageService.add({ severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario' });
             return;
         }
         console.log('horario ', this.selectedHorario)
@@ -350,6 +350,7 @@ export class CuposComponent implements OnInit {
 
     GuardarPersona() {
         this.selectedHorario = {};
+        this.recuperarDatos()
         this.usuarioDialog = false;
     }
     cancelarPersona() {
@@ -357,5 +358,11 @@ export class CuposComponent implements OnInit {
         this.selectedHorario = {};
         this.usuarioDialog = false;
 
+    }
+
+    recuperarDatos() {
+        let data = {
+            aux: this.formUsuarios.value.nroDocumento
+        }
     }
 }
