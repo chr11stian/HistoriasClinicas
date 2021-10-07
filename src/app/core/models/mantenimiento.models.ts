@@ -1,6 +1,6 @@
 export interface TipoPersonal {
   id: string;
-  nombreTipoPersonal?: string;
+  nombre?: string;
   esProfesional?: boolean;
   abreviatura?: string;
   especialidad?: string;
@@ -59,7 +59,7 @@ export interface Etnia {
 
 export interface RedServicioSalud {
   id?: string;
-  DISA?: string;
+  disa?: string;
   idRed?: string;
   nombreRed?: string;
   idMicroRed?: string;
@@ -68,6 +68,7 @@ export interface RedServicioSalud {
   departamento?: string;
   provincia?: string;
   distrito?: string;
+  idEESS?: string;
   nombreEESS?: string;
   categoria?: string;
 }
@@ -149,7 +150,7 @@ export interface TipoServicio {
 export interface InformacionPersonalDescripcion {
   idIpress?: string;
   eess?: string;
-  fechainicio?: string;
+  fechaInicio?: string;
   fechaFin?: string;
   estado?: string;
 }

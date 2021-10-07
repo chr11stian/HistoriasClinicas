@@ -48,7 +48,7 @@ export class GrupoEtarioComponent implements OnInit {
   }
 
   saveForm() {
-    this.isUpdate = false;
+    this.isUpdate = false;  
     const req = {
       descripcion: this.form.value.descripcion,
       edadMaxima: this.form.value.edadMaxima,

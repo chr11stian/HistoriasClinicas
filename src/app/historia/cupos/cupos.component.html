@@ -52,7 +52,7 @@
     </p-table>
 </div>
 
-<!--                 INICIO DIALOG DE CUPOS             -->
+<!--                 INICIO DIALOG DE CUPOS                 -->
 <p-dialog [(visible)]="cuposDialog" [style]="{width: '1080px'}" header="Registrar Cupos" [modal]="true"
     styleClass="p-fluid" autoZIndex>
     <div class="grid">
@@ -123,137 +123,135 @@
 
 <!--                INICIO MODAL DE USUARIOS         -->
 <p-dialog [(visible)]="usuarioDialog" [style]="{width: '1200px'}" header="Datos del Paciente" [modal]="true"
-    styleClass="p-fluid">
-
+    styleClass="p-fluid" autoZIndex>
     <ng-template pTemplate>
-        <div class="grid">
-            <div class="col-9">
-                <div class="datosPersonales border-1 m-3">
-                    <div class="grid m-2">
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">Tipo de Documento</label>
-                            <p-dropdown [options]="docIdentidad" [(ngModel)]="selectedTipoDocumento"
-                                placeholder="Tipo Documento" optionLabel="abreviatura" [showClear]="false"
-                                (ngModelChange)="changeServicioSelected($event)">
-                            </p-dropdown>
+        <form [formGroup]='formUsuarios'>
+            <div class="grid">
+                <div class="col-9">
+                    <div class="datosPersonales border-1 m-3">
+                        <div class="grid m-2">
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">Tipo de Documento</label>
+                                <p-dropdown [options]="docIdentidad" formControlName="tipoDocumento"
+                                    placeholder="Tipo Documento" optionLabel="abreviatura" [showClear]="false"
+                                    (ngModelChange)="changeServicioSelected($event)">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">Nro Documento:</label>
+                                <input type="text" pInputText formControlName="nroDocumento" />
+                            </div>
                         </div>
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">Nro Documento:</label>
-                            <input type="text" pInputText [(ngModel)]="nombre" />
+                        <div class="grid m-2">
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">Nombre:</label>
+                                <input type="text" pInputText formControlName="nombre" />
+                            </div>
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">A. Paterno</label>
+                                <input type="text" pInputText formControlName="apellidoPaterno" />
+                            </div>
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">A. Materno</label>
+                                <input type="text" pInputText formControlName="apellidoMaterno" />
+                            </div>
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">Sexo</label>
+                                <input type="text" pInputText formControlName="sexo" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="grid m-2">
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">Nombre:</label>
-                            <input type="text" pInputText [(ngModel)]="nombre" />
+                        <div class="grid m-2">
+                            <div class="p-field col-3">
+                                <label class="ml-3 font-bold">fecha</label>
+                                <input type="date" pInputText formControlName="fecha" />
+                            </div>
                         </div>
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">A. Paterno</label>
-                            <input type="text" pInputText [(ngModel)]="nombre" />
+                        <div class="grid m-2">
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">Telefono</label>
+                                <input type="text" pInputText formControlName="telefono" />
+                            </div>
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">Nacionalidad</label>
+                                <input type="text" pInputText formControlName="nacionalidad" />
+                            </div>
+                            <div class="p-field col-2">
+                                <label class="ml-2 font-bold">Departamento</label>
+                                <input type="text" pInputText formControlName="departamento" />
+                            </div>
+                            <div class="p-field col-2">
+                                <label class="ml-2 font-bold">Provincia</label>
+                                <input type="text" pInputText formControlName="provincia" />
+                            </div>
+                            <div class="p-field col-2">
+                                <label class="ml-2 font-bold">Distrito</label>
+                                <input type="text" pInputText formControlName="distrito" />
+                            </div>
                         </div>
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">A. Materno</label>
-                            <input type="text" pInputText [(ngModel)]="nombre" />
-                        </div>
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">Sexo</label>
-                            <input type="text" pInputText [(ngModel)]="nombre" />
-                        </div>
-                    </div>
-                    <div class="grid m-2">
-                        <div class="p-field col-3">
-                            <label class="ml-3 font-bold">fecha</label>
-                            <input type="date" pInputText [(ngModel)]="fecha" />
-                        </div>
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">Estado Civil</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
-                        </div>
-                    </div>
-                    <div class="grid m-2">
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">Telefono</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
-                        </div>
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">Nacionalidad</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
-                        </div>
-                        <div class="p-field col-2">
-                            <label class="ml-2 font-bold">Departamento</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
-                        </div>
-                        <div class="p-field col-2">
-                            <label class="ml-2 font-bold">Provincia</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
-                        </div>
-                        <div class="p-field col-2">
-                            <label class="ml-2 font-bold">Distrito</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
-                        </div>
-                    </div>
-                    <div class="grid m-2">
-                        <div class="p-field col-6">
-                            <label class="ml-2 font-bold">Centro Poblado</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
-                        </div>
-                        <div class="p-field col-6">
-                            <label class="ml-2 font-bold">Domicilio Actual</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                        <div class="grid m-2">
+                            <div class="p-field col-6">
+                                <label class="ml-2 font-bold">Centro Poblado</label>
+                                <input type="text" pInputText formControlName="centroPblado" />
+                            </div>
+                            <div class="p-field col-6">
+                                <label class="ml-2 font-bold">Domicilio Actual</label>
+                                <input type="text" pInputText formControlName="domicilioActual" />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="datosExtra margin-1 m-3">
-                    <div class="grid m-2">
-                        <div class="p-field col-2">
-                            <label class="ml-2 font-bold">Tipo Seguro</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
-                        </div>
-                        <div class="p-field col-2">
-                            <label class="ml-2 font-bold">Transeunte</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
-                        </div>
-                        <div class="p-field col-3">
-                            <label class="ml-2 font-bold">Etapa de Vida del Paciente</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
-                        </div>
-                        <div class="p-field col-2">
-                            <label class="ml-2 font-bold">Edad</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
-                        </div>
-                        <div class="p-field col-2">
-                            <label class="ml-2 font-bold">Dias</label>
-                            <input type="text" pInputText [(ngModel)]="estadoCivil" />
+                    <div class="datosExtra margin-1 m-3">
+                        <div class="grid m-2">
+                            <div class="p-field col-2">
+                                <label class="ml-2 font-bold">Tipo Seguro</label>
+                                <input type="text" pInputText formControlName="tipoSeguro" />
+                            </div>
+                            <div class="p-field col-2">
+                                <label class="ml-2 font-bold">Transeunte</label>
+                                <input type="text" pInputText formControlName="transeuntes" />
+                            </div>
+                            <div class="p-field col-3">
+                                <label class="ml-2 font-bold">Etapa de Vida del Paciente</label>
+                                <input type="text" pInputText formControlName="estapaVida" />
+                            </div>
+                            <div class="p-field col-2">
+                                <label class="ml-2 font-bold">Edad</label>
+                                <input type="text" pInputText formControlName="edad" />
+                            </div>
+                            <div class="p-field col-2">
+                                <label class="ml-2 font-bold">Dias</label>
+                                <input type="text" pInputText formControlName="dias" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-3">
-                <div class="datosServicio margin-1 m-3">
-                    <div class="pfield col-12">
-                        <label class="ml-2 font-bold">Servicio</label>
-                        <p>MEDICINA</p>
+                <div class="col-3">
+                    <div class="datosServicio margin-1 m-3">
+                        <div class="pfield col-12">
+                            <label class="ml-2 font-bold">Servicio</label>
+                            <p>MEDICINA</p>
+                        </div>
+                        <div class="p-field col-12">
+                            <label class="ml-2 font-bold">Ambiente</label>
+                            <p>MEDICINA</p>
+                        </div>
                     </div>
-                    <div class="p-field col-12">
-                        <label class="ml-2 font-bold">Ambiente</label>
-                        <p>MEDICINA</p>
+                    <div class="datosServicio margin-1 m-3">
+                        <div class="p-field col-12">
+                            <label class="ml-2 font-bold">Personal de Salud</label>
+                            <p>ALGIEN RANDOM</p>
+                        </div>
                     </div>
-                </div>
-                <div class="datosServicio margin-1 m-3">
-                    <div class="p-field col-12">
-                        <label class="ml-2 font-bold">Personal de Salud</label>
-                        <p>ALGIEN RANDOM</p>
-                    </div>
-                </div>
-                <div class="datosServicio margin-1 m-3">
-                    <div class="p-field col-12">
-                        <label class="ml-2 font-bold">Hora</label>
-                        <p>10:00 am</p>
+                    <div class="datosServicio margin-1 m-3">
+                        <div class="p-field col-12">
+                            <label class="ml-2 font-bold">Hora</label>
+                            <p>10:00 am</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </ng-template>
+
     <ng-template pTemplate=footer>
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="cancelarPersona()"></button>
         <button pButton type="button" label="Guardar" (click)="GuardarPersona()"></button>

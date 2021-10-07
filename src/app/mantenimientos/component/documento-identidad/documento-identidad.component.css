@@ -22,3 +22,7 @@ input[type='number'] {
     padding-left: -20px;
     text-align: left;
 }
+.table{
+    border: 1px solid;
+    border-color: rgb(213, 212, 208);
+}

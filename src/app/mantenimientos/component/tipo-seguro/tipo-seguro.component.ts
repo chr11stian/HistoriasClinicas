@@ -1,71 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
 import Swal from "sweetalert2";
-import { CondicionPacienteRiesgoService } from '../../services/condicion-paciente-riesgo/condicion-paciente-riesgo.service';
+import { TipoSeguroService } from '../../services/tipo-seguro/tipo-seguro.service';
 
 @Component({
-  selector: 'app-condicion-paciente-riesgo',
-  templateUrl: './condicion-paciente-riesgo.component.html',
-  styleUrls: ['./condicion-paciente-riesgo.component.css']
+  selector: 'app-tipo-seguro',
+  templateUrl: './tipo-seguro.component.html',
+  styleUrls: ['./tipo-seguro.component.css']
 })
-export class CondicionPacienteRiesgoComponent implements OnInit {
+export class TipoSeguroComponent implements OnInit {
   // Creacion del formulario
   form: FormGroup;
 
   data: any[] = [];
   isUpdate: boolean = false;
   idUpdate: string = "";
-  condicionPRDialog: boolean;
-
   constructor(
-    private condicionPacienteRiesgoservice: CondicionPacienteRiesgoService,
+    private tipoSeguroservice: TipoSeguroService,
     private formBuilder: FormBuilder
   ) {
     this.buildForm();
-    this.getCondicionPacienteRiesgo();
+    this.getTipoSeguro();
   }
 
   buildForm() {
     this.form = this.formBuilder.group({
-      idcpr: ['', [Validators.required]],
       nombre: ['', [Validators.required]],
     })
   }
 
-  getCondicionPacienteRiesgo() {
-    this.condicionPacienteRiesgoservice.getCondicionPacienteRiesgo().subscribe((res: any) => {
+  getTipoSeguro() {
+    this.tipoSeguroservice.getTipoSeguro().subscribe((res: any) => {
       this.data = res.object;
     });
-  }
-  openNew() {
-    this.isUpdate = false;
-    this.form.reset();
-    this.form.get('idcpr').setValue("");
-    this.form.get('nombre').setValue("");
-    this.condicionPRDialog = true;
-    console.log("hola")
   }
 
   saveForm() {
     console.log("guardar");
     this.isUpdate = false;
     const req = {
-      idcpr: this.form.value.idcpr,
       nombre: this.form.value.nombre,
     }
-    if (req.idcpr.trim() !== "" || req.nombre.trim() !== "") {
-      this.condicionPacienteRiesgoservice.createCondicionPacienteRiesgo(req).subscribe(
+    if ( req.nombre.trim() !== "") {
+      this.tipoSeguroservice.createTipoSeguro(req).subscribe(
         result => {
           Swal.fire({
             icon: 'success',
             title: 'Agregado correctamente',
-            text: 'Condicion Paciente Riesgo',
             showConfirmButton: false,
             timer: 1000
           })
-          this.getCondicionPacienteRiesgo();
+          this.getTipoSeguro();
           this.guardarNuevo();
-          this.condicionPRDialog = false;
         }
       )
     } else {
@@ -84,30 +70,26 @@ export class CondicionPacienteRiesgoComponent implements OnInit {
 
   editar(rowData) {
     this.isUpdate = true;
-    this.form.get('idcpr').setValue(rowData.idcpr)
     this.form.get('nombre').setValue(rowData.nombre)
     this.idUpdate = rowData.id;
-    this.condicionPRDialog = true;
   }
 
   editarDatos(rowData) {
     const req = {
       id: this.idUpdate,
-      idcpr: this.form.value.idcpr,
       nombre: this.form.value.nombre,
     }
-    this.condicionPacienteRiesgoservice.editCondicionPacienteRiesgo(req).subscribe(
+    this.tipoSeguroservice.editTipoSeguro(req).subscribe(
       result => {
         Swal.fire({
           icon: 'success',
           title: 'Editado correctamente',
-          text: 'Condicion Paciente Riesgo',
+          text: 'Tipo Seguro',
           showConfirmButton: false,
           timer: 1000
         })
-        this.getCondicionPacienteRiesgo();
+        this.getTipoSeguro();
         this.guardarNuevo();
-        this.condicionPRDialog = false;
       }
     )
   }
@@ -123,9 +105,9 @@ export class CondicionPacienteRiesgoComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        this.condicionPacienteRiesgoservice.deleteCondicionPacienteRiesgo(rowData.id).subscribe(
+        this.tipoSeguroservice.deleteTipoSeguro(rowData.id).subscribe(
           result => {
-            this.getCondicionPacienteRiesgo()
+            this.getTipoSeguro()
           }
         );
         Swal.fire({
@@ -138,21 +120,6 @@ export class CondicionPacienteRiesgoComponent implements OnInit {
       }
     })
   }
-  titulo() {
-    if (this.isUpdate) return "Edite Condicion Paciente de Riesgo";
-    else return "Ingrese Nueva Condicion Paciente de Riesgo";
-}
-
-canceled() {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Cancelado...',
-      text: '',
-      showConfirmButton: false,
-      timer: 1000
-    })
-    this.condicionPRDialog = false;
-}
   ngOnInit(): void {
   }
 

@@ -8,13 +8,19 @@ import { TipoPersonalComponent } from "./component/tipo-personal/tipo-personal.c
 import { TipoTurnoComponent } from "./component/tipo-turno/tipo-turno.component";
 import { UbicacionComponent } from "./component/ubicacion/ubicacion.component";
 
+import { TipoUpsComponent } from "./component/tipo-ups/tipo-ups.component";
 import { DocumentoIdentidadComponent } from "./component/documento-identidad/documento-identidad.component";
 
 import { EtniaComponent } from "./component/etnia/etnia.component";
 import { CategoriaEstablecimientoComponent } from "./component/categoria-establecimiento/categoria-establecimiento.component";
+import { RedServiciosSaludComponent } from "./component/red-servicios-salud/red-servicios-salud.component";
+
+import { NombreComercialUPSComponent } from "./component/nombre-comercial-ups/nombre-comercial-ups.component";
+
 import { CondicionPacienteComponent } from "./component/condicion-paciente/condicion-paciente.component";
+import {} from "./component/condicion-paciente/condicion-paciente.component";
 import { CondicionPacienteRiesgoComponent } from "./component/condicion-paciente-riesgo/condicion-paciente-riesgo.component";
-import { TipoUpsComponent } from "./component/tipo-ups/tipo-ups.component";
+import { TipoSeguroComponent } from "./component/tipo-seguro/tipo-seguro.component";
 
 const routes: Routes = [
   {
@@ -77,12 +83,24 @@ const routes: Routes = [
     component: CategoriaEstablecimientoComponent,
   },
   {
+    path: "nombre-comercial-ups",
+    component: NombreComercialUPSComponent,
+  },
+  {
     path: "condicion-paciente",
     component: CondicionPacienteComponent,
   },
   {
     path: "condicion-paciente-riesgo",
     component: CondicionPacienteRiesgoComponent,
+  },
+  {
+    path: "tipo-seguro",
+    component: TipoSeguroComponent,
+  },
+  {
+    path: "red-servicios-salud",
+    component: RedServiciosSaludComponent,
   },
   {
     path: "tipo-ups",

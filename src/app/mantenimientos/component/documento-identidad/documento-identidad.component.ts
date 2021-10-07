@@ -18,6 +18,7 @@ export class DocumentoIdentidadComponent implements OnInit {
     datosDocIdentidad: any;
     update: boolean = false;
     id: string;
+    agregarDoc:boolean;
 
 
     constructor(
@@ -53,7 +54,7 @@ export class DocumentoIdentidadComponent implements OnInit {
         }
     }
 
-    GuardarPersona() {
+    GuardarDocumentoIdentidad() {
         this.recuperarDatos();
         if (this.datosDocIdentidad.nombre == '' || this.datosDocIdentidad.abreviatura == '' || this.datosDocIdentidad.longitud == '') {
             Swal.fire({
@@ -156,5 +157,9 @@ export class DocumentoIdentidadComponent implements OnInit {
                 Swal.fire('No se elimino el documento', '', 'info')
             }
         })
+    }
+
+    openDialogAgregarDoc(){
+        this.agregarDoc = true;
     }
 }

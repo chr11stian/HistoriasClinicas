@@ -83,35 +83,50 @@
             <div class=" col-4">
                 <label>DEPARTAMENTO</label>
                 <div class="p-field">
-                    <p-dropdown inputId="dropdown" [options]="dataDepartamntos"
+                    <p-dropdown inputId="dropdown"
+                                [autoDisplayFirst]="false"
+                                [options]="dataDepartamntos"
                                 [(ngModel)]="ubicacion.departamento"
+                                (onChange)="selectedDepartamento()"
+                                [showClear]="true"
                                 optionLabel="departamento"
                                 defaultLabel="Seleccione un Departamento"
-                                id="departamento" 
-                                (onChange)="selectedDepartamento()">
+                                placeholder="-TODOS-"
+                                id="departamento">
+
                     </p-dropdown>
                 </div>
             </div>
             <div class="p-field col-4">
                 <label>PROVINCIA</label>
                 <div class="p-field">
-                    <p-dropdown inputId="dropdown" [options]="dataProvincia"
-                                [(ngModel)]="ubicacion.provincia"
-                                optionLabel="provincia"
-                                defaultLabel="Seleccione un Departamento"
-                                id="provincia"
-                                (onChange)="selectedProvincia()">
+                    <p-dropdown
+                            inputId="dropdown"
+                            [autoDisplayFirst]="false"
+                            [options]="dataProvincia"
+                            optionLabel="provincia"
+                            defaultLabel="Seleccione un Departamento"
+                            placeholder="-TODOS-"
+                            id="provincia"
+                            [showClear]="true"
+                            [(ngModel)]="ubicacion.provincia"
+                            (onChange)="selectedProvincia()">
+
                     </p-dropdown>
                 </div>
             </div>
             <div class="p-field col-4">
                 <label>DISTRITO</label>
                 <div class="p-field">
-                    <p-dropdown inputId="dropdown" [options]="dataDistrito"
+                    <p-dropdown inputId="dropdown"
+                                [autoDisplayFirst]="false"
+                                [options]="dataDistrito"
                                 [(ngModel)]="ubicacion.distrito"
                                 optionLabel="distrito"
                                 defaultLabel="Seleccione un distrito"
-                                id="distrito">
+                                placeholder="-TODOS-"
+                                id="distrito"
+                                [showClear]="true">
                     </p-dropdown>
                 </div>
             </div>
