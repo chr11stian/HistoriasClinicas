@@ -28,3 +28,4 @@ export class DocumentoIdentidadService {
         return this.http.delete(`${this.base_url}/${this.bd}/api/documentoidentidad/${id}`)
     }
 }
+    

@@ -59,7 +59,7 @@ export interface Etnia {
 
 export interface RedServicioSalud {
   id?: string;
-  DISA?: string;
+  disa?: string;
   idRed?: string;
   nombreRed?: string;
   idMicroRed?: string;
@@ -68,6 +68,7 @@ export interface RedServicioSalud {
   departamento?: string;
   provincia?: string;
   distrito?: string;
+  idEESS?: string;
   nombreEESS?: string;
   categoria?: string;
 }

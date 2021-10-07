@@ -1,0 +1,8 @@
+.datos{
+    color: rgb(47, 47, 186);
+    font-size: 1.4em;
+}
+.dataRed{
+    border: 1px solid;
+    border-radius: 10px;
+}
