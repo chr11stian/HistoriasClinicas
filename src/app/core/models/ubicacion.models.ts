@@ -12,8 +12,7 @@ export interface Ubicacion {
     altura?: string;
     es_Capital?: string;
 }
-
-
+    
 export interface Departamentos {
     iddd?: string;
     departamento?: string;
