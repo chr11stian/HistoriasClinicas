@@ -15,6 +15,8 @@ export class CondicionPacienteRiesgoComponent implements OnInit {
   data: any[] = [];
   isUpdate: boolean = false;
   idUpdate: string = "";
+  condicionPRDialog: boolean;
+
   constructor(
     private condicionPacienteRiesgoservice: CondicionPacienteRiesgoService,
     private formBuilder: FormBuilder
@@ -34,6 +36,14 @@ export class CondicionPacienteRiesgoComponent implements OnInit {
     this.condicionPacienteRiesgoservice.getCondicionPacienteRiesgo().subscribe((res: any) => {
       this.data = res.object;
     });
+  }
+  openNew() {
+    this.isUpdate = false;
+    this.form.reset();
+    this.form.get('idcpr').setValue("");
+    this.form.get('nombre').setValue("");
+    this.condicionPRDialog = true;
+    console.log("hola")
   }
 
   saveForm() {
@@ -55,6 +65,7 @@ export class CondicionPacienteRiesgoComponent implements OnInit {
           })
           this.getCondicionPacienteRiesgo();
           this.guardarNuevo();
+          this.condicionPRDialog = false;
         }
       )
     } else {
@@ -76,6 +87,7 @@ export class CondicionPacienteRiesgoComponent implements OnInit {
     this.form.get('idcpr').setValue(rowData.idcpr)
     this.form.get('nombre').setValue(rowData.nombre)
     this.idUpdate = rowData.id;
+    this.condicionPRDialog = true;
   }
 
   editarDatos(rowData) {
@@ -95,6 +107,7 @@ export class CondicionPacienteRiesgoComponent implements OnInit {
         })
         this.getCondicionPacienteRiesgo();
         this.guardarNuevo();
+        this.condicionPRDialog = false;
       }
     )
   }
@@ -125,7 +138,21 @@ export class CondicionPacienteRiesgoComponent implements OnInit {
       }
     })
   }
+  titulo() {
+    if (this.isUpdate) return "Edite Condicion Paciente de Riesgo";
+    else return "Ingrese Nueva Condicion Paciente de Riesgo";
+}
 
+canceled() {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Cancelado...',
+      text: '',
+      showConfirmButton: false,
+      timer: 1000
+    })
+    this.condicionPRDialog = false;
+}
   ngOnInit(): void {
   }
 
