@@ -22,7 +22,7 @@ export class PersonalService {
     getPersonal() :Observable<Personal[]> {
         return this.http.get<Personal[]>(`${this.base_url}/${this.bd}/api/personal`);
     }
-    createPersonal(personal: Personal): Observable<Personal>  {
+    createPersonal(personal): Observable<Personal>  {
         return this.http.post<any>(`${this.base_url}/${this.bd}/api/personal`, personal)
     }
     deletePersonal(id) {

@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonalService } from '../../core/services/personal-services/personal.service';
-import {FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
 import { Personal } from 'src/app/core/models/personal.models';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
 import { ColegioProfesional, DocumentoIdentidad, Especialidad, TipoPersonal } from 'src/app/core/models/mantenimiento.models';
 import { TipoPersonalService } from 'src/app/mantenimientos/services/tipo-personal/tipo-personal.service';
 import { EspecialidadService } from 'src/app/mantenimientos/services/especialidad/especialidad.service';
 import { ColegioProfesionalService } from 'src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service';
+import { DatePipe } from '@angular/common';
+import { TipoContratoService } from 'src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service';
 
 
 @Component({
@@ -16,25 +17,36 @@ import { ColegioProfesionalService } from 'src/app/mantenimientos/services/coleg
     templateUrl: './personal-salud.component.html',
     styleUrls: ['./personal-salud.component.css'],
 })
-export class PersonalSaludComponent implements OnInit{
+export class PersonalSaludComponent implements OnInit {
     // Creacion del formulario
     form: FormGroup;
+    formEspecialidad: FormGroup;
 
+    //datos a usar
     data: Personal[] = [];
     isUpdate: boolean = false;
+    isUpdateEspecialidad: boolean = false;
     idUpdate: string = "";
     docList: DocumentoIdentidad[];
     tiposPersonalList: TipoPersonal[];
     especialidadesList: Especialidad[];
     colegiosList: ColegioProfesional[];
+    tiposContratoList: any[];
+    domicilioList: any[];
+    stateOptions: any[];
+    nombrePersonal: string = "";
 
+    especialidades: any[];
     personalDialog: boolean;
+    personalEspecialidadDialog: boolean;
+    datePipe = new DatePipe('en-US');
     constructor(
         private personalservice: PersonalService,
         private documentoservice: DocumentoIdentidadService,
         private tipoPersonalservice: TipoPersonalService,
         private especialidadservice: EspecialidadService,
         private colegioservice: ColegioProfesionalService,
+        private tipoContratoservice: TipoContratoService,
         private formBuilder: FormBuilder
     ) {
         this.buildForm();
@@ -43,30 +55,48 @@ export class PersonalSaludComponent implements OnInit{
         this.getTiposPersonal();
         this.getEspecialidades();
         this.getColegios();
+        this.getTipoContratos();
+        this.stateOptions = [{ label: 'Activo', value: true }, { label: 'No Activo', value: false }];
+        this.domicilioList = [{
+            apePaterno: 'Olazabal',
+            apeMaterno: 'Caller',
+            nombres: 'Leticia Giuliana',
+            sexo: 'Femenino',
+            fechaNacimiento: '05/06/2000',
+            estadoCivil: 'Soltero',
+            domicilioActual: 'Urb. Tupac Amaru',
+            nacionalidad: 'Peruana',
+            departamento: 'Cusco',
+            provincia: 'Cusco',
+            distrito: 'San Sebastian'
+        }
+        ];
     }
 
-    getDocumentos(){
+    getDocumentos() {
         this.documentoservice.getDocumentosIdentidad().subscribe((res: any) => {
             this.docList = res.object;
-            console.log(this.docList);
         });
     }
-    getTiposPersonal(){
+    getTiposPersonal() {
         this.tipoPersonalservice.getTipoPersonales().subscribe((res: any) => {
             this.tiposPersonalList = res.object;
-            console.log(this.tiposPersonalList);
         });
     }
-    getEspecialidades(){
+    getEspecialidades() {
         this.especialidadservice.getEspecialidad().subscribe((res: any) => {
             this.especialidadesList = res.object;
-            console.log(this.especialidadesList);
         });
     }
-    getColegios(){
+    getColegios() {
         this.colegioservice.getColegioProfesional().subscribe((res: any) => {
             this.colegiosList = res.object;
-            console.log(this.colegiosList);
+        });
+    }
+    getTipoContratos() {
+        this.tipoContratoservice.getTipoContrato().subscribe((res: any) => {
+            this.tiposContratoList = res.object;
+            console.log(this.tiposContratoList);
         });
     }
     buildForm() {
@@ -75,15 +105,14 @@ export class PersonalSaludComponent implements OnInit{
             nroDoc: ['', [Validators.required]],
             apePaterno: ['', [Validators.required]],
             apeMaterno: ['', [Validators.required]],
-            primerNombre: ['', [Validators.required]],
-            otrosNombres: ['', [Validators.required]],
+            nombres: ['', [Validators.required]],
             fechaNacimiento: ['', [Validators.required]],
             tipoPersonal: ['', [Validators.required]],
             colegioProfesional: ['', [Validators.required]],
             colegiatura: ['', [Validators.required]],
             especialidad: ['', [Validators.required]],
             estado: ['', [Validators.required]],
-            tipoContrato: ['', [Validators.required]],
+            contratoAbreviatura: ['', [Validators.required]],
             sexo: ['', [Validators.required]],
             detalleIpress: ['', [Validators.required]],
             estadoCivil: ['', [Validators.required]],
@@ -93,32 +122,45 @@ export class PersonalSaludComponent implements OnInit{
             provincia: ['', [Validators.required]],
             distrito: ['', [Validators.required]],
         })
+        this.formEspecialidad = this.formBuilder.group({
+            nombre: ['', [Validators.required]],
+            nroEspecialidad: ['', [Validators.required]],
+        })
     }
     getPersonal() {
         this.personalservice.getPersonal().subscribe((res: any) => {
             this.data = res.object;
-            console.log(this.data);
         });
     }
     saveForm() {
         this.isUpdate = false;
+        let otrosNombres= this.form.value.nombres.split(" ");
+        let otros= otrosNombres.shift();
+        otrosNombres=otrosNombres.join(" "); 
+        let primerNombre= this.form.value.nombres.split(" ")[0];
+        let tipoPersonalSelected=this.tiposPersonalList.find( tipo => tipo.nombre === this.form.value.tipoPersonal);
+        let colegioSelected=this.colegiosList.find( colegio => colegio.codigo === this.form.value.colegioProfesional);
         const req = {
             tipoDoc: this.form.value.tipoDoc,
             nroDoc: this.form.value.nroDoc,
             apePaterno: this.form.value.apePaterno,
             apeMaterno: this.form.value.apeMaterno,
-            primerNombre: this.form.value.primerNombre,
-            otrosNombres: this.form.value.otrosNombres,
+            primerNombre: primerNombre,
+            otrosNombres: otrosNombres,
             fechaNacimiento: this.form.value.fechaNacimiento,
-            tipoPersonal: this.form.value.tipoPersonal,
-            colegioProfesional: this.form.value.colegioProfesional,
-            colegiatura: this.form.value.colegiatura,
-            especialidad: this.form.value.especialidad,
-            estado: this.form.value.estado,
-            tipoContrato: this.form.value.tipoContrato,
             sexo: this.form.value.sexo,
-            detalleIpress: this.form.value.detalleIpress
-        }
+            contratoAbreviatura: this.form.value.contratoAbreviatura,
+            tipoPersonal:{ nombre: tipoPersonalSelected.nombre, 
+                           esProfesional: tipoPersonalSelected.esProfesional,
+                           abreviatura: tipoPersonalSelected.abreviatura},
+            colegioProfesional:{codigo: colegioSelected.codigo,
+                                nombre: colegioSelected.nombre},
+
+            colegiatura: this.form.value.colegiatura,
+            estado: this.form.value.estado,
+            detalleIpress: null
+        };
+        console.log(req);
         if (req.nroDoc.trim() !== "") {
             this.personalservice.createPersonal(req).subscribe(
                 result => {
@@ -140,60 +182,60 @@ export class PersonalSaludComponent implements OnInit{
         this.isUpdate = false;
         this.form.reset();
         this.form.get('nroDoc').setValue("");
-        this.form.get('tipoDoc').setValue("");
+        this.form.get('tipoDoc').setValue("DNI");
         this.form.get('apePaterno').setValue("");
         this.form.get('apeMaterno').setValue("");
-        this.form.get('primerNombre').setValue("");
-        this.form.get('otrosNombres').setValue("");
+        this.form.get('nombres').setValue("");
         this.form.get('fechaNacimiento').setValue("");
         this.form.get('tipoPersonal').setValue("");
         this.form.get('colegioProfesional').setValue("");
         this.form.get('colegiatura').setValue("");
-        this.form.get('especialidad').setValue("");
         this.form.get('estado').setValue("");
-        this.form.get('tipoContrato').setValue("");
+        this.form.get('contratoAbreviatura').setValue("");
         this.form.get('sexo').setValue("");
         this.form.get('detalleIpress').setValue("");
         this.personalDialog = true;
     }
     editar(rowData) {
         this.isUpdate = true;
+        this.form.reset();
         this.form.get('nroDoc').setValue(rowData.nroDoc);
         this.form.get('tipoDoc').setValue(rowData.tipoDoc);
         this.form.get('apePaterno').setValue(rowData.apePaterno);
         this.form.get('apeMaterno').setValue(rowData.apeMaterno);
-        this.form.get('primerNombre').setValue(rowData.primerNombre);
-        this.form.get('otrosNombres').setValue(rowData.otrosNombres);
-        this.form.get('fechaNacimiento').setValue(rowData.fechaNacimiento);
-        this.form.get('tipoPersonal').setValue(rowData.tipoPersonal.nombre);
-        this.form.get('colegioProfesional').setValue(rowData.colegioProfesional.nombre);
+        this.form.get('nombres').setValue(rowData.primerNombre+" "+rowData.otrosNombres);
+        this.form.get('fechaNacimiento').setValue(this.datePipe.transform(rowData.fechaNacimiento,'dd/MM/yyyy'));
+        this.form.get('tipoPersonal').setValue(rowData.tipoPersonal ? rowData.tipoPersonal.nombre : "");
+        this.form.get('colegioProfesional').setValue(rowData.colegioProfesional ? rowData.colegioProfesional.nombre : "");
         this.form.get('colegiatura').setValue(rowData.colegiatura);
-        this.form.get('especialidad').setValue(rowData.especialidad.nombre);
         this.form.get('estado').setValue(rowData.estado);
-        this.form.get('tipoContrato').setValue(rowData.tipoContrato);
+        this.form.get('contratoAbreviatura').setValue(rowData.contratoAbreviatura);
         this.form.get('sexo').setValue(rowData.sexo);
-        this.form.get('detalleIpress').setValue(rowData.detalleIpress.eess);
+        this.form.get('detalleIpress').setValue(rowData.detalleIpress ? rowData.detalleIpress.eess : "");
         this.idUpdate = rowData.id;
         this.personalDialog = true;
     }
     editarDatos(rowData) {
+        let otrosNombres= this.form.value.nombres.split(" ");
+        let otros= otrosNombres.shift();
+        otrosNombres=otrosNombres.join(" "); 
+        let primerNombre= this.form.value.nombres.split(" ")[0];
         const req = {
             id: this.idUpdate,
             tipoDoc: this.form.value.tipoDoc,
             nroDoc: this.form.value.nroDoc,
             apePaterno: this.form.value.apePaterno,
             apeMaterno: this.form.value.apeMaterno,
-            primerNombre: this.form.value.primerNombre,
-            otrosNombres: this.form.value.otrosNombres,
+            primerNombre: primerNombre,
+            otrosNombres: otrosNombres,
             fechaNacimiento: this.form.value.fechaNacimiento,
-            tipoPersonal: this.form.value.tipoPersonal,
-            colegioProfesional: this.form.value.colegioProfesional,
-            colegiatura: this.form.value.colegiatura,
-            especialidad: this.form.value.especialidad,
-            estado: this.form.value.estado,
-            tipoContrato: this.form.value.tipoContrato,
             sexo: this.form.value.sexo,
-            detalleIpress: this.form.value.detalleIpress
+            contratoAbreviatura: this.form.value.contratoAbreviatura,
+            //tipoPersonal: this.form.value.tipoPersonal,
+            //colegioProfesional: this.form.value.colegioProfesional,
+            colegiatura: this.form.value.colegiatura,
+            estado: this.form.value.estado,
+            //detalleIpress: this.form.value.detalleIpress
         }
 
         this.personalservice.editPersonal(req).subscribe(
@@ -247,6 +289,7 @@ export class PersonalSaludComponent implements OnInit{
             timer: 1000
         })
         this.personalDialog = false;
+        this.personalEspecialidadDialog = false;
     }
 
     titulo() {
@@ -254,6 +297,42 @@ export class PersonalSaludComponent implements OnInit{
         else return "Ingrese Nuevo Personal de Salud";
     }
 
+    traerData(){
+        this.form.get('apePaterno').setValue(this.domicilioList[0].apePaterno);
+        this.form.get('apeMaterno').setValue(this.domicilioList[0].apeMaterno);
+        this.form.get('nombres').setValue(this.domicilioList[0].nombres);
+        this.form.get('fechaNacimiento').setValue(this.domicilioList[0].fechaNacimiento);
+        this.form.get('sexo').setValue(this.domicilioList[0].sexo);
+        this.form.get('domicilioActual').setValue(this.domicilioList[0].domicilioActual);
+        this.form.get('estadoCivil').setValue(this.domicilioList[0].estadoCivil);
+        this.form.get('nacionalidad').setValue(this.domicilioList[0].nacionalidad);
+        this.form.get('departamento').setValue(this.domicilioList[0].departamento);
+        this.form.get('provincia').setValue(this.domicilioList[0].provincia);
+        this.form.get('distrito').setValue(this.domicilioList[0].distrito);
+    }
+    newEspecialidad(rowData) {
+        this.especialidades=rowData.especialidad;
+        this.nombrePersonal=`${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
+        this.form.reset();
+        this.personalEspecialidadDialog = true;
+    }
+    guardarNuevoEspecialidad() {
+        this.isUpdateEspecialidad = false;
+        this.formEspecialidad.reset();
+    }
+    editarEspecialidad(rowData) {
+        this.isUpdateEspecialidad = true;
+        this.formEspecialidad.get('nombre').setValue(rowData.nombre);
+        this.formEspecialidad.get('nroEspecialidad').setValue(rowData.nroEspecialidad);
+        //this.idUpdateEspecialidad = rowData.id;
+    }
+    tituloEspecialidad() {
+        if (this.isUpdateEspecialidad) return "Edite Especialidad";
+        else return "Ingrese Nueva Especialidad";
+    }
+    eliminarEspecialidad(){
+
+    }
     ngOnInit(): void {
     }
 }
