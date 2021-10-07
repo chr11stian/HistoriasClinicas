@@ -120,7 +120,6 @@ export class UbicacionComponent implements OnInit {
             poblacion: this.form.value.poblacion,
             altura: this.form.value.altura,
             es_Capital: this.form.value.es_Capital,
-
         }
         if (req.ubigeo.trim() !== "") {
             this.ubicacionService.saveCCPP(req).subscribe(
