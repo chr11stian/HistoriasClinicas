@@ -35,6 +35,7 @@ export class PersonalSaludComponent implements OnInit {
     domicilioList: any[];
     stateOptions: any[];
     nombrePersonal: string = "";
+    idEspecialidad: string = "";
 
     especialidades: any[];
     personalDialog: boolean;
@@ -99,6 +100,11 @@ export class PersonalSaludComponent implements OnInit {
             console.log(this.tiposContratoList);
         });
     }
+    getPersonalIdEspecialidad(){
+        this.personalservice.getPersonalID(this.idEspecialidad).subscribe((res: any) => {
+            this.especialidades = res.object.especialidad;
+        });
+    }
     buildForm() {
         this.form = this.formBuilder.group({
             tipoDoc: ['', [Validators.required]],
@@ -147,15 +153,14 @@ export class PersonalSaludComponent implements OnInit {
             apeMaterno: this.form.value.apeMaterno,
             primerNombre: primerNombre,
             otrosNombres: otrosNombres,
-            fechaNacimiento: this.form.value.fechaNacimiento,
+            fechaNacimiento: this.datePipe.transform(this.form.value.fechaNacimiento,'yyyy-MM-dd'),
             sexo: this.form.value.sexo,
             contratoAbreviatura: this.form.value.contratoAbreviatura,
             tipoPersonal:{ nombre: tipoPersonalSelected.nombre, 
                            esProfesional: tipoPersonalSelected.esProfesional,
                            abreviatura: tipoPersonalSelected.abreviatura},
-            colegioProfesional:{codigo: colegioSelected.codigo,
-                                nombre: colegioSelected.nombre},
-
+            colegioProfesional:[{codigo: colegioSelected.codigo,
+                                nombre: colegioSelected.nombre}],
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
             detalleIpress: null
@@ -228,7 +233,7 @@ export class PersonalSaludComponent implements OnInit {
             apeMaterno: this.form.value.apeMaterno,
             primerNombre: primerNombre,
             otrosNombres: otrosNombres,
-            fechaNacimiento: this.form.value.fechaNacimiento,
+            fechaNacimiento: this.datePipe.transform(this.form.value.fechaNacimiento,'yyyy-MM-dd'),
             sexo: this.form.value.sexo,
             contratoAbreviatura: this.form.value.contratoAbreviatura,
             //tipoPersonal: this.form.value.tipoPersonal,
@@ -289,9 +294,10 @@ export class PersonalSaludComponent implements OnInit {
             timer: 1000
         })
         this.personalDialog = false;
+    }
+    close(){
         this.personalEspecialidadDialog = false;
     }
-
     titulo() {
         if (this.isUpdate) return "Edite Personal de Salud";
         else return "Ingrese Nuevo Personal de Salud";
@@ -313,12 +319,15 @@ export class PersonalSaludComponent implements OnInit {
     newEspecialidad(rowData) {
         this.especialidades=rowData.especialidad;
         this.nombrePersonal=`${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
+        this.idEspecialidad=rowData.id;
         this.form.reset();
         this.personalEspecialidadDialog = true;
     }
     guardarNuevoEspecialidad() {
         this.isUpdateEspecialidad = false;
         this.formEspecialidad.reset();
+        this.formEspecialidad.get('nombre').setValue("");
+        this.formEspecialidad.get('nroEspecialidad').setValue("");
     }
     editarEspecialidad(rowData) {
         this.isUpdateEspecialidad = true;
@@ -330,8 +339,53 @@ export class PersonalSaludComponent implements OnInit {
         if (this.isUpdateEspecialidad) return "Edite Especialidad";
         else return "Ingrese Nueva Especialidad";
     }
-    eliminarEspecialidad(){
+    eliminarEspecialidad(rowData){
+        this.isUpdateEspecialidad = false;
+        Swal.fire({
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            icon: 'warning',
+            title: 'Estas seguro de eliminar',
+            text: '',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.personalservice.deletePersonalEspecialidad(this.idEspecialidad,rowData.nombre).subscribe(
+                    result => {
+                        this.getPersonalIdEspecialidad()
+                    }
+                );
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Eliminado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+    }
+    saveEspecialidad(rowData){
+        let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
+        const req = {
+            nombre: this.formEspecialidad.value.nombre,
+            nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
+            estado: est.estado
+        }
 
+        this.personalservice.createPersonalEspecialidad(this.idEspecialidad,req).subscribe(
+            result => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Agregado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+                this.getPersonalIdEspecialidad();
+                this.guardarNuevoEspecialidad();
+            }
+        )
     }
     ngOnInit(): void {
     }

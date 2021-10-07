@@ -247,13 +247,13 @@
                                 <label id="nombre">Especialidad:</label>
                                 <p-dropdown class="inputRedondo" [showTransitionOptions]="'300ms'"
                                     dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="especialidadesList"
-                                    formControlName="nombre" optionLabel="nombre" optionValue="id" id="tipoid" required>
+                                    formControlName="nombre" optionLabel="nombre" optionValue="nombre" id="tipoid" required>
                                 </p-dropdown>
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
-                                <label id="nombre">Nro Especialidad:</label>
+                                <label id="nroEspe">Nro Especialidad:</label>
                                 <input type="text" pInputText formControlName='nroEspecialidad' required />
                             </div>
                         </div>
@@ -261,7 +261,7 @@
                     <br />
                     <div class="flex justify-content-end">
                         <button *ngIf="!isUpdateEspecialidad" [disabled]="!formEspecialidad.valid" pButton type="button" label="Guardar"
-                            class="m-1 w-9rem"></button>
+                            class="m-1 w-9rem" (click)="saveEspecialidad()"></button>
                         <button *ngIf="isUpdateEspecialidad" [disabled]="!formEspecialidad.valid" pButton type="button" label="Guardar"
                             class="m-1 w-9rem"></button>
                         <button pButton type="button" label="Nuevo" icon="pi pi-plus" (click)="guardarNuevoEspecialidad()"
@@ -317,6 +317,6 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
+        <button pButton type="button" label="Salir" class="m-1 w-5rem" (click)="close()"></button>
     </ng-template>
 </p-dialog>

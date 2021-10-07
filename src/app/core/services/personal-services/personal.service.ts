@@ -22,6 +22,9 @@ export class PersonalService {
     getPersonal() :Observable<Personal[]> {
         return this.http.get<Personal[]>(`${this.base_url}/${this.bd}/api/personal`);
     }
+    getPersonalID(id):Observable<Personal> {
+        return this.http.get<Personal>(`${this.base_url}/${this.bd}/api/personal/${id}`);
+    }
     createPersonal(personal): Observable<Personal>  {
         return this.http.post<any>(`${this.base_url}/${this.bd}/api/personal`, personal)
     }
@@ -30,5 +33,11 @@ export class PersonalService {
     }
     editPersonal(personal: Personal): Observable<Personal> {
         return this.http.put<any>(`${this.base_url}/${this.bd}/api/personal`, personal)
+    }
+    createPersonalEspecialidad(id,reqEspecialidad){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/personal/ingresarespecialidad/${id}`, reqEspecialidad)
+    }
+    deletePersonalEspecialidad(id,nombreEspecialidad){
+        return this.http.delete<any>(`${this.base_url}/${this.bd}/api/personal/eliminarespecialidad/${id}/${nombreEspecialidad}`)
     }
 }
