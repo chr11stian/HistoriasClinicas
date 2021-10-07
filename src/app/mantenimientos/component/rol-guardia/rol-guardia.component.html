@@ -23,14 +23,17 @@
             [options]="personalServicio"
             #dd
             [(ngModel)]="selectedPersonalServicio"
-            optionLabel="name"
-            optionValue="code"
+            optionLabel="nombre"
+            optionValue="id"
             styleClass="my-2 py-1"
-            (onChange)="changeComponentVacunas($event, dd)"
+            (onChange)="changeComponentRol($event, dd)"
           ></p-dropdown>
         </div>
       </th>
-      <th colSpan="31" style="background-color: #dfe6e9; padding: 10px">
+      <th
+        [colSpan]="mesActual.length + 1"
+        style="background-color: #dfe6e9; padding: 10px"
+      >
         <div>
           <p-calendar
             [appendTo]="calendarWrapper"
@@ -116,7 +119,7 @@
   <div class="grid">
     <div class="col-10">
       <div class="grid borde">
-        <div class="col-3">
+        <div class="col-2">
           <span
             ><h3>M-Mañana</h3>
             <h3>T-Tarde</h3>
@@ -144,7 +147,7 @@
             <h3>GD(GN)-Guardia Diurna y Nocturna</h3></span
           >
         </div>
-        <div class="col-1">
+        <div class="col-2">
           <span><h3>F-Feriado</h3> </span>
         </div>
       </div>

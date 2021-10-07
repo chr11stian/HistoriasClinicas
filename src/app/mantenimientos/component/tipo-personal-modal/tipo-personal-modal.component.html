@@ -37,11 +37,19 @@
     </small>
   </div>
   <div class="p-field col-12 md:col-6">
-    <label for="name">Especialidad</label>
-    <input type="text" pInputText id="name" formControlName="especialidad" />
-    <small class="p-error" *ngIf="isInvalid('especialidad')">
-      *Nombre del tipo personal es necesario
-    </small>
+    <div class="grid">
+      <div class="col-5">
+        <label for="name">Especialidad</label>
+        <p-selectButton
+          [options]="especialidadOptions"
+          formControlName="especialista"
+          class="p-button-sm"
+          optionLabel="label"
+          optionValue="value"
+        >
+        </p-selectButton>
+      </div>
+    </div>
   </div>
   <div class="p-field col-12 md:col-6">
     <div class="grid">
