@@ -167,10 +167,11 @@
                     <label>DEPARTAMENTO</label>
                     <div class="p-field">
                         <p-dropdown inputId="dropdown"
+                                    [autoDisplayFirst]="false"
                                     [options]="dataDepartamntos"
+                                    [showClear]="true"
                                     (onChange)="selectedDepartamento()"
                                     formControlName='departamento'
-                                    optionValue='departamento'
                                     optionLabel="departamento"
                                     defaultLabel="Seleccione un Departamento"
                                     id="departamento">
@@ -182,6 +183,8 @@
                     <div class="p-field">
                         <p-dropdown
                                 inputId="dropdown"
+                                [autoDisplayFirst]="false"
+                                [showClear]="true"
                                 [options]="dataProvincia"
                                 (onChange)="selectedProvincia()"
                                 formControlName="provincia"
@@ -196,6 +199,7 @@
                     <label>DISTRITO</label>
                     <div class="p-field">
                         <p-dropdown
+
                                 inputId="dropdown"
                                 [options]="dataDistrito"
                                 (onChange)="selectDistrito()"

@@ -95,15 +95,15 @@ export class UbicacionComponent implements OnInit {
         this.idUpdate = rowData.id;
         this.ubicacionEditarDialog = true;
 
-        // let aux = {
-        //     iddd: rowData.iddd,
-        //     idpp: rowData.idpp,
-        //     iddis: rowData.iddis
-        // }
-        // this.ubicacionService.getCentroPoblado(aux).subscribe((res: any) => {
-        //     this.dataCCPP = res.object;
-        //     console.log('Centro Poblado ', res)
-        // })
+        let aux = {
+            iddd: rowData.iddd,
+            idpp: rowData.idpp,
+            iddis: rowData.iddis
+        }
+        this.ubicacionService.getCentroPoblado(aux).subscribe((res: any) => {
+            this.dataCCPP = res.object;
+            console.log('Centro Poblado ', res)
+        })
     }
 
     openNew() {
@@ -180,6 +180,7 @@ export class UbicacionComponent implements OnInit {
                     showConfirmButton: false,
                     timer: 1500,
                 })
+                this.dataCCPP = null;
                 this.getUbicacion();
                 this.ubicacionEditarDialog = false;
             }
@@ -196,6 +197,7 @@ export class UbicacionComponent implements OnInit {
             showConfirmButton: false,
             timer: 1000
         })
+        this.dataCCPP = null;
         this.ubicacionDialog = false;
         this.ubicacionEditarDialog = false;
         this.submitted = false;
@@ -203,16 +205,14 @@ export class UbicacionComponent implements OnInit {
 
     selectedDepartamento() {
         const dpto = {
-            id: this.idUpdate,
             departamento: this.form.value.departamento,
-            iddd: this.form.value.iddd,
         }
-        let rowData = dpto.departamento.iddd;
+        let rowData = dpto.departamento;
         console.log(rowData)
-        // this.ubicacionService.getProvincias(rowData).subscribe((res: any) => {
-        //     this.dataProvincia = res.object;
-        //     console.log('data pro', res)
-        // })
+        this.ubicacionService.getProvincias(rowData).subscribe((res: any) => {
+            this.dataProvincia = res.object;
+            console.log('data pro', res)
+        })
     }
 
 
