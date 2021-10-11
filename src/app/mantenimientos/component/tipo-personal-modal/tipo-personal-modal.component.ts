@@ -25,6 +25,10 @@ export class TipoPersonalModalComponent implements OnInit {
     { label: "Activo", value: true },
     { label: "Desactivo", value: false },
   ];
+  especialidadOptions = [
+    { label: "Activo", value: true },
+    { label: "Desactivo", value: false },
+  ];
   constructor(
     public ref: DynamicDialogRef, //datos reenviados
     public config: DynamicDialogConfig, //datos enviados
@@ -41,7 +45,7 @@ export class TipoPersonalModalComponent implements OnInit {
       nombreTipoPersonal: new FormControl("", Validators.required),
       esProfesional: new FormControl("", Validators.required),
       abreviatura: new FormControl("", Validators.required),
-      especialidad: new FormControl("", Validators.required),
+      especialista: new FormControl("", Validators.required),
       estado: new FormControl("", Validators.required),
     });
   }
@@ -54,7 +58,7 @@ export class TipoPersonalModalComponent implements OnInit {
       nombre: this.getFC("nombreTipoPersonal").value,
       esProfesional: this.getFC("esProfesional").value,
       abreviatura: this.getFC("abreviatura").value,
-      especialidad: this.getFC("especialidad").value,
+      especialista: this.getFC("especialista").value,
       estado: this.getFC("estado").value,
     };
     if (this.idTipoPersonal) {
@@ -97,7 +101,7 @@ export class TipoPersonalModalComponent implements OnInit {
           this.getFC("nombreTipoPersonal").setValue(resp.nombre);
           this.getFC("esProfesional").setValue(resp.esProfesional);
           this.getFC("abreviatura").setValue(resp.abreviatura);
-          this.getFC("especialidad").setValue(resp.especialidad);
+          this.getFC("especialista").setValue(resp.especialista);
           this.getFC("estado").setValue(resp.estado);
         });
     }

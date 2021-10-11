@@ -59,7 +59,7 @@
       </td>
       <td class="text-center text-800">{{ rowData.abreviatura }}</td>
       <td class="text-center text-800">
-        <div *ngIf="rowData.especialidad; else noEspecialidad">
+        <div *ngIf="rowData.especialista; else noEspecialidad">
           <p-tag
             value="Tiene especialidad"
             rounded="true"
@@ -71,7 +71,7 @@
         <ng-template #noEspecialidad>
           <p-tag
             value="No tiene especialidad"
-            rounded="false"
+            rounded="true"
             severity="danger"
             styleClass="text-sm"
           >

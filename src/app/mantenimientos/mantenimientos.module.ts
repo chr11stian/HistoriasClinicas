@@ -14,17 +14,18 @@ import {MultiSelectModule} from "primeng/multiselect";
 import {EspecialidadComponent} from "./component/especialidad/especialidad.component";
 import {TipoTurnoComponent} from "./component/tipo-turno/tipo-turno.component";
 import {TipoTurnoModalComponent} from "./component/tipo-turno-modal/tipo-turno-modal.component";
-import {GrupoEtarioComponent} from './component/grupo-etario/grupo-etario.component';
-import {RolGuardiaComponent} from './component/rol-guardia/rol-guardia.component';
+import {GrupoEtarioComponent} from "./component/grupo-etario/grupo-etario.component";
+import {RolGuardiaComponent} from "./component/rol-guardia/rol-guardia.component";
 import {DocumentoIdentidadComponent} from "./component/documento-identidad/documento-identidad.component";
-import {EtniaComponent} from './component/etnia/etnia.component';
-import {CategoriaEstablecimientoComponent} from './component/categoria-establecimiento/categoria-establecimiento.component';
-import { RedServiciosSaludComponent } from './component/red-servicios-salud/red-servicios-salud.component';
-import {NombreComercialUPSComponent} from './component/nombre-comercial-ups/nombre-comercial-ups.component';
-import {CondicionPacienteComponent} from './component/condicion-paciente/condicion-paciente.component';
-import { CondicionPacienteRiesgoComponent } from './component/condicion-paciente-riesgo/condicion-paciente-riesgo.component';
-import { TipoSeguroComponent } from './component/tipo-seguro/tipo-seguro.component';
-import { MicroRedComponent } from './component/micro-red/micro-red.component';
+import {EtniaComponent} from "./component/etnia/etnia.component";
+import {CategoriaEstablecimientoComponent} from "./component/categoria-establecimiento/categoria-establecimiento.component";
+import {RedServiciosSaludComponent} from "./component/red-servicios-salud/red-servicios-salud.component";
+import {NombreComercialUPSComponent} from "./component/nombre-comercial-ups/nombre-comercial-ups.component";
+import {CondicionPacienteComponent} from "./component/condicion-paciente/condicion-paciente.component";
+import {CondicionPacienteRiesgoComponent} from "./component/condicion-paciente-riesgo/condicion-paciente-riesgo.component";
+import {TipoUpsComponent} from "./component/tipo-ups/tipo-ups.component";
+import {TipoUpsModalComponent} from "./component/tipo-ups-modal/tipo-ups-modal.component";
+import {TipoSeguroComponent} from "./component/tipo-seguro/tipo-seguro.component";
 
 @NgModule({
     declarations: [
@@ -44,8 +45,9 @@ import { MicroRedComponent } from './component/micro-red/micro-red.component';
         NombreComercialUPSComponent,
         CondicionPacienteComponent,
         CondicionPacienteRiesgoComponent,
+        TipoUpsComponent,
+        TipoUpsModalComponent,
         TipoSeguroComponent,
-        MicroRedComponent,
     ],
 
     exports: [TipoPersonalComponent, UbicacionComponent],

@@ -23,14 +23,17 @@
             [options]="personalServicio"
             #dd
             [(ngModel)]="selectedPersonalServicio"
-            optionLabel="name"
-            optionValue="code"
+            optionLabel="nombre"
+            optionValue="id"
             styleClass="my-2 py-1"
-            (onChange)="changeComponentVacunas($event, dd)"
+            (onChange)="changeComponentRol($event, dd)"
           ></p-dropdown>
         </div>
       </th>
-      <th colSpan="31" style="background-color: #dfe6e9; padding: 10px">
+      <th
+        [colSpan]="mesActual.length + 1"
+        style="background-color: #dfe6e9; padding: 10px"
+      >
         <div>
           <p-calendar
             [appendTo]="calendarWrapper"
@@ -87,7 +90,7 @@
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+  <ng-template pTemplate="body" let-rowData let-i="rowIndex;">
     <tr>
       <td class="border-500 text-900 frozenCol" pFrozenColumn>
         {{ i + 1 }}
@@ -106,7 +109,21 @@
       >
         {{ rowData.apellidos }}
       </td>
-      <td *ngFor="let dia of mesActual" class="border-500 text-900">N</td>
+      <td
+        *ngFor="let dia of mesActual; let j = index"
+        index="rowIndex"
+        class="border-500 text-900"
+      >
+        <!-- {{ i }} -{{ j }} -->
+        <p-dropdown
+          [options]="turno"
+          [virtualScroll]="true"
+          optionLabel="name"
+          [(ngModel)]="matriz[i][j]"
+          optionValue="code"
+          itemSize="30"
+        ></p-dropdown>
+      </td>
       <td class="border-500 text-900">8</td>
     </tr>
   </ng-template>
@@ -116,7 +133,7 @@
   <div class="grid">
     <div class="col-10">
       <div class="grid borde">
-        <div class="col-3">
+        <div class="col-2">
           <span
             ><h3>M-Mañana</h3>
             <h3>T-Tarde</h3>
@@ -144,7 +161,7 @@
             <h3>GD(GN)-Guardia Diurna y Nocturna</h3></span
           >
         </div>
-        <div class="col-1">
+        <div class="col-2">
           <span><h3>F-Feriado</h3> </span>
         </div>
       </div>
@@ -155,6 +172,7 @@
         type="button"
         label="Asignar"
         class="p-button-danger p-button-lg px-7 mx-3"
+        (click)="designar()"
       ></button>
     </div>
   </div>

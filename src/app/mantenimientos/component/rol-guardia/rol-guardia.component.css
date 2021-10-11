@@ -7,6 +7,7 @@ p-table >>> .p-datatable .p-datatable-thead > tr > th {
   word-wrap: break-word;
   padding: 0rem;
   border: 1px solid #b6b6b6;
+
   /* background-color: #dddddd; */
 }
 p-table >>> .p-datatable .p-datatable-tbody > tr > td {
