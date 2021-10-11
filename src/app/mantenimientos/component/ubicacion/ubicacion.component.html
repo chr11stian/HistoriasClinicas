@@ -190,7 +190,7 @@
                                 formControlName="provincia"
                                 optionLabel="provincia"
                                 defaultLabel="Seleccione un Departamento"
-                                id="provincia">
+                                id="idpp">
 
                         </p-dropdown>
                     </div>
@@ -199,8 +199,9 @@
                     <label>DISTRITO</label>
                     <div class="p-field">
                         <p-dropdown
-
                                 inputId="dropdown"
+                                [autoDisplayFirst]="false"
+                                [showClear]="true"
                                 [options]="dataDistrito"
                                 (onChange)="selectDistrito()"
                                 formControlName="distrito"
@@ -217,10 +218,10 @@
             <div class="grid">
 
 
-                <div class="p-field col-2">
-                    <label>UBIGEO</label>
-                    <input type="text" pInputText formControlName='ubigeo' required readonly/>
-                </div>
+<!--                <div class="p-field col-2">-->
+<!--                    <label>UBIGEO</label>-->
+<!--                    <input type="text" pInputText formControlName='ubigeo' required readonly/>-->
+<!--                </div>-->
 
 
                 <div class="p-field col-4">
@@ -228,9 +229,10 @@
                     <div class="p-field">
                         <p-dropdown
                                 inputId="dropdown"
+                                [autoDisplayFirst]="false"
+                                [showClear]="true"
                                 [options]="dataCCPP"
                                 formControlName="ccpp"
-                                optionValue="ccpp"
                                 optionLabel="ccpp"
                                 defaultLabel="Seleccione un distrito"
                                 id="ccpp">
