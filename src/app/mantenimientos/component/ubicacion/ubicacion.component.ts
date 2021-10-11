@@ -123,10 +123,17 @@ export class UbicacionComponent implements OnInit {
 
     saveForm() {
         this.isUpdate = false;
+        const cp = {
+            ccpp: this.form.value.ccpp,
+            idccpp: this.form.value.idccpp
+
+        }
+
         const req = {
             departamento: this.form.value.departamento,
             provincia: this.form.value.provincia,
             distrito: this.form.value.distrito,
+            idccpp: this.form.value.idccpp,
             ccpp: this.form.value.ccpp,
             latitude: this.form.value.latitude,
             longitude: this.form.value.longitude,
