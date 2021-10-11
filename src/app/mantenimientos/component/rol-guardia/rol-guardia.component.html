@@ -90,7 +90,7 @@
       </th>
     </tr>
   </ng-template>
-  <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+  <ng-template pTemplate="body" let-rowData let-i="rowIndex;">
     <tr>
       <td class="border-500 text-900 frozenCol" pFrozenColumn>
         {{ i + 1 }}
@@ -109,7 +109,21 @@
       >
         {{ rowData.apellidos }}
       </td>
-      <td *ngFor="let dia of mesActual" class="border-500 text-900">N</td>
+      <td
+        *ngFor="let dia of mesActual; let j = index"
+        index="rowIndex"
+        class="border-500 text-900"
+      >
+        <!-- {{ i }} -{{ j }} -->
+        <p-dropdown
+          [options]="turno"
+          [virtualScroll]="true"
+          optionLabel="name"
+          [(ngModel)]="matriz[i][j]"
+          optionValue="code"
+          itemSize="30"
+        ></p-dropdown>
+      </td>
       <td class="border-500 text-900">8</td>
     </tr>
   </ng-template>
@@ -158,6 +172,7 @@
         type="button"
         label="Asignar"
         class="p-button-danger p-button-lg px-7 mx-3"
+        (click)="designar()"
       ></button>
     </div>
   </div>

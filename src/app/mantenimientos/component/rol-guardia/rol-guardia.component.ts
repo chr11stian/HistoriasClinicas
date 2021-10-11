@@ -14,6 +14,26 @@ export interface dayType {
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
+  //creamos la matriz
+  matriz: any = [];
+  turno = [
+    { name: "M", code: "MA" },
+    { name: "T", code: "TA" },
+    { name: "M/T", code: "M/T" },
+    { name: "GD", code: "GD" },
+    { name: "GN", code: "GN" },
+  ];
+  //iniamos arreglo
+  crearMatriz() {
+    for (let i = 0; i < 3; i++) {
+      let filaAux = [];
+      for (let j = 0; j < 31; j++) {
+        filaAux.push("TA");
+      }
+      this.matriz.push(filaAux);
+    }
+    // this.matriz[0][0] = "MAMA";
+  }
   //atributos
   personalServicio: any[];
   turnos: any[];
@@ -67,17 +87,11 @@ export class RolGuardiaComponent implements OnInit {
     //   this.personalServicio = resp.object;
     // });
 
-    this.turnos = [
-      { name: "M", code: "M" },
-      { name: "T", code: "T" },
-      { name: "M/T", code: "M/t" },
-      { name: "GD", code: "GD" },
-      { name: "GN", code: "GN" },
-    ];
     //calculamos nro dias del mes
     this.nroDiasdelMes = this.numeroDiasMes();
     this.generarMes();
     this.ColorearTabla();
+    this.crearMatriz();
   }
   numeroDiasMes() {
     return new Date(
@@ -146,5 +160,8 @@ export class RolGuardiaComponent implements OnInit {
     this.tipoPersonalService.getTipoPersonales().subscribe((resp: any) => {
       this.personalServicio = resp.object;
     });
+  }
+  designar() {
+    console.log(this.matriz);
   }
 }
