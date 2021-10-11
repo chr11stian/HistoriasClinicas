@@ -19,7 +19,7 @@
         (click)="isUpdate = false; agregarActualizar()"
         pTooltip="Agregar tipo de personal"
         tooltipPosition="bottom"
-        class="p-button-danger p-button-sm"
+        class="p-button-danger"
         pRipple
       ></button>
     </div>
@@ -40,76 +40,66 @@
       <td class="text-center text-800">{{ rowIndex + 1 }}</td>
       <td class="text-center text-800">{{ rowData.nombre }}</td>
       <td class="text-center text-800">
-        <span class="p-column-title">Es profesional</span>
-        <div *ngIf="rowData.esProfesional; else inactive">
-          <!-- <p-tag
-            icon="pi pi-check"
-            styleClass="p-mr-2"
-            severity="success"
-            value="Activo"
-          >
-          </p-tag> -->
-          Si
+        <div *ngIf="rowData.esProfesional; else noEs">
+          <p-tag
+            value="Es profesional"
+            severity="info"
+            rounded="true "
+            styleClass="text-sm px-3"
+          ></p-tag>
         </div>
-        <ng-template #inactive>
-          <!-- <p-tag
-            icon="pi pi-times"
-            styleClass="p-mr-2"
-            severity="warning"
-            value="Inactivo"
-          >
-          </p-tag> -->
-          No
+        <ng-template #noEs>
+          <p-tag
+            value="No es profesional"
+            severity="danger"
+            rounded="true "
+            styleClass="text-sm"
+          ></p-tag>
         </ng-template>
       </td>
       <td class="text-center text-800">{{ rowData.abreviatura }}</td>
       <td class="text-center text-800">
-        <span class="p-column-title">Es profesional</span>
-        <div *ngIf="rowData.esProfesional; else inactive">
-          <!-- <p-tag
-            icon="pi pi-check"
-            styleClass="p-mr-2"
-            severity="success"
-            value="Activo"
+        <div *ngIf="rowData.especialista; else noEspecialidad">
+          <p-tag
+            value="Tiene especialidad"
+            rounded="true"
+            severity="info"
+            styleClass="text-sm px-3"
           >
-          </p-tag> -->
-          Si
+          </p-tag>
         </div>
-        <ng-template #inactive>
-          <!-- <p-tag
-            icon="pi pi-times"
-            styleClass="p-mr-2"
-            severity="warning"
-            value="Inactivo"
+        <ng-template #noEspecialidad>
+          <p-tag
+            value="No tiene especialidad"
+            rounded="true"
+            severity="danger"
+            styleClass="text-sm"
           >
-          </p-tag> -->
-          No
+          </p-tag>
         </ng-template>
       </td>
       <td class="text-center text-800">
         <span class="p-column-title">Estado</span>
-        <div *ngIf="rowData.estado; else inactive1">
-          <!-- <p-tag
-            icon="pi pi-check"
-            styleClass="p-mr-2"
-            severity="success"
+        <div *ngIf="rowData.estado; else noActivo">
+          <p-tag
             value="Activo"
+            rounded="true"
+            severity="info"
+            styleClass="text-sm px-3"
           >
-          </p-tag> -->
-          Activo
+          </p-tag>
         </div>
-        <ng-template #inactive1>
-          <!-- <p-tag
-            icon="pi pi-times"
-            styleClass="p-mr-2"
-            severity="warning"
+        <ng-template #noActivo>
+          <p-tag
             value="Inactivo"
+            rounded="true"
+            severity="danger"
+            styleClass="text-sm"
           >
-          </p-tag> -->
-          No Activo
+          </p-tag>
         </ng-template>
       </td>
-      <td class="flex justify-content-between">
+      <td class="flex justify-content-around">
         <span class="p-column-title">Acciones</span>
         <button
           pButton
