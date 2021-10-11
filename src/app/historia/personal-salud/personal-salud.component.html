@@ -27,37 +27,37 @@
         </ng-template>
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
-                <th>Nro</th>
-                <th>Numero Doc</th>
-                <th>Apellido Paterno</th>
-                <th>Apellido Materno</th>
-                <th>Nombres</th>
-                <th>Fecha Nacimiento</th>
-                <th>Sexo</th>
-                <th>Tipo Personal</th>
-                <th>Colegio Profesional</th>
-                <th>Colegiatura</th>
-                <th>Tipo Contrato</th>
-                <th>EESS</th>
-                <th>Estado</th>
-                <th>Especialidad</th>
-                <th>Acción</th>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Numero Doc</th>
+                <th style="text-align: center">Apellido Paterno</th>
+                <th style="text-align: center">Apellido Materno</th>
+                <th style="text-align: center">Nombres</th>
+                <th style="text-align: center">Fecha Nacimiento</th>
+                <th style="text-align: center">Sexo</th>
+                <th style="text-align: center">Tipo Personal</th>
+                <th style="text-align: center">Colegio Profesional</th>
+                <th style="text-align: center">Colegiatura</th>
+                <th style="text-align: center">Tipo Contrato</th>
+                <!-- <th style="text-align: center">EESS</th> -->
+                <th style="text-align: center">Estado</th>
+                <th style="text-align: center">Espec.</th>
+                <th style="width:150em">Acción a realizar</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
-                <td>{{ rowIndex + 1 }}</td>
-                <td>{{ rowData.nroDoc }}</td>
-                <td>{{ rowData.apePaterno }}</td>
-                <td>{{ rowData.apeMaterno }}</td>
-                <td>{{ rowData.primerNombre +" "+rowData.otrosNombres}}</td>
-                <td>{{ rowData.fechaNacimiento | date: "dd/MM/yyyy" }}</td>
-                <td>{{ rowData.sexo }}</td>
-                <td>{{ rowData.tipoPersonal ? rowData.tipoPersonal.nombre : "" }}</td>
-                <td>{{ rowData.colegioProfesional ? rowData.colegioProfesional[0].nombre : ""}}</td>
-                <td>{{ rowData.colegiatura }}</td>
-                <td>{{ rowData.contratoAbreviatura }}</td>
-                <td>{{ rowData.detalleIpress ? rowData.detalleIpress[0].eess : "" }}</td>
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.nroDoc }}</td>
+                <td style="text-align: center">{{ rowData.apePaterno }}</td>
+                <td style="text-align: center">{{ rowData.apeMaterno }}</td>
+                <td style="text-align: center">{{ rowData.primerNombre +" "+rowData.otrosNombres}}</td>
+                <td style="text-align: center">{{ rowData.fechaNacimiento | date: "dd/MM/yyyy" }}</td>
+                <td style="text-align: center">{{ rowData.sexo }}</td>
+                <td style="text-align: center">{{ rowData.tipoPersonal ? rowData.tipoPersonal.nombre : "" }}</td>
+                <td style="text-align: center">{{ rowData.colegioProfesional ? rowData.colegioProfesional[0].nombre : ""}}</td>
+                <td style="text-align: center">{{ rowData.colegiatura }}</td>
+                <td style="text-align: center">{{ rowData.contratoAbreviatura }}</td>
+                <!-- <td style="text-align: center">{{ rowData.detalleIpress ? rowData.detalleIpress[0].eess : "" }}</td> -->
                 <td style="text-align: center">
                     <p-tag *ngIf="rowData.estado" styleClass="p-mr-2" severity="success" value="Activo"
                         [rounded]="true"></p-tag>
@@ -69,8 +69,11 @@
                         (click)="newEspecialidad(rowData)"></button>
                 </td>
                 <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded"
                         (click)="editar(rowData)"></button>
+                    <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar" pRipple type="button"
+                        icon="pi pi-trash" class="p-button-rounded p-button-danger">
+                    </button>
                 </td>
             </tr>
         </ng-template>
@@ -90,9 +93,15 @@
                 <label>DNI o otra Identificacion:</label>
                 <div class="grid">
                     <div class="p-field col-2 pr-1">
-                        <p-dropdown [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-right"
-                            inputId="dropdown" [options]="docList" formControlName="tipoDoc" optionLabel="abreviatura"
-                            optionValue="abreviatura" defaultLabel="Tipo de documento" id="docid" class="inputRedondo">
+                        <p-dropdown *ngIf="!isUpdate" [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-right" inputId="dropdown" [options]="docList"
+                            formControlName="tipoDoc" optionLabel="abreviatura" optionValue="abreviatura"
+                            placeholder="Tipo Documento" id="docid" class="inputRedondo">
+                        </p-dropdown>
+                        <p-dropdown *ngIf="isUpdate" [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-right" inputId="dropdown" [options]="docList"
+                            formControlName="tipoDoc" optionLabel="abreviatura" optionValue="abreviatura" id="docid"
+                            class="inputRedondo">
                         </p-dropdown>
                     </div>
                     <div class="p-inputgroup col-2">
@@ -125,8 +134,8 @@
                 </div>
 
                 <div class="p-field col-3">
-                    <input type="text" class="inputRedondo" placeholder="Nombres" pInputText
-                        formControlName='nombres' required />
+                    <input type="text" class="inputRedondo" placeholder="Nombres" pInputText formControlName='nombres'
+                        required />
                 </div>
                 <div class="p-field col-3">
                     <input type="text" class="inputRedondo" placeholder="Sexo" pInputText formControlName='sexo'
@@ -183,9 +192,15 @@
             <div class="grid">
                 <div class="p-field col-4 pt-0">
                     <label>Colegio Profesional:</label>
-                    <p-dropdown class="inputRedondo" [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
-                        inputId="dropdown" [options]="colegiosList" formControlName="colegioProfesional"
-                        optionLabel="nombre" optionValue="codigo" id="despecid" required>
+                    <p-dropdown *ngIf="!isUpdate" placeholder="Colegio Profesional" class="inputRedondo"
+                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                        [options]="colegiosList" formControlName="colegioProfesional" optionLabel="nombre"
+                        optionValue="codigo" id="despecid" required>
+                    </p-dropdown>
+                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="colegiosList"
+                        formControlName="colegioProfesional" optionLabel="nombre" optionValue="codigo" id="despecid"
+                        required>
                     </p-dropdown>
                 </div>
                 <div class="p-field col-4 pt-0">
@@ -195,18 +210,29 @@
                 </div>
                 <div class="p-field col-4 pt-0">
                     <label>Tipo de Personal:</label>
-                    <p-dropdown class="inputRedondo" [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
-                        inputId="dropdown" [options]="tiposPersonalList" formControlName="tipoPersonal"
-                        optionLabel="nombre" optionValue="nombre" id="tipoid" required>
+                    <p-dropdown *ngIf="!isUpdate" placeholder="Tipo de Personal" class="inputRedondo"
+                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                        [options]="tiposPersonalList" formControlName="tipoPersonal" optionLabel="nombre"
+                        optionValue="nombre" id="tipoid" required>
+                    </p-dropdown>
+                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tiposPersonalList"
+                        formControlName="tipoPersonal" optionLabel="nombre" optionValue="nombre" id="tipoid" required>
                     </p-dropdown>
                 </div>
             </div>
             <div class="grid">
                 <div class="p-field col-4">
                     <label>Tipo Contrato:</label>
-                    <p-dropdown class="inputRedondo" [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
-                        inputId="dropdown" [options]="tiposContratoList" formControlName="contratoAbreviatura"
-                        optionLabel="abreviatura" optionValue="abreviatura" id="tipoid" required>
+                    <p-dropdown *ngIf="!isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tiposContratoList"
+                        formControlName="contratoAbreviatura" optionLabel="abreviatura" placeholder="Tipo de Contrato"
+                        optionValue="abreviatura" id="tipoid" required>
+                    </p-dropdown>
+                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tiposContratoList"
+                        formControlName="contratoAbreviatura" optionLabel="abreviatura" optionValue="abreviatura"
+                        id="tipoid" required>
                     </p-dropdown>
                 </div>
                 <div class="p-field col-4">
@@ -225,8 +251,7 @@
 
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
-        <button *ngIf="!isUpdate" pButton type="button" label="Guardar"
-            (click)="saveForm()"></button>
+        <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="saveForm()"></button>
         <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"
             (click)="editarDatos()"></button>
     </ng-template>
@@ -245,9 +270,16 @@
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label id="nombre">Especialidad:</label>
-                                <p-dropdown class="inputRedondo" [showTransitionOptions]="'300ms'"
-                                    dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="especialidadesList"
-                                    formControlName="nombre" optionLabel="nombre" optionValue="nombre" id="tipoid" required>
+                                <p-dropdown *ngIf="!isUpdateEspecialidad" class="inputRedondo"
+                                    [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
+                                    inputId="dropdown" [options]="especialidadesList" formControlName="nombre"
+                                    optionLabel="nombre" optionValue="nombre" id="tipoid" required
+                                    placeholder="Selecciones Especialidad">
+                                </p-dropdown>
+                                <p-dropdown *ngIf="isUpdateEspecialidad" class="inputRedondo"
+                                    [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
+                                    inputId="dropdown" [options]="especialidadesList" formControlName="nombre"
+                                    optionLabel="nombre" optionValue="nombre" id="tipoid" required>
                                 </p-dropdown>
                             </div>
                         </div>
@@ -260,13 +292,13 @@
                     </form>
                     <br />
                     <div class="flex justify-content-end">
-                        <button *ngIf="!isUpdateEspecialidad" [disabled]="!formEspecialidad.valid" pButton type="button" label="Guardar"
-                            class="m-1 w-9rem" (click)="saveEspecialidad()"></button>
-                        <button *ngIf="isUpdateEspecialidad" [disabled]="!formEspecialidad.valid" pButton type="button" label="Guardar"
-                            class="m-1 w-9rem"></button>
-                        <button pButton type="button" label="Nuevo" icon="pi pi-plus" (click)="guardarNuevoEspecialidad()"
-                            pTooltip="Agregar especialidad" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
-                            pRipple></button>
+                        <button *ngIf="!isUpdateEspecialidad" [disabled]="!formEspecialidad.valid" pButton type="button"
+                            label="Guardar" class="m-1 w-9rem" (click)="saveEspecialidad()"></button>
+                        <button *ngIf="isUpdateEspecialidad" [disabled]="!formEspecialidad.valid" pButton type="button"
+                            label="Guardar" class="m-1 w-9rem"></button>
+                        <button pButton type="button" label="Nuevo" icon="pi pi-plus"
+                            (click)="guardarNuevoEspecialidad()" pTooltip="Agregar especialidad" tooltipPosition="right"
+                            class="p-button-danger m-1 w-9rem" pRipple></button>
                     </div>
 
                 </p-card>
@@ -302,11 +334,11 @@
                                     [rounded]="true"></p-tag>
                             </td>
                             <td>
-                                <button pButton (click)="editarEspecialidad(rowData)" pTooltip="Editar" pRipple type="button"
-                                    icon="pi pi-pencil" class="p-button-rounded m-1">
+                                <button pButton (click)="editarEspecialidad(rowData)" pTooltip="Editar" pRipple
+                                    type="button" icon="pi pi-pencil" class="p-button-rounded m-1">
                                 </button>
-                                <button pButton (click)="eliminarEspecialidad(rowData)" pTooltip="Eliminar" pRipple type="button"
-                                    icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                                <button pButton (click)="eliminarEspecialidad(rowData)" pTooltip="Eliminar" pRipple
+                                    type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                                 </button>
                             </td>
                         </tr>

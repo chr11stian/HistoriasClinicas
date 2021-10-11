@@ -116,7 +116,6 @@ export class PersonalSaludComponent implements OnInit {
             tipoPersonal: ['', [Validators.required]],
             colegioProfesional: ['', [Validators.required]],
             colegiatura: ['', [Validators.required]],
-            especialidad: ['', [Validators.required]],
             estado: ['', [Validators.required]],
             contratoAbreviatura: ['', [Validators.required]],
             sexo: ['', [Validators.required]],
