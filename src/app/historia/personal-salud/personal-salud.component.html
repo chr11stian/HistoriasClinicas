@@ -28,19 +28,18 @@
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
                 <th style="text-align: center">Nro</th>
-                <th style="text-align: center">Numero Doc</th>
-                <th style="text-align: center">Apellido Paterno</th>
-                <th style="text-align: center">Apellido Materno</th>
+                <th style="text-align: center">DNI</th>
+                <th style="text-align: center">Apellidos</th>
                 <th style="text-align: center">Nombres</th>
-                <th style="text-align: center">Fecha Nacimiento</th>
-                <th style="text-align: center">Sexo</th>
+                <!-- <th style="text-align: center">Fecha Nacimiento</th> -->
+                <!-- <th style="text-align: center">Sexo</th> -->
                 <th style="text-align: center">Tipo Personal</th>
                 <th style="text-align: center">Colegio Profesional</th>
-                <th style="text-align: center">Colegiatura</th>
+                <!-- <th style="text-align: center">Colegiatura</th> -->
                 <th style="text-align: center">Tipo Contrato</th>
                 <!-- <th style="text-align: center">EESS</th> -->
                 <th style="text-align: center">Estado</th>
-                <th style="text-align: center">Espec.</th>
+                <th style="text-align: center">Especialidad</th>
                 <th style="text-align: center; width:120px">Acción</th>
             </tr>
         </ng-template>
@@ -48,14 +47,13 @@
             <tr style="text-align: center">
                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
                 <td style="text-align: center">{{ rowData.nroDoc }}</td>
-                <td style="text-align: center">{{ rowData.apePaterno }}</td>
-                <td style="text-align: center">{{ rowData.apeMaterno }}</td>
+                <td style="text-align: center">{{ rowData.apePaterno + " " + rowData.apeMaterno}}</td>
                 <td style="text-align: center">{{ rowData.primerNombre + " " + rowData.otrosNombres}}</td>
-                <td style="text-align: center">{{ rowData.fechaNacimiento | date: "dd/MM/yyyy" }}</td>
-                <td style="text-align: center">{{ rowData.sexo }}</td>
+                <!-- <td style="text-align: center">{{ rowData.fechaNacimiento | date: "dd/MM/yyyy" }}</td> -->
+                <!-- <td style="text-align: center">{{ rowData.sexo }}</td> -->
                 <td style="text-align: center">{{ rowData.tipoPersonal ? rowData.tipoPersonal.nombre : "" }}</td>
                 <td style="text-align: center">{{ rowData.colegioProfesional ? rowData.colegioProfesional[0].nombre : ""}}</td>
-                <td style="text-align: center">{{ rowData.colegiatura }}</td>
+                <!-- <td style="text-align: center">{{ rowData.colegiatura }}</td> -->
                 <td style="text-align: center">{{ rowData.contratoAbreviatura }}</td>
                 <!-- <td style="text-align: center">{{ rowData.detalleIpress ? rowData.detalleIpress[0].eess : "" }}</td> -->
                 <td style="text-align: center">
@@ -82,9 +80,9 @@
 
 
 <!--PERSONAL DIALOG-->
-<p-dialog [(visible)]="personalDialog" [style]="{width: '1200px'}" [modal]="true" styleClass="p-fluid " autoZIndex>
+<p-dialog [(visible)]="personalDialog" [style]="{width: '1200px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
     <ng-template pTemplate="header">
-        <h3>{{titulo()}}</h3>
+        <h3 class="m-0">{{titulo()}}</h3>
     </ng-template>
 
     <ng-template pTemplate="body">
@@ -147,9 +145,8 @@
             <div class="grid">
                 <div class="p-field col-3">
                     <label>Fecha Nacimiento:</label>
-                    <p-inputMask class="inputRedondo" mask="99/99/9999" slotChar="dd/mm/yyyy"
-                                 placeholder="Fecha Nacimiento" formControlName='fechaNacimiento'
-                                 required></p-inputMask>
+                    <input class="inputRedondo" type="date" placeholder="Fecha Nacimiento" pInputText formControlName='fechaNacimiento'
+                        required />
                 </div>
                 <div class="p-field col-3">
                     <label>Estado Civil:</label>
@@ -242,15 +239,33 @@
                     </p-dropdown>
                 </div>
                 <div class="p-field col-4">
-                    <label>EESS:</label>
-                    <input class="inputRedondo" type="text" placeholder="EESS" pInputText
-                           formControlName='detalleIpress' required/>
+                    <label>Ipress:</label>
+                    <p-dropdown *ngIf="!isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="ipressList"
+                                formControlName="detalleIpress" optionLabel="nombreEESS"
+                                placeholder="Seleccione Ipress"
+                                optionValue="id" required>
+                    </p-dropdown>
+                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="ipressList"
+                                formControlName="detalleIpress" optionLabel="nombreEESS"
+                                optionValue="id" required>
+                    </p-dropdown>
                 </div>
+                <div class="p-field col-4">
+                    <label>Fecha Inicio:</label>
+                    <input class="inputRedondo" type="date" placeholder="Fecha Inicio" pInputText formControlName='fechaInicio'
+                        required />
+                </div>
+            </div>
+            <div class="grid">
+                <div class="p-field col-4"></div>
                 <div class="p-field col-4">
                     <label>Estado:</label>
                     <p-selectButton [options]="stateOptions" formControlName="estado" optionLabel="label"
                                     optionValue="value"></p-selectButton>
                 </div>
+                <div class="p-field col-4"></div>
             </div>
         </form>
     </ng-template>
