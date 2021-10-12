@@ -14,7 +14,6 @@ export interface dayType {
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
-  //creamos la matriz
   matriz: any = [];
   turno = [
     { name: "M", code: "MA" },
@@ -23,22 +22,29 @@ export class RolGuardiaComponent implements OnInit {
     { name: "GD", code: "GD" },
     { name: "GN", code: "GN" },
   ];
-  //iniamos arreglo
-  crearMatriz() {
-    for (let i = 0; i < 3; i++) {
-      let filaAux = [];
-      for (let j = 0; j < 31; j++) {
-        filaAux.push("TA");
-      }
-      this.matriz.push(filaAux);
-    }
-    // this.matriz[0][0] = "MAMA";
-  }
-  //atributos
-  personalServicio: any[];
+  tipoPersonalServicio: any[];
   turnos: any[];
-  selectedPersonalServicio: any;
-  dataGeneral = [
+  personalServicioGeneral = [
+    //medico turno
+    {
+      id: "6155c193a45b843f7c8b6eb4",
+      apellidos: "apellido1",
+      nombres: "nombre m1",
+      especialidad: "medico general",
+    },
+    {
+      id: "6155c193a45b843f7c8b6eb4",
+      apellidos: "apellido2",
+      nombres: "nombre m2",
+      especialidad: "medico general",
+    },
+    {
+      id: "6155c193a45b843f7c8b6eb4",
+      apellidos: "apellido3",
+      nombres: "nombre m3",
+      especialidad: "medico general",
+    },
+    //enfermeras
     {
       id: "6155cb004ec7a67ba2c1550b",
       apellidos: "huaman rojas",
@@ -57,6 +63,7 @@ export class RolGuardiaComponent implements OnInit {
       nombres: "dany",
       especialidad: "enfermeria",
     },
+    //medico general
     {
       id: "6155c11848263c7c7aaf22cb",
       apellidos: "huaman rimachi",
@@ -70,63 +77,72 @@ export class RolGuardiaComponent implements OnInit {
       especialidad: "enfermeria",
     },
   ];
-  data: any[] = [];
   fecha = new Date();
-  nroDiasdelMes: number = 0;
-  mesActual: any[] = [];
+  nroDiasMes: number = 0;
+  //personales seleccionados y mes actual seleccionado
+  personalServicioSelected: any[] = [];
+  cabeceraMes: any[] = [];
 
   constructor(private tipoPersonalService: TipoPersonalService) {
-    // this.personalServicio = [
-    //   { name: "Medicina", code: "ME" },
-    //   { name: "Obstetricia", code: "OB" },
-    //   { name: "Pediatria", code: "PE" },
-    //   { name: "Enfermeria", code: "EN" },
-    //   { name: "Administracion", code: "AD" },
-    // ];
-    // this.tipoPersonalService.getTipoPersonales().subscribe((resp: any) => {
-    //   this.personalServicio = resp.object;
-    // });
+    this.numeroDiasMes();
+    this.generarCabecera();
+    this.colorearCabecera();
+  }
+  ngOnInit(): void {
+    this.tipoPersonalService.getTipoPersonales().subscribe((resp: any) => {
+      this.tipoPersonalServicio = resp.object;
+    });
+  }
 
-    //calculamos nro dias del mes
-    this.nroDiasdelMes = this.numeroDiasMes();
-    this.generarMes();
-    this.ColorearTabla();
-    this.crearMatriz();
+  crearMatriz() {
+    this.matriz = [];
+    for (let i = 0; i < this.personalServicioSelected.length; i++) {
+      let filaAux = [];
+      for (let j = 0; j < this.nroDiasMes; j++) {
+        filaAux.push("TA");
+      }
+      this.matriz.push(filaAux);
+    }
   }
   numeroDiasMes() {
-    return new Date(
+    this.nroDiasMes = new Date(
       this.fecha.getFullYear(),
       this.fecha.getMonth() + 1,
       0
     ).getDate();
   }
-  generarMes() {
-    this.mesActual = [];
-    for (var i = 1; i <= this.nroDiasdelMes; i++) {
+  generarCabecera() {
+    this.cabeceraMes = [];
+    for (var i = 1; i <= this.nroDiasMes; i++) {
       let fecha1 = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), i);
       let dia = fecha1.getDay();
 
       if (dia == 0)
-        this.mesActual.push({ abreviatura: "don", label: "Domingo", dia: i });
+        this.cabeceraMes.push({ abreviatura: "don", label: "Domingo", dia: i });
       else if (dia == 1)
-        this.mesActual.push({ abreviatura: "Lun", label: "Lunes", dia: i });
+        this.cabeceraMes.push({ abreviatura: "Lun", label: "Lunes", dia: i });
       else if (dia == 2)
-        this.mesActual.push({ abreviatura: "Mar", label: "Martes", dia: i });
+        this.cabeceraMes.push({ abreviatura: "Mar", label: "Martes", dia: i });
       else if (dia == 3)
-        this.mesActual.push({ abreviatura: "Mie", label: "Miercoles", dia: i });
+        this.cabeceraMes.push({
+          abreviatura: "Mie",
+          label: "Miercoles",
+          dia: i,
+        });
       else if (dia == 4)
-        this.mesActual.push({ abreviatura: "Jue", label: "Jueves", dia: i });
+        this.cabeceraMes.push({ abreviatura: "Jue", label: "Jueves", dia: i });
       else if (dia == 5)
-        this.mesActual.push({ abreviatura: "vie", label: "Viernes", dia: i });
-      else this.mesActual.push({ abreviatura: "sab", label: "Sabado", dia: i });
+        this.cabeceraMes.push({ abreviatura: "vie", label: "Viernes", dia: i });
+      else
+        this.cabeceraMes.push({ abreviatura: "sab", label: "Sabado", dia: i });
     }
   }
 
-  ColorearTabla() {
+  colorearCabecera() {
     let colorR = "background-color:#dfe6e9";
     let colorB = "background-color:white";
     let hasColor = true; //primera semana en pintar rojo
-    this.mesActual.forEach((day) => {
+    this.cabeceraMes.forEach((day) => {
       if (hasColor) {
         day.bg = colorR;
         if (day.abreviatura === "sab") {
@@ -140,26 +156,22 @@ export class RolGuardiaComponent implements OnInit {
       }
     });
   }
-  cambiar(fechaseleccionada: Date) {
+  cambiarFecha(fechaseleccionada: Date) {
     this.fecha = fechaseleccionada;
-    this.nroDiasdelMes = this.numeroDiasMes();
-    this.generarMes();
-    this.ColorearTabla();
+    this.numeroDiasMes();
+    this.generarCabecera();
+    this.colorearCabecera();
+    this.crearMatriz(); //si cambia fecha
   }
-  changeComponentRol(idRol, dd) {
+  changePersonalServicio(idRol, dd) {
     console.log(idRol.value);
-
-    this.data = [];
-    this.dataGeneral.forEach((elemento) => {
+    this.personalServicioSelected = [];
+    this.personalServicioGeneral.forEach((elemento) => {
       if (elemento.id === idRol.value) {
-        this.data.push(elemento);
+        this.personalServicioSelected.push(elemento);
       }
     });
-  }
-  ngOnInit(): void {
-    this.tipoPersonalService.getTipoPersonales().subscribe((resp: any) => {
-      this.personalServicio = resp.object;
-    });
+    this.crearMatriz();
   }
   designar() {
     console.log(this.matriz);

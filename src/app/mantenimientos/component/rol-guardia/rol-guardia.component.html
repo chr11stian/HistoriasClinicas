@@ -7,7 +7,7 @@
   [resizableColumns]="'false'"
   #dt
   styleClass="p-datatable p-datatable-gridlines p-mt-3"
-  [value]="data"
+  [value]="personalServicioSelected"
   [rowHover]="true"
 >
   <ng-template pTemplate="header">
@@ -20,25 +20,26 @@
         </strong>
         <div>
           <p-dropdown
-            [options]="personalServicio"
+            [options]="tipoPersonalServicio"
             #dd
             [(ngModel)]="selectedPersonalServicio"
             optionLabel="nombre"
             optionValue="id"
+            placeholder="Personal Servicio"
             styleClass="my-2 py-1"
-            (onChange)="changeComponentRol($event, dd)"
+            (onChange)="changePersonalServicio($event, dd)"
           ></p-dropdown>
         </div>
       </th>
       <th
-        [colSpan]="mesActual.length + 1"
+        [colSpan]="cabeceraMes.length + 1"
         style="background-color: #dfe6e9; padding: 10px"
       >
         <div>
           <p-calendar
             [appendTo]="calendarWrapper"
             [(ngModel)]="dateValue"
-            (onSelect)="cambiar($event)"
+            (onSelect)="cambiarFecha($event)"
             view="month"
             dateFormat="mm/yy"
             [yearNavigator]="true"
@@ -49,7 +50,7 @@
     </tr>
     <tr>
       <th
-        *ngFor="let dia of mesActual"
+        *ngFor="let dia of cabeceraMes"
         [style]="
           dia.bg == 'background-color:#dfe6e9'
             ? 'background-color:#f3a683;'
@@ -85,7 +86,7 @@
       >
         Nombres
       </th>
-      <th *ngFor="let dia of mesActual" [style]="dia.bg">
+      <th *ngFor="let dia of cabeceraMes" [style]="dia.bg">
         {{ dia.dia }}
       </th>
     </tr>
@@ -110,7 +111,7 @@
         {{ rowData.apellidos }}
       </td>
       <td
-        *ngFor="let dia of mesActual; let j = index"
+        *ngFor="let dia of cabeceraMes; let j = index"
         index="rowIndex"
         class="border-500 text-900"
       >
@@ -119,8 +120,8 @@
           [options]="turno"
           [virtualScroll]="true"
           optionLabel="name"
-          [(ngModel)]="matriz[i][j]"
           optionValue="code"
+          [(ngModel)]="matriz[i][j]"
           itemSize="30"
         ></p-dropdown>
       </td>
