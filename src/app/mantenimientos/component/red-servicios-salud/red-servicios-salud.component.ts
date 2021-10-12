@@ -295,6 +295,6 @@ export class RedServiciosSaludComponent implements OnInit {
     }
 
     editarRed(){
-     
+    
     }
 }
