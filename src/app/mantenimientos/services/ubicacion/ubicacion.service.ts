@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, Subject, throwError } from "rxjs";
-import { environment } from "../../../../environments/environment";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { catchError, retry, tap } from "rxjs/operators";
-import { Departamentos, Provincias, Ubicacion } from "../../../core/models/ubicacion.models";
-import { Personal } from "../../../core/models/personal.models";
+import {Injectable} from "@angular/core";
+import {BehaviorSubject, Observable, Subject, throwError} from "rxjs";
+import {environment} from "../../../../environments/environment";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {catchError, retry, tap} from "rxjs/operators";
+import {Departamentos, Provincias, Ubicacion} from "../../../core/models/ubicacion.models";
+import {Personal} from "../../../core/models/personal.models";
 
 @Injectable({
     providedIn: "root",
@@ -36,8 +36,21 @@ export class UbicacionService {
         return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/provincias`, data);
     }
 
-    getDistritos(data){
+    getDistritos(data) {
         return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/distritos`, data);
     }
-    
+
+    getCentroPoblado(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/ccpp`, data);
+    }
+
+    saveCCPP(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/save/cpp`, data);
+    }
+
+
+    editarCCPP(id, data) {
+        return this.http.put(`${this.base_url}/${this.bd}/api/ubicacion/actualizar/ccpp/${id}`, data)
+    }
+
 }
