@@ -162,4 +162,8 @@ export class DocumentoIdentidadComponent implements OnInit {
     openDialogAgregarDoc(){
         this.agregarDoc = true;
     }
+
+    cancelarDialogDoc(){
+        
+    }
 }

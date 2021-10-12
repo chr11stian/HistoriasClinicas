@@ -13,9 +13,9 @@
     <div class="grid lg-2">
         <div class="col-2"></div>
         <div class="col-8">
-            <p-table #dt [value]="listaDocumentosIdentidad" styleClass="p-datatable-gridlines" [rows]="10"
-                [paginator]="true" [autoLayout]="true" [globalFilterFields]="['nombre']" [(selection)]="selectedDoc"
-                [rowHover]="true" datakey="id"
+            <p-table #dt [value]="listaDocumentosIdentidad"
+            styleClass="p-datatable-gridlines" [rows]="10" [paginator]="true" [autoLayout]="true"
+                [globalFilterFields]="['nombre']" [(selection)]="selectedDoc" [rowHover]="true" datakey="id"
                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
                 responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
 
@@ -40,8 +40,8 @@
                                 icon="pi pi-pencil" class="p-button-rounded m-1">
                             </button>
                             <button pButton (click)="eliminar(doc)" pTooltip="Eliminar" pRipple type="button"
-                                icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
-                            </button>
+                            icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                        </button>
                         </td>
                     </tr>
                 </ng-template>
@@ -49,29 +49,31 @@
         </div>
     </div>
 </div>
-
-<p-dialog [(visible)]="agregarDoc" header="Agregar Documento Identidad" [style]="{width: '400px'}" [modal]="true"
-    styleClass="p-fluid" autoZIndex>
-    <form [formGroup]='form'>
-        <div class="grid">
-            <div class="p-fluid col-12">
-                <label class="mb-5 font-bold">Nombre:</label>
-                <input type="text" pInputText formControlName="nombre" autofocus />
+<p-dialog [(visible)]="agregarDoc" header="Agregar Documento Identidad">
+    <div class="col-4 crearDocumento">
+        <h2>Crear Documento de Identidad</h2>
+        <form [formGroup]='form'>
+            <div class="grid">
+                <div class="p-fluid col-4">
+                    <label class="mb-5 font-bold">Nombre:</label>
+                    <input type="text" pInputText formControlName="nombre" autofocus />
+                </div>
+                <div class="p-fluid col-4">
+                    <label class="mb-5 font-bold">Abreviatura:</label>
+                    <input type="text" pInputText formControlName="abreviatura" autofocus />
+                </div>
+                <div class="p-fluid col-4">
+                    <label class="mb-5 font-bold">Longitud:</label>
+                    <input type="number" pInputText formControlName="longitud" autofocus />
+                </div>
             </div>
-            <div class="p-fluid col-6">
-                <label class="mb-5 font-bold">Abreviatura:</label>
-                <input type="text" pInputText formControlName="abreviatura" autofocus />
+            <div class="flex justify-content-end">
+                <div class="pfield col-8">
+                    <button pButton type="button" label="Cancelar" class="p-button-danger  mr-2"
+                        (click)="cancelarDialogDoc()"></button>
+                    <button pButton type="button" label="Guardar" (click)="GuardarDocumentoIdentidad()"></button>
+                </div>
             </div>
-            <div class="p-fluid col-6">
-                <label class="mb-5 font-bold">Longitud:</label>
-                <input type="number" pInputText formControlName="longitud" autofocus />
-            </div>
-        </div>
-    </form>
-    <ng-template pTemplate=footer>
-        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="closeDialog()"></button>
-        <button pButton type="button" label="Aceptar" (click)="GuardarDocumentoIdentidad()"></button>
-    </ng-template>
+        </form>
+    </div>
 </p-dialog>
-
-<!--        INICIO DIALOG EDITAR DOCUMENTO IDENTIDAD        -->

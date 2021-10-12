@@ -15,6 +15,7 @@ export class EspecialidadComponent implements OnInit {
   data: any[] = [];
   isUpdate: boolean = false;
   idUpdate: string = "";
+  especialidadDialog: boolean;
   estado: boolean;
 
   constructor(
@@ -39,6 +40,14 @@ export class EspecialidadComponent implements OnInit {
     });
   }
 
+  openNew() {
+    this.isUpdate = false;
+    this.form.reset();
+    this.form.get('idSIS').setValue("");
+    this.form.get('nombre').setValue("");
+    this.estado = true;
+    this.especialidadDialog = true;
+  }
   saveForm() {
     this.isUpdate = false;
     const req = {
@@ -58,6 +67,7 @@ export class EspecialidadComponent implements OnInit {
           })
           this.getEspecialidad();
           this.guardarNuevo();
+          this.especialidadDialog = false;
         }
       )
     }
@@ -78,9 +88,9 @@ export class EspecialidadComponent implements OnInit {
     this.isUpdate = true;
     this.form.get('idSIS').setValue(rowData.idSIS);
     this.form.get('nombre').setValue(rowData.nombre);
-    console.log(rowData.estado, typeof (rowData.estado));
     this.estado = rowData.estado;
     this.idUpdate = rowData.id;
+    this.especialidadDialog = true;
   }
   editarDatos(rowData) {
     const req = {
@@ -100,6 +110,7 @@ export class EspecialidadComponent implements OnInit {
         })
         this.getEspecialidad();
         this.guardarNuevo();
+        this.especialidadDialog = false;
       }
     )
   }
@@ -131,6 +142,21 @@ export class EspecialidadComponent implements OnInit {
     })
   }
 
+  titulo() {
+    if (this.isUpdate) return "Edite Especialidad";
+    else return "Ingrese Nueva Especialidad";
+}
+
+canceled() {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Cancelado...',
+      text: '',
+      showConfirmButton: false,
+      timer: 1000
+    })
+    this.especialidadDialog = false;
+}
   ngOnInit(): void {
     this.estado = true;
   }

@@ -18,6 +18,7 @@ export class ColegioProfesionalComponent implements OnInit {
     data: any[] = [];
     isUpdate: boolean = false;
     idUpdate: string = "";
+    colegioDialog: boolean;
 
     constructor(
         private colegioProfesionalservice: ColegioProfesionalService,
@@ -43,6 +44,13 @@ export class ColegioProfesionalComponent implements OnInit {
         });
     }
 
+    openNew() {
+        this.isUpdate = false;
+        this.form.reset();
+        this.form.get('codigo').setValue("");
+        this.form.get('nombre').setValue("");
+        this.colegioDialog = true;
+      }
     saveForm() {
         console.log("guardar");
         this.isUpdate = false;
@@ -62,15 +70,10 @@ export class ColegioProfesionalComponent implements OnInit {
                     })
                     this.getColegioProfesional();
                     this.guardarNuevo();
+                    this.colegioDialog = false;
                 }
             )
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Ingresa datos correctos!'
-            })
-        }
+        } 
     }
 
     guardarNuevo() {
@@ -83,6 +86,8 @@ export class ColegioProfesionalComponent implements OnInit {
         this.form.get('codigo').setValue(rowData.codigo)
         this.form.get('nombre').setValue(rowData.nombre)
         this.idUpdate = rowData.id;
+        this.colegioDialog = true;
+
     }
 
     editarDatos(rowData) {
@@ -102,6 +107,7 @@ export class ColegioProfesionalComponent implements OnInit {
                 })
                 this.getColegioProfesional();
                 this.guardarNuevo();
+                this.colegioDialog = false;
             }
         )
     }
@@ -132,7 +138,21 @@ export class ColegioProfesionalComponent implements OnInit {
             }
         })
     }
+    titulo() {
+        if (this.isUpdate) return "Edite Colegio Profesional";
+        else return "Ingrese Nuevo Colegio Profesional";
+    }
 
+    canceled() {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Cancelado...',
+          text: '',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        this.colegioDialog = false;
+    }
     ngOnInit(): void {
     }
 }

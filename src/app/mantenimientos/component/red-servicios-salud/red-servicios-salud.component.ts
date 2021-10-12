@@ -286,8 +286,15 @@ export class RedServiciosSaludComponent implements OnInit {
         }
     }
 
-    editarRed(row) {
+    openEditarRed(row) {
         console.log('row ', row);
+        this.formRedServicio.patchValue({ idRed: row.idRed });
+        this.formRedServicio.patchValue({ disa: row.disa });
+        this.formRedServicio.patchValue({ nombreRed: row.nombreRed });
+        this.agregarRedServicio = true;
+    }
 
+    editarRed(){
+     
     }
 }
