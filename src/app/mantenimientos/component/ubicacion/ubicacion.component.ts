@@ -123,17 +123,10 @@ export class UbicacionComponent implements OnInit {
 
     saveForm() {
         this.isUpdate = false;
-        const cp = {
-            ccpp: this.form.value.ccpp,
-            idccpp: this.form.value.idccpp
-
-        }
-
         const req = {
-            departamento: this.form.value.departamento,
-            provincia: this.form.value.provincia,
-            distrito: this.form.value.distrito,
-            idccpp: this.form.value.idccpp,
+            departamento: this.form.value.departamento.iddd,
+            provincia: this.form.value.provincia.idpp,
+            distrito: this.form.value.distrito.iddis,
             ccpp: this.form.value.ccpp,
             latitude: this.form.value.latitude,
             longitude: this.form.value.longitude,
@@ -141,21 +134,21 @@ export class UbicacionComponent implements OnInit {
             altura: this.form.value.altura,
             es_Capital: this.form.value.es_Capital,
         }
-        // if (req.ccpp.trim() !== "") {
-        this.ubicacionService.saveCCPP(req).subscribe(
-            result => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Agregado correctamente',
-                    text: 'CCPP',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-                this.getUbicacion();
-                this.ubicacionDialog = false;
-            }
-        )
-        // }
+        if (req.ccpp.trim() !== "") {
+            this.ubicacionService.saveCCPP(req).subscribe(
+                result => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Agregado correctamente',
+                        text: 'CCPP',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                    this.getUbicacion();
+                    this.ubicacionDialog = false;
+                }
+            )
+        }
 
         console.log(req)
     }
