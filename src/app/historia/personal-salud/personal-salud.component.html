@@ -41,11 +41,11 @@
                 <!-- <th style="text-align: center">EESS</th> -->
                 <th style="text-align: center">Estado</th>
                 <th style="text-align: center">Espec.</th>
-                <th style="width:150em">Acción a realizar</th>
+                <th style="text-align: center; width:120px">Acción</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-            <tr>
+            <tr style="text-align: center">
                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
                 <td style="text-align: center">{{ rowData.nroDoc }}</td>
                 <td style="text-align: center">{{ rowData.apePaterno }}</td>
@@ -61,18 +61,18 @@
                 <td style="text-align: center">
                     <p-tag *ngIf="rowData.estado" styleClass="p-mr-2" severity="success" value="Activo"
                         [rounded]="true"></p-tag>
-                    <p-tag *ngIf="!rowData.estado" styleClass="p-mr-2" severity="danger" value="No Activo"
+                    <p-tag *ngIf="!rowData.estado" styleClass="p-mr-2" severity="danger" value="Inactivo"
                         [rounded]="true"></p-tag>
                 </td>
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-briefcase" class="p-button-rounded p-button-help "
                         (click)="newEspecialidad(rowData)"></button>
                 </td>
-                <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded"
+                <td style="text-align: center; display: flex">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
                         (click)="editar(rowData)"></button>
                     <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar" pRipple type="button"
-                        icon="pi pi-trash" class="p-button-rounded p-button-danger">
+                        icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                     </button>
                 </td>
             </tr>
@@ -252,8 +252,7 @@
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
         <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="saveForm()"></button>
-        <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"
-            (click)="editarDatos()"></button>
+        <button *ngIf="isUpdate"  pButton type="button" label="Guardar" (click)="editarDatos()"></button>
     </ng-template>
 </p-dialog>
 
@@ -295,7 +294,7 @@
                         <button *ngIf="!isUpdateEspecialidad" [disabled]="!formEspecialidad.valid" pButton type="button"
                             label="Guardar" class="m-1 w-9rem" (click)="saveEspecialidad()"></button>
                         <button *ngIf="isUpdateEspecialidad" [disabled]="!formEspecialidad.valid" pButton type="button"
-                            label="Guardar" class="m-1 w-9rem"></button>
+                            label="Guardar" class="m-1 w-9rem" (click)="saveEdicionEspecialidad()"></button>
                         <button pButton type="button" label="Nuevo" icon="pi pi-plus"
                             (click)="guardarNuevoEspecialidad()" pTooltip="Agregar especialidad" tooltipPosition="right"
                             class="p-button-danger m-1 w-9rem" pRipple></button>
@@ -330,10 +329,10 @@
                             <td style="text-align: center">
                                 <p-tag *ngIf="rowData.estado" styleClass="p-mr-2" severity="success" value="Activo"
                                     [rounded]="true"></p-tag>
-                                <p-tag *ngIf="!rowData.estado" styleClass="p-mr-2" severity="danger" value="No Activo"
+                                <p-tag *ngIf="!rowData.estado" styleClass="p-mr-2" severity="danger" value="Inactivo"
                                     [rounded]="true"></p-tag>
                             </td>
-                            <td>
+                            <td >
                                 <button pButton (click)="editarEspecialidad(rowData)" pTooltip="Editar" pRipple
                                     type="button" icon="pi pi-pencil" class="p-button-rounded m-1">
                                 </button>
