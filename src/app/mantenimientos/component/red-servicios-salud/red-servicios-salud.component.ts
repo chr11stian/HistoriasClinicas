@@ -41,6 +41,7 @@ export class RedServiciosSaludComponent implements OnInit {
     };
     selectedRedEESS: any;
     selectedMicroRed: any;
+    update: boolean = false;
 
     constructor(
         private fb: FormBuilder,
@@ -53,7 +54,6 @@ export class RedServiciosSaludComponent implements OnInit {
         console.log('lista red srevicios ', this.listaRedServiciosSalud)
         this.inicializarFormRedServicio();
         // this.getDepartamentos();
-        this.getMicroRedServiciosSalud()
         // this.changedMicroRedSelected();
     }
 
@@ -84,13 +84,6 @@ export class RedServiciosSaludComponent implements OnInit {
         })
     }
 
-    getMicroRedServiciosSalud() {
-        this.redServiciosSaludService.getEESS(385).subscribe((res: any) => {
-            this.listaEESS = res.object;
-            console.log('eess ', this.listaEESS)
-        })
-    }
-
     getDepartamentos() {
         this.ubicacionService.getDepartamentos().subscribe((resp: any) => {
             this.dataDepartamentos = resp.object;
@@ -102,6 +95,18 @@ export class RedServiciosSaludComponent implements OnInit {
     }
 
     openDialogAgregarMicroRedServicios() {
+
+        console.log('red seleccionada ', this.selectedRed)
+        if (this.selectedRed == '') {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Seleccione una red',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return;
+        }
         this.agregarMicroRedServicio = true;
     }
 
@@ -114,6 +119,14 @@ export class RedServiciosSaludComponent implements OnInit {
 
     closeDialogRedServicio() {
         this.agregarRedServicio = false;
+    }
+
+    recuperarDatosRed() {
+        this.dataRed = {
+            idRed: this.formRedServicio.value.idRed,
+            nombreRed: this.formRedServicio.value.nombreRed,
+            disa: this.formRedServicio.value.disa,
+        }
     }
 
     aceptarDialogRedServicio() {
@@ -134,6 +147,13 @@ export class RedServiciosSaludComponent implements OnInit {
 
     closeDialogMicroRed() {
         this.agregarMicroRedServicio = false;
+    }
+
+    recuperarDatosMicroRed() {
+        this.dataMicroRed = {
+            idMicroRed: this.formMicroRed.value.idMicroRed,
+            nombreMicroRed: this.formMicroRed.value.nombreMicroRed
+        }
     }
 
     aceptarDialogMicroRed() {
@@ -162,17 +182,39 @@ export class RedServiciosSaludComponent implements OnInit {
         this.agregarEESS = false;
     }
 
+    recuperaDatosEESS() {
+        let auxUbicacion: any = this.ubicacion;
+        console.log('auxUbicacion ', auxUbicacion)
+        let auxUbigeo: any = auxUbicacion.departamento.iddd + auxUbicacion.provincia.idpp + auxUbicacion.distrito.iddis
+        this.dataEESS = {
+            idEESS: this.formEESS.value.idEESS,
+            nombreEESS: this.formEESS.value.nombreEESS,
+            categoria: this.formEESS.value.categoria,
+            departamento: auxUbicacion.departamento.departamento,
+            provincia: auxUbicacion.provincia.provincia,
+            distrito: auxUbicacion.distrito.distrito,
+            ubigeo: auxUbigeo
+        }
+    }
+
     aceptarDialogEESS() {
         this.recuperaDatosEESS();
+        console.log('data enviar', this.dataEESS)
         this.redServiciosSaludService.postEESS(this.selectedMicroRed.idMicroRed, this.dataEESS).subscribe((res: any) => {
             console.log('res post eess ', res)
             Swal.fire({
                 position: 'center',
                 icon: 'success',
-                title: 'Se actualizo Correctamente',
+                title: 'Se Registro Correctamente ',
                 showConfirmButton: false,
                 timer: 1500
             });
+            this.redServiciosSaludService.getEESS(this.selectedMicroRed.idMicroRed).subscribe((res: any) => {
+                this.listaEESS = res.object;
+            })
+            this.closeDialogEESS();
+            this.limpiarCampos();
+            this.ubicacion = {};
         })
     }
 
@@ -194,38 +236,9 @@ export class RedServiciosSaludComponent implements OnInit {
             iddd: this.iddd,
             idpp: aux.idpp
         };
-        console.log('ubicacion ', this.ubicacion);
         this.ubicacionService.getDistritos(provincia).subscribe((res: any) => {
             this.dataDistrito = res.object;
-            console.log('distrito ', this.dataDistrito)
         })
-    }
-
-    recuperarDatosRed() {
-        this.dataRed = {
-            idRed: this.formRedServicio.value.idRed,
-            nombreRed: this.formRedServicio.value.nombreRed,
-            disa: this.formRedServicio.value.disa,
-        }
-    }
-
-    recuperarDatosMicroRed() {
-        this.dataMicroRed = {
-            idMicroRed: this.formMicroRed.value.idMicroRed,
-            nombreMicroRed: this.formMicroRed.value.nombreMicroRed
-        }
-    }
-
-    recuperaDatosEESS() {
-        let auxUbicacion: any = this.ubicacion;
-        this.dataEESS = {
-            idEESS: this.formEESS.value.idEESS,
-            nombreEESS: this.formEESS.value.nombreEESS,
-            categoria: this.formEESS.value.categoria,
-            departamento: auxUbicacion.departamento.departamento,
-            provincia: auxUbicacion.provincia.provincia,
-            distrito: auxUbicacion.distrito.distrito
-        }
     }
 
     limpiarCampos() {
@@ -271,5 +284,10 @@ export class RedServiciosSaludComponent implements OnInit {
             this.selectedRed = '';
             this.selectedRedEESS = '';
         }
+    }
+
+    editarRed(row) {
+        console.log('row ', row);
+
     }
 }

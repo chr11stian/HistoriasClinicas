@@ -14,13 +14,14 @@
             <p-table #dt [value]="listaRedServiciosSalud" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
                 [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
-                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
+                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines">
                 <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center;">Nro</th>
                         <th style="text-align: center;">id Red</th>
                         <th style="text-align: center;">Nombre Red</th>
                         <th style="text-align: center;">DISA</th>
+                        <th style="text-align: center;">Acción</th>
                     </tr>
                 </ng-template>
 
@@ -30,111 +31,121 @@
                         <td style="text-align: center;">{{ red.idRed }}</td>
                         <td style="text-align: center;">{{ red.nombreRed }}</td>
                         <td style="text-align: center;">{{ red.disa }}</td>
+                        <td style="text-align: center;width: 10em;">
+                            <button pButton (click)="editarRed(red)" pTooltip="Editar" pRipple type="button"
+                                icon="pi pi-pencil" class="p-button-rounded m-1">
+                            </button>
+                            <button pButton (click)="eliminar(doc)" pTooltip="Eliminar" pRipple type="button"
+                                icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel header="Micro Red de Servicios de Salud">
+            <!-- <div class="col-2">
+                    <label>Seleccione una Red</label>
+                    <p-dropdown [options]="listaRedServiciosSalud" [(ngModel)]="selectedRed"
+                        placeholder="Seleccione un servicio" optionLabel="nombreRed" [showClear]="false"
+                        (ngModelChange)="changeRedSelected($event)">
+                    </p-dropdown>
+                </div> -->
+            <p-toolbar class="p-mb-4">
+                <ng-template pTemplate="left">
+                    <h3 class="p-m-0">Micro Red de Servicios de Salud</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                        (click)="openDialogAgregarMicroRedServicios()"></button>
+                    <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+                </ng-template>
+            </p-toolbar>
+            <div class="p-mb-4 p-fluid">
+                <div class="col-4">
+                    <label>Seleccione una Red</label>
+                    <br><br>
+                    <p-dropdown [options]="listaRedServiciosSalud" [(ngModel)]="selectedRed"
+                        placeholder="Seleccione un servicio" optionLabel="nombreRed" [showClear]="false"
+                        (ngModelChange)="changeRedSelected($event)">
+                    </p-dropdown>
+                </div>
+            </div>
+            <p-table #dt [value]="listaGetMicroRed" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
+                [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
+                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
+                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines">
+                <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;">Nro</th>
+                        <th style="text-align: center;">id Micro Red</th>
+                        <th style="text-align: center;">Nombre Micro Red</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-microRed style="text-align: center;" let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center;">{{ i + 1 }}</td>
+                        <td style="text-align: center;">{{ microRed.idMicroRed }}</td>
+                        <td style="text-align: center;">{{ microRed.nombreMicroRed }}</td>
                     </tr>
                 </ng-template>
             </p-table>
         </p-tabPanel>
 
 
-        <p-tabPanel header="Micro Red de Servicios de Salud">
-            <div class="grid p-fluid">
-                <div class="col-3">
-                    <label>Seleccione una Red</label>
-                    <p-dropdown [options]="listaRedServiciosSalud" [(ngModel)]="selectedRed"
-                        placeholder="Seleccione un servicio" optionLabel="nombreRed" [showClear]="false"
-                        (ngModelChange)="changeRedSelected($event)">
-                    </p-dropdown>
-                </div>
-                <div class="col-9">
-                    <p-toolbar class="p-mb-4">
-                        <ng-template pTemplate="left">
-                            <h3 class="p-m-0">Micro Red de Servicios de Salud</h3>
-                        </ng-template>
-                        <ng-template pTemplate="right" class="button">
-                            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
-                                (click)="openDialogAgregarMicroRedServicios()"></button>
-                            <button pButton pRipple label="Exportar" icon="pi pi-upload"
-                                class="p-button-primary"></button>
-                        </ng-template>
-                    </p-toolbar>
-                    <p-table #dt [value]="listaGetMicroRed" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
-                        [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
-                        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
-                        responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
-                        <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
-                            <tr>
-                                <th style="text-align: center;">Nro</th>
-                                <th style="text-align: center;">id Micro Red</th>
-                                <th style="text-align: center;">Nombre Micro Red</th>
-                            </tr>
-                        </ng-template>
-
-                        <ng-template pTemplate="body" let-microRed style="text-align: center;" let-i="rowIndex">
-                            <tr>
-                                <td style="text-align: center;">{{ i + 1 }}</td>
-                                <td style="text-align: center;">{{ microRed.idMicroRed }}</td>
-                                <td style="text-align: center;">{{ microRed.nombreMicroRed }}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-            </div>
-        </p-tabPanel>
-
-
         <p-tabPanel header="Establecimiento de salud">
-            <div class="grid p-fluid">
-                <div class="col-3">
-                    <label>Seleccione una Red</label>
+
+            <p-toolbar class="p-mb-4">
+                <ng-template pTemplate="left">
+                    <h3 class="p-m-0">Establecimiento de Salud</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                        (click)="openDialogAgregarEESS()"></button>
+                    <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+                </ng-template>
+            </p-toolbar>
+            <div class="flex flex-row p-fluid">
+                <div class="p-mb-4 col-3">
+                    <label>Seleccione una Red</label><br><br>
                     <p-dropdown [options]="listaRedServiciosSalud" [(ngModel)]="selectedRedEESS"
                         placeholder="Seleccione un servicio" optionLabel="nombreRed" [showClear]="false"
                         (ngModelChange)="changeRedSelected($event)">
                     </p-dropdown>
-                    <br>
-                    <label>Seleccione una Micro Red</label>
+                </div>
+                <div class="p-mb-4 col-3 p-fluid">
+                    <label>Seleccione una Micro Red</label><br><br>
                     <p-dropdown [options]="listaGetMicroRed" [(ngModel)]="selectedMicroRed"
                         placeholder="Seleccione un servicio" optionLabel="nombreMicroRed" [showClear]="false"
                         (ngModelChange)="changedMicroRedSelected($event)">
                     </p-dropdown>
                 </div>
-                <div class="col-9">
-                    <p-toolbar class="p-mb-4">
-                        <ng-template pTemplate="left">
-                            <h3 class="p-m-0">Establecimiento de Salud</h3>
-                        </ng-template>
-                        <ng-template pTemplate="right" class="button">
-                            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
-                                (click)="openDialogAgregarEESS()"></button>
-                            <button pButton pRipple label="Exportar" icon="pi pi-upload"
-                                class="p-button-primary"></button>
-                        </ng-template>
-                    </p-toolbar>
-                    <p-table #dt [value]="listaEESS" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
-                        [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
-                        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
-                        responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
-                        <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
-                            <tr>
-                                <th style="text-align: center;">Nro</th>
-                                <th style="text-align: center;">id EESS</th>
-                                <th style="text-align: center;">Nombre EESS</th>
-                                <th style="text-align: center;">Categoria</th>
-                                <th style="text-align: center;">Ubigeo</th>
-                            </tr>
-                        </ng-template>
-
-                        <ng-template pTemplate="body" let-eess style="text-align: center;" let-i="rowIndex">
-                            <tr>
-                                <td style="text-align: center;">{{ i + 1 }}</td>
-                                <td style="text-align: center;">{{ eess.idEESS }}</td>
-                                <td style="text-align: center;">{{ eess.nombreEESS }}</td>
-                                <td style="text-align: center;">{{ eess.categoria }}</td>
-                                <td style="text-align: center;">{{ eess.ubigeo }}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
             </div>
+            <p-table #dt [value]="listaEESS" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
+                [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
+                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
+                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines">
+                <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;">Nro</th>
+                        <th style="text-align: center;">id EESS</th>
+                        <th style="text-align: center;">Nombre EESS</th>
+                        <th style="text-align: center;">Categoria</th>
+                        <th style="text-align: center;">Ubigeo</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-eess style="text-align: center;" let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center;">{{ i + 1 }}</td>
+                        <td style="text-align: center;">{{ eess.idEESS }}</td>
+                        <td style="text-align: center;">{{ eess.nombreEESS }}</td>
+                        <td style="text-align: center;">{{ eess.categoria }}</td>
+                        <td style="text-align: center;">{{ eess.ubigeo }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </p-tabPanel>
     </p-tabView>
 </div>
@@ -207,51 +218,45 @@
     [modal]="true" styleClass="p-fluid" autoZIndex>
     <form [formGroup]='formEESS'>
         <div class="grid">
-            <div class="p-field col-5">
+            <div class="p-field col-3">
                 <label>id EESS</label>
                 <input type="text" pInputText formControlName="idEESS" class="inputTest" />
             </div>
-            <div class="p-field col-5">
+            <div class="p-field col-6">
                 <label>Nombre EESS</label>
                 <input type="text" pInputText formControlName="nombreEESS" />
             </div>
-        </div>
-        <div class="grid">
-            <div class="p-field col-6">
+            <div class="p-field col-3">
                 <label>Categoria</label>
                 <input type="text" pInputText formControlName="categoria" class="test" />
             </div>
-            <div class="p-field col-6">
-                <label>Ubigeo</label>
-                <input type="text" pInputText formControlName="ubigeo" class="test" />
-            </div>
         </div>
     </form>
+    <br>
     <div class="grid">
         <div class=" col-4">
-            <label>DEPARTAMENTO</label>
+            <label>Departamento</label>
             <div class="p-field">
                 <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataDepartamentos"
                     [(ngModel)]="ubicacion.departamento" (onChange)="selectedDepartamento()" [showClear]="false"
-                    optionLabel="departamento" defaultLabel="Seleccione un Departamento" placeholder="Seleccione un departmanto "
-                    id="departamento">
-
+                    optionLabel="departamento" defaultLabel="Seleccione un Departamento"
+                    placeholder="Seleccione un departmanto " id="departamento">
                 </p-dropdown>
             </div>
         </div>
         <div class="p-field col-4">
-            <label>PROVINCIA</label>
+            <label>Provincia</label>
             <div class="p-field">
                 <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataProvincia"
-                    optionLabel="provincia" defaultLabel="Seleccione una provincia" placeholder="Seleccione una provincia"
-                    id="provincia" [showClear]="false" [(ngModel)]="ubicacion.provincia"
-                    (onChange)="selectedProvincia()">
+                    optionLabel="provincia" defaultLabel="Seleccione una provincia"
+                    placeholder="Seleccione una provincia" id="provincia" [showClear]="false"
+                    [(ngModel)]="ubicacion.provincia" (onChange)="selectedProvincia()">
 
                 </p-dropdown>
             </div>
         </div>
         <div class="p-field col-4">
-            <label>DISTRITO</label>
+            <label>Distrito</label>
             <div class="p-field">
                 <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataDistrito"
                     [(ngModel)]="ubicacion.distrito" optionLabel="distrito" defaultLabel="Seleccione un distrito"
@@ -261,8 +266,7 @@
         </div>
     </div>
     <ng-template pTemplate=footer>
-        <button pButton type="button" label="cancelar" class="p-button-danger"
-            (click)="closeDialogEESS()"></button>
+        <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogEESS()"></button>
         <button pButton type="button" label="Aceptar" (click)="aceptarDialogEESS()"></button>
     </ng-template>
 </p-dialog>
