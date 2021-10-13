@@ -91,11 +91,12 @@ export class RedServiciosSaludComponent implements OnInit {
     }
 
     openDialogAgregarRedServicios() {
+        this.update = false;
+        this.limpiarCampos();
         this.agregarRedServicio = true;
     }
 
     openDialogAgregarMicroRedServicios() {
-
         console.log('red seleccionada ', this.selectedRed)
         if (this.selectedRed == '') {
             Swal.fire({
@@ -220,6 +221,7 @@ export class RedServiciosSaludComponent implements OnInit {
 
     selectedDepartamento() {
         let aux: any = this.ubicacion.departamento
+        console.log('ngmodel dep ', this.ubicacion.departamento)
         let dpto = {
             iddd: aux.iddd
         }
@@ -277,7 +279,6 @@ export class RedServiciosSaludComponent implements OnInit {
 
     handleChange(e) {
         var index = e.index;
-        console.log(index)
         if (index == 2 || index == 1) {
             this.listaGetMicroRed = [];
             this.listaEESS = [];
@@ -287,14 +288,75 @@ export class RedServiciosSaludComponent implements OnInit {
     }
 
     openEditarRed(row) {
-        console.log('row ', row);
+        this.update = true;
+        console.log('row redes ', row);
         this.formRedServicio.patchValue({ idRed: row.idRed });
         this.formRedServicio.patchValue({ disa: row.disa });
         this.formRedServicio.patchValue({ nombreRed: row.nombreRed });
         this.agregarRedServicio = true;
     }
 
-    editarRed(){
-    
+    editarRed() {
+        this.recuperarDatosRed();
+        this.redServiciosSaludService.putRed(this.dataRed).subscribe((res:any)=>{
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Se actualizo correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            this.agregarRedServicio = false;
+
+            console.log('se guardo correctamente ',res)
+        })
+
+        console.log("editar", this.dataRed);
+    }
+
+    eliminarRed(row) {
+
+    }
+
+    openEditarMicroRed(row) {
+
+        this.formMicroRed.patchValue({ idMicroRed: row.idMicroRed });
+        this.formMicroRed.patchValue({ nombreMicroRed: row.nombreMicroRed });
+        this.agregarMicroRedServicio = true;
+    }
+
+    editarMicroRed() {
+
+    }
+
+    eliminarMicroRed(row) {
+
+    }
+
+    openEditarEESS(row) {
+        this.formEESS.patchValue({ idEESS: row.idEESS });
+        this.formEESS.patchValue({ nombreEESS: row.nombreEESS });
+        this.formEESS.patchValue({ categoria: row.categoria });
+        // this.formEESS.patchValue({})
+        console.log('editar eess ', row)
+        let auxDep = row.ubigeo.slice(0, 2);
+        let auxProv = row.ubigeo.slice(2, 4);
+        let auxDist = row.ubigeo.slice(4, 6);
+        let dep = {
+            departamento: row.departamento,
+            iddd: auxDep
+        }
+        this.ubicacion = dep;
+        console.log('aux dep ', dep)
+        this.agregarEESS = true;
+        console.log('dep ',typeof(this.ubicacion.departamento))
+    }
+
+    editarEESS() {
+
+    }
+
+    eliminarEESS(row) {
+
     }
 }

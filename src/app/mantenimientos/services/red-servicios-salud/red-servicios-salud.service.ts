@@ -35,4 +35,16 @@ export class RedServiciosSaludService {
     postEESS(idMicroRed, data){
         return this.http.post<any>(`${this.base_url}/${this.bd}/api/redserviciossalud/eess/${idMicroRed}`, data)
     }
+
+    putRed(data){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/redserviciossalud/red`, data)
+    }
+
+    putMicroRed(data){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/redserviciossalud/microred`, data)
+    }
+
+    putEESS(data){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/redserviciossalud/eess`, data)
+    }
 }
