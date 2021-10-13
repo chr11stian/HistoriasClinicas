@@ -176,10 +176,7 @@ export class PersonalSaludComponent implements OnInit {
             estado: this.form.value.estado,
             detalleIpress: { idIpress: this.form.value.detalleIpress,
                             eess: ipressSelected.nombreEESS,
-                            fechaInicio: this.form.value.fechaInicio,
-                            fechaFin: null,
-                            estado: true,
-
+                            fechaInicio:this.datePipe.transform( this.form.value.fechaInicio,'yyyy-MM-dd')+ " 00:00:00",
             },
         };
         console.log(req);
@@ -235,7 +232,8 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get('contratoAbreviatura').setValue(rowData.contratoAbreviatura);
         this.form.get('sexo').setValue(rowData.sexo);
         this.form.get('detalleIpress').setValue(rowData.detalleIpress ? rowData.detalleIpress[0].idIpress : "");
-        this.form.get('fechaInicio').setValue(rowData.detalleIpress ? rowData.detalleIpress[0].fechaInicio : "");
+        this.form.get('fechaInicio').setValue(rowData.detalleIpress ? this.datePipe.transform( rowData.detalleIpress[0].fechaInicio ,'yyyy-MM-dd') : "");
+        console.log(rowData.detalleIpress[0].fechaInicio);
         this.idUpdate = rowData.id;
         this.personalDialog = true;
     }
@@ -268,7 +266,7 @@ export class PersonalSaludComponent implements OnInit {
             estado: this.form.value.estado,
             detalleIpress: { idIpress: this.form.value.detalleIpress,
                 eess: ipressSelected.nombreEESS,
-                fechaInicio: this.form.value.fechaInicio,
+                fechaInicio: this.datePipe.transform( this.form.value.fechaInicio,'yyyy-MM-dd') + " 00:00:00",
 },
         }
 

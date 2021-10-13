@@ -248,7 +248,7 @@
                     </p-dropdown>
                     <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
                                 dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="ipressList"
-                                formControlName="detalleIpress" optionLabel="nombreEESS"
+                                formControlName="detalleIpress" optionLabel="nombreEESS" [disabled]="true"
                                 optionValue="id" required>
                     </p-dropdown>
                 </div>
