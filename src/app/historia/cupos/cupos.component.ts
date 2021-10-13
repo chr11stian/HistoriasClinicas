@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { formatDate } from '@angular/common';
-import { MessageService, PrimeNGConfig } from 'primeng/api';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {formatDate} from '@angular/common';
+import {MessageService, PrimeNGConfig} from 'primeng/api';
 
-import { DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { Subscription } from 'rxjs';
+import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {Subscription} from 'rxjs';
 import Swal from 'sweetalert2';
-import { Cupo } from '../../core/models/cupo.models';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {Cupo} from '../../core/models/cupo.models';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {CuposService} from "../../core/services/cupos.service";
 
 
 @Component({
@@ -19,13 +20,20 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 })
 export class CuposComponent implements OnInit {
 
+    dataOfertas: any;
+    dataServicios: any;
+    dataPersonal: any;
+    dataHoraAtencion: any;
+
     selectedCupo: any;
     cupos: any;
     cuposDialog: boolean;
     usuarioDialog: boolean;
     subscription: Subscription;
     selectedServicio: any;
+
     listaPersonal: any;
+
     personalSelected: string = '';
     nombre: string;
     estadoCivil: string;
@@ -150,48 +158,6 @@ export class CuposComponent implements OnInit {
     }]
 
 
-    servicios: any = [{
-        codServicio: '1',
-        nombreServicio: 'MEDICINA GENERAL'
-    }, {
-        codServicio: '2',
-        nombreServicio: 'OBSTETRICIA'
-    }, {
-        codServicio: '3',
-        nombreServicio: 'PEDIATRIA'
-    }, {
-        codServicio: '4',
-        nombreServicio: 'ENFERMERIA'
-    }, {
-        codServicio: '5',
-        nombreServicio: 'ODONTOLOGIA'
-    }, {
-        codServicio: '6',
-        nombreServicio: 'ADMINISTRACION'
-    }]
-
-    listaPersonalAux: any = [{
-        nro: 1,
-        apellidos: 'Morocco layme',
-        nombres: 'jonathan',
-        codServicio: '1'
-    }, {
-        nro: 2,
-        apellidos: 'pimentel cruz',
-        nombres: 'jimmy',
-        codServicio: '1'
-    }, {
-        nro: 1,
-        apellidos: 'farfan saravia',
-        nombres: 'banesa',
-        codServicio: '2'
-    }, {
-        nro: 2,
-        apellidos: 'mejia pinto',
-        nombres: 'abel',
-        codServicio: '3'
-    }];
-
     listaCupos: any = [{
         dni: '72745818',
         apellidos: 'MOROCCO LAYME',
@@ -241,17 +207,18 @@ export class CuposComponent implements OnInit {
         private primeNGConfig: PrimeNGConfig,
         private messageService: MessageService,
         private fb: FormBuilder,
+        private cuposService: CuposService
     ) {
         this.justifyOptions = [
-            { icon: "pi pi-align-left", justify: "Left" },
-            { icon: "pi pi-align-right", justify: "Right" },
-            { icon: "pi pi-align-center", justify: "Center" },
-            { icon: "pi pi-align-justify", justify: "Justify" }
+            {icon: "pi pi-align-left", justify: "Left"},
+            {icon: "pi pi-align-right", justify: "Right"},
+            {icon: "pi pi-align-center", justify: "Center"},
+            {icon: "pi pi-align-justify", justify: "Justify"}
         ];
 
         this.stateOptions = [
-            { label: "Off", value: "off" },
-            { label: "On", value: "on" }
+            {label: "Off", value: "off"},
+            {label: "On", value: "on"}
         ];
     }
 
@@ -268,6 +235,40 @@ export class CuposComponent implements OnInit {
         console.log('tiempo suma ', this.today);
         console.log('hora nueva ', this.jsToday);
         this.inicializarForm();
+
+        this.getOfertas(1);
+        this.getServicios();
+        this.getPersonal();
+        this.getAtencion();
+    }
+
+    getOfertas(id) {
+        this.cuposService.getOferta(id).subscribe((resp: any) => {
+            this.dataOfertas = resp;
+            console.log("OFERTAS", resp);
+        });
+    }
+
+    getServicios() {
+        this.cuposService.getServicios().subscribe((resp: any) => {
+            this.dataServicios = resp;
+            console.log("SERVICIOS", resp);
+        });
+    }
+
+    getPersonal() {
+        this.cuposService.getPersonal().subscribe((resp: any) => {
+            this.dataPersonal = resp;
+            console.log("Personal", resp);
+        });
+    }
+
+
+    getAtencion() {
+        this.cuposService.getHoraAtencion().subscribe((resp: any) => {
+            this.dataHoraAtencion = resp;
+            console.log("HORA ATENCION", resp);
+        });
     }
 
     ngOnDestroy(): void {
@@ -308,7 +309,7 @@ export class CuposComponent implements OnInit {
     aceptarDialogCupos() {
         let auxCupo: any = this.selectedHorario;
         if (auxCupo.length != 1) {
-            this.messageService.add({ severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario' });
+            this.messageService.add({severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario'});
             return;
         }
         console.log('horario ', this.selectedHorario)
@@ -345,7 +346,7 @@ export class CuposComponent implements OnInit {
     changeServicioSelected(event) {
         this.personalSelected = '';
         console.log(event)
-        this.listaPersonal = this.listaPersonalAux.filter(item => item.codServicio == event.codServicio)
+        this.listaPersonal = this.dataPersonal.filter(item => item.codServicio == event.codServicio)
     }
 
     GuardarPersona() {
@@ -353,6 +354,7 @@ export class CuposComponent implements OnInit {
         this.recuperarDatos()
         this.usuarioDialog = false;
     }
+
     cancelarPersona() {
         console.log('cancelar')
         this.selectedHorario = {};

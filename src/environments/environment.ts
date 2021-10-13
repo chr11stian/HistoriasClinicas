@@ -6,7 +6,11 @@ export const environment = {
     production: false,
     bd: "historiasclinicas",
     baseUrl: "http://167.172.226.220:8080",
+
+    baseUrlSimular: 'http://localhost:3000'
+
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file
