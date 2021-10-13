@@ -56,6 +56,7 @@
             ? 'background-color:#f3a683;'
             : 'background-color:white;'
         "
+        style="padding: 10px"
       >
         {{ dia.abreviatura }}
       </th>
@@ -86,7 +87,11 @@
       >
         Nombres
       </th>
-      <th *ngFor="let dia of cabeceraMes" [style]="dia.bg">
+      <th
+        *ngFor="let dia of cabeceraMes"
+        [style]="dia.bg"
+        style="padding: 10px"
+      >
         {{ dia.dia }}
       </th>
     </tr>

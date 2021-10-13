@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { LocaleSettings } from "primeng/calendar/calendar";
 import { TipoPersonalService } from "../../services/tipo-personal/tipo-personal.service";
+import { TipoUpsService } from "../../services/tipo-ups.service";
 export interface dayType {
   label: string;
   numberDay: number;
@@ -27,53 +28,45 @@ export class RolGuardiaComponent implements OnInit {
   personalServicioGeneral = [
     //medico turno
     {
-      id: "6155c193a45b843f7c8b6eb4",
+      idUPS: "616602b6034d2c3598133293",
       apellidos: "apellido1",
-      nombres: "nombre m1",
+      nombres: "nombre1",
       especialidad: "medico general",
     },
     {
-      id: "6155c193a45b843f7c8b6eb4",
+      idUPS: "616602e0034d2c3598133294",
       apellidos: "apellido2",
-      nombres: "nombre m2",
+      nombres: "nombre2",
       especialidad: "medico general",
     },
     {
-      id: "6155c193a45b843f7c8b6eb4",
+      idUPS: "616602e0034d2c3598133294",
+      apellidos: "apellido2",
+      nombres: "nombre2",
+      especialidad: "medico general",
+    },
+    {
+      idUPS: "616602e0034d2c3598133294",
+      apellidos: "apellido2",
+      nombres: "nombre2",
+      especialidad: "enfermeria",
+    },
+    {
+      idUPS: "616602e0034d2c3598133294",
+      apellidos: "apellido2",
+      nombres: "nombre2",
+      especialidad: "enfermeria",
+    },
+    {
+      idUPS: "61660303034d2c3598133295",
       apellidos: "apellido3",
-      nombres: "nombre m3",
-      especialidad: "medico general",
-    },
-    //enfermeras
-    {
-      id: "6155cb004ec7a67ba2c1550b",
-      apellidos: "huaman rojas",
-      nombres: "Ignacio",
+      nombres: "nombre3",
       especialidad: "enfermeria",
     },
     {
-      id: "6155cb004ec7a67ba2c1550b",
-      apellidos: "vargas rojas",
-      nombres: "fidel",
-      especialidad: "enfermeria",
-    },
-    {
-      id: "6155cb004ec7a67ba2c1550b",
-      apellidos: "quispe palomino",
-      nombres: "dany",
-      especialidad: "enfermeria",
-    },
-    //medico general
-    {
-      id: "6155c11848263c7c7aaf22cb",
-      apellidos: "huaman rimachi",
-      nombres: "jefrey",
-      especialidad: "enfermeria",
-    },
-    {
-      id: "6155c11848263c7c7aaf22cb",
-      apellidos: "mamani huaman",
-      nombres: "juan",
+      idUPS: "61660303034d2c3598133295",
+      apellidos: "apellido3",
+      nombres: "nombre3",
       especialidad: "enfermeria",
     },
   ];
@@ -83,13 +76,26 @@ export class RolGuardiaComponent implements OnInit {
   personalServicioSelected: any[] = [];
   cabeceraMes: any[] = [];
 
-  constructor(private tipoPersonalService: TipoPersonalService) {
+  constructor(
+    private tipoUpsService: TipoUpsService,
+    private tipoPersonalService: TipoPersonalService
+  ) {
+    this.getPersonal();
     this.numeroDiasMes();
     this.generarCabecera();
     this.colorearCabecera();
   }
+  getPersonal() {
+    this.tipoPersonalService.getTipoPersonales().subscribe((resp) => {
+      let ups = [];
+      ups = resp["object"];
+      ups.forEach((elemento) => {
+        console.log(elemento["nombre"]);
+      });
+    });
+  }
   ngOnInit(): void {
-    this.tipoPersonalService.getTipoPersonales().subscribe((resp: any) => {
+    this.tipoUpsService.getTipoUPSs().subscribe((resp: any) => {
       this.tipoPersonalServicio = resp.object;
     });
   }
@@ -167,7 +173,7 @@ export class RolGuardiaComponent implements OnInit {
     console.log(idRol.value);
     this.personalServicioSelected = [];
     this.personalServicioGeneral.forEach((elemento) => {
-      if (elemento.id === idRol.value) {
+      if (elemento.idUPS === idRol.value) {
         this.personalServicioSelected.push(elemento);
       }
     });

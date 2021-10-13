@@ -26,6 +26,8 @@ import { CondicionPacienteRiesgoComponent } from "./component/condicion-paciente
 import { TipoUpsComponent } from "./component/tipo-ups/tipo-ups.component";
 import { TipoUpsModalComponent } from "./component/tipo-ups-modal/tipo-ups-modal.component";
 import { TipoSeguroComponent } from "./component/tipo-seguro/tipo-seguro.component";
+import { CondicionPacienteDiscapacidadComponent } from './component/condicion-paciente-discapacidad/condicion-paciente-discapacidad.component';
+import { CondicionPacienteDiscapacidadModalComponent } from './component/condicion-paciente-discapacidad-modal/condicion-paciente-discapacidad-modal.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { TipoSeguroComponent } from "./component/tipo-seguro/tipo-seguro.compone
     TipoUpsComponent,
     TipoUpsModalComponent,
     TipoSeguroComponent,
+    CondicionPacienteDiscapacidadComponent,
+    CondicionPacienteDiscapacidadModalComponent,
   ],
 
   exports: [TipoPersonalComponent, UbicacionComponent],
