@@ -324,6 +324,7 @@ export class PersonalSaludComponent implements OnInit {
     }
     close(){
         this.personalEspecialidadDialog = false;
+        this.guardarNuevoEspecialidad();
     }
     titulo() {
         if (this.isUpdate) return "Edite Personal de Salud";
