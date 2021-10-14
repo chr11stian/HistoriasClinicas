@@ -13,7 +13,7 @@
         </ng-template>
 
     </p-toolbar>
-    <p-table #dt [value]="listaCupos" [rows]="10" [paginator]="true" [globalFilterFields]="['dni']"
+    <p-table #dt [value]="listaPersonal" [rows]="10" [paginator]="true" [globalFilterFields]="['dni']"
              [(selection)]="selectedCupo" [rowHover]="true" datakey="id"
              currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
              responsiveLayout="scroll"
@@ -62,9 +62,11 @@
         <div class="p-field col-5">
             <div class="col-10">
                 <label>SERVICIO (UPS)</label>
-                <p-dropdown [options]="dataServicios" [(ngModel)]="selectedServicio"
+                <p-dropdown [options]="dataServicios"
+                            [(ngModel)]="selectedServicio"
                             placeholder="Seleccione un servicio"
-                            optionLabel="nombreServicio" [showClear]="false"
+                            optionLabel="nombreServicio"
+                            [showClear]="false"
                             (ngModelChange)="changeServicioSelected($event)">
                 </p-dropdown>
             </div>
@@ -97,7 +99,8 @@
             <div lass="col-6">
                 <h4>{{ personalSelected }}</h4>
             </div>
-            <p-table [value]="citas" [(selection)]="selectedHorario" dataKey="nroCupo">
+
+            <p-table [value]="horas" dataKey="nroCupo">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>Hora Inicio</th>
@@ -107,14 +110,16 @@
                         <th>Disponible</th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-data>
+                <ng-template pTemplate="body" let-rowData>
                     <tr>
-                        <td>{{ data.horaAtencion }}</td>
-                        <td>{{ data.horaAtencionFin }}</td>
-                        <td>{{ data.nroCupo }}</td>
-                        <td>{{ data.ipress.nombre }}</td>
+                        <td>{{ rowData.HoraI}}</td>
+                        <td>{{ rowData.HoraF}}</td>
+                        <td>{{ rowData.estado}}</td>
+                        <td>{{ rowData.nombreServicio}}</td>
                         <td>
-                            <p-tableCheckbox [value]="data"></p-tableCheckbox>
+                            <!--                            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>-->
+                            <p-checkbox name="groupname" [value]="rowData" [(ngModel)]="selectedHorario"></p-checkbox>
+
                         </td>
                     </tr>
                 </ng-template>

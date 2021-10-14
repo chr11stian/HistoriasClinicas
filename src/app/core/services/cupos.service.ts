@@ -27,6 +27,10 @@ export class CuposService {
     }
 
     getHoraAtencion() {
-        return this.http.get(`${this.base_urlSimular}/Horario_Atencion`);
+        return this.http.get(`${this.base_urlSimular}/Hora_Atencion_UPS`);
+    }
+
+    getHoraAtencionCod(data) {
+        return this.http.get(`${this.base_urlSimular}/Hora_Atencion_UPS/${data}`);
     }
 }

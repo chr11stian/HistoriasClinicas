@@ -14,6 +14,7 @@ import {TreeSelectModule} from 'primeng/treeselect';
 import {DividerModule} from 'primeng/divider';
 import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
+import {CheckboxModule} from "primeng/checkbox";
 
 @NgModule({
     declarations: [
@@ -38,7 +39,8 @@ import {InputMaskModule} from 'primeng/inputmask';
         TreeSelectModule,
         DividerModule,
         CalendarModule,
-        InputMaskModule
+        InputMaskModule,
+        CheckboxModule
     ]
 })
 export class HistoriaModule {

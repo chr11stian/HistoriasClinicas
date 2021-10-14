@@ -22,8 +22,12 @@ export class CuposComponent implements OnInit {
 
     dataOfertas: any;
     dataServicios: any;
-    dataPersonal: any;
+    dataPersonals: any;
+    dataHoraAtencions: any;
     dataHoraAtencion: any;
+    horas: any;
+
+    personalHoras: any;
 
     selectedCupo: any;
     cupos: any;
@@ -46,7 +50,7 @@ export class CuposComponent implements OnInit {
     cellHour: any;
     cellHoy: any;
     cellTomorrow: any;
-    selectedHorario: Cupo;
+    selectedHorario: any;
     selectedPersonal: any;
     formUsuarios: FormGroup;
     formCupos: FormGroup;
@@ -54,133 +58,6 @@ export class CuposComponent implements OnInit {
     today: Date = new Date();
     jsToday: string = ''
     selected: any;
-
-    citas: Cupo[] = [{
-        fecharegistro: '28/09/2021',
-        nroCupo: '01',
-        descripcion: 'CITA DEL ESTOMAGO',
-        horaAtencion: '08:00',
-        horaAtencionFin: '08:30',
-        ambiente: 'CONSULTORIO 2',
-        paciente: {
-            nombre: 'JONATHAN',
-            apellidos: 'MOROCCO LAYME',
-            tipoDoc: '1',
-            nroDoc: '72745818',
-        },
-        rol: {
-            personal: 'PERSONAL 1',
-            turno: 'MAÑANA',
-            docPersonal: '70707070',
-            idRol: '01'
-        },
-        ipress: {
-            idIpress: '001',
-            nombre: 'IPRESS 01',
-            servicio: 'servicio 1'
-        },
-        estado: '1'
-    }, {
-        fecharegistro: '28/09/2021',
-        nroCupo: '02',
-        descripcion: 'CITA DEL ESTOMAGO',
-        horaAtencion: '08:30',
-        horaAtencionFin: '09:00',
-        ambiente: 'CONSULTORIO 2',
-        paciente: {
-            nombre: 'JONATHAN',
-            apellidos: 'MOROCCO LAYME',
-            tipoDoc: '1',
-            nroDoc: '72745818',
-        },
-        rol: {
-            personal: 'PERSONAL 1',
-            turno: 'MAÑANA',
-            docPersonal: '70707070',
-            idRol: '01'
-        },
-        ipress: {
-            idIpress: '001',
-            nombre: 'IPRESS 01',
-            servicio: 'servicio 1'
-        },
-        estado: '1'
-    }, {
-        fecharegistro: '28/09/2021',
-        nroCupo: '03',
-        descripcion: 'CITA DEL ESTOMAGO',
-        horaAtencion: '09:00',
-        horaAtencionFin: '09:30',
-        ambiente: 'CONSULTORIO 2',
-        paciente: {
-            nombre: 'JONATHAN',
-            apellidos: 'MOROCCO LAYME',
-            tipoDoc: '1',
-            nroDoc: '72745818',
-        },
-        rol: {
-            personal: 'PERSONAL 1',
-            turno: 'MAÑANA',
-            docPersonal: '70707070',
-            idRol: '01'
-        },
-        ipress: {
-            idIpress: '001',
-            nombre: 'IPRESS 02',
-            servicio: 'servicio 1'
-        },
-        estado: '1'
-    }, {
-        fecharegistro: '28/09/2021',
-        nroCupo: '04',
-        descripcion: 'CITA DEL ESTOMAGO',
-        horaAtencion: '12:00',
-        horaAtencionFin: '12:30',
-        ambiente: 'CONSULTORIO 2',
-        paciente: {
-            nombre: 'JONATHAN',
-            apellidos: 'MOROCCO LAYME',
-            tipoDoc: '1',
-            nroDoc: '72745818',
-        },
-        rol: {
-            personal: 'PERSONAL 1',
-            turno: 'MAÑANA',
-            docPersonal: '70707070',
-            idRol: '01'
-        },
-        ipress: {
-            idIpress: '001',
-            nombre: 'IPRESS 03',
-            servicio: 'servicio 1'
-        },
-        estado: '1'
-    }]
-
-
-    listaCupos: any = [{
-        dni: '72745818',
-        apellidos: 'MOROCCO LAYME',
-        nombres: 'JONATHAN',
-        servicio: 'ODONTOLOGIA',
-        horarioAtencion: '08:00',
-        fechaAtencion: '20/08/2021'
-    }, {
-        dni: '72745817',
-        apellidos: 'MOROCCO OTRO',
-        nombres: 'JONA',
-        servicio: 'ENFERMERIA',
-        horarioAtencion: '08:30',
-        fechaAtencion: '20/08/2021'
-    }, {
-        dni: '72745810',
-        apellidos: 'OTRO EJEMPLO',
-        nombres: 'NO KIEB',
-        servicio: 'MEDICINA GENERAL',
-        horarioAtencion: '09:00 am',
-        fechaAtencion: '20/08/2021'
-    }]
-
     docIdentidad: any = [{
         id: '001',
         nombre: 'Documento Nacional de Identidad',
@@ -224,10 +101,11 @@ export class CuposComponent implements OnInit {
 
     ngOnInit(): void {
 
+
         this.today.getHours();
         let listHorarios: any = [];
         let minutes;
-        console.log('lista de cupos', this.listaCupos);
+        // console.log('lista de cupos', this.listaCupos);
         this.primeNGConfig.ripple = true;
         console.log('hoy', this.today);
         this.today.setMinutes(this.today.getMinutes() + 30);
@@ -239,13 +117,14 @@ export class CuposComponent implements OnInit {
         this.getOfertas(1);
         this.getServicios();
         this.getPersonal();
-        this.getAtencion();
+        this.getHora_Atencion();
     }
+
 
     getOfertas(id) {
         this.cuposService.getOferta(id).subscribe((resp: any) => {
             this.dataOfertas = resp;
-            console.log("OFERTAS", resp);
+            console.log("OFERTA", resp);
         });
     }
 
@@ -258,18 +137,25 @@ export class CuposComponent implements OnInit {
 
     getPersonal() {
         this.cuposService.getPersonal().subscribe((resp: any) => {
-            this.dataPersonal = resp;
+            this.dataPersonals = resp;
             console.log("Personal", resp);
         });
     }
 
-
-    getAtencion() {
+    getHora_Atencion() {
         this.cuposService.getHoraAtencion().subscribe((resp: any) => {
-            this.dataHoraAtencion = resp;
+            this.dataHoraAtencions = resp;
             console.log("HORA ATENCION", resp);
         });
     }
+
+    getHora_AtencionID(data) {
+        this.cuposService.getHoraAtencionCod(data).subscribe((resp: any) => {
+            this.dataHoraAtencion = resp;
+            console.log("Atencioooooaaaa", resp);
+        });
+    }
+
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
@@ -319,6 +205,7 @@ export class CuposComponent implements OnInit {
     }
 
     closeDialogCupos() {
+        this.horas = null;
         this.cuposDialog = false;
         this.selectedHorario = {};
         Swal.fire({
@@ -336,7 +223,12 @@ export class CuposComponent implements OnInit {
 
     onRowSelect(event) {
         console.log('event', event.data);
-        this.personalSelected = event.data.apellidos + ' ' + event.data.nombres
+        this.personalSelected = event.data.apellidos + ' ' + event.data.nombres;
+
+        this.personalHoras = event.data.codServicio;
+
+        this.horas = this.dataHoraAtencions.filter(item => item.codServicio == this.personalHoras)
+        console.log("aaa", this.horas);
     }
 
     onRowUnselect(event) {
@@ -346,7 +238,8 @@ export class CuposComponent implements OnInit {
     changeServicioSelected(event) {
         this.personalSelected = '';
         console.log(event)
-        this.listaPersonal = this.dataPersonal.filter(item => item.codServicio == event.codServicio)
+        this.listaPersonal = this.dataPersonals.filter(item => item.codServicio == event.codServicio);
+        this.horas = null;
     }
 
     GuardarPersona() {
