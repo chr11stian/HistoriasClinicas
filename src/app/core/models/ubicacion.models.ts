@@ -19,7 +19,7 @@ export interface Departamentos {
 }
 
 export interface Provincias {
-    idpp: string;
+    idpp?: string;
     provincia?: string;
 }
 
