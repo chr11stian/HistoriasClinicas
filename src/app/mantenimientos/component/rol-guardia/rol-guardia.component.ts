@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { LocaleSettings } from "primeng/calendar/calendar";
+import { delayWhen } from "rxjs/operators";
 import { TipoPersonalService } from "../../services/tipo-personal/tipo-personal.service";
+import { RolGuardiaService } from "../../services/rol-guardia/rol-guardia.service";
 import { TipoUpsService } from "../../services/tipo-ups.service";
 export interface dayType {
   label: string;
@@ -16,12 +18,28 @@ export interface dayType {
 })
 export class RolGuardiaComponent implements OnInit {
   matriz: any = [];
+  isEditable: boolean;
   turno = [
-    { name: "M", code: "MA" },
-    { name: "T", code: "TA" },
-    { name: "M/T", code: "M/T" },
-    { name: "GD", code: "GD" },
-    { name: "GN", code: "GN" },
+    {
+      nombre: "M",
+      abreviatura: "MA",
+    },
+    {
+      nombre: "T",
+      abreviatura: "TA",
+    },
+    {
+      nombre: "M/T",
+      abreviatura: "M/T",
+    },
+    {
+      nombre: "GD",
+      abreviatura: "GD",
+    },
+    {
+      nombre: "GN",
+      abreviatura: "GN",
+    },
   ];
   tipoPersonalServicio: any[];
   turnos: any[];
@@ -32,42 +50,49 @@ export class RolGuardiaComponent implements OnInit {
       apellidos: "apellido1",
       nombres: "nombre1",
       especialidad: "medico general",
+      dni: "11111111",
     },
     {
       idUPS: "616602e0034d2c3598133294",
       apellidos: "apellido2",
       nombres: "nombre2",
       especialidad: "medico general",
+      dni: "73145986",
     },
     {
       idUPS: "616602e0034d2c3598133294",
       apellidos: "apellido2",
       nombres: "nombre2",
       especialidad: "medico general",
+      dni: "23232323",
     },
     {
       idUPS: "616602e0034d2c3598133294",
       apellidos: "apellido2",
       nombres: "nombre2",
       especialidad: "enfermeria",
+      dni: "24242424",
     },
     {
       idUPS: "616602e0034d2c3598133294",
       apellidos: "apellido2",
       nombres: "nombre2",
       especialidad: "enfermeria",
+      dni: "12121212",
     },
     {
       idUPS: "61660303034d2c3598133295",
       apellidos: "apellido3",
-      nombres: "nombre3",
+      nombres: "laura jimena",
       especialidad: "enfermeria",
+      dni: "23232323",
     },
     {
       idUPS: "61660303034d2c3598133295",
       apellidos: "apellido3",
-      nombres: "nombre3",
+      nombres: "juan carlos",
       especialidad: "enfermeria",
+      dni: "24242424",
     },
   ];
   fecha = new Date();
@@ -78,19 +103,21 @@ export class RolGuardiaComponent implements OnInit {
 
   constructor(
     private tipoUpsService: TipoUpsService,
-    private tipoPersonalService: TipoPersonalService
+    private tipoPersonalService: TipoPersonalService,
+    private rolGuardiaService: RolGuardiaService
   ) {
     this.getPersonal();
     this.numeroDiasMes();
     this.generarCabecera();
     this.colorearCabecera();
+    this.isModificable();
   }
   getPersonal() {
     this.tipoPersonalService.getTipoPersonales().subscribe((resp) => {
       let ups = [];
       ups = resp["object"];
       ups.forEach((elemento) => {
-        console.log(elemento["nombre"]);
+        // console.log(elemento["nombre"]);
       });
     });
   }
@@ -105,12 +132,16 @@ export class RolGuardiaComponent implements OnInit {
     for (let i = 0; i < this.personalServicioSelected.length; i++) {
       let filaAux = [];
       for (let j = 0; j < this.nroDiasMes; j++) {
-        filaAux.push("TA");
+        filaAux.push(
+          //primer turno por defecto
+          this.turno[0]
+        );
       }
       this.matriz.push(filaAux);
     }
   }
   numeroDiasMes() {
+    //creamos un nuevo objeto dandole x defecto el ultimo dial del mes
     this.nroDiasMes = new Date(
       this.fecha.getFullYear(),
       this.fecha.getMonth() + 1,
@@ -162,12 +193,28 @@ export class RolGuardiaComponent implements OnInit {
       }
     });
   }
+  isModificable() {
+    let isVisible: boolean;
+    let fechaActual = new Date();
+    if (
+      this.fecha.getFullYear() > fechaActual.getFullYear() ||
+      (this.fecha.getFullYear() == fechaActual.getFullYear() &&
+        this.fecha.getMonth() >= fechaActual.getMonth())
+    ) {
+      isVisible = true;
+    } else {
+      isVisible = false;
+    }
+    this.isEditable = isVisible;
+    console.log("esModficable", isVisible);
+  }
   cambiarFecha(fechaseleccionada: Date) {
     this.fecha = fechaseleccionada;
     this.numeroDiasMes();
     this.generarCabecera();
     this.colorearCabecera();
     this.crearMatriz(); //si cambia fecha
+    this.isModificable();
   }
   changePersonalServicio(idRol, dd) {
     console.log(idRol.value);
@@ -180,6 +227,47 @@ export class RolGuardiaComponent implements OnInit {
     this.crearMatriz();
   }
   designar() {
-    console.log(this.matriz);
+    let matrizAux = [];
+    for (let i = 0; i < this.matriz.length; i++) {
+      let filaAux = [];
+      for (let j = 0; j < this.matriz[0].length; j++) {
+        let elemento = this.matriz[i][j];
+        let elementoAux = {
+          abreviatura: elemento["abreviatura"],
+          dia: j + 1,
+          nroDoc: this.personalServicioSelected[i]["dni"],
+        };
+        filaAux.push(elementoAux);
+      }
+      matrizAux.push(filaAux);
+    }
+    // console.log(matrizAux);
+
+    //insertamos registro por registros
+    for (let x = 0; x < matrizAux.length; x++) {
+      for (let y = 0; y < matrizAux[0].length; y++) {
+        let mesInput: any = {
+          anio: this.fecha.getFullYear(),
+          mes: this.fecha.getMonth(),
+          dia: matrizAux[x][y]["dia"],
+          idIpress: "61424d4873a26b7a64ecaefa",
+          servicio: "ACUPUNTURA Y AFINES",
+          tipoDoc: "DNI",
+          nroDoc: matrizAux[x][y]["nroDoc"],
+          ambiente: "ACUP 01",
+          abreviatura: matrizAux[x][y]["abreviatura"],
+        };
+
+        // console.log(mesInput);
+        this.rolGuardiaService.AddUpdateRolGuardia(mesInput).subscribe(
+          (resp) => {
+            console.log(resp);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+    }
   }
 }

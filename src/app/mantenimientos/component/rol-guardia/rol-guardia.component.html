@@ -43,8 +43,27 @@
             view="month"
             dateFormat="mm/yy"
             [yearNavigator]="true"
-            yearRange="2000:2030"
+            yearRange="2020:2021"
           ></p-calendar>
+          <div
+            class="flex align-items-center text-center justify-content-center"
+          >
+            <button
+              pButton
+              type="button"
+              label=""
+              icon="pi pi-chevron-left"
+              class="p-button-text p-button-secondary"
+            ></button>
+            <span class="m-4"> Octubre 2018 </span>
+            <button
+              pButton
+              type="button"
+              label=""
+              icon="pi pi-chevron-right"
+              class="p-button-text p-button-secondary"
+            ></button>
+          </div>
         </div>
       </th>
     </tr>
@@ -122,12 +141,12 @@
       >
         <!-- {{ i }} -{{ j }} -->
         <p-dropdown
+          [inline]="false"
+          [disabled]="!isEditable"
           [options]="turno"
           [virtualScroll]="true"
-          optionLabel="name"
-          optionValue="code"
           [(ngModel)]="matriz[i][j]"
-          itemSize="30"
+          optionLabel="abreviatura"
         ></p-dropdown>
       </td>
       <td class="border-500 text-900">8</td>
