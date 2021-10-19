@@ -4,8 +4,12 @@
 
 export const environment = {
     production: false,
+    // bd: "historiasclinicas",
+    // baseUrl: "http://167.172.226.220:8080",
+
     bd: "historiasclinicas",
-    baseUrl: "http://167.172.226.220:8080",
+    baseUrl: "http://192.168.5.3:8080",
+
 
     baseUrlSimular: 'http://localhost:3000'
 

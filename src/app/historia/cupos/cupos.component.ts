@@ -20,6 +20,12 @@ import {CuposService} from "../../core/services/cupos.service";
 })
 export class CuposComponent implements OnInit {
 
+
+    dataOfertasCupos: any;
+    ups: any;
+    upsnombre: any;
+
+
     dataOfertas: any;
     dataServicios: any;
     dataPersonals: any;
@@ -78,6 +84,7 @@ export class CuposComponent implements OnInit {
         abreviatura: '	CARNET EXT'
     }]
 
+
     constructor(
         private config: DynamicDialogConfig,
         private router: Router,
@@ -101,7 +108,6 @@ export class CuposComponent implements OnInit {
 
     ngOnInit(): void {
 
-
         this.today.getHours();
         let listHorarios: any = [];
         let minutes;
@@ -118,6 +124,28 @@ export class CuposComponent implements OnInit {
         this.getServicios();
         this.getPersonal();
         this.getHora_Atencion();
+
+        // let res = this.ups;
+
+        // this.getOfertascupos(res);
+        this.getDataUPS();
+    }
+
+    getDataUPS() {
+        this.cuposService.getTipoUPSs().subscribe((resp: any) => {
+            this.ups = resp.object;
+            console.log("UPS", this.ups);
+        });
+    }
+
+
+
+
+    getOfertascupos(data) {
+        this.cuposService.getOfertas(data).subscribe((resp: any) => {
+            this.dataOfertasCupos = resp;
+            console.log("OFERTAS CUPOS", resp);
+        });
     }
 
 
@@ -146,13 +174,6 @@ export class CuposComponent implements OnInit {
         this.cuposService.getHoraAtencion().subscribe((resp: any) => {
             this.dataHoraAtencions = resp;
             console.log("HORA ATENCION", resp);
-        });
-    }
-
-    getHora_AtencionID(data) {
-        this.cuposService.getHoraAtencionCod(data).subscribe((resp: any) => {
-            this.dataHoraAtencion = resp;
-            console.log("Atencioooooaaaa", resp);
         });
     }
 
