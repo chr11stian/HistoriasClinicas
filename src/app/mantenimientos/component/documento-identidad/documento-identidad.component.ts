@@ -117,8 +117,8 @@ export class DocumentoIdentidadComponent implements OnInit {
         this.form.patchValue({ longitud: '' });
     }
 
-    cancelarPersona() {
-        this.limpiarCampos();
+    closeDialog() {
+        this.agregarDoc = false;
     }
 
     editar(row) {
@@ -161,5 +161,9 @@ export class DocumentoIdentidadComponent implements OnInit {
 
     openDialogAgregarDoc(){
         this.agregarDoc = true;
+    }
+
+    cancelarDialogDoc(){
+        
     }
 }

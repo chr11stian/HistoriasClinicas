@@ -1,14 +1,11 @@
 <div class="p-card">
     <p-toolbar styleClass="p-mb-4">
-
         <ng-template pTemplate="left">
             <h3 class="p-m-0">Lista de Ubicaciones</h3>
         </ng-template>
-
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
                     (click)="openNew()"></button>
-
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
         </ng-template>
     </p-toolbar>
@@ -26,33 +23,33 @@
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
                 <th>Nro</th>
+                <th>Ubigeo</th>
                 <th>Departamento</th>
                 <th>Provincia</th>
                 <th>Distrito</th>
                 <th>Poblacion</th>
-                <th>Ubigeo</th>
                 <th>Latitude</th>
                 <th>Longitude</th>
                 <th>Altura</th>
-                <th>Editar</th>
+                <th style="text-align: center">Estado</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
                 <td>{{ rowIndex + 1 }}</td>
+                <td>{{ rowData.ubigeo }}</td>
                 <td>{{ rowData.departamento }}</td>
                 <td>{{ rowData.provincia }}</td>
                 <td>{{ rowData.distrito }}</td>
                 <td>{{ rowData.poblacion }}</td>
-                <td>{{ rowData.ubigeo }}</td>
                 <td>{{ rowData.latitude }}</td>
                 <td>{{ rowData.longitude }}</td>
                 <td>{{ rowData.altura }}, m.s.n.m.</td>
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
-                            (click)="editUbicacion(rowData)"></button>
-                    <!--                <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success "-->
-                    <!--                ></button>-->
+                            (click)="edit(rowData)"></button>
+                    <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success "
+                    ></button>
                 </td>
 
             </tr>
@@ -62,144 +59,221 @@
 </div>
 
 
-<p-dialog [(visible)]="ubicacionDialog" [style]="{width: '1080px'}" header="Registrar Ubicación"
-          [modal]="true" [responsive]="dataDepartamntos"
-          styleClass="p-fluid">
+<p-dialog [(visible)]="ubicacionEditarDialog" [style]="{width: '980px'}" [modal]="true"
+          styleClass="p-fluid " autoZIndex>
+    <ng-template pTemplate="header">
+        <h3>{{titulo()}}</h3>
+    </ng-template>
+
     <br>
-
     <ng-template pTemplate="body">
-        <div class="grid">
-            <div class="p-field col-4">
-                <label>CENTRO POBLADO</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="ccpp" [(ngModel)]="ubicacion.ccpp"
-                           pInputText>
+        <form [formGroup]='form'>
+            <div class="grid">
+                <div class="p-field col-4">
+                    <label>DEPARTAMENTO</label>
+                    <input type="text" pInputText formControlName='departamento' required readonly/>
                 </div>
-            </div>
-        </div>
 
-        <br>
-        <div class="grid">
-            <div class=" col-4">
-                <label>DEPARTAMENTO</label>
-                <div class="p-field">
-                    <p-dropdown inputId="dropdown"
-                                [autoDisplayFirst]="false"
-                                [options]="dataDepartamntos"
-                                [(ngModel)]="ubicacion.departamento"
-                                (onChange)="selectedDepartamento()"
-                                [showClear]="true"
-                                optionLabel="departamento"
-                                defaultLabel="Seleccione un Departamento"
-                                placeholder="-TODOS-"
-                                id="departamento">
 
-                    </p-dropdown>
+                <div class="p-field col-4">
+                    <label>PROVINCIA</label>
+                    <input type="text" pInputText formControlName='provincia' required readonly/>
                 </div>
-            </div>
-            <div class="p-field col-4">
-                <label>PROVINCIA</label>
-                <div class="p-field">
-                    <p-dropdown
-                            inputId="dropdown"
-                            [autoDisplayFirst]="false"
-                            [options]="dataProvincia"
-                            optionLabel="provincia"
-                            defaultLabel="Seleccione un Departamento"
-                            placeholder="-TODOS-"
-                            id="provincia"
-                            [showClear]="true"
-                            [(ngModel)]="ubicacion.provincia"
-                            (onChange)="selectedProvincia()">
 
-                    </p-dropdown>
+
+                <div class="p-field col-4">
+                    <label>DISTRITO</label>
+                    <input type="text" pInputText formControlName='distrito' required readonly/>
                 </div>
+
             </div>
-            <div class="p-field col-4">
-                <label>DISTRITO</label>
-                <div class="p-field">
-                    <p-dropdown inputId="dropdown"
-                                [autoDisplayFirst]="false"
-                                [options]="dataDistrito"
-                                [(ngModel)]="ubicacion.distrito"
-                                optionLabel="distrito"
+
+            <br>
+
+            <div class="grid">
+
+                <div class="p-field col-2">
+                    <label>UBIGEO</label>
+                    <input type="text" pInputText formControlName='ubigeo' readonly/>
+                </div>
+
+
+                <div class="p-field col-6">
+                    <label>CENTRO POBLADO</label>
+                    <div class="p-field">
+                        <p-dropdown
+                                inputId="dropdown"
+                                [options]="dataCCPP"
+                                formControlName='ccpp'
+                                optionValue='ccpp'
+                                optionLabel="ccpp"
                                 defaultLabel="Seleccione un distrito"
-                                placeholder="-TODOS-"
-                                id="distrito"
-                                [showClear]="true">
-                    </p-dropdown>
+                                id="ccpp1">
+                        </p-dropdown>
+                    </div>
+                </div>
+
+
+                <div class="p-field col-4">
+                    <label>POBLACION</label>
+                    <input type="text" pInputText formControlName='poblacion' required/>
                 </div>
             </div>
-        </div>
-        <br>
+            <br>
 
-        <div class="grid">
+            <div class="grid">
+                <div class="p-field col-3">
+                    <label>LATITUD</label>
+                    <div class="p-inputgroup">
+                        <input type="text" pInputText formControlName='latitude' required/>
+                    </div>
+                </div>
+                <div class="p-field col-3">
+                    <label>LONGITUD</label>
+                    <input type="text" pInputText formControlName='longitude' required/>
+                </div>
 
-            <div class="p-field col-4">
-                <label>POBLACION</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="poblacion"
-                           [(ngModel)]="ubicacion.poblacion" pInputText>
+                <div class="p-field col-3">
+                    <label>ALTURA</label>
+                    <input type="text" pInputText formControlName='altura' required/>
+                </div>
+
+                <div class="p-field col-3">
+                    <label>CAPITAL</label>
+                    <input type="text" pInputText formControlName='es_Capital' required/>
                 </div>
             </div>
-
-            <div class="p-field col-4">
-                <label>UBIGEO</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="ubigeo"
-                           [(ngModel)]="ubicacion.ubigeo"
-                           pInputText>
-                </div>
-            </div>
-
-            <div class="p-field col-4">
-                <label>LATITUD</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="latitude" [(ngModel)]="ubicacion.latitude"
-                           pInputText>
-                </div>
-            </div>
-
-        </div>
-        <br>
-
-        <div class="grid">
-
-            <div class="p-field col-4">
-                <label>LONGITUD</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="longitude" [(ngModel)]="ubicacion.longitude"
-                           pInputText>
-                </div>
-            </div>
-
-            <div class="p-field col-4">
-                <label>ALTURA</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="altura" [(ngModel)]="ubicacion.altura"
-                           pInputText>
-                </div>
-            </div>
-
-            <div class="p-field col-4">
-                <label>ES CAPITAL</label>
-                <div class="p-inputgroup">
-                    <input style="width: 15rem" type="text" id="es-capital"
-                           [(ngModel)]="ubicacion.es_Capital"
-                           pInputText>
-                </div>
-            </div>
-
-        </div>
-
-
+        </form>
     </ng-template>
 
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
-        <button pButton type="button" label="Guardar" (click)="save()"></button>
-
-        <!--        <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>-->
-        <!--        <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>-->
+        <button pButton type="button" label="Actualizar" class="p-button-primary" (click)="editarDatos()"></button>
     </ng-template>
 </p-dialog>
+
+
+<p-dialog [(visible)]="ubicacionDialog" [style]="{width: '980px'}" [modal]="true"
+          styleClass="p-fluid " autoZIndex>
+    <ng-template pTemplate="header">
+        <h3>{{titulo()}}</h3>
+    </ng-template>
+
+    <br>
+    <ng-template pTemplate="body">
+        <form [formGroup]='form'>
+            <div class="grid">
+                <div class=" col-4">
+                    <label>DEPARTAMENTO</label>
+                    <div class="p-field">
+                        <p-dropdown inputId="dropdown"
+                                    [autoDisplayFirst]="false"
+                                    [options]="dataDepartamntos"
+                                    [showClear]="true"
+                                    (onChange)="selectedDepartamento()"
+                                    formControlName='departamento'
+                                    optionLabel="departamento"
+                                    defaultLabel="Seleccione un Departamento"
+                                    id="departamento">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field col-4">
+                    <label>PROVINCIA</label>
+                    <div class="p-field">
+                        <p-dropdown
+                                inputId="dropdown"
+                                [autoDisplayFirst]="false"
+                                [showClear]="true"
+                                [options]="dataProvincia"
+                                (onChange)="selectedProvincia()"
+                                formControlName="provincia"
+                                optionLabel="provincia"
+                                defaultLabel="Seleccione un Departamento"
+                                id="idpp">
+
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field col-4">
+                    <label>DISTRITO</label>
+                    <div class="p-field">
+                        <p-dropdown
+                                inputId="dropdown"
+                                [autoDisplayFirst]="false"
+                                [showClear]="true"
+                                [options]="dataDistrito"
+                                (onChange)="selectDistrito()"
+                                formControlName="distrito"
+                                optionLabel="distrito"
+                                defaultLabel="Seleccione un distrito"
+                                id="distrito">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <div class="grid">
+
+                <div class="p-field col-4">
+                    <label>CENTRO POBLADO</label>
+                    <input type="text" pInputText formControlName='ccpp' required/>
+                </div>
+                <div class="p-field col-4">
+                    <label>POBLACION</label>
+                    <div class="p-inputgroup">
+                        <input type="text" pInputText formControlName='poblacion' required/>
+                    </div>
+                </div>
+
+                <!--                <div class="p-field col-4">-->
+                <!--                    <label>CENTRO POBLADO</label>-->
+                <!--                    <div class="p-field">-->
+                <!--                        <p-dropdown-->
+                <!--                                inputId="dropdown"-->
+                <!--                                [autoDisplayFirst]="false"-->
+                <!--                                [showClear]="true"-->
+                <!--                                [options]="dataCCPP"-->
+                <!--                                formControlName="ccpp"-->
+                <!--                                optionLabel="ccpp"-->
+                <!--                                defaultLabel="Seleccione un distrito"-->
+                <!--                                id="ccpp">-->
+                <!--                        </p-dropdown>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </div>
+            <br>
+
+            <div class="grid">
+                <div class="p-field col-3">
+                    <label>LATITUD</label>
+                    <div class="p-inputgroup">
+                        <input type="text" pInputText formControlName='latitude' required/>
+                    </div>
+                </div>
+                <div class="p-field col-3">
+                    <label>LONGITUD</label>
+                    <input type="text" pInputText formControlName='longitude' required/>
+                </div>
+
+                <div class="p-field col-3">
+                    <label>ALTURA</label>
+                    <input type="text" pInputText formControlName='altura' required/>
+                </div>
+
+                <div class="p-field col-3">
+                    <label>CAPITAL</label>
+                    <input type="text" pInputText formControlName='es_Capital' required/>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
+        <button pButton type="button" label="Guardar" class="p-button-primary" (click)="saveForm()"></button>
+    </ng-template>
+</p-dialog>
+

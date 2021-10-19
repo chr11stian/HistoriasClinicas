@@ -40,4 +40,7 @@ export class PersonalService {
     deletePersonalEspecialidad(id,nombreEspecialidad){
         return this.http.delete<any>(`${this.base_url}/${this.bd}/api/personal/eliminarespecialidad/${id}/${nombreEspecialidad}`)
     }
+    editPersonalEspecialidad(id,reqEspecialidad){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/personal/actualizarespecialidad/${id}`, reqEspecialidad)
+    }
 }

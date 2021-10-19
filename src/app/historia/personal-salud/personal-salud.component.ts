@@ -36,6 +36,7 @@ export class PersonalSaludComponent implements OnInit {
     stateOptions: any[];
     nombrePersonal: string = "";
     idEspecialidad: string = "";
+    estadoUpdateEspecialidad: boolean;
 
     especialidades: any[];
     personalDialog: boolean;
@@ -57,7 +58,7 @@ export class PersonalSaludComponent implements OnInit {
         this.getEspecialidades();
         this.getColegios();
         this.getTipoContratos();
-        this.stateOptions = [{ label: 'Activo', value: true }, { label: 'No Activo', value: false }];
+        this.stateOptions = [{ label: 'Activo', value: true }, { label: 'Inactivo', value: false }];
         this.domicilioList = [{
             apePaterno: 'Olazabal',
             apeMaterno: 'Caller',
@@ -116,7 +117,6 @@ export class PersonalSaludComponent implements OnInit {
             tipoPersonal: ['', [Validators.required]],
             colegioProfesional: ['', [Validators.required]],
             colegiatura: ['', [Validators.required]],
-            especialidad: ['', [Validators.required]],
             estado: ['', [Validators.required]],
             contratoAbreviatura: ['', [Validators.required]],
             sexo: ['', [Validators.required]],
@@ -330,10 +330,11 @@ export class PersonalSaludComponent implements OnInit {
         this.formEspecialidad.get('nroEspecialidad').setValue("");
     }
     editarEspecialidad(rowData) {
+        console.log("editar",rowData);
         this.isUpdateEspecialidad = true;
         this.formEspecialidad.get('nombre').setValue(rowData.nombre);
         this.formEspecialidad.get('nroEspecialidad').setValue(rowData.nroEspecialidad);
-        //this.idUpdateEspecialidad = rowData.id;
+        this.estadoUpdateEspecialidad = rowData.estado;
     }
     tituloEspecialidad() {
         if (this.isUpdateEspecialidad) return "Edite Especialidad";
@@ -378,6 +379,31 @@ export class PersonalSaludComponent implements OnInit {
                 Swal.fire({
                     icon: 'success',
                     title: 'Agregado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+                this.getPersonalIdEspecialidad();
+                this.guardarNuevoEspecialidad();
+            }
+        )
+    }
+    saveEdicionEspecialidad(){
+        let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
+        console.log(est);
+        const req = {
+            nombre: this.formEspecialidad.value.nombre,
+            nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
+            estado: this.estadoUpdateEspecialidad
+
+        }
+        console.log(req);
+
+        this.personalservice.editPersonalEspecialidad(this.idEspecialidad,req).subscribe(
+            result => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Editado correctamente',
                     text: '',
                     showConfirmButton: false,
                     timer: 1500,
