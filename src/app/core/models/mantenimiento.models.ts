@@ -1,3 +1,5 @@
+import { Ubicacion } from "./ubicacion.models";
+
 export interface TipoPersonal {
   id: string;
   nombre?: string;
@@ -169,4 +171,17 @@ export interface DescripcionUsuarioRoles {
   funcion?: DescripcionFuncionIpress[];
 }
 
+export interface Ipress {
+  id?: string;
+  codRENAES?: string;
+  nombreEESS?: string;
+  categoria?: any;
+  ubicacion?: any;
+  red?: any;
+  encargado?: any;
+  jurisdiccion?: any[];
+  roles?: any[];
+  ambientes?: any[];
+  turnos?: any[];
+} 
 export class Mantenimientos {}

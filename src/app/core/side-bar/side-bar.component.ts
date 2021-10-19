@@ -147,6 +147,11 @@ export class SideBarComponent implements OnInit {
                         icon: "pi pi-pw pi-file",
                         routerLink: "historia/usuarios",
                     },
+                    {
+                        label: "Institución Prestadora de Servicios de Salud",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "historia/ipress",
+                    },
                 ],
             },
             {

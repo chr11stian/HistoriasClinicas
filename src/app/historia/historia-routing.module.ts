@@ -4,6 +4,7 @@ import {CuposComponent} from './cupos/cupos.component';
 import {PersonalSaludComponent} from "./personal-salud/personal-salud.component";
 import {UsuariosComponent} from "./usuarios/usuarios.component";
 import {UbicacionComponent} from "../mantenimientos/component/ubicacion/ubicacion.component";
+import { IpressComponent } from './ipress/ipress.component';
 
 const routes: Routes = [
     {
@@ -27,6 +28,10 @@ const routes: Routes = [
     {
         path: "cupos",
         component: CuposComponent
+    },
+    {
+        path: "ipress",
+        component: IpressComponent
     },
 
 
