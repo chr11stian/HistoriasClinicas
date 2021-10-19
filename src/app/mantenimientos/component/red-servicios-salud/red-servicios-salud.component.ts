@@ -74,7 +74,7 @@ export class RedServiciosSaludComponent implements OnInit {
             nombreEESS: new FormControl(''),
             categoria: new FormControl(''),
             ubigeo: new FormControl('')
-        })
+        });
     }
 
     getRedServiciosSalud() {
@@ -389,7 +389,6 @@ export class RedServiciosSaludComponent implements OnInit {
     }
 
     editarEESS() {
-        // this.redServiciosSaludService.get
         console.log('este es el editar para estableciemiento de salud ')
 
     }

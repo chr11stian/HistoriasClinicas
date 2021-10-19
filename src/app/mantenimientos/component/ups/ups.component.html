@@ -1,0 +1,123 @@
+<div class="p-card">
+    <p-toolbar class="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">UPS</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                (click)="openDialogUPS()"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="listaUPS" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
+        [(selection)]="selectedUPS" [rowHover]="true" dataKey="codUPS"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas" responsiveLayout="scroll"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines">
+        <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="width: 3rem"></th>
+                <th style="text-align: center;">Nro</th>
+                <th style="text-align: center;">Id UPS</th>
+                <th style="text-align: center;">Nombre UPS</th>
+                <th style="text-align: center;">Tipo UPS</th>
+                <th style="text-align: center;">Acción</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-ups style="text-align: center;" let-i="rowIndex" let-expanded="expanded">
+            <tr>
+                <td>
+                    <button type="button" pButton pRipple [pRowToggler]="ups"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                </td>
+                <td style="text-align: center;">{{ i + 1 }}</td>
+                <td style="text-align: center;">{{ ups.codUPS }}</td>
+                <td style="text-align: center;">{{ ups.nombreUPS }}</td>
+                <td style="text-align: center;">{{ ups.tipoUPS }}</td>
+                <td style="text-align: center;width: 10em;">
+                    <button pButton (click)="openEditarUPS(ups)" pTooltip="Editar" pRipple type="button"
+                        icon="pi pi-pencil" class="p-button-rounded m-1">
+                    </button>
+                    <button pButton (click)="openEditarUPS(ups)" pTooltip="Editar" pRipple type="button"
+                        icon="pi pi-pencil" class="p-button-rounded m-1">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="rowexpansion" let-ups>
+            <tr>
+                <td colspan="7">
+                    <div class="p-p-3">
+                        <p-table [value]="ups.subTituloUPS" dataKey="nombreSubTipo">
+                            <ng-template pTemplaet="header">
+            <tr>
+                <th style="width: 4rem"></th>
+                <th pSortableColumn="nombreSubTipo">Nombre SubTipo</th>
+                <th pSortableColumn="cupo">Cupo</th>
+                <th style="width: 4rem"></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-subTitulo>
+            <tr>
+                <td></td>
+                <td>{{ subTitulo.nombreSubTipo }}</td>
+                <td>{{ subTitulo.tieneCupo }}</td>
+                <td>
+                    <p-button type="button" icon="pi pi-search"></p-button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+</td>
+</tr>
+</ng-template>
+</p-table>
+</div>
+
+<p-dialog [(visible)]="dialogUPS" [style]="{width: '850px'}" header="Registrar Red de Servicios de Salud" [modal]="true"
+    styleClass="p-fluid" autoZIndex>
+    <form [formGroup]='formUPS'>
+        <div class="grid">
+            <div class="p-field col-2">
+                <label>Id UPS</label>
+                <input type="text" pInputText formControlName="codUPS" class="inputTest" />
+            </div>
+            <div class="p-field col-5">
+                <label>Nombre UPS</label>
+                <input type="text" pInputText formControlName="nombreUPS" class="inputTest" />
+            </div>
+            <div class="p-field col-5">
+                <label>Nombre Comercial</label>
+                <input type="text" pInputText formControlName="nombreComercial" class="inputTest" />
+            </div>
+        </div>
+    </form>
+        <div class="grid mt-4">
+            <div class="col-1 ml-4">
+                <label>HIS</label>
+                <br>
+                <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+            </div>
+            <div class="col-1">
+                <label>SIS</label>
+                <br>
+                <p-radioButton name="groupname" value="val2" [(ngModel)]="selectedValue"></p-radioButton>
+            </div>
+            <div class=" col-4">
+                <label>Tipo UPS</label>
+                <div class="p-field">
+                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaTipoUPS"
+                        [(ngModel)]="selectedTipoUPS"
+                        placeholder ="Seleccione un UPS"
+                        [showClear]="false"
+                        optionLabel="descripcion" defaultLabel="Seleccione un Tipo UPS" id="tipoUPS">
+                    </p-dropdown>
+                </div>
+            </div> 
+        </div>
+</p-dialog>
