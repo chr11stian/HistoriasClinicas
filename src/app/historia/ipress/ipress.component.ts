@@ -85,30 +85,33 @@ export class IpressComponent implements OnInit {
   getCategorias() {
     this.categoriaservice.getCategoriaEstablecimiento().subscribe((res: any) => {
       this.categoriasList = res.object;
-      console.log(this.categoriasList)
     });
   }
   getDepartamentos() {
     this.ubicacionService.getDepartamentos().subscribe((resp: any) => {
       this.departamentosList = resp.object;
-      console.log(this.departamentosList)
     });
   }
   getRedServiciosSalud() {
     this.redServiciosSaludService.getRedServiciosSalud().subscribe((res: any) => {
       this.redesList = res.object;
-      console.log('data res ', this.redesList)
     })
   }
   changeRedSelected() {
-    console.log(this.form.value.red);
     this.redServiciosSaludService.getMicroRedServiciosSalud(this.form.value.red.idRed).subscribe((res: any) => {
-      console.log(res);
       this.microRedesList = res.object;
       if (this.microRedesList[0].idMicroRed == null) {
         this.microRedesList = [];
       }
-      console.log('res change red ', this.microRedesList)
+    })
+  }
+  changeRedSelectedEditar(rowData) {
+    this.redServiciosSaludService.getMicroRedServiciosSalud(this.form.value.red.idRed).subscribe((res: any) => {
+      this.microRedesList = res.object;
+      if (this.microRedesList[0].idMicroRed == null) {
+        this.microRedesList = [];
+      }
+      this.form.get('microRed').setValue(this.microRedesList.find(microred => microred.idMicroRed === rowData.red.idMicroRed));
     })
   }
   buildForm() {
@@ -155,10 +158,9 @@ export class IpressComponent implements OnInit {
     const ubigeo = {
       ubigeo: this.form.value.ubigeo,
     }
-    if (this.form.value.ubigeo.trim()!=""){
+    if (this.form.value.ubigeo.trim() != "") {
       this.loading = true;
       this.ubicacionService.buscarUbigeo(ubigeo).subscribe((res: any) => {
-        console.log(res.object);
         this.form.get('departamento').setValue({ iddd: res.object[0].iddd, departamento: res.object[0].departamento });
         this.selectedDepartamento();
         this.form.get('provincia').setValue({ idpp: res.object[0].idpp, provincia: res.object[0].provincia });
@@ -175,10 +177,8 @@ export class IpressComponent implements OnInit {
       departamento: this.form.value.departamento,
     }
     let rowData = dpto.departamento;
-    console.log(rowData)
     this.ubicacionService.getProvincias(rowData).subscribe((res: any) => {
       this.provinciasList = res.object;
-      console.log('data provincias', this.provinciasList )
     })
   }
 
@@ -195,10 +195,8 @@ export class IpressComponent implements OnInit {
       iddd: d,
       idpp: p
     }
-    console.log(aux)
     this.ubicacionService.getDistritos(aux).subscribe((res: any) => {
       this.distritosList = res.object;
-      console.log('data distritos', this.distritosList)
     })
   }
 
@@ -220,12 +218,60 @@ export class IpressComponent implements OnInit {
     }
     this.ubicacionService.getCentroPoblado(aux).subscribe((res: any) => {
       this.CCPPList = res.object;
-      console.log('data centro poblado', this.CCPPList)
     })
     this.ubicacionService.getUbigeoDistrito(aux).subscribe((res: any) => {
       this.form.get('ubigeo').setValue(res.object[0].ubigeo);
     })
+  }
+  selectedEditar(rowData) {
+    this.form.get('departamento').setValue(this.departamentosList.find(dep => dep.departamento === rowData.ubicacion.departamento));
 
+    const dpto = {
+      departamento: this.form.value.departamento,
+    }
+
+    this.ubicacionService.getProvincias(dpto.departamento).subscribe((res: any) => {
+      this.provinciasList = res.object;
+      this.form.get('provincia').setValue(this.provinciasList.find(prov => prov.provincia === rowData.ubicacion.provincia));
+
+      const data = {
+        departamento: this.form.value.departamento,
+        provincia: this.form.value.provincia,
+      };
+
+      let d = data.departamento.iddd;
+      let p = data.provincia.idpp;
+
+      let aux = {
+        iddd: d,
+        idpp: p
+      }
+      this.ubicacionService.getDistritos(aux).subscribe((res: any) => {
+        this.distritosList = res.object;
+        this.form.get('distrito').setValue(this.distritosList.find(dis => dis.distrito === rowData.ubicacion.distrito));
+
+        const data = {
+          departamento: this.form.value.departamento,
+          provincia: this.form.value.provincia,
+          distrito: this.form.value.distrito,
+        };
+
+        let d = data.departamento.iddd;
+        let p = data.provincia.idpp;
+        let dt = data.distrito.iddis;
+
+        let aux = {
+          iddd: d,
+          idpp: p,
+          iddis: dt
+        }
+        this.ubicacionService.getCentroPoblado(aux).subscribe((res: any) => {
+          this.CCPPList = res.object;
+          this.form.get('centroPoblado').setValue(this.CCPPList.find(cp => cp.ccpp === rowData.ubicacion.centroPoblado));
+        })
+      })
+
+    })
   }
 
   saveForm() {
@@ -238,14 +284,14 @@ export class IpressComponent implements OnInit {
       ccpp: this.form.value.centroPoblado.ccpp,
     }
     this.ubicacionService.getCCPPDatos(aux).subscribe((res: any) => {
-      this.centro=res.object[0];
+      this.centro = res.object[0];
       const req = {
         codRENAES: this.form.value.codRENAES,
         nombreEESS: this.form.value.nombreEESS,
         categoria: {
           abreviatura: this.form.value.categoria.abreviatura,
-          descripcion:this.form.value.categoria.descripcion,
-          nivelEESS:this.form.value.categoria.nivel,
+          descripcion: this.form.value.categoria.descripcion,
+          nivelEESS: this.form.value.categoria.nivel,
         },
         ubicacion: {
           ubigeo: this.form.value.ubigeo,
@@ -259,7 +305,7 @@ export class IpressComponent implements OnInit {
           direccion: this.form.value.direccion,
         },
         red: {
-          _id: this.form.value.red.idRed,
+          idRed: this.form.value.red.idRed,
           nombreRed: this.form.value.red.nombreRed,
           idMicroRed: this.form.value.microRed.idMicroRed,
           nombreMicroRed: this.form.value.microRed.nombreMicroRed,
@@ -267,21 +313,21 @@ export class IpressComponent implements OnInit {
       };
       if (req.codRENAES.trim() !== "") {
         this.ipressservice.createIpress(req).subscribe(
-            result => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Agregado correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-                this.getIpress();
-                this.ipressDialog = false;
-            }
+          result => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Agregado correctamente',
+              text: '',
+              showConfirmButton: false,
+              timer: 1500,
+            })
+            this.getIpress();
+            this.ipressDialog = false;
+          }
         )
       }
     })
-    
+
   }
 
   openNew() {
@@ -303,59 +349,70 @@ export class IpressComponent implements OnInit {
   editar(rowData) {
     this.isUpdate = true;
     this.form.reset();
-    console.log(rowData);
     this.form.get('codRENAES').setValue(rowData.codRENAES);
     this.form.get('nombreEESS').setValue(rowData.nombreEESS);
-    //this.form.get('categoria').setValue(this.categoriasList.find(cat => cat.abreviatura === rowData.categoria.abreviatura));
-    this.form.get('ubigeo').setValue(rowData.ubigeo);
-    //this.form.get('departamento').setValue(this.departamentosList.find(dep => dep.departamento === rowData.ubicacion.departamento));
-    this.selectedDepartamento();
-    //this.form.get('provincia').setValue(this.provinciasList.find(prov => prov.provincia === rowData.ubicacion.provincia ));
-    this.selectedProvincia();
-    //this.form.get('distrito').setValue(this.distritosList.find(dis => dis.distrito === rowData.ubicacion.distrito ));
-    this.selectedDistrito();
-    //this.form.get('centroPoblado').setValue(this.CCPPList.find(cp => cp.ccpp === rowData.ubicacion.centroPoblado));
+    this.form.get('categoria').setValue(this.categoriasList.find(cat => cat.abreviatura === rowData.categoria.abreviatura));
+    this.form.get('ubigeo').setValue(rowData.ubicacion.ubigeo);
+    this.selectedEditar(rowData);
     this.form.get('direccion').setValue(rowData.ubicacion.direccion);
-    //this.form.get('red').setValue(this.redesList.find(red => red.idRed === rowData.red.id));
-    //this.form.get('microRed').setValue(this.microRedesList.find(microred => microred.idMicroRed === rowData.red.idMicroRed));
-    console.log("Datos del formulario ", this.form.value)
+    this.form.get('red').setValue(this.redesList.find(red => red.nombreRed === rowData.red.nombreRed));
+    this.changeRedSelectedEditar(rowData);
     this.idUpdate = rowData.id;
     this.ipressDialog = true;
   }
   editarDatos(rowData) {
     this.isUpdate = true;
-    //let ipressSelected = this.ipressList.find(ipress => ipress.id === this.form.value.detalleIpress);
-    const req = {
-      id: this.idUpdate,
-      tipoDoc: this.form.value.tipoDoc,
-      nroDoc: this.form.value.nroDoc,
-      apePaterno: this.form.value.apePaterno,
-      apeMaterno: this.form.value.apeMaterno,
-      fechaNacimiento: this.datePipe.transform(this.form.value.fechaNacimiento, 'yyyy-MM-dd'),
-      sexo: this.form.value.sexo,
-      contratoAbreviatura: this.form.value.contratoAbreviatura,
-      colegiatura: this.form.value.colegiatura,
-      estado: this.form.value.estado,
-      detalleIpress: {
-        idIpress: this.form.value.detalleIpress,
-        //eess: ipressSelected.nombreEESS,
-        fechaInicio: this.datePipe.transform(this.form.value.fechaInicio, 'yyyy-MM-dd') + " 00:00:00",
-      },
+    let aux = {
+      iddd: this.form.value.departamento.iddd,
+      idpp: this.form.value.provincia.idpp,
+      iddis: this.form.value.distrito.iddis,
+      ccpp: this.form.value.centroPoblado.ccpp,
     }
-
-    /*this.personalservice.editPersonal(req).subscribe(
-        result => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Editado correctamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-            this.getPersonal();
-            this.personalDialog = false;
+    this.ubicacionService.getCCPPDatos(aux).subscribe((res: any) => {
+      this.centro = res.object[0];
+      const req = {
+        id: this.idUpdate,
+        codRENAES: this.form.value.codRENAES,
+        nombreEESS: this.form.value.nombreEESS,
+        categoria: {
+          abreviatura: this.form.value.categoria.abreviatura,
+          descripcion: this.form.value.categoria.descripcion,
+          nivelEESS: this.form.value.categoria.nivel,
+        },
+        ubicacion: {
+          ubigeo: this.form.value.ubigeo,
+          departamento: this.form.value.departamento.departamento,
+          provincia: this.form.value.provincia.provincia,
+          distrito: this.form.value.distrito.distrito,
+          centroPoblado: this.form.value.centroPoblado.ccpp,
+          altura: this.centro.altura,
+          latitud: this.centro.latitude,
+          longitud: this.centro.longitude,
+          direccion: this.form.value.direccion,
+        },
+        red: {
+          idRed: this.form.value.red.idRed,
+          nombreRed: this.form.value.red.nombreRed,
+          idMicroRed: this.form.value.microRed.idMicroRed,
+          nombreMicroRed: this.form.value.microRed.nombreMicroRed,
         }
-    )*/
+      };
+      if (req.codRENAES.trim() !== "") {
+        this.ipressservice.editIpress(req).subscribe(
+          result => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Editado correctamente',
+              text: '',
+              showConfirmButton: false,
+              timer: 1500,
+            })
+            this.getIpress();
+            this.ipressDialog = false;
+          }
+        )
+      }
+    })
   }
 
   eliminar(rowData) {
@@ -370,16 +427,16 @@ export class IpressComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.ipressservice.deleteIpress(rowData.id).subscribe(
-            result => {
-                this.getIpress()
-            }
+          result => {
+            this.getIpress()
+          }
         );
         Swal.fire({
-            icon: 'success',
-            title: 'Eliminado correctamente',
-            text: '',
-            showConfirmButton: false,
-            timer: 1500
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
         })
       }
     })
@@ -629,7 +686,7 @@ export class IpressComponent implements OnInit {
         nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
         estado: est.estado
     }
-
+  
     this.personalservice.createPersonalEspecialidad(this.idEspecialidad,req).subscribe(
         result => {
             Swal.fire({
@@ -651,7 +708,7 @@ export class IpressComponent implements OnInit {
         nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
         estado: est.estado
     }
-
+  
     this.personalservice.createPersonalEspecialidad(this.idEspecialidad,req).subscribe(
         result => {
             Swal.fire({
@@ -673,7 +730,7 @@ export class IpressComponent implements OnInit {
         nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
         estado: est.estado
     }
-
+  
     this.personalservice.createPersonalEspecialidad(this.idEspecialidad,req).subscribe(
         result => {
             Swal.fire({
@@ -695,7 +752,7 @@ export class IpressComponent implements OnInit {
         nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
         estado: est.estado
     }
-
+  
     this.personalservice.createPersonalEspecialidad(this.idEspecialidad,req).subscribe(
         result => {
             Swal.fire({
@@ -717,10 +774,10 @@ export class IpressComponent implements OnInit {
         nombre: this.formEspecialidad.value.nombre,
         nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
         estado: this.estadoUpdateEspecialidad
-
+  
     }
     console.log(req);
-
+  
     this.personalservice.editPersonalEspecialidad(this.idEspecialidad,req).subscribe(
         result => {
             Swal.fire({
@@ -742,10 +799,10 @@ export class IpressComponent implements OnInit {
         nombre: this.formEspecialidad.value.nombre,
         nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
         estado: this.estadoUpdateEspecialidad
-
+  
     }
     console.log(req);
-
+  
     this.personalservice.editPersonalEspecialidad(this.idEspecialidad,req).subscribe(
         result => {
             Swal.fire({
@@ -767,10 +824,10 @@ export class IpressComponent implements OnInit {
         nombre: this.formEspecialidad.value.nombre,
         nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
         estado: this.estadoUpdateEspecialidad
-
+  
     }
     console.log(req);
-
+  
     this.personalservice.editPersonalEspecialidad(this.idEspecialidad,req).subscribe(
         result => {
             Swal.fire({
@@ -792,10 +849,10 @@ export class IpressComponent implements OnInit {
         nombre: this.formEspecialidad.value.nombre,
         nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
         estado: this.estadoUpdateEspecialidad
-
+  
     }
     console.log(req);
-
+  
     this.personalservice.editPersonalEspecialidad(this.idEspecialidad,req).subscribe(
         result => {
             Swal.fire({
