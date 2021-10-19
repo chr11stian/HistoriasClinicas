@@ -79,45 +79,45 @@
 </p-table>
 </div>
 
-<p-dialog [(visible)]="dialogUPS" [style]="{width: '850px'}" header="Registrar Red de Servicios de Salud" [modal]="true"
+<p-dialog [(visible)]="dialogUPS" [style]="{width: '600px'}" header="Registrar Red de Servicios de Salud" [modal]="true"
     styleClass="p-fluid" autoZIndex>
     <form [formGroup]='formUPS'>
         <div class="grid">
-            <div class="p-field col-2">
-                <label>Id UPS</label>
+            <div class="p-field col-4">
+                <label>Id UPS:</label>
                 <input type="text" pInputText formControlName="codUPS" class="inputTest" />
             </div>
-            <div class="p-field col-5">
-                <label>Nombre UPS</label>
+            <div class="p-field col-8">
+                <label>Nombre UPS:</label>
                 <input type="text" pInputText formControlName="nombreUPS" class="inputTest" />
             </div>
-            <div class="p-field col-5">
-                <label>Nombre Comercial</label>
+        </div>
+        <div class="grid">
+            <div class="p-field col-12">
+                <label>Nombre Comercial:</label>
                 <input type="text" pInputText formControlName="nombreComercial" class="inputTest" />
             </div>
         </div>
-    </form>
-        <div class="grid mt-4">
-            <div class="col-1 ml-4">
-                <label>HIS</label>
-                <br>
-                <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
-            </div>
-            <div class="col-1">
-                <label>SIS</label>
-                <br>
-                <p-radioButton name="groupname" value="val2" [(ngModel)]="selectedValue"></p-radioButton>
+        <div class="grid">
+            <div class="col-4">
+                <label>HIS/SIS:</label>
+                <p-selectButton [options]="SISHISOption" optionLabel="label" optionValue="value"></p-selectButton>
             </div>
             <div class=" col-4">
-                <label>Tipo UPS</label>
+                <label>Tipo UPS:</label>
                 <div class="p-field">
                     <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaTipoUPS"
-                        [(ngModel)]="selectedTipoUPS"
-                        placeholder ="Seleccione un UPS"
-                        [showClear]="false"
+                        formControlName="dropTipoUPS" placeholder="Seleccione un UPS" [showClear]="false"
                         optionLabel="descripcion" defaultLabel="Seleccione un Tipo UPS" id="tipoUPS">
                     </p-dropdown>
                 </div>
-            </div> 
+            </div>
         </div>
+        <div class="grid">
+            <div class="col-4">
+                <label>Estado:</label>
+                <p-selectButton [options]="stateOptions" optionLabel="label" optionValue="value"></p-selectButton>
+            </div>
+        </div>
+    </form>
 </p-dialog>

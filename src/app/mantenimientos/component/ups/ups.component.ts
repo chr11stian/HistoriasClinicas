@@ -31,6 +31,14 @@ export class UpsComponent implements OnInit {
     dataUPS: any;
     selectedValue: string;
     selectedTipoUPS: any;
+    stateOptions = [
+        { label: 'Activo', value: true },
+        { label: 'Inactivo', value: false }
+    ];
+    SISHISOption = [
+        { label: 'HIS', value: true },
+        { label: 'SIS', value: false }
+    ]
 
     constructor(
         private fb: FormBuilder,
@@ -49,6 +57,7 @@ export class UpsComponent implements OnInit {
             codUPS: new FormControl(''),
             nombreUPS: new FormControl(''),
             nombreComercial: new FormControl(''),
+            dropTipoUPS: new FormControl(''),
         })
     }
 
