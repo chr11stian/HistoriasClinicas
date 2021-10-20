@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {formatDate} from '@angular/common';
+import {DatePipe, formatDate} from '@angular/common';
 import {MessageService, PrimeNGConfig} from 'primeng/api';
 
 import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
@@ -20,18 +20,15 @@ import {CuposService} from "../../core/services/cupos.service";
 })
 export class CuposComponent implements OnInit {
 
-
-    datafecha: Date;
+    datafecha: Date = new Date();
     dataOfertasCupos: any;
     ups: any;
-    upsnombre: any;
+    datePipe = new DatePipe('en-US');
 
 
     dataOfertas: any;
-    dataServicios: any;
-    dataPersonals: any;
+
     dataHoraAtencions: any;
-    dataHoraAtencion: any;
     horas: any;
 
     personalHoras: any;
@@ -48,23 +45,18 @@ export class CuposComponent implements OnInit {
     personalSelected: string = '';
     nombre: string;
     estadoCivil: string;
-    fecha: Date;
-    selectedTipoDocumento: string;
+
     justifyOptions: any[];
     value1: any;
     value3: any;
     stateOptions: any[];
-    cellHour: any;
-    cellHoy: any;
+
     cellTomorrow: any;
     selectedHorario: any;
     selectedPersonal: any;
     formUsuarios: FormGroup;
     formCupos: FormGroup;
 
-    today: Date = new Date();
-    jsToday: string = ''
-    selected: any;
     docIdentidad: any = [{
         id: '001',
         nombre: 'Documento Nacional de Identidad',
@@ -86,7 +78,7 @@ export class CuposComponent implements OnInit {
     }]
 
 
-    iprees: string = "ACUPUNTURA Y AFINES";
+    iprees: string = "Zarzuela Baja";
 
     constructor(
         private config: DynamicDialogConfig,
@@ -110,71 +102,37 @@ export class CuposComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
-        this.today.getHours();
-        let listHorarios: any = [];
-        let minutes;
-        // console.log('lista de cupos', this.listaCupos);
-        this.primeNGConfig.ripple = true;
-        console.log('hoy', this.today);
-        this.today.setMinutes(this.today.getMinutes() + 30);
-        this.jsToday = formatDate(this.today, 'HH:mm:ss a', 'en-ES', '-0500');
-        console.log('tiempo suma ', this.today);
-        console.log('hora nueva ', this.jsToday);
         this.inicializarForm();
-
-        this.getOfertas(1);
-        this.getServicios();
-        this.getPersonal();
-        this.getHora_Atencion();
-
         this.getDataUPS();
-
     }
 
     getDataUPS() {
         this.cuposService.getTipoUPSs().subscribe((resp: any) => {
             this.ups = resp.object;
-            console.log("UPS", this.ups);
         });
     }
 
 
-    getOfertascupos(data) {
-        this.cuposService.getOfertas(data).subscribe((resp: any) => {
-            this.dataOfertasCupos = resp;
-            console.log("OFERTAS CUPOS", resp);
+    getOfertascuposListar(data) {
+        this.cuposService.getOfertasListar(data).subscribe((resp: any) => {
+            this.dataOfertasCupos = resp.object;
+            console.log("OFERTAS HORARIOS", this.dataOfertasCupos);
+            let i = 0;
+            for (let b of this.dataOfertasCupos) {
+                b = this.dataOfertasCupos[i].horaLaboral;
+                i = i++;
+                console.log("OFERTAS XXX", b);
+            }
         });
     }
 
 
-    getOfertas(id) {
-        this.cuposService.getOferta(id).subscribe((resp: any) => {
-            this.dataOfertas = resp;
-            console.log("OFERTA", resp);
-        });
-    }
-
-    getServicios() {
-        this.cuposService.getServicios().subscribe((resp: any) => {
-            this.dataServicios = resp;
-            console.log("SERVICIOS", resp);
-        });
-    }
-
-    getPersonal() {
-        this.cuposService.getPersonal().subscribe((resp: any) => {
-            this.dataPersonals = resp;
-            console.log("Personal", resp);
-        });
-    }
-
-    getHora_Atencion() {
-        this.cuposService.getHoraAtencion().subscribe((resp: any) => {
-            this.dataHoraAtencions = resp;
-            console.log("HORA ATENCION", resp);
-        });
-    }
+    // getOfertascupos(data) {
+    //     this.cuposService.getOfertas(data).subscribe((resp: any) => {
+    //         this.dataOfertasCupos = resp;
+    //         console.log("OFERTAS CUPOS", resp);
+    //     });
+    // }
 
 
     ngOnDestroy(): void {
@@ -258,14 +216,16 @@ export class CuposComponent implements OnInit {
     changeServicioSelected(event) {
         this.personalSelected = '';
         console.log(event)
-        this.listaPersonal = this.dataPersonals.filter(item => item.codServicio == event.codServicio);
+        // this.listaPersonal = this.dataOfertasCupos.filter(item => item.horaLaboral == event.horaLaboral);
         this.horas = null;
         let data = {
-            servicio: this.selectedServicio,
+            servicio: this.selectedServicio.nombre,
             nombreIpress: this.iprees,
-            fechaOferta: this.datafecha
+            fechaOferta: this.datafecha,
         }
-        this.getOfertascupos(data);
+        this.getOfertascuposListar(data);
+
+        console.log("fecha", this.datafecha);
     }
 
     GuardarPersona() {

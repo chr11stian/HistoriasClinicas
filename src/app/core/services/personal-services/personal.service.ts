@@ -31,7 +31,7 @@ export class PersonalService {
     deletePersonal(id) {
         return this.http.delete(`${this.base_url}/${this.bd}/api/personal/${id}`)
     }
-    editPersonal(personal: Personal): Observable<Personal> {
+    editPersonal(personal): Observable<Personal> {
         return this.http.put<any>(`${this.base_url}/${this.bd}/api/personal`, personal)
     }
     createPersonalEspecialidad(id,reqEspecialidad){

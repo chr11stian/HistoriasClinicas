@@ -14,13 +14,16 @@ import {TreeSelectModule} from 'primeng/treeselect';
 import {DividerModule} from 'primeng/divider';
 import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
+
+import {IpressComponent} from './ipress/ipress.component';
 import {CheckboxModule} from "primeng/checkbox";
 
 @NgModule({
     declarations: [
         PersonalSaludComponent,
         UsuariosComponent,
-        CuposComponent
+        CuposComponent,
+        IpressComponent
     ],
     exports: [
         PersonalSaludComponent,
@@ -40,7 +43,7 @@ import {CheckboxModule} from "primeng/checkbox";
         DividerModule,
         CalendarModule,
         InputMaskModule,
-        CheckboxModule
+        CheckboxModule,
     ]
 })
 export class HistoriaModule {

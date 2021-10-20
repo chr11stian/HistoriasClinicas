@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { LocaleSettings } from "primeng/calendar/calendar";
+import { delayWhen } from "rxjs/operators";
 import { TipoPersonalService } from "../../services/tipo-personal/tipo-personal.service";
+import { RolGuardiaService } from "../../services/rol-guardia/rol-guardia.service";
+import { TipoUpsService } from "../../services/tipo-ups.service";
 export interface dayType {
   label: string;
   numberDay: number;
@@ -14,119 +17,169 @@ export interface dayType {
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
-  //creamos la matriz
   matriz: any = [];
+  isEditable: boolean;
   turno = [
-    { name: "M", code: "MA" },
-    { name: "T", code: "TA" },
-    { name: "M/T", code: "M/T" },
-    { name: "GD", code: "GD" },
-    { name: "GN", code: "GN" },
+    {
+      nombre: "M",
+      abreviatura: "MA",
+    },
+    {
+      nombre: "T",
+      abreviatura: "TA",
+    },
+    {
+      nombre: "M/T",
+      abreviatura: "M/T",
+    },
+    {
+      nombre: "GD",
+      abreviatura: "GD",
+    },
+    {
+      nombre: "GN",
+      abreviatura: "GN",
+    },
   ];
-  //iniamos arreglo
+  tipoPersonalServicio: any[];
+  turnos: any[];
+  personalServicioGeneral = [
+    //medico turno
+    {
+      idUPS: "616602b6034d2c3598133293",
+      apellidos: "apellido1",
+      nombres: "nombre1",
+      especialidad: "medico general",
+      dni: "11111111",
+    },
+    {
+      idUPS: "616602e0034d2c3598133294",
+      apellidos: "apellido2",
+      nombres: "nombre2",
+      especialidad: "medico general",
+      dni: "73145986",
+    },
+    {
+      idUPS: "616602e0034d2c3598133294",
+      apellidos: "apellido2",
+      nombres: "nombre2",
+      especialidad: "medico general",
+      dni: "23232323",
+    },
+    {
+      idUPS: "616602e0034d2c3598133294",
+      apellidos: "apellido2",
+      nombres: "nombre2",
+      especialidad: "enfermeria",
+      dni: "24242424",
+    },
+    {
+      idUPS: "616602e0034d2c3598133294",
+      apellidos: "apellido2",
+      nombres: "nombre2",
+      especialidad: "enfermeria",
+      dni: "12121212",
+    },
+    {
+      idUPS: "61660303034d2c3598133295",
+      apellidos: "apellido3",
+      nombres: "laura jimena",
+      especialidad: "enfermeria",
+      dni: "23232323",
+    },
+    {
+      idUPS: "61660303034d2c3598133295",
+      apellidos: "apellido3",
+      nombres: "juan carlos",
+      especialidad: "enfermeria",
+      dni: "24242424",
+    },
+  ];
+  fecha = new Date();
+  nroDiasMes: number = 0;
+  //personales seleccionados y mes actual seleccionado
+  personalServicioSelected: any[] = [];
+  cabeceraMes: any[] = [];
+
+  constructor(
+    private tipoUpsService: TipoUpsService,
+    private tipoPersonalService: TipoPersonalService,
+    private rolGuardiaService: RolGuardiaService
+  ) {
+    this.getPersonal();
+    this.numeroDiasMes();
+    this.generarCabecera();
+    this.colorearCabecera();
+    this.isModificable();
+  }
+  getPersonal() {
+    this.tipoPersonalService.getTipoPersonales().subscribe((resp) => {
+      let ups = [];
+      ups = resp["object"];
+      ups.forEach((elemento) => {
+        // console.log(elemento["nombre"]);
+      });
+    });
+  }
+  ngOnInit(): void {
+    this.tipoUpsService.getTipoUPSs().subscribe((resp: any) => {
+      this.tipoPersonalServicio = resp.object;
+    });
+  }
+
   crearMatriz() {
-    for (let i = 0; i < 3; i++) {
+    this.matriz = [];
+    for (let i = 0; i < this.personalServicioSelected.length; i++) {
       let filaAux = [];
-      for (let j = 0; j < 31; j++) {
-        filaAux.push("TA");
+      for (let j = 0; j < this.nroDiasMes; j++) {
+        filaAux.push(
+          //primer turno por defecto
+          this.turno[0]
+        );
       }
       this.matriz.push(filaAux);
     }
-    // this.matriz[0][0] = "MAMA";
-  }
-  //atributos
-  personalServicio: any[];
-  turnos: any[];
-  selectedPersonalServicio: any;
-  dataGeneral = [
-    {
-      id: "6155cb004ec7a67ba2c1550b",
-      apellidos: "huaman rojas",
-      nombres: "Ignacio",
-      especialidad: "enfermeria",
-    },
-    {
-      id: "6155cb004ec7a67ba2c1550b",
-      apellidos: "vargas rojas",
-      nombres: "fidel",
-      especialidad: "enfermeria",
-    },
-    {
-      id: "6155cb004ec7a67ba2c1550b",
-      apellidos: "quispe palomino",
-      nombres: "dany",
-      especialidad: "enfermeria",
-    },
-    {
-      id: "6155c11848263c7c7aaf22cb",
-      apellidos: "huaman rimachi",
-      nombres: "jefrey",
-      especialidad: "enfermeria",
-    },
-    {
-      id: "6155c11848263c7c7aaf22cb",
-      apellidos: "mamani huaman",
-      nombres: "juan",
-      especialidad: "enfermeria",
-    },
-  ];
-  data: any[] = [];
-  fecha = new Date();
-  nroDiasdelMes: number = 0;
-  mesActual: any[] = [];
-
-  constructor(private tipoPersonalService: TipoPersonalService) {
-    // this.personalServicio = [
-    //   { name: "Medicina", code: "ME" },
-    //   { name: "Obstetricia", code: "OB" },
-    //   { name: "Pediatria", code: "PE" },
-    //   { name: "Enfermeria", code: "EN" },
-    //   { name: "Administracion", code: "AD" },
-    // ];
-    // this.tipoPersonalService.getTipoPersonales().subscribe((resp: any) => {
-    //   this.personalServicio = resp.object;
-    // });
-
-    //calculamos nro dias del mes
-    this.nroDiasdelMes = this.numeroDiasMes();
-    this.generarMes();
-    this.ColorearTabla();
-    this.crearMatriz();
   }
   numeroDiasMes() {
-    return new Date(
+    //creamos un nuevo objeto dandole x defecto el ultimo dial del mes
+    this.nroDiasMes = new Date(
       this.fecha.getFullYear(),
       this.fecha.getMonth() + 1,
       0
     ).getDate();
   }
-  generarMes() {
-    this.mesActual = [];
-    for (var i = 1; i <= this.nroDiasdelMes; i++) {
+  generarCabecera() {
+    this.cabeceraMes = [];
+    for (var i = 1; i <= this.nroDiasMes; i++) {
       let fecha1 = new Date(this.fecha.getFullYear(), this.fecha.getMonth(), i);
       let dia = fecha1.getDay();
 
       if (dia == 0)
-        this.mesActual.push({ abreviatura: "don", label: "Domingo", dia: i });
+        this.cabeceraMes.push({ abreviatura: "don", label: "Domingo", dia: i });
       else if (dia == 1)
-        this.mesActual.push({ abreviatura: "Lun", label: "Lunes", dia: i });
+        this.cabeceraMes.push({ abreviatura: "Lun", label: "Lunes", dia: i });
       else if (dia == 2)
-        this.mesActual.push({ abreviatura: "Mar", label: "Martes", dia: i });
+        this.cabeceraMes.push({ abreviatura: "Mar", label: "Martes", dia: i });
       else if (dia == 3)
-        this.mesActual.push({ abreviatura: "Mie", label: "Miercoles", dia: i });
+        this.cabeceraMes.push({
+          abreviatura: "Mie",
+          label: "Miercoles",
+          dia: i,
+        });
       else if (dia == 4)
-        this.mesActual.push({ abreviatura: "Jue", label: "Jueves", dia: i });
+        this.cabeceraMes.push({ abreviatura: "Jue", label: "Jueves", dia: i });
       else if (dia == 5)
-        this.mesActual.push({ abreviatura: "vie", label: "Viernes", dia: i });
-      else this.mesActual.push({ abreviatura: "sab", label: "Sabado", dia: i });
+        this.cabeceraMes.push({ abreviatura: "vie", label: "Viernes", dia: i });
+      else
+        this.cabeceraMes.push({ abreviatura: "sab", label: "Sabado", dia: i });
     }
   }
 
-  ColorearTabla() {
+  colorearCabecera() {
     let colorR = "background-color:#dfe6e9";
     let colorB = "background-color:white";
     let hasColor = true; //primera semana en pintar rojo
-    this.mesActual.forEach((day) => {
+    this.cabeceraMes.forEach((day) => {
       if (hasColor) {
         day.bg = colorR;
         if (day.abreviatura === "sab") {
@@ -140,28 +193,81 @@ export class RolGuardiaComponent implements OnInit {
       }
     });
   }
-  cambiar(fechaseleccionada: Date) {
-    this.fecha = fechaseleccionada;
-    this.nroDiasdelMes = this.numeroDiasMes();
-    this.generarMes();
-    this.ColorearTabla();
+  isModificable() {
+    let isVisible: boolean;
+    let fechaActual = new Date();
+    if (
+      this.fecha.getFullYear() > fechaActual.getFullYear() ||
+      (this.fecha.getFullYear() == fechaActual.getFullYear() &&
+        this.fecha.getMonth() >= fechaActual.getMonth())
+    ) {
+      isVisible = true;
+    } else {
+      isVisible = false;
+    }
+    this.isEditable = isVisible;
+    console.log("esModficable", isVisible);
   }
-  changeComponentRol(idRol, dd) {
+  cambiarFecha(fechaseleccionada: Date) {
+    this.fecha = fechaseleccionada;
+    this.numeroDiasMes();
+    this.generarCabecera();
+    this.colorearCabecera();
+    this.crearMatriz(); //si cambia fecha
+    this.isModificable();
+  }
+  changePersonalServicio(idRol, dd) {
     console.log(idRol.value);
-
-    this.data = [];
-    this.dataGeneral.forEach((elemento) => {
-      if (elemento.id === idRol.value) {
-        this.data.push(elemento);
+    this.personalServicioSelected = [];
+    this.personalServicioGeneral.forEach((elemento) => {
+      if (elemento.idUPS === idRol.value) {
+        this.personalServicioSelected.push(elemento);
       }
     });
-  }
-  ngOnInit(): void {
-    this.tipoPersonalService.getTipoPersonales().subscribe((resp: any) => {
-      this.personalServicio = resp.object;
-    });
+    this.crearMatriz();
   }
   designar() {
-    console.log(this.matriz);
+    let matrizAux = [];
+    for (let i = 0; i < this.matriz.length; i++) {
+      let filaAux = [];
+      for (let j = 0; j < this.matriz[0].length; j++) {
+        let elemento = this.matriz[i][j];
+        let elementoAux = {
+          abreviatura: elemento["abreviatura"],
+          dia: j + 1,
+          nroDoc: this.personalServicioSelected[i]["dni"],
+        };
+        filaAux.push(elementoAux);
+      }
+      matrizAux.push(filaAux);
+    }
+    // console.log(matrizAux);
+
+    //insertamos registro por registros
+    for (let x = 0; x < matrizAux.length; x++) {
+      for (let y = 0; y < matrizAux[0].length; y++) {
+        let mesInput: any = {
+          anio: this.fecha.getFullYear(),
+          mes: this.fecha.getMonth(),
+          dia: matrizAux[x][y]["dia"],
+          idIpress: "61424d4873a26b7a64ecaefa",
+          servicio: "ACUPUNTURA Y AFINES",
+          tipoDoc: "DNI",
+          nroDoc: matrizAux[x][y]["nroDoc"],
+          ambiente: "ACUP 01",
+          abreviatura: matrizAux[x][y]["abreviatura"],
+        };
+
+        // console.log(mesInput);
+        this.rolGuardiaService.AddUpdateRolGuardia(mesInput).subscribe(
+          (resp) => {
+            console.log(resp);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+    }
   }
 }
