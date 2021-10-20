@@ -85,39 +85,48 @@
         <div class="grid">
             <div class="p-field col-4">
                 <label>Id UPS:</label>
-                <input type="text" pInputText formControlName="codUPS" class="inputTest" />
+                <input type="number" pInputText formControlName="codUPS" class="inputTest" />
             </div>
             <div class="p-field col-8">
                 <label>Nombre UPS:</label>
                 <input type="text" pInputText formControlName="nombreUPS" class="inputTest" />
             </div>
         </div>
-        <div class="grid">
-            <div class="p-field col-12">
-                <label>Nombre Comercial:</label>
-                <input type="text" pInputText formControlName="nombreComercial" class="inputTest" />
-            </div>
-        </div>
-        <div class="grid">
+        <div class="grid mt-2">
             <div class="col-4">
                 <label>HIS/SIS:</label>
-                <p-selectButton [options]="SISHISOption" optionLabel="label" optionValue="value"></p-selectButton>
+                <p-selectButton [options]="SISHISOption" formControlName="sishis" optionLabel="label" optionValue="value"></p-selectButton>
             </div>
-            <div class=" col-4">
-                <label>Tipo UPS:</label>
+            <div class="p-field col-8">
+                <label>Nombre Comercial:</label>
                 <div class="p-field">
-                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaTipoUPS"
-                        formControlName="dropTipoUPS" placeholder="Seleccione un UPS" [showClear]="false"
-                        optionLabel="descripcion" defaultLabel="Seleccione un Tipo UPS" id="tipoUPS">
+                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaNombreComercial"
+                        formControlName="nombreComercial" placeholder="Seleccione un nombre comercial" [showClear]="false"
+                        optionLabel="nombre" id="tipoServicio">
                     </p-dropdown>
                 </div>
             </div>
         </div>
-        <div class="grid">
+        <div class="grid mt-2">
             <div class="col-4">
                 <label>Estado:</label>
-                <p-selectButton [options]="stateOptions" optionLabel="label" optionValue="value"></p-selectButton>
+                <p-selectButton [options]="stateOptions" formControlName="estado" optionLabel="label"
+                    optionValue="value"></p-selectButton>
+            </div>
+            <div class=" col-8">
+                <label>Tipo UPS:</label>
+                <div class="p-field">
+                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaTipoUPS"
+                        formControlName="dropTipoUPS" placeholder="Seleccione un UPS" [showClear]="false"
+                        optionLabel="nombre" defaultLabel="Seleccione un Tipo UPS" id="tipoUPS">
+                    </p-dropdown>
+                </div>
             </div>
         </div>
     </form>
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="cancelDialogUPS()"></button>
+        <button pButton type="button" label="Guardar" (click)="guardarUPS()" ></button>
+        <!-- <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar" (click)="editarDatos()" ></button> -->
+    </ng-template>
 </p-dialog>
