@@ -18,6 +18,9 @@ export class IpressService {
     getIpress(){
         return this.http.get<any[]>(`${this.base_url}/${this.bd}/api/ipress`);
     }
+    getIpressID(id){
+        return this.http.get<any[]>(`${this.base_url}/${this.bd}/api/ipress/${id}`);
+    }
     createIpress(ipress) {
         return this.http.post<any>(`${this.base_url}/${this.bd}/api/ipress`, ipress)
     }
@@ -27,8 +30,14 @@ export class IpressService {
     editIpress(ipress) {
         return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress`, ipress)
     }
-    /*addEncargadoIpress(idIpress,idPersonal){
-        return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress/cambiarencargado/${idIpress}/${idPersonal}`)
-    }*/
+    createJurisdiccionIpress(idIpress,req){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress/agregarjurisdiccion/${idIpress}`,req)
+    }
+    editJurisdiccionIpress(idIpress,req){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress/actualizarjurisdiccion/${idIpress}`,req)
+    }
+    deleteJurisdiccionIpress(idIpress,req){
+        return this.http.delete<any>(`${this.base_url}/${this.bd}/api/ipress/eliminarjurisdiccion/${idIpress}`,req)
+    }
     
 }

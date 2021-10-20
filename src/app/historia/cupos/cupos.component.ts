@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import {Cupo} from '../../core/models/cupo.models';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {CuposService} from "../../core/services/cupos.service";
+import {UpsService} from "../../mantenimientos/services/ups/ups.service";
 
 
 @Component({
@@ -86,7 +87,8 @@ export class CuposComponent implements OnInit {
         private primeNGConfig: PrimeNGConfig,
         private messageService: MessageService,
         private fb: FormBuilder,
-        private cuposService: CuposService
+        private cuposService: CuposService,
+        private upsService: UpsService
     ) {
         this.justifyOptions = [
             {icon: "pi pi-align-left", justify: "Left"},
@@ -104,11 +106,14 @@ export class CuposComponent implements OnInit {
     ngOnInit(): void {
         this.inicializarForm();
         this.getDataUPS();
+        this.getDataUPS();
     }
 
+
     getDataUPS() {
-        this.cuposService.getTipoUPSs().subscribe((resp: any) => {
+        this.upsService.getUPS().subscribe((resp: any) => {
             this.ups = resp.object;
+            console.log("ups", this.ups);
         });
     }
 
@@ -219,7 +224,7 @@ export class CuposComponent implements OnInit {
         // this.listaPersonal = this.dataOfertasCupos.filter(item => item.horaLaboral == event.horaLaboral);
         this.horas = null;
         let data = {
-            servicio: this.selectedServicio.nombre,
+            servicio: this.selectedServicio.nombreUPS,
             nombreIpress: this.iprees,
             fechaOferta: this.datafecha,
         }

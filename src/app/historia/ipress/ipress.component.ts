@@ -54,7 +54,6 @@ export class IpressComponent implements OnInit {
 
   //dialogs
   ipressDialog: boolean;
-  encargadoDialog: boolean;
   jurisdiccionDialog: boolean;
   ambienteDialog: boolean;
   turnoDialog: boolean;
@@ -82,6 +81,13 @@ export class IpressComponent implements OnInit {
       this.data = res.object;
     });
   }
+  getIpressId() {
+    this.ipressservice.getIpressID(this.idIpress).subscribe((res: any) => {
+        this.jurisdicciones = res.object.jurisdiccion;
+        this.ambientes = res.object.ambientes;
+        this.turnos = res.object.turnos;
+    });
+}
   getCategorias() {
     this.categoriaservice.getCategoriaEstablecimiento().subscribe((res: any) => {
       this.categoriasList = res.object;
@@ -128,12 +134,7 @@ export class IpressComponent implements OnInit {
       red: ['', [Validators.required]],
       microRed: ['', [Validators.required]],
       docPersonal: ['', [Validators.required]],
-    })
-    this.formEncargado = this.formBuilder.group({
-      idPersonal: ['', [Validators.required]],
-      nombre: ['', [Validators.required]],
-      fechaAsignacion: ['', [Validators.required]],
-      estado: ['', [Validators.required]],
+      nombrePersonal: ['', [Validators.required]],
     })
     this.formJurisdiccion = this.formBuilder.group({
       ubigeo: ['', [Validators.required]],
@@ -459,23 +460,14 @@ export class IpressComponent implements OnInit {
 
   // modulos para todos los dialogs
   close() {
-    this.encargadoDialog = false;
     this.jurisdiccionDialog = false;
     this.ambienteDialog = false;
     this.turnoDialog = false;
-    this.guardarNuevoEncargado();
     this.guardarNuevaJurisdiccion();
     this.guardarNuevoAmbiente();
     this.guardarNuevoTurno();
   }
 
-  // modulos de encargado
-  newEncargado(rowData) {
-    this.encargados = rowData.encargado;
-    this.idIpress = rowData.id;
-    this.formEncargado.reset();
-    this.encargadoDialog = true;
-  }
   newJurisdiccion(rowData) {
     this.jurisdicciones = rowData.jurisdiccion;
     this.idIpress = rowData.id;
@@ -495,14 +487,6 @@ export class IpressComponent implements OnInit {
     this.turnoDialog = true;
   }
 
-  guardarNuevoEncargado() {
-    this.isUpdateEncargado = false;
-    this.formEncargado.reset();
-    this.formEncargado.get('idPersonal').setValue("");
-    this.formEncargado.get('nombre').setValue("");
-    this.formEncargado.get('fechaAsignacion').setValue("");
-    this.formEncargado.get('estado').setValue("");
-  }
   guardarNuevaJurisdiccion() {
     this.isUpdateJurisdiccion = false;
     this.formJurisdiccion.reset();
@@ -511,6 +495,75 @@ export class IpressComponent implements OnInit {
     this.formJurisdiccion.get('provincia').setValue("");
     this.formJurisdiccion.get('distrito').setValue("");
     this.formJurisdiccion.get('centroPoblado').setValue("");
+  }
+  buscarUbigeoJurisdiccion() {
+    const ubigeo = {
+      ubigeo: this.formJurisdiccion.value.ubigeo,
+    }
+    if (this.formJurisdiccion.value.ubigeo.trim() != "") {
+      this.loading = true;
+      this.ubicacionService.buscarUbigeo(ubigeo).subscribe((res: any) => {
+        this.formJurisdiccion.get('departamento').setValue({ iddd: res.object[0].iddd, departamento: res.object[0].departamento });
+        this.selectedDepartamentoJurisdiccion();
+        this.formJurisdiccion.get('provincia').setValue({ idpp: res.object[0].idpp, provincia: res.object[0].provincia });
+        this.selectedProvinciaJurisdiccion();
+        this.formJurisdiccion.get('distrito').setValue({ iddis: res.object[0].iddis, distrito: res.object[0].distrito });
+        this.selectedDistritoJurisdiccion();
+        this.loading = false;
+      })
+    }
+  }
+
+  selectedDepartamentoJurisdiccion() {
+    const dpto = {
+      departamento: this.formJurisdiccion.value.departamento,
+    }
+    let rowData = dpto.departamento;
+    this.ubicacionService.getProvincias(rowData).subscribe((res: any) => {
+      this.provinciasList = res.object;
+    })
+  }
+
+  selectedProvinciaJurisdiccion() {
+    const rowData = {
+      departamento: this.formJurisdiccion.value.departamento,
+      provincia: this.formJurisdiccion.value.provincia,
+    };
+
+    let d = rowData.departamento.iddd;
+    let p = rowData.provincia.idpp;
+
+    let aux = {
+      iddd: d,
+      idpp: p
+    }
+    this.ubicacionService.getDistritos(aux).subscribe((res: any) => {
+      this.distritosList = res.object;
+    })
+  }
+
+  selectedDistritoJurisdiccion() {
+    const rowData = {
+      departamento: this.formJurisdiccion.value.departamento,
+      provincia: this.formJurisdiccion.value.provincia,
+      distrito: this.formJurisdiccion.value.distrito,
+    };
+
+    let d = rowData.departamento.iddd;
+    let p = rowData.provincia.idpp;
+    let dt = rowData.distrito.iddis;
+
+    let aux = {
+      iddd: d,
+      idpp: p,
+      iddis: dt
+    }
+    this.ubicacionService.getCentroPoblado(aux).subscribe((res: any) => {
+      this.CCPPList = res.object;
+    })
+    this.ubicacionService.getUbigeoDistrito(aux).subscribe((res: any) => {
+      this.formJurisdiccion.get('ubigeo').setValue(res.object[0].ubigeo);
+    })
   }
   guardarNuevoAmbiente() {
     this.isUpdateAmbiente = false;
@@ -529,21 +582,60 @@ export class IpressComponent implements OnInit {
     this.formTurno.get('horaFin').setValue("");
 
   }
+  selectedEditarJurisdiccion(rowData) {
+    this.formJurisdiccion.get('departamento').setValue(this.departamentosList.find(dep => dep.departamento === rowData.departamento));
 
-  editarEncargado(rowData) {
-    this.isUpdateEncargado = true;
-    this.formEncargado.get('idPersonal').setValue(rowData.idPersonal);
-    this.formEncargado.get('nombre').setValue(rowData.nombre);
-    this.formEncargado.get('fechaAsignacion').setValue(rowData.fechaAsignacion);
-    this.formEncargado.get('estado').setValue(rowData.estado);
+    const dpto = {
+      departamento: this.formJurisdiccion.value.departamento,
+    }
+
+    this.ubicacionService.getProvincias(dpto.departamento).subscribe((res: any) => {
+      this.provinciasList = res.object;
+      this.formJurisdiccion.get('provincia').setValue(this.provinciasList.find(prov => prov.provincia === rowData.provincia));
+
+      const data = {
+        departamento: this.formJurisdiccion.value.departamento,
+        provincia: this.formJurisdiccion.value.provincia,
+      };
+
+      let d = data.departamento.iddd;
+      let p = data.provincia.idpp;
+
+      let aux = {
+        iddd: d,
+        idpp: p
+      }
+      this.ubicacionService.getDistritos(aux).subscribe((res: any) => {
+        this.distritosList = res.object;
+        this.formJurisdiccion.get('distrito').setValue(this.distritosList.find(dis => dis.distrito === rowData.distrito));
+
+        const data = {
+          departamento: this.formJurisdiccion.value.departamento,
+          provincia: this.formJurisdiccion.value.provincia,
+          distrito: this.formJurisdiccion.value.distrito,
+        };
+
+        let d = data.departamento.iddd;
+        let p = data.provincia.idpp;
+        let dt = data.distrito.iddis;
+
+        let aux = {
+          iddd: d,
+          idpp: p,
+          iddis: dt
+        }
+        this.ubicacionService.getCentroPoblado(aux).subscribe((res: any) => {
+          this.CCPPList = res.object;
+          this.formJurisdiccion.get('centroPoblado').setValue(this.CCPPList.find(cp => cp.ccpp === rowData.centroPoblado));
+        })
+      })
+
+    })
   }
   editarJurisdiccion(rowData) {
     this.isUpdateJurisdiccion = true;
     this.formJurisdiccion.get('ubigeo').setValue(rowData.ubigeo);
-    this.formJurisdiccion.get('departamento').setValue(rowData.departamento);
-    this.formJurisdiccion.get('provincia').setValue(rowData.provincia);
-    this.formJurisdiccion.get('distrito').setValue(rowData.distrito);
-    this.formJurisdiccion.get('centroPoblado').setValue(rowData.centroPoblado);
+    this.selectedEditarJurisdiccion(rowData);
   }
   editarAmbiente(rowData) {
     this.isUpdateAmbiente = true;
@@ -559,10 +651,7 @@ export class IpressComponent implements OnInit {
     this.formTurno.get('horaFin').setValue(rowData.horaFin)
   }
 
-  tituloEncargado() {
-    if (this.isUpdateEncargado) return "Edite Encargado";
-    else return "Ingrese Nuevo Encargado";
-  }
+ 
   tituloJurisdiccion() {
     if (this.isUpdateJurisdiccion) return "Edite Jurisdiccion";
     else return "Ingrese Nueva Jurisdiccion";
@@ -576,32 +665,6 @@ export class IpressComponent implements OnInit {
     else return "Ingrese Nuevo Turno";
   }
 
-  eliminarEncargado(rowData) {
-    this.isUpdateEncargado = false;
-    Swal.fire({
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      icon: 'warning',
-      title: 'Estas seguro de eliminar',
-      text: '',
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        /*this.personalservice.deletePersonalEspecialidad(this.idEspecialidad,rowData.nombre).subscribe(
-            result => {
-                this.getPersonalIdEspecialidad()
-            }
-        );
-        Swal.fire({
-            icon: 'success',
-            title: 'Eliminado correctamente',
-            text: '',
-            showConfirmButton: false,
-            timer: 1500
-        })*/
-      }
-    })
-  }
   eliminarJurisdiccion(rowData) {
     this.isUpdateJurisdiccion = false;
     Swal.fire({
@@ -613,9 +676,15 @@ export class IpressComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        /*this.personalservice.deletePersonalEspecialidad(this.idEspecialidad,rowData.nombre).subscribe(
+        let req={ centroPoblado: rowData.centroPoblado,
+                  departamento: rowData.departamento,
+                  distrito: rowData.distrito,
+                  provincia: rowData.provincia,
+                  ubigeo: rowData.ubigeo}
+        this.ipressservice.deleteJurisdiccionIpress(this.idIpress,req).subscribe(
             result => {
-                this.getPersonalIdEspecialidad()
+                this.getIpressId();
+                this.getIpress();
             }
         );
         Swal.fire({
@@ -624,7 +693,7 @@ export class IpressComponent implements OnInit {
             text: '',
             showConfirmButton: false,
             timer: 1500
-        })*/
+        })
       }
     })
   }
@@ -680,37 +749,26 @@ export class IpressComponent implements OnInit {
       }
     })
   }
-  saveEncargado(rowData) {
-    /*let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
-    const req = {
-        nombre: this.formEspecialidad.value.nombre,
-        nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
-        estado: est.estado
-    }
   
-    this.personalservice.createPersonalEspecialidad(this.idEspecialidad,req).subscribe(
-        result => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Agregado correctamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-            this.getPersonalIdEspecialidad();
-            this.guardarNuevoEspecialidad();
-        }
-    )*/
-  }
   saveJurisdiccion(rowData) {
-    /*let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
-    const req = {
-        nombre: this.formEspecialidad.value.nombre,
-        nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
-        estado: est.estado
+    let aux = {
+      iddd: this.formJurisdiccion.value.departamento.iddd,
+      idpp: this.formJurisdiccion.value.provincia.idpp,
+      iddis: this.formJurisdiccion.value.distrito.iddis,
+      ccpp: this.formJurisdiccion.value.centroPoblado.ccpp,
     }
-  
-    this.personalservice.createPersonalEspecialidad(this.idEspecialidad,req).subscribe(
+    this.ubicacionService.getCCPPDatos(aux).subscribe((res: any) => {
+      this.centro = res.object[0];
+      const req={ centroPoblado: this.formJurisdiccion.value.centroPoblado.ccpp,
+        departamento: this.formJurisdiccion.value.departamento.departamento,
+        distrito: this.formJurisdiccion.value.distrito.distrito,
+        provincia: this.formJurisdiccion.value.provincia.provincia,
+        ubigeo: this.formJurisdiccion.value.ubigeo,
+        altura: this.centro.altura,
+        latitud: this.centro.latitude,
+        longitud: this.centro.longitude
+      }
+      this.ipressservice.createJurisdiccionIpress(this.idIpress,req).subscribe(
         result => {
             Swal.fire({
                 icon: 'success',
@@ -719,10 +777,11 @@ export class IpressComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500,
             })
-            this.getPersonalIdEspecialidad();
-            this.guardarNuevoEspecialidad();
-        }
-    )*/
+            this.getIpressId();
+            this.getIpress();
+            this.guardarNuevaJurisdiccion();
+        })  
+    })
   }
   saveAmbiente(rowData) {
     /*let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
@@ -768,43 +827,26 @@ export class IpressComponent implements OnInit {
         }
     )*/
   }
-  saveEdicionEncargado() {
-    /*let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
-    console.log(est);
-    const req = {
-        nombre: this.formEspecialidad.value.nombre,
-        nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
-        estado: this.estadoUpdateEspecialidad
-  
-    }
-    console.log(req);
-  
-    this.personalservice.editPersonalEspecialidad(this.idEspecialidad,req).subscribe(
-        result => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Editado correctamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-            this.getPersonalIdEspecialidad();
-            this.guardarNuevoEspecialidad();
-        }
-    )*/
-  }
+ 
   saveEdicionJurisdiccion() {
-    /*let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
-    console.log(est);
-    const req = {
-        nombre: this.formEspecialidad.value.nombre,
-        nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
-        estado: this.estadoUpdateEspecialidad
-  
+    let aux = {
+      iddd: this.formJurisdiccion.value.departamento.iddd,
+      idpp: this.formJurisdiccion.value.provincia.idpp,
+      iddis: this.formJurisdiccion.value.distrito.iddis,
+      ccpp: this.formJurisdiccion.value.centroPoblado.ccpp,
     }
-    console.log(req);
-  
-    this.personalservice.editPersonalEspecialidad(this.idEspecialidad,req).subscribe(
+    this.ubicacionService.getCCPPDatos(aux).subscribe((res: any) => {
+      this.centro = res.object[0];
+      const req={ centroPoblado: this.formJurisdiccion.value.centroPoblado.ccpp,
+        departamento: this.formJurisdiccion.value.departamento.departamento,
+        distrito: this.formJurisdiccion.value.distrito.distrito,
+        provincia: this.formJurisdiccion.value.provincia.provincia,
+        ubigeo: this.formJurisdiccion.value.ubigeo,
+        altura: this.centro.altura,
+        latitud: this.centro.latitude,
+        longitud: this.centro.longitude
+      }
+      this.ipressservice.editJurisdiccionIpress(this.idIpress,req).subscribe(
         result => {
             Swal.fire({
                 icon: 'success',
@@ -813,10 +855,11 @@ export class IpressComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500,
             })
-            this.getPersonalIdEspecialidad();
-            this.guardarNuevoEspecialidad();
-        }
-    )*/
+            this.getIpressId();
+            this.getIpress();
+            this.guardarNuevaJurisdiccion();
+        })  
+    })
   }
   saveEdicionAmbiente() {
     /*let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);

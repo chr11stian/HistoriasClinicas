@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RedServicioSalud } from 'src/app/core/models/mantenimiento.models';
-import { Ubicacion } from 'src/app/core/models/ubicacion.models';
+import { Ubicacion, Departamentos, Provincias, Distrito } from 'src/app/core/models/ubicacion.models';
 import { RedServiciosSaludService } from '../../services/red-servicios-salud/red-servicios-salud.service';
 import { UbicacionService } from '../../services/ubicacion/ubicacion.service';
 import Swal from 'sweetalert2';
@@ -22,7 +22,7 @@ export class RedServiciosSaludComponent implements OnInit {
     formExtraRedServicio: FormGroup;
     formMicroRed: FormGroup;
     formEESS: FormGroup;
-    ubicacion: Ubicacion = {};
+    ubicacion: Ubicacion;
     departamento: any;
     dataDepartamentos: any;
     dataProvincia: any;
@@ -42,6 +42,9 @@ export class RedServiciosSaludComponent implements OnInit {
     selectedRedEESS: any;
     selectedMicroRed: any;
     update: boolean = false;
+    dpto: Departamentos;
+    prov: Provincias;
+    dist: Distrito;
 
     constructor(
         private fb: FormBuilder,
@@ -51,10 +54,7 @@ export class RedServiciosSaludComponent implements OnInit {
 
     ngOnInit(): void {
         this.getRedServiciosSalud();
-        console.log('lista red srevicios ', this.listaRedServiciosSalud)
         this.inicializarFormRedServicio();
-        // this.getDepartamentos();
-        // this.changedMicroRedSelected();
     }
 
     inicializarFormRedServicio() {
@@ -74,13 +74,12 @@ export class RedServiciosSaludComponent implements OnInit {
             nombreEESS: new FormControl(''),
             categoria: new FormControl(''),
             ubigeo: new FormControl('')
-        })
+        });
     }
 
     getRedServiciosSalud() {
         this.redServiciosSaludService.getRedServiciosSalud().subscribe((res: any) => {
             this.listaRedServiciosSalud = res.object;
-            console.log('data res ', this.listaRedServiciosSalud)
         })
     }
 
@@ -91,12 +90,13 @@ export class RedServiciosSaludComponent implements OnInit {
     }
 
     openDialogAgregarRedServicios() {
+        this.update = false;
+        this.limpiarCampos();
         this.agregarRedServicio = true;
     }
 
     openDialogAgregarMicroRedServicios() {
-
-        console.log('red seleccionada ', this.selectedRed)
+        this.update = false;
         if (this.selectedRed == '') {
             Swal.fire({
                 position: 'center',
@@ -111,10 +111,31 @@ export class RedServiciosSaludComponent implements OnInit {
     }
 
     openDialogAgregarEESS() {
+        if (this.selectedRedEESS == '') {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Seleccione una red',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return;
+        }
+        if (this.selectedMicroRed == '') {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Seleccione una Micro Red',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return;
+        }
         this.agregarEESS = true;
         this.getDepartamentos();
-        console.log('select red es, ', this.selectedRedEESS)
-        console.log('selected micro ', this.selectedMicroRed)
+        this.dpto = {};
+        this.prov = {};
+        this.dist = {};
     }
 
     closeDialogRedServicio() {
@@ -131,7 +152,6 @@ export class RedServiciosSaludComponent implements OnInit {
 
     aceptarDialogRedServicio() {
         this.recuperarDatosRed();
-        console.log('datos red ', this.dataRed)
         this.redServiciosSaludService.postRedServiciosSalud(this.dataRed).subscribe((res: any) => {
             this.limpiarCampos();
             this.closeDialogRedServicio();
@@ -158,7 +178,6 @@ export class RedServiciosSaludComponent implements OnInit {
 
     aceptarDialogMicroRed() {
         this.recuperarDatosMicroRed();
-        console.log('data micro red', this.dataMicroRed, 'id red ', this.selectedRed.idRed)
 
         this.redServiciosSaludService.postMicroRedServiciosSalud(this.selectedRed.idRed, this.dataMicroRed).subscribe((res: any) => {
             // console.log('event ', event.codRed)
@@ -183,25 +202,21 @@ export class RedServiciosSaludComponent implements OnInit {
     }
 
     recuperaDatosEESS() {
-        let auxUbicacion: any = this.ubicacion;
-        console.log('auxUbicacion ', auxUbicacion)
-        let auxUbigeo: any = auxUbicacion.departamento.iddd + auxUbicacion.provincia.idpp + auxUbicacion.distrito.iddis
+        let auxUbigeo: any = this.dpto.iddd + this.prov.idpp + this.dist.iddis
         this.dataEESS = {
             idEESS: this.formEESS.value.idEESS,
             nombreEESS: this.formEESS.value.nombreEESS,
             categoria: this.formEESS.value.categoria,
-            departamento: auxUbicacion.departamento.departamento,
-            provincia: auxUbicacion.provincia.provincia,
-            distrito: auxUbicacion.distrito.distrito,
+            departamento: this.dpto.departamento,
+            provincia: this.prov.provincia,
+            distrito: this.dist.distrito,
             ubigeo: auxUbigeo
         }
     }
 
     aceptarDialogEESS() {
         this.recuperaDatosEESS();
-        console.log('data enviar', this.dataEESS)
         this.redServiciosSaludService.postEESS(this.selectedMicroRed.idMicroRed, this.dataEESS).subscribe((res: any) => {
-            console.log('res post eess ', res)
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -219,22 +234,18 @@ export class RedServiciosSaludComponent implements OnInit {
     }
 
     selectedDepartamento() {
-        let aux: any = this.ubicacion.departamento
         let dpto = {
-            iddd: aux.iddd
+            iddd: this.dpto.iddd
         }
-        this.iddd = aux.iddd;
         this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
             this.dataProvincia = res.object;
-            console.log('data pro', this.dataProvincia)
         });
     }
 
     selectedProvincia() {
-        let aux: any = this.ubicacion.provincia;
         let provincia = {
-            iddd: this.iddd,
-            idpp: aux.idpp
+            iddd: this.dpto.iddd,
+            idpp: this.prov.idpp
         };
         this.ubicacionService.getDistritos(provincia).subscribe((res: any) => {
             this.dataDistrito = res.object;
@@ -262,7 +273,6 @@ export class RedServiciosSaludComponent implements OnInit {
             if (this.listaGetMicroRed[0].idMicroRed == null) {
                 this.listaGetMicroRed = [];
             }
-            console.log('res change red ', this.listaGetMicroRed)
         })
     }
 
@@ -277,24 +287,113 @@ export class RedServiciosSaludComponent implements OnInit {
 
     handleChange(e) {
         var index = e.index;
-        console.log(index)
         if (index == 2 || index == 1) {
             this.listaGetMicroRed = [];
             this.listaEESS = [];
             this.selectedRed = '';
             this.selectedRedEESS = '';
+            this.selectedMicroRed = '';
         }
     }
 
     openEditarRed(row) {
-        console.log('row ', row);
+        this.update = true;
         this.formRedServicio.patchValue({ idRed: row.idRed });
         this.formRedServicio.patchValue({ disa: row.disa });
         this.formRedServicio.patchValue({ nombreRed: row.nombreRed });
         this.agregarRedServicio = true;
     }
 
-    editarRed(){
-    
+    editarRed() {
+        this.recuperarDatosRed();
+        this.redServiciosSaludService.putRed(this.dataRed).subscribe((res: any) => {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Se actualizo correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            this.agregarRedServicio = false;
+        })
+    }
+
+    eliminarRed(row) {
+
+    }
+
+    openEditarMicroRed(row) {
+        this.update = true;
+        this.formMicroRed.patchValue({ idMicroRed: row.idMicroRed });
+        this.formMicroRed.patchValue({ nombreMicroRed: row.nombreMicroRed });
+        this.agregarMicroRedServicio = true;
+    }
+
+    editarMicroRed() {
+        this.recuperarDatosMicroRed();
+        this.redServiciosSaludService.putMicroRed(this.dataMicroRed).subscribe((res: any) => {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Se actualizo correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        });
+        this.agregarMicroRedServicio = false;
+    }
+
+    eliminarMicroRed(row) {
+
+    }
+
+    openEditarEESS(row) {
+        this.dpto = {};
+        this.prov = {};
+        this.dist = {};
+        this.getDepartamentos();
+        this.formEESS.patchValue({ idEESS: row.idEESS });
+        this.formEESS.patchValue({ nombreEESS: row.nombreEESS });
+        this.formEESS.patchValue({ categoria: row.categoria });
+        let auxDep = row.ubigeo.slice(0, 2);
+        let auxProv = row.ubigeo.slice(2, 4);
+        let auxDist = row.ubigeo.slice(4, 6);
+        let dep = {
+            departamento: row.departamento,
+            iddd: auxDep
+        }
+        this.dpto = dep;
+        this.ubicacionService.getProvincias(dep).subscribe((res: any) => {
+            this.dataProvincia = res.object;
+        })
+
+        this.prov = {
+            idpp: auxProv,
+            provincia: row.provincia
+        }
+
+        let provAux = {
+            iddd: auxDep,
+            idpp: auxProv
+        }
+        this.ubicacionService.getDistritos(provAux).subscribe((res: any) => {
+            this.dataDistrito = res.object;
+        });
+
+        this.dist = {
+            iddis: auxDist,
+            distrito: row.distrito
+        }
+
+        this.agregarEESS = true;
+    }
+
+    editarEESS() {
+        console.log('este es el editar para estableciemiento de salud ')
+
+    }
+
+    eliminarEESS(row) {
+
     }
 }

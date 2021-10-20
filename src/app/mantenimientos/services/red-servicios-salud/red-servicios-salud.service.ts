@@ -28,11 +28,39 @@ export class RedServiciosSaludService {
         return this.http.post<any>(`${this.base_url}/${this.bd}/api/redserviciossalud/microred/${idRed}`, data)
     }
 
-    getEESS(idMicroRed){
+    getEESS(idMicroRed) {
         return this.http.get(`${this.base_url}/${this.bd}/api/redserviciossalud/eess/listar/${idMicroRed}`);
     }
 
-    postEESS(idMicroRed, data){
+    postEESS(idMicroRed, data) {
         return this.http.post<any>(`${this.base_url}/${this.bd}/api/redserviciossalud/eess/${idMicroRed}`, data)
+    }
+
+    putRed(data) {
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/redserviciossalud/red`, data)
+    }
+
+    putMicroRed(data) {
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/redserviciossalud/microred`, data)
+    }
+
+    putEESS(data) {
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/redserviciossalud/eess`, data)
+    }
+
+    deleteEESS(idEESS) {
+        return this.http.delete<any>(`${this.base_url}/${this.bd}/api/redserviciossalud/eess/${idEESS}`)
+    }
+
+    getRedByIdRed(idRed) {
+        return this.http.get<any>(`${this.base_url}/${this.bd}/api/redserviciossalud/red${idRed}`)
+    }
+
+    getMicroRedByIdMicroRed(idMicroRed) {
+        return this.http.get(`${this.base_url}/${this.bd}/api/redserviciossalud/microred/${idMicroRed}`)
+    }
+
+    getEESSByIdEESS(idEESS){
+        return this.http.get(`${this.base_url}/${this.bd}/api/redserviciosalud/eess/${idEESS}`)
     }
 }
