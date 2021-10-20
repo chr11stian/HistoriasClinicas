@@ -48,9 +48,18 @@ export class UbicacionService {
         return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/save/cpp`, data);
     }
 
-
     editarCCPP(id, data) {
         return this.http.put(`${this.base_url}/${this.bd}/api/ubicacion/actualizar/ccpp/${id}`, data)
     }
 
+    buscarUbigeo(data){
+        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/ubigeo`, data)
+    }
+
+    getUbigeoDistrito(data){
+        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/data/distrito`, data);
+    }
+    getCCPPDatos(data){
+        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/data/ccpp`, data);
+    }
 }

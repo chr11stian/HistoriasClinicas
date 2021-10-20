@@ -27,5 +27,8 @@ export class IpressService {
     editIpress(ipress) {
         return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress`, ipress)
     }
+    /*addEncargadoIpress(idIpress,idPersonal){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress/cambiarencargado/${idIpress}/${idPersonal}`)
+    }*/
     
 }

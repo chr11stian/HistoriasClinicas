@@ -109,12 +109,12 @@ const routes: Routes = [
     component: TipoUpsComponent,
   },
   {
-    path: "tipo-contrato",
-    component: TipoContratoComponent,
-  },
-  {
     path: "condicion-paciente-discapacidad",
     component: CondicionPacienteDiscapacidadComponent,
+  },
+  {
+    path: "tipo-contrato",
+    component: TipoContratoComponent,
   },
 ];
 
