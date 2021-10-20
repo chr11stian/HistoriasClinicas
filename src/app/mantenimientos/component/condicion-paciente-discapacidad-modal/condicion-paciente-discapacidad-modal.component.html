@@ -1,0 +1,35 @@
+<div class="p-fluid grid" [formGroup]="cpdFG">
+  <div class="p-field col-12 md:col-12">
+    <label for="name">id CPD</label>
+    <input
+      id="float-input-lastname"
+      type="text"
+      formControlName="codCPD"
+      pInputText
+    />
+    <small class="p-error" *ngIf="isInvalid('codCPD')">
+      *Cod CPD es necesario
+    </small>
+  </div>
+  <div class="p-field col-12 md:col-12">
+    <label for="name">Nombre</label>
+    <input
+      id="float-input-lastname"
+      type="text"
+      pInputText
+      formControlName="nombre"
+    />
+    <small class="p-error" *ngIf="isInvalid('nombre')">
+      *Nombres es necesario
+    </small>
+  </div>
+  <div class="ui-dialog-footer p-text-right p-mt-3">
+    <p-button
+      icon="pi pi-save"
+      label="Guardar"
+      (onClick)="save()"
+      styleClass="p-button-info p-button-sm"
+    >
+    </p-button>
+  </div>
+</div>

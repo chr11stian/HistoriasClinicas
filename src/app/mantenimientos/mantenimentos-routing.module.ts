@@ -21,6 +21,7 @@ import { CondicionPacienteComponent } from "./component/condicion-paciente/condi
 import {} from "./component/condicion-paciente/condicion-paciente.component";
 import { CondicionPacienteRiesgoComponent } from "./component/condicion-paciente-riesgo/condicion-paciente-riesgo.component";
 import { TipoSeguroComponent } from "./component/tipo-seguro/tipo-seguro.component";
+import { CondicionPacienteDiscapacidadComponent } from "./component/condicion-paciente-discapacidad/condicion-paciente-discapacidad.component";
 import { TipoContratoComponent } from "./component/tipo-contrato/tipo-contrato.component";
 
 const routes: Routes = [
@@ -106,6 +107,10 @@ const routes: Routes = [
   {
     path: "tipo-ups",
     component: TipoUpsComponent,
+  },
+  {
+    path: "condicion-paciente-discapacidad",
+    component: CondicionPacienteDiscapacidadComponent,
   },
   {
     path: "tipo-contrato",
