@@ -18,9 +18,10 @@ import { RedServiciosSaludComponent } from "./component/red-servicios-salud/red-
 import { NombreComercialUPSComponent } from "./component/nombre-comercial-ups/nombre-comercial-ups.component";
 
 import { CondicionPacienteComponent } from "./component/condicion-paciente/condicion-paciente.component";
-import {} from "./component/condicion-paciente/condicion-paciente.component";
+import { } from "./component/condicion-paciente/condicion-paciente.component";
 import { CondicionPacienteRiesgoComponent } from "./component/condicion-paciente-riesgo/condicion-paciente-riesgo.component";
 import { TipoSeguroComponent } from "./component/tipo-seguro/tipo-seguro.component";
+import { CondicionPacienteDiscapacidadComponent } from "./component/condicion-paciente-discapacidad/condicion-paciente-discapacidad.component";
 import { TipoContratoComponent } from "./component/tipo-contrato/tipo-contrato.component";
 
 const routes: Routes = [
@@ -111,10 +112,14 @@ const routes: Routes = [
     path: "tipo-contrato",
     component: TipoContratoComponent,
   },
+  {
+    path: "condicion-paciente-discapacidad",
+    component: CondicionPacienteDiscapacidadComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MantenimentosRoutingModule {}
+export class MantenimentosRoutingModule { }
