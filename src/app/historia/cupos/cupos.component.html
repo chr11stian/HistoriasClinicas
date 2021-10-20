@@ -56,11 +56,10 @@
 <!--                 INICIO DIALOG DE CUPOS                 -->
 <p-dialog [(visible)]="cuposDialog" [style]="{width: '1200px'}" header="OFERTAS" [modal]="true"
           styleClass="p-fluid" autoZIndex>
-    <hr>
     <br>
 
     <div class="grid">
-        <div class="col-6">
+        <div class="col-4">
             <label>SERVICIO (UPS)</label>
             <p-dropdown [options]="ups"
                         [(ngModel)]="selectedServicio"
@@ -71,19 +70,15 @@
             </p-dropdown>
         </div>
 
-        <div class="col-6">
-            <label>PERSONA QUE ATIENDE</label>
-            <div class="col-6">
-                <h4>{{ personalSelected }}</h4>
-            </div>
+        <div class="col-2">
+            <label>FECHA)</label>
+            <input type="date" pInputText [(ngModel)]="datafecha"/>
         </div>
-
-
     </div>
 
     <div class="grid">
-        <div class="p-field col-6">
-            <div class="card mt-4">
+        <div class="p-field col-6 p-card">
+            <div class="mt-4">
                 <p-table [value]="horas" dataKey="nroCupo">
                     <ng-template pTemplate="header">
                         <tr>
@@ -104,7 +99,6 @@
                                 <!--                            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>-->
                                 <p-checkbox name="groupname" [value]="rowData"
                                             [(ngModel)]="selectedHorario"></p-checkbox>
-
                             </td>
                         </tr>
                     </ng-template>
@@ -112,7 +106,11 @@
 
             </div>
         </div>
-        <div class="p-field col-6">
+        <div class="p-field col-6 p-card mt-4">
+            <label>PERSONA QUE ATIENDE</label>
+            <div>
+                <h1>{{ personalSelected }}</h1>
+            </div>
             <p-table [value]="listaPersonal" selectionMode="single" [(selection)]="selectedPersonal"
                      responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)"
                      (onRowUnselect)="onRowUnselect($event)">
@@ -134,7 +132,6 @@
                     </tr>
                 </ng-template>
             </p-table>
-
         </div>
     </div>
     <ng-template pTemplate=footer>

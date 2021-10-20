@@ -21,6 +21,7 @@ import {CuposService} from "../../core/services/cupos.service";
 export class CuposComponent implements OnInit {
 
 
+    datafecha: Date;
     dataOfertasCupos: any;
     ups: any;
     upsnombre: any;
@@ -85,6 +86,8 @@ export class CuposComponent implements OnInit {
     }]
 
 
+    iprees: string = "ACUPUNTURA Y AFINES";
+
     constructor(
         private config: DynamicDialogConfig,
         private router: Router,
@@ -125,10 +128,8 @@ export class CuposComponent implements OnInit {
         this.getPersonal();
         this.getHora_Atencion();
 
-        // let res = this.ups;
-
-        // this.getOfertascupos(res);
         this.getDataUPS();
+
     }
 
     getDataUPS() {
@@ -137,8 +138,6 @@ export class CuposComponent implements OnInit {
             console.log("UPS", this.ups);
         });
     }
-
-
 
 
     getOfertascupos(data) {
@@ -261,6 +260,12 @@ export class CuposComponent implements OnInit {
         console.log(event)
         this.listaPersonal = this.dataPersonals.filter(item => item.codServicio == event.codServicio);
         this.horas = null;
+        let data = {
+            servicio: this.selectedServicio,
+            nombreIpress: this.iprees,
+            fechaOferta: this.datafecha
+        }
+        this.getOfertascupos(data);
     }
 
     GuardarPersona() {
