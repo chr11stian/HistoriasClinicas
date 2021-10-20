@@ -80,7 +80,7 @@
 
 
 <!--IPRESS DIALOG-->
-<p-dialog [(visible)]="ipressDialog" [style]="{width: '750px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
+<p-dialog [(visible)]="ipressDialog" [style]="{width: '950px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
     <ng-template pTemplate="header">
         <h3 class="m-0">{{titulo()}}</h3>
     </ng-template>
@@ -89,38 +89,23 @@
         <form [formGroup]='form'>
             <div>
                 <div class="grid">
-                    <div class="p-field col-6">
+                    <div class="p-field col-4">
                         <label>Cod. RENAES:</label>
                         <input type="text" pInputText formControlName='codRENAES' placeholder="RENAES">
                     </div>
-                </div>
-                <div class="grid">
-                    <div class="p-field col-6">
+                    <div class="p-field col-5">
                         <label>Nombre EESS:</label>
                         <input type="text" pInputText formControlName='nombreEESS' placeholder="EESS">
                     </div>
-                    <div class="p-field col-6">
+                    <div class="p-field col-3">
                         <label>Categoria:</label>
-                        <p-dropdown *ngIf="!isUpdate" 
-                                    placeholder="Categoria IPRESS" 
-                                    class="inputRedondo"
-                                    [showTransitionOptions]="'300ms'" 
-                                    dropdownIcon="pi pi-chevron-down" 
-                                    inputId="dropdown"
-                                    [options]="categoriasList" 
-                                    formControlName="categoria" 
-                                    optionLabel="abreviatura"
-                                    required>
+                        <p-dropdown *ngIf="!isUpdate" placeholder="Categoria IPRESS" class="inputRedondo"
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                            [options]="categoriasList" formControlName="categoria" optionLabel="abreviatura" required>
                         </p-dropdown>
-                        <p-dropdown *ngIf="isUpdate" 
-                                    class="inputRedondo" 
-                                    [showTransitionOptions]="'300ms'"
-                                    dropdownIcon="pi pi-chevron-down" 
-                                    inputId="dropdown"
-                                    [options]="categoriasList"
-                                    formControlName="categoria" 
-                                    optionLabel="abreviatura"
-                                    required>
+                        <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="categoriasList"
+                            formControlName="categoria" optionLabel="abreviatura" required>
                         </p-dropdown>
                     </div>
                 </div>
@@ -133,191 +118,148 @@
             </p-divider>
             <label>Ubigeo:</label>
             <div class="grid">
-                <div class="p-inputgroup col-6">
-                    <input type="text" class="inputRedondo" placeholder="Ubigeo" pInputText formControlName='ubigeo' (blur)="buscarUbigeo()" 
-                        required />
-                    <button *ngIf="!loading" type="button" pButton pRipple icon="pi pi-search" (click)="buscarUbigeo()" 
+                <div class="p-inputgroup col-4">
+                    <input type="text" class="inputRedondo" placeholder="Ubigeo" pInputText formControlName='ubigeo'
+                        (blur)="buscarUbigeo()" required />
+                    <button *ngIf="!loading" type="button" pButton pRipple icon="pi pi-search" (click)="buscarUbigeo()"
                         class="p-button-outlined p-button-secondary"></button>
-                    <button *ngIf="loading" type="button" pButton pRipple icon="pi pi-spin pi-spinner" (click)="buscarUbigeo()"
-                        class="p-button-outlined p-button-secondary"></button>
+                    <button *ngIf="loading" type="button" pButton pRipple icon="pi pi-spin pi-spinner"
+                        (click)="buscarUbigeo()" class="p-button-outlined p-button-secondary"></button>
                 </div>
             </div>
             <div class="grid">
-                <div class="p-field col-6">
+                <div class="p-field col-4">
                     <label>Departamento:</label>
-                    <p-dropdown *ngIf="!isUpdate" 
-                                placeholder="Departamento" 
-                                class="inputRedondo"
-                                [showTransitionOptions]="'300ms'" 
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown"
-                                [options]="departamentosList" 
-                                formControlName="departamento" 
-                                optionLabel="departamento"
-                                (onChange)="selectedDepartamento()"
-                                required>
+                    <p-dropdown *ngIf="!isUpdate" placeholder="Departamento" class="inputRedondo"
+                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                        [options]="departamentosList" formControlName="departamento" optionLabel="departamento"
+                        (onChange)="selectedDepartamento()" required>
                     </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" 
-                                class="inputRedondo" 
-                                [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown" 
-                                [options]="departamentosList"
-                                formControlName="departamento" 
-                                optionLabel="departamento"
-                                (onChange)="selectedDepartamento()" 
-                                required>
+                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="departamentosList"
+                        formControlName="departamento" optionLabel="departamento" (onChange)="selectedDepartamento()"
+                        required>
                     </p-dropdown>
                 </div>
 
-                <div class="p-field col-6">
+                <div class="p-field col-4">
                     <label>Provincia:</label>
-                    <p-dropdown *ngIf="!isUpdate" 
-                                placeholder="Provincia" 
-                                class="inputRedondo"
-                                [showTransitionOptions]="'300ms'" 
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown"
-                                [options]="provinciasList"
-                                formControlName="provincia" 
-                                optionLabel="provincia"
-                                (onChange)="selectedProvincia()" 
-                                required>
+                    <p-dropdown *ngIf="!isUpdate" placeholder="Provincia" class="inputRedondo"
+                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                        [options]="provinciasList" formControlName="provincia" optionLabel="provincia"
+                        (onChange)="selectedProvincia()" required>
                     </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" 
-                                class="inputRedondo" 
-                                [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown" 
-                                [options]="provinciasList"
-                                formControlName="provincia" 
-                                optionLabel="provincia" 
-                                (onChange)="selectedProvincia()" 
-                                required>
+                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="provinciasList"
+                        formControlName="provincia" optionLabel="provincia" (onChange)="selectedProvincia()" required>
                     </p-dropdown>
                 </div>
-            </div>
-            <div class="grid">
-                <div class="p-field col-6">
+                <div class="p-field col-4">
                     <label>Distrito:</label>
-                    <p-dropdown *ngIf="!isUpdate" 
-                                placeholder="Distrito" 
-                                class="inputRedondo"
-                                [showTransitionOptions]="'300ms'" 
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown"
-                                [options]="distritosList" 
-                                formControlName="distrito" 
-                                optionLabel="distrito" 
-                                (onChange)="selectedDistrito()"
-                                required>
+                    <p-dropdown *ngIf="!isUpdate" placeholder="Distrito" class="inputRedondo"
+                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                        [options]="distritosList" formControlName="distrito" optionLabel="distrito"
+                        (onChange)="selectedDistrito()" required>
                     </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" 
-                                class="inputRedondo" 
-                                [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown" 
-                                [options]="distritosList"
-                                formControlName="distrito" 
-                                optionLabel="distrito"
-                                (onChange)="selectedDistrito()"
-                                required>
-                    </p-dropdown>
-                </div>
-                <div class="p-field col-6">
-                    <label>Centro Poblado:</label>
-                    <p-dropdown *ngIf="!isUpdate" 
-                                placeholder="Centro Poblado" 
-                                class="inputRedondo"
-                                [showTransitionOptions]="'300ms'" 
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown"
-                                [options]="CCPPList" 
-                                formControlName="centroPoblado" 
-                                optionLabel="ccpp"
-                                [filter]="true" filterBy="ccpp"
-                                required>
-                    </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" 
-                                class="inputRedondo" 
-                                [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown" 
-                                [options]="CCPPList"
-                                formControlName="centroPoblado" 
-                                optionLabel="ccpp"
-                                [filter]="true" filterBy="ccpp"
-                                required>
+                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="distritosList"
+                        formControlName="distrito" optionLabel="distrito" (onChange)="selectedDistrito()" required>
                     </p-dropdown>
                 </div>
             </div>
             <div class="grid">
-                <div class="p-field col-12">
+                <div class="p-field col-4">
+                    <label>Centro Poblado:</label>
+                    <p-dropdown *ngIf="!isUpdate" placeholder="Centro Poblado" class="inputRedondo"
+                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                        [options]="CCPPList" formControlName="centroPoblado" optionLabel="ccpp" [filter]="true"
+                        filterBy="ccpp" required>
+                    </p-dropdown>
+                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="CCPPList"
+                        formControlName="centroPoblado" optionLabel="ccpp" [filter]="true" filterBy="ccpp" required>
+                    </p-dropdown>
+                </div>
+                <div class="p-field col-8">
                     <label>Direccion:</label>
                     <input type="text" pInputText formControlName='direccion' placeholder="Direccion de la IPRESS">
                 </div>
             </div>
-
-            <p-divider align="left">
-                <div class="p-d-inline-flex p-ai-center">
-                    <i class="pi pi-angle-double-right p-mr-2"></i>
-                    <b>Red de Salud</b>
-                </div>
-            </p-divider>
             <div class="grid">
-                <div class="p-field col-6">
-                    <label>Red:</label>
-                    <p-dropdown *ngIf="!isUpdate" 
-                                placeholder="Red de salud" 
-                                class="inputRedondo"
-                                [showTransitionOptions]="'300ms'" 
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown"
-                                [options]="redesList" 
-                                formControlName="red" 
-                                optionLabel="nombreRed" 
-                                (onChange)="changeRedSelected()"
-                                scrollHeight="100px"
-                                required>
-                    </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" 
-                                class="inputRedondo" 
-                                [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown" 
-                                [options]="redesList" 
-                                formControlName="red"
-                                optionLabel="nombreRed"
-                                (onChange)="changeRedSelected()"
-                                scrollHeight="100px"
-                                required>
-                    </p-dropdown>
+                <div class="p-field col-5">
+                    <p-divider align="left">
+                        <div class="p-d-inline-flex p-ai-center">
+                            <i class="pi pi-angle-double-right p-mr-2"></i>
+                            <b>Red de Salud</b>
+                        </div>
+                    </p-divider>
                 </div>
-                <div class="p-field col-6">
-                    <label>MicroRed:</label>
-                    <p-dropdown *ngIf="!isUpdate" 
-                                placeholder="Micro Red de salud" 
-                                class="inputRedondo"
-                                [showTransitionOptions]="'300ms'" 
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown"
-                                [options]="microRedesList" 
-                                formControlName="microRed" 
-                                optionLabel="nombreMicroRed" 
-                                scrollHeight="100px"
-                                required>
-                    </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" 
-                                class="inputRedondo" 
-                                [showTransitionOptions]="'300ms'"
-                                dropdownIcon="pi pi-chevron-down" 
-                                inputId="dropdown" 
-                                [options]="microRedesList"
-                                formControlName="microRed" 
-                                optionLabel="nombreMicroRed"
-                                scrollHeight="100px" 
-                                required>
-                    </p-dropdown>
+                <div class="p-field col-1"> </div>
+                <div class="p-field col-5">
+                    <p-divider align="left">
+                        <div class="p-d-inline-flex p-ai-center">
+                            <i class="pi pi-angle-double-right p-mr-2"></i>
+                            <b>Encargado</b>
+                        </div>
+                    </p-divider>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="p-field col-5">
+                    <div class="col-12">
+                        <label>Red:</label>
+                        <p-dropdown *ngIf="!isUpdate" placeholder="Red de salud" class="inputRedondo"
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                            [options]="redesList" formControlName="red" optionLabel="nombreRed"
+                            (onChange)="changeRedSelected()" scrollHeight="100px" required>
+                        </p-dropdown>
+                        <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="redesList"
+                            formControlName="red" optionLabel="nombreRed" (onChange)="changeRedSelected()"
+                            scrollHeight="100px" required>
+                        </p-dropdown>
+                    </div>
+                    <div class="col-12">
+                        <label>MicroRed:</label>
+                        <p-dropdown *ngIf="!isUpdate" placeholder="Micro Red de salud" class="inputRedondo"
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                            [options]="microRedesList" formControlName="microRed" optionLabel="nombreMicroRed"
+                            scrollHeight="100px" required>
+                        </p-dropdown>
+                        <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="microRedesList"
+                            formControlName="microRed" optionLabel="nombreMicroRed" scrollHeight="100px" required>
+                        </p-dropdown>
+                    </div>
+
+                </div>
+                <div class="p-field col-1">
+                    <p-divider layout="vertical"></p-divider>
+                </div>
+                <div class="p-field col-5">
+                    <div class="col-13 py-2">
+                        <label> Documento Personal:</label>
+                        <div class="grid">
+                            <div class="p-inputgroup col-12">
+                                <input type="text" class="inputRedondo" placeholder="Documento" pInputText
+                                    formControlName='docPersonal' required />
+                                <button *ngIf="!loading" type="button" pButton pRipple icon="pi pi-search"
+                                    class="p-button-outlined p-button-secondary"></button>
+                                <button *ngIf="loading" type="button" pButton pRipple icon="pi pi-spin pi-spinner"
+                                    class="p-button-outlined p-button-secondary"></button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-12 p-2">
+                        <div class="grid">
+                            <label>Nombres y Apellidos:</label>
+                            <input type="text" pInputText formControlName='nombrePersonal'
+                                placeholder="Nombre del Personal">
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </form>
@@ -473,9 +415,9 @@
                             label="Guardar" class="m-1 w-9rem" (click)="saveJurisdiccion()"></button>
                         <button *ngIf="isUpdateJurisdiccion" [disabled]="!formJurisdiccion.valid" pButton type="button"
                             label="Guardar" class="m-1 w-9rem" (click)="saveEdicionJurisdiccion()"></button>
-                        <button pButton type="button" label="Nuevo" icon="pi pi-plus" (click)="guardarNuevaJurisdiccion()"
-                            pTooltip="Agregar jurisdiccion" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
-                            pRipple></button>
+                        <button pButton type="button" label="Nuevo" icon="pi pi-plus"
+                            (click)="guardarNuevaJurisdiccion()" pTooltip="Agregar jurisdiccion" tooltipPosition="right"
+                            class="p-button-danger m-1 w-9rem" pRipple></button>
                     </div>
 
                 </p-card>
@@ -690,8 +632,8 @@
                             <td style="text-align: center">{{ rowData.horaInicio }}</td>
                             <td style="text-align: center">{{ rowData.horaFin }}</td>
                             <td>
-                                <button pButton (click)="editarTurno(rowData)" pTooltip="Editar" pRipple
-                                    type="button" icon="pi pi-pencil" class="p-button-rounded m-1">
+                                <button pButton (click)="editarTurno(rowData)" pTooltip="Editar" pRipple type="button"
+                                    icon="pi pi-pencil" class="p-button-rounded m-1">
                                 </button>
                                 <button pButton (click)="eliminarTurno(rowData)" pTooltip="Eliminar" pRipple
                                     type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">

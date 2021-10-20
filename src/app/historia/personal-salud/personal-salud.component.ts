@@ -39,6 +39,7 @@ export class PersonalSaludComponent implements OnInit {
     idEspecialidad: string = "";
     estadoUpdateEspecialidad: boolean;
     ipressList: any[];
+    datosPersonales: any[];
 
     especialidades: any[];
     personalDialog: boolean;
@@ -77,8 +78,214 @@ export class PersonalSaludComponent implements OnInit {
             distrito: 'San Sebastian'
         }
         ];
+        this.datosPersonales = [{
+            tipoDoc: "DNI",
+            nroDoc: "73100007",
+            apePaterno: "Garcia",
+            apeMaterno: "Perez",
+            primerNombre: "Marco",
+            otrosNombres: "Avelino",
+            fechaNacimiento: '1998-08-10',
+            sexo: "Masculino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "12121212",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        },
+        {
+            tipoDoc: "DNI",
+            nroDoc: "73100007",
+            apePaterno: "Merino",
+            apeMaterno: "Sagasti",
+            primerNombre: "Andre",
+            otrosNombres: "Antauro",
+            fechaNacimiento: '1998-09-10',
+            sexo: "Masculino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "12121212",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        },
+        {
+            tipoDoc: "DNI",
+            nroDoc: "73100006",
+            apePaterno: "Gomez",
+            apeMaterno: "Arias",
+            primerNombre: "Maria",
+            otrosNombres: "Aurelia",
+            fechaNacimiento: '1999-08-10',
+            sexo: "Femenino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "1233312",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        },
+        {
+            tipoDoc: "DNI",
+            nroDoc: "73100005",
+            apePaterno: "Orue",
+            apeMaterno: "Ttito",
+            primerNombre: "Ana",
+            otrosNombres: "Eliana",
+            fechaNacimiento: '1990-08-10',
+            sexo: "Femenino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "1909091212",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        },
+        {
+            tipoDoc: "DNI",
+            nroDoc: "73100001",
+            apePaterno: "Alvarez",
+            apeMaterno: "Callasaca",
+            primerNombre: "Fernando",
+            otrosNombres: "Daniel",
+            fechaNacimiento: '1970-08-20',
+            sexo: "Masculino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "12151617",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        }
+        ,
+        {
+            tipoDoc: "DNI",
+            nroDoc: "73100002",
+            apePaterno: "Alvarez",
+            apeMaterno: "Callasaca",
+            primerNombre: "Fernando",
+            otrosNombres: "Daniel",
+            fechaNacimiento: '1970-08-20',
+            sexo: "Masculino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "12151617",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        }
+        ,
+        {
+            tipoDoc: "DNI",
+            nroDoc: "73100003",
+            apePaterno: "Alvarez",
+            apeMaterno: "Callasaca",
+            primerNombre: "Fernando",
+            otrosNombres: "Daniel",
+            fechaNacimiento: '1970-08-20',
+            sexo: "Masculino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "12151617",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        },
+        {
+            tipoDoc: "DNI",
+            nroDoc: "73100004",
+            apePaterno: "Alvarez",
+            apeMaterno: "Callasaca",
+            primerNombre: "Fernando",
+            otrosNombres: "Daniel",
+            fechaNacimiento: '1970-08-20',
+            sexo: "Masculino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "12151617",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        },
+        {
+            tipoDoc: "DNI",
+            nroDoc: "73100008",
+            apePaterno: "Garcia",
+            apeMaterno: "Perez",
+            primerNombre: "Marco",
+            otrosNombres: "Avelino",
+            fechaNacimiento: '1998-08-10',
+            sexo: "Masculino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "12121212",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        },
+        {
+            tipoDoc: "DNI",
+            nroDoc: "73100009",
+            apePaterno: "Garcia",
+            apeMaterno: "Perez",
+            primerNombre: "Marco",
+            otrosNombres: "Avelino",
+            fechaNacimiento: '1998-08-10',
+            sexo: "Masculino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "12121212",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        },
+        {
+            tipoDoc: "DNI",
+            nroDoc: "73100010",
+            apePaterno: "Garcia",
+            apeMaterno: "Perez",
+            primerNombre: "Marco",
+            otrosNombres: "Avelino",
+            fechaNacimiento: '1998-08-10',
+            sexo: "Masculino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "12121212",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        },
+        {
+            tipoDoc: "DNI",
+            nroDoc: "73100010",
+            apePaterno: "Garcia",
+            apeMaterno: "Perez",
+            primerNombre: "Marco",
+            otrosNombres: "Avelino",
+            fechaNacimiento: '1998-08-10',
+            sexo: "Masculino",
+            contratoAbreviatura: "CAS",
+            colegiatura: "12121212",
+            estado: true,
+            colegioProfesional: [{ codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" }],
+            especialidad: [{ nombre: "MEDICINA GENERAL", nroEspecialidad: "121212", estado: true }],
+            tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
+        }
+        ]
+        this.insertarVariosDatos(this.datosPersonales);
     }
 
+    insertarVariosDatos(datos) {
+        for (var i = 0; i < datos.length; i++) {
+            this.personalservice.createPersonal(datos[i]).subscribe(
+                result => {
+                    console.log("agregado ", i);
+                }
+            )
+        }
+
+    }
     getDocumentos() {
         this.documentoservice.getDocumentosIdentidad().subscribe((res: any) => {
             this.docList = res.object;
@@ -105,12 +312,12 @@ export class PersonalSaludComponent implements OnInit {
             console.log(this.tiposContratoList);
         });
     }
-    getPersonalIdEspecialidad(){
+    getPersonalIdEspecialidad() {
         this.personalservice.getPersonalID(this.idEspecialidad).subscribe((res: any) => {
             this.especialidades = res.object.especialidad;
         });
     }
-    getIpress(){
+    getIpress() {
         this.ipressservice.getIpress().subscribe((res: any) => {
             this.ipressList = res.object;
         });
@@ -150,13 +357,13 @@ export class PersonalSaludComponent implements OnInit {
     }
     saveForm() {
         this.isUpdate = false;
-        let otrosNombres= this.form.value.nombres.split(" ");
-        let otros= otrosNombres.shift();
-        otrosNombres=otrosNombres.join(" "); 
-        let primerNombre= this.form.value.nombres.split(" ")[0];
-        let tipoPersonalSelected=this.tiposPersonalList.find( tipo => tipo.nombre === this.form.value.tipoPersonal);
-        let colegioSelected=this.colegiosList.find( colegio => colegio.codigo === this.form.value.colegioProfesional);
-        let ipressSelected=this.ipressList.find( ipress => ipress.id === this.form.value.detalleIpress);
+        let otrosNombres = this.form.value.nombres.split(" ");
+        let otros = otrosNombres.shift();
+        otrosNombres = otrosNombres.join(" ");
+        let primerNombre = this.form.value.nombres.split(" ")[0];
+        let tipoPersonalSelected = this.tiposPersonalList.find(tipo => tipo.nombre === this.form.value.tipoPersonal);
+        let colegioSelected = this.colegiosList.find(colegio => colegio.codigo === this.form.value.colegioProfesional);
+        let ipressSelected = this.ipressList.find(ipress => ipress.id === this.form.value.detalleIpress);
         const req = {
             tipoDoc: this.form.value.tipoDoc,
             nroDoc: this.form.value.nroDoc,
@@ -164,19 +371,24 @@ export class PersonalSaludComponent implements OnInit {
             apeMaterno: this.form.value.apeMaterno,
             primerNombre: primerNombre,
             otrosNombres: otrosNombres,
-            fechaNacimiento: this.datePipe.transform(this.form.value.fechaNacimiento,'yyyy-MM-dd'),
+            fechaNacimiento: this.datePipe.transform(this.form.value.fechaNacimiento, 'yyyy-MM-dd'),
             sexo: this.form.value.sexo,
             contratoAbreviatura: this.form.value.contratoAbreviatura,
-            tipoPersonal:{ nombre: tipoPersonalSelected.nombre, 
-                           esProfesional: tipoPersonalSelected.esProfesional,
-                           abreviatura: tipoPersonalSelected.abreviatura},
-            colegioProfesional:[{codigo: colegioSelected.codigo,
-                                nombre: colegioSelected.nombre}],
+            tipoPersonal: {
+                nombre: tipoPersonalSelected.nombre,
+                esProfesional: tipoPersonalSelected.esProfesional,
+                abreviatura: tipoPersonalSelected.abreviatura
+            },
+            colegioProfesional: [{
+                codigo: colegioSelected.codigo,
+                nombre: colegioSelected.nombre
+            }],
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
-            detalleIpress: { idIpress: this.form.value.detalleIpress,
-                            eess: ipressSelected.nombreEESS,
-                            fechaInicio:this.datePipe.transform( this.form.value.fechaInicio,'yyyy-MM-dd')+ " 00:00:00",
+            detalleIpress: {
+                idIpress: this.form.value.detalleIpress,
+                eess: ipressSelected.nombreEESS,
+                fechaInicio: this.datePipe.transform(this.form.value.fechaInicio, 'yyyy-MM-dd') + " 00:00:00",
             },
         };
         console.log(req);
@@ -223,7 +435,7 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get('tipoDoc').setValue(rowData.tipoDoc);
         this.form.get('apePaterno').setValue(rowData.apePaterno);
         this.form.get('apeMaterno').setValue(rowData.apeMaterno);
-        this.form.get('nombres').setValue(rowData.primerNombre+" "+rowData.otrosNombres);
+        this.form.get('nombres').setValue(rowData.primerNombre + " " + rowData.otrosNombres);
         this.form.get('fechaNacimiento').setValue(rowData.fechaNacimiento);
         this.form.get('tipoPersonal').setValue(rowData.tipoPersonal ? rowData.tipoPersonal.nombre : "");
         this.form.get('colegioProfesional').setValue(rowData.colegioProfesional ? rowData.colegioProfesional[0].codigo : "");
@@ -232,20 +444,20 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get('contratoAbreviatura').setValue(rowData.contratoAbreviatura);
         this.form.get('sexo').setValue(rowData.sexo);
         this.form.get('detalleIpress').setValue(rowData.detalleIpress ? rowData.detalleIpress[0].idIpress : "");
-        this.form.get('fechaInicio').setValue(rowData.detalleIpress ? this.datePipe.transform( rowData.detalleIpress[0].fechaInicio ,'yyyy-MM-dd') : "");
+        this.form.get('fechaInicio').setValue(rowData.detalleIpress ? this.datePipe.transform(rowData.detalleIpress[0].fechaInicio, 'yyyy-MM-dd') : "");
         console.log(rowData.detalleIpress[0].fechaInicio);
         this.idUpdate = rowData.id;
         this.personalDialog = true;
     }
     editarDatos(rowData) {
         this.isUpdate = true;
-        let otrosNombres= this.form.value.nombres.split(" ");
-        let otros= otrosNombres.shift();
-        otrosNombres=otrosNombres.join(" "); 
-        let primerNombre= this.form.value.nombres.split(" ")[0];
-        let tipoPersonalSelected=this.tiposPersonalList.find( tipo => tipo.nombre === this.form.value.tipoPersonal);
-        let colegioSelected=this.colegiosList.find( colegio => colegio.codigo === this.form.value.colegioProfesional);
-        let ipressSelected=this.ipressList.find( ipress => ipress.id === this.form.value.detalleIpress);
+        let otrosNombres = this.form.value.nombres.split(" ");
+        let otros = otrosNombres.shift();
+        otrosNombres = otrosNombres.join(" ");
+        let primerNombre = this.form.value.nombres.split(" ")[0];
+        let tipoPersonalSelected = this.tiposPersonalList.find(tipo => tipo.nombre === this.form.value.tipoPersonal);
+        let colegioSelected = this.colegiosList.find(colegio => colegio.codigo === this.form.value.colegioProfesional);
+        let ipressSelected = this.ipressList.find(ipress => ipress.id === this.form.value.detalleIpress);
         const req = {
             id: this.idUpdate,
             tipoDoc: this.form.value.tipoDoc,
@@ -254,20 +466,25 @@ export class PersonalSaludComponent implements OnInit {
             apeMaterno: this.form.value.apeMaterno,
             primerNombre: primerNombre,
             otrosNombres: otrosNombres,
-            fechaNacimiento: this.datePipe.transform(this.form.value.fechaNacimiento,'yyyy-MM-dd'),
+            fechaNacimiento: this.datePipe.transform(this.form.value.fechaNacimiento, 'yyyy-MM-dd'),
             sexo: this.form.value.sexo,
             contratoAbreviatura: this.form.value.contratoAbreviatura,
-            tipoPersonal:{ nombre: tipoPersonalSelected.nombre, 
+            tipoPersonal: {
+                nombre: tipoPersonalSelected.nombre,
                 esProfesional: tipoPersonalSelected.esProfesional,
-                abreviatura: tipoPersonalSelected.abreviatura},
-            colegioProfesional:[{codigo: colegioSelected.codigo,
-                                nombre: colegioSelected.nombre}],
+                abreviatura: tipoPersonalSelected.abreviatura
+            },
+            colegioProfesional: [{
+                codigo: colegioSelected.codigo,
+                nombre: colegioSelected.nombre
+            }],
             colegiatura: this.form.value.colegiatura,
             estado: this.form.value.estado,
-            detalleIpress: { idIpress: this.form.value.detalleIpress,
+            detalleIpress: {
+                idIpress: this.form.value.detalleIpress,
                 eess: ipressSelected.nombreEESS,
-                fechaInicio: this.datePipe.transform( this.form.value.fechaInicio,'yyyy-MM-dd') + " 00:00:00",
-},
+                fechaInicio: this.datePipe.transform(this.form.value.fechaInicio, 'yyyy-MM-dd') + " 00:00:00",
+            },
         }
 
         this.personalservice.editPersonal(req).subscribe(
@@ -322,7 +539,7 @@ export class PersonalSaludComponent implements OnInit {
         })
         this.personalDialog = false;
     }
-    close(){
+    close() {
         this.personalEspecialidadDialog = false;
         this.guardarNuevoEspecialidad();
     }
@@ -331,7 +548,7 @@ export class PersonalSaludComponent implements OnInit {
         else return "Ingrese Nuevo Personal de Salud";
     }
 
-    traerData(){
+    traerData() {
         this.form.get('apePaterno').setValue(this.domicilioList[0].apePaterno);
         this.form.get('apeMaterno').setValue(this.domicilioList[0].apeMaterno);
         this.form.get('nombres').setValue(this.domicilioList[0].nombres);
@@ -345,9 +562,9 @@ export class PersonalSaludComponent implements OnInit {
         this.form.get('distrito').setValue(this.domicilioList[0].distrito);
     }
     newEspecialidad(rowData) {
-        this.especialidades=rowData.especialidad;
-        this.nombrePersonal=`${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
-        this.idEspecialidad=rowData.id;
+        this.especialidades = rowData.especialidad;
+        this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
+        this.idEspecialidad = rowData.id;
         this.form.reset();
         this.personalEspecialidadDialog = true;
     }
@@ -358,7 +575,7 @@ export class PersonalSaludComponent implements OnInit {
         this.formEspecialidad.get('nroEspecialidad').setValue("");
     }
     editarEspecialidad(rowData) {
-        console.log("editar",rowData);
+        console.log("editar", rowData);
         this.isUpdateEspecialidad = true;
         this.formEspecialidad.get('nombre').setValue(rowData.nombre);
         this.formEspecialidad.get('nroEspecialidad').setValue(rowData.nroEspecialidad);
@@ -368,7 +585,7 @@ export class PersonalSaludComponent implements OnInit {
         if (this.isUpdateEspecialidad) return "Edite Especialidad";
         else return "Ingrese Nueva Especialidad";
     }
-    eliminarEspecialidad(rowData){
+    eliminarEspecialidad(rowData) {
         this.isUpdateEspecialidad = false;
         Swal.fire({
             showCancelButton: true,
@@ -379,9 +596,10 @@ export class PersonalSaludComponent implements OnInit {
             showConfirmButton: true,
         }).then((result) => {
             if (result.isConfirmed) {
-                this.personalservice.deletePersonalEspecialidad(this.idEspecialidad,rowData.nombre).subscribe(
+                this.personalservice.deletePersonalEspecialidad(this.idEspecialidad, rowData.nombre).subscribe(
                     result => {
-                        this.getPersonalIdEspecialidad()
+                        this.getPersonalIdEspecialidad();
+                        this.getPersonal();
                     }
                 );
                 Swal.fire({
@@ -394,15 +612,15 @@ export class PersonalSaludComponent implements OnInit {
             }
         })
     }
-    saveEspecialidad(rowData){
-        let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
+    saveEspecialidad(rowData) {
+        let est = this.especialidadesList.find(espe => espe.nombre === this.formEspecialidad.value.nombre);
         const req = {
             nombre: this.formEspecialidad.value.nombre,
             nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
             estado: est.estado
         }
 
-        this.personalservice.createPersonalEspecialidad(this.idEspecialidad,req).subscribe(
+        this.personalservice.createPersonalEspecialidad(this.idEspecialidad, req).subscribe(
             result => {
                 Swal.fire({
                     icon: 'success',
@@ -412,12 +630,13 @@ export class PersonalSaludComponent implements OnInit {
                     timer: 1500,
                 })
                 this.getPersonalIdEspecialidad();
+                this.getPersonal();
                 this.guardarNuevoEspecialidad();
             }
         )
     }
-    saveEdicionEspecialidad(){
-        let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
+    saveEdicionEspecialidad() {
+        let est = this.especialidadesList.find(espe => espe.nombre === this.formEspecialidad.value.nombre);
         console.log(est);
         const req = {
             nombre: this.formEspecialidad.value.nombre,
@@ -427,7 +646,7 @@ export class PersonalSaludComponent implements OnInit {
         }
         console.log(req);
 
-        this.personalservice.editPersonalEspecialidad(this.idEspecialidad,req).subscribe(
+        this.personalservice.editPersonalEspecialidad(this.idEspecialidad, req).subscribe(
             result => {
                 Swal.fire({
                     icon: 'success',
@@ -437,6 +656,7 @@ export class PersonalSaludComponent implements OnInit {
                     timer: 1500,
                 })
                 this.getPersonalIdEspecialidad();
+                this.getPersonal();
                 this.guardarNuevoEspecialidad();
             }
         )

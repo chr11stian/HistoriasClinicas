@@ -127,6 +127,7 @@ export class IpressComponent implements OnInit {
       direccion: ['', [Validators.required]],
       red: ['', [Validators.required]],
       microRed: ['', [Validators.required]],
+      docPersonal: ['', [Validators.required]],
     })
     this.formEncargado = this.formBuilder.group({
       idPersonal: ['', [Validators.required]],
