@@ -14,7 +14,8 @@
             <p-table #dt [value]="listaRedServiciosSalud" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
                 [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
-                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines">
+                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+                styleClass="p-datatable-gridlines">
                 <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center;">Nro</th>
@@ -35,22 +36,14 @@
                             <button pButton (click)="openEditarRed(red)" pTooltip="Editar" pRipple type="button"
                                 icon="pi pi-pencil" class="p-button-rounded m-1">
                             </button>
-                            <button pButton (click)="eliminar(doc)" pTooltip="Eliminar" pRipple type="button"
-                                icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
-                            </button>
                         </td>
                     </tr>
                 </ng-template>
             </p-table>
         </p-tabPanel>
+
+
         <p-tabPanel header="Micro Red de Servicios de Salud">
-            <!-- <div class="col-2">
-                    <label>Seleccione una Red</label>
-                    <p-dropdown [options]="listaRedServiciosSalud" [(ngModel)]="selectedRed"
-                        placeholder="Seleccione un servicio" optionLabel="nombreRed" [showClear]="false"
-                        (ngModelChange)="changeRedSelected($event)">
-                    </p-dropdown>
-                </div> -->
             <p-toolbar class="p-mb-4">
                 <ng-template pTemplate="left">
                     <h3 class="p-m-0">Micro Red de Servicios de Salud</h3>
@@ -62,11 +55,11 @@
                 </ng-template>
             </p-toolbar>
             <div class="p-mb-4 p-fluid">
-                <div class="col-4">
+                <div class="col-3">
                     <label>Seleccione una Red</label>
                     <br><br>
                     <p-dropdown [options]="listaRedServiciosSalud" [(ngModel)]="selectedRed"
-                        placeholder="Seleccione un servicio" optionLabel="nombreRed" [showClear]="false"
+                        placeholder="Seleccione una Red" optionLabel="nombreRed" [showClear]="false"
                         (ngModelChange)="changeRedSelected($event)">
                     </p-dropdown>
                 </div>
@@ -74,12 +67,14 @@
             <p-table #dt [value]="listaGetMicroRed" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
                 [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
-                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines">
+                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+                styleClass="p-datatable-gridlines">
                 <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center;">Nro</th>
                         <th style="text-align: center;">id Micro Red</th>
                         <th style="text-align: center;">Nombre Micro Red</th>
+                        <th style="text-align: center;">Acción</th>
                     </tr>
                 </ng-template>
 
@@ -88,6 +83,11 @@
                         <td style="text-align: center;">{{ i + 1 }}</td>
                         <td style="text-align: center;">{{ microRed.idMicroRed }}</td>
                         <td style="text-align: center;">{{ microRed.nombreMicroRed }}</td>
+                        <td style="text-align: center;width: 10em;">
+                            <button pButton (click)="openEditarMicroRed(microRed)" pTooltip="Editar" pRipple
+                                type="button" icon="pi pi-pencil" class="p-button-rounded m-1">
+                            </button>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -110,14 +110,14 @@
                 <div class="p-mb-4 col-3">
                     <label>Seleccione una Red</label><br><br>
                     <p-dropdown [options]="listaRedServiciosSalud" [(ngModel)]="selectedRedEESS"
-                        placeholder="Seleccione un servicio" optionLabel="nombreRed" [showClear]="false"
+                        placeholder="Seleccione una Red" optionLabel="nombreRed" [showClear]="false"
                         (ngModelChange)="changeRedSelected($event)">
                     </p-dropdown>
                 </div>
                 <div class="p-mb-4 col-3 p-fluid">
                     <label>Seleccione una Micro Red</label><br><br>
                     <p-dropdown [options]="listaGetMicroRed" [(ngModel)]="selectedMicroRed"
-                        placeholder="Seleccione un servicio" optionLabel="nombreMicroRed" [showClear]="false"
+                        placeholder="Seleccione una Micro Red" optionLabel="nombreMicroRed" [showClear]="false"
                         (ngModelChange)="changedMicroRedSelected($event)">
                     </p-dropdown>
                 </div>
@@ -125,7 +125,8 @@
             <p-table #dt [value]="listaEESS" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
                 [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
-                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines">
+                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+                styleClass="p-datatable-gridlines">
                 <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center;">Nro</th>
@@ -133,6 +134,7 @@
                         <th style="text-align: center;">Nombre EESS</th>
                         <th style="text-align: center;">Categoria</th>
                         <th style="text-align: center;">Ubigeo</th>
+                        <th style="text-align: center;">Acción</th>
                     </tr>
                 </ng-template>
 
@@ -143,6 +145,14 @@
                         <td style="text-align: center;">{{ eess.nombreEESS }}</td>
                         <td style="text-align: center;">{{ eess.categoria }}</td>
                         <td style="text-align: center;">{{ eess.ubigeo }}</td>
+                        <td style="text-align: center;width: 10em;">
+                            <button pButton (click)="openEditarEESS(eess)" pTooltip="Editar" pRipple type="button"
+                                icon="pi pi-pencil" class="p-button-rounded m-1">
+                            </button>
+                            <button pButton (click)="eliminarEESS(microRed)" pTooltip="Eliminar" pRipple type="button"
+                                icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                            </button>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -158,7 +168,7 @@
         <div class="grid">
             <div class="p-field col-5">
                 <label>id Red</label>
-                <input type="text" pInputText formControlName="idRed" class="inputTest" />
+                <input type="text" pInputText formControlName="idRed" class="inputTest" disabled/>
             </div>
             <div class="col-2"></div>
             <div class="p-field col-5">
@@ -176,7 +186,8 @@
     <ng-template pTemplate=footer>
         <button pButton type="button" label="cancelar" class="p-button-danger"
             (click)="closeDialogRedServicio()"></button>
-        <button pButton type="button" label="Aceptar" (click)="aceptarDialogRedServicio()"></button>
+        <button *ngIf="update" pButton type="button" label="Editar" (click)="editarRed()"></button>
+        <button *ngIf="!update" pButton type="button" label="Aceptar" (click)="aceptarDialogRedServicio()"></button>
     </ng-template>
 </p-dialog>
 <!--            FIN DIALOG DE ADD RED SERVICIO SALUD             -->
@@ -199,6 +210,7 @@
                     <label>Id Micro Red</label>
                     <input type="text" pInputText formControlName="idMicroRed" />
                 </div>
+                <button *ngIf="update" pButton type="button" label="Editar" (click)="editarRed()"></button>
                 <div class="col-12">
                     <label>Nombre Micro Red</label>
                     <input type="text" pInputText formControlName="nombreMicroRed" />
@@ -208,7 +220,8 @@
     </form>
     <ng-template pTemplate=footer>
         <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogMicroRed()"></button>
-        <button pButton type="button" label="Aceptar" (click)="aceptarDialogMicroRed()"></button>
+        <button *ngIf="update" pButton type="button" label="Editar" (click)="editarMicroRed()"></button>
+        <button *ngIf="!update" pButton type="button" label="Aceptar" (click)="aceptarDialogMicroRed()"></button>
     </ng-template>
 </p-dialog>
 <!--            FIN DIALOG ADD MICRO RED SERVICIO SALUD          -->
@@ -238,9 +251,10 @@
             <label>Departamento</label>
             <div class="p-field">
                 <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataDepartamentos"
-                    [(ngModel)]="ubicacion.departamento" (onChange)="selectedDepartamento()" [showClear]="false"
-                    optionLabel="departamento" defaultLabel="Seleccione un Departamento"
-                    placeholder="Seleccione un departmanto " id="departamento">
+                    [(ngModel)]="dpto" (onChange)="selectedDepartamento()"
+                    placeholder ="Seleccione un Departamento"
+                    [showClear]="false"
+                    optionLabel="departamento" defaultLabel="Seleccione un Departamento" id="departamento">
                 </p-dropdown>
             </div>
         </div>
@@ -250,7 +264,7 @@
                 <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataProvincia"
                     optionLabel="provincia" defaultLabel="Seleccione una provincia"
                     placeholder="Seleccione una provincia" id="provincia" [showClear]="false"
-                    [(ngModel)]="ubicacion.provincia" (onChange)="selectedProvincia()">
+                    [(ngModel)]="prov" (onChange)="selectedProvincia()">
 
                 </p-dropdown>
             </div>
@@ -259,7 +273,7 @@
             <label>Distrito</label>
             <div class="p-field">
                 <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataDistrito"
-                    [(ngModel)]="ubicacion.distrito" optionLabel="distrito" defaultLabel="Seleccione un distrito"
+                    [(ngModel)]="dist" optionLabel="distrito" defaultLabel="Seleccione un distrito"
                     placeholder="Seleccione un Distrito" id="distrito" [showClear]="false">
                 </p-dropdown>
             </div>

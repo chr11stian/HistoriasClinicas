@@ -264,6 +264,10 @@ export class SideBarComponent implements OnInit {
             icon: 'pi pi-pw pi-file',
             label: 'Tipo Contrato', routerLink: 'mantenimientos/tipo-contrato',
           },
+          {
+            icon: 'pi pi-pw pi-file',
+            label: 'UPS', routerLink: 'mantenimientos/ups',
+          },
         ],
       },
     ];

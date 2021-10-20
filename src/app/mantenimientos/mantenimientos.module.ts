@@ -28,7 +28,8 @@ import { TipoUpsModalComponent } from "./component/tipo-ups-modal/tipo-ups-modal
 import { TipoSeguroComponent } from "./component/tipo-seguro/tipo-seguro.component";
 import { CondicionPacienteDiscapacidadComponent } from "./component/condicion-paciente-discapacidad/condicion-paciente-discapacidad.component";
 import { CondicionPacienteDiscapacidadModalComponent } from "./component/condicion-paciente-discapacidad-modal/condicion-paciente-discapacidad-modal.component";
-import { TipoContratoComponent } from './component/tipo-contrato/tipo-contrato.component';
+import { TipoContratoComponent } from "./component/tipo-contrato/tipo-contrato.component";
+import { UpsComponent } from './component/ups/ups.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { TipoContratoComponent } from './component/tipo-contrato/tipo-contrato.c
     CondicionPacienteDiscapacidadComponent,
     CondicionPacienteDiscapacidadModalComponent,
     TipoContratoComponent,
+    UpsComponent,
   ],
 
   exports: [TipoPersonalComponent, UbicacionComponent],
