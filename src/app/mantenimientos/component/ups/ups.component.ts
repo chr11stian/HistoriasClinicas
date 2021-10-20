@@ -167,6 +167,8 @@ export class UpsComponent implements OnInit {
         } else{
             sishis = 'sis'
         }
+
+        console.log('es sis o his ', sishis)
         
         this.update = true;
         this.dialogUPS = true;
