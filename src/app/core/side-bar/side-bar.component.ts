@@ -209,7 +209,6 @@ export class SideBarComponent implements OnInit {
             label: "Colegio Profesional",
             routerLink: "mantenimientos/colegio-profesional",
           },
-
           {
             icon: "pi pi-pw pi-file",
             label: "Especialidad",
@@ -223,7 +222,6 @@ export class SideBarComponent implements OnInit {
             icon: 'pi pi-pw pi-file',
             label: 'Documentos de Identidad', routerLink: 'mantenimientos/documento-identidad',
           },
-
           {
             icon: 'pi pi-pw pi-file',
             label: 'Etnia', routerLink: 'mantenimientos/etnia',
@@ -251,41 +249,6 @@ export class SideBarComponent implements OnInit {
           {
             icon: 'pi pi-pw pi-file',
             label: 'Tipo Seguro', routerLink: 'mantenimientos/tipo-seguro',
-          },
-          {
-            icon: "pi pi-pw pi-file",
-            label: "Etnia",
-            routerLink: "mantenimientos/etnia",
-          },
-          {
-            icon: "pi pi-pw pi-file",
-            label: "Categoria Establecimiento",
-            routerLink: "mantenimientos/categoria-establecimiento",
-          },
-          {
-            icon: "pi pi-pw pi-file",
-            label: "Red de Servicios de Salud",
-            routerLink: "mantenimientos/red-servicios-salud",
-          },
-          {
-            icon: "pi pi-pw pi-file",
-            label: "Condicion Paciente",
-            routerLink: "mantenimientos/condicion-paciente",
-          },
-          {
-            icon: "pi pi-pw pi-file",
-            label: "Nombre Comercial UPS",
-            routerLink: "mantenimientos/nombre-comercial-ups",
-          },
-          {
-            icon: "pi pi-pw pi-file",
-            label: "Condicion Paciente Riesgo",
-            routerLink: "mantenimientos/condicion-paciente-riesgo",
-          },
-          {
-            icon: "pi pi-pw pi-file",
-            label: "Tipo Seguro",
-            routerLink: "mantenimientos/tipo-seguro",
           },
           {
             icon: "pi pi-pw pi-file",

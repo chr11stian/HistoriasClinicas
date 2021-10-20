@@ -55,7 +55,6 @@ export class UbicacionService {
     buscarUbigeo(data){
         return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/ubigeo`, data)
     }
-
     getUbigeoDistrito(data){
         return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/data/distrito`, data);
     }
