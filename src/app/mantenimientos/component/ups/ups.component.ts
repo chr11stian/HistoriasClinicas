@@ -42,6 +42,7 @@ export class UpsComponent implements OnInit {
         { label: 'HIS', value: 'his' },
         { label: 'SIS', value: 'sis' }
     ]
+    update: boolean = false;
 
     constructor(
         private fb: FormBuilder,
@@ -64,27 +65,27 @@ export class UpsComponent implements OnInit {
             dropTipoUPS: new FormControl(''),
             sishis: new FormControl(''),
             estado: new FormControl(''),
-        })
+        });
     }
 
     cargarUPS() {
         this.upsService.getUPS().subscribe((res: any) => {
             this.listaUPS = res.object;
-            console.log('res back ', this.listaUPS)
-        })
+            // console.log('res back ', this.listaUPS)
+        });
     }
 
     cargarTipoUPS() {
         this.tipoUpsService.getTipoUPSs().subscribe((res: any) => {
             this.listaTipoUPS = res.object;
-            console.log('lista tipo UPS', this.listaTipoUPS)
+            // console.log('lista tipo UPS', this.listaTipoUPS)
         })
     }
 
     cargarNombreComercialUPS() {
         this.nombreComercialService.getNombreComercial_UPS().subscribe((res: any) => {
             this.listaNombreComercial = res.object;
-            console.log('comercial ', this.listaNombreComercial)
+            // console.log('comercial ', this.listaNombreComercial)
         })
     }
 
@@ -103,7 +104,7 @@ export class UpsComponent implements OnInit {
         let auxNombreComercial = this.formUPS.value.nombreComercial;
         if (auxNombreComercial == null) {
             auxNombreComercial = '';
-        } else{
+        } else {
             auxNombreComercial = auxNombreComercial.id
         }
 
@@ -115,19 +116,18 @@ export class UpsComponent implements OnInit {
             esSIS: sis,
             estado: this.formUPS.value.estado,
             tipoUPS_id: this.formUPS.value.dropTipoUPS.id,
-            subTituloUPS:[{
+            subTituloUPS: [{
                 tieneCupo: false,
                 estado: true,
-                nombreSubTipo:this.formUPS.value.nombreUPS,
+                nombreSubTipo: this.formUPS.value.nombreUPS,
             }]
         }
-
-        console.log('datos ', this.dataUPS)
+        // console.log('datos ', this.dataUPS)
     }
 
     guardarUPS() {
         this.recuperarDatos();
-        this.upsService.postUPS(this.dataUPS).subscribe((res:any)=>{
+        this.upsService.postUPS(this.dataUPS).subscribe((res: any) => {
             this.cargarUPS();
             this.cancelDialogUPS();
             Swal.fire({
@@ -140,7 +140,7 @@ export class UpsComponent implements OnInit {
         })
     }
 
-    limpiarDatos(){
+    limpiarDatos() {
         this.formUPS.reset();
     }
 
@@ -149,6 +149,7 @@ export class UpsComponent implements OnInit {
     }
 
     openDialogUPS() {
+        this.update = false;
         this.dialogUPS = true;
         this.cargarNombreComercialUPS();
         this.limpiarDatos();
@@ -156,6 +157,22 @@ export class UpsComponent implements OnInit {
 
     cancelDialogUPS() {
         this.dialogUPS = false;
+    }
+
+    openDialogEditUPS(row) {
+        console.log('row edit ', row)
+        let sishis;
+        if (row.esHIS = true) {
+            sishis = 'his'
+        } else{
+            sishis = 'sis'
+        }
+        
+        this.update = true;
+        this.dialogUPS = true;
+        this.formUPS.patchValue({ codUPS: row.codUPS });
+        this.formUPS.patchValue({ nombreUPS: row.nombreUPS });
+        this.formUPS.patchValue({ SISHISOption: sishis})
     }
 
 }

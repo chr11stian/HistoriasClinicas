@@ -7,7 +7,7 @@
   [resizableColumns]="'false'"
   #dt
   styleClass="p-datatable p-datatable-gridlines p-mt-3"
-  [value]="data"
+  [value]="personalServicioSelected"
   [rowHover]="true"
 >
   <ng-template pTemplate="header">
@@ -20,41 +20,62 @@
         </strong>
         <div>
           <p-dropdown
-            [options]="personalServicio"
+            [options]="tipoPersonalServicio"
             #dd
             [(ngModel)]="selectedPersonalServicio"
             optionLabel="nombre"
             optionValue="id"
+            placeholder="Personal Servicio"
             styleClass="my-2 py-1"
-            (onChange)="changeComponentRol($event, dd)"
+            (onChange)="changePersonalServicio($event, dd)"
           ></p-dropdown>
         </div>
       </th>
       <th
-        [colSpan]="mesActual.length + 1"
+        [colSpan]="cabeceraMes.length + 1"
         style="background-color: #dfe6e9; padding: 10px"
       >
         <div>
           <p-calendar
             [appendTo]="calendarWrapper"
             [(ngModel)]="dateValue"
-            (onSelect)="cambiar($event)"
+            (onSelect)="cambiarFecha($event)"
             view="month"
             dateFormat="mm/yy"
             [yearNavigator]="true"
-            yearRange="2000:2030"
+            yearRange="2020:2021"
           ></p-calendar>
+          <div
+            class="flex align-items-center text-center justify-content-center"
+          >
+            <button
+              pButton
+              type="button"
+              label=""
+              icon="pi pi-chevron-left"
+              class="p-button-text p-button-secondary"
+            ></button>
+            <span class="m-4"> Octubre 2018 </span>
+            <button
+              pButton
+              type="button"
+              label=""
+              icon="pi pi-chevron-right"
+              class="p-button-text p-button-secondary"
+            ></button>
+          </div>
         </div>
       </th>
     </tr>
     <tr>
       <th
-        *ngFor="let dia of mesActual"
+        *ngFor="let dia of cabeceraMes"
         [style]="
           dia.bg == 'background-color:#dfe6e9'
             ? 'background-color:#f3a683;'
             : 'background-color:white;'
         "
+        style="padding: 10px"
       >
         {{ dia.abreviatura }}
       </th>
@@ -85,7 +106,11 @@
       >
         Nombres
       </th>
-      <th *ngFor="let dia of mesActual" [style]="dia.bg">
+      <th
+        *ngFor="let dia of cabeceraMes"
+        [style]="dia.bg"
+        style="padding: 10px"
+      >
         {{ dia.dia }}
       </th>
     </tr>
@@ -110,18 +135,18 @@
         {{ rowData.apellidos }}
       </td>
       <td
-        *ngFor="let dia of mesActual; let j = index"
+        *ngFor="let dia of cabeceraMes; let j = index"
         index="rowIndex"
         class="border-500 text-900"
       >
         <!-- {{ i }} -{{ j }} -->
         <p-dropdown
+          [inline]="false"
+          [disabled]="!isEditable"
           [options]="turno"
           [virtualScroll]="true"
-          optionLabel="name"
           [(ngModel)]="matriz[i][j]"
-          optionValue="code"
-          itemSize="30"
+          optionLabel="abreviatura"
         ></p-dropdown>
       </td>
       <td class="border-500 text-900">8</td>

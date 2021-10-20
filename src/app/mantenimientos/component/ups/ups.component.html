@@ -16,7 +16,6 @@
         [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines">
         <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
-                <th style="width: 3rem"></th>
                 <th style="text-align: center;">Nro</th>
                 <th style="text-align: center;">Id UPS</th>
                 <th style="text-align: center;">Nombre UPS</th>
@@ -24,62 +23,26 @@
                 <th style="text-align: center;">Acción</th>
             </tr>
         </ng-template>
-
-        <ng-template pTemplate="body" let-ups style="text-align: center;" let-i="rowIndex" let-expanded="expanded">
+        <ng-template pTemplate="body" let-ups style="text-align: center;" let-i="rowIndex">
             <tr>
-                <td>
-                    <button type="button" pButton pRipple [pRowToggler]="ups"
-                        class="p-button-text p-button-rounded p-button-plain"
-                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                </td>
                 <td style="text-align: center;">{{ i + 1 }}</td>
                 <td style="text-align: center;">{{ ups.codUPS }}</td>
                 <td style="text-align: center;">{{ ups.nombreUPS }}</td>
-                <td style="text-align: center;">{{ ups.tipoUPS }}</td>
+                <td style="text-align: center;">{{ ups.tiposUPS }}</td>
                 <td style="text-align: center;width: 10em;">
-                    <button pButton (click)="openEditarUPS(ups)" pTooltip="Editar" pRipple type="button"
+                    <button pButton (click)="openDialogEditUPS(ups)" pTooltip="Editar" pRipple type="button"
                         icon="pi pi-pencil" class="p-button-rounded m-1">
                     </button>
-                    <button pButton (click)="openEditarUPS(ups)" pTooltip="Editar" pRipple type="button"
-                        icon="pi pi-pencil" class="p-button-rounded m-1">
+                    <button pButton (click)="eliminarUPS(ups)" pTooltip="Eliminar" pRipple type="button"
+                        icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                     </button>
-                </td>
-            </tr>
-        </ng-template>
-
-        <ng-template pTemplate="rowexpansion" let-ups>
-            <tr>
-                <td colspan="7">
-                    <div class="p-p-3">
-                        <p-table [value]="ups.subTituloUPS" dataKey="nombreSubTipo">
-                            <ng-template pTemplaet="header">
-            <tr>
-                <th style="width: 4rem"></th>
-                <th pSortableColumn="nombreSubTipo">Nombre SubTipo</th>
-                <th pSortableColumn="cupo">Cupo</th>
-                <th style="width: 4rem"></th>
-            </tr>
-        </ng-template>
-
-        <ng-template pTemplate="body" let-subTitulo>
-            <tr>
-                <td></td>
-                <td>{{ subTitulo.nombreSubTipo }}</td>
-                <td>{{ subTitulo.tieneCupo }}</td>
-                <td>
-                    <p-button type="button" icon="pi pi-search"></p-button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
-</td>
-</tr>
-</ng-template>
-</p-table>
-</div>
-
-<p-dialog [(visible)]="dialogUPS" [style]="{width: '600px'}" header="Registrar Red de Servicios de Salud" [modal]="true"
+<!--            INICIO DIALOG DE UPS             -->
+<p-dialog [(visible)]="dialogUPS" [style]="{width: '650px'}" header="Registrar Red de Servicios de Salud" [modal]="true"
     styleClass="p-fluid" autoZIndex>
     <form [formGroup]='formUPS'>
         <div class="grid">
@@ -95,14 +58,15 @@
         <div class="grid mt-2">
             <div class="col-4">
                 <label>HIS/SIS:</label>
-                <p-selectButton [options]="SISHISOption" formControlName="sishis" optionLabel="label" optionValue="value"></p-selectButton>
+                <p-selectButton [options]="SISHISOption" formControlName="sishis" optionLabel="label"
+                    optionValue="value"></p-selectButton>
             </div>
             <div class="p-field col-8">
                 <label>Nombre Comercial:</label>
                 <div class="p-field">
                     <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaNombreComercial"
-                        formControlName="nombreComercial" placeholder="Seleccione un nombre comercial" [showClear]="false"
-                        optionLabel="nombre" id="tipoServicio">
+                        formControlName="nombreComercial" placeholder="Seleccione un nombre comercial"
+                        [showClear]="false" optionLabel="nombre" id="tipoServicio">
                     </p-dropdown>
                 </div>
             </div>
@@ -126,7 +90,14 @@
     </form>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="cancelDialogUPS()"></button>
-        <button pButton type="button" label="Guardar" (click)="guardarUPS()" ></button>
-        <!-- <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar" (click)="editarDatos()" ></button> -->
+        <button pButton type="button" label="Guardar" (click)="guardarUPS()"></button>
+        <!-- <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="editarDatos()"></button> -->
     </ng-template>
 </p-dialog>
+<!--            FIN DIALOG DE UPS             -->
+
+<!--                INICIO VER DETALLES UPS              -->
+<p-dialog>
+
+</p-dialog>
+<!--                FIN VER DETALLES UPS              -->
