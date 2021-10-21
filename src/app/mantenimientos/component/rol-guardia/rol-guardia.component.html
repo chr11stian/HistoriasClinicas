@@ -147,6 +147,7 @@
           [virtualScroll]="true"
           [(ngModel)]="matriz[i][j]"
           optionLabel="abreviatura"
+          (onChange)="changeTurno(i, j)"
         ></p-dropdown>
       </td>
       <td class="border-500 text-900">8</td>

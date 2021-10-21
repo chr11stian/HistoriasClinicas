@@ -22,11 +22,11 @@ export class RolGuardiaComponent implements OnInit {
   turno = [
     {
       nombre: "M",
-      abreviatura: "MA",
+      abreviatura: "M",
     },
     {
       nombre: "T",
-      abreviatura: "TA",
+      abreviatura: "T",
     },
     {
       nombre: "M/T",
@@ -85,14 +85,14 @@ export class RolGuardiaComponent implements OnInit {
       apellidos: "apellido3",
       nombres: "laura jimena",
       especialidad: "enfermeria",
-      dni: "23232323",
+      dni: "121334412",
     },
     {
       idUPS: "61660303034d2c3598133295",
       apellidos: "apellido3",
       nombres: "juan carlos",
       especialidad: "enfermeria",
-      dni: "24242424",
+      dni: "12121212",
     },
   ];
   fecha = new Date();
@@ -226,48 +226,70 @@ export class RolGuardiaComponent implements OnInit {
     });
     this.crearMatriz();
   }
-  designar() {
-    let matrizAux = [];
-    for (let i = 0; i < this.matriz.length; i++) {
-      let filaAux = [];
-      for (let j = 0; j < this.matriz[0].length; j++) {
-        let elemento = this.matriz[i][j];
-        let elementoAux = {
-          abreviatura: elemento["abreviatura"],
-          dia: j + 1,
-          nroDoc: this.personalServicioSelected[i]["dni"],
-        };
-        filaAux.push(elementoAux);
+  changeTurno(i, j) {
+    let diaInput: any = {
+      anio: this.fecha.getFullYear(),
+      mes: this.fecha.getMonth() + 1,
+      dia: j + 1,
+      idIpress: "615b30b37194ce03d782561c",
+      servicio: "ANESTESIOLOGIA",
+      tipoDoc: "DNI",
+      nroDoc: this.personalServicioSelected[i]["dni"],
+      ambiente: "ACUP 01",
+      abreviatura: this.matriz[i][j]["abreviatura"],
+    };
+    this.rolGuardiaService.AddUpdateRolGuardia(diaInput).subscribe(
+      (resp) => {
+        console.log(resp);
+      },
+      (error) => {
+        console.log(error);
       }
-      matrizAux.push(filaAux);
-    }
-    // console.log(matrizAux);
-
-    //insertamos registro por registros
-    for (let x = 0; x < matrizAux.length; x++) {
-      for (let y = 0; y < matrizAux[0].length; y++) {
-        let mesInput: any = {
-          anio: this.fecha.getFullYear(),
-          mes: this.fecha.getMonth(),
-          dia: matrizAux[x][y]["dia"],
-          idIpress: "61424d4873a26b7a64ecaefa",
-          servicio: "ACUPUNTURA Y AFINES",
-          tipoDoc: "DNI",
-          nroDoc: matrizAux[x][y]["nroDoc"],
-          ambiente: "ACUP 01",
-          abreviatura: matrizAux[x][y]["abreviatura"],
-        };
-
-        // console.log(mesInput);
-        this.rolGuardiaService.AddUpdateRolGuardia(mesInput).subscribe(
-          (resp) => {
-            console.log(resp);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-    }
+    );
   }
+  designar() {
+    console.log("corroborar si se asigno para todo el mes");
+    // let matrizAux = [];
+    // for (let i = 0; i < this.matriz.length; i++) {
+    //   let filaAux = [];
+    //   for (let j = 0; j < this.matriz[0].length; j++) {
+    //     let elemento = this.matriz[i][j];
+    //     let elementoAux = {
+    //       abreviatura: elemento["abreviatura"],
+    //       dia: j + 1,
+    //       nroDoc: this.personalServicioSelected[i]["dni"],
+    //     };
+    //     filaAux.push(elementoAux);
+    //   }
+    //   matrizAux.push(filaAux);
+    // }
+  }
+  // console.log(matrizAux);
+
+  //insertamos registro por registros
+  // for (let x = 0; x < matrizAux.length; x++) {
+  //   for (let y = 0; y < matrizAux[0].length; y++) {
+  //     let mesInput: any = {
+  //       anio: this.fecha.getFullYear(),
+  //       mes: this.fecha.getMonth() + 1,
+  //       dia: matrizAux[x][y]["dia"],
+  //       idIpress: "615b30b37194ce03d782561c",
+  //       servicio: "MEDICINA GENERAL",
+  //       tipoDoc: "DNI",
+  //       nroDoc: matrizAux[x][y]["nroDoc"],
+  //       ambiente: "ACUP 01",
+  //       abreviatura: matrizAux[x][y]["abreviatura"],
+  //     };
+
+  //     // console.log(mesInput);
+  //     this.rolGuardiaService.AddUpdateRolGuardia(mesInput).subscribe(
+  //       (resp) => {
+  //         console.log(resp);
+  //       },
+  //       (error) => {
+  //         console.log(error);
+  //       }
+  //     );
+  //   }
+  // }
 }

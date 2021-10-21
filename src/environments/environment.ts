@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   bd: "historiasclinicas",
-  baseUrl: "http://192.168.5.3:8080",
+  // baseUrl: "http://192.168.5.3:8080",
+  baseUrl: "http://190.108.93.145:8080",
 };
 
 /*
