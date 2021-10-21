@@ -7,23 +7,22 @@
 
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
-                    (click)="openModal()"></button>
+                (click)="openModal()"></button>
 
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
         </ng-template>
 
     </p-toolbar>
     <p-table #dt [value]="listaCupos" [rows]="10" [paginator]="true" [globalFilterFields]="['dni']"
-             [(selection)]="selectedCupo" [rowHover]="true" datakey="id"
-             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
-             responsiveLayout="scroll"
-             [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
+        [(selection)]="selectedCupo" [rowHover]="true" datakey="id"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas" responsiveLayout="scroll"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input type="text" pInputText (input)="dt.filterGlobal($event.tarjet.value,'contains')"
-                           placeholder="DNI...">
+                        placeholder="DNI...">
                 </span>
             </div>
         </ng-template>
@@ -54,21 +53,20 @@
 </div>
 
 <!--                 INICIO DIALOG DE CUPOS                 -->
-<p-dialog [(visible)]="cuposDialog" [style]="{width: '1080px'}" header="Ofertas" [modal]="true"
-          styleClass="p-fluid" autoZIndex>
+<p-dialog [(visible)]="cuposDialog" [style]="{width: '1080px'}" header="Registrar Cupos" [modal]="true"
+    styleClass="p-fluid" autoZIndex>
     <div class="grid">
         <div class="p-field col-5">
             <label>SERVICIO (UPS)</label>
             <div class="col-10">
                 <p-dropdown [options]="servicios" [(ngModel)]="selectedServicio" placeholder="Seleccione un servicio"
-                            optionLabel="nombreServicio" [showClear]="false"
-                            (ngModelChange)="changeServicioSelected($event)">
+                    optionLabel="nombreServicio" [showClear]="false" (ngModelChange)="changeServicioSelected($event)">
                 </p-dropdown>
             </div>
             <div class="card mt-4">
                 <p-table [value]="listaPersonal" selectionMode="single" [(selection)]="selectedPersonal"
-                         responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)"
-                         (onRowUnselect)="onRowUnselect($event)">
+                    responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)"
+                    (onRowUnselect)="onRowUnselect($event)">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Nro</th>
@@ -125,7 +123,7 @@
 
 <!--                INICIO MODAL DE USUARIOS         -->
 <p-dialog [(visible)]="usuarioDialog" [style]="{width: '1200px'}" header="Datos del Paciente" [modal]="true"
-          styleClass="p-fluid" autoZIndex>
+    styleClass="p-fluid" autoZIndex>
     <ng-template pTemplate>
         <form [formGroup]='formUsuarios'>
             <div class="grid">
@@ -135,69 +133,69 @@
                             <div class="p-field col-3">
                                 <label class="ml-2 font-bold">Tipo de Documento</label>
                                 <p-dropdown [options]="docIdentidad" formControlName="tipoDocumento"
-                                            placeholder="Tipo Documento" optionLabel="abreviatura" [showClear]="false"
-                                            (ngModelChange)="changeServicioSelected($event)">
+                                    placeholder="Tipo Documento" optionLabel="abreviatura" [showClear]="false"
+                                    (ngModelChange)="changeServicioSelected($event)">
                                 </p-dropdown>
                             </div>
                             <div class="p-field col-3">
                                 <label class="ml-2 font-bold">Nro Documento:</label>
-                                <input type="text" pInputText formControlName="nroDocumento"/>
+                                <input type="text" pInputText formControlName="nroDocumento" />
                             </div>
                         </div>
                         <div class="grid m-2">
                             <div class="p-field col-3">
                                 <label class="ml-2 font-bold">Nombre:</label>
-                                <input type="text" pInputText formControlName="nombre"/>
+                                <input type="text" pInputText formControlName="nombre" />
                             </div>
                             <div class="p-field col-3">
                                 <label class="ml-2 font-bold">A. Paterno</label>
-                                <input type="text" pInputText formControlName="apellidoPaterno"/>
+                                <input type="text" pInputText formControlName="apellidoPaterno" />
                             </div>
                             <div class="p-field col-3">
                                 <label class="ml-2 font-bold">A. Materno</label>
-                                <input type="text" pInputText formControlName="apellidoMaterno"/>
+                                <input type="text" pInputText formControlName="apellidoMaterno" />
                             </div>
                             <div class="p-field col-3">
                                 <label class="ml-2 font-bold">Sexo</label>
-                                <input type="text" pInputText formControlName="sexo"/>
+                                <input type="text" pInputText formControlName="sexo" />
                             </div>
                         </div>
                         <div class="grid m-2">
                             <div class="p-field col-3">
                                 <label class="ml-3 font-bold">fecha</label>
-                                <input type="date" pInputText formControlName="fecha"/>
+                                <input type="date" pInputText formControlName="fecha" />
                             </div>
                         </div>
                         <div class="grid m-2">
                             <div class="p-field col-3">
                                 <label class="ml-2 font-bold">Telefono</label>
-                                <input type="text" pInputText formControlName="telefono"/>
+                                <input type="text" pInputText formControlName="telefono" />
                             </div>
                             <div class="p-field col-3">
                                 <label class="ml-2 font-bold">Nacionalidad</label>
-                                <input type="text" pInputText formControlName="nacionalidad"/>
+                                <input type="text" pInputText formControlName="nacionalidad" />
                             </div>
                             <div class="p-field col-2">
                                 <label class="ml-2 font-bold">Departamento</label>
-                                <input type="text" pInputText formControlName="departamento"/>
+                                <input type="text" pInputText formControlName="departamento" />
                             </div>
                             <div class="p-field col-2">
                                 <label class="ml-2 font-bold">Provincia</label>
-                                <input type="text" pInputText formControlName="provincia"/>
+                                <input type="text" pInputText formControlName="provincia" />
                             </div>
                             <div class="p-field col-2">
                                 <label class="ml-2 font-bold">Distrito</label>
-                                <input type="text" pInputText formControlName="distrito"/>
+                                <input type="text" pInputText formControlName="distrito" />
                             </div>
                         </div>
                         <div class="grid m-2">
                             <div class="p-field col-6">
                                 <label class="ml-2 font-bold">Centro Poblado</label>
-                                <input type="text" pInputText formControlName="centroPblado"/>
+                                <input type="text" pInputText formControlName="centroPblado" />
                             </div>
                             <div class="p-field col-6">
                                 <label class="ml-2 font-bold">Domicilio Actual</label>
-                                <input type="text" pInputText formControlName="domicilioActual"/>
+                                <input type="text" pInputText formControlName="domicilioActual" />
                             </div>
                         </div>
                     </div>
@@ -205,23 +203,23 @@
                         <div class="grid m-2">
                             <div class="p-field col-2">
                                 <label class="ml-2 font-bold">Tipo Seguro</label>
-                                <input type="text" pInputText formControlName="tipoSeguro"/>
+                                <input type="text" pInputText formControlName="tipoSeguro" />
                             </div>
                             <div class="p-field col-2">
                                 <label class="ml-2 font-bold">Transeunte</label>
-                                <input type="text" pInputText formControlName="transeuntes"/>
+                                <input type="text" pInputText formControlName="transeuntes" />
                             </div>
                             <div class="p-field col-3">
                                 <label class="ml-2 font-bold">Etapa de Vida del Paciente</label>
-                                <input type="text" pInputText formControlName="estapaVida"/>
+                                <input type="text" pInputText formControlName="estapaVida" />
                             </div>
                             <div class="p-field col-2">
                                 <label class="ml-2 font-bold">Edad</label>
-                                <input type="text" pInputText formControlName="edad"/>
+                                <input type="text" pInputText formControlName="edad" />
                             </div>
                             <div class="p-field col-2">
                                 <label class="ml-2 font-bold">Dias</label>
-                                <input type="text" pInputText formControlName="dias"/>
+                                <input type="text" pInputText formControlName="dias" />
                             </div>
                         </div>
                     </div>

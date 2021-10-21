@@ -14,12 +14,14 @@ import {TreeSelectModule} from 'primeng/treeselect';
 import {DividerModule} from 'primeng/divider';
 import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
+import { IpressComponent } from './ipress/ipress.component';
 
 @NgModule({
     declarations: [
         PersonalSaludComponent,
         UsuariosComponent,
-        CuposComponent
+        CuposComponent,
+        IpressComponent
     ],
     exports: [
         PersonalSaludComponent,

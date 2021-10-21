@@ -128,7 +128,7 @@ export class SideBarComponent implements OnInit {
 
   activeSubmenus: { [key: string]: boolean } = {};
 
-  constructor(private filterService: FilterService, private router: Router) {}
+  constructor(private filterService: FilterService, private router: Router) { }
 
   ngOnInit() {
     this.model = [
@@ -144,6 +144,11 @@ export class SideBarComponent implements OnInit {
             label: "Usuarios",
             icon: "pi pi-pw pi-file",
             routerLink: "historia/usuarios",
+          },
+          {
+            label: "Institución Prestadora de Servicios de Salud",
+            icon: "pi pi-pw pi-file",
+            routerLink: "historia/ipress",
           },
         ],
       },
@@ -204,57 +209,46 @@ export class SideBarComponent implements OnInit {
             label: "Colegio Profesional",
             routerLink: "mantenimientos/colegio-profesional",
           },
-
           {
             icon: "pi pi-pw pi-file",
             label: "Especialidad",
             routerLink: "mantenimientos/especialidad",
           },
           {
-            icon: "pi pi-pw pi-file",
-            label: "Grupo Etario",
-            routerLink: "mantenimientos/grupo-etario",
+            icon: 'pi pi-pw pi-file',
+            label: 'Grupo Etario', routerLink: 'mantenimientos/grupo-etario',
           },
           {
-            icon: "pi pi-pw pi-file",
-            label: "Documentos de Identidad",
-            routerLink: "mantenimientos/documento-identidad",
-          },
-
-          {
-            icon: "pi pi-pw pi-file",
-            label: "Etnia",
-            routerLink: "mantenimientos/etnia",
+            icon: 'pi pi-pw pi-file',
+            label: 'Documentos de Identidad', routerLink: 'mantenimientos/documento-identidad',
           },
           {
-            icon: "pi pi-pw pi-file",
-            label: "Categoria Establecimiento",
-            routerLink: "mantenimientos/categoria-establecimiento",
+            icon: 'pi pi-pw pi-file',
+            label: 'Etnia', routerLink: 'mantenimientos/etnia',
           },
           {
-            icon: "pi pi-pw pi-file",
-            label: "Red de Servicios de Salud",
-            routerLink: "mantenimientos/red-servicios-salud",
+            icon: 'pi pi-pw pi-file',
+            label: 'Categoria Establecimiento', routerLink: 'mantenimientos/categoria-establecimiento',
           },
           {
-            icon: "pi pi-pw pi-file",
-            label: "Condicion Paciente",
-            routerLink: "mantenimientos/condicion-paciente",
+            icon: 'pi pi-pw pi-file',
+            label: 'Red de Servicios de Salud', routerLink: 'mantenimientos/red-servicios-salud',
           },
           {
-            icon: "pi pi-pw pi-file",
-            label: "Nombre Comercial UPS",
-            routerLink: "mantenimientos/nombre-comercial-ups",
+            icon: 'pi pi-pw pi-file',
+            label: 'Condicion Paciente', routerLink: 'mantenimientos/condicion-paciente',
           },
           {
-            icon: "pi pi-pw pi-file",
-            label: "Condicion Paciente Riesgo",
-            routerLink: "mantenimientos/condicion-paciente-riesgo",
+            icon: 'pi pi-pw pi-file',
+            label: 'Nombre Comercial UPS', routerLink: 'mantenimientos/nombre-comercial-ups',
           },
           {
-            icon: "pi pi-pw pi-file",
-            label: "Tipo Seguro",
-            routerLink: "mantenimientos/tipo-seguro",
+            icon: 'pi pi-pw pi-file',
+            label: 'Condicion Paciente Riesgo', routerLink: 'mantenimientos/condicion-paciente-riesgo',
+          },
+          {
+            icon: 'pi pi-pw pi-file',
+            label: 'Tipo Seguro', routerLink: 'mantenimientos/tipo-seguro',
           },
           {
             icon: "pi pi-pw pi-file",
@@ -265,6 +259,14 @@ export class SideBarComponent implements OnInit {
             icon: "pi pi-pw pi-file",
             label: "Condicion Paciente Discapacidad  ",
             routerLink: "mantenimientos/condicion-paciente-discapacidad",
+          },
+          {
+            icon: 'pi pi-pw pi-file',
+            label: 'Tipo Contrato', routerLink: 'mantenimientos/tipo-contrato',
+          },
+          {
+            icon: 'pi pi-pw pi-file',
+            label: 'UPS', routerLink: 'mantenimientos/ups',
           },
         ],
       },

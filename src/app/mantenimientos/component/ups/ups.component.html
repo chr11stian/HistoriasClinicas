@@ -1,0 +1,103 @@
+<div class="p-card">
+    <p-toolbar class="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">UPS</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                (click)="openDialogUPS()"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="listaUPS" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
+        [(selection)]="selectedUPS" [rowHover]="true" dataKey="codUPS"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas" responsiveLayout="scroll"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines">
+        <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center;">Nro</th>
+                <th style="text-align: center;">Id UPS</th>
+                <th style="text-align: center;">Nombre UPS</th>
+                <th style="text-align: center;">Tipo UPS</th>
+                <th style="text-align: center;">Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ups style="text-align: center;" let-i="rowIndex">
+            <tr>
+                <td style="text-align: center;">{{ i + 1 }}</td>
+                <td style="text-align: center;">{{ ups.codUPS }}</td>
+                <td style="text-align: center;">{{ ups.nombreUPS }}</td>
+                <td style="text-align: center;">{{ ups.tiposUPS }}</td>
+                <td style="text-align: center;width: 10em;">
+                    <button pButton (click)="openDialogEditUPS(ups)" pTooltip="Editar" pRipple type="button"
+                        icon="pi pi-pencil" class="p-button-rounded m-1">
+                    </button>
+                    <button pButton (click)="eliminarUPS(ups)" pTooltip="Eliminar" pRipple type="button"
+                        icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<!--            INICIO DIALOG DE UPS             -->
+<p-dialog [(visible)]="dialogUPS" [style]="{width: '650px'}" header="Registrar Red de Servicios de Salud" [modal]="true"
+    styleClass="p-fluid" autoZIndex>
+    <form [formGroup]='formUPS'>
+        <div class="grid">
+            <div class="p-field col-4">
+                <label>Id UPS:</label>
+                <input type="number" pInputText formControlName="codUPS" class="inputTest" />
+            </div>
+            <div class="p-field col-8">
+                <label>Nombre UPS:</label>
+                <input type="text" pInputText formControlName="nombreUPS" class="inputTest" />
+            </div>
+        </div>
+        <div class="grid mt-2">
+            <div class="col-4">
+                <label>HIS/SIS:</label>
+                <p-selectButton [options]="SISHISOption" formControlName="sishis" optionLabel="label"
+                    optionValue="value"></p-selectButton>
+            </div>
+            <div class="p-field col-8">
+                <label>Nombre Comercial:</label>
+                <div class="p-field">
+                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaNombreComercial"
+                        formControlName="nombreComercial" placeholder="Seleccione un nombre comercial"
+                        [showClear]="false" optionLabel="nombre" id="tipoServicio">
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="grid mt-2">
+            <div class="col-4">
+                <label>Estado:</label>
+                <p-selectButton [options]="stateOptions" formControlName="estado" optionLabel="label"
+                    optionValue="value"></p-selectButton>
+            </div>
+            <div class=" col-8">
+                <label>Tipo UPS:</label>
+                <div class="p-field">
+                    <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaTipoUPS"
+                        formControlName="dropTipoUPS" placeholder="Seleccione un UPS" [showClear]="false"
+                        optionLabel="nombre" defaultLabel="Seleccione un Tipo UPS" id="tipoUPS">
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="cancelDialogUPS()"></button>
+        <button pButton type="button" label="Guardar" (click)="guardarUPS()"></button>
+        <!-- <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="editarDatos()"></button> -->
+    </ng-template>
+</p-dialog>
+<!--            FIN DIALOG DE UPS             -->
+
+<!--                INICIO VER DETALLES UPS              -->
+<p-dialog>
+
+</p-dialog>
+<!--                FIN VER DETALLES UPS              -->
