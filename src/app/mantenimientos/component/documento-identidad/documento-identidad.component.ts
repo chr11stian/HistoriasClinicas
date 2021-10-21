@@ -122,6 +122,7 @@ export class DocumentoIdentidadComponent implements OnInit {
     }
 
     editar(row) {
+        this.agregarDoc = true; 
         this.update = true;
         console.log(row)
         this.form.patchValue({ nombre: row.nombre });

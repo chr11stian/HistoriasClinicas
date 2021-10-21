@@ -49,31 +49,32 @@
         </div>
     </div>
 </div>
-<p-dialog [(visible)]="agregarDoc" header="Agregar Documento Identidad">
-    <div class="col-4 crearDocumento">
-        <h2>Crear Documento de Identidad</h2>
+
+
+<p-dialog [(visible)]="agregarDoc" [style]="{width: '500px'}" header="Agregar Documento Identidad">
+    <div class="col-12">
         <form [formGroup]='form'>
             <div class="grid">
-                <div class="p-fluid col-4">
+                <div class="p-fluid col-12">
                     <label class="mb-5 font-bold">Nombre:</label>
                     <input type="text" pInputText formControlName="nombre" autofocus />
                 </div>
-                <div class="p-fluid col-4">
+            </div>
+            <div class="grid">
+                <div class="p-fluid col-6">
                     <label class="mb-5 font-bold">Abreviatura:</label>
                     <input type="text" pInputText formControlName="abreviatura" autofocus />
                 </div>
-                <div class="p-fluid col-4">
+                <div class="p-fluid col-6">
                     <label class="mb-5 font-bold">Longitud:</label>
                     <input type="number" pInputText formControlName="longitud" autofocus />
                 </div>
             </div>
-            <div class="flex justify-content-end">
-                <div class="pfield col-8">
-                    <button pButton type="button" label="Cancelar" class="p-button-danger  mr-2"
+            <ng-template pTemplate=footer>
+                <button pButton type="button" label="Cancelar" class="p-button-danger  mr-2"
                         (click)="cancelarDialogDoc()"></button>
                     <button pButton type="button" label="Guardar" (click)="GuardarDocumentoIdentidad()"></button>
-                </div>
-            </div>
+            </ng-template>
         </form>
     </div>
 </p-dialog>
