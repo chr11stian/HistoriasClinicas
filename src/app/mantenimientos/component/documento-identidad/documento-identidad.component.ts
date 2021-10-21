@@ -67,7 +67,7 @@ export class DocumentoIdentidadComponent implements OnInit {
             return;
         }
         this.docIdentidadService.postDocumentoIdentidad(this.datosDocIdentidad).subscribe(res => {
-            console.log('res dni ', res)
+            // console.log('res dni ', res)
             this.limpiarCampos();
             this.getDocumentosIdentidad();
             this.closeDialog();
@@ -91,7 +91,7 @@ export class DocumentoIdentidadComponent implements OnInit {
             id: this.id
         }
 
-        console.log('dato a editar', this.datosDocIdentidad)
+        // console.log('dato a editar', this.datosDocIdentidad)
         this.docIdentidadService.putDocumentoIdentidad(this.datosDocIdentidad).subscribe((res: any) => {
             this.limpiarCampos();
             this.getDocumentosIdentidad();
@@ -106,8 +106,6 @@ export class DocumentoIdentidadComponent implements OnInit {
         })
     }
 
-
-
     limpiarCampos() {
         this.form.patchValue({ nombre: '' });
         this.form.patchValue({ abreviatura: '' });
@@ -119,10 +117,10 @@ export class DocumentoIdentidadComponent implements OnInit {
     }
 
     openDialogEditar(row) {
-        console.log('row de identidad ', row)
+        // console.log('row de identidad ', row)
         this.agregarDoc = true;
         this.update = true;
-        console.log(row)
+        // console.log(row)
         this.form.patchValue({ nombre: row.nombre });
         this.form.patchValue({ abreviatura: row.abreviatura });
         this.form.patchValue({ longitud: row.longitud });
