@@ -13,9 +13,9 @@
     <div class="grid lg-2">
         <div class="col-2"></div>
         <div class="col-8">
-            <p-table #dt [value]="listaDocumentosIdentidad"
-            styleClass="p-datatable-gridlines" [rows]="10" [paginator]="true" [autoLayout]="true"
-                [globalFilterFields]="['nombre']" [(selection)]="selectedDoc" [rowHover]="true" datakey="id"
+            <p-table #dt [value]="listaDocumentosIdentidad" styleClass="p-datatable-gridlines" [rows]="10"
+                [paginator]="true" [autoLayout]="true" [globalFilterFields]="['nombre']" [(selection)]="selectedDoc"
+                [rowHover]="true" datakey="id"
                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
                 responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
 
@@ -36,12 +36,12 @@
                         <td style="text-align: center">{{ doc.abreviatura }}</td>
                         <td style="text-align: center">{{ doc.longitud }}</td>
                         <td>
-                            <button pButton (click)="editar(doc)" pTooltip="Editar" pRipple type="button"
+                            <button pButton (click)="openDialogEditar(doc)" pTooltip="Editar" pRipple type="button"
                                 icon="pi pi-pencil" class="p-button-rounded m-1">
                             </button>
                             <button pButton (click)="eliminar(doc)" pTooltip="Eliminar" pRipple type="button"
-                            icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
-                        </button>
+                                icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                            </button>
                         </td>
                     </tr>
                 </ng-template>
@@ -70,11 +70,14 @@
                     <input type="number" pInputText formControlName="longitud" autofocus />
                 </div>
             </div>
-            <ng-template pTemplate=footer>
-                <button pButton type="button" label="Cancelar" class="p-button-danger  mr-2"
-                        (click)="cancelarDialogDoc()"></button>
-                    <button pButton type="button" label="Guardar" (click)="GuardarDocumentoIdentidad()"></button>
-            </ng-template>
+            <div class="flex justify-content-end">
+                <button pButton type="button" label="Cancelar" class=" m-1 p-button-danger"
+                    (click)="closeDialog()"></button>
+                <button pButton *ngIf="update" type="button" label="Editar" class="m-1"
+                    (click)="editarDocumento()"></button>
+                <button pButton *ngIf="!update" type="button" label="Guardar" class="m-1"
+                    (click)="guardarDocumentoIdentidad()"></button>
+            </div>
         </form>
     </div>
 </p-dialog>
