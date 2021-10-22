@@ -8,7 +8,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import {Subscription} from 'rxjs';
 import Swal from 'sweetalert2';
 import {Cupo} from '../../core/models/cupo.models';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CuposService} from "../../core/services/cupos.service";
 import {UpsService} from "../../mantenimientos/services/ups/ups.service";
 
@@ -21,42 +21,28 @@ import {UpsService} from "../../mantenimientos/services/ups/ups.service";
 })
 export class CuposComponent implements OnInit {
 
+    estadoHoras: string = "LIBRE";
+    dataSelectOferta: any;
+    totalHoras: any;
+    hora: any;
+    personals: any;
     datafecha: Date = new Date();
+    datafechaActual: string;
+
     dataOfertasCupos: any;
     ups: any;
     datePipe = new DatePipe('en-US');
-
-
-    dataOfertas: any;
-
-    dataHoraAtencions: any;
-    horas: any;
-
-    personalHoras: any;
-
     selectedCupo: any;
-    cupos: any;
     cuposDialog: boolean;
     usuarioDialog: boolean;
     subscription: Subscription;
     selectedServicio: any;
-
     listaPersonal: any;
-
     personalSelected: string = '';
-    nombre: string;
-    estadoCivil: string;
-
     justifyOptions: any[];
-    value1: any;
-    value3: any;
     stateOptions: any[];
-
-    cellTomorrow: any;
     selectedHorario: any;
-    selectedPersonal: any;
     formUsuarios: FormGroup;
-    formCupos: FormGroup;
 
     docIdentidad: any = [{
         id: '001',
@@ -106,9 +92,9 @@ export class CuposComponent implements OnInit {
     ngOnInit(): void {
         this.inicializarForm();
         this.getDataUPS();
-        this.getDataUPS();
+        this.datafechaActual = this.datafecha.getDate() + '-' + (this.datafecha.getMonth() + 1) + '-' + this.datafecha.getFullYear();
+        console.log("FECHAS", this.datafechaActual);
     }
-
 
     getDataUPS() {
         this.upsService.getUPS().subscribe((resp: any) => {
@@ -122,22 +108,8 @@ export class CuposComponent implements OnInit {
         this.cuposService.getOfertasListar(data).subscribe((resp: any) => {
             this.dataOfertasCupos = resp.object;
             console.log("OFERTAS HORARIOS", this.dataOfertasCupos);
-            let i = 0;
-            for (let b of this.dataOfertasCupos) {
-                b = this.dataOfertasCupos[i].horaLaboral;
-                i = i++;
-                console.log("OFERTAS XXX", b);
-            }
         });
     }
-
-
-    // getOfertascupos(data) {
-    //     this.cuposService.getOfertas(data).subscribe((resp: any) => {
-    //         this.dataOfertasCupos = resp;
-    //         console.log("OFERTAS CUPOS", resp);
-    //     });
-    // }
 
 
     ngOnDestroy(): void {
@@ -185,10 +157,13 @@ export class CuposComponent implements OnInit {
         console.log('selected servicio ', this.selectedServicio)
         this.cuposDialog = false;
         this.openDialog2();
+
+        console.log("JPC", this.selectedHorario);
     }
 
     closeDialogCupos() {
-        this.horas = null;
+        this.dataSelectOferta = null;
+        this.dataOfertasCupos = null;
         this.cuposDialog = false;
         this.selectedHorario = {};
         Swal.fire({
@@ -200,18 +175,15 @@ export class CuposComponent implements OnInit {
         })
     }
 
+
     openDialog2() {
         this.usuarioDialog = true;
     }
 
     onRowSelect(event) {
-        console.log('event', event.data);
-        this.personalSelected = event.data.apellidos + ' ' + event.data.nombres;
-
-        this.personalHoras = event.data.codServicio;
-
-        this.horas = this.dataHoraAtencions.filter(item => item.codServicio == this.personalHoras)
-        console.log("aaa", this.horas);
+        this.dataSelectOferta = event.data.horaLaboral;
+        console.log('event', this.dataSelectOferta);
+        this.personalSelected = event.data.personal.nombre;
     }
 
     onRowUnselect(event) {
@@ -221,15 +193,13 @@ export class CuposComponent implements OnInit {
     changeServicioSelected(event) {
         this.personalSelected = '';
         console.log(event)
-        // this.listaPersonal = this.dataOfertasCupos.filter(item => item.horaLaboral == event.horaLaboral);
-        this.horas = null;
         let data = {
             servicio: this.selectedServicio.nombreUPS,
             nombreIpress: this.iprees,
             fechaOferta: this.datafecha,
         }
         this.getOfertascuposListar(data);
-
+        // this.listaPersonal = this.dataOfertasCupos.filter(item => item.horaLaboral == event.horaLaboral);
         console.log("fecha", this.datafecha);
     }
 

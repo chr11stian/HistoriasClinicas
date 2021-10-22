@@ -1,17 +1,13 @@
 <div class="p-card">
     <p-toolbar styleClass="p-mb-4">
-
         <ng-template pTemplate="left">
             <h3 class="p-m-0">Cupos</h3>
         </ng-template>
-
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
                     (click)="openModal()"></button>
-
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
         </ng-template>
-
     </p-toolbar>
     <p-table #dt [value]="listaPersonal" [rows]="10" [paginator]="true" [globalFilterFields]="['dni']"
              [(selection)]="selectedCupo" [rowHover]="true" datakey="id"
@@ -27,7 +23,6 @@
                 </span>
             </div>
         </ng-template>
-
         <ng-template class="ng-template" pTemplate="header">
             <tr>
                 <!-- <th style="text-align: center">#</th> -->
@@ -54,11 +49,15 @@
 </div>
 
 <!--                 INICIO DIALOG DE CUPOS                 -->
-<p-dialog [(visible)]="cuposDialog" [style]="{width: '1200px'}" header="OFERTAS" [modal]="true"
-          styleClass="p-fluid" autoZIndex>
-    <br>
+<p-dialog [(visible)]="cuposDialog" [style]="{width: '1200px', height: '700px'}" header="OFERTAS" [modal]="true"
+          styleClass="p-fluid" autoZIndex class="p-card">
+    <div class="grid header">
 
-    <div class="grid">
+        <div class="col-2">
+            <label>FECHA)</label>
+            <p-calendar type [(ngModel)]="datafecha" dateFormat="dd-mm-yy"></p-calendar>
+
+        </div>
         <div class="col-4">
             <label>SERVICIO (UPS)</label>
             <p-dropdown [options]="ups"
@@ -70,72 +69,75 @@
             </p-dropdown>
         </div>
 
-        <div class="col-2">
-            <label>FECHA)</label>
-            <input type="date" pInputText [(ngModel)]="datafecha"/>
+
+        <div class="p-field col-6">
+            <label>PERSONA QUE ATIENDE</label>
+            <!--            <h4>{{ personalSelected }}</h4>-->
+            <input type="text" pInputText [value]="personalSelected">
         </div>
     </div>
-
+    <br>
     <div class="grid">
         <div class="p-field col-6 p-card">
-            <div class="mt-4">
-                <p-table [value]="dataOfertasCupos" dataKey="nroCupo">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Hora Inicio</th>
-                            <th>Hora Fin</th>
-                            <th>Asignado</th>
-                            <th>Nombre</th>
-                            <th>Disponible</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData>
-                        <tr>
-                            <td>{{ rowData.horasInicio}}</td>
-                            <td>{{ rowData.horaFin}}</td>
-                            <td>{{ rowData.estado}}</td>
-                            <td>{{ rowData.nombreServicio}}</td>
-                            <td>
-                                <!--                            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>-->
-                                <p-checkbox name="groupname" [value]="rowData"
-                                            [(ngModel)]="selectedHorario"></p-checkbox>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-
-            </div>
-        </div>
-        <div class="p-field col-6 p-card mt-4">
-            <label>PERSONA QUE ATIENDE</label>
-            <div>
-                <h1>{{ personalSelected }}</h1>
-            </div>
-            <p-table [value]="listaPersonal" selectionMode="single" [(selection)]="selectedPersonal"
+            <p-table [value]="dataOfertasCupos" selectionMode="single"
+                     [(selection)]="personalSelected"
                      responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)"
                      (onRowUnselect)="onRowUnselect($event)">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th>Nro</th>
-                        <th>Apellidos</th>
-                        <th>Nombres</th>
-                        <th>Turno</th>
+                        <th>NRO</th>
+                        <th>APELLIDOS Y NOMBRES</th>
+                        <th>TURNO</th>
                     </tr>
                 </ng-template>
 
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr [pSelectableRow]="rowData">
                         <td>{{ rowIndex + 1 }}</td>
-                        <td>{{ rowData.apellidos }}</td>
-                        <td>{{ rowData.nombres }}</td>
-                        <td>{{ rowData.turno }}</td>
+                        <td>{{ rowData.personal.nombre }}</td>
+                        <td>{{ rowData.nombreTurno }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div class="p-field col-6 p-card">
+            <p-table [value]="dataSelectOferta" dataKey="nroCupo">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>HORA INICIO</th>
+                        <th>HORA FIN</th>
+                        <th>ESTADO</th>
+                        <th>SELECCIONAR</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr>
+                        <td>{{ rowData.horaInicio}}</td>
+                        <td>{{ rowData.horaFin}}</td>
+                        <!--                        <td *ngIf="rowData.estado == estadoHoras" style="color: #258100">{{ rowData.estado}}</td>-->
+                        <td>
+                            <p-tag *ngIf="rowData.estado == estadoHoras"
+                                   styleClass="p-mr-2"
+                                   severity="Success"
+                                   value="Activo"
+                                   [rounded]="true">
+                            </p-tag>
+                        </td>
+
+                        <td>
+                            <!--                            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>-->
+                            <p-checkbox name="groupname" [value]="rowData"
+                                        *ngIf="rowData.estado == estadoHoras" [disabled]="!estadoHoras"
+                                        [(ngModel)]="selectedHorario"></p-checkbox>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
         </div>
     </div>
     <ng-template pTemplate=footer>
-        <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogCupos()"></button>
+        <button pButton type="button" label="cancelar" class="p-button-danger"
+                (click)="closeDialogCupos()"></button>
         <button pButton type="button" label="Siguiente" (click)="aceptarDialogCupos()"></button>
     </ng-template>
 
@@ -247,9 +249,9 @@
                 </div>
                 <div class="col-3">
                     <div class="datosServicio margin-1 m-3">
-                        <div class="pfield col-12" *ngFor="let Servicio of selectedHorario">
+                        <div class="pfield col-12">
                             <label class="ml-2 font-bold">Servicio</label>
-                            <p>{{Servicio.nombreServicio}}</p>
+                            <p>{{selectedServicio.nombreUPS}}</p>
                         </div>
                         <div class="p-field col-12">
                             <label class="ml-2 font-bold">Ambiente</label>
@@ -263,9 +265,9 @@
                         </div>
                     </div>
                     <div class="datosServicio margin-1 m-3">
-                        <div class="p-field col-12" *ngFor="let a of selectedHorario">
+                        <div class="p-field col-12">
                             <label class="ml-2 font-bold">Hora</label>
-                            <p>{{a.HoraI}}</p>
+                            <p>{{selectedHorario[0].horaInicio + "-" + selectedHorario[0].horaFin}}</p>
                         </div>
                     </div>
                 </div>
