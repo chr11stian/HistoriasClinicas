@@ -50,9 +50,11 @@ export class UpsComponent implements OnInit {
         { label: 'NO', value: false }
     ]
     update: boolean = false;
+    updateSubTitulo: boolean = false;
     titulo: string;
     idUps: string;
     listaSubTitulos: any;
+    nombreSubTitulo: string;
 
     constructor(
         private fb: FormBuilder,
@@ -75,6 +77,7 @@ export class UpsComponent implements OnInit {
             dropTipoUPS: new FormControl(''),
             sishis: new FormControl(''),
             estado: new FormControl(''),
+            tieneCupo: new FormControl(''),
         });
 
         this.formSubTitulo = this.fb.group({
@@ -132,16 +135,16 @@ export class UpsComponent implements OnInit {
             estado: this.formUPS.value.estado,
             tipoUPS_id: this.formUPS.value.dropTipoUPS.id,
             subTituloUPS: [{
-                tieneCupo: false,
-                estado: true,
+                tieneCupo: this.formUPS.value.tieneCupo,
+                estado: this.formUPS.value.estado,
                 nombreSubTipo: this.formUPS.value.nombreUPS,
             }]
         }
-        console.log('datos ', this.dataUPS)
     }
 
     guardarUPS() {
         this.recuperarDatos();
+        console.log('datoa de ups ', this.dataUPS)
         this.upsService.postUPS(this.dataUPS).subscribe((res: any) => {
             this.cargarUPS();
             this.cancelDialogUPS();
@@ -152,7 +155,7 @@ export class UpsComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
             });
-        })
+        });
     }
 
     limpiarDatos() {
@@ -172,7 +175,7 @@ export class UpsComponent implements OnInit {
     }
 
     openDialogEditUPS(row) {
-        console.log('row a editar ', row)
+        // console.log('row a editar ', row)
         this.titulo = 'Editar UPS';
         this.update = true;
         let auxSisHis;
@@ -196,11 +199,11 @@ export class UpsComponent implements OnInit {
         this.formUPS.patchValue({ dropTipoUPS: auxTipoUPS });
     }
 
-    editarUPS(){
+    editarUPS() {
         this.recuperarDatos();
-        console.log('datos editar ', this.dataUPS,'id ups ' ,this.idUps)
-        this.upsService.putUPS(this.idUps,this.dataUPS).subscribe((res:any)=>{
-            console.log('res edit ',res);
+        // console.log('datos editar ', this.dataUPS, 'id ups ', this.idUps)
+        this.upsService.putUPS(this.idUps, this.dataUPS).subscribe((res: any) => {
+            // console.log('res edit ', res);
             this.cargarUPS();
             this.cancelDialogUPS();
             Swal.fire({
@@ -213,12 +216,59 @@ export class UpsComponent implements OnInit {
         })
     }
 
-    eliminarUPS(row){
+    eliminarUPS(row) {
         let id = row.id;
-        console.log('id a eliminar ', id)
-        this.upsService.deleteUPS(id).subscribe((res:any)=>{
-            console.log(res);
-            this.cargarUPS();
+        Swal.fire({
+            title: '¿Desea eliminar este registro?',
+            showDenyButton: true,
+            icon: 'warning',
+            confirmButtonText: 'Eliminar',
+            denyButtonText: `Cancelar`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.upsService.deleteUPS(id).subscribe((res: any) => {
+                    this.cargarUPS();
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: res.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+            } else if (result.isDenied) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'No se Elimino',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+    }
+
+    openDialogSubTitulos(row) {
+        this.listaSubTitulos = row.subTituloUPS;
+        this.idUps = row.id;
+        console.log('row de subt ', this.listaSubTitulos);
+        this.dialogSubTitulos = true;
+    }
+
+    recuperarDatosSubTitulos() {
+        this.dataSubTitulo = {
+            nombreSubTipo: this.formSubTitulo.value.nombreSubTitulo,
+            tieneCupo: this.formSubTitulo.value.tieneCupo,
+            estado: String(this.formSubTitulo.value.tieneCupo),
+        }
+
+    }
+
+    aceptarSubTitulo() {
+        this.recuperarDatosSubTitulos();
+        this.upsService.postAddSubTitulo(this.idUps, this.dataSubTitulo).subscribe((res: any) => {
+            this.listaSubTitulos = res.object.subTituloUPS;
+            this.formSubTitulo.reset();
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -226,29 +276,79 @@ export class UpsComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
             });
-        });
+        })
     }
 
-    openDialogSubTitulos(row){
-        this.listaSubTitulos = row.subTituloUPS;
-        console.log('row de subt ', this.listaSubTitulos);
-        this.dialogSubTitulos = true;
-    }
-
-    recuperarDatosSubTitulos(){
-        this.dataUPS = {
-            nombreSubtipo: this.formSubTitulo.value.nombreSubTitulo,
-            tieneCupo: this.formSubTitulo.value.tieneCupo,
-            estado: this.formSubTitulo.value.tieneCupo,
-        }
-        
-    }
-
-    aceptarSubTitulo(){
-
-    }
-
-    closeSubTitulo(){
+    closeSubTitulo() {
         this.dialogUPS = false;
+    }
+
+    editSubTitulo(row) {
+        this.updateSubTitulo = true;
+        this.nombreSubTitulo = row.nombreSubTipo;
+        // console.log('row edita ', row)
+        this.formSubTitulo.patchValue({ nombreSubTitulo: row.nombreSubTipo });
+        this.formSubTitulo.patchValue({ tieneCupo: row.tieneCupo });
+    }
+
+    aceptarEditarSubTitulo() {
+
+        let dataSubTitulo = {
+            tieneCupo: this.formSubTitulo.value.tieneCupo,
+            nombreSubTipo: this.formSubTitulo.value.nombreSubTitulo,
+            old_name: this.nombreSubTitulo,
+            estado: this.formSubTitulo.value.tieneCupo
+        }
+        // console.log('sub titulo ', dataSubTitulo, 'id ups ', this.idUps)
+        this.upsService.updateSubtitulosUPS(this.idUps, dataSubTitulo).subscribe((res: any) => {
+            this.formSubTitulo.reset();
+            this.listaSubTitulos = res.object.subTituloUPS;
+            this.updateSubTitulo = false;
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: res.mensaje,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        })
+    }
+
+    eliminarSubTitulo(row) {
+        let deleteSubTitulo = {
+            nombreSubTipo: row.nombreSubTipo
+        }
+
+
+        Swal.fire({
+            title: '¿Desea eliminar este registro?',
+            showDenyButton: true,
+            icon: 'warning',
+            confirmButtonText: 'Eliminar',
+            denyButtonText: `Cancelar`,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.upsService.deleteSubTituloUPS(this.idUps, deleteSubTitulo).subscribe((res: any) => {
+                    this.listaSubTitulos = res.object.subTituloUPS;
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: res.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+            } else if (result.isDenied) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'info',
+                    title: 'No se Elimino',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+
+
     }
 }

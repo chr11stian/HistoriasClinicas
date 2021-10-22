@@ -36,8 +36,8 @@ export class UpsService {
         return this.http.post(`${this.base_url}/${this.bd}/api/ups/add_subtitulo/${idUPS}`, dataUPS);
     }
 
-    deleteSubTituloUPS(nombresubtipo) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/ups/delete_subtitulo`, nombresubtipo);
+    deleteSubTituloUPS(idUPS, nombreSubTipo) {
+        return this.http.post(`${this.base_url}/${this.bd}/api/ups/delete_subtitulo/${idUPS}`, nombreSubTipo);
     }
 
     updateSubtitulosUPS(idUPS, dataUPS) {

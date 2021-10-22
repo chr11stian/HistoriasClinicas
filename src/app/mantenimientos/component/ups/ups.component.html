@@ -91,6 +91,13 @@
                 </div>
             </div>
         </div>
+        <div class="grid mt-2">
+            <div class="col-4">
+                <label>Tiene Cupo:</label>
+                <p-selectButton [options]="subTitulosOptions" formControlName="tieneCupo" optionLabel="label"
+                    optionValue="value"></p-selectButton>
+            </div>
+        </div>
     </form>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="cancelDialogUPS()"></button>
@@ -108,9 +115,9 @@
             <div class="col-3">
                 <form [formGroup]="formSubTitulo">
                     <div class="grid">
-                        <div class="col-12">
+                        <div class="col-12 p-fluid">
                             <label>Nombre Sub Tipo</label>
-                            <textarea rows="4" cols="30" pInputTextarea autoResize="autoResize"
+                            <textarea rows="2" cols="30" pInputTextarea autoResize="autoResize"
                                 formControlName="nombreSubTitulo"
                                 oninput="this.value=this.value.toUpperCase()"></textarea>
                         </div>
@@ -123,11 +130,14 @@
                     <br>
                     <div class="grid">
                         <div class="col-6">
-                            <button pButton type="button" label="cancelar" class="p-button-danger"
+                            <button pButton type="button" label="cancelar" class="p-button-danger m-1"
                                 (click)="closeSubTitulo()"></button>
                         </div>
-                        <div class="col-6">
-                            <button pButton type="button" label="Aceptar" (click)="aceptarSubTitulo()"></button>
+                        <div class="col-6" *ngIf="!updateSubTitulo">
+                            <button pButton class="m-1" type="button" label="Guardar" (click)="aceptarSubTitulo()"></button>
+                        </div>
+                        <div class="col-6" *ngIf="updateSubTitulo">
+                            <button pButton class="m-1" type="button" label="Editar" (click)="aceptarEditarSubTitulo()"></button>
                         </div>
                     </div>
                 </form>
@@ -140,6 +150,7 @@
                             <th>Nro</th>
                             <th>Sub Titulo</th>
                             <th>Tiene Cupo</th>
+                            <th>Acción</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-data let-i="rowIndex">
@@ -147,6 +158,14 @@
                             <td>{{ i +1 }}</td>
                             <td>{{ data.nombreSubTipo }}</td>
                             <td>{{ data.tieneCupo }}</td>
+                            <td style="display: flex;">
+                                <button pButton (click)="editSubTitulo(data)" pTooltip="Editar" pRipple type="button"
+                                    icon="pi pi-pencil" class="p-button-rounded m-1">
+                                </button>
+                                <button pButton (click)="eliminarSubTitulo(data)" pTooltip="Eliminar" pRipple type="button"
+                                    icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                                </button>
+                            </td>
                         </tr>
                     </ng-template>
                 </p-table>
