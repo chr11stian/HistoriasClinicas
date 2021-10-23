@@ -9,11 +9,10 @@
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
         </ng-template>
     </p-toolbar>
-    <p-table #dt [value]="listaUPS" [rows]="10" [paginator]="true" [globalFilterFields]="['id']" [rowHover]="true"
-        dataKey="codUPS" currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
-        responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
-        styleClass="p-datatable-gridlines">
-        <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
+    <p-table #dt [value]="listaUPS" [rows]="10" [paginator]="true" [globalFilterFields]="['id']" dataKey="codUPS"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} elementos" responsiveLayout="scroll"
+        [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-gridlines">
+        <ng-template class="ng-template" pTemplate="header">
             <tr>
                 <th style="text-align: center;">Nro</th>
                 <th style="text-align: center;">Id UPS</th>
@@ -134,10 +133,12 @@
                                 (click)="closeSubTitulo()"></button>
                         </div>
                         <div class="col-6" *ngIf="!updateSubTitulo">
-                            <button pButton class="m-1" type="button" label="Guardar" (click)="aceptarSubTitulo()"></button>
+                            <button pButton class="m-1" type="button" label="Guardar"
+                                (click)="aceptarSubTitulo()"></button>
                         </div>
                         <div class="col-6" *ngIf="updateSubTitulo">
-                            <button pButton class="m-1" type="button" label="Editar" (click)="aceptarEditarSubTitulo()"></button>
+                            <button pButton class="m-1" type="button" label="Editar"
+                                (click)="aceptarEditarSubTitulo()"></button>
                         </div>
                     </div>
                 </form>
@@ -162,8 +163,8 @@
                                 <button pButton (click)="editSubTitulo(data)" pTooltip="Editar" pRipple type="button"
                                     icon="pi pi-pencil" class="p-button-rounded m-1">
                                 </button>
-                                <button pButton (click)="eliminarSubTitulo(data)" pTooltip="Eliminar" pRipple type="button"
-                                    icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                                <button pButton (click)="eliminarSubTitulo(data)" pTooltip="Eliminar" pRipple
+                                    type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                                 </button>
                             </td>
                         </tr>

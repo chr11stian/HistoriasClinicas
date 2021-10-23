@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UpsService } from '../../services/ups/ups.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TipoUpsService } from '../../services/tipo-ups.service';
@@ -71,32 +71,32 @@ export class UpsComponent implements OnInit {
 
     inicializarForm() {
         this.formUPS = this.fb.group({
-            codUPS: new FormControl(''),
-            nombreUPS: new FormControl(''),
+            codUPS: new FormControl('', { validators: [Validators.required], updateOn: 'blur' }),
+            nombreUPS: new FormControl('', { validators: [Validators.required] }),
             nombreComercial: new FormControl(''),
-            dropTipoUPS: new FormControl(''),
-            sishis: new FormControl(''),
+            dropTipoUPS: new FormControl('', { validators: [Validators.required] }),
+            sishis: new FormControl('', { validators: [Validators.required] }),
             estado: new FormControl(''),
-            tieneCupo: new FormControl(''),
+            tieneCupo: new FormControl('', { validators: [Validators.required] }),
         });
 
         this.formSubTitulo = this.fb.group({
-            tieneCupo: new FormControl(''),
-            nombreSubTitulo: new FormControl(''),
-        })
+            tieneCupo: new FormControl('', { validators: [Validators.required] }),
+            nombreSubTitulo: new FormControl('', { validators: [Validators.required] }),
+        });
     }
 
     cargarUPS() {
         this.upsService.getUPS().subscribe((res: any) => {
             this.listaUPS = res.object;
-            // console.log('res back ', this.listaUPS)
+            console.log('res back ', this.listaUPS)
         });
     }
 
     cargarTipoUPS() {
         this.tipoUpsService.getTipoUPSs().subscribe((res: any) => {
             this.listaTipoUPS = res.object;
-            console.log('lista tipo UPS', this.listaTipoUPS)
+            // console.log('lista tipo UPS', this.listaTipoUPS)
         })
     }
 
@@ -110,7 +110,7 @@ export class UpsComponent implements OnInit {
     recuperarDatos() {
         let his;
         let sis;
-
+        console.log('sis de recuperar datos ', this.formUPS.value.sishis)
         if (this.formUPS.value.sishis == 'sis') {
             sis = true;
             his = false;
@@ -144,7 +144,11 @@ export class UpsComponent implements OnInit {
 
     guardarUPS() {
         this.recuperarDatos();
-        console.log('datoa de ups ', this.dataUPS)
+        // console.log('datoa de ups ', this.dataUPS)
+        // if (!this.formUPS.valid) {
+        //     console.log('datos imcompletos')
+        //     return
+        // }
         this.upsService.postUPS(this.dataUPS).subscribe((res: any) => {
             this.cargarUPS();
             this.cancelDialogUPS();
@@ -251,7 +255,7 @@ export class UpsComponent implements OnInit {
     openDialogSubTitulos(row) {
         this.listaSubTitulos = row.subTituloUPS;
         this.idUps = row.id;
-        console.log('row de subt ', this.listaSubTitulos);
+        // console.log('row de subt ', this.listaSubTitulos);
         this.dialogSubTitulos = true;
     }
 
@@ -261,7 +265,6 @@ export class UpsComponent implements OnInit {
             tieneCupo: this.formSubTitulo.value.tieneCupo,
             estado: String(this.formSubTitulo.value.tieneCupo),
         }
-
     }
 
     aceptarSubTitulo() {
@@ -292,12 +295,23 @@ export class UpsComponent implements OnInit {
     }
 
     aceptarEditarSubTitulo() {
-
         let dataSubTitulo = {
             tieneCupo: this.formSubTitulo.value.tieneCupo,
             nombreSubTipo: this.formSubTitulo.value.nombreSubTitulo,
             old_name: this.nombreSubTitulo,
             estado: this.formSubTitulo.value.tieneCupo
+        }
+
+        if (dataSubTitulo.tieneCupo == '' || dataSubTitulo.nombreSubTipo == '' || dataSubTitulo.old_name == '') {
+            Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Ingrese todos los datos ',
+                showConfirmButton: false,
+                timer: 1500
+            });
+
+            return
         }
         // console.log('sub titulo ', dataSubTitulo, 'id ups ', this.idUps)
         this.upsService.updateSubtitulosUPS(this.idUps, dataSubTitulo).subscribe((res: any) => {
@@ -318,7 +332,6 @@ export class UpsComponent implements OnInit {
         let deleteSubTitulo = {
             nombreSubTipo: row.nombreSubTipo
         }
-
 
         Swal.fire({
             title: '¿Desea eliminar este registro?',
@@ -347,8 +360,6 @@ export class UpsComponent implements OnInit {
                     timer: 1500
                 });
             }
-        })
-
-
+        });
     }
 }
