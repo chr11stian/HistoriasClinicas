@@ -15,6 +15,7 @@ export class RolGuardiaComponent implements OnInit {
   listaUps: any[] = [];
   upsSeleccionada = "";
   listaPersonal: any[] = [];
+  listaIsUpdate: any[] = [];
   listaHoras: any[] = [];
 
   matriz: any = [];
@@ -122,9 +123,8 @@ export class RolGuardiaComponent implements OnInit {
       let filaAux = [];
       for (let j = 0; j < this.nroDiasMes; j++) {
         filaAux.push(
-          //primer turno por defecto
-          //this.listaTurno[0]
-          " "
+          //turno libre x defecto
+          this.listaTurno[7]
         );
       }
       this.matriz.push(filaAux);
@@ -198,12 +198,15 @@ export class RolGuardiaComponent implements OnInit {
     //console.log("esModficable", isVisible);
   }
   cambiarFecha(fechaseleccionada: Date) {
+    this.upsSeleccionada = "";
     this.fecha = fechaseleccionada;
     this.numeroDiasMes();
     this.generarCabecera();
     this.colorearCabecera();
-    this.crearMatriz(); //si cambia fecha
-    this.IniciarHoras();
+    this.listaPersonal = [];
+    this.matriz = [];
+    //this.crearMatriz(); //si cambia fecha
+    //this.IniciarHoras();
     this.isModificable();
   }
   IniciarHoras() {
@@ -226,51 +229,83 @@ export class RolGuardiaComponent implements OnInit {
         this.listaPersonal = resp["object"];
         this.IniciarHoras();
         this.crearMatriz();
+        this.calcularNroHorasGeneral();
       },
       (error) => {
         console.log("negativa", error);
       }
     );
   }
-  calcularNroHoras(nroFila: number) {
-    let nroHoras = 0;
-    for (let j = 0; j < this.matriz[0].length; j++) {
-      if (
-        this.matriz[nroFila][j] != "" &&
-        this.matriz[nroFila][j]["selected"]
-      ) {
-        nroHoras = nroHoras + this.matriz[nroFila][j]["nroHoras"];
+  calcularNroHorasGeneral() {
+    for (let i = 0; i < this.matriz.length; i++) {
+      let contadorAuxiliar = 0;
+      for (let j = 0; j < this.matriz[0].length; j++) {
+        contadorAuxiliar += this.matriz[i][j]["nroHoras"];
+        this.listaHoras[i] = contadorAuxiliar;
       }
     }
-    return nroHoras;
+  }
+  recalcularxFila(nroFila: number) {
+    let nroHoras = 0;
+    for (let j = 0; j < this.matriz[0].length; j++) {
+      nroHoras = nroHoras + this.matriz[nroFila][j]["nroHoras"];
+    }
+    this.listaHoras[nroFila] = nroHoras;
   }
   changeTurno(i, j) {
-    let diaInput: any = {
-      anio: this.fecha.getFullYear(),
-      mes: this.fecha.getMonth() + 1,
-      dia: j + 1,
-      idIpress: "615b30b37194ce03d782561c",
-      servicio: this.upsSeleccionada["nombreUPS"],
-      tipoDoc: "DNI",
-      nroDoc: this.listaPersonal[i]["nroDoc"],
-      ambiente: "MEDICINA 1xx",
-      abreviatura: this.matriz[i][j]["abreviatura"],
-    };
+    this.recalcularxFila(i);
+    // let diaInput: any = {
+    //   anio: this.fecha.getFullYear(),
+    //   mes: this.fecha.getMonth() + 1,
+    //   dia: j + 1,
+    //   idIpress: "615b30b37194ce03d782561c",
+    //   servicio: this.upsSeleccionada["nombreUPS"],
+    //   tipoDoc: "DNI",
+    //   nroDoc: this.listaPersonal[i]["nroDoc"],
+    //   ambiente: "MEDICINA 1xx",
+    //   abreviatura: this.matriz[i][j]["abreviatura"],
+    // };
     //sumamos las horas
     // this.listaHoras[i] = this.listaHoras[i] + this.matriz[i][j]["nroHoras"];
     //console.log(diaInput);
     // this.rolGuardiaService.AddUpdateRolGuardia(diaInput).subscribe(
     //   (resp) => {
     //     console.log(resp);
-    this.matriz[i][j]["selected"] = true;
-    this.listaHoras[i] = this.calcularNroHoras(i);
+    //this.matriz[i][j]["selected"] = true;
+    //this.listaHoras[i] = this.calcularNroHoras(i);
     //   },
     //   (error) => {
     //     console.log(error);
     //   }
     // );
   }
+  construirFilaDelDia(fila) {
+    let listaTurno = [];
+    for (let j = 0; j < this.matriz[0].length; j++) {
+      let dia = {
+        dia: j,
+        abreaviatura: this.matriz[fila][j]["abreviatura"],
+      };
+      listaTurno.push(dia);
+    }
+    return listaTurno;
+  }
+
   designar() {
-    console.log(this.matriz);
+    for (let i = 0; i < this.matriz.length; i++) {
+      let mesInput: any = {
+        anio: this.fecha.getFullYear(),
+        mes: this.fecha.getMonth() + 1,
+        idIpress: "615b30b37194ce03d782561c",
+        servicio: this.upsSeleccionada["nombreUPS"],
+        tipoDoc: "DNI",
+        ambiente: "MEDICINA 1xx",
+      };
+      mesInput["nroDoc"] = this.listaPersonal[i]["nroDoc"];
+      mesInput["turnos"] = this.construirFilaDelDia(i);
+      //llamamos al servicio
+      console.log(mesInput);
+    }
+    //console.log(this.matriz);
   }
 }

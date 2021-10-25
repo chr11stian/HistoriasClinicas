@@ -141,7 +141,6 @@
       >
         <!-- {{ i }} -{{ j }} -->
         <p-dropdown
-          placeholder=">"
           [inline]="false"
           [disabled]="!isEditable"
           [options]="listaTurno"
@@ -200,6 +199,7 @@
         label="Asignar"
         class="p-button-danger p-button-lg px-7 mx-3"
         (click)="designar()"
+        [disabled]="upsSeleccionada == ''"
       ></button>
     </div>
   </div>
