@@ -16,7 +16,20 @@ export class RolGuardiaService {
       rol11
     );
   }
-  AddUpdateRolGuardia(rolDia: any) {
-    return this.http.post(`${this.base_url}/${this.bd}/api/rolguardia`, rolDia);
+  AddRolGuardia(rolDia: any) {
+    return this.http.post(
+      `${this.base_url}/${this.bd}/api/rolguardia/upsertArreglo`,
+      rolDia
+    );
+  }
+  getTurnosPorIpress(idIpress) {
+    return this.http.get(
+      `${this.base_url}/${this.bd}/api/listarServicios/${idIpress}`
+    );
+  }
+  getUpsPorIpress(idIpress) {
+    return this.http.get(
+      `${this.base_url}/${this.bd}/api/listarTurnos/${idIpress}`
+    );
   }
 }
