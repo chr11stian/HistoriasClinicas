@@ -49,92 +49,95 @@
 </div>
 
 <!--                 INICIO DIALOG DE CUPOS                 -->
-<p-dialog [(visible)]="cuposDialog" [style]="{width: '1200px', height: '700px'}" header="OFERTAS" [modal]="true"
-          styleClass="p-fluid" autoZIndex class="p-card">
-    <div class="grid header">
+<p-dialog [(visible)]="cuposDialog" [style]="{width: '1200px', height: '750px'}" [modal]="true"
+          styleClass="p-fluid" autoZIndex class="dialogOfertas">
+    <p-panel>
+        <ng-template pTemplate="header">
+            OFERTAS
+        </ng-template>
+        <div class="grid">
+            <div class="col-2">
+                <label>FECHA)</label>
+                <p-calendar type [(ngModel)]="datafecha" dateFormat="dd-mm-yy"></p-calendar>
+            </div>
+            <div class="col-4">
+                <label>SERVICIO (UPS)</label>
+                <p-dropdown [options]="ups"
+                            [(ngModel)]="selectedServicio"
+                            placeholder="Seleccione un servicio"
+                            optionLabel="nombreUPS"
+                            [showClear]="false"
+                            (ngModelChange)="changeServicioSelected($event)">
+                </p-dropdown>
+            </div>
+            <div class="p-field col-3">
+                <label>PERSONA QUE ATIENDE:</label>
+                <h4>{{personalSelected}}</h4>
+            </div>
 
-        <div class="col-2">
-            <label>FECHA)</label>
-            <p-calendar type [(ngModel)]="datafecha" dateFormat="dd-mm-yy"></p-calendar>
-
+            <div class="p-field col-3">
+                <label>AMBIENTE:</label>
+                <h4>{{dataSelectAmbiente}}</h4>
+            </div>
         </div>
-        <div class="col-4">
-            <label>SERVICIO (UPS)</label>
-            <p-dropdown [options]="ups"
-                        [(ngModel)]="selectedServicio"
-                        placeholder="Seleccione un servicio"
-                        optionLabel="nombreUPS"
-                        [showClear]="false"
-                        (ngModelChange)="changeServicioSelected($event)">
-            </p-dropdown>
-        </div>
+        <br>
+        <div class="grid">
+            <div class="p-field col-6 p-card">
+                <p-table [value]="dataOfertasCupos" selectionMode="single"
+                         [(selection)]="personalSelected"
+                         responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)"
+                         (onRowUnselect)="onRowUnselect($event)">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>NRO</th>
+                            <th>APELLIDOS Y NOMBRES</th>
+                            <th>TURNO</th>
+                        </tr>
+                    </ng-template>
 
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr [pSelectableRow]="rowData">
+                            <td>{{ rowIndex + 1 }}</td>
+                            <td>{{ rowData.personal.nombre }}</td>
+                            <td>{{ rowData.nombreTurno }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="p-field col-6 p-card">
+                <p-table [value]="dataSelectOferta" dataKey="nroCupo">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>HORA INICIO</th>
+                            <th>HORA FIN</th>
+                            <th>ESTADO</th>
+                            <th>SELECCIONAR</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData>
+                        <tr>
+                            <td>{{ rowData.horaInicio}}</td>
+                            <td>{{ rowData.horaFin}}</td>
+                            <td>
+                                <p-tag *ngIf="rowData.estado == estadoHoras"
+                                       styleClass="p-mr-2"
+                                       severity="Success"
+                                       value="Activo"
+                                       [rounded]="true">
+                                </p-tag>
+                            </td>
 
-        <div class="p-field col-6">
-            <label>PERSONA QUE ATIENDE</label>
-            <!--            <h4>{{ personalSelected }}</h4>-->
-            <input type="text" pInputText [value]="personalSelected">
+                            <td>
+                                <p-checkbox name="groupname" [value]="rowData"
+                                            *ngIf="rowData.estado == estadoHoras" [disabled]="!estadoHoras"
+                                            [(ngModel)]="selectedHorario"></p-checkbox>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
         </div>
-    </div>
-    <br>
-    <div class="grid">
-        <div class="p-field col-6 p-card">
-            <p-table [value]="dataOfertasCupos" selectionMode="single"
-                     [(selection)]="personalSelected"
-                     responsiveLayout="scroll" (onRowSelect)="onRowSelect($event)"
-                     (onRowUnselect)="onRowUnselect($event)">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>NRO</th>
-                        <th>APELLIDOS Y NOMBRES</th>
-                        <th>TURNO</th>
-                    </tr>
-                </ng-template>
-
-                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                    <tr [pSelectableRow]="rowData">
-                        <td>{{ rowIndex + 1 }}</td>
-                        <td>{{ rowData.personal.nombre }}</td>
-                        <td>{{ rowData.nombreTurno }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-        <div class="p-field col-6 p-card">
-            <p-table [value]="dataSelectOferta" dataKey="nroCupo">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>HORA INICIO</th>
-                        <th>HORA FIN</th>
-                        <th>ESTADO</th>
-                        <th>SELECCIONAR</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData>
-                    <tr>
-                        <td>{{ rowData.horaInicio}}</td>
-                        <td>{{ rowData.horaFin}}</td>
-                        <!--                        <td *ngIf="rowData.estado == estadoHoras" style="color: #258100">{{ rowData.estado}}</td>-->
-                        <td>
-                            <p-tag *ngIf="rowData.estado == estadoHoras"
-                                   styleClass="p-mr-2"
-                                   severity="Success"
-                                   value="Activo"
-                                   [rounded]="true">
-                            </p-tag>
-                        </td>
-
-                        <td>
-                            <!--                            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>-->
-                            <p-checkbox name="groupname" [value]="rowData"
-                                        *ngIf="rowData.estado == estadoHoras" [disabled]="!estadoHoras"
-                                        [(ngModel)]="selectedHorario"></p-checkbox>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-    </div>
+    </p-panel>
     <ng-template pTemplate=footer>
         <button pButton type="button" label="cancelar" class="p-button-danger"
                 (click)="closeDialogCupos()"></button>
@@ -145,7 +148,7 @@
 <!--                 FIN DIALOG DE CUPOS             -->
 
 <!--                INICIO MODAL DE USUARIOS         -->
-<p-dialog [(visible)]="usuarioDialog" [style]="{width: '1200px'}" header="Datos del Paciente" [modal]="true"
+<p-dialog [(visible)]="usuarioDialog" [style]="{width: '1200px'}" [modal]="true"
           styleClass="p-fluid" autoZIndex>
     <ng-template pTemplate>
         <form [formGroup]='formUsuarios'>

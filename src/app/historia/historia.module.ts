@@ -17,6 +17,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 
 import {IpressComponent} from './ipress/ipress.component';
 import {CheckboxModule} from "primeng/checkbox";
+import {PanelModule} from "primeng/panel";
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import {CheckboxModule} from "primeng/checkbox";
         CalendarModule,
         InputMaskModule,
         CheckboxModule,
+        PanelModule,
     ]
 })
 export class HistoriaModule {

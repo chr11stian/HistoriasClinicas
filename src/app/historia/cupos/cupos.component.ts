@@ -21,6 +21,7 @@ import {UpsService} from "../../mantenimientos/services/ups/ups.service";
 })
 export class CuposComponent implements OnInit {
 
+    dataSelectAmbiente: any;
     estadoHoras: string = "LIBRE";
     dataSelectOferta: any;
     totalHoras: any;
@@ -181,6 +182,7 @@ export class CuposComponent implements OnInit {
     }
 
     onRowSelect(event) {
+        this.dataSelectAmbiente = event.data.ambiente;
         this.dataSelectOferta = event.data.horaLaboral;
         console.log('event', this.dataSelectOferta);
         this.personalSelected = event.data.personal.nombre;
@@ -200,7 +202,6 @@ export class CuposComponent implements OnInit {
         }
         this.getOfertascuposListar(data);
         // this.listaPersonal = this.dataOfertasCupos.filter(item => item.horaLaboral == event.horaLaboral);
-        console.log("fecha", this.datafecha);
     }
 
     GuardarPersona() {
