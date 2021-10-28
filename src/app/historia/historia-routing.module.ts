@@ -5,6 +5,7 @@ import {PersonalSaludComponent} from "./personal-salud/personal-salud.component"
 import {UsuariosComponent} from "./usuarios/usuarios.component";
 import {UbicacionComponent} from "../mantenimientos/component/ubicacion/ubicacion.component";
 import { IpressComponent } from './ipress/ipress.component';
+import { PacienteComponent } from './paciente/paciente.component';
 
 const routes: Routes = [
     {
@@ -33,7 +34,10 @@ const routes: Routes = [
         path: "ipress",
         component: IpressComponent
     },
-
+    {
+        path: "paciente",
+        component: PacienteComponent
+    },
 
 
 ];
