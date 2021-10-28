@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Departamentos, Distrito, Provincias } from 'src/app/core/models/ubicacion.models';
 import { IpressService } from 'src/app/core/services/ipress/ipress.service';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
@@ -72,6 +72,7 @@ export class PacienteComponent implements OnInit {
     private ubicacionService: UbicacionService,
     private etniaService: EtniaService,
     private messageService: MessageService,
+    private confirmationService:ConfirmationService
   ) { }
 
   ngOnInit(): void {
@@ -207,7 +208,7 @@ export class PacienteComponent implements OnInit {
       this.formPaciente.reset();
       this.cargarPacientes();
       this.closeDialogPaciente();
-      this.messageService.add({severity:'success', summary: 'Exito', detail: res.mensaje});
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
   }
 
@@ -288,13 +289,28 @@ export class PacienteComponent implements OnInit {
     this.pacienteService.deletePaciente(row.id).subscribe((res: any) => {
       console.log('res delete ', res)
       this.cargarPacientes();
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se Elimino exitosamente el Registro ',
-        showConfirmButton: false,
-        timer: 1500
-      });
+
+      this.messageService.clear();
+      this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Desea Eliminar este Paciente?', detail: 'Confirm to proceed' });
+
+      this.confirmationService.confirm({
+        target: event.target,
+        message: 'Are you sure that you want to proceed?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            //confirm action
+        },
+        reject: () => {
+            //reject action
+        }
+    });
+      // Swal.fire({
+      //   position: 'center',
+      //   icon: 'success',
+      //   title: 'Se Elimino exitosamente el Registro ',
+      //   showConfirmButton: false,
+      //   timer: 1500
+      // });
     });
   }
 
