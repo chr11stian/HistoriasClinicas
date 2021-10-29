@@ -15,13 +15,15 @@ import {DividerModule} from 'primeng/divider';
 import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
 import { IpressComponent } from './ipress/ipress.component';
+import { PacienteComponent } from './paciente/paciente.component';
 
 @NgModule({
     declarations: [
         PersonalSaludComponent,
         UsuariosComponent,
         CuposComponent,
-        IpressComponent
+        IpressComponent,
+        PacienteComponent
     ],
     exports: [
         PersonalSaludComponent,

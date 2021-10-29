@@ -10,9 +10,11 @@ export class RolGuardiaService {
   bd = environment.bd;
 
   constructor(private http: HttpClient) {}
-  getRolGuardias() {
-    // return this.http.get(`${this.base_url}/${this.bd}/ubicacion/listar`);
-    return this.http.get(`${this.base_url}/${this.bd}/api/rolguardia`);
+  getRolGuardiaPorPersonal(rol11: any) {
+    return this.http.post(
+      `${this.base_url}/${this.bd}/api/rolguardia/persona`,
+      rol11
+    );
   }
   AddUpdateRolGuardia(rolDia: any) {
     return this.http.post(`${this.base_url}/${this.bd}/api/rolguardia`, rolDia);
