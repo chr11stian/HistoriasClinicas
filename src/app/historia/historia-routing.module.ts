@@ -5,12 +5,13 @@ import { PersonalSaludComponent } from "./personal-salud/personal-salud.componen
 import { UsuariosComponent } from "./usuarios/usuarios.component";
 import { UbicacionComponent } from "../mantenimientos/component/ubicacion/ubicacion.component";
 import { IpressComponent } from "./ipress/ipress.component";
+import { PacienteComponent } from "./paciente/paciente.component";
 import { RolGuardiaComponent } from "./rol-guardia/rol-guardia.component";
 
 const routes: Routes = [
   {
     path: "",
-    // component: InicioComponentss
+    // component: InicioComponent
     // component: DashboardComponent
   },
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: "ipress",
     component: IpressComponent,
+  },
+  {
+    path: "paciente",
+    component: PacienteComponent,
   },
   {
     path: "rol-guardia",

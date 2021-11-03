@@ -29,6 +29,7 @@ import { CondicionPacienteDiscapacidadComponent } from "./component/condicion-pa
 import { CondicionPacienteDiscapacidadModalComponent } from "./component/condicion-paciente-discapacidad-modal/condicion-paciente-discapacidad-modal.component";
 import { TipoContratoComponent } from "./component/tipo-contrato/tipo-contrato.component";
 import { UpsComponent } from "./component/ups/ups.component";
+import { DividerModule } from "primeng/divider";
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { UpsComponent } from "./component/ups/ups.component";
     TreeSelectModule,
     MultiSelectModule,
     ReactiveFormsModule,
+    DividerModule,
   ],
 })
 export class MantenimientosModule {}

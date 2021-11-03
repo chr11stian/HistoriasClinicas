@@ -18,7 +18,7 @@ export class DocumentoIdentidadComponent implements OnInit {
     datosDocIdentidad: any;
     update: boolean = false;
     id: string;
-    agregarDoc:boolean;
+    agregarDoc: boolean;
 
 
     constructor(
@@ -54,7 +54,7 @@ export class DocumentoIdentidadComponent implements OnInit {
         }
     }
 
-    GuardarDocumentoIdentidad() {
+    guardarDocumentoIdentidad() {
         this.recuperarDatos();
         if (this.datosDocIdentidad.nombre == '' || this.datosDocIdentidad.abreviatura == '' || this.datosDocIdentidad.longitud == '') {
             Swal.fire({
@@ -66,51 +66,46 @@ export class DocumentoIdentidadComponent implements OnInit {
             });
             return;
         }
+        this.docIdentidadService.postDocumentoIdentidad(this.datosDocIdentidad).subscribe(res => {
+            // console.log('res dni ', res)
+            this.limpiarCampos();
+            this.getDocumentosIdentidad();
+            this.closeDialog();
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Se guardo con exito',
+                showConfirmButton: false,
+                timer: 1500
+            });
 
-        Swal.fire({
-            title: 'Desea Guardar los Cambios?',
-            showDenyButton: true,
-            confirmButtonText: 'Guardar',
-            denyButtonText: `No Guardar`,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                if (this.update) {
-                    this.datosDocIdentidad = {
-                        nombre: this.datosDocIdentidad.nombre,
-                        abreviatura: this.datosDocIdentidad.abreviatura,
-                        longitud: this.datosDocIdentidad.longitud,
-                        id: this.id
-                    }
-                    console.log('actualizar ', this.datosDocIdentidad)
-                    this.docIdentidadService.putDocumentoIdentidad(this.datosDocIdentidad).subscribe(res => {
-                        this.limpiarCampos();
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Se Actualizo con exito',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    });
-                } else {
-                    this.docIdentidadService.postDocumentoIdentidad(this.datosDocIdentidad).subscribe(res => {
-                        this.limpiarCampos();
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Se guardo con exito',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        this.getDocumentosIdentidad();
-                    });
-                }
-            } else if (result.isDenied) {
-                this.limpiarCampos();
-                Swal.fire('No se Guardo', '', 'info')
-            }
+        });
+    }
+
+    editarDocumento() {
+        this.recuperarDatos();
+        this.datosDocIdentidad = {
+            nombre: this.datosDocIdentidad.nombre,
+            abreviatura: this.datosDocIdentidad.abreviatura,
+            longitud: this.datosDocIdentidad.longitud,
+            id: this.id
+        }
+
+        // console.log('dato a editar', this.datosDocIdentidad)
+        this.docIdentidadService.putDocumentoIdentidad(this.datosDocIdentidad).subscribe((res: any) => {
+            this.limpiarCampos();
+            this.getDocumentosIdentidad();
+            this.closeDialog();
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Se Actualizo con exito',
+                showConfirmButton: false,
+                timer: 1500
+            });
         })
     }
+
     limpiarCampos() {
         this.form.patchValue({ nombre: '' });
         this.form.patchValue({ abreviatura: '' });
@@ -121,9 +116,11 @@ export class DocumentoIdentidadComponent implements OnInit {
         this.agregarDoc = false;
     }
 
-    editar(row) {
+    openDialogEditar(row) {
+        // console.log('row de identidad ', row)
+        this.agregarDoc = true;
         this.update = true;
-        console.log(row)
+        // console.log(row)
         this.form.patchValue({ nombre: row.nombre });
         this.form.patchValue({ abreviatura: row.abreviatura });
         this.form.patchValue({ longitud: row.longitud });
@@ -131,11 +128,6 @@ export class DocumentoIdentidadComponent implements OnInit {
     }
 
     eliminar(row) {
-        console.log('row', row.id)
-        this.docIdentidadService.deleteDocumentoIdentidadById(row.id).subscribe((res: any) => {
-            console.log(res)
-        })
-
         Swal.fire({
             title: '¿Seguro que desea eliminar este documento?',
             showDenyButton: true,
@@ -159,11 +151,13 @@ export class DocumentoIdentidadComponent implements OnInit {
         })
     }
 
-    openDialogAgregarDoc(){
+    openDialogAgregarDoc() {
+        this.update = false;
         this.agregarDoc = true;
+        this.limpiarCampos();
     }
 
-    cancelarDialogDoc(){
-        
+    cancelarDialogDoc() {
+
     }
 }

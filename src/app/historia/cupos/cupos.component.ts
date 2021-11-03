@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { formatDate } from '@angular/common';
-import { MessageService, PrimeNGConfig } from 'primeng/api';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {DatePipe, formatDate} from '@angular/common';
+import {MessageService, PrimeNGConfig} from 'primeng/api';
 
-import { DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { Subscription } from 'rxjs';
+import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import {Subscription} from 'rxjs';
 import Swal from 'sweetalert2';
-import { Cupo } from '../../core/models/cupo.models';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {Cupo} from '../../core/models/cupo.models';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {CuposService} from "../../core/services/cupos.service";
+import {UpsService} from "../../mantenimientos/services/ups/ups.service";
+import {DocumentoIdentidadService} from "../../mantenimientos/services/documento-identidad/documento-identidad.service";
 
 
 @Component({
@@ -18,222 +21,41 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
     styleUrls: ['./cupos.component.css']
 })
 export class CuposComponent implements OnInit {
+    dataCupos_por_fechas_servicio: any;
+    personalSelected2: any;
+    isUpdate: boolean = false;
 
+    dataSelectAmbiente: any;
+    dataSelectHoras: any;
+    dataSelectServicio: any;
+    selectedHorario: any;
+
+    estadoHoras: string = "LIBRE";
+    estadoCupo: string = "active";
+    totalHoras: any;
+    hora: any;
+    personals: any;
+    datafecha: Date = new Date();
+    datafechaActual: string;
+    listaDocumentosIdentidad: any
+
+    dataOfertasCupos: any;
+    ups: any;
+    datePipe = new DatePipe('en-US');
     selectedCupo: any;
-    cupos: any;
     cuposDialog: boolean;
     usuarioDialog: boolean;
     subscription: Subscription;
     selectedServicio: any;
+    selectedServicio2: any;
     listaPersonal: any;
     personalSelected: string = '';
-    nombre: string;
-    estadoCivil: string;
-    fecha: Date;
-    selectedTipoDocumento: string;
     justifyOptions: any[];
-    value1: any;
-    value3: any;
     stateOptions: any[];
-    cellHour: any;
-    cellHoy: any;
-    cellTomorrow: any;
-    selectedHorario: Cupo;
-    selectedPersonal: any;
-    formUsuarios: FormGroup;
-    formCupos: FormGroup;
-
-    today: Date = new Date();
-    jsToday: string = ''
-    selected: any;
-
-    citas: Cupo[] = [{
-        fecharegistro: '28/09/2021',
-        nroCupo: '01',
-        descripcion: 'CITA DEL ESTOMAGO',
-        horaAtencion: '08:00',
-        horaAtencionFin: '08:30',
-        ambiente: 'CONSULTORIO 2',
-        paciente: {
-            nombre: 'JONATHAN',
-            apellidos: 'MOROCCO LAYME',
-            tipoDoc: '1',
-            nroDoc: '72745818',
-        },
-        rol: {
-            personal: 'PERSONAL 1',
-            turno: 'MAÑANA',
-            docPersonal: '70707070',
-            idRol: '01'
-        },
-        ipress: {
-            idIpress: '001',
-            nombre: 'IPRESS 01',
-            servicio: 'servicio 1'
-        },
-        estado: '1'
-    }, {
-        fecharegistro: '28/09/2021',
-        nroCupo: '02',
-        descripcion: 'CITA DEL ESTOMAGO',
-        horaAtencion: '08:30',
-        horaAtencionFin: '09:00',
-        ambiente: 'CONSULTORIO 2',
-        paciente: {
-            nombre: 'JONATHAN',
-            apellidos: 'MOROCCO LAYME',
-            tipoDoc: '1',
-            nroDoc: '72745818',
-        },
-        rol: {
-            personal: 'PERSONAL 1',
-            turno: 'MAÑANA',
-            docPersonal: '70707070',
-            idRol: '01'
-        },
-        ipress: {
-            idIpress: '001',
-            nombre: 'IPRESS 01',
-            servicio: 'servicio 1'
-        },
-        estado: '1'
-    }, {
-        fecharegistro: '28/09/2021',
-        nroCupo: '03',
-        descripcion: 'CITA DEL ESTOMAGO',
-        horaAtencion: '09:00',
-        horaAtencionFin: '09:30',
-        ambiente: 'CONSULTORIO 2',
-        paciente: {
-            nombre: 'JONATHAN',
-            apellidos: 'MOROCCO LAYME',
-            tipoDoc: '1',
-            nroDoc: '72745818',
-        },
-        rol: {
-            personal: 'PERSONAL 1',
-            turno: 'MAÑANA',
-            docPersonal: '70707070',
-            idRol: '01'
-        },
-        ipress: {
-            idIpress: '001',
-            nombre: 'IPRESS 02',
-            servicio: 'servicio 1'
-        },
-        estado: '1'
-    }, {
-        fecharegistro: '28/09/2021',
-        nroCupo: '04',
-        descripcion: 'CITA DEL ESTOMAGO',
-        horaAtencion: '12:00',
-        horaAtencionFin: '12:30',
-        ambiente: 'CONSULTORIO 2',
-        paciente: {
-            nombre: 'JONATHAN',
-            apellidos: 'MOROCCO LAYME',
-            tipoDoc: '1',
-            nroDoc: '72745818',
-        },
-        rol: {
-            personal: 'PERSONAL 1',
-            turno: 'MAÑANA',
-            docPersonal: '70707070',
-            idRol: '01'
-        },
-        ipress: {
-            idIpress: '001',
-            nombre: 'IPRESS 03',
-            servicio: 'servicio 1'
-        },
-        estado: '1'
-    }]
+    formCuposOferta: FormGroup;
 
 
-    servicios: any = [{
-        codServicio: '1',
-        nombreServicio: 'MEDICINA GENERAL'
-    }, {
-        codServicio: '2',
-        nombreServicio: 'OBSTETRICIA'
-    }, {
-        codServicio: '3',
-        nombreServicio: 'PEDIATRIA'
-    }, {
-        codServicio: '4',
-        nombreServicio: 'ENFERMERIA'
-    }, {
-        codServicio: '5',
-        nombreServicio: 'ODONTOLOGIA'
-    }, {
-        codServicio: '6',
-        nombreServicio: 'ADMINISTRACION'
-    }]
-
-    listaPersonalAux: any = [{
-        nro: 1,
-        apellidos: 'Morocco layme',
-        nombres: 'jonathan',
-        codServicio: '1'
-    }, {
-        nro: 2,
-        apellidos: 'pimentel cruz',
-        nombres: 'jimmy',
-        codServicio: '1'
-    }, {
-        nro: 1,
-        apellidos: 'farfan saravia',
-        nombres: 'banesa',
-        codServicio: '2'
-    }, {
-        nro: 2,
-        apellidos: 'mejia pinto',
-        nombres: 'abel',
-        codServicio: '3'
-    }];
-
-    listaCupos: any = [{
-        dni: '72745818',
-        apellidos: 'MOROCCO LAYME',
-        nombres: 'JONATHAN',
-        servicio: 'ODONTOLOGIA',
-        horarioAtencion: '08:00',
-        fechaAtencion: '20/08/2021'
-    }, {
-        dni: '72745817',
-        apellidos: 'MOROCCO OTRO',
-        nombres: 'JONA',
-        servicio: 'ENFERMERIA',
-        horarioAtencion: '08:30',
-        fechaAtencion: '20/08/2021'
-    }, {
-        dni: '72745810',
-        apellidos: 'OTRO EJEMPLO',
-        nombres: 'NO KIEB',
-        servicio: 'MEDICINA GENERAL',
-        horarioAtencion: '09:00 am',
-        fechaAtencion: '20/08/2021'
-    }]
-
-    docIdentidad: any = [{
-        id: '001',
-        nombre: 'Documento Nacional de Identidad',
-        longitud: '8',
-        estado: '1',
-        abreviatura: 'DNI'
-    }, {
-        id: '002',
-        nombre: 'Pasaporte',
-        longitud: '12',
-        estado: '1',
-        abreviatura: 'PASAPORTE'
-    }, {
-        id: '003',
-        nombre: 'CARNET DE EXTRANJERIA',
-        longitud: '12',
-        estado: '1',
-        abreviatura: '	CARNET EXT'
-    }]
+    iprees: string = "Zarzuela Baja";
 
     constructor(
         private config: DynamicDialogConfig,
@@ -241,64 +63,150 @@ export class CuposComponent implements OnInit {
         private primeNGConfig: PrimeNGConfig,
         private messageService: MessageService,
         private fb: FormBuilder,
+        private cuposService: CuposService,
+        private upsService: UpsService,
+        private documentoIdentidadService: DocumentoIdentidadService
     ) {
         this.justifyOptions = [
-            { icon: "pi pi-align-left", justify: "Left" },
-            { icon: "pi pi-align-right", justify: "Right" },
-            { icon: "pi pi-align-center", justify: "Center" },
-            { icon: "pi pi-align-justify", justify: "Justify" }
+            {icon: "pi pi-align-left", justify: "Left"},
+            {icon: "pi pi-align-right", justify: "Right"},
+            {icon: "pi pi-align-center", justify: "Center"},
+            {icon: "pi pi-align-justify", justify: "Justify"}
         ];
 
         this.stateOptions = [
-            { label: "Off", value: "off" },
-            { label: "On", value: "on" }
+            {label: "Off", value: "off"},
+            {label: "On", value: "on"}
         ];
     }
 
     ngOnInit(): void {
+        this.buildForm();
+        this.getDataUPS();
+        this.getDocumentosIdentidad();
+        this.datafechaActual = this.datafecha.getDate() + '-' + (this.datafecha.getMonth() + 1) + '-' + this.datafecha.getFullYear();
+        console.log("FECHAS", this.datafechaActual);
+        console.log("HORARIO", this.selectedHorario);
 
-        this.today.getHours();
-        let listHorarios: any = [];
-        let minutes;
-        console.log('lista de cupos', this.listaCupos);
-        this.primeNGConfig.ripple = true;
-        console.log('hoy', this.today);
-        this.today.setMinutes(this.today.getMinutes() + 30);
-        this.jsToday = formatDate(this.today, 'HH:mm:ss a', 'en-ES', '-0500');
-        console.log('tiempo suma ', this.today);
-        console.log('hora nueva ', this.jsToday);
-        this.inicializarForm();
     }
+
+    getCupos_Fecha_Servicio(data) {
+        this.cuposService.getCuposServicioFecha(data).subscribe((res: any) => {
+            this.dataCupos_por_fechas_servicio = res.object;
+            console.log('Listasssss ', this.dataCupos_por_fechas_servicio);
+        })
+    }
+
+    getDocumentosIdentidad() {
+        this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
+            this.listaDocumentosIdentidad = res.object;
+            console.log('docs ', this.listaDocumentosIdentidad);
+        })
+    }
+
+    getDataUPS() {
+        this.upsService.getUPS().subscribe((resp: any) => {
+            this.ups = resp.object;
+            console.log("ups", this.ups);
+        });
+    }
+
+
+    getOfertascuposListar(data) {
+        this.cuposService.getOfertasListar(data).subscribe((resp: any) => {
+            this.dataOfertasCupos = resp.object;
+            console.log("OFERTAS HORARIOS", this.dataOfertasCupos);
+        });
+    }
+
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
 
-    inicializarForm() {
 
-        this.formUsuarios = this.fb.group({
-            tipoDocumento: new FormControl(''),
-            nroDocumento: new FormControl(''),
+    buildForm() {
+        this.formCuposOferta = this.fb.group({
+            fechaAtencion: new FormControl(''),
+            oferta_id: new FormControl(''),
+            descripcion: new FormControl(''),
+            horaAtencion: new FormControl(''),
+            horaAtencionFin: new FormControl(''),
+            ambiente: new FormControl(''),
+
             nombre: new FormControl(''),
-            apellidoPaterno: new FormControl(''),
-            apellidoMaterno: new FormControl(''),
-            sexo: new FormControl(''),
-            fecha: new FormControl(''),
-            estadoCivil: new FormControl(''),
-            telefono: new FormControl(''),
-            nacionalidad: new FormControl(''),
-            departamento: new FormControl(''),
-            provincia: new FormControl(''),
-            distrito: new FormControl(''),
-            centroPblado: new FormControl(''),
-            domicilioActual: new FormControl(''),
-            tipoSeguro: new FormControl(''),
-            transeuntes: new FormControl(''),
-            estapaVida: new FormControl(''),
-            edad: new FormControl(''),
-            dias: new FormControl(''),
+            apellidos: new FormControl(''),
+            tipoDoc: new FormControl(''),
+            nroDoc: new FormControl(''),
+
+            transeunte: new FormControl(''),
+            estado: new FormControl(''),
         })
     }
+
+    openNew() {
+        this.isUpdate = false;
+        this.formCuposOferta.reset();
+        this.formCuposOferta.get('tipoDoc').setValue("");
+        this.formCuposOferta.get('nroDoc').setValue("");
+        this.formCuposOferta.get('nombre').setValue("");
+        this.formCuposOferta.get('apellidos').setValue("");
+        this.usuarioDialog = true;
+    }
+
+    saveForm() {
+        this.isUpdate = false;
+        const req = {
+            fechaAtencion: this.personalSelected2.fechaOferta,
+            nroCupo: this.personalSelected2.totalOfertas,
+            oferta_id: this.personalSelected2.id,
+            // descripcion: this.formCuposOferta.value.descripcion,
+            descripcion: "asdfgh",
+            horaAtencion: this.selectedHorario[0].horaInicio + ":00",
+            horaAtencionFin: this.selectedHorario[0].horaFin + ":00",
+            ambiente: this.personalSelected2.ambiente,
+
+            paciente: {
+                nombre: this.formCuposOferta.value.nombre,
+                apellidos: this.formCuposOferta.value.apellidos,
+                tipoDoc: this.formCuposOferta.value.tipoDoc.abreviatura,
+                nroDoc: this.formCuposOferta.value.nroDoc,
+            },
+
+
+            // transeunte: this.formCuposOferta.value.transeunte,
+            transeunte: false,
+            estado: this.estadoCupo,
+
+
+            personal: {
+                nombre: this.personalSelected2.personal.nombre,
+                turno: this.personalSelected2.nombreTurno,
+                nroDoc: this.personalSelected2.personal.nroDoc,
+            },
+
+            ipress: {
+                ipress_id: this.personalSelected2.ipress.idIpress,
+                nombre: this.personalSelected2.ipress.nombre,
+                servicio: this.personalSelected2.ipress.servicio
+            },
+        };
+        console.log("guardar", req);
+
+        this.cuposService.saveCupos(req).subscribe(
+            result => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Agregado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
+        )
+
+    }
+
 
     openModal() {
         this.selectedHorario = null;
@@ -308,16 +216,20 @@ export class CuposComponent implements OnInit {
     aceptarDialogCupos() {
         let auxCupo: any = this.selectedHorario;
         if (auxCupo.length != 1) {
-            this.messageService.add({ severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario' });
+            this.messageService.add({severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario'});
             return;
         }
         console.log('horario ', this.selectedHorario)
         console.log('selected servicio ', this.selectedServicio)
         this.cuposDialog = false;
         this.openDialog2();
+
+        console.log("JPC", this.selectedHorario);
     }
 
     closeDialogCupos() {
+        this.dataSelectHoras = null;
+        this.dataOfertasCupos = null;
         this.cuposDialog = false;
         this.selectedHorario = {};
         Swal.fire({
@@ -329,13 +241,37 @@ export class CuposComponent implements OnInit {
         })
     }
 
+
     openDialog2() {
         this.usuarioDialog = true;
     }
 
     onRowSelect(event) {
-        console.log('event', event.data);
-        this.personalSelected = event.data.apellidos + ' ' + event.data.nombres
+        console.log('event',);
+
+        this.dataSelectAmbiente = event.data.ambiente;
+        this.dataSelectServicio = event.data.ipress.servicio;
+        this.personalSelected = event.data.personal.nombre;
+        this.dataSelectHoras = event.data.horaLaboral;
+        console.log('HORAS....', this.dataSelectHoras);
+        this.personalSelected2 = event.data;
+        console.log('select personal....', this.personalSelected2);
+    }
+
+    selectCupos() {
+
+        let data = {
+            servicio: this.selectedServicio.nombreUPS,
+            fecha: "2021-10-3",
+        }
+
+        this.getCupos_Fecha_Servicio(data);
+
+
+        if (this.dataCupos_por_fechas_servicio != null) {
+            this.dataCupos_por_fechas_servicio = null;
+        }
+
     }
 
     onRowUnselect(event) {
@@ -345,14 +281,20 @@ export class CuposComponent implements OnInit {
     changeServicioSelected(event) {
         this.personalSelected = '';
         console.log(event)
-        this.listaPersonal = this.listaPersonalAux.filter(item => item.codServicio == event.codServicio)
+        let data = {
+            servicio: this.selectedServicio.nombreUPS,
+            nombreIpress: this.iprees,
+            fechaOferta: this.datafecha,
+        }
+        this.getOfertascuposListar(data);
+        // this.listaPersonal = this.dataOfertasCupos.filter(item => item.horaLaboral == event.horaLaboral);
     }
 
     GuardarPersona() {
-        this.selectedHorario = {};
-        this.recuperarDatos()
-        this.usuarioDialog = false;
+
+
     }
+
     cancelarPersona() {
         console.log('cancelar')
         this.selectedHorario = {};
@@ -362,7 +304,7 @@ export class CuposComponent implements OnInit {
 
     recuperarDatos() {
         let data = {
-            aux: this.formUsuarios.value.nroDocumento
+            aux: this.formCuposOferta.value.nroDocumento
         }
     }
 }
