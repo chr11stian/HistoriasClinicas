@@ -15,8 +15,12 @@ import {TreeSelectModule} from 'primeng/treeselect';
 import {DividerModule} from 'primeng/divider';
 import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
-import { IpressComponent } from './ipress/ipress.component';
-import { PacienteComponent } from './paciente/paciente.component';
+
+import {CheckboxModule} from "primeng/checkbox";
+import {PanelModule} from "primeng/panel";
+import {PacienteComponent} from "./paciente/paciente.component";
+import {IpressComponent} from "./ipress/ipress.component";
+
 
 @NgModule({
     declarations: [
@@ -44,6 +48,8 @@ import { PacienteComponent } from './paciente/paciente.component';
         DividerModule,
         CalendarModule,
         InputMaskModule,
+        CheckboxModule,
+        PanelModule,
         ChipsModule
     ]
 })

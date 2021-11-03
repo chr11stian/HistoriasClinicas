@@ -7,7 +7,7 @@
   [resizableColumns]="'false'"
   #dt
   styleClass="p-datatable p-datatable-gridlines p-mt-3"
-  [value]="personalServicioSelected"
+  [value]="listaPersonal"
   [rowHover]="true"
 >
   <ng-template pTemplate="header">
@@ -20,14 +20,13 @@
         </strong>
         <div>
           <p-dropdown
-            [options]="tipoPersonalServicio"
+            [options]="listaUps"
             #dd
-            [(ngModel)]="selectedPersonalServicio"
-            optionLabel="nombre"
-            optionValue="id"
+            optionLabel="nombreUPS"
             placeholder="Personal Servicio"
             styleClass="my-2 py-1"
-            (onChange)="changePersonalServicio($event, dd)"
+            (onChange)="changeUps($event, dd)"
+            [(ngModel)]="upsSeleccionada"
           ></p-dropdown>
         </div>
       </th>
@@ -48,21 +47,23 @@
           <div
             class="flex align-items-center text-center justify-content-center"
           >
-            <button
+            <!-- <button
               pButton
               type="button"
               label=""
               icon="pi pi-chevron-left"
               class="p-button-text p-button-secondary"
-            ></button>
-            <span class="m-4"> Octubre 2018 </span>
-            <button
+            ></button> -->
+            <span class="m-4">
+              {{ fecha.getMonth() + 1 }} {{ fecha.getFullYear() }}
+            </span>
+            <!-- <button
               pButton
               type="button"
               label=""
               icon="pi pi-chevron-right"
               class="p-button-text p-button-secondary"
-            ></button>
+            ></button> -->
           </div>
         </div>
       </th>
@@ -125,31 +126,32 @@
         style="background-color: #f3a683"
         pFrozenColumn
       >
-        {{ rowData.nombres }}
+        {{ rowData.apePaterno }} {{ rowData.apeMaterno }}
       </td>
       <td
         class="border-500 text-900 frozenCol"
         style="background-color: #f3a683"
         pFrozenColumn
       >
-        {{ rowData.apellidos }}
+        {{ rowData.primerNombre }}
       </td>
       <td
         *ngFor="let dia of cabeceraMes; let j = index"
-        index="rowIndex"
         class="border-500 text-900"
       >
         <!-- {{ i }} -{{ j }} -->
         <p-dropdown
+          placeholder=">"
           [inline]="false"
           [disabled]="!isEditable"
-          [options]="turno"
+          [options]="listaTurno"
           [virtualScroll]="true"
-          [(ngModel)]="matriz[i][j]"
           optionLabel="abreviatura"
+          [(ngModel)]="matriz[i][j]"
+          (onChange)="changeTurno(i, j)"
         ></p-dropdown>
       </td>
-      <td class="border-500 text-900">8</td>
+      <td class="border-500 text-900">{{ listaHoras[i] }}</td>
     </tr>
   </ng-template>
 </p-table>
@@ -202,3 +204,18 @@
     </div>
   </div>
 </p-card>
+<!-- <p-table [value]="personalSeleccionado" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Quantity</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-product let i="rowIndex">
+    <tr>
+      <td>{{ product.id }}</td>
+    </tr>
+  </ng-template>
+</p-table> -->

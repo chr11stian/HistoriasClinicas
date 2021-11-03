@@ -3,10 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  bd: "historiasclinicas",
-  baseUrl: "http://192.168.5.3:8080",
+
+    production: false,
+    bd: "historiasclinicas",
+    baseUrl: "http://192.168.5.3:8080", //privada
+    //  baseUrl: "http://190.108.93.145:8080",//publica
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

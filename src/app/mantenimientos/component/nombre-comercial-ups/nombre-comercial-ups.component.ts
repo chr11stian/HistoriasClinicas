@@ -64,7 +64,6 @@ export class NombreComercialUPSComponent implements OnInit {
         this.nombreComercialUPSDialog = true;
     }
 
-
     saveForm() {
         this.isUpdate = false;
         const req = {
@@ -90,17 +89,15 @@ export class NombreComercialUPSComponent implements OnInit {
         }
     }
 
-    editarDatos(id) {
+    editarDatos() {
         const req = {
-            id: this.idUpdate,
             nombre: this.form.value.nombre,
             abreivatura: this.form.value.abreviatura,
             tipoServicio: this.form.value.tipoServicio,
             iconPath: this.form.value.iconPath,
         }
-
-        id = req.id;
-
+        let id = this.idUpdate;
+        console.log("aaaa", id, req);
         this.nombreComercialUPSService.editNombreComercial_UPS(id, req).subscribe(
             result => {
                 Swal.fire({
