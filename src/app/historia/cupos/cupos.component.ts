@@ -10,8 +10,9 @@ import Swal from 'sweetalert2';
 import {Cupo} from '../../core/models/cupo.models';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CuposService} from "../../core/services/cupos.service";
-import {UpsService} from "../../mantenimientos/services/ups/ups.service";
 import {DocumentoIdentidadService} from "../../mantenimientos/services/documento-identidad/documento-identidad.service";
+import {UpsService} from "../../mantenimientos/services/ups/ups.service";
+import {PacienteService} from "../../core/services/paciente/paciente.service";
 
 
 @Component({
@@ -29,6 +30,7 @@ export class CuposComponent implements OnInit {
     dataSelectHoras: any;
     dataSelectServicio: any;
     selectedHorario: any;
+    dataPacientes: any;
 
     estadoHoras: string = "LIBRE";
     estadoCupo: string = "active";
@@ -65,7 +67,8 @@ export class CuposComponent implements OnInit {
         private fb: FormBuilder,
         private cuposService: CuposService,
         private upsService: UpsService,
-        private documentoIdentidadService: DocumentoIdentidadService
+        private documentoIdentidadService: DocumentoIdentidadService,
+        private pacienteService: PacienteService,
     ) {
         this.justifyOptions = [
             {icon: "pi pi-align-left", justify: "Left"},
@@ -88,6 +91,42 @@ export class CuposComponent implements OnInit {
         console.log("FECHAS", this.datafechaActual);
         console.log("HORARIO", this.selectedHorario);
 
+    }
+
+    recuperar(rowData) {
+        this.isUpdate = true;
+        this.formCuposOferta.reset();
+        this.formCuposOferta.get('nroDoc').setValue(rowData.nroDoc);
+        this.formCuposOferta.get('tipoDoc').setValue(rowData.tipoDoc);
+        this.formCuposOferta.get('apePaterno').setValue(rowData.apePaterno);
+        this.formCuposOferta.get('apeMaterno').setValue(rowData.apeMaterno);
+        this.formCuposOferta.get('primerNombre').setValue(rowData.primerNombre);
+        // console.log(rowData.detalleIpress[0].fechaInicio);
+        // this.idUpdate = rowData.id;
+        // this.personalDialog = true;
+    }
+
+
+    pacienteByNroDoc() {
+        let auxNroDoc = {
+            tipoDoc: this.formCuposOferta.value.tipoDoc.abreviatura,
+            nroDoc: this.formCuposOferta.value.nroDoc,
+            // nroDoc: "24015415"
+        }
+        this.pacienteService.getPacienteByNroDoc(auxNroDoc).subscribe((res: any) => {
+            this.dataPacientes = res.object
+            console.log('paciente por doc ', this.dataPacientes)
+
+            this.formCuposOferta.get('apePaterno').setValue(this.dataPacientes.apePaterno);
+            this.formCuposOferta.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
+            this.formCuposOferta.get('primerNombre').setValue(this.dataPacientes.primerNombre);
+            this.formCuposOferta.get('otrosNombres').setValue(this.dataPacientes.otrosNombres);
+            this.formCuposOferta.get('sexo').setValue(this.dataPacientes.sexo);
+            this.formCuposOferta.get('fechaNacimiento').setValue(this.dataPacientes.nacimiento.fechaNacimiento);
+            this.formCuposOferta.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
+            this.formCuposOferta.get('celular').setValue(this.dataPacientes.celular);
+            this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
+        });
     }
 
     getCupos_Fecha_Servicio(data) {
@@ -134,25 +173,43 @@ export class CuposComponent implements OnInit {
             horaAtencionFin: new FormControl(''),
             ambiente: new FormControl(''),
 
-            nombre: new FormControl(''),
-            apellidos: new FormControl(''),
+            primerNombre: new FormControl(''),
+            otrosNombres: new FormControl(''),
+            apePaterno: new FormControl(''),
+            apeMaterno: new FormControl(''),
+            sexo: new FormControl(''),
+            fechaNacimiento: new FormControl(''),
+            estadoCivil: new FormControl(''),
+            celular: new FormControl(''),
+
+            nacionalidad: new FormControl(''),
+            departamento: new FormControl(''),
+            provincia: new FormControl(''),
+            distrito: new FormControl(''),
+            centroPoblado: new FormControl(''),
+            direccion: new FormControl(''),
+
             tipoDoc: new FormControl(''),
             nroDoc: new FormControl(''),
 
+            tipoSeguro: new FormControl(''),
             transeunte: new FormControl(''),
+            edad: new FormControl(''),
+            dias: new FormControl(''),
+            etapadeVida: new FormControl(''),
             estado: new FormControl(''),
         })
     }
 
-    openNew() {
-        this.isUpdate = false;
-        this.formCuposOferta.reset();
-        this.formCuposOferta.get('tipoDoc').setValue("");
-        this.formCuposOferta.get('nroDoc').setValue("");
-        this.formCuposOferta.get('nombre').setValue("");
-        this.formCuposOferta.get('apellidos').setValue("");
-        this.usuarioDialog = true;
-    }
+    // openNew() {
+    //     this.isUpdate = false;
+    //     this.formCuposOferta.reset();
+    //     this.formCuposOferta.get('tipoDoc').setValue("");
+    //     this.formCuposOferta.get('nroDoc').setValue("");
+    //     this.formCuposOferta.get('nombre').setValue("");
+    //     this.formCuposOferta.get('apellidos').setValue("");
+    //     this.usuarioDialog = true;
+    // }
 
     saveForm() {
         this.isUpdate = false;
@@ -167,8 +224,8 @@ export class CuposComponent implements OnInit {
             ambiente: this.personalSelected2.ambiente,
 
             paciente: {
-                nombre: this.formCuposOferta.value.nombre,
-                apellidos: this.formCuposOferta.value.apellidos,
+                nombre: this.formCuposOferta.value.primerNombre + ", " + this.formCuposOferta.value.otrosNombres,
+                apellidos: this.formCuposOferta.value.apePaterno + ", "+ this.formCuposOferta.value.apeMaterno,
                 tipoDoc: this.formCuposOferta.value.tipoDoc.abreviatura,
                 nroDoc: this.formCuposOferta.value.nroDoc,
             },

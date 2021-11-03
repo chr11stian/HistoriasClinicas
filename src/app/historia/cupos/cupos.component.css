@@ -13,7 +13,7 @@
 .datosPersonales,
 .datosExtra,
 .datosServicio {
-    border: 1px solid #dee2e6;
+    border: 1px solid rgba(33, 150, 243, 0.76);
     border-radius: 10px;
 }
 
@@ -22,13 +22,13 @@
 }
 
 p-panel>>>.p-panel .p-panel-header{
-    background: #C50009;
-    border: 1px solid #C50009;
+    background: #D32F2F;
+    border: 1px solid #D32F2F;
     color: #FFFFFF;
 }
 
 p-panel>>>.p-panel .p-panel-content{
-    border: 1px solid #C50009;
+    border: 1px solid #D32F2F;
 }
 
 
