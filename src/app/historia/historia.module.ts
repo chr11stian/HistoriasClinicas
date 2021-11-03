@@ -18,8 +18,9 @@ import {InputMaskModule} from 'primeng/inputmask';
 
 import {CheckboxModule} from "primeng/checkbox";
 import {PanelModule} from "primeng/panel";
-import {IpressComponent} from './ipress/ipress.component';
-import {PacienteComponent} from './paciente/paciente.component';
+import {PacienteComponent} from "./paciente/paciente.component";
+import {IpressComponent} from "./ipress/ipress.component";
+
 
 @NgModule({
     declarations: [
