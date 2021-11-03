@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PrimeModule} from '../shared/prime/prime.module'
+import {ChipsModule} from 'primeng/chips';
 
 import {HistoriaRoutingModule} from './historia-routing.module';
 import {PersonalSaludComponent} from './personal-salud/personal-salud.component';
@@ -42,7 +43,8 @@ import { PacienteComponent } from './paciente/paciente.component';
         TreeSelectModule,
         DividerModule,
         CalendarModule,
-        InputMaskModule
+        InputMaskModule,
+        ChipsModule
     ]
 })
 export class HistoriaModule {

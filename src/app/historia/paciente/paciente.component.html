@@ -35,8 +35,9 @@
                     <button pButton (click)="openEditarPaciente(paciente)" pTooltip="Editar" pRipple type="button"
                         icon="pi pi-pencil" class="p-button-rounded m-1">
                     </button>
-                    <button pButton (click)="eliminarPaciente(paciente)" pTooltip="Eliminar" pRipple type="button"
-                        icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+
+                    <button pButton (click)="eliminarPaciente(paciente,$event)" pTooltip="Eliminar" pRipple
+                        type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                     </button>
                 </td>
             </tr>
@@ -81,7 +82,7 @@
         <div class="grid mt-1">
             <div class="p-field col-3">
                 <label>Celular:</label>
-                <input type="text" pInputText formControlName="celular" class="inputTest" />
+                <input type="number" pInputText formControlName="celular" class="inputTest" />
             </div>
             <div class="p-field col-3">
                 <label>Tipo Seguro:</label>
@@ -168,8 +169,8 @@
             </div>
             <div class="p-field col-3">
                 <label>Sexo:</label>
-                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaSexo" pInputText
-                    formControlName="sexo" defaultLabel="" placeholder="Seleccione una Opción" [showClear]="false">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaSexo" formControlName="sexo"
+                    placeholder="Seleccione una Opción" [showClear]="false">
                 </p-dropdown>
             </div>
         </div>
@@ -194,13 +195,14 @@
             </div>
         </div>
         <div class="grid mt-1">
-            <div class="p-field col-3">
+            <div class="p-field col-6">
                 <label>Direccion:</label>
                 <input type="text" pInputText formControlName="direccion" class="inputTest" />
             </div>
-            <div class="p-field col-3">
+            <div class="p-field col-6">
                 <label>Discapacidad:</label>
-                <input type="text" pInputText formControlName="discapacidad" class="inputTest" />
+                <!-- <input type="text" pInputText formControlName="discapacidad" class="inputTest" /> -->
+                <p-chips formControlName="discapacidad" separator="," ngDefaultControl></p-chips>
             </div>
         </div>
         <!-- <div class="grid mt-1">
@@ -222,8 +224,8 @@
         </div> -->
     </form>
     <ng-template pTemplate=footer class="mt-2">
-        <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogMicroRed()"></button>
-        <button *ngIf="update" pButton type="button" label="Editar" (click)="editarMicroRed()"></button>
+        <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogPaciente()"></button>
+        <button *ngIf="update" pButton type="button" label="Editar" (click)="aceptarEditarPaciente()"></button>
         <button *ngIf="!update" pButton type="button" label="Aceptar" (click)="aceptarDialogPaciente()"></button>
     </ng-template>
 </p-dialog>

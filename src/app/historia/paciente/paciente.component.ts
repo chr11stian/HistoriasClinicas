@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ReorderableColumn } from 'primeng/table';
 import { Departamentos, Distrito, Provincias } from 'src/app/core/models/ubicacion.models';
 import { IpressService } from 'src/app/core/services/ipress/ipress.service';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
@@ -33,6 +34,7 @@ export class PacienteComponent implements OnInit {
   prov: Provincias;
   dist: Distrito;
   ccpp: any;
+  id: string;
   auxipress: string = "615b30b37194ce03d782561c";
   listaEstadoCivil = [
     'Soltero',
@@ -72,12 +74,14 @@ export class PacienteComponent implements OnInit {
     private ubicacionService: UbicacionService,
     private etniaService: EtniaService,
     private messageService: MessageService,
+    private confirmationService: ConfirmationService,
   ) { }
 
   ngOnInit(): void {
     this.inicializarForm();
     this.cargarPacientes();
     this.cargarEtnia();
+    this.pacienteByNroDoc();
   }
 
   inicializarForm() {
@@ -133,13 +137,12 @@ export class PacienteComponent implements OnInit {
   cargarEtnia() {
     this.etniaService.getEtnia().subscribe((res: any) => {
       this.dataEtnia = res.object;
-      // console.log('lista de etnia ', this.dataEtnia)
+      console.log('lista de etnia ', this.dataEtnia)
     });
   }
 
   recuperarDatos() {
     let aux = this.formPaciente.value.etnia;
-    // console.log('aux de etnia ', aux, 'dep ', this.dpto, 'prov ', this.prov, ' distr ', this.dist, 'ccpp ', this.ccpp)
     this.dataPaciente = {
       tipoDoc: this.formPaciente.value.tipoDoc.abreviatura,
       primerNombre: this.formPaciente.value.primerNombre,
@@ -148,8 +151,11 @@ export class PacienteComponent implements OnInit {
       apeMaterno: this.formPaciente.value.apMaterno,
       celular: this.formPaciente.value.celular,
       tipoSeguro: this.formPaciente.value.tipoSeguro,
-      nacionalidad: [this.formPaciente.value.nacionalidad],
+      nacionalidad: this.formPaciente.value.nacionalidad,
       procedencia: this.formPaciente.value.procedencia,
+      nacimiento: {
+        fechaNacimiento: this.formPaciente.value.fechaNacimiento
+      },
       domicilio: {
         departamento: this.dpto.departamento,
         provincia: this.prov.provincia,
@@ -170,7 +176,7 @@ export class PacienteComponent implements OnInit {
       fechaInscripcion: this.formPaciente.value.fechaInscripcion,
       fechaEmision: this.formPaciente.value.fechaEmision,
       restricion: this.formPaciente.value.restriccion,
-      discapacidad: [this.formPaciente.value.discapacidad],
+      discapacidad: this.formPaciente.value.discapacidad,
       // nombrePadre: this.formPaciente.value.nombrePadre,
       // nombreMadre: this.formPaciente.value.nombreMadre,
       idIpress: this.auxipress,
@@ -188,11 +194,12 @@ export class PacienteComponent implements OnInit {
     this.dpto = {};
     this.prov = {};
     this.dist = {};
+    this.ccpp = {};
     this.update = false;
     this.formPaciente.reset();
     this.dialogPaciente = true;
     this.cargarDocumentos();
-    this.cargarIpress();
+    // this.cargarIpress();
     this.getDepartamentos();
   }
 
@@ -202,24 +209,33 @@ export class PacienteComponent implements OnInit {
 
   aceptarDialogPaciente() {
     this.recuperarDatos();
+    console.log('datos paciente ', this.dataPaciente)
     this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
       console.log('res ', res)
       this.formPaciente.reset();
       this.cargarPacientes();
       this.closeDialogPaciente();
-      this.messageService.add({severity:'success', summary: 'Exito', detail: res.mensaje});
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
   }
 
   openEditarPaciente(row) {
+    console.log('row ', row)
     this.dpto = {};
     this.prov = {};
     this.dist = {};
+    this.ccpp = {};
     this.getDepartamentos();
     this.update = true;
     this.formPaciente.reset();
     this.dialogPaciente = true;
-    this.formPaciente.patchValue({ tipoDoc: row.tipoDoc });
+    this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
+      this.listaDocumentos = res.object;
+      let auxTipoDoc = this.listaDocumentos.filter(item => item.abreviatura == row.tipoDoc)
+      this.formPaciente.patchValue({ tipoDoc: auxTipoDoc[0] })
+    })
+    // 
+    // this.formPaciente.patchValue({ tipoDoc: row.tipoDoc });
     this.formPaciente.patchValue({ nroDoc: row.nroDoc });
     this.formPaciente.patchValue({ primerNombre: row.primerNombre });
     this.formPaciente.patchValue({ otrosNombres: row.otrosNombres });
@@ -227,13 +243,13 @@ export class PacienteComponent implements OnInit {
     this.formPaciente.patchValue({ apMaterno: row.apeMaterno });
     this.formPaciente.patchValue({ celular: row.celular });
     this.formPaciente.patchValue({ tipoSeguro: row.tipoSeguro });
-    this.formPaciente.patchValue({ nacionalidad: row.nacionalidad });
+    this.formPaciente.patchValue({ nacionalidad: row.nacionalidad[0] });
     this.formPaciente.patchValue({ procedencia: row.procedencia });
     this.formPaciente.patchValue({ estadoCivil: row.estadoCivil });
     this.formPaciente.patchValue({ etnia: row.etnia });
     this.formPaciente.patchValue({ gradoInstruccion: row.gradoInstruccion });
     this.formPaciente.patchValue({ sexo: row.sexo });
-    this.formPaciente.patchValue({ fechaNacimiento: row.fechaNacimiento });
+    this.formPaciente.patchValue({ fechaNacimiento: row.nacimiento.fechaNacimiento });
     this.formPaciente.patchValue({ fechaInscripcion: row.fechaInscripcion });
     this.formPaciente.patchValue({ fechaEmision: row.fechaEmision });
     this.formPaciente.patchValue({ restriccion: row.restriccion });
@@ -282,20 +298,45 @@ export class PacienteComponent implements OnInit {
       idccpp: row.domicilio.idccpp,
       ccpp: row.domicilio.ccpp
     }
+    this.id = row.id;
   }
 
   eliminarPaciente(row) {
-    this.pacienteService.deletePaciente(row.id).subscribe((res: any) => {
-      console.log('res delete ', res)
-      this.cargarPacientes();
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Se Elimino exitosamente el Registro ',
-        showConfirmButton: false,
-        timer: 1500
-      });
+    this.confirmationService.confirm({
+      header: 'Eliminar Paciente',
+      icon: 'pi pi-info-circle',
+      message: "¿Esta seguro que desea eliminar este registro?",
+      acceptLabel: "Eliminar",
+      rejectLabel: 'Cancelar',
+      accept: () => {
+        this.pacienteService.deletePaciente(row.id).subscribe((res: any) => {
+          console.log('res ', res)
+          this.cargarPacientes();
+          this.messageService.add({
+            severity: "success",
+            summary: "Exito",
+            detail: res.mensaje
+          });
+        });
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: "warn",
+          summary: "No se Elimino el registro"
+        });
+      }
     });
+    // this.pacienteService.deletePaciente(row.id).subscribe((res: any) => {
+    //   console.log('res delete ', res)
+    //   this.cargarPacientes();
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'success',
+    //     title: 'Se Elimino exitosamente el Registro ',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   });
+    // });
   }
 
   selectedDepartamento() {
@@ -330,6 +371,29 @@ export class PacienteComponent implements OnInit {
   }
 
   aceptarEditarPaciente() {
-    console.log('aceptar editar paciente')
+    this.recuperarDatos();
+    this.dataPaciente.id = this.id;
+    console.log('actualizar ', this.formPaciente.value.etnia);
+    // this.pacienteService.putPaciente(this.dataPaciente).subscribe((res: any) => {
+    //   this.cargarPacientes();
+    //   this.closeDialogPaciente();
+    //   console.log('se actualizo correctamente ', res)
+    //   this.messageService.add({
+    //     severity: "success",
+    //     summary: "Exito",
+    //     detail: res.mensaje
+    //   });
+    // })
+    // console.log('aceptar editar paciente')
+  }
+
+  pacienteByNroDoc() {
+    let auxNroDoc = {
+      tipoDoc: "DNI",
+      nroDoc: "24015415"
+    }
+    this.pacienteService.getPacienteByNroDoc(auxNroDoc).subscribe((res: any) => {
+      console.log('paciente por doc ',res.object)
+    });
   }
 }
