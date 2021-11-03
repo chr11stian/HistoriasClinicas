@@ -81,7 +81,6 @@ export class PacienteComponent implements OnInit {
     this.inicializarForm();
     this.cargarPacientes();
     this.cargarEtnia();
-    this.pacienteByNroDoc();
   }
 
   inicializarForm() {
@@ -199,7 +198,7 @@ export class PacienteComponent implements OnInit {
     this.formPaciente.reset();
     this.dialogPaciente = true;
     this.cargarDocumentos();
-    // this.cargarIpress();
+    this.cargarEtnia();
     this.getDepartamentos();
   }
 
@@ -235,6 +234,7 @@ export class PacienteComponent implements OnInit {
       this.formPaciente.patchValue({ tipoDoc: auxTipoDoc[0] })
     })
     // 
+    console.log('edit etnia ', row.etnia)
     // this.formPaciente.patchValue({ tipoDoc: row.tipoDoc });
     this.formPaciente.patchValue({ nroDoc: row.nroDoc });
     this.formPaciente.patchValue({ primerNombre: row.primerNombre });
@@ -243,7 +243,7 @@ export class PacienteComponent implements OnInit {
     this.formPaciente.patchValue({ apMaterno: row.apeMaterno });
     this.formPaciente.patchValue({ celular: row.celular });
     this.formPaciente.patchValue({ tipoSeguro: row.tipoSeguro });
-    this.formPaciente.patchValue({ nacionalidad: row.nacionalidad[0] });
+    this.formPaciente.patchValue({ nacionalidad: row.nacionalidad });
     this.formPaciente.patchValue({ procedencia: row.procedencia });
     this.formPaciente.patchValue({ estadoCivil: row.estadoCivil });
     this.formPaciente.patchValue({ etnia: row.etnia });
@@ -264,6 +264,7 @@ export class PacienteComponent implements OnInit {
     }
 
     this.dpto = dep;
+    console.log('dpto ', this.dpto);
     this.ubicacionService.getProvincias(dep).subscribe((res: any) => {
       this.dataProvincia = res.object;
     });
@@ -373,6 +374,7 @@ export class PacienteComponent implements OnInit {
   aceptarEditarPaciente() {
     this.recuperarDatos();
     this.dataPaciente.id = this.id;
+    console.log('control name ', this.formPaciente.value.etnia);
     console.log('actualizar ', this.formPaciente.value.etnia);
     // this.pacienteService.putPaciente(this.dataPaciente).subscribe((res: any) => {
     //   this.cargarPacientes();
@@ -393,7 +395,7 @@ export class PacienteComponent implements OnInit {
       nroDoc: "24015415"
     }
     this.pacienteService.getPacienteByNroDoc(auxNroDoc).subscribe((res: any) => {
-      console.log('paciente por doc ',res.object)
+      console.log('paciente por doc ', res.object)
     });
   }
 }
