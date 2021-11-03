@@ -78,7 +78,7 @@ export class PersonalSaludComponent implements OnInit {
             distrito: 'San Sebastian'
         }
         ];
-        this.datosPersonales = [{
+        /*this.datosPersonales = [{
             tipoDoc: "DNI",
             nroDoc: "73100007",
             apePaterno: "Garcia",
@@ -273,7 +273,7 @@ export class PersonalSaludComponent implements OnInit {
             tipoPersonal: { nombre: "psicologia", esProfesional: true, abreviatura: "sin" },
         }
         ]
-        this.insertarVariosDatos(this.datosPersonales);
+        this.insertarVariosDatos(this.datosPersonales);*/
     }
 
     insertarVariosDatos(datos) {

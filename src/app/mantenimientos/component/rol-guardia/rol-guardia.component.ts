@@ -1,140 +1,130 @@
 import { Component, OnInit } from "@angular/core";
-import { LocaleSettings } from "primeng/calendar/calendar";
-import { delayWhen } from "rxjs/operators";
 import { TipoPersonalService } from "../../services/tipo-personal/tipo-personal.service";
 import { RolGuardiaService } from "../../services/rol-guardia/rol-guardia.service";
 import { TipoUpsService } from "../../services/tipo-ups.service";
-export interface dayType {
-  label: string;
-  numberDay: number;
-  abre: string;
-  bg?: string;
-}
-
+import { PersonalService } from "src/app/core/services/personal-services/personal.service";
 @Component({
   selector: "app-rol-guardia",
   templateUrl: "./rol-guardia.component.html",
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
+  idIpressZarzuela = "615b30b37194ce03d782561c";
+
+  listaTurno: any[] = [];
+  listaUps: any[] = [];
+  upsSeleccionada = "";
+  listaPersonal: any[] = [];
+  listaHoras: any[] = [];
+
   matriz: any = [];
   isEditable: boolean;
-  turno = [
-    {
-      nombre: "M",
-      abreviatura: "MA",
-    },
-    {
-      nombre: "T",
-      abreviatura: "TA",
-    },
-    {
-      nombre: "M/T",
-      abreviatura: "M/T",
-    },
-    {
-      nombre: "GD",
-      abreviatura: "GD",
-    },
-    {
-      nombre: "GN",
-      abreviatura: "GN",
-    },
-  ];
-  tipoPersonalServicio: any[];
   turnos: any[];
-  personalServicioGeneral = [
-    //medico turno
-    {
-      idUPS: "616602b6034d2c3598133293",
-      apellidos: "apellido1",
-      nombres: "nombre1",
-      especialidad: "medico general",
-      dni: "11111111",
-    },
-    {
-      idUPS: "616602e0034d2c3598133294",
-      apellidos: "apellido2",
-      nombres: "nombre2",
-      especialidad: "medico general",
-      dni: "73145986",
-    },
-    {
-      idUPS: "616602e0034d2c3598133294",
-      apellidos: "apellido2",
-      nombres: "nombre2",
-      especialidad: "medico general",
-      dni: "23232323",
-    },
-    {
-      idUPS: "616602e0034d2c3598133294",
-      apellidos: "apellido2",
-      nombres: "nombre2",
-      especialidad: "enfermeria",
-      dni: "24242424",
-    },
-    {
-      idUPS: "616602e0034d2c3598133294",
-      apellidos: "apellido2",
-      nombres: "nombre2",
-      especialidad: "enfermeria",
-      dni: "12121212",
-    },
-    {
-      idUPS: "61660303034d2c3598133295",
-      apellidos: "apellido3",
-      nombres: "laura jimena",
-      especialidad: "enfermeria",
-      dni: "23232323",
-    },
-    {
-      idUPS: "61660303034d2c3598133295",
-      apellidos: "apellido3",
-      nombres: "juan carlos",
-      especialidad: "enfermeria",
-      dni: "24242424",
-    },
-  ];
   fecha = new Date();
   nroDiasMes: number = 0;
   //personales seleccionados y mes actual seleccionado
-  personalServicioSelected: any[] = [];
   cabeceraMes: any[] = [];
-
   constructor(
-    private tipoUpsService: TipoUpsService,
-    private tipoPersonalService: TipoPersonalService,
-    private rolGuardiaService: RolGuardiaService
+    private rolGuardiaService: RolGuardiaService,
+    private personalService: PersonalService
   ) {
-    this.getPersonal();
     this.numeroDiasMes();
     this.generarCabecera();
     this.colorearCabecera();
     this.isModificable();
-  }
-  getPersonal() {
-    this.tipoPersonalService.getTipoPersonales().subscribe((resp) => {
-      let ups = [];
-      ups = resp["object"];
-      ups.forEach((elemento) => {
-        // console.log(elemento["nombre"]);
-      });
-    });
-  }
-  ngOnInit(): void {
-    this.tipoUpsService.getTipoUPSs().subscribe((resp: any) => {
-      this.tipoPersonalServicio = resp.object;
-    });
-  }
 
+    this.getListaUps();
+    this.getListaTurno();
+  }
+  ngOnInit(): void {}
+  getListaTurno() {
+    this.listaTurno = [
+      {
+        nombre: "mañana",
+        abreviatura: "M",
+        nroHoras: 6,
+        horaInicio: "06:00:00",
+        horaFin: "12:00:00",
+      },
+      {
+        nombre: "Tarde",
+        abreviatura: "T",
+        nroHoras: 6,
+        horaInicio: "06:00:00",
+        horaFin: "12:00:00",
+      },
+      {
+        nombre: "Guardia Diurna",
+        abreviatura: "GD",
+        nroHoras: 12,
+        horaInicio: "06:00:00",
+        horaFin: "06:00:00",
+      },
+      {
+        nombre: "Onomastico",
+        abreviatura: "O",
+        nroHoras: 6,
+        horaInicio: "07:00:00",
+        horaFin: "13:00:00",
+      },
+      {
+        nombre: "Feriado",
+        abreviatura: "F",
+        nroHoras: 6,
+        horaInicio: "07:00:00",
+        horaFin: "13:00:00",
+      },
+      {
+        nombre: "Guardia Nocturna",
+        abreviatura: "GN",
+        nroHoras: 12,
+        horaInicio: "19:00:00",
+        horaFin: "07:00:00",
+      },
+      {
+        nombre: "Noche",
+        abreviatura: "N",
+        nroHoras: 6,
+        horaInicio: "19:00:00",
+        horaFin: "00:00:00",
+      },
+      {
+        nombre: "libre",
+        abreviatura: "L",
+        nroHoras: 6,
+        horaInicio: "07:00:00",
+        horaFin: "13:00:00",
+      },
+    ];
+  }
+  getListaUps() {
+    this.listaUps = [
+      {
+        idUPS: "614df97ec154c61d18f7e1cf",
+        nombreUPS: "ACUPUNTURA Y AAAAAAFINES",
+        codUps: "206908",
+      },
+      {
+        idUPS: "616db2ba411be85a72efb63a",
+        nombreUPS: "MEDICINA GENERAL",
+        codUps: "302303",
+      },
+      {
+        idUPS: "61702630ee9d444b4994ac3c",
+        nombreUPS: "ANESTESIOLOGIA",
+        codUps: "300101",
+      },
+    ];
+  }
   crearMatriz() {
     this.matriz = [];
-    for (let i = 0; i < this.personalServicioSelected.length; i++) {
+    for (let i = 0; i < this.listaPersonal.length; i++) {
       let filaAux = [];
       for (let j = 0; j < this.nroDiasMes; j++) {
         filaAux.push(
           //primer turno por defecto
-          this.turno[0]
+          //this.listaTurno[0]
+          " "
         );
       }
       this.matriz.push(filaAux);
@@ -174,7 +164,6 @@ export class RolGuardiaComponent implements OnInit {
         this.cabeceraMes.push({ abreviatura: "sab", label: "Sabado", dia: i });
     }
   }
-
   colorearCabecera() {
     let colorR = "background-color:#dfe6e9";
     let colorB = "background-color:white";
@@ -206,7 +195,7 @@ export class RolGuardiaComponent implements OnInit {
       isVisible = false;
     }
     this.isEditable = isVisible;
-    console.log("esModficable", isVisible);
+    //console.log("esModficable", isVisible);
   }
   cambiarFecha(fechaseleccionada: Date) {
     this.fecha = fechaseleccionada;
@@ -214,60 +203,74 @@ export class RolGuardiaComponent implements OnInit {
     this.generarCabecera();
     this.colorearCabecera();
     this.crearMatriz(); //si cambia fecha
+    this.IniciarHoras();
     this.isModificable();
   }
-  changePersonalServicio(idRol, dd) {
-    console.log(idRol.value);
-    this.personalServicioSelected = [];
-    this.personalServicioGeneral.forEach((elemento) => {
-      if (elemento.idUPS === idRol.value) {
-        this.personalServicioSelected.push(elemento);
+  IniciarHoras() {
+    this.listaHoras = [];
+    for (let i = 0; i < this.listaPersonal.length; i++) {
+      this.listaHoras.push(0);
+    }
+  }
+
+  changeUps(codUps, dd) {
+    //console.log(codUps);
+
+    let ipressUpsInput: any = {
+      codUps: codUps.value.codUps,
+      idIpress: this.idIpressZarzuela,
+    };
+    this.listaPersonal = [];
+    this.personalService.getPorIpressUps(ipressUpsInput).subscribe(
+      (resp: any) => {
+        this.listaPersonal = resp["object"];
+        this.IniciarHoras();
+        this.crearMatriz();
+      },
+      (error) => {
+        console.log("negativa", error);
       }
-    });
-    this.crearMatriz();
+    );
+  }
+  calcularNroHoras(nroFila: number) {
+    let nroHoras = 0;
+    for (let j = 0; j < this.matriz[0].length; j++) {
+      if (
+        this.matriz[nroFila][j] != "" &&
+        this.matriz[nroFila][j]["selected"]
+      ) {
+        nroHoras = nroHoras + this.matriz[nroFila][j]["nroHoras"];
+      }
+    }
+    return nroHoras;
+  }
+  changeTurno(i, j) {
+    let diaInput: any = {
+      anio: this.fecha.getFullYear(),
+      mes: this.fecha.getMonth() + 1,
+      dia: j + 1,
+      idIpress: "615b30b37194ce03d782561c",
+      servicio: this.upsSeleccionada["nombreUPS"],
+      tipoDoc: "DNI",
+      nroDoc: this.listaPersonal[i]["nroDoc"],
+      ambiente: "MEDICINA 1xx",
+      abreviatura: this.matriz[i][j]["abreviatura"],
+    };
+    //sumamos las horas
+    // this.listaHoras[i] = this.listaHoras[i] + this.matriz[i][j]["nroHoras"];
+    //console.log(diaInput);
+    // this.rolGuardiaService.AddUpdateRolGuardia(diaInput).subscribe(
+    //   (resp) => {
+    //     console.log(resp);
+    this.matriz[i][j]["selected"] = true;
+    this.listaHoras[i] = this.calcularNroHoras(i);
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
   }
   designar() {
-    let matrizAux = [];
-    for (let i = 0; i < this.matriz.length; i++) {
-      let filaAux = [];
-      for (let j = 0; j < this.matriz[0].length; j++) {
-        let elemento = this.matriz[i][j];
-        let elementoAux = {
-          abreviatura: elemento["abreviatura"],
-          dia: j + 1,
-          nroDoc: this.personalServicioSelected[i]["dni"],
-        };
-        filaAux.push(elementoAux);
-      }
-      matrizAux.push(filaAux);
-    }
-    // console.log(matrizAux);
-
-    //insertamos registro por registros
-    for (let x = 0; x < matrizAux.length; x++) {
-      for (let y = 0; y < matrizAux[0].length; y++) {
-        let mesInput: any = {
-          anio: this.fecha.getFullYear(),
-          mes: this.fecha.getMonth(),
-          dia: matrizAux[x][y]["dia"],
-          idIpress: "61424d4873a26b7a64ecaefa",
-          servicio: "ACUPUNTURA Y AFINES",
-          tipoDoc: "DNI",
-          nroDoc: matrizAux[x][y]["nroDoc"],
-          ambiente: "ACUP 01",
-          abreviatura: matrizAux[x][y]["abreviatura"],
-        };
-
-        // console.log(mesInput);
-        this.rolGuardiaService.AddUpdateRolGuardia(mesInput).subscribe(
-          (resp) => {
-            console.log(resp);
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-    }
+    console.log(this.matriz);
   }
 }

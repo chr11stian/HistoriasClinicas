@@ -7,6 +7,9 @@ import { IpressService } from 'src/app/core/services/ipress/ipress.service';
 import { CategoriaEstablecimientoService } from 'src/app/mantenimientos/services/categoria-establecimiento/categoria-establecimiento.service';
 import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
 import { RedServiciosSaludService } from 'src/app/mantenimientos/services/red-servicios-salud/red-servicios-salud.service';
+import { UpsService } from 'src/app/mantenimientos/services/ups/ups.service';
+import { TipoTurnoService } from 'src/app/mantenimientos/services/tipo-turno.service';
+import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
 
 @Component({
   selector: 'app-ipress',
@@ -21,6 +24,7 @@ export class IpressComponent implements OnInit {
   formJurisdiccion: FormGroup;
   formAmbiente: FormGroup;
   formTurno: FormGroup;
+  formRol: FormGroup;
 
   loading: boolean = false;
   //datos a usar
@@ -29,10 +33,12 @@ export class IpressComponent implements OnInit {
   isUpdateJurisdiccion: boolean = false;
   isUpdateAmbiente: boolean = false;
   isUpdateTurno: boolean = false;
+  isUpdateRol: boolean = false;
 
   idUpdate: string = "";
   nombrePersonal: string = "";
   idIpress: string = "";
+  encargadoActual: any[];
 
   //listas a usar
   stateOptions: any[];
@@ -44,19 +50,24 @@ export class IpressComponent implements OnInit {
   categoriasList: any[];
   redesList: any[];
   microRedesList: any[];
+  UPSList: any[];
+  tipoTurnosList: any[];
+  tipoDocumentosList: any[];
 
   //data de dialogs
   data: Ipress[] = [];
-  encargados: any[];
   jurisdicciones: any[];
   ambientes: any[];
   turnos: any[];
+  roles: any[];
 
   //dialogs
   ipressDialog: boolean;
   jurisdiccionDialog: boolean;
   ambienteDialog: boolean;
   turnoDialog: boolean;
+  encargadoDialog: boolean;
+  rolDialog: boolean;
 
   datePipe = new DatePipe('en-US');
   centro: any;
@@ -66,6 +77,9 @@ export class IpressComponent implements OnInit {
     private categoriaservice: CategoriaEstablecimientoService,
     private ubicacionService: UbicacionService,
     private redServiciosSaludService: RedServiciosSaludService,
+    private upsService: UpsService,
+    private tipoturnoService: TipoTurnoService,
+    private tipodocumentosService: DocumentoIdentidadService,
     private formBuilder: FormBuilder
   ) {
     this.buildForm();
@@ -73,6 +87,9 @@ export class IpressComponent implements OnInit {
     this.getCategorias();
     this.getDepartamentos();
     this.getRedServiciosSalud();
+    this.getUPS();
+    this.getTiposTurno();
+    this.getTipoDocumentos();
     this.stateOptions = [{ label: 'Activo', value: true }, { label: 'Inactivo', value: false }];
   }
 
@@ -83,11 +100,11 @@ export class IpressComponent implements OnInit {
   }
   getIpressId() {
     this.ipressservice.getIpressID(this.idIpress).subscribe((res: any) => {
-        this.jurisdicciones = res.object.jurisdiccion;
-        this.ambientes = res.object.ambientes;
-        this.turnos = res.object.turnos;
+      this.jurisdicciones = res.object.jurisdiccion;
+      this.ambientes = res.object.ambientes;
+      this.turnos = res.object.turnos;
     });
-}
+  }
   getCategorias() {
     this.categoriaservice.getCategoriaEstablecimiento().subscribe((res: any) => {
       this.categoriasList = res.object;
@@ -101,6 +118,21 @@ export class IpressComponent implements OnInit {
   getRedServiciosSalud() {
     this.redServiciosSaludService.getRedServiciosSalud().subscribe((res: any) => {
       this.redesList = res.object;
+    })
+  }
+  getUPS() {
+    this.upsService.getUPS().subscribe((res: any) => {
+      this.UPSList = res.object;
+    })
+  }
+  getTiposTurno() {
+    this.tipoturnoService.getTipoTurnos().subscribe((res: any) => {
+      this.tipoTurnosList = res.object;
+    })
+  }
+  getTipoDocumentos() {
+    this.tipodocumentosService.getDocumentosIdentidad().subscribe((res: any) => {
+      this.tipoDocumentosList = res.object;
     })
   }
   changeRedSelected() {
@@ -153,6 +185,17 @@ export class IpressComponent implements OnInit {
       nroHoras: ['', [Validators.required]],
       horaInicio: ['', [Validators.required]],
       horaFin: ['', [Validators.required]],
+    })
+    this.formEncargado = this.formBuilder.group({
+      tipoDocumento: ['', [Validators.required]],
+      nroDoc: ['', [Validators.required]],
+      nombre: ['', [Validators.required]],
+    })
+    this.formRol = this.formBuilder.group({
+      nombreFuncion: ['', [Validators.required]],
+      idUPS: ['', [Validators.required]],
+      fechaRegistro: ['', [Validators.required]],
+      tiempoPromedioAtencion: ['', [Validators.required]],
     })
   }
 
@@ -324,6 +367,10 @@ export class IpressComponent implements OnInit {
               timer: 1500,
             })
             this.getIpress();
+            this.provinciasList=[];
+            this.distritosList=[];
+            this.CCPPList=[];
+            this.microRedesList=[];
             this.ipressDialog = false;
           }
         )
@@ -430,7 +477,7 @@ export class IpressComponent implements OnInit {
       if (result.isConfirmed) {
         this.ipressservice.deleteIpress(rowData.id).subscribe(
           result => {
-            this.getIpress()
+            this.getIpress();
           }
         );
         Swal.fire({
@@ -452,6 +499,10 @@ export class IpressComponent implements OnInit {
       timer: 1000
     })
     this.ipressDialog = false;
+    this.provinciasList=[];
+    this.distritosList=[];
+    this.CCPPList=[];
+    this.microRedesList=[];
   }
   titulo() {
     if (this.isUpdate) return "Edite IPRESS";
@@ -463,25 +514,49 @@ export class IpressComponent implements OnInit {
     this.jurisdiccionDialog = false;
     this.ambienteDialog = false;
     this.turnoDialog = false;
+    this.encargadoDialog = false;
     this.guardarNuevaJurisdiccion();
     this.guardarNuevoAmbiente();
     this.guardarNuevoTurno();
+    this.provinciasList=[];
+    this.distritosList=[];
+    this.CCPPList=[];
   }
-
+  newEncargado(rowData) {
+    this.idIpress = rowData.id;
+    if (this.encargadoActual!==[]){
+      this.encargadoActual = rowData.encargado[0];
+      this.isUpdate=true;
+      //this.form.get('tipoDocumento').setValue(rowData.codRENAES);
+      //this.form.get('nroDoc').setValue(rowData.codRENAES);
+      //this.form.get('nombre').setValue(rowData.encargado[0].nombre);
+    }
+    this.formEncargado.reset();
+    this.encargadoDialog = true;
+  }
   newJurisdiccion(rowData) {
     this.jurisdicciones = rowData.jurisdiccion;
     this.idIpress = rowData.id;
     this.formJurisdiccion.reset();
     this.jurisdiccionDialog = true;
+    this.provinciasList=[];
+    this.distritosList=[];
+    this.CCPPList=[];
   }
   newAmbiente(rowData) {
-    this.ambientes = rowData.ambiente;
+    this.ambientes = rowData.ambientes;
     this.idIpress = rowData.id;
     this.formAmbiente.reset();
     this.ambienteDialog = true;
   }
+  newRol(rowData) {
+    this.roles = rowData.roles;
+    this.idIpress = rowData.id;
+    this.formRol.reset();
+    this.rolDialog = true;
+  }
   newTurno(rowData) {
-    this.turnos = rowData.turno;
+    this.turnos = rowData.turnos;
     this.idIpress = rowData.id;
     this.formTurno.reset();
     this.turnoDialog = true;
@@ -495,6 +570,9 @@ export class IpressComponent implements OnInit {
     this.formJurisdiccion.get('provincia').setValue("");
     this.formJurisdiccion.get('distrito').setValue("");
     this.formJurisdiccion.get('centroPoblado').setValue("");
+    this.provinciasList=[];
+    this.distritosList=[];
+    this.CCPPList=[];
   }
   buscarUbigeoJurisdiccion() {
     const ubigeo = {
@@ -632,11 +710,7 @@ export class IpressComponent implements OnInit {
 
     })
   }
-  editarJurisdiccion(rowData) {
-    this.isUpdateJurisdiccion = true;
-    this.formJurisdiccion.get('ubigeo').setValue(rowData.ubigeo);
-    this.selectedEditarJurisdiccion(rowData);
-  }
+
   editarAmbiente(rowData) {
     this.isUpdateAmbiente = true;
     this.formAmbiente.get('codAmbiente').setValue(rowData.codAmbiente);
@@ -645,13 +719,13 @@ export class IpressComponent implements OnInit {
   }
   editarTurno(rowData) {
     this.isUpdateTurno = true;
-    this.formTurno.get('nombre').setValue(rowData.nombre);
+    this.formTurno.get('nombre').setValue(this.tipoTurnosList.find(turno => turno.nombre === rowData.nombre));
     this.formTurno.get('nroHoras').setValue(rowData.nroHoras);
-    this.formTurno.get('horaInicio').setValue(rowData.horaInicio);
-    this.formTurno.get('horaFin').setValue(rowData.horaFin)
+    this.formTurno.get('horaInicio').setValue(new Date(`2021-01-01 ${rowData.horaInicio}`));
+    this.formTurno.get('horaFin').setValue(new Date(`2021-01-01 ${rowData.horaFin}`));
   }
 
- 
+
   tituloJurisdiccion() {
     if (this.isUpdateJurisdiccion) return "Edite Jurisdiccion";
     else return "Ingrese Nueva Jurisdiccion";
@@ -663,6 +737,10 @@ export class IpressComponent implements OnInit {
   tituloTurno() {
     if (this.isUpdateTurno) return "Edite Turno";
     else return "Ingrese Nuevo Turno";
+  }
+  tituloEncargado() {
+    if (this.isUpdateEncargado) return "Cambie de Encargado";
+    else return "Ingrese Nuevo Encargado";
   }
 
   eliminarJurisdiccion(rowData) {
@@ -676,23 +754,25 @@ export class IpressComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        let req={ centroPoblado: rowData.centroPoblado,
-                  departamento: rowData.departamento,
-                  distrito: rowData.distrito,
-                  provincia: rowData.provincia,
-                  ubigeo: rowData.ubigeo}
-        this.ipressservice.deleteJurisdiccionIpress(this.idIpress,req).subscribe(
-            result => {
-                this.getIpressId();
-                this.getIpress();
-            }
+        let req = {
+          centroPoblado: rowData.centroPoblado,
+          departamento: rowData.departamento,
+          distrito: rowData.distrito,
+          provincia: rowData.provincia,
+          ubigeo: rowData.ubigeo
+        }
+        this.ipressservice.deleteJurisdiccionIpress(this.idIpress, req).subscribe(
+          result => {
+            this.getIpressId();
+            this.getIpress();
+          }
         );
         Swal.fire({
-            icon: 'success',
-            title: 'Eliminado correctamente',
-            text: '',
-            showConfirmButton: false,
-            timer: 1500
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
         })
       }
     })
@@ -708,18 +788,19 @@ export class IpressComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        /*this.personalservice.deletePersonalEspecialidad(this.idEspecialidad,rowData.nombre).subscribe(
-            result => {
-                this.getPersonalIdEspecialidad()
-            }
+        this.ipressservice.deleteAmbienteIpress(this.idIpress, rowData.codAmbiente).subscribe(
+          result => {
+            this.getIpressId();
+            this.getIpress();
+          }
         );
         Swal.fire({
-            icon: 'success',
-            title: 'Eliminado correctamente',
-            text: '',
-            showConfirmButton: false,
-            timer: 1500
-        })*/
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     })
   }
@@ -734,9 +815,10 @@ export class IpressComponent implements OnInit {
       showConfirmButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        /*this.personalservice.deletePersonalEspecialidad(this.idEspecialidad,rowData.nombre).subscribe(
+        this.ipressservice.deleteTurnoIpress(this.idIpress,rowData.abreviatura).subscribe(
             result => {
-                this.getPersonalIdEspecialidad()
+              this.getIpressId();
+              this.getIpress();
             }
         );
         Swal.fire({
@@ -745,11 +827,11 @@ export class IpressComponent implements OnInit {
             text: '',
             showConfirmButton: false,
             timer: 1500
-        })*/
+        })
       }
     })
   }
-  
+
   saveJurisdiccion(rowData) {
     let aux = {
       iddd: this.formJurisdiccion.value.departamento.iddd,
@@ -759,7 +841,8 @@ export class IpressComponent implements OnInit {
     }
     this.ubicacionService.getCCPPDatos(aux).subscribe((res: any) => {
       this.centro = res.object[0];
-      const req={ centroPoblado: this.formJurisdiccion.value.centroPoblado.ccpp,
+      const req = {
+        centroPoblado: this.formJurisdiccion.value.centroPoblado.ccpp,
         departamento: this.formJurisdiccion.value.departamento.departamento,
         distrito: this.formJurisdiccion.value.distrito.distrito,
         provincia: this.formJurisdiccion.value.provincia.provincia,
@@ -768,148 +851,127 @@ export class IpressComponent implements OnInit {
         latitud: this.centro.latitude,
         longitud: this.centro.longitude
       }
-      this.ipressservice.createJurisdiccionIpress(this.idIpress,req).subscribe(
+      this.ipressservice.createJurisdiccionIpress(this.idIpress, req).subscribe(
         result => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Agregado correctamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-            this.getIpressId();
-            this.getIpress();
-            this.guardarNuevaJurisdiccion();
-        })  
+          Swal.fire({
+            icon: 'success',
+            title: 'Agregado correctamente',
+            text: '',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+          this.getIpressId();
+          this.getIpress();
+          this.guardarNuevaJurisdiccion();
+          this.provinciasList=[];
+          this.distritosList=[];
+          this.CCPPList=[];
+        })
     })
   }
   saveAmbiente(rowData) {
-    /*let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
     const req = {
-        nombre: this.formEspecialidad.value.nombre,
-        nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
-        estado: est.estado
+      codAmbiente: this.formAmbiente.value.codAmbiente,
+      ambiente: this.formAmbiente.value.ambiente,
+      nombreUPS: this.formAmbiente.value.nombreUPS
     }
-  
-    this.personalservice.createPersonalEspecialidad(this.idEspecialidad,req).subscribe(
-        result => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Agregado correctamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-            this.getPersonalIdEspecialidad();
-            this.guardarNuevoEspecialidad();
-        }
-    )*/
+
+    this.ipressservice.createAmbienteIpress(this.idIpress, req).subscribe(
+      result => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Agregado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        this.getIpressId();
+        this.getIpress();
+        this.guardarNuevoAmbiente();
+      }
+    )
+  }
+  selectedTipoTurno(){
+    this.formTurno.get('nroHoras').setValue(this.formTurno.value.nombre.nroHoras);
+  }
+  selectedHoraInicio(){
+    let horaFin=new Date(this.formTurno.value.horaInicio);
+    let nroHoras=this.formTurno.value.nroHoras;
+    horaFin.setHours(horaFin.getHours()+nroHoras);
+    this.formTurno.get('horaFin').setValue(new Date(`2021-01-01 ${horaFin.getHours()}: ${horaFin.getMinutes()}:00`));
   }
   saveTurno(rowData) {
-    /*let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
+    let horaInicio=new Date(this.formTurno.value.horaInicio);
+    let horaFin=new Date(this.formTurno.value.horaFin);
     const req = {
-        nombre: this.formEspecialidad.value.nombre,
-        nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
-        estado: est.estado
+      nombre: this.formTurno.value.nombre.nombre,
+      abreviatura: this.formTurno.value.nombre.abreviatura,
+      nroHoras: this.formTurno.value.nroHoras,
+      horaInicio: `${horaInicio.getHours()}:${horaInicio.getMinutes()}:00`,
+      horaFin: `${horaFin.getHours()}:${horaFin.getMinutes()}:00`
     }
-  
-    this.personalservice.createPersonalEspecialidad(this.idEspecialidad,req).subscribe(
-        result => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Agregado correctamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-            this.getPersonalIdEspecialidad();
-            this.guardarNuevoEspecialidad();
-        }
-    )*/
-  }
- 
-  saveEdicionJurisdiccion() {
-    let aux = {
-      iddd: this.formJurisdiccion.value.departamento.iddd,
-      idpp: this.formJurisdiccion.value.provincia.idpp,
-      iddis: this.formJurisdiccion.value.distrito.iddis,
-      ccpp: this.formJurisdiccion.value.centroPoblado.ccpp,
-    }
-    this.ubicacionService.getCCPPDatos(aux).subscribe((res: any) => {
-      this.centro = res.object[0];
-      const req={ centroPoblado: this.formJurisdiccion.value.centroPoblado.ccpp,
-        departamento: this.formJurisdiccion.value.departamento.departamento,
-        distrito: this.formJurisdiccion.value.distrito.distrito,
-        provincia: this.formJurisdiccion.value.provincia.provincia,
-        ubigeo: this.formJurisdiccion.value.ubigeo,
-        altura: this.centro.altura,
-        latitud: this.centro.latitude,
-        longitud: this.centro.longitude
+
+    this.ipressservice.createTurnoIpress(this.idIpress, req).subscribe(
+      result => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Agregado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        this.getIpressId();
+        this.getIpress();
+        this.guardarNuevoTurno();
       }
-      this.ipressservice.editJurisdiccionIpress(this.idIpress,req).subscribe(
-        result => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Editado correctamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-            this.getIpressId();
-            this.getIpress();
-            this.guardarNuevaJurisdiccion();
-        })  
-    })
+    )
   }
+
   saveEdicionAmbiente() {
-    /*let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
-    console.log(est);
     const req = {
-        nombre: this.formEspecialidad.value.nombre,
-        nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
-        estado: this.estadoUpdateEspecialidad
-  
+      codAmbiente: this.formAmbiente.value.codAmbiente,
+      ambiente: this.formAmbiente.value.ambiente,
+      nombreUPS: this.formAmbiente.value.nombreUPS
     }
-    console.log(req);
-  
-    this.personalservice.editPersonalEspecialidad(this.idEspecialidad,req).subscribe(
-        result => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Editado correctamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-            this.getPersonalIdEspecialidad();
-            this.guardarNuevoEspecialidad();
-        }
-    )*/
+    this.ipressservice.editAmbienteIpress(this.idIpress, req).subscribe(
+      result => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Editado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        this.getIpressId();
+        this.getIpress();
+        this.guardarNuevoAmbiente();
+      }
+    )
   }
   saveEdicionTurno() {
-    /*let est=this.especialidadesList.find( espe => espe.nombre === this.formEspecialidad.value.nombre);
-    console.log(est);
+    let horaInicio=new Date(this.formTurno.value.horaInicio);
+    let horaFin=new Date(this.formTurno.value.horaFin);
     const req = {
-        nombre: this.formEspecialidad.value.nombre,
-        nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
-        estado: this.estadoUpdateEspecialidad
-  
+      nombre: this.formTurno.value.nombre.nombre,
+      abreviatura: this.formTurno.value.nombre.abreviatura,
+      nroHoras: this.formTurno.value.nroHoras,
+      horaInicio: `${horaInicio.getHours()}:${horaInicio.getMinutes()}:00`,
+      horaFin: `${horaFin.getHours()}:${horaFin.getMinutes()}:00`
     }
-    console.log(req);
-  
-    this.personalservice.editPersonalEspecialidad(this.idEspecialidad,req).subscribe(
-        result => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Editado correctamente',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-            this.getPersonalIdEspecialidad();
-            this.guardarNuevoEspecialidad();
-        }
-    )*/
+    this.ipressservice.editTurnoIpress(this.idIpress, req).subscribe(
+      result => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Editado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        this.getIpressId();
+        this.getIpress();
+        this.guardarNuevoTurno();
+      }
+    )
   }
 
   ngOnInit(): void {

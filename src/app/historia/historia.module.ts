@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PrimeModule} from '../shared/prime/prime.module'
+import {ChipsModule} from 'primeng/chips';
 
 import {HistoriaRoutingModule} from './historia-routing.module';
 import {PersonalSaludComponent} from './personal-salud/personal-salud.component';
@@ -15,16 +16,18 @@ import {DividerModule} from 'primeng/divider';
 import {CalendarModule} from 'primeng/calendar';
 import {InputMaskModule} from 'primeng/inputmask';
 
-import {IpressComponent} from './ipress/ipress.component';
 import {CheckboxModule} from "primeng/checkbox";
 import {PanelModule} from "primeng/panel";
+import {IpressComponent} from './ipress/ipress.component';
+import {PacienteComponent} from './paciente/paciente.component';
 
 @NgModule({
     declarations: [
         PersonalSaludComponent,
         UsuariosComponent,
         CuposComponent,
-        IpressComponent
+        IpressComponent,
+        PacienteComponent
     ],
     exports: [
         PersonalSaludComponent,
@@ -46,6 +49,7 @@ import {PanelModule} from "primeng/panel";
         InputMaskModule,
         CheckboxModule,
         PanelModule,
+        ChipsModule
     ]
 })
 export class HistoriaModule {
