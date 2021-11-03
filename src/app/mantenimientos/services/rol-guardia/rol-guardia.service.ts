@@ -10,10 +10,10 @@ export class RolGuardiaService {
   bd = environment.bd;
 
   constructor(private http: HttpClient) {}
-  getRolGuardiaPorPersonal(rol11: any) {
+  getRolGuardiaPorPersona(inputRequest: any) {
     return this.http.post(
       `${this.base_url}/${this.bd}/api/rolguardia/persona`,
-      rol11
+      inputRequest
     );
   }
   AddRolGuardia(rolDia: any) {
@@ -22,14 +22,14 @@ export class RolGuardiaService {
       rolDia
     );
   }
-  getTurnosPorIpress(idIpress) {
+  getServiciosPorIpress(idIpress) {
     return this.http.get(
-      `${this.base_url}/${this.bd}/api/listarServicios/${idIpress}`
+      `${this.base_url}/${this.bd}/api/ipress/listarServicios/${idIpress}`
     );
   }
-  getUpsPorIpress(idIpress) {
+  getTurnosPorIpress(idIpress) {
     return this.http.get(
-      `${this.base_url}/${this.bd}/api/listarTurnos/${idIpress}`
+      `${this.base_url}/${this.bd}/api/ipress/listarTurnos/${idIpress}`
     );
   }
 }

@@ -4,6 +4,7 @@ import { RolGuardiaService } from "../../services/rol-guardia/rol-guardia.servic
 import { TipoUpsService } from "../../services/tipo-ups.service";
 import { PersonalService } from "src/app/core/services/personal-services/personal.service";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { async } from "rxjs";
 @Component({
   selector: "app-rol-guardia",
   templateUrl: "./rol-guardia.component.html",
@@ -16,6 +17,7 @@ export class RolGuardiaComponent implements OnInit {
   listaUps: any[] = [];
   upsSeleccionada = "";
   listaPersonal: any[] = [];
+  isUpdatePersonal: any[] = [];
   listaIsUpdate: any[] = [];
   listaHoras: any[] = [];
 
@@ -41,96 +43,40 @@ export class RolGuardiaComponent implements OnInit {
   }
   ngOnInit(): void {}
   getListaTurno() {
-    this.listaTurno = [
-      {
-        nombre: "mañana",
-        abreviatura: "M",
-        nroHoras: 6,
-        horaInicio: "06:00:00",
-        horaFin: "12:00:00",
-      },
-      {
-        nombre: "Tarde",
-        abreviatura: "T",
-        nroHoras: 6,
-        horaInicio: "06:00:00",
-        horaFin: "12:00:00",
-      },
-      {
-        nombre: "Guardia Diurna",
-        abreviatura: "GD",
-        nroHoras: 12,
-        horaInicio: "06:00:00",
-        horaFin: "06:00:00",
-      },
-      {
-        nombre: "Onomastico",
-        abreviatura: "O",
-        nroHoras: 6,
-        horaInicio: "07:00:00",
-        horaFin: "13:00:00",
-      },
-      {
-        nombre: "Feriado",
-        abreviatura: "F",
-        nroHoras: 6,
-        horaInicio: "07:00:00",
-        horaFin: "13:00:00",
-      },
-      {
-        nombre: "Guardia Nocturna",
-        abreviatura: "GN",
-        nroHoras: 12,
-        horaInicio: "19:00:00",
-        horaFin: "07:00:00",
-      },
-      {
-        nombre: "Noche",
-        abreviatura: "N",
-        nroHoras: 6,
-        horaInicio: "19:00:00",
-        horaFin: "00:00:00",
-      },
-      {
-        nombre: "libre",
-        abreviatura: "L",
-        nroHoras: 6,
-        horaInicio: "07:00:00",
-        horaFin: "13:00:00",
-      },
-    ];
+    this.rolGuardiaService
+      .getTurnosPorIpress(this.idIpressZarzuela)
+      .subscribe((resp) => {
+        resp["object"].forEach((turno) => {
+          delete turno.horaInicio;
+          delete turno.horaFin;
+        });
+        this.listaTurno = resp["object"];
+      });
   }
   getListaUps() {
-    this.listaUps = [
-      {
-        idUPS: "614df97ec154c61d18f7e1cf",
-        nombreUPS: "ACUPUNTURA Y AAAAAAFINES",
-        codUps: "206908",
-      },
-      {
-        idUPS: "616db2ba411be85a72efb63a",
-        nombreUPS: "MEDICINA GENERAL",
-        codUps: "302303",
-      },
-      {
-        idUPS: "61702630ee9d444b4994ac3c",
-        nombreUPS: "ANESTESIOLOGIA",
-        codUps: "300101",
-      },
-    ];
+    this.rolGuardiaService
+      .getServiciosPorIpress(this.idIpressZarzuela)
+      .subscribe((resp) => {
+        this.listaUps = resp["object"];
+      });
   }
   crearMatriz() {
     this.matriz = [];
     for (let i = 0; i < this.listaPersonal.length; i++) {
       let filaAux = [];
       for (let j = 0; j < this.nroDiasMes; j++) {
-        filaAux.push(
-          //turno libre x defecto
-          this.listaTurno[7]
-        );
+        let turnoDefecto = {
+          dia: j + 1,
+          nombre: this.listaTurno[0]["nombre"],
+          abreviatura: this.listaTurno[0]["abreviatura"],
+          nroHoras: this.listaTurno[0]["nroHoras"],
+        };
+        filaAux.push(turnoDefecto);
       }
       this.matriz.push(filaAux);
     }
+
+    // this.recuperarMes();
   }
   numeroDiasMes() {
     //creamos un nuevo objeto dandole x defecto el ultimo dial del mes
@@ -184,29 +130,36 @@ export class RolGuardiaComponent implements OnInit {
       }
     });
   }
-  // recuperarMes() {
-  //   let matrizAux = [];
-  //   for (let i = 0; i < this.listaPersonal.length; i++) {
-  //     let requestInput: any = {
-  //       anio: this.fecha.getFullYear(),
-  //       mes: this.fecha.getMonth() + 1,
-  //       idIpress: "615b30b37194ce03d782561c",
-  //       servicio: this.upsSeleccionada["nombreUPS"],
-  //       nroDoc: this.listaPersonal[i]["nroDoc"],
-  //     };
-  //     let filaAux = [];
-  //     this.personalService.getPorPersonal(requestInput).suscribe((resp) => {
-  //       filaAux = resp["object"];
-  //       matrizAux.push(filaAux),
-  //         (error) => {
-  //           let filaAux = [];
-  //           for (let j = 0; j < this.nroDiasMes; j++) {
-  //             filaAux.push(this.listaTurno[7]);
-  //           }
-  //         };
-  //     });
-  //   }
-  // }
+  crearMatriz2() {
+    this.matriz = [];
+    for (let i = 0; i < this.listaPersonal.length; i++) {
+      let requestInput: any = {
+        anio: this.fecha.getFullYear(),
+        mes: this.fecha.getMonth() + 1,
+        idIpress: this.idIpressZarzuela,
+        servicio: this.upsSeleccionada["nombreUPS"],
+        tipoDoc: this.listaPersonal[i]["tipoDoc"],
+        nroDoc: this.listaPersonal[i]["nroDoc"],
+      };
+      this.rolGuardiaService.getRolGuardiaPorPersona(requestInput).subscribe(
+        (resp) => {
+          if (resp["cod"] == "2002") {
+            this.matriz.push(resp["object"][0]["turnos"]);
+          } else {
+            let filaAux = [];
+            for (let j = 0; j < this.nroDiasMes; j++) {
+              filaAux.push(this.listaTurno[0]);
+            }
+            this.matriz.push(filaAux);
+          }
+          console.log(resp);
+        },
+        (error) => {
+          console.log("error del servidor");
+        }
+      );
+    }
+  }
 
   isModificable() {
     let isVisible: boolean;
@@ -243,18 +196,16 @@ export class RolGuardiaComponent implements OnInit {
   }
 
   changeUps(codUps, dd) {
-    //console.log(codUps);
-
     let ipressUpsInput: any = {
-      codUps: codUps.value.codUps,
+      codUps: codUps.value.id,
       idIpress: this.idIpressZarzuela,
     };
     this.listaPersonal = [];
     this.personalService.getPorIpressUps(ipressUpsInput).subscribe(
       (resp: any) => {
         this.listaPersonal = resp["object"];
-        this.IniciarHoras();
         this.crearMatriz();
+        this.IniciarHoras();
         this.calcularNroHorasGeneral();
       },
       (error) => {
@@ -280,30 +231,6 @@ export class RolGuardiaComponent implements OnInit {
   }
   changeTurno(i, j) {
     this.recalcularxFila(i);
-    // let diaInput: any = {
-    //   anio: this.fecha.getFullYear(),
-    //   mes: this.fecha.getMonth() + 1,
-    //   dia: j + 1,
-    //   idIpress: "615b30b37194ce03d782561c",
-    //   servicio: this.upsSeleccionada["nombreUPS"],
-    //   tipoDoc: "DNI",
-    //   nroDoc: this.listaPersonal[i]["nroDoc"],
-    //   ambiente: "MEDICINA 1xx",
-    //   abreviatura: this.matriz[i][j]["abreviatura"],
-    // };
-    //sumamos las horas
-    // this.listaHoras[i] = this.listaHoras[i] + this.matriz[i][j]["nroHoras"];
-    //console.log(diaInput);
-    // this.rolGuardiaService.AddUpdateRolGuardia(diaInput).subscribe(
-    //   (resp) => {
-    //     console.log(resp);
-    //this.matriz[i][j]["selected"] = true;
-    //this.listaHoras[i] = this.calcularNroHoras(i);
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
   }
   construirFilaDelDia(fila) {
     let listaTurno = [];
@@ -362,5 +289,8 @@ export class RolGuardiaComponent implements OnInit {
       }
     }
     return isValid;
+  }
+  mostrarMatriz() {
+    console.log(this.matriz);
   }
 }
