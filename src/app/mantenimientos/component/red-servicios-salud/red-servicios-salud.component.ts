@@ -362,7 +362,7 @@ export class RedServiciosSaludComponent implements OnInit {
             departamento: row.departamento,
             iddd: auxDep
         }
-        
+
         this.dpto = dep;
         this.ubicacionService.getProvincias(dep).subscribe((res: any) => {
             this.dataProvincia = res.object;
