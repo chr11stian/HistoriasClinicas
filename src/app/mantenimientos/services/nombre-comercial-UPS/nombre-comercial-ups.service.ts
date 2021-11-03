@@ -30,7 +30,6 @@ export class NombreComercialUPSService {
         return this.http.delete(`${this.base_url}/${this.bd}/api/nc-ups/${id}`)
     }
 
-
     editNombreComercial_UPS(id, data) {
         return this.http.put(`${this.base_url}/${this.bd}/api/nc-ups/actualizar/${id}`, data)
     }

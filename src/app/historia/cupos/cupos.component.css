@@ -13,9 +13,24 @@
 .datosPersonales,
 .datosExtra,
 .datosServicio {
-    border: 1px solid;
+    border: 1px solid #dee2e6;
     border-radius: 10px;
 }
+
+.btn-buscar {
+    margin-top: 1.8em;
+}
+
+p-panel>>>.p-panel .p-panel-header{
+    background: #C50009;
+    border: 1px solid #C50009;
+    color: #FFFFFF;
+}
+
+p-panel>>>.p-panel .p-panel-content{
+    border: 1px solid #C50009;
+}
+
 
 /* .p-field{
     font-weight: bold;

@@ -173,6 +173,11 @@ export class SideBarComponent implements OnInit {
                         label: "Tipo Personal",
                         routerLink: "mantenimientos/tipo-personal",
                     },
+                    {
+                        icon: "pi pi-file",
+                        label: "Paciente",
+                        routerLink: "historia/paciente",
+                    },
                 ],
             },
 
