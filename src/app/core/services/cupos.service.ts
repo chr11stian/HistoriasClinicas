@@ -26,4 +26,12 @@ export class CuposService {
     getOfertasListar(data) {
         return this.http.post(`${this.base_url}/${this.bd}/api/oferta/listar`, data)
     }
+
+    saveCupos(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/api/cupo/save`, data)
+    }
+
+    getCuposServicioFecha(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/api/cupo/find/servicio`, data)
+    }
 }

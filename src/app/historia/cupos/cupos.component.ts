@@ -11,6 +11,7 @@ import {Cupo} from '../../core/models/cupo.models';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CuposService} from "../../core/services/cupos.service";
 import {UpsService} from "../../mantenimientos/services/ups/ups.service";
+import {DocumentoIdentidadService} from "../../mantenimientos/services/documento-identidad/documento-identidad.service";
 
 
 @Component({
@@ -20,15 +21,23 @@ import {UpsService} from "../../mantenimientos/services/ups/ups.service";
     styleUrls: ['./cupos.component.css']
 })
 export class CuposComponent implements OnInit {
+    dataCupos_por_fechas_servicio: any;
+    personalSelected2: any;
+    isUpdate: boolean = false;
 
     dataSelectAmbiente: any;
+    dataSelectHoras: any;
+    dataSelectServicio: any;
+    selectedHorario: any;
+
     estadoHoras: string = "LIBRE";
-    dataSelectOferta: any;
+    estadoCupo: string = "active";
     totalHoras: any;
     hora: any;
     personals: any;
     datafecha: Date = new Date();
     datafechaActual: string;
+    listaDocumentosIdentidad: any
 
     dataOfertasCupos: any;
     ups: any;
@@ -38,32 +47,12 @@ export class CuposComponent implements OnInit {
     usuarioDialog: boolean;
     subscription: Subscription;
     selectedServicio: any;
+    selectedServicio2: any;
     listaPersonal: any;
     personalSelected: string = '';
     justifyOptions: any[];
     stateOptions: any[];
-    selectedHorario: any;
-    formUsuarios: FormGroup;
-
-    docIdentidad: any = [{
-        id: '001',
-        nombre: 'Documento Nacional de Identidad',
-        longitud: '8',
-        estado: '1',
-        abreviatura: 'DNI'
-    }, {
-        id: '002',
-        nombre: 'Pasaporte',
-        longitud: '12',
-        estado: '1',
-        abreviatura: 'PASAPORTE'
-    }, {
-        id: '003',
-        nombre: 'CARNET DE EXTRANJERIA',
-        longitud: '12',
-        estado: '1',
-        abreviatura: '	CARNET EXT'
-    }]
+    formCuposOferta: FormGroup;
 
 
     iprees: string = "Zarzuela Baja";
@@ -75,7 +64,8 @@ export class CuposComponent implements OnInit {
         private messageService: MessageService,
         private fb: FormBuilder,
         private cuposService: CuposService,
-        private upsService: UpsService
+        private upsService: UpsService,
+        private documentoIdentidadService: DocumentoIdentidadService
     ) {
         this.justifyOptions = [
             {icon: "pi pi-align-left", justify: "Left"},
@@ -91,10 +81,27 @@ export class CuposComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.inicializarForm();
+        this.buildForm();
         this.getDataUPS();
+        this.getDocumentosIdentidad();
         this.datafechaActual = this.datafecha.getDate() + '-' + (this.datafecha.getMonth() + 1) + '-' + this.datafecha.getFullYear();
         console.log("FECHAS", this.datafechaActual);
+        console.log("HORARIO", this.selectedHorario);
+
+    }
+
+    getCupos_Fecha_Servicio(data) {
+        this.cuposService.getCuposServicioFecha(data).subscribe((res: any) => {
+            this.dataCupos_por_fechas_servicio = res.object;
+            console.log('Listasssss ', this.dataCupos_por_fechas_servicio);
+        })
+    }
+
+    getDocumentosIdentidad() {
+        this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
+            this.listaDocumentosIdentidad = res.object;
+            console.log('docs ', this.listaDocumentosIdentidad);
+        })
     }
 
     getDataUPS() {
@@ -117,31 +124,89 @@ export class CuposComponent implements OnInit {
         this.subscription.unsubscribe();
     }
 
-    inicializarForm() {
 
-        this.formUsuarios = this.fb.group({
-            tipoDocumento: new FormControl(''),
-            nroDocumento: new FormControl(''),
+    buildForm() {
+        this.formCuposOferta = this.fb.group({
+            fechaAtencion: new FormControl(''),
+            oferta_id: new FormControl(''),
+            descripcion: new FormControl(''),
+            horaAtencion: new FormControl(''),
+            horaAtencionFin: new FormControl(''),
+            ambiente: new FormControl(''),
+
             nombre: new FormControl(''),
-            apellidoPaterno: new FormControl(''),
-            apellidoMaterno: new FormControl(''),
-            sexo: new FormControl(''),
-            fecha: new FormControl(''),
-            estadoCivil: new FormControl(''),
-            telefono: new FormControl(''),
-            nacionalidad: new FormControl(''),
-            departamento: new FormControl(''),
-            provincia: new FormControl(''),
-            distrito: new FormControl(''),
-            centroPblado: new FormControl(''),
-            domicilioActual: new FormControl(''),
-            tipoSeguro: new FormControl(''),
-            transeuntes: new FormControl(''),
-            estapaVida: new FormControl(''),
-            edad: new FormControl(''),
-            dias: new FormControl(''),
+            apellidos: new FormControl(''),
+            tipoDoc: new FormControl(''),
+            nroDoc: new FormControl(''),
+
+            transeunte: new FormControl(''),
+            estado: new FormControl(''),
         })
     }
+
+    openNew() {
+        this.isUpdate = false;
+        this.formCuposOferta.reset();
+        this.formCuposOferta.get('tipoDoc').setValue("");
+        this.formCuposOferta.get('nroDoc').setValue("");
+        this.formCuposOferta.get('nombre').setValue("");
+        this.formCuposOferta.get('apellidos').setValue("");
+        this.usuarioDialog = true;
+    }
+
+    saveForm() {
+        this.isUpdate = false;
+        const req = {
+            fechaAtencion: this.personalSelected2.fechaOferta,
+            nroCupo: this.personalSelected2.totalOfertas,
+            oferta_id: this.personalSelected2.id,
+            // descripcion: this.formCuposOferta.value.descripcion,
+            descripcion: "asdfgh",
+            horaAtencion: this.selectedHorario[0].horaInicio + ":00",
+            horaAtencionFin: this.selectedHorario[0].horaFin + ":00",
+            ambiente: this.personalSelected2.ambiente,
+
+            paciente: {
+                nombre: this.formCuposOferta.value.nombre,
+                apellidos: this.formCuposOferta.value.apellidos,
+                tipoDoc: this.formCuposOferta.value.tipoDoc.abreviatura,
+                nroDoc: this.formCuposOferta.value.nroDoc,
+            },
+
+
+            // transeunte: this.formCuposOferta.value.transeunte,
+            transeunte: false,
+            estado: this.estadoCupo,
+
+
+            personal: {
+                nombre: this.personalSelected2.personal.nombre,
+                turno: this.personalSelected2.nombreTurno,
+                nroDoc: this.personalSelected2.personal.nroDoc,
+            },
+
+            ipress: {
+                ipress_id: this.personalSelected2.ipress.idIpress,
+                nombre: this.personalSelected2.ipress.nombre,
+                servicio: this.personalSelected2.ipress.servicio
+            },
+        };
+        console.log("guardar", req);
+
+        this.cuposService.saveCupos(req).subscribe(
+            result => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Agregado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
+        )
+
+    }
+
 
     openModal() {
         this.selectedHorario = null;
@@ -163,7 +228,7 @@ export class CuposComponent implements OnInit {
     }
 
     closeDialogCupos() {
-        this.dataSelectOferta = null;
+        this.dataSelectHoras = null;
         this.dataOfertasCupos = null;
         this.cuposDialog = false;
         this.selectedHorario = {};
@@ -182,10 +247,31 @@ export class CuposComponent implements OnInit {
     }
 
     onRowSelect(event) {
+        console.log('event',);
+
         this.dataSelectAmbiente = event.data.ambiente;
-        this.dataSelectOferta = event.data.horaLaboral;
-        console.log('event', this.dataSelectOferta);
+        this.dataSelectServicio = event.data.ipress.servicio;
         this.personalSelected = event.data.personal.nombre;
+        this.dataSelectHoras = event.data.horaLaboral;
+        console.log('HORAS....', this.dataSelectHoras);
+        this.personalSelected2 = event.data;
+        console.log('select personal....', this.personalSelected2);
+    }
+
+    selectCupos() {
+
+        let data = {
+            servicio: this.selectedServicio.nombreUPS,
+            fecha: "2021-10-3",
+        }
+
+        this.getCupos_Fecha_Servicio(data);
+
+
+        if (this.dataCupos_por_fechas_servicio != null) {
+            this.dataCupos_por_fechas_servicio = null;
+        }
+
     }
 
     onRowUnselect(event) {
@@ -205,9 +291,8 @@ export class CuposComponent implements OnInit {
     }
 
     GuardarPersona() {
-        this.selectedHorario = {};
-        this.recuperarDatos()
-        this.usuarioDialog = false;
+
+
     }
 
     cancelarPersona() {
@@ -219,7 +304,7 @@ export class CuposComponent implements OnInit {
 
     recuperarDatos() {
         let data = {
-            aux: this.formUsuarios.value.nroDocumento
+            aux: this.formCuposOferta.value.nroDocumento
         }
     }
 }
