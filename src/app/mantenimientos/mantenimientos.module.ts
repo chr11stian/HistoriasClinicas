@@ -15,7 +15,6 @@ import { EspecialidadComponent } from "./component/especialidad/especialidad.com
 import { TipoTurnoComponent } from "./component/tipo-turno/tipo-turno.component";
 import { TipoTurnoModalComponent } from "./component/tipo-turno-modal/tipo-turno-modal.component";
 import { GrupoEtarioComponent } from "./component/grupo-etario/grupo-etario.component";
-import { RolGuardiaComponent } from "./component/rol-guardia/rol-guardia.component";
 import { DocumentoIdentidadComponent } from "./component/documento-identidad/documento-identidad.component";
 import { EtniaComponent } from "./component/etnia/etnia.component";
 import { CategoriaEstablecimientoComponent } from "./component/categoria-establecimiento/categoria-establecimiento.component";
@@ -29,7 +28,7 @@ import { TipoSeguroComponent } from "./component/tipo-seguro/tipo-seguro.compone
 import { CondicionPacienteDiscapacidadComponent } from "./component/condicion-paciente-discapacidad/condicion-paciente-discapacidad.component";
 import { CondicionPacienteDiscapacidadModalComponent } from "./component/condicion-paciente-discapacidad-modal/condicion-paciente-discapacidad-modal.component";
 import { TipoContratoComponent } from "./component/tipo-contrato/tipo-contrato.component";
-import { UpsComponent } from './component/ups/ups.component';
+import { UpsComponent } from "./component/ups/ups.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +40,6 @@ import { UpsComponent } from './component/ups/ups.component';
     TipoTurnoComponent,
     TipoTurnoModalComponent,
     GrupoEtarioComponent,
-    RolGuardiaComponent,
     DocumentoIdentidadComponent,
     EtniaComponent,
     CategoriaEstablecimientoComponent,

@@ -1,10 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { TipoPersonalService } from "../../services/tipo-personal/tipo-personal.service";
-import { RolGuardiaService } from "../../services/rol-guardia/rol-guardia.service";
-import { TipoUpsService } from "../../services/tipo-ups.service";
 import { PersonalService } from "src/app/core/services/personal-services/personal.service";
 import { ConfirmationService, MessageService } from "primeng/api";
-import { async } from "rxjs";
+import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
 @Component({
   selector: "app-rol-guardia",
   templateUrl: "./rol-guardia.component.html",
@@ -209,7 +206,7 @@ export class RolGuardiaComponent implements OnInit {
         this.calcularNroHorasGeneral();
       },
       (error) => {
-        console.log("negativa", error);
+        console.log("error al recuperar personal", error);
       }
     );
   }

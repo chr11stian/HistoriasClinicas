@@ -17,7 +17,7 @@ import { DatePipe } from "@angular/common";
 import { TipoContratoService } from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
 import { IpressService } from "src/app/core/services/ipress/ipress.service";
 import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
-import { RolGuardiaService } from "src/app/mantenimientos/services/rol-guardia/rol-guardia.service";
+import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
 
 @Component({
   selector: "app-personal-salud",
