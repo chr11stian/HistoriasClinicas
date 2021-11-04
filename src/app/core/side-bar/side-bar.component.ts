@@ -27,33 +27,17 @@ export class SideBarComponent implements OnInit {
                     {
                         label: "Personal de Salud",
                         icon: "pi pi-pw pi-file",
-                        routerLink: "admision/personal-salud",
+                        routerLink: "historia/personal-salud",
                     },
                     {
                         label: "Usuarios",
                         icon: "pi pi-pw pi-file",
-                        routerLink: "admision/usuarios",
+                        routerLink: "historia/usuarios",
                     },
                     {
                         label: "Institución Prestadora de Servicios de Salud",
                         icon: "pi pi-pw pi-file",
-                        routerLink: "admision/ipress",
-                    },
-                ],
-            },
-            {
-                label: "Funciones Administrativas",
-                items: [
-                    {
-                        icon: "pi pi-file",
-                        label: "Cupos",
-                        routerLink: "admision/cupos",
-                    },
-
-                    {
-                        icon: "pi pi-file",
-                        label: "Paciente",
-                        routerLink: "admision/paciente",
+                        routerLink: "historia/ipress",
                     },
                 ],
             },
@@ -62,8 +46,8 @@ export class SideBarComponent implements OnInit {
                 label: "Historias Clinicas",
                 items: [
                     {
-                        icon: "pi pi-file",
                         label: "Obstetricia",
+                        icon: "pi pi-pw pi-file",
                         routerLink: "historia/obstetricia",
                     },
                     {
@@ -72,7 +56,33 @@ export class SideBarComponent implements OnInit {
                         routerLink: "historia/rol-guardia",
                     },
 
+                ],
+            },
 
+            {
+                label: "Funciones Administrativas",
+                items: [
+                    {
+                        icon: "pi pi-file",
+                        label: "Cupos",
+                        routerLink: "historia/cupos",
+                    },
+
+                    {
+                        icon: "pi pi-file",
+                        label: "Paciente",
+                        routerLink: "historia/paciente",
+                    },
+                    {
+                        icon: "pi pi-file",
+                        label: "Cred",
+                        routerLink: "cred/cabecera",
+                    },
+                    {
+                        icon: "pi pi-file",
+                        label: "Gestante",
+                        routerLink: "gestante",
+                    }
                 ],
             },
 
@@ -82,12 +92,12 @@ export class SideBarComponent implements OnInit {
                     {
                         icon: "pi pi-file",
                         label: "Enfermeria",
-                        routerLink: "admision/enfermeria",
+                        routerLink: "historia/enfermeria",
                     },
                     {
                         icon: "pi pi-file",
                         label: "Medicina General",
-                        routerLink: "admision/medicina_general",
+                        routerLink: "historia/medicina_general",
                     },
                 ],
             },
