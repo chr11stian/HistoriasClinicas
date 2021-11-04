@@ -178,7 +178,7 @@ export class SideBarComponent implements OnInit {
           {
             icon: "pi pi-file",
             label: "Gestante",
-            routerLink: "gestante",
+            routerLink: "gestante/cabecera",
           }
         ],
       },
