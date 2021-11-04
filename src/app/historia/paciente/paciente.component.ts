@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ReorderableColumn } from 'primeng/table';
+import { TipoEtnia } from 'src/app/core/models/mantenimiento.models';
 import { Departamentos, Distrito, Provincias } from 'src/app/core/models/ubicacion.models';
 import { IpressService } from 'src/app/core/services/ipress/ipress.service';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
@@ -27,7 +27,7 @@ export class PacienteComponent implements OnInit {
   dataProvincia: any;
   dataDistrito: any;
   dataCentroPoblado: any;
-  dataEtnia: any;
+  dataEtnia: TipoEtnia;
   iddd: string;
   update: boolean = false;
   dpto: Departamentos;
@@ -142,6 +142,7 @@ export class PacienteComponent implements OnInit {
 
   recuperarDatos() {
     let aux = this.formPaciente.value.etnia;
+    console.log('datos de etnia ', aux);
     this.dataPaciente = {
       tipoDoc: this.formPaciente.value.tipoDoc.abreviatura,
       primerNombre: this.formPaciente.value.primerNombre,
@@ -208,14 +209,14 @@ export class PacienteComponent implements OnInit {
 
   aceptarDialogPaciente() {
     this.recuperarDatos();
-    console.log('datos paciente ', this.dataPaciente)
-    this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
-      console.log('res ', res)
-      this.formPaciente.reset();
-      this.cargarPacientes();
-      this.closeDialogPaciente();
-      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
-    });
+    console.log('datos paciente ', this.dataPaciente);
+    // this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
+    //   console.log('res ', res)
+    //   this.formPaciente.reset();
+    //   this.cargarPacientes();
+    //   this.closeDialogPaciente();
+    //   this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
+    // });
   }
 
   openEditarPaciente(row) {
@@ -376,6 +377,7 @@ export class PacienteComponent implements OnInit {
     this.dataPaciente.id = this.id;
     console.log('control name ', this.formPaciente.value.etnia);
     console.log('actualizar ', this.formPaciente.value.etnia);
+    
     // this.pacienteService.putPaciente(this.dataPaciente).subscribe((res: any) => {
     //   this.cargarPacientes();
     //   this.closeDialogPaciente();

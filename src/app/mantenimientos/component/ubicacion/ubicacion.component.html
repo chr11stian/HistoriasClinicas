@@ -45,7 +45,7 @@
                 <td>{{ rowData.latitude }}</td>
                 <td>{{ rowData.longitude }}</td>
                 <td>{{ rowData.altura }}, m.s.n.m.</td>
-                <td style="text-align: center">
+                <td style="text-align: center; display: flex;">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
                             (click)="edit(rowData)"></button>
                     <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success "
@@ -73,31 +73,20 @@
                     <label>DEPARTAMENTO</label>
                     <input type="text" pInputText formControlName='departamento' required readonly/>
                 </div>
-
-
                 <div class="p-field col-4">
                     <label>PROVINCIA</label>
                     <input type="text" pInputText formControlName='provincia' required readonly/>
                 </div>
-
-
                 <div class="p-field col-4">
                     <label>DISTRITO</label>
                     <input type="text" pInputText formControlName='distrito' required readonly/>
                 </div>
-
             </div>
-
-            <br>
-
             <div class="grid">
-
                 <div class="p-field col-2">
                     <label>UBIGEO</label>
                     <input type="text" pInputText formControlName='ubigeo' readonly/>
                 </div>
-
-
                 <div class="p-field col-6">
                     <label>CENTRO POBLADO</label>
                     <div class="p-field">
@@ -112,8 +101,6 @@
                         </p-dropdown>
                     </div>
                 </div>
-
-
                 <div class="p-field col-4">
                     <label>POBLACION</label>
                     <input type="text" pInputText formControlName='poblacion' required/>
@@ -153,13 +140,11 @@
 </p-dialog>
 
 
-<p-dialog [(visible)]="ubicacionDialog" [style]="{width: '980px'}" [modal]="true"
+<p-dialog [(visible)]="ubicacionDialog" [style]="{width: '750px'}" [modal]="true"
           styleClass="p-fluid " autoZIndex>
     <ng-template pTemplate="header">
         <h3>{{titulo()}}</h3>
     </ng-template>
-
-    <br>
     <ng-template pTemplate="body">
         <form [formGroup]='form'>
             <div class="grid">
@@ -191,7 +176,6 @@
                                 optionLabel="provincia"
                                 defaultLabel="Seleccione un Departamento"
                                 id="idpp">
-
                         </p-dropdown>
                     </div>
                 </div>
@@ -211,42 +195,21 @@
                         </p-dropdown>
                     </div>
                 </div>
-            </div>
-
-            <br>
-
-            <div class="grid">
-
+            </div>ñb
+            <div class="grid mt-2">
                 <div class="p-field col-4">
                     <label>CENTRO POBLADO</label>
-                    <input type="text" pInputText formControlName='ccpp' required/>
+                    <input type="text" pInputText formControlName='ccpp' required pattern="[a-z]{1,15}"/>
                 </div>
-                <div class="p-field col-4">
+                <div class="p-field col-2">
                     <label>POBLACION</label>
                     <div class="p-inputgroup">
                         <input type="text" pInputText formControlName='poblacion' required/>
                     </div>
                 </div>
-
-                <!--                <div class="p-field col-4">-->
-                <!--                    <label>CENTRO POBLADO</label>-->
-                <!--                    <div class="p-field">-->
-                <!--                        <p-dropdown-->
-                <!--                                inputId="dropdown"-->
-                <!--                                [autoDisplayFirst]="false"-->
-                <!--                                [showClear]="true"-->
-                <!--                                [options]="dataCCPP"-->
-                <!--                                formControlName="ccpp"-->
-                <!--                                optionLabel="ccpp"-->
-                <!--                                defaultLabel="Seleccione un distrito"-->
-                <!--                                id="ccpp">-->
-                <!--                        </p-dropdown>-->
-                <!--                    </div>-->
-                <!--                </div>-->
             </div>
-            <br>
 
-            <div class="grid">
+            <div class="grid mt-2">
                 <div class="p-field col-3">
                     <label>LATITUD</label>
                     <div class="p-inputgroup">
@@ -261,11 +224,6 @@
                 <div class="p-field col-3">
                     <label>ALTURA</label>
                     <input type="text" pInputText formControlName='altura' required/>
-                </div>
-
-                <div class="p-field col-3">
-                    <label>CAPITAL</label>
-                    <input type="text" pInputText formControlName='es_Capital' required/>
                 </div>
             </div>
         </form>

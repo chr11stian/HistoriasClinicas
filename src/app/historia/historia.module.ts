@@ -20,6 +20,7 @@ import {CheckboxModule} from "primeng/checkbox";
 import {PanelModule} from "primeng/panel";
 import {PacienteComponent} from "./paciente/paciente.component";
 import {IpressComponent} from "./ipress/ipress.component";
+import { MantenimientosModule } from '../mantenimientos/mantenimientos.module';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import {IpressComponent} from "./ipress/ipress.component";
         InputMaskModule,
         CheckboxModule,
         PanelModule,
-        ChipsModule
+        ChipsModule,
+        MantenimientosModule,
     ]
 })
 export class HistoriaModule {

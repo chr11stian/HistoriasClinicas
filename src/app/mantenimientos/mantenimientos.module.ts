@@ -61,7 +61,8 @@ import {DividerModule} from 'primeng/divider';
 
     exports: [
         TipoPersonalComponent,
-        UbicacionComponent],
+        UbicacionComponent,
+    ],
 
     imports: [
         CommonModule,
