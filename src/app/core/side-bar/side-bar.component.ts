@@ -52,11 +52,6 @@ export class SideBarComponent implements OnInit {
 
                     {
                         icon: "pi pi-file",
-                        label: "Tipo Personal",
-                        routerLink: "mantenimientos/tipo-personal",
-                    },
-                    {
-                        icon: "pi pi-file",
                         label: "Paciente",
                         routerLink: "admision/paciente",
                     },
@@ -73,12 +68,13 @@ export class SideBarComponent implements OnInit {
                     },
                     {
                         icon: "pi pi-file",
-                        label: "Medicina General",
-                        routerLink: "historia/medicina_general",
+                        label: "Rol Guardia",
+                        routerLink: "historia/rol-guardia",
                     },
+
+
                 ],
             },
-
 
             {
                 label: "Funciones Asistenciales",
@@ -126,40 +122,49 @@ export class SideBarComponent implements OnInit {
                         routerLink: "mantenimientos/especialidad",
                     },
                     {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Grupo Etario', routerLink: 'mantenimientos/grupo-etario',
+                        icon: "pi pi-pw pi-file",
+                        label: "Grupo Etario",
+                        routerLink: "mantenimientos/grupo-etario",
                     },
                     {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Documentos de Identidad', routerLink: 'mantenimientos/documento-identidad',
+                        icon: "pi pi-pw pi-file",
+                        label: "Documentos de Identidad",
+                        routerLink: "mantenimientos/documento-identidad",
                     },
                     {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Etnia', routerLink: 'mantenimientos/etnia',
+                        icon: "pi pi-pw pi-file",
+                        label: "Etnia",
+                        routerLink: "mantenimientos/etnia",
                     },
                     {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Categoria Establecimiento', routerLink: 'mantenimientos/categoria-establecimiento',
+                        icon: "pi pi-pw pi-file",
+                        label: "Categoria Establecimiento",
+                        routerLink: "mantenimientos/categoria-establecimiento",
                     },
                     {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Red de Servicios de Salud', routerLink: 'mantenimientos/red-servicios-salud',
+                        icon: "pi pi-pw pi-file",
+                        label: "Red de Servicios de Salud",
+                        routerLink: "mantenimientos/red-servicios-salud",
                     },
                     {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Condicion Paciente', routerLink: 'mantenimientos/condicion-paciente',
+                        icon: "pi pi-pw pi-file",
+                        label: "Condicion Paciente",
+                        routerLink: "mantenimientos/condicion-paciente",
                     },
                     {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Nombre Comercial UPS', routerLink: 'mantenimientos/nombre-comercial-ups',
+                        icon: "pi pi-pw pi-file",
+                        label: "Nombre Comercial UPS",
+                        routerLink: "mantenimientos/nombre-comercial-ups",
                     },
                     {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Condicion Paciente Riesgo', routerLink: 'mantenimientos/condicion-paciente-riesgo',
+                        icon: "pi pi-pw pi-file",
+                        label: "Condicion Paciente Riesgo",
+                        routerLink: "mantenimientos/condicion-paciente-riesgo",
                     },
                     {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Tipo Seguro', routerLink: 'mantenimientos/tipo-seguro',
+                        icon: "pi pi-pw pi-file",
+                        label: "Tipo Seguro",
+                        routerLink: "mantenimientos/tipo-seguro",
                     },
                     {
                         icon: "pi pi-pw pi-file",
@@ -172,12 +177,14 @@ export class SideBarComponent implements OnInit {
                         routerLink: "mantenimientos/condicion-paciente-discapacidad",
                     },
                     {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'Tipo Contrato', routerLink: 'mantenimientos/tipo-contrato',
+                        icon: "pi pi-pw pi-file",
+                        label: "Tipo Contrato",
+                        routerLink: "mantenimientos/tipo-contrato",
                     },
                     {
-                        icon: 'pi pi-pw pi-file',
-                        label: 'UPS', routerLink: 'mantenimientos/ups',
+                        icon: "pi pi-pw pi-file",
+                        label: "UPS",
+                        routerLink: "mantenimientos/ups",
                     },
                 ],
             },

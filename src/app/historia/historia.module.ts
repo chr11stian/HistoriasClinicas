@@ -7,10 +7,12 @@ import {ToolbarModule} from "primeng/toolbar";
 import {StepsModule} from "primeng/steps";
 import {PrimeModule} from "../shared/prime/prime.module";
 import {FormsModule} from "@angular/forms";
+import {RolGuardiaComponent} from "./rol-guardia/rol-guardia.component";
 
 @NgModule({
     declarations: [
-        ObstetriciaComponent
+        ObstetriciaComponent,
+        RolGuardiaComponent
     ],
     imports: [
         CommonModule,

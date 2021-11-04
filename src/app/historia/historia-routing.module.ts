@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {ObstetriciaComponent} from "./obstetricia/obstetricia.component";
+import {RolGuardiaComponent} from "./rol-guardia/rol-guardia.component";
 
 
 const routes: Routes = [
@@ -19,13 +20,16 @@ const routes: Routes = [
         component: ObstetriciaComponent
         // loadChildren: () => import('src/app/historia/historia.module').then(n => n.HistoriaModule),
     },
+    {
+        path: "rol-guardia",
+        component: RolGuardiaComponent
+    },
 
 ];
 
-
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
 export class HistoriaRoutingModule {
 }
