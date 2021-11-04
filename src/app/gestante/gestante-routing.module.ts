@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StepGeneralComponent } from './step-general/step-general.component';
+import { StepGeneralComponent } from './component/step-general/step-general.component';
 
 const routes: Routes = [
   {
