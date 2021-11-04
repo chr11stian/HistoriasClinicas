@@ -71,7 +71,7 @@ export class SideBarComponent implements OnInit {
                     {
                         icon: "pi pi-file",
                         label: "Paciente",
-                        routerLink: "historia/paciente",
+                        routerLink: "admisiongit /paciente",
                     },
                     {
                         icon: "pi pi-file",
