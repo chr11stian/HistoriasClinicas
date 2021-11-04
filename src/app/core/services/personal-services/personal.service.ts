@@ -27,6 +27,11 @@ export class PersonalService {
       `${this.base_url}/${this.bd}/api/personal/${id}`
     );
   }
+  getPersonalTipoDocumento(tipo, doc): Observable<Personal> {
+    return this.http.get<Personal>(
+      `${this.base_url}/${this.bd}/api/personal/${tipo}/${doc}`
+    );
+  }
   createPersonal(personal): Observable<Personal> {
     return this.http.post<any>(
       `${this.base_url}/${this.bd}/api/personal`,

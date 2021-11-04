@@ -15,7 +15,7 @@
     </p-toolbar>
     <p-table [value]="data" #dt [globalFilterFields]="['nombres','nroDoc','apPaterno']"
         styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
-        [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas" responsiveLayout="scroll" >
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left">
@@ -34,11 +34,11 @@
                 <th style="text-align: center">Ubigeo</th>
                 <th style="text-align: center">Red</th>
                 <th style="text-align: center">Micro Red</th>
-                <!-- <th style="text-align: center">Encargado</th> -->
+                <th style="text-align: center">Encargado</th>
                 <th style="text-align: center">Jurisdiccion</th>
                 <th style="text-align: center">Ambientes</th>
                 <th style="text-align: center">Turnos</th>
-                <!-- <th style="text-align: center">Roles</th> -->
+                <th style="text-align: center">Roles</th>
                 <th style="text-align: center; width:120px">Acción</th>
             </tr>
         </ng-template>
@@ -51,10 +51,10 @@
                 <td style="text-align: center">{{ rowData.ubicacion ? rowData.ubicacion.ubigeo : ""}}</td>
                 <td style="text-align: center">{{ rowData.red? rowData.red.nombreRed : ""}}</td>
                 <td style="text-align: center">{{ rowData.red? rowData.red.nombreMicroRed : ""}}</td>
-                <!-- <td style="text-align: center">
+                <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-user" class="p-button-rounded p-button-secondary"
                         (click)="newEncargado(rowData)"></button>
-                </td> -->
+                </td>
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-map-marker" class="p-button-rounded p-button-success"
                         (click)="newJurisdiccion(rowData)"></button>
@@ -67,10 +67,10 @@
                     <button pButton pRipple icon="pi pi-briefcase" class="p-button-rounded p-button-info"
                         (click)="newTurno(rowData)"></button>
                 </td>
-                <!-- <td style="text-align: center">
+                <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-clock" class="p-button-rounded p-button-help"
                         (click)="newRol(rowData)"></button>
-                </td> -->
+                </td>
                 <td style="text-align: center; display: flex">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
                         (click)="editar(rowData)"></button>
@@ -245,18 +245,25 @@
                     <div class="p-field col-6">
                         <label>Tipo Documento:</label>
                         <p-dropdown *ngIf="!isUpdateEncargado" placeholder="Tipo documento" class="inputRedondo"
-                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                        [options]="tipoDocumentosList" formControlName="tipoDocumento" optionLabel="abreviatura"
-                        scrollHeight="100px" required>
-                    </p-dropdown>
-                    <p-dropdown *ngIf="isUpdateEncargado" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tipoDocumentosList"
-                        formControlName="tipoDocumento" optionLabel="abreviatura" scrollHeight="200px" required>
-                    </p-dropdown>
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown" (onChange)="onChangeTipoDocumento()"
+                            [options]="tipoDocumentosList" formControlName="tipoDocumento" optionLabel="abreviatura"
+                            scrollHeight="100px" required>
+                        </p-dropdown>
+                        <p-dropdown *ngIf="isUpdateEncargado" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tipoDocumentosList" (onChange)="onChangeTipoDocumento()"
+                            formControlName="tipoDocumento" optionLabel="abreviatura" scrollHeight="200px" required>
+                        </p-dropdown>
                     </div>
                     <div class="p-field col-6">
                         <label>Nro Documento:</label>
-                        <input type="text" pInputText formControlName='nroDoc' placeholder="Nro Documento">
+                        <div class="p-inputgroup">
+                            <input type="text" pInputText formControlName='nroDoc' placeholder="Nro Documento" [(maxlength)]="tamanioDocumento">
+                            <button *ngIf="!loadingEncargado" type="button" pButton pRipple icon="pi pi-search"
+                                (click)="buscarPersonal()" class="p-button-outlined p-button-secondary"></button>
+                            <button *ngIf="loadingEncargado" type="button" pButton pRipple icon="pi pi-spin pi-spinner"
+                                (click)="buscarPersonal()" class="p-button-outlined p-button-secondary"></button>
+                        </div>
+
                     </div>
                     <div class="p-field col-12">
                         <label>Nombre Personal:</label>
@@ -269,13 +276,13 @@
 
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
-        <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="saveEncargado()"></button>
-        <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="editarEncargado()"></button>
+        <button  pButton type="button" label="Guardar" (click)="saveEncargado()"></button>
+        <!-- <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="editarEncargado()"></button> -->
     </ng-template>
 </p-dialog>
+
 <!--JURISDICCION DIALOG-->
 <p-dialog [(visible)]="jurisdiccionDialog" [style]="{width: '1200px'}" [modal]="true" styleClass="p-fluid " autoZIndex>
-
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-4 mt-3">
@@ -376,7 +383,8 @@
                 <p-table [value]="jurisdicciones" #dt styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true"
                     [autoLayout]="true"
                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                    [showCurrentPageReport]="true">
+                    [showCurrentPageReport]="true"
+                    responsiveLayout="scroll">
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
                             <h3>Lista de Jurisdicciones de la IPRESS</h3>
@@ -473,7 +481,8 @@
                 <p-table [value]="ambientes" #dt styleClass="p-datatable-gridlines" [rows]="4"
                     [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                    [showCurrentPageReport]="true">
+                    [showCurrentPageReport]="true"
+                    responsiveLayout="scroll">
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
                             <h3>Lista de Ambientes de la IPRESS</h3>
@@ -575,7 +584,7 @@
                 <p-table [value]="turnos" #dt styleClass="p-datatable-gridlines" [rows]="10"
                     [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                    [showCurrentPageReport]="true">
+                    [showCurrentPageReport]="true" responsiveLayout="scroll">
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
                             <h3>Lista de Turnos de la IPRESS</h3>
@@ -619,98 +628,105 @@
         <button pButton type="button" label="Salir" class="m-1 w-5rem" (click)="close()"></button>
     </ng-template>
 </p-dialog>
+
 <!--ROLES DIALOG-->
 <p-dialog [(visible)]="rolDialog" [style]="{width: '1200px'}" [modal]="true" styleClass="p-fluid " autoZIndex>
-
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-4 mt-2">
                 <p-card class="m-0 ">
-                    <h2>{{tituloTurno()}}</h2>
+                    <h2>{{tituloRol()}}</h2>
                     <form [formGroup]='formRol'>
-                        <div class="p-fluid grid flex justify-content-center">
-                            <div class="p-field col-12 md:col-12">
-                                <label id="nombreFuncion">Nombre funcion:</label>
-                                <input type="text" pInputText formControlName='nombreFuncion' disabled required />
-                            </div>
-                        </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label>Nombre UPS:</label>
                                 <p-dropdown *ngIf="!isUpdateRol" placeholder="Nombre UPS" class="inputRedondo"
-                                    [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
-                                    inputId="dropdown" [options]="UPSList" formControlName="idUPS"
-                                     optionLabel="nombreUPS" required>
+                                    [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" (onChange)="onChangeUPS()"
+                                    inputId="dropdown" [options]="UPSList" formControlName="nombreUPS"
+                                    optionLabel="nombreUPS" required>
                                 </p-dropdown>
-                                <p-dropdown *ngIf="isUpdateAmbiente" class="inputRedondo"
-                                    [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
-                                    inputId="dropdown" [options]="UPSList" formControlName="idUPS"
+                                <p-dropdown *ngIf="isUpdateRol" class="inputRedondo"
+                                    [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" (onChange)="onChangeUPS()"
+                                    inputId="dropdown" [options]="UPSList" formControlName="nombreUPS"
                                     optionLabel="nombreUPS" required>
                                 </p-dropdown>
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
+                                <label id="nombreFuncion">Nombre funcion:</label>
+                                <input type="text" pInputText formControlName='nombreFuncion' placeholder="Nombre de la Función" disabled/>
+                            </div>
+                        </div>
+                        <div class="p-fluid grid flex justify-content-center">
+                            <div class="p-field col-12 md:col-12">
+                                <label id="tiempoPreparacion">Tiempo preparación:</label>
+                                <p-inputNumber placeholder="Tiempo de preparación" formControlName='tiempoPreparacion' suffix=" minutos" required>
+                                </p-inputNumber>
+                            </div>
+                        </div>
+                        <div class="p-fluid grid flex justify-content-center">
+                            <div class="p-field col-12 md:col-12">
                                 <label id="tiempoPromedioAtencion">Tiempo promedio atención:</label>
-                                <p-calendar formControlName='tiempoPromedioAtencion' showTime="true" hourFormat="24"
-                                    [timeOnly]="true" (onSelect)="selectedHoraInicio()" required></p-calendar>
+                                <p-inputNumber placeholder="Tiempo promedio de atención" formControlName='tiempoPromedioAtencion' suffix=" minutos" required>
+                                </p-inputNumber>
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label id="fechaRegistro">Fecha Registro:</label>
-                                <p-calendar formControlName='horaFin' [timeOnly]="true" showTime="true" hourFormat="24"
-                                    required></p-calendar>
+                                <input type="date" placeholder="Fecha Registro" pInputText
+                                    formControlName='fechaRegistro' required />
                             </div>
                         </div>
                     </form>
                     <br />
                     <div class="flex justify-content-end">
-                        <button *ngIf="!isUpdateTurno" pButton type="button" label="Guardar" class="m-1 w-9rem"
-                            (click)="saveTurno()"></button>
-                        <button *ngIf="isUpdateTurno" pButton type="button" label="Guardar" class="m-1 w-9rem"
-                            (click)="saveEdicionTurno()"></button>
-                        <button pButton type="button" label="Nuevo" icon="pi pi-plus" (click)="guardarNuevoTurno()"
-                            pTooltip="Agregar turno" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
+                        <button *ngIf="!isUpdateRol" pButton type="button" label="Guardar" class="m-1 w-9rem"
+                            (click)="saveRol()"></button>
+                        <button *ngIf="isUpdateRol" pButton type="button" label="Guardar" class="m-1 w-9rem"
+                            (click)="saveEdicionRol()"></button>
+                        <button pButton type="button" label="Nuevo" icon="pi pi-plus" (click)="guardarNuevoRol()"
+                            pTooltip="Agregar rol" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
                             pRipple></button>
                     </div>
 
                 </p-card>
             </div>
             <div class="col-8">
-                <p-table [value]="turnos" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                <p-table [value]="roles" #dt styleClass="p-datatable-gridlines" [rows]="10"
                     [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                    [showCurrentPageReport]="true">
+                    [showCurrentPageReport]="true" responsiveLayout="scroll">
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
-                            <h3>Lista de Turnos de la IPRESS</h3>
+                            <h3>Lista de Roles de IPRESS</h3>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                         <tr>
                             <th style="text-align: center">Nro</th>
-                            <th style="text-align: center">Nombre</th>
-                            <th style="text-align: center">Abreviatura </th>
-                            <th style="text-align: center">Nro Horas</th>
-                            <th style="text-align: center">Hora Inicio</th>
-                            <th style="text-align: center">Hora Fin</th>
+                            <th style="text-align: center">UPS </th>
+                            <th style="text-align: center">Nombre Función</th>
+                            <th style="text-align: center">Tiempo preparacion</th>
+                            <th style="text-align: center">Tiempo promedio atención</th>
+                            <th style="text-align: center">Fecha Registro</th>
                             <th style="text-align: center; width:8rem">Acción</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                         <tr style="text-align: center">
                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData.nombre }}</td>
-                            <td style="text-align: center">{{ rowData.abreviatura }}</td>
-                            <td style="text-align: center">{{ rowData.nroHoras }}</td>
-                            <td style="text-align: center">{{ rowData.horaInicio }}</td>
-                            <td style="text-align: center">{{ rowData.horaFin }}</td>
+                            <td style="text-align: center">{{ buscarNombreUPS(rowData.codUPS) }}</td>
+                            <td style="text-align: center">{{ rowData.nombreFuncion }}</td>
+                            <td style="text-align: center">{{ rowData.tiempoPreparacion }}</td>
+                            <td style="text-align: center">{{ rowData.tiempoPromedioAtencion }}</td>
+                            <td style="text-align: center">{{ rowData.fechaRegistro | date: "dd/MM/yyyy" }}</td>
                             <td>
-                                <button pButton (click)="editarTurno(rowData)" pTooltip="Editar" pRipple type="button"
+                                <button pButton (click)="editarRol(rowData)" pTooltip="Editar" pRipple type="button"
                                     icon="pi pi-pencil" class="p-button-rounded m-1">
                                 </button>
-                                <button pButton (click)="eliminarTurno(rowData)" pTooltip="Eliminar" pRipple
+                                <button pButton (click)="eliminarRol(rowData)" pTooltip="Eliminar" pRipple
                                     type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                                 </button>
                             </td>

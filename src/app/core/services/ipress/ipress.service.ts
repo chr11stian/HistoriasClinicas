@@ -30,12 +30,14 @@ export class IpressService {
     editIpress(ipress) {
         return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress`, ipress)
     }
+    //jurisdiccion
     createJurisdiccionIpress(idIpress,req){
         return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress/agregarjurisdiccion/${idIpress}`,req)
     }
     deleteJurisdiccionIpress(idIpress,req){
         return this.http.post<any>(`${this.base_url}/${this.bd}/api/ipress/eliminarjurisdiccion/${idIpress}`,req)
     }
+    //ambiente
     createAmbienteIpress(idIpress,req){
         return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress/agregarambiente/${idIpress}`,req)
     }
@@ -45,6 +47,7 @@ export class IpressService {
     deleteAmbienteIpress(idIpress,codAmbiente){
         return this.http.delete<any>(`${this.base_url}/${this.bd}/api/ipress//eliminarambiente/${idIpress}/${codAmbiente}`)
     }
+    //turno
     createTurnoIpress(idIpress,req){
         return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress/agregarturno/${idIpress}`,req)
     }
@@ -53,5 +56,19 @@ export class IpressService {
     }
     deleteTurnoIpress(idIpress,abreviatura){
         return this.http.delete<any>(`${this.base_url}/${this.bd}/api/ipress/eliminarturno/${idIpress}/${abreviatura}`)
+    }
+    //rol
+    createRolIpress(idIpress,req){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress/agregarrol/${idIpress}`,req)
+    }
+    editRolIpress(idIpress,req){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress/actualizarrol/${idIpress}`,req)
+    }
+    deleteRolIpress(idIpress, codUPS){
+        return this.http.delete<any>(`${this.base_url}/${this.bd}/api/ipress/eliminarrol/${idIpress}/${codUPS}`)
+    }
+    //encargado
+    createEncargadoIpress(idIpress,req){
+        return this.http.post<any>(`${this.base_url}/${this.bd}/api/ipress/cambiarEncargado/${idIpress}`,req)
     }
 }
