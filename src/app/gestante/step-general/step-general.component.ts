@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core"
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from "primeng/api"
 
 @Component({
-  selector: "app-cabecera",
-  templateUrl: "./cabecera.component.html",
-  styleUrls: ["./cabecera.component.css"],
+  selector: 'app-step-general',
+  templateUrl: './step-general.component.html',
+  styleUrls: ['./step-general.component.css']
 })
-export class CabeceraComponent implements OnInit {
+export class StepGeneralComponent implements OnInit {
   options: data[]
   selectedOption: data
   items: MenuItem[]
@@ -26,30 +26,34 @@ export class CabeceraComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       { label: "Datos Generales" },
-      { label: "Antecedentes" },
-      { label: "Plan Control Integral" },
-      { label: "Evaluación General" },
-      { label: "Test de Desarrollo" },
+      { label: "Datos Basales" },
+      { label: "Atenciones" },
+      { label: "Partos o Abortos" },
+      { label: "Recien Nacidos" },
+      { label: "Puerperio" },
     ]
   }
   // pasamos al siguiente step
   nextPage() {
     switch (this.stepName) {
       case "datos":
-        this.stepName = "antecedentes"
+        this.stepName = "basales"
         this.indiceActivo = 1
-        console.log("name ",this.stepName, "indice ",this.indiceActivo)
         break
-      case "antecedentes":
-        this.stepName = "plan"
+      case "basales":
+        this.stepName = "atenciones"
         this.indiceActivo = 2
         break
-      case "plan":
-        this.stepName = "evaluacion"
+      case "atenciones":
+        this.stepName = "partos"
         this.indiceActivo = 3
         break
-      case "evaluacion":
-        this.stepName = "test"
+      case "partos":
+        this.stepName = "nacidos"
+        this.indiceActivo = 4
+        break
+      case "nacidos":
+        this.stepName = "puerperio"
         this.indiceActivo = 4
         break
     }
@@ -58,19 +62,23 @@ export class CabeceraComponent implements OnInit {
   // regresamos al anterior step
   prevPage() {
     switch (this.stepName) {
-      case "test":
-        this.stepName = "evaluacion"
+      case "puerperio":
+        this.stepName = "nacidos"
+        this.indiceActivo = 4
+        break
+      case "nacidos":
+        this.stepName = "partos"
         this.indiceActivo = 3
         break
-      case "evaluacion":
-        this.stepName = "plan"
+      case "partos":
+        this.stepName = "atenciones"
         this.indiceActivo = 2
         break
-      case "plan":
-        this.stepName = "antecedentes"
+      case "atenciones":
+        this.stepName = "basales"
         this.indiceActivo = 1
         break
-      case "antecedentes":
+      case "basales":
         this.stepName = "datos"
         this.indiceActivo = 0
         break

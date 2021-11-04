@@ -55,7 +55,21 @@ export class SideBarComponent implements OnInit {
                         label: "Rol Guardia",
                         routerLink: "historia/rol-guardia",
                     },
-
+                    {
+                        icon: "pi pi-file",
+                        label: "Paciente",
+                        routerLink: "historia/paciente",
+                      },
+                      {
+                        icon: "pi pi-file",
+                        label: "Cred",
+                        routerLink: "cred/cabecera",
+                      },
+                      {
+                        icon: "pi pi-file",
+                        label: "Gestante",
+                        routerLink: "gestante/cabecera",
+                      }a
                 ],
             },
 
