@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PrimeModule } from "src/app/shared/prime/prime.module";
 
 import { GestanteRoutingModule } from './gestante-routing.module';
-import { DatosGeneralesComponent } from './component/datos-generales/datos-generales.component';
+import { FiliacionAntecedentesComponent } from './component/filiacion-antecedentes/filiacion-antecedentes.component';
 import { StepGeneralComponent } from './component/step-general/step-general.component';
 import { DatosBasalesComponent } from './component/datos-basales/datos-basales.component';
 import { AtencionesComponent } from './component/atenciones/atenciones.component';
@@ -15,7 +15,7 @@ import { DatosGeneralesObtetriciaComponent } from './component/datos-generales-o
 
 @NgModule({
   declarations: [
-    DatosGeneralesComponent,
+    FiliacionAntecedentesComponent,
     StepGeneralComponent,
     DatosBasalesComponent,
     AtencionesComponent,
