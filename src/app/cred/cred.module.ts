@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {PrimeModule} from "src/app/shared/prime/prime.module";
 
 import { CredRoutingModule } from './cred-routing.module';
 import { DatosGeneralesComponent } from './datos-generales/datos-generales.component';
@@ -20,6 +21,7 @@ import { TestDesarrolloComponent } from './test-desarrollo/test-desarrollo.compo
     TestDesarrolloComponent
   ],
   imports: [
+    PrimeModule,
     CommonModule,
     CredRoutingModule
   ]

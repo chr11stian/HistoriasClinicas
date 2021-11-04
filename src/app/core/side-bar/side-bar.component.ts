@@ -160,7 +160,6 @@ export class SideBarComponent implements OnInit {
             label: "Cupos",
             routerLink: "historia/cupos",
           },
-
           {
             icon: "pi pi-file",
             label: "Rol Guardia",
@@ -171,6 +170,16 @@ export class SideBarComponent implements OnInit {
             label: "Paciente",
             routerLink: "historia/paciente",
           },
+          {
+            icon: "pi pi-file",
+            label: "Cred",
+            routerLink: "cred/cabecera",
+          },
+          {
+            icon: "pi pi-file",
+            label: "Gestante",
+            routerLink: "gestante",
+          }
         ],
       },
 

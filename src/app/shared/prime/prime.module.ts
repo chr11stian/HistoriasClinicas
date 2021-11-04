@@ -25,6 +25,7 @@ import { MegaMenuModule } from "primeng/megamenu";
 import { ToastModule } from "primeng/toast";
 import { SelectButtonModule } from "primeng/selectbutton";
 import { CalendarModule } from "primeng/calendar";
+import { StepsModule } from 'primeng/steps';
 
 const importsApi = [
   SelectButtonModule,
@@ -62,6 +63,7 @@ const importsApi = [
   ToastModule,
   SelectButtonModule,
   CalendarModule,
+  StepsModule
 ];
 
 @NgModule({
