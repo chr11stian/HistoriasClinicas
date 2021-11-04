@@ -16,7 +16,7 @@ import {PacienteService} from "../../core/services/paciente/paciente.service";
 
 
 @Component({
-    selector: 'app-cupos',
+    selector: 'app-h   ',
     providers: [DynamicDialogConfig],
     templateUrl: './cupos.component.html',
     styleUrls: ['./cupos.component.css']
