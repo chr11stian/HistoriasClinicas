@@ -19,19 +19,27 @@ const routes: Routes = [
                 path: "inicio",
                 component: InicioComponent,
             },
-
-            // {
-            //     path: "rol",
-            //     loadChildren: () => import('src/app/rol/rol.module').then(n => n.RolModule),
-            // },
             {
-                path: "historia",
-                loadChildren: () => import('src/app/historia/historia.module').then(n => n.HistoriaModule),
+                path: "admision",
+                loadChildren: () => import('src/app/admision/admision.module').then(n => n.AdmisionModule),
             },
             {
                 path: "mantenimientos",
                 loadChildren: () => import('src/app/mantenimientos/mantenimientos.module').then(n => n.MantenimientosModule),
             },
+
+            {
+                path: "historia",
+                loadChildren: () => import('src/app/historia/historia.module').then(n => n.HistoriaModule),
+            },
+            {
+                path: "cred",
+                loadChildren: () => import('src/app/cred/cred.module').then(n => n.CredModule),
+            },
+            {
+                path: "gestante",
+                loadChildren: () => import('src/app/gestante/gestante.module').then(n => n.GestanteModule),
+            }
         ]
     }
 ];

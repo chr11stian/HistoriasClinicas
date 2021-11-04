@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { ColegioProfesionalComponent } from "./component/colegio-profesional/colegio-profesional.component";
 import { EspecialidadComponent } from "./component/especialidad/especialidad.component";
 import { GrupoEtarioComponent } from "./component/grupo-etario/grupo-etario.component";
-import { RolGuardiaComponent } from "./component/rol-guardia/rol-guardia.component";
+
 import { TipoPersonalComponent } from "./component/tipo-personal/tipo-personal.component";
 import { TipoTurnoComponent } from "./component/tipo-turno/tipo-turno.component";
 import { UbicacionComponent } from "./component/ubicacion/ubicacion.component";
@@ -18,7 +18,7 @@ import { RedServiciosSaludComponent } from "./component/red-servicios-salud/red-
 import { NombreComercialUPSComponent } from "./component/nombre-comercial-ups/nombre-comercial-ups.component";
 
 import { CondicionPacienteComponent } from "./component/condicion-paciente/condicion-paciente.component";
-import { } from "./component/condicion-paciente/condicion-paciente.component";
+import {} from "./component/condicion-paciente/condicion-paciente.component";
 import { CondicionPacienteRiesgoComponent } from "./component/condicion-paciente-riesgo/condicion-paciente-riesgo.component";
 import { TipoSeguroComponent } from "./component/tipo-seguro/tipo-seguro.component";
 import { UpsComponent } from "./component/ups/ups.component";
@@ -67,11 +67,6 @@ const routes: Routes = [
   {
     path: "grupo-etario",
     component: GrupoEtarioComponent,
-  },
-
-  {
-    path: "rol-guardia",
-    component: RolGuardiaComponent,
   },
   {
     path: "documento-identidad",
@@ -127,4 +122,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MantenimentosRoutingModule { }
+export class MantenimentosRoutingModule {}
