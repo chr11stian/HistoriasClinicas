@@ -1,0 +1,19 @@
+p-tabview >>> .p-tabview-title{
+    font-size: medium;
+    color: black;
+}
+p-tabview >>> .p-tabview .p-tabview-nav{
+    justify-content: space-between;
+    margin: 1rem;
+    
+}
+
+p-tabview >>> .p-tabview .p-tabview-panels {
+    height: 650px;
+}
+
+p-tabview >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: #d1d1d1;
+    border-color: #d1d1d1;
+    color: #2196F3;
+}

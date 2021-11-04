@@ -9,6 +9,11 @@ import { AntecendentesComponent } from './antecendentes/antecendentes.component'
 import { PlanAtencionIntegralComponent } from './plan-atencion-integral/plan-atencion-integral.component';
 import { EvaluacionGeneralComponent } from './evaluacion-general/evaluacion-general.component';
 import { TestDesarrolloComponent } from './test-desarrollo/test-desarrollo.component';
+import { TabViewModule } from 'primeng/tabview';
+import { PersonalComponent } from './antecendentes/personal/personal.component';
+import { FamiliarComponent } from './antecendentes/familiar/familiar.component';
+import { ViviendaComponent } from './antecendentes/vivienda/vivienda.component';
+
 
 
 @NgModule({
@@ -18,12 +23,17 @@ import { TestDesarrolloComponent } from './test-desarrollo/test-desarrollo.compo
     AntecendentesComponent,
     PlanAtencionIntegralComponent,
     EvaluacionGeneralComponent,
-    TestDesarrolloComponent
+    TestDesarrolloComponent,
+    PersonalComponent,
+    FamiliarComponent,
+    ViviendaComponent
+    
   ],
   imports: [
     PrimeModule,
     CommonModule,
-    CredRoutingModule
+    CredRoutingModule,
+    TabViewModule
   ]
 })
 export class CredModule { }
