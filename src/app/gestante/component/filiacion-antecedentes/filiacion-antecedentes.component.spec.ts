@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DatosGeneralesComponent } from './datos-generales.component';
+import { FiliacionAntecedentesComponent } from './filiacion-antecedentes.component';
 
 describe('DatosGeneralesComponent', () => {
-  let component: DatosGeneralesComponent;
-  let fixture: ComponentFixture<DatosGeneralesComponent>;
+  let component: FiliacionAntecedentesComponent;
+  let fixture: ComponentFixture<FiliacionAntecedentesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DatosGeneralesComponent ]
+      declarations: [ FiliacionAntecedentesComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatosGeneralesComponent);
+    fixture = TestBed.createComponent(FiliacionAntecedentesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
