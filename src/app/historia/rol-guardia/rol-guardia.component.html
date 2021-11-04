@@ -118,13 +118,14 @@
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-i="rowIndex;">
     <tr>
-      <td class="border-500 text-900 frozenCol" pFrozenColumn>
+      <td class="border-500 text-900 frozenCol" pFrozenColumn [frozen]="true">
         {{ i + 1 }}
       </td>
       <td
         class="border-500 text-900 frozenCol"
         style="background-color: #f3a683"
         pFrozenColumn
+        [frozen]="true"
       >
         {{ rowData.apePaterno }} {{ rowData.apeMaterno }}
       </td>
@@ -132,6 +133,7 @@
         class="border-500 text-900 frozenCol"
         style="background-color: #f3a683"
         pFrozenColumn
+        [frozen]="true"
       >
         {{ rowData.primerNombre }}
       </td>
@@ -141,12 +143,12 @@
       >
         <!-- {{ i }} -{{ j }} -->
         <p-dropdown
-          placeholder=">"
           [inline]="false"
           [disabled]="!isEditable"
           [options]="listaTurno"
           [virtualScroll]="true"
           optionLabel="abreviatura"
+          dataKey="abreviatura"
           [(ngModel)]="matriz[i][j]"
           (onChange)="changeTurno(i, j)"
         ></p-dropdown>
@@ -200,6 +202,7 @@
         label="Asignar"
         class="p-button-danger p-button-lg px-7 mx-3"
         (click)="designar()"
+        [disabled]="upsSeleccionada == ''"
       ></button>
     </div>
   </div>
