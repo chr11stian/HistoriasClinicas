@@ -8,6 +8,7 @@
         </ng-template>
     </p-toolbar>
     <div class="grid m-1 ">
+        <form [formGroup]='form'>
         <p-panel header="Peso y Talla" class="font-bold">
             <div class="p-field">
                 <label>IMC: </label>
@@ -19,7 +20,7 @@
             </div>
             <div class="p-field mt-2">
                 <label>Talla: </label>
-                <input type="text" pInputText formControlName='talla' placeholder="Talla">
+                <input type="text" pInputText formControlName='a' placeholder="Talla">
             </div>
         </p-panel>
 
@@ -69,5 +70,6 @@
                 <input type="text" pInputText formControlName='talla' placeholder="Talla">
             </div>
         </p-panel>
+    </form>
     </div>
 </div>

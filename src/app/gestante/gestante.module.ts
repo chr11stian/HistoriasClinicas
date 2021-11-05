@@ -16,6 +16,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { PanelModule } from 'primeng/panel';
 import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 
 
 @NgModule({
@@ -38,6 +39,8 @@ import { CheckboxModule } from 'primeng/checkbox';
     PanelModule,
     TabViewModule,
     CheckboxModule,
+    ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class GestanteModule { }
