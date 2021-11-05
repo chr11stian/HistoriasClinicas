@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-datos-basales',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DatosBasalesComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
+    this.inicalizarForm();
+  }
+
+  inicalizarForm(){
+    this.form = this.fb.group({
+      imc:'',
+      pesoHabitual:'',
+      talla:'',
+      check:'',
+      nroDosisPrevias:'',
+      a:''
+    })
   }
 
 }

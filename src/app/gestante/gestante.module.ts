@@ -39,8 +39,9 @@ import { CheckboxModule } from 'primeng/checkbox';
     PanelModule,
     TabViewModule,
     CheckboxModule,
-    FormsModule,
+
     ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class GestanteModule { }
