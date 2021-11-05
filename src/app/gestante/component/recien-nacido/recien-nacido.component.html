@@ -1,1 +1,25 @@
-<p>recien-nacido works!</p>
+
+<div class="p-card">
+    <h5>Multiple</h5>
+    <form [formGroup]='form'>
+        <div>
+            <div class="p-field-checkbox">
+                <p-checkbox id="group1" value="New York" formControlName="selectedCities" inputId="ny"></p-checkbox>
+                <label for="ny">New York</label>
+            </div>
+            <div class="p-field">
+                <p-checkbox id="group1" value="San Francisco" formControlName="selectedCities" inputId="sf">
+                </p-checkbox>
+                <label for="sf">San Francisco</label>
+            </div>
+            <div class="p-field-checkbox">
+                <p-checkbox id="group1" value="Los Angeles" formControlName="selectedCities" inputId="la"></p-checkbox>
+                <label for="la">Los Angeles</label>
+            </div>
+            <div class="p-field-checkbox">
+                <p-checkbox id="group1" value="Chicago" formControlName="selectedCities" inputId="ch"></p-checkbox>
+                <label for="ch">Chicago</label>
+            </div>
+        </div>
+    </form>
+</div>

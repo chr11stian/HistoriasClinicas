@@ -26,6 +26,7 @@ import { ToastModule } from "primeng/toast";
 import { SelectButtonModule } from "primeng/selectbutton";
 import { CalendarModule } from "primeng/calendar";
 import { StepsModule } from 'primeng/steps';
+import { CheckboxModule } from 'primeng/checkbox';
 
 const importsApi = [
   SelectButtonModule,
@@ -63,7 +64,8 @@ const importsApi = [
   ToastModule,
   SelectButtonModule,
   CalendarModule,
-  StepsModule
+  StepsModule,
+  CheckboxModule
 ];
 
 @NgModule({

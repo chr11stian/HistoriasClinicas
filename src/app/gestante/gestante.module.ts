@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimeModule } from "src/app/shared/prime/prime.module";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { GestanteRoutingModule } from './gestante-routing.module';
 import { FiliacionAntecedentesComponent } from './component/filiacion-antecedentes/filiacion-antecedentes.component';
@@ -27,7 +28,9 @@ import { DatosGeneralesObtetriciaComponent } from './component/datos-generales-o
   imports: [
     PrimeModule,
     CommonModule,
-    GestanteRoutingModule
+    GestanteRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class GestanteModule { }
