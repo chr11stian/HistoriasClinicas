@@ -1,1 +1,73 @@
-<p>datos-basales works!</p>
+<div class="p-card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Datos Basales del Embarazo Actual</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"></button>
+        </ng-template>
+    </p-toolbar>
+    <div class="grid m-1 ">
+        <p-panel header="Peso y Talla" class="font-bold">
+            <div class="p-field">
+                <label>IMC: </label>
+                <input type="text" pInputText formControlName='imc' placeholder="IMC">
+            </div>
+            <div class="p-field mt-2">
+                <label>Peso Habitual: </label>
+                <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
+            </div>
+            <div class="p-field mt-2">
+                <label>Talla: </label>
+                <input type="text" pInputText formControlName='talla' placeholder="Talla">
+            </div>
+        </p-panel>
+
+        <p-panel header="Antitetánica" class="font-bold">
+            <div class="p-field">
+                <label>Nro Dosis Previas: </label>
+                <input type="text" pInputText formControlName='nroDosisPrevias' placeholder="Dosis Previas">
+            </div>
+            <label>Dosis</label>
+            <div class="p-field mt-2">
+                <label>1ra: </label>
+                <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
+            </div>
+            <div class="p-field mt-2">
+                <label>2da: </label>
+                <input type="text" pInputText formControlName='talla' placeholder="Talla">
+            </div>
+        </p-panel>
+
+        <p-panel header="Antitetánica" class="font-bold">
+            <div class="p-field">
+                <label>Nro Dosis Previas: </label>
+                <input type="text" pInputText formControlName='nroDosisPrevias' placeholder="Dosis Previas">
+            </div>
+            <label>Dosis</label>
+            <div class="p-field mt-2">
+                <label>1ra: </label>
+                <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
+            </div>
+            <div class="p-field mt-2">
+                <label>2da: </label>
+                <input type="text" pInputText formControlName='talla' placeholder="Talla">
+            </div>
+        </p-panel>
+
+        <p-panel header="Peso y Talla" class="font-bold">
+            <div class="p-field">
+                <label>IMC: </label>
+                <input type="text" pInputText formControlName='imc' placeholder="IMC">
+            </div>
+            <div class="p-field mt-2">
+                <label>Peso Habitual: </label>
+                <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
+            </div>
+            <div class="p-field mt-2">
+                <label>Talla: </label>
+                <input type="text" pInputText formControlName='talla' placeholder="Talla">
+            </div>
+        </p-panel>
+    </div>
+</div>

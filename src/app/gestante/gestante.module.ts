@@ -11,6 +11,10 @@ import { PartosComponent } from './component/partos/partos.component';
 import { RecienNacidoComponent } from './component/recien-nacido/recien-nacido.component';
 import { PuerperioComponent } from './component/puerperio/puerperio.component';
 import { DatosGeneralesObtetriciaComponent } from './component/datos-generales-obtetricia/datos-generales-obtetricia.component';
+import { ToolbarModule } from "primeng/toolbar";
+import { FieldsetModule } from 'primeng/fieldset';
+import { PanelModule } from 'primeng/panel';
+import { TabViewModule } from 'primeng/tabview';
 
 
 @NgModule({
@@ -27,7 +31,11 @@ import { DatosGeneralesObtetriciaComponent } from './component/datos-generales-o
   imports: [
     PrimeModule,
     CommonModule,
-    GestanteRoutingModule
+    GestanteRoutingModule,
+    ToolbarModule,
+    FieldsetModule,
+    PanelModule,
+    TabViewModule
   ]
 })
 export class GestanteModule { }
