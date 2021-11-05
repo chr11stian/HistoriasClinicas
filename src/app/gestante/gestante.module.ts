@@ -15,6 +15,7 @@ import { ToolbarModule } from "primeng/toolbar";
 import { FieldsetModule } from 'primeng/fieldset';
 import { PanelModule } from 'primeng/panel';
 import { TabViewModule } from 'primeng/tabview';
+import { CheckboxModule } from 'primeng/checkbox';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { TabViewModule } from 'primeng/tabview';
     ToolbarModule,
     FieldsetModule,
     PanelModule,
-    TabViewModule
+    TabViewModule,
+    CheckboxModule,
   ]
 })
 export class GestanteModule { }

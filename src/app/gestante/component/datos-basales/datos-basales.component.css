@@ -1,3 +1,10 @@
 .pesoTalla{
     border-radius: 10px;
 }
+/* .check{
+    border: 1px solid #ddd;
+    border-radius: 50%;
+} */
+p-panel>>>.p-checkbox .p-checkbox-box{
+    border-radius: 50%;
+}
