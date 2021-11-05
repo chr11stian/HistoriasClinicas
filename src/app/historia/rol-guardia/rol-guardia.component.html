@@ -9,6 +9,7 @@
   styleClass="p-datatable p-datatable-gridlines p-mt-3"
   [value]="listaPersonal"
   [rowHover]="true"
+  [loading]="loading || loadingUps"
 >
   <ng-template pTemplate="header">
     <tr>
@@ -135,7 +136,7 @@
         pFrozenColumn
         [frozen]="true"
       >
-        {{ rowData.primerNombre }}
+        {{ rowData.nombre }}
       </td>
       <td
         *ngFor="let dia of cabeceraMes; let j = index"
@@ -143,8 +144,9 @@
       >
         <!-- {{ i }} -{{ j }} -->
         <p-dropdown
+          placeholder=""
           [inline]="false"
-          [disabled]="!isEditable"
+          [disabled]="!isEditable || mesPasado"
           [options]="listaTurno"
           [virtualScroll]="true"
           optionLabel="abreviatura"
@@ -157,68 +159,75 @@
     </tr>
   </ng-template>
 </p-table>
-<p-card>
-  <h3 style="color: red" class="text-xl">Leyenda</h3>
-  <div class="grid">
-    <div class="col-10">
-      <div class="grid borde">
-        <div class="col-2">
-          <span
-            ><h3>M-Mañana</h3>
-            <h3>T-Tarde</h3>
-            <h3>M/T-Mañana Tarde</h3></span
-          >
-        </div>
-        <div class="col-3">
-          <span
-            ><h3>GD-Guardia diurna</h3>
-            <h3>GN-Guardia Nocturna</h3>
-            <h3>T/GN-Tarde Guardia Nocturna</h3></span
-          >
-        </div>
-        <div class="col-2">
-          <span
-            ><h3>N-Noche</h3>
-            <h3>R-Reten</h3>
-            <h3>L-Libre</h3></span
-          >
-        </div>
-        <div class="col-3">
-          <span
-            ><h3>V-Vacaciones</h3>
-            <h3>O-Onomastico</h3>
-            <h3>GD(GN)-Guardia Diurna y Nocturna</h3></span
-          >
-        </div>
-        <div class="col-2">
-          <span><h3>F-Feriado</h3> </span>
-        </div>
+<!-- <p-card> -->
+<!-- <h3 style="color: red" class="text-xl">Leyenda</h3> -->
+<div class="grid mt-5 mb-8">
+  <div class="col-9">
+    <div class="grid borde">
+      <div class="col-2">
+        <span
+          ><h3>M-Mañana</h3>
+          <h3>T-Tarde</h3>
+          <h3>M/T-Mañana Tarde</h3></span
+        >
+      </div>
+      <div class="col-3">
+        <span
+          ><h3>GD-Guardia diurna</h3>
+          <h3>GN-Guardia Nocturna</h3>
+          <h3>T/GN-Tarde Guardia Nocturna</h3></span
+        >
+      </div>
+      <div class="col-2">
+        <span
+          ><h3>N-Noche</h3>
+          <h3>R-Reten</h3>
+          <h3>L-Libre</h3></span
+        >
+      </div>
+      <div class="col-3">
+        <span
+          ><h3>V-Vacaciones</h3>
+          <h3>O-Onomastico</h3>
+          <h3>GD(GN)-Guardia Diurna y Nocturna</h3></span
+        >
+      </div>
+      <div class="col-2">
+        <span><h3>F-Feriado</h3> </span>
       </div>
     </div>
-    <div class="col-2 flex align-content-center flex-wrap card-container">
+  </div>
+  <!-- Botones -->
+  <div class="col-3 grid">
+    <div class="col-6 flex align-content-center flex-wrap card-container">
       <button
         pButton
         type="button"
-        label="Asignar"
-        class="p-button-danger p-button-lg px-7 mx-3"
+        label="Guardar"
+        class="p-button-danger p-button px-5 mx-1 text-center"
+        icon="pi pi-save"
         (click)="designar()"
         [disabled]="upsSeleccionada == ''"
       ></button>
     </div>
+    <div class="col-6 flex align-content-center flex-wrap card-container">
+      <button
+        pButton
+        type="button"
+        label="Cerrar"
+        class="p-button-danger p-button px-5 mx-1 text-center bg-blue-700"
+        icon="pi pi-times-circle"
+        (click)="close()"
+      ></button>
+    </div>
   </div>
-</p-card>
-<!-- <p-table [value]="personalSeleccionado" responsiveLayout="scroll">
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Code</th>
-      <th>Name</th>
-      <th>Category</th>
-      <th>Quantity</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-product let i="rowIndex">
-    <tr>
-      <td>{{ product.id }}</td>
-    </tr>
-  </ng-template>
-</p-table> -->
+</div>
+<!-- </p-card> -->
+<p-confirmDialog
+  [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
+  [style]="{ width: '25vw' }"
+  key="positionDialog"
+  [baseZIndex]="10000"
+></p-confirmDialog>
+<p-toast [style]="{ marginTop: '80px' }" key="toast1"></p-toast>
+<p-toast [style]="{ marginTop: '80px' }" key="toast2"></p-toast>

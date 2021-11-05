@@ -1,8 +1,8 @@
-import {Component, OnInit, EventEmitter, Output} from '@angular/core';
-import {UbicacionService} from "../../services/ubicacion/ubicacion.service";
-import {Departamentos, Distrito, Provincias, Ubicacion} from "../../../core/models/ubicacion.models";
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { UbicacionService } from "../../services/ubicacion/ubicacion.service";
+import { Departamentos, Distrito, Provincias, Ubicacion } from "../../../core/models/ubicacion.models";
 import Swal from "sweetalert2";
-import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
     selector: 'app-ubicacion',
@@ -30,7 +30,7 @@ export class UbicacionComponent implements OnInit {
 
 
     constructor(private ubicacionService: UbicacionService,
-                private formBuilder: FormBuilder,
+        private formBuilder: FormBuilder,
     ) {
         this.buildForm();
         this.getUbicacion();
@@ -72,7 +72,7 @@ export class UbicacionComponent implements OnInit {
             longitude: ['', [Validators.required]],
             poblacion: ['', [Validators.required]],
             altura: ['', [Validators.required]],
-            es_Capital: ['', [Validators.required]],
+            es_Capital: [''],
         })
     }
 
@@ -123,23 +123,29 @@ export class UbicacionComponent implements OnInit {
 
     saveForm() {
         this.isUpdate = false;
+        console.log('dpto ', this.form.value.departamento, 'prov ', this.form.value.provincia, ' dist ', this.form.value.distrito)
         const req = {
-            departamento: this.form.value.departamento.iddd,
-            provincia: this.form.value.provincia.idpp,
-            distrito: this.form.value.distrito.iddis,
+            ubigeo: this.form.value.departamento.iddd + this.form.value.provincia.idpp + this.form.value.distrito.iddis,
+            iddd: this.form.value.departamento.iddd,
+            departamento: this.form.value.departamento.departamento,
+            idpp: this.form.value.provincia.idpp,
+            provincia: this.form.value.provincia.provincia,
+            iddis: this.form.value.distrito.iddis,
+            distrito: this.form.value.distrito.distrito,
             ccpp: this.form.value.ccpp,
             latitude: this.form.value.latitude,
             longitude: this.form.value.longitude,
             poblacion: this.form.value.poblacion,
             altura: this.form.value.altura,
-            es_Capital: this.form.value.es_Capital,
+            es_Capital: "0",
         }
-        if (req.ccpp.trim() !== "") {
+        console.log('datos a guardar ', req);
+        // if (req.ccpp.trim() !== "") {
             this.ubicacionService.saveCCPP(req).subscribe(
                 result => {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Agregado correctamente',
+                        title: 'Agregado Correctamente',
                         text: 'CCPP',
                         showConfirmButton: false,
                         timer: 1500,
@@ -148,9 +154,9 @@ export class UbicacionComponent implements OnInit {
                     this.ubicacionDialog = false;
                 }
             )
-        }
+        // }
 
-        console.log(req)
+        // console.log(req)
     }
 
     editarDatos() {
