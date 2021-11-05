@@ -16,6 +16,12 @@ export class RolGuardiaService {
       inputRequest
     );
   }
+  getRolGuardiaPorServicio(inputRequest: any) {
+    return this.http.post(
+      `${this.base_url}/${this.bd}/api/rolguardia/servicio`,
+      inputRequest
+    );
+  }
   AddRolGuardia(rolDia: any) {
     return this.http.post(
       `${this.base_url}/${this.bd}/api/rolguardia/upsertArreglo`,

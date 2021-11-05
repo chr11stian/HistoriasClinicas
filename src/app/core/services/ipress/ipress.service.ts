@@ -68,7 +68,7 @@ export class IpressService {
         return this.http.delete<any>(`${this.base_url}/${this.bd}/api/ipress/eliminarrol/${idIpress}/${codUPS}`)
     }
     //encargado
-    createEncargadoIpress(idIpress,req){
-        return this.http.post<any>(`${this.base_url}/${this.bd}/api/ipress/cambiarEncargado/${idIpress}`,req)
+    createEncargadoIpress(req){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/api/ipress/cambiarencargado`,req)
     }
 }
