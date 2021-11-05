@@ -19,7 +19,7 @@ p-button >>> .p-button-icon {
   font: red;
 }
 
-.frozenCol {
+/* .frozenCol {
   background: inherit;
   grid-area: topright;
   border: solid 1px black;
@@ -44,7 +44,7 @@ p-button >>> .p-button-icon {
 .frozenCol-th::after {
   position: absolute;
   overflow-x: auto;
-}
+} */
 .borde {
   border: solid 1px black;
   border-radius: 10px;

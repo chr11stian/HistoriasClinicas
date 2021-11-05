@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimeModule } from "src/app/shared/prime/prime.module";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 
 import { GestanteRoutingModule } from './gestante-routing.module';
 import { FiliacionAntecedentesComponent } from './component/filiacion-antecedentes/filiacion-antecedentes.component';
@@ -11,6 +12,12 @@ import { PartosComponent } from './component/partos/partos.component';
 import { RecienNacidoComponent } from './component/recien-nacido/recien-nacido.component';
 import { PuerperioComponent } from './component/puerperio/puerperio.component';
 import { DatosGeneralesObtetriciaComponent } from './component/datos-generales-obtetricia/datos-generales-obtetricia.component';
+import { ToolbarModule } from "primeng/toolbar";
+import { FieldsetModule } from 'primeng/fieldset';
+import { PanelModule } from 'primeng/panel';
+import { TabViewModule } from 'primeng/tabview';
+import { CheckboxModule } from 'primeng/checkbox';
+
 
 
 @NgModule({
@@ -27,7 +34,14 @@ import { DatosGeneralesObtetriciaComponent } from './component/datos-generales-o
   imports: [
     PrimeModule,
     CommonModule,
-    GestanteRoutingModule
+    GestanteRoutingModule,
+    ToolbarModule,
+    FieldsetModule,
+    PanelModule,
+    TabViewModule,
+    CheckboxModule,
+    ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class GestanteModule { }

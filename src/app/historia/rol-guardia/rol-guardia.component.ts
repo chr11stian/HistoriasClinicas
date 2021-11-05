@@ -2,14 +2,17 @@ import { Component, OnInit } from "@angular/core";
 import { PersonalService } from "src/app/core/services/personal-services/personal.service";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
+import { DynamicDialogRef } from "primeng/dynamicdialog";
 @Component({
   selector: "app-rol-guardia",
   templateUrl: "./rol-guardia.component.html",
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
+  isMesPasado: boolean = false;
   idIpressZarzuela = "615b30b37194ce03d782561c";
-
+  loading: boolean = true;
+  loadingUps: boolean = true;
   listaTurno: any[] = [];
   listaUps: any[] = [];
   upsSeleccionada = "";
@@ -28,7 +31,9 @@ export class RolGuardiaComponent implements OnInit {
   constructor(
     private rolGuardiaService: RolGuardiaService,
     private personalService: PersonalService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    public ref: DynamicDialogRef
   ) {
     this.numeroDiasMes();
     this.generarCabecera();
@@ -48,6 +53,7 @@ export class RolGuardiaComponent implements OnInit {
           delete turno.horaFin;
         });
         this.listaTurno = resp["object"];
+        this.loadingUps = false;
       });
   }
   getListaUps() {
@@ -55,6 +61,7 @@ export class RolGuardiaComponent implements OnInit {
       .getServiciosPorIpress(this.idIpressZarzuela)
       .subscribe((resp) => {
         this.listaUps = resp["object"];
+        this.loading = false;
       });
   }
   crearMatriz() {
@@ -64,9 +71,9 @@ export class RolGuardiaComponent implements OnInit {
       for (let j = 0; j < this.nroDiasMes; j++) {
         let turnoDefecto = {
           dia: j + 1,
-          nombre: this.listaTurno[0]["nombre"],
-          abreviatura: this.listaTurno[0]["abreviatura"],
-          nroHoras: this.listaTurno[0]["nroHoras"],
+          nombre: "Libre",
+          abreviatura: "L",
+          nroHoras: 0,
         };
         filaAux.push(turnoDefecto);
       }
@@ -170,7 +177,7 @@ export class RolGuardiaComponent implements OnInit {
     } else {
       isVisible = false;
     }
-    this.isEditable = isVisible;
+    this.isMesPasado = isVisible;
     //console.log("esModficable", isVisible);
   }
   cambiarFecha(fechaseleccionada: Date) {
@@ -192,23 +199,80 @@ export class RolGuardiaComponent implements OnInit {
     }
   }
 
-  changeUps(codUps, dd) {
-    let ipressUpsInput: any = {
-      codUps: codUps.value.id,
+  changeUps(codUps) {
+    let requestInput: any = {
+      anio: this.fecha.getFullYear(),
+      mes: this.fecha.getMonth() + 1,
       idIpress: this.idIpressZarzuela,
+      servicio: this.upsSeleccionada["nombreUPS"],
     };
-    this.listaPersonal = [];
-    this.personalService.getPorIpressUps(ipressUpsInput).subscribe(
+    this.rolGuardiaService.getRolGuardiaPorServicio(requestInput).subscribe(
       (resp: any) => {
-        this.listaPersonal = resp["object"];
-        this.crearMatriz();
-        this.IniciarHoras();
-        this.calcularNroHorasGeneral();
+        if (resp["cod"] === "2002") {
+          this.listaPersonal = [];
+          this.matriz = [];
+          let lista = resp["object"];
+          lista.forEach((element) => {
+            this.listaPersonal.push(element.personal);
+            this.matriz.push(element.turnos);
+          });
+          this.IniciarHoras();
+          this.calcularNroHorasGeneral();
+          this.confirmationService.confirm({
+            message:
+              "Ya existe una asignacion de guardia para este mes ,desea modificar? ",
+            accept: () => {
+              this.isEditable = true;
+            },
+            reject: () => {
+              this.isEditable = false;
+            },
+            key: "positionDialog",
+          });
+        } else {
+          this.messageService.add({
+            severity: "info",
+            summary: "Agregar",
+            detail: "Ingrese rol para para el presente mes",
+            key: "toast1",
+          });
+          let ipressUpsInput: any = {
+            codUps: codUps.value.id,
+            idIpress: this.idIpressZarzuela,
+          };
+          this.listaPersonal = [];
+          this.personalService
+            .getPorIpressUps(ipressUpsInput)
+            .subscribe((resp: any) => {
+              this.listaPersonal = resp["object"];
+              this.crearMatriz();
+              this.IniciarHoras();
+              this.calcularNroHorasGeneral();
+            });
+        }
       },
       (error) => {
-        console.log("error al recuperar personal", error);
+        console.log(error);
       }
     );
+
+    // let ipressUpsInput: any = {
+    //   codUps: codUps.value.id,
+    //   idIpress: this.idIpressZarzuela,
+    // };
+    // this.listaPersonal = [];
+    // this.personalService.getPorIpressUps(ipressUpsInput).subscribe(
+    //   (resp: any) => {
+    //     this.listaPersonal = resp["object"];
+    //     this.crearMatriz();
+    //     this.IniciarHoras();
+    //     this.calcularNroHorasGeneral();
+    //     // this.loading = false;
+    //   },
+    //   (error) => {
+    //     console.log("error al recuperar personal", error);
+    //   }
+    // );
   }
   calcularNroHorasGeneral() {
     for (let i = 0; i < this.matriz.length; i++) {
@@ -251,6 +315,7 @@ export class RolGuardiaComponent implements OnInit {
     //     detail: "los n no se agregaron ",
     //   });
     // }
+    let isLast = false;
     for (let i = 0; i < this.matriz.length; i++) {
       let mesInput: any = {
         anio: this.fecha.getFullYear(),
@@ -270,7 +335,14 @@ export class RolGuardiaComponent implements OnInit {
       //console.log(mesInput);
       this.rolGuardiaService.AddRolGuardia(mesInput).subscribe(
         (resp) => {
-          console.log("se agrego satisfactoriamente");
+          if (i + 1 == this.matriz.length) {
+            this.messageService.add({
+              severity: "success",
+              summary: "Modificar",
+              detail: "Se asigno rol para dicho mes",
+              key: "toast2",
+            });
+          }
         },
         (error) => {
           console.log(error);
@@ -287,7 +359,8 @@ export class RolGuardiaComponent implements OnInit {
     }
     return isValid;
   }
-  mostrarMatriz() {
+  close() {
     console.log(this.matriz);
+    // this.ref.close("cerrado");
   }
 }

@@ -11,6 +11,7 @@ import { TipoTurnoModalComponent } from "../tipo-turno-modal/tipo-turno-modal.co
   providers: [DialogService],
 })
 export class TipoTurnoComponent implements OnInit {
+  positionDialog;
   data: any[] = [];
   isUpdate: boolean = false;
   ref: DynamicDialogRef;
