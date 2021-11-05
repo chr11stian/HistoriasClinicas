@@ -25,9 +25,9 @@ export class CabeceraComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = [
-      { label: "Datos Generales" },
+      { label: "Datos Generales", icon: "pi pi-pw pi-file"},
       { label: "Antecedentes" },
-      { label: "Plan Control Integral" },
+      { label: "Plan de Control Integral" },
       { label: "Evaluación General" },
       { label: "Test de Desarrollo" },
     ]
@@ -38,7 +38,6 @@ export class CabeceraComponent implements OnInit {
       case "datos":
         this.stepName = "antecedentes"
         this.indiceActivo = 1
-        console.log("name ",this.stepName, "indice ",this.indiceActivo)
         break
       case "antecedentes":
         this.stepName = "plan"
