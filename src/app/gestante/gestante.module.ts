@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PrimeModule } from "src/app/shared/prime/prime.module";
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 
 import { GestanteRoutingModule } from './gestante-routing.module';
 import { FiliacionAntecedentesComponent } from './component/filiacion-antecedentes/filiacion-antecedentes.component';
@@ -16,7 +17,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { PanelModule } from 'primeng/panel';
 import { TabViewModule } from 'primeng/tabview';
 import { CheckboxModule } from 'primeng/checkbox';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+
 
 
 @NgModule({
