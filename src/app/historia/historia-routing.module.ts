@@ -6,7 +6,7 @@ import { UsuariosComponent } from "./usuarios/usuarios.component";
 import { UbicacionComponent } from "../mantenimientos/component/ubicacion/ubicacion.component";
 import { IpressComponent } from "./ipress/ipress.component";
 import { PacienteComponent } from "./paciente/paciente.component";
-import { RolGuardiaComponent } from "./rol-guardia/rol-guardia.component";
+import { RolGuardiaGeneralComponent } from "./rol-guardia-general/rol-guardia-general.component";
 
 const routes: Routes = [
   {
@@ -41,7 +41,7 @@ const routes: Routes = [
   },
   {
     path: "rol-guardia",
-    component: RolGuardiaComponent,
+    component: RolGuardiaGeneralComponent,
   },
 ];
 

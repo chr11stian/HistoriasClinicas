@@ -21,6 +21,7 @@ import { PanelModule } from "primeng/panel";
 import { PacienteComponent } from "./paciente/paciente.component";
 import { IpressComponent } from "./ipress/ipress.component";
 import { RolGuardiaComponent } from "./rol-guardia/rol-guardia.component";
+import { RolGuardiaGeneralComponent } from './rol-guardia-general/rol-guardia-general.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { RolGuardiaComponent } from "./rol-guardia/rol-guardia.component";
     IpressComponent,
     PacienteComponent,
     RolGuardiaComponent,
+    RolGuardiaGeneralComponent,
   ],
   exports: [PersonalSaludComponent, UsuariosComponent],
 
