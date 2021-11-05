@@ -257,7 +257,7 @@
                     <div class="p-field col-6">
                         <label>Nro Documento:</label>
                         <div class="p-inputgroup">
-                            <input type="text" pInputText formControlName='nroDoc' placeholder="Nro Documento" [(maxlength)]="tamanioDocumento">
+                            <input type="text" pInputText formControlName="nroDoc" placeholder="Nro Documento" [(maxlength)]="tamanioDocumento">
                             <button *ngIf="!loadingEncargado" type="button" pButton pRipple icon="pi pi-search"
                                 (click)="buscarPersonal()" class="p-button-outlined p-button-secondary"></button>
                             <button *ngIf="loadingEncargado" type="button" pButton pRipple icon="pi pi-spin pi-spinner"
