@@ -9,36 +9,160 @@
     </p-toolbar>
     <div class="grid m-1 ">
         <form [formGroup]='form'>
-            <p-panel header="Peso y Talla" class="font-bold">
-                <div class="p-field">
-                    <label>IMC: </label>
-                    <input type="text" pInputText formControlName='imc' placeholder="IMC">
-                </div>
-                <div class="p-field mt-2">
-                    <label>Peso Habitual: </label>
-                    <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
-                </div>
-                <div class="p-field mt-2">
-                    <label>Talla: </label>
-                    <input type="text" pInputText formControlName='talla' placeholder="Talla">
-                </div>
-            </p-panel>
+            <div class="grid">
+                <div class="col-4">
+                    <p-fieldset legend="Peso y Talla">
+                        <div class="p-field inputfield w-full">
+                            <div class="grid">
+                                <div class="col-4 text-right">
+                                    <label>IMC: </label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" pInputText formControlName='imc' placeholder="IMC"
+                                        class="inputfield w-full">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-field">
+                            <div class="grid">
+                                <div class="col-4 text-right">
+                                    <label>Peso Habitual: </label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" pInputText formControlName='pesoHabitual'
+                                        placeholder="Peso Habitual" class="inputfield w-full">
+                                </div>
+                                <div class="col-1">Kg</div>
+                            </div>
+                        </div>
+                        <div class="p-field">
+                            <div class="grid">
+                                <div class="col-4 text-right">
+                                    <label>Talla: </label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" pInputText formControlName='talla' placeholder="Talla"
+                                        class="inputfield w-full">
+                                </div>
 
-            <p-panel header="Antitetánica" class="font-bold">
-                <div class="p-field">
-                    <label>Nro Dosis Previas: </label>
-                    <p-checkbox class="check" name="groupname" value="val1" formControlName="check"></p-checkbox>
+                                <div class="col-1">
+                                    cm
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
                 </div>
-                <label>Dosis</label>
-                <div class="p-field mt-2">
-                    <label>1ra: </label>
-                    <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
+                <div class="col-5">
+                    <p-fieldset legend="Antitetánica" [toggleable]="true">
+                        <div class="grid">
+                            <label></label>
+                            <div class="col-3 flex flex-column m-1">
+                                <label>N° Dosis Previas: </label>
+                                <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual"
+                                    class="inputfield w-full">
+                            </div>
+                            <div class="col-6 flex flex-column">
+                                <label>Dosis</label>
+                                <div class="p-field grid">
+                                    <label>1ra: </label>
+                                    <input type="text" pInputText formControlName='pesoHabitual'
+                                        placeholder="Peso Habitual" class="inputfield w-full">
+                                </div>
+                                <div class="p-field">
+                                    <label>2da: </label>
+                                    <input type="text" pInputText formControlName='talla' placeholder="Talla"
+                                        class="inputfield w-full">
+                                </div>
+                            </div>
+                            <div class="col-1 flex flex-column">
+                                <label>Sin</label>
+                                <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1">
+                                </p-checkbox>
+                                <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1">
+                                </p-checkbox>
+                            </div>
+                            <div class="col-1 flex flex-column">
+                                <label>No</label>
+                                <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1">
+                                </p-checkbox>
+                                <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </p-fieldset>
                 </div>
-                <div class="p-field mt-2">
-                    <label>2da: </label>
-                    <input type="text" pInputText formControlName='talla' placeholder="Talla">
+                <div class="col-3 mt-10">
+                    <p-fieldset legend="Tipo de Sangre">
+                        <div class="grid">
+                            <label>Grupo: </label>
+                            <span class="ml-2">A</span>
+                            <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                            <span class="ml-1">B </span>
+                            <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                            <span class="ml-1">AB </span>
+                            <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                            <span class="ml-1">O </span>
+                            <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                        </div>
+                        <div class="grid mt-2">
+                            <label>Rh: </label>
+                            <span class="ml-1">Rh</span>
+                            <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                            <span class="ml-1 text-sm">Rh(-)Sen </span>
+                            <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                            <span class="ml-1 text-sm">Rh(-)No </span>
+                            <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                            <span class="ml-1 text-sm">Rh(-) </span>
+                            <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                        </div>
+                    </p-fieldset>
                 </div>
-            </p-panel>
+            </div>
+            <div class="grid">
+                <p-fieldset legend="Tipo de Sangre">
+                    <div class="grid">
+                        <label>Grupo: </label>
+                        <span class="ml-2">A</span>
+                        <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                        <span class="ml-1">B </span>
+                        <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                        <span class="ml-1">AB </span>
+                        <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                        <span class="ml-1">O </span>
+                        <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                    </div>
+                    <div class="grid mt-2">
+                        <label>Rh: </label>
+                        <span class="ml-2">Rh</span>
+                        <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                        <span class="ml-1">Rh(-)Sen </span>
+                        <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                        <span class="ml-1">AB </span>
+                        <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                        <span class="ml-1">O </span>
+                        <p-checkbox name="groupname" value="val1" formControlName="check" class="mt-1"></p-checkbox>
+                    </div>
+                </p-fieldset>
+                <p-fieldset legend="Fuma">
+                    <div class="p-field flex flex-column">
+                        <label class="text-sm">N° Cigarrillos/Dia: </label>
+                        <input type="text" pInputText formControlName='talla' placeholder="Talla"
+                            class="inputfield w-full">
+                    </div>
+                </p-fieldset>
+                <p-fieldset legend="Drogas">
+                    <div class="p-field flex flex-column">
+                        <p-selectButton [options]="sino" formControlName="drogas" optionValue="value"
+                            optionLabel="label"></p-selectButton>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="grid">
+                <p-fieldset legend="Drogas">
+                    <label>FUM </label>
+                    <p-calendar formControlName="date"></p-calendar>
+                </p-fieldset>
+            </div>
         </form>
     </div>
 </div>

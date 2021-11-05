@@ -9,6 +9,10 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class DatosBasalesComponent implements OnInit {
 
   form: FormGroup;
+  sino = [
+    { label: 'SI', value: 'SI' },
+    { label: 'NO', value: 'NO' }
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -17,7 +21,7 @@ export class DatosBasalesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   inicalizarForm() {
@@ -27,7 +31,9 @@ export class DatosBasalesComponent implements OnInit {
       talla: new FormControl(''),
       check: new FormControl(''),
       nroDosisPrevias: new FormControl(''),
-      a: new FormControl('')
+      a: new FormControl(''),
+      drogas: new FormControl(''),
+      date: new FormControl(''),
     })
   }
 
