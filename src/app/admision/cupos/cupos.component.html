@@ -1,7 +1,7 @@
 <div class="p-card">
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-            <h3 class="p-m-0">Cupos</h3>
+            <h3 class="p-m-0">LISTA DE RESERVAS DE CUPOS</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
@@ -15,17 +15,17 @@
              responsiveLayout="scroll"
              [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
 
-        <!--        <ng-template pTemplate="caption">-->
-        <!--            <div class="p-field">-->
-        <!--                <p-dropdown [options]="ups"-->
-        <!--                            [(ngModel)]="selectedServicio"-->
-        <!--                            placeholder="Seleccione un servicio"-->
-        <!--                            optionLabel="nombreUPS"-->
-        <!--                            [showClear]="false"-->
-        <!--                            (ngModelChange)="selectCupos()">-->
-        <!--                </p-dropdown>-->
-        <!--            </div>-->
-        <!--        </ng-template>-->
+                <ng-template pTemplate="caption">
+                    <div class="p-field">
+                        <p-dropdown [options]="ups"
+                                    [(ngModel)]="selectedServicio"
+                                    placeholder="Seleccione un servicio"
+                                    optionLabel="nombreUPS"
+                                    [showClear]="false"
+                                    (ngModelChange)="selectCupos()">
+                        </p-dropdown>
+                    </div>
+                </ng-template>
 
 
         <ng-template class="ng-template" pTemplate="header">
@@ -178,10 +178,11 @@
                                     <label class="ml-2 font-bold">NRO DOCUMENTO:</label>
                                     <input type="text" pInputText
                                            formControlName="nroDoc"
-                                           placeholder="DNI"/>
+                                           placeholder="DNI"
+                                           (blur)="pacienteByNroDoc()"/>
                                 </div>
                                 <div class="btn-buscar">
-                                    <p-button label="" icon="pi pi-search" (onClick)="load(0)"></p-button>
+                                    <p-button label="" icon="pi pi-search" (click)="pacienteByNroDoc()"></p-button>
                                 </div>
                             </div>
                         </div>
@@ -192,47 +193,53 @@
                                     <label class="ml-2 font-bold">APELLIDOS PATERNO</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="apellidos"
-                                           placeholder="Nombres"
-                                           placeholder="Apellido Paterno"/>
+                                           formControlName="apePaterno"/>
                                 </div>
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">APELLIDOS MATERNO</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="apellidos"
-                                           placeholder="Apellido Materno"/>
+                                           formControlName="apeMaterno"/>
                                 </div>
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">NOMBRES:</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="nombre"
-                                           placeholder="Nombres"/>
+                                           formControlName="primerNombre"/>
                                 </div>
                                 <div class="p-field col-3">
-                                    <label class="ml-2 font-bold">SEXO</label>
+                                    <label class="ml-2 font-bold">OTRO NOMBRE</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="apellidos"
-                                           placeholder="Sexo"/>
+                                           formControlName="otrosNombres"/>
                                 </div>
                             </div>
                             <div class="grid m-2">
                                 <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">SEXO</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="sexo"/>
+                                </div>
+
+                                <div class="p-field col-3">
                                     <label class="ml-2 font-bold">FECHA NACIMIENTO</label>
                                     <input type="date"
                                            pInputText
-                                           formControlName="fechaNacimiento"
-                                           placeholder="Fecha Nacimiento"/>
+                                           formControlName="fechaNacimiento"/>
                                 </div>
 
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">ESTADO CIVIL</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="estadoCivil"
-                                           placeholder="Estado Civil"/>
+                                           formControlName="estadoCivil"/>
+                                </div>
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">TELEFONO / CELULAR</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="celular"/>
                                 </div>
                             </div>
                             <div class="grid m-2">
@@ -240,32 +247,28 @@
                                     <label class="ml-2 font-bold">NACIONALIDAD</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="nacionalidad"
-                                           placeholder="Nacionalidad"/>
+                                           formControlName="nacionalidad"/>
                                 </div>
 
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">DEPARTAMENTO</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="departamento"
-                                           placeholder="Departamento"/>
+                                           formControlName="departamento"/>
                                 </div>
 
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">PROVINCIA</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="provincia"
-                                           placeholder="Provincia"/>
+                                           formControlName="provincia"/>
                                 </div>
 
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">DISTRITO</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="distrito"
-                                           placeholder="Distrito"/>
+                                           formControlName="distrito"/>
                                 </div>
                             </div>
                             <div class="grid m-2">
@@ -273,16 +276,14 @@
                                     <label class="ml-2 font-bold">CENTRO POBLADO</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="centroPoblado"
-                                           placeholder="Centro Poblado"/>
+                                           formControlName="centroPoblado"/>
                                 </div>
 
                                 <div class="p-field col-6">
-                                    <label class="ml-2 font-bold">DIRECCIONA</label>
+                                    <label class="ml-2 font-bold">DIRECCION</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="direccion"
-                                           placeholder="Direccion"/>
+                                           formControlName="direccion"/>
                                 </div>
                             </div>
                         </div>
@@ -293,39 +294,34 @@
                                     <label class="ml-2 font-bold">TIPO SEGURO</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="tipoSeguro"
-                                           placeholder="Tipo Seguro"/>
+                                           formControlName="tipoSeguro"/>
                                 </div>
 
                                 <div class="p-field col-2">
                                     <label class="ml-2 font-bold">TRANSEUNTE</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="transeunte"
-                                           placeholder="Transeunte"/>
+                                           formControlName="transeunte"/>
                                 </div>
                                 <div class="p-field col-2">
                                     <label class="ml-2 font-bold">EDAD</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="edad"
-                                           placeholder="Edad del paciente en años"/>
+                                           formControlName="edad"/>
                                 </div>
 
                                 <div class="p-field col-2">
                                     <label class="ml-2 font-bold">DIAS</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="dias"
-                                           placeholder="Edad del paciente en Dias"/>
+                                           formControlName="dias"/>
                                 </div>
 
                                 <div class="p-field col-4">
                                     <label class="ml-2 font-bold">ETAPA DE VIDA</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="transeunte"
-                                           placeholder="Etapa de vida del paciente"/>
+                                           formControlName="etapadeVida"/>
                                 </div>
                             </div>
                         </div>
@@ -368,7 +364,7 @@
 
 
     <ng-template pTemplate=footer>
-        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="cancelarPersona()"></button>
+        <button pButton type="button" label="Cancelar" class="p-button-danger"></button>
         <button pButton type="button" label="Guardar" (click)="saveForm()"></button>
     </ng-template>
 </p-dialog>

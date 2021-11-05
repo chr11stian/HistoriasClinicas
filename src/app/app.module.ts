@@ -1,3 +1,4 @@
+// No puedieron vivir con su fracaso, a donde los llevó eso?... De vuelta a mí xD
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
