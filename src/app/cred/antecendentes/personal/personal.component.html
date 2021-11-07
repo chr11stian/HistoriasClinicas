@@ -1,1 +1,153 @@
-<p>personal works!</p>
+<div>
+    <p-fieldset legend="Antecedentes Perinatales" [toggleable]="true">
+        <div>
+            <p-fieldset legend="Embarazo" >
+                <div class="grid">
+                    <div class="col">
+                        <span style="padding: 0.5rem;">Patologías durante la gestación</span>
+
+                        <div class="col">
+                            <input id="firstname4" type="text" class="inputfield w-full"pInputText>
+                        </div>
+
+                        <div class="col">
+                            <input id="lastname4" type="text" class="inputfield w-full"pInputText>
+                        </div>
+                        
+                    </div>
+                    <div class="col-2 md:col-2 lg:col-2  align-self-start justify-content-center flex flex-column">
+                        <span>Normal</span>
+                        <p-selectButton [options]="stateOptions"
+                        formControlName="normal"
+                        optionLabel="label"
+                        optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="col-2 md:col-2 lg:col-2  align-self-start justify-content-center flex flex-column">
+                        <span>Complicado</span>
+                        <p-selectButton [options]="stateOptions"
+                        formControlName="complicado"
+                        optionLabel="label"
+                        optionValue="value">
+                        </p-selectButton>
+                    </div>
+
+                </div>
+                <div class="grid">
+                    
+                    <div class="col-2 md:col-2 lg:col-2  align-self-start justify-content-center flex flex-column">
+                        <span style="padding: 0.5rem;">N° de embarazo</span>
+                                                
+                        <div class="col">
+                            <input  type="text" class="inputfield w-full"pInputText>
+                        </div>
+                    </div>
+                    <div class="col-2 md:col-2 lg:col-2  align-self-start justify-content-center flex flex-column">
+                        <span>Atencion prenatal</span>
+                        <p-selectButton [options]="stateOptions"
+                        formControlName="complicado"
+                        optionLabel="label"
+                        optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="col-2 md:col-2 lg:col-2  align-self-start justify-content-center flex flex-column">
+                        <span style="padding: 0.5rem;">N° de embarazo</span>
+                                                
+                        <div class="col">
+                            <input  type="text" class="inputfield w-full"pInputText>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <span style="padding: 0.5rem;">Lugar de APN</span>
+                        
+                        
+                        <div class="col">
+                            <input id="firstname4" type="text" class="inputfield w-full"pInputText>
+                        </div>
+
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div>
+            <p-fieldset legend="Parto">
+                <div class="grid">
+                    <div class="col">
+                        <span style="padding: 0.5rem;">Complicaciones del parto</span>
+
+                        <div class="col">
+                            <input  type="text" class="inputfield w-full"pInputText>
+                        </div>
+
+                    </div>
+                    <div class="col-2 md:col-2 lg:col-2  align-self-start justify-content-center flex flex-column">
+                        <span>Parto Eptopico</span>
+                        <p-selectButton [options]="stateOptions"
+                        formControlName="normal"
+                        optionLabel="label"
+                        optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="col-2 md:col-2 lg:col-2  align-self-start justify-content-center flex flex-column">
+                        <span>Complicado</span>
+                        <p-selectButton [options]="stateOptions"
+                        formControlName="complicado"
+                        optionLabel="label"
+                        optionValue="value">
+                        </p-selectButton>
+                    </div>
+
+                </div>
+                <div class="grid">
+                    <div class="col-6  flex">
+                        <p>Lugar del parto:</p>
+                        <div class="col-2 ">
+                            <span>Normal</span>
+                            <p-selectButton [options]="stateOptions"
+                            formControlName="normal"
+                            optionLabel="label"
+                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="col-2 ">
+                            <span>Complicado</span>
+                            <p-selectButton [options]="stateOptions"
+                            formControlName="complicado"
+                            optionLabel="label"
+                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="col-2 ">
+                            <span>Complicado</span>
+                            <p-selectButton [options]="stateOptions"
+                            formControlName="complicado"
+                            optionLabel="label"
+                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <span>Atendido por:</span>
+                    </div>
+                    
+                </div>
+                
+            </p-fieldset>
+        </div>
+        <div>
+            <p-fieldset legend="Nacimiento">
+                Content
+            </p-fieldset>
+        </div>
+    </p-fieldset>
+</div>
+<div>
+    <p-fieldset legend="Alimentación" [toggleable]="true">
+        contenido
+    </p-fieldset>
+</div>
+<div>
+    <p-fieldset legend="Patológicos" [toggleable]="true">
+        contenido
+    </p-fieldset>
+</div>

@@ -1,0 +1,8 @@
+p-fieldset >>> .p-fieldset .p-fieldset-legend {
+    font-weight: 700;
+    
+}
+
+p-fieldset >>> .p-fieldset-legend>a, .p-fieldset-legend>span {
+    padding: 1rem;
+}

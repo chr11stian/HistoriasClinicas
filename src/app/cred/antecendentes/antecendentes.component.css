@@ -9,7 +9,7 @@ p-tabview >>> .p-tabview .p-tabview-nav{
 }
 
 p-tabview >>> .p-tabview .p-tabview-panels {
-    height: 650px;
+    height: 100%;
 }
 
 p-tabview >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
