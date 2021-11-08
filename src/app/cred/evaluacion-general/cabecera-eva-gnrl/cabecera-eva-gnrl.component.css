@@ -1,0 +1,32 @@
+p-steps >>> * {
+    text-align: center;
+    font-size: small;
+    width: 100%;
+}
+
+:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+    border-radius: 0px;
+    width: 100%;
+    height: 50px;
+    color: transparent;
+    word-wrap: break-word;
+    background: #ECECEC;
+    border: 1px solid #e6e6e6;
+}
+
+:host
+  >>> .p-steps
+  .p-steps-item.p-steps-current
+  .p-menuitem-link
+  .p-steps-number {
+  border: 1px solid #707070;
+  background: #DCDCDC;
+}
+
+:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
+    
+    color: #393939;
+  }
+  :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
+    color: #393939;
+  }
