@@ -99,9 +99,17 @@
 
                 </div>
                 <div class="grid">
-                    <div class="col-6  flex">
+                    <div class="col-6">
                         <p>Lugar del parto:</p>
-                        <div class="col-2 ">
+                    </div>
+                    <div class="col-6">
+                        <span>Atendido por:</span>
+                    </div>
+                    
+                </div>
+                <div class="grid">
+                    <div class="col-6  flex">                    
+                        <div class="col-4 ">
                             <span>Normal</span>
                             <p-selectButton [options]="stateOptions"
                             formControlName="normal"
@@ -109,7 +117,7 @@
                             optionValue="value">
                             </p-selectButton>
                         </div>
-                        <div class="col-2 ">
+                        <div class="col-4 ">
                             <span>Complicado</span>
                             <p-selectButton [options]="stateOptions"
                             formControlName="complicado"
@@ -117,7 +125,7 @@
                             optionValue="value">
                             </p-selectButton>
                         </div>
-                        <div class="col-2 ">
+                        <div class="col-4 ">
                             <span>Complicado</span>
                             <p-selectButton [options]="stateOptions"
                             formControlName="complicado"
@@ -126,24 +134,214 @@
                             </p-selectButton>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <span>Atendido por:</span>
-                    </div>
-                    
+
+                    <div class="col-6  flex">                    
+                        <div class="col-3 ">
+                            <span>Normal</span>
+                            <p-selectButton [options]="stateOptions"
+                            formControlName="normal"
+                            optionLabel="label"
+                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="col-3 ">
+                            <span>Normal</span>
+                            <p-selectButton [options]="stateOptions"
+                            formControlName="normal"
+                            optionLabel="label"
+                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="col-3 ">
+                            <span>Complicado</span>
+                            <p-selectButton [options]="stateOptions"
+                            formControlName="complicado"
+                            optionLabel="label"
+                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="col-3 ">
+                            <span>Complicado</span>
+                            <p-selectButton [options]="stateOptions"
+                            formControlName="complicado"
+                            optionLabel="label"
+                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                    </div>                        
                 </div>
-                
+
+                <div class="grid ">
+                    <div class=" col-6 col-offset-6">
+                        <div class="formgrid grid">
+                            <div class="col-3 field  md:col-3">
+                                <span>Complicado</span>
+                                <p-selectButton [options]="stateOptions"
+                                formControlName="complicado"
+                                optionLabel="label"
+                                optionValue="value">
+                                </p-selectButton>
+                            </div>
+                            <div class="col md:col">
+                                <input  type="text" class=" w-full"pInputText>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
             </p-fieldset>
         </div>
         <div>
             <p-fieldset legend="Nacimiento">
-                Content
+                
+                <div class="grid">
+                    <div class="col">
+                        <span style="padding: 0.5rem;">Edad Gest al nacer(sem)</span>
+                        <div class="col">
+                            <input id="firstname4" type="text" class="inputfield w-full"pInputText>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <span style="padding: 0.5rem;">Peso al nacer(gr)</span>
+                        <div class="col">
+                            <input id="firstname4" type="text" class="inputfield w-full"pInputText>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <span style="padding: 0.5rem;">Talla al nacer(cm)</span>
+                        <div class="col">
+                            <input id="firstname4" type="text" class="inputfield w-full"pInputText>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <span style="padding: 0.5rem;">Perímetro Cefalico</span>
+                        <div class="col">
+                            <input id="firstname4" type="text" class="inputfield w-full"pInputText>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <span style="padding: 0.5rem;">Perímetro Torácico</span>
+                        <div class="col">
+                            <input id="firstname4" type="text" class="inputfield w-full"pInputText>
+                        </div>
+                    </div>
+                </div>
+                <p>Respiración y llanto al nacer</p>
+                
+                <div class="grid ">
+                    <div class="col-6  flex">                    
+                        <div class="col-3 ">
+                            <span>Inmediato</span>
+                            <p-selectButton [options]="stateOptions"
+                            formControlName="normal"
+                            optionLabel="label"
+                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="col-3 ">
+                            <span>APGAR</span>
+                            <p-selectButton [options]="stateOptions"
+                            formControlName="normal"
+                            optionLabel="label"
+                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="col-3 ">
+                            <span>Reanimación</span>
+                            <p-selectButton [options]="stateOptions"
+                            formControlName="complicado"
+                            optionLabel="label"
+                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="col-3 ">
+                            <span>Patolog neonatal</span>
+                            <p-selectButton [options]="stateOptions"
+                            formControlName="complicado"
+                            optionLabel="label"
+                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                    </div>                
+                    <div class="col-3">
+                        <div class="col">
+                            <span >Especifique</span>
+                            <input id="firstname4" type="text" class="inputfield w-full"pInputText>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        
+                        <div class="formgrid grid">
+                            <div class="col field  md:col">
+                                <span>Hospitalización</span>
+                                <p-selectButton [options]="stateOptions"
+                                formControlName="complicado"
+                                optionLabel="label"
+                                optionValue="value">
+                                </p-selectButton>
+                            </div>
+                            <div class="col md:col">
+                                <span >Tiempo Hospit.</span>
+                                <input  type="text" class=" w-full"pInputText>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
             </p-fieldset>
         </div>
     </p-fieldset>
 </div>
 <div>
     <p-fieldset legend="Alimentación" [toggleable]="true">
-        contenido
+        <div class="grid ">
+            <div class="col-2">
+                <p>Primeros 6 meses:</p>
+            </div>
+            <div class="field">
+                <div class="col-1">
+                    <p>LME <br></p>
+                    <p>Mixta <br></p>
+                    <p>Artificial <br></p>
+                </div>
+                
+            </div>
+            <div class="field col">
+                <p-selectButton [options]="stateOptions"
+                                formControlName="normal"
+                                optionLabel="label"
+                                optionValue="value">
+                </p-selectButton>
+                <p-selectButton [options]="stateOptions"
+                                formControlName="normal"
+                                optionLabel="label"
+                                optionValue="value">
+                </p-selectButton>
+                <p-selectButton [options]="stateOptions"
+                                formControlName="normal"
+                                optionLabel="label"
+                                optionValue="value">
+                </p-selectButton>
+            </div>
+            <div class="col-2">
+                <p>Inicio de alimentación complementaria</p>
+            </div>
+            <div class="col-2">
+                <input  type="text" class=" w-full"pInputText>
+            </div>
+            <div class="col-2">
+                <p>Suplemento de
+                    Fe < 2 años</p>
+            </div>
+            <div class="col-2">
+                <p-selectButton [options]="stateOptions"
+                                formControlName="normal"
+                                optionLabel="label"
+                                optionValue="value">
+                </p-selectButton>
+            </div>
+        </div>
     </p-fieldset>
 </div>
 <div>
