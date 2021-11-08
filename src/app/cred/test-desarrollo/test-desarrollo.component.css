@@ -1,0 +1,10 @@
+p-card >>> .p-card .p-card-title{
+   margin: 0.5rem 0rem 0.5rem 0.5rem;
+}
+.caja {
+   background-color: red;
+   color: white;
+   border-radius:10px;
+   width: 60px;
+   height: 40px;
+}
