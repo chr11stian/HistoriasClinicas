@@ -9,67 +9,36 @@
     </p-toolbar>
     <div class="grid m-1 ">
         <form [formGroup]='form'>
-        <p-panel header="Peso y Talla" class="font-bold">
-            <div class="p-field">
-                <label>IMC: </label>
-                <input type="text" pInputText formControlName='imc' placeholder="IMC">
-            </div>
-            <div class="p-field mt-2">
-                <label>Peso Habitual: </label>
-                <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
-            </div>
-            <div class="p-field mt-2">
-                <label>Talla: </label>
-                <input type="text" pInputText formControlName='a' placeholder="Talla">
-            </div>
-        </p-panel>
+            <p-panel header="Peso y Talla" class="font-bold">
+                <div class="p-field">
+                    <label>IMC: </label>
+                    <input type="text" pInputText formControlName='imc' placeholder="IMC">
+                </div>
+                <div class="p-field mt-2">
+                    <label>Peso Habitual: </label>
+                    <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
+                </div>
+                <div class="p-field mt-2">
+                    <label>Talla: </label>
+                    <input type="text" pInputText formControlName='talla' placeholder="Talla">
+                </div>
+            </p-panel>
 
-        <p-panel header="Antitetánica" class="font-bold">
-            <div class="p-field">
-                <label>Nro Dosis Previas: </label>
-                <p-checkbox class="check" name="groupname" value="val1" formControlName="check"></p-checkbox>
-            </div>
-            <label>Dosis</label>
-            <div class="p-field mt-2">
-                <label>1ra: </label>
-                <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
-            </div>
-            <div class="p-field mt-2">
-                <label>2da: </label>
-                <input type="text" pInputText formControlName='talla' placeholder="Talla">
-            </div>
-        </p-panel>
-
-        <p-panel header="Antitetánica" class="font-bold">
-            <div class="p-field">
-                <label>Nro Dosis Previas: </label>
-                <input type="text" pInputText formControlName='nroDosisPrevias' placeholder="Dosis Previas">
-            </div>
-            <label>Dosis</label>
-            <div class="p-field mt-2">
-                <label>1ra: </label>
-                <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
-            </div>
-            <div class="p-field mt-2">
-                <label>2da: </label>
-                <input type="text" pInputText formControlName='talla' placeholder="Talla">
-            </div>
-        </p-panel>
-
-        <p-panel header="Peso y Talla" class="font-bold">
-            <div class="p-field">
-                <label>IMC: </label>
-                <input type="text" pInputText formControlName='imc' placeholder="IMC">
-            </div>
-            <div class="p-field mt-2">
-                <label>Peso Habitual: </label>
-                <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
-            </div>
-            <div class="p-field mt-2">
-                <label>Talla: </label>
-                <input type="text" pInputText formControlName='talla' placeholder="Talla">
-            </div>
-        </p-panel>
-    </form>
+            <p-panel header="Antitetánica" class="font-bold">
+                <div class="p-field">
+                    <label>Nro Dosis Previas: </label>
+                    <p-checkbox class="check" name="groupname" value="val1" formControlName="check"></p-checkbox>
+                </div>
+                <label>Dosis</label>
+                <div class="p-field mt-2">
+                    <label>1ra: </label>
+                    <input type="text" pInputText formControlName='pesoHabitual' placeholder="Peso Habitual">
+                </div>
+                <div class="p-field mt-2">
+                    <label>2da: </label>
+                    <input type="text" pInputText formControlName='talla' placeholder="Talla">
+                </div>
+            </p-panel>
+        </form>
     </div>
 </div>
