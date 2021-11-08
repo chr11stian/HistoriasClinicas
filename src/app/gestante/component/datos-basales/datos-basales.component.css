@@ -8,3 +8,7 @@
 p-checkbox>>> .p-checkbox .p-checkbox-box{
     border-radius: 50% !important;
 }
+
+.texto{
+    font-size: .40rem;
+}

@@ -34,7 +34,7 @@ export class DatosBasalesComponent implements OnInit {
       a: new FormControl(''),
       drogas: new FormControl(''),
       date: new FormControl(''),
-    })
+    });
   }
 
 }
