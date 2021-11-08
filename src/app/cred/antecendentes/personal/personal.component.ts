@@ -8,12 +8,14 @@ import { FormGroup, FormBuilder, AbstractControl, Validators, FormControl } from
 })
 export class PersonalComponent implements OnInit {
   stateOptions: any[];
+  
   personalFG: FormGroup;
   tabla: any[] =[{normal:true},{complicado:false}];
   constructor(private formBuilder: FormBuilder) {
     this.buildForm();
     this.stateOptions = [{label: 'SI', value: true},
                           {label: 'NO', value: false}];
+    
    }
 
    buildForm(): void {

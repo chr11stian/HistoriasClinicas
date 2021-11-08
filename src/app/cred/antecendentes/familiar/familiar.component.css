@@ -1,8 +1,14 @@
-p-fieldset >>> .p-fieldset .p-fieldset-legend {
-    font-weight: 700;
+p-fieldset >>>.p-fieldset .p-fieldset-legend {
+    font-weight: 650;
+    
     
 }
-
-p-fieldset >>> .p-fieldset-legend>a, .p-fieldset-legend>span {
+p-fieldset >>> .p-fieldset-legend>span {
     padding: 1rem;
+}
+
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background: #00118d;
+    border-color: #00118d;
+    
 }

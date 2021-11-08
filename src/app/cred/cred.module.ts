@@ -16,6 +16,7 @@ import { FamiliarComponent } from './antecendentes/familiar/familiar.component';
 import { ViviendaComponent } from './antecendentes/vivienda/vivienda.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -39,7 +40,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     TabViewModule,
     FieldsetModule,
     InputTextModule,
-    SelectButtonModule
+    SelectButtonModule,
+    DropdownModule
   ]
 })
 export class CredModule { }

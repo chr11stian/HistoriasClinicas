@@ -183,7 +183,7 @@
                                 </p-selectButton>
                             </div>
                             <div class="col md:col">
-                                <input  type="text" class=" w-full"pInputText>
+                                <input  type="text" class=" w-full" placeholder="Especifique" pInputText>
                             </div>
                             
                         </div>
@@ -266,7 +266,7 @@
                     <div class="col-3">
                         <div class="col">
                             <span >Especifique</span>
-                            <input id="firstname4" type="text" class="inputfield w-full"pInputText>
+                            <input id="firstname4" type="text" class="inputfield w-full" placeholder="Especifique" pInputText>
                         </div>
                     </div>
                     <div class="col-3">
@@ -299,30 +299,34 @@
             <div class="col-2">
                 <p>Primeros 6 meses:</p>
             </div>
-            <div class="field">
-                <div class="col-1">
-                    <p>LME <br></p>
-                    <p>Mixta <br></p>
-                    <p>Artificial <br></p>
+            
+            <div class="col-2.5">
+                <div class="card">
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">LME</span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">Mixta</span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">Artificial</span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
                 </div>
-                
-            </div>
-            <div class="field col">
-                <p-selectButton [options]="stateOptions"
-                                formControlName="normal"
-                                optionLabel="label"
-                                optionValue="value">
-                </p-selectButton>
-                <p-selectButton [options]="stateOptions"
-                                formControlName="normal"
-                                optionLabel="label"
-                                optionValue="value">
-                </p-selectButton>
-                <p-selectButton [options]="stateOptions"
-                                formControlName="normal"
-                                optionLabel="label"
-                                optionValue="value">
-                </p-selectButton>
             </div>
             <div class="col-2">
                 <p>Inicio de alimentación complementaria</p>
@@ -334,7 +338,7 @@
                 <p>Suplemento de
                     Fe < 2 años</p>
             </div>
-            <div class="col-2">
+            <div class="col">
                 <p-selectButton [options]="stateOptions"
                                 formControlName="normal"
                                 optionLabel="label"
@@ -346,6 +350,105 @@
 </div>
 <div>
     <p-fieldset legend="Patológicos" [toggleable]="true">
-        contenido
+        <div class="grid">
+            
+            <div class="col-3">
+                <div class="card">
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">TBC</span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">SOBA/Asma</span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">Epilepsia</span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">Infecciones</span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">Hospitalizaciones</span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">Transfusiones Sang.</span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="card">
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">Cirugía</span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">Alergia a medicamentos </span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="field grid">
+                        
+                        <input id="firstname4" type="text" class="inputfield w-full" placeholder="Especifique" pInputText>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 align-self-end flex align-items-center justify-content-center">
+                <div class="card">
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">Otros ant.</span>
+                        <p-selectButton [options]="stateOptions"
+                                    formControlName="normal"
+                                    optionLabel="label"
+                                    optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="field grid">
+                        
+                        <input id="firstname4" type="text" class="inputfield w-full" placeholder="Especifique" pInputText>
+                    </div>
+                </div>
+            </div>
+        </div>
     </p-fieldset>
 </div>
