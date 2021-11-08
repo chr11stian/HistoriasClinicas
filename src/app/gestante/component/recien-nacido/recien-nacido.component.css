@@ -1,4 +1,29 @@
-p-panel>>>.p-checkbox .p-checkbox-box{
+p-fieldset >>> .p-fieldset .p-fieldset-legend {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    background: #d8dee5;
+    font-weight: 600;
+    border-radius: 5px;
+    font-size: small;
+}
+p-fieldset>>>.p-checkbox .p-checkbox-box{
     border-radius: 50%;
-    background: red;
+    width: 18px;
+    height: 18px;
+}
+p-fieldset >>> .p-fieldset .p-fieldset-content {
+    padding: 1px;
+    font-size: small;
+}
+.p-inputtext-sm{
+    width: 100%;
+    height: 20px;
+    border-radius: 5px;
+}
+.espacio{
+    margin-bottom: 110px;
+}
+.espacio-final{
+    margin-top: 16px;
 }

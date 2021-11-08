@@ -7,30 +7,1337 @@
             <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"></button>
         </ng-template>
     </p-toolbar>
-    <div class="grid m-1 ">
-        <!-- <p-panel header="Peso y Talla" class="font-bold">
-            <h5>Multiple</h5>
-            <form [formGroup]='form'>
-                <div>
-                    <div class="p-field-checkbox">
-                        <p-checkbox id="group1" value="New York" formControlName="selectedCities" inputId="ny"></p-checkbox>
-                        <label for="ny">New York</label>
+    <form [formGroup]='form'>
+        <div class="grid">
+            <div class="col-5">
+                <p-fieldset legend="Recien nacido">
+                    <div class="grid">
+                        <div class="col-4 text-right">
+                            <div class="grid">
+                                <div class="col-10">
+                                    <label>Femenino:</label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-10">
+                                    <label>Masculino:</label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-10">
+                                    <label>Indeterminado:</label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox id="group1" value="Indeterminado" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5 text-right">
+                            <div class="grid">
+                                <div class="col-4">
+                                    <label>Peso:</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-1">
+                                    <label>g.</label>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-4">
+                                    <label>P. Cef.:</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-1">
+                                    <label>mm.</label>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-4">
+                                    <label>Temp.</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-1">
+                                    <label>C.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="grid">
+                                <div class="col-2">
+                                    <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                                <div class="col-10">
+                                    <label>&lt;2500g</label>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-2">
+                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                                <div class="col-10">
+                                    <label> &lt;1500g</label>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-2">
+                                    <p-checkbox id="group1" value="Indeterminado" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                                <div class="col-10">
+                                    <label>&gt; 4000g</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="p-field">
-                        <p-checkbox id="group1" value="San Francisco" formControlName="selectedCities" inputId="sf">
-                        </p-checkbox>
-                        <label for="sf">San Francisco</label>
+                    <br />
+                    <div class="grid">
+                        <div class="col-7 text-right">
+                            <div class="grid">
+                                <div class="col-4">
+                                    <label>TALLA:</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-1">
+                                    <label>mm.</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="p-field-checkbox">
-                        <p-checkbox id="group1" value="Los Angeles" formControlName="selectedCities" inputId="la"></p-checkbox>
-                        <label for="la">Los Angeles</label>
+                </p-fieldset>
+            </div>
+            <div class="col-7">
+                <p-fieldset>
+                    <div class="grid">
+                        <div class="col-5 text-right">
+                            <div class="grid">
+                                <div class="col-4">
+                                    <label>HC RN:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 text-right">
+                            <div class="grid">
+                                <div class="col-4">
+                                    <label>NOMBRE RN:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="p-field-checkbox">
-                        <p-checkbox id="group1" value="Chicago" formControlName="selectedCities" inputId="ch"></p-checkbox>
-                        <label for="ch">Chicago</label>
+                </p-fieldset>
+                <p-fieldset legend="Patologia de Recien nacido">
+                    <div class="grid">
+                        <div class="col-12 text-center">
+                            <div class="grid">
+                                <div class="col-1 "> </div>
+                                <div class="col-5 "> </div>
+                                <div class="col-3 ">
+                                    <label>Fecha</label>
+                                </div>
+                                <div class="col-3 m-0 py-0">
+                                    <div class="grid ">
+                                        <div class="col-8">
+                                            <label>Sin patologias:</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Indeterminado"
+                                                formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-right">
+                            <div class="grid">
+                                <div class="col-1">
+                                    <label>1.</label>
+                                </div>
+                                <div class="col-5">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-3">
+                                    <input type="date" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 text-right">
+                            <div class="grid">
+                                <div class="col-1">
+                                    <label>2.</label>
+                                </div>
+                                <div class="col-5">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-3">
+                                    <input type="date" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+        </div>
+        <!-- siguiente linea -->
+        <div class="grid">
+            <div class="col-5">
+                <p-fieldset>
+                    <div class="grid">
+                        <div class="col-4 text-right">
+                            <div class="grid">
+                                <div class="col-6">
+                                    <label>Edad por Ex. Fisico:</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="grid">
+                                <div class="col-5 text-right">
+                                    <label>Sem.:</label>
+                                </div>
+                                <div class="col-7">
+                                    <div class="grid">
+                                        <div class="col-12">
+                                            <p-checkbox class="pb-0" id="group1" value="Masculino"
+                                                formControlName="selectedSexo">
+                                            </p-checkbox>
+                                            <label>&lt;37</label>
+                                        </div>
+                                        <div class="col-12">
+                                            <p-checkbox class="pt-0" id="group1" value="Masculino"
+                                                formControlName="selectedSexo">
+                                            </p-checkbox>
+                                            <label>&lt;42</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 text-right">
+                            <div class="grid">
+                                <div class="col-4">
+                                    <label>APGAR</label>
+                                </div>
+                                <div class="col-4">
+                                    <label>4-6</label>
+                                </div>
+                                <div class="col-4">
+                                    <label>0-6</label>
+                                </div>
+                                <div class="col-4">
+                                    <div class="grid">
+                                        <div class="col-6">
+                                            <label>1':</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-6">
+                                            <label>5':</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="grid">
+                                        <div class="col-12">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-12">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-4">
+                                    <div class="grid">
+                                        <div class="col-12">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-12">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-12">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <label>Peso por edad gestacional:</label>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-10">
+                                    <div class="grid  text-right">
+                                        <div class="col-4">
+                                            <div class="grid">
+                                                <div class="col-7">
+                                                    <label>Adecuado</label>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p-checkbox id="group1" value="Femenino"
+                                                        formControlName="selectedSexo">
+                                                    </p-checkbox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="grid">
+                                                <div class="col-7">
+                                                    <label>Pequenio</label>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p-checkbox id="group1" value="Femenino"
+                                                        formControlName="selectedSexo">
+                                                    </p-checkbox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="grid">
+                                                <div class="col-7">
+                                                    <label>Grande</label>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p-checkbox id="group1" value="Femenino"
+                                                        formControlName="selectedSexo">
+                                                    </p-checkbox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-4">
+                <p-fieldset>
+                    <div class="grid">
+                        <div class="col-8">
+                            <div class="grid">
+                                <div class="col-1"></div>
+                                <div class="col-10 text-center">
+                                    <label>Reanimacion respiratoria</label>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-12">
+                                    <div class="grid text-right">
+                                        <div class="col-6">
+                                            <div class="grid">
+                                                <div class="col-8">
+                                                    <label>No:</label>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p-checkbox id="group1" value="Femenino"
+                                                        formControlName="selectedSexo">
+                                                    </p-checkbox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="grid">
+                                                <div class="col-8">
+                                                    <label>Bolsa y mascara:</label>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p-checkbox id="group1" value="Femenino"
+                                                        formControlName="selectedSexo">
+                                                    </p-checkbox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="grid  text-right">
+                                        <div class="col-6">
+                                            <div class="grid">
+                                                <div class="col-8">
+                                                    <label>Oxigeno:</label>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p-checkbox id="group1" value="Femenino"
+                                                        formControlName="selectedSexo">
+                                                    </p-checkbox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="grid">
+                                                <div class="col-8">
+                                                    <label>Reanim. avanza.:</label>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p-checkbox id="group1" value="Femenino"
+                                                        formControlName="selectedSexo">
+                                                    </p-checkbox>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 text-center">
+                            <div class="col-12">
+                                <label>Medicacion en reanim. RN:</label>
+                            </div>
+                            <div class="col-12">
+                                <p-selectButton [options]="stateOptions" formControlName="selectedMedicacion"
+                                    optionLabel="label" optionValue="value"></p-selectButton>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-3">
+                <div class="grid">
+                    <div class="col-12">
+                        <p-fieldset>
+                            <div class="grid text-center">
+                                <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-6">
+                                            <label>Vitamina K</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <p-selectButton [options]="stateOptions"
+                                                formControlName="selectedMedicacion" optionLabel="label"
+                                                optionValue="value"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-6">
+                                            <label>Profilaxis Ocular</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <p-selectButton [options]="stateOptions"
+                                                formControlName="selectedMedicacion" optionLabel="label"
+                                                optionValue="value"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div class="col-12">
+                        <p-fieldset>
+                            <div class="grid text-center">
+                                <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-6">
+                                            <label>Control puerperio inmediato</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <p-selectButton [options]="stateOptions"
+                                                formControlName="selectedMedicacion" optionLabel="label"
+                                                optionValue="value"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset>
                     </div>
                 </div>
-            </form>
-        </p-panel> -->
-    </div>
+            </div>
+        </div>
+        <!-- siguiente linea -->
+        <div class="grid">
+            <div class="col-4">
+                <p-fieldset>
+                    <div class="grid">
+                        <div class="col-4 text-right">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="col-12 text-center">
+                                        <label>Exa. Fisico:</label>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>Normal</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>Anormal</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="col-12 text-center">
+                                        <label>Examen VIH:</label>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>No reactivo</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>Reactivo</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>No se hizo</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>No aplica</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-4 text-right">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="col-12 text-center">
+                                        <label>Hospitalizacion:</label>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>Si</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>No</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="col-12 text-center">
+                                        <label>Necropsia:</label>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>Si</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>No</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid mb-6">
+                                        <div class="col-8">
+                                            <label>No aplica</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 text-right ">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="col-12">
+                                        <label>S. Luética RN VDRL/RPR:</label>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>-</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>+</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid espacio">
+                                        <div class="col-8">
+                                            <label>No se hizo</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+                <p-fieldset>
+                    <div class="grid">
+                        <div class="col-4 text-right">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="col-12 text-center">
+                                        <label>Alojamiento Conjunto</label>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>Si</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>No</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>No aplica</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 text-right">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="col-12 text-center">
+                                        <label>Contacto Piel a Piel (LMH)</label>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>Si</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>No</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>No aplica</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="col-4 text-right ">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="col-12 espacio-final">
+                                        <label>LME</label>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>Si</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <label>No</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                    <div class="grid ">
+                                        <div class="col-8">
+                                            <label>No aplica</label>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-2">
+                <p-fieldset legend="Evaluacion RN">
+                    <div class="grid text-center">
+                        <div class="col-12">
+                            <div class="col-12 text-center">
+                                <label>Deposiciones:</label>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <label>Meconial</label>
+                                </div>
+                                <div class="col-4">
+                                    <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <label>Transicional</label>
+                                </div>
+                                <div class="col-4">
+                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <label>Amarillo</label>
+                                </div>
+                                <div class="col-4">
+                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="grid text-center">
+                                <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-12">
+                                            <label>Ictericia Precoz:</label>
+                                        </div>
+                                        <div class="col-12">
+                                            <p-selectButton [options]="stateOptions"
+                                                formControlName="selectedMedicacion" optionLabel="label"
+                                                optionValue="value"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+                <p-fieldset legend="Vacunas RN">
+                    <div class="grid text-center">
+                        <div class="col-4">
+                            <label>BCG:</label>
+                        </div>
+                        <div class="col-8">
+                            <p-selectButton [options]="stateOptions" formControlName="selectedMedicacion"
+                                optionLabel="label" optionValue="value"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="grid text-center">
+                        <div class="col-4">
+                            <label>Hepat. B:</label>
+                        </div>
+                        <div class="col-8">
+                            <p-selectButton [options]="stateOptions" formControlName="selectedMedicacion"
+                                optionLabel="label" optionValue="value"></p-selectButton>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-3">
+                <p-fieldset legend="Egreso RN">
+                    <div class="grid">
+                        <div class="col-12 text-center">
+                            <div class="grid">
+                                <div class="col-2"></div>
+                                <div class="col-8">
+                                    <input type="date" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid ">
+                        <div class="col-3">
+                            <label class="text-xs">Egreso:</label>
+                        </div>
+                        <div class="col-4">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-7">
+                                            <span class="text-xs">Sano</span>
+                                        </div>
+                                        <div class="col-5">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-7">
+                                            <span class="text-xs">Traslado</span>
+                                        </div>
+                                        <div class="col-5">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <span class="text-xs">Con patologia</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="grid ">
+                                        <div class="col-8">
+                                            <span class="text-xs">Fallece</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="grid">
+                            <div class="col-5">
+                                <span>Dx. Fallecim.:</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="p-inputtext-sm " pInputText />
+                            </div>
+                            <div class="col-1">
+                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="grid">
+                            <div class="col-5">
+                                <span>Dx. Traslado.:</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="p-inputtext-sm " pInputText />
+                            </div>
+                            <div class="col-1">
+                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="grid">
+                            <div class="col-5">
+                                <span>Estable. Tras.:</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="p-inputtext-sm " pInputText />
+                            </div>
+                            <div class="col-1">
+                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="col-12 text-center">
+                                <label>Alimento al Alta:</label>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Pecho solo</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Pecho y artificial</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Artificial solo</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">No aplica</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="grid text-center">
+                                <div class="col-12 ">
+                                    <label>TSH:</label>
+                                </div>
+                                <div class="col-12">
+                                    <p-selectButton [options]="stateOptions" formControlName="selectedMedicacion"
+                                        optionLabel="label" optionValue="value"></p-selectButton>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="grid text-right">
+                                <div class="col-4">
+                                    <label>Peso:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="p-inputtext-sm" pInputText />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-3">
+                <p-fieldset legend="Egreso Materno">
+                    <div class="grid">
+                        <div class="col-12 text-center">
+                            <div class="grid">
+                                <div class="col-2"></div>
+                                <div class="col-8">
+                                    <input type="date" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid ">
+                        <div class="col-3">
+                            <label class="text-xs">Egreso:</label>
+                        </div>
+                        <div class="col-4">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-7">
+                                            <span class="text-xs">Sano</span>
+                                        </div>
+                                        <div class="col-5">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-7">
+                                            <span class="text-xs">Traslado</span>
+                                        </div>
+                                        <div class="col-5">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="grid">
+                                <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-8">
+                                            <span class="text-xs">Con patologia</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="grid ">
+                                        <div class="col-8">
+                                            <span class="text-xs">Fallece</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="grid">
+                            <div class="col-5">
+                                <span>Dx. Fallecim.:</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="p-inputtext-sm " pInputText />
+                            </div>
+                            <div class="col-1">
+                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="grid">
+                            <div class="col-5">
+                                <span>Dx. Traslado.:</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="p-inputtext-sm " pInputText />
+                            </div>
+                            <div class="col-1">
+                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <div class="grid">
+                            <div class="col-5">
+                                <span>Estable. Tras.:</span>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="p-inputtext-sm " pInputText />
+                            </div>
+                            <div class="col-1">
+                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                </p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="col-12 text-center">
+                                <label>Alimento al Alta:</label>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Pecho solo</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Pecho y artificial</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Artificial solo</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">No aplica</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
+                                    </p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="grid text-center">
+                                <div class="col-12 ">
+                                    <label>TSH:</label>
+                                </div>
+                                <div class="col-12">
+                                    <p-selectButton [options]="stateOptions" formControlName="selectedMedicacion"
+                                        optionLabel="label" optionValue="value"></p-selectButton>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="grid text-right">
+                                <div class="col-4">
+                                    <label>Peso:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="p-inputtext-sm" pInputText />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+        </div>
+        <!-- siguiente linea -->
+        <div class="grid">
+            <div class="col-6">
+                <p-fieldset legend="Tipo de Sangre">
+                    <div class="grid text-right">
+                        <div class="col-12">
+                            <div class="grid">
+                                <div class="col-1">
+                                    <div class="grid">
+                                        <div class="col-12">
+                                            <label>Grupo:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="grid">
+                                        <div class="col-4">
+                                            <label>A</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="grid">
+                                        <div class="col-4">
+                                            <label>B</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="grid">
+                                        <div class="col-4">
+                                            <label>AB</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="grid">
+                                        <div class="col-4">
+                                            <label>O</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="grid">
+                                        <div class="col-9">
+                                            <label class="text-sm">No se hizo</label>
+                                        </div>
+                                        <div class="col-3">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-12">
+                            <div class="grid">
+                                <div class="col-1">
+                                    <div class="grid ">
+                                        <div class="col-12 text-center ">
+                                            <label>Rh:</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-2">
+                                    <div class="grid">
+                                        <div class="col-5">
+                                            <label>Rh+</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-2">
+                                    <div class="grid">
+                                        <div class="col-5">
+                                            <label>Rh-</label>
+                                        </div>
+                                        <div class="col-7">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2"></div>
+                                <div class="col-3">
+                                    <div class="grid text-right">
+                                        <div class="col-9">
+                                            <label class="text-sm">No se hizo</label>
+                                        </div>
+                                        <div class="col-3">
+                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
+                                            </p-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+        </div>
+    </form>
 </div>

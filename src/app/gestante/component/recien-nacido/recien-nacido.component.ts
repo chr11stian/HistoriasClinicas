@@ -8,16 +8,19 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 })
 export class RecienNacidoComponent implements OnInit {
   form: FormGroup;
+  stateOptions: any[];
 
   constructor(
     private formBuilder: FormBuilder
   ) {
+    this.stateOptions = [{label: 'Si', value: 'Si'}, {label: 'No', value: 'No'}];
     this.buildForm();
   }
 
   buildForm() {
     this.form = this.formBuilder.group({
-      selectedCities: ['', [Validators.required]],
+      selectedSexo: ['', [Validators.required]],
+      selectedMedicacion: ['', [Validators.required]],
     })
   }
 
