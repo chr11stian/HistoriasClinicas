@@ -9,6 +9,10 @@ import { AntecendentesComponent } from './antecendentes/antecendentes.component'
 import { PlanAtencionIntegralComponent } from './plan-atencion-integral/plan-atencion-integral.component';
 import { EvaluacionGeneralComponent } from './evaluacion-general/evaluacion-general.component';
 import { TestDesarrolloComponent } from './test-desarrollo/test-desarrollo.component';
+import { EvaluacionAlimentacionComponent } from './evaluacion-general/evaluacion-alimentacion/evaluacion-alimentacion.component';
+import { CabeceraEvaGnrlComponent } from './evaluacion-general/cabecera-eva-gnrl/cabecera-eva-gnrl.component';
+import { EscalaEvaluacionEEDPComponent } from './evaluacion-general/escala-evaluacion-eedp/escala-evaluacion-eedp.component';
+import { EEDPComponent } from './evaluacion-general/eedp/eedp.component';
 
 
 @NgModule({
@@ -18,7 +22,11 @@ import { TestDesarrolloComponent } from './test-desarrollo/test-desarrollo.compo
     AntecendentesComponent,
     PlanAtencionIntegralComponent,
     EvaluacionGeneralComponent,
-    TestDesarrolloComponent
+    TestDesarrolloComponent,
+    EvaluacionAlimentacionComponent,
+    CabeceraEvaGnrlComponent,
+    EscalaEvaluacionEEDPComponent,
+    EEDPComponent
   ],
   imports: [
     PrimeModule,
