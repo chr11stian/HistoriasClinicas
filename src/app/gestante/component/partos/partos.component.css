@@ -1,0 +1,49 @@
+p-fieldset >>> .p-fieldset .p-fieldset-legend {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  background: #d8dee5;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: small;
+}
+p-fieldset >>> .p-fieldset .p-fieldset-content {
+  padding: 2px;
+  font-size: xx-small;
+}
+p-inputNumber >>> .p-inputnumber-input {
+  border: 1px solid rgb(189, 184, 184);
+  border-radius: 10px;
+  padding: 3px 10px;
+  /* width: 100px; */
+}
+
+p-checkbox >>> .p-checkbox .p-checkbox-box {
+  border-radius: 10px;
+  background: yellow;
+}
+p-checkbox >>> .p-checkbox .p-checkbox-box .p-checkbox-icon {
+  transition-duration: 0.2s;
+  color: white;
+  font-size: 14px;
+}
+p-selectbutton >>> .p-selectbutton .p-button {
+  color: red;
+  font-size: xx-large;
+  /* width: 25px;
+  height: 25px; */
+  padding: 5px;
+}
+
+.text-right {
+  padding: 3px;
+  text-align: right;
+}
+.text-left {
+  padding: 3px;
+  text-align: left;
+}
+.text-center {
+  padding: 3px;
+  text-align: center;
+}

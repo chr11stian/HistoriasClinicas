@@ -1,0 +1,69 @@
+{
+    "datosEvalAlim": [
+        { 
+            "titulo": "Fecha", 
+            "valorRN": "", 
+            "valor1M": "", 
+            "valor2M": "", 
+            "valor3M": "", 
+            "valor4M": "", 
+            "valor5M": "", 
+            "valor6M": "", 
+            "valor7M": "", 
+            "valor8M": "", 
+            "valor9M": "" 
+        },
+        { 
+            "titulo": "¿El niño(a) esta recibiendo lactancia materna? (explorar)", 
+            "valorRN": "", 
+            "valor1M": "", 
+            "valor2M": "", 
+            "valor3M": "", 
+            "valor4M": "", 
+            "valor5M": "", 
+            "valor6M": "", 
+            "valor7M": "", 
+            "valor8M": "", 
+            "valor9M": "" 
+        },
+        { 
+            "titulo": "¿La tecnica de LM es adecuada? (explorar y observar)", 
+            "valorRN": "", 
+            "valor1M": "", 
+            "valor2M": "", 
+            "valor3M": "", 
+            "valor4M": "", 
+            "valor5M": "", 
+            "valor6M": "", 
+            "valor7M": "", 
+            "valor8M": "", 
+            "valor9M": "" 
+        },
+        { 
+            "titulo": "¿La frecuencia de LM es adecuada? (explorar y observar)", 
+            "valorRN": "", 
+            "valor1M": "", 
+            "valor2M": "", 
+            "valor3M": "", 
+            "valor4M": "", 
+            "valor5M": "", 
+            "valor6M": "", 
+            "valor7M": "", 
+            "valor8M": "", 
+            "valor9M": "" 
+        },
+        { 
+            "titulo": "El niño(a) recibe leche no materna? (explorar)", 
+            "valorRN": "", 
+            "valor1M": "", 
+            "valor2M": "", 
+            "valor3M": "", 
+            "valor4M": "", 
+            "valor5M": "", 
+            "valor6M": "", 
+            "valor7M": "", 
+            "valor8M": "", 
+            "valor9M": "" 
+        }
+  ]
+}
