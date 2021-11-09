@@ -40,8 +40,3 @@ p-checkbox>>>.p-checkbox .p-checkbox-box #check-alerta-roja{
 .check-alerta-amarilla{
     background: rgb(250, 253, 80);
 }
-@media screen and (min-width: 992px){
-    .tamanio{
-
-    }
-}
