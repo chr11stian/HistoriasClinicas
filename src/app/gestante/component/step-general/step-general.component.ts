@@ -33,56 +33,31 @@ export class StepGeneralComponent implements OnInit {
       { label: "Puerperio" },
     ]
   }
-  // pasamos al siguiente step
-  nextPage() {
-    switch (this.stepName) {
-      case "datos":
-        this.stepName = "basales"
-        this.indiceActivo = 1
-        break
-      case "basales":
-        this.stepName = "atenciones"
-        this.indiceActivo = 2
-        break
-      case "atenciones":
-        this.stepName = "partos"
-        this.indiceActivo = 3
-        break
-      case "partos":
-        this.stepName = "nacidos"
-        this.indiceActivo = 4
-        break
-      case "nacidos":
+  name() {
+    switch (this.indiceActivo){
+      case 5:
         this.stepName = "puerperio"
-        this.indiceActivo = 5
+        break
+      case 4:
+        this.stepName = "nacidos"
+        break
+      case 3:
+        this.stepName = "partos"
+        break
+      case 2:
+        this.stepName = "atenciones"
+        break
+      case 1:
+        this.stepName = "basales"
+        break
+      case 0:
+        this.stepName = "datos"
         break
     }
   }
-
-  // regresamos al anterior step
-  prevPage() {
-    switch (this.stepName) {
-      case "puerperio":
-        this.stepName = "nacidos"
-        this.indiceActivo = 4
-        break
-      case "nacidos":
-        this.stepName = "partos"
-        this.indiceActivo = 3
-        break
-      case "partos":
-        this.stepName = "atenciones"
-        this.indiceActivo = 2
-        break
-      case "atenciones":
-        this.stepName = "basales"
-        this.indiceActivo = 1
-        break
-      case "basales":
-        this.stepName = "datos"
-        this.indiceActivo = 0
-        break
-    }
+  ChangeStep(event: number){
+    this.indiceActivo = event;
+    this.name()
   }
 }
 
