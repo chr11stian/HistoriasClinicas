@@ -15,7 +15,7 @@ p-inputNumber >>> .p-inputnumber-input {
   border: 1px solid rgb(189, 184, 184);
   border-radius: 10px;
   padding: 3px 10px;
-  width: 100px;
+  /* width: 100px; */
 }
 
 p-checkbox >>> .p-checkbox .p-checkbox-box {
@@ -26,6 +26,13 @@ p-checkbox >>> .p-checkbox .p-checkbox-box .p-checkbox-icon {
   transition-duration: 0.2s;
   color: white;
   font-size: 14px;
+}
+p-selectbutton >>> .p-selectbutton .p-button {
+  color: red;
+  font-size: xx-large;
+  /* width: 25px;
+  height: 25px; */
+  padding: 5px;
 }
 
 .text-right {

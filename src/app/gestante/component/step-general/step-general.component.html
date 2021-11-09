@@ -41,23 +41,13 @@
     </p-card>
 </div>
 
-<p-steps [model]="items" [readonly]="true" [(activeIndex)]="indiceActivo">
+<p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo" (activeIndexChange)="ChangeStep($event)">
 </p-steps>
 
 <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
     <p-card>
         <ng-template pTemplate="content">
             <app-datos-generales-obtetricia></app-datos-generales-obtetricia>
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <div class="p-grid p-nogutter p-justify-end">
-                <p-button
-                        label="Siguiente"
-                        (onClick)="nextPage()"
-                        icon="pi pi-angle-right"
-                        iconPos="right"
-                ></p-button>
-            </div>
         </ng-template>
     </p-card>
 </div>
@@ -66,38 +56,12 @@
         <ng-template pTemplate="content">
             <app-datos-basales></app-datos-basales>
         </ng-template>
-        <ng-template pTemplate="footer">
-            <div class="p-grid p-nogutter p-justify-between">
-                <p-button label="Atrás" (onClick)="prevPage()" icon="pi pi-angle-left">
-                </p-button>
-                <p-button
-                        label="Siguiente"
-                        (onClick)="nextPage()"
-                        icon="pi pi-angle-right"
-                        iconPos="right"
-                >
-                </p-button>
-            </div>
-        </ng-template>
     </p-card>
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'atenciones'">
     <p-card>
         <ng-template pTemplate="content">
             <app-atenciones></app-atenciones>
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <div class="p-grid p-nogutter p-justify-between">
-                <p-button label="Atrás" (onClick)="prevPage()" icon="pi pi-angle-left">
-                </p-button>
-                <p-button
-                        label="Siguente"
-                        (onClick)="nextPage()"
-                        icon="pi pi-angle-right"
-                        iconPos="right"
-                >
-                </p-button>
-            </div>
         </ng-template>
     </p-card>
 </div>
@@ -108,19 +72,6 @@
         <ng-template pTemplate="content">
             <app-partos></app-partos>
         </ng-template>
-        <ng-template pTemplate="footer">
-            <div class="p-grid p-nogutter p-justify-between">
-                <p-button label="Atrás" (onClick)="prevPage()" icon="pi pi-angle-left">
-                </p-button>
-                <p-button
-                        label="Siguente"
-                        (onClick)="nextPage()"
-                        icon="pi pi-angle-right"
-                        iconPos="right"
-                >
-                </p-button>
-            </div>
-        </ng-template>
     </p-card>
 </div>
 
@@ -130,39 +81,12 @@
         <ng-template pTemplate="content">
             <app-recien-nacido></app-recien-nacido>
         </ng-template>
-        <ng-template pTemplate="footer">
-            <div class="p-grid p-nogutter p-justify-between">
-                <p-button label="Atrás" (onClick)="prevPage()" icon="pi pi-angle-left">
-                </p-button>
-                <p-button
-                        label="Siguente"
-                        (onClick)="nextPage()"
-                        icon="pi pi-angle-right"
-                        iconPos="right"
-                >
-                </p-button>
-            </div>
-        </ng-template>
     </p-card>
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'puerperio'">
     <p-card>
         <ng-template pTemplate="content">
             <app-puerperio></app-puerperio>
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <div class="p-grid p-nogutter p-justify-between">
-                <p-button label="Atrás" (onClick)="prevPage()" icon="pi pi-angle-left">
-                </p-button>
-                <button
-                        class="p-button-danger"
-                        pButton
-                        pRipple
-                        (click)="guardarFormulario()"
-                        label="Guardar"
-                        icon="pi pi-save"
-                ></button>
-            </div>
         </ng-template>
     </p-card>
 </div>

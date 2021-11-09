@@ -25,55 +25,37 @@ export class CabeceraComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = [
-      { label: "Datos Generales", icon: "pi pi-pw pi-file"},
+      { label: "Datos Generales"},
       { label: "Antecedentes" },
-      { label: "Plan de Control Integral" },
+      { label: "Plan de Atención Integral" },
       { label: "Evaluación General" },
       { label: "Test de Desarrollo" },
     ]
   }
-  // pasamos al siguiente step
-  nextPage() {
-    switch (this.stepName) {
-      case "datos":
-        this.stepName = "antecedentes"
-        this.indiceActivo = 1
-        break
-      case "antecedentes":
-        this.stepName = "plan"
-        this.indiceActivo = 2
-        break
-      case "plan":
-        this.stepName = "evaluacion"
-        this.indiceActivo = 3
-        break
-      case "evaluacion":
+  //--cambia los nombres de los steps según el indice
+  name() {
+    switch (this.indiceActivo) {
+      case 4:
         this.stepName = "test"
-        this.indiceActivo = 4
+        break
+      case 3:
+        this.stepName = "evaluacion"
+        break
+      case 2:
+        this.stepName = "plan"
+        break
+      case 1:
+        this.stepName = "antecedentes"
+        break
+      case 0:
+        this.stepName = "datos"
         break
     }
   }
-
-  // regresamos al anterior step
-  prevPage() {
-    switch (this.stepName) {
-      case "test":
-        this.stepName = "evaluacion"
-        this.indiceActivo = 3
-        break
-      case "evaluacion":
-        this.stepName = "plan"
-        this.indiceActivo = 2
-        break
-      case "plan":
-        this.stepName = "antecedentes"
-        this.indiceActivo = 1
-        break
-      case "antecedentes":
-        this.stepName = "datos"
-        this.indiceActivo = 0
-        break
-    }
+  //--cambia step
+  ChangeStep(event: number){
+    this.indiceActivo = event;
+    this.name()
   }
 }
 
