@@ -241,7 +241,7 @@
                         </div>
                         <div class="col-3 align-self-start justify-content-center flex flex-column">
                             <span>APGAR</span>
-                            <p-selectButton [options]="stateOptions"
+                            <p-selectButton [options]="stateOptions1"
                                             formControlName="normal"
                                             optionLabel="label"
                                             optionValue="value">
@@ -464,3 +464,21 @@
         </div>
     </p-fieldset>
 </div>
+
+<div class="col col-offset-9">
+    <button type="submit"
+            pButton 
+            pRipple 
+            icon="pi pi-save" 
+            label="Guardar" 
+            class="p-button-raised p-button-info"></button>
+    <button type="submit"
+            icon="pi pi-times-circle"            
+            pButton
+            pRipple
+            label="Cancelar"          
+            class="p-button-raised p-button-danger"
+            >
+    </button>
+    
+    </div>
