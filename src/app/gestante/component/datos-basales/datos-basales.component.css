@@ -1,14 +1,36 @@
 .pesoTalla{
     border-radius: 10px;
 }
-/* .check{
-    border: 1px solid #ddd;
-    border-radius: 50%;
-} */
+
+p-fieldset >>> .p-fieldset .p-fieldset-legend {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    background: #d8dee5;
+    font-weight: 600;
+    border-radius: 5px;
+    font-size: small;
+}
+
 p-checkbox>>> .p-checkbox .p-checkbox-box{
     border-radius: 50% !important;
 }
 
 .texto{
     font-size: .40rem;
+}
+/* .grid .col-3 .amarillo {
+    background: red;
+} */
+
+.ng-tns-c135-51 .p-toggleable-content .p-fieldset-content .amarillo {
+    font-size: 3em;
+}
+.amarillo .p-checkbox .p-checkbox-box{
+    background: red !important;
+}
+
+::ng-deep .amarillo .p-checkbox  .p-checkbox-box{
+    background: rgb(242, 236, 56);
+    border-color: rgb(242, 236, 56);
 }
