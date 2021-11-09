@@ -1,1 +1,5 @@
-<app-graphic></app-graphic>
+<app-graphic *ngIf="show" [colors]="colors"
+             [names]="names"
+             [valueAxisX]="valueAxisX"
+             [valueAxisY]="valueAxisY"
+></app-graphic>
