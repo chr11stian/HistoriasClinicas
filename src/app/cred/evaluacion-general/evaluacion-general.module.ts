@@ -11,20 +11,23 @@ import { EvaluacionGeneralComponent } from './evaluacion-general.component';
 import { CabeceraEvaGnrlComponent } from './cabecera-eva-gnrl/cabecera-eva-gnrl.component';
 
 @NgModule({
-  declarations: [
-    EvaluacionAlimentacionComponent,
-    EscalaEvaluacionEEDPComponent,
-    EEDPComponent,
-    EvaluacionGeneralComponent,
-    CabeceraEvaGnrlComponent
-  ],
-  imports: [
-    PrimeModule,
-    FieldsetModule,
-    TabViewModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ]
+    declarations: [
+        EvaluacionAlimentacionComponent,
+        EscalaEvaluacionEEDPComponent,
+        EEDPComponent,
+        EvaluacionGeneralComponent,
+        CabeceraEvaGnrlComponent
+    ],
+    exports: [
+        EvaluacionGeneralComponent
+    ],
+    imports: [
+        PrimeModule,
+        FieldsetModule,
+        TabViewModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule
+    ]
 })
 export class EvaluacionGeneralModule { }
