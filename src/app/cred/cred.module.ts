@@ -3,13 +3,11 @@ import { CommonModule } from '@angular/common';
 import {PrimeModule} from "src/app/shared/prime/prime.module";
 import {FieldsetModule} from 'primeng/fieldset';
 import { TabViewModule } from 'primeng/tabview';
-
 import { CredRoutingModule } from './cred-routing.module';
 import { DatosGeneralesComponent } from './datos-generales/datos-generales.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
 import { AntecendentesComponent } from './antecendentes/antecendentes.component';
 import { PlanAtencionIntegralComponent } from './plan-atencion-integral/plan-atencion-integral.component';
-import { EvaluacionGeneralComponent } from './evaluacion-general/evaluacion-general.component';
 import { TestDesarrolloComponent } from './test-desarrollo/test-desarrollo.component';
 import { PersonalComponent } from './antecendentes/personal/personal.component';
 import { FamiliarComponent } from './antecendentes/familiar/familiar.component';
@@ -17,11 +15,7 @@ import { ViviendaComponent } from './antecendentes/vivienda/vivienda.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
-
-import { EvaluacionAlimentacionComponent } from './evaluacion-general/evaluacion-alimentacion/evaluacion-alimentacion.component';
-import { CabeceraEvaGnrlComponent } from './evaluacion-general/cabecera-eva-gnrl/cabecera-eva-gnrl.component';
-import { EscalaEvaluacionEEDPComponent } from './evaluacion-general/escala-evaluacion-eedp/escala-evaluacion-eedp.component';
-import { EEDPComponent } from './evaluacion-general/eedp/eedp.component';
+import { EvaluacionGeneralModule } from './evaluacion-general/evaluacion-general.module';
 
 
 @NgModule({
@@ -30,15 +24,10 @@ import { EEDPComponent } from './evaluacion-general/eedp/eedp.component';
     CabeceraComponent,
     AntecendentesComponent,
     PlanAtencionIntegralComponent,
-    EvaluacionGeneralComponent,
     TestDesarrolloComponent,
     PersonalComponent,
     FamiliarComponent,
     ViviendaComponent,
-    EvaluacionAlimentacionComponent,
-    CabeceraEvaGnrlComponent,
-    EscalaEvaluacionEEDPComponent,
-    EEDPComponent
   ],
   imports: [
     PrimeModule,
@@ -48,7 +37,8 @@ import { EEDPComponent } from './evaluacion-general/eedp/eedp.component';
     FieldsetModule,
     InputTextModule,
     SelectButtonModule,
-    DropdownModule
+    DropdownModule,
+    EvaluacionGeneralModule
   ]
 })
 export class CredModule { }
