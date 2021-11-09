@@ -27,7 +27,7 @@ export class CabeceraComponent implements OnInit {
     this.items = [
       { label: "Datos Generales"},
       { label: "Antecedentes" },
-      { label: "Plan de Control Integral" },
+      { label: "Plan de Atención Integral" },
       { label: "Evaluación General" },
       { label: "Test de Desarrollo" },
     ]
