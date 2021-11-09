@@ -1,0 +1,103 @@
+{
+	"data": [
+		{
+			"id": "1",
+			"DNI": "f230fh0g3",
+			"nombre": "Bamboo Watch",
+			"apellidos": "Pimentel",
+			"telefono": "931212919",
+			"sexo": "M",
+			"domicilio": "Accessories",
+			"edad": 24,
+			"departamento": "INSTOCK",
+			"provincia": "INSTOCK",
+			"distrito": "INSTOCK"
+		},
+
+		{
+			"id": "2",
+			"DNI": "f230fh0g3",
+			"nombre": "Bamboo Watch",
+			"apellidos": "Pimentel",
+			"telefono": "931212919",
+			"sexo": "M",
+			"domicilio": "Accessories",
+			"edad": 24,
+			"departamento": "INSTOCK",
+			"provincia": "INSTOCK",
+			"distrito": "INSTOCK"
+		},
+
+		{
+			"id": "3",
+			"DNI": "f230fh0g3",
+			"nombre": "Bamboo Watch",
+			"apellidos": "Pimentel",
+			"telefono": "931212919",
+			"sexo": "M",
+			"domicilio": "Accessories",
+			"edad": 24,
+			"departamento": "INSTOCK",
+			"provincia": "INSTOCK",
+			"distrito": "INSTOCK"
+
+		},
+		{
+			"id": "4",
+			"DNI": "f230fh0g3",
+			"nombre": "Bamboo Watch",
+			"apellidos": "Pimentel",
+			"telefono": "931212919",
+			"sexo": "M",
+			"domicilio": "Accessories",
+			"edad": 24,
+			"departamento": "INSTOCK",
+			"provincia": "INSTOCK",
+			"distrito": "INSTOCK"
+
+		},
+		{
+			"id": "5",
+			"DNI": "f230fh0g3",
+			"nombre": "Bamboo Watch",
+			"apellidos": "Pimentel",
+			"telefono": "931212919",
+			"sexo": "M",
+			"domicilio": "Accessories",
+			"edad": 24,
+			"departamento": "INSTOCK",
+			"provincia": "INSTOCK",
+			"distrito": "INSTOCK"
+
+		},
+		{
+			"id": "6",
+			"DNI": "f230fh0g3",
+			"nombre": "Bamboo Watch",
+			"apellidos": "Pimentel",
+			"telefono": "931212919",
+			"sexo": "M",
+			"domicilio": "Accessories",
+			"edad": 24,
+			"departamento": "INSTOCK",
+			"provincia": "INSTOCK",
+			"distrito": "INSTOCK"
+
+		},
+
+		{
+			"id": "7",
+			"DNI": "f230fh0g3",
+			"nombre": "Bamboo Watch",
+			"apellidos": "Pimentel",
+			"telefono": "931212919",
+			"sexo": "M",
+			"domicilio": "Accessories",
+			"edad": 24,
+			"departamento": "INSTOCK",
+			"provincia": "INSTOCK",
+			"distrito": "INSTOCK"
+
+		}
+	]
+}

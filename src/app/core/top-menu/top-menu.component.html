@@ -1,0 +1,29 @@
+<div>
+    <p-menubar class="template">
+        <ng-template pTemplate="start">
+
+            <img class="menu logo" src="../../../assets/images/logo-gore.svg">
+            <img (click)="hidden()" class="button-menu" src="../../assets/images/icon-menu.svg">
+            <!-- <i class="pi pi-bars button-menu" (click)="hidden()"></i> -->
+        </ng-template>
+        <ng-template pTemplate="end">
+            <div class="flex">
+                <img class="icon notifications"
+                     src="../../../assets/images/notificaciones.svg">
+                <img class="icon configuration"
+                     src="../../../assets/images/configuracion.svg">
+                <div class="user-name p-text-italic">Jimmy Pimentel Cruz</div>
+
+                <p-toast>
+                </p-toast>
+                <p-confirmDialog header="Cerrar Sesión" [style]="{width: '50vw'}">
+                </p-confirmDialog>
+                <img class="user-icon" src="../../../assets/images/icono-user.svg"
+                     style="cursor: pointer"
+                     (click)="menu.toggle($event)">
+                <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
+            </div>
+        </ng-template>
+    </p-menubar>
+</div>
+

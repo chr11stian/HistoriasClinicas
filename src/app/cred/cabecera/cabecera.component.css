@@ -1,0 +1,82 @@
+p-card >>> * {
+  font-size: small;
+  align-self: center;
+  justify-self: center;
+}
+p-dropdown >>> * {
+  width: 150px;
+}
+p-card >>> .p-card-body {
+  padding: 2px;
+  font-size: small;
+  margin-bottom: 10px;
+}
+p-card >>> .p-card-content {
+  padding: 2px;
+}
+p-tabview >>> .p-tabview-title {
+  font-size: small;
+}
+p-tabview >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background: #af0017;
+  border-color: #af0017;
+  color: #ffffff;
+}
+p-tabview
+  >>> .p-tabview
+  .p-tabview-nav
+  li
+  .p-tabview-nav-link:not(.p-disabled):focus {
+  outline: 0 none;
+  outline-offset: 0;
+  box-shadow: 0 0 0 0.2rem #dcb4b4;
+}
+p-tabview >>> .p-tabview .p-tabview-panels {
+  height: 650px;
+}
+
+.p-button {
+  color: #ffffff;
+  background: #af0017;
+  border: 1px solid #af0017;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  border-radius: 3px;
+}
+.p-button:hover {
+  outline: 0 none;
+  outline-offset: 0;
+  background: #af0017;
+  border-color: #af0017;
+  box-shadow: 0 0 0 0.2rem #dcb4b4;
+}
+
+:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+  border-radius: 0px;
+  width: 170px;
+  height: 50px;
+  color: transparent;
+  background: white;
+  border: 1px solid green;
+}
+:host
+  >>> .p-steps
+  .p-steps-item.p-steps-current
+  .p-menuitem-link
+  .p-steps-number {
+  border: 1px solid rgb(10, 79, 163);
+}
+:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
+  margin-top: -35px;
+  z-index: 2;
+  margin-bottom: 30px;
+  color: green;
+}
+:host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
+  color: rgb(10, 79, 163);
+}
+:host >>> .p-steps .p-steps-item:before {
+  margin-top: -4px;
+}

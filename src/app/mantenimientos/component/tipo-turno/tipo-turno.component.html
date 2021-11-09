@@ -1,0 +1,78 @@
+<p-table
+  [value]="data"
+  #dt
+  styleClass="p-datatable-gridlines   "
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [paginator]="true"
+  [autoLayout]="true"
+  currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between">
+      <h3>Lista de tipos de turno</h3>
+      <button
+        pButton
+        type="button"
+        label="Agregar"
+        icon="pi pi-plus"
+        (click)="isUpdate = false; agregarActualizar()"
+        pTooltip="Agregar tipo de personal"
+        tooltipPosition="bottom"
+        class="p-button-danger p-button-sm"
+        pRipple
+      ></button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+    <tr>
+      <th class="text-center">Nro</th>
+      <th class="text-center">Nombre</th>
+      <th class="text-center">Hora inicio</th>
+      <th class="text-center">Hora fin</th>
+      <th class="text-center">Nro de horas</th>
+      <th class="text-center">abreviatura</th>
+      <th class="text-center">Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+    <tr>
+      <td class="text-center text-800">{{ rowIndex + 1 }}</td>
+      <td class="text-center text-800">{{ rowData.nombre }}</td>
+      <td class="text-center text-800">{{ rowData.horasInicio }}</td>
+      <td class="text-center text-800">{{ rowData.horasFin }}</td>
+      <td class="text-center text-800">{{ rowData.nroHoras }}</td>
+      <td class="text-center text-800">{{ rowData.abreviatura }}</td>
+      <td class="flex justify-content-around">
+        <span class="p-column-title">Acciones</span>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          (click)="isUpdate = true; agregarActualizar(rowIndex)"
+          pTooltip="Editar tipo turno"
+          tooltipPosition="bottom"
+          class="p-button-raised p-button-info p-button-rounded"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          (click)="deleteTP(rowIndex)"
+          icon="pi pi-trash"
+          pTooltip="Eliminar tipo turno"
+          tooltipPosition="bottom"
+          class="p-button-raised p-button-danger p-button-rounded"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-confirmDialog
+  [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
+  [style]="{ width: '25vw' }"
+  key="positionDialog"
+  [baseZIndex]="10000"
+></p-confirmDialog>
+<p-toast></p-toast>

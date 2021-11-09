@@ -1,0 +1,51 @@
+<div class="p-fluid grid" [formGroup]="tipoTurnoFG">
+  <div class="p-field col-12 md:col-12">
+    <label for="name">Nombre turno</label>
+    <input
+      id="float-input-lastname"
+      formControlName="nombre"
+      type="text"
+      pInputText
+    />
+    <small class="p-error" *ngIf="isInvalid('nombre')">
+      *Nombre del tipo turno es necesario
+    </small>
+  </div>
+  <div class="p-field col-12 md:col-6">
+    <label for="name">Hora inicio</label>
+    <input type="text" pInputText id="name" formControlName="horasInicio" />
+    <small class="p-error" *ngIf="isInvalid('horasInicio')">
+      *Hora inicio es necesario
+    </small>
+  </div>
+  <div class="p-field col-12 md:col-6">
+    <label for="name">Hora fin</label>
+    <input type="text" pInputText id="name" formControlName="horasFin" />
+    <small class="p-error" *ngIf="isInvalid('horasFin')">
+      *Hora fin es necesario
+    </small>
+  </div>
+  <div class="p-field col-12 md:col-6">
+    <label for="name">Nro de horas</label>
+    <input type="text" pInputText id="name" formControlName="nroHoras" />
+    <small class="p-error" *ngIf="isInvalid('nroHoras')">
+      *El nro de horas es necesario
+    </small>
+  </div>
+  <div class="p-field col-12 md:col-6">
+    <label for="name">Abreviatura</label>
+    <input type="text" pInputText id="name" formControlName="abreviatura" />
+    <small class="p-error" *ngIf="isInvalid('abreviatura')">
+      *Abreviatura en necesario
+    </small>
+  </div>
+</div>
+<div class="ui-dialog-footer p-text-right p-mt-3">
+  <p-button
+    icon="pi pi-save"
+    label="Guardar"
+    (onClick)="save()"
+    styleClass="p-button-info p-button-sm"
+  >
+  </p-button>
+</div>

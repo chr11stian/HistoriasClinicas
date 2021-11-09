@@ -1,0 +1,59 @@
+@media all and (max-device-width: 450px){
+    .menu{ display:none !important; }
+}
+@media all and (max-device-width: 450px){
+    .icon{ display: none; margin-left: 5%}
+}
+
+p-menubar >>> .p-menubar-button{
+    display: none ;
+}
+
+/* .template{
+    overflow: hidden;
+} */
+.button-menu {
+    width: 30px;
+    margin-bottom: 4%;
+    margin-left: 20px;
+    cursor: pointer;
+    font-size: 22px;
+    color: #AF0017;
+    font-weight: bold;
+}
+
+.logo {
+    width: 40%;
+    margin-top: 2%;
+    margin-left: 10px;
+}
+
+.notifications {
+    width: 15px;
+    margin-bottom: 1%;
+    margin-right: 30px
+}
+
+.configuration {
+    width: 20px;
+    margin-bottom: 1%;
+    margin-right: 30px
+}
+
+.user-name {
+    width: 180px;
+    margin-top: 3%
+}
+
+.user-icon {
+    width: 40px;
+    margin-top: 1%;
+    margin-right: 30px;
+    margin-left: 3%
+}
+
+.user-option{
+    width: 10%;
+    height: 10%;
+    background-color: aquamarine;
+}

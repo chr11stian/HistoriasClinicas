@@ -1,0 +1,104 @@
+
+p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header > a {
+    background-color: #ffffff !important;
+    border: 0px 5px 0px 0px;
+    border-top: none !important;
+    border-left: 5px solid #e7e7e7;
+    border-bottom: none !important;
+    border-right: none !important;
+    border-left: 5px solid #AF0017; /*jiimmy*/
+}
+
+
+p-panelmenu >>> .p-panelmenu-content .p-menuitem .p-menuitem-link {
+    padding: 0.75rem 3em;
+}
+
+p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header > a:hover {
+    background-color: #FBF3F4 !important;
+    border-color: #AF0017 !important;
+    color: #AF0017 !important;
+}
+
+.p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover {
+    background: #618cb6;
+}
+
+p-panelmenu >>> .p-panelmenu-header.p-highlight:not(.p-enabled) > a {
+    border-color: #AF0017;
+    background-color: #FBF3F4 !important;
+    color: #AF0017 !important;
+}
+
+/*p-panelmenu>>> .pi-chevron-right:before {*/
+/*    content: none !important;*/
+/*}*/
+
+.size-panel-menu {
+    width: auto;
+    max-width: calc(100% - 200px);
+}
+
+p-autocomplete >>> .p-autocomplete {
+    display: inline-flex;
+    position: relative;
+    width: 100% !important;
+}
+
+.fondo {
+    background-color: #e7e7e7;
+    width: 100% !important;
+}
+
+p-autocomplete >>> .p-inputtext {
+    /* border: none; */
+    background-color: none;
+    width: 90% !important;
+}
+
+/*.menu{*/
+/*    background-color: #ffffff !important;*/
+/*    height: 44vw !important;*/
+/*}*/
+
+p-menu >>> .p-menu {
+    border: 2px solid #e9ecef;
+    border-radius: 2px;
+}
+
+/*p-menu >>> .p-menuitem >p {*/
+/*    background: #AF0017;*/
+/*}*/
+
+
+p-menu >>> .p-submenu-header {
+    color: #AF0017;
+}
+
+p-menu >>> .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
+    color: #333232;
+
+}
+
+p-menu >>> .p-menuitem-link:not(.p-disabled):hover {
+    background: #d9dfe3;
+    /*color: #965656;*/
+}
+
+p-menu >>> .p-menuitem-link {
+    border-radius: 10px;
+}
+
+
+/*pi-file>>> .pi-file {*/
+/*    color: #AF0017;*/
+/*}*/
+
+
+p-panelmenu >>> .p-panelmenu-header.p-highlight:not(.p-enabled) > a {
+    border-color: #7e7e7e;
+}
+
+p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header > a:hover {
+    border-color: #FBF3F4 !important
+}

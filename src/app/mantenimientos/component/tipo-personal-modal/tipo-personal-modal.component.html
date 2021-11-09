@@ -1,0 +1,82 @@
+<div class="p-fluid grid" [formGroup]="tipoPersonalFG">
+  <div class="p-field col-12 md:col-12">
+    <label for="name">Nombre tipo de personal</label>
+    <input
+      id="float-input-lastname"
+      formControlName="nombreTipoPersonal"
+      type="text"
+      pInputText
+    />
+    <small class="p-error" *ngIf="isInvalid('nombreTipoPersonal')">
+      *Nombre del tipo personal es necesario
+    </small>
+  </div>
+  <div class="p-field col-12 md:col-6">
+    <div class="grid">
+      <div class="col-4">
+        <label for="name">Es profesional</label>
+        <p-selectButton
+          [options]="profesionalOptions"
+          formControlName="esProfesional"
+          class="p-button-sm"
+          optionLabel="label"
+          optionValue="value"
+        >
+        </p-selectButton>
+      </div>
+    </div>
+    <small class="p-error" *ngIf="isInvalid('esProfesional')">
+      *Nombre del tipo personal es necesario
+    </small>
+  </div>
+  <div class="p-field col-12 md:col-6">
+    <label for="name">Abreviatura</label>
+    <input type="text" pInputText id="name" formControlName="abreviatura" />
+    <small class="p-error" *ngIf="isInvalid('abreviatura')">
+      *Nombre del tipo personal es necesario
+    </small>
+  </div>
+  <div class="p-field col-12 md:col-6">
+    <div class="grid">
+      <div class="col-5">
+        <label for="name">Especialidad</label>
+        <p-selectButton
+          [options]="especialidadOptions"
+          formControlName="especialista"
+          class="p-button-sm"
+          optionLabel="label"
+          optionValue="value"
+        >
+        </p-selectButton>
+      </div>
+    </div>
+  </div>
+  <div class="p-field col-12 md:col-6">
+    <div class="grid">
+      <div class="col-5">
+        <label for="name">Estado</label>
+        <p-selectButton
+          [options]="estadoOptions"
+          formControlName="estado"
+          class="p-button-sm"
+          optionLabel="label"
+          optionValue="value"
+        >
+        </p-selectButton>
+      </div>
+    </div>
+    <small class="p-error" *ngIf="isInvalid('estado')">
+      *Nombre del tipo personal es necesario
+    </small>
+  </div>
+</div>
+<div class="ui-dialog-footer p-text-right p-mt-3">
+  <p-button
+    icon="pi pi-save"
+    label="Guardar"
+    (onClick)="save()"
+    styleClass="p-button-info p-button-sm"
+    [disabled]="tipoPersonalFG.invalid"
+  >
+  </p-button>
+</div>

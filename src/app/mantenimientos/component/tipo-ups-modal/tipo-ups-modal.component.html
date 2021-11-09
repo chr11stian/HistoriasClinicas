@@ -1,0 +1,31 @@
+<div class="p-fluid grid" [formGroup]="tipoUPSFG">
+  <div class="p-field col-12 md:col-12">
+    <label for="name">Nombre tipo UPS:</label>
+    <input id="" formControlName="nombreTUPS" type="text" pInputText />
+    <small class="p-error" *ngIf="isInvalid('nombreTUPS')">
+      *Nombre del tipo ups es necesario
+    </small>
+  </div>
+  <div class="p-field col-12 md:col-12">
+    <label for="name">Descripcion Tipo UPS: </label>
+    <input
+      id="float-input-lastname"
+      formControlName="descripcionTUPS"
+      type="text"
+      pInputText
+    />
+    <small class="p-error" *ngIf="isInvalid('descripcionTUPS')">
+      *Descripcion es necesario
+    </small>
+  </div>
+</div>
+<div class="ui-dialog-footer p-text-right p-mt-3">
+  <p-button
+    icon="pi pi-save"
+    label="Guardar"
+    styleClass="p-button-info p-button-sm"
+    (click)="save()"
+    [disabled]="tipoUPSFG.invalid"
+  >
+  </p-button>
+</div>

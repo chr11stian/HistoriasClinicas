@@ -1,0 +1,83 @@
+<div class="p-card mt-2 docIdentidad">
+    <p-toolbar class="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Documento Identidad</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                (click)="openDialogAgregarDoc()"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+    </p-toolbar>
+    <br>
+    <div class="grid lg-2">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <p-table #dt [value]="listaDocumentosIdentidad" styleClass="p-datatable-gridlines" [rows]="10"
+                [paginator]="true" [autoLayout]="true" [globalFilterFields]="['nombre']" [(selection)]="selectedDoc"
+                [rowHover]="true" datakey="id"
+                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
+                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
+
+                <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center">Nro</th>
+                        <th style="text-align: center">Nombre:</th>
+                        <th style="text-align: center">Abreviatura</th>
+                        <th style="text-align: center">logitud</th>
+                        <th style="text-align: center">Acción</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-doc style="text-align: center;" let-i="rowIndex">
+                    <tr style="text-align: center">
+                        <td style="text-align: center">{{ i + 1 }}</td>
+                        <td style="text-align: center">{{ doc.nombre }}</td>
+                        <td style="text-align: center">{{ doc.abreviatura }}</td>
+                        <td style="text-align: center">{{ doc.longitud }}</td>
+                        <td>
+                            <button pButton (click)="openDialogEditar(doc)" pTooltip="Editar" pRipple type="button"
+                                icon="pi pi-pencil" class="p-button-rounded m-1">
+                            </button>
+                            <button pButton (click)="eliminar(doc)" pTooltip="Eliminar" pRipple type="button"
+                                icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog [(visible)]="agregarDoc" [style]="{width: '500px'}" header="Agregar Documento Identidad">
+    <div class="col-12">
+        <form [formGroup]='form'>
+            <div class="grid">
+                <div class="p-fluid col-12">
+                    <label class="mb-5 font-bold">Nombre:</label>
+                    <input type="text" pInputText formControlName="nombre" autofocus />
+                </div>
+            </div>
+            <div class="grid">
+                <div class="p-fluid col-6">
+                    <label class="mb-5 font-bold">Abreviatura:</label>
+                    <input type="text" pInputText formControlName="abreviatura" autofocus />
+                </div>
+                <div class="p-fluid col-6">
+                    <label class="mb-5 font-bold">Longitud:</label>
+                    <input type="number" pInputText formControlName="longitud" autofocus />
+                </div>
+            </div>
+            <div class="flex justify-content-end">
+                <button pButton type="button" label="Cancelar" class=" m-1 p-button-danger"
+                    (click)="closeDialog()"></button>
+                <button pButton *ngIf="update" type="button" label="Editar" class="m-1"
+                    (click)="editarDocumento()"></button>
+                <button pButton *ngIf="!update" type="button" label="Guardar" class="m-1"
+                    (click)="guardarDocumentoIdentidad()"></button>
+            </div>
+        </form>
+    </div>
+</p-dialog>

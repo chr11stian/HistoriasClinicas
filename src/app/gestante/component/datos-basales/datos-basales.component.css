@@ -1,0 +1,14 @@
+.pesoTalla{
+    border-radius: 10px;
+}
+/* .check{
+    border: 1px solid #ddd;
+    border-radius: 50%;
+} */
+p-checkbox>>> .p-checkbox .p-checkbox-box{
+    border-radius: 50% !important;
+}
+
+.texto{
+    font-size: .40rem;
+}

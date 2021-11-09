@@ -1,0 +1,78 @@
+<div class="p-card">
+    <!-- <div class="col-4 mt-5">
+            <p-card class="m-0">
+                <h2 *ngIf="!isUpdate">Ingrese Nuevo Tipo de Seguro</h2>
+                <h2 *ngIf="isUpdate">Edite Tipo de Seguro</h2>
+    
+                <form [formGroup]='form'>
+    
+                    <div class="p-fluid grid flex justify-content-center">
+                        <div class="p-field col-12 md:col-12">
+                            <label id="nombre">Nombre:</label>
+                            <input type="text" pInputText formControlName='nombre' required/>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="flex justify-content-end">
+                        <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar Nuevo" (click)="saveForm()"
+                                class="m-1 w-9rem"></button>
+                        <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar edición" (click)="editarDatos()"
+                                class="m-1 w-9rem"></button>
+                        <button
+                                pButton
+                                type="button"
+                                label="Nuevo"
+                                icon="pi pi-plus"
+                                (click)="guardarNuevo()"
+                                pTooltip="Agregar tipo de seguro"
+                                tooltipPosition="right"
+                                class="p-button-danger m-1 w-9rem"
+                                pRipple
+                        ></button>
+                    </div>
+                </form>
+            </p-card>
+        </div> -->
+    <p-toolbar class="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Tipo Seguro</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                (click)="openDialogAgregarDoc()"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+    </p-toolbar>
+    <br>
+    <div class="grid lg-2">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <p-table [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                [showCurrentPageReport]="true">
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;width:4rem">Nro</th>
+                        <th style="text-align: center">Nombre</th>
+                        <th style="text-align: center; width:12rem">Acción</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr style="text-align: center">
+                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.nombre }}</td>
+                        <td style="text-align: center">
+                            <button pButton (click)="editar(rowData)" pTooltip="Editar" pRipple type="button"
+                                icon="pi pi-pencil" class="p-button-rounded m-1">
+                            </button>
+                            <button pButton (click)="eliminar(rowData)" pTooltip="Eliminar" pRipple type="button"
+                                icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

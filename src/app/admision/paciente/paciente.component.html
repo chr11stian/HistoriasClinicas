@@ -1,0 +1,231 @@
+<div class="p-card">
+    <p-toolbar class="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Paciente</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                (click)="openDialogPaciente()"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table #dt [value]="listaPacientes" [rows]="10" [paginator]="true" [rowHover]="true" datakey="id"
+        responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+        styleClass="p-datatable-gridlines">
+        <ng-template pTemplate="header" style="text-align: center;">
+            <tr>
+                <th style="text-align: center;">Nro</th>
+                <th style="text-align: center;">Nro Doc</th>
+                <th style="text-align: center;">Nombres</th>
+                <th style="text-align: center;">Nacionalidad</th>
+                <th style="text-align: center;">Tipo Seguro</th>
+                <th style="text-align: center;">Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-paciente style="text-align: center;" let-i="rowIndex">
+            <tr>
+                <td style="text-align: center;">{{ i }}</td>
+                <td style="text-align: center;">{{ paciente.nroDoc }}</td>
+                <td style="text-align: center;">
+                    {{ paciente.apePaterno +' '+  paciente.apeMaterno + ', '+ paciente.primerNombre + ' '+ paciente.otrosNombres }}
+                </td>
+                <td style="text-align: center;">{{ paciente.nacionalidad }}</td>
+                <td style="text-align: center;">{{ paciente.tipoSeguro }}</td>
+                <td style="text-align: center;width: 10em;">
+                    <button pButton (click)="openEditarPaciente(paciente)" pTooltip="Editar" pRipple type="button"
+                        icon="pi pi-pencil" class="p-button-rounded m-1">
+                    </button>
+
+                    <button pButton (click)="eliminarPaciente(paciente,$event)" pTooltip="Eliminar" pRipple
+                        type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="dialogPaciente" [style]="{width: '950px', height:'800px'}" header="Registrar Paciente"
+    [modal]="true" styleClass="p-fluid" autoZIndex>
+    <form [formGroup]='formPaciente'>
+        <div class="grid mt-1">
+            <div class="p-field col-3">
+                <label>Tipo Doc</label>
+                <p-dropdown [options]="listaDocumentos" formControlName="tipoDoc"
+                    placeholder="Seleccione tipo de documento" optionLabel="abreviatura" [showClear]="false">
+                </p-dropdown>
+            </div>
+            <div class="p-field col-3">
+                <label>Número Doc:</label>
+                <input type="text" pInputText placeholder="Ingrese el número de doc" formControlName="nroDoc"
+                    class="inputTest" />
+            </div>
+        </div>
+        <div class="grid mt-1">
+            <div class="p-field col-3">
+                <label>Primer Nombre:</label>
+                <input type="text" pInputText formControlName="primerNombre" class="inputTest" />
+            </div>
+            <div class="p-field col-3">
+                <label>Otros Nombres:</label>
+                <input type="text" pInputText formControlName="otrosNombres" class="inputTest" />
+            </div>
+            <div class="p-field col-3">
+                <label>Apellido Paterno:</label>
+                <input type="text" pInputText formControlName="apPaterno" class="inputTest" />
+            </div>
+            <div class="p-field col-3">
+                <label>Apellido Materno:</label>
+                <input type="text" pInputText formControlName="apMaterno" class="inputTest" />
+            </div>
+        </div>
+        <div class="grid mt-1">
+            <div class="p-field col-3">
+                <label>Celular:</label>
+                <input type="number" pInputText formControlName="celular" class="inputTest" />
+            </div>
+            <div class="p-field col-3">
+                <label>Tipo Seguro:</label>
+                <!-- <input type="text" pInputText formControlName="tipoSeguro" class="inputTest" /> -->
+                <p-dropdown inputId="dropdown" formControlName="tipoSeguro" [autoDisplayFirst]="false"
+                    [options]="listaTipoSeguro" defaultLabel="" placeholder="Seleccione una Opción" id="distrito"
+                    [showClear]="false">
+                </p-dropdown>
+            </div>
+            <div class="p-field col-3">
+                <label>Nacionalidad:</label>
+                <!-- <input type="text" pInputText formControlName="nacionalidad" class="inpu" /> -->
+                <p-dropdown inputId="dropdown" formControlName="nacionalidad" [autoDisplayFirst]="false"
+                    [options]="listaNacionalidades" defaultLabel="Seleccione un distrito"
+                    placeholder="Seleccione una Opción" id="distrito" [showClear]="false">
+                </p-dropdown>
+            </div>
+            <div class="p-field col-3">
+                <label>Procedencia:</label>
+                <input type="text" pInputText formControlName="procedencia" class="inputTest" />
+            </div>
+        </div>
+    </form>
+    <div class="grid mt-1">
+        <div class=" col-3">
+            <label>Departamento:</label>
+            <div class="p-field">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataDepartamentos"
+                    [(ngModel)]="dpto" (onChange)="selectedDepartamento()" placeholder="Seleccione un Departamento"
+                    [showClear]="false" optionLabel="departamento" defaultLabel="Seleccione un Departamento"
+                    id="departamento">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-field col-3">
+            <label>Provincia:</label>
+            <div class="p-field">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataProvincia"
+                    optionLabel="provincia" defaultLabel="Seleccione una provincia"
+                    placeholder="Seleccione una provincia" id="provincia" [showClear]="false" [(ngModel)]="prov"
+                    (onChange)="selectedProvincia()">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-field col-3">
+            <label>Distrito:</label>
+            <div class="p-field">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataDistrito" [(ngModel)]="dist"
+                    optionLabel="distrito" defaultLabel="Seleccione un distrito" placeholder="Seleccione un Distrito"
+                    id="distrito" [showClear]="false" (onChange)="selectedDistrito()">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-field col-3">
+            <label>Centro Poblado:</label>
+            <div class="p-field">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataCentroPoblado"
+                    [(ngModel)]="ccpp" optionLabel="ccpp" defaultLabel="Seleccione un centroPoblado"
+                    placeholder="Seleccione un centro poblado" id="distrito" [showClear]="false">
+                </p-dropdown>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]='formPaciente'>
+        <div class="grid mt-1">
+            <div class="p-field col-3">
+                <label>Estado Civil:</label>
+                <!-- <input type="text" pInputText formControlName="estadoCivil" class="inputTest" /> -->
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaEstadoCivil"
+                    formControlName="estadoCivil" defaultLabel="Seleccione un elemento"
+                    placeholder="Seleccione un centro poblado" id="distrito" [showClear]="false">
+                </p-dropdown>
+            </div>
+            <div class="p-field col-3">
+                <label>Etnia:</label>
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataEtnia" formControlName="etnia"
+                    optionLabel="descripcion" defaultLabel="" placeholder="Seleccione un Distrito" id="distrito"
+                    [showClear]="false">
+                </p-dropdown>
+            </div>
+            <div class="p-field col-3">
+                <label>Grado Instrucción:</label>
+                <input type="text" pInputText formControlName="gradoInstruccion" class="inputTest" />
+            </div>
+            <div class="p-field col-3">
+                <label>Sexo:</label>
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaSexo" formControlName="sexo"
+                    placeholder="Seleccione una Opción" [showClear]="false">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="grid mt-1">
+            <div class="p-field col-3">
+                <label>Fecha de Nacimiento:</label>
+                <p-inputMask mask="99/99/9999" formControlName="fechaNacimiento" slotChar="dd/mm/yyyy"></p-inputMask>
+            </div>
+            <div class="p-field col-3">
+                <label>Fecha de Inscripción:</label>
+                <p-inputMask mask="99/99/9999" formControlName="fechaInscripcion" slotChar="dd/mm/yyyy"></p-inputMask>
+                <!-- <p-calendar formControlName="fechaInscripcion"></p-calendar> -->
+            </div>
+            <div class="p-field col-3">
+                <label>Fecha Emisión:</label>
+                <p-inputMask mask="99/99/9999" formControlName="fechaEmision" slotChar="dd/mm/yyyy"></p-inputMask>
+                <!-- <p-calendar formControlName="fechaEmision"></p-calendar> -->
+            </div>
+            <div class="p-field col-3">
+                <label>Restricción:</label>
+                <input type="text" pInputText formControlName="restriccion" class="inputTest" />
+            </div>
+        </div>
+        <div class="grid mt-1">
+            <div class="p-field col-6">
+                <label>Direccion:</label>
+                <input type="text" pInputText formControlName="direccion" class="inputTest" />
+            </div>
+            <div class="p-field col-6">
+                <label>Discapacidad:</label>
+                <!-- <input type="text" pInputText formControlName="discapacidad" class="inputTest" /> -->
+                <p-chips formControlName="discapacidad" separator="," ngDefaultControl></p-chips>
+            </div>
+        </div>
+        <!-- <div class="grid mt-1">
+            <div class="p-field col-4">
+                <label>Nombre Padre:</label>
+                <input type="text" pInputText formControlName="nombrePadre" class="inputTest" />
+            </div>
+            <div class="p-field col-4">
+                <label>Nombre Madre:</label>
+                <input type="text" pInputText formControlName="nombreMadre" class="inputTest" />
+            </div>
+
+            <div class="p-field col-3">
+                <label>Ipress</label>
+                <p-dropdown [options]="listaIpress" formControlName="ipress" placeholder="Seleccione una Ipress"
+                    optionLabel="nombreEESS" [showClear]="false">
+                </p-dropdown>
+            </div>
+        </div> -->
+    </form>
+    <ng-template pTemplate=footer class="mt-2">
+        <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogPaciente()"></button>
+        <button *ngIf="update" pButton type="button" label="Editar" (click)="aceptarEditarPaciente()"></button>
+        <button *ngIf="!update" pButton type="button" label="Aceptar" (click)="aceptarDialogPaciente()"></button>
+    </ng-template>
+</p-dialog>

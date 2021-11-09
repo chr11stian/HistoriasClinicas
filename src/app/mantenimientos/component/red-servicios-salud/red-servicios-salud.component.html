@@ -1,0 +1,287 @@
+<div class="p-card">
+    <p-tabView (onChange)="handleChange($event)">
+        <p-tabPanel header="Red de Servicios de Salud">
+            <p-toolbar class="p-mb-4">
+                <ng-template pTemplate="left">
+                    <h3 class="p-m-0">Red de Servicios de Salud</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                        (click)="openDialogAgregarRedServicios()"></button>
+                    <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+                </ng-template>
+            </p-toolbar>
+            <p-table #dt [value]="listaRedServiciosSalud" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
+                [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
+                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
+                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+                styleClass="p-datatable-gridlines">
+                <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;">Nro</th>
+                        <th style="text-align: center;">id Red</th>
+                        <th style="text-align: center;">Nombre Red</th>
+                        <th style="text-align: center;">DISA</th>
+                        <th style="text-align: center;">Acción</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-red style="text-align: center;" let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center;">{{ i + 1 }}</td>
+                        <td style="text-align: center;">{{ red.idRed }}</td>
+                        <td style="text-align: center;">{{ red.nombreRed }}</td>
+                        <td style="text-align: center;">{{ red.disa }}</td>
+                        <td style="text-align: center;width: 10em;">
+                            <button pButton (click)="openEditarRed(red)" pTooltip="Editar" pRipple type="button"
+                                icon="pi pi-pencil" class="p-button-rounded m-1">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+
+
+        <p-tabPanel header="Micro Red de Servicios de Salud">
+            <p-toolbar class="p-mb-4">
+                <ng-template pTemplate="left">
+                    <h3 class="p-m-0">Micro Red de Servicios de Salud</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                        (click)="openDialogAgregarMicroRedServicios()"></button>
+                    <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+                </ng-template>
+            </p-toolbar>
+            <div class="p-mb-4 p-fluid">
+                <div class="col-3">
+                    <label>Seleccione una Red</label>
+                    <br><br>
+                    <p-dropdown [options]="listaRedServiciosSalud" [(ngModel)]="selectedRed"
+                        placeholder="Seleccione una Red" optionLabel="nombreRed" [showClear]="false"
+                        (ngModelChange)="changeRedSelected($event)">
+                    </p-dropdown>
+                </div>
+            </div>
+            <p-table #dt [value]="listaGetMicroRed" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
+                [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
+                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
+                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+                styleClass="p-datatable-gridlines">
+                <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;">Nro</th>
+                        <th style="text-align: center;">id Micro Red</th>
+                        <th style="text-align: center;">Nombre Micro Red</th>
+                        <th style="text-align: center;">Acción</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-microRed style="text-align: center;" let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center;">{{ i + 1 }}</td>
+                        <td style="text-align: center;">{{ microRed.idMicroRed }}</td>
+                        <td style="text-align: center;">{{ microRed.nombreMicroRed }}</td>
+                        <td style="text-align: center;width: 10em;">
+                            <button pButton (click)="openEditarMicroRed(microRed)" pTooltip="Editar" pRipple
+                                type="button" icon="pi pi-pencil" class="p-button-rounded m-1">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+
+
+        <p-tabPanel header="Establecimiento de salud">
+
+            <p-toolbar class="p-mb-4">
+                <ng-template pTemplate="left">
+                    <h3 class="p-m-0">Establecimiento de Salud</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
+                        (click)="openDialogAgregarEESS()"></button>
+                    <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+                </ng-template>
+            </p-toolbar>
+            <div class="flex flex-row p-fluid">
+                <div class="p-mb-4 col-3">
+                    <label>Seleccione una Red</label><br><br>
+                    <p-dropdown [options]="listaRedServiciosSalud" [(ngModel)]="selectedRedEESS"
+                        placeholder="Seleccione una Red" optionLabel="nombreRed" [showClear]="false"
+                        (ngModelChange)="changeRedSelected($event)">
+                    </p-dropdown>
+                </div>
+                <div class="p-mb-4 col-3 p-fluid">
+                    <label>Seleccione una Micro Red</label><br><br>
+                    <p-dropdown [options]="listaGetMicroRed" [(ngModel)]="selectedMicroRed"
+                        placeholder="Seleccione una Micro Red" optionLabel="nombreMicroRed" [showClear]="false"
+                        (ngModelChange)="changedMicroRedSelected($event)">
+                    </p-dropdown>
+                </div>
+            </div>
+            <p-table #dt [value]="listaEESS" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
+                [(selection)]="selectedRedServiciosSalud" [rowHover]="true" datakey="id"
+                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
+                responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+                styleClass="p-datatable-gridlines">
+                <ng-template class="ng-template" pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center;">Nro</th>
+                        <th style="text-align: center;">id EESS</th>
+                        <th style="text-align: center;">Nombre EESS</th>
+                        <th style="text-align: center;">Categoria</th>
+                        <th style="text-align: center;">Ubigeo</th>
+                        <th style="text-align: center;">Acción</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-eess style="text-align: center;" let-i="rowIndex">
+                    <tr>
+                        <td style="text-align: center;">{{ i + 1 }}</td>
+                        <td style="text-align: center;">{{ eess.idEESS }}</td>
+                        <td style="text-align: center;">{{ eess.nombreEESS }}</td>
+                        <td style="text-align: center;">{{ eess.categoria }}</td>
+                        <td style="text-align: center;">{{ eess.ubigeo }}</td>
+                        <td style="text-align: center;width: 10em;">
+                            <button pButton (click)="openEditarEESS(eess)" pTooltip="Editar" pRipple type="button"
+                                icon="pi pi-pencil" class="p-button-rounded m-1">
+                            </button>
+                            <button pButton (click)="eliminarEESS(microRed)" pTooltip="Eliminar" pRipple type="button"
+                                icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+
+<!--            INICIO DE DIALOG ADD RED SERVICIO SALUD              -->
+
+<p-dialog [(visible)]="agregarRedServicio" [style]="{width: '500px'}" header="Registrar Red de Servicios de Salud"
+    [modal]="true" styleClass="p-fluid" autoZIndex>
+    <form [formGroup]='formRedServicio'>
+        <div class="grid">
+            <div class="p-field col-5">
+                <label>id Red</label>
+                <input type="text" pInputText formControlName="idRed" class="inputTest"/>
+            </div>
+            <div class="col-2"></div>
+            <div class="p-field col-5">
+                <label>DISA</label>
+                <input type="text" pInputText formControlName="disa" />
+            </div>
+        </div>
+        <div class="grid">
+            <div class="p-field col-12">
+                <label>Nombre Red</label>
+                <input type="text" pInputText formControlName="nombreRed" />
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate=footer>
+        <button pButton type="button" label="cancelar" class="p-button-danger"
+            (click)="closeDialogRedServicio()"></button>
+        <button *ngIf="update" pButton type="button" label="Editar" (click)="editarRed()"></button>
+        <button *ngIf="!update" pButton type="button" label="Aceptar" (click)="aceptarDialogRedServicio()"></button>
+    </ng-template>
+</p-dialog>
+<!--            FIN DIALOG DE ADD RED SERVICIO SALUD             -->
+
+<!--            INICIO DIALOG ADD MICRO RED SERVICIO SALUD       -->
+<p-dialog [(visible)]="agregarMicroRedServicio" [style]="{width: '700px'}" header="Registrar Red de Servicios de Salud"
+    [modal]="true" styleClass="p-fluid" autoZIndex>
+    <form [formGroup]='formMicroRed'>
+        <div class="grid ">
+            <div class="p-field col-5 dataRed mt-3">
+                <label>id Red: </label>
+                <label class="datos font-italic"> {{ selectedRed.idRed }}</label>
+                <br>
+                <label>Nombre Red:</label>
+                <label class="datos font-italic"> {{ selectedRed.nombreRed }}</label>
+            </div>
+            <div class="col-1"></div>
+            <div class="p-field col-6">
+                <div class="col-12">
+                    <label>Id Micro Red</label>
+                    <input type="text" pInputText formControlName="idMicroRed" />
+                </div>
+                <button *ngIf="update" pButton type="button" label="Editar" (click)="editarRed()"></button>
+                <div class="col-12">
+                    <label>Nombre Micro Red</label>
+                    <input type="text" pInputText formControlName="nombreMicroRed" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate=footer>
+        <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogMicroRed()"></button>
+        <button *ngIf="update" pButton type="button" label="Editar" (click)="editarMicroRed()"></button>
+        <button *ngIf="!update" pButton type="button" label="Aceptar" (click)="aceptarDialogMicroRed()"></button>
+    </ng-template>
+</p-dialog>
+<!--            FIN DIALOG ADD MICRO RED SERVICIO SALUD          -->
+
+<!--                    INICIO DIALOG EESS                       -->
+<p-dialog [(visible)]="agregarEESS" [style]="{width: '800px'}" header="Registrar Establecimiento de Salud"
+    [modal]="true" styleClass="p-fluid" autoZIndex>
+    <form [formGroup]='formEESS'>
+        <div class="grid">
+            <div class="p-field col-3">
+                <label>id EESS</label>
+                <input type="text" pInputText formControlName="idEESS" class="inputTest" />
+            </div>
+            <div class="p-field col-6">
+                <label>Nombre EESS</label>
+                <input type="text" pInputText formControlName="nombreEESS" />
+            </div>
+            <div class="p-field col-3">
+                <label>Categoria</label>
+                <input type="text" pInputText formControlName="categoria" class="test" />
+            </div>
+        </div>
+    </form>
+    <br>
+    <div class="grid">
+        <div class=" col-4">
+            <label>Departamento</label>
+            <div class="p-field">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataDepartamentos"
+                    [(ngModel)]="dpto" (onChange)="selectedDepartamento()"
+                    placeholder ="Seleccione un Departamento"
+                    [showClear]="false"
+                    optionLabel="departamento" defaultLabel="Seleccione un Departamento" id="departamento">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-field col-4">
+            <label>Provincia</label>
+            <div class="p-field">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataProvincia"
+                    optionLabel="provincia" defaultLabel="Seleccione una provincia"
+                    placeholder="Seleccione una provincia" id="provincia" [showClear]="false"
+                    [(ngModel)]="prov" (onChange)="selectedProvincia()">
+
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-field col-4">
+            <label>Distrito</label>
+            <div class="p-field">
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataDistrito"
+                    [(ngModel)]="dist" optionLabel="distrito" defaultLabel="Seleccione un distrito"
+                    placeholder="Seleccione un Distrito" id="distrito" [showClear]="false">
+                </p-dropdown>
+            </div>
+        </div>
+    </div>
+    <ng-template pTemplate=footer>
+        <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogEESS()"></button>
+        <button pButton type="button" label="Aceptar" (click)="aceptarDialogEESS()"></button>
+    </ng-template>
+</p-dialog>
+<!--                    FIN DIALOG EESS                          -->

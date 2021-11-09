@@ -1,0 +1,135 @@
+<p-table
+  [value]="data"
+  #dt
+  styleClass="p-datatable-gridlines   "
+  [rows]="10"
+  [rowsPerPageOptions]="[5, 10, 15]"
+  [paginator]="true"
+  [autoLayout]="true"
+  currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex justify-content-between">
+      <h3>Lista de tipos de personal</h3>
+      <button
+        pButton
+        type="button"
+        label="Agregar"
+        icon="pi pi-plus"
+        (click)="isUpdate = false; agregarActualizar()"
+        pTooltip="Agregar tipo de personal"
+        tooltipPosition="bottom"
+        class="p-button-danger"
+        pRipple
+      ></button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+    <tr>
+      <th class="text-center">Nro</th>
+      <th class="text-center">Nombre</th>
+      <th class="text-center">Es profesional</th>
+      <th class="text-center">Abreviatura</th>
+      <th class="text-center">Especialidad</th>
+      <th class="text-center">Estado</th>
+      <th class="text-center">Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+    <tr>
+      <td class="text-center text-800">{{ rowIndex + 1 }}</td>
+      <td class="text-center text-800">{{ rowData.nombre }}</td>
+      <td class="text-center text-800">
+        <div *ngIf="rowData.esProfesional; else noEs">
+          <p-tag
+            value="Es profesional"
+            severity="info"
+            rounded="true "
+            styleClass="text-sm px-3"
+          ></p-tag>
+        </div>
+        <ng-template #noEs>
+          <p-tag
+            value="No es profesional"
+            severity="danger"
+            rounded="true "
+            styleClass="text-sm"
+          ></p-tag>
+        </ng-template>
+      </td>
+      <td class="text-center text-800">{{ rowData.abreviatura }}</td>
+      <td class="text-center text-800">
+        <div *ngIf="rowData.especialista; else noEspecialidad">
+          <p-tag
+            value="Tiene especialidad"
+            rounded="true"
+            severity="info"
+            styleClass="text-sm px-3"
+          >
+          </p-tag>
+        </div>
+        <ng-template #noEspecialidad>
+          <p-tag
+            value="No tiene especialidad"
+            rounded="true"
+            severity="danger"
+            styleClass="text-sm"
+          >
+          </p-tag>
+        </ng-template>
+      </td>
+      <td class="text-center text-800">
+        <span class="p-column-title">Estado</span>
+        <div *ngIf="rowData.estado; else noActivo">
+          <p-tag
+            value="Activo"
+            rounded="true"
+            severity="info"
+            styleClass="text-sm px-3"
+          >
+          </p-tag>
+        </div>
+        <ng-template #noActivo>
+          <p-tag
+            value="Inactivo"
+            rounded="true"
+            severity="danger"
+            styleClass="text-sm"
+          >
+          </p-tag>
+        </ng-template>
+      </td>
+      <td class="flex justify-content-around">
+        <span class="p-column-title">Acciones</span>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-pencil"
+          (click)="isUpdate = true; agregarActualizar(rowIndex)"
+          pTooltip="Editar tipo personal"
+          tooltipPosition="bottom"
+          class="p-button-raised p-button-info p-button-rounded"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          (click)="deleteTP(rowIndex)"
+          icon="pi pi-trash"
+          pTooltip="Eliminar tipo personal"
+          tooltipPosition="bottom"
+          class="p-button-raised p-button-danger p-button-rounded"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-confirmDialog
+  [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
+  [style]="{ width: '25vw' }"
+  key="positionDialog"
+  [baseZIndex]="10000"
+>
+</p-confirmDialog>
+<p-toast></p-toast>
