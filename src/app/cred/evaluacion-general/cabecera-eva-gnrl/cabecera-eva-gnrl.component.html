@@ -1,0 +1,20 @@
+<div>
+    <p-steps [model]="items" [readonly]="false" (activeIndexChange)="ChangeStep($event)">
+    </p-steps>
+
+    <div class="stepsdemo-content" *ngIf="stepIndex === 0">
+        <p-card>
+            <app-evaluacion-alimentacion></app-evaluacion-alimentacion>
+        </p-card>
+    </div>
+    <div class="stepsdemo-content" *ngIf="stepIndex === 1">
+        <p-card>
+            <app-escala-evaluacion-eedp></app-escala-evaluacion-eedp>
+        </p-card>
+    </div>
+    <div class="stepsdemo-content" *ngIf="stepIndex === 2">
+        <p-card>
+            <app-eedp></app-eedp>
+        </p-card>
+    </div>
+</div>

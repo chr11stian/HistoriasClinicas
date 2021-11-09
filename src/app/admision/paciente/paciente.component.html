@@ -29,7 +29,7 @@
                 <td style="text-align: center;">
                     {{ paciente.apePaterno +' '+  paciente.apeMaterno + ', '+ paciente.primerNombre + ' '+ paciente.otrosNombres }}
                 </td>
-                <td style="text-align: center;">{{ paciente.nacionalidad[0] }}</td>
+                <td style="text-align: center;">{{ paciente.nacionalidad }}</td>
                 <td style="text-align: center;">{{ paciente.tipoSeguro }}</td>
                 <td style="text-align: center;width: 10em;">
                     <button pButton (click)="openEditarPaciente(paciente)" pTooltip="Editar" pRipple type="button"
