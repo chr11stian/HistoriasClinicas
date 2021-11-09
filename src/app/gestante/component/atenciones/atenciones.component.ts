@@ -36,55 +36,55 @@ export class AtencionesComponent implements OnInit {
       private formBuilder: FormBuilder
   ) {
     this.buildForm();
-   //  this.getEtnia();
-    this.situacionList = [{ label: 'Longitudinal', value: '1' },
-      { label: 'Transversa', value: '2' },
-      { label: 'No Aplica', value: '3' }];
+    //  this.getEtnia();
+    this.situacionList = [{label: 'Longitudinal', value: '1'},
+      {label: 'Transversa', value: '2'},
+      {label: 'No Aplica', value: '3'}];
 
-    this.presentacionList = [{ label: 'Cefálica', value: '1' },
-      { label: 'Pélvica', value: '2' },
-      { label: 'No Aplica', value: '3' }];
+    this.presentacionList = [{label: 'Cefálica', value: '1'},
+      {label: 'Pélvica', value: '2'},
+      {label: 'No Aplica', value: '3'}];
 
-    this.posicionList = [{ label: 'Derecha', value: '1' },
-      { label: 'Izquierda', value: '2' },
-      { label: 'No Aplica', value: '3' }];
+    this.posicionList = [{label: 'Derecha', value: '1'},
+      {label: 'Izquierda', value: '2'},
+      {label: 'No Aplica', value: '3'}];
 
-    this.movFetalList = [{ label: '+', value: '1' },
-      { label: '++', value: '2' },
-      { label: '+++', value: '3' },
-      { label: 'Sin Movimiento', value: '4' },
-      { label: 'No Aplica', value: '5' }];
+    this.movFetalList = [{label: '+', value: '1'},
+      {label: '++', value: '2'},
+      {label: '+++', value: '3'},
+      {label: 'Sin Movimiento', value: '4'},
+      {label: 'No Aplica', value: '5'}];
 
-    this.protcualitList= [{ label: '+', value: '1' },
-      { label: '++', value: '2' },
-      { label: '+++', value: '3' },
-      { label: 'No se hizo', value: '4' }];
+    this.protcualitList = [{label: '+', value: '1'},
+      {label: '++', value: '2'},
+      {label: '+++', value: '3'},
+      {label: 'No se hizo', value: '4'}];
 
-    this.edemaList= [{ label: '+', value: '1' },
-      { label: '++', value: '2' },
-      { label: '+++', value: '3' },
-      { label: 'Sin Edema', value: '4' }];
+    this.edemaList = [{label: '+', value: '1'},
+      {label: '++', value: '2'},
+      {label: '+++', value: '3'},
+      {label: 'Sin Edema', value: '4'}];
 
-    this.reflejoOsteotendinosoList= [{ label: '0', value: '1' },
-      { label: '+', value: '2' },
-      { label: '++', value: '3' },
-      { label: '+++', value: '4' }];
+    this.reflejoOsteotendinosoList = [{label: '0', value: '1'},
+      {label: '+', value: '2'},
+      {label: '++', value: '3'},
+      {label: '+++', value: '4'}];
 
-    this.interconsultaList= [{ label: 'Psicologia', value: '1' },
-      { label: 'Nutricion', value: '2' },
-      { label: 'Odontologia', value: '3' },
-      { label: 'Medicina', value: '4' },
+    this.interconsultaList = [{label: 'Psicologia', value: '1'},
+      {label: 'Nutricion', value: '2'},
+      {label: 'Odontologia', value: '3'},
+      {label: 'Medicina', value: '4'},
 
     ];
 
-    this.planPartoList= [{ label: 'Control' , value: '1' },
-      { label: 'Visita', value: '2' },
-      { label: 'No se hizo', value: '3' },
-      { label: 'No Aplica', value: '4' }];
+    this.planPartoList = [{label: 'Control', value: '1'},
+      {label: 'Visita', value: '2'},
+      {label: 'No se hizo', value: '3'},
+      {label: 'No Aplica', value: '4'}];
 
-    this.visitaDomiciliariaList= [{ label: 'Si' , value: '1' },
-      { label: 'No', value: '2' },
-      { label: 'No Aplica', value: '3' }];
+    this.visitaDomiciliariaList = [{label: 'Si', value: '1'},
+      {label: 'No', value: '2'},
+      {label: 'No Aplica', value: '3'}];
 
   }
 
@@ -99,22 +99,22 @@ export class AtencionesComponent implements OnInit {
       presionArterial: ['', [Validators.required]],
       pulsoMaterno: ['', [Validators.required]],
       alturaUterinal: ['', [Validators.required]],
-      situacion: ['',[Validators.required]],
-      presentacion: ['',[Validators.required]],
-      posicion: ['',[Validators.required]],
+      situacion: ['', [Validators.required]],
+      presentacion: ['', [Validators.required]],
+      posicion: ['', [Validators.required]],
       fcf: ['', [Validators.required]],
-      movFetal: ['',[Validators.required]],
-      proteinaCualitativa: ['',[Validators.required]],
-      edema: ['',[Validators.required]],
-      reflejoOsteotendinoso: ['',[Validators.required]],
+      movFetal: ['', [Validators.required]],
+      proteinaCualitativa: ['', [Validators.required]],
+      edema: ['', [Validators.required]],
+      reflejoOsteotendinoso: ['', [Validators.required]],
       fechaEcografia: ['', [Validators.required]],
       consejeriaIntegral: ['', [Validators.required]],
       indAcidoFolico: ['', [Validators.required]],
       indFierro: ['', [Validators.required]],
       indCalcio: ['', [Validators.required]],
-      interconsulta: ['',[Validators.required]],
-      planParto: ['',[Validators.required]],
-      visitaDomiciliaria: ['',[Validators.required]],
+      interconsulta: ['', [Validators.required]],
+      planParto: ['', [Validators.required]],
+      visitaDomiciliaria: ['', [Validators.required]],
       proximaCita: ['', [Validators.required]],
       responsableAtencion: ['', [Validators.required]],
       establecimientoAtencion: ['', [Validators.required]],
@@ -123,43 +123,51 @@ export class AtencionesComponent implements OnInit {
   }
 
 
-
-  save(form: any){
-   this.isUpdate = false;
+  save(form: any) {
+    this.isUpdate = false;
     console.log("enviando datos...");
     console.log(form);
     console.log(form.value);
+    this.data.push(form.value);
 
-    const req = {
-      fechaAtencion: this.form.value.fechaAtencion,
-      edadGestacional: this.form.value.edadGestacional,
-      pesoMadre: this.form.value.pesoMadre,
-      evalNutricional: this.form.value.evalNutricional,
-      temperatura: this.form.value.temperatura,
-      presionArterial: this.form.value.presionArterial,
-      pulsoMaterno: this.form.value.pulsoMaterno,
-      alturaUterinal: this.form.value.alturaUterinal,
-      situacion: this.form.value.situacion,
-      presentacion: this.form.value.presentacion,
-      posicion: this.form.value.posicion,
-      fcf: this.form.value.fcf,
-      movFetal: this.form.value.movFetal,
-      proteinaCualitativa: this.form.value.proteinaCualitativa,
-      edema: this.form.value.edema,
-      reflejoOsteotendinoso: this.form.value.reflejoOsteotendinoso,
-      fechaEcografia: this.form.value.fechaEcografia,
-      consejeriaIntegral: this.form.value.consejeriaIntegral,
-      indAcidoFolico: this.form.value.indAcidoFolico,
-      indFierro: this.form.value.indFierro,
-      indCalcio: this.form.value.indCalcio,
-      interconsulta: this.form.value.interconsulta,
-      planParto: this.form.value.planParto,
-      visitaDomiciliaria: this.form.value.visitaDomiciliaria,
-      proximaCita: this.form.value.proximaCita,
-      responsableAtencion: this.form.value.responsableAtencion,
-      establecimientoAtencion: this.form.value.establecimientoAtencion,
-
-   }
+    Swal.fire({
+      icon: 'success',
+      title: 'Agregado correctamente',
+      text: '',
+      showConfirmButton: false,
+      timer: 1500,
+    })
+    this.atencionGestanteDialog = false;
+    //  const req = {
+    //    fechaAtencion: this.form.value.fechaAtencion,
+    //    edadGestacional: this.form.value.edadGestacional,
+    //    pesoMadre: this.form.value.pesoMadre,
+    //    evalNutricional: this.form.value.evalNutricional,
+    //    temperatura: this.form.value.temperatura,
+    //    presionArterial: this.form.value.presionArterial,
+    //    pulsoMaterno: this.form.value.pulsoMaterno,
+    //    alturaUterinal: this.form.value.alturaUterinal,
+    //    situacion: this.form.value.situacion,
+    //    presentacion: this.form.value.presentacion,
+    //    posicion: this.form.value.posicion,
+    //    fcf: this.form.value.fcf,
+    //    movFetal: this.form.value.movFetal,
+    //    proteinaCualitativa: this.form.value.proteinaCualitativa,
+    //    edema: this.form.value.edema,
+    //    reflejoOsteotendinoso: this.form.value.reflejoOsteotendinoso,
+    //    fechaEcografia: this.form.value.fechaEcografia,
+    //    consejeriaIntegral: this.form.value.consejeriaIntegral,
+    //    indAcidoFolico: this.form.value.indAcidoFolico,
+    //    indFierro: this.form.value.indFierro,
+    //    indCalcio: this.form.value.indCalcio,
+    //    interconsulta: this.form.value.interconsulta,
+    //    planParto: this.form.value.planParto,
+    //    visitaDomiciliaria: this.form.value.visitaDomiciliaria,
+    //    proximaCita: this.form.value.proximaCita,
+    //    responsableAtencion: this.form.value.responsableAtencion,
+    //    establecimientoAtencion: this.form.value.establecimientoAtencion,
+    //
+    // }
 
 
   }
@@ -197,7 +205,9 @@ export class AtencionesComponent implements OnInit {
 
     this.atencionGestanteDialog = true;
   }
+
   editar(rowData) {
+
     this.isUpdate = true;
     this.form.get('fechaAtencion').setValue(rowData.fechaAtencion);
     this.form.get('edadGestacional').setValue(rowData.edadGestacional);
@@ -222,74 +232,19 @@ export class AtencionesComponent implements OnInit {
     this.form.get('indCalcio').setValue(rowData.indCalcio);
     this.form.get('interconsulta').setValue(rowData.interconsulta);
     this.form.get('proximaCita').setValue(rowData.proximaCita);
-    this.form.get('visitaDomiciliaria').setValue(rowData.visitaDomiciliaria), this.form.get('responsableAtencion').setValue(rowData.responsableAtencion);
+    this.form.get('visitaDomiciliaria').setValue(rowData.visitaDomiciliaria),
+    this.form.get('responsableAtencion').setValue(rowData.responsableAtencion);
     this.form.get('responsableAtencion').setValue(rowData.responsableAtencion);
     this.form.get('establecimientoAtencion').setValue(rowData.establecimientoAtencion);
-    this.isUpdate =rowData.id;
+    this.isUpdate = rowData.id;
     this.atencionGestanteDialog = true;
 
   }
-  editarDatos(rowData){
-    const req={
-      id: this.idUpdate,
-      fechaAtencion: this.form.value.fechaAtencion,
-      edadGestacional: this.form.value.edadGestacional,
-      pesoMadre: this.form.value.pesoMadre,
-      evalNutricional: this.form.value.evalNutricional,
-      temperatura: this.form.value.temperatura,
-      presionArterial: this.form.value.presionArterial,
-      pulsoMaterno: this.form.value.pulsoMaterno,
-      alturaUterinal: this.form.value.alturaUterinal,
-      situacion: this.form.value.situacion,
-      presentacion: this.form.value.presentacion,
-      posicion: this.form.value.posicion,
-      fcf: this.form.value.fcf,
-      movFetal: this.form.value.movFetal,
-      proteinaCualitativa: this.form.value.proteinaCualitativa,
-      edema: this.form.value.edema,
-      reflejoOsteotendinoso: this.form.value.reflejoOsteotendinoso,
-      fechaEcografia: this.form.value.fechaEcografia,
-      consejeriaIntegral: this.form.value.consejeriaIntegral,
-      indAcidoFolico: this.form.value.indAcidoFolico,
-      indFierro: this.form.value.indFierro,
-      indCalcio: this.form.value.indCalcio,
-      interconsulta: this.form.value.interconsulta,
-      planParto: this.form.value.planParto,
-      visitaDomiciliaria: this.form.value.visitaDomiciliaria,
-      proximaCita: this.form.value.proximaCita,
-      responsableAtencion: this.form.value.responsableAtencion,
-      establecimientoAtencion: this.form.value.establecimientoAtencion,
-
-    }
 
 
-  }
 
   eliminar(rowData) {
-    // this.isUpdate = false;
-    // Swal.fire({
-    //   showCancelButton: true,
-    //   confirmButtonText: 'Eliminar',
-    //   icon: 'warning',
-    //   title: 'Estas seguro de eliminar',
-    //   text: '',
-    //   showConfirmButton: true,
-    // }).then((result) => {
-    //   if (result.isConfirmed) {
-    //     this.atencionServcice.deleteAtencionGestante(rowData.id).subscribe(
-    //         result => {
-    //           this.getEtnia()
-    //         }
-    //     );
-    //     Swal.fire({
-    //       icon: 'success',
-    //       title: 'Eliminado correctamente',
-    //       text: '',
-    //       showConfirmButton: false,
-    //       timer: 1500
-    //     })
-    //   }
-    // })*/
+
   }
 
   canceled() {
@@ -307,14 +262,62 @@ export class AtencionesComponent implements OnInit {
     if (this.isUpdate) return "EDITE ATENCION PRENATAL";
     else return "NUEVA ATENCION PRENATAL";
   }
+  graficar() {
 
-  /*valorTipoEtnia(valor) {
-    for (let i=0; i<this.etniaList.length; i++){
-      if (valor===this.etniaList[i].value) return this.etniaList[i].label;
+  }
+  valorTipoSituacion(valor) {
+    for (let i=0; i<this.situacionList.length; i++){
+      if (valor===this.situacionList[i].value) return this.situacionList[i].label;
     }
-  }*/
-
+  }
+  valorTipoPresentacion(valor) {
+    for (let i=0; i<this.presentacionList.length; i++){
+      if (valor===this.presentacionList[i].value) return this.presentacionList[i].label;
+    }
+  }
+  valorTipoPosicion(valor) {
+    for (let i=0; i<this.posicionList.length; i++){
+      if (valor===this.posicionList[i].value) return this.posicionList[i].label;
+    }
+  }
+  valorTipomovFetal(valor) {
+    for (let i=0; i<this.movFetalList.length; i++){
+      if (valor===this.movFetalList[i].value) return this.movFetalList[i].label;
+    }
+  }
+  valorproteiCualitativa(valor) {
+    for (let i=0; i<this.protcualitList.length; i++){
+      if (valor===this.protcualitList[i].value) return this.protcualitList[i].label;
+    }
+  }
+  valorEdema(valor) {
+    for (let i=0; i<this.edemaList.length; i++){
+      if (valor===this.edemaList[i].value) return this.edemaList[i].label;
+    }
+  }
+  valorReflejoO(valor) {
+    for (let i=0; i<this.reflejoOsteotendinosoList.length; i++){
+      if (valor===this.reflejoOsteotendinosoList[i].value) return this.reflejoOsteotendinosoList[i].label;
+    }
+  }
+  valorInterconsultas(valor) {
+    for (let i=0; i<this.interconsultaList.length; i++){
+      if (valor===this.interconsultaList[i].value) return this.interconsultaList[i].label;
+    }
+  }
+  valorPlanParto(valor) {
+    for (let i=0; i<this.planPartoList.length; i++){
+      if (valor===this.planPartoList[i].value) return this.planPartoList[i].label;
+    }
+  }
+  valorVisitaDomiciliaria(valor) {
+    for (let i=0; i<this.visitaDomiciliariaList.length; i++){
+      if (valor===this.visitaDomiciliariaList[i].value) return this.visitaDomiciliariaList[i].label;
+    }
+  }
 
   ngOnInit(): void {
   }
+
+
 }
