@@ -2,9 +2,20 @@ p-card >>> .p-card .p-card-title{
    margin: 0.5rem 0rem 0.5rem 0.5rem;
 }
 .caja {
-   background-color: red;
    color: white;
    border-radius:10px;
    width: 60px;
    height: 40px;
+   margin: 0px;
+}
+p-table >>> .p-datatable .p-datatable-tbody > tr {
+   height: 10px;
+}
+p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+   text-align: center;
+   font-size: small;
+   word-wrap: break-word;
+}
+p-table >>> .p-datatable .p-datatable-thead > tr > th {
+   padding: 2px;
 }
