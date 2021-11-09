@@ -84,6 +84,9 @@ export class StepGeneralComponent implements OnInit {
         break
     }
   }
+  ChangeStep(event: number){
+    this.indiceActivo = event;
+  }
 }
 
 interface data {
