@@ -54,7 +54,7 @@ export class StepGeneralComponent implements OnInit {
         break
       case "nacidos":
         this.stepName = "puerperio"
-        this.indiceActivo = 4
+        this.indiceActivo = 5
         break
     }
   }
