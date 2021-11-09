@@ -40,9 +40,9 @@
   </div>
   </p-card>
 </div>
-<p-steps [model]="items" [readonly]="true" [(activeIndex)]="indiceActivo">
+<p-steps [model]="items" [readonly]="false" (activeIndexChange)="ChangeStep($event)">
 </p-steps>
-<div class="stepsdemo-content" *ngIf="stepName === 'datos'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 0">
   <p-card>
     <ng-template pTemplate="content">
       <app-datos-generales></app-datos-generales>
@@ -59,7 +59,7 @@
     </ng-template>
   </p-card>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'antecedentes'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 1">
   <p-card>
     <ng-template pTemplate="content">
       <app-antecendentes></app-antecendentes>
@@ -79,7 +79,7 @@
     </ng-template>
   </p-card>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'plan'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 2">
   <p-card>
     <ng-template pTemplate="content">
       <app-plan-atencion-integral></app-plan-atencion-integral>
@@ -99,7 +99,7 @@
     </ng-template>
   </p-card>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'evaluacion'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 3">
   <p-card>
     <ng-template pTemplate="content">
       <app-evaluacion-general></app-evaluacion-general>
@@ -119,7 +119,7 @@
     </ng-template>
   </p-card>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'test'">
+<div class="stepsdemo-content" *ngIf="indiceActivo === 4">
   <p-card>
     <ng-template pTemplate="content">
       <app-test-desarrollo></app-test-desarrollo>
