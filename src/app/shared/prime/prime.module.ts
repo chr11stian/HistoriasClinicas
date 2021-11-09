@@ -27,8 +27,11 @@ import { SelectButtonModule } from "primeng/selectbutton";
 import { CalendarModule } from "primeng/calendar";
 import { StepsModule } from 'primeng/steps';
 import {InputSwitchModule} from 'primeng/inputswitch';
+import { CheckboxModule } from "primeng/checkbox";
+import {FieldsetModule} from 'primeng/fieldset';
 
 const importsApi = [
+  FieldsetModule,
   InputSwitchModule,
   SelectButtonModule,
   DialogModule,
@@ -65,7 +68,8 @@ const importsApi = [
   ToastModule,
   SelectButtonModule,
   CalendarModule,
-  StepsModule
+  StepsModule,
+  CheckboxModule,
 ];
 
 @NgModule({
