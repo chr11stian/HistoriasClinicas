@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {PrimeModule} from "src/app/shared/prime/prime.module";
 import {FieldsetModule} from 'primeng/fieldset';
 import { TabViewModule } from 'primeng/tabview';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 import { CredRoutingModule } from './cred-routing.module';
 import { DatosGeneralesComponent } from './datos-generales/datos-generales.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
@@ -44,8 +44,6 @@ import { EEDPComponent } from './evaluacion-general/eedp/eedp.component';
     PrimeModule,
     CommonModule,
     CredRoutingModule,
-  FormsModule,
-    ReactiveFormsModule,
     TabViewModule,
     FieldsetModule,
     InputTextModule,
