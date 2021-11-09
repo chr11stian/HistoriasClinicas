@@ -1,0 +1,25 @@
+p-panel>>>.p-panel {
+
+    border: 1px solid #D32F2F;
+    color: #FFFFFF;
+
+}
+/*PANTALLA TABLET*/
+@media only screen and (min-width: 701px) and (max-width: 900px){
+    #contenedor{
+        width: 60%;
+        margin: 0 auto;
+    }
+}
+/*PANTALLA  SMARTPHONE*/
+@media only screen and (min-width: 400px) and (max-width: 700px){
+    #contenedor{
+        width: 80%;
+        margin: 0 auto;
+    }
+}
+/*p-panel>>>.p-panel .p-panel-content{*/
+/*    border: 1px solid #D32F2F;*/
+/*    color: #FFFFFF;*/
+
+/*}*/

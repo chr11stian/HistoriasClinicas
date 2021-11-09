@@ -1,163 +1,92 @@
 <div class="card">
-  <p-card>
-    <div class="grid">
-        <div class="col-9" style="margin: 0px 0px 0px 20px;">
-          <span style="font-size: 2em;">GESTANTES > </span>
+    <p-card>
+        <div class="grid">
+            <div class="col-9" style="margin: 0px 0px 0px 20px;">
+                <span style="font-size: 2em;">GESTANTES > </span>
+            </div>
+            <div class="col-12 flex" style="margin: 0px 0px 0px 20px;">
+                <div class="col-2">
+                    <div class="field grid">
+                        <strong
+                        ><label class="line-height-4" for="username2"
+                        >*Tipo de documento:</label
+                        ></strong
+                        >
+                        <p-dropdown
+                                placeholder="Seleccionar"
+                                [options]="options"
+                                (ngModel)="(selectedOption)"
+                                optionLabel="name"
+                        >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="col-3 align-items-end">
+                    <div class="field grid">
+                        <strong>
+                            <label class="line-height-4" for="username2">
+                                *Ingrese valor del documento*
+                            </label>
+                        </strong>
+                        <input style="width: 450px" id="username2" pInputText/>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <button pButton style="margin-top: 10px">
+                        <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;cargar
+                    </button>
+                </div>
+            </div>
         </div>
-    <div class="col-12 flex" style="margin: 0px 0px 0px 20px;">
-      <div class="col-2">
-        <div class="field grid">
-          <strong
-            ><label class="line-height-4" for="username2"
-              >*Tipo de documento:</label
-            ></strong
-          >
-          <p-dropdown
-            placeholder="Seleccionar"
-            [options]="options"
-            (ngModel)="(selectedOption)"
-            optionLabel="name"
-          >
-          </p-dropdown>
-        </div>
-      </div>
-      <div class="col-3 align-items-end">
-        <div class="field grid">
-          <strong>
-            <label class="line-height-4" for="username2">
-              *Ingrese valor del documento*
-            </label>
-          </strong>
-          <input style="width: 450px" id="username2" pInputText />
-        </div>
-      </div>
-      <div class="col-1">
-        <button pButton style="margin-top: 10px">
-          <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;cargar
-        </button>
-      </div>
-    </div>
-  </div>
-  </p-card>
+    </p-card>
 </div>
-  <p-steps [model]="items" [readonly]="true" [(activeIndex)]="indiceActivo">
-  </p-steps>
-  <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
+
+<p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo" (activeIndexChange)="ChangeStep($event)">
+</p-steps>
+
+<div class="stepsdemo-content" *ngIf="stepName === 'datos'">
     <p-card>
-      <ng-template pTemplate="content">
-        <app-datos-generales-obtetricia></app-datos-generales-obtetricia>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <div class="p-grid p-nogutter p-justify-end">
-          <p-button
-            label="Siguiente"
-            (onClick)="nextPage()"
-            icon="pi pi-angle-right"
-            iconPos="right"
-          ></p-button>
-        </div>
-      </ng-template>
+        <ng-template pTemplate="content">
+            <app-datos-generales-obtetricia></app-datos-generales-obtetricia>
+        </ng-template>
     </p-card>
-  </div>
-  <div class="stepsdemo-content" *ngIf="stepName === 'basales'">
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'basales'">
     <p-card>
-      <ng-template pTemplate="content">
-        <app-datos-basales></app-datos-basales>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <div class="p-grid p-nogutter p-justify-between">
-          <p-button label="Atrás" (onClick)="prevPage()" icon="pi pi-angle-left">
-          </p-button>
-          <p-button
-            label="Siguiente"
-            (onClick)="nextPage()"
-            icon="pi pi-angle-right"
-            iconPos="right"
-          >
-          </p-button>
-        </div>
-      </ng-template>
+        <ng-template pTemplate="content">
+            <app-datos-basales></app-datos-basales>
+        </ng-template>
     </p-card>
-  </div>
-  <div class="stepsdemo-content" *ngIf="stepName === 'atenciones'">
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'atenciones'">
     <p-card>
-      <ng-template pTemplate="content">
-        <app-atenciones></app-atenciones>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <div class="p-grid p-nogutter p-justify-between">
-          <p-button label="Atrás" (onClick)="prevPage()" icon="pi pi-angle-left">
-          </p-button>
-          <p-button
-            label="Siguente"
-            (onClick)="nextPage()"
-            icon="pi pi-angle-right"
-            iconPos="right"
-          >
-          </p-button>
-        </div>
-      </ng-template>
+        <ng-template pTemplate="content">
+            <app-atenciones></app-atenciones>
+        </ng-template>
     </p-card>
-  </div>
-  <div class="stepsdemo-content" *ngIf="stepName === 'partos'">
+</div>
+
+
+<div class="stepsdemo-content" *ngIf="stepName === 'partos'">
     <p-card>
-      <ng-template pTemplate="content">
-        <app-partos></app-partos>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <div class="p-grid p-nogutter p-justify-between">
-          <p-button label="Atrás" (onClick)="prevPage()" icon="pi pi-angle-left">
-          </p-button>
-          <p-button
-            label="Siguente"
-            (onClick)="nextPage()"
-            icon="pi pi-angle-right"
-            iconPos="right"
-          >
-          </p-button>
-        </div>
-      </ng-template>
+        <ng-template pTemplate="content">
+            <app-partos></app-partos>
+        </ng-template>
     </p-card>
-  </div>
-  <div class="stepsdemo-content" *ngIf="stepName === 'nacidos'">
+</div>
+
+
+<div class="stepsdemo-content" *ngIf="stepName === 'nacidos'">
     <p-card>
-      <ng-template pTemplate="content">
-        <app-recien-nacido></app-recien-nacido>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <div class="p-grid p-nogutter p-justify-between">
-          <p-button label="Atrás" (onClick)="prevPage()" icon="pi pi-angle-left">
-          </p-button>
-          <p-button
-            label="Siguente"
-            (onClick)="nextPage()"
-            icon="pi pi-angle-right"
-            iconPos="right"
-          >
-          </p-button>
-        </div>
-      </ng-template>
+        <ng-template pTemplate="content">
+            <app-recien-nacido></app-recien-nacido>
+        </ng-template>
     </p-card>
-  </div>
-  <div class="stepsdemo-content" *ngIf="stepName === 'puerperio'">
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'puerperio'">
     <p-card>
-      <ng-template pTemplate="content">
-        <app-puerperio></app-puerperio>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <div class="p-grid p-nogutter p-justify-between">
-          <p-button label="Atrás" (onClick)="prevPage()" icon="pi pi-angle-left">
-          </p-button>
-          <button
-            class="p-button-danger"
-            pButton
-            pRipple
-            (click)="guardarFormulario()"
-            label="Guardar"
-            icon="pi pi-save"
-          ></button>
-        </div>
-      </ng-template>
+        <ng-template pTemplate="content">
+            <app-puerperio></app-puerperio>
+        </ng-template>
     </p-card>
-  </div>
-  
+</div>
