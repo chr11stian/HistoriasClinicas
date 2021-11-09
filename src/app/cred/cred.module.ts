@@ -18,6 +18,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 
+import { EvaluacionAlimentacionComponent } from './evaluacion-general/evaluacion-alimentacion/evaluacion-alimentacion.component';
+import { CabeceraEvaGnrlComponent } from './evaluacion-general/cabecera-eva-gnrl/cabecera-eva-gnrl.component';
+import { EscalaEvaluacionEEDPComponent } from './evaluacion-general/escala-evaluacion-eedp/escala-evaluacion-eedp.component';
+import { EEDPComponent } from './evaluacion-general/eedp/eedp.component';
 
 
 @NgModule({
@@ -30,8 +34,11 @@ import { DropdownModule } from 'primeng/dropdown';
     TestDesarrolloComponent,
     PersonalComponent,
     FamiliarComponent,
-    ViviendaComponent
-    
+    ViviendaComponent,
+    EvaluacionAlimentacionComponent,
+    CabeceraEvaGnrlComponent,
+    EscalaEvaluacionEEDPComponent,
+    EEDPComponent
   ],
   imports: [
     PrimeModule,

@@ -201,15 +201,6 @@ export class CuposComponent implements OnInit {
         })
     }
 
-    // openNew() {
-    //     this.isUpdate = false;
-    //     this.formCuposOferta.reset();
-    //     this.formCuposOferta.get('tipoDoc').setValue("");
-    //     this.formCuposOferta.get('nroDoc').setValue("");
-    //     this.formCuposOferta.get('nombre').setValue("");
-    //     this.formCuposOferta.get('apellidos').setValue("");
-    //     this.usuarioDialog = true;
-    // }
 
     saveForm() {
         this.isUpdate = false;
