@@ -9,6 +9,7 @@ import { AntecendentesComponent } from './antecendentes/antecendentes.component'
 import { PlanAtencionIntegralComponent } from './plan-atencion-integral/plan-atencion-integral.component';
 import { EvaluacionGeneralComponent } from './evaluacion-general/evaluacion-general.component';
 import { TestDesarrolloComponent } from './test-desarrollo/test-desarrollo.component';
+import {SharedModule} from '../shared/shared.module'
 
 
 @NgModule({
@@ -20,10 +21,11 @@ import { TestDesarrolloComponent } from './test-desarrollo/test-desarrollo.compo
     EvaluacionGeneralComponent,
     TestDesarrolloComponent
   ],
-  imports: [
-    PrimeModule,
-    CommonModule,
-    CredRoutingModule
-  ]
+    imports: [
+        PrimeModule,
+        CommonModule,
+        CredRoutingModule,
+        SharedModule,
+    ]
 })
 export class CredModule { }
