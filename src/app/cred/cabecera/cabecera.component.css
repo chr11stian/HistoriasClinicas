@@ -71,7 +71,7 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
   margin-top: -35px;
   z-index: 2;
-  margin-bottom: 30px;
+  margin-bottom: 19px;
   color: green;
 }
 :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
