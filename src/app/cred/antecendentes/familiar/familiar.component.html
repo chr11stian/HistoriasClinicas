@@ -1,0 +1,230 @@
+<div>
+    <p-fieldset legend="Antecedentes Familiares" [toggleable]="true">
+        <div class="col-12 flex align-items-center justify-content-center">
+            <label>Padre (P), Madre (M),Hermano (H), Abuelo (A), Otro (O)</label>
+        </div>
+        <div class="grid" style="padding-bottom: 0;">
+            <div class="col-4 ">
+                <div class="card">
+                    <div class="col">
+                        <div class="field grid" style="margin-bottom: 0.2rem;">
+                            <span class="col-fixed" style="width:80px">Tuberculosis</span>
+                            <p-selectButton [options]="stateOptions"
+                                            formControlName="normal"
+                                            optionLabel="label"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="field grid">
+                            <span class="col-fixed" style="width:80px">Quien</span>
+                            <p-dropdown
+                                inputId="dropdown-depart"
+                                [autoDisplayFirst]="false"
+                                [options]="familiares"
+                                optionValue="code"
+                                optionLabel="name">
+                            </p-dropdown>  
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="field grid" style="margin-bottom: 0.2rem;">
+                            <span class="col-fixed" style="width:80px">Asma</span>
+                            <p-selectButton [options]="stateOptions"
+                                            formControlName="normal"
+                                            optionLabel="label"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="field grid">
+                            <span class="col-fixed" style="width:80px">Quien</span>
+                            <p-dropdown
+                                inputId="dropdown-depart"
+                                [autoDisplayFirst]="false"
+                                [options]="familiares"
+                                optionValue="code"
+                                optionLabel="name">
+                            </p-dropdown>  
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="field grid" style="margin-bottom: 0.2rem;">
+                            <span class="col-fixed" style="width:80px">VIH / SIDA</span>
+                            <p-selectButton [options]="stateOptions"
+                                            formControlName="normal"
+                                            optionLabel="label"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="field grid">
+                            <span class="col-fixed" style="width:80px">Quien</span>
+                            <p-dropdown
+                                inputId="dropdown-depart"
+                                [autoDisplayFirst]="false"
+                                [options]="familiares"
+                                optionValue="code"
+                                optionLabel="name">
+                            </p-dropdown>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="col">
+                        <div class="field grid" style="margin-bottom: 0.2rem;">
+                            <span class="col-fixed" style="width:80px">Diabetes</span>
+                            <p-selectButton [options]="stateOptions"
+                                            formControlName="normal"
+                                            optionLabel="label"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="field grid">
+                            <span class="col-fixed" style="width:80px">Quien</span>
+                            <p-dropdown
+                                inputId="dropdown-depart"
+                                [autoDisplayFirst]="false"
+                                [options]="familiares"
+                                optionValue="code"
+                                optionLabel="name">
+                            </p-dropdown>  
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="field grid" style="margin-bottom: 0.2rem;">
+                            <span class="col-fixed" style="width:80px">Epilepsia</span>
+                            <p-selectButton [options]="stateOptions"
+                                            formControlName="normal"
+                                            optionLabel="label"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="field grid">
+                            <span class="col-fixed" style="width:80px">Quien</span>
+                            <p-dropdown
+                                inputId="dropdown-depart"
+                                [autoDisplayFirst]="false"
+                                [options]="familiares"
+                                optionValue="code"
+                                optionLabel="name">
+                            </p-dropdown>  
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="field grid" style="margin-bottom: 0.2rem;">
+                            <span class="col-fixed" style="width:80px">Alergia a medicinas</span>
+                            <p-selectButton [options]="stateOptions"
+                                            formControlName="normal"
+                                            optionLabel="label"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="field grid">
+                            <span class="col-fixed" style="width:80px">Quien</span>
+                            <p-dropdown
+                                inputId="dropdown-depart"
+                                [autoDisplayFirst]="false"
+                                [options]="familiares"
+                                optionValue="code"
+                                optionLabel="name">
+                            </p-dropdown>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4" style="padding-bottom: 0;">
+                <div class="card">
+                    <div class="col">
+                        <div class="field grid" style="margin-bottom: 0.2rem;">
+                            <span class="col-fixed" style="width:80px">Violencia Familiar</span>
+                            <p-selectButton [options]="stateOptions"
+                                            formControlName="normal"
+                                            optionLabel="label"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="field grid">
+                            <span class="col-fixed" style="width:80px">Quien</span>
+                            <p-dropdown
+                                inputId="dropdown-depart"
+                                [autoDisplayFirst]="false"
+                                [options]="familiares"
+                                optionValue="code"
+                                optionLabel="name">
+                            </p-dropdown>  
+                        </div>
+                    </div>
+                    
+                    <div class="col">
+                        <div class="field grid" style="margin-bottom: 0.2rem;">
+                            <span class="col-fixed" style="width:80px">Alcoholismo</span>
+                            <p-selectButton [options]="stateOptions"
+                                            formControlName="normal"
+                                            optionLabel="label"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="field grid">
+                            <span class="col-fixed" style="width:80px">Quien</span>
+                            <p-dropdown
+                                inputId="dropdown-depart"
+                                [autoDisplayFirst]="false"
+                                [options]="familiares"
+                                optionValue="code"
+                                optionLabel="name">
+                            </p-dropdown>  
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="field grid" style="margin-bottom: 0.2rem;">
+                            <span class="col-fixed" style="width:80px">Drogadicción</span>
+                            <p-selectButton [options]="stateOptions"
+                                            formControlName="normal"
+                                            optionLabel="label"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                        <div class="field grid">
+                            <span class="col-fixed" style="width:80px">Quien</span>
+                            <p-dropdown
+                                inputId="dropdown-depart"
+                                [autoDisplayFirst]="false"
+                                [options]="familiares"
+                                optionValue="code"
+                                optionLabel="name">
+                            </p-dropdown>  
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-4 col-offset-8" style="padding-top: 0; padding-bottom: 0;">
+                <div class="col">
+                    <div class="field grid" style="margin-bottom: 0.2rem;">
+                        <span class="col-fixed" style="width:80px">Hepatitis B</span>
+                        <p-selectButton [options]="stateOptions"
+                                        formControlName="normal"
+                                        optionLabel="label"
+                                        optionValue="value">
+                        </p-selectButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed" style="width:80px">Quien</span>
+                        <p-dropdown
+                            inputId="dropdown-depart"
+                            [autoDisplayFirst]="false"
+                            [options]="familiares"
+                            optionValue="code"
+                            optionLabel="name">
+                        </p-dropdown>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-fieldset>
+</div>
