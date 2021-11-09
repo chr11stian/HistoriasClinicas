@@ -1,1 +1,554 @@
-<p>evaluacion-alimentacion works!</p>
+<div>
+    <p-table
+        [scrollable]="true"  
+        scrollHeight="400px"
+        scrollWidth="100%"
+        [value]="evaluacionAlimenticia" 
+        scrollDirection="both"
+        dataKey="id" 
+        responsiveLayout="scroll"
+        >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:300px; height: 30px">EDAD</th>
+                <th style="width:100px; height: 30px">RN</th>
+                <th style="width:100px; height: 30px">1m</th>
+                <th style="width:100px; height: 30px">2m</th>
+                <th style="width:100px; height: 30px">3m</th>
+                <th style="width:100px; height: 30px">4m</th>
+                <th style="width:100px; height: 30px">5m</th>
+                <th style="width:100px; height: 30px">6m</th>
+                <th style="width:100px; height: 30px">7m</th>
+                <th style="width:100px; height: 30px">8m</th>
+                <th style="width:100px; height: 30px">9m</th>
+                <th style="width:100px; height: 30px">10m</th>
+                <th style="width:100px; height: 30px">11m</th>
+                <th style="width:100px; height: 30px">12m</th>
+                <th style="width:100px; height: 30px">14m</th>
+                <th style="width:100px; height: 30px">16m</th>
+                <th style="width:100px; height: 30px">18m</th>
+                <th style="width:100px; height: 30px">20m</th>
+                <th style="width:100px; height: 30px">22m</th>
+                <th style="width:100px; height: 30px">24m</th>    
+                <th style="width:100px; height: 30px">24m</th>
+                <th style="width:100px; height: 30px">30m</th>
+                <th style="width:100px; height: 30px">33m</th>
+                <th style="width:100px; height: 30px">36m</th>
+                <th style="width:100px; height: 30px">39m</th>
+                <th style="width:100px; height: 30px">42m</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-datos>
+            <tr *ngIf="datos.titulo ==='Fecha'">
+                <td style="width:300px; height: 40px;" class="titulotablaFecha">{{datos.titulo}}</td>
+                <td style="width:100px; height: 40px;" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valorRN" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valorRN | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor1M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor1M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor2M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor2M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor3M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor3M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor4M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor4M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor5M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor5M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor6M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor6M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor7M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor7M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor8M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor8M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor9M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor9M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor10M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor10M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor11M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor11M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor12M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor12M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor14M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor14M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor16M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor16M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor18M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor18M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor20M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor20M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor22M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor22M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor24M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor24M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor27M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor27M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor30M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor30M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor33M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor33M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor36M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor36M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor39M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor39M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="datos.valor42M" [showIcon]="true" inputId="icon"></p-calendar>
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor42M | date: 'dd-MM-yyyy'}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+            </tr>
+            <tr *ngIf="datos.titulo !=='Fecha'">
+                <td *ngIf="datos.titulo !=='Observaciones'" style="width:300px; height: 40px" class="titulotabla">{{datos.titulo}}</td>
+                <td *ngIf="datos.titulo ==='Observaciones'" style="width:300px; height: 40px" class="titulotablaFecha">{{datos.titulo}}</td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input style="width:50px" pInputText type="text" [(ngModel)]="datos.valorRN">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valorRN}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor1M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor1M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor2M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor2M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor3M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor3M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor4M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor4M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor5M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor5M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor6M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor6M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor7M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor7M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor8M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor8M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor9M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor9M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor10M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor10M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor11M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor11M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor12M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor12M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor14M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor14M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor16M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor16M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor18M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor18M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor20M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor20M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor22M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor22M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor24M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor24M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor27M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor27M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor30M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor30M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor33M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor33M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor36M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor36M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor39M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor39M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+                <td style="width:100px; height: 40px" pEditableColumn>
+                    <p-cellEditor>
+                        <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="datos.valor42M">
+                        </ng-template>
+                        <ng-template pTemplate="output">
+                            {{datos.valor42M}}
+                        </ng-template>
+                    </p-cellEditor>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <div>
+        <p-button label="Guardar" (onClick)="guardarEvaluacion()"></p-button>
+    </div>
+</div>

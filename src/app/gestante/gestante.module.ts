@@ -30,6 +30,7 @@ import {CheckboxModule} from "primeng/checkbox";
 
     exports: [DatosGeneralesObtetriciaComponent],
 
+
     imports: [
         PrimeModule,
         CommonModule,
@@ -39,7 +40,10 @@ import {CheckboxModule} from "primeng/checkbox";
         FieldsetModule,
         FormsModule,
         ReactiveFormsModule,
-        CheckboxModule
+        CheckboxModule,
+        ReactiveFormsModule,
+        PanelModule,
+        FieldsetModule
     ]
 })
 export class GestanteModule {

@@ -1,12 +1,11 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup,} from "@angular/forms";
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild,} from "@angular/core";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Network, DataSet} from 'vis';
 
 @Component({
-    selector: 'app-datos-generales-obtetricia',
-    templateUrl: './datos-generales-obtetricia.component.html',
-    styleUrls: ['./datos-generales-obtetricia.component.css']
-
+    selector: "app-datos-generales-obtetricia",
+    templateUrl: "./datos-generales-obtetricia.component.html",
+    styleUrls: ["./datos-generales-obtetricia.component.css"],
 })
 export class DatosGeneralesObtetriciaComponent implements OnInit {
 
@@ -109,6 +108,4 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         const container = this.visNetwork;
         this.networkInstance = new Network(container.nativeElement, data, {});
     }
-
-
 }
