@@ -34,9 +34,12 @@ p-fieldset >>> .p-fieldset .p-fieldset-content {
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
 }
-p-checkbox>>>.p-checkbox .p-checkbox-box #check-alerta-roja{
-    background: rgb(197, 56, 56);
+::ng-deep .rojo .p-checkbox  .p-checkbox-box{
+    background: rgb(194, 6, 6);
+    border-color: rgb(194, 6, 6);
 }
-.check-alerta-amarilla{
-    background: rgb(250, 253, 80);
+
+::ng-deep .amarillo .p-checkbox  .p-checkbox-box{
+    background: rgb(242, 236, 56);
+    border-color: rgb(242, 236, 56);
 }
