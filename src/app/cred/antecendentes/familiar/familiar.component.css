@@ -1,0 +1,18 @@
+p-fieldset >>>.p-fieldset .p-fieldset-legend {
+    font-weight: 650;
+    
+    
+}
+p-fieldset >>> .p-fieldset-legend>span {
+    padding: 1rem;
+}
+
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background: #00118d;
+    border-color: #00118d;
+    
+}
+
+p-dropdown >>> .p-dropdown {
+    background: #bdbdbd;
+}

@@ -53,19 +53,18 @@
                 </div>
               </div>
             </div>
-            <div class="col-2">
+            <div class="col-4">
               <div class="flex" style="padding: px; margin: 0px 15px">
-                <div class="col-10 text-right">Orden:</div>
-                <div class="col-2 text-left">
+                <div class="col-5 text-right">Orden:</div>
+                <div class="col-7 p-fluid">
                   <p-inputNumber
                     mode="decimal"
                     placeholder="150"
-                    style="width: 5px"
                   ></p-inputNumber>
                 </div>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-2">
               <div class="flex" style="padding: px">
                 <div class="col-10 text-right">Aborto:</div>
                 <div class="col-2 text-left">
@@ -99,13 +98,13 @@
           </div>
           <div class="flex" style="padding: 0px">
             <div class="col-5 text-right">PULSO MATERNO:</div>
-            <div class="col-7">
+            <div class="col-7 p-fluid">
               <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
             </div>
           </div>
           <div class="flex" style="padding: 0px">
             <div class="col-5 text-right">PRESIÓN ARTERIAL:</div>
-            <div class="col-7">
+            <div class="col-7 p-fluid">
               <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
             </div>
           </div>
@@ -113,25 +112,25 @@
         <div class="md:col-2">
           <div class="flex" style="padding: px">
             <div class="col-5 text-right">FREC.:</div>
-            <div class="col-7">
+            <div class="col-7 p-fluid">
               <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
             </div>
           </div>
           <div class="flex" style="padding: px">
             <div class="col-5 text-right">TEMP.:</div>
-            <div class="col-7">
+            <div class="col-7 p-fluid">
               <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
             </div>
           </div>
           <div class="flex" style="padding: px">
             <div class="col-5 text-right">PESO:</div>
-            <div class="col-7">
+            <div class="col-7 p-fluid">
               <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
             </div>
           </div>
           <div class="flex" style="padding: px">
             <div class="col-5 text-right">E.G.:</div>
-            <div class="col-7">
+            <div class="col-7 p-fluid">
               <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
             </div>
           </div>
@@ -178,7 +177,7 @@
                   <div class="text-center" style="font-weight: bold">
                     TAMAÑO FETAL ACORDE
                   </div>
-                  <div>
+                  <div class="text-center">
                     <p-selectButton
                       class="text center"
                       [options]="signosOptions"
@@ -208,7 +207,7 @@
                   <div class="text-center" style="font-weight: bold">
                     DILATACION
                   </div>
-                  <div>
+                  <div class="p-fluid">
                     <p-inputNumber
                       mode="decimal"
                       placeholder="150"
@@ -238,7 +237,7 @@
                   <div class="text-center" style="font-weight: bold">
                     ALTURA UTERINA:
                   </div>
-                  <div>
+                  <div class="p-fluid">
                     <p-inputNumber
                       mode="decimal"
                       placeholder="150"
@@ -249,7 +248,7 @@
                   <div class="text-center" style="font-weight: bold">
                     F.C.F.
                   </div>
-                  <div>
+                  <div class="p-fluid">
                     <p-inputNumber
                       mode="decimal"
                       placeholder="150"
@@ -316,12 +315,12 @@
 </div>
 <!-- tercera fila -->
 <div class="grid">
-  <div class="col-4">
+  <div class="md:col-4">
     <p-fieldset legend="Signos y sintomas de Alerta">
       <div class="grid">
-        <div class="col-6">
+        <div class="md:col-6">
           <div class="flex" style="padding: 3px">
-            <div class="col-5 text-right">Anasarca:</div>
+            <div class="col-7 text-right">Anasarca:</div>
             <p-selectButton
               [options]="signosOptions"
               optionLabel="label"
@@ -329,7 +328,7 @@
             ></p-selectButton>
           </div>
           <div class="flex" style="padding: 3px">
-            <div class="col-5 text-right">Cianosis:</div>
+            <div class="col-7 text-right">Cianosis:</div>
             <p-selectButton
               [options]="signosOptions"
               optionLabel="label"
@@ -337,7 +336,7 @@
             ></p-selectButton>
           </div>
           <div class="flex" style="padding: 3px">
-            <div class="col-5 text-right">Escotomas:</div>
+            <div class="col-7 text-right">Escotomas:</div>
             <p-selectButton
               [options]="signosOptions"
               optionLabel="label"
@@ -345,7 +344,7 @@
             ></p-selectButton>
           </div>
           <div class="flex" style="padding: 3px">
-            <div class="col-5 text-right">Epigastralgia:</div>
+            <div class="col-7 text-right">Epigastralgia:</div>
             <p-selectButton
               [options]="signosOptions"
               optionLabel="label"
@@ -353,7 +352,7 @@
             ></p-selectButton>
           </div>
           <div class="flex" style="padding: 3px">
-            <div class="col-5 text-right">Dolor:</div>
+            <div class="col-7 text-right">Dolor:</div>
             <p-selectButton
               [options]="signosOptions"
               optionLabel="label"
@@ -361,9 +360,9 @@
             ></p-selectButton>
           </div>
         </div>
-        <div class="col-6">
+        <div class="md:col-6">
           <div class="flex" style="padding: 3px">
-            <div class="col-5 text-right">Hermaturia:</div>
+            <div class="col-7 text-right">Hermaturia:</div>
             <p-selectButton
               [options]="signosOptions"
               optionLabel="label"
@@ -371,7 +370,7 @@
             ></p-selectButton>
           </div>
           <div class="flex" style="padding: 3px">
-            <div class="col-5 text-right">Hipot. Ortostática:</div>
+            <div class="col-7 text-right">Hipot. Ortostática:</div>
             <p-selectButton
               [options]="signosOptions"
               optionLabel="label"
@@ -379,7 +378,7 @@
             ></p-selectButton>
           </div>
           <div class="flex" style="padding: 3px">
-            <div class="col-5 text-right">Ictericia:</div>
+            <div class="col-7 text-right">Ictericia:</div>
             <p-selectButton
               [options]="signosOptions"
               optionLabel="label"
@@ -387,7 +386,7 @@
             ></p-selectButton>
           </div>
           <div class="flex" style="padding: 3px">
-            <div class="col-5 text-right">Petequies:</div>
+            <div class="col-7 text-right">Petequies:</div>
             <p-selectButton
               [options]="signosOptions"
               optionLabel="label"
@@ -395,7 +394,7 @@
             ></p-selectButton>
           </div>
           <div class="flex" style="padding: 3px">
-            <div class="col-5 text-right">Proteuniria:</div>
+            <div class="col-7 text-right">Proteuniria:</div>
             <p-selectButton
               [options]="signosOptions"
               optionLabel="label"
@@ -406,7 +405,7 @@
       </div>
     </p-fieldset>
   </div>
-  <div class="col-8">
+  <div class="md:col-8">
     <div class="grid">
       <div class="col-12">
         <p-fieldset legend="corticoides antenatales">
@@ -446,7 +445,7 @@
             <div class="col-4">
               <div class="flex" style="padding: 3px">
                 <div class="col-6 text-right">SEM. INICION:</div>
-                <div class="col-5">
+                <div class="col-5 p-fluid">
                   <p-inputNumber
                     mode="decimal"
                     placeholder="150"
@@ -459,7 +458,7 @@
       </div>
     </div>
     <div class="grid">
-      <div class="col-7">
+      <div class="md:col-7">
         <p-fieldset legend="Tipo Procedimiento">
           <div class="grid">
             <div class="col-2">CESÁRIA:</div>
@@ -517,7 +516,7 @@
           </div>
         </p-fieldset>
       </div>
-      <div class="col-5">
+      <div class="md:col-5">
         <p-fieldset legend="Procedimiento en parto (Ver anexo)">
           <div>
             <div class="flex" style="padding: 3px">
@@ -840,14 +839,12 @@
           ></p-selectButton>
         </div>
         <div class="p-fluid">
-          <div class="p-field">
-            <input
-              type="text"
-              pInputText
-              style="border-radius: 10px"
-              class="mt-3"
-            />
-          </div>
+          <input
+            type="text"
+            pInputText
+            style="border-radius: 10px"
+            class="mt-3"
+          />
         </div>
       </p-fieldset>
     </div>
@@ -1074,3 +1071,8 @@
     </div>
   </div>
 </div> -->
+
+<span class="p-float-label grid">
+  <input class="col-5" id="float-input" type="text" pInputText />
+  <label class="col-7" for="float-input">Username</label>
+</span>

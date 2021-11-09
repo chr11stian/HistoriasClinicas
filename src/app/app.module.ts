@@ -14,9 +14,6 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {PrimeModule} from './shared/prime/prime.module'
 import {ChartModule} from 'primeng/chart';
 
-
-
-
 @NgModule({
     declarations: [
         AppComponent,
