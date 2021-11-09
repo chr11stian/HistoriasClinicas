@@ -24,6 +24,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
   guardarEvaluacion(){
     console.log('entro gaurdar', this.evaluacionAlimenticia);
+    
   }
 
   formatDate (date){
