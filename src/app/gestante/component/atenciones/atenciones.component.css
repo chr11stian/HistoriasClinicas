@@ -4,11 +4,14 @@ p-panel>>>.p-panel {
     color: #FFFFFF;
 
 }
+.button-cancelar{
+     background: #BF0D21;
+ }
 .button-agregar{
     background: #003C71;
 }
 .button-graficar {
-    background: #003C71;
+    background: #CE9104;
 }
 .input .label {
     display: flex;

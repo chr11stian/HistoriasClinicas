@@ -7,7 +7,7 @@
 
         <ng-template pTemplate="right" class="button">
 
-            <button pButton pRipple label="Grafico" icon="pi pi-file-o" class="button-graficar p-mr-2" (click)="graficar()"
+            <button pButton pRipple label="Grafico" icon="pi pi-file-o" icon="pi pi-chart-line" class="button-graficar p-mr-2" (click)="graficar()"
             ></button>
             <button pButton pRipple label="Agregar Atención" icon="pi pi-plus" class="button-agregar"
                     (click)="openNew()"></button>
@@ -47,6 +47,8 @@
                 <th style="text-align: center">Próxima Cita</th>
                 <th style="text-align: center">Responsable de atención</th>
                 <th style="text-align: center">Establec. de atención</th>
+                <th style="text-align: center">Acción</th>
+
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -467,8 +469,8 @@
     <br>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
-        <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar" (click)="save(formTemplate)" ></button>
+        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"(click)="canceled()"></button>
+        <button *ngIf="!isUpdate" [disabled]="!form.valid"  class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="save(formTemplate)" ></button>
 <!--        <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar" (click)="editarDatos()" ></button>-->
     </ng-template>
 
