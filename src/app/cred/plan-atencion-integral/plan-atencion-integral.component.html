@@ -1,1 +1,19 @@
-<p>plan-atencion-integral works!</p>
+<div>
+    <p-tabView [scrollable]="true">
+        <p-tabPanel header="Inmunizaciones">
+            <app-inmunizaciones></app-inmunizaciones>
+        </p-tabPanel>
+        <p-tabPanel header="Control de Crecimiento y Desarrollo">
+            <app-control-crecimiento></app-control-crecimiento>
+        </p-tabPanel>
+        <p-tabPanel header="Suplementación, Tratamiento y Seguimiento de Anemia">
+            <app-suplementacion-tratamiento></app-suplementacion-tratamiento>
+        </p-tabPanel>
+        <p-tabPanel header="Sesiones de Atención">
+            <app-sesiones-atencion></app-sesiones-atencion>
+        </p-tabPanel>
+        <p-tabPanel header="Descartes y Observaciones">
+            <app-descarte-observaciones></app-descarte-observaciones>
+        </p-tabPanel>
+    </p-tabView>
+</div>

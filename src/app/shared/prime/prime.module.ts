@@ -26,8 +26,10 @@ import { ToastModule } from "primeng/toast";
 import { SelectButtonModule } from "primeng/selectbutton";
 import { CalendarModule } from "primeng/calendar";
 import { StepsModule } from 'primeng/steps';
+import {InputSwitchModule} from 'primeng/inputswitch';
 
 const importsApi = [
+  InputSwitchModule,
   SelectButtonModule,
   DialogModule,
   InputNumberModule,

@@ -1,0 +1,11 @@
+p-tabview >>> .p-tabview .p-tabview-nav li {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-width: 1px 1px 1px 1px;
+}
+p-tabview >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background: #ffffff;
+  border-color: #2196f3;
+  color: #2196f3;
+  border-width: 0 0 2px 0;
+}
