@@ -12,3 +12,7 @@ p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
     border-color: #00118d;
     
 }
+
+p-dropdown >>> .p-dropdown {
+    background: #bdbdbd;
+}

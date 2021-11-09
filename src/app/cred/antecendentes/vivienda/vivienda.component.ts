@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vivienda.component.css']
 })
 export class ViviendaComponent implements OnInit {
-
-  constructor() { }
+  stateOptions: any[];
+  constructor() {
+    this.stateOptions = [{label: 'SI', value: true},
+                          {label: 'NO', value: false}];
+   }
 
   ngOnInit(): void {
   }
