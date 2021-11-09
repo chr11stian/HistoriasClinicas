@@ -1,0 +1,27 @@
+p-table >>> .p-datatable .p-datatable-thead > tr > th {
+    text-align: center !important;
+    border: 1px solid #b6b6b6;
+    background-color: #DDDDDD;
+    padding: 0.3rem;
+}
+p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+    text-align: start;
+    word-wrap: break-word;
+    
+}
+ng-template >>> .input{
+    width: 50px;
+}
+/* .tableScroll {
+    overflow: scroll;
+    height: 100%;
+    width: 100%;
+} */
+.titulotabla {
+    font-size: 12px;
+}
+.titulotablaFecha {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+}

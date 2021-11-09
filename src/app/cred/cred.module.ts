@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {PrimeModule} from "src/app/shared/prime/prime.module";
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CredRoutingModule } from './cred-routing.module';
 import { DatosGeneralesComponent } from './datos-generales/datos-generales.component';
 import { CabeceraComponent } from './cabecera/cabecera.component';
@@ -31,7 +31,9 @@ import { EEDPComponent } from './evaluacion-general/eedp/eedp.component';
   imports: [
     PrimeModule,
     CommonModule,
-    CredRoutingModule
+    CredRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class CredModule { }
