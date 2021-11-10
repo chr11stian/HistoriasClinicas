@@ -19,6 +19,7 @@ export class RecienNacidoComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      sexo: ['', [Validators.required]],
       selectedSexo: ['', [Validators.required]],
       selectedMedicacion: ['', [Validators.required]],
     })
