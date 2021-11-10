@@ -212,6 +212,20 @@
                                     <input type="text" class="p-inputtext-sm " pInputText />
                                 </div>
                             </div>
+                            <div class="grid">
+                                <div class="col-1">
+                                    <label>3.</label>
+                                </div>
+                                <div class="col-5">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-3">
+                                    <input type="date" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </p-fieldset>
@@ -479,7 +493,7 @@
         </div>
         <!-- siguiente linea -->
         <div class="grid">
-            <div class="col-4">
+            <div class="col-5">
                 <div class=" margen border-300">
                     <div class="grid">
                         <div class="col-4 text-right">
@@ -816,7 +830,7 @@
                     </div>
                 </p-fieldset>
             </div>
-            <div class="col-3">
+            <div class="col-5">
                 <p-fieldset legend="Egreso RN">
                     <div class="grid">
                         <div class="col-12 text-center">
@@ -884,39 +898,48 @@
                     </div>
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
+                            </div>
+                            <div class="col-7">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-xs  text-center" >No aplica</span>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-3">
                                 <span>Dx. Fallecim.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
+                            <div class="col-2">
                                 <p-radioButton name="dx" formControlName="dx" value="Fallecimiento" inputId="dx" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
                                 <span>Dx. Traslado.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
+                            <div class="col-2">
                                 <p-radioButton name="dx" formControlName="dx" value="Traslado" inputId="dx" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
                                 <span>Estable. Tras.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
+                            <div class="col-2">
                                 <p-radioButton name="dx" formControlName="dx" value="Estable" inputId="dx" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
@@ -982,7 +1005,11 @@
                     </div>
                 </p-fieldset>
             </div>
-            <div class="col-3">
+            
+        </div>
+        <!-- siguiente linea -->
+        <div class="grid">
+            <div class="col-5">
                 <p-fieldset legend="Ingreso Materno">
                     <div class="grid">
                         <div class="col-12 text-center">
@@ -1048,115 +1075,158 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
+                            </div>
+                            <div class="col-7">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-xs" >No aplica</span>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-3">
                                 <span>Dx. Fallecim.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
+                            <div class="col-2">
                                 <p-radioButton name="dxMaterno" formControlName="dxMaterno" value="Fallece" inputId="dxMaterno" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
                                 <span>Dx. Traslado.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
+                            <div class="col-2">
                                 <p-radioButton name="dxMaterno" formControlName="dxMaterno" value="Traslado" inputId="dxMaterno" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
                                 <span>Estable. Tras.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
+                            <div class="col-2">
                                 <p-radioButton name="dxMaterno" formControlName="dxMaterno" value="Estable" inputId="dxMaterno" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
                     </div>
                     <div class="grid">
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="col-12 text-center">
-                                <label>Alimento al Alta:</label>
+                                <label>Metodos anticonceptivos:</label>
                             </div>
                             <div class="grid ">
                                 <div class="col-8">
-                                    <span class="text-xs">Pecho solo</span>
+                                    <span class="text-xs">Abstinen. periodica</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                    </p-checkbox>
-                                </div>
-                            </div>
-                            <div class="grid ">
-                                <div class="col-8">
-                                    <span class="text-xs">Pecho y artificial</span>
-                                </div>
-                                <div class="col-4">
-                                    <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Abstinencia periodica" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <div class="col-8">
-                                    <span class="text-xs">Artificial solo</span>
+                                    <span class="text-xs">Condon</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Condon" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <div class="col-8">
-                                    <span class="text-xs">No aplica</span>
+                                    <span class="text-xs">DIU</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="DIU" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-4">
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Ligadura tubaria</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Ligadura Tubaria" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">MELA</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="MELA" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Progestag. Inyectables</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Progestag. Inyectables" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Progestag. Orales</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Progestag. Orales" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="grid text-center">
-                                <div class="col-12 ">
-                                    <label>TSH:</label>
+                        <div class="col-4">
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Anticonceptiva combinada</span>
                                 </div>
-                                <div class="col-12">
-                                    <p-selectButton [options]="stateOptions" formControlName="selectedMedicacion"
-                                        optionLabel="label" optionValue="value"></p-selectButton>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Anticonceptiva combinada" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
-                            <br />
-                            <div class="grid text-right">
-                                <div class="col-4">
-                                    <label>Peso:</label>
-                                </div>
+                            <div class="grid ">
                                 <div class="col-8">
-                                    <input type="text" class="p-inputtext-sm" pInputText />
+                                    <span class="text-xs">Solo orl./ Consej.</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Solo orl./ Consej." inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Ninguno</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Ninguno" inputId="anticonceptivoMaterno" class="amarillo pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Otro</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Otro" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </p-fieldset>
             </div>
-        </div>
-        <!-- siguiente linea -->
-        <div class="grid">
-            <div class="col-2"></div>
-            <div class="col-8">
+            <div class="col-7">
                 <p-fieldset legend="Tipo de Sangre">
                     <div class="grid text-right">
                         <div class="col-12">
@@ -1269,7 +1339,6 @@
                     </div>
                 </p-fieldset>
             </div>
-            <div class="col-2"></div>
         </div>
     </form>
 </div>

@@ -40,6 +40,7 @@ export class RecienNacidoComponent implements OnInit {
       dxMaterno: ['', [Validators.required]],
       grupoSangre: ['', [Validators.required]],
       rhSangre: ['', [Validators.required]],
+      anticonceptivoMaterno: ['', [Validators.required]],
       selectedSexo: ['', [Validators.required]],
       selectedMedicacion: ['', [Validators.required]],
     })
