@@ -59,16 +59,16 @@ p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
 
 /*clase radio button amarillo*/
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-box{
-    background: rgb(242, 236, 56);
-    border: rgb(242, 236, 56);
+    background: rgb(223, 217, 57);
+    border: rgb(223, 217, 57);
 }
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon{
-    background: rgb(242, 236, 56);
-    border: rgb(242, 236, 56);
+    background: rgb(223, 217, 57);
+    border: rgb(223, 217, 57);
 }
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight{
-    border-color: rgb(242, 236, 56);
-    background: rgb(242, 236, 56);
+    border-color: rgb(223, 217, 57);
+    background: rgb(223, 217, 57);
 }
 /*clase radio button rojo*/
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-box{
