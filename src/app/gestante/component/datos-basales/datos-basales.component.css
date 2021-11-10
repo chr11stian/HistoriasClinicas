@@ -34,3 +34,38 @@ p-checkbox>>> .p-checkbox .p-checkbox-box{
     background: rgb(242, 236, 56);
     border-color: rgb(242, 236, 56);
 }
+
+p-checkbox>>> .p-checkbox .p-checkbox-icon{
+    font-family: 'FontAwesome'; /* Indicamos que la tipografía es FontAwesome */
+    content: "\f140";
+}
+
+p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
+    /* background-image: ; */
+    content: url("src\app\gestante\component\datos-basales\assets\icons\check-svgrepo-com.svg");
+    /* border-color: red; */
+    /* conten */
+    /* size: 5px; */
+    /* padding: 0px; */
+    font-size: 0.5px;
+    
+}
+
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon{
+    /* background: #2196f3;
+    border: #2196f3; */
+    background: yellow;
+    border: yellow;
+    /* size: ; */
+}
+
+::ng-deep .p-radiobutton .p-radiobutton-box.p-highlight{
+    border-color: yellow;
+    background: yellow;
+}
+
+p-radiobutton>>>.p-radiobutton .p-radiobutton-box.p-highlight:active{
+    border-color: yellow !important;
+    background: yellow !important;
+}
+
