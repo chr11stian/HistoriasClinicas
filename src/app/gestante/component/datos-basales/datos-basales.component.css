@@ -64,8 +64,3 @@ p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
     background: yellow;
 }
 
-p-radiobutton>>>.p-radiobutton .p-radiobutton-box.p-highlight:active{
-    border-color: yellow !important;
-    background: yellow !important;
-}
-
