@@ -16,6 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { EvaluacionGeneralModule } from './evaluacion-general/evaluacion-general.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -38,7 +39,9 @@ import { EvaluacionGeneralModule } from './evaluacion-general/evaluacion-general
     InputTextModule,
     SelectButtonModule,
     DropdownModule,
-    EvaluacionGeneralModule
+    EvaluacionGeneralModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class CredModule { }

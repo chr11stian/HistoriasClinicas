@@ -1,4 +1,4 @@
-<div>
+<div [formGroup]="familiarFG">
     <p-fieldset legend="Antecedentes Familiares" [toggleable]="true">
         <div class="col-12 flex align-items-center justify-content-center">
             <label>Padre (P), Madre (M),Hermano (H), Abuelo (A), Otro (O)</label>
@@ -10,7 +10,7 @@
                         <div class="field grid" style="margin-bottom: 0.2rem;">
                             <span class="col-fixed" style="width:80px">Tuberculosis</span>
                             <p-selectButton [options]="stateOptions"
-                                            formControlName="normal"
+                                            formControlName="tuberculosis"
                                             optionLabel="label"
                                             optionValue="value">
                             </p-selectButton>
@@ -18,9 +18,10 @@
                         <div class="field grid">
                             <span class="col-fixed" style="width:80px">Quien</span>
                             <p-dropdown
-                                inputId="dropdown-depart"
+                                inputId="tuberculosisQuien"
                                 [autoDisplayFirst]="false"
                                 [options]="familiares"
+                                formControlName="tuberculosisQuien"
                                 optionValue="code"
                                 optionLabel="name">
                             </p-dropdown>  
@@ -31,7 +32,7 @@
                         <div class="field grid" style="margin-bottom: 0.2rem;">
                             <span class="col-fixed" style="width:80px">Asma</span>
                             <p-selectButton [options]="stateOptions"
-                                            formControlName="normal"
+                                            formControlName="asma"
                                             optionLabel="label"
                                             optionValue="value">
                             </p-selectButton>
@@ -39,9 +40,10 @@
                         <div class="field grid">
                             <span class="col-fixed" style="width:80px">Quien</span>
                             <p-dropdown
-                                inputId="dropdown-depart"
+                                inputId="asmaQuien"
                                 [autoDisplayFirst]="false"
                                 [options]="familiares"
+                                formControlName="asmaQuien"
                                 optionValue="code"
                                 optionLabel="name">
                             </p-dropdown>  
@@ -52,7 +54,7 @@
                         <div class="field grid" style="margin-bottom: 0.2rem;">
                             <span class="col-fixed" style="width:80px">VIH / SIDA</span>
                             <p-selectButton [options]="stateOptions"
-                                            formControlName="normal"
+                                            formControlName="sida"
                                             optionLabel="label"
                                             optionValue="value">
                             </p-selectButton>
@@ -60,9 +62,10 @@
                         <div class="field grid">
                             <span class="col-fixed" style="width:80px">Quien</span>
                             <p-dropdown
-                                inputId="dropdown-depart"
+                                inputId="sidaQuien"
                                 [autoDisplayFirst]="false"
                                 [options]="familiares"
+                                formControlName="sidaQuien"
                                 optionValue="code"
                                 optionLabel="name">
                             </p-dropdown>  
@@ -76,7 +79,7 @@
                         <div class="field grid" style="margin-bottom: 0.2rem;">
                             <span class="col-fixed" style="width:80px">Diabetes</span>
                             <p-selectButton [options]="stateOptions"
-                                            formControlName="normal"
+                                            formControlName="diabetes"
                                             optionLabel="label"
                                             optionValue="value">
                             </p-selectButton>
@@ -87,6 +90,7 @@
                                 inputId="dropdown-depart"
                                 [autoDisplayFirst]="false"
                                 [options]="familiares"
+                                formControlName="diabetesQuien"
                                 optionValue="code"
                                 optionLabel="name">
                             </p-dropdown>  
@@ -97,7 +101,7 @@
                         <div class="field grid" style="margin-bottom: 0.2rem;">
                             <span class="col-fixed" style="width:80px">Epilepsia</span>
                             <p-selectButton [options]="stateOptions"
-                                            formControlName="normal"
+                                            formControlName="epilepsia"
                                             optionLabel="label"
                                             optionValue="value">
                             </p-selectButton>
@@ -105,9 +109,10 @@
                         <div class="field grid">
                             <span class="col-fixed" style="width:80px">Quien</span>
                             <p-dropdown
-                                inputId="dropdown-depart"
+                                inputId="epilepsiaQuien"
                                 [autoDisplayFirst]="false"
                                 [options]="familiares"
+                                formControlName="epilepsiaQuien"
                                 optionValue="code"
                                 optionLabel="name">
                             </p-dropdown>  
@@ -118,7 +123,7 @@
                         <div class="field grid" style="margin-bottom: 0.2rem;">
                             <span class="col-fixed" style="width:80px">Alergia a medicinas</span>
                             <p-selectButton [options]="stateOptions"
-                                            formControlName="normal"
+                                            formControlName="alergiam"
                                             optionLabel="label"
                                             optionValue="value">
                             </p-selectButton>
@@ -126,9 +131,10 @@
                         <div class="field grid">
                             <span class="col-fixed" style="width:80px">Quien</span>
                             <p-dropdown
-                                inputId="dropdown-depart"
+                                inputId="alergiamQuien"
                                 [autoDisplayFirst]="false"
                                 [options]="familiares"
+                                formControlName="alergiamQuien"
                                 optionValue="code"
                                 optionLabel="name">
                             </p-dropdown>  
@@ -142,7 +148,7 @@
                         <div class="field grid" style="margin-bottom: 0.2rem;">
                             <span class="col-fixed" style="width:80px">Violencia Familiar</span>
                             <p-selectButton [options]="stateOptions"
-                                            formControlName="normal"
+                                            formControlName="violenciaF"
                                             optionLabel="label"
                                             optionValue="value">
                             </p-selectButton>
@@ -153,6 +159,7 @@
                                 inputId="dropdown-depart"
                                 [autoDisplayFirst]="false"
                                 [options]="familiares"
+                                formControlName="violenciaFQuien"
                                 optionValue="code"
                                 optionLabel="name">
                             </p-dropdown>  
@@ -163,7 +170,7 @@
                         <div class="field grid" style="margin-bottom: 0.2rem;">
                             <span class="col-fixed" style="width:80px">Alcoholismo</span>
                             <p-selectButton [options]="stateOptions"
-                                            formControlName="normal"
+                                            formControlName="alcoholismo"
                                             optionLabel="label"
                                             optionValue="value">
                             </p-selectButton>
@@ -171,9 +178,10 @@
                         <div class="field grid">
                             <span class="col-fixed" style="width:80px">Quien</span>
                             <p-dropdown
-                                inputId="dropdown-depart"
+                                inputId="alcoholismoQuien"
                                 [autoDisplayFirst]="false"
                                 [options]="familiares"
+                                formControlName="alcoholismoQuien"
                                 optionValue="code"
                                 optionLabel="name">
                             </p-dropdown>  
@@ -184,7 +192,7 @@
                         <div class="field grid" style="margin-bottom: 0.2rem;">
                             <span class="col-fixed" style="width:80px">Drogadicción</span>
                             <p-selectButton [options]="stateOptions"
-                                            formControlName="normal"
+                                            formControlName="droga"
                                             optionLabel="label"
                                             optionValue="value">
                             </p-selectButton>
@@ -192,9 +200,10 @@
                         <div class="field grid">
                             <span class="col-fixed" style="width:80px">Quien</span>
                             <p-dropdown
-                                inputId="dropdown-depart"
+                                inputId="drogaQuien"
                                 [autoDisplayFirst]="false"
                                 [options]="familiares"
+                                formControlName="drogaQuien"
                                 optionValue="code"
                                 optionLabel="name">
                             </p-dropdown>  
@@ -208,7 +217,7 @@
                     <div class="field grid" style="margin-bottom: 0.2rem;">
                         <span class="col-fixed" style="width:80px">Hepatitis B</span>
                         <p-selectButton [options]="stateOptions"
-                                        formControlName="normal"
+                                        formControlName="hepatitisB"
                                         optionLabel="label"
                                         optionValue="value">
                         </p-selectButton>
@@ -216,9 +225,10 @@
                     <div class="field grid">
                         <span class="col-fixed" style="width:80px">Quien</span>
                         <p-dropdown
-                            inputId="dropdown-depart"
+                            inputId="hepatitisBQuien"
                             [autoDisplayFirst]="false"
                             [options]="familiares"
+                            formControlName="hepatitisBQuien"
                             optionValue="code"
                             optionLabel="name">
                         </p-dropdown>  
@@ -227,21 +237,23 @@
             </div>
         </div>
     </p-fieldset>
+    <div class="col col-offset-9">
+        <button type="submit"
+                pButton 
+                pRipple 
+                icon="pi pi-save" 
+                label="Guardar" 
+                (click)="save()"
+                class="p-button-raised p-button-info"></button>
+        <button type="submit"
+                icon="pi pi-times-circle"            
+                pButton
+                pRipple
+                (click)="limpiar()"
+                label="Cancelar"          
+                class="p-button-raised p-button-danger"
+                >
+        </button>
+        
+        </div>
 </div>
-<div class="col col-offset-9">
-    <button type="submit"
-            pButton 
-            pRipple 
-            icon="pi pi-save" 
-            label="Guardar" 
-            class="p-button-raised p-button-info"></button>
-    <button type="submit"
-            icon="pi pi-times-circle"            
-            pButton
-            pRipple
-            label="Cancelar"          
-            class="p-button-raised p-button-danger"
-            >
-    </button>
-    
-    </div>
