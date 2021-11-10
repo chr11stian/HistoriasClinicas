@@ -1,14 +1,20 @@
-p-panel>>>.p-panel {
 
-    border: 1px solid #D32F2F;
-    color: #FFFFFF;
-
+.font-1{
+    font-size: .8em;
+}
+.font-2{
+    font-size: .7em;
+}
+.button-toolbar{
+    margin: 5px;
 }
 .button-cancelar{
      background: #BF0D21;
+
  }
 .button-agregar{
     background: #003C71;
+
 }
 .button-graficar {
     background: #CE9104;
@@ -26,32 +32,28 @@ p-panel>>>.p-panel {
     background: white;
     border-radius: 7px;
     height: 90%;
-    background:#FFFFFF;
     font-size: small;
 }
+p {
+    margin: 0;
+}
+.table-over{
+    overflow-x: auto;
+}
 
-/*.grid-res{*/
-/*    display:grid;*/
-/*    gap: 1rem;*/
-/*    grid-auto-rows: 22rem;*/
-/*    grid-template-columns: repeat(auto-fill,minmax(15rem,1fr));*/
+.confirmation-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-/*    grid-auto-flow: dense;*/
-/*}*/
 /*PANTALLA TABLET*/
-@media only screen and (min-width: 40rem){
-
+@media only screen and (max-width: 961px){
+.table-over{
+    overflow-x: auto;
+}
 }
 /*PANTALLA  SMARTPHONE*/
 @media only screen and (min-width: 400px) and (max-width: 700px){
-    /*.input-50{*/
-    /*    width: 80%;*/
-    /*    margin: 0 auto;*/
-    /*    font-size: 15px;*/
-    /*}*/
-}
-/*p-panel>>>.p-panel .p-panel-content{*/
-/*    border: 1px solid #D32F2F;*/
-/*    color: #FFFFFF;*/
 
-/*}*/
+}

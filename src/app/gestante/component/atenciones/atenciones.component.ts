@@ -17,7 +17,7 @@ export class AtencionesComponent implements OnInit {
   idUpdate: string = "";
   datafecha: any;
 
-  //etniaList: any[];
+ /* ---  listas ---*/
   situacionList: any[];
   presentacionList: any[];
   posicionList: any[];
@@ -36,7 +36,7 @@ export class AtencionesComponent implements OnInit {
       private formBuilder: FormBuilder
   ) {
     this.buildForm();
-    //  this.getEtnia();
+   /*LLENADO DE LISSTAS- VALORES QUE PUEDEN TOMAR CIERTAS PROPIEDADES*/
     this.situacionList = [{label: 'Longitudinal', value: '1'},
       {label: 'Transversa', value: '2'},
       {label: 'No Aplica', value: '3'}];
