@@ -10,7 +10,11 @@
               <div class="flex" style="padding: px">
                 <div class="col-10 text-right">Atención Prenatal:</div>
                 <div class="col-2 text-left">
-                  <p-checkbox></p-checkbox>
+                  <p-radioButton
+                    name="groupname"
+                    value="val1"
+                    [(ngModel)]="selectedValue"
+                  ></p-radioButton>
                 </div>
               </div>
             </div>
@@ -18,7 +22,11 @@
               <div class="flex" style="padding: px">
                 <div class="col-10 text-right">Aborto:</div>
                 <div class="col-2 text-left">
-                  <p-checkbox></p-checkbox>
+                  <p-radioButton
+                    name="groupname"
+                    value="val2"
+                    [(ngModel)]="selectedValue"
+                  ></p-radioButton>
                 </div>
               </div>
             </div>
@@ -26,7 +34,11 @@
               <div class="flex" style="padding: px">
                 <div class="col-10 text-right">Parto:</div>
                 <div class="col-2 text-left">
-                  <p-checkbox></p-checkbox>
+                  <p-radioButton
+                    name="groupname"
+                    value="val3"
+                    [(ngModel)]="selectedValue"
+                  ></p-radioButton>
                 </div>
               </div>
             </div>
@@ -49,7 +61,7 @@
               <div class="flex" style="padding: px">
                 <div class="col-10 text-right">Embarazo Múltiple:</div>
                 <div class="col-2 text-left">
-                  <p-checkbox></p-checkbox>
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
             </div>
@@ -60,6 +72,7 @@
                   <p-inputNumber
                     mode="decimal"
                     placeholder="150"
+                    class="yellowNumber"
                   ></p-inputNumber>
                 </div>
               </div>
@@ -68,7 +81,7 @@
               <div class="flex" style="padding: px">
                 <div class="col-10 text-right">Aborto:</div>
                 <div class="col-2 text-left">
-                  <p-checkbox></p-checkbox>
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
             </div>
@@ -85,215 +98,186 @@
       legend="Ingreso al Establecimiento por Parto  Fecha y hora 12/11/2021 00:00:00 "
     >
       <div class="grid">
-        <div class="md:col-2">
-          <div class="flex" style="padding: 0px">
-            <div class="col-5 text-right">REFERENCIA AL INGRESO:</div>
-            <div class="col-7">
-              <p-selectButton
-                [options]="treeOptionsOptions"
-                optionLabel="label"
-                optionValue="value"
-              ></p-selectButton>
+        <div class="lg:col-3 grid">
+          <div class="md:col-7">
+            <div class="flex" style="padding: 0px">
+              <div class="col-5 text-right">REFERENCIA AL INGRESO:</div>
+              <div class="col-7">
+                <p-selectButton
+                  [options]="treeOptionsOptions"
+                  optionLabel="label"
+                  optionValue="value"
+                ></p-selectButton>
+              </div>
+            </div>
+            <div class="flex" style="padding: 0px">
+              <div class="col-5 text-right">PULSO MATERNO:</div>
+              <div class="col-7 p-fluid">
+                <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
+              </div>
+            </div>
+            <div class="flex" style="padding: 0px">
+              <div class="col-5 text-right">PRESIÓN ARTERIAL:</div>
+              <div class="col-7 p-fluid">
+                <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
+              </div>
             </div>
           </div>
-          <div class="flex" style="padding: 0px">
-            <div class="col-5 text-right">PULSO MATERNO:</div>
-            <div class="col-7 p-fluid">
-              <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
+          <div class="md:col-5">
+            <div class="flex" style="padding: px">
+              <div class="col-5 text-right">FREC.:</div>
+              <div class="col-7 p-fluid">
+                <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
+              </div>
             </div>
-          </div>
-          <div class="flex" style="padding: 0px">
-            <div class="col-5 text-right">PRESIÓN ARTERIAL:</div>
-            <div class="col-7 p-fluid">
-              <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
+            <div class="flex" style="padding: px">
+              <div class="col-5 text-right">TEMP.:</div>
+              <div class="col-7 p-fluid">
+                <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
+              </div>
+            </div>
+            <div class="flex" style="padding: px">
+              <div class="col-5 text-right">PESO:</div>
+              <div class="col-7 p-fluid">
+                <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
+              </div>
+            </div>
+            <div class="flex" style="padding: px">
+              <div class="col-5 text-right">E.G.:</div>
+              <div class="col-7 p-fluid">
+                <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
+              </div>
             </div>
           </div>
         </div>
-        <div class="md:col-2">
-          <div class="flex" style="padding: px">
-            <div class="col-5 text-right">FREC.:</div>
-            <div class="col-7 p-fluid">
-              <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
-            </div>
-          </div>
-          <div class="flex" style="padding: px">
-            <div class="col-5 text-right">TEMP.:</div>
-            <div class="col-7 p-fluid">
-              <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
-            </div>
-          </div>
-          <div class="flex" style="padding: px">
-            <div class="col-5 text-right">PESO:</div>
-            <div class="col-7 p-fluid">
-              <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
-            </div>
-          </div>
-          <div class="flex" style="padding: px">
-            <div class="col-5 text-right">E.G.:</div>
-            <div class="col-7 p-fluid">
-              <p-inputNumber mode="decimal" placeholder="150"></p-inputNumber>
-            </div>
-          </div>
-        </div>
-        <div class="md:col-8">
-          <div class="grid">
-            <div class="col-10">
-              <div class="grid">
-                <div class="col-3">
-                  <div class="text-center" style="font-weight: bold">
-                    SITUACIÓN
-                  </div>
-                  <div class="flex" style="padding: px">
-                    <div class="col-8 text-right">Longitudinal:</div>
-                    <div class="col-5">
-                      <p-checkbox></p-checkbox>
-                    </div>
-                  </div>
-                  <div class="flex" style="padding: px">
-                    <div class="col-8 text-right">Transversal:</div>
-                    <div class="col-5">
-                      <p-checkbox></p-checkbox>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="text-center" style="font-weight: bold">
-                    SITUACIÓN
-                  </div>
-                  <div class="flex" style="padding: px">
-                    <div class="col-8 text-right">Derecha:</div>
-                    <div class="col-5">
-                      <p-checkbox></p-checkbox>
-                    </div>
-                  </div>
-                  <div class="flex" style="padding: px">
-                    <div class="col-8 text-right">Izquierda:</div>
-                    <div class="col-5">
-                      <p-checkbox></p-checkbox>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-3">
-                  <div class="text-center" style="font-weight: bold">
-                    TAMAÑO FETAL ACORDE
-                  </div>
-                  <div class="text-center">
-                    <p-selectButton
-                      class="text center"
-                      [options]="signosOptions"
-                      optionLabel="label"
-                      optionValue="value"
-                    ></p-selectButton>
-                  </div>
-                </div>
-                <div class="col-2" style="align-self: start">
-                  <div class="text-center" style="font-weight: bold">
-                    INICIO
-                  </div>
-                  <div class="flex" style="padding: px">
-                    <div class="col-8 text-right">Espontánea:</div>
-                    <div class="col-5">
-                      <p-checkbox></p-checkbox>
-                    </div>
-                  </div>
-                  <div class="flex" style="padding: px">
-                    <div class="col-8 text-right">Inducido:</div>
-                    <div class="col-5">
-                      <p-checkbox></p-checkbox>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-2" style="align-self: start">
-                  <div class="text-center" style="font-weight: bold">
-                    DILATACION
-                  </div>
-                  <div class="p-fluid">
-                    <p-inputNumber
-                      mode="decimal"
-                      placeholder="150"
-                    ></p-inputNumber>
-                  </div>
-                </div>
-              </div>
-              <div class="grid">
-                <div class="col-3">
-                  <div class="text-center" style="font-weight: bold">
-                    PRESENTACION
-                  </div>
-                  <div class="flex" style="padding: px">
-                    <div class="col-8 text-right">Cefálica:</div>
-                    <div class="col-5">
-                      <p-checkbox></p-checkbox>
-                    </div>
-                  </div>
-                  <div class="flex" style="padding: px">
-                    <div class="col-8 text-right">Pelvica:</div>
-                    <div class="col-5">
-                      <p-checkbox></p-checkbox>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-2" style="align-self: start">
-                  <div class="text-center" style="font-weight: bold">
-                    ALTURA UTERINA:
-                  </div>
-                  <div class="p-fluid">
-                    <p-inputNumber
-                      mode="decimal"
-                      placeholder="150"
-                    ></p-inputNumber>
-                  </div>
-                </div>
-                <div class="col-3" style="align-self: start">
-                  <div class="text-center" style="font-weight: bold">
-                    F.C.F.
-                  </div>
-                  <div class="p-fluid">
-                    <p-inputNumber
-                      mode="decimal"
-                      placeholder="150"
-                    ></p-inputNumber>
-                  </div>
-                </div>
-                <div class="col-2"></div>
-                <div class="col-2">
-                  <div class="text-center" style="font-weight: bold">
-                    MENBRANAS
-                  </div>
-                  <div class="flex" style="padding: px">
-                    <div class="col-8 text-right">Rotas:</div>
-                    <div class="col-5">
-                      <p-checkbox></p-checkbox>
-                    </div>
-                  </div>
-                  <div class="flex" style="padding: px">
-                    <div class="col-8 text-right">Intregras:</div>
-                    <div class="col-5">
-                      <p-checkbox></p-checkbox>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-2" style="align-self: start">
-              <div class="align-content-start">
+        <div class="lg:col-9 grid">
+          <div class="md:col-10">
+            <div class="grid">
+              <div class="md:col-3" style="align-self: start">
                 <div class="text-center" style="font-weight: bold">
-                  LIQUIDO AMNIÓTICO
+                  SITUACIÓN
                 </div>
                 <div class="flex" style="padding: px">
-                  <div class="col-8 text-right">Claro</div>
+                  <div class="col-8 text-right">Longitudinal:</div>
                   <div class="col-5">
                     <p-checkbox></p-checkbox>
                   </div>
                 </div>
                 <div class="flex" style="padding: px">
-                  <div class="col-8 text-right">Verde Claro:</div>
+                  <div class="col-8 text-right">Transversal:</div>
+                  <div class="col-5">
+                    <p-checkbox></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="md:col-2" style="align-self: start">
+                <div class="text-center" style="font-weight: bold">
+                  POSICIÓN
+                </div>
+                <div class="flex" style="padding: px">
+                  <div class="col-8 text-right">Derecha:</div>
                   <div class="col-5">
                     <p-checkbox></p-checkbox>
                   </div>
                 </div>
                 <div class="flex" style="padding: px">
-                  <div class="col-8 text-right">Verde Oscuro:</div>
+                  <div class="col-8 text-right">Izquierda:</div>
+                  <div class="col-5">
+                    <p-checkbox></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="md:col-3" style="align-self: start">
+                <div class="text-center" style="font-weight: bold">
+                  TAMAÑO FETAL ACORDE
+                </div>
+                <div class="text-center">
+                  <p-selectButton
+                    class="text center"
+                    [options]="signosOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                  ></p-selectButton>
+                </div>
+              </div>
+              <div class="md:col-2" style="align-self: start">
+                <div class="text-center" style="font-weight: bold">INICIO</div>
+                <div class="flex" style="padding: px">
+                  <div class="col-8 text-right">Espontánea:</div>
+                  <div class="col-5">
+                    <p-checkbox></p-checkbox>
+                  </div>
+                </div>
+                <div class="flex" style="padding: px">
+                  <div class="col-8 text-right">Inducido:</div>
+                  <div class="col-5">
+                    <p-checkbox class="yellow"></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="md:col-2" style="align-self: start">
+                <div class="text-center" style="font-weight: bold">
+                  DILATACION
+                </div>
+                <div class="p-fluid">
+                  <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                  ></p-inputNumber>
+                </div>
+              </div>
+            </div>
+            <div class="grid">
+              <div class="col-3">
+                <div class="text-center" style="font-weight: bold">
+                  PRESENTACION
+                </div>
+                <div class="flex" style="padding: px">
+                  <div class="col-8 text-right">Cefálica:</div>
+                  <div class="col-5">
+                    <p-checkbox></p-checkbox>
+                  </div>
+                </div>
+                <div class="flex" style="padding: px">
+                  <div class="col-8 text-right">Pelvica:</div>
+                  <div class="col-5">
+                    <p-checkbox class="yellow"></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2" style="align-self: start">
+                <div class="text-center" style="font-weight: bold">
+                  ALTURA UTERINA:
+                </div>
+                <div class="p-fluid">
+                  <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                  ></p-inputNumber>
+                </div>
+              </div>
+              <div class="col-3" style="align-self: start">
+                <div class="text-center" style="font-weight: bold">F.C.F.</div>
+                <div class="p-fluid">
+                  <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                  ></p-inputNumber>
+                </div>
+              </div>
+              <div class="col-2"></div>
+              <div class="col-2">
+                <div class="text-center" style="font-weight: bold">
+                  MENBRANAS
+                </div>
+                <div class="flex" style="padding: px">
+                  <div class="col-8 text-right">Rotas:</div>
+                  <div class="col-5">
+                    <p-checkbox class="yellow"></p-checkbox>
+                  </div>
+                </div>
+                <div class="flex" style="padding: px">
+                  <div class="col-8 text-right">Intregras:</div>
                   <div class="col-5">
                     <p-checkbox></p-checkbox>
                   </div>
@@ -301,12 +285,39 @@
               </div>
             </div>
           </div>
-          <div class="flex justify-content-end">
-            <p-calendar
-              [showIcon]="true"
-              inputId="icon"
-              [showTime]="true"
-            ></p-calendar>
+          <div class="md:col-2" style="align-self: start">
+            <div class="align-content-start">
+              <div class="text-center" style="font-weight: bold">
+                LIQUIDO AMNIÓTICO
+              </div>
+              <div class="flex" style="padding: px">
+                <div class="col-8 text-right">Claro</div>
+                <div class="col-5">
+                  <p-checkbox></p-checkbox>
+                </div>
+              </div>
+              <div class="flex" style="padding: px">
+                <div class="col-8 text-right">Verde Claro:</div>
+                <div class="col-5">
+                  <p-checkbox class="yellow"></p-checkbox>
+                </div>
+              </div>
+              <div class="flex" style="padding: px">
+                <div class="col-8 text-right">Verde Oscuro:</div>
+                <div class="col-5">
+                  <p-checkbox class="red"></p-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="md:col-12">
+            <div class="flex justify-content-end">
+              <p-calendar
+                [showIcon]="true"
+                inputId="icon"
+                [showTime]="true"
+              ></p-calendar>
+            </div>
           </div>
         </div>
       </div>
@@ -408,11 +419,11 @@
   <div class="md:col-8">
     <div class="grid">
       <div class="col-12">
-        <p-fieldset legend="corticoides antenatales">
+        <p-fieldset legend="corticoides antenatales (28-34 Sem)">
           <div class="grid">
             <div class="col-2">
               <div class="flex" style="padding: px">
-                <div class="col-10 text-right">FREC.:</div>
+                <div class="col-10 text-right">Completo:</div>
                 <div class="col-2 text-left">
                   <p-checkbox></p-checkbox>
                 </div>
@@ -422,7 +433,7 @@
               <div class="flex" style="padding: 3px">
                 <div class="col-10 text-right">Incompleto:</div>
                 <div class="col-2">
-                  <p-checkbox></p-checkbox>
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
             </div>
@@ -430,7 +441,7 @@
               <div class="flex" style="padding: 3px">
                 <div class="col-10 text-right">No Recibe:</div>
                 <div class="col-2">
-                  <p-checkbox></p-checkbox>
+                  <p-checkbox class="red"></p-checkbox>
                 </div>
               </div>
             </div>
@@ -537,7 +548,7 @@
 </div>
 <!-- Cuarta fila -->
 <div class="grid">
-  <div class="col-5">
+  <div class="col-12 lg:col-5">
     <p-fieldset legend="Terminacion-19/09/2021 20:00">
       <div class="grid">
         <div class="col-3" style="align-self: start">
@@ -546,7 +557,7 @@
             <div class="flex" style="padding: px">
               <div class="col-8 text-right">Aborto:</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="red"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: 0px">
@@ -558,25 +569,25 @@
             <div class="flex" style="padding: 0px">
               <div class="col-8 text-right">Forceps:</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: px">
               <div class="col-8 text-right">vacumm:</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">Cesária electiva:</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: 0px">
               <div class="col-8 text-right">Cesaria elmerg:</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
           </div>
@@ -649,13 +660,13 @@
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">Prolongado</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">Precipitado</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: 3px">
@@ -678,13 +689,13 @@
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">Espontáneo</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">No Aplica</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="red"></p-checkbox>
               </div>
             </div>
           </div>
@@ -724,19 +735,19 @@
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">Dur. embarazo</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">Dur. Parto</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">Momento</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
           </div>
@@ -751,13 +762,13 @@
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">Impleta</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">retenida</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="red"></p-checkbox>
               </div>
             </div>
           </div>
@@ -785,7 +796,7 @@
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">Si</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: 3px">
@@ -808,7 +819,7 @@
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">Precoz</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
             <div class="flex" style="padding: 3px">
@@ -820,7 +831,7 @@
             <div class="flex" style="padding: 3px">
               <div class="col-8 text-right">Tardia</div>
               <div class="col-5">
-                <p-checkbox></p-checkbox>
+                <p-checkbox class="yellow"></p-checkbox>
               </div>
             </div>
           </div>
@@ -828,7 +839,7 @@
       </div>
     </p-fieldset>
   </div>
-  <div class="col-7">
+  <div class="col-12 lg:col-7">
     <div>
       <p-fieldset legend="Indicacion Principal Parto operatorio">
         <div class="flex justify-content-end">
@@ -881,18 +892,18 @@
               <div class="flex" style="padding: 3px">
                 <div class="col-8 text-right">Domicilio</div>
                 <div class="col-5">
-                  <p-checkbox></p-checkbox>
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
               <div class="flex" style="padding: 3px">
                 <div class="col-8 text-right">Otro</div>
                 <div class="col-5">
-                  <p-checkbox></p-checkbox>
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-4" style="align-self: start">
             <div>
               <div class="text-center" style="font-weight: bold">
                 PARTO O LEGRADO:
@@ -936,85 +947,85 @@
               <div class="flex" style="padding: 3px">
                 <div class="col-8 text-right">Estudiante</div>
                 <div class="col-5">
-                  <p-checkbox></p-checkbox>
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
               <div class="flex" style="padding: 3px">
                 <div class="col-8 text-right">Empírica Partera</div>
                 <div class="col-5">
-                  <p-checkbox></p-checkbox>
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
               <div class="flex" style="padding: 3px">
                 <div class="col-8 text-right">Familiar</div>
                 <div class="col-5">
-                  <p-checkbox></p-checkbox>
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
               <div class="flex" style="padding: 3px">
                 <div class="col-8 text-right">Otro</div>
                 <div class="col-5">
-                  <p-checkbox></p-checkbox>
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-2 text-center" style="align-self: start">
+          <div class="col-2" style="align-self: start">
             <div>
               <div class="text-center" style="font-weight: bold">NEONATO:</div>
-              <div class="flex" style="padding: 3px">
-                <div class="col-12">
+              <div class="flex" style="padding: 3.5px">
+                <div class="col-5">
                   <p-checkbox></p-checkbox>
                 </div>
               </div>
-              <div class="flex" style="padding: 3px">
-                <div class="col-12">
+              <div class="flex" style="padding: 3.5px">
+                <div class="col-5">
                   <p-checkbox></p-checkbox>
                 </div>
               </div>
-              <div class="flex" style="padding: 3px">
-                <div class="col-12">
+              <div class="flex" style="padding: 3.5px">
+                <div class="col-5">
                   <p-checkbox></p-checkbox>
                 </div>
               </div>
-              <div class="flex" style="padding: 3px">
-                <div class="col-12">
+              <div class="flex" style="padding: 3.5px">
+                <div class="col-5">
                   <p-checkbox></p-checkbox>
                 </div>
               </div>
-              <div class="flex" style="padding: 3px">
-                <div class="col-12">
+              <div class="flex" style="padding: 3.5px">
+                <div class="col-5">
                   <p-checkbox></p-checkbox>
                 </div>
               </div>
-              <div class="flex" style="padding: 3px">
-                <div class="col-12">
+              <div class="flex" style="padding: 3.5px">
+                <div class="col-5">
                   <p-checkbox></p-checkbox>
                 </div>
               </div>
-              <div class="flex" style="padding: 3px">
-                <div class="col-12">
-                  <p-checkbox></p-checkbox>
+              <div class="flex" style="padding: 3.5px">
+                <div class="col-5">
+                  <p-checkbox class="yellow"> </p-checkbox>
                 </div>
               </div>
-              <div class="flex" style="padding: 3px">
-                <div class="col-12">
-                  <p-checkbox></p-checkbox>
+              <div class="flex" style="padding: 3.5px">
+                <div class="col-5">
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
-              <div class="flex" style="padding: 3px">
-                <div class="col-12">
-                  <p-checkbox></p-checkbox>
+              <div class="flex" style="padding: 3.5px">
+                <div class="col-5">
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
-              <div class="flex" style="padding: 3px">
-                <div class="col-12">
-                  <p-checkbox></p-checkbox>
+              <div class="flex" style="padding: 3.5px">
+                <div class="col-5">
+                  <p-checkbox class="yellow"></p-checkbox>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-3">
+          <div class="col-3" style="align-self: start">
             <div>
               <h5>Responsable de la Atención del Parto:</h5>
               <textarea rows="5" cols="15" pInputTextarea></textarea>
@@ -1071,8 +1082,13 @@
     </div>
   </div>
 </div> -->
-
-<span class="p-float-label grid">
-  <input class="col-5" id="float-input" type="text" pInputText />
-  <label class="col-7" for="float-input">Username</label>
-</span>
+<p-radioButton
+  name="groupname"
+  value="val1"
+  [(ngModel)]="selectedValue"
+></p-radioButton>
+<p-radioButton
+  name="groupname"
+  value="val2"
+  [(ngModel)]="selectedValue"
+></p-radioButton>
