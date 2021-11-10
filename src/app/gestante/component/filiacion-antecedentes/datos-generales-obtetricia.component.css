@@ -18,7 +18,7 @@ label {
 /*}*/
 
 p-checkbox >>> .p-checkbox .p-checkbox-box {
-    border-radius: 10px;
+    border-radius: 0px;
     /*border: 2px solid #F64D1AFF;*/
     /*background: #ffd600;*/
 }
@@ -34,10 +34,10 @@ p-checkbox >>> .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight
 
 }
 
-p-checkbox >>> .p-checkbox .p-checkbox-box.p-highlight {
-    border-color: #F64D1AFF;
-    background: #ffd600;
-}
+/*p-checkbox >>> .p-checkbox .p-checkbox-box.p-highlight {*/
+/*    border-color: #F64D1AFF;*/
+/*    background: #ffd600;*/
+/*}*/
 
 p-checkbox >>> .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-focus {
     box-shadow: 0 0 0 0.2rem #ffffff;
@@ -90,6 +90,10 @@ p-checkbox >>> .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
 
 ::ng-deep .amarillo .p-checkbox  .p-checkbox-box{
     background-color: #f6e41a;
+}
+
+::ng-deep .rojo .p-checkbox  .p-checkbox-box{
+    background-color: rgba(197, 0, 9, 0.63);
 }
 
 
