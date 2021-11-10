@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {PrimeModule} from "src/app/shared/prime/prime.module";
-import {FieldsetModule} from 'primeng/fieldset';
+import { PrimeModule } from "src/app/shared/prime/prime.module";
+import { FieldsetModule } from 'primeng/fieldset';
 import { TabViewModule } from 'primeng/tabview';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EvaluacionAlimentacionComponent } from './evaluacion-alimentacion/evaluacion-alimentacion.component';
 import { EscalaEvaluacionEEDPComponent } from './escala-evaluacion-eedp/escala-evaluacion-eedp.component';
 import { EEDPComponent } from './eedp/eedp.component';
