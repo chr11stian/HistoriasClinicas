@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../models/EvaluacionAlimentacion';
+import { Product, FechaEvaluacionAlimentacion } from '../models/EvaluacionAlimentacion';
 import { EvalAlimenService } from '../service/eval-alimen.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { EvalAlimenService } from '../service/eval-alimen.service';
 export class EvaluacionAlimentacionComponent implements OnInit {
 
   products1: Product[];
+  evaluacionAlimenticia: FechaEvaluacionAlimentacion[];
   constructor(private evalAlimenService: EvalAlimenService) { }
 
   ngOnInit(): void {
@@ -17,21 +18,20 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   }
 
   async getData(){
-    await this.evalAlimenService.getProductsSmall().then(data => this.products1 = data);
-    console.log('this.products1', this.products1)
-
+    await this.evalAlimenService.getEvaluacionAlimenticia().then(data => this.evaluacionAlimenticia = data);
+    console.log('evaluacion', this.evaluacionAlimenticia);
   }
 
-  cambioProduct(event){
-    console.log('enrtooo', event);
+  guardarEvaluacion(){
+    console.log('entro gaurdar', this.evaluacionAlimenticia);
+    
   }
 
-  onEditInit(event) {
-    console.log('event init',event)
+  formatDate (date){
+    console.log('llego format', date)
+    var dateOut = new Date(date);
+    return dateOut;
   }
 
-  onEditCancel(event){
-    console.log('cancel edit',event)
-  }
 }
 
