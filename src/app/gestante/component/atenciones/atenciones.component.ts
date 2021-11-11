@@ -61,6 +61,7 @@ export class AtencionesComponent implements OnInit {
     responsableAtencion: string;
     establecimientoAtencion: string;
 
+
     constructor(
         //private etniaservice: EtniaService,
         private formBuilder: FormBuilder
