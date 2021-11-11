@@ -1,6 +1,6 @@
 p-card >>> * {
   font-size: small;
-  align-self: center;
+  align-self: start;
   justify-self: center;
 }
 p-dropdown >>> * {

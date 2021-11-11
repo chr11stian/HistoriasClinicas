@@ -59,6 +59,15 @@
 <div class="stepsdemo-content" *ngIf="stepName === 'plan'">
   <p-card>
     <ng-template pTemplate="content">
+      <div class="p-shadow-2">
+        <p-header>
+            <h2 style="background-color: #F8F9FA; color:black; height: 40px;">
+                <div class="flex align-items-center" style="margin: 10px 0px 0px 30px; padding: 10px 0px 30px 0px;" >
+                    PLAN DE ATENCIÓN INTEGRAL
+                </div>
+            </h2>                        
+        </p-header>        
+      </div> 
       <app-plan-atencion-integral></app-plan-atencion-integral>
     </ng-template>
   </p-card>
