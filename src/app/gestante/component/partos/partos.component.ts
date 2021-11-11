@@ -9,6 +9,7 @@ import { FormsModule } from "@angular/forms";
 })
 export class PartosComponent implements OnInit {
   treeOptionsOptions: any[];
+  selectedValue: boolean;
 
   signosOptions: any[];
 
@@ -25,6 +26,8 @@ export class PartosComponent implements OnInit {
       { label: "No", value: "no" },
       { label: "No Apli.", value: "no aplica" },
     ];
+    this.selectedValue = false;
   }
+
   ngOnInit(): void {}
 }
