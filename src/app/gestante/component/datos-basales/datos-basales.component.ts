@@ -44,6 +44,11 @@ export class DatosBasalesComponent implements OnInit {
       tipoSangreGrupo: new FormControl(''),
       rh: new FormControl(''),
       duda: new FormControl(''),
+      hospitalizacion: new FormControl(''),
+      diagnosticoHosp: new FormControl(''),
+      diagnosticoEmergenci: new FormControl(''),
+      hospitalizacionCIE: new FormControl(''),
+      emergenciaCIE: new FormControl(''),
       clinico: new FormControl(''),
       mamas: new FormControl(''),
       cuelloUter: new FormControl(''),
@@ -86,6 +91,8 @@ export class DatosBasalesComponent implements OnInit {
       dateEco2: new FormControl(''),
       ecografia3: new FormControl(''),
       dateEco3: new FormControl(''),
+      dateHospitalizacion: new FormControl(''),
+      dateEmergencia: new FormControl(''),
     });
   }
 

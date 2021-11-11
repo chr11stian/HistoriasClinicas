@@ -239,16 +239,16 @@
                     <div class="col-12">
                         <div class="grid ">
                             <label class=" mr-1">Hospitalización: </label>
-                            <p-selectButton [options]="sino" formControlName="drogas" optionValue="value"
+                            <p-selectButton [options]="sino" formControlName="hospitalizacion" optionValue="value"
                                 optionLabel="label"></p-selectButton>
                         </div>
                         <div class="grid mt-3">
                             <label>Fecha: </label>
-                            <p-calendar formControlName="date" [showIcon]="true" inputId="icon"></p-calendar>
+                            <p-calendar formControlName="dateHospitalizacion" [showIcon]="true" inputId="icon"></p-calendar>
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico: </label>
-                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
+                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize" formControlName="diagnosticoHosp"
                                 pInputTextarea></textarea>
                         </div>
                         <div class="grid mt-2">
@@ -256,7 +256,7 @@
                                 <label class=" mr-1">CIE 10: </label>
                             </div>
                             <div class="col-8">
-                                <input type="text" pInputText formControlName='talla' placeholder=""
+                                <input type="text" pInputText formControlName='hospitalizacionCIE' placeholder=""
                                     class="inputfield w-full">
                             </div>
                         </div>
@@ -268,12 +268,12 @@
                     <div class="col-12">
                         <div class="grid">
                             <label>Fecha: </label>
-                            <p-calendar formControlName="date" [showIcon]="true" inputId="icon"
+                            <p-calendar formControlName="dateEmergencia" [showIcon]="true" inputId="icon"
                                 class="inputfield w-full"></p-calendar>
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico</label>
-                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
+                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize" formControlName="diagnosticoEmergenci"
                                 pInputTextarea></textarea>
                         </div>
                         <div class="grid mt-2">
@@ -281,7 +281,7 @@
                                 <label class=" mr-1">CIE 10: </label>
                             </div>
                             <div class="col-8">
-                                <input type="text" pInputText formControlName='talla' placeholder=""
+                                <input type="text" pInputText formControlName='emergenciaCIE' placeholder=""
                                     class="inputfield w-full">
                             </div>
                         </div>
