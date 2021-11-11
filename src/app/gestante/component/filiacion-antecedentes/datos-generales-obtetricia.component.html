@@ -594,7 +594,6 @@
                         </div>
 
                     </div>
-
                     <div class="grid">
                         <div class="col-6" style="align-self: start">
                             <div class="grid ">
@@ -604,11 +603,11 @@
                                 <div class="col-2">
                                     <p-checkbox inputId="ny"></p-checkbox>
                                 </div>
-                                <div class="p-field col-6">
+                                <div class="p-field p-dropdown">
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
@@ -709,9 +708,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
-
-
                         </div>
+
                         <div class="col-6" style="align-self: start">
                             <div class="grid ">
                                 <div class="col-4" style="text-align: right">
@@ -811,7 +809,18 @@
                             </div>
                         </div>
                     </div>
-
+                    <br>
+                </p-fieldset>
+                <br>
+                <p-fieldset legend="Antecendentes">
+                    <div class="grid">
+                        <div class="col-3">
+                            <label>Partos Domiciliarios:</label>
+                        </div>
+                        <div>
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
                 </p-fieldset>
             </div>
             <div class="col-6">
@@ -1051,7 +1060,6 @@
 
                         </div>
                     </div>
-
                     <div class="grid">
                         <div class="grid col-12">
                             <div class="col-3" style="text-align: right">
@@ -1066,6 +1074,17 @@
                             </div>
                         </div>
 
+                    </div>
+                </p-fieldset>
+                <br>
+                <p-fieldset legend="Psicoprofilaxis">
+                    <div class="grid">
+                        <div class="col-2">
+                            <label>Sesiones:</label>
+                        </div>
+                        <div>
+                            <input type="text" pInputText>
+                        </div>
                     </div>
                 </p-fieldset>
 
