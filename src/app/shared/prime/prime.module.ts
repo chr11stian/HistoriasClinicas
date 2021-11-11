@@ -27,6 +27,9 @@ import { SelectButtonModule } from "primeng/selectbutton";
 import { CalendarModule } from "primeng/calendar";
 import { StepsModule } from "primeng/steps";
 import { CheckboxModule } from "primeng/checkbox";
+import {ReactiveFormsModule} from "@angular/forms";
+import {ToolbarModule} from "primeng/toolbar";
+import {FieldsetModule} from "primeng/fieldset";
 
 const importsApi = [
   SelectButtonModule,
@@ -66,6 +69,9 @@ const importsApi = [
   CalendarModule,
   StepsModule,
   CheckboxModule,
+  ReactiveFormsModule,
+  ToolbarModule,
+  FieldsetModule,
 ];
 
 @NgModule({
