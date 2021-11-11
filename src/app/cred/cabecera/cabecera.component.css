@@ -10,6 +10,7 @@ p-card >>> .p-card-body {
   padding: 2px;
   font-size: small;
   margin-bottom: 10px;
+  margin-top: 20px;
 }
 p-card >>> .p-card-content {
   padding: 2px;
@@ -73,7 +74,7 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
   margin-top: -35px;
   z-index: 2;
-  margin-bottom: 19px;
+  margin-bottom: 25px;
   color: green;
 }
 :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
@@ -83,7 +84,7 @@ p-tabview >>> .p-tabview .p-tabview-panels {
   margin-top: -4px;
 }
 
-:host::ng-deep .p-steps.step-custom .p-steps-item .p-steps-number {
+/* :host::ng-deep .p-steps.step-custom .p-steps-item .p-steps-number {
   background-color: #0081c2;
   color: #FFFFFF;
   display: inline-block;
@@ -92,4 +93,4 @@ p-tabview >>> .p-tabview .p-tabview-panels {
   margin-top: -14px;
   margin-bottom: 10px;
   
-}
+} */
