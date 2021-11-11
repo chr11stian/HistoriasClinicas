@@ -92,9 +92,9 @@ export class PartosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.myGroup.valueChanges.pipe(debounceTime(350)).subscribe((value) => {
-      console.log(value);
-    });
+    // this.myGroup.valueChanges.pipe(debounceTime(350)).subscribe((value) => {
+    //   console.log(value);
+    // });
   }
 
   // ngDoCheck(): void {
