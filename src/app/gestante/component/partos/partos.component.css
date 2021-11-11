@@ -17,15 +17,16 @@ p-inputNumber >>> .p-inputnumber-input {
   padding: 3px 10px;
   /* width: 100px; */
 }
+
 p-checkbox >>> .p-checkbox .p-checkbox-box {
   border-radius: 10px;
   /* background: red; */
 }
-::ng-deep .yellow .p-checkbox .p-checkbox-box {
+::ng-deep .yellow .p-radiobutton .p-radiobutton-box {
   background: #faf44f;
   /* border-color: rgb(242, 236, 56); */
 }
-::ng-deep .red .p-checkbox .p-checkbox-box {
+::ng-deep .red .p-radiobutton .p-radiobutton-box {
   background: #bf0d21;
   /* border-color: rgb(194, 6, 6); */
 }
