@@ -91,8 +91,8 @@ export class PersonalComponent implements OnInit {
     this.stateOptions = [{label: 'SI', value: true},
                           {label: 'NO', value: false}];
 
-    this.stateOptions1 = [{label: '1 m', value: 1},
-                          {label: '5 m', value: 5}];
+    this.stateOptions1 = [{label: '1m', value: 1},
+                          {label: '5m', value: 5}];
     
    }
   

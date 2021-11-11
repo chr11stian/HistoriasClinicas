@@ -1,4 +1,8 @@
-
+p-card >>> * {
+  font-size: small;
+  align-self: center;
+  justify-self: center;
+}
 p-dropdown >>> * {
   width: 150px;
 }
@@ -6,7 +10,6 @@ p-card >>> .p-card-body {
   padding: 2px;
   font-size: small;
   margin-bottom: 10px;
-  margin-top: 20px;
 }
 p-card >>> .p-card-content {
   padding: 2px;
@@ -49,12 +52,10 @@ p-tabview >>> .p-tabview .p-tabview-panels {
   border-color: #af0017;
   box-shadow: 0 0 0 0.2rem #dcb4b4;
 }
-:host >>> .p-steps-item{
-  cursor:pointer;
-}
+
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
   border-radius: 0px;
-  width: 170px;
+  width: 120px;
   height: 50px;
   color: transparent;
   background: white;
@@ -70,7 +71,7 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
   margin-top: -35px;
   z-index: 2;
-  margin-bottom: 25px;
+  margin-bottom: 19px;
   color: green;
 }
 :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
@@ -79,14 +80,3 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 :host >>> .p-steps .p-steps-item:before {
   margin-top: -4px;
 }
-
-/* :host::ng-deep .p-steps.step-custom .p-steps-item .p-steps-number {
-  background-color: #0081c2;
-  color: #FFFFFF;
-  display: inline-block;
-  width: 36px;
-  border-radius: 50%;
-  margin-top: -14px;
-  margin-bottom: 10px;
-  
-} */

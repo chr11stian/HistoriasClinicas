@@ -51,10 +51,16 @@ export class SideBarComponent implements OnInit {
                 label: "Historias Clinicas",
                 items: [
                     {
-                        label: "Obstetricia",
+                        label: "Obstetricia Consulta",
                         icon: "pi pi-pw pi-file",
-                        routerLink: "historia/obstetricia",
+                        routerLink: "obstetricia/cabecera-consulta",
                     },
+                    {
+                        label: "Obstetricia Atencion Integral",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "obstetricia/cabecera-atencion-integral",
+                    },
+
                     {
                         icon: "pi pi-file",
                         label: "Rol Guardia",
@@ -83,11 +89,11 @@ export class SideBarComponent implements OnInit {
                         label: "Cred",
                         routerLink: "cred/cabecera",
                     },
-                    {
-                        icon: "pi pi-file",
-                        label: "Gestante",
-                        routerLink: "gestante/cabecera",
-                    }
+                    // {
+                    //     icon: "pi pi-file",
+                    //     label: "Gestante",
+                    //     routerLink: "gestante/cabecera",
+                    // }
                 ],
             },
 

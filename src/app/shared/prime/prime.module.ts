@@ -30,6 +30,7 @@ import { CheckboxModule } from "primeng/checkbox";
 import { ToolbarModule } from "primeng/toolbar";
 import { FieldsetModule } from "primeng/fieldset";
 import { PanelModule } from "primeng/panel";
+import {ReactiveFormsModule} from "@angular/forms";
 
 const importsApi = [
   SelectButtonModule,
@@ -72,6 +73,9 @@ const importsApi = [
   ToolbarModule,
   FieldsetModule,
   PanelModule,
+  ReactiveFormsModule,
+  ToolbarModule,
+  FieldsetModule,
 ];
 
 @NgModule({
