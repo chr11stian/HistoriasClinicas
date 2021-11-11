@@ -13,7 +13,7 @@ export class DatosBasalesComponent implements OnInit {
     { label: 'SI', value: 'SI' },
     { label: 'NO', value: 'NO' }
   ];
-  city: any;
+  city:any;
 
   constructor(
     private fb: FormBuilder,
@@ -36,14 +36,21 @@ export class DatosBasalesComponent implements OnInit {
       drogas: new FormControl(''),
       date: new FormControl(''),
       rdo: '',
+      console:'',
       aplica: new FormControl(''),
       noAplica: new FormControl(''),
-      tipoSangre: new FormControl('')
-
+      tipoSangre: new FormControl(''),
+      rh: new FormControl(''),
+      clinico: new FormControl(''),
+      mamas: new FormControl(''),
+      cuelloUter: new FormControl(''),
+      pelvis: new FormControl(''),
+      odont1: new FormControl(''),
+      odont2: new FormControl(''),
     });
   }
 
-  fnCheckbox(value) {
+  fnCheckbox(value){
     console.log(value);
   }
 }
