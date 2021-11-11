@@ -15,20 +15,21 @@
                                 <input id="patologiasE2" formControlName="patologiasE2" type="text" placeholder="Patologías durante la gestación"  class="inputfield w-full"pInputText>
                             </div>
                         </div>
-                        <div class=" col md:col-2 lg:col-2 flex justify-content-center  flex-wrap card-container">
-                            <div class="flex flex-column justify-content-center flex-wrap card-container" style="margin-top: 7px;">
-                                <span >Normal</span>
+                        <div class=" col-2 md:col-2 lg:col-2 flex align-content-start justify-content-center flex-wrap ">
+                            <div class="flex flex-column flex align-items-center justify-content-center" style="margin-top: 7px;">
+                                <span style="text-align: center;">Normal</span>
                                 <p-selectButton [options]="stateOptions"
                                                 formControlName="normalE"
                                                 optionLabel="label"
                                                 optionValue="value">
                                 </p-selectButton>
+                                
                             </div>
                             
                         </div>
-                        <div class=" col-2 md:col-2 lg:col-2  flex justify-content-center  flex-wrap card-container">
-                            <div class=" flex flex-column justify-content-center flex-wrap card-container" style="margin-top: 7px;">
-                                <span>Complicado</span>
+                        <div class=" col-2 md:col-2 lg:col-2 flex align-content-start justify-content-center flex-wrap">
+                            <div class=" flex flex-column flex align-items-center justify-content-center" style="margin-top: 7px;">
+                                <span style="text-align: center;">Complicado</span>
                                 <p-selectButton [options]="stateOptions"
                                                 formControlName="complicadoE"
                                                 optionLabel="label"
@@ -47,8 +48,8 @@
                                 <input  id="nroE1" formControlName="nroE1" type="text" class="inputfield w-full"pInputText>
                             </div>
                         </div>
-                        <div class="col-2 md:col-2 lg:col-2 flex justify-content-center flex-wrap card-container">
-                            <span style="padding: 3px;">Atencion prenatal</span>
+                        <div class="col-2 md:col-2 lg:col-2 flex flex-column align-items-center justify-content-center">
+                            <span>Atencion prenatal</span>
                             <p-selectButton [options]="stateOptions"
                                             formControlName="atencionPrenaE"
                                             optionLabel="label"
@@ -67,144 +68,143 @@
                                 <input id="lugarApn" formControlName="lugarApn" type="text" placeholder="Lugar de APN" class="inputfield w-full"pInputText>
                             </div>
                         </div>
-    
                     </div>
                 </p-fieldset>
             </div>
-            <div>
-    
+            
+            <div class="card">
                 <p-fieldset legend="Parto">
-    
-                    <div class="grid">
-                        <div class="col">
-                            <span style="padding: 0.5rem;">Complicaciones del parto</span>
+                    <div class="card">
+                        <div class="grid">
                             <div class="col">
-                                <input  id="patologiasP" formControlName="patologiasP" type="text" placeholder="Patologías durante la gestación" class="inputfield w-full"pInputText>
-                            </div>
-                        </div>
-                        <div class="col-2 md:col-2 lg:col-2 flex justify-content-center  flex-wrap card-container " style="margin-top: 7px;">
-                            <span >Parto Eptopico</span>
-                            <p-selectButton [options]="stateOptions"
-                                            formControlName="partoE"
-                                            optionLabel="label"
-                                            optionValue="value">
-                            </p-selectButton>
-                        </div>
-                        <div class="col-2 md:col-2 lg:col-2 flex  justify-content-center flex-wrap card-container "style="margin-top: 7px;">
-                            <span>Complicado</span>
-                            <p-selectButton [options]="stateOptions"
-                                            formControlName="complicadoP"
-                                            optionLabel="label"
-                                            optionValue="value">
-                            </p-selectButton>
-                        </div>
-                    </div>
-    
-                    <div class="grid">
-                        <div class="col-6">
-                            <p>Lugar del parto:</p>
-                        </div>
-                        <div class="col-6">
-                            <span>Atendido por:</span>
-                        </div>
-                    </div>
-                    
-                    <div class="grid flex align-content-end ">
-                        <div class="col-6 flex align-items-center justify-content-center">                    
-                            <div class="col-4 justify-content-center flex flex-column">
-                                <span>EE.SS.</span>
-                                <p-selectButton [options]="stateOptions"
-                                                formControlName="eessP"
-                                                optionLabel="label"
-                                                optionValue="value">
-                                </p-selectButton>
-                            </div>
-                            <div class="col-4  justify-content-center flex flex-column">
-                                <span>Domicilio</span>
-                                <p-selectButton [options]="stateOptions"
-                                                formControlName="domicilioP"
-                                                optionLabel="label"
-                                                optionValue="value">
-                                </p-selectButton>
-                            </div>
-                            <div class="col-4  justify-content-center flex flex-column">
-                                <span>Consulta Parti.</span>
-                                <p-selectButton [options]="stateOptions"
-                                                formControlName="consultaPP"
-                                                optionLabel="label"
-                                                optionValue="value">
-                                </p-selectButton>
-                            </div>
-                        </div>
-                        
-                        <div class="col-6 flex align-items-center justify-content-center">
-                            <div class=" col-12 card">
-                                <div class="field grid">
-                                    <div class="col-3 align-self-end justify-content-center flex flex-column">
-                                        <span>Profesional de Salud</span>
-                                        <p-selectButton [options]="stateOptions"
-                                                        formControlName="profSaludP"
-                                                        optionLabel="label"
-                                                        optionValue="value">
-                                        </p-selectButton>
-                                    </div>
-                                    <div class="col-3 align-self-end justify-content-center flex flex-column">
-                                        <span>Técnico</span>
-                                        <p-selectButton [options]="stateOptions"
-                                                        formControlName="tecnicoP"
-                                                        optionLabel="label"
-                                                        optionValue="value">
-                                        </p-selectButton>
-                                    </div>
-                                    <div class="col-3 align-self-end justify-content-center flex flex-column">
-                                        <span>ACS</span>
-                                        <p-selectButton [options]="stateOptions"
-                                                        formControlName="acsP"
-                                                        optionLabel="label"
-                                                        optionValue="value">
-                                        </p-selectButton>
-                                    </div>
-                                    <div class="col-3 align-self-end justify-content-center flex flex-column">
-                                        <span>Familiar</span>
-                                        <p-selectButton [options]="stateOptions"
-                                                        formControlName="familiarP"
-                                                        optionLabel="label"
-                                                        optionValue="value">
-                                        </p-selectButton>
-                                    </div>
+                                <span style="padding: 0.5rem;">Complicaciones del parto</span>
+                                <div class="col">
+                                    <input  id="patologiasP" formControlName="patologiasP" type="text" placeholder="Patologías durante la gestación" class="inputfield w-full"pInputText>
                                 </div>
                             </div>
-                        </div>                       
-                    </div>
-    
-                    <div class="grid ">
-                        <div class=" col-6 col-offset-6">
-                            <div class="formgrid grid">
-                                <div class="col-3 field  md:col-3 justify-content-center flex flex-column">
-                                    <span>Otro (Especifique)</span>
+                            <div class=" col-2 md:col-2 lg:col-2 flex align-content-start justify-content-center flex-wrap " style="margin-top: 7px;">
+                                <div class="flex flex-column flex align-items-center justify-content-center">
+                                    <span style="text-align: center;">Parto Eptopico</span>
                                     <p-selectButton [options]="stateOptions"
-                                                    formControlName="otroP"
+                                                    formControlName="partoE"
                                                     optionLabel="label"
                                                     optionValue="value">
                                     </p-selectButton>
                                 </div>
-                                <div class="col md:col align-self-end flex " style="min-height: 65px">
-                                    <input id="otroDetalleP" formControlName="otroDetalleP" type="text" class=" w-full" placeholder="Especifique" pInputText>
-                                </div>
                                 
+                            </div>
+                            <div class="col-2 md:col-2 lg:col-2 flex align-content-start justify-content-center flex-wrap "style="margin-top: 7px;">
+                                <div class="flex flex-column flex align-items-center justify-content-center">
+                                    <span style="text-align: center;">Complicado</span>
+                                    <p-selectButton [options]="stateOptions"
+                                                    formControlName="complicadoP"
+                                                    optionLabel="label"
+                                                    optionValue="value">
+                                </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-6">
+                                <p>Lugar del parto:</p>
+                            </div>
+                            <div class="col-6">
+                                <p>Atendido por:</p>
+                            </div>
+                        </div>
+                        <div class="grid ">
+                            <div class="col-6 flex align-content-end justify-content-center flex-wrap">                    
+                                <div class="col-4 flex flex-column flex align-items-center justify-content-center">
+                                    <span style="text-align: center;">EE.SS.</span>
+                                    <p-selectButton [options]="stateOptions"
+                                                    formControlName="eessP"
+                                                    optionLabel="label"
+                                                    optionValue="value">
+                                    </p-selectButton>
+                                </div>
+                                <div class="col-4  flex flex-column flex align-items-center justify-content-center">
+                                    <span style="text-align: center;">Domicilio</span>
+                                    <p-selectButton [options]="stateOptions"
+                                                    formControlName="domicilioP"
+                                                    optionLabel="label"
+                                                    optionValue="value">
+                                    </p-selectButton>
+                                </div>
+                                <div class="col-4  flex flex-column flex align-items-center justify-content-center">
+                                    <span style="text-align: center;">Consulta Parti.</span>
+                                    <p-selectButton [options]="stateOptions"
+                                                    formControlName="consultaPP"
+                                                    optionLabel="label"
+                                                    optionValue="value">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                            
+                            <div class="col-6 flex align-content-end justify-content-center flex-wrap">
+                                <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                                    <span style="text-align: center;">Prof. de Salud</span>
+                                    <p-selectButton [options]="stateOptions"
+                                                    formControlName="profSaludP"
+                                                    optionLabel="label"
+                                                    optionValue="value">
+                                    </p-selectButton>
+                                </div>
+                                <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                                    <span style="text-align: center;">Técnico</span>
+                                    <p-selectButton [options]="stateOptions"
+                                                    formControlName="tecnicoP"
+                                                    optionLabel="label"
+                                                    optionValue="value">
+                                    </p-selectButton>
+                                </div>
+                                <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                                    <span style="text-align: center;">ACS</span>
+                                    <p-selectButton [options]="stateOptions"
+                                                    formControlName="acsP"
+                                                    optionLabel="label"
+                                                    optionValue="value">
+                                    </p-selectButton>
+                                </div>
+                                <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                                    <span style="text-align: center;">Familiar</span>
+                                    <p-selectButton [options]="stateOptions"
+                                                    formControlName="familiarP"
+                                                    optionLabel="label"
+                                                    optionValue="value">
+                                    </p-selectButton>
+                                </div>
+                            </div>                       
+                        </div>
+        
+                        <div class="grid ">
+                            <div class=" col-6 col-offset-6">
+                                <div class="formgrid grid">
+                                    <div class="col-3 flex flex-column flex align-items-center justify-content-center">
+                                        <span style="text-align: center;">Otro</span>
+                                        <p-selectButton [options]="stateOptions"
+                                                        formControlName="otroP"
+                                                        optionLabel="label"
+                                                        optionValue="value">
+                                        </p-selectButton>
+                                    </div>
+                                    <div class="col md:col align-self-end flex ">
+                                        <input id="otroDetalleP" formControlName="otroDetalleP" type="text" class=" w-full" placeholder="Especifique" pInputText>
+                                    </div>
+                                    
+                                </div>
                             </div>
                         </div>
                     </div>
-    
+                    
                 </p-fieldset>
             </div>
-            <div>
 
+            <div class="card">
                 <p-fieldset legend="Nacimiento">
                     
                     <div class="grid">
-                        <div class="col">
-                            <span style="padding: 0.5rem;">Edad Gest al nacer(sem)</span>
+                        <div class="col flex flex-column justify-content-center flex-wrap">
+                            <span style="padding-left: 5px;">Edad Gest al nacer(sem)</span>
                             <div class="col">
                                 <input id="edadN" formControlName="edadN" type="text" class="inputfield w-full"pInputText>
                             </div>
@@ -238,8 +238,8 @@
                     <p>Respiración y llanto al nacer</p>
                     
                     <div class="grid ">
-                        <div class="col-6  flex">                    
-                            <div class="col-3 align-self-start justify-content-center flex flex-column">
+                        <div class="col-6  flex align-content-end justify-content-center flex-wrap">                    
+                            <div class="col-3 flex flex-column flex align-items-center justify-content-center">
                                 <span>Inmediato</span>
                                 <p-selectButton [options]="stateOptions"
                                                 formControlName="inmediatoN"
@@ -247,7 +247,7 @@
                                                 optionValue="value">
                                 </p-selectButton>
                             </div>
-                            <div class="col-3 align-self-start justify-content-center flex flex-column">
+                            <div class="col-3 flex flex-column flex align-items-center justify-content-center">
                                 <span>APGAR</span>
                                 <p-selectButton [options]="stateOptions1"
                                                 formControlName="apgarN"
@@ -255,7 +255,7 @@
                                                 optionValue="value">
                                 </p-selectButton>
                             </div>
-                            <div class="col-3 align-self-start justify-content-center flex flex-column">
+                            <div class="col-3 flex flex-column flex align-items-center justify-content-center">
                                 <span>Reanimación</span>
                                 <p-selectButton [options]="stateOptions"
                                                 formControlName="reanimacionN"
@@ -263,7 +263,7 @@
                                                 optionValue="value">
                                 </p-selectButton>
                             </div>
-                            <div class="col-3 align-self-start justify-content-center flex flex-column">
+                            <div class="col-3 flex flex-column flex align-items-center justify-content-center">
                                 <span>Patolog neonatal</span>
                                 <p-selectButton [options]="stateOptions"
                                                 formControlName="patologiaNeoN"
@@ -280,25 +280,25 @@
                             </div>
                         </div>
     
-                        <div class="col-3">
-                            <div class="formgrid grid">
-                                <div class="col field ">
+                        <div class="col-3 flex align-content-center justify-content-center flex-wrap">
+                            
+                                <div class="col flex flex-column flex align-items-center justify-content-center ">
                                     <span>Hospitalización</span>
-                                    <div style="max-height: 20px">
+                                    
                                         <p-selectButton [options]="stateOptions"
                                                         formControlName="hospitalizacionN"
                                                         optionLabel="label"
                                                         optionValue="value">
                                     </p-selectButton>
-                                    </div>
+                                    
                                     
                                 </div>
-                                <div class="col md:col">
+                                <div class="col flex flex-column ">
                                     <span >Tiempo Hospit.</span>
-                                    <input id="tiempoHospN" formControlName="tiempoHospN" type="text" class=" w-full"pInputText>
+                                    <input id="tiempoHospN" formControlName="tiempoHospN" type="text" class="inputfield w-full"pInputText>
                                 </div>
                                 
-                            </div>
+                            
                         </div>
                         
                     </div>
@@ -307,7 +307,7 @@
         </p-fieldset>
     </div>
     
-    <div>
+    <div class="card">
         <p-fieldset legend="Alimentación" [toggleable]="true">
     
             <div class="grid ">
@@ -342,19 +342,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-2 " style="margin-left: 15px;">
+                <div class="col-2 flex align-content-center justify-content-center flex-wrap" style="margin-left: 15px;">
                     <p>Inicio de alimentación complementaria</p>
                 </div>
-                <div class="col-2">
+                <div class="col-2 flex align-content-center justify-content-center flex-wrap">
                     <input id="iniAlimentacionC" formControlName="iniAlimentacionC" type="text" class=" w-full"pInputText>
                 </div>
     
-                <div class="col-2"style="margin-left: 10px;">
+                <div class="col-2 flex align-content-center justify-content-center flex-wrap"style="margin-left: 10px;">
                     <p>Suplemento de
                         Fe < 2 años</p>
                 </div>
     
-                <div class="col">
+                <div class="col flex align-content-center justify-content-center flex-wrap">
                     <p-selectButton [options]="stateOptions"
                                     formControlName="suplementoFe"
                                     optionLabel="label"
