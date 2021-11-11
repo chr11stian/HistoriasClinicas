@@ -139,13 +139,13 @@
          "img_8": "",
          "img_9": "../../../assets/images/tdd_imagenes_letters/9_meses/1-9meses-47.svg",
          "img_10": "",
-         "img_11": "",
+         "img_11": "../../../assets/images/tdd_imagenes_letters/11_meses/2-11meses-53.svg",
          "img_12": "",
          "img_15": "",
-         "img_18": "",
-         "img_21": "",
-         "img_24": "",
-         "img_30": ""
+         "img_18": "../../../assets/images/tdd_imagenes_letters/18_meses/4-18meses-70.svg",
+         "img_21": "../../../assets/images/tdd_imagenes_letters/21_meses/2-21meses-77.svg",
+         "img_24": "../../../assets/images/tdd_imagenes_letters/24_meses/2-24meses-81.svg",
+         "img_30": "../../../assets/images/tdd_imagenes_letters/30_meses/2-30meses-85.svg"
       },
       {
          "letter": "H",
@@ -161,11 +161,11 @@
          "img_9": "",
          "img_10": "../../../assets/images/tdd_imagenes_letters/10_meses/2-10meses-50.svg",
          "img_11": "",
-         "img_12": "",
+         "img_12": "../../../assets/images/tdd_imagenes_letters/12_meses/2-12meses-59.svg",
          "img_15": "",
-         "img_18": "",
+         "img_18": "../../../assets/images/tdd_imagenes_letters/18_meses/5-18meses-72.svg",
          "img_21": "",
-         "img_24": "",
+         "img_24": "../../../assets/images/tdd_imagenes_letters/24_meses/3-24meses-82.svg",
          "img_30": ""
       },
       {
@@ -181,13 +181,13 @@
          "img_8": "../../../assets/images/tdd_imagenes_letters/8_meses/2-8meses-45.svg",
          "img_9": "",
          "img_10": "",
-         "img_11": "",
-         "img_12": "",
-         "img_15": "",
-         "img_18": "",
+         "img_11": "../../../assets/images/tdd_imagenes_letters/11_meses/3-11meses-54.svg",
+         "img_12": "../../../assets/images/tdd_imagenes_letters/12_meses/3-12meses-60.svg",
+         "img_15": "../../../assets/images/tdd_imagenes_letters/15_meses/2-15meses-65.svg",
+         "img_18": "../../../assets/images/tdd_imagenes_letters/18_meses/6-18meses-72.svg",
          "img_21": "",
-         "img_24": "",
-         "img_30": ""
+         "img_24": "../../../assets/images/tdd_imagenes_letters/24_meses/4-24meses-83.svg",
+         "img_30": "../../../assets/images/tdd_imagenes_letters/30_meses/3-30meses-86.svg"
       },
       {
          "letter": "J",
@@ -202,13 +202,13 @@
          "img_8": "",
          "img_9": "",
          "img_10": "",
-         "img_11": "",
-         "img_12": "",
+         "img_11": "../../../assets/images/tdd_imagenes_letters/11_meses/4-11meses-55.svg",
+         "img_12": "../../../assets/images/tdd_imagenes_letters/12_meses/4-12meses-61.svg",
          "img_15": "",
-         "img_18": "",
-         "img_21": "",
+         "img_18": "../../../assets/images/tdd_imagenes_letters/18_meses/7-18meses-73.svg",
+         "img_21": "../../../assets/images/tdd_imagenes_letters/21_meses/3-21meses-78.svg",
          "img_24": "",
-         "img_30": ""
+         "img_30": "../../../assets/images/tdd_imagenes_letters/30_meses/4-30meses-87.svg"
       },
       {
          "letter": "K",
@@ -223,13 +223,13 @@
          "img_8": "../../../assets/images/tdd_imagenes_letters/8_meses/3-8meses-47.svg",
          "img_9": "",
          "img_10": "",
-         "img_11": "",
+         "img_11": "../../../assets/images/tdd_imagenes_letters/11_meses/5-11meses-57.svg",
          "img_12": "",
-         "img_15": "",
-         "img_18": "",
-         "img_21": "",
+         "img_15": "../../../assets/images/tdd_imagenes_letters/15_meses/3-15meses-65.svg",
+         "img_18": "../../../assets/images/tdd_imagenes_letters/18_meses/8-18meses-74.svg",
+         "img_21": "../../../assets/images/tdd_imagenes_letters/21_meses/4-21meses-79.svg",
          "img_24": "",
-         "img_30": ""
+         "img_30": "../../../assets/images/tdd_imagenes_letters/30_meses/5-30meses-88.svg"
       },
       {
          "letter": "L",
@@ -244,13 +244,13 @@
          "img_8": "",
          "img_9": "../../../assets/images/tdd_imagenes_letters/9_meses/2-9meses-48.svg",
          "img_10": "../../../assets/images/tdd_imagenes_letters/10_meses/3-10meses-51.svg",
-         "img_11": "",
-         "img_12": "",
-         "img_15": "",
-         "img_18": "",
+         "img_11": "../../../assets/images/tdd_imagenes_letters/11_meses/6-11meses-57.svg",
+         "img_12": "../../../assets/images/tdd_imagenes_letters/12_meses/5-12meses-63.svg",
+         "img_15": "../../../assets/images/tdd_imagenes_letters/15_meses/4-15meses-66.svg",
+         "img_18": "../../../assets/images/tdd_imagenes_letters/18_meses/9-18meses-75.svg",
          "img_21": "",
          "img_24": "",
-         "img_30": ""
+         "img_30": "../../../assets/images/tdd_imagenes_letters/30_meses/6-30meses-90.svg"
       }
    ]
 }
