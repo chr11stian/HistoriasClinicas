@@ -29,6 +29,7 @@ import {ChartModule} from 'primeng/chart';
         PrimeModule,
         ReactiveFormsModule,
         ChartModule,
+        ReactiveFormsModule
     ],
     providers: [ConfirmationService],
     bootstrap: [AppComponent]

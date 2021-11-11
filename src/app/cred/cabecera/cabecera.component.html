@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="col-1">
-        <button pButton style="margin-top: 10px">
+        <button pButton style="margin-top: 25px">
           <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;cargar
         </button>
       </div>
@@ -40,7 +40,7 @@
   </div>
   </p-card>
 </div>
-<p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo" (activeIndexChange)="ChangeStep($event)">
+<p-steps [model]="items" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo" (activeIndexChange)="ChangeStep($event)">
 </p-steps>
 <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
   <p-card>
@@ -59,6 +59,15 @@
 <div class="stepsdemo-content" *ngIf="stepName === 'plan'">
   <p-card>
     <ng-template pTemplate="content">
+      <div class="p-shadow-2">
+        <p-header>
+            <h2 style="background-color: #F8F9FA; color:black; height: 40px;">
+                <div class="flex align-items-center" style="margin: 10px 0px 0px 30px; padding: 10px 0px 30px 0px;" >
+                    PLAN DE ATENCIÓN INTEGRAL
+                </div>
+            </h2>                        
+        </p-header>        
+      </div> 
       <app-plan-atencion-integral></app-plan-atencion-integral>
     </ng-template>
   </p-card>

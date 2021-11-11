@@ -42,9 +42,14 @@ const routes: Routes = [
                 path: "caja",
                 loadChildren: () => import('src/app/caja/caja.module').then(n => n.CajaModule),
             },
+            // {
+            //     path: "gestante",
+            //     loadChildren: () => import('src/app/gestante/gestante.module').then(n => n.GestanteModule),
+            // },
+
             {
-                path: "gestante",
-                loadChildren: () => import('src/app/gestante/gestante.module').then(n => n.GestanteModule),
+                path: "obstetricia",
+                loadChildren: () => import('src/app/obstetricia/obstetricia.module').then(n => n.ObstetriciaModule),
             }
         ]
     }
