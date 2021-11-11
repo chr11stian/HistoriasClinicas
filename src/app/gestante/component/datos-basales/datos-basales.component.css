@@ -19,9 +19,6 @@ p-checkbox>>> .p-checkbox .p-checkbox-box{
 .texto{
     font-size: .40rem;
 }
-/* .grid .col-3 .amarillo {
-    background: red;
-} */
 
 .ng-tns-c135-51 .p-toggleable-content .p-fieldset-content .amarillo {
     font-size: 3em;
@@ -35,32 +32,41 @@ p-checkbox>>> .p-checkbox .p-checkbox-box{
     border-color: rgb(242, 236, 56);
 }
 
-p-checkbox>>> .p-checkbox .p-checkbox-icon{
-    font-family: 'FontAwesome'; /* Indicamos que la tipografía es FontAwesome */
-    content: "\f140";
-}
-
 p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
-    /* background-image: ; */
-    content: url("src\app\gestante\component\datos-basales\assets\icons\check-svgrepo-com.svg");
-    /* border-color: red; */
-    /* conten */
-    /* size: 5px; */
-    /* padding: 0px; */
-    font-size: 0.5px;
-    
+    content: url("src\assets\svg-icons\check-svgrepo-com.svg");
 }
 
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon{
-    /* background: #2196f3;
-    border: #2196f3; */
     background: yellow;
     border: yellow;
-    /* size: ; */
 }
 
-::ng-deep .p-radiobutton .p-radiobutton-box.p-highlight{
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight{
     border-color: yellow;
     background: yellow;
+}
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight:hover{
+    border-color: yellow;
+    background: yellow;
+}
+
+::ng-deep .rojo .p-radiobutton .p-radiobutton-icon{
+    background: red;
+    border: red;
+}
+
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight{
+    border-color: red;
+    background: red;
+}
+
+::ng-deep .default .p-radiobutton .p-radiobutton-icon{
+    background: #2196f3;
+    border: #2196f3;
+}
+
+::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight{
+    background: #2196f3;
+    border: #2196f3;
 }
 
