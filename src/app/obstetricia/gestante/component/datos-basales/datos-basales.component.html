@@ -174,7 +174,8 @@
                             <label>Fecha Probable de Parto: </label>
                         </div>
                         <div class="col-7">
-                            <p-calendar formControlName="dateProbableParto" [showIcon]="true" inputId="icon" class="ml-4 ">
+                            <p-calendar formControlName="dateProbableParto" [showIcon]="true" inputId="icon"
+                                class="ml-4 ">
                             </p-calendar>
                         </div>
                     </div>
@@ -244,12 +245,13 @@
                         </div>
                         <div class="grid mt-3">
                             <label>Fecha: </label>
-                            <p-calendar formControlName="dateHospitalizacion" [showIcon]="true" inputId="icon"></p-calendar>
+                            <p-calendar formControlName="dateHospitalizacion" [showIcon]="true" inputId="icon">
+                            </p-calendar>
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico: </label>
-                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize" formControlName="diagnosticoHosp"
-                                pInputTextarea></textarea>
+                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
+                                formControlName="diagnosticoHosp" pInputTextarea></textarea>
                         </div>
                         <div class="grid mt-2">
                             <div class="col-4">
@@ -273,8 +275,8 @@
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico</label>
-                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize" formControlName="diagnosticoEmergenci"
-                                pInputTextarea></textarea>
+                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
+                                formControlName="diagnosticoEmergenci" pInputTextarea></textarea>
                         </div>
                         <div class="grid mt-2">
                             <div class="col-4">
@@ -297,7 +299,7 @@
                             <label class=" mr-1 ">Rubeola: </label>
                         </div>
                         <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="drogas" optionValue="value"
+                            <p-selectButton [options]="sino" formControlName="rubeola" optionValue="value"
                                 optionLabel="label"></p-selectButton>
                         </div>
                     </div>
@@ -306,7 +308,7 @@
                             <label class=" mr-1 ">Hepatitis B: </label>
                         </div>
                         <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="drogas" optionValue="value"
+                            <p-selectButton [options]="sino" formControlName="hepatitisB" optionValue="value"
                                 optionLabel="label"></p-selectButton>
                         </div>
                     </div>
@@ -315,7 +317,7 @@
                             <label class=" mr-1 ">Papiloma Virus: </label>
                         </div>
                         <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="drogas" optionValue="value"
+                            <p-selectButton [options]="sino" formControlName="papiloma" optionValue="value"
                                 optionLabel="label"></p-selectButton>
                         </div>
                     </div>
@@ -324,7 +326,7 @@
                             <label class=" mr-1 ">Influenza: </label>
                         </div>
                         <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="drogas" optionValue="value"
+                            <p-selectButton [options]="sino" formControlName="influenza" optionValue="value"
                                 optionLabel="label"></p-selectButton>
                         </div>
                     </div>
@@ -337,7 +339,7 @@
                             <label class=" mr-1 ">Ficha Tamizaje: </label>
                         </div>
                         <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="drogas" optionValue="value"
+                            <p-selectButton [options]="sino" formControlName="tamizaje" optionValue="value"
                                 optionLabel="label"></p-selectButton>
                         </div>
                     </div>
@@ -346,19 +348,19 @@
                             <label class=" mr-1 ">Violencia: </label>
                         </div>
                         <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="drogas" optionValue="value"
+                            <p-selectButton [options]="sino" formControlName="violencia" optionValue="value"
                                 optionLabel="label"></p-selectButton>
                         </div>
                     </div>
                     <div class="grid mt-2">
                         <label>Fecha: </label>
-                        <p-calendar formControlName="date" [showIcon]="true" inputId="icon"></p-calendar>
+                        <p-calendar formControlName="dateViolencia" [showIcon]="true" inputId="icon"></p-calendar>
                     </div>
                 </p-fieldset>
             </div>
             <div class="col-4">
                 <p-fieldset legend="Examen Físico">
-                    <div class="grid tex">
+                    <div class="grid text-center">
                         <div class="col-3">
                             <label></label>
                         </div>
@@ -489,15 +491,15 @@
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='talla' placeholder=""
+                                    <input type="text" pInputText formControlName='hemo1' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='talla' placeholder=""
+                                    <input type="text" pInputText formControlName='hemo1' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-5">
-                                    <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="hemo1" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -508,15 +510,15 @@
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='talla' placeholder=""
+                                    <input type="text" pInputText formControlName='hemo2' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='talla' placeholder=""
+                                    <input type="text" pInputText formControlName='hemo2' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-5">
-                                    <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="hemo2" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -527,15 +529,15 @@
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='talla' placeholder=""
+                                    <input type="text" pInputText formControlName='hemo3' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='talla' placeholder=""
+                                    <input type="text" pInputText formControlName='hemo3' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-5">
-                                    <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="hemo3" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -546,15 +548,15 @@
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='talla' placeholder=""
+                                    <input type="text" pInputText formControlName='hemo4' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='talla' placeholder=""
+                                    <input type="text" pInputText formControlName='hemo4' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-5">
-                                    <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="hemo4" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -975,15 +977,15 @@
                                     <span class="text-xs text-right">Nitritos:</span>
                                 </div>
                                 <div class="col-1 text-center">
-                                    <p-radioButton name="bacteriuria" formControlName="bacteriuria" value="negativo"
+                                    <p-radioButton name="nitritos" formControlName="nitritos" value="negativo"
                                         class="default"></p-radioButton>
                                 </div>
                                 <div class="col-1">
-                                    <p-radioButton name="bacteriuria" formControlName="bacteriuria" value="positivo"
+                                    <p-radioButton name="nitritos" formControlName="nitritos" value="positivo"
                                         class="amarillo"></p-radioButton>
                                 </div>
                                 <div class="col-1">
-                                    <p-radioButton name="bacteriuria" formControlName="bacteriuria" class="amarillo"
+                                    <p-radioButton name="nitritos" formControlName="nitritos" class="amarillo"
                                         value="no se hizo"></p-radioButton>
                                 </div>
                                 <div class="col-1">
@@ -1282,57 +1284,67 @@
             </div>
         </div>
         <div class="grid">
-            <div class="col-6">
-                <div class="grid">
-                    <div class="col-1">
-                        <label>1. </label>
+            <div class="col-12">
+                <p-fieldset legend="Patologias Maternas Diagnosticadas">
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-1">
+                                    <label>1. </label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" pInputText formControlName='patologiasMaternas1'
+                                        class="inputfield w-full" placeholder="">
+                                </div>
+                                <div class="col-4">
+                                    <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
+                                    </p-calendar>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-1">
+                                    <label>2. </label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" pInputText formControlName='patologiasMaternas2'
+                                        class="inputfield w-full" placeholder="">
+                                </div>
+                                <div class="col-4">
+                                    <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
+                                    </p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-1">
+                                    <label>3. </label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" pInputText formControlName='patologiasMaternas3'
+                                        class="inputfield w-full" placeholder="">
+                                </div>
+                                <div class="col-4">
+                                    <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
+                                    </p-calendar>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-1">
+                                    <label>4. </label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text" pInputText formControlName='patologiasMaternas4'
+                                        class="inputfield w-full" placeholder="">
+                                </div>
+                                <div class="col-4">
+                                    <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
+                                    </p-calendar>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <input type="text" pInputText formControlName='talla' class="inputfield w-full" placeholder="">
-                    </div>
-                    <div class="col-5">
-                        <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
-                        </p-calendar>
-                    </div>
-                </div>
-                <div class="grid">
-                    <div class="col-1">
-                        <label>2. </label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" pInputText formControlName='talla' class="inputfield w-full" placeholder="">
-                    </div>
-                    <div class="col-5">
-                        <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
-                        </p-calendar>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="grid">
-                    <div class="col-1">
-                        <label>3. </label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" pInputText formControlName='talla' class="inputfield w-full" placeholder="">
-                    </div>
-                    <div class="col-5">
-                        <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
-                        </p-calendar>
-                    </div>
-                </div>
-                <div class="grid">
-                    <div class="col-1">
-                        <label>4. </label>
-                    </div>
-                    <div class="col-6">
-                        <input type="text" pInputText formControlName='talla' class="inputfield w-full" placeholder="">
-                    </div>
-                    <div class="col-5">
-                        <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
-                        </p-calendar>
-                    </div>
-                </div>
+                </p-fieldset>
             </div>
         </div>
     </form>
