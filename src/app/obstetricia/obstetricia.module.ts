@@ -19,6 +19,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {ToolbarModule} from "primeng/toolbar";
 import {FieldsetModule} from "primeng/fieldset";
 import {PaginatorModule} from "primeng/paginator";
+import {DialogAtencionComponent} from "./gestante/component/atenciones/dialog-atencion/dialog-atencion.component";
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {PaginatorModule} from "primeng/paginator";
         PartosComponent,
         PuerperioComponent,
         RecienNacidoComponent,
-        StepGeneralComponent
+        StepGeneralComponent,
+        DialogAtencionComponent
 
     ],
     exports: [],
