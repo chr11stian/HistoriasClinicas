@@ -23,7 +23,8 @@ import {DatosGeneralesPartoComponent} from './plan-de-parto/component/datos-gene
 import {StepGeneralPartoComponent} from "./plan-de-parto/component/step-general/step-general-parto.component";
 import {IntervaloPartoComponent} from './plan-de-parto/component/intervalo-parto/intervalo-parto.component';
 import {NecesidadesPartoComponent} from './plan-de-parto/component/necesidades-parto/necesidades-parto.component';
-import { SPeligroPartoComponent } from './plan-de-parto/component/s-peligro-parto/s-peligro-parto.component';
+import {SPeligroPartoComponent} from './plan-de-parto/component/s-peligro-parto/s-peligro-parto.component';
+import {DialogAtencionComponent} from './gestante/component/atenciones/dialog-atencion/dialog-atencion.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { SPeligroPartoComponent } from './plan-de-parto/component/s-peligro-part
         IntervaloPartoComponent,
         NecesidadesPartoComponent,
         SPeligroPartoComponent,
+        DialogAtencionComponent
 
     ],
     exports: [],
