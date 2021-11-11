@@ -41,6 +41,12 @@ export class DatosBasalesComponent implements OnInit {
       noAplica: new FormControl(''),
       tipoSangre: new FormControl(''),
       rh: new FormControl(''),
+      clinico: new FormControl(''),
+      mamas: new FormControl(''),
+      cuelloUter: new FormControl(''),
+      pelvis: new FormControl(''),
+      odont1: new FormControl(''),
+      odont2: new FormControl(''),
     });
   }
 
