@@ -1,0 +1,198 @@
+
+<!-------------INICIO DIALOG INGRESAR ATENCION--->
+<!--<p-dialog header={{titulo()}} [(visible)]="atencionGestanteDialog" [style]="{width: '90%'}" [baseZIndex]="10000" [modal]="true"-->
+<!--          styleClass="p-fluid" autoZIndex>-->
+
+
+<!--    <form [formGroup]='form' (ngSubmit)="save(formTemplate)" #formTemplate ="ngForm">-->
+<!--        <div class="p-grid">-->
+<!--            <div class="col-6">-->
+<!--                <label>FECHA DE ATENCION:</label>-->
+<!--                <input type="date" pInputText formControlName="fechaAtencion" class="p-inputtext-sm "-->
+<!--                       required/>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="p-grid">-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>EDAD GESTACIONAL(Semanas)</label>-->
+<!--                <input type="number" pInputText formControlName='edadGestacional' placeholder="semanas"-->
+<!--                       required />-->
+<!--            </div>-->
+<!--            <div class=" p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>PESO MADRE</label>-->
+<!--                <input type="decimal" pInputText formControlName='pesoMadre' placeholder="kg"-->
+<!--                       required />-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>EVALUACION NUTRICIONAL</label>-->
+<!--                <input type="text" pInputText formControlName='evalNutricional' placeholder="evaluacion"-->
+<!--                       required />-->
+<!--            </div>-->
+<!--            <div class=" p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>TEMPERATURA(°C) </label>-->
+<!--                <input type="decimal" pInputText formControlName='temperatura' placeholder="°C" required />-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="p-grid">-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>PRESION ARTERIAL</label>-->
+<!--                <input type="text" pInputText formControlName='presionArterial' placeholder="cm" required />-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>PULSO MATERNO(cm)</label>-->
+<!--                <input type="text" pInputText formControlName='pulsoMaterno' placeholder="cm" required />-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>ALTURA UTERINAL(cm)</label>-->
+<!--                <input type="decimal" pInputText formControlName='alturaUterinal' placeholder="cm" required />-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>SITUACION</label>-->
+<!--                <div class="p-field">-->
+<!--                    <p-dropdown inputId="dropdown" [options]="situacionList" formControlName="situacion"-->
+<!--                                placeholder="seleccionar" optionLabel="label" optionValue="value"-->
+<!--                                defaultLabel="Seleccione:" >-->
+<!--                    </p-dropdown>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--        <div class="p-grid">-->
+
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>PRESENTACION</label>-->
+<!--                <div class="p-field">-->
+<!--                    <p-dropdown inputId="dropdown" [options]="presentacionList" formControlName="presentacion"-->
+<!--                                placeholder="seleccionar" optionLabel="label" optionValue="value"-->
+<!--                                defaultLabel="Seleccione:" >-->
+<!--                    </p-dropdown>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>POSICION FETAL</label>-->
+<!--                <div class="p-field">-->
+<!--                    <p-dropdown inputId="dropdown" [options]="posicionList" formControlName="posicion"-->
+<!--                                placeholder="seleccionar"  optionLabel="label" optionValue="value"-->
+<!--                                defaultLabel="Seleccione:" >-->
+<!--                    </p-dropdown>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>FCF</label>-->
+<!--                <input type="text" pInputText formControlName='fcf'  placeholder="por min." required  />-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>MOVIMIENTO FETAL</label>-->
+<!--                <div class="p-field">-->
+<!--                    <p-dropdown inputId="dropdown" [options]="movFetalList" formControlName="movFetal"-->
+<!--                                optionLabel="label" optionValue="value"-->
+<!--                                placeholder="seleccionar"   defaultLabel="Seleccione:" >-->
+<!--                    </p-dropdown>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="p-grid">-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>PROTEINURIA CUALITATIVA</label>-->
+<!--                <div class="p-field">-->
+<!--                    <p-dropdown inputId="dropdown" [options]="protcualitList" formControlName="proteinaCualitativa"-->
+<!--                                optionLabel="label" optionValue="value"-->
+<!--                                placeholder="seleccionar"  defaultLabel="Seleccione:" >-->
+<!--                    </p-dropdown>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>EDEMA</label>-->
+<!--                <div class="p-field">-->
+<!--                    <p-dropdown inputId="dropdown" [options]="edemaList" formControlName="edema"-->
+<!--                                optionLabel="label" optionValue="value"-->
+<!--                                defaultLabel="Seleccione:"  placeholder="seleccionar"  >-->
+<!--                    </p-dropdown>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>REFLEJO OSTEOTENDINOSO</label>-->
+<!--                <div class="p-field">-->
+<!--                    <p-dropdown inputId="dropdown" [options]="reflejoOsteotendinosoList"-->
+<!--                                formControlName="reflejoOsteotendinoso" optionLabel="label" optionValue="value"-->
+<!--                                defaultLabel="Seleccione:"  placeholder="seleccionar"  >-->
+<!--                    </p-dropdown>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>FECHA ECOGRAFIA</label>-->
+<!--                <input type="date"-->
+<!--                       pInputText-->
+<!--                       formControlName="fechaEcografia" class="p-inputtext-sm " required=""/>-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="p-grid">-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>CONSEJERIA INTEGRAL</label>-->
+<!--                <input type="text" pInputText formControlName='consejeriaIntegral'  placeholder="consejeria"  required />-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>INDICADOR DE ACIDO FOLICO</label>-->
+<!--                <input type="text" pInputText formControlName='indAcidoFolico'  placeholder="Ind. Ac. Fólico"  required />-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>INDICADOR FIERRO</label>-->
+<!--                <input type="text" pInputText formControlName='indFierro'  placeholder="Indide Fierro"  required />-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>INDICADOR CALCIO</label>-->
+<!--                <input type="text" pInputText formControlName='indCalcio' placeholder="Indide Calcio" required />-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="p-grid">-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>INTERCONSULTA</label>-->
+<!--                <div class="p-field">-->
+<!--                    <p-dropdown inputId="dropdown" [options]="interconsultaList" formControlName="interconsulta" optionLabel="label" optionValue="value"-->
+<!--                                defaultLabel="Seleccione:" placeholder="seleccionar">-->
+<!--                    </p-dropdown>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>PLAN PARTO</label>-->
+<!--                <div class="p-field">-->
+<!--                    <p-dropdown inputId="dropdown" [options]="planPartoList" formControlName="planParto" optionLabel="label" optionValue="value"-->
+<!--                                defaultLabel="Seleccione:" placeholder="seleccionar">-->
+<!--                    </p-dropdown>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>VISITA DOMICILIARIA</label>-->
+<!--                <div class="p-field">-->
+<!--                    <p-dropdown inputId="dropdown" [options]="visitaDomiciliariaList"-->
+<!--                                formControlName="visitaDomiciliaria" optionLabel="label" optionValue="value"-->
+<!--                                defaultLabel="Seleccione:" placeholder="seleccionar" >-->
+<!--                    </p-dropdown>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+<!--                <label>PROXIMA CITA</label>-->
+<!--                <input type="date" formControlName="proximaCita" class="p-inputtext-sm " pInputText />-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="p-grid">-->
+<!--            <div class="p-col-12 p-md-12 p-lg-6 p-xl-6">-->
+<!--                <label>RESPONSABLE ATENCION</label>-->
+<!--                <input type="text" pInputText formControlName='responsableAtencion' required />-->
+<!--            </div>-->
+<!--            <div class="p-col-12 p-md-12 p-lg-6 p-xl-6">-->
+<!--                <label>ESTABLECIMIENTO ATENCION</label>-->
+<!--                <input type="text" pInputText formControlName='establecimientoAtencion' required />-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--    <ng-template pTemplate="footer">-->
+<!--        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"(click)="canceled()"></button>-->
+<!--        <button *ngIf="!isUpdate" [disabled]="!form.valid"  class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="save(formTemplate)" ></button>-->
+
+<!--    </ng-template>-->
+
+
+<!--</p-dialog>-->
+<!--------------------------------- FIN DIALOG INGRESAR ATENCION---->

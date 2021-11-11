@@ -46,14 +46,29 @@ p {
     align-items: center;
     justify-content: center;
 }
+:host >>> .p-dialog  {
+   z-index: 5;
+    width: 80%;
+    background: #FFFFFF;
+}
+.resp{
+    max-with:1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 0.5rem;
+    padding: 2px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
 
-/*PANTALLA TABLET*/
-@media only screen and (max-width: 961px){
-.table-over{
-    overflow-x: auto;
+
+
+@media (min-width: 300px){
+
 }
+
+@media (min-width: 500px){
+
 }
-/*PANTALLA  SMARTPHONE*/
-@media only screen and (min-width: 400px) and (max-width: 700px){
+@media (min-width: 900px){
 
 }

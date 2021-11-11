@@ -15,6 +15,7 @@ import {PanelModule} from "primeng/panel";
 import {FieldsetModule} from "primeng/fieldset";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CheckboxModule} from "primeng/checkbox";
+import { DialogAtencionComponent } from './component/atenciones/dialog-atencion/dialog-atencion.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import {CheckboxModule} from "primeng/checkbox";
         PartosComponent,
         RecienNacidoComponent,
         PuerperioComponent,
-        DatosGeneralesObtetriciaComponent
+        DatosGeneralesObtetriciaComponent,
+        DialogAtencionComponent,
     ],
 
     exports: [DatosGeneralesObtetriciaComponent],
