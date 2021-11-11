@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PrimeModule} from "src/app/shared/prime/prime.module";
+import {InputTextModule} from 'primeng/inputtext';
 
 import {GestanteRoutingModule} from './gestante-routing.module';
 import {StepGeneralComponent} from './component/step-general/step-general.component';
@@ -15,6 +16,7 @@ import {PanelModule} from "primeng/panel";
 import {FieldsetModule} from "primeng/fieldset";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CheckboxModule} from "primeng/checkbox";
+import {RadioButtonModule} from 'primeng/radiobutton';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import {CheckboxModule} from "primeng/checkbox";
         CheckboxModule,
         ReactiveFormsModule,
         PanelModule,
-        FieldsetModule
+        FieldsetModule,
+        InputTextModule,
+        RadioButtonModule
     ]
 })
 export class GestanteModule {

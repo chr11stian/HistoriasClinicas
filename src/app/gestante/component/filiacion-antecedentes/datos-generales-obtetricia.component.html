@@ -10,7 +10,7 @@
     </p-toolbar>
     <br>
     <p-fieldset legend="DATOS GENERALES DEL PACIENTE" [toggleable]="true">
-        <form [formGroup]='formDatos_Generales'>
+        <form [formGroup]='formDatos_Generales' res>
             <div class="grid col-12">
                 <div class="col-4 p-field">
                     <div class="">
@@ -118,7 +118,7 @@
                     <label class="m-2">Estudios:</label>
                     <div style="width: auto">
                         <p-dropdown [options]="studies"
-                                    placeholder="Seleccionar Estudios"
+                                    placeholder="Selec Estudios"
                                     optionLabel="name"
                                     [showClear]="false">
                         </p-dropdown>
@@ -149,7 +149,7 @@
                     <label class="m-2">Estado Civil:</label>
                     <div>
                         <p-dropdown [options]="studies"
-                                    placeholder="Seleccionar estado civil"
+                                    placeholder="Selec estado civil"
                                     optionLabel="name"
                                     [showClear]="false">
                         </p-dropdown>
@@ -184,7 +184,7 @@
                     <label class="m-2">Distrito:</label>
                     <div>
                         <p-dropdown [options]="departamentos"
-                                    placeholder="Seleccionar distrito"
+                                    placeholder="Selec distrito"
                                     optionLabel="name"
                                     [showClear]="false">
                         </p-dropdown>
@@ -252,95 +252,20 @@
     <p-fieldset legend="ANTECEDENTES" [toggleable]="true" collapsed="">
 
         <div class="grid">
-            <div class="col-6">
+            <div class="col">
                 <p-fieldset legend="Antecedentes obstetricos" [toggleable]="false">
                     <!--                    <div id="visNetwork" #visNetwork></div>-->
-                    <!--                    <div class="d-flex alig-items-center;">-->
-                    <!--                        <img class="d-flex alig-items-center; logo_Region" src="../../../../assets/images/grafo.png">-->
-                    <!--                    </div>-->
-
-                    <div class="grid">
-                        <div class="col-2">
-                            <tr>Gestas</tr>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                        </div>
-
-                        <div class="col-2">
-                            <tr>Abortos</tr>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                        </div>
-                        <div class="col-2">
-                            <tr>Vaginales</tr>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                        </div>
-                        <div class="col-2">
-                            <tr>Nacidos Vivos</tr>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <p-checkbox inputId="ny"></p-checkbox>
-
-                        </div>
-                        <div class="col-2">
-                            <tr>Viven</tr>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                        </div>
-
-                    </div>
-                    <br>
-                    <br>
-                    <div class="grid">
-
-                        <div class="col-2">
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <tr>Partos</tr>
-
-                        </div>
-                    </div>
-
-                    <br>
-                    <br>
-                    <div class="grid">
-                        <div class="col-2">
-                            <p-checkbox inputId="ny"></p-checkbox>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <tr>Partos</tr>
-
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <tr>Cesarias</tr>
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <tr>Nacidos muertos</tr>
-
-                        </div>
-                        <div class="col-2">
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <p-checkbox inputId="ny"></p-checkbox>
-                            <tr>Despues-1ra Semana</tr>
-
-                        </div>
-
+                    <div class="d-flex alig-items-center;">
+                        <img class="d-flex alig-items-center; logo_Region" src="../../../../assets/images/grafo.png">
                     </div>
 
                 </p-fieldset>
             </div>
-
-            <div class="col-6">
+            <div class="col">
                 <p-fieldset legend="Gestación Anterior" [toggleable]="false">
 
                     <div class="grid">
-                        <div class="col-6">
+                        <div class="col">
                             <div class="grid col-10">
                                 <div class="p-inputgroup" style="text-align: right">
                                     <label>Fecha:</label>
@@ -348,8 +273,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="grid">
+                        <div class="col">
+                            <div class="grid col">
                                 <div class="p-inputgroup" style="text-align: right">
                                     <label>Per Intergenésico Adecuado: </label>
                                     <p-selectButton [options]="opciones"
@@ -360,7 +285,7 @@
                     </div>
 
                     <div class="grid">
-                        <div class="col-4" style="align-self: start">
+                        <div class="col" style="align-self: start">
                             <div class="grid ">
                                 <div class="col-12" style="text-align: right">
                                     <label class="colorear">Terminacion: </label>
@@ -416,7 +341,7 @@
                             </div>
 
                         </div>
-                        <div class="col-4" style="align-self: start">
+                        <div class="col" style="align-self: start">
                             <div class="grid ">
                                 <div class="col-12" style="text-align: right">
                                     <label class="colorear">Si fuese aborto: </label>
@@ -467,7 +392,7 @@
                             </div>
 
                         </div>
-                        <div class="col-4" style="align-self: start">
+                        <div class="col" style="align-self: start">
                             <div class="grid ">
                                 <div class="col-12" style="text-align: right">
                                     <label class="colorear">Laptancia Materna </label>
@@ -534,24 +459,24 @@
                     <br>
                     <div class="grid">
 
-                        <div class="col-6">
+                        <div class="col" style="align-self: start">
                             <div class="grid">
-                                <div class="col-7" style="text-align: right">
+                                <div class="col-6" style="text-align: right">
                                     <label>Captada: </label>
                                 </div>
-                                <div class="col-5">
+                                <div class="col-6">
                                     <p-selectButton [options]="opciones"
                                                     optionLabel="name"></p-selectButton>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="col-6">
+                        <div class="col" style="align-self: start">
                             <div class="grid">
-                                <div class="col-7" style="text-align: right">
+                                <div class="col-6" style="text-align: right">
                                     <label>Referida por Ag. Comuni. </label>
                                 </div>
-                                <div class="col-5">
+                                <div class="col-6">
                                     <p-selectButton [options]="opciones"
                                                     optionLabel="name"></p-selectButton>
                                 </div>
@@ -567,7 +492,7 @@
         </div>
 
         <div class="grid">
-            <div class="col-6">
+            <div class="col">
                 <p-fieldset legend="Antecedentes Familiares">
                     <div class="grid">
                         <div class="col-6">
@@ -595,7 +520,7 @@
 
                     </div>
                     <div class="grid">
-                        <div class="col-6" style="align-self: start">
+                        <div class="col" style="align-self: start">
                             <div class="grid ">
                                 <div class="col-4" style="text-align: right">
                                     <label>Ninguno: </label>
@@ -603,7 +528,7 @@
                                 <div class="col-2">
                                     <p-checkbox inputId="ny"></p-checkbox>
                                 </div>
-                                <div class="p-field p-dropdown">
+                                <div class="p-field col-6">
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
@@ -623,7 +548,7 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
@@ -639,7 +564,7 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
@@ -655,7 +580,7 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
@@ -671,7 +596,7 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
@@ -687,7 +612,7 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
@@ -703,15 +628,14 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-6" style="align-self: start">
-                            <div class="grid ">
+                        <div class="col" style="align-self: start">
+                            <div class="field grid ">
                                 <div class="col-4" style="text-align: right">
                                     <label>Malaria:</label>
                                 </div>
@@ -722,14 +646,14 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
                             </div>
-                            <div class="grid ">
+                            <div class="field grid ">
                                 <div class="col-4" style="text-align: right">
-                                    <label>Hipertensión Arterial: </label>
+                                    <label>Hip. Arterial: </label>
                                 </div>
                                 <div class="col-2">
                                     <p-checkbox inputId="ny"></p-checkbox>
@@ -738,12 +662,12 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
                             </div>
-                            <div class="grid ">
+                            <div class="field grid ">
                                 <div class="col-4" style="text-align: right">
                                     <label>Hipo tiroidismo:</label>
                                 </div>
@@ -754,12 +678,12 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
                             </div>
-                            <div class="grid ">
+                            <div class="field grid ">
                                 <div class="col-4" style="text-align: right">
                                     <label>Neoplásica: </label>
                                 </div>
@@ -770,12 +694,12 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
                             </div>
-                            <div class="grid ">
+                            <div class="field grid ">
                                 <div class="col-4" style="text-align: right">
                                     <label>TBC Pulmonar: </label>
                                 </div>
@@ -786,12 +710,12 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
                             </div>
-                            <div class="grid ">
+                            <div class="field grid ">
                                 <div class="col-4" style="text-align: right">
                                     <label>Otros: </label>
                                 </div>
@@ -802,7 +726,7 @@
                                     <p-dropdown
                                             [options]="familiares"
                                             optionLabel="name"
-                                            placeholder="Seleccionar"
+                                            placeholder="Selec"
                                             [showClear]="false">
                                     </p-dropdown>
                                 </div>
@@ -823,10 +747,11 @@
                     </div>
                 </p-fieldset>
             </div>
-            <div class="col-6">
+
+            <div class="col">
                 <p-fieldset legend="Antecedentes Personales" [toggleable]="false">
                     <div class="grid">
-                        <div class="col-4" style="align-self: start">
+                        <div class="col" style="align-self: start">
                             <div class="grid">
                                 <div class="col-10" style="text-align: right">
                                     <label>Ninguno: </label>
@@ -837,7 +762,7 @@
                             </div>
                             <div class="grid">
                                 <div class="col-10" style="text-align: right">
-                                    <label>Aborto habitual/recurrente: </label>
+                                    <label>Aborto habitual / recurrente: </label>
                                 </div>
                                 <div class="col-2">
                                     <p-checkbox inputId="ny"></p-checkbox>
@@ -908,7 +833,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4" style="align-self: start">
+                        <div class="col" style="align-self: start">
                             <div class="grid ">
                                 <div class="col-10" style="text-align: right">
                                     <label>Alcoholismo: </label>
@@ -967,7 +892,7 @@
                             </div>
                             <div class="grid ">
                                 <div class="col-10" style="text-align: right">
-                                    <label>Hipertensión Arterial: </label>
+                                    <label>Hip. Arterial: </label>
                                 </div>
                                 <div class="col-2">
                                     <p-checkbox inputId="ny"></p-checkbox>
@@ -983,7 +908,7 @@
                             </div>
 
                         </div>
-                        <div class="col-4" style="align-self: start">
+                        <div class="col" style="align-self: start">
                             <div class="grid ">
                                 <div class="col-10" style="text-align: right">
                                     <label>Infertilidad: </label>

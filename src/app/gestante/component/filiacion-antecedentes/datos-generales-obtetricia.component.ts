@@ -79,8 +79,8 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             // apPaterno: new FormControl(''),
             // ApMaterno: new FormControl(''),
             // nombres: new FormControl(''),
-            // aplica: new FormControl(''),
-            // referencia: new FormControl(''),
+            aplica: new FormControl(''),
+            referencia: new FormControl(''),
         })
     }
 

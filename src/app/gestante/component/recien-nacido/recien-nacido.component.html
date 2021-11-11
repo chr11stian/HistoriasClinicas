@@ -1,4 +1,4 @@
-<div class="p-card">
+<div class="p-card" style="min-width: 950px; min-height: 950px">
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
             <h3 class="p-m-0">Datos del recien nacido</h3>
@@ -24,8 +24,7 @@
                                     <span>Femenino:</span>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="sexo" formControlName="sexo" value="femenino" inputId="sexo" class="azul"> </p-radioButton>
                                 </div>
                             </div>
                             <div class="grid">
@@ -33,8 +32,7 @@
                                     <span>Masculino:</span>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="sexo" formControlName="sexo" value="masculino" inputId="sexo" class="azul"></p-radioButton>
                                 </div>
                             </div>
                             <div class="grid">
@@ -42,8 +40,7 @@
                                     <span>Indeterminado:</span>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox id="group1" value="Indeterminado" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="sexo" formControlName="sexo" value="indeterminado" inputId="sexo" class="azul"></p-radioButton>
                                 </div>
                             </div>
                         </div>
@@ -85,26 +82,23 @@
                         <div class="col-3">
                             <div class="grid espacio-final">
                                 <div class="col-2">
-                                    <p-checkbox class="amarillo" id="group1" value="Femenino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="pesoRN" formControlName="pesoRN" value="&lt;2500g" inputId="pesoRN" class="amarillo"> </p-radioButton>
                                 </div>
                                 <div class="col-10">
-                                    <span>&lt;2500g</span>
+                                    <span>&lt; 2500g</span>
                                 </div>
                             </div>
                             <div class="grid">
                                 <div class="col-2">
-                                    <p-checkbox class="rojo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="pesoRN" formControlName="pesoRN" value="&lt;1500g" inputId="pesoRN" class="rojo"> </p-radioButton>
                                 </div>
                                 <div class="col-10">
-                                    <span> &lt;1500g</span>
+                                    <span> &lt; 1500g</span>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <div class="col-2">
-                                    <p-checkbox class="amarillo" id="group1" value="Indeterminado" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="pesoRN" formControlName="pesoRN" value="&gt;4000g" inputId="pesoRN" class="amarillo"> </p-radioButton>
                                 </div>
                                 <div class="col-10">
                                     <span>&gt; 4000g</span>
@@ -132,7 +126,7 @@
             </div>
             <div class="col-7">
                 <div class="margen border-300">
-                    <div class="grid">
+                    <div class="grid ">
                         <div class="col-5 text-right">
                             <div class="grid">
                                 <div class="col-4">
@@ -218,6 +212,20 @@
                                     <input type="text" class="p-inputtext-sm " pInputText />
                                 </div>
                             </div>
+                            <div class="grid">
+                                <div class="col-1">
+                                    <label>3.</label>
+                                </div>
+                                <div class="col-5">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-3">
+                                    <input type="date" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-3">
+                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </p-fieldset>
@@ -246,15 +254,11 @@
                                 <div class="col-7">
                                     <div class="grid">
                                         <div class="col-12">
-                                            <p-checkbox class="pb-0" id="group1" value="Masculino"
-                                                formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="semanasRN" formControlName="semanasRN" value="&lt;37" inputId="semanasRN" class="azul pb-0"> </p-radioButton>
                                             <span>&lt;37</span>
                                         </div>
                                         <div class="col-12">
-                                            <p-checkbox class="pt-0" id="group1" value="Masculino"
-                                                formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="semanasRN" formControlName="semanasRN" value="&lt;42" inputId="semanasRN" class="azul pt-0"> </p-radioButton>
                                             <span>&lt;42</span>
                                         </div>
                                     </div>
@@ -339,9 +343,7 @@
                                                     <span>Adecuado</span>
                                                 </div>
                                                 <div class="col-4">
-                                                    <p-checkbox id="group1" value="Femenino"
-                                                        formControlName="selectedSexo">
-                                                    </p-checkbox>
+                                                    <p-radioButton name="pesoEdadGes" formControlName="pesoEdadGes" value="Adecuado" inputId="pesoEdadGes" class="azul pb-0"> </p-radioButton>
                                                 </div>
                                             </div>
                                         </div>
@@ -351,9 +353,7 @@
                                                     <span>Pequeño</span>
                                                 </div>
                                                 <div class="col-4">
-                                                    <p-checkbox id="group1" value="Femenino"
-                                                        formControlName="selectedSexo">
-                                                    </p-checkbox>
+                                                    <p-radioButton name="pesoEdadGes" formControlName="pesoEdadGes" value="Pequeño" inputId="pesoEdadGes" class="azul pb-0"> </p-radioButton>
                                                 </div>
                                             </div>
                                         </div>
@@ -363,9 +363,7 @@
                                                     <span>Grande</span>
                                                 </div>
                                                 <div class="col-4">
-                                                    <p-checkbox id="group1" value="Femenino"
-                                                        formControlName="selectedSexo">
-                                                    </p-checkbox>
+                                                    <p-radioButton name="pesoEdadGes" formControlName="pesoEdadGes" value="Grande" inputId="pesoEdadGes" class="azul pb-0"> </p-radioButton>
                                                 </div>
                                             </div>
                                         </div>
@@ -394,9 +392,7 @@
                                                     <span>No:</span>
                                                 </div>
                                                 <div class="col-4">
-                                                    <p-checkbox id="group1" value="Femenino"
-                                                        formControlName="selectedSexo">
-                                                    </p-checkbox>
+                                                    <p-radioButton name="reanimacion" formControlName="reanimacion" value="No" inputId="reanimacion" class="azul pb-0"> </p-radioButton>
                                                 </div>
                                             </div>
                                         </div>
@@ -406,9 +402,7 @@
                                                     <span>Bolsa y mascara:</span>
                                                 </div>
                                                 <div class="col-4">
-                                                    <p-checkbox class="amarillo" id="group1" value="Femenino"
-                                                        formControlName="selectedSexo">
-                                                    </p-checkbox>
+                                                    <p-radioButton name="reanimacion" formControlName="reanimacion" value="Bolsa y Mascara" inputId="reanimacion" class="amarillo pb-0"> </p-radioButton>
                                                 </div>
                                             </div>
                                         </div>
@@ -418,9 +412,7 @@
                                                     <span>Oxigeno:</span>
                                                 </div>
                                                 <div class="col-4">
-                                                    <p-checkbox class="amarillo" id="group1" value="Femenino"
-                                                        formControlName="selectedSexo">
-                                                    </p-checkbox>
+                                                    <p-radioButton name="reanimacion" formControlName="reanimacion" value="Oxigeno" inputId="reanimacion" class="amarillo pb-0"> </p-radioButton>
                                                 </div>
                                             </div>
                                         </div>
@@ -430,9 +422,7 @@
                                                     <span>Reanim. avanza.:</span>
                                                 </div>
                                                 <div class="col-4">
-                                                    <p-checkbox class="rojo" id="group1" value="Femenino"
-                                                        formControlName="selectedSexo">
-                                                    </p-checkbox>
+                                                    <p-radioButton name="reanimacion" formControlName="reanimacion" value="Reanimacion avanzada" inputId="reanimacion" class="rojo pb-0"> </p-radioButton>
                                                 </div>
                                             </div>
                                         </div>
@@ -503,7 +493,7 @@
         </div>
         <!-- siguiente linea -->
         <div class="grid">
-            <div class="col-4">
+            <div class="col-5">
                 <div class=" margen border-300">
                     <div class="grid">
                         <div class="col-4 text-right">
@@ -517,8 +507,7 @@
                                             <span>Normal</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="exaFisico" formControlName="exaFisico" value="Normal" inputId="exaFisico" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -526,8 +515,7 @@
                                             <span>Anormal</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="exaFisico" formControlName="exaFisico" value="Anormal" inputId="exaFisico" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -543,8 +531,7 @@
                                             <span>No reactivo</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="VIH" formControlName="VIH" value="No reactivo" inputId="VIH" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -552,8 +539,7 @@
                                             <span>Reactivo</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="VIH" formControlName="VIH" value="Reactivo" inputId="VIH" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -561,8 +547,7 @@
                                             <span>No se hizo</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="VIH" formControlName="VIH" value="No se hizo" inputId="VIH" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -570,8 +555,7 @@
                                             <span>No aplica</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="VIH" formControlName="VIH" value="No aplica" inputId="VIH" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -590,8 +574,7 @@
                                             <span>Si</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="hospitalizacion" formControlName="hospitalizacion" value="Si" inputId="hospitalizacion" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -599,8 +582,7 @@
                                             <span>No</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="hospitalizacion" formControlName="hospitalizacion" value="No" inputId="hospitalizacion" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -616,8 +598,7 @@
                                             <span>Si</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="necropsia" formControlName="necropsia" value="Si" inputId="necropsia" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -625,8 +606,7 @@
                                             <span>No</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="necropsia" formControlName="necropsia" value="No" inputId="necropsia" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid mb-6">
@@ -634,8 +614,7 @@
                                             <span>No aplica</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="necropsia" formControlName="necropsia" value="No aplica" inputId="necropsia" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -652,8 +631,7 @@
                                             <span>-</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="luetica" formControlName="luetica" value="-" inputId="luetica" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -661,8 +639,7 @@
                                             <span>+</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="luetica" formControlName="luetica" value="+" inputId="luetica" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid espacio">
@@ -670,8 +647,7 @@
                                             <span>No se hizo</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="luetica" formControlName="luetica" value="No se hizo" inputId="luetica" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -692,8 +668,7 @@
                                             <span>Si</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="alojamiento" formControlName="alojamiento" value="Si" inputId="alojamiento" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -701,8 +676,7 @@
                                             <span>No</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="alojamiento" formControlName="alojamiento" value="No" inputId="alojamiento" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -710,8 +684,7 @@
                                             <span>No aplica</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="alojamiento" formControlName="alojamiento" value="No aplica" inputId="alojamiento" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -728,8 +701,7 @@
                                             <span>Si</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="contactoPiel" formControlName="contactoPiel" value="Si" inputId="contactoPiel" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -737,8 +709,7 @@
                                             <span>No</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="contactoPiel" formControlName="contactoPiel" value="No" inputId="contactoPiel" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -746,8 +717,7 @@
                                             <span>No aplica</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="contactoPiel" formControlName="contactoPiel" value="No aplica" inputId="contactoPiel" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -764,8 +734,7 @@
                                             <span>Si</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="LME" formControlName="LME" value="Si" inputId="LME" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -773,8 +742,7 @@
                                             <span>No</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="LME" formControlName="LME" value="No" inputId="LME" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid ">
@@ -782,8 +750,7 @@
                                             <span>No aplica</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="LME" formControlName="LME" value="No aplica" inputId="LME" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -804,8 +771,7 @@
                                     <span>Meconial</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox class="rojo" id="group1" value="Femenino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="deposiciones" formControlName="deposiciones" value="Meconial" inputId="deposiciones" class="rojo pb-0"> </p-radioButton>
                                 </div>
                             </div>
                             <div class="grid ">
@@ -813,8 +779,7 @@
                                     <span>Transicional</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="deposiciones" formControlName="deposiciones" value="Transicional" inputId="deposiciones" class="amarillo pb-0"> </p-radioButton>
                                 </div>
                             </div>
                             <div class="grid ">
@@ -822,8 +787,7 @@
                                     <span>Amarillo</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="deposiciones" formControlName="deposiciones" value="Amarillo" inputId="deposiciones" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
                             <br />
@@ -866,7 +830,7 @@
                     </div>
                 </p-fieldset>
             </div>
-            <div class="col-3">
+            <div class="col-5">
                 <p-fieldset legend="Egreso RN">
                     <div class="grid">
                         <div class="col-12 text-center">
@@ -891,8 +855,7 @@
                                             <span class="text-xs">Sano</span>
                                         </div>
                                         <div class="col-5">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="egresoRN" formControlName="egresoRN" value="Sano" inputId="egresoRN" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -902,8 +865,7 @@
                                             <span class="text-xs">Traslado</span>
                                         </div>
                                         <div class="col-5">
-                                            <p-checkbox class="amarillo" id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="egresoRN" formControlName="egresoRN" value="Traslado" inputId="egresoRN" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -917,8 +879,7 @@
                                             <span class="text-xs">Con patologia</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="egresoRN" formControlName="egresoRN" value="Con patologia" inputId="egresoRN" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -928,8 +889,7 @@
                                             <span class="text-xs">Fallece</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="egresoRN" formControlName="egresoRN" value="Fallece" inputId="egresoRN" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -938,43 +898,49 @@
                     </div>
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
+                            </div>
+                            <div class="col-7">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-xs  text-center" >No aplica</span>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-3">
                                 <span>Dx. Fallecim.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
-                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                </p-checkbox>
+                            <div class="col-2">
+                                <p-radioButton name="dx" formControlName="dx" value="Fallecimiento" inputId="dx" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
                                 <span>Dx. Traslado.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
-                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                </p-checkbox>
+                            <div class="col-2">
+                                <p-radioButton name="dx" formControlName="dx" value="Traslado" inputId="dx" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
                                 <span>Estable. Tras.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
-                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                </p-checkbox>
+                            <div class="col-2">
+                                <p-radioButton name="dx" formControlName="dx" value="Estable" inputId="dx" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
                     </div>
@@ -988,8 +954,7 @@
                                     <span class="text-xs">Pecho solo</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="alimentoAlta" formControlName="alimentoAlta" value="Pecho solo" inputId="alimentoAlta" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
                             <div class="grid ">
@@ -997,8 +962,7 @@
                                     <span class="text-xs">Pecho y artificial</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="alimentoAlta" formControlName="alimentoAlta" value="Pecho y artificial" inputId="alimentoAlta" class="amarillo pb-0"> </p-radioButton>
                                 </div>
                             </div>
                             <div class="grid ">
@@ -1006,8 +970,7 @@
                                     <span class="text-xs">Artificial solo</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="alimentoAlta" formControlName="alimentoAlta" value="Artificial solo" inputId="alimentoAlta" class="amarillo pb-0"> </p-radioButton>
                                 </div>
                             </div>
                             <div class="grid ">
@@ -1015,8 +978,7 @@
                                     <span class="text-xs">No aplica</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="alimentoAlta" formControlName="alimentoAlta" value="No aplica" inputId="alimentoAlta" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
                         </div>
@@ -1043,8 +1005,12 @@
                     </div>
                 </p-fieldset>
             </div>
-            <div class="col-3">
-                <p-fieldset legend="Egreso Materno">
+            
+        </div>
+        <!-- siguiente linea -->
+        <div class="grid">
+            <div class="col-5">
+                <p-fieldset legend="Ingreso Materno">
                     <div class="grid">
                         <div class="col-12 text-center">
                             <div class="grid">
@@ -1068,8 +1034,7 @@
                                             <span class="text-xs">Sano</span>
                                         </div>
                                         <div class="col-5">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="egresoMaterno" formControlName="egresoMaterno" value="Sano" inputId="egresoMaterno" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1079,8 +1044,7 @@
                                             <span class="text-xs">Traslado</span>
                                         </div>
                                         <div class="col-5">
-                                            <p-checkbox class="amarillo" id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="egresoMaterno" formControlName="egresoMaterno" value="Traslado" inputId="egresoMaterno" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1094,8 +1058,7 @@
                                             <span class="text-xs">Con patologia</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="egresoMaterno" formControlName="egresoMaterno" value="Con patologia" inputId="egresoMaterno" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1105,126 +1068,165 @@
                                             <span class="text-xs">Fallece</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox class="amarillo" id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="egresoMaterno" formControlName="egresoMaterno" value="Fallece" inputId="egresoMaterno" class="amarillo pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
+                            </div>
+                            <div class="col-7">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-xs" >No aplica</span>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-3">
                                 <span>Dx. Fallecim.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
-                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                </p-checkbox>
+                            <div class="col-2">
+                                <p-radioButton name="dxMaterno" formControlName="dxMaterno" value="Fallece" inputId="dxMaterno" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
                                 <span>Dx. Traslado.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
-                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                </p-checkbox>
+                            <div class="col-2">
+                                <p-radioButton name="dxMaterno" formControlName="dxMaterno" value="Traslado" inputId="dxMaterno" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-5">
+                            <div class="col-3">
                                 <span>Estable. Tras.:</span>
                             </div>
-                            <div class="col-6">
+                            <div class="col-7">
                                 <input type="text" class="p-inputtext-sm " pInputText />
                             </div>
-                            <div class="col-1">
-                                <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                </p-checkbox>
+                            <div class="col-2">
+                                <p-radioButton name="dxMaterno" formControlName="dxMaterno" value="Estable" inputId="dxMaterno" class="azul pb-0"> </p-radioButton>
                             </div>
                         </div>
                     </div>
                     <div class="grid">
-                        <div class="col-6">
+                        <div class="col-4">
                             <div class="col-12 text-center">
-                                <label>Alimento al Alta:</label>
+                                <label>Metodos anticonceptivos:</label>
                             </div>
                             <div class="grid ">
                                 <div class="col-8">
-                                    <span class="text-xs">Pecho solo</span>
+                                    <span class="text-xs">Abstinen. periodica</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                    </p-checkbox>
-                                </div>
-                            </div>
-                            <div class="grid ">
-                                <div class="col-8">
-                                    <span class="text-xs">Pecho y artificial</span>
-                                </div>
-                                <div class="col-4">
-                                    <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Abstinencia periodica" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <div class="col-8">
-                                    <span class="text-xs">Artificial solo</span>
+                                    <span class="text-xs">Condon</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox class="amarillo" id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Condon" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <div class="col-8">
-                                    <span class="text-xs">No aplica</span>
+                                    <span class="text-xs">DIU</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-checkbox id="group1" value="Masculino" formControlName="selectedSexo">
-                                    </p-checkbox>
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="DIU" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-4">
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Ligadura tubaria</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Ligadura Tubaria" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">MELA</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="MELA" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Progestag. Inyectables</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Progestag. Inyectables" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Progestag. Orales</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Progestag. Orales" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="grid text-center">
-                                <div class="col-12 ">
-                                    <label>TSH:</label>
+                        <div class="col-4">
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Anticonceptiva combinada</span>
                                 </div>
-                                <div class="col-12">
-                                    <p-selectButton [options]="stateOptions" formControlName="selectedMedicacion"
-                                        optionLabel="label" optionValue="value"></p-selectButton>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Anticonceptiva combinada" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
-                            <br />
-                            <div class="grid text-right">
-                                <div class="col-4">
-                                    <label>Peso:</label>
-                                </div>
+                            <div class="grid ">
                                 <div class="col-8">
-                                    <input type="text" class="p-inputtext-sm" pInputText />
+                                    <span class="text-xs">Solo orl./ Consej.</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Solo orl./ Consej." inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Ninguno</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Ninguno" inputId="anticonceptivoMaterno" class="amarillo pb-0"> </p-radioButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-8">
+                                    <span class="text-xs">Otro</span>
+                                </div>
+                                <div class="col-4">
+                                    <p-radioButton name="anticonceptivoMaterno" formControlName="anticonceptivoMaterno" value="Otro" inputId="anticonceptivoMaterno" class="azul pb-0"> </p-radioButton>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </p-fieldset>
             </div>
-        </div>
-        <!-- siguiente linea -->
-        <div class="grid">
-            <div class="col-2"></div>
-            <div class="col-8">
+            <div class="col-7">
                 <p-fieldset legend="Tipo de Sangre">
                     <div class="grid text-right">
                         <div class="col-12">
@@ -1242,8 +1244,7 @@
                                             <label>A</label>
                                         </div>
                                         <div class="col-6">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="grupoSangre" formControlName="grupoSangre" value="A" inputId="grupoSangre" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1253,8 +1254,7 @@
                                             <label>B</label>
                                         </div>
                                         <div class="col-6">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="grupoSangre" formControlName="grupoSangre" value="B" inputId="grupoSangre" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1264,8 +1264,7 @@
                                             <label>AB</label>
                                         </div>
                                         <div class="col-6">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="grupoSangre" formControlName="grupoSangre" value="AB" inputId="grupoSangre" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1275,8 +1274,7 @@
                                             <label>O</label>
                                         </div>
                                         <div class="col-6">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="grupoSangre" formControlName="grupoSangre" value="O" inputId="grupoSangre" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1286,8 +1284,7 @@
                                             <label class="text-sm">No se hizo</label>
                                         </div>
                                         <div class="col-3">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="grupoSangre" formControlName="grupoSangre" value="No se hizo" inputId="grupoSangre" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1311,8 +1308,7 @@
                                             <label>Rh(+)</label>
                                         </div>
                                         <div class="col-7">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="rhSangre" formControlName="rhSangre" value="rh+" inputId="rhSangre" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1323,8 +1319,7 @@
                                             <label>Rh(-)</label>
                                         </div>
                                         <div class="col-7">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="rhSangre" formControlName="rhSangre" value="rh-" inputId="rhSangre" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1335,8 +1330,7 @@
                                             <label class="text-sm">No se hizo</label>
                                         </div>
                                         <div class="col-3">
-                                            <p-checkbox id="group1" value="Femenino" formControlName="selectedSexo">
-                                            </p-checkbox>
+                                            <p-radioButton name="rhSangre" formControlName="rhSangre" value="No se hizo" inputId="rhSangre" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1345,7 +1339,6 @@
                     </div>
                 </p-fieldset>
             </div>
-            <div class="col-2"></div>
         </div>
     </form>
 </div>
