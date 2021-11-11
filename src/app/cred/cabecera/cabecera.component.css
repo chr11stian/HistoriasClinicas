@@ -52,7 +52,9 @@ p-tabview >>> .p-tabview .p-tabview-panels {
   border-color: #af0017;
   box-shadow: 0 0 0 0.2rem #dcb4b4;
 }
-
+:host >>> .p-steps-item{
+  cursor:pointer;
+}
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
   border-radius: 0px;
   width: 170px;
@@ -79,4 +81,15 @@ p-tabview >>> .p-tabview .p-tabview-panels {
 }
 :host >>> .p-steps .p-steps-item:before {
   margin-top: -4px;
+}
+
+:host::ng-deep .p-steps.step-custom .p-steps-item .p-steps-number {
+  background-color: #0081c2;
+  color: #FFFFFF;
+  display: inline-block;
+  width: 36px;
+  border-radius: 50%;
+  margin-top: -14px;
+  margin-bottom: 10px;
+  
 }
