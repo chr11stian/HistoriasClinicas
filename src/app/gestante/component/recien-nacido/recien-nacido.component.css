@@ -9,8 +9,8 @@ p-fieldset >>> .p-fieldset .p-fieldset-legend {
 }
 p-checkbox>>>.p-checkbox .p-checkbox-box{
     border-radius: 50%;
-    width: 18px;
-    height: 18px;
+    /* width: 18px;
+    height: 18px; */
 }
 p-fieldset >>> .p-fieldset .p-fieldset-content {
     padding: 1px;
@@ -34,14 +34,17 @@ p-fieldset >>> .p-fieldset .p-fieldset-content {
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
 }
+p-checkbox>>> .p-checkbox .p-checkbox-box .pi-check:before{
+    content: url("src\assets\svg-icons\check-svgrepo-com.svg");    
+}
 ::ng-deep .rojo .p-checkbox  .p-checkbox-box{
     background: rgb(194, 6, 6);
     border-color: rgb(194, 6, 6);
 }
 
 ::ng-deep .amarillo .p-checkbox  .p-checkbox-box{
-    background: rgb(242, 236, 56);
-    border-color: rgb(242, 236, 56);
+    border-color: rgb(223, 217, 57);
+    background: rgb(223, 217, 57);
 }
 p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
     content: url("src\assets\svg-icons\check-svgrepo-com.svg");    
@@ -84,3 +87,6 @@ p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
     background: rgb(194, 6, 6);
 }
 
+::ng-deep .dialogo .p-dialog-mask .p-element{
+    display: block;
+}

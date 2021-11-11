@@ -25,11 +25,11 @@ export class CabeceraComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = [
-      { label: "Datos Generales"},
-      { label: "Antecedentes" },
-      { label: "Plan de Atención Integral" },
-      { label: "Evaluación General" },
-      { label: "Test de Desarrollo" },
+      { label: "Datos Generales", styleClass: 'icon'},
+      { label: "Antecedentes", styleClass: 'icon1'},
+      { label: "Plan de Atención Integral", styleClass: 'icon2'},
+      { label: "Evaluación General", styleClass: 'icon3'},
+      { label: "Test de Desarrollo", styleClass: 'icon4'},
     ]
   }
   //--cambia los nombres de los steps según el indice
