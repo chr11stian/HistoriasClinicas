@@ -1,13 +1,14 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
+import { AntecedentesVivienda } from '../../models/antecedentes.interface';
 
-export interface AntecedentesVivienda {
-  dni?: string;
-  aguaPotable:boolean;
-  aguaPotableDetalle:string;
-  desague:boolean;
-  desagueDetalle:string;
-}
+// export interface AntecedentesVivienda {
+//   dni?: string;
+//   aguaPotable:boolean;
+//   aguaPotableDetalle:string;
+//   desague:boolean;
+//   desagueDetalle:string;
+// }
 
 @Component({
   selector: 'app-vivienda',
