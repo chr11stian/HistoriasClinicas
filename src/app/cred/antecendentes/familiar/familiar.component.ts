@@ -1,29 +1,30 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
+import { AntecedentesFamiliares } from '../../models/antecedentes.interface';
 
-export interface AntecedentesFamiliares {
-  dni?: string;
-  tbc:boolean;
-  tbcQuien:string;
-  asma:boolean;
-  asmaQuien:string;
-  vih:boolean;
-  vihQuien:string;
-  diabetes:boolean;
-  diabetesQuien:string;
-  epilepsia:boolean;
-  epilepsiaQuien:string;
-  alergiaMedicinas:boolean;
-  alergiaMediQuien:string;
-  violenciaFam:boolean;
-  violenciaFamQuien:string;
-  alcoholismo:boolean;
-  alcoholismoQuien:string;
-  drogadiccion:boolean;
-  drogadiccionQuien:string;
-  hepatitisB:boolean;
-  hepatitisBQuien:string;
-}
+// export interface AntecedentesFamiliares {
+//   dni?: string;
+//   tbc:boolean;
+//   tbcQuien:string;
+//   asma:boolean;
+//   asmaQuien:string;
+//   vih:boolean;
+//   vihQuien:string;
+//   diabetes:boolean;
+//   diabetesQuien:string;
+//   epilepsia:boolean;
+//   epilepsiaQuien:string;
+//   alergiaMedicinas:boolean;
+//   alergiaMediQuien:string;
+//   violenciaFam:boolean;
+//   violenciaFamQuien:string;
+//   alcoholismo:boolean;
+//   alcoholismoQuien:string;
+//   drogadiccion:boolean;
+//   drogadiccionQuien:string;
+//   hepatitisB:boolean;
+//   hepatitisBQuien:string;
+// }
 
 @Component({
   selector: 'app-familiar',
