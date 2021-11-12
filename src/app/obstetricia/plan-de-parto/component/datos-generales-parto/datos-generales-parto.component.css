@@ -1,0 +1,9 @@
+.imagen{
+    content: url("src\assets\images\gestanteParto.svg");
+    width: 150px;
+    display:block;
+    margin:auto;
+}
+.inputfield{
+    border-radius: 10px;
+}
