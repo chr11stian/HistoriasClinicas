@@ -91,7 +91,7 @@
     <br>
     <fieldset class="p-fieldset">
         <div class="grid">
-            <div class="col-12 md:col-6 lg:col-4 p-field"style="align-self: start">
+            <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
                 <p-fieldset legend="VACUNAS PREVIAS FECHAS" [toggleable]="true">
                     <form [formGroup]='formDatos_Generales'>
                         <div>
@@ -156,36 +156,39 @@
                 <p-fieldset legend="ANT. GINECO OBSTETRICO" [toggleable]="true">
                     <form [formGroup]='formDatos_Generales'>
                         <div class="grid">
-                            <div class="col-12 md:col-6 lg:col-6 p-field">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-4" style="text-align: right">FUR:</span>
                                     <input type="text" pInputText class="inputfield w-full">
                                 </div>
                             </div>
-
-                            <div class="col-12 md:col-6 lg:col-6 p-field">
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-4" style="text-align: right">FPP:</span>
                                     <input type="text" pInputText class="inputfield w-full">
                                 </div>
                             </div>
                         </div>
+
                         <div class="grid">
-                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
-                                    <span class="col-6" style="text-align: right">FUR:</span>
+                                    <span class="col-6" style="text-align: center">FUR:</span>
                                     <input type="text" pInputText class="inputfield w-full ">
                                 </div>
                             </div>
-
-                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-4" style="text-align: right">G:</span>
                                     <input type="text" pInputText class="inputfield w-full ">
                                 </div>
                             </div>
 
-                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-4" style="text-align: right">P:</span>
                                     <input type="text" pInputText class="inputfield w-full ">
@@ -194,21 +197,27 @@
                         </div>
                         <br>
                         <div class="grid ">
+                            <span class="col-12 md:col-6 lg:col-12 m-2">GEST. ANTERIOR:</span>
                             <div class="col-12 md:col-6 lg:col-6 p-field" style="align-self: start">
-                                <span class="col-12 md:col-6 lg:col-6" style="text-align: right">GEST. ANTERIOR:</span>
                                 <div class="p-inputgroup">
-                                    <span class="col-offset-1 md:col-6 lg:col-4">Parto:</span>
+                                    <span class="col-6 md:col-6 lg:col-5">Parto:</span>
                                     <p-radioButton name="gesAnterior" formControlName="gesAnterior"
                                                    value="parto"></p-radioButton>
                                 </div>
 
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-6 p-field" style="align-self: start">
                                 <div class="p-inputgroup">
-                                    <span class="col-offset-1 md:col-6 lg:col-4">Aborto:</span>
+                                    <span class="col-6 md:col-6 lg:col-5">Aborto:</span>
                                     <p-radioButton name="gesAnterior" formControlName="gesAnterior"
                                                    value="aborto"></p-radioButton>
                                 </div>
                             </div>
-                            <div class="col-12 md:col-6 lg:col-6 p-field" style="align-self: start">
+
+                        </div>
+                        <br>
+                        <div class="grid ">
+                            <div class="col-12 md:col-6 lg:col-12 p-field" style="align-self: start">
                                 <span class="col-12" style="text-align: center">R.N. DE MAYOR PESO:</span>
                                 <div class="p-inputgroup">
                                     <input type="text" pInputText class="inputfield w-full">
@@ -216,7 +225,6 @@
                                 </div>
 
                             </div>
-
                         </div>
                     </form>
                 </p-fieldset>
