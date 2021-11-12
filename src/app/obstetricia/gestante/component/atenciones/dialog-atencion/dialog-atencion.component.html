@@ -1,7 +1,7 @@
-<!-------------INICIO DIALOG INGRESAR ATENCION--->
+<!-------------MODAL DE AGREGAR ATENCIONES --->
 <div class="p-fluid grid" [formGroup]="atencionFG">
+    <p-panel>
     <form>
-        <p-panel>
             <ng-template pTemplate="header" >
                 <h3 class="m-2">ATENCION NRO. 001 </h3>
             </ng-template>
@@ -47,16 +47,16 @@
                 <div class="p-field resp">
                     <label>SITUACION</label>
                     <div class="p-field resp">
-                        <p-dropdown inputId="dropdown" [options]="situacionList" formControlName="situacion"
-                                    placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                    defaultLabel="Seleccione:" >
+                        <p-dropdown [options]="situacionOptions" defaultLabel="Seleccione:" formControlName="situacion"
+                                    inputId="dropdown" optionLabel="label" optionValue="value"
+                                    placeholder="seleccionar">
                         </p-dropdown>
                     </div>
                 </div>
                 <div class="p-field resp">
                     <label>PRESENTACION</label>
                     <div class="p-field">
-                        <p-dropdown inputId="dropdown" [options]="presentacionList" formControlName="presentacion"
+                        <p-dropdown inputId="dropdown" [options]="presentacionOptions" formControlName="presentacion"
                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
                                     defaultLabel="Seleccione:" >
                         </p-dropdown>
@@ -65,7 +65,7 @@
                 <div class="p-field resp">
                     <label>POSICION FETAL</label>
                     <div class="p-field">
-                        <p-dropdown inputId="dropdown" [options]="posicionList" formControlName="posicion"
+                        <p-dropdown inputId="dropdown" [options]="posicionOptions" formControlName="posicion"
                                     placeholder="seleccionar"  optionLabel="label" optionValue="value"
                                     defaultLabel="Seleccione:" >
                         </p-dropdown>
@@ -78,7 +78,7 @@
                 <div class="p-field resp">
                     <label>MOVIMIENTO FETAL</label>
                     <div class="p-field resp">
-                        <p-dropdown inputId="dropdown" [options]="movFetalList" formControlName="movFetal"
+                        <p-dropdown inputId="dropdown" [options]="movFetalOptions" formControlName="movFetal"
                                     optionLabel="label" optionValue="value"
                                     placeholder="seleccionar"   defaultLabel="Seleccione:" >
                         </p-dropdown>
@@ -87,7 +87,7 @@
                 <div class="p-field resp">
                     <label>PROTEINURIA CUALITATIVA</label>
                     <div class="p-field">
-                        <p-dropdown inputId="dropdown" [options]="protcualitList" formControlName="proteinaCualitativa"
+                        <p-dropdown inputId="dropdown" [options]="protcualitOptions" formControlName="proteinaCualitativa"
                                     optionLabel="label" optionValue="value"
                                     placeholder="seleccionar"  defaultLabel="Seleccione:" >
                         </p-dropdown>
@@ -96,7 +96,7 @@
                 <div class="p-field resp">
                     <label>EDEMA</label>
                     <div class="p-field">
-                        <p-dropdown inputId="dropdown" [options]="edemaList" formControlName="edema"
+                        <p-dropdown inputId="dropdown" [options]="edemaOptions" formControlName="edema"
                                     optionLabel="label" optionValue="value"
                                     defaultLabel="Seleccione:"  placeholder="seleccionar"  >
                         </p-dropdown>
@@ -105,7 +105,7 @@
                 <div class="p-field resp">
                     <label>REFLEJO OSTEOTENDINOSO</label>
                     <div class="p-field">
-                        <p-dropdown inputId="dropdown" [options]="reflejoOsteotendinosoList"
+                        <p-dropdown inputId="dropdown" [options]="reflejoOsteotendinosoOptions"
                                     formControlName="reflejoOsteotendinoso" optionLabel="label" optionValue="value"
                                     defaultLabel="Seleccione:"  placeholder="seleccionar"  >
                         </p-dropdown>
@@ -137,7 +137,7 @@
                 <div class="p-field resp">
                     <label>INTERCONSULTA</label>
                     <div class="p-field">
-                        <p-dropdown inputId="dropdown" [options]="interconsultaList" formControlName="interconsulta" optionLabel="label" optionValue="value"
+                        <p-dropdown inputId="dropdown" [options]="interconsultaOptions" formControlName="interconsulta" optionLabel="label" optionValue="value"
                                     defaultLabel="Seleccione:" placeholder="seleccionar">
                         </p-dropdown>
                     </div>
@@ -145,7 +145,7 @@
                 <div class="p-field resp">
                     <label>PLAN PARTO</label>
                     <div class="p-field">
-                        <p-dropdown inputId="dropdown" [options]="planPartoList" formControlName="planParto" optionLabel="label" optionValue="value"
+                        <p-dropdown inputId="dropdown" [options]="planPartoOptions" formControlName="planParto" optionLabel="label" optionValue="value"
                                     defaultLabel="Seleccione:" placeholder="seleccionar">
                         </p-dropdown>
                     </div>
@@ -153,7 +153,7 @@
                 <div class="p-field resp">
                     <label>VISITA DOMICILIARIA</label>
                     <div class="p-field">
-                        <p-dropdown inputId="dropdown" [options]="visitaDomiciliariaList"
+                        <p-dropdown inputId="dropdown" [options]="visitaDomiciliariaOptions"
                                     formControlName="visitaDomiciliaria" optionLabel="label" optionValue="value"
                                     defaultLabel="Seleccione:" placeholder="seleccionar" >
                         </p-dropdown>
@@ -173,16 +173,18 @@
                 </div>
 
             </div>
-        </p-panel>
-    </form>
-    <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
-                (click)="canceled()"></button>
-        <button  [disabled]="atencionFG.invalid"  class="button-agregar" icon="pi pi-save"
-                 pButton type="button" label="Guardar" (click)="save()">
 
-        </button>
-    </ng-template>
+    </form>
+        <ng-template pTemplate="footer">
+            <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
+                    (click)="canceled()"></button>
+            <button  [disabled]="atencionFG.invalid"  class="button-agregar" icon="pi pi-save"
+                     pButton type="button" label="Guardar" (click)="save()">
+
+            </button>
+        </ng-template>
+    </p-panel>
+
 </div>
 
 

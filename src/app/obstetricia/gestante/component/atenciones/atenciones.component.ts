@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
-import {DialogAtencionComponent} from "./dialog-atencion/dialog-atencion.component"
+import {DialogAtencionComponent} from "../atenciones/dialog-atencion/dialog-atencion.component";
 import {debounceTime} from "rxjs/operators";
 import {AtencionesService} from "../../services/atenciones/Atenciones.service";
 import {DialogService} from "primeng/dynamicdialog";
@@ -18,8 +18,6 @@ export class AtencionesComponent implements OnInit {
     data: any[] = [];
     isUpdate: boolean = false;
 
-    // datafecha: any;
-
     // /* ---  listas ---*/
     situacionList: any[];
     presentacionList: any[];
@@ -31,39 +29,6 @@ export class AtencionesComponent implements OnInit {
     interconsultaList: any[];
     planPartoList: any[];
     visitaDomiciliariaList: any[];
-    //
-    // atencionGestanteDialog: boolean;
-    //
-    // nroAtencion: number;
-    // fechaAtencion: string;
-    // edadGestacional: number;
-    // pesoMadre: number;
-    // evalNutricional: string;
-    // temperatura: number;
-    // presionArterial: string;
-    // pulsoMaterno: string;
-    // alturaUterinal: number;
-
-    // situacion: string;
-    // presentacion: string;
-    // posicion: string;
-    // fcf: string;
-    // movFetal: string;
-    // proteinaCualitativa: string;
-    // edema: string;
-    // reflejoOsteotendinoso: string;
-    // fechaEcografia: string;
-    // consejeriaIntegral: string;
-    // indAcidoFolico: string;
-    // indFierro: string;
-    // indCalcio: string;
-    // interconsulta: string;
-    // planParto: string;
-    // visitaDomiciliaria: string;
-    // proximaCita: string;
-    // responsableAtencion: string;
-    // establecimientoAtencion: string;
-
 
     constructor(
         private atencionService: AtencionesService,

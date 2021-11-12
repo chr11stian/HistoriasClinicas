@@ -1,1 +1,19 @@
-<p>giagnosticos works!</p>
+<p>diagnosticos works!</p>
+
+<h5>Dynamic</h5>
+<button pButton pRipple type="button" icon="pi pi-plus" label= "Agregar" title="Add Column" (click)="addColumn()" [disabled]="columns.length === 20" class="p-mr-2"></button>
+
+<div class="p-grid p-mt-2">
+    <div class="p-col" *ngFor="let col of columns; let i=index" [@animation]="'visible'">
+        <div class="box">{{i+1}}</div>
+
+            <button pButton (click)="removeColumn()"[disabled]="columns.length === 1"
+                    pTooltip="Eliminar" pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-info m-1">
+            </button>
+
+            <button pButton (click)="removeColumn()"[disabled]="columns.length === 1"
+                    pTooltip="Eliminar" pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+            </button>
+
+         </div>
+</div>

@@ -9,7 +9,18 @@ export class GiagnosticosComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+
+  columns: number[];
+
+  ngOnInit() {
+    this.columns = [];
   }
 
+  addColumn() {
+    this.columns.push(this.columns.length);
+  }
+
+  removeColumn() {
+    this.columns.splice(-1, 1);
+  }
 }

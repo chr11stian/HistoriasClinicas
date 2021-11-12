@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
-
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {AtencionesService} from "../../../services/atenciones/Atenciones.service";
+
+import {DialogService} from "primeng/dynamicdialog";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 
 @Component({
@@ -25,65 +27,108 @@ export class DialogAtencionComponent implements OnInit {
   interconsultaList: any[];
   planPartoList: any[];
   visitaDomiciliariaList: any[];
+  situacionOptions = [{label: 'Longitudinal', value: '1'},
+    {label: 'Transversa', value: '2'},
+    {label: 'No Aplica', value: '3'}];
+  presentacionOptions = [{label: 'Cefálica', value: '1'},
+    {label: 'Pélvica', value: '2'},
+    {label: 'No Aplica', value: '3'}];
 
-  atencionGestanteDialog: boolean;
+  posicionOptions = [{label: 'Derecha', value: '1'},
+    {label: 'Izquierda', value: '2'},
+    {label: 'No Aplica', value: '3'}];
+
+  movFetalOptions = [{label: '+', value: '1'},
+    {label: '++', value: '2'},
+    {label: '+++', value: '3'},
+    {label: 'Sin Movimiento', value: '4'},
+    {label: 'No Aplica', value: '5'}];
+
+  protcualitOptions = [{label: '+', value: '1'},
+    {label: '++', value: '2'},
+    {label: '+++', value: '3'},
+    {label: 'No se hizo', value: '4'}];
+
+  edemaOptions = [{label: '+', value: '1'},
+    {label: '++', value: '2'},
+    {label: '+++', value: '3'},
+    {label: 'Sin Edema', value: '4'}];
+
+  reflejoOsteotendinosoOptions = [{label: '0', value: '1'},
+    {label: '+', value: '2'},
+    {label: '++', value: '3'},
+    {label: '+++', value: '4'}];
+
+  interconsultaOptions = [{label: 'Psicologia', value: '1'},
+    {label: 'Nutricion', value: '2'},
+    {label: 'Odontologia', value: '3'},
+    {label: 'Medicina', value: '4'},
+
+  ];
+  planPartoOptions = [{label: 'Control', value: '1'},
+    {label: 'Visita', value: '2'},
+    {label: 'No se hizo', value: '3'},
+    {label: 'No Aplica', value: '4'}];
+
+  visitaDomiciliariaOptions = [{label: 'Si', value: '1'},
+    {label: 'No', value: '2'},
+    {label: 'No Aplica', value: '3'}];
 
   constructor(
       public ref: DynamicDialogRef, //datos reenviados
       public config: DynamicDialogConfig, //datos enviados
       private atencionService: AtencionesService
-
   ) {
     this.buildForm();
     /*LLENADO DE LISTAS- VALORES QUE PUEDEN TOMAR CIERTAS PROPIEDADES*/
-    this.situacionList = [{label: 'Longitudinal', value: '1'},
-      {label: 'Transversa', value: '2'},
-      {label: 'No Aplica', value: '3'}];
-
-    this.presentacionList = [{label: 'Cefálica', value: '1'},
-      {label: 'Pélvica', value: '2'},
-      {label: 'No Aplica', value: '3'}];
-
-    this.posicionList = [{label: 'Derecha', value: '1'},
-      {label: 'Izquierda', value: '2'},
-      {label: 'No Aplica', value: '3'}];
-
-    this.movFetalList = [{label: '+', value: '1'},
-      {label: '++', value: '2'},
-      {label: '+++', value: '3'},
-      {label: 'Sin Movimiento', value: '4'},
-      {label: 'No Aplica', value: '5'}];
-
-    this.protcualitList = [{label: '+', value: '1'},
-      {label: '++', value: '2'},
-      {label: '+++', value: '3'},
-      {label: 'No se hizo', value: '4'}];
-
-    this.edemaList = [{label: '+', value: '1'},
-      {label: '++', value: '2'},
-      {label: '+++', value: '3'},
-      {label: 'Sin Edema', value: '4'}];
-
-    this.reflejoOsteotendinosoList = [{label: '0', value: '1'},
-      {label: '+', value: '2'},
-      {label: '++', value: '3'},
-      {label: '+++', value: '4'}];
-
-    this.interconsultaList = [{label: 'Psicologia', value: '1'},
-      {label: 'Nutricion', value: '2'},
-      {label: 'Odontologia', value: '3'},
-      {label: 'Medicina', value: '4'},
-
-    ];
-
-    this.planPartoList = [{label: 'Control', value: '1'},
-      {label: 'Visita', value: '2'},
-      {label: 'No se hizo', value: '3'},
-      {label: 'No Aplica', value: '4'}];
-
-    this.visitaDomiciliariaList = [{label: 'Si', value: '1'},
-      {label: 'No', value: '2'},
-      {label: 'No Aplica', value: '3'}];
+    // this.situacionList = [{label: 'Longitudinal', value: '1'},
+    //   {label: 'Transversa', value: '2'},
+    //   {label: 'No Aplica', value: '3'}];
+    //
+    // this.presentacionList = [{label: 'Cefálica', value: '1'},
+    //   {label: 'Pélvica', value: '2'},
+    //   {label: 'No Aplica', value: '3'}];
+    //
+    // this.posicionList = [{label: 'Derecha', value: '1'},
+    //   {label: 'Izquierda', value: '2'},
+    //   {label: 'No Aplica', value: '3'}];
+    //
+    // this.movFetalList = [{label: '+', value: '1'},
+    //   {label: '++', value: '2'},
+    //   {label: '+++', value: '3'},
+    //   {label: 'Sin Movimiento', value: '4'},
+    //   {label: 'No Aplica', value: '5'}];
+    //
+    // this.protcualitList = [{label: '+', value: '1'},
+    //   {label: '++', value: '2'},
+    //   {label: '+++', value: '3'},
+    //   {label: 'No se hizo', value: '4'}];
+    //
+    // this.edemaList = [{label: '+', value: '1'},
+    //   {label: '++', value: '2'},
+    //   {label: '+++', value: '3'},
+    //   {label: 'Sin Edema', value: '4'}];
+    //
+    // this.reflejoOsteotendinosoList = [{label: '0', value: '1'},
+    //   {label: '+', value: '2'},
+    //   {label: '++', value: '3'},
+    //   {label: '+++', value: '4'}];
+    //
+    // this.interconsultaList = [{label: 'Psicologia', value: '1'},
+    //   {label: 'Nutricion', value: '2'},
+    //   {label: 'Odontologia', value: '3'},
+    //   {label: 'Medicina', value: '4'},
+    //
+    // ];
+    //
+    // this.planPartoList = [{label: 'Control', value: '1'},
+    //   {label: 'Visita', value: '2'},
+    //   {label: 'No se hizo', value: '3'},
+    //   {label: 'No Aplica', value: '4'}];
+    //
+    // this.visitaDomiciliariaList = [{label: 'Si', value: '1'},
+    //   {label: 'No', value: '2'},
+    //   {label: 'No Aplica', value: '3'}];
 
   }
 
@@ -180,7 +225,7 @@ export class DialogAtencionComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500,
     })
-
+    this.ref.close("agregado");
   }
 
   canceled() {

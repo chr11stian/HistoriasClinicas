@@ -10,9 +10,7 @@
     background: #003C71;
 
 }
-.button-graficar {
-    background: #CE9104;
-}
+
 .input .label {
     display: flex;
     padding: 15px;
@@ -28,9 +26,7 @@
     height: 90%;
     font-size: small;
 }
-p {
-    margin: 0;
-}
+
 .table-over{
     overflow-x: auto;
 }
@@ -43,7 +39,7 @@ p {
 :host >>> .p-dialog  {
 
     width: 80%;
-    background: #FFFFFF;
+
 }
 .p-table >>> .p-table{
     overflow-x: auto;
