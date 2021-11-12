@@ -1,1 +1,66 @@
-<p>datos-generales works!</p>
+<div>
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0"></h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
+                    style="background: #2196F3; border: 1px solid #2196F3;"></button>
+        </ng-template>
+    </p-toolbar>
+    <br>
+    <p-fieldset legend="INFORMACION PERSONAL" [toggleable]="true">
+        <form [formGroup]='formDatos_Generales'>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="">
+                        <label class="">Documento de identidad: </label>
+                        <input type="text" pInputText class="inputfield w-full">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="">
+                        <label class="">Apellido Paterno:</label>
+                        <input type="text" pInputText class="inputfield w-full">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="">
+                        <label class="">Apellido Materno: </label>
+                        <input type="text" pInputText class="inputfield w-full">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="">
+                        <label class="">Nombres: </label>
+                        <input type="text" pInputText class="inputfield w-full">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-2 p-field">
+                    <div class="">
+                        <label class="">Edad: </label>
+                        <input type="text" pInputText class="inputfield w-full">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="">
+                        <label class="">Telefono:</label>
+                        <input type="text" pInputText class="inputfield w-full">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-7 p-field">
+                    <div class="">
+                        <label class="">Grado de instrucción: </label>
+                        <input type="text" pInputText class="inputfield w-full">
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </p-fieldset>
+    <br>
+</div>
