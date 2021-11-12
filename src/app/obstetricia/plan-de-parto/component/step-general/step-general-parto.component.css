@@ -60,7 +60,17 @@ p-tabview >>> .p-tabview .p-tabview-panels {
   color: transparent;
   background: white;
   border: 1px solid green;
+  border-radius: 10px;
 }
+
+:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number:hover {
+  outline: 0 none;
+  outline-offset: 0;
+  border-radius: 10px;
+  box-shadow: 0 0 0 0.2rem #4c7831;
+  cursor: pointer;
+}
+
 :host
   >>> .p-steps
   .p-steps-item.p-steps-current
@@ -74,6 +84,10 @@ p-tabview >>> .p-tabview .p-tabview-panels {
   margin-bottom: 19px;
   color: green;
 }
+:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title:hover {
+  cursor: pointer;
+}
+
 :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
   color: rgb(10, 79, 163);
 }
