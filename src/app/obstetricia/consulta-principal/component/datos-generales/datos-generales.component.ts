@@ -8,8 +8,13 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 })
 export class DatosGeneralesComponent implements OnInit {
     formDatos_Generales: FormGroup;
+    opciones: any;
 
     constructor(private form: FormBuilder,) {
+        this.opciones = [
+            {name: 'SI', code: 'S'},
+            {name: 'NO', code: 'N'},
+        ];
     }
 
     ngOnInit(): void {
@@ -22,6 +27,7 @@ export class DatosGeneralesComponent implements OnInit {
             // ApMaterno: new FormControl(''),
             // nombres: new FormControl(''),
             aplica: new FormControl(''),
+            gesAnterior: new FormControl(''),
             // referencia: new FormControl(''),
             // partoVaginal: new FormControl(''),
         })
