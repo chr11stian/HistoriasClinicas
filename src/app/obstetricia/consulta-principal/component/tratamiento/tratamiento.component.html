@@ -46,39 +46,41 @@
 
     </p-toolbar>
     <br>
-    <p-fieldset legend="RECOMENDACIONES">
-        <div class="p-fluid">
-            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="recomendaciones" />
-<!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="recomendaciones" ]/>-->
-        </div>
-    </p-fieldset>
-        <br>
-    <p-fieldset legend="EXAMENES AUXILIARES">
+    <form [formGroup]='formRIEP'>
+        <p-fieldset legend="RECOMENDACIONES">
             <div class="p-fluid">
-                <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="examenesAuxiliares"/>
-<!--                <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="examenesAuxiliares"/>-->
+                <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName='recomendaciones'  />
+    <!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="recomendaciones" ]/>-->
             </div>
+        </p-fieldset>
+            <br>
+        <p-fieldset legend="EXAMENES AUXILIARES">
+                <div class="p-fluid">
+                    <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="examenesAuxiliares"/>
+    <!--                <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="examenesAuxiliares"/>-->
+                </div>
 
-    </p-fieldset>
-        <br>
-    <p-fieldset legend="INTERCONSULTA">
-        <div class="p-fluid">
-            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="interconsulta"/>
-<!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="interconsulta"/>-->
-        </div>
-    </p-fieldset>
-        <br>
-    <p-fieldset legend="PERSONAL RESPONSABLE DE LA ATENCION">
-        <div class="p-fluid">
-            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="personalResponsable"/>
-<!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="personalResponsable"/>-->
-        </div>
-    </p-fieldset>
-    <p-toolbar>
-            <button pButton type="button" label="Guardar" icon="pi pi-save" class="button-agregar"></button>
+        </p-fieldset>
+            <br>
+        <p-fieldset legend="INTERCONSULTA">
+            <div class="p-fluid">
+                <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="interconsulta"/>
+    <!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="interconsulta"/>-->
+            </div>
+        </p-fieldset>
+            <br>
+        <p-fieldset legend="PERSONAL RESPONSABLE DE LA ATENCION">
+            <div class="p-fluid">
+                <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="interconsulta" />
+    <!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="personalResponsable"/>-->
+            </div>
+        </p-fieldset>
+        <p-toolbar>
+                <button pButton type="button" label="Guardar" icon="pi pi-save" class="button-agregar"></button>
 
 
-    </p-toolbar>
+        </p-toolbar>
+    </form>
 </div>
 
 
@@ -112,7 +114,7 @@
             <div class="p-col-6 p-md-4 p-lg-3">
                 <label>Intervalo</label>
                 <div class="p-field">
-                    <p-dropdown style="border-radius: 10px" inputId="dropdown" [options]="intervaloList" formControlName="intervalo"
+                    <p-dropdown  inputId="dropdown" [options]="intervaloList" formControlName="intervalo"
                                 placeholder="seleccionar" optionLabel="label" optionValue="value"
                                 defaultLabel="Seleccione:" >
                     </p-dropdown>
@@ -121,7 +123,7 @@
             <div class="p-col-6 p-md-4 p-lg-3">
                 <label>Via Admin.</label>
                 <div class="p-field">
-                    <p-dropdown style="border-radius: 10px" inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracion"
+                    <p-dropdown  inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracion"
                                 placeholder="seleccionar" optionLabel="label" optionValue="value"
                                 defaultLabel="Seleccione:" >
                     </p-dropdown>

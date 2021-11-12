@@ -18,8 +18,8 @@ export class TratamientoComponent implements OnInit {
   /*LISTA CIE 10*/
   intervaloList: any[];
   viaadministracionList: any[];
-  Cie10: any;
-  displayModal: boolean;
+  formRIEP: FormGroup;
+
   recomendaciones: string;
   interconsulta: string;
   examenesAuxiliares: string;
@@ -69,9 +69,13 @@ export class TratamientoComponent implements OnInit {
       viaAdministracion: ['', [Validators.required]],
       duracion:  ['', [Validators.required]],
 
-      
-    });
-
+    })
+    this.formRIEP=this.formBuilder.group({
+      recomendaciones: ['', [Validators.required]],
+      interconsulta:  ['', [Validators.required]],
+      examenesAuxiliares:  ['', [Validators.required]],
+      personalResponsable:  ['', [Validators.required]],
+    })
 
   }
   save(form: any) {
