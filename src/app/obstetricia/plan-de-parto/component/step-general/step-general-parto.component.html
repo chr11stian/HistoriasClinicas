@@ -1,0 +1,92 @@
+<div class="card">
+    <p-card>
+        <div class="grid">
+            <div class="col-9" style="margin: 0px 0px 0px 20px;">
+                <span style="font-size: 2em;">PLAN DE PARTO > </span>
+            </div>
+            <div class="col-12 flex" style="margin: 0px 0px 0px 20px;">
+                <div class="col-2">
+                    <div class="field grid">
+                        <strong
+                        ><label class="line-height-4" for="username2"
+                        >*Tipo de documento:</label
+                        ></strong
+                        >
+                        <p-dropdown
+                                placeholder="Seleccionar"
+                                [options]="options"
+                                (ngModel)="(selectedOption)"
+                                optionLabel="name"
+                        >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="col-3 align-items-end">
+                    <div class="field grid">
+                        <strong>
+                            <label class="line-height-4" for="username2">
+                                *Ingrese valor del documento*
+                            </label>
+                        </strong>
+                        <input style="width: 450px" id="username2" pInputText/>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <button pButton style="margin-top: 10px">
+                        <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;cargar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </p-card>
+</div>
+
+<p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo" (activeIndexChange)="ChangeStep($event)">
+</p-steps>
+
+<div class="stepsdemo-content" *ngIf="stepName === 'datos'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-datos-generales-parto></app-datos-generales-parto>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'intervalo'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-intervalo-parto></app-intervalo-parto>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'necesidades'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-necesidades-parto></app-necesidades-parto>
+        </ng-template>
+    </p-card>
+</div>
+
+
+<div class="stepsdemo-content" *ngIf="stepName === 'señales'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-s-peligro-parto></app-s-peligro-parto>
+        </ng-template>
+    </p-card>
+</div>
+
+
+<!--<div class="stepsdemo-content" *ngIf="stepName === 'nacidos'">-->
+<!--    <p-card>-->
+<!--        <ng-template pTemplate="content">-->
+<!--            <app-recien-nacido></app-recien-nacido>-->
+<!--        </ng-template>-->
+<!--    </p-card>-->
+<!--</div>-->
+<!--<div class="stepsdemo-content" *ngIf="stepName === 'puerperio'">-->
+<!--    <p-card>-->
+<!--        <ng-template pTemplate="content">-->
+<!--            <app-puerperio></app-puerperio>-->
+<!--        </ng-template>-->
+<!--    </p-card>-->
+<!--</div>-->
