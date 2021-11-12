@@ -25,6 +25,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     selected2: any;
 
     formDatos_Generales: FormGroup;
+    formAntecedentes: FormGroup;
 
     constructor(
         private form: FormBuilder,
@@ -71,7 +72,8 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.buildForm()
+        this.buildForm();
+        this.buildForm2();
     }
 
     buildForm() {
@@ -81,9 +83,33 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             // nombres: new FormControl(''),
             aplica: new FormControl(''),
             referencia: new FormControl(''),
+            partoVaginal: new FormControl(''),
         })
     }
 
+    buildForm2() {
+        this.formAntecedentes = this.form.group({
+            terminacion: new FormControl(''),
+            ectópico: new FormControl(''),
+            abortoMolar: new FormControl(''),
+            noAplica: new FormControl(''),
+            incompleto: new FormControl(''),
+            completo: new FormControl(''),
+            frustoRetenido: new FormControl(''),
+            septico: new FormControl(''),
+            noAplica2: new FormControl(''),
+            noHubo: new FormControl(''),
+            menorSeisMeses: new FormControl(''),
+            SeisMesesMas: new FormControl(''),
+            noAplica3: new FormControl(''),
+            EESS: new FormControl(''),
+            domic: new FormControl(''),
+        })
+    }
+
+    fnCheckbox(value){
+        console.log(value);
+    }
 
     // ngAfterViewInit(): void {
     //     // create an array with nodes
