@@ -1,4 +1,22 @@
+p-fieldset >>> .p-fieldset .p-fieldset-legend {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  background: #d8dee5;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: small;
+}
+p-fieldset >>> .p-fieldset .p-fieldset-content {
+  padding: 2px;
+  font-size: xx-small;
+}
 ::ng-deep >>> .p-inputtext {
   border-radius: 10px;
+  height: 25px;
+}
+p-calendar >>> .p-button.p-button-icon-only {
+  background-color: #003c71;
+  width: 25px;
   height: 25px;
 }

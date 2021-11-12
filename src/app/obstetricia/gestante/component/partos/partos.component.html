@@ -1,3 +1,28 @@
+<p-toolbar styleClass="mb-4">
+  <ng-template pTemplate="left">
+    <h3 class="p-m-0">RESULTADOS DE LABORATORIO Y ECOGRAFIA</h3>
+  </ng-template>
+  <ng-template pTemplate="right" class="button">
+    <button
+      pButton
+      pRipple
+      label="Atras"
+      icon="pi pi-angle-left"
+      iconPos="left"
+      class="mr-3"
+      style="background-color: #5b5b5b"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Siguiente"
+      icon="pi pi-angle-right"
+      iconPos="right"
+      style="background-color: #003c71"
+    ></button>
+  </ng-template>
+</p-toolbar>
+
 <form [formGroup]="myGroup">
   <!-- primera fila -->
   <div class="grid">
@@ -1451,7 +1476,7 @@
     </div>
   </div>
 </form>
-<div class="ui-dialog-footer p-text-right p-mt-3">
+<div class="flex justify-content-end mt-3">
   <p-button
     icon="pi pi-save"
     label="Guardar"
