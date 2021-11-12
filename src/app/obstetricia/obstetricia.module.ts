@@ -19,7 +19,12 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {ToolbarModule} from "primeng/toolbar";
 import {FieldsetModule} from "primeng/fieldset";
 import {PaginatorModule} from "primeng/paginator";
-import {DialogAtencionComponent} from "./gestante/component/atenciones/dialog-atencion/dialog-atencion.component";
+import {DatosGeneralesPartoComponent} from './plan-de-parto/component/datos-generales-parto/datos-generales-parto.component';
+import {StepGeneralPartoComponent} from "./plan-de-parto/component/step-general/step-general-parto.component";
+import {IntervaloPartoComponent} from './plan-de-parto/component/intervalo-parto/intervalo-parto.component';
+import {NecesidadesPartoComponent} from './plan-de-parto/component/necesidades-parto/necesidades-parto.component';
+import {SPeligroPartoComponent} from './plan-de-parto/component/s-peligro-parto/s-peligro-parto.component';
+import {DialogAtencionComponent} from './gestante/component/atenciones/dialog-atencion/dialog-atencion.component';
 
 
 @NgModule({
@@ -38,6 +43,12 @@ import {DialogAtencionComponent} from "./gestante/component/atenciones/dialog-at
         PuerperioComponent,
         RecienNacidoComponent,
         StepGeneralComponent,
+
+        DatosGeneralesPartoComponent,
+        StepGeneralPartoComponent,
+        IntervaloPartoComponent,
+        NecesidadesPartoComponent,
+        SPeligroPartoComponent,
         DialogAtencionComponent
 
     ],

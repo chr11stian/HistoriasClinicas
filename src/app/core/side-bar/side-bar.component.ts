@@ -60,6 +60,12 @@ export class SideBarComponent implements OnInit {
                         icon: "pi pi-pw pi-file",
                         routerLink: "obstetricia/cabecera-atencion-integral",
                     },
+                    {
+                        label: "Obstetricia plan de parto",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "obstetricia/cabecera-plan-parto",
+
+                    },
 
                     {
                         icon: "pi pi-file",
