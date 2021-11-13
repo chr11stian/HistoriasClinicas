@@ -1,1 +1,247 @@
-<p>resultados works!</p>
+<p-toolbar styleClass="mb-4">
+  <ng-template pTemplate="left">
+    <h3 class="p-m-0">RESULTADOS DE LABORATORIO Y ECOGRAFIA</h3>
+  </ng-template>
+  <ng-template pTemplate="right" class="button">
+    <button
+      pButton
+      pRipple
+      label="Atras"
+      icon="pi pi-angle-left"
+      class="p-button-primary mr-3"
+      style="background-color: #5b5b5b"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Guardar"
+      icon="pi pi-save"
+      class="p-button-primary"
+      style="background-color: #003c71"
+    ></button>
+  </ng-template>
+</p-toolbar>
+<div class="m-3">
+  <div>
+    <p-fieldset legend="Examen de laboratorio">
+      <div class="grid mb-3">
+        <div class="col-2" style="text-align: right; font-weight: bold">
+          Fecha de resultados:
+        </div>
+        <div class="col-10">
+          <p-calendar
+            [showIcon]="true"
+            inputId="icon"
+            placeholder="dd/mm/aaaa"
+          ></p-calendar>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="col-6 md:col-4 xl:col-2 grid">
+          <div class="col-6" style="font-weight: bold; text-align: right">
+            Grupo S:
+          </div>
+          <div class="col-6 p-fluid">
+            <input type="text" pInputText placeholder="Grupo S" />
+          </div>
+        </div>
+        <div class="col-6 md:col-4 xl:col-2 grid">
+          <div class="col-6" style="font-weight: bold; text-align: right">
+            F.RH.:
+          </div>
+          <div class="col-6 p-fluid">
+            <input type="text" pInputText placeholder="F.RH." />
+          </div>
+        </div>
+        <div class="col-6 md:col-4 xl:col-3 grid">
+          <div class="col-6" style="font-weight: bold; text-align: right">
+            Hemograma:
+          </div>
+          <div class="col-6 p-fluid">
+            <input type="text" pInputText placeholder="Hemograma" />
+          </div>
+        </div>
+        <div class="col-6 md:col-4 xl:col-3 grid">
+          <div class="col-6" style="font-weight: bold; text-align: right">
+            Hemoglobina:
+          </div>
+          <div class="col-6 p-fluid">
+            <input type="text" pInputText placeholder="Hemoglobina" />
+          </div>
+        </div>
+        <div class="col-6 md:col-4 xl:col-2 grid">
+          <div class="col-6" style="font-weight: bold; text-align: right">
+            Hto:
+          </div>
+          <div class="col-6 p-fluid">
+            <input type="text" pInputText placeholder=" Hto" />
+          </div>
+        </div>
+        <div class="col-6 md:col-4 xl:col-3 grid">
+          <div class="col-6" style="font-weight: bold; text-align: right">
+            Glucosa:
+          </div>
+          <div class="col-6 p-fluid">
+            <input type="text" pInputText placeholder=" Glucosa" />
+          </div>
+        </div>
+        <div class="col-6 md:col-4 xl:col-2 grid">
+          <div class="col-6" style="font-weight: bold; text-align: right">
+            E.Orina:
+          </div>
+          <div class="col-6 p-fluid">
+            <input type="text" pInputText placeholder="E.Orina" />
+          </div>
+        </div>
+        <div class="col-6 md:col-4 xl:col-2 grid">
+          <div class="col-6" style="font-weight: bold; text-align: right">
+            RPR:
+          </div>
+          <div class="col-6 p-fluid">
+            <input type="text" pInputText placeholder="RPR" />
+          </div>
+        </div>
+        <div class="col-6 md:col-4 xl:col-2 grid">
+          <div class="col-6" style="font-weight: bold; text-align: right">
+            PREVIH:
+          </div>
+          <div class="col-6 p-fluid">
+            <input type="text" pInputText placeholder="PREVIH" />
+          </div>
+        </div>
+        <div class="col-6 md:col-4 xl:col-3 grid">
+          <div class="col-6" style="font-weight: bold; text-align: right">
+            Ex.Sec.V:
+          </div>
+          <div class="col-6 p-fluid">
+            <input type="text" pInputText placeholder=" Ex.Sec.V" />
+          </div>
+        </div>
+      </div>
+    </p-fieldset>
+  </div>
+  <div class="grid mt-3">
+    <div class="col-12 xl:col-6">
+      <p-fieldset legend="-1° Ecografia">
+        <div class="grid">
+          <div class="col-3" style="text-align: right">Fecha de ecografía:</div>
+          <div class="col-9">
+            <p-calendar
+              [showIcon]="true"
+              inputId="icon"
+              placeholder="dd/mm/aaaa"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="col-3 align-self-start" style="text-align: right">
+            Resultado:
+          </div>
+          <div class="col-9">
+            <textarea
+              [rows]="5"
+              [cols]="45"
+              pInputTextarea
+              autoResize="autoResize"
+              placeholder="Ingresar resultado..."
+            ></textarea>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+    <div class="col-12 xl:col-6">
+      <p-fieldset legend="-2° Ecografia">
+        <div class="grid">
+          <div class="col-3" style="text-align: right">Fecha de ecografía:</div>
+          <div class="col-9">
+            <p-calendar
+              [showIcon]="true"
+              inputId="icon"
+              placeholder="dd/mm/aaaa"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="col-3 align-self-start" style="text-align: right">
+            Resultado:
+          </div>
+          <div class="col-9">
+            <textarea
+              [rows]="5"
+              [cols]="45"
+              pInputTextarea
+              autoResize="autoResize"
+              placeholder="Ingresar resultado..."
+            ></textarea>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+    <div class="col-12 xl:col-6">
+      <p-fieldset legend="-3° Ecografia">
+        <div class="grid">
+          <div class="col-3" style="text-align: right">Fecha de ecografía:</div>
+          <div class="col-9">
+            <p-calendar
+              [showIcon]="true"
+              inputId="icon"
+              placeholder="dd/mm/aaaa"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="col-3 align-self-start" style="text-align: right">
+            Resultado:
+          </div>
+          <div class="col-9">
+            <textarea
+              [rows]="5"
+              [cols]="45"
+              pInputTextarea
+              autoResize="autoResize"
+              placeholder="Ingresar resultado..."
+            ></textarea>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+    <div class="col-12 xl:col-6">
+      <p-fieldset legend="-4° Ecografia">
+        <div class="grid">
+          <div class="col-3" style="text-align: right">Fecha de ecografía:</div>
+          <div class="col-9">
+            <p-calendar
+              [showIcon]="true"
+              inputId="icon"
+              placeholder="dd/mm/aaaa"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="col-3 align-self-start" style="text-align: right">
+            Resultado:
+          </div>
+          <div class="col-9">
+            <textarea
+              [rows]="5"
+              [cols]="45"
+              pInputTextarea
+              autoResize="autoResize"
+              placeholder="Ingresar resultado..."
+            ></textarea>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+  <div class="flex justify-content-end pt-3">
+    <button
+      pButton
+      pRipple
+      label="Agregar consulta"
+      icon="pi pi-plus-circle"
+      class="p-button-primary"
+      style="background-color: #003c71"
+    ></button>
+  </div>
+</div>

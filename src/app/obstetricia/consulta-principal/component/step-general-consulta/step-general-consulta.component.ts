@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MenuItem} from "primeng/api"
 
 @Component({
-    selector: 'app-step-general',
+    selector: 'app-step-general-consulta',
     templateUrl: './step-general-consulta.component.html',
     styleUrls: ['./step-general-consulta.component.css']
 })
