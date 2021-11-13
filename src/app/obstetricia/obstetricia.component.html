@@ -1,34 +1,49 @@
-<div class="grid">
+<p-panel>
+    <ng-template pTemplate="header">
+        <h3 class="m-1">GESTANTES</h3>
+    </ng-template>
 
-    <div class="col-12 md:col-6 lg:col-4 p-field">
-        <button pButton pRipple type="button" routerLink="gestante" class="p-button-raised p-button-secondary">
-            Gestante
-        </button>
-
+    <div class="grid">
+        <div class=" d-flex alig-items-center;">
+            <img class="d-flex alig-items-center; logo_Region" src="../../assets/images/gestante.png">
+        </div>
     </div>
 
 
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-3 p-field">
+            <button pButton pRipple type="button" routerLink="gestante" class="p-button-raised p-button-secondary">
+                PLAN DE ATENCIÓN INTEGRAL
+            </button>
 
-    <div class="col-12 md:col-6 lg:col-4 p-field">
-        <button pButton pRipple type="button" routerLink="consulta-principal" class="p-button-raised p-button-secondary">
-            CONSULTA
-        </button>
+        </div>
+
+
+        <div class="col-12 md:col-6 lg:col-3 p-field">
+            <button pButton pRipple type="button" routerLink="consulta-principal"
+                    class="p-button-raised p-button-secondary">
+                CONSULTA PRINCIPAL
+            </button>
+
+        </div>
+
+
+        <div class="col-12 md:col-6 lg:col-3 p-field">
+            <button pButton pRipple type="button" routerLink="plan-de-parto" class="p-button-raised p-button-secondary">
+                PLAN DE PARTO
+            </button>
+        </div>
+
+
+        <div class="col-12 md:col-6 lg:col-3 p-field">
+            <button pButton pRipple type="button" routerLink="" class="p-button-raised p-button-secondary">
+                OTROS EXAMENES
+            </button>
+        </div>
 
     </div>
 
-
-
-    <div class="col-12 md:col-6 lg:col-4 p-field">
-        <button pButton pRipple type="button" routerLink="plan-de-parto" class="p-button-raised p-button-secondary">
-            Plan de parto
-        </button>
-
-
-    </div>
-
-
-
-</div>
+</p-panel>
 
 
 
