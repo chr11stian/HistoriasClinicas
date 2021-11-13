@@ -22,6 +22,7 @@ import {ObstetriciaComponent} from './obstetricia.component';
 import {ConsultaPrincipalModule} from "./consulta-principal/consulta-principal.module";
 import {GestanteModule} from "./gestante/gestante.module";
 import {PlanDePartoModule} from "./plan-de-parto/plan-de-parto.module";
+import {ExamenesModule} from "./examenes/examenes.module";
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import {PlanDePartoModule} from "./plan-de-parto/plan-de-parto.module";
 
         ConsultaPrincipalModule,
         GestanteModule,
-        PlanDePartoModule
+        PlanDePartoModule,
+        ExamenesModule
     ]
 })
 export class ObstetriciaModule {
