@@ -71,6 +71,11 @@ export class SideBarComponent implements OnInit {
                         label: "Obstetricia",
                         routerLink: "obstetricia/obstetricia",
                     },
+                    {
+                        icon: "pi pi-file",
+                        label: "FUA",
+                        routerLink: "fua/fua",
+                    },
 
                     {
                         icon: "pi pi-file",

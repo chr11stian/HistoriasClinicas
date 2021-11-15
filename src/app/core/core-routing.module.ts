@@ -50,7 +50,13 @@ const routes: Routes = [
             {
                 path: "obstetricia",
                 loadChildren: () => import('src/app/obstetricia/obstetricia.module').then(n => n.ObstetriciaModule),
-            }
+            },
+
+
+            {
+                path: "fua",
+                loadChildren: () => import('src/app/fua/fua.module').then(n => n.FuaModule),
+            },
         ]
     }
 ];

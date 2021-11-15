@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogAtencionComponent } from './dialog-atencion.component';
+import { IpressComponent } from './iprees.component';
 
-describe('DialogAtencionComponent', () => {
-  let component: DialogAtencionComponent;
-  let fixture: ComponentFixture<DialogAtencionComponent>;
+describe('IpreesComponent', () => {
+  let component: IpressComponent;
+  let fixture: ComponentFixture<IpressComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogAtencionComponent ]
+      declarations: [ IpressComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DialogAtencionComponent);
+    fixture = TestBed.createComponent(IpressComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
