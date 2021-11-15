@@ -1,4 +1,5 @@
 .funcionesVitales {
+    display: flexbox;
     flex: 7%;
     margin: 0.5em;
 }
@@ -19,4 +20,18 @@ p-fieldset >>> .p-fieldset .p-fieldset-legend {
     font-weight: 600;
     border-radius: 5px;
     font-size: small;
+}
+
+p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
+    content: url("src\assets\svg-icons\check-svgrepo-com.svg");
+}
+
+::ng-deep .default .p-radiobutton .p-radiobutton-icon{
+    background: #2196f3;
+    border: #2196f3;
+}
+
+::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight{
+    background: #2196f3;
+    border: #2196f3;
 }
