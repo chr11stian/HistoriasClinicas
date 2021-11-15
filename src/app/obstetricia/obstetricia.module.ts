@@ -28,7 +28,8 @@ import {ExamenesModule} from "./examenes/examenes.module";
         ConsultaPrincipalModule,
         GestanteModule,
         PlanDePartoModule,
-        ExamenesModule
+        ExamenesModule,
+
     ]
 })
 export class ObstetriciaModule {
