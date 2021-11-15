@@ -8,14 +8,19 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 })
 export class IntervaloPartoComponent implements OnInit {
   form: FormGroup;
+  stateOptions: any[];
   constructor(
     private formBuilder: FormBuilder
-  ) { }
+  ) { 
+    this.stateOptions = [{ label: 'Si', value: 'Si' }, { label: 'No', value: 'No' }];
+    this.buildForm();
+  }
 
   buildForm() {
     this.form = this.formBuilder.group({
       descripcion: ['', [Validators.required]],
       dondeParto: ['', [Validators.required]],
+      selected: ['', [Validators.required]],
     })
   }
 

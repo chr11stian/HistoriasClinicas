@@ -284,6 +284,67 @@
                     </div>
                 </p-fieldset>
             </div>
+            <div class=" col-12">
+                <p-fieldset legend="Preguntas" [toggleable]="true">
+                    <div class="formgrid grid px-6 py-2">
+                        <div class="field col-12 md:col-6">
+                            <div class="grid">
+                                <div class="col-6 text-center">
+                                    <label>¿Quién cuidara sus hijos, su casa y animales durante su ausencia?</label>
+                                </div>
+                                <div class="col-6">
+                                    <input class="inputfield w-full" type="text" pInputText
+                                        formControlName='descripcion' required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <div class="grid ">
+                                <div class="col-6 text-center">
+                                    <label>¿Aceptaría ir a la casa materna u otro cerca del establecimiento?</label>
+                                </div>
+                                <div class="col-6">
+                                    <input class="inputfield w-full" type="text" pInputText
+                                        formControlName='descripcion' required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field col-12 md:col-6">
+                            <div class="grid ">
+                                <div class="col-5 text-center">
+                                    <label>¿Sabe cuando debe ir a la casa materna?</label>
+                                </div>
+                                <div class="col-3 text-center">
+                                    <p-selectButton [options]="stateOptions"
+                                                formControlName="selected" optionLabel="label"
+                                                optionValue="value"></p-selectButton>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <input class="inputfield w-full" type="text" pInputText
+                                        formControlName='descripcion' required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class=" col-12">
+                <p-fieldset legend="Firmas" [toggleable]="true">
+                    <div class="formgrid grid px-6 py-2">
+                        <div class="field col-12 md:col-6">
+                            <div class="grid">
+                                <div class="col-6 text-right">
+                                    <label>Firma Gestante</label>
+                                </div>
+                                <div class="col-6">
+                                    <input class="inputfield w-full" type="text" pInputText
+                                        formControlName='descripcion' required />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p-fieldset>
+            </div>
         </div>
     </form>
 </div>
