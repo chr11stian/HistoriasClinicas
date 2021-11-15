@@ -10,7 +10,7 @@ const routes: Routes = [
 
     {
         path: "obstetricia",
-        loadChildren: () => import('src/app/atencion/plan-atencion-integral/plan-atencion-integral.module').then(n => n.PlanAtencionIntegralModule),
+        loadChildren: () => import('src/app/obstetricia-general/citas/atencion/plan-atencion-integral/plan-atencion-integral.module').then(n => n.PlanAtencionIntegralModule),
     },
 
 
