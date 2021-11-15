@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { AtencionComponent } from './obstetricia.component';
-
+import {AtencionComponent} from "./atencion.component";
 describe('ObstetriciaComponent', () => {
   let component: AtencionComponent;
   let fixture: ComponentFixture<AtencionComponent>;
