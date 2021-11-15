@@ -32,6 +32,7 @@ import {PacienteComponent} from './paciente/paciente.component';
     exports: [
         PersonalSaludComponent,
         UsuariosComponent,
+        IpressComponent,
     ],
 
     imports: [
