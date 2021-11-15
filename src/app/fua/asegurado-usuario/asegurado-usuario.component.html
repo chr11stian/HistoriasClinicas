@@ -1,1 +1,194 @@
-<p>asegurado-usuario works!</p>
+<p-toolbar>
+    <div class="p-toolbar-group-left text-base">
+        <h3>Del Asegurado/Usuario</h3>
+    </div>
+</p-toolbar>
+<div class="m-1" >
+<!--    primera fila-->
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-3">
+            <p-fieldset legend="Identificacion">
+                <div class="grid">
+                    <div class="col-5 align-self-end">
+                        <div>
+                            TDI:
+                        </div>
+                        <div class="p-fluid">
+                            <p-inputNumber placeholder="Ingresa TDI"></p-inputNumber>
+                        </div>
+                    </div>
+                    <div class="col-7 align-self-end">
+                        <div>N° Documento de identidad:</div>
+                        <div class="p-fluid">
+                            <p-inputNumber placeholder="Ingresa n° de documento"></p-inputNumber>
+                        </div>
+                    </div>
+                </div>
+
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <p-fieldset legend="Código del asegurado SIS">
+                <div class="grid">
+                    <div class="col-5 align-self-end">
+                        <div>
+                            DIRESA/Otros:
+                        </div>
+                        <div class="p-fluid">
+                            <p-inputNumber></p-inputNumber>
+                        </div>
+                    </div>
+                    <div class="col-7 align-self-end">
+                        <div>Número:</div>
+                        <div class="p-fluid">
+                            <p-inputNumber></p-inputNumber>
+                        </div>
+                    </div>
+                </div>
+
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-12 lg:col-6">
+            <p-fieldset legend="Asegurado de otra IAFAS">
+                <div class="grid">
+                    <div class="col-3" style="text-align: right">Institución:</div>
+                    <div class="col-9 p-fluid"><input type="text" pInputText placeholder="Ingresa institución" > </div>
+                </div>
+                <div class="grid">
+                    <div class="col-3" style="text-align: right">Cod. Seguro:</div>
+                    <div class="col-9 p-fluid"><input type="text" pInputText > </div>
+                </div>
+
+            </p-fieldset>
+        </div>
+    </div>
+<!--    segunda fila-->
+    <div >
+      <p-fieldset legend="Nombre completo del asegurado" >
+          <div class="grid">
+              <div class="col-3">
+                  <div>Apellido paterno:</div>
+                  <div class="p-fluid">
+                      <input type="text" pInputText placeholder="Ingresa apellido paterno">
+                  </div>
+              </div>
+              <div class="col-3">
+                  <div>Apellido materno:</div>
+                  <div class="p-fluid">
+                      <input type="text" pInputText placeholder="Ingresa apellido materno">
+                  </div>
+              </div>
+              <div class="col-6">
+                  <div>Nombres:</div>
+                  <div class="p-fluid">
+                      <input type="text" pInputText placeholder="Ingresa nombres">
+                  </div>
+              </div>
+
+          </div>
+      </p-fieldset>
+    </div>
+<!--    tercera fila-->
+    <div class="flex justify-content-between">
+        <div class="col-2" >
+            <div>
+                <p-fieldset legend="Sexo">
+                    <div>
+                        Intramural
+                    </div>
+                    <div>
+                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                    </div>
+                    <div>
+                        Extramural
+                    </div>
+                    <div>
+                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                    </div>
+
+
+                </p-fieldset>
+            </div>
+            <div>
+                <p-fieldset legend="Salud Materna">
+                    <div>
+                        Gestante
+                    </div>
+                    <div>
+                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                    </div>
+                    <div>
+                        Puerpera
+                    </div>
+                    <div>
+                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                    </div>
+
+
+                </p-fieldset>
+            </div>
+        </div>
+        <div class="col-5" >
+            <div>
+                <p-fieldset legend="Fechas importantes del Recién Nacido">
+                    <div class="grid">
+                        <div class="col-5">Fecha probable del parto/fecha del parto</div>
+                        <div class="col-7">
+                            <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-5">Fecha de nacimiento</div>
+                        <div class="col-7">
+                                <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-5">Fecha de fallecimiento</div>
+                        <div class="col-7">
+
+                                <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                        </div>
+                    </div>
+
+                </p-fieldset>
+            </div>
+            <div>
+                <p-fieldset legend="N° de Historia Clinica" >
+                    <div class="p-fluid">
+                        <input type="text" pInputText placeholder="Ingresa n° de historia clinica   ">
+
+                    </div>
+
+                </p-fieldset>
+            </div>
+
+        </div>
+        <div class="col-5" >
+            <div>
+                <p-fieldset legend="ETNIA">
+                    <div class="p-fluid">
+                    <input type="text" pInputText placeholder="Ingresa n° de historia clinica   ">
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="mt-4">
+                <div class="grid" >
+                    <div class="col-7" style="background-color: #D9D9D9 "  >DNI/CNV/AFILIACION DEL NR1 </div>
+                    <div class="col-5 p-fluid" ><input  type="text" pInputText placeholder="Ingresa datos  "></div>
+                </div>
+                <div class="grid">
+                    <div class="col-7" style="background-color: #D9D9D9">DNI/CNV/AFILIACION DEL NR1 </div>
+                    <div class="col-5 p-fluid" type="text"><input type="text" pInputText placeholder="Ingresa datos  "></div>
+                </div>
+                <div class="grid">
+                    <div class="col-7" style="background-color: #D9D9D9">DNI/CNV/AFILIACION DEL NR1 </div>
+                    <div class="col-5  p-fluid" ><input type="text" pInputText placeholder="Ingresa datos  "></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

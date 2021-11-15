@@ -68,8 +68,18 @@ export class SideBarComponent implements OnInit {
                     // },
                     {
                         icon: "pi pi-file",
-                        label: "Obstetricia General",
-                        routerLink: "obstetricia-general/citas",
+                        label: "OBSTETRICIA",
+                        items:[
+                            {
+                                label: "Citas",
+                                routerLink: "obstetricia-general/citas",
+                            },
+                            {
+                                label: "Consultas",
+                                routerLink: "obstetricia-general/consultas-general",
+                            },
+                        ]
+
                     },
                     // {
                     //     icon: "pi pi-file",
