@@ -9,8 +9,6 @@ p-fieldset >>> .p-fieldset .p-fieldset-legend {
 }
 p-checkbox>>>.p-checkbox .p-checkbox-box{
     border-radius: 50%;
-    /* width: 18px;
-    height: 18px; */
 }
 p-fieldset >>> .p-fieldset .p-fieldset-content {
     padding: 1px;

@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="col-12 flex">
-            <div class="col-8 flex">
+            <div class="col-8 flex align-items-center">
               <div class="col-3">
                 <span class="text-right">Lugar Nacimiento:</span>
               </div>
@@ -73,7 +73,7 @@
                 />
               </div>
             </div>
-            <div class="col-4 flex">
+            <div class="col-4 flex align-items-center">
               <div class="col-4">
                 <span class="text-right">Fecha. Nac.:</span>
               </div>
@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="col-12 flex">
-            <div class="col-6 flex">
+            <div class="col-6 flex align-items-center">
               <div class="col-4">
                 <span class="text-right">Domicilio/ Referencia:</span>
               </div>
@@ -100,7 +100,7 @@
                 />
               </div>
             </div>
-            <div class="col-3 flex">
+            <div class="col-3 flex align-items-center">
               <div class="col-2 mr-4">
                 <span>CIU/DNI:</span>
               </div>
@@ -113,7 +113,7 @@
                 />
               </div>
             </div>
-            <div class="col ml-2">
+            <div class="col ml-2 align-items-center">
               <p-selectButton
                 [options]="stateOptions1"
                 formControlName="GS"
@@ -122,7 +122,7 @@
               >
               </p-selectButton>
             </div>
-            <div class="col">
+            <div class="col align-items-center">
               <p-selectButton
                 [options]="stateOptions2"
                 formControlName="RH"
@@ -139,16 +139,15 @@
           <div class="flex">
             <div class="col-4">
               <div class="field grid">
-                <strong
-                  ><label class="line-height-4" for="username2"
-                    >Grado de instrucción:</label
-                  ></strong
+                <label class="line-height-4" for="username2"
+                  >Grado de instrucción:</label
                 >
                 <p-dropdown
                   placeholder="Seleccionar"
                   [options]="options"
                   optionLabel="name"
-                ></p-dropdown>
+                >
+                </p-dropdown>
               </div>
             </div>
             <div class="col-6 grid">
