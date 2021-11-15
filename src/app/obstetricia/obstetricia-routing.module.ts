@@ -1,23 +1,15 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {StepGeneral_consultaComponent} from "./consulta-principal/component/step-general/step-general-consulta.component";
+import {StepGeneral_consultaComponent} from "./consulta-principal/component/step-general-consulta/step-general-consulta.component";
 import {StepGeneralComponent} from "./gestante/component/step-general/step-general.component";
 import {StepGeneralPartoComponent} from "./plan-de-parto/component/step-general/step-general-parto.component";
+import {ObstetriciaComponent} from "./obstetricia.component";
 
 const routes: Routes = [
     {
-        path: "cabecera-consulta",
-        component: StepGeneral_consultaComponent
-    },
-    {
-        path: "cabecera-atencion-integral",
-        component: StepGeneralComponent
-    },
-
-    {
-        path: "cabecera-plan-parto",
-        component: StepGeneralPartoComponent
-    },
+        path: "obstetricia",
+        component: ObstetriciaComponent
+    }
 ];
 
 @NgModule({
