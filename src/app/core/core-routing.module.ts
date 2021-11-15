@@ -47,9 +47,13 @@ const routes: Routes = [
             //     loadChildren: () => import('src/app/gestante/gestante.module').then(n => n.GestanteModule),
             // },
 
+            // {
+            //     path: "obstetricia",
+            //     loadChildren: () => import('src/app/obstetricia/obstetricia.module').then(n => n.ObstetriciaModule),
+            // }
             {
-                path: "obstetricia",
-                loadChildren: () => import('src/app/obstetricia/obstetricia.module').then(n => n.ObstetriciaModule),
+                path: "obstetricia-general",
+                loadChildren: () => import('src/app/obstetricia-general/obstetricia-general.module').then(n => n.ObstetriciaGeneralModule),
             }
         ]
     }
