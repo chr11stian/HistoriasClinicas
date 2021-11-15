@@ -1,4 +1,3 @@
-
 .font-1{
     font-size: .8em;
 }
@@ -9,9 +8,9 @@
     margin: 5px;
 }
 .button-cancelar{
-     background: #BF0D21;
+    background: #BF0D21;
 
- }
+}
 .button-agregar{
     background: #003C71;
 
@@ -25,15 +24,15 @@
     font-size: 16px;
 }
 
-.form-register{
-    width: 95%;
+/*.form-register{*/
+/*    width: 95%;*/
 
-    maring: auto;
-    background: white;
-    border-radius: 7px;
-    height: 90%;
-    font-size: small;
-}
+/*    maring: auto;*/
+/*    background: white;*/
+/*    border-radius: 7px;*/
+/*    height: 90%;*/
+/*    font-size: small;*/
+/*}*/
 p {
     margin: 0;
 }
@@ -46,10 +45,31 @@ p {
     align-items: center;
     justify-content: center;
 }
+:host >>> .p-dialog  {
+    z-index: 5;
+    width: 80%;
+    background: #FFFFFF;
+}
 .p-table >>> .p-table{
     overflow-x: auto;
 }
-
+p-panel>>>.p-panel .p-panel-header{
+    background: #D32F2F;
+    border: 1px solid #D32F2F;
+    color: #FFFFFF;
+}
+p-panel>>>.p-panel .p-panel-content{
+    border: 1px solid #D32F2F;
+}
+/*estilo para responsive formulario*/
+.resp{
+    max-with:1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 0.5rem;
+    padding: 2px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
 
 @media (min-width: 300px){
 
