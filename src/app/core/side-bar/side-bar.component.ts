@@ -50,21 +50,26 @@ export class SideBarComponent implements OnInit {
             {
                 label: "Historias Clinicas",
                 items: [
+                    // {
+                    //     label: "Obstetricia Consulta",
+                    //     icon: "pi pi-pw pi-file",
+                    //     routerLink: "obstetricia/cabecera-consulta",
+                    // },
+                    // {
+                    //     label: "Obstetricia Atencion Integral",
+                    //     icon: "pi pi-pw pi-file",
+                    //     routerLink: "obstetricia/cabecera-atencion-integral",
+                    // },
+                    // {
+                    //     label: "Obstetricia plan de parto",
+                    //     icon: "pi pi-pw pi-file",
+                    //     routerLink: "obstetricia/cabecera-plan-parto",
+                    //
+                    // },
                     {
-                        label: "Obstetricia Consulta",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "obstetricia/cabecera-consulta",
-                    },
-                    {
-                        label: "Obstetricia Atencion Integral",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "obstetricia/cabecera-atencion-integral",
-                    },
-                    {
-                        label: "Obstetricia plan de parto",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "obstetricia/cabecera-plan-parto",
-
+                        icon: "pi pi-file",
+                        label: "Obstetricia",
+                        routerLink: "obstetricia/obstetricia",
                     },
 
                     {

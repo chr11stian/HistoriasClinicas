@@ -1,1 +1,507 @@
-<p>datos-generales works!</p>
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="p-m-0"></h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button" style="text-align: right">
+        <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
+                style="background: #2196F3; border: 1px solid #2196F3;"></button>
+    </ng-template>
+</p-toolbar>
+
+<br>
+<p-fieldset legend="INFORMACION PERSONAL" [toggleable]="true">
+    <form [formGroup]='formDatos_Generales'>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Documento de identidad: </label>
+                    <input type="text" pInputText class="inputfield w-full">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Apellido Paterno:</label>
+                    <input type="text" pInputText class="inputfield w-full">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Apellido Materno: </label>
+                    <input type="text" pInputText class="inputfield w-full">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Nombres: </label>
+                    <input type="text" pInputText class="inputfield w-full">
+                </div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-2 p-field">
+                <div class="">
+                    <label class="">Edad: </label>
+                    <input type="text" pInputText class="inputfield w-full">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Telefono:</label>
+                    <input type="text" pInputText class="inputfield w-full">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-7 p-field">
+                <div class="">
+                    <label class="">Grado de instrucción: </label>
+                    <input type="text" pInputText class="inputfield w-full">
+                </div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-5 p-field">
+                <div class="">
+                    <label class="">Dirección: </label>
+                    <input type="text" pInputText class="inputfield w-full">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Ocupación:</label>
+                    <input type="text" pInputText class="inputfield w-full">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-2 p-field">
+                <div class="">
+                    <label class="">Fecha: </label>
+                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                </div>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-2 p-field">
+                <div class="">
+                    <label class="">Hora: </label>
+                    <input type="text" pInputText class="inputfield w-full">
+                </div>
+            </div>
+        </div>
+    </form>
+
+</p-fieldset>
+
+<br>
+<fieldset class="p-fieldset">
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
+            <p-fieldset legend="VACUNAS PREVIAS FECHAS" [toggleable]="true">
+                <form [formGroup]='formDatos_Generales'>
+                    <div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                            <span class="col-5"
+                                                  style="text-align: right">V. Antitetánica 1° Dosis:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                    <p-calendar [showIcon]="true"
+                                                inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                            <span class="col-5"
+                                                  style="text-align: right">V. Antitetánica 2° Dosis:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-5" style="text-align: right">Rubeola:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-5" style="text-align: right">Hepatites B:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-5" style="text-align: right">Papiloma V.</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-5" style="text-align: right">Covid-19:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </p-fieldset>
+            <p-fieldset legend="ANT. GINECO OBSTETRICO" [toggleable]="true">
+                <form [formGroup]='formDatos_Generales'>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-12 p-field">
+                            <div class="p-inputgroup">
+                                <span class="col-4" style="text-align: right">FUR:</span>
+                                <input type="text" pInputText class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-12 p-field">
+                            <div class="p-inputgroup">
+                                <span class="col-4" style="text-align: right">FPP:</span>
+                                <input type="text" pInputText class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-12 p-field">
+                            <div class="p-inputgroup">
+                                <span class="col-6" style="text-align: center">FUR:</span>
+                                <input type="text" pInputText class="inputfield w-full ">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-6 p-field">
+                            <div class="p-inputgroup">
+                                <span class="col-4" style="text-align: right">G:</span>
+                                <input type="text" pInputText class="inputfield w-full ">
+                            </div>
+                        </div>
+
+                        <div class="col-12 md:col-6 lg:col-6 p-field">
+                            <div class="p-inputgroup">
+                                <span class="col-4" style="text-align: right">P:</span>
+                                <input type="text" pInputText class="inputfield w-full ">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="grid ">
+                        <span class="col-12 md:col-6 lg:col-12 m-2">GEST. ANTERIOR:</span>
+                        <div class="col-12 md:col-6 lg:col-6 p-field" style="align-self: start">
+                            <div class="p-inputgroup">
+                                <span class="col-6 md:col-6 lg:col-5">Parto:</span>
+                                <p-radioButton name="gesAnterior" formControlName="gesAnterior"
+                                               value="parto"></p-radioButton>
+                            </div>
+
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-6 p-field" style="align-self: start">
+                            <div class="p-inputgroup">
+                                <span class="col-6 md:col-6 lg:col-5">Aborto:</span>
+                                <p-radioButton name="gesAnterior" formControlName="gesAnterior"
+                                               value="aborto"></p-radioButton>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="grid ">
+                        <div class="col-12 md:col-6 lg:col-12 p-field" style="align-self: start">
+                            <span class="col-12" style="text-align: center">R.N. DE MAYOR PESO:</span>
+                            <div class="p-inputgroup">
+                                <input type="text" pInputText class="inputfield w-full">
+                                <span>GR.</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </p-fieldset>
+            <p-fieldset legend="ANTECEDENTES" [toggleable]="true">
+                <form [formGroup]='formDatos_Generales'>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-12 p-field">
+                            <div class="">
+                                <span class="" style="text-align: right">Antecedentes Familiares:</span>
+                                <input type="text" pInputText class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-12 p-field">
+                            <div class="">
+                                <span class="" style="text-align: right">Antecedentes Personales:</span>
+                                <input type="text" pInputText class="inputfield w-full">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-12 p-field">
+                            <div class="p-inputgroup">
+                                <span class="col-6" style="text-align: right">Fuma Cigarros:</span>
+                                <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-12 p-field">
+                            <div class="p-inputgroup">
+                                <span class="col-6" style="text-align: right">Drogas:</span>
+                                <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-12 p-field">
+                            <div class="p-inputgroup">
+                                <span class="col-6" style="text-align: right">Psicoprofilaxis:</span>
+                                <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </p-fieldset>
+
+        </div>
+        <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
+            <p-fieldset legend="DESCARTAR SIGNO DE ALARMA" [toggleable]="true">
+                <form [formGroup]='formDatos_Generales'>
+                    <div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                            <span class="col-8"
+                                                  style="text-align: right">Dificultad respiratoria:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Hipertención Arterial:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Sangrado nasal:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Deshidratación aguda:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                            <span class="col-8"
+                                                  style="text-align: right">Compromiso del sensorio:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Traumatismo Quemadura</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Abdomen agudo:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                            <span class="col-8"
+                                                  style="text-align: right">Intoxicación Envenenamiento</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Fiebre alta</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Convulciones</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Sangrado genital</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Dolor de cabeza</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Edema</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
+            <p-fieldset legend="ATENSIÓN INTEGRAL" [toggleable]="true">
+                <form [formGroup]='formDatos_Generales'>
+                    <div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Orientación y Consegería Signis de alarma:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8"
+                                          style="text-align: right">Consejería en enfermedades comunes:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                            <span class="col-8"
+                                                  style="text-align: right">Sospechas de Tuberculosis:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                        <span class="col-8"
+                                              style="text-align: right">Infecciones de transmisión sexual:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                            <span class="col-8"
+                                                  style="text-align: right">Orientación Nutricional:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8"
+                                          style="text-align: right">Orientación en planificaión familiar:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Orientación en prevención de Canser ginecológico:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8"
+                                          style="text-align: right">Orientación y consej. Pretest. VIH:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Orientación en estilos de vida saludable:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                            <span class="col-8"
+                                                  style="text-align: right">Orientación al acompañante:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Violencia familiar:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-8" style="text-align: right">Plan de parto</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </p-fieldset>
+        </div>
+    </div>
+    <br>
+</fieldset>

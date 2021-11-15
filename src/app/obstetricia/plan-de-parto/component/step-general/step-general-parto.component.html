@@ -15,9 +15,7 @@
                         <p-dropdown
                                 placeholder="Seleccionar"
                                 [options]="options"
-                                (ngModel)="(selectedOption)"
-                                optionLabel="name"
-                        >
+                                optionLabel="name">
                         </p-dropdown>
                     </div>
                 </div>
@@ -40,6 +38,8 @@
         </div>
     </p-card>
 </div>
+
+
 
 <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo" (activeIndexChange)="ChangeStep($event)">
 </p-steps>

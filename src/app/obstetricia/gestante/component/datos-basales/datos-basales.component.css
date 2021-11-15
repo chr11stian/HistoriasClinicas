@@ -31,7 +31,8 @@ p-checkbox>>> .p-checkbox .p-checkbox-box .pi-check:before{
 
 
 .texto{
-    font-size: .40rem;
+    font-size: 0.65rem;
+    font-weight: bold;
 }
 
 .ng-tns-c135-51 .p-toggleable-content .p-fieldset-content .amarillo {
@@ -92,4 +93,3 @@ p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
     background: #2196f3;
     border: #2196f3;
 }
-
