@@ -6,8 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./asegurado-usuario.component.css']
 })
 export class AseguradoUsuarioComponent implements OnInit {
+  twoOptions:any[];
 
-  constructor() { }
+  constructor() {
+    this.twoOptions=[{code:"si",name:"si"},{
+      code:"no",name:"no"
+    }]
+  }
 
   ngOnInit(): void {
   }
