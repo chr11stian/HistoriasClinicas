@@ -1,37 +1,111 @@
 
-<p-panel header="De la Atención">
-    <div class="col-4">
-        <p-fieldset legend="Fecha de Atención">
-            Content
-        </p-fieldset>
-        <p-fieldset legend="Reporte Vinculado">
-        </p-fieldset>
+    <p-toolbar>
+            <div class="p-toolbar-group-left">
+                <h1 class="p-m-0">De la Atención</h1>
+            </div>
+            <ng-template pTemplate="right" class="button" style="text-align: right">
 
-    </div>
-    <div class="col-4">
+            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
+                    style= "background: #C50009; border: 1px">
+            </button>
+        </ng-template>
+    </p-toolbar>
+    <form [formGroup]="formDeLaAtencion">
         <div class="grid">
-            <div class="row-3">
-                <input type="text" label="UPS" placeholder="Ingrese UPS">
-            </div>
-            <div class="row-3">
-                <input type="text" label="Cod. Prestación" placeholder="Ingrese código de prestación">
-            </div>
-            <div class="row-3">
-                <input type="text" label="Cod. Prestación(es) Adicional(es)" placeholder="Ingrese código de prestación adicional">
-            </div>
+                <div class="md:col-6 xs:col-12 lg:col-4">
+                    <div class="grid">
+                        <div class="col-12">
+                            <p-fieldset legend="Fecha de Atención">
+                                    <div class="p-field">
+                                        <div class="col-12">
+                                            <label>Fecha de Atención:</label>
+                                        </div>
+                                        <div class="col-12">
+                                             <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
+                                        </div>
+                                    </div>
+                                    <div class="p-field">
+                                        <div class="col-12">
+                                             <label>Hora de Atención:</label>
+                                        </div>
+                                        <div class="col-12">
+                                            <p-calendar [timeOnly]="true" inputId="timeonly"></p-calendar>
+                                        </div>
+                                    </div>
+                            </p-fieldset>
+                        </div>
+                        <div class="col-12">
+                            <p-fieldset legend="Reporte Vinculado">
+                                <div class="col-12">
+                                    <label>Cod. Autorización</label>
+                                </div>
+                                <div class="col-12">
+                                    <input type="text"  pInputText placeholder="Ingrese código de autorización">
+                                </div>
+                            </p-fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-6 xs:col-12 lg:col-4">
+                    <div class="grid">
+                        <br>
 
-        </div>
-        <p-fieldset legend="N° FUA a vincular">
-            <input type="text" label="Cod. Prestación(es) Adicional(es)" placeholder="Ingrese N° de FUA a vincular">
-        </p-fieldset>
-    </div>
-    <div class="col-4">
-        <p-fieldset legend="Hospitalización">
-            <div class="row-3">
-                <input type="text" label="Fecha de Ingreso" placeholder="Ingrese código de prestación adicional">
-                <input type="text" label="Fecha de Alta" placeholder="Ingrese código de prestación adicional">
-                <input type="text" label="Fecha de Corte Administrativo" placeholder="Ingrese código de prestación adicional">
-            </div>
-        </p-fieldset>
-    </div>
-</p-panel>
+                        <p-card class="col-12 margin">
+                                    <div class="col-12">
+                                        <label>UPS:</label>
+                                    </div>
+                                    <div class="col-12">
+                                            <input type="text"  pInputText placeholder="Ingrese UPS">
+                                        </div>
+                                    <div class="col-12">
+                                        <label>Cod. Prestación:</label>
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="text" pInputText placeholder="Ingrese código de prestación">
+                                    </div>
+                                    <div class="col-12">
+                                    </div>
+                                        <label>Cod. Prestación(es) Adicional(es):</label>
+                                    <div class="col-12">
+                                        <input type="text"  pInputText placeholder="Ingrese código de prestación adicional">
+                                    </div>
+
+                        </p-card>
+                        <div class="col-12">
+                            <p-fieldset legend="N° FUA a vincular">
+                                <div class="col-12">
+                                <label>Cod. Prestación(es) Adicional(es)</label>
+                                </div>
+                                <div class="col-12">
+                                <input type="text" pInputText  placeholder="Ingrese N° de FUA a vincular">
+                                </div>
+                            </p-fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:col-6 xs:col-12 lg:col-4">
+                    <div class="grid">
+                        <p-fieldset legend="Hospitalización">
+                            <div class="col-12">
+                                <label>Fecha de Ingreso</label>
+                            </div>
+                            <div class="col-12">
+                                <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
+                            </div>
+                            <div class="col-12"l>
+                                <label>Fecha de Alta</label>
+                            </div>
+                            <div class="col-12">
+                                <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
+                            </div>
+                            <div class="col-12">
+                                <label>Fecha de Corte Administrativo</label>
+                            </div>
+                            <div class="col-12">
+                                <p-calendar  [showIcon]="true" inputId="icon"></p-calendar>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                </div>
+      </div>
+    </form>
