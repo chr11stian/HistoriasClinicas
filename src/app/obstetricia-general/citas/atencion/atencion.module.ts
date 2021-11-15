@@ -1,36 +1,36 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {PrimeModule} from "../shared/prime/prime.module";
-import {ObtetriciaRoutingModule} from "./obstetricia-routing.module";
 
 import {PaginatorModule} from "primeng/paginator";
 
-import {ObstetriciaComponent} from './obstetricia.component';
 import {ConsultaPrincipalModule} from "./consulta-principal/consulta-principal.module";
-import {GestanteModule} from "./gestante/gestante.module";
 import {PlanDePartoModule} from "./plan-de-parto/plan-de-parto.module";
 import {ExamenesModule} from "./examenes/examenes.module";
+import {AtencionComponent} from "./atencion.component";
+import {AtencionRoutingModule} from "./atencion-routing.module";
+import {PlanAtencionIntegralModule} from "./plan-atencion-integral/plan-atencion-integral.module";
+import {PrimeModule} from "../../../shared/prime/prime.module";
 
 
 @NgModule({
     declarations: [
 
-        ObstetriciaComponent,
+        AtencionComponent,
 
     ],
-    exports: [],
+    exports: [AtencionComponent],
     imports: [
         CommonModule,
-        ObtetriciaRoutingModule,
+        AtencionRoutingModule,
         PrimeModule,
         PaginatorModule,
 
         ConsultaPrincipalModule,
-        GestanteModule,
+        PlanAtencionIntegralModule,
         PlanDePartoModule,
         ExamenesModule,
 
     ]
 })
-export class ObstetriciaModule {
+export class AtencionModule {
 }

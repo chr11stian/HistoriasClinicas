@@ -5,6 +5,10 @@ import {StepFuaComponent} from "./step-fua/step-fua.component";
 import {PrimeModule} from "../shared/prime/prime.module";
 import {FuaRoutingModule} from "./fua-routing.module";
 import {IpressComponent} from "./ipress/ipress.component";
+import { AtenionComponent } from './atenion/atenion.component';
+import { ConceptoPrestacionalComponent } from './concepto-prestacional/concepto-prestacional.component';
+import { SRefiereContrarefiereComponent } from './s-refiere-contrarefiere/s-refiere-contrarefiere.component';
+import { DiagnosticoComponent } from './diagnostico/diagnostico.component';
 
 
 
@@ -12,7 +16,11 @@ import {IpressComponent} from "./ipress/ipress.component";
   declarations: [
     IpressComponent,
     AseguradoUsuarioComponent,
-    StepFuaComponent
+    StepFuaComponent,
+    AtenionComponent,
+    ConceptoPrestacionalComponent,
+    SRefiereContrarefiereComponent,
+    DiagnosticoComponent
   ],
   imports: [
     CommonModule,

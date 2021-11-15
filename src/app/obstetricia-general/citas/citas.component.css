@@ -1,0 +1,57 @@
+p-dropdown >>> * {
+    width: 150px;
+}
+
+.boton-red {
+    color: #ffffff;
+    background: #af0017;
+    border: 1px solid #af0017;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+      box-shadow 0.2s;
+    border-radius: 3px;
+  }
+
+.boton-red:hover {
+    outline: 0 none;
+    outline-offset: 0;
+    background: #9c0116;
+    border-color: #af0017;
+}
+.p-button {
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 3px;
+}
+
+.p-button:hover {
+  outline: 0 none;
+  outline-offset: 0;
+  border-color: #ffffff;
+  box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem #ffffff;
+}
+
+.boton-azul{
+ background:rgb(76, 168, 221);
+}
+.boton-azul:hover{
+  background:rgb(68, 148, 194);
+}
+.boton-mostaza{
+  background:rgb(228, 181, 54);
+}
+.boton-mostaza:hover{
+   background:rgb(207, 166, 52);
+}
+.boton-morado{
+  background:rgb(138, 42, 194);
+}
+.boton-morado:hover{
+   background:rgb(125, 40, 158);
+}
+.p-buttonset{
+  border-color: #ffffff;
+}

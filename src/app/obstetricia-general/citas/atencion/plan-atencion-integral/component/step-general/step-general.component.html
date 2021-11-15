@@ -1,6 +1,6 @@
 <p-panel>
     <ng-template pTemplate="header">
-        <h3 class="m-1">COSULTAS OBSTETRICAS</h3>
+        <h3 class="m-1">PLAN DE ATENCIÓN INTEGRAl</h3>
     </ng-template>
     <div class="grid">
         <div class="col-12 md:col-6 lg:col-3 p-field">
@@ -33,50 +33,51 @@
 
 </p-panel>
 
-
 <br>
-<div class="stepsdemo-content" *ngIf="stepName === 'ipress'">
-    <app-ipress></app-ipress>
-</div>
 
-<div class="stepsdemo-content" *ngIf="stepName === 'asegurado-usuario'">
+<div class="stepsdemo-content" *ngIf="stepName === 'datos'">
     <p-card>
         <ng-template pTemplate="content">
-            <app-asegurado-usuario></app-asegurado-usuario>
+            <app-datos-generales-obtetricia></app-datos-generales-obtetricia>
         </ng-template>
     </p-card>
 </div>
-<div class="stepsdemo-content" *ngIf="stepName === 'atencion'">
+<div class="stepsdemo-content" *ngIf="stepName === 'basales'">
     <p-card>
         <ng-template pTemplate="content">
-            <app-atenion></app-atenion>
+            <app-datos-basales></app-datos-basales>
         </ng-template>
     </p-card>
 </div>
-
-
-<div class="stepsdemo-content" *ngIf="stepName === 'concepto-prestacional'">
+<div class="stepsdemo-content" *ngIf="stepName === 'atenciones'">
     <p-card>
         <ng-template pTemplate="content">
-            <app-concepto-prestacional></app-concepto-prestacional>
+            <app-atenciones></app-atenciones>
         </ng-template>
     </p-card>
 </div>
 
 
-<div class="stepsdemo-content" *ngIf="stepName === 'refiere-contrarefiere'">
+<div class="stepsdemo-content" *ngIf="stepName === 'partos'">
     <p-card>
         <ng-template pTemplate="content">
-            <app-s-refiere-contrarefiere></app-s-refiere-contrarefiere>
+            <app-partos></app-partos>
         </ng-template>
     </p-card>
 </div>
 
 
-<div class="stepsdemo-content" *ngIf="stepName === 'diagnostico'">
+<div class="stepsdemo-content" *ngIf="stepName === 'nacidos'">
     <p-card>
         <ng-template pTemplate="content">
-            <app-diagnostico></app-diagnostico>
+            <app-recien-nacido></app-recien-nacido>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'puerperio'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-puerperio></app-puerperio>
         </ng-template>
     </p-card>
 </div>

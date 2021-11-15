@@ -29,20 +29,24 @@ export class StepFuaComponent implements OnInit {
             {label: "Del Asegurado"},
             {label: "De la Atención"},
             {label: "Concepto prestacional"},
-            {label: "Resultados"},
+            {label: "Refiere contra"},
+            {label: "Diagnostico"},
         ]
     }
 
     name() {
         switch (this.indiceActivo) {
+            case 5:
+                this.stepName = "diagnostico"
+                break
             case 4:
-                this.stepName = "resultados"
+                this.stepName = "refiere-contrarefiere"
                 break
             case 3:
-                this.stepName = "tratamiento"
+                this.stepName = "concepto-prestacional"
                 break
             case 2:
-                this.stepName = "diagnostico"
+                this.stepName = "atencion"
                 break
             case 1:
                 this.stepName = "asegurado-usuario"

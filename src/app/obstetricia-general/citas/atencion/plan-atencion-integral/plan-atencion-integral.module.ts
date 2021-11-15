@@ -8,8 +8,8 @@ import {PuerperioComponent} from "./component/puerperio/puerperio.component";
 import {RecienNacidoComponent} from "./component/recien-nacido/recien-nacido.component";
 import {StepGeneralComponent} from "./component/step-general/step-general.component";
 import {PaginatorModule} from "primeng/paginator";
-import {PrimeModule} from "../../shared/prime/prime.module";
-import {GestanteRoutingModule} from "./gestante-routing.module";
+import {PlanAtencionIntegralRoutingModule} from "./plan-atencion-integral-routing.module";
+import {PrimeModule} from "../../../../shared/prime/prime.module";
 
 
 
@@ -27,7 +27,7 @@ import {GestanteRoutingModule} from "./gestante-routing.module";
     CommonModule,
     PaginatorModule,
     PrimeModule,
-    GestanteRoutingModule
+    PlanAtencionIntegralRoutingModule
   ]
 })
-export class GestanteModule { }
+export class PlanAtencionIntegralModule { }

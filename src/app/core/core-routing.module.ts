@@ -1,8 +1,8 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {LayoutPrincipalComponent} from './layout-principal/layout-principal.component'
-import {InicioComponent} from './inicio/inicio.component'
-import {CajaModule} from "../caja/caja.module";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LayoutPrincipalComponent } from './layout-principal/layout-principal.component'
+import { InicioComponent } from './inicio/inicio.component'
+import { CajaModule } from "../caja/caja.module";
 
 // Modulos
 
@@ -47,10 +47,18 @@ const routes: Routes = [
             //     loadChildren: () => import('src/app/gestante/gestante.module').then(n => n.GestanteModule),
             // },
 
+            // {
+            //     path: "obstetricia",
+            //     loadChildren: () => import('src/app/obstetricia/obstetricia.module').then(n => n.ObstetriciaModule),
+            // }
             {
-                path: "obstetricia",
-                loadChildren: () => import('src/app/obstetricia/obstetricia.module').then(n => n.ObstetriciaModule),
+                path: "obstetricia-general",
+                loadChildren: () => import('src/app/obstetricia-general/obstetricia-general.module').then(n => n.ObstetriciaGeneralModule),
             },
+            // {
+            //     path: "atencion",
+            //     loadChildren: () => import('src/app/atencion/atencion.module').then(n => n.AtencionModule),
+            // },
 
 
             {
