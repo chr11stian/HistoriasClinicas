@@ -7,7 +7,7 @@ import {IntervaloPartoComponent} from "./component/intervalo-parto/intervalo-par
 import {NecesidadesPartoComponent} from "./component/necesidades-parto/necesidades-parto.component";
 import {SPeligroPartoComponent} from "./component/s-peligro-parto/s-peligro-parto.component";
 import {PaginatorModule} from "primeng/paginator";
-import {PrimeModule} from "../../shared/prime/prime.module";
+import {PrimeModule} from "../../../../shared/prime/prime.module";
 
 
 @NgModule({
