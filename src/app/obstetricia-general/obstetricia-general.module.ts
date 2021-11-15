@@ -6,11 +6,15 @@ import {PaginatorModule} from "primeng/paginator";
 import {CitasComponent} from './citas/citas.component';
 import {AtencionModule} from "./citas/atencion/atencion.module";
 import {AtencionRoutingModule} from "./citas/atencion/atencion-routing.module";
+import { ConsultasGeneralComponent } from './consultas-general/consultas-general.component';
+import { ConsultaComponent } from './citas/consulta/consulta.component';
 
 
 @NgModule({
     declarations: [
         CitasComponent,
+        ConsultasGeneralComponent,
+        ConsultaComponent,
 
     ],
     exports: [],
