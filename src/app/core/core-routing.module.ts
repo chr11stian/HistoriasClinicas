@@ -48,8 +48,8 @@ const routes: Routes = [
             // },
 
             {
-                path: "obstetricia",
-                loadChildren: () => import('src/app/obstetricia/obstetricia.module').then(n => n.ObstetriciaModule),
+                path: "atencion",
+                loadChildren: () => import('src/app/atencion/atencion.module').then(n => n.AtencionModule),
             },
 
 
