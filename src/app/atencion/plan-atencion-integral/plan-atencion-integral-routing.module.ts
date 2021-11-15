@@ -10,7 +10,7 @@ const routes: Routes = [
 
     {
         path: "obstetricia",
-        loadChildren: () => import('src/app/obstetricia/gestante/gestante.module').then(n => n.GestanteModule),
+        loadChildren: () => import('src/app/atencion/plan-atencion-integral/plan-atencion-integral.module').then(n => n.PlanAtencionIntegralModule),
     },
 
 
@@ -20,5 +20,5 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class GestanteRoutingModule {
+export class PlanAtencionIntegralRoutingModule {
 }
