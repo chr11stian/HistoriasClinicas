@@ -1,0 +1,82 @@
+<p-panel>
+    <ng-template pTemplate="header">
+        <h3 class="m-1">COSULTAS OBSTETRICAS</h3>
+    </ng-template>
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-3 p-field">
+            <div class="">
+                <span class="">TIPO DOCUMENTO</span>
+            </div>
+            <div class="">
+                <p-dropdown
+                        placeholder="Seleccionarddd"
+                        [options]="options"
+                        optionLabel="name">
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="col-12 md:col-6 lg:col-3 p-field">
+            <div class="">
+                <span class="">NUMERO DE DOCUMENTO</span>
+            </div>
+            <div class="p-inputgroup">
+                <input type="text" pInputText>
+                <button pButton type="button" icon="pi pi-search" iconPos="right"
+                        class="p-button-text p-button-text"></button>
+            </div>
+        </div>
+
+    </div>
+    <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
+             (activeIndexChange)="ChangeStep($event)" class="col-12 md:col-6 lg:col-12 p-field">
+    </p-steps>
+
+</p-panel>
+
+
+<br>
+<div class="stepsdemo-content" *ngIf="stepName === 'ipress'">
+    <app-ipress></app-ipress>
+</div>
+
+<div class="stepsdemo-content" *ngIf="stepName === 'asegurado-usuario'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-asegurado-usuario></app-asegurado-usuario>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'atencion'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-atenion></app-atenion>
+        </ng-template>
+    </p-card>
+</div>
+
+
+<div class="stepsdemo-content" *ngIf="stepName === 'concepto-prestacional'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-concepto-prestacional></app-concepto-prestacional>
+        </ng-template>
+    </p-card>
+</div>
+
+
+<div class="stepsdemo-content" *ngIf="stepName === 'refiere-contrarefiere'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-s-refiere-contrarefiere></app-s-refiere-contrarefiere>
+        </ng-template>
+    </p-card>
+</div>
+
+
+<div class="stepsdemo-content" *ngIf="stepName === 'diagnostico'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-diagnostico></app-diagnostico>
+        </ng-template>
+    </p-card>
+</div>

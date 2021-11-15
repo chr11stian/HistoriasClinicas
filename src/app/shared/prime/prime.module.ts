@@ -31,6 +31,7 @@ import { ToolbarModule } from "primeng/toolbar";
 import { FieldsetModule } from "primeng/fieldset";
 import { PanelModule } from "primeng/panel";
 import {ReactiveFormsModule} from "@angular/forms";
+import {AccordionModule} from 'primeng/accordion';
 
 const importsApi = [
   SelectButtonModule,
@@ -76,6 +77,7 @@ const importsApi = [
   ReactiveFormsModule,
   ToolbarModule,
   FieldsetModule,
+  AccordionModule,
 ];
 
 @NgModule({
