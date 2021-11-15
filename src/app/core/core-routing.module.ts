@@ -55,10 +55,10 @@ const routes: Routes = [
                 path: "obstetricia-general",
                 loadChildren: () => import('src/app/obstetricia-general/obstetricia-general.module').then(n => n.ObstetriciaGeneralModule),
             },
-            {
-                path: "atencion",
-                loadChildren: () => import('src/app/atencion/atencion.module').then(n => n.AtencionModule),
-            },
+            // {
+            //     path: "atencion",
+            //     loadChildren: () => import('src/app/atencion/atencion.module').then(n => n.AtencionModule),
+            // },
 
 
             {

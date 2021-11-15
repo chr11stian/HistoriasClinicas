@@ -6,7 +6,12 @@ const routes: Routes = [
     {
         path: "citas",
         component: CitasComponent
-    }
+    },
+
+    {
+        path: "citas",
+        loadChildren: () => import('src/app/obstetricia-general/obstetricia-general.module').then(n => n.ObstetriciaGeneralModule),
+    },
 ];
 
 @NgModule({

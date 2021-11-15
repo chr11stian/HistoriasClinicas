@@ -6,8 +6,8 @@ import {InterrogatorioComponent} from "./component/interrogatorio/interrogatorio
 import {GiagnosticosComponent} from "./component/giagnosticos/giagnosticos.component";
 import {TratamientoComponent} from "./component/tratamiento/tratamiento.component";
 import {ResultadosComponent} from "./component/resultados/resultados.component";
-import {PrimeModule} from "../../shared/prime/prime.module";
 import {ConsultaPrincipalRoutingModule} from "./consulta-principal-routing.module";
+import {PrimeModule} from "../../../../shared/prime/prime.module";
 
 
 @NgModule({
