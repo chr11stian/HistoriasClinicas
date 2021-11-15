@@ -14,7 +14,6 @@ import {ConsultasGeneralModule} from "./consultas-general/consultas-general.modu
 @NgModule({
     declarations: [
         CitasComponent,
-        ConsultasGeneralComponent,
         ConsultaComponent,
 
     ],
