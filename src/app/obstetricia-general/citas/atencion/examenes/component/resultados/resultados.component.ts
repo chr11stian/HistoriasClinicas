@@ -12,4 +12,8 @@ export class ResultadosComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  clickEnDiv(){
+    console.log('click en psicologia')
+  }
+
 }
