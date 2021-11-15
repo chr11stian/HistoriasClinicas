@@ -5,11 +5,11 @@ import {PrimeModule} from "../shared/prime/prime.module";
 import {PaginatorModule} from "primeng/paginator";
 
 import {ConsultaPrincipalModule} from "./consulta-principal/consulta-principal.module";
-import {GestanteModule} from "./gestante/gestante.module";
 import {PlanDePartoModule} from "./plan-de-parto/plan-de-parto.module";
 import {ExamenesModule} from "./examenes/examenes.module";
 import {AtencionComponent} from "./atencion.component";
 import {AtencionRoutingModule} from "./atencion-routing.module";
+import {PlanAtencionIntegralModule} from "./plan-atencion-integral/plan-atencion-integral.module";
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import {AtencionRoutingModule} from "./atencion-routing.module";
         PaginatorModule,
 
         ConsultaPrincipalModule,
-        GestanteModule,
+        PlanAtencionIntegralModule,
         PlanDePartoModule,
         ExamenesModule,
 
