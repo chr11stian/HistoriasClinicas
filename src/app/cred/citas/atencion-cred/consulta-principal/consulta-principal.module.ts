@@ -10,6 +10,7 @@ import { FinalizarConsultaComponent } from './component/finalizar-consulta/final
 
 import { PrimeModule } from 'src/app/shared/prime/prime.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StepGeneralComponent } from './component/step-general/step-general.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MotivoConsultaComponent,
     DiagnosticoConsultaComponent,
     TratamientoConsultaComponent,
-    FinalizarConsultaComponent
+    FinalizarConsultaComponent,
+    StepGeneralComponent
   ],
   imports: [
     CommonModule,
