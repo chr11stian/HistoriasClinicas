@@ -1,20 +1,35 @@
-<div>
-    <p-steps [model]="items" [readonly]="false" (activeIndexChange)="ChangeStep($event)">
+<!-- <div>
+    <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo" (activeIndexChange)="ChangeStep($event)">
     </p-steps>
 
-    <div class="stepsdemo-content" *ngIf="stepIndex === 0">
+    <div class="stepsdemo-content" *ngIf="indiceActivo === 0">
         <p-card>
             <app-evaluacion-alimentacion></app-evaluacion-alimentacion>
         </p-card>
     </div>
-    <div class="stepsdemo-content" *ngIf="stepIndex === 1">
+    <div class="stepsdemo-content" *ngIf="indiceActivo === 1">
         <p-card>
             <app-escala-evaluacion-eedp></app-escala-evaluacion-eedp>
         </p-card>
     </div>
-    <div class="stepsdemo-content" *ngIf="stepIndex === 2">
+    <div class="stepsdemo-content" *ngIf="indiceActivo === 2">
         <p-card>
             <app-eedp></app-eedp>
         </p-card>
     </div>
-</div>
+</div> -->
+<p-tabView>
+    <p-tabPanel header="Evaluacion de la Alimentacion del niño(a)">
+        <p-card>
+            <app-evaluacion-alimentacion></app-evaluacion-alimentacion>
+        </p-card>
+    </p-tabPanel>
+    <p-tabPanel header="Escala de Evaluacion del desaroolo Psicomotor (EEDP) 0-4 Años">
+        <p-card>
+            <app-escala-evaluacion-eedp></app-escala-evaluacion-eedp>
+        </p-card>
+    </p-tabPanel>
+    <p-tabPanel header="Evaluacion del desarollo Psicomotor (EEDP)">
+        <app-eedp></app-eedp>
+    </p-tabPanel>
+</p-tabView>
