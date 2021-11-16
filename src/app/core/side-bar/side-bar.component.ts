@@ -76,7 +76,7 @@ export class SideBarComponent implements OnInit {
                             },
                             {
                                 label: "Consultas",
-                                routerLink: "obstetricia-general/consultasGeneral",
+                                routerLink: "obstetricia-general/consultas-general",
                             },
                         ]
 

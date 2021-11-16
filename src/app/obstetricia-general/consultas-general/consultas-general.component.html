@@ -1,1 +1,86 @@
-<p>consultas-general works!</p>
+<div>
+    <p-panel>
+        <ng-template pTemplate="header">
+            <label class="">GESTANTES > COSULTAS OBSTETRICA</label>
+        </ng-template>
+
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="">
+                    <span class="">TIPO DOCUMENTO</span>
+                </div>
+                <div class="">
+                    <p-dropdown
+                            placeholder="Seleccionarddd"
+                            [options]="options"
+                            optionLabel="name">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="">
+                    <span class="">NUMERO DE DOCUMENTO</span>
+                </div>
+                <div class="p-inputgroup">
+                    <input type="text" pInputText>
+                    <button pButton type="button" icon="pi pi-search" iconPos="right"
+                            class="p-button-danger"></button>
+                </div>
+            </div>
+
+        </div>
+
+    </p-panel>
+
+
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+        <span class="p-m-0">
+            LISTA DE CONSULTA REALIZADAS EL DIA DE HOY
+        </span>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple routerLink="new-consulta" label="Agregar" icon="pi pi-save"
+                    class="p-button-raised p-button-secondary"></button>
+        </ng-template>
+    </p-toolbar>
+
+
+    <p-table [value]="citas" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">DNI</th>
+                <th style="text-align: center">APELLIDOS</th>
+                <th style="text-align: center">NOMBRES</th>
+                <th style="text-align: center">CONSULTORIO</th>
+                <th style="text-align: center">HORARIO</th>
+                <th style="text-align: center">FECHA</th>
+                <th style="text-align: center">ACCIONES</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.dni }}</td>
+                <td style="text-align: center">{{ rowData.apellidos }}</td>
+                <td style="text-align: center">{{ rowData.nombres }}</td>
+                <td style="text-align: center">{{ rowData.consultorio }}</td>
+                <td style="text-align: center">{{ rowData.horario }}</td>
+                <td style="text-align: center">{{ rowData.fecha }}</td>
+                <td style="text-align: center">
+              <span class="p-buttonset">
+                <button pButton pRipple routerLink="new-consulta" class="p-button-info"
+                        label="Editar"
+                        icon="pi pi-check"></button>
+                <button pButton pRipple class="p-button-danger" label="Cancelar" icon="pi pi-times"></button>
+              </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
