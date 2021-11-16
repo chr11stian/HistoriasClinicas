@@ -9,10 +9,10 @@ const routes: Routes = [
         component: AtencionComponent
     },
 
-    // {
-    //     path: "atencion",
-    //     loadChildren: () => import('src/app/obstetricia-general/citas/atencion/atencion.module').then(n => n.AtencionModule),
-    // },
+    {
+        path: "atencion",
+        loadChildren: () => import('src/app/obstetricia-general/citas/atencion/atencion.module').then(n => n.AtencionModule),
+    },
 
 ];
 

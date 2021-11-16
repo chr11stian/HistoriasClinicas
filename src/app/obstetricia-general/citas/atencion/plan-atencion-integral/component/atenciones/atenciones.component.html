@@ -30,25 +30,25 @@
             <th style="text-align: center" class="font-1">Presion Arterial(mm. Hg)</th>
             <th style="text-align: center" class="font-2">Pulso Materno(por min)</th>
             <th style="text-align: center" class="font-1">Altura Uterina(cm)</th>
-            <th style="text-align: center" class="font-1">Situación</th>
-            <th style="text-align: center" class="font-1">Presentación</th>
-            <th style="text-align: center" class="font-1">Posición</th>
-            <th style="text-align: center" class="font-1">F.C.F.(por min/NA)</th>
-            <th style="text-align: center" class="font-2">Mov. Fetal</th>
-            <th style="text-align: center" class="font-2">Proteinuria Cualitativa</th>
-            <th style="text-align: center"  class="font-1">Edema</th>
-            <th style="text-align: center" class="font-2">Reflejo Osteotendinoso</th>
-            <th style="text-align: center" class="font-1">Fecha Ecografía E.G.</th>
-            <th style="text-align: center" class="font-1">Consejería Integral</th>
-            <th style="text-align: center" class="font-1">Indic. Ac. Fólico</th>
-            <th style="text-align: center" class="font-2">Indic. Fierro/Ac. Fólico(>=14 sem)</th>
-            <th style="text-align: center" class="font-1">Indic. Calcio</th>
-            <th style="text-align: center" class="font-2">Interconsultas</th>
-            <th style="text-align: center" class="font-2">Plan de Parto (Reenfocada)</th>
-            <th style="text-align: center" class="font-2">Visita Domiciliaria</th>
-            <th style="text-align: center" class="font-2">Próxima Cita</th>
-            <th style="text-align: center"  class="font-1">Responsable de atención</th>
-            <th style="text-align: center" class="font-1">Establec. de atención</th>
+<!--            <th style="text-align: center" class="font-1">Situación</th>-->
+<!--            <th style="text-align: center" class="font-1">Presentación</th>-->
+<!--            <th style="text-align: center" class="font-1">Posición</th>-->
+<!--            <th style="text-align: center" class="font-1">F.C.F.(por min/NA)</th>-->
+<!--            <th style="text-align: center" class="font-2">Mov. Fetal</th>-->
+<!--            <th style="text-align: center" class="font-2">Proteinuria Cualitativa</th>-->
+<!--            <th style="text-align: center"  class="font-1">Edema</th>-->
+<!--            <th style="text-align: center" class="font-2">Reflejo Osteotendinoso</th>-->
+<!--            <th style="text-align: center" class="font-1">Fecha Ecografía E.G.</th>-->
+<!--            <th style="text-align: center" class="font-1">Consejería Integral</th>-->
+<!--            <th style="text-align: center" class="font-1">Indic. Ac. Fólico</th>-->
+<!--            <th style="text-align: center" class="font-2">Indic. Fierro/Ac. Fólico(>=14 sem)</th>-->
+<!--            <th style="text-align: center" class="font-1">Indic. Calcio</th>-->
+<!--            <th style="text-align: center" class="font-2">Interconsultas</th>-->
+<!--            <th style="text-align: center" class="font-2">Plan de Parto (Reenfocada)</th>-->
+<!--            <th style="text-align: center" class="font-2">Visita Domiciliaria</th>-->
+<!--            <th style="text-align: center" class="font-2">Próxima Cita</th>-->
+<!--            <th style="text-align: center"  class="font-1">Responsable de atención</th>-->
+<!--            <th style="text-align: center" class="font-1">Establec. de atención</th>-->
             <th style="text-align: center" class="font-1">Acción</th>
 
         </tr>
@@ -64,29 +64,32 @@
             <td style="text-align: center">{{ rowData.presionArterial}}</td>
             <td style="text-align: center">{{ rowData.pulsoMaterno}}</td>
             <td style="text-align: center">{{ rowData.alturaUterinal}}</td>
-            <td style="text-align: center">{{ valorTipoSituacion(rowData.situacion)}}</td>
-            <td style="text-align: center">{{ valorTipoPresentacion(rowData.presentacion)}}</td>
-            <td style="text-align: center">{{ valorTipoPosicion(rowData.posicion)}}</td>
-            <td style="text-align: center">{{ rowData.fcf}}</td>
-            <td style="text-align: center">{{ valorTipomovFetal(rowData.movFetal)}}</td>
-            <td style="text-align: center">{{ valorproteiCualitativa(rowData.proteinaCualitativa)}}</td>
-            <td style="text-align: center">{{ valorEdema(rowData.edema)}}</td>
-            <td style="text-align: center">{{ valorReflejoO(rowData.reflejoOsteotendinoso)}}</td>
-            <td style="text-align: center">{{ rowData.fechaEcografia}}</td>
-            <td style="text-align: center">{{ rowData.consejeriaIntegral}}</td>
-            <td style="text-align: center">{{ rowData.indAcidoFolico}}</td>
-            <td style="text-align: center">{{ rowData.indFierro}}</td>
-            <td style="text-align: center">{{ rowData.indCalcio}}</td>
-            <td style="text-align: center">{{ valorInterconsultas(rowData.interconsulta)}}</td>
-            <td style="text-align: center">{{ valorPlanParto(rowData.planParto)}}</td>
-            <td style="text-align: center">{{ valorVisitaDomiciliaria(rowData.visitaDomiciliaria)}}</td>
-            <td style="text-align: center">{{ rowData.proximaCita}}</td>
-            <td style="text-align: center">{{ rowData.responsableAtencion}}</td>
-            <td style="text-align: center">{{ rowData.establecimientoAtencion}}</td>
+<!--            <td style="text-align: center">{{ valorTipoSituacion(rowData.situacion)}}</td>-->
+<!--            <td style="text-align: center">{{ valorTipoPresentacion(rowData.presentacion)}}</td>-->
+<!--            <td style="text-align: center">{{ valorTipoPosicion(rowData.posicion)}}</td>-->
+<!--            <td style="text-align: center">{{ rowData.fcf}}</td>-->
+<!--            <td style="text-align: center">{{ valorTipomovFetal(rowData.movFetal)}}</td>-->
+<!--            <td style="text-align: center">{{ valorproteiCualitativa(rowData.proteinaCualitativa)}}</td>-->
+<!--            <td style="text-align: center">{{ valorEdema(rowData.edema)}}</td>-->
+<!--            <td style="text-align: center">{{ valorReflejoO(rowData.reflejoOsteotendinoso)}}</td>-->
+<!--            <td style="text-align: center">{{ rowData.fechaEcografia}}</td>-->
+<!--            <td style="text-align: center">{{ rowData.consejeriaIntegral}}</td>-->
+<!--            <td style="text-align: center">{{ rowData.indAcidoFolico}}</td>-->
+<!--            <td style="text-align: center">{{ rowData.indFierro}}</td>-->
+<!--            <td style="text-align: center">{{ rowData.indCalcio}}</td>-->
+<!--            <td style="text-align: center">{{ valorInterconsultas(rowData.interconsulta)}}</td>-->
+<!--            <td style="text-align: center">{{ valorPlanParto(rowData.planParto)}}</td>-->
+<!--            <td style="text-align: center">{{ valorVisitaDomiciliaria(rowData.visitaDomiciliaria)}}</td>-->
+<!--            <td style="text-align: center">{{ rowData.proximaCita}}</td>-->
+<!--            <td style="text-align: center">{{ rowData.responsableAtencion}}</td>-->
+<!--            <td style="text-align: center">{{ rowData.establecimientoAtencion}}</td>-->
 
             <td style="text-align: center">
                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
                         (click)="editar(rowData)" pTooltip="Editar">
+                </button>
+                <button pButton (click)="editar(rowData)" pTooltip="Visualizar" pRipple type="button"
+                        icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
                 </button>
 
             </td>
@@ -109,7 +112,7 @@
             <div class="p-fluid grid">
                 <div class="resp" col-6>
                     <label>FECHA DE ATENCION:</label>
-                    <input type="date" pInputText formControlName="fechaAtencion" class="p-inputtext-sm "
+                    <input type="date" class="p-fluid" pInputText formControlName="fechaAtencion" class="p-inputtext-sm "
                            required/>
                 </div>
             </div>
@@ -117,41 +120,41 @@
                 <!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
                 <div class="p-field resp">
                     <label>EDAD GESTACIONAL(Semanas)</label>
-                    <input type="number" pInputText formControlName='edadGestacional' placeholder="semanas"
+                    <input type="number" class="p-fluid" pInputText formControlName='edadGestacional' placeholder="semanas"
                            required />
                 </div>
                 <div class="p-field resp">
                     <label>PESO MADRE</label>
-                    <input type="decimal" pInputText formControlName='pesoMadre' placeholder="kg"
+                    <input type="decimal" class="p-fluid"  pInputText formControlName='pesoMadre' placeholder="kg"
                            required />
                 </div>
                 <div class="p-field resp">
                     <label>EVALUACION NUTRICIONAL</label>
-                    <input type="text" pInputText formControlName='evalNutricional' placeholder="evaluacion"
+                    <input type="text" class="p-fluid"  pInputText formControlName='evalNutricional' placeholder="evaluacion"
                            required />
                 </div>
                 <div class="p-field resp">
                     <label>TEMPERATURA(°C) </label>
-                    <p-inputNumber formControlName='temperatura' prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40">
+                    <p-inputNumber formControlName='temperatura' class="p-fluid"  prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40">
                     </p-inputNumber>
 <!--                    <input type="decimal" pInputText formControlName='temperatura' placeholder="°C"  suffix="℃" [min]="0" [max]="40"required />-->
                 </div>
                 <div class="p-field resp">
                     <label>PRESION ARTERIAL</label>
-                    <input type="text" pInputText formControlName='presionArterial' placeholder="mm. Hg."  required />
+                    <input type="text" class="p-fluid"  pInputText formControlName='presionArterial' placeholder="mm. Hg."  required />
                 </div>
                 <div class="p-field resp">
                     <label>PULSO MATERNO(por min)</label>
-                    <input type="text" pInputText formControlName='pulsoMaterno' placeholder="por min."  required />
+                    <input type="text" class="p-fluid"  pInputText formControlName='pulsoMaterno' placeholder="por min."  required />
                 </div>
                 <div class="p-field resp">
                     <label>ALTURA UTERINAL(cm)</label>
-                    <input type="decimal" pInputText formControlName='alturaUterinal' placeholder="cm"  required />
+                    <input type="decimal" class="p-fluid"  pInputText formControlName='alturaUterinal' placeholder="cm"  required />
                 </div>
                 <div class="p-field resp">
                     <label>SITUACION</label>
-                    <div class="p-field resp p-fluid">
-                        <p-dropdown inputId="dropdown" [options]="situacionList" formControlName="situacion"
+                    <div class="p-field resp">
+                        <p-dropdown inputId="dropdown"   [options]="situacionList" formControlName="situacion"
                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
                                     defaultLabel="Seleccione:" >
                         </p-dropdown>
