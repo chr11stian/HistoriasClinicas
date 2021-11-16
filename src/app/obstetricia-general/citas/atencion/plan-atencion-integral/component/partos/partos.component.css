@@ -11,7 +11,7 @@ p-fieldset >>> .p-fieldset .p-fieldset-content {
   padding: 2px;
   font-size: xx-small;
 }
-p-inputNumber >>> .p-inputnumber-input {
+:host ::ng-deep   >>> .p-inputnumber-input {
   border: 1px solid rgb(189, 184, 184);
   border-radius: 10px;
   padding: 3px 10px;

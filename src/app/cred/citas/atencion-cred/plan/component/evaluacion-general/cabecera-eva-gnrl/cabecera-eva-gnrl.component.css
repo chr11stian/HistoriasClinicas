@@ -1,0 +1,51 @@
+p-steps >>> * {
+    text-align: center;
+    font-size: small;
+    width: 100%;
+}
+
+:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+    border-radius: 0px;
+    width: 100%;
+    height: 50px;
+    color: transparent;
+    word-wrap: break-word;
+    background: #ECECEC;
+    border: 1px solid #f0ebeb;
+}
+
+:host
+  >>> .p-steps
+  .p-steps-item.p-steps-current
+  .p-menuitem-link
+  .p-steps-number {
+  border: 1px solid #707070;
+  background: #DCDCDC;
+}
+
+:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
+    
+  color: #393939;
+}
+:host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
+  color: #393939;
+}
+
+p-tabview >>> .p-tabview-title{
+  font-size: small;
+  color: black;
+}
+p-tabview >>> .p-tabview .p-tabview-nav{
+  justify-content: space-between;
+  margin: 1rem;
+}
+
+p-tabview >>> .p-tabview .p-tabview-panels {
+  height: 100%;
+}
+
+p-tabview >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background: #d1d1d1;
+  border-color: #d1d1d1;
+  color: #2196F3;
+}
