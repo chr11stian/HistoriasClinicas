@@ -1,0 +1,12 @@
+.borde {
+    border:1px solid black
+}
+p-selectbutton >>> .p-selectbutton .p-button {
+    color: black;
+    font-size: xx-large;
+    background-color: "blue";
+    padding: 5px;
+}
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background-color: #0c3866;
+}

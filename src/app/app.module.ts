@@ -13,6 +13,8 @@ import {LoginComponent} from './login/login.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {PrimeModule} from './shared/prime/prime.module'
 import {ChartModule} from 'primeng/chart';
+import {DividerModule} from "primeng/divider";
+
 
 @NgModule({
     declarations: [
@@ -29,7 +31,8 @@ import {ChartModule} from 'primeng/chart';
         PrimeModule,
         ReactiveFormsModule,
         ChartModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        DividerModule
     ],
     providers: [ConfirmationService],
     bootstrap: [AppComponent]

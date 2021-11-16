@@ -50,11 +50,48 @@ export class SideBarComponent implements OnInit {
             {
                 label: "Historias Clinicas",
                 items: [
+                    // {
+                    //     label: "Obstetricia Consulta",
+                    //     icon: "pi pi-pw pi-file",
+                    //     routerLink: "obstetricia/cabecera-consulta",
+                    // },
+                    // {
+                    //     label: "Obstetricia Atencion Integral",
+                    //     icon: "pi pi-pw pi-file",
+                    //     routerLink: "obstetricia/cabecera-atencion-integral",
+                    // },
+                    // {
+                    //     label: "Obstetricia plan de parto",
+                    //     icon: "pi pi-pw pi-file",
+                    //     routerLink: "obstetricia/cabecera-plan-parto",
+                    //
+                    // },
                     {
-                        label: "Obstetricia",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "historia/obstetricia",
+                        icon: "pi pi-file",
+                        label: "obstetricia",
+                        items:[
+                            {
+                                label: "Citas",
+                                routerLink: "obstetricia-general/citas",
+                            },
+                            {
+                                label: "Consultas",
+                                routerLink: "obstetricia-general/consultas-general",
+                            },
+                        ]
+
                     },
+                    // {
+                    //     icon: "pi pi-file",
+                    //     label: "Obstetricia",
+                    //     routerLink: "atencion/obstetricia",
+                    // },
+                    {
+                        icon: "pi pi-file",
+                        label: "FUA",
+                        routerLink: "fua/fua",
+                    },
+
                     {
                         icon: "pi pi-file",
                         label: "Rol Guardia",
@@ -80,14 +117,26 @@ export class SideBarComponent implements OnInit {
                     },
                     {
                         icon: "pi pi-file",
-                        label: "Cred",
-                        routerLink: "cred/cabecera",
+                        label: "cred",
+                        items:[
+                            {
+                                label: "Citas",
+                                icon: "pi pi-pw pi-file",
+                                routerLink: "cred/citas",
+                            },
+                            {
+                                label: "Consultas",
+                                icon: "pi pi-pw pi-file",
+                                routerLink: "cred/consulta-cred-general",
+                            },
+                        ]
+
                     },
-                    {
-                        icon: "pi pi-file",
-                        label: "Gestante",
-                        routerLink: "gestante/cabecera",
-                    }
+                    // {
+                    //     icon: "pi pi-file",
+                    //     label: "Gestante",
+                    //     routerLink: "gestante/cabecera",
+                    // }
                 ],
             },
 

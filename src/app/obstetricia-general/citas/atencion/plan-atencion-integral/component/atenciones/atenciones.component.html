@@ -1,0 +1,395 @@
+<!--<div class="p-card">-->
+<!--    <p-toolbar>-->
+
+<!--        <ng-template pTemplate="left">-->
+<!--            <h3 class="p-m-0">ATENCIONES GESTACIONALES</h3>-->
+<!--        </ng-template>-->
+
+<!--        <ng-template pTemplate="right" class="button">-->
+
+<!--            <button pButton pRipple label="Grafico" icon="pi pi-file-o" icon="pi pi-chart-line" class="button-graficar" pButton type="button"-->
+<!--            ></button>-->
+<!--            <button pButton pRipple label="Agregar Atención" icon="pi pi-plus" pButton type="button" class="button-agregar"-->
+<!--                    (click)="isUpdate = false; agregarActualizar()"></button>-->
+<!--        </ng-template>-->
+<!--    </p-toolbar>-->
+<!--    <p-table class="table-over" [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10"-->
+<!--             [rowsPerPageOptions]="[10, 25, 50]"-->
+<!--             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"-->
+<!--             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">-->
+
+<!--        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">-->
+<!--            <tr>-->
+<!--                <th style="text-align: center" class="font-2">ATENCION PRENATAL </th>-->
+<!--                <th style="text-align: center" class="font-1">Fecha Atención</th>-->
+<!--                <th style="text-align: center" class="font-2">Edad Gest.(Semanas)</th>-->
+<!--                <th style="text-align: center" class="font-2">Peso Madre (Kg)</th>-->
+<!--                <th style="text-align: center" class="font-1">Eval. Nutricional</th>-->
+<!--                <th style="text-align: center" class="font-2">Temperatura(°C)</th>-->
+<!--                <th style="text-align: center" class="font-1">Presion Arterial(mm. Hg)</th>-->
+<!--                <th style="text-align: center" class="font-2">Pulso Materno(por min)</th>-->
+<!--                <th style="text-align: center" class="font-1">Altura Uterina(cm)</th>-->
+<!--                <th style="text-align: center" class="font-1">Situación</th>-->
+<!--                <th style="text-align: center" class="font-1">Presentación</th>-->
+<!--                <th style="text-align: center" class="font-1">Posición</th>-->
+<!--                <th style="text-align: center" class="font-1">F.C.F.(por min/NA)</th>-->
+<!--                <th style="text-align: center" class="font-2">Mov. Fetal</th>-->
+<!--                <th style="text-align: center" class="font-2">Proteinuria Cualitativa</th>-->
+<!--                <th style="text-align: center"  class="font-1">Edema</th>-->
+<!--                <th style="text-align: center" class="font-2">Reflejo Osteotendinoso</th>-->
+<!--                <th style="text-align: center" class="font-1">Fecha Ecografía E.G.</th>-->
+<!--                <th style="text-align: center" class="font-1">Consejería Integral</th>-->
+<!--                <th style="text-align: center" class="font-1">Indic. Ac. Fólico</th>-->
+<!--                <th style="text-align: center" class="font-2">Indic. Fierro/Ac. Fólico(>=14 sem)</th>-->
+<!--                <th style="text-align: center" class="font-1">Indic. Calcio</th>-->
+<!--                <th style="text-align: center" class="font-2">Interconsultas</th>-->
+<!--                <th style="text-align: center" class="font-2">Plan de Parto (Reenfocada)</th>-->
+<!--                <th style="text-align: center" class="font-2">Visita Domiciliaria</th>-->
+<!--                <th style="text-align: center" class="font-2">Próxima Cita</th>-->
+<!--                <th style="text-align: center"  class="font-1">Responsable de atención</th>-->
+<!--                <th style="text-align: center" class="font-1">Establec. de atención</th>-->
+<!--                <th style="text-align: center" class="font-1">Acción</th>-->
+
+<!--            </tr>-->
+<!--        </ng-template>-->
+<!--        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
+<!--            <tr>-->
+<!--                <td style="text-align: center" class="font-2">ATENCION {{ rowIndex + 1 }}</td>-->
+<!--                <td style="text-align: center">{{ rowData.fechaAtencion }}</td>-->
+<!--                <td style="text-align: center">{{ rowData.edadGestacional }}</td>-->
+<!--                <td style="text-align: center">{{ rowData.pesoMadre}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.evalNutricional}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.temperatura}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.presionArterial}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.pulsoMaterno}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.alturaUterinal}}</td>-->
+<!--                <td style="text-align: center">{{ valorTipoSituacion(rowData.situacion)}}</td>-->
+<!--                <td style="text-align: center">{{ valorTipoPresentacion(rowData.presentacion)}}</td>-->
+<!--                <td style="text-align: center">{{ valorTipoPosicion(rowData.posicion)}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.fcf}}</td>-->
+<!--                <td style="text-align: center">{{ valorTipomovFetal(rowData.movFetal)}}</td>-->
+<!--                <td style="text-align: center">{{ valorproteiCualitativa(rowData.proteinaCualitativa)}}</td>-->
+<!--                <td style="text-align: center">{{ valorEdema(rowData.edema)}}</td>-->
+<!--                <td style="text-align: center">{{ valorReflejoO(rowData.reflejoOsteotendinoso)}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.fechaEcografia}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.consejeriaIntegral}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.indAcidoFolico}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.indFierro}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.indCalcio}}</td>-->
+<!--                <td style="text-align: center">{{ valorInterconsultas(rowData.interconsulta)}}</td>-->
+<!--                <td style="text-align: center">{{ valorPlanParto(rowData.planParto)}}</td>-->
+<!--                <td style="text-align: center">{{ valorVisitaDomiciliaria(rowData.visitaDomiciliaria)}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.proximaCita}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.responsableAtencion}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.establecimientoAtencion}}</td>-->
+
+<!--                <td style="text-align: center">-->
+<!--                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"-->
+<!--                            (click)="isUpdate = true; agregarActualizar(rowIndex)" pTooltip="Editar">-->
+<!--                    </button>-->
+
+<!--                </td>-->
+<!--            </tr>-->
+<!--        </ng-template>-->
+<!--    </p-table>-->
+
+<!--</div>-->
+
+<!--<p-confirmDialog-->
+<!--        [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"-->
+<!--        [style]="{ width: '25vw' }"-->
+<!--        key="positionDialog"-->
+<!--        [baseZIndex]="10000"-->
+<!--&gt;-->
+<!--</p-confirmDialog>-->
+<div class="p-card">
+    <p-toolbar>
+
+        <ng-template pTemplate="left">
+
+
+<h3 class="p-m-0">ATENCIONES GESTACIONALES</h3>
+</ng-template>
+
+<ng-template pTemplate="right" class="button">
+
+    <button pButton pRipple label="Grafico" icon="pi pi-file-o" icon="pi pi-chart-line" class="button-graficar" pButton type="button" (click)="graficar()"
+    ></button>
+    <button pButton pRipple label="Agregar Atención" icon="pi pi-plus" pButton type="button" class="button-agregar"
+            (click)="openNew()"></button>
+</ng-template>
+</p-toolbar>
+<p-table class="table-over" [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+        <tr>
+            <th style="text-align: center" class="font-2">ATENCION PRENATAL </th>
+            <th style="text-align: center" class="font-1">Fecha Atención</th>
+            <th style="text-align: center" class="font-2">Edad Gest.(Semanas)</th>
+            <th style="text-align: center" class="font-2">Peso Madre (Kg)</th>
+            <th style="text-align: center" class="font-1">Eval. Nutricional</th>
+            <th style="text-align: center" class="font-2">Temperatura(°C)</th>
+            <th style="text-align: center" class="font-1">Presion Arterial(mm. Hg)</th>
+            <th style="text-align: center" class="font-2">Pulso Materno(por min)</th>
+            <th style="text-align: center" class="font-1">Altura Uterina(cm)</th>
+            <th style="text-align: center" class="font-1">Situación</th>
+            <th style="text-align: center" class="font-1">Presentación</th>
+            <th style="text-align: center" class="font-1">Posición</th>
+            <th style="text-align: center" class="font-1">F.C.F.(por min/NA)</th>
+            <th style="text-align: center" class="font-2">Mov. Fetal</th>
+            <th style="text-align: center" class="font-2">Proteinuria Cualitativa</th>
+            <th style="text-align: center"  class="font-1">Edema</th>
+            <th style="text-align: center" class="font-2">Reflejo Osteotendinoso</th>
+            <th style="text-align: center" class="font-1">Fecha Ecografía E.G.</th>
+            <th style="text-align: center" class="font-1">Consejería Integral</th>
+            <th style="text-align: center" class="font-1">Indic. Ac. Fólico</th>
+            <th style="text-align: center" class="font-2">Indic. Fierro/Ac. Fólico(>=14 sem)</th>
+            <th style="text-align: center" class="font-1">Indic. Calcio</th>
+            <th style="text-align: center" class="font-2">Interconsultas</th>
+            <th style="text-align: center" class="font-2">Plan de Parto (Reenfocada)</th>
+            <th style="text-align: center" class="font-2">Visita Domiciliaria</th>
+            <th style="text-align: center" class="font-2">Próxima Cita</th>
+            <th style="text-align: center"  class="font-1">Responsable de atención</th>
+            <th style="text-align: center" class="font-1">Establec. de atención</th>
+            <th style="text-align: center" class="font-1">Acción</th>
+
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr>
+            <td style="text-align: center" class="font-2">ATENCION {{ rowIndex + 1 }}</td>
+            <td style="text-align: center">{{ rowData.fechaAtencion }}</td>
+            <td style="text-align: center">{{ rowData.edadGestacional }}</td>
+            <td style="text-align: center">{{ rowData.pesoMadre}}</td>
+            <td style="text-align: center">{{ rowData.evalNutricional}}</td>
+            <td style="text-align: center">{{ rowData.temperatura}}</td>
+            <td style="text-align: center">{{ rowData.presionArterial}}</td>
+            <td style="text-align: center">{{ rowData.pulsoMaterno}}</td>
+            <td style="text-align: center">{{ rowData.alturaUterinal}}</td>
+            <td style="text-align: center">{{ valorTipoSituacion(rowData.situacion)}}</td>
+            <td style="text-align: center">{{ valorTipoPresentacion(rowData.presentacion)}}</td>
+            <td style="text-align: center">{{ valorTipoPosicion(rowData.posicion)}}</td>
+            <td style="text-align: center">{{ rowData.fcf}}</td>
+            <td style="text-align: center">{{ valorTipomovFetal(rowData.movFetal)}}</td>
+            <td style="text-align: center">{{ valorproteiCualitativa(rowData.proteinaCualitativa)}}</td>
+            <td style="text-align: center">{{ valorEdema(rowData.edema)}}</td>
+            <td style="text-align: center">{{ valorReflejoO(rowData.reflejoOsteotendinoso)}}</td>
+            <td style="text-align: center">{{ rowData.fechaEcografia}}</td>
+            <td style="text-align: center">{{ rowData.consejeriaIntegral}}</td>
+            <td style="text-align: center">{{ rowData.indAcidoFolico}}</td>
+            <td style="text-align: center">{{ rowData.indFierro}}</td>
+            <td style="text-align: center">{{ rowData.indCalcio}}</td>
+            <td style="text-align: center">{{ valorInterconsultas(rowData.interconsulta)}}</td>
+            <td style="text-align: center">{{ valorPlanParto(rowData.planParto)}}</td>
+            <td style="text-align: center">{{ valorVisitaDomiciliaria(rowData.visitaDomiciliaria)}}</td>
+            <td style="text-align: center">{{ rowData.proximaCita}}</td>
+            <td style="text-align: center">{{ rowData.responsableAtencion}}</td>
+            <td style="text-align: center">{{ rowData.establecimientoAtencion}}</td>
+
+            <td style="text-align: center">
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                        (click)="editar(rowData)" pTooltip="Editar">
+                </button>
+
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+</div>
+
+<!-------------INICIO DIALOG INGRESAR ATENCION--->
+<p-dialog header={{titulo()}} [(visible)]="atencionGestanteDialog"  [baseZIndex]="10000"
+          styleClass="p-fluid" [modal]="true"  [responsive]="true" [draggable]="false" [resizable]="false">
+
+
+    <form [formGroup]='form' (ngSubmit)="save(formTemplate)" #formTemplate ="ngForm">
+        <p-panel>
+            <ng-template pTemplate="header" >
+                <h3 class="m-2">ATENCION NRO. 001 </h3>
+            </ng-template>
+            <div class="p-fluid grid">
+                <div class="resp" col-6>
+                    <label>FECHA DE ATENCION:</label>
+                    <input type="date" pInputText formControlName="fechaAtencion" class="p-inputtext-sm "
+                           required/>
+                </div>
+            </div>
+            <div  class="grid p-fluid">
+                <!--            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">-->
+                <div class="p-field resp">
+                    <label>EDAD GESTACIONAL(Semanas)</label>
+                    <input type="number" pInputText formControlName='edadGestacional' placeholder="semanas"
+                           required />
+                </div>
+                <div class="p-field resp">
+                    <label>PESO MADRE</label>
+                    <input type="decimal" pInputText formControlName='pesoMadre' placeholder="kg"
+                           required />
+                </div>
+                <div class="p-field resp">
+                    <label>EVALUACION NUTRICIONAL</label>
+                    <input type="text" pInputText formControlName='evalNutricional' placeholder="evaluacion"
+                           required />
+                </div>
+                <div class="p-field resp">
+                    <label>TEMPERATURA(°C) </label>
+                    <p-inputNumber formControlName='temperatura' prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40">
+                    </p-inputNumber>
+<!--                    <input type="decimal" pInputText formControlName='temperatura' placeholder="°C"  suffix="℃" [min]="0" [max]="40"required />-->
+                </div>
+                <div class="p-field resp">
+                    <label>PRESION ARTERIAL</label>
+                    <input type="text" pInputText formControlName='presionArterial' placeholder="mm. Hg."  required />
+                </div>
+                <div class="p-field resp">
+                    <label>PULSO MATERNO(por min)</label>
+                    <input type="text" pInputText formControlName='pulsoMaterno' placeholder="por min."  required />
+                </div>
+                <div class="p-field resp">
+                    <label>ALTURA UTERINAL(cm)</label>
+                    <input type="decimal" pInputText formControlName='alturaUterinal' placeholder="cm"  required />
+                </div>
+                <div class="p-field resp">
+                    <label>SITUACION</label>
+                    <div class="p-field resp p-fluid">
+                        <p-dropdown inputId="dropdown" [options]="situacionList" formControlName="situacion"
+                                    placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                    defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field resp">
+                    <label>PRESENTACION</label>
+                    <div class="p-field">
+                        <p-dropdown inputId="dropdown" [options]="presentacionList" formControlName="presentacion"
+                                    placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                    defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field resp">
+                    <label>POSICION FETAL</label>
+                    <div class="p-field">
+                        <p-dropdown inputId="dropdown" [options]="posicionList" formControlName="posicion"
+                                    placeholder="seleccionar"  optionLabel="label" optionValue="value"
+                                    defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field resp">
+                    <label>FCF</label>
+                    <input type="text" pInputText formControlName='fcf'  placeholder="por min." required  />
+                </div>
+                <div class="p-field resp">
+                    <label>MOVIMIENTO FETAL</label>
+                    <div class="p-field resp">
+                        <p-dropdown inputId="dropdown" [options]="movFetalList" formControlName="movFetal"
+                                    optionLabel="label" optionValue="value"
+                                    placeholder="seleccionar"   defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field resp">
+                    <label>PROTEINURIA CUALITATIVA</label>
+                    <div class="p-field">
+                        <p-dropdown inputId="dropdown" [options]="protcualitList" formControlName="proteinaCualitativa"
+                                    optionLabel="label" optionValue="value"
+                                    placeholder="seleccionar"  defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field resp">
+                    <label>EDEMA</label>
+                    <div class="p-field">
+                        <p-dropdown inputId="dropdown" [options]="edemaList" formControlName="edema"
+                                    optionLabel="label" optionValue="value"
+                                    defaultLabel="Seleccione:"  placeholder="seleccionar"  >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field resp">
+                    <label>REFLEJO OSTEOTENDINOSO</label>
+                    <div class="p-field">
+                        <p-dropdown inputId="dropdown" [options]="reflejoOsteotendinosoList"
+                                    formControlName="reflejoOsteotendinoso" optionLabel="label" optionValue="value"
+                                    defaultLabel="Seleccione:"  placeholder="seleccionar"  >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field resp">
+                    <label>FECHA ECOGRAFIA</label>
+                    <input type="date"
+                           pInputText
+                           formControlName="fechaEcografia" class="p-inputtext-sm " required=""/>
+
+                </div>
+                <div class="p-field resp">
+                    <label>CONSEJERIA INTEGRAL</label>
+                    <input type="text" pInputText formControlName='consejeriaIntegral'  placeholder="consejeria"  required />
+                </div>
+                <div class="p-field resp">
+                    <label>INDICADOR DE ACIDO FOLICO</label>
+                    <input type="text" pInputText formControlName='indAcidoFolico'  placeholder="Ind. Ac. Fólico"  required />
+                </div>
+                <div class="p-field resp">
+                    <label>INDICADOR FIERRO</label>
+                    <input type="text" pInputText formControlName='indFierro'  placeholder="Indide Fierro"  required />
+                </div>
+                <div class="p-field resp">
+                    <label>INDICADOR CALCIO</label>
+                    <input type="text" pInputText formControlName='indCalcio' placeholder="Indide Calcio" required />
+                </div>
+                <div class="p-field resp">
+                    <label>INTERCONSULTA</label>
+                    <div class="p-field">
+                        <p-dropdown inputId="dropdown" [options]="interconsultaList" formControlName="interconsulta" optionLabel="label" optionValue="value"
+                                    defaultLabel="Seleccione:" placeholder="seleccionar">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field resp">
+                    <label>PLAN PARTO</label>
+                    <div class="p-field">
+                        <p-dropdown inputId="dropdown" [options]="planPartoList" formControlName="planParto" optionLabel="label" optionValue="value"
+                                    defaultLabel="Seleccione:" placeholder="seleccionar">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field resp">
+                    <label>VISITA DOMICILIARIA</label>
+                    <div class="p-field">
+                        <p-dropdown inputId="dropdown" [options]="visitaDomiciliariaList"
+                                    formControlName="visitaDomiciliaria" optionLabel="label" optionValue="value"
+                                    defaultLabel="Seleccione:" placeholder="seleccionar" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="p-field resp">
+                    <label>PROXIMA CITA</label>
+                    <input type="date" formControlName="proximaCita" class="p-inputtext-sm " pInputText />
+                </div>
+                <div class="p-field resp">
+                    <label>RESPONSABLE ATENCION</label>
+                    <input type="text" pInputText formControlName='responsableAtencion' required />
+                </div>
+                <div class="p-field resp">
+                    <label>ESTABLECIMIENTO ATENCION</label>
+                    <input type="text" pInputText formControlName='establecimientoAtencion' required />
+                </div>
+
+            </div>
+        </p-panel>
+    </form>
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"(click)="canceled()"></button>
+        <button *ngIf="!isUpdate" [disabled]="!form.valid"  class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="save(formTemplate)" ></button>
+
+    </ng-template>
+
+
+</p-dialog>
+<!--------------------------------- FIN DIALOG INGRESAR ATENCION---->
+
