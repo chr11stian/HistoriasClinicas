@@ -307,65 +307,66 @@
                                     <label class="ml-2 font-bold">EDAD</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="edad"/>
-                                </div>
+                      formControlName="edad"/>
+</div>
 
-                                <div class="p-field col-2">
-                                    <label class="ml-2 font-bold">DIAS</label>
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="dias"/>
-                                </div>
+<div class="p-field col-2">
+    <label class="ml-2 font-bold">DIAS</label>
+    <input type="text"
+           pInputText
+           formControlName="dias"/>
+</div>
 
-                                <div class="p-field col-4">
-                                    <label class="ml-2 font-bold">ETAPA DE VIDA</label>
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="etapadeVida"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="p-field col-4">
+    <label class="ml-2 font-bold">ETAPA DE VIDA</label>
+    <input type="text"
+           pInputText
+           formControlName="etapadeVida"/>
+</div>
+</div>
+</div>
+</div>
 
-                    <div class="col-3 ">
-                        <div class="datosServicio">
-                            <div class="pfield col-12">
-                                <label class="font-bold">SERVICIO</label>
-                                <p>{{dataSelectServicio}}</p>
-                            </div>
-                            <div class="p-field col-12">
-                                <label class="font-bold">AMBIENTE</label>
-                                <p>{{dataSelectAmbiente}}</p>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="datosServicio ">
-                            <div class="p-field col-12">
-                                <label class="font-bold">PERSONAL</label>
-                                <p>{{personalSelected}}</p>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="datosServicio">
-                            <div class="p-field col-12">
-                                <label class="font-bold">HORA</label>
-                                <tr *ngFor="let horas of selectedHorario" class="ml-2 font-bold">
-                                    <p>
-                                        {{horas.horaInicio}}-{{horas.horaFin}}
-                                    </p>
-                                </tr>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </ng-template>
-    </p-panel>
+<div class="col-3 ">
+    <div class="datosServicio">
+        <div class="pfield col-12">
+            <label class="font-bold">SERVICIO</label>
+            <p>{{dataSelectServicio}}</p>
+        </div>
+        <div class="p-field col-12">
+            <label class="font-bold">AMBIENTE</label>
+            <p>{{dataSelectAmbiente}}</p>
+        </div>
+    </div>
+    <br>
+    <div class="datosServicio ">
+        <div class="p-field col-12">
+            <label class="font-bold">PERSONAL</label>
+            <p>{{personalSelected}}</p>
+        </div>
+    </div>
+    <br>
+    <div class="datosServicio">
+        <div class="p-field col-12">
+            <label class="font-bold">HORA</label>
+            <tr *ngFor="let horas of selectedHorario" class="ml-2 font-bold">
+                <p>
+                    {{horas.horaInicio}}-{{horas.horaFin}}
+                </p>
+            </tr>
+        </div>
+    </div>
+</div>
+</div>
+</form>
+</ng-template>
+</p-panel>
 
 
-    <ng-template pTemplate=footer>
-        <button pButton type="button" label="Cancelar" class="p-button-danger"></button>
-        <button pButton type="button" label="Guardar" (click)="saveForm()"></button>
-    </ng-template>
+<ng-template pTemplate=footer>
+    <button pButton type="button" label="Cancelar" class="p-button-danger"></button>
+    <button pButton type="button" label="Guardar" (click)="saveForm()"></button>
+</ng-template>
 </p-dialog>
 <!--                FIN MODAL DE USUARIOS                -->
+
