@@ -68,7 +68,7 @@ export class SideBarComponent implements OnInit {
                     // },
                     {
                         icon: "pi pi-file",
-                        label: "OBSTETRICIA",
+                        label: "obstetricia",
                         items:[
                             {
                                 label: "Citas",
@@ -117,8 +117,20 @@ export class SideBarComponent implements OnInit {
                     },
                     {
                         icon: "pi pi-file",
-                        label: "Cred",
-                        routerLink: "cred/cabecera",
+                        label: "cred",
+                        items:[
+                            {
+                                label: "Citas",
+                                icon: "pi pi-pw pi-file",
+                                routerLink: "cred/citas",
+                            },
+                            {
+                                label: "Consultas",
+                                icon: "pi pi-pw pi-file",
+                                routerLink: "cred/consulta-cred-general",
+                            },
+                        ]
+
                     },
                     // {
                     //     icon: "pi pi-file",

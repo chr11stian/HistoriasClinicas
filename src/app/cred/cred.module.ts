@@ -1,47 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {PrimeModule} from "src/app/shared/prime/prime.module";
-import {FieldsetModule} from 'primeng/fieldset';
-import { TabViewModule } from 'primeng/tabview';
+
+import { PrimeModule } from "src/app/shared/prime/prime.module";
 import { CredRoutingModule } from './cred-routing.module';
-import { DatosGeneralesComponent } from './datos-generales/datos-generales.component';
-import { CabeceraComponent } from './cabecera/cabecera.component';
-import { AntecendentesComponent } from './antecendentes/antecendentes.component';
-import { PlanAtencionIntegralComponent } from './plan-atencion-integral/plan-atencion-integral.component';
-import { TestDesarrolloComponent } from './test-desarrollo/test-desarrollo.component';
-import { PersonalComponent } from './antecendentes/personal/personal.component';
-import { FamiliarComponent } from './antecendentes/familiar/familiar.component';
-import { ViviendaComponent } from './antecendentes/vivienda/vivienda.component';
-import { InputTextModule } from 'primeng/inputtext';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { DropdownModule } from 'primeng/dropdown';
-import { EvaluacionGeneralModule } from './evaluacion-general/evaluacion-general.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CitasComponent } from './citas/citas.component';
+import { ConsultaCredComponent } from './citas/consulta-cred/consulta-cred.component';
+import { ConsultaCredGeneralComponent } from './consulta-cred-general/consulta-cred-general.component';
+import { AtencionCredModule } from './citas/atencion-cred/atencion-cred.module';
 
 
 @NgModule({
   declarations: [
-    DatosGeneralesComponent,
-    CabeceraComponent,
-    AntecendentesComponent,
-    PlanAtencionIntegralComponent,
-    TestDesarrolloComponent,
-    PersonalComponent,
-    FamiliarComponent,
-    ViviendaComponent,
+    CitasComponent,
+    ConsultaCredComponent,
+    ConsultaCredGeneralComponent,
   ],
   imports: [
     PrimeModule,
     CommonModule,
     CredRoutingModule,
-    TabViewModule,
-    FieldsetModule,
-    InputTextModule,
-    SelectButtonModule,
-    DropdownModule,
-    EvaluacionGeneralModule,
-    FormsModule,
-    ReactiveFormsModule
+    AtencionCredModule,
   ]
 })
 export class CredModule { }
