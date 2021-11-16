@@ -7,6 +7,7 @@ import { CitasComponent } from './citas/citas.component';
 import { ConsultaCredComponent } from './citas/consulta-cred/consulta-cred.component';
 import { ConsultaCredGeneralComponent } from './consulta-cred-general/consulta-cred-general.component';
 import { AtencionCredModule } from './citas/atencion-cred/atencion-cred.module';
+import { PaginatorModule } from 'primeng/paginator';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { AtencionCredModule } from './citas/atencion-cred/atencion-cred.module';
     CommonModule,
     CredRoutingModule,
     AtencionCredModule,
+    PaginatorModule,
   ]
 })
 export class CredModule { }
