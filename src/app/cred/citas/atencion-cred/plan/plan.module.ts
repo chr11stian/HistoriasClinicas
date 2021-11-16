@@ -7,7 +7,6 @@ import { CabeceraComponent } from './component/cabecera/cabecera.component';
 import { DatosGeneralesComponent } from './component/datos-generales/datos-generales.component';
 import { AntecendentesComponent } from './component/antecendentes/antecendentes.component';
 import { PlanAtencionIntegralComponent } from './component/plan-atencion-integral/plan-atencion-integral.component';
-import { TestDesarrolloComponent } from './component/test-desarrollo/test-desarrollo.component';
 import { PersonalComponent } from './component/antecendentes/personal/personal.component';
 import { FamiliarComponent } from './component/antecendentes/familiar/familiar.component';
 import { ViviendaComponent } from './component/antecendentes/vivienda/vivienda.component';
@@ -21,7 +20,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CabeceraComponent,
     AntecendentesComponent,
     PlanAtencionIntegralComponent,
-    TestDesarrolloComponent,
     PersonalComponent,
     FamiliarComponent,
     ViviendaComponent,
