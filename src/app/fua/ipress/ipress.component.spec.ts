@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { IpressComponent } from './iprees.component';
-
+import {IpressComponent} from "./ipress.component";
 describe('IpreesComponent', () => {
   let component: IpressComponent;
   let fixture: ComponentFixture<IpressComponent>;
