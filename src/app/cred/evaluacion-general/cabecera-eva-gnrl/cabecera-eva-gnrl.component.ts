@@ -9,7 +9,7 @@ import { MenuItem } from "primeng/api"
 export class CabeceraEvaGnrlComponent implements OnInit {
 
   items: MenuItem[];
-  stepIndex = 0;
+  indiceActivo: number = 0;
 
   constructor() { }
 
@@ -22,6 +22,6 @@ export class CabeceraEvaGnrlComponent implements OnInit {
   }
 
   ChangeStep(event: number){
-    this.stepIndex = event;
+    this.indiceActivo = event;
   }
 }
