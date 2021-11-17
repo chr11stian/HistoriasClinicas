@@ -87,7 +87,7 @@
                         <div style="width:120px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
-                    </div>  
+                    </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:120px">AMA:</span>
                         <p-selectButton [options]="stateOptions"
@@ -100,7 +100,7 @@
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
             <div class="lg:col-4 col-fixed">
                 <div class="card flex flex-column">
@@ -200,7 +200,7 @@
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
-                </div>  
+                </div>
             </div>
             <div class="lg:col-4 col-fixed">
                 <div class="card flex flex-column">
@@ -275,8 +275,8 @@
                         <div style="width:120px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
-                    </div>                
-                </div>  
+                    </div>
+                </div>
             </div>
         </div>
     </p-fieldset>
@@ -286,125 +286,125 @@
     <p-fieldset legend="Control de Crecimiento y Desarrollo" [toggleable]="true">
         <div class="grid">
             <div class="col flex justify-content-end">
-                <button pButton pRipple label="Grafica de Peso" class="mr-2 p-button-warning" icon="pi pi-chart-line" styleClass="p-button"></button>
-                <button pButton pRipple label="Grafica Estatura" class="mr-2 p-button-warning" icon="pi pi-chart-line" styleClass="p-button"></button>
-                <button pButton pRipple label="Grafica de Peso/Longitud" class="p-button-warning" icon="pi pi-chart-line" styleClass="p-button"></button>
+                <button pButton pRipple label="Grafica de Peso" (click)="onWeightChart()" class="mr-2 p-button-warning" icon="pi pi-chart-line" styleClass="p-button"></button>
+                <button pButton pRipple label="Grafica Estatura" (click)="onHeightChart()" class="mr-2 p-button-warning" icon="pi pi-chart-line" styleClass="p-button"></button>
+                <button pButton pRipple label="Grafica de Peso/Longitud" (click)="onHeightWeightChart()" class="p-button-warning" icon="pi pi-chart-line" styleClass="p-button"></button>
             </div>
         </div>
         <div class="grid">
-            <div class="lg:col-4 col-fixed">                
+            <div class="lg:col-4 col-fixed">
                 <p-fieldset legend="Recién Nacido" [toggleable]="true">
                     <div class="card flex flex-column">
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </p-fieldset>
                 <br>
                 <p-fieldset legend="Menor de 01 año" [toggleable]="true">
                     <div class="card flex flex-column">
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">3°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">4°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">5°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">6°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">7°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">8°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">9°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">10°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">11°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </p-fieldset>
             </div>
             <div class="lg:col-4 col-fixed">
@@ -412,230 +412,230 @@
                     <div class="card flex flex-column">
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">3°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">4°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">5°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">6°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </p-fieldset>
                 <br>
                 <p-fieldset legend="2 años" [toggleable]="true">
                     <div class="card flex flex-column">
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">3°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">4°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </p-fieldset>
                 <br>
                 <p-fieldset legend="3 años" [toggleable]="true">
                     <div class="card flex flex-column">
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">3°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">4°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </p-fieldset>
             </div>
-            <div class="lg:col-4 col-fixed">  
+            <div class="lg:col-4 col-fixed">
                 <p-fieldset legend="4 años" [toggleable]="true">
                     <div class="card flex flex-column">
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">3°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">4°:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
-                        </div>                       
-                    </div>  
+                        </div>
+                    </div>
                 </p-fieldset>
                 <br>
                 <p-fieldset legend="5 años" [toggleable]="true">
                     <div class="card flex flex-column">
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </p-fieldset>
                 <br>
                 <p-fieldset legend="6 años" [toggleable]="true">
                     <div class="card flex flex-column">
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </p-fieldset>
                 <br>
                 <p-fieldset legend="7 años" [toggleable]="true">
                     <div class="card flex flex-column">
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </p-fieldset>
                 <br>
                 <p-fieldset legend="8 años" [toggleable]="true">
                     <div class="card flex flex-column">
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </p-fieldset>
                 <br>
                 <p-fieldset legend="9 años" [toggleable]="true">
                     <div class="card flex flex-column">
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2" style="width:20px">:</span>
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso">
+                            <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla">
                             <div style="width:110px">
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </p-fieldset>
             </div>
         </div>
@@ -673,7 +673,7 @@
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </p-fieldset>
                 <br>
                 <p-fieldset legend="Menor de 01 año" [toggleable]="true">
@@ -822,8 +822,8 @@
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                        
-                    </div> 
+
+                    </div>
                 </p-fieldset>
             </p-fieldset>
         </div>
@@ -847,7 +847,7 @@
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </p-fieldset>
                 <br>
                 <p-fieldset legend="Menor de 01 año" [toggleable]="true">
@@ -936,7 +936,7 @@
                                 <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </p-fieldset>
             </p-fieldset>
         </div>
@@ -947,117 +947,117 @@
     <!-- SESIONES DE ATENCION TEMPRANA -->
     <p-fieldset legend="Sesiones de Atención Temprana" [toggleable]="true">
         <div class="grid">
-            <div class="lg:col-4 col-fixed">                
+            <div class="lg:col-4 col-fixed">
                 <div class="card flex flex-column">
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">1°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">2°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">3°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">4°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">5°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="lg:col-4 col-fixed">                
+            <div class="lg:col-4 col-fixed">
                 <div class="card flex flex-column">
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">6°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">7°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">8°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">9°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">10°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="lg:col-4 col-fixed">                
+            <div class="lg:col-4 col-fixed">
                 <div class="card flex flex-column">
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">11°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">12°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">13°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">14°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:30px">15°:</span>
-                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                        <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción">
                         <div style="width:110px">
                             <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
                         </div>
@@ -1075,46 +1075,46 @@
                 <div class="card flex flex-column">
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">< 1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">2 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">3 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">4 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
-                </div>  
+                </div>
             </p-fieldset>
             <br>
             <p-fieldset legend="Parasit Seriado" [toggleable]="true">
                 <div class="card flex flex-column">
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">2 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">3 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">4 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
-                </div>  
+                </div>
             </p-fieldset>
         </div>
         <div class="lg:col-3 col-fixed">
@@ -1122,46 +1122,46 @@
                 <div class="card flex flex-column">
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">< 1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">2 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">3 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">4 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
-                </div>  
+                </div>
             </p-fieldset>
             <br>
             <p-fieldset legend="Test Graham" [toggleable]="true">
                 <div class="card flex flex-column">
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">2 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">3 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">4 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
-                </div>  
+                </div>
             </p-fieldset>
         </div>
         <div class="lg:col-3 col-fixed">
@@ -1169,46 +1169,46 @@
                 <div class="card flex flex-column">
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">< 1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">2 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">3 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">4 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
-                </div>  
+                </div>
             </p-fieldset>
             <br>
             <p-fieldset legend="Prof. Antiparasitaria" [toggleable]="true">
                 <div class="card flex flex-column">
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">2 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">3 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">4 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
-                </div>  
+                </div>
             </p-fieldset>
         </div>
         <div class="lg:col-3 col-fixed">
@@ -1216,46 +1216,46 @@
                 <div class="card flex flex-column">
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">< 1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">2 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">3 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">4 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
-                </div>  
+                </div>
             </p-fieldset>
             <br>
             <p-fieldset legend="Sesiones Demostrativas" [toggleable]="true">
                 <div class="card flex flex-column">
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">1 año:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">2 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">3 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
                     <div class="field grid">
                         <span class="col-fixed text-right mr-2" style="width:80px">4 años:</span>
-                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor..."> 
+                        <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Ingrese valor...">
                     </div>
-                </div>  
+                </div>
             </p-fieldset>
         </div>
     </div>
