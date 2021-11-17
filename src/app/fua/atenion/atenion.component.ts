@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-atenion',
@@ -7,8 +7,8 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./atenion.component.css']
 })
 export class AtenionComponent implements OnInit {
-    formDeLaAtencion: any;
-
+    formDeLaAtencion: FormGroup;
+    data: any[] = [];
   constructor(private form: FormBuilder) { }
 
   ngOnInit(): void {

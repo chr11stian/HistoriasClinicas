@@ -15,6 +15,7 @@ import { PaginatorModule } from 'primeng/paginator';
     CitasComponent,
     ConsultaCredComponent,
     ConsultaCredGeneralComponent,
+
   ],
   imports: [
     PrimeModule,
@@ -22,6 +23,7 @@ import { PaginatorModule } from 'primeng/paginator';
     CredRoutingModule,
     AtencionCredModule,
     PaginatorModule,
+
   ]
 })
 export class CredModule { }
