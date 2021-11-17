@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {CitasComponent} from "./citas.component";
 
-import { CitasComponent } from './citas.component';
 
-describe('CitasComponent', () => {
+describe('ObstetriciaGeneralComponent', () => {
   let component: CitasComponent;
   let fixture: ComponentFixture<CitasComponent>;
 

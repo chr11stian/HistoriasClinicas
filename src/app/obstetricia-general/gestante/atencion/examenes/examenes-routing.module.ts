@@ -10,7 +10,7 @@ const routes: Routes = [
     },
     {
         path: "obstetricia",
-        loadChildren: () => import('src/app/obstetricia-general/citas/atencion/examenes/examenes.module').then(n => n.ExamenesModule),
+        loadChildren: () => import('src/app/obstetricia-general/gestante/atencion/examenes/examenes.module').then(n => n.ExamenesModule),
     },
 ];
 

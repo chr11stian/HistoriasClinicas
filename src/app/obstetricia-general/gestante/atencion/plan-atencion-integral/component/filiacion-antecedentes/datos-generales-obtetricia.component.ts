@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild,} from "@angular/core";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Network, DataSet} from 'vis';
+import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
 
 @Component({
     selector: "app-datos-generales-obtetricia",
@@ -27,9 +28,11 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     formDatos_Generales: FormGroup;
     formAntecedentes: FormGroup;
 
-    constructor(
-        private form: FormBuilder,
-    ) {
+    //Pacientes
+    dataPacientes: any;
+
+    constructor(private form: FormBuilder,
+                private filiancionService: FiliancionService) {
         this.opciones = [
             {name: 'SI', code: 'S'},
             {name: 'NO', code: 'N'},
@@ -74,6 +77,30 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     ngOnInit(): void {
         this.buildForm();
         this.buildForm2();
+
+        this.pacienteByNroDoc();
+    }
+
+
+    pacienteByNroDoc() {
+
+        let tipoDoc = "DNI";
+        let nroDoc = "10101010"
+        // nroDoc: "24015415"
+        this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
+            this.dataPacientes = res.object
+            console.log('paciente por doc ', this.dataPacientes)
+
+            // this.formCuposOferta.get('apePaterno').setValue(this.dataPacientes.apePaterno);
+            // this.formCuposOferta.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
+            // this.formCuposOferta.get('primerNombre').setValue(this.dataPacientes.primerNombre);
+            // this.formCuposOferta.get('otrosNombres').setValue(this.dataPacientes.otrosNombres);
+            // this.formCuposOferta.get('sexo').setValue(this.dataPacientes.sexo);
+            // this.formCuposOferta.get('fechaNacimiento').setValue(this.dataPacientes.nacimiento.fechaNacimiento);
+            // this.formCuposOferta.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
+            // this.formCuposOferta.get('celular').setValue(this.dataPacientes.celular);
+            // this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
+        });
     }
 
     buildForm() {
@@ -107,7 +134,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         })
     }
 
-    fnCheckbox(value){
+    fnCheckbox(value) {
         console.log(value);
     }
 

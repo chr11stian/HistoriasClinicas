@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {GestanteComponent} from "./gestante.component";
 
-import { StepGeneralComponent } from './step-general-consulta.component';
 
-describe('StepGeneralComponent', () => {
-  let component: StepGeneralComponent;
-  let fixture: ComponentFixture<StepGeneralComponent>;
+describe('CitasComponent', () => {
+  let component: GestanteComponent;
+  let fixture: ComponentFixture<GestanteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StepGeneralComponent ]
+      declarations: [ GestanteComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StepGeneralComponent);
+    fixture = TestBed.createComponent(GestanteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

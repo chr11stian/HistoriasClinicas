@@ -4,13 +4,13 @@ import {StepGeneralComponent} from "./component/step-general/step-general.compon
 
 const routes: Routes = [
     {
-        path: "gestante",
+        path: "plan-atencion",
         component: StepGeneralComponent
     },
 
     {
         path: "obstetricia",
-        loadChildren: () => import('src/app/obstetricia-general/citas/atencion/plan-atencion-integral/plan-atencion-integral.module').then(n => n.PlanAtencionIntegralModule),
+        loadChildren: () => import('src/app/obstetricia-general/gestante/atencion/plan-atencion-integral/plan-atencion-integral.module').then(n => n.PlanAtencionIntegralModule),
     },
 
 
