@@ -52,4 +52,12 @@ export class ConsultaComponent implements OnInit {
   regresar(){
     this.location.back();
   }
+
+  editar(){
+    console.log("btn editar");
+  }
+
+  listDiagnosticos(){
+
+  }
 }
