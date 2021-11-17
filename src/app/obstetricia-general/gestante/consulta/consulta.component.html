@@ -1,1 +1,59 @@
-<p>consulta works!</p>
+<p-card>
+    <span class="text-3xl">GESTANTES > Consulta Obstétrica</span>
+    <span class="text-xs"></span>
+    <form [formGroup]="formConsulta">
+        <p-toolbar class="p-mb-4">
+            <ng-template pTemplate="left">
+                <h3 class="p-m-0">CONSULTA</h3>
+            </ng-template>
+            <ng-template pTemplate="right" class="button">
+                <button pButton pRipple label="Regresar" icon="pi pi-arrow-left" class="p-button-primary"
+                    (click)="regresar()"></button>
+            </ng-template>
+        </p-toolbar>
+        <div class="grid">
+            <div class="col-12">
+
+                <p-table [value]="consultas" responsiveLayout="scroll" styleClass="p-datatable-gridlines" [rows]="5"
+                    [paginator]="true" [autoLayout]="true"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    [showCurrentPageReport]="true">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Nro</th>
+                            <!-- <th>DNI</th> -->
+                            <th>CONSULTA</th>
+                            <th>FECHA</th>
+                            <th>PERSONAL DE SALUD</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-consulta let-i="rowIndex">
+                        <tr>
+                            <td>{{i+1}}</td>
+                            <td>{{consulta.consulta}}</td>
+                            <td>{{consulta.fecha}}</td>
+                            <td>{{consulta.personalSalud}}</td>
+                            <td>
+                                <span class="p-buttonset">
+                                    <button pButton pTooltip="Editar" pRipple type="button" label="Editar"
+                                        (click)="editar()">
+                                    </button>
+                                    <button pButton pTooltip="Eliminar" pRipple label="Eliminar" class="p-button-danger"
+                                        type="button">
+                                    </button>
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="col-12 text-right">
+                <button pButton type="button" label="Agregar" class="m-1 w-5rem pButton btnAdd text-center "
+                    (click)="close()"></button>
+                <button pButton type="button" label="Salir" class="m-1 w-5rem p-button-danger"
+                    (click)="close()"></button>
+            </div>
+        </div>
+    </form>
+</p-card>
