@@ -1,0 +1,145 @@
+<p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+        <h3 class="text-base">Del la Institución prestadora de servicion de Salud</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+
+        <button
+                pButton
+                pRipple
+                label="Guardar"
+                icon="pi pi-save"
+                class="p-button-primary"
+                style="background-color: #003c71"
+        ></button>
+    </ng-template>
+</p-toolbar>
+<div class="m-1">
+<!--    primera fila-->
+    <div class="flex flex-wrap justify-content-between">
+        <div class="col-12 md:col-5">
+            <div>CODIGO RENAES DE LA IPRESS</div>
+            <div class="p-fluid mt-2">
+                <input type="text" pInputText />
+            </div>
+        </div>
+        <div class="col-12 md:col-6">
+            <div>NOMBRE DE LA IPRESS QUE REALIZA LA ATENCION</div>
+            <div class="p-fluid mt-2">
+                <input type="text" pInputText />
+            </div>
+        </div>
+
+    </div>
+<!--    segunda fila-->
+    <div class="grid">
+        <div class="col-8 lg:col-4">
+            <p-fieldset legend="Personal que atiende">
+                <div class="grid">
+                    <div class="col-4">
+                        <div>De la Ipress</div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div>Itinerante</div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div>Oferta flexible</div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    <div>Código de la Oferta Flexible</div>
+                    <div class="p-fluid">
+                        <input type="text" pInputText />
+                    </div>
+                </div>
+
+            </p-fieldset>
+        </div>
+        <div class="col-4 lg:col-2">
+            <p-fieldset legend="Personal que atiende">
+                <div class="text-center">
+                    <div>Intramural</div>
+                    <div>
+                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+
+                    </div>
+                </div>
+                <div class="text-center mt-3" >
+                    <div>Extramural</div>
+                    <div>
+                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+
+                    </div>
+
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-4 lg:col-2">
+            <p-fieldset legend="Atención">
+                <div class="text-center mt-3">
+                    <div>Intramural</div>
+                    <div>
+                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <div>Intramural</div>
+                    <div>
+                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <div>Intramural</div>
+                    <div>
+                        <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+
+                    </div>
+                </div>
+
+            </p-fieldset>
+        </div>
+        <div class="col-8 lg:col-4">
+            <p-fieldset legend="Atención">
+                <div class="grid">
+                    <div class="col-5 ">
+                        <div>Código RENAES</div>
+                        <div class="p-fluid">
+                            <input type="text" pInputText />
+                        </div>
+                    </div>
+                    <div class="col-7 ">
+                        <div>N°Hoja de Referencia</div>
+                        <div class="p-fluid">
+                            <input type="text" pInputText />
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    <div>Nombre de la IPRESS u Oferta flexible</div>
+                    <div class="p-fluid">
+                        <input type="text" pInputText />
+                    </div>
+
+                </div>
+
+            </p-fieldset>
+        </div>
+
+    </div>
+</div>

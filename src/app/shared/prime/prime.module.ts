@@ -27,6 +27,11 @@ import { SelectButtonModule } from "primeng/selectbutton";
 import { CalendarModule } from "primeng/calendar";
 import { StepsModule } from "primeng/steps";
 import { CheckboxModule } from "primeng/checkbox";
+import { ToolbarModule } from "primeng/toolbar";
+import { FieldsetModule } from "primeng/fieldset";
+import { PanelModule } from "primeng/panel";
+import {ReactiveFormsModule} from "@angular/forms";
+import {AccordionModule} from 'primeng/accordion';
 
 const importsApi = [
   SelectButtonModule,
@@ -66,6 +71,13 @@ const importsApi = [
   CalendarModule,
   StepsModule,
   CheckboxModule,
+  ToolbarModule,
+  FieldsetModule,
+  PanelModule,
+  ReactiveFormsModule,
+  ToolbarModule,
+  FieldsetModule,
+  AccordionModule,
 ];
 
 @NgModule({
