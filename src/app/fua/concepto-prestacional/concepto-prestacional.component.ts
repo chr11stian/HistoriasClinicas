@@ -6,8 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./concepto-prestacional.component.css']
 })
 export class ConceptoPrestacionalComponent implements OnInit {
+  twoOptions:any[];
 
-  constructor() { }
+  constructor() {
+    this.twoOptions=[{code:"Si",name:"Si"},{
+      code:"No",name:"No"
+    }]
+   }
 
   ngOnInit(): void {
   }
