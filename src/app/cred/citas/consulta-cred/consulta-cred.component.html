@@ -1,1 +1,121 @@
-<p>consulta-cred works!</p>
+<div>
+    <div class="card">
+      <p-card>
+        <div class="grid">
+          <div class="col-9" style="margin: 0px 0px 0px 20px">
+            <span style="font-size: 2em"
+              >CONTROL DE CRECIMIENTO Y DESARROLLO> Consultas</span
+            >
+          </div>
+          <div class="col-12 flex" style="margin: 0px 0px 0px 20px">
+            <div class="col-2">
+              <div class="field grid">
+                <strong
+                  ><label class="line-height-4" for="username2"
+                    >*Tipo de documento:</label
+                  ></strong
+                >
+                <p-dropdown
+                  placeholder="Seleccionar"
+                  [options]="options"
+                  (ngModel)="(selectedOption)"
+                  optionLabel="name"
+                >
+                </p-dropdown>
+              </div>
+            </div>
+            <div class="col-3 align-items-end">
+              <div class="field grid">
+                <strong>
+                  <label class="line-height-4" for="username2">
+                    *Ingrese valor del documento*
+                  </label>
+                </strong>
+                <input style="width: 450px" id="username2" pInputText />
+              </div>
+            </div>
+            <div class="col-1">
+              <button pButton class="boton-red" style="margin-top: 25px">
+                <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;Buscar
+              </button>
+            </div>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  
+    <p-toolbar styleClass="p-mb-4">
+      <ng-template pTemplate="left">
+        <span class="p-m-0"> LISTA DE CONSULTA REALIZADAS EL DIA DE HOY </span>
+      </ng-template>
+      <ng-template pTemplate="right" class="button">
+        <button
+          pButton
+          pRipple
+          routerLink="new-consulta"
+          label="Agregar"
+          icon="pi pi-save"
+          class="p-button-raised p-button-secondary"
+        ></button>
+      </ng-template>
+    </p-toolbar>
+  
+    <p-table
+      responsiveLayout="scroll"
+      [resizableColumns]="true"
+      scrollDirection="both"
+      [value]="citas"
+      #dt
+      styleClass="p-datatable-gridlines"
+      [rows]="10"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [paginator]="true"
+      [autoLayout]="true"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+    >
+      <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+        <tr>
+          <th>Nro</th>
+          <th>DNI</th>
+          <th>APELLIDOS</th>
+          <th>NOMBRES</th>
+          <th>CONSULTORIO</th>
+          <th>HORARIO</th>
+          <th>FECHA</th>
+          <th>ACCIONES</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+        <tr>
+          <td>{{ rowIndex + 1 }}</td>
+          <td>{{ rowData.dni }}</td>
+          <td>{{ rowData.apellidos }}</td>
+          <td>{{ rowData.nombres }}</td>
+          <td>{{ rowData.consultorio }}</td>
+          <td>{{ rowData.horario }}</td>
+          <td>{{ rowData.fecha }}</td>
+          <td>
+            <span class="p-buttonset">
+              <button
+                pButton
+                pRipple
+                routerLink="new-consulta"
+                class="p-button-info"
+                label="Editar"
+                icon="pi pi-check"
+              ></button>
+              <button
+                pButton
+                pRipple
+                class="p-button-danger"
+                label="Cancelar"
+                icon="pi pi-times"
+              ></button>
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  
