@@ -8,6 +8,8 @@ import { ConsultaCredComponent } from './citas/consulta-cred/consulta-cred.compo
 import { ConsultaCredGeneralComponent } from './consulta-cred-general/consulta-cred-general.component';
 import { AtencionCredModule } from './citas/atencion-cred/atencion-cred.module';
 import { PaginatorModule } from 'primeng/paginator';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ReproCitasComponent } from './citas/repro-citas/repro-citas.component';
 
 
 @NgModule({
@@ -15,6 +17,7 @@ import { PaginatorModule } from 'primeng/paginator';
     CitasComponent,
     ConsultaCredComponent,
     ConsultaCredGeneralComponent,
+    ReproCitasComponent,
   ],
   imports: [
     PrimeModule,
@@ -22,6 +25,7 @@ import { PaginatorModule } from 'primeng/paginator';
     CredRoutingModule,
     AtencionCredModule,
     PaginatorModule,
+    DynamicDialogModule
   ]
 })
 export class CredModule { }
