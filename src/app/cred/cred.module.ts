@@ -18,6 +18,10 @@ import {SelectButtonModule} from 'primeng/selectbutton'
 import {DropdownModule} from 'primeng/dropdown'
 import {EvaluacionGeneralModule} from './evaluacion-general/evaluacion-general.module'
 import {SharedModule} from '../shared/shared.module'
+import {RippleModule} from 'primeng/ripple';
+import { WeightChartComponent } from './modals/weight-chart/weight-chart.component';
+import { HeightChartComponent } from './modals/height-chart/height-chart.component';
+import { HeightWeightComponent } from './modals/height-weight/height-weight.component'
 
 
 @NgModule({
@@ -30,6 +34,9 @@ import {SharedModule} from '../shared/shared.module'
         PersonalComponent,
         FamiliarComponent,
         ViviendaComponent,
+        WeightChartComponent,
+        HeightChartComponent,
+        HeightWeightComponent,
 
     ],
     imports: [
@@ -42,7 +49,8 @@ import {SharedModule} from '../shared/shared.module'
         SelectButtonModule,
         DropdownModule,
         EvaluacionGeneralModule,
-        SharedModule
+        SharedModule,
+        RippleModule
     ]
 })
 export class CredModule {
