@@ -3,38 +3,42 @@
         <h3 class="text-base">Concepto Prestacional</h3>
     </ng-template>
     <ng-template pTemplate="right" class="button">
-          <button
-            pButton
-            pRipple
-            label="Guardar"
-            icon="pi pi-save"
-            class="p-button-primary"
-            style="background-color: #003c71"
-          ></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"
+            style="background-color: #003c71"></button>
     </ng-template>
 </p-toolbar>
-<div class="m-1" >
+<div class="m-1">
     <div class="grid">
         <div class="col-12 md:col-6 lg:col-4">
             <p-fieldset legend="Atencion">
                 <div class="grid">
-                    <div class="col-5 align-self-start">
-                        <div>
+                    <div class="col-4 align-self-start">
+                        <div class="text-center">
                             Atencion Directa
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
-                    <div class="col-7 align-self-end">
-                        <div>COB EXTRAORDINARIA</div>
-                        <div>N° de Autorizacion:</div>
-                        <div class="p-fluid">
-                            <input type="text" pInputText placeholder="Ingresa Nro autorizacion">
+                    <div class="col-8 align-self-end">
+                        <div class="text-center">COB EXTRAORDINARIA</div>
+                        <br />
+                        <div class="grid">
+                            <div class="col-5">
+                                N° de Autorizacion:
+                            </div>
+                            <div class="col-7 p-fluid">
+                                <input type="text" pInputText placeholder="Ingresa Nro autorizacion">
+                            </div>
                         </div>
-                        <div>Monto S/.</div>
-                        <div class="p-fluid">
-                            <input type="text" pInputText placeholder="Ingresa Monto">
+                        <div class="grid">
+                            <div class="col-5">
+                                Monto S/.
+                            </div>
+                            <div class="col-7 p-fluid">
+                                <input type="text" pInputText placeholder="Ingresa Monto">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -43,23 +47,33 @@
         <div class="col-12 md:col-6 lg:col-4">
             <p-fieldset legend="Traslado y Carta de garantia">
                 <div class="grid">
-                    <div class="col-5 align-self-start">
-                        <div>
+                    <div class="col-4 align-self-start">
+                        <div class="text-center">
                             Traslado
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
-                    <div class="col-7 align-self-end">
-                        <div>CARTA DE GARANTIA</div>
-                        <div>N° de Autorizacion:</div>
-                        <div class="p-fluid">
-                            <input type="text" pInputText placeholder="Ingresa Nro autorizacion">
+                    <div class="col-8 align-self-end">
+                        <div class="text-center">CARTA DE GARANTIA</div>
+                        <br />
+                        <div class="grid">
+                            <div class="col-5">
+                                N° de Autorizacion:
+                            </div>
+                            <div class="col-7 p-fluid">
+                                <input type="text" pInputText placeholder="Ingresa Nro autorizacion">
+                            </div>
                         </div>
-                        <div>Monto S/.</div>
-                        <div class="p-fluid">
-                            <input type="text" pInputText placeholder="Ingresa Monto">
+                        <div class="grid">
+                            <div class="col-5">
+                                Monto S/.
+                            </div>
+                            <div class="col-7 p-fluid">
+                                <input type="text" pInputText placeholder="Ingresa Monto">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,13 +81,14 @@
         </div>
         <div class="col-12 md:col-6 lg:col-4">
             <p-fieldset legend="Sepelio">
-                <div class="grid">
+                <div class="grid text-center">
                     <div class="col-4 align-self-start">
                         <div>
                             Natimuerto
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                     <div class="col-4 align-self-start">
@@ -81,7 +96,8 @@
                             Natimuerto
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                     <div class="col-4 align-self-start">
@@ -89,7 +105,8 @@
                             Natimuerto
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                 </div>
@@ -102,27 +119,22 @@
         <h3 class="text-base">Del Destino del Asegurado / Usuario</h3>
     </ng-template>
     <ng-template pTemplate="right" class="button">
-          <button
-            pButton
-            pRipple
-            label="Guardar"
-            icon="pi pi-save"
-            class="p-button-primary"
-            style="background-color: #003c71"
-          ></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"
+            style="background-color: #003c71"></button>
     </ng-template>
 </p-toolbar>
-<div class="m-1" >
+<div class="m-1">
     <div class="grid">
         <div class="col-12 md:col-6 lg:col-4">
             <div class="margen border-300">
-                <div class="grid">
+                <div class="grid text-center">
                     <div class="col-4 align-self-start">
                         <div>
                             Alta
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                     <div class="col-4 align-self-start">
@@ -130,7 +142,8 @@
                             Cita
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                     <div class="col-4 align-self-start">
@@ -138,7 +151,8 @@
                             Hospitalización
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                 </div>
@@ -146,13 +160,14 @@
         </div>
         <div class="col-12 md:col-6 lg:col-4">
             <p-fieldset legend="Traslado y Carta de garantia">
-                <div class="grid">
+                <div class="grid text-center">
                     <div class="col-4 align-self-end">
                         <div>
                             Emergencia
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                     <div class="col-4 align-self-start">
@@ -160,7 +175,8 @@
                             Consulta Externa
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                     <div class="col-4 align-self-start">
@@ -168,7 +184,8 @@
                             Apoyo al diagnostico
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                 </div>
@@ -176,13 +193,14 @@
         </div>
         <div class="col-12 md:col-6 lg:col-4">
             <div class="margen border-300">
-                <div class="grid">
+                <div class="grid text-center">
                     <div class="col-4 align-self-start">
                         <div>
                             Contrareferido
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                     <div class="col-4 align-self-start">
@@ -190,7 +208,8 @@
                             Fallecido
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                     <div class="col-4 align-self-start">
@@ -198,7 +217,8 @@
                             Corte Adminis.
                         </div>
                         <div>
-                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code">
+                            </p-selectButton>
                         </div>
                     </div>
                 </div>
