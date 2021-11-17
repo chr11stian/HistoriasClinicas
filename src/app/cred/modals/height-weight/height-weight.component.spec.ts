@@ -1,18 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {IpressComponent} from "./ipress.component";
-describe('IpreesComponent', () => {
-  let component: IpressComponent;
-  let fixture: ComponentFixture<IpressComponent>;
+
+import { HeightWeightComponent } from './height-weight.component';
+
+describe('HeightWeightComponent', () => {
+  let component: HeightWeightComponent;
+  let fixture: ComponentFixture<HeightWeightComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IpressComponent ]
+      declarations: [ HeightWeightComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IpressComponent);
+    fixture = TestBed.createComponent(HeightWeightComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

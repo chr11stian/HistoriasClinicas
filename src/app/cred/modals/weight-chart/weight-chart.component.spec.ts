@@ -1,18 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {IpressComponent} from "./ipress.component";
-describe('IpreesComponent', () => {
-  let component: IpressComponent;
-  let fixture: ComponentFixture<IpressComponent>;
+
+import { WeightChartComponent } from './weight-chart.component';
+
+describe('WeightChartComponent', () => {
+  let component: WeightChartComponent;
+  let fixture: ComponentFixture<WeightChartComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IpressComponent ]
+      declarations: [ WeightChartComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(IpressComponent);
+    fixture = TestBed.createComponent(WeightChartComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
