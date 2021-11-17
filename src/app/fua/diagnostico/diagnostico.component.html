@@ -1,26 +1,38 @@
 <div class="grid">
     <div class="col-12">
+        <p-toolbar class="p-mb-4">
+            <ng-template pTemplate="left">
+                <h3 class="p-m-0">Diagnósticos</h3>
+            </ng-template>
+            <ng-template pTemplate="right" class="button">
+                <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
+                    (click)="openDialogAgregarRedServicios()"></button>
+            </ng-template>
+        </p-toolbar>
         <p-table [value]="listDiagnosticos" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
-                    <th rowspan="2">Product</th>
-                    <th colspan="12">Sale Rateeess</th>
+                    <th rowspan="3">#</th>
+                    <th rowspan="3" style="width: 30em; text-align: center;">Descripción</th>
+                    <!-- <th colspan="1"></th> -->
                 </tr>
                 <tr>
                     <th colspan="1"></th>
-                    <th colspan="1">INGRESO</th>
-                    <th colspan="1">EGRESOS</th>
+                    <th colspan="2" style="text-align: center;">INGRESO</th>
+                    <!-- <th colspan="1"></th> -->
+                    <th colspan="2" style="text-align: center;">EGRESOS</th>
                 </tr>
                 <tr>
-                    <th>Last Year</th>
-                    <th>This Year</th>
-                    <th>Last Year</th>
-                    <th>This Year</th>
+                    <th></th>
+                    <th>Tipo de DX</th>
+                    <th>CIE-10</th>
+                    <th>Tipo de DX</th>
+                    <th>CIE-10</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-sale>
                 <tr>
-                    <td>{{sale.product}}</td>
+                    <td>{{s}}</td>
                     <td>{{sale.lastYearSale}}%</td>
                     <td>{{sale.thisYearSale}}%</td>
                     <td>{{sale.lastYearProfit | currency: 'USD'}}</td>
