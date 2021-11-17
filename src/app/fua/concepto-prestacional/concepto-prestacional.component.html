@@ -1,1 +1,208 @@
-<p>concepto-prestacional works!</p>
+<p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+        <h3 class="text-base">Concepto Prestacional</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+          <button
+            pButton
+            pRipple
+            label="Guardar"
+            icon="pi pi-save"
+            class="p-button-primary"
+            style="background-color: #003c71"
+          ></button>
+    </ng-template>
+</p-toolbar>
+<div class="m-1" >
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-4">
+            <p-fieldset legend="Atencion">
+                <div class="grid">
+                    <div class="col-5 align-self-start">
+                        <div>
+                            Atencion Directa
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="col-7 align-self-end">
+                        <div>COB EXTRAORDINARIA</div>
+                        <div>N° de Autorizacion:</div>
+                        <div class="p-fluid">
+                            <input type="text" pInputText placeholder="Ingresa Nro autorizacion">
+                        </div>
+                        <div>Monto S/.</div>
+                        <div class="p-fluid">
+                            <input type="text" pInputText placeholder="Ingresa Monto">
+                        </div>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-6 lg:col-4">
+            <p-fieldset legend="Traslado y Carta de garantia">
+                <div class="grid">
+                    <div class="col-5 align-self-start">
+                        <div>
+                            Traslado
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="col-7 align-self-end">
+                        <div>CARTA DE GARANTIA</div>
+                        <div>N° de Autorizacion:</div>
+                        <div class="p-fluid">
+                            <input type="text" pInputText placeholder="Ingresa Nro autorizacion">
+                        </div>
+                        <div>Monto S/.</div>
+                        <div class="p-fluid">
+                            <input type="text" pInputText placeholder="Ingresa Monto">
+                        </div>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-6 lg:col-4">
+            <p-fieldset legend="Sepelio">
+                <div class="grid">
+                    <div class="col-4 align-self-start">
+                        <div>
+                            Natimuerto
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="col-4 align-self-start">
+                        <div>
+                            Natimuerto
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="col-4 align-self-start">
+                        <div>
+                            Natimuerto
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+    </div>
+</div>
+<p-toolbar styleClass="mb-4">
+    <ng-template pTemplate="left">
+        <h3 class="text-base">Del Destino del Asegurado / Usuario</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+          <button
+            pButton
+            pRipple
+            label="Guardar"
+            icon="pi pi-save"
+            class="p-button-primary"
+            style="background-color: #003c71"
+          ></button>
+    </ng-template>
+</p-toolbar>
+<div class="m-1" >
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-4">
+            <div class="margen border-300">
+                <div class="grid">
+                    <div class="col-4 align-self-start">
+                        <div>
+                            Alta
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="col-4 align-self-start">
+                        <div>
+                            Cita
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="col-4 align-self-start">
+                        <div>
+                            Hospitalización
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 md:col-6 lg:col-4">
+            <p-fieldset legend="Traslado y Carta de garantia">
+                <div class="grid">
+                    <div class="col-4 align-self-end">
+                        <div>
+                            Emergencia
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="col-4 align-self-start">
+                        <div>
+                            Consulta Externa
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="col-4 align-self-start">
+                        <div>
+                            Apoyo al diagnostico
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-6 lg:col-4">
+            <div class="margen border-300">
+                <div class="grid">
+                    <div class="col-4 align-self-start">
+                        <div>
+                            Contrareferido
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="col-4 align-self-start">
+                        <div>
+                            Fallecido
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="col-4 align-self-start">
+                        <div>
+                            Corte Adminis.
+                        </div>
+                        <div>
+                            <p-selectButton [options]="twoOptions" optionLabel="name" optionValue="code"></p-selectButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
