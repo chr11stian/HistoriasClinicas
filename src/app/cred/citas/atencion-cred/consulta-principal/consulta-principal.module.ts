@@ -11,6 +11,9 @@ import { FinalizarConsultaComponent } from './component/finalizar-consulta/final
 import { PrimeModule } from 'src/app/shared/prime/prime.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StepGeneralComponent } from './component/step-general/step-general.component';
+import {RippleModule} from 'primeng/ripple'
+import {SharedModule} from '../../../../shared/shared.module'
+import {DividerModule} from 'primeng/divider'
 
 @NgModule({
   declarations: [
@@ -21,12 +24,15 @@ import { StepGeneralComponent } from './component/step-general/step-general.comp
     FinalizarConsultaComponent,
     StepGeneralComponent
   ],
-  imports: [
-    CommonModule,
-    ConsultaPrincipalRoutingModule,
-    PrimeModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ]
+    imports: [
+        CommonModule,
+        ConsultaPrincipalRoutingModule,
+        PrimeModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RippleModule,
+        SharedModule,
+        DividerModule,
+    ]
 })
 export class ConsultaPrincipalModule { }

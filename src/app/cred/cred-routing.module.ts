@@ -20,6 +20,7 @@ const routes: Routes = [
   {
     path: "citas",
     loadChildren: () => import('src/app/cred/cred.module').then(n => n.CredModule),
+
   },
 ];
 
