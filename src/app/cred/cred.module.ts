@@ -8,22 +8,29 @@ import { ConsultaCredComponent } from './citas/consulta-cred/consulta-cred.compo
 import { ConsultaCredGeneralComponent } from './consulta-cred-general/consulta-cred-general.component';
 import { AtencionCredModule } from './citas/atencion-cred/atencion-cred.module';
 import { PaginatorModule } from 'primeng/paginator';
-
+import { WeightChartComponent } from './modals/weight-chart/weight-chart.component';
+import { HeightChartComponent } from './modals/height-chart/height-chart.component';
+import { HeightWeightComponent } from './modals/height-weight/height-weight.component'
+import {SharedModule} from '../shared/shared.module'
+import {RippleModule} from 'primeng/ripple';
 
 @NgModule({
-  declarations: [
-    CitasComponent,
-    ConsultaCredComponent,
-    ConsultaCredGeneralComponent,
-
-  ],
-  imports: [
-    PrimeModule,
-    CommonModule,
-    CredRoutingModule,
-    AtencionCredModule,
-    PaginatorModule,
-
-  ]
+    declarations: [
+        CitasComponent,
+        ConsultaCredComponent,
+        ConsultaCredGeneralComponent,
+        WeightChartComponent,
+        HeightChartComponent,
+        HeightWeightComponent
+    ],
+    imports: [
+        PrimeModule,
+        CommonModule,
+        CredRoutingModule,
+        AtencionCredModule,
+        PaginatorModule,
+        SharedModule,
+        RippleModule
+    ]
 })
 export class CredModule { }

@@ -1,9 +1,14 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {CitasComponent} from "./citas/citas.component";
-import {ConsultaComponent} from "./citas/consulta/consulta.component";
+import {CitasComponent} from "./citas.component";
+import {ConsultaComponent} from "./gestante/consulta/consulta.component";
+import {GestanteComponent} from "./gestante/gestante.component";
 
 const routes: Routes = [
+    {
+        path: "gestante",
+        component: GestanteComponent
+    },
     {
         path: "citas",
         component: CitasComponent
@@ -13,11 +18,21 @@ const routes: Routes = [
         path: "consulta",
         component: ConsultaComponent
     },
-
     {
         path: "citas",
         loadChildren: () => import('src/app/obstetricia-general/obstetricia-general.module').then(n => n.ObstetriciaGeneralModule),
     },
+
+    {
+        path: "citas",
+        loadChildren: () => import('src/app/obstetricia-general/gestante/atencion/atencion.module').then(n => n.AtencionModule),
+    },
+
+    {
+        path: "gestante",
+        loadChildren: () => import('src/app/obstetricia-general/gestante/atencion/atencion.module').then(n => n.AtencionModule),
+    },
+
 ];
 
 @NgModule({
