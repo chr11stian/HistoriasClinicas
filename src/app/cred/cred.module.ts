@@ -10,6 +10,7 @@ import { AtencionCredModule } from './citas/atencion-cred/atencion-cred.module';
 import { PaginatorModule } from 'primeng/paginator';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ReproCitasComponent } from './citas/repro-citas/repro-citas.component';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 
 @NgModule({
@@ -25,7 +26,9 @@ import { ReproCitasComponent } from './citas/repro-citas/repro-citas.component';
     CredRoutingModule,
     AtencionCredModule,
     PaginatorModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    ToggleButtonModule
+    
   ]
 })
 export class CredModule { }

@@ -14,6 +14,7 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {PrimeModule} from './shared/prime/prime.module'
 import {ChartModule} from 'primeng/chart';
 import {DividerModule} from "primeng/divider";
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 
 @NgModule({
@@ -32,7 +33,9 @@ import {DividerModule} from "primeng/divider";
         ReactiveFormsModule,
         ChartModule,
         ReactiveFormsModule,
-        DividerModule
+        DividerModule,
+        ToggleButtonModule
+        
     ],
     providers: [ConfirmationService],
     bootstrap: [AppComponent]
