@@ -1,0 +1,24 @@
+.azul {
+    max-width: 40%;
+    height: 7em;
+    background: #0C3866;
+    margin-top: 2px;
+    border: rgba(0, 0, 0,0.13) 1px ridge;
+    text-align: center;
+}
+.blanco {
+     max-width: 60%;
+     height: 7em;
+     background: #FFFFFF;
+     margin-top: 2px;
+     border: rgba(0, 0, 0,0.13) 1px ridge;
+}
+.apgar{
+    max-width: 100%;
+    height: 7em;
+    background: #FFFFFF;
+    margin-top: 2px;
+    border: rgba(0, 0, 0,0.13) 1px ridge;
+    text-align: center;
+
+}
