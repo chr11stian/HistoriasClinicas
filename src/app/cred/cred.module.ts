@@ -14,7 +14,6 @@ import { HeightWeightComponent } from './modals/height-weight/height-weight.comp
 import {SharedModule} from '../shared/shared.module'
 import {RippleModule} from 'primeng/ripple';
 
-
 @NgModule({
     declarations: [
         CitasComponent,
