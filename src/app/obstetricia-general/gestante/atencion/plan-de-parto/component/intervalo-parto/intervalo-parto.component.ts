@@ -20,6 +20,8 @@ export class IntervaloPartoComponent implements OnInit {
     this.form = this.formBuilder.group({
       descripcion: ['', [Validators.required]],
       dondeParto: ['', [Validators.required]],
+      posicionParto: ['', [Validators.required]],
+      transporteParto: ['', [Validators.required]],
       selected: ['', [Validators.required]],
     })
   }
