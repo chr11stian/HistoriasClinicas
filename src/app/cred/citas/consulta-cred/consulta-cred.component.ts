@@ -1,3 +1,4 @@
+import { Location } from "@angular/common"
 import { Component, OnInit } from "@angular/core"
 
 @Component({
@@ -10,7 +11,7 @@ export class ConsultaCredComponent implements OnInit {
   citas: any[]
   selectedOption: data
 
-  constructor() {
+  constructor(private location: Location) {
     ;(this.options = [
       { name: "DNI", code: 1 },
       { name: "CARNET RN", code: 2 },
@@ -40,8 +41,13 @@ export class ConsultaCredComponent implements OnInit {
         },
       ])
   }
-
+  consulta() {
+    console.log("consulta principal")
+  }
   ngOnInit(): void {}
+  regresar() {
+    this.location.back()
+  }
 }
 
 interface data {
