@@ -58,3 +58,15 @@ p-dropdown>>>.p-dropdown{
     display:block;
     margin:auto;
 }
+p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
+    content: url("src\assets\svg-icons\check-svgrepo-com.svg");    
+}
+/*clase radio button azul default*/
+::ng-deep .azul .p-radiobutton .p-radiobutton-icon{
+    background:  #2196F3;
+    border:  #2196F3;
+}
+
+p-calendar >>> .p-calendar .p-component {
+    border-radius: 10px;  
+}
