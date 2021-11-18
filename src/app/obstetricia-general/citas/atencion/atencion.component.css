@@ -5,3 +5,6 @@
     background: #5B5B5B;
     border-radius: 10px;
 }
+::ng-deep >>>.colorIconoCalendar .p-calendar .p-calendar-w-btn{
+    background-color: red;
+}
