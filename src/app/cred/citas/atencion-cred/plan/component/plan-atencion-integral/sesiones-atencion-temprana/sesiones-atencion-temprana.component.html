@@ -1,0 +1,74 @@
+<div class="grid">
+    <div class="lg:col-4 col-fixed">
+        <div class=" mb-2">
+            <div class="col flex justify-content-end">
+                <div>
+                    <button pButton pRipple label="Atención nueva" class="guardar" icon="pi pi-plus-circle" styleClass="p-button"></button>
+                </div>
+            </div>
+        </div>
+        <p-fieldset legend="Sesiones de Atención Temprana" [toggleable]="true">
+            <div class="card flex flex-column">
+                <div class="field grid">
+                    <span class="col-fixed text-right mr-2" style="width:30px">1°:</span>
+                    <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                    <div style="width:110px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                    </div>
+                </div>
+                <div class="field grid">
+                    <span class="col-fixed text-right mr-2" style="width:30px">2°:</span>
+                    <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                    <div style="width:110px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                    </div>
+                </div>
+                <div class="field grid">
+                    <span class="col-fixed text-right mr-2" style="width:30px">3°:</span>
+                    <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                    <div style="width:110px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                    </div>
+                </div>
+                <div class="field grid">
+                    <span class="col-fixed text-right mr-2" style="width:30px">4°:</span>
+                    <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                    <div style="width:110px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                    </div>
+                </div>
+                <div class="field grid">
+                    <span class="col-fixed text-right mr-2" style="width:30px">5°:</span>
+                    <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
+                    <div style="width:110px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                    </div>
+                </div>
+            </div>
+        </p-fieldset>  
+    </div>
+    <div class="lg:col-8 col-fixed">
+        <p-fieldset legend="Materiales - Atención Temprana" [toggleable]="true">
+            <div class="card flex flex-row">
+                <div class="col-6 col-fixed">
+                    <p-card header="Material Sesión 01" subheader="Nombre de la sesión" styleClass="p-card-shadow">
+                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>
+                    </p-card>
+                    <br>
+                    <p-card header="Material Sesión 03" subheader="Nombre de la sesión" styleClass="p-card-shadow">
+                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>
+                    </p-card>
+                </div>
+                <div class="col-6 col-fixed">
+                    <p-card header="Material Sesión 02" subheader="Nombre de la sesión" styleClass="p-card-shadow">
+                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>
+                    </p-card>
+                    <br>
+                    <p-card header="Material Sesión 04" subheader="Nombre de la sesión" styleClass="p-card-shadow">
+                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>
+                    </p-card>
+                </div>
+            </div>
+        </p-fieldset>  
+    </div>
+</div>
