@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { GraphicComponent } from './components/graphic/graphic.component';
-import {NgxEchartsModule} from 'ngx-echarts'
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {GraphicComponent} from './components/graphic/graphic.component';
+import {NgxEchartsModule} from "ngx-echarts";
 
 
 @NgModule({
@@ -17,4 +16,5 @@ import {NgxEchartsModule} from 'ngx-echarts'
         NgxEchartsModule
     ]
 })
-export class SharedModule { }
+export class SharedModule {
+}
