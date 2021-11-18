@@ -1,56 +1,48 @@
-<p-panel>
-    <ng-template pTemplate="header">
-        <h3 class="m-1">GESTANTES</h3>
-    </ng-template>
+<div class="container">
+    <p-panel>
+        <ng-template pTemplate="header">
+            <h3 class="m-1">GESTANTES</h3>
+        </ng-template>
 
-    <div class="grid">
-       <div class="col-6">
-            <div class=" d-flex alig-items-center;">
-                <img class="d-flex alig-items-center; logo_Region" src="../../assets/images/gestante.png">
+        <div class="grid">
+            <div class="col-4">
+                <div class=" d-flex">
+                    <div class="imagen"></div>
+                </div>
             </div>
-        </div>
-        <div class="col-6">
-            <div class=" d-flex alig-items-center;">
-                <p>
-
+            <div class="col-6">
+                <h1 class="font1">¡Iniciemos!</h1>
+                <p class="font2">
+                    Puedes empezar seleccionando “Plan de Atención Integral"
+                    Cada una de las secciones contiene todo lo que necesitas
+                    para completar su primera consulta.
                 </p>
             </div>
         </div>
-    </div>
-    <div class="grid">
-        <div class="col-12 md:col-6 lg:col-3 p-field">
-            <button pButton pRipple type="button" routerLink="plan-atencion" class="p-button-raised p-button-secondary">
-                PLAN DE ATENCIÓN INTEGRAL
-            </button>
-
-        </div>
-
-
-        <div class="col-12 md:col-6 lg:col-3 p-field">
-            <button pButton pRipple type="button" routerLink="consulta-principal"
-                    class="p-button-raised p-button-secondary">
-                CONSULTA PRINCIPAL
-            </button>
-
-        </div>
-
-
-        <div class="col-12 md:col-6 lg:col-3 p-field">
-            <button pButton pRipple type="button" routerLink="plan-de-parto" class="p-button-raised p-button-secondary">
-                PLAN DE PARTO
-            </button>
-        </div>
-
-
-        <div class="col-12 md:col-6 lg:col-3 p-field">
-            <button pButton pRipple type="button" routerLink="examenes" class="p-button-raised p-button-secondary">
-                OTROS EXAMENES
-            </button>
-        </div>
-
-    </div>
-
-</p-panel>
+        <span class="grid">
+            <div class="col-12 md:col-6 lg:col-3" p-field>
+                <button pButton pRipple type="button" routerLink="plan-atencion"
+                        icon="pi pi-plus-circle" label="PLAN DE ATENCIÓN INTEGRAL"
+                        class="p-button-raised p-button-secondary"></button>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3" p-field>
+                <button pButton pRipple type="button" routerLink="consulta-principal"
+                        label="CONSULTA PRINCIPAL" icon="pi pi-plus-circle"
+                        class="p-button-raised p-button-secondary"></button>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3" p-field>
+                <button pButton pRipple type="button" routerLink="plan-de-parto"
+                        label="PLAN DE PARTO" icon="pi pi-plus-circle"
+                        class="p-button-raised p-button-secondary"></button>
+            </div>
+             <div class="col-12 md:col-6 lg:col-3" p-field>
+               <button pButton type="button" pRipple routerLink="examenes"
+                       label="OTROS EXAMENES" icon="pi pi-plus-circle"
+                       class="p-button-raised p-button-secondary"></button>
+             </div>
+        </span>
+    </p-panel>
+</div>
 
 
 

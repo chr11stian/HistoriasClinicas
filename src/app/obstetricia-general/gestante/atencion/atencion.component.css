@@ -4,4 +4,90 @@
     text-align: center;
     background: #5B5B5B;
     border-radius: 10px;
+    display: flex;
+
+}
+.container{
+    width: 100%;
+    max-height: 80%
+}
+.imagen{
+    content: url("src\assets\images\gestanteParto.svg");
+    margin:auto;
+    width: 150px;
+    max-width: 70%;
+    max-heigth: 50%;
+}
+
+@media only screen and (max-width: 600px) {
+    .font1{
+        font-size: 22px;
+        color:#AF0017;
+        text-align: center;
+    }
+    .font2{
+        font-size: 18px;
+        text-align: center;
+    }
+
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 601px) {
+    .font1{
+        font-size: 35px;
+        color:#AF0017;
+        text-align: center;
+    }
+    .font2{
+        font-size: 22px;
+        text-align: center;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .font1{
+        font-size: 40px;
+        color:#AF0017;
+        text-align: center;
+    }
+    .font2{
+        font-size: 28px;
+        text-align: center;
+    }
+
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .font1{
+        font-size: 48px;
+        color:#AF0017;
+        text-align: center;
+    }
+    .font2{
+        font-size: 28px;
+        text-align: center;
+    }
+
+
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .font1{
+        font-size: 80px;
+        color:#AF0017;
+        text-align: center;
+    }
+    .font2{
+        font-size: xx-large;
+        text-align: center;
+    }
+
+   .container{
+       max-height: 80%;
+   }
+
+
 }
