@@ -1,20 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GraphicComponent } from './components/graphic/graphic.component';
-import {NgxEchartsModule} from 'ngx-echarts'
+import {NgxEchartsModule} from 'ngx-echarts';
+import { SelectBtnComponent } from './components/select-btn/select-btn.component'
+import {PrimeModule} from './prime/prime.module'
 
 
 
 @NgModule({
     declarations: [
-        GraphicComponent
+        GraphicComponent,
+        SelectBtnComponent
     ],
     exports: [
-        GraphicComponent
+        GraphicComponent,
+        SelectBtnComponent
     ],
     imports: [
         CommonModule,
-        NgxEchartsModule
+        NgxEchartsModule,
+        PrimeModule
     ]
 })
 export class SharedModule { }
