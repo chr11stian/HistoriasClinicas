@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-s-refiere-contrarefiere',
@@ -7,9 +8,29 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SRefiereContrarefiereComponent implements OnInit {
 
-  constructor() { }
+  formRefContraref: FormGroup;
+  data:any[]=[];
+  sino = [
+    { label: 'SI', value: 'SI' },
+    { label: 'NO', value: 'NO' }
+  ];
+  TamizajeOptions=[
+    {label:'PAT.', value: 'PAT'},
+    {label:'NOR.', value: 'NOR'}
+  ];
+  constructor(private form: FormBuilder) { }
 
   ngOnInit(): void {
+    this.buildForm();
+  }
+  buildForm(){
+    this.formRefContraref = this.form.group({
+      // apPaterno: new FormControl(''),
+      // // ApMaterno: new FormControl(''),
+      // // nombres: new FormControl(''),
+      // aplica: new FormControl(''),
+      // referencia: new FormControl(''),
+    })
   }
 
 }

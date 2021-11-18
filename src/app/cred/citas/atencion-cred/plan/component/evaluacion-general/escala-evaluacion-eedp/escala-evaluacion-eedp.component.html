@@ -1,1 +1,110 @@
-<p>escala-evaluacion-eedp works!</p>
+<div>
+    <div class="container_steps">
+        <div *ngFor="let item of items; index as indexItem">
+            <div *ngIf="indexItem === indexSelected" >
+                <div class="steps">
+                    <div class="div-titulo-nro">
+                        <label class="steps-titulo-edadNro">{{item.edadNro}}</label>
+                    </div>
+                    <div class="div-line"></div>
+                    <div class="div-titulo-mes">
+                        <label class="steps-titulo-edadMes">{{item.edad}}</label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="indexItem !== indexSelected">
+                <div class="steps_NoSelected" (click)="ChangeStep(indexItem, item.edadNro, item.edad)">
+                    <div class="div-titulo-nro">
+                        <label class="steps-titulo-edadNro">{{item.edadNro}}</label>
+                    </div>
+                    <div class="div-line"></div>
+                    <div class="div-titulo-mes">
+                        <label class="steps-titulo-edadMes">{{item.edad}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_line_Separate_card"></div>
+
+    <div>
+        <p-fieldset legend="{{edadNroSelected + ' ' + edadSelected}}">
+            <div class="container_input_datos">
+                <div>
+                    <label class="label">N</label >
+                    <input class="input" id="Nvalue" pInputText />
+                </div>
+                <div style="margin-left: 20px;">
+                    <label class="label">D</label >
+                    <input class="input" id="Dvalue" pInputText />
+                </div>
+                <div style="margin-left: 40px;">
+                    <label class="label_fecha" style="margin-right: 8px;">Fecha</label >
+                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                </div>
+                <div style="margin-left: 40px;">
+                    <label class="label_fecha">Examinador</label >
+                    <input class="input_examinador" pInputText placeholder="Ingrese Examinador" />
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <p-table
+                    dataKey="id"
+                    [value]="arrayEdadEEDPSelected"
+                    responsiveLayout="scroll"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th rowspan="2" colspan="8">ITEM</th>
+                            <th colspan="2">{{'PUNTAJE ' + puntaje + ' C/U'}}</th>
+                            <th colspan="4">PAUTA BREVE</th>
+                        </tr>
+                        
+                        <tr>
+                            <th colspan="2">EEDP</th>
+                            <th colspan="2">N</th>
+                            <th colspan="2">R</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-datos>
+                        <tr>
+                            <td colspan="2">{{datos.codEvaluacion}}</td>
+                            <td colspan="6" pEditableColumn>{{datos.evaluacion}}</td>
+                            <td colspan="2">
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input style="width:50px; text-align: center;" pInputText type="number" [(ngModel)]="datos.eedpValue">
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        <input style="width:50px" pInputText type="number" [(ngModel)]="datos.eedpValue">
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td colspan="2">
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-checkbox [(ngModel)]="datos.pautaBreveN" binary="true" inputId="binary"></p-checkbox>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        <p-checkbox [(ngModel)]="datos.pautaBreveN" binary="true" inputId="binary"></p-checkbox>
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td colspan="2">
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-checkbox [(ngModel)]="datos.pautaBreveD" binary="true" inputId="binary"></p-checkbox>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        <p-checkbox [(ngModel)]="datos.pautaBreveD" binary="true" inputId="binary"></p-checkbox>
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-fieldset>
+    </div>
+</div>

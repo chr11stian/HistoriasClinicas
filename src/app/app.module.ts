@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {ConfirmationService} from 'primeng/api';
 import {AppRoutingModule} from './app-routing.module';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
 import {AppComponent} from './app.component';
@@ -13,6 +14,7 @@ import {LoginComponent} from './login/login.component';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {PrimeModule} from './shared/prime/prime.module'
 import {ChartModule} from 'primeng/chart';
+import {DividerModule} from "primeng/divider";
 
 
 @NgModule({
@@ -30,7 +32,12 @@ import {ChartModule} from 'primeng/chart';
         PrimeModule,
         ReactiveFormsModule,
         ChartModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        DividerModule,
+        NgxEchartsModule.forRoot({
+            echarts: () => import('echarts'),
+        }),
+
     ],
     providers: [ConfirmationService],
     bootstrap: [AppComponent]

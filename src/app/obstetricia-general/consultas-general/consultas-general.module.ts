@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NuevaConsultaComponent} from "./nueva-consulta/nueva-consulta.component";
 import {ConsultasGeneralRoutingModule} from "./consultas-general-routing.module";
 import {PrimeModule} from "../../shared/prime/prime.module";
 import {PaginatorModule} from "primeng/paginator";
 import {ConsultasGeneralComponent} from "./consultas-general.component";
+import { DialogConsultaComponent } from './dialog-consulta/dialog-consulta.component';
 
 
 @NgModule({
     declarations: [
-        NuevaConsultaComponent,
         ConsultasGeneralComponent,
+        DialogConsultaComponent,
     ],
     imports: [
         CommonModule,
