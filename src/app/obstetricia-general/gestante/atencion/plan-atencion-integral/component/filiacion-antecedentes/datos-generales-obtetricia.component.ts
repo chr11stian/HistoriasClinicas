@@ -15,7 +15,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     // private networkInstance: any;
 
 
-    filds: false;
     departamentos: any;
     opciones: any;
     estadoCivil: any;
@@ -25,7 +24,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     selected1: any;
     selected2: any;
 
-    formDatos_Generales: FormGroup;
+
     formAntecedentes: FormGroup;
 
     //Pacientes
@@ -75,7 +74,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.buildForm();
         this.buildForm2();
 
         this.pacienteByNroDoc();
@@ -103,16 +101,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         });
     }
 
-    buildForm() {
-        this.formDatos_Generales = this.form.group({
-            // apPaterno: new FormControl(''),
-            // ApMaterno: new FormControl(''),
-            // nombres: new FormControl(''),
-            aplica: new FormControl(''),
-            referencia: new FormControl(''),
-            partoVaginal: new FormControl(''),
-        })
-    }
 
     buildForm2() {
         this.formAntecedentes = this.form.group({
