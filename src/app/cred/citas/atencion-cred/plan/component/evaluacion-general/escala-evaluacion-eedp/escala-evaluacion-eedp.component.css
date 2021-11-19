@@ -82,7 +82,7 @@ input[type=number] {
 }
 
 .div-line {
-    width: 90%;
+    width: 100%;
     height: 2%;
     margin-bottom: 2px;
     background-color: #ffffff;
