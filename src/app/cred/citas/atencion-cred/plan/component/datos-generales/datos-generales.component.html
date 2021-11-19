@@ -329,96 +329,255 @@
   </form>
 </p-fieldset>
 
-<p-fieldset legend="Información Básica" [toggleable]="true">
-  <form [formGroup]="generalInfoFG">
+<p-fieldset legend="Datos de Apoderado" [toggleable]="true">
+  <form [formGroup]="apoderadoInfoFG">
     <div class="grid">
       <div class="col-5">
-        <label class="line-height-4" for="username2"
-          >Grado de instrucción:</label
-        >
-        <p-dropdown
-          placeholder="Seleccionar"
-          [options]="options"
-          optionLabel="name"
-        >
-        </p-dropdown>
+        <div class="col-12 grid">
+          <label class="line-height-4" for="username2"
+            >Grado de instrucción:</label
+          >
+        </div>
+        <div class="col-12 grid">
+          <p-dropdown
+            placeholder="Seleccionar"
+            [options]="options"
+            optionLabel="name"
+          >
+          </p-dropdown>
+        </div>
       </div>
       <div class="col-5 grid">
-        <span>Centro educativo</span>
-        <input
-          id="centro"
-          formControlName="centroPadre"
-          type="text"
-          placeholder="centro educativo"
-          class="inputfield w-full"
-          pInputText
-        />
+        <div class="col-12 grid">
+          <span>Centro educativo</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="centroPadre"
+            type="text"
+            placeholder="centro educativo"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
       </div>
       <div class="col-2 grid">
-        <span>Telefono</span>
-        <input
-          id="centro"
-          formControlName="telefonoPadre"
-          type="text"
-          placeholder="centro educativo"
-          class="inputfield w-full"
-          pInputText
-        />
+        <div class="col-12 grid">
+          <span>Telefono</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="telefonoPadre"
+            type="text"
+            placeholder="centro educativo"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
       </div>
     </div>
     <div class="grid">
       <div class="col-5 grid">
-        <span>Apellidos y Nombres del Padre</span>
-        <input
-          id="centro"
-          formControlName="nombrePadre"
-          type="text"
-          placeholder="Apellidos y Nombres del Padre"
-          class="inputfield w-full"
-          pInputText
-        />
+        <div class="col-12 grid">
+          <span>Apellidos y Nombres del Padre</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="nombrePadre"
+            type="text"
+            placeholder="Apellidos y Nombres del Padre"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
+      </div>
+      <div class="col-1 grid">
+        <div class="col-12 grid">
+          <span>Edad</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="edadPadre"
+            type="text"
+            placeholder="edad"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
       </div>
       <div class="col-2 grid">
-        <span>Edad</span>
-        <input
-          id="centro"
-          formControlName="edadPadre"
-          type="text"
-          placeholder="edad"
-          class="inputfield w-full"
-          pInputText
-        />
+        <div class="col-12 grid">
+          <span>DNI</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="dniPadre"
+            type="text"
+            placeholder="edad"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
+      </div>
+      <div class="col-2 align-items-center">
+        <div class="col-12 grid">
+          <span>Codigo Afiliación</span>
+        </div>
+        <div class="col-12 grid">
+          <p-selectButton
+            [options]="stateOptions2"
+            formControlName="codigoPadre"
+            optionLabel="label"
+            optionValue="value"
+          >
+          </p-selectButton>
+        </div>
       </div>
       <div class="col-2 grid">
-        <span>DNI</span>
-        <input
-          id="centro"
-          formControlName="dniPadre"
-          type="text"
-          placeholder="edad"
-          class="inputfield w-full"
-          pInputText
-        />
+        <div class="col-12 grid">
+          <span>Codigo</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="codigoAfiliacionPadre"
+            type="text"
+            placeholder="codigo"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
       </div>
-      <div class="col-1 align-items-center">
-        <p-selectButton
-          [options]="stateOptions2"
-          formControlName="codigoPadre"
-          optionLabel="label"
-          optionValue="value"
-        >
-        </p-selectButton>
+    </div>
+    <p-divider></p-divider>
+    <div class="grid">
+      <div class="col-5">
+        <div class="col-12 grid">
+          <label class="line-height-4" for="username2"
+            >Grado de instrucción:</label
+          >
+        </div>
+        <div class="col-12 grid">
+          <p-dropdown
+            placeholder="Seleccionar"
+            [options]="options"
+            optionLabel="name"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="col-5 grid">
+        <div class="col-12 grid">
+          <span>Centro educativo</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="centroMadre"
+            type="text"
+            placeholder="centro educativo"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
       </div>
       <div class="col-2 grid">
-        <input
-          id="centro"
-          formControlName="codigoAfiliacionPadre"
-          type="text"
-          placeholder="codigo"
-          class="inputfield w-full"
-          pInputText
-        />
+        <div class="col-12 grid">
+          <span>Telefono</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="telefonoMadre"
+            type="text"
+            placeholder="centro educativo"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-5 grid">
+        <div class="col-12 grid">
+          <span>Apellidos y Nombres del Madre</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="nombreMadre"
+            type="text"
+            placeholder="Apellidos y Nombres del Madre"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
+      </div>
+      <div class="col-1 grid">
+        <div class="col-12 grid">
+          <span>Edad</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="edadMadre"
+            type="text"
+            placeholder="edad"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
+      </div>
+      <div class="col-2 grid">
+        <div class="col-12 grid">
+          <span>DNI</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="dniMadre"
+            type="text"
+            placeholder="edad"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
+      </div>
+      <div class="col-2 align-items-center">
+        <div class="col-12 grid">
+          <span>Codigo Afiliación</span>
+        </div>
+        <div class="col-12 grid">
+          <p-selectButton
+            [options]="stateOptions2"
+            formControlName="codigoMadre"
+            optionLabel="label"
+            optionValue="value"
+          >
+          </p-selectButton>
+        </div>
+      </div>
+      <div class="col-2 grid">
+        <div class="col-12 grid">
+          <span>Codigo</span>
+        </div>
+        <div class="col-12 grid">
+          <input
+            id="centro"
+            formControlName="codigoAfiliacionMadre"
+            type="text"
+            placeholder="codigo"
+            class="inputfield w-full"
+            pInputText
+          />
+        </div>
       </div>
     </div>
   </form>
 </p-fieldset>
+
