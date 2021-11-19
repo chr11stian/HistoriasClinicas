@@ -74,3 +74,13 @@ p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
   padding: 3px;
   text-align: center;
 }
+::ng-deep .colorIconCalendar .p-button.p-button-icon-only {
+  background-color: #495057;
+    /*width: 25px;*/
+    /*height: 25px;*/
+  }
+::ng-deep .fechaRuptura .p-button.p-button-icon-only {
+  background-color: #495057;
+  /*width: 25px;*/
+  /*height: 25px;*/
+}
