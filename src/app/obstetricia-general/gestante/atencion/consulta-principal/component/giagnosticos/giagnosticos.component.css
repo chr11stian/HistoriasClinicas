@@ -9,14 +9,11 @@
     background: #003C71;
 
 }
-.button-graficar {
-    background: #CE9104;
+p-calendar >>> .p-button.p-button-icon-only {
+    background-color: #003c71;
+
 }
-.input .label {
-    display: flex;
-    padding: 15px;
-    font-size: 16px;
-}
+
 
 /*.form-register{*/
 /*    width: 95%;*/

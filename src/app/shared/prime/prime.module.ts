@@ -35,6 +35,7 @@ import {AccordionModule} from 'primeng/accordion';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 const importsApi = [
+  ToolbarModule,
   SelectButtonModule,
   DialogModule,
   InputNumberModule,

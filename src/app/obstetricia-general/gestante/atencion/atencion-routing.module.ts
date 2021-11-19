@@ -9,8 +9,6 @@ const routes: Routes = [
         component: AtencionComponent
     },
 
-
-
 ];
 
 @NgModule({

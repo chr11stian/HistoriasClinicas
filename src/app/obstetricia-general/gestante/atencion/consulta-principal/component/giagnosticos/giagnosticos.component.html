@@ -6,11 +6,6 @@
 
             <h3 class="p-m-0">DIAGNÓSTICOS</h3>
         </ng-template>
-<!--        <ng-template pTemplate="right" class="button">-->
-
-<!--            <button pButton pRipple label="Agregar Diagnóstico" icon="pi pi-plus" pButton type="button" class="button-agregar"-->
-<!--                    (click)="openNew()"></button>-->
-<!--        </ng-template>-->
 
     </p-toolbar>
     <p-table class="table-over" [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
@@ -55,6 +50,28 @@
 
     </p-toolbar>
 
+    <p-toolbar>
+        <ng-template pTemplate="left" >
+            <h3 class="p-m-0">DIAGNÓSTICOS</h3>
+        </ng-template>
+        <ng-template pTemplate="right" >
+            <div class="p-field">
+                <p-dropdown   inputId="dropdown" [options]="" formControlName="intervalo"
+                             placeholder="seleccionar" optionLabel="label" optionValue="value">
+                </p-dropdown>
+            </div>
+        </ng-template>
+    </p-toolbar>
+    <p-toolbar>
+        <ng-template pTemplate="left" >
+            <h3 class="p-m-0">PROXIMA CITA</h3>
+        </ng-template>
+        <ng-template pTemplate="right" >
+            <div class="p-field p-fluid">
+                <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+            </div>
+        </ng-template>
+    </p-toolbar>
 </div>
 
 
