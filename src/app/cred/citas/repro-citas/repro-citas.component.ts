@@ -1,44 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {Component, OnInit} from '@angular/core'
+import {FormGroup} from '@angular/forms'
 
 @Component({
-  selector: 'app-repro-citas',
-  templateUrl: './repro-citas.component.html',
-  styleUrls: ['./repro-citas.component.css']
+    selector: 'app-repro-citas',
+    templateUrl: './repro-citas.component.html',
+    styleUrls: ['./repro-citas.component.css']
 })
 export class ReproCitasComponent implements OnInit {
-  datos: any[] = [];
+    datos: any[] = []
 
-  checkedon: boolean = true;
-  checkedoff: boolean = false;
-  desabilitar: boolean;
-  reproFG: FormGroup;
-  constructor() {
-    this.datos = [
-      ["07:00am - 08:30am", true, false, false, true, false, false, false],
-      ["08:30am - 10:00am", false, true, false, false, true, false, false],
-      ["10:00am - 11:30am", true, false, false, false, true, false, false],
-      ["11:30am - 01:00pm", false, false, true, false, false, false, true],
-      ["01:00pm - 02:30pm", true, false, false, false, true, false, false],
-    ]
-    this.desabilitar = false;
-  }
+    checkedon: boolean = true
+    checkedoff: boolean = false
+    desabilitar: boolean
+    reproFG: FormGroup
 
-  ngOnInit(): void {
-  }
+    // rojo  /* true  este ya esta cogido */
+    // / blanco * null  este esta por coger */
+    /*  amarillo  false  este esta por coger */
+    days = ['Hora', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
 
-  cambio(e) {
-    console.log(e);
+    constructor() {
+        this.datos = [
+            ['07:00 am - 08:30 am', true, false, false, true, false, false, false],
+            ['08:30 am - 10:00 am', false, true, false, false, true, false, false],
+            ['10:00 am - 11:30 am', true, false, false, false, true, false, false],
+            ['11:30 am - 01:00pm', false, false, true, false, false, false, true],
+            ['01:00 pm - 02:30pm', true, false, false, false, true, false, false],
+        ]
+        this.desabilitar = false
+    }
 
-  }
+    ngOnInit(): void {
+    }
 
-  cambioClick(e, colIndex) {
-    console.log(this.datos[e][colIndex]);
-
-    this.datos[e][colIndex] = !this.datos[e][colIndex]
-    // console.log('click');
-
-    // console.log('row', e, 'colindex', colIndex);
-
-  }
+    send(rowIndex, indexCol): void {
+        alert('usted selecciona el dia : ' + this.days[indexCol] + ' a las ' + this.datos[rowIndex][0])
+    }
 }
+
+// (onChange)="cambio($event)"
+// (onChange)="cambio($event)"
+// (onChange)="changeValue($event,rowIndex,indexCol)"
+// (onChange)="changeValue($event,rowIndex,indexCol)"

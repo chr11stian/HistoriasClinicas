@@ -11,6 +11,7 @@ import { PaginatorModule } from 'primeng/paginator';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ReproCitasComponent } from './citas/repro-citas/repro-citas.component';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import {RippleModule} from 'primeng/ripple'
 
 
 @NgModule({
@@ -20,15 +21,16 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     ConsultaCredGeneralComponent,
     ReproCitasComponent,
   ],
-  imports: [
-    PrimeModule,
-    CommonModule,
-    CredRoutingModule,
-    AtencionCredModule,
-    PaginatorModule,
-    DynamicDialogModule,
-    ToggleButtonModule
-    
-  ]
+    imports: [
+        PrimeModule,
+        CommonModule,
+        CredRoutingModule,
+        AtencionCredModule,
+        PaginatorModule,
+        DynamicDialogModule,
+        ToggleButtonModule,
+        RippleModule
+
+    ]
 })
 export class CredModule { }
