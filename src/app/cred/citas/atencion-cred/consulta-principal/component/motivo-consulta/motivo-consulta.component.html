@@ -1,1 +1,127 @@
-<p>motivo-consulta works!</p>
+<div class="grid">
+    <div class="col-12 md:col-9 mt-0">
+        <h3 class="ml-2">MOTIVOS DE CONSULTA</h3>
+    </div>
+    <div class="col-12 md:col-3 text-right">
+        <button pButton pRipple type="button"
+                icon="pi pi-angle-left"
+                iconPos="left"
+                label="Atras"
+                class="p-button-secondary mr-2">
+        </button>
+        <button pButton pRipple type="button"
+                icon="pi pi-angle-right"
+                iconPos="right"
+                label="Siguiente"
+                class="p-button-info">
+        </button>
+    </div>
+</div>
+
+
+<p-fieldset legend="MOTIVOS DE CONSULTA"
+            styleClass="mb-2"
+            [toggleable]="true">
+    <textarea class="inputfield w-full mb-2"
+              pInputTextarea>
+    </textarea>
+    <div class="grid">
+        <div class="col-12 md:col-2 mt-2">
+            Tipo de enfermedad :
+        </div>
+        <div class="col-12 md:col-2">
+            <input type="text"
+                   pInputText
+                   class="inputfield w-full"/>
+        </div>
+        <div class="col-12 md:col-2 mt-2 text-right">
+            Forma de inicio :
+        </div>
+        <div class="col-12 md:col-2">
+            <input type="text"
+                   pInputText
+                   class="inputfield w-full"/>
+        </div>
+        <div class="col-12 md:col-1 mt-2 text-right">
+            Curso :
+        </div>
+        <div class="col-12 md:col-3">
+            <input type="text"
+                   pInputText
+                   class="inputfield w-full"/>
+        </div>
+    </div>
+</p-fieldset>
+
+<p-fieldset legend="EXAMEN FÍSICO" [toggleable]="true">
+    <p-divider></p-divider>
+    <div class="grid">
+        <div class="col-12 md:col-2">
+            <h3>SIGNOS VITALES :</h3>
+        </div>
+        <div class="col-12 md:col-10">
+            <div class="grid">
+                <div class="col-6 md:col-1 text-right">
+                    T°:
+                </div>
+                <div class="col-6 md:col-2">
+                    <input type="text"
+                           pInputText
+                           class="inputfield w-full"/>
+                </div>
+                <div class="col-6 md:col-1 text-right">
+                    PA:
+                </div>
+                <div class="col-6 md:col-2">
+                    <input type="text"
+                           pInputText
+                           class="inputfield w-full"/>
+                </div>
+                <div class="col-6 md:col-1 text-right">
+                    FC:
+                </div>
+                <div class="col-6 md:col-2">
+                    <input type="text"
+                           pInputText
+                           class="inputfield w-full"/>
+                </div>
+                <div class="col-6 md:col-1 text-right">
+                    FR:
+                </div>
+                <div class="col-6 md:col-2">
+                    <input type="text"
+                           pInputText
+                           class="inputfield w-full"/>
+                </div>
+                <div class="col-6 md:col-1 text-right">
+                    Peso :
+                </div>
+                <div class="col-6 md:col-2">
+                    <input type="number"
+                           pInputText
+                           class="inputfield w-full"/>
+                </div>
+                <div class="col-6 md:col-1 text-right">
+                    Talla :
+                </div>
+                <div class="col-6 md:col-2">
+                    <input type="number"
+                           pInputText
+                           class="inputfield w-full"/>
+                </div>
+                <div class="col-6 md:col-1 text-right">
+                    PC :
+                </div>
+                <div class="col-6 md:col-2">
+                    <input type="text"
+                           pInputText
+                           class="inputfield w-full"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-divider></p-divider>
+    <textarea class="inputfield w-full"
+              pInputTextarea>
+    </textarea>
+</p-fieldset>
