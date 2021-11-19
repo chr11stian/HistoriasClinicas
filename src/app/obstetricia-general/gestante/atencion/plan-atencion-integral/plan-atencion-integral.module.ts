@@ -10,6 +10,7 @@ import {StepGeneralComponent} from "./component/step-general/step-general.compon
 import {PaginatorModule} from "primeng/paginator";
 import {PlanAtencionIntegralRoutingModule} from "./plan-atencion-integral-routing.module";
 import {PrimeModule} from "../../../../shared/prime/prime.module";
+import { DatosGeneralesFiliacionComponent } from './component/datos-generales-filiacion/datos-generales-filiacion.component';
 
 
 
@@ -22,6 +23,7 @@ import {PrimeModule} from "../../../../shared/prime/prime.module";
     PuerperioComponent,
     RecienNacidoComponent,
     StepGeneralComponent,
+    DatosGeneralesFiliacionComponent,
   ],
   imports: [
     CommonModule,

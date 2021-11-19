@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {ConfirmationService} from 'primeng/api';
 import {AppRoutingModule} from './app-routing.module';
-import { NgxEchartsModule } from 'ngx-echarts';
+import {NgxEchartsModule} from 'ngx-echarts';
 
 
 import {AppComponent} from './app.component';

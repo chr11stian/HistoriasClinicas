@@ -20,29 +20,29 @@ export class CitasComponent implements OnInit {
         ]
         this.citas = [
             {
-                dni: "DNI",
+                dni: "45252523",
                 apellidos: "OLAZABAL CALLER",
                 nombres: "LETICIA GIULIANA",
                 consultorio: "OBS01",
                 horario: "8:00AM",
                 fecha: "16/11/2021"
             },
-            // {
-            //     dni: "DNI",
-            //     apellidos: "OLAZABAL CALLER",
-            //     nombres: "LETICIA GIULIANA",
-            //     consultorio: "OBS01",
-            //     horario: "8:00AM",
-            //     fecha: "16/11/2021"
-            // },
-            // {
-            //     dni: "DNI",
-            //     apellidos: "OLAZABAL CALLER",
-            //     nombres: "LETICIA GIULIANA",
-            //     consultorio: "OBS01",
-            //     horario: "8:00AM",
-            //     fecha: "16/11/2021"
-            // },
+            {
+                dni: "12345678",
+                apellidos: "XXXX XXXXR",
+                nombres: "JONI",
+                consultorio: "OBS01",
+                horario: "9:00AM",
+                fecha: "16/11/2021"
+            },
+            {
+                dni: "87654321",
+                apellidos: "MOROCO LAIME",
+                nombres: "JONATHAN",
+                consultorio: "OBS01",
+                horario: "10:00AM",
+                fecha: "16/11/2021"
+            },
             // {
             //     dni: "DNI",
             //     apellidos: "OLAZABAL CALLER",
