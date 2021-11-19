@@ -1,6 +1,6 @@
 <p-toolbar styleClass="mb-4">
   <ng-template pTemplate="left">
-    <h3 class="p-m-0">RESULTADOS DE LABORATORIO Y ECOGRAFIA</h3>
+    <h3 class="p-m-0">PARTOS O ABORTO</h3>
   </ng-template>
   <ng-template pTemplate="right" class="button">
     <button
@@ -33,7 +33,7 @@
             <div class="grid">
               <div class="col-1" style="font-weight: bold">HCMP</div>
               <div class="col-3">
-                <div class="flex" style="padding: px">
+                <div class="flex" style="">
                   <div class="col-10 text-right">Atención Prenatal:</div>
                   <div class="col-2 text-left">
                     <p-radioButton
@@ -45,7 +45,7 @@
                 </div>
               </div>
               <div class="col-3">
-                <div class="flex" style="padding: px">
+                <div class="flex" style="">
                   <div class="col-10 text-right">Aborto:</div>
                   <div class="col-2 text-left">
                     <p-radioButton
@@ -57,7 +57,7 @@
                 </div>
               </div>
               <div class="col-3">
-                <div class="flex" style="padding: px">
+                <div class="flex" style="">
                   <div class="col-10 text-right">Parto:</div>
                   <div class="col-2 text-left">
                     <p-radioButton
@@ -76,7 +76,7 @@
                 Producto de la Concepción
               </div>
               <div class="col-2">
-                <div class="flex" style="padding: px">
+                <div class="flex" style="">
                   <div class="col-10 text-right">Hijo Único:</div>
                   <div class="col-2 text-left">
                     <p-radioButton
@@ -88,7 +88,7 @@
                 </div>
               </div>
               <div class="col-2">
-                <div class="flex" style="padding: px">
+                <div class="flex" style="">
                   <div class="col-10 text-right">Embarazo Múltiple:</div>
                   <div class="col-2 text-left">
                     <p-radioButton
@@ -100,7 +100,7 @@
                 </div>
               </div>
               <div class="col-4">
-                <div class="flex" style="padding: px; margin: 0px 15px">
+                <div class="flex" style="margin: 0px 15px">
                   <div class="col-5 text-right">Orden:</div>
                   <div class="col-7 p-fluid">
                     <p-inputNumber
@@ -120,7 +120,7 @@
                 </div>
               </div>
               <div class="col-2">
-                <div class="flex" style="padding: px">
+                <div class="flex" style="">
                   <div class="col-7 text-right">Aborto:</div>
                   <div class="col-5 text-left">
                     <p-radioButton
@@ -141,9 +141,27 @@
   <!-- Segunda fila -->
   <div class="grid">
     <div class="col-12">
-      <p-fieldset
-        legend="Ingreso al Establecimiento por Parto  Fecha y hora 12/11/2021 00:00:00 "
-      >
+      <p-fieldset>
+        <ng-template pTemplate="header">
+          <div class="flex flex-wrap justify-content-between">
+            <div class="col-6">
+              Ingreso al Establecimiento por Parto
+            </div>
+            <div class="col-6 grid">
+              <div class="col-4" style="text-align: right">Fecha y Hora:</div>
+              <div class="col-8 p-fluid" >
+                <p-calendar
+                        class="colorIconCalendar"
+                        [showIcon]="true"
+                        dateFormat="dd/mm/yy"
+                        inputId="icon"
+                        [showTime]="true"
+                        formControlName="ingresoEstablecimientoPartoFecha"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+        </ng-template>
         <div class="grid">
           <div class="lg:col-4 grid" style="align-self: start">
             <div class="md:col-6" style="align-self: start">
@@ -181,7 +199,7 @@
               </div>
             </div>
             <div class="md:col-6" style="align-self: start">
-              <div class="flex" style="padding: px">
+              <div class="flex" style="">
                 <div class="col-5 text-right">FREC.:</div>
                 <div class="col-7 p-fluid">
                   <p-inputNumber
@@ -191,7 +209,7 @@
                   ></p-inputNumber>
                 </div>
               </div>
-              <div class="flex" style="padding: px">
+              <div class="flex" style="">
                 <div class="col-5 text-right">TEMP.:</div>
                 <div class="col-7 p-fluid">
                   <p-inputNumber
@@ -201,7 +219,7 @@
                   ></p-inputNumber>
                 </div>
               </div>
-              <div class="flex" style="padding: px">
+              <div class="flex" style="">
                 <div class="col-5 text-right">PESO:</div>
                 <div class="col-7 p-fluid">
                   <p-inputNumber
@@ -211,7 +229,7 @@
                   ></p-inputNumber>
                 </div>
               </div>
-              <div class="flex" style="padding: px">
+              <div class="flex" style="">
                 <div class="col-5 text-right">E.G.:</div>
                 <div class="col-7 p-fluid">
                   <p-inputNumber
@@ -230,7 +248,7 @@
                   <div class="text-center" style="font-weight: bold">
                     SITUACIÓN
                   </div>
-                  <div class="flex" style="padding: px">
+                  <div class="flex" style="">
                     <div class="col-8 text-right">Longitudinal:</div>
                     <div class="col-5">
                       <p-radioButton
@@ -240,7 +258,7 @@
                       ></p-radioButton>
                     </div>
                   </div>
-                  <div class="flex" style="padding: px">
+                  <div class="flex" style="">
                     <div class="col-8 text-right">Transversal:</div>
                     <div class="col-5">
                       <p-radioButton
@@ -255,7 +273,7 @@
                   <div class="text-center" style="font-weight: bold">
                     POSICIÓN
                   </div>
-                  <div class="flex" style="padding: px">
+                  <div class="flex" style="">
                     <div class="col-8 text-right">Derecha:</div>
                     <div class="col-5">
                       <p-radioButton
@@ -265,7 +283,7 @@
                       ></p-radioButton>
                     </div>
                   </div>
-                  <div class="flex" style="padding: px">
+                  <div class="flex" style="">
                     <div class="col-8 text-right">Izquierda:</div>
                     <div class="col-5">
                       <p-radioButton
@@ -283,10 +301,10 @@
                   <div class="text-center">
                     <p-selectButton
                       class="text center"
-                      [options]="twoOptions"
+                      [options]="TFOptions"
                       optionLabel="label"
                       optionValue="value"
-                      formControlName="tamañoFetalAcorde"
+                      formControlName="tamanoFetalAcorde"
                     ></p-selectButton>
                   </div>
                 </div>
@@ -294,7 +312,7 @@
                   <div class="text-center" style="font-weight: bold">
                     INICIO
                   </div>
-                  <div class="flex" style="padding: px">
+                  <div class="flex" style="">
                     <div class="col-8 text-right">Espontánea:</div>
                     <div class="col-5">
                       <p-radioButton
@@ -303,7 +321,7 @@
                       ></p-radioButton>
                     </div>
                   </div>
-                  <div class="flex" style="padding: px">
+                  <div class="flex" style="">
                     <div class="col-8 text-right">Inducido:</div>
                     <div class="col-5">
                       <p-radioButton
@@ -332,7 +350,7 @@
                   <div class="text-center" style="font-weight: bold">
                     PRESENTACION
                   </div>
-                  <div class="flex" style="padding: px">
+                  <div class="flex" style="">
                     <div class="col-8 text-right">Cefálica:</div>
                     <div class="col-5">
                       <p-radioButton
@@ -342,7 +360,7 @@
                       ></p-radioButton>
                     </div>
                   </div>
-                  <div class="flex" style="padding: px">
+                  <div class="flex" style="">
                     <div class="col-8 text-right">Pelvica:</div>
                     <div class="col-5">
                       <p-radioButton
@@ -382,7 +400,7 @@
                   <div class="text-center" style="font-weight: bold">
                     MENBRANAS
                   </div>
-                  <div class="flex" style="padding: px">
+                  <div class="flex" style="">
                     <div class="col-8 text-right">Rotas:</div>
                     <div class="col-5">
                       <p-radioButton
@@ -392,7 +410,7 @@
                       ></p-radioButton>
                     </div>
                   </div>
-                  <div class="flex" style="padding: px">
+                  <div class="flex" style="">
                     <div class="col-8 text-right">Intregras:</div>
                     <div class="col-5">
                       <p-radioButton
@@ -410,7 +428,7 @@
                 <div class="text-center" style="font-weight: bold">
                   LIQUIDO AMNIÓTICO
                 </div>
-                <div class="flex" style="padding: px">
+                <div class="flex" style="">
                   <div class="col-8 text-right">Claro:</div>
                   <div class="col-5">
                     <p-radioButton
@@ -420,7 +438,7 @@
                     ></p-radioButton>
                   </div>
                 </div>
-                <div class="flex" style="padding: px">
+                <div class="flex" style="">
                   <div class="col-8 text-right">Verde Claro:</div>
                   <div class="col-5">
                     <p-radioButton
@@ -430,7 +448,7 @@
                     ></p-radioButton>
                   </div>
                 </div>
-                <div class="flex" style="padding: px">
+                <div class="flex" style="">
                   <div class="col-8 text-right">Verde Oscuro:</div>
                   <div class="col-5">
                     <p-radioButton
@@ -449,7 +467,9 @@
                 </div>
                 <p-calendar
                   [showIcon]="true"
+                  dateFormat="dd/mm/yy"
                   inputId="icon"
+                  class="fechaRuptura"
                   [showTime]="true"
                   formControlName="fechaRuptura"
                 ></p-calendar>
@@ -568,7 +588,7 @@
           <p-fieldset legend="corticoides antenatales (28-34 Sem)">
             <div class="grid">
               <div class="col-2">
-                <div class="flex" style="padding: px">
+                <div class="flex" style="">
                   <div class="col-10 text-right">Completo:</div>
                   <div class="col-2 text-left">
                     <p-radioButton
@@ -736,14 +756,34 @@
   <!-- Cuarta fila -->
   <div class="grid">
     <div class="col-12 lg:col-6">
-      <p-fieldset legend="Terminacion-19/09/2021 20:00">
+      <p-fieldset >
+        <ng-template pTemplate="header">
+          <div class="grid">
+            <div class="col-3">
+              Terminación
+            </div>
+            <div class="col-9 grid">
+              <div class="col-4" style="text-align: right">Fecha :</div>
+              <div class="col-8 p-fluid" >
+                <p-calendar
+                        class="colorIconCalendar"
+                        [showIcon]="true"
+                        dateFormat="dd/mm/yy"
+                        inputId="icon"
+                        [showTime]="true"
+                        formControlName="terminacionFecha"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+        </ng-template>
         <div class="grid">
           <div class="col-3" style="align-self: start">
             <div>
               <div class="text-center" style="font-weight: bold">
                 Terminación
               </div>
-              <div class="flex" style="padding: px">
+              <div class="flex" style="">
                 <div class="col-8 text-right">Aborto:</div>
                 <div class="col-5">
                   <p-radioButton
@@ -773,7 +813,7 @@
                   ></p-radioButton>
                 </div>
               </div>
-              <div class="flex" style="padding: px">
+              <div class="flex" style="">
                 <div class="col-8 text-right">vacumm:</div>
                 <div class="col-5">
                   <p-radioButton
@@ -863,7 +903,7 @@
               <div class="text-center" style="font-weight: bold">
                 POSIC GESTANTE:
               </div>
-              <div class="flex" style="padding: px">
+              <div class="flex" style="">
                 <div class="col-8 text-right">Horizontal:</div>
                 <div class="col-5">
                   <p-radioButton
@@ -978,7 +1018,7 @@
               <div class="text-center" style="font-weight: bold">
                 PARTO GRAMA
               </div>
-              <div class="flex" style="padding: px">
+              <div class="flex" style="">
                 <div class="col-8 text-right">Si:</div>
                 <div class="col-5">
                   <p-radioButton
@@ -1093,7 +1133,7 @@
               <div class="text-center" style="font-weight: bold">
                 PARTO CON ACOMP.:
               </div>
-              <div class="flex" style="padding: px">
+              <div class="flex" style="">
                 <div class="col-8 text-right">Si</div>
                 <div class="col-5">
                   <p-radioButton
@@ -1193,7 +1233,7 @@
         <p-fieldset legend="Indicacion Principal Parto operatorio">
           <div class="flex justify-content-end">
             <p-selectButton
-              [options]="twoOptions"
+              [options]="TFOptions"
               optionLabel="label"
               optionValue="value"
               formControlName="indicacionPrincipalHubo"
@@ -1482,7 +1522,6 @@
     label="Guardar"
     (onClick)="save()"
     styleClass="p-button-info p-button-sm"
-    [disabled]="myGroup.invalid"
   >
   </p-button>
 </div>

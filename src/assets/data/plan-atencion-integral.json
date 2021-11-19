@@ -1,0 +1,53 @@
+{
+  "control-crecimiento": [
+    {
+      "grupo": "RN",
+      "mes": 1,
+      "peso": 12,
+      "talla": 56,
+      "fecha": "11/11/2021"
+    },
+    {
+      "grupo": "RN",
+      "mes": 1,
+      "peso": 15,
+      "talla": 59,
+      "fecha": "11/11/2021"
+    },
+    {
+      "grupo": "RN",
+      "mes": 1,
+      "peso": 12,
+      "talla": 56,
+      "fecha": "11/11/2021"
+    },
+    {
+      "grupo": "RN",
+      "mes": 1,
+      "peso": 12,
+      "talla": 56,
+      "fecha": "11/11/2021"
+    },
+    {
+      "grupo": "RN",
+      "mes": 1,
+      "peso": 12,
+      "talla": 56,
+      "fecha": "11/11/2021"
+    },
+    {
+      "grupo": "RN",
+      "mes": 1,
+      "peso": 12,
+      "talla": 56,
+      "fecha": "11/11/2021"
+    },
+    {
+      "grupo": "RN",
+      "mes": 1,
+      "peso": 12,
+      "talla": 56,
+      "fecha": "11/11/2021"
+    }
+  ]
+}

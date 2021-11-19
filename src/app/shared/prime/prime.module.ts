@@ -34,6 +34,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {AccordionModule} from 'primeng/accordion';
 
 const importsApi = [
+  ToolbarModule,
   SelectButtonModule,
   DialogModule,
   InputNumberModule,
