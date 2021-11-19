@@ -1,7 +1,28 @@
-.p-button{
-    width: 80%;
-    height: 150%;
-    text-align: center;
-    background: #5B5B5B;
-    border-radius: 10px;
+.p-button {
+  width: 80%;
+  height: 150%;
+  text-align: center;
+  background: #5b5b5b;
+  border-radius: 10px;
+}
+p-card >>> .p-card {
+  border-radius: 20px;
+}
+p-card >>> .p-card .p-card-body {
+  padding: 20px;
+  margin: 30px;
+}
+.titulo_ {
+  padding-left: 20px;
+  font-size: 1.5em;
+  color: rgb(107, 100, 100);
+}
+.titulo {
+  text-align: center;
+  font-size: 2.5em;
+  color: #003c71;
+}
+.texto {
+  text-align: justify;
+  font-size: 1.6em;
 }

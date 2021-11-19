@@ -26,15 +26,15 @@ export class GestanteComponent implements OnInit {
                 apnombres:"XXXXX XXXX XXX",
                 nroGestacion: 1,
                 gestacion: "Normal",
+                estado: "Inactivo",
+            },
+            {
+                tipoDoc: "DNI",
+                dni: "10101010",
+                nroGestacion: 2,
+                gestacion: "Normal",
                 estado: "Activo",
             },
-            // {
-            //     tipoDoc: "DNI",
-            //     dni: "10101010",
-            //     nroGestacion: 2,
-            //     gestacion: "Normal",
-            //     estado: "Inactivo",
-            // },
             // {
             //     tipoDoc: "DNI",
             //     dni: "10101010",

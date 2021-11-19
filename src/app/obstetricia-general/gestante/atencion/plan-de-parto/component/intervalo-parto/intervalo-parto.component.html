@@ -18,8 +18,7 @@
                                     <label>Fecha:</label>
                                 </div>
                                 <div class="col-9">
-                                    <input class="inputfield w-full" type="date" pInputText
-                                        formControlName='descripcion' required />
+                                    <p-calendar class="inputfield w-full" formControlName='descripcion'></p-calendar>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +57,7 @@
                                         </div>
                                         <div class="col-6">
                                             <p-radioButton name="dondeParto" formControlName="dondeParto"
-                                                value="Hospital" inputId="dondeParto" class="azul pb-0">
+                                                value="CS" inputId="dondeParto" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -87,8 +86,8 @@
                                             <label class="font-medium">Vertical</label>
                                         </div>
                                         <div class="col-5">
-                                            <p-radioButton name="dondeParto" formControlName="dondeParto"
-                                                value="Hospital" inputId="dondeParto" class="azul pb-0">
+                                            <p-radioButton name="posicionParto" formControlName="posicionParto"
+                                                value="Vertical" inputId="posicionParto" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -99,8 +98,8 @@
                                             <label class="font-medium">Horizontal</label>
                                         </div>
                                         <div class="col-5">
-                                            <p-radioButton name="dondeParto" formControlName="dondeParto"
-                                                value="Hospital" inputId="dondeParto" class="azul pb-0">
+                                            <p-radioButton name="posicionParto" formControlName="posicionParto"
+                                                value="Horizontal" inputId="posicionParto" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -120,8 +119,8 @@
                                             <label class="font-medium">Carro</label>
                                         </div>
                                         <div class="col-5">
-                                            <p-radioButton name="dondeParto" formControlName="dondeParto"
-                                                value="Hospital" inputId="dondeParto" class="azul pb-0">
+                                            <p-radioButton name="transporteParto" formControlName="transporteParto"
+                                                value="Carro" inputId="transporteParto" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -132,8 +131,8 @@
                                             <label class="font-medium">Otro</label>
                                         </div>
                                         <div class="col-5">
-                                            <p-radioButton name="dondeParto" formControlName="dondeParto"
-                                                value="Hospital" inputId="dondeParto" class="azul pb-0">
+                                            <p-radioButton name="transporteParto" formControlName="transporteParto"
+                                                value="Otro" inputId="transporteParto" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
