@@ -17,21 +17,6 @@ export class DatosGeneralesConsultaComponent implements OnInit {
     generalInfoFG: FormGroup
     signoPeligroFG: FormGroup
 
-    /** Get one form control*/
-    getGeneralInfoFC(control: string): AbstractControl {
-        return this.generalInfoFG.get(control)
-    }
-
-    /** Get Value Form Control */
-    valueGeneralInfoFC(control: string): any {
-        return this.getGeneralInfoFC(control).value
-    }
-
-    /** Set Value Form Control */
-    setValueGeneralInfoFC(formControl: string, value: any) {
-        this.getGeneralInfoFC(formControl).setValue(value)
-    }
-
     twoMonths: formControlInterface[] = [
         {
             label: 'No quiere mamar ni succiona',
@@ -112,7 +97,6 @@ export class DatosGeneralesConsultaComponent implements OnInit {
         }
     ]
 
-
     constructor() {
         this.buildForm()
     }
@@ -127,7 +111,9 @@ export class DatosGeneralesConsultaComponent implements OnInit {
             hour: new FormControl({value: null, disabled: false}, [Validators.required]),
             year: new FormControl({value: null, disabled: false}, [Validators.required])
         })
-        this.signoPeligroFG = new FormGroup({})
+        this.signoPeligroFG = new FormGroup({
+            presentSigns:new FormControl({value: null, disabled: false}, [Validators.required])
+        })
         const selectFC = new FormControl({value: null, disabled: false}, [])
         this.twoMonths.forEach((v) => {
             this.signoPeligroFG.addControl(v.nameFc, selectFC)

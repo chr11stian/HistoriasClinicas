@@ -1,11 +1,14 @@
 import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { DialogService } from "primeng/dynamicdialog";
+import { DialogConsultaComponent } from "../../consultas-general/dialog-consulta/dialog-consulta.component";
 
 @Component({
   selector: "app-consulta",
   templateUrl: "./consulta.component.html",
   styleUrls: ["./consulta.component.css"],
+  providers:[DialogService],
 })
 export class ConsultaComponent implements OnInit {
   listaDocumentos: any;
@@ -31,6 +34,7 @@ export class ConsultaComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private location: Location,
+    private dialog: DialogService
   ) { }
 
   ngOnInit(): void {
@@ -60,4 +64,20 @@ export class ConsultaComponent implements OnInit {
   listDiagnosticos(){
 
   }
+
+  openDialogConsulta() {
+    let dialog = this.dialog.open(DialogConsultaComponent, {
+        header: "CONSULTA",
+        width: "95%",
+        contentStyle: {
+            "max-height": "500px",
+            overflow: "auto",
+        },
+        footer:`hola mundo`,
+        data:{
+            texto:'datossss'
+        }
+    })
+
+}
 }
