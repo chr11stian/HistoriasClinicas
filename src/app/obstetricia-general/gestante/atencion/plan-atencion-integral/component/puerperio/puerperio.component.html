@@ -1,0 +1,91 @@
+<div>
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0"></h3>
+        </ng-template>
+
+       <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
+                style="background: #2196F3; border: 1px solid #2196F3;"></button>
+        <button pButton pRipple label="Continuar" routerLink=".." icon="pi pi-angle-right" iconPos="right" style="background-color: #003c71"
+        ></button>
+    </ng-template>
+    </p-toolbar>
+    <br>
+
+    <p-fieldset legend="PURPERIO INMEDIATO" [toggleable]="true">
+        <form [formGroup]="formPurperio">
+            <div class="grid">
+                <div class="col-6">
+
+                    <div class="field grid">
+                        <span class="col-5" style="text-align: right">Fecha de atencion:</span>
+                        <div class="col">
+                            <p-calendar type dateFormat="dd-mm-yy"></p-calendar>
+                        </div>
+                    </div>
+
+                    <div class="field grid">
+                        <span class="col-5" style="text-align: right">Horas/dias post parto o aborto:</span>
+                        <div class="col">
+                            <input type="text" pInputText [style]="{width: '80px'}">
+                            <input type="text" pInputText [style]="{width: '80px'}">
+                        </div>
+                    </div>
+
+                    <div class="field grid">
+                        <span class="col-5" style="text-align: right">Pulso (latido/minuto):</span>
+                        <div class="col">
+                            <input type="text" pInputText class="inputfield">
+                        </div>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-5" style="text-align: right">Involucion Uterina:</span>
+                        <div class="col">
+                            <input type="text" pInputText class="inputfield">
+                        </div>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-5" style="text-align: right">Herida operación:</span>
+                        <div class="col">
+                            <input type="text" pInputText class="inputfield">
+                        </div>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-5" style="text-align: right">Observaciones:</span>
+                        <div class="col">
+                            <input type="text" pInputText class="inputfield">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-6">
+
+                    <div class="field grid">
+                        <span class="col-fixed">Temperatura:</span>
+                        <div class="col">
+                            <input type="text" pInputText class="inputfield">
+                        </div>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed">Pres. Arterial max/min (mm. Hg.):</span>
+                        <div class="col">
+                            <input type="text" pInputText class="inputfield">
+                        </div>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed">Caract. Loquios:</span>
+                        <div class="col">
+                            <input type="text" pInputText class="inputfield">
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </form>
+    </p-fieldset>
+    <br>
+
+</div>

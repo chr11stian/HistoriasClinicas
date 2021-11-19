@@ -1,0 +1,111 @@
+<div class="p-card">
+    <p-toolbar>
+
+        <ng-template pTemplate="left">
+
+
+            <h3 class="p-m-0">DIAGNÓSTICOS</h3>
+        </ng-template>
+
+    </p-toolbar>
+    <p-table class="table-over" [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center" class="font-2">Nro </th>
+                <th style="text-align: center" class="font-1">CIE 10</th>
+                <th style="text-align: center" class="font-2">DIAGNOSTICOS</th>
+                <th style="text-align: center" class="font-2">ACCIÓN</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.CIE10 }}</td>
+                <td style="text-align: center">{{ rowData.diagnostico }}</td>
+
+                <td style="text-align: center">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                            (click)="editar(rowData)" pTooltip="Editar">
+                    </button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                            (click)="eliminar(rowData)" pTooltip="Eliminar">
+                    </button>
+
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+    <p-toolbar>
+
+        <ng-template pTemplate="right" class="button">
+
+            <button pButton pRipple label="Agregar Diagnóstico" icon="pi pi-plus" pButton type="button" class="button-agregar"
+                    (click)="openNew()"></button>
+        </ng-template>
+
+    </p-toolbar>
+
+    <p-toolbar>
+        <ng-template pTemplate="left" >
+            <h3 class="p-m-0">DIAGNÓSTICOS</h3>
+        </ng-template>
+        <ng-template pTemplate="right" >
+            <div class="p-field">
+                <p-dropdown   inputId="dropdown" [options]="" formControlName="intervalo"
+                             placeholder="seleccionar" optionLabel="label" optionValue="value">
+                </p-dropdown>
+            </div>
+        </ng-template>
+    </p-toolbar>
+    <p-toolbar>
+        <ng-template pTemplate="left" >
+            <h3 class="p-m-0">PROXIMA CITA</h3>
+        </ng-template>
+        <ng-template pTemplate="right" >
+            <div class="p-field p-fluid">
+                <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+            </div>
+        </ng-template>
+    </p-toolbar>
+</div>
+
+
+<!-------------INICIO DIALOG INGRESAR ATENCION--->
+<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog"  [modal]="true" [style]="{width: 'auto'}"
+          [draggable]="false" [resizable]="false">
+    <form [formGroup]='form' (ngSubmit)="save(formTemplate)" #formTemplate ="ngForm">
+
+            <div class="p-d-inline p-fluid">
+                 <div class="p-field resp">
+                    <label>Diagnóstico:</label>
+
+                    <span class="p-float-label p-input-icon-right">
+                        <i class="pi pi-search"></i>
+                         <input style="border-radius: 10px"type="text" pInputText formControlName='diagnostico' placeholder="diagnostico"
+                                required />
+                    </span>
+                </div>
+                <div class="p-field resp">
+                    <label>CIE 10:</label>
+                    <input style="border-radius: 10px" type="text" pInputText formControlName='CIE10' placeholder="CIE10"
+                           required />
+                </div>
+
+            </div>
+
+    </form>
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"(click)="canceled()"></button>
+        <button *ngIf="!isUpdate" [disabled]="!form.valid"  class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="save(formTemplate)" ></button>
+
+    </ng-template>
+
+
+</p-dialog>
+<!--------------------------------- FIN DIALOG INGRESAR ATENCION---->
+

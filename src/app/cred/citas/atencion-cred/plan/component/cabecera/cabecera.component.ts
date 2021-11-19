@@ -29,15 +29,11 @@ export class CabeceraComponent implements OnInit {
       { label: "Antecedentes", styleClass: 'icon1'},
       { label: "Plan de Atención Integral", styleClass: 'icon2'},
       { label: "Evaluación General", styleClass: 'icon3'},
-      { label: "Test de Desarrollo", styleClass: 'icon4'},
     ]
   }
   //--cambia los nombres de los steps según el indice
   name() {
     switch (this.indiceActivo) {
-      case 4:
-        this.stepName = "test"
-        break
       case 3:
         this.stepName = "evaluacion"
         break
