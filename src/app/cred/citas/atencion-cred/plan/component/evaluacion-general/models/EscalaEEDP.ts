@@ -13,7 +13,7 @@ export interface escalaEval_EEDP_0_4_anios {
 
 export interface datosEEDPTabla {
     codigo: string,
-    areEvaluacion: string[],
+    areEvaluacion: string,
     descripcion: string,
     puntajeEEDP: string,
     puntajeBreveN: boolean,

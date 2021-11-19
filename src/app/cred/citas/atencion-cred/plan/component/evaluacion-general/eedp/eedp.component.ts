@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from "primeng/dynamicdialog";
 import { escalaEval_EEDP_0_4_anios } from '../models/EscalaEEDP';
 import { EvalAlimenService } from '../service/eval-alimen.service';
+import { EscalaEvaluacionEEDPComponent } from '../escala-evaluacion-eedp/escala-evaluacion-eedp.component'
 
 @Component({
   selector: 'app-eedp',
   templateUrl: './eedp.component.html',
-  styleUrls: ['./eedp.component.css']
+  styleUrls: ['./eedp.component.css'],
+  providers: [DialogService],
 })
 export class EEDPComponent implements OnInit {
 
@@ -13,7 +16,8 @@ export class EEDPComponent implements OnInit {
   escalaEEDP: escalaEval_EEDP_0_4_anios[];
   datosNinio = [];
   constructor(
-    private evalAlimenService: EvalAlimenService
+    private evalAlimenService: EvalAlimenService,
+    private dialogService: DialogService,
   ) { }
 
   ngOnInit(): void {
@@ -53,7 +57,7 @@ export class EEDPComponent implements OnInit {
       let preguntaAreaL = [];
       let preguntaAreaM = [];
       item.map((pregunta, index) => {
-        let areEvaluacion = pregunta.areEvaluacion;
+        let areEvaluacion = pregunta.areEvaluacion.split('_');
         areEvaluacion.map(areaEva => {
           if (areaEva === "S") {
             let nroPregunta = pregunta.codigo.split('pregunta_')
@@ -156,5 +160,13 @@ export class EEDPComponent implements OnInit {
     }
     this.datosNinio.push(ObjDefinitivoM);
     console.log('datos para mostrar', this.datosNinio);
+  }
+
+  openEvaluacionEEDP(){
+    console.log('clinck  en modal');
+    const ref = this.dialogService.open(EscalaEvaluacionEEDPComponent, {
+      height: "90%",
+      width: "85%",
+    });
   }
 }

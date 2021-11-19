@@ -10,7 +10,7 @@
             "item": [
                 {
                     "codigo": "pregunta_1",
-                    "areEvaluacion": ["S"],
+                    "areEvaluacion": "S",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -18,7 +18,7 @@
                 },
                 {
                     "codigo": "pregunta_2",
-                    "areEvaluacion": ["L"],
+                    "areEvaluacion": "L",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -26,7 +26,7 @@
                 },
                 {
                     "codigo": "pregunta_3",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -34,7 +34,7 @@
                 },
                 {
                     "codigo": "pregunta_4",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -42,7 +42,7 @@
                 },
                 {
                     "codigo": "pregunta_5",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -61,7 +61,7 @@
             "item": [
               {
                 "codigo": "pregunta_6",
-                "areEvaluacion": ["S"],
+                "areEvaluacion": "S",
                 "descripcion": "Apreta el dedo indice del examinador",
                 "puntajeEEDP": "6",
                 "puntajeBreveN": false,
@@ -69,7 +69,7 @@
               },
               {
                 "codigo": "pregunta_7",
-                "areEvaluacion": ["S","L"],
+                "areEvaluacion": "S_L",
                 "descripcion": "Fija la mirada en el rostro del examinador",
                 "puntajeEEDP": "6",
                 "puntajeBreveN": false,
@@ -77,7 +77,7 @@
               },
               {
                 "codigo": "pregunta_8",
-                "areEvaluacion": ["C","S"],
+                "areEvaluacion": "C_S",
                 "descripcion": "Reacciona al sonido de la campanilla (detras)",
                 "puntajeEEDP": "6",
                 "puntajeBreveN": false,
@@ -85,7 +85,7 @@
               },
               {
                 "codigo": "pregunta_9",
-                "areEvaluacion": ["M"],
+                "areEvaluacion": "M",
                 "descripcion": "Apreta el dedo indice del examinador",
                 "puntajeEEDP": "0",
                 "puntajeBreveN": false,
@@ -93,7 +93,7 @@
               },
               {
                 "codigo": "pregunta_10",
-                "areEvaluacion": ["L"],
+                "areEvaluacion": "L",
                 "descripcion": "Si fue con la vista la argolla (ang 90 grados)(detras)",
                 "puntajeEEDP": "6",
                 "puntajeBreveN": false,
@@ -112,7 +112,7 @@
             "item": [
                 {
                     "codigo": "pregunta_11",
-                    "areEvaluacion": ["S"],
+                    "areEvaluacion": "S",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -120,7 +120,7 @@
                 },
                 {
                     "codigo": "pregunta_12",
-                    "areEvaluacion": ["S","L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -128,7 +128,7 @@
                 },
                 {
                     "codigo": "pregunta_13",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -136,7 +136,7 @@
                 },
                 {
                     "codigo": "pregunta_14",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -144,7 +144,7 @@
                 },
                 {
                     "codigo": "pregunta_15",
-                    "areEvaluacion": ["L"],
+                    "areEvaluacion": "L",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -163,7 +163,7 @@
             "item": [
                 {
                     "codigo": "pregunta_16",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -171,7 +171,7 @@
                 },
                 {
                     "codigo": "pregunta_17",
-                    "areEvaluacion": ["C","L"],
+                    "areEvaluacion": "C_L",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -179,7 +179,7 @@
                 },
                 {
                     "codigo": "pregunta_18",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -187,7 +187,7 @@
                 },
                 {
                     "codigo": "pregunta_19",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -195,7 +195,7 @@
                 },
                 {
                     "codigo": "pregunta_20",
-                    "areEvaluacion": ["S","L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -214,7 +214,7 @@
             "item": [
                 {
                     "codigo": "pregunta_21",
-                    "areEvaluacion": ["S", "L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -222,7 +222,7 @@
                 },
                 {
                     "codigo": "pregunta_22",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -230,7 +230,7 @@
                 },
                 {
                     "codigo": "pregunta_23",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -238,7 +238,7 @@
                 },
                 {
                     "codigo": "pregunta_24",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -246,7 +246,7 @@
                 },
                 {
                     "codigo": "pregunta_25",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -265,7 +265,7 @@
             "item": [
                 {
                     "codigo": "pregunta_26",
-                    "areEvaluacion": ["S", "L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -273,7 +273,7 @@
                 },
                 {
                     "codigo": "pregunta_27",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -281,7 +281,7 @@
                 },
                 {
                     "codigo": "pregunta_28",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -289,7 +289,7 @@
                 },
                 {
                     "codigo": "pregunta_29",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -297,7 +297,7 @@
                 },
                 {
                     "codigo": "pregunta_30",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -316,7 +316,7 @@
             "item": [
                 {
                     "codigo": "pregunta_31",
-                    "areEvaluacion": ["S", "L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -324,7 +324,7 @@
                 },
                 {
                     "codigo": "pregunta_32",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -332,7 +332,7 @@
                 },
                 {
                     "codigo": "pregunta_33",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -340,7 +340,7 @@
                 },
                 {
                     "codigo": "pregunta_34",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -348,7 +348,7 @@
                 },
                 {
                     "codigo": "pregunta_35",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -367,7 +367,7 @@
             "item": [
                 {
                     "codigo": "pregunta_36",
-                    "areEvaluacion": ["S", "L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -375,7 +375,7 @@
                 },
                 {
                     "codigo": "pregunta_37",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -383,7 +383,7 @@
                 },
                 {
                     "codigo": "pregunta_38",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -391,7 +391,7 @@
                 },
                 {
                     "codigo": "pregunta_39",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -399,7 +399,7 @@
                 },
                 {
                     "codigo": "pregunta_40",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -418,7 +418,7 @@
             "item": [
                 {
                     "codigo": "pregunta_41",
-                    "areEvaluacion": ["S", "L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -426,7 +426,7 @@
                 },
                 {
                     "codigo": "pregunta_42",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -434,7 +434,7 @@
                 },
                 {
                     "codigo": "pregunta_43",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -442,7 +442,7 @@
                 },
                 {
                     "codigo": "pregunta_44",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -450,7 +450,7 @@
                 },
                 {
                     "codigo": "pregunta_45",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -469,7 +469,7 @@
             "item": [
                 {
                     "codigo": "pregunta_46",
-                    "areEvaluacion": ["S", "L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -477,7 +477,7 @@
                 },
                 {
                     "codigo": "pregunta_47",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -485,7 +485,7 @@
                 },
                 {
                     "codigo": "pregunta_48",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -493,7 +493,7 @@
                 },
                 {
                     "codigo": "pregunta_49",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -501,7 +501,7 @@
                 },
                 {
                     "codigo": "pregunta_50",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -520,7 +520,7 @@
             "item": [
                 {
                     "codigo": "pregunta_51",
-                    "areEvaluacion": ["S", "L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -528,7 +528,7 @@
                 },
                 {
                     "codigo": "pregunta_52",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -536,7 +536,7 @@
                 },
                 {
                     "codigo": "pregunta_53",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -544,7 +544,7 @@
                 },
                 {
                     "codigo": "pregunta_54",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -552,7 +552,7 @@
                 },
                 {
                     "codigo": "pregunta_55",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -571,7 +571,7 @@
             "item": [
                 {
                     "codigo": "pregunta_56",
-                    "areEvaluacion": ["S", "L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -579,7 +579,7 @@
                 },
                 {
                     "codigo": "pregunta_57",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -587,7 +587,7 @@
                 },
                 {
                     "codigo": "pregunta_58",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -595,7 +595,7 @@
                 },
                 {
                     "codigo": "pregunta_59",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -603,7 +603,7 @@
                 },
                 {
                     "codigo": "pregunta_60",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -622,7 +622,7 @@
             "item": [
                 {
                     "codigo": "pregunta_61",
-                    "areEvaluacion": ["S", "L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -630,7 +630,7 @@
                 },
                 {
                     "codigo": "pregunta_62",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -638,7 +638,7 @@
                 },
                 {
                     "codigo": "pregunta_63",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -646,7 +646,7 @@
                 },
                 {
                     "codigo": "pregunta_64",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -654,7 +654,7 @@
                 },
                 {
                     "codigo": "pregunta_65",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -673,7 +673,7 @@
             "item": [
                 {
                     "codigo": "pregunta_66",
-                    "areEvaluacion": ["S", "L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -681,7 +681,7 @@
                 },
                 {
                     "codigo": "pregunta_67",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -689,7 +689,7 @@
                 },
                 {
                     "codigo": "pregunta_68",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -697,7 +697,7 @@
                 },
                 {
                     "codigo": "pregunta_69",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -705,7 +705,7 @@
                 },
                 {
                     "codigo": "pregunta_70",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -724,7 +724,7 @@
             "item": [
                 {
                     "codigo": "pregunta_71",
-                    "areEvaluacion": ["S", "L"],
+                    "areEvaluacion": "S_L",
                     "descripcion": "Fija la mirada en el rostro del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -732,7 +732,7 @@
                 },
                 {
                     "codigo": "pregunta_72",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Reacciona al sonido de la campanilla(detras)",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -740,7 +740,7 @@
                 },
                 {
                     "codigo": "pregunta_73",
-                    "areEvaluacion": ["C"],
+                    "areEvaluacion": "C",
                     "descripcion": "Aprieta el dedo indice del examinador",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
@@ -748,7 +748,7 @@
                 },
                 {
                     "codigo": "pregunta_74",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                     "puntajeEEDP": "0",
                     "puntajeBreveN": false,
@@ -756,7 +756,7 @@
                 },
                 {
                     "codigo": "pregunta_75",
-                    "areEvaluacion": ["M"],
+                    "areEvaluacion": "M",
                     "descripcion": "Movimiento de cabeza en posición prona",
                     "puntajeEEDP": "6",
                     "puntajeBreveN": false,
