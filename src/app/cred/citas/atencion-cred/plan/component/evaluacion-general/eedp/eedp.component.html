@@ -1,1 +1,122 @@
-<p>eedp works!</p>
+<div>
+    <p>eedp works!</p>
+    <p-table
+        dataKey="id"
+        [value]="datosMeses"
+        responsiveLayout="scroll"
+        styleClass="p-datatable-gridlines"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th rowspan="2" colspan="2">Area</th>
+                <th colspan="30">MESES</th>
+            </tr>
+            
+            <tr>
+                <th colspan="2">1</th>
+                <th colspan="2">2</th>
+                <th colspan="2">3</th>
+                <th colspan="2">4</th>
+                <th colspan="2">5</th>
+                <th colspan="2">6</th>
+                <th colspan="2">7</th>
+                <th colspan="2">8</th>
+                <th colspan="2">9</th>
+                <th colspan="2">10</th>
+                <th colspan="2">12</th>
+                <th colspan="2">15</th>
+                <th colspan="2">18</th>
+                <th colspan="2">21</th>
+                <th colspan="2">24</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-datos>
+            <tr>
+                <td colspan="2">{{datos.area}}</td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: center;">4</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: center;">8</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: start;">12</div>
+                        <div style="display: flex; justify-content: end;">13</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: start;">16</div>
+                        <div style="display: flex; justify-content: end;">17</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: start;">22</div>
+                        <div style="display: flex; justify-content: end;">23</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: start; ">27</div>
+                        <div style="display: flex; justify-content: center; ">28</div>
+                        <div style="display: flex; justify-content: end; ">29</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: start;">32</div>
+                        <div style="display: flex; justify-content: end;">35</div>
+                    </div>
+                </td>
+                <td colspan="2">8</td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: start;">43</div>
+                        <div style="display: flex; justify-content: end;">44</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: start; ">46</div>
+                        <div style="display: flex; justify-content: center; ">48</div>
+                        <div style="display: flex; justify-content: end; ">49</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: center;">52</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: start; ">57</div>
+                        <div style="display: flex; justify-content: center; ">58</div>
+                        <div style="display: flex; justify-content: end; ">59</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: start;">64</div>
+                        <div style="display: flex; justify-content: end;">65</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: center;">68</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container">
+                        <div style="display: flex; justify-content: center;">75</div>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
