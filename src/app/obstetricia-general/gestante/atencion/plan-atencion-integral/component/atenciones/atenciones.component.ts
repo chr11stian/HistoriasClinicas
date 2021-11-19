@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
+import {AtencionesService} from "../../services/atenciones/Atenciones.service";
 
 
 @Component({
@@ -15,6 +16,8 @@ export class AtencionesComponent implements OnInit {
     isUpdate: boolean = false;
     idUpdate: string = "";
     datafecha: any;
+
+    dataPacientes: any;
 
     /* ---  listas ---*/
     situacionList: any[];
@@ -60,9 +63,8 @@ export class AtencionesComponent implements OnInit {
     establecimientoAtencion: string;
 
 
-    constructor(
-        private formBuilder: FormBuilder
-    ) {
+    constructor(private formBuilder: FormBuilder,
+                private atencionesService: AtencionesService) {
 
         this.buildForm();
         /*LLENADO DE LISSTAS- VALORES QUE PUEDEN TOMAR CIERTAS PROPIEDADES*/
@@ -113,9 +115,7 @@ export class AtencionesComponent implements OnInit {
         this.visitaDomiciliariaList = [{label: 'Si', value: '1'},
             {label: 'No', value: '2'},
             {label: 'No Aplica', value: '3'}];
-
     }
-
     buildForm() {
         this.form = this.formBuilder.group({
             nroAtencion: ['', [Validators.required]],
@@ -149,7 +149,6 @@ export class AtencionesComponent implements OnInit {
         });
 
     }
-
 
     save(form: any) {
         this.isUpdate = false;
@@ -199,7 +198,6 @@ export class AtencionesComponent implements OnInit {
         this.form.get('visitaDomiciliaria').setValue("");
         this.form.get('responsableAtencion').setValue("");
         this.form.get('establecimientoAtencion').setValue("");
-
         this.atencionGestanteDialog = true;
     }
 
@@ -320,6 +318,16 @@ export class AtencionesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.getPacientes();
+    }
+
+    getPacientes() {
+        // this.atencionesService.getPacientes().subscribe((res: any) => {
+        //     this.dataPacientes = res;
+        //     // console.log("pacientes", res);
+        //     console.log("pacientes", this.dataPacientes);
+        //
+        // })
     }
 }
 

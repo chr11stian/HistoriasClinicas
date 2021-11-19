@@ -110,7 +110,7 @@
                 <h3 class="m-2">ATENCION NRO. 001 </h3>
             </ng-template>
             <div class="p-fluid grid">
-                <div class="resp" col-6>
+                <div class="col-6">
                     <label>FECHA DE ATENCION:</label>
                     <input type="date" class="p-fluid" pInputText formControlName="fechaAtencion" class="p-inputtext-sm "
                            required/>
@@ -137,7 +137,6 @@
                     <label>TEMPERATURA(°C) </label>
                     <p-inputNumber formControlName='temperatura' class="p-fluid"  prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40">
                     </p-inputNumber>
-<!--                    <input type="decimal" pInputText formControlName='temperatura' placeholder="°C"  suffix="℃" [min]="0" [max]="40"required />-->
                 </div>
                 <div class="p-field resp">
                     <label>PRESION ARTERIAL</label>
@@ -169,7 +168,7 @@
                         </p-dropdown>
                     </div>
                 </div>
-                <div class="p-field resp">
+                <div class=" p-fluid resp">
                     <label>POSICION FETAL</label>
                     <div class="p-field">
                         <p-dropdown inputId="dropdown" [options]="posicionList" formControlName="posicion"
