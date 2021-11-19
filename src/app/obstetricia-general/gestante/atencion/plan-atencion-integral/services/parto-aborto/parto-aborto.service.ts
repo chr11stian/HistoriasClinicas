@@ -8,10 +8,13 @@ import {environment} from "../../../../../../../environments/environment";
 export class PartoAbortoService {
   base_url = environment.baseUrl;
   // bd = environment.bd;
-  bd = "historiasclinicas";
+  bd = "api/hce";
 
   constructor(private http:HttpClient) { }
-  addPartoAborto(inputParto:any,idPaciente:string) {
-    return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarparto-aborto/${idPaciente}`,inputParto);
+  addPartoAborto(tipoDoc,dniPaciente,inputParto:any) {
+    return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarparto-aborto/${tipoDoc}/${dniPaciente}`,inputParto);
+  }
+  getPartoAborto(tipoDoc,dniPaciente) {
+    return this.http.get(`${this.base_url}/${this.bd}/filiacion/guardarparto-aborto/${tipoDoc}/${dniPaciente}`);
   }
 }

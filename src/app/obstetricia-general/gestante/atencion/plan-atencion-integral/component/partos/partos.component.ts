@@ -20,6 +20,8 @@ export class PartosComponent implements OnInit {
   twoOptions: any[];
   TFOptions:any[];
   myGroup: FormGroup;
+  medicacionList=[{ medicacion:'medicacion1'},{medicacion:'medicacion2'},{medicacion:'medicacion3'}]
+  medicamentoList=[{ medicamento:'medicamento1'},{medicamento:'medicamento2'}]
 
   constructor(public fb: FormBuilder,
               private partoAbortoService:PartoAbortoService) {
@@ -116,7 +118,7 @@ export class PartosComponent implements OnInit {
     return this.myGroup.get(control);
   }
   save() {
-    let idPaciente="61954223a69d355b453086b4"
+
     const partoAbortoInput:any={
       estado:{
         hcmp:this.getFC("hcmp").value,
@@ -222,7 +224,10 @@ export class PartosComponent implements OnInit {
         responsableAtencionNeonato:this.getFC("responsableAtencionNeonato").value
       }
     }
-    this.partoAbortoService.addPartoAborto(partoAbortoInput,idPaciente).subscribe((resp)=>{
+    let tipoDoc="DNI"
+    let dniPaciente="77777777"
+
+    this.partoAbortoService.addPartoAborto(tipoDoc,dniPaciente,partoAbortoInput).subscribe((resp)=>{
       console.log(resp)
       console.log(partoAbortoInput)
     })
