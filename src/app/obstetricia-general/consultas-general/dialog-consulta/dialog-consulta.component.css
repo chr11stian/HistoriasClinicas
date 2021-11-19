@@ -22,5 +22,25 @@
 }
 
 ::ng-deep .p-dialog-footer {
-    background: red;
+  background: red;
+}
+
+.body {
+  position: relative;
+  min-height: 100%;
+}
+
+.footer {
+  text-align: right;
+  /* display: flexbox; */
+  /* text-align: center; */
+  background: white;
+  position: absolute;
+  /* margin-top: 2.5; */
+  bottom: 0;
+  width: 97%;
+  height: 5em;
+  color: white;
+  bottom: 0;
+  z-index: 100;
 }
