@@ -4,6 +4,10 @@ p-steps >>> * {
     width: 100%;
 }
 
+p-card >>> .p-card-body{
+  margin-top: 0px;
+}
+
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
     border-radius: 0px;
     width: 100%;
