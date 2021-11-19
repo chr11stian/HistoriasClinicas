@@ -11,51 +11,48 @@
     <br>
     <p-fieldset legend="DATOS GENERALES DEL PACIENTE" [toggleable]="true">
         <form [formGroup]='formDatos_Generales'>
-            <div class="grid col-12">
-                <div class="col-4 p-field">
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
                         <label class="m-2">Apellido Paterno: </label>
                         <input type="text" pInputText class="inputfield w-full">
                     </div>
                 </div>
-
-                <div class=" col-4 p-field">
+                <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
                         <label class="m-2">Apellido Materno:</label>
                         <input type="text" pInputText class="inputfield w-full">
                     </div>
                 </div>
-
-                <div class="col-4 p-field">
+                <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
                         <label class="m-2">Nombres: </label>
                         <input type="text" pInputText class="inputfield w-full">
                     </div>
                 </div>
-
             </div>
 
-            <div class="grid col-12">
-                <div class="col-4 p-field">
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
                         <label class="m-2">Establecimiento: </label>
                         <input type="text" pInputText class="inputfield w-full">
                     </div>
                 </div>
-                <div class="col-4 p-field">
+                <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
                         <label class="m-2">Estab. Origen:</label>
                         <input type="text" pInputText class="inputfield w-full">
                     </div>
                 </div>
-                <div class="col-2 p-field">
+                <div class="col-12 md:col-6 lg:col-2 p-field">
                     <div class="">
                         <label class="m-2">Aplica: </label>
                         <p-selectButton [options]="options" formControlName="aplica"
                                         optionLabel="name"></p-selectButton>
                     </div>
                 </div>
-                <div class="col-2 p-field">
+                <div class="col-12 md:col-6 lg:col-2 p-field">
                     <div class="">
                         <label class="m-2">Referencia: </label>
                         <p-selectButton [options]="options" formControlName="referencia"
@@ -64,8 +61,8 @@
                 </div>
             </div>
 
-            <div class="grid col-12">
-                <div class="col-4 p-field">
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
                         <label class="m-2">Código Afiliación SIS:</label>
                         <input type="text" pInputText class="inputfield w-full">
@@ -86,7 +83,6 @@
                 </div>
 
             </div>
-
 
             <div class="grid col-12">
 
@@ -110,7 +106,6 @@
                 </div>
 
             </div>
-
 
             <div class="grid col-12">
 
@@ -141,7 +136,6 @@
 
 
             </div>
-
 
             <div class="grid col-12">
 
@@ -193,7 +187,6 @@
 
 
             </div>
-
 
             <div class="grid col-12">
 

@@ -13,7 +13,7 @@ export class PacienteService {
   constructor(private http: HttpClient) { }
 
   getPacientes() {
-    return this.http.get(`${this.base_url}/${this.bd}/api/paciente`);
+    return this.http.get(`${this.base_url}/${this.bd}/paciente`);
   }
 
   postPacientes(data) {

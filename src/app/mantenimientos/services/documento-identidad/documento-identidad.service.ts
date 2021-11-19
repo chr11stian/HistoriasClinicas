@@ -13,19 +13,18 @@ export class DocumentoIdentidadService {
     constructor(private http: HttpClient) { }
 
     getDocumentosIdentidad() {
-        return this.http.get(`${this.base_url}/${this.bd}/api/documentoidentidad`);
+        return this.http.get(`${this.base_url}/${this.bd}/documentoidentidad`);
     }
 
     postDocumentoIdentidad(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/documentoidentidad`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/documentoidentidad`, data)
     }
 
     putDocumentoIdentidad(data) {
-        return this.http.put<any>(`${this.base_url}/${this.bd}/api/documentoidentidad/`, data)
+        return this.http.put<any>(`${this.base_url}/${this.bd}/documentoidentidad/`, data)
     }
 
     deleteDocumentoIdentidadById(id){
-        return this.http.delete(`${this.base_url}/${this.bd}/api/documentoidentidad/${id}`)
+        return this.http.delete(`${this.base_url}/${this.bd}/documentoidentidad/${id}`)
     }
 }
-    
