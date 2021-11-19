@@ -12,15 +12,15 @@ export class TipoContratoService {
   constructor(private http: HttpClient) {}
 
   getTipoContrato() {
-    return this.http.get(`${this.base_url}/${this.bd}/api/contrato/lista`);
+    return this.http.get(`${this.base_url}/${this.bd}/contrato/lista`);
   }
   createTipoContrato(grupo){
-    return this.http.post<any>(`${this.base_url}/${this.bd}/api/contrato/save`, grupo)
+    return this.http.post<any>(`${this.base_url}/${this.bd}/contrato/save`, grupo)
   }
   deleteTipoContrato(id){
-    return this.http.delete(`${this.base_url}/${this.bd}/api/contrato/${id}`)
+    return this.http.delete(`${this.base_url}/${this.bd}/contrato/${id}`)
   }
   editTipoContrato(grupo){
-    return this.http.post<any>(`${this.base_url}/${this.bd}/api/contrato/actualizar`, grupo)
+    return this.http.post<any>(`${this.base_url}/${this.bd}/contrato/actualizar`, grupo)
   }
 }

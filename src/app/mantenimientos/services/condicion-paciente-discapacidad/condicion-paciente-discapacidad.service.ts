@@ -11,28 +11,28 @@ export class CondicionPacienteDiscapacidadService {
   constructor(private http: HttpClient) {}
   getCPDs() {
     return this.http.get(
-      `${this.base_url}/${this.bd}/api/condicionpacientediscapacidad`
+      `${this.base_url}/${this.bd}/condicionpacientediscapacidad`
     );
   }
   getCPD(id: string) {
     return this.http.get(
-      `${this.base_url}/${this.bd}/api/condicionpacientediscapacidad/${id}`
+      `${this.base_url}/${this.bd}/condicionpacientediscapacidad/${id}`
     );
   }
   deleteCPD(id: string) {
     return this.http.delete(
-      `${this.base_url}/${this.bd}/api/condicionpacientediscapacidad/${id}`
+      `${this.base_url}/${this.bd}/condicionpacientediscapacidad/${id}`
     );
   }
   addCPD(CPD: any) {
     return this.http.post(
-      `${this.base_url}/${this.bd}/api/condicionpacientediscapacidad`,
+      `${this.base_url}/${this.bd}/condicionpacientediscapacidad`,
       CPD
     );
   }
   updateCPD(id: string, CPD: any) {
     return this.http.put(
-      `${this.base_url}/${this.bd}/api/condicionpacientediscapacidad/${id}`,
+      `${this.base_url}/${this.bd}/condicionpacientediscapacidad/${id}`,
       CPD
     );
   }

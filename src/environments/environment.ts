@@ -8,7 +8,6 @@ export const environment = {
     baseUrl: "http://192.168.5.3:8080", //privada
     // baseUrl: "http://190.108.93.145:8080", //publica
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

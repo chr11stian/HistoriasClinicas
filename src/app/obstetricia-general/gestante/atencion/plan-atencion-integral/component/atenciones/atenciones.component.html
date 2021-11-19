@@ -56,7 +56,7 @@
     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
         <tr>
             <td style="text-align: center" class="font-2">ATENCION {{ rowIndex + 1 }}</td>
-            <td style="text-align: center">{{ rowData.fechaAtencion }}</td>
+            <td style="text-align: center">{{ rowData.fechaAtencion }} </td>
             <td style="text-align: center">{{ rowData.edadGestacional }}</td>
             <td style="text-align: center">{{ rowData.pesoMadre}}</td>
             <td style="text-align: center">{{ rowData.evalNutricional}}</td>
@@ -112,8 +112,9 @@
             <div class="p-fluid grid">
                 <div class="col-6">
                     <label>FECHA DE ATENCION:</label>
-                    <input type="date" class="p-fluid" pInputText formControlName="fechaAtencion" class="p-inputtext-sm "
-                           required/>
+<!--                    <input type="date" class="p-fluid" pInputText formControlName="fechaAtencion" class="p-inputtext-sm "-->
+<!--                           required/>-->
+                    <p-calendar type="date" class="inputfield w-full" showIcon="True" formControlName='fechaAtencion' dateFormat="dd-mm-yy" ></p-calendar>
                 </div>
             </div>
             <div  class="grid p-fluid">
@@ -219,10 +220,10 @@
                 </div>
                 <div class="p-field resp">
                     <label>FECHA ECOGRAFIA</label>
-                    <input type="date"
-                           pInputText
-                           formControlName="fechaEcografia" class="p-inputtext-sm " required=""/>
-
+<!--                    <input type="date"-->
+<!--                           pInputText-->
+<!--                           formControlName="fechaEcografia" class="p-inputtext-sm " required=""/>-->
+                    <p-calendar class="inputfield w-full" showIcon="True" formControlName='fechaEcografia'></p-calendar>
                 </div>
                 <div class="p-field resp">
                     <label>CONSEJERIA INTEGRAL</label>

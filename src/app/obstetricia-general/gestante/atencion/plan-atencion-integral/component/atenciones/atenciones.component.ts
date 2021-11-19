@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
 import {AtencionesService} from "../../services/atenciones/Atenciones.service";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
@@ -34,7 +35,7 @@ export class AtencionesComponent implements OnInit {
     atencionGestanteDialog: boolean;
 
     nroAtencion: number;
-    fechaAtencion: string;
+    fechaAtencion: Date;
     edadGestacional: number;
     pesoMadre: number;
     evalNutricional: string;
@@ -50,7 +51,7 @@ export class AtencionesComponent implements OnInit {
     proteinaCualitativa: string;
     edema: string;
     reflejoOsteotendinoso: string;
-    fechaEcografia: string;
+    fechaEcografia: Date;
     consejeriaIntegral: string;
     indAcidoFolico: string;
     indFierro: string;
