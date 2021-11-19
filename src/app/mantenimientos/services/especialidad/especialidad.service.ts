@@ -11,15 +11,15 @@ export class EspecialidadService {
   constructor(private http: HttpClient) {}
 
   getEspecialidad() {
-    return this.http.get(`${this.base_url}/${this.bd}/api/especialidad`);
+    return this.http.get(`${this.base_url}/${this.bd}/especialidad`);
   }
   createEspecialidad(especialidad){
-    return this.http.post<any>(`${this.base_url}/${this.bd}/api/especialidad`, especialidad)
+    return this.http.post<any>(`${this.base_url}/${this.bd}/especialidad`, especialidad)
   }
   deleteEspecialidad(id){
-    return this.http.delete(`${this.base_url}/${this.bd}/api/especialidad/${id}`)
+    return this.http.delete(`${this.base_url}/${this.bd}/especialidad/${id}`)
   }
   editEspecialidad(especialidad){
-    return this.http.put<any>(`${this.base_url}/${this.bd}/api/especialidad`, especialidad)
+    return this.http.put<any>(`${this.base_url}/${this.bd}/especialidad`, especialidad)
   }
 }

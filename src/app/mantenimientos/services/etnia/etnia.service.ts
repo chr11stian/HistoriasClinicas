@@ -11,15 +11,15 @@ export class EtniaService {
   constructor(private http: HttpClient) {}
 
   getEtnia() {
-    return this.http.get(`${this.base_url}/${this.bd}/api/etnia`);
+    return this.http.get(`${this.base_url}/${this.bd}/etnia`);
   }
   createEtnia(grupo){
-    return this.http.post<any>(`${this.base_url}/${this.bd}/api/etnia`, grupo)
+    return this.http.post<any>(`${this.base_url}/${this.bd}/etnia`, grupo)
   }
   deleteEtnia(id){
-    return this.http.delete(`${this.base_url}/${this.bd}/api/etnia/${id}`)
+    return this.http.delete(`${this.base_url}/${this.bd}/etnia/${id}`)
   }
   editEtnia(grupo){
-    return this.http.put<any>(`${this.base_url}/${this.bd}/api/etnia`, grupo)
+    return this.http.put<any>(`${this.base_url}/${this.bd}/etnia`, grupo)
   }
 }
