@@ -76,7 +76,7 @@
             <h4 class="text-center"> MENOR DE 2 MESES:</h4>
             <div *ngFor="let formC of twoMonths">
                 <select-btn [field]="formC.label"
-                            [formControlName]="formC.nameFc">
+                            [formControlName]="formC.nameFC">
                 </select-btn>
             </div>
         </div>
@@ -84,7 +84,7 @@
             <h4 class="text-center"> DE 2 MESES a 4 AÑOS:</h4>
             <div *ngFor="let formC of twoMonthsMore">
                 <select-btn [field]="formC.label"
-                            [formControlName]="formC.nameFc">
+                            [formControlName]="formC.nameFC">
                 </select-btn>
             </div>
         </div>
@@ -92,7 +92,7 @@
             <h4 class="text-center"> PARA TODAS LAS EDADES:</h4>
             <div *ngFor="let formC of allYear">
                 <select-btn [field]="formC.label"
-                            [formControlName]="formC.nameFc">
+                            [formControlName]="formC.nameFC">
                 </select-btn>
             </div>
         </div>
