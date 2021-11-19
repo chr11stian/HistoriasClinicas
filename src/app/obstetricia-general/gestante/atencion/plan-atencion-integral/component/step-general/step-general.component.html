@@ -1,83 +1,102 @@
-<p-panel>
-    <ng-template pTemplate="header">
-        <h3 class="m-1">PLAN DE ATENCIÓN INTEGRAl</h3>
-    </ng-template>
-    <div class="grid">
-        <div class="col-12 md:col-6 lg:col-3 p-field">
-            <div class="">
-                <span class="">TIPO DOCUMENTO</span>
-            </div>
-            <div class="">
-                <p-dropdown
-                        placeholder="Seleccionarddd"
-                        [options]="options"
-                        optionLabel="name">
-                </p-dropdown>
-            </div>
-        </div>
-        <div class="col-12 md:col-6 lg:col-3 p-field">
-            <div class="">
-                <span class="">NUMERO DE DOCUMENTO</span>
-            </div>
-            <div class="p-inputgroup">
-                <input type="text" pInputText>
-                <button pButton type="button" icon="pi pi-search" iconPos="right"
-                        class="p-button-text p-button-text"></button>
-            </div>
-        </div>
+<div class="p-card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="m-1">PLAN DE ATENCIÓN INTEGRAL</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <span>Sr. Jimmy Pimente Cruz</span>
+        </ng-template>
+    </p-toolbar>
 
-    </div>
+    <!--        <div class="grid">-->
+    <!--            <div class="col-12 md:col-6 lg:col-3 p-field">-->
+    <!--                <div class="">-->
+    <!--                    <span class="">TIPO DOCUMENTO</span>-->
+    <!--                </div>-->
+    <!--                <div class="">-->
+    <!--                    <p-dropdown-->
+    <!--                            placeholder="Seleccionarddd"-->
+    <!--                            [options]="options"-->
+    <!--                            optionLabel="name">-->
+    <!--                    </p-dropdown>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--            <div class="col-12 md:col-6 lg:col-3 p-field">-->
+    <!--                <div class="">-->
+    <!--                    <span class="">NUMERO DE DOCUMENTO</span>-->
+    <!--                </div>-->
+    <!--                <div class="p-inputgroup">-->
+    <!--                    <input type="text" pInputText>-->
+    <!--                    <button pButton type="button" icon="pi pi-search" iconPos="right"-->
+    <!--                            class="p-button-text p-button-text"></button>-->
+    <!--                </div>-->
+    <!--            </div>-->
+
+    <!--        </div>-->
     <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
              (activeIndexChange)="ChangeStep($event)" class="col-12 md:col-6 lg:col-12 p-field">
     </p-steps>
 
-</p-panel>
+    <br>
 
-<br>
+    <div class="stepsdemo-content" *ngIf="stepName === 'datosgeneralesfiliacion'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-datos-generales-filiacion></app-datos-generales-filiacion>
+            </ng-template>
+        </p-card>
+    </div>
 
-<div class="stepsdemo-content" *ngIf="stepName === 'datos'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-datos-generales-obtetricia></app-datos-generales-obtetricia>
-        </ng-template>
-    </p-card>
-</div>
-<div class="stepsdemo-content" *ngIf="stepName === 'basales'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-datos-basales></app-datos-basales>
-        </ng-template>
-    </p-card>
-</div>
-<div class="stepsdemo-content" *ngIf="stepName === 'atenciones'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-atenciones></app-atenciones>
-        </ng-template>
-    </p-card>
-</div>
+    <div class="stepsdemo-content" *ngIf="stepName === 'antecedentes'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-datos-generales-obtetricia></app-datos-generales-obtetricia>
+            </ng-template>
+        </p-card>
+    </div>
 
 
-<div class="stepsdemo-content" *ngIf="stepName === 'partos'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-partos></app-partos>
-        </ng-template>
-    </p-card>
-</div>
+    <div class="stepsdemo-content" *ngIf="stepName === 'basales'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-datos-basales></app-datos-basales>
+            </ng-template>
+        </p-card>
+    </div>
 
 
-<div class="stepsdemo-content" *ngIf="stepName === 'nacidos'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-recien-nacido></app-recien-nacido>
-        </ng-template>
-    </p-card>
-</div>
-<div class="stepsdemo-content" *ngIf="stepName === 'puerperio'">
-    <p-card>
-        <ng-template pTemplate="content">
-            <app-puerperio></app-puerperio>
-        </ng-template>
-    </p-card>
+    <div class="stepsdemo-content" *ngIf="stepName === 'atenciones'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-atenciones></app-atenciones>
+            </ng-template>
+        </p-card>
+    </div>
+
+
+    <div class="stepsdemo-content" *ngIf="stepName === 'partos'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-partos></app-partos>
+            </ng-template>
+        </p-card>
+    </div>
+
+
+    <div class="stepsdemo-content" *ngIf="stepName === 'nacidos'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-recien-nacido></app-recien-nacido>
+            </ng-template>
+        </p-card>
+    </div>
+
+    <div class="stepsdemo-content" *ngIf="stepName === 'puerperio'">
+        <p-card>
+            <ng-template pTemplate="content">
+                <app-puerperio></app-puerperio>
+            </ng-template>
+        </p-card>
+
+    </div>
 </div>
