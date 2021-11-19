@@ -22,3 +22,9 @@
     text-align: center;
 
 }
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background-color: #0c3866;
+}
+.fontVac{
+    font-size: 10px;
+}
