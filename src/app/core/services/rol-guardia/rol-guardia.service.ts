@@ -12,30 +12,30 @@ export class RolGuardiaService {
   constructor(private http: HttpClient) {}
   getRolGuardiaPorPersona(inputRequest: any) {
     return this.http.post(
-      `${this.base_url}/${this.bd}/api/rolguardia/persona`,
+      `${this.base_url}/${this.bd}/rolguardia/persona`,
       inputRequest
     );
   }
   getRolGuardiaPorServicio(inputRequest: any) {
     return this.http.post(
-      `${this.base_url}/${this.bd}/api/rolguardia/servicio`,
+      `${this.base_url}/${this.bd}/rolguardia/servicio`,
       inputRequest
     );
   }
   AddRolGuardia(rolDia: any) {
     return this.http.post(
-      `${this.base_url}/${this.bd}/api/rolguardia/upsertArreglo`,
+      `${this.base_url}/${this.bd}/rolguardia/upsertArreglo`,
       rolDia
     );
   }
   getServiciosPorIpress(idIpress) {
     return this.http.get(
-      `${this.base_url}/${this.bd}/api/ipress/listarServicios/${idIpress}`
+      `${this.base_url}/${this.bd}/ipress/listarServicios/${idIpress}`
     );
   }
   getTurnosPorIpress(idIpress) {
     return this.http.get(
-      `${this.base_url}/${this.bd}/api/ipress/listarTurnos/${idIpress}`
+      `${this.base_url}/${this.bd}/ipress/listarTurnos/${idIpress}`
     );
   }
 }
