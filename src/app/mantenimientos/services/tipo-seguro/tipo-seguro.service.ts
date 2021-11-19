@@ -11,15 +11,15 @@ export class TipoSeguroService {
   constructor(private http: HttpClient) {}
 
   getTipoSeguro() {
-    return this.http.get(`${this.base_url}/${this.bd}/api/tiposeguro`);
+    return this.http.get(`${this.base_url}/${this.bd}/tiposeguro`);
   }
   createTipoSeguro(condicion){
-    return this.http.post<any>(`${this.base_url}/${this.bd}/api/tiposeguro`, condicion)
+    return this.http.post<any>(`${this.base_url}/${this.bd}/tiposeguro`, condicion)
   }
   deleteTipoSeguro(id){
-    return this.http.delete(`${this.base_url}/${this.bd}/api/tiposeguro/${id}`)
+    return this.http.delete(`${this.base_url}/${this.bd}/tiposeguro/${id}`)
   }
   editTipoSeguro(condicion){
-    return this.http.put<any>(`${this.base_url}/${this.bd}/api/tiposeguro`, condicion)
+    return this.http.put<any>(`${this.base_url}/${this.bd}/tiposeguro`, condicion)
   }
 }

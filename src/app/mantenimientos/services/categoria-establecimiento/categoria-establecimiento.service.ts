@@ -20,18 +20,18 @@ export class CategoriaEstablecimientoService {
     // }
 
     getCategoriaEstablecimiento() {
-        return this.http.get(`${this.base_url}/${this.bd}/api/categoriaestablecimiento`);
+        return this.http.get(`${this.base_url}/${this.bd}/categoriaestablecimiento`);
     }
 
     createCategoriaEstablecimiento(categoria) {
-        return this.http.post<any>(`${this.base_url}/${this.bd}/api/categoriaestablecimiento`, categoria)
+        return this.http.post<any>(`${this.base_url}/${this.bd}/categoriaestablecimiento`, categoria)
     }
 
     deleteCategoriaEstablecimiento(id) {
-        return this.http.delete(`${this.base_url}/${this.bd}/api/categoriaestablecimiento/${id}`)
+        return this.http.delete(`${this.base_url}/${this.bd}/categoriaestablecimiento/${id}`)
     }
 
     editCategoriaEstablecimiento(categoria) {
-        return this.http.put<any>(`${this.base_url}/${this.bd}/api/categoriaestablecimiento`, categoria)
+        return this.http.put<any>(`${this.base_url}/${this.bd}/categoriaestablecimiento`, categoria)
     }
 }

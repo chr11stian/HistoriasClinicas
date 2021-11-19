@@ -5,6 +5,7 @@ import {PrimeModule} from "../../shared/prime/prime.module";
 import {PaginatorModule} from "primeng/paginator";
 import {ConsultasGeneralComponent} from "./consultas-general.component";
 import { DialogConsultaComponent } from './dialog-consulta/dialog-consulta.component';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { DialogConsultaComponent } from './dialog-consulta/dialog-consulta.compo
         CommonModule,
         PrimeModule,
         PaginatorModule,
-        ConsultasGeneralRoutingModule
+        ConsultasGeneralRoutingModule,
+        DynamicDialogModule,
     ]
 })
 export class ConsultasGeneralModule {

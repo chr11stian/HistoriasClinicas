@@ -24,41 +24,41 @@ export class UbicacionService {
 
 
     getUbicacion() {
-        return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/listar?page=1`);
+        return this.http.get(`${this.base_url}/${this.bd}/ubicacion/listar?page=1`);
     }
 
 
     getDepartamentos() {
-        return this.http.get(`${this.base_url}/${this.bd}/api/ubicacion/departamentos`);
+        return this.http.get(`${this.base_url}/${this.bd}/ubicacion/departamentos`);
     }
 
     getProvincias(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/provincias`, data);
+        return this.http.post(`${this.base_url}/${this.bd}/ubicacion/provincias`, data);
     }
 
     getDistritos(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/distritos`, data);
+        return this.http.post(`${this.base_url}/${this.bd}/ubicacion/distritos`, data);
     }
 
     getCentroPoblado(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/ccpp`, data);
+        return this.http.post(`${this.base_url}/${this.bd}/ubicacion/ccpp`, data);
     }
 
     saveCCPP(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/save/ccpp`, data);
+        return this.http.post(`${this.base_url}/${this.bd}/ubicacion/save/ccpp`, data);
     }
 
     editarCCPP(id, data) {
-        return this.http.put(`${this.base_url}/${this.bd}/api/ubicacion/actualizar/ccpp/${id}`, data)
+        return this.http.put(`${this.base_url}/${this.bd}/ubicacion/actualizar/ccpp/${id}`, data)
     }
 
     buscarUbigeo(data){
-        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/ubigeo`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/ubicacion/ubigeo`, data)
     }
     getUbigeoDistrito(data){
-        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/data/distrito`, data);
+        return this.http.post(`${this.base_url}/${this.bd}/ubicacion/data/distrito`, data);
     }
     getCCPPDatos(data){
-        return this.http.post(`${this.base_url}/${this.bd}/api/ubicacion/data/ccpp`, data);
+        return this.http.post(`${this.base_url}/${this.bd}/ubicacion/data/ccpp`, data);
     }
 }
