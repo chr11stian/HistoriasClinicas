@@ -2,6 +2,24 @@ export interface ObjectEscalaEEDP {
     EscalaEEDP: EscalaEEDP
 }
 
+export interface escalaEval_EEDP_0_4_anios {
+    edad: string,
+    condicion:string,
+    fecha: string,
+    examinador: string,
+    item: datosEEDPTabla[],
+    deleted: boolean
+}
+
+export interface datosEEDPTabla {
+    codigo: string,
+    areEvaluacion: string[],
+    descripcion: string,
+    puntajeEEDP: string,
+    puntajeBreveN: boolean,
+    puntajeBreveR: boolean
+}
+
 export interface EscalaEEDP {
     Un_mes: DatosEEDP[];
     Dos_meses: DatosEEDP[];

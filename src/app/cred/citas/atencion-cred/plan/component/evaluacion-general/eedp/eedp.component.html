@@ -1,8 +1,7 @@
 <div>
-    <p>eedp works!</p>
     <p-table
         dataKey="id"
-        [value]="datosMeses"
+        [value]="datosNinio"
         responsiveLayout="scroll"
         styleClass="p-datatable-gridlines"
     >
@@ -32,88 +31,245 @@
         </ng-template>
         <ng-template pTemplate="body" let-datos>
             <tr>
-                <td colspan="2">{{datos.area}}</td>
+                <td colspan="2">{{datos.area_nombre}}</td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: center;">4</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_1; index as indexDato">
+                        <div *ngIf="datos.mes_1.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_1.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_1.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: center;">8</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_2; index as indexDato">
+                        <div *ngIf="datos.mes_2.length === 1">
+                            <div style="display: flex; justify-content: center; width: 100%;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_2.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_2.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: start;">12</div>
-                        <div style="display: flex; justify-content: end;">13</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_3; index as indexDato">
+                        <div *ngIf="datos.mes_3.length === 1">
+                            <div style="display: flex; justify-content: center; width: 100%;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_3.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_3.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: start;">16</div>
-                        <div style="display: flex; justify-content: end;">17</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_4; index as indexDato">
+                        <div *ngIf="datos.mes_4.length === 1">
+                            <div style="display: flex; justify-content: center; width: 100%;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_4.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_4.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: start;">22</div>
-                        <div style="display: flex; justify-content: end;">23</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_5; index as indexDato">
+                        <div *ngIf="datos.mes_5.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_5.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_5.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: start; ">27</div>
-                        <div style="display: flex; justify-content: center; ">28</div>
-                        <div style="display: flex; justify-content: end; ">29</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_6; index as indexDato">
+                        <div *ngIf="datos.mes_6.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_6.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_6.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: start;">32</div>
-                        <div style="display: flex; justify-content: end;">35</div>
-                    </div>
-                </td>
-                <td colspan="2">8</td>
-                <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: start;">43</div>
-                        <div style="display: flex; justify-content: end;">44</div>
-                    </div>
-                </td>
-                <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: start; ">46</div>
-                        <div style="display: flex; justify-content: center; ">48</div>
-                        <div style="display: flex; justify-content: end; ">49</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_7; index as indexDato">
+                        <div *ngIf="datos.mes_7.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_7.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_7.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: center;">52</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_8; index as indexDato">
+                        <div *ngIf="datos.mes_8.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_8.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_8.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: start; ">57</div>
-                        <div style="display: flex; justify-content: center; ">58</div>
-                        <div style="display: flex; justify-content: end; ">59</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_9; index as indexDato">
+                        <div *ngIf="datos.mes_9.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_9.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_9.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: start;">64</div>
-                        <div style="display: flex; justify-content: end;">65</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_10; index as indexDato">
+                        <div *ngIf="datos.mes_10.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_10.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_10.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: center;">68</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_12; index as indexDato">
+                        <div *ngIf="datos.mes_12.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_12.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_12.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
                 <td colspan="2">
-                    <div class="cell_container">
-                        <div style="display: flex; justify-content: center;">75</div>
+                    <div class="cell_container" *ngFor="let dato of datos.mes_15; index as indexDato">
+                        <div *ngIf="datos.mes_15.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_15.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_15.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container" *ngFor="let dato of datos.mes_18; index as indexDato">
+                        <div *ngIf="datos.mes_18.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_18.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_18.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container" *ngFor="let dato of datos.mes_21; index as indexDato">
+                        <div *ngIf="datos.mes_21.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_21.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_21.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="cell_container" *ngFor="let dato of datos.mes_24; index as indexDato">
+                        <div *ngIf="datos.mes_24.length === 1">
+                            <div style="display: flex; justify-content: center;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_24.length === 2">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
+                        <div *ngIf="datos.mes_24.length === 3">
+                            <div *ngIf="indexDato === 0" style="display: flex; justify-content: start;">{{dato}}</div>
+                            <div *ngIf="indexDato === 1" style="display: flex; justify-content: center;">{{dato}}</div>
+                            <div *ngIf="indexDato === 2" style="display: flex; justify-content: end;">{{dato}}</div>
+                        </div>
                     </div>
                 </td>
             </tr>
