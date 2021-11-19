@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-dialog-consulta',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DialogConsultaComponent implements OnInit {
 
-  constructor() { }
+  form: FormGroup;
+  prueba: any;
+  isUpdate: boolean = false;
+
+  constructor(
+    private fb: FormBuilder,
+    // private 
+  ) { }
 
   ngOnInit(): void {
+    this.inicializarForm();
   }
 
+  inicializarForm() {
+    this.form = this.fb.group({
+
+    })
+  }
 }

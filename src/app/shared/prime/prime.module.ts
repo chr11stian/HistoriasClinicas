@@ -32,6 +32,7 @@ import { FieldsetModule } from "primeng/fieldset";
 import { PanelModule } from "primeng/panel";
 import {ReactiveFormsModule} from "@angular/forms";
 import {AccordionModule} from 'primeng/accordion';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 
 const importsApi = [
   ToolbarModule,
@@ -79,6 +80,7 @@ const importsApi = [
   ToolbarModule,
   FieldsetModule,
   AccordionModule,
+  DynamicDialogModule,
 ];
 
 @NgModule({
