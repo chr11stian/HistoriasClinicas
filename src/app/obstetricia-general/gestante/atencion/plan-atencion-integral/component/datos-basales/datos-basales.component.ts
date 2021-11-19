@@ -10,10 +10,11 @@ export class DatosBasalesComponent implements OnInit {
 
   form: FormGroup;
   sino = [
-    { label: 'SI', value: 'SI' },
-    { label: 'NO', value: 'NO' }
+    { label: 'SI', value: true },
+    { label: 'NO', value: false }
   ];
   city: any;
+  datosBasales: any;
 
   constructor(
     private fb: FormBuilder,
@@ -32,6 +33,10 @@ export class DatosBasalesComponent implements OnInit {
       talla: new FormControl(''),
       check: new FormControl(''),
       nroDosisPrevias: new FormControl(''),
+      primeraDosis: new FormControl(''),
+      segundaDosis: new FormControl(''),
+      firstDosis: new FormControl(''),
+      secondDosis: new FormControl(''),
       a: new FormControl(''),
       drogas: new FormControl(''),
       date: new FormControl(''),
@@ -114,5 +119,53 @@ export class DatosBasalesComponent implements OnInit {
 
   fnCheckbox(value) {
     console.log(value);
+  }
+
+  recuperarDatos() {
+    this.datosBasales = {
+      pesoTalla: {
+        imc: this.form.value.imc,
+        pesoHabitual: this.form.value.pesoHabitual,
+        talla: this.form.value.talla
+      },
+      antitetanica: {
+        nroDosisPrevias: this.form.value.nroDosisPrevias,
+        dosis: [
+          {
+            dosis: this.form.value.primeraDosis,
+            detalle: this.form.value.firstDosis
+          },
+          {
+            dosis: this.form.value.segundaDosis,
+            detalle: this.form.value.secondDosis
+          }
+        ]
+      },
+      tipoSangre: {
+        grupo: this.form.value.tipoSangreGrupo,
+        rh: this.form.value.rh
+      },
+      nroCigarrillosAlDia: this.form.value.cigarrillosDia,
+      drogas: this.form.value.drogas,
+      fechaUltimaMenstruacion:{
+        fum: this.form.value.dateFUM,
+        duda: this.form.value.duda,
+        fechaProbableParto: this.form.value.dateProbableParto,
+        primeraEcografia: this.form.value.ecografia1,
+        fechaPrimeraEcografia: this.form.value.dateEco1,
+        segundaEcografia: this.form.value.ecografia2,
+        fechaSegundaEcografia: this.form.value.dateEco2,
+        terceraEcografia: this.form.value.ecografia3,
+        fechaTerceraEcografia: this.form.value.dateEco3
+      },
+      hospitalizacion: [{
+        
+      }]
+    }
+  }
+
+  guardarDatos() {
+    this.recuperarDatos();
+    console.log('data to save ', this.datosBasales);
   }
 }

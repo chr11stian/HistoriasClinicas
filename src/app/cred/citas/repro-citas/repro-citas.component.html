@@ -1,0 +1,168 @@
+<div class="card">
+    <p-fieldset legend="DATOS NIÑO/NIÑA">
+        <div class="grid ">
+            <div class="col-3">
+                <div class="col">
+                    <label style="padding: 0.5rem;">DNI U OTRA IDENTIFICAON:</label>
+                </div>
+                <div class="col">
+                    <input id="dni" type="text" placeholder="DNI" class="inputfield w-full" pInputText>
+                </div>
+            </div>
+
+            <div class="col-6 ">
+                <div class="col">
+                    <label style="padding: 0.5rem;">APELLIDOS Y NOMBRES:</label>
+                </div>
+                <div class="col">
+                    <input id="nombres" type="text" placeholder="Apellidos y Nombres" class="inputfield w-full" pInputText>
+                </div>
+            </div>
+
+            <div class="col ">
+                <div class="col">
+                    <label style="padding: 0.5rem;">EDAD</label>
+                </div>
+                <div class="col">
+                    <input id="edad" type="text" placeholder="Edad" class="inputfield w-full" pInputText>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="col ">
+                <label style="padding: 0.5rem;">TELEFONO</label>
+                <div class="col">
+                    <input id="telefono" placeholder="Telefono" type="text" class="inputfield w-full" pInputText>
+                </div>
+            </div>
+            <div class="col">
+                <label style="padding: 0.5rem;">NACIONALIDAD</label>
+                <div class="col">
+                    <input id="nacionalidad" placeholder="Nacionalidad" type="text" class="inputfield w-full" pInputText>
+                </div>
+            </div>
+            <div class="col">
+                <label style="padding: 0.5rem;">DEPARTAMENTO</label>
+                <div class="col">
+                    <input id="departamento" placeholder="Departamento" type="text" class="inputfield w-full" pInputText>
+                </div>
+            </div>
+            <div class="col">
+                <label style="padding: 0.5rem;">PROVINCIA</label>
+                <div class="col">
+                    <input id="provincia" placeholder="Provincia" type="text" class="inputfield w-full" pInputText>
+                </div>
+            </div>
+            <div class="col">
+                <label style="padding: 0.5rem;">DISTRITO</label>
+                <div class="col">
+                    <input id="distrito" placeholder="Distrito" type="text" class="inputfield w-full" pInputText>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="col ">
+                <label style="padding: 0.5rem;">CENTRO POBLADO:</label>
+                <div class="col">
+                    <input id="CP" placeholder="Centro Poblado" type="text" class="inputfield w-full" pInputText>
+                </div>
+            </div>
+            <div class="col">
+                <label style="padding: 0.5rem;">DOMICILIO ACTUAL:</label>
+                <div class="col">
+                    <input id="domicilio" placeholder="Domicilio Actual" type="text" class="inputfield w-full" pInputText>
+                </div>
+            </div>
+        </div>
+    </p-fieldset>
+</div>
+<p-fieldset legend="REPROGRAMAR CITA">
+
+    <p-table
+        rowExpandMode="single"
+        scrollDirection="both"
+        responsiveLayout="scroll"
+        [resizableColumns]="true"
+        [columns]="days"
+        #dt
+        styleClass="p-datatable p-datatable-gridlines p-mt-3"
+        [value]="datos"
+        [autoLayout]="true"
+        [rows]="10"
+        
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns" rowspan="2">
+                    {{col | uppercase}}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
+            <tr>
+                <ng-container *ngFor="let elementCol of data;index as indexCol">
+                    <!-- Horas -->
+                    <td style="font-weight: 600;background-color: #f8f9fa;"
+                        *ngIf="indexCol===0">
+                        {{elementCol}}
+                    </td>
+                    
+                    <td *ngIf="indexCol!==0">
+                        <!-- Horara Reservada -->
+                        <ng-template [ngIf]="elementCol===2" [ngIfElse]="loggedOut">
+                            <div>
+                                <button pButton pRipple
+                                        type="button"
+                                        [disabled]="true"
+                                        icon="pi pi-user" 
+                                        class="p-button-rounded p-button-warning p-button-outlined">
+                                </button>
+                            </div>
+                        </ng-template>
+                        
+                        <!-- Horara Ocupada -->
+                        <ng-template #loggedOut>
+                            <ng-template [ngIf]="elementCol===1" [ngIfElse]="libre">
+                                <button pButton pRipple
+                                        type="button"
+                                        [disabled]="true"
+                                        icon="pi pi-times" 
+                                        
+                                        class="p-button-rounded p-button-danger"
+                                        >
+                                </button>
+                            </ng-template>
+                            <!-- Hora en espera de confirmacion -->
+                            <ng-template #libre>
+                                <ng-template [ngIf]="elementCol===null" [ngIfElse]="cogido">
+                                    <button pButton pRipple
+                                        [disabled]="desabilitar2"
+                                        type="button"
+                                        
+                                        (click)="datos[rowIndex][indexCol]=0;send(rowIndex,indexCol)"
+                                        class="p-button-rounded p-button-info p-button-outlined">
+                                </button>
+                                </ng-template>
+                                <ng-template #cogido>
+                                    <button pButton pRipple
+                                            [disabled]="desabilitar1"
+                                            type="button"
+                                            icon="pi pi-check" 
+                                            (click)="datos[rowIndex][indexCol]=null;send1(rowIndex,indexCol)"
+                                            class="p-button-rounded p-button-info">
+                                    </button>
+                                </ng-template>
+                                
+                            </ng-template>
+
+                            
+                        </ng-template>
+                    </td>
+                </ng-container>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-fieldset>

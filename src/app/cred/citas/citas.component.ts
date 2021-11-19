@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ReproCitasComponent } from './repro-citas/repro-citas.component';
 
 @Component({
   selector: 'app-citas',
   templateUrl: './citas.component.html',
-  styleUrls: ['./citas.component.css']
+  styleUrls: ['./citas.component.css'],
+  providers: [DialogService]
 })
 export class CitasComponent implements OnInit {
   options: data[]
   selectedOption: data
   citas: any[]
-  constructor() {
+  ref: DynamicDialogRef
+  constructor(public dialogService: DialogService) {
     this.options = [
       { name: "DNI", code: 1 },
       { name: "CARNET RN", code: 2 },
@@ -53,6 +57,16 @@ export class CitasComponent implements OnInit {
 
   }
   ngOnInit(): void {
+  }
+
+  openReprogramar(){
+    let title = 'Reprogramar Cita'
+
+      this.ref = this.dialogService.open(ReproCitasComponent, {
+            
+            header: title,
+            width: "75%",
+        });
   }
 
 }
