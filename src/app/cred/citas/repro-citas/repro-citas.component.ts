@@ -7,22 +7,21 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./repro-citas.component.css']
 })
 export class ReproCitasComponent implements OnInit {
-  data: any[] = [];
+  datos: any[] = [];
 
   checkedon: boolean = true;
   checkedoff: boolean = false;
   desabilitar: boolean;
   reproFG: FormGroup;
   constructor() {
-
-    this.data = [
-      ["07:00am - 08:30am", 1, 0, 0, 1, 0, 0, 0],
-      ["08:30am - 10:00am", 0, 1, 0, 0, 0, 0, 0],
-      ["10:00am - 11:30am", 1, 0, 0, 0, 1, 0, 0],
-      ["11:30am - 01:00pm", 0, 0, 1, 0, 0, 0, 1],
-      ["01:00pm - 02:30pm", 1, 0, 0, 0, 1, 0, 0],
+    this.datos = [
+      ["07:00am - 08:30am", true, false, false, true, false, false, false],
+      ["08:30am - 10:00am", false, true, false, false, true, false, false],
+      ["10:00am - 11:30am", true, false, false, false, true, false, false],
+      ["11:30am - 01:00pm", false, false, true, false, false, false, true],
+      ["01:00pm - 02:30pm", true, false, false, false, true, false, false],
     ]
-    this.desabilitar=false;
+    this.desabilitar = false;
   }
 
   ngOnInit(): void {
@@ -34,9 +33,12 @@ export class ReproCitasComponent implements OnInit {
   }
 
   cambioClick(e, colIndex) {
-    console.log('click');
-    
-    console.log('row', e, 'colindex', colIndex);
+    console.log(this.datos[e][colIndex]);
+
+    this.datos[e][colIndex] = !this.datos[e][colIndex]
+    // console.log('click');
+
+    // console.log('row', e, 'colindex', colIndex);
 
   }
 }

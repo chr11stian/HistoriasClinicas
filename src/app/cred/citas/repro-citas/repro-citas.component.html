@@ -87,7 +87,7 @@
     [resizableColumns]="true"
     #dt
     styleClass="p-datatable p-datatable-gridlines p-mt-3"
-    [value]="data"
+    [value]="datos"
     [autoLayout]="true"
     [rows]="10"
     [showCurrentPageReport]="true"
@@ -114,56 +114,57 @@
     <tr >
         <td  style="font-weight: 600;background-color: #f8f9fa;">{{data[0]}}</td>
         <td  (click)="cambioClick(rowIndex,1)">
-            <div *ngIf="data[1]===1; else apagado">
-                <p-toggleButton [(ngModel)]="checkedon" disabled="true" (onChange)="cambio($event)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+            <div *ngIf="data[1]; else apagado">
+                <p-toggleButton [(ngModel)]="data[1]" disabled="true" (onChange)="cambio($event)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </div>
             <ng-template #apagado>
-                <p-toggleButton [(ngModel)]="checkedoff" (onChange)="cambio($event)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+                <p-toggleButton [(ngModel)]="data[1]" (onChange)="cambio($event)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </ng-template>
         </td>
         <td (click)="cambioClick(rowIndex,2)"> <!-- martes  -->
-            <div *ngIf="data[2]===1; else apagado">
-                <p-toggleButton [(ngModel)]="checkedon" disabled="true" (onChange)="cambio($event)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+            <div *ngIf="data[2]; else apagado">
+                <p-toggleButton [(ngModel)]="data[2]" disabled="true" (onChange)="cambio($event)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </div>
             <ng-template #apagado>
-                <p-toggleButton [(ngModel)]="checkedoff" (onChange)="cambio($event)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+                <p-toggleButton [(ngModel)]="data[2]" (onChange)="cambio($event)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </ng-template>
         </td>
-        <td (click)="cambioClick(rowIndex,3)">
-            <div *ngIf="data[3]===1; else apagado">
-                <p-toggleButton [(ngModel)]="checkedon" disabled="true" (onChange)="cambio(rowIndex,3)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+        <td (click)="cambioClick(rowIndex,3)">  <!-- miercoles  -->
+            <div *ngIf="data[3]; else apagado">
+                <p-toggleButton [(ngModel)]="data[3]" disabled="true" (onChange)="cambio(rowIndex,3)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </div>
             <ng-template #apagado>
-                <p-toggleButton [(ngModel)]="checkedoff" (onChange)="cambio(rowIndex,3)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+                <p-toggleButton [(ngModel)]="data[3]" (onChange)="cambio(rowIndex,3)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </ng-template></td>
-        <td (click)="cambioClick(rowIndex,4)">
-            <div *ngIf="data[4]===1; else apagado">
-                <p-toggleButton [(ngModel)]="checkedon" disabled="true" (onChange)="cambio(rowIndex,4)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+        <td (click)="cambioClick(rowIndex,4)"><!-- jueves  -->
+            <div *ngIf="data[4]; else apagado">
+                <p-toggleButton [(ngModel)]="data[4]" disabled="true" (onChange)="cambio(rowIndex,4)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </div>
             <ng-template #apagado>
-                <p-toggleButton [(ngModel)]="checkedoff" (onChange)="cambio(rowIndex,4)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+                <p-toggleButton [(ngModel)]="data[4]" (onChange)="cambio(rowIndex,4)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </ng-template></td>
-        <td (click)="cambioClick(rowIndex,5)">
-            <div *ngIf="data[5]===1; else apagado">
-                <p-toggleButton [(ngModel)]="checkedon" disabled="true" (onChange)="cambio(rowIndex,5)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+        <td (click)="cambioClick(rowIndex,5)"> <!-- viernes  -->
+            <div *ngIf="data[5]; else apagado">
+                <p-toggleButton [(ngModel)]="data[5]" disabled="true" (onChange)="cambio(rowIndex,5)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </div>
             <ng-template #apagado>
-                <p-toggleButton [(ngModel)]="checkedoff" (onChange)="cambio(rowIndex,5)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+                <p-toggleButton [(ngModel)]="data[5]" (onChange)="cambio(rowIndex,5)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </ng-template></td>
-        <td (click)="cambioClick(rowIndex,6)">
-            <div *ngIf="data[6]===1; else apagado">
-                <p-toggleButton [(ngModel)]="checkedon" disabled="true" (onChange)="cambio(rowIndex,6)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+        <td (click)="cambioClick(rowIndex,6)"> <!-- sabado -->
+            <div *ngIf="data[6]; else apagado">
+                <p-toggleButton [(ngModel)]="data[6]" disabled="true" (onChange)="cambio(rowIndex,6)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </div>
             <ng-template #apagado>
-                <p-toggleButton [(ngModel)]="checkedoff" (onChange)="cambio(rowIndex,6)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+                <p-toggleButton [(ngModel)]="data[6]" (onChange)="cambio(rowIndex,6)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </ng-template></td>
-        <td (click)="cambioClick(rowIndex,7)">
-            <div *ngIf="data[7]===1; else apagado">
-                <p-toggleButton [(ngModel)]="checkedon" disabled="true" (onChange)="cambio(rowIndex,7)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+        <td (click)="cambioClick(rowIndex,7)"> <!-- domingo -->
+            <div *ngIf="data[7]; else apagado">
+                <p-toggleButton [(ngModel)]="data[7]" disabled="true" (onChange)="cambio(rowIndex,7)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
             </div>
             <ng-template #apagado>
-                <p-toggleButton [(ngModel)]="checkedoff" (onChange)="cambio(rowIndex,7)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
-            </ng-template></td>
+                <p-toggleButton [(ngModel)]="data[7]" (onChange)="cambio(rowIndex,7)" onLabel="X" offLabel="&nbsp;&nbsp;" [style]="{'width': '5rem'}"></p-toggleButton>
+            </ng-template>
+        </td>
     </tr>
 </ng-template>
 </p-table>
