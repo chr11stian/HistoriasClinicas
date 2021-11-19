@@ -3,7 +3,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 
 interface formControlInterface {
     label: string,
-    nameFc: string
+    nameFC: string
 }
 
 @Component({
@@ -17,101 +17,85 @@ export class DatosGeneralesConsultaComponent implements OnInit {
     generalInfoFG: FormGroup
     signoPeligroFG: FormGroup
 
-    /** Get one form control*/
-    getGeneralInfoFC(control: string): AbstractControl {
-        return this.generalInfoFG.get(control)
-    }
-
-    /** Get Value Form Control */
-    valueGeneralInfoFC(control: string): any {
-        return this.getGeneralInfoFC(control).value
-    }
-
-    /** Set Value Form Control */
-    setValueGeneralInfoFC(formControl: string, value: any) {
-        this.getGeneralInfoFC(formControl).setValue(value)
-    }
-
     twoMonths: formControlInterface[] = [
         {
             label: 'No quiere mamar ni succiona',
-            nameFc: 'noMama',
+            nameFC: 'noMama',
         },
         {
             label: 'Convulsiones',
-            nameFc: 'convulsion',
+            nameFC: 'convulsion',
         },
         {
             label: 'Fontanela abombada',
-            nameFc: 'abombada'
+            nameFC: 'abombada'
         },
         {
             label: 'Enrojecimiento del ombligo se extiende a la piel',
-            nameFc: 'enrojemiento'
+            nameFC: 'enrojemiento'
         },
         {
             label: 'Fiebre o temperatura baja',
-            nameFc: 'temperatura'
+            nameFC: 'temperatura'
         },
         {
             label: 'Rigidez de nuca',
-            nameFc: 'rigidezNuca'
+            nameFC: 'rigidezNuca'
         },
         {
             label: 'Pústulas muchas y extensas',
-            nameFc: 'pustulas'
+            nameFC: 'pustulas'
         },
         {
             label: 'Letárgico o comatoso',
-            nameFc: 'letargico'
+            nameFC: 'letargico'
         }
     ]
     twoMonthsMore: formControlInterface[] = [
         {
             label: 'No puede beber o tomar el pecho',
-            nameFc: 'noTomaPecho'
+            nameFC: 'noTomaPecho'
         },
         {
             label: 'Convulsiones',
-            nameFc: 'convulsionesMore'
+            nameFC: 'convulsionesMore'
         },
         {
             label: 'Letárgico o comaloso',
-            nameFc: 'letargicoMore'
+            nameFC: 'letargicoMore'
         },
         {
             label: 'Vomita todo',
-            nameFc: 'vomitaTodo'
+            nameFC: 'vomitaTodo'
         },
         {
             label: 'Estridor en reposo / tiraje subcostal',
-            nameFc: 'tirajeSubcostal'
+            nameFC: 'tirajeSubcostal'
         }
     ]
 
     allYear: formControlInterface[] = [
         {
             label: 'Emaciación visible grave',
-            nameFc: 'emaciacionVisibleAll'
+            nameFC: 'emaciacionVisibleAll'
         },
         {
-            label: 'Piel duele muy lentamente',
-            nameFc: 'pielDueleAll'
+            label: 'Piel vuelve muy lentamente',
+            nameFC: 'pielvuelveAll'
         },
         {
             label: 'Traumatismo / Quemaduras',
-            nameFc: 'traumatismoQuemaduraAll'
+            nameFC: 'traumatismoQuemaduraAll'
         },
         {
             label: 'Envenenamiento',
-            nameFc: 'envenenamientoAll'
+            nameFC: 'envenenamientoAll'
         },
         {
             label: 'Palidez palmar intensa',
-            nameFc: 'palidezAll'
+            nameFC: 'palidezAll'
         }
     ]
-
 
     constructor() {
         this.buildForm()
@@ -127,18 +111,20 @@ export class DatosGeneralesConsultaComponent implements OnInit {
             hour: new FormControl({value: null, disabled: false}, [Validators.required]),
             year: new FormControl({value: null, disabled: false}, [Validators.required])
         })
-        this.signoPeligroFG = new FormGroup({})
+        this.signoPeligroFG = new FormGroup({
+            presentSigns: new FormControl({value: null, disabled: false}, [Validators.required])
+        })
         const selectFC = new FormControl({value: null, disabled: false}, [])
         this.twoMonths.forEach((v) => {
-            this.signoPeligroFG.addControl(v.nameFc, selectFC)
+            this.signoPeligroFG.addControl(v.nameFC, selectFC)
         })
 
         this.twoMonthsMore.forEach((v) => {
-            this.signoPeligroFG.addControl(v.nameFc, selectFC)
+            this.signoPeligroFG.addControl(v.nameFC, selectFC)
         })
 
         this.allYear.forEach((v) => {
-            this.signoPeligroFG.addControl(v.nameFc, selectFC)
+            this.signoPeligroFG.addControl(v.nameFC, selectFC)
         })
     }
 

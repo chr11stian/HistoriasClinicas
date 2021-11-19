@@ -1,9 +1,8 @@
-<!--<p-card>-->
 <div class="grid">
     <div class="col-12 md:col-10 mt-0">
         <h3 class="ml-2">DATOS GENERALES </h3>
     </div>
-    <div class="col-12 md:col-2 justify-content-center align-content-center">
+    <div class="col-12 md:col-2 text-right">
         <button pButton pRipple type="button"
                 icon="pi pi-angle-right"
                 iconPos="right"
@@ -61,13 +60,23 @@
 </p-fieldset>
 
 
-<p-fieldset legend="Descarte de signos de peligro" [toggleable]="true">
-    <div class="grid" [formGroup]="signoPeligroFG">
+<p-fieldset legend="Descarte de signos de peligro"
+            [toggleable]="true"
+            [formGroup]="signoPeligroFG">
+    <div class="grid">
+        <div class="col-10 md:col-10">
+            <select-btn field="NO PRESENTA SIGNOS"
+                        [alignment]="'text-right font-bold'"
+                        formControlName="presentSigns">
+            </select-btn>
+        </div>
+    </div>
+    <div class="grid">
         <div class="col-12 md:col-4">
             <h4 class="text-center"> MENOR DE 2 MESES:</h4>
             <div *ngFor="let formC of twoMonths">
                 <select-btn [field]="formC.label"
-                            [formControlName]="formC.nameFc">
+                            [formControlName]="formC.nameFC">
                 </select-btn>
             </div>
         </div>
@@ -75,7 +84,7 @@
             <h4 class="text-center"> DE 2 MESES a 4 AÑOS:</h4>
             <div *ngFor="let formC of twoMonthsMore">
                 <select-btn [field]="formC.label"
-                            [formControlName]="formC.nameFc">
+                            [formControlName]="formC.nameFC">
                 </select-btn>
             </div>
         </div>
@@ -83,7 +92,7 @@
             <h4 class="text-center"> PARA TODAS LAS EDADES:</h4>
             <div *ngFor="let formC of allYear">
                 <select-btn [field]="formC.label"
-                            [formControlName]="formC.nameFc">
+                            [formControlName]="formC.nameFC">
                 </select-btn>
             </div>
         </div>
@@ -102,20 +111,22 @@
         </div>
     </div>
     <div class="grid">
-        <div class="col-12 md:col-4">
+        <div class="col-12 md:col-5">
             <select-btn field="¿Participa el padre en el cuidado del niño?"
                         alignment="text-left">
             </select-btn>
         </div>
-        <div class="col-12 md:col-4">
+        <div class="col-12 md:col-5">
             <select-btn field="¿El niño recibe muestras de afecto?"
                         alignment="text-left">
             </select-btn>
         </div>
-        <div class="col-12 md:col-1 mt-1">
+    </div>
+    <div class="grid">
+        <div class="col-2">
             Especifique:
         </div>
-        <div class="col-12 md:col-3">
+        <div class="col-10">
             <input type="text"
                    pInputText
                    class="inputfield w-full"
