@@ -16,22 +16,22 @@ export class CuposService {
 
 
     getOfertas(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/oferta/oferta`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/oferta`, data)
     }
 
     getTipoUPSs() {
-        return this.http.get(`${this.base_url}/${this.bd}/api/tipoups/listar`);
+        return this.http.get(`${this.base_url}/${this.bd}/tipoups/listar`);
     }
 
     getOfertasListar(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/oferta/listar`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/listar`, data)
     }
 
     saveCupos(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/cupo/save`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/save`, data)
     }
 
     getCuposServicioFecha(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/cupo/find/servicio`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/find/servicio`, data)
     }
 }
