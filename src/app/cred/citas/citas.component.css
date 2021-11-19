@@ -12,6 +12,10 @@ p-table >>> .p-datatable .p-datatable-thead > tr > th {
 p-dropdown >>> * {
   width: 150px;
 }
+p-dialog >>> .p-dialog .p-dialog-header {
+  padding: 1rem;
+  
+}
 .boton-red {
   color: #ffffff;
   background: #af0017;

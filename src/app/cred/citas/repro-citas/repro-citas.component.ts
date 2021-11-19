@@ -9,9 +9,8 @@ import {FormGroup} from '@angular/forms'
 export class ReproCitasComponent implements OnInit {
     datos: any[] = []
 
-    checkedon: boolean = true
-    checkedoff: boolean = false
-    desabilitar: boolean
+    desabilitar1: boolean= false;
+    desabilitar2: boolean = false;
     reproFG: FormGroup
 
     // rojo  /* true  este ya esta cogido */
@@ -21,20 +20,30 @@ export class ReproCitasComponent implements OnInit {
 
     constructor() {
         this.datos = [
-            ['07:00 am - 08:30 am', true, false, false, true, false, false, false],
-            ['08:30 am - 10:00 am', false, true, false, false, true, false, false],
-            ['10:00 am - 11:30 am', true, false, false, false, true, false, false],
-            ['11:30 am - 01:00pm', false, false, true, false, false, false, true],
-            ['01:00 pm - 02:30pm', true, false, false, false, true, false, false],
+            ['07:00 am - 08:30 am',1,null,1,null,null,1,null],
+            ['08:30 am - 10:00 am',1,null,1,1,null,1,null],
+            ['10:00 am - 11:30 am',1,null,null,1,null,1,null],
+            ['11:30 am - 01:00 pm',null,null,1,null,null,1,null],
+            ['01:00 pm - 02:30 pm',null,1,2,1,1,null,1],
         ]
-        this.desabilitar = false
+        
     }
 
     ngOnInit(): void {
     }
 
     send(rowIndex, indexCol): void {
-        alert('usted selecciona el dia : ' + this.days[indexCol] + ' a las ' + this.datos[rowIndex][0])
+        alert('Usted selecciona el dia : ' + this.days[indexCol] + ' a las ' + this.datos[rowIndex][0])
+        this.desabilitar2 = true;
+        console.log(rowIndex,indexCol);
+        
+    }
+
+    send1(rowIndex, indexCol): void {
+        alert('Anular seleccion dia : ' + this.days[indexCol] + ' a las ' + this.datos[rowIndex][0])
+        this.desabilitar2 = false;
+        console.log(rowIndex,indexCol);
+        
     }
 }
 

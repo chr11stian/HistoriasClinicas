@@ -65,7 +65,7 @@ export class CitasComponent implements OnInit {
       this.ref = this.dialogService.open(ReproCitasComponent, {
             
             header: title,
-            width: "70%",
+            width: "75%",
         });
   }
 
