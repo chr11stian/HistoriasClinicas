@@ -98,6 +98,8 @@ export class PartosComponent implements OnInit {
       nivel: new FormControl("", Validators.required),
       partoLegrado: new FormControl("", Validators.required),
       neonato: new FormControl("", Validators.required),
+      responsableAtencionParto:new FormControl("",Validators.required),
+      responsableAtencionNeonato:new FormControl("",Validators.required)
     });
   }
 
@@ -114,6 +116,7 @@ export class PartosComponent implements OnInit {
     return this.myGroup.get(control);
   }
   save() {
+    let idPaciente="61954223a69d355b453086b4"
     const partoAbortoInput:any={
       estado:{
         hcmp:this.getFC("hcmp").value,
@@ -144,20 +147,44 @@ export class PartosComponent implements OnInit {
       },
       signoSintomaAlarma:[
         {
-          nombre:"Anasarca",
+          nombre:"anasarca",
           valor:this.getFC("anasarca").value
         },
         {
-          nombre:"Cianosis",
+          nombre:"cianosis",
           valor:this.getFC("cianosis").value
         },
         {
-          nombre:"Escotomas",
+          nombre:"escotomas",
           valor:this.getFC("escotomas").value
         },
         {
-          nombre:"Petequias",
+          nombre:"epigastralgia",
+          valor:this.getFC("epigastralgia").value
+        },
+        {
+          nombre:"dolorDerecho",
+          valor:this.getFC("dolorDerecho").value
+        },
+        {
+          nombre:"hermaturia",
+          valor:this.getFC("hermaturia").value
+        },
+        {
+          nombre:"hipoOrtostatica",
+          valor:this.getFC("hipoOrtostatica").value
+        },
+        {
+          nombre:"ictericia",
+          valor:this.getFC("ictericia").value
+        },
+        {
+          nombre:"petequies",
           valor:this.getFC("petequies").value
+        },
+        {
+          nombre:"protenuaria",
+          valor:this.getFC("proteuniria").value
         }
       ],
       coticoidesAntenatales:{
@@ -191,11 +218,11 @@ export class PartosComponent implements OnInit {
         nivel:this.getFC("nivel").value,
         partoLegrado:this.getFC("partoLegrado").value,
         neonato:this.getFC("neonato").value,
-        responsableAtencionParto:"sss",
-        responsableAtencionNeonato:"sss"
+        responsableAtencionParto:this.getFC("responsableAtencionParto").value,
+        responsableAtencionNeonato:this.getFC("responsableAtencionNeonato").value
       }
     }
-    this.partoAbortoService.addPartoAborto(partoAbortoInput).subscribe((resp)=>{
+    this.partoAbortoService.addPartoAborto(partoAbortoInput,idPaciente).subscribe((resp)=>{
       console.log(resp)
       console.log(partoAbortoInput)
     })
