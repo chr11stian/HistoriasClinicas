@@ -1,0 +1,1527 @@
+<p-toolbar styleClass="mb-4">
+  <ng-template pTemplate="left">
+    <h3 class="p-m-0">PARTOS O ABORTO</h3>
+  </ng-template>
+  <ng-template pTemplate="right" class="button">
+    <button
+      pButton
+      pRipple
+      label="Atras"
+      icon="pi pi-angle-left"
+      iconPos="left"
+      class="mr-3"
+      style="background-color: #5b5b5b"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Siguiente"
+      icon="pi pi-angle-right"
+      iconPos="right"
+      style="background-color: #003c71"
+    ></button>
+  </ng-template>
+</p-toolbar>
+
+<form [formGroup]="myGroup">
+  <!-- primera fila -->
+  <div class="grid">
+    <div class="col-12">
+      <p-fieldset legend="Estado">
+        <div class="grid">
+          <div class="col-12 md:col-5">
+            <div class="grid">
+              <div class="col-1" style="font-weight: bold">HCMP</div>
+              <div class="col-3">
+                <div class="flex" style="">
+                  <div class="col-10 text-right">Atención Prenatal:</div>
+                  <div class="col-2 text-left">
+                    <p-radioButton
+                      class="white"
+                      value="atencion Prenatal"
+                      formControlName="hcmp"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="flex" style="">
+                  <div class="col-10 text-right">Aborto:</div>
+                  <div class="col-2 text-left">
+                    <p-radioButton
+                      class="yellow"
+                      value="aborto"
+                      formControlName="hcmp"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="flex" style="">
+                  <div class="col-10 text-right">Parto:</div>
+                  <div class="col-2 text-left">
+                    <p-radioButton
+                      class="white"
+                      value="parto"
+                      formControlName="hcmp"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 md:col-7">
+            <div class="grid">
+              <div class="col-2" style="font-weight: bold">
+                Producto de la Concepción
+              </div>
+              <div class="col-2">
+                <div class="flex" style="">
+                  <div class="col-10 text-right">Hijo Único:</div>
+                  <div class="col-2 text-left">
+                    <p-radioButton
+                      class="white"
+                      value="hijo unico"
+                      formControlName="pc"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="flex" style="">
+                  <div class="col-10 text-right">Embarazo Múltiple:</div>
+                  <div class="col-2 text-left">
+                    <p-radioButton
+                      class="yellow"
+                      value="embarazo multiple"
+                      formControlName="pc"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="flex" style="margin: 0px 15px">
+                  <div class="col-5 text-right">Orden:</div>
+                  <div class="col-7 p-fluid">
+                    <p-inputNumber
+                      mode="decimal"
+                      placeholder="150"
+                      formControlName="orden"
+                      class="yellowNumber"
+                    ></p-inputNumber>
+                    <!-- <small
+                      *ngIf="
+                        this.myGroup.get('ordenControl').hasError('required') &&
+                        this.myGroup.get('ordenControl').dirty
+                      "
+                      >error
+                    </small> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="flex" style="">
+                  <div class="col-7 text-right">Aborto:</div>
+                  <div class="col-5 text-left">
+                    <p-radioButton
+                      class="white"
+                      value="aborto"
+                      formControlName="pc"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+
+  <!-- Segunda fila -->
+  <div class="grid">
+    <div class="col-12">
+      <p-fieldset>
+        <ng-template pTemplate="header">
+          <div class="flex flex-wrap justify-content-between">
+            <div class="col-6">
+              Ingreso al Establecimiento por Parto
+            </div>
+            <div class="col-6 grid">
+              <div class="col-4" style="text-align: right">Fecha y Hora:</div>
+              <div class="col-8 p-fluid" >
+                <p-calendar
+                        class="colorIconCalendar"
+                        [showIcon]="true"
+                        dateFormat="dd/mm/yy"
+                        inputId="icon"
+                        [showTime]="true"
+                        formControlName="ingresoEstablecimientoPartoFecha"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="grid">
+          <div class="lg:col-4 grid" style="align-self: start">
+            <div class="md:col-6" style="align-self: start">
+              <div class="flex" style="padding: 0px">
+                <div class="col-6 text-right">REFERENCIA AL INGRESO:</div>
+                <div class="col-6">
+                  <p-selectButton
+                    [options]="treeOptionsOptions"
+                    optionLabel="label"
+                    optionValue="value"
+                    formControlName="referenciaIngreso"
+                    class="-rotate-180"
+                  ></p-selectButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 0px">
+                <div class="col-6 text-right">PULSO MATERNO:</div>
+                <div class="col-6 p-fluid">
+                  <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="pulsoMaterno"
+                  ></p-inputNumber>
+                </div>
+              </div>
+              <div class="flex" style="padding: 0px">
+                <div class="col-6 text-right">PRESIÓN ARTERIAL:</div>
+                <div class="col-6 p-fluid">
+                  <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="presionArterial"
+                  ></p-inputNumber>
+                </div>
+              </div>
+            </div>
+            <div class="md:col-6" style="align-self: start">
+              <div class="flex" style="">
+                <div class="col-5 text-right">FREC.:</div>
+                <div class="col-7 p-fluid">
+                  <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="frecuenciaRespiratoria"
+                  ></p-inputNumber>
+                </div>
+              </div>
+              <div class="flex" style="">
+                <div class="col-5 text-right">TEMP.:</div>
+                <div class="col-7 p-fluid">
+                  <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="temperatura"
+                  ></p-inputNumber>
+                </div>
+              </div>
+              <div class="flex" style="">
+                <div class="col-5 text-right">PESO:</div>
+                <div class="col-7 p-fluid">
+                  <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="peso"
+                  ></p-inputNumber>
+                </div>
+              </div>
+              <div class="flex" style="">
+                <div class="col-5 text-right">E.G.:</div>
+                <div class="col-7 p-fluid">
+                  <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="eg"
+                  ></p-inputNumber>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lg:col-8 grid">
+            <div class="md:col-10">
+              <div class="grid">
+                <div class="md:col-3" style="align-self: start">
+                  <div class="text-center" style="font-weight: bold">
+                    SITUACIÓN
+                  </div>
+                  <div class="flex" style="">
+                    <div class="col-8 text-right">Longitudinal:</div>
+                    <div class="col-5">
+                      <p-radioButton
+                        class="white"
+                        value="longitudinal"
+                        formControlName="situacion"
+                      ></p-radioButton>
+                    </div>
+                  </div>
+                  <div class="flex" style="">
+                    <div class="col-8 text-right">Transversal:</div>
+                    <div class="col-5">
+                      <p-radioButton
+                        class="white"
+                        value="transversal"
+                        formControlName="situacion"
+                      ></p-radioButton>
+                    </div>
+                  </div>
+                </div>
+                <div class="md:col-2" style="align-self: start">
+                  <div class="text-center" style="font-weight: bold">
+                    POSICIÓN
+                  </div>
+                  <div class="flex" style="">
+                    <div class="col-8 text-right">Derecha:</div>
+                    <div class="col-5">
+                      <p-radioButton
+                        class="white"
+                        value="derecha"
+                        formControlName="posicion"
+                      ></p-radioButton>
+                    </div>
+                  </div>
+                  <div class="flex" style="">
+                    <div class="col-8 text-right">Izquierda:</div>
+                    <div class="col-5">
+                      <p-radioButton
+                        class="white"
+                        value="izquierda"
+                        formControlName="posicion"
+                      ></p-radioButton>
+                    </div>
+                  </div>
+                </div>
+                <div class="md:col-2" style="align-self: start">
+                  <div class="text-center" style="font-weight: bold">
+                    TAMAÑO FETAL ACORDE
+                  </div>
+                  <div class="text-center">
+                    <p-selectButton
+                      class="text center"
+                      [options]="TFOptions"
+                      optionLabel="label"
+                      optionValue="value"
+                      formControlName="tamanoFetalAcorde"
+                    ></p-selectButton>
+                  </div>
+                </div>
+                <div class="md:col-3" style="align-self: start">
+                  <div class="text-center" style="font-weight: bold">
+                    INICIO
+                  </div>
+                  <div class="flex" style="">
+                    <div class="col-8 text-right">Espontánea:</div>
+                    <div class="col-5">
+                      <p-radioButton
+                        value="espontanea"
+                        formControlName="inicio"
+                      ></p-radioButton>
+                    </div>
+                  </div>
+                  <div class="flex" style="">
+                    <div class="col-8 text-right">Inducido:</div>
+                    <div class="col-5">
+                      <p-radioButton
+                        class="yellow"
+                        formControlName="inicio"
+                        value="inducido"
+                      ></p-radioButton>
+                    </div>
+                  </div>
+                </div>
+                <div class="md:col-2" style="align-self: start">
+                  <div class="text-center" style="font-weight: bold">
+                    DILATACION
+                  </div>
+                  <div class="p-fluid">
+                    <p-inputNumber
+                      mode="decimal"
+                      placeholder="150"
+                      formControlName="dilatacion"
+                    ></p-inputNumber>
+                  </div>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-3">
+                  <div class="text-center" style="font-weight: bold">
+                    PRESENTACION
+                  </div>
+                  <div class="flex" style="">
+                    <div class="col-8 text-right">Cefálica:</div>
+                    <div class="col-5">
+                      <p-radioButton
+                        class="white"
+                        formControlName="presentacion"
+                        value="cefalica"
+                      ></p-radioButton>
+                    </div>
+                  </div>
+                  <div class="flex" style="">
+                    <div class="col-8 text-right">Pelvica:</div>
+                    <div class="col-5">
+                      <p-radioButton
+                        value="pelvica"
+                        formControlName="presentacion"
+                        class="yellow"
+                      ></p-radioButton>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2" style="align-self: start">
+                  <div class="text-center" style="font-weight: bold">
+                    ALTURA UTERINA:
+                  </div>
+                  <div class="p-fluid">
+                    <p-inputNumber
+                      mode="decimal"
+                      placeholder="150"
+                      formControlName="alturaUterina"
+                    ></p-inputNumber>
+                  </div>
+                </div>
+                <div class="col-3" style="align-self: start">
+                  <div class="text-center" style="font-weight: bold">
+                    F.C.F.
+                  </div>
+                  <div class="p-fluid">
+                    <p-inputNumber
+                      mode="decimal"
+                      placeholder="150"
+                      formControlName="fcf"
+                    ></p-inputNumber>
+                  </div>
+                </div>
+                <div class="col-2"></div>
+                <div class="col-2">
+                  <div class="text-center" style="font-weight: bold">
+                    MENBRANAS
+                  </div>
+                  <div class="flex" style="">
+                    <div class="col-8 text-right">Rotas:</div>
+                    <div class="col-5">
+                      <p-radioButton
+                        value="rotas"
+                        formControlName="menbranas"
+                        class="yellow"
+                      ></p-radioButton>
+                    </div>
+                  </div>
+                  <div class="flex" style="">
+                    <div class="col-8 text-right">Intregras:</div>
+                    <div class="col-5">
+                      <p-radioButton
+                        class="white"
+                        value="integras"
+                        formControlName="menbranas"
+                      ></p-radioButton>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="md:col-2" style="align-self: start">
+              <div class="align-content-start">
+                <div class="text-center" style="font-weight: bold">
+                  LIQUIDO AMNIÓTICO
+                </div>
+                <div class="flex" style="">
+                  <div class="col-8 text-right">Claro:</div>
+                  <div class="col-5">
+                    <p-radioButton
+                      class="white"
+                      value="claro"
+                      formControlName="liquidoAmniotico"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="flex" style="">
+                  <div class="col-8 text-right">Verde Claro:</div>
+                  <div class="col-5">
+                    <p-radioButton
+                      class="white"
+                      formControlName="liquidoAmniotico"
+                      value="verde claro"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="flex" style="">
+                  <div class="col-8 text-right">Verde Oscuro:</div>
+                  <div class="col-5">
+                    <p-radioButton
+                      formControlName="liquidoAmniotico"
+                      value="verde oscuro"
+                      class="red"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="md:col-12">
+              <div class="flex justify-content-end">
+                <div class="col-8 text-right" style="font-weight: bold">
+                  FECHA DE RUPTURA:
+                </div>
+                <p-calendar
+                  [showIcon]="true"
+                  dateFormat="dd/mm/yy"
+                  inputId="icon"
+                  class="fechaRuptura"
+                  [showTime]="true"
+                  formControlName="fechaRuptura"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+  <!-- tercera fila -->
+  <div class="grid">
+    <div class="md:col-4">
+      <p-fieldset legend="Signos y sintomas de Alerta">
+        <div class="grid">
+          <div class="md:col-6">
+            <div class="flex" style="padding: 3px">
+              <div class="col-7 text-right">Anasarca:</div>
+              <p-selectButton
+                [options]="twoOptions"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="anasarca"
+              ></p-selectButton>
+            </div>
+            <div class="flex" style="padding: 3px">
+              <div class="col-7 text-right">Cianosis:</div>
+              <p-selectButton
+                [options]="twoOptions"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="cianosis"
+              ></p-selectButton>
+            </div>
+            <div class="flex" style="padding: 3px">
+              <div class="col-7 text-right">Escotomas:</div>
+              <p-selectButton
+                [options]="twoOptions"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="escotomas"
+              ></p-selectButton>
+            </div>
+            <div class="flex" style="padding: 3px">
+              <div class="col-7 text-right">Epigastralgia:</div>
+              <p-selectButton
+                [options]="twoOptions"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="epigastralgia"
+              ></p-selectButton>
+            </div>
+            <div class="flex" style="padding: 3px">
+              <div class="col-7 text-right">Dolor Hiponóndr.Der.:</div>
+              <p-selectButton
+                [options]="twoOptions"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="dolorDerecho"
+              ></p-selectButton>
+            </div>
+          </div>
+          <div class="md:col-6">
+            <div class="flex" style="padding: 3px">
+              <div class="col-7 text-right">Hermaturia:</div>
+              <p-selectButton
+                [options]="twoOptions"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="hermaturia"
+              ></p-selectButton>
+            </div>
+            <div class="flex" style="padding: 3px">
+              <div class="col-7 text-right">Hipot. Ortostática:</div>
+              <p-selectButton
+                [options]="twoOptions"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="hipoOrtostatica"
+              ></p-selectButton>
+            </div>
+            <div class="flex" style="padding: 3px">
+              <div class="col-7 text-right">Ictericia:</div>
+              <p-selectButton
+                [options]="twoOptions"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="ictericia"
+              ></p-selectButton>
+            </div>
+            <div class="flex" style="padding: 3px">
+              <div class="col-7 text-right">Petequies:</div>
+              <p-selectButton
+                [options]="twoOptions"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="petequies"
+              ></p-selectButton>
+            </div>
+            <div class="flex" style="padding: 3px">
+              <div class="col-7 text-right">Proteuniria:</div>
+              <p-selectButton
+                [options]="twoOptions"
+                optionLabel="label"
+                optionValue="value"
+                formControlName="proteuniria"
+              ></p-selectButton>
+            </div>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+    <div class="md:col-8">
+      <div class="grid">
+        <div class="col-12">
+          <p-fieldset legend="corticoides antenatales (28-34 Sem)">
+            <div class="grid">
+              <div class="col-2">
+                <div class="flex" style="">
+                  <div class="col-10 text-right">Completo:</div>
+                  <div class="col-2 text-left">
+                    <p-radioButton
+                      class="white"
+                      formControlName="corticoidesAntenatales"
+                      value="completo"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="flex" style="padding: 3px">
+                  <div class="col-10 text-right">Incompleto:</div>
+                  <div class="col-2">
+                    <p-radioButton
+                      value="incompleto"
+                      formControlName="corticoidesAntenatales"
+                      class="yellow"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="flex" style="padding: 3px">
+                  <div class="col-10 text-right">No Recibe:</div>
+                  <div class="col-2">
+                    <p-radioButton
+                      value="no recibe"
+                      formControlName="corticoidesAntenatales"
+                      class="red"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="flex" style="padding: 3px">
+                  <div class="col-7 text-right">No Aplica:</div>
+                  <div class="col-5">
+                    <p-radioButton
+                      class="white"
+                      formControlName="corticoidesAntenatales"
+                      value="no aplica"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="flex" style="padding: 3px">
+                  <div class="col-6 text-right">SEM. INICION:</div>
+                  <div class="col-5 p-fluid">
+                    <p-inputNumber
+                      mode="decimal"
+                      placeholder="150"
+                      formControlName="semanaInicio"
+                    ></p-inputNumber>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p-fieldset>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="md:col-7">
+          <p-fieldset legend="Tipo Procedimiento">
+            <div class="grid">
+              <div class="col-2">CESÁRIA:</div>
+              <div class="col-3">
+                <div class="flex" style="padding: 3px">
+                  <div class="col-10 text-right">Corporal:</div>
+                  <div class="col-2">
+                    <p-radioButton
+                      class="white"
+                      value="corporal"
+                      formControlName="cesaria"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="flex" style="padding: 3px">
+                  <div class="col-10 text-right">Segmentaria:</div>
+                  <div class="col-2">
+                    <p-radioButton
+                      class="white"
+                      value="segmentaria"
+                      formControlName="cesaria"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="flex" style="padding: 3px">
+                  <div class="col-10 text-right">No Aplica:</div>
+                  <div class="col-2">
+                    <p-radioButton
+                      class="white"
+                      value="no aplica"
+                      formControlName="cesaria"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="grid">
+              <div class="col-2">ABORTO:</div>
+              <div class="col-3">
+                <div class="flex" style="padding: 3px">
+                  <div class="col-10 text-right">Ameu:</div>
+                  <div class="col-2">
+                    <p-radioButton
+                      class="white"
+                      formControlName="aborto"
+                      value="ameu"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="flex" style="padding: 3px">
+                  <div class="col-10 text-right">Legrado:</div>
+                  <div class="col-2">
+                    <p-radioButton
+                      class="white"
+                      formControlName="aborto"
+                      value="legrado"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="flex" style="padding: 3px">
+                  <div class="col-10 text-right">No Aplica:</div>
+                  <div class="col-2">
+                    <p-radioButton
+                      class="white"
+                      value="no aplica"
+                      formControlName="aborto"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p-fieldset>
+        </div>
+        <div class="md:col-5">
+          <p-fieldset legend="Procedimiento en parto (Ver anexo)">
+            <div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-5 text-right">Medicación:</div>
+                <div class="col-7" style="background-color: #495057"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-5 text-right">Medicamentos:</div>
+                <div class="col-7" style="background-color: #495057"></div>
+              </div>
+            </div>
+          </p-fieldset>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Cuarta fila -->
+  <div class="grid">
+    <div class="col-12 lg:col-6">
+      <p-fieldset >
+        <ng-template pTemplate="header">
+          <div class="grid">
+            <div class="col-3">
+              Terminación
+            </div>
+            <div class="col-9 grid">
+              <div class="col-4" style="text-align: right">Fecha :</div>
+              <div class="col-8 p-fluid" >
+                <p-calendar
+                        class="colorIconCalendar"
+                        [showIcon]="true"
+                        dateFormat="dd/mm/yy"
+                        inputId="icon"
+                        [showTime]="true"
+                        formControlName="terminacionFecha"
+                ></p-calendar>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+        <div class="grid">
+          <div class="col-3" style="align-self: start">
+            <div>
+              <div class="text-center" style="font-weight: bold">
+                Terminación
+              </div>
+              <div class="flex" style="">
+                <div class="col-8 text-right">Aborto:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="terminacion"
+                    value="aborto"
+                    class="red"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 0px">
+                <div class="col-8 text-right">P. expontáneo:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    value="p. expontaneo"
+                    formControlName="terminacion"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 0px">
+                <div class="col-8 text-right">Forceps:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    value="forceps"
+                    formControlName="terminacion"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="">
+                <div class="col-8 text-right">vacumm:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    value="vacumm"
+                    formControlName="terminacion"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Cesária electiva:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    value="cesaria electiva"
+                    formControlName="terminacion"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 0px">
+                <div class="col-8 text-right">Cesaria elmerg:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    value="cesaria elmerg"
+                    formControlName="terminacion"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="text-center" style="font-weight: bold">Desgarros</div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">No Hubo</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="desgarros"
+                    value="no hubo"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">I</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="desgarros"
+                    value="I"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">II</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="desgarros"
+                    value="II"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">III-IV</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="desgarros"
+                    value="III-IV"
+                    class="red"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">No Aplica</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="desgarros"
+                    value="no aplica"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3" style="align-self: start">
+            <div>
+              <div class="text-center" style="font-weight: bold">
+                POSIC GESTANTE:
+              </div>
+              <div class="flex" style="">
+                <div class="col-8 text-right">Horizontal:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="posicionGestante"
+                    value="horizontal"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 0px">
+                <div class="col-8 text-right">Vertical:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="posicionGestante"
+                    value="vertical"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 0px">
+                <div class="col-8 text-right">No Aplica:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="posicionGestante"
+                    value="no aplica"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="text-center" style="font-weight: bold">Duracion</div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Normal</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="duracion"
+                    value="normal"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Prolongado</div>
+                <div class="col-5">
+                  <p-radioButton
+                    value="prolongado"
+                    formControlName="duracion"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Precipitado</div>
+                <div class="col-5">
+                  <p-radioButton
+                    value="precipitado"
+                    formControlName="duracion"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">No Aplica</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    value="no aplica"
+                    formControlName="duracion"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="text-center" style="font-weight: bold">
+                ALUMBRAMIENTO
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Activo</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    value="activo"
+                    formControlName="alumbramiento"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Espontáneo</div>
+                <div class="col-5">
+                  <p-radioButton
+                    value="expontaneo"
+                    formControlName="alumbramiento"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">No Aplica</div>
+                <div class="col-5">
+                  <p-radioButton
+                    value="no aplica"
+                    formControlName="alumbramiento"
+                    class="red"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3" style="align-self: start">
+            <div>
+              <div class="text-center" style="font-weight: bold">
+                PARTO GRAMA
+              </div>
+              <div class="flex" style="">
+                <div class="col-8 text-right">Si:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="partoGrama"
+                    value="si"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 0px">
+                <div class="col-8 text-right">No:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="partoGrama"
+                    value="no"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 0px">
+                <div class="col-8 text-right">No Aplica:</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="partoGrama"
+                    value="no aplica"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="text-center" style="font-weight: bold">
+                MUE. INTRAUT.:
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">No Hubo</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="muerteIntrauterina"
+                    value="no hubo"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Dur. embarazo</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="muerteIntrauterina"
+                    value="durante embarazo"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Dur. Parto</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="muerteIntrauterina"
+                    value="durante parto"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Momento desconocido</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="muerteIntrauterina"
+                    value="momento desconocido"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="text-center" style="font-weight: bold">PLACENTA:</div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Completa</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="placenta"
+                    value="completa"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Incompleta</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="placenta"
+                    value="incompleta"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">retenida</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="placenta"
+                    value="retenida"
+                    class="red"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-3" style="align-self: start">
+            <div>
+              <div class="text-center" style="font-weight: bold">
+                PARTO CON ACOMP.:
+              </div>
+              <div class="flex" style="">
+                <div class="col-8 text-right">Si</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="partoAconpanante"
+                    value="si"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 0px">
+                <div class="col-8 text-right">No</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="partoAconpanante"
+                    value="no"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="text-center" style="font-weight: bold">
+                episiotomía
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Si</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="episiotomia"
+                    value="si"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">No</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="episiotomia"
+                    value="no"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">No Aplica</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="episiotomia"
+                    value="no aplica"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="text-center" style="font-weight: bold">
+                LIGADURA CORDÓN
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Precoz</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="ligaduraCordon"
+                    value="precoz"
+                    class="red"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Temprana</div>
+                <div class="col-5">
+                  <p-radioButton
+                    formControlName="ligaduraCordon"
+                    value="temprana"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-8 text-right">Tardia</div>
+                <div class="col-5">
+                  <p-radioButton
+                    class="white"
+                    formControlName="ligaduraCordon"
+                    value="tardia"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+    <div class="col-12 lg:col-6">
+      <div>
+        <p-fieldset legend="Indicacion Principal Parto operatorio">
+          <div class="flex justify-content-end">
+            <p-selectButton
+              [options]="TFOptions"
+              optionLabel="label"
+              optionValue="value"
+              formControlName="indicacionPrincipalHubo"
+            ></p-selectButton>
+          </div>
+          <div class="p-fluid">
+            <input
+              type="text"
+              pInputText
+              style="border-radius: 10px"
+              class="mt-3"
+              formControlName="indicacionPrincipalPartoOperatorio"
+            />
+          </div>
+        </p-fieldset>
+      </div>
+      <div>
+        <p-fieldset legend="Atencion">
+          <div class="grid">
+            <div class="col-3" style="align-self: start">
+              <div>
+                <div class="text-center" style="font-weight: bold">NIVEL:</div>
+                <div class="flex" style="padding: 3px">
+                  <div class="col-8 text-right">FONEP</div>
+                  <div class="col-5">
+                    <p-radioButton
+                      class="white"
+                      formControlName="nivel"
+                      value="fonep"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="flex" style="padding: 3px">
+                  <div class="col-8 text-right">FONEB</div>
+                  <div class="col-5">
+                    <p-radioButton
+                      formControlName="nivel"
+                      value="foneb"
+                      class="white"
+                    >
+                    </p-radioButton>
+                  </div>
+                </div>
+                <div class="flex" style="padding: 3px">
+                  <div class="col-8 text-right">FONE</div>
+                  <div class="col-5">
+                    <p-radioButton
+                      class="white"
+                      formControlName="nivel"
+                      value="fone"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="flex" style="padding: 3px">
+                  <div class="col-8 text-right">FONI</div>
+                  <div class="col-5">
+                    <p-radioButton
+                      class="white"
+                      formControlName="nivel"
+                      value="foni"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="flex" style="padding: 3px">
+                  <div class="col-8 text-right">Domicilio</div>
+                  <div class="col-5">
+                    <p-radioButton
+                      formControlName="nivel"
+                      value="domicilio"
+                      class="yellow"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="flex" style="padding: 3px">
+                  <div class="col-8 text-right">Otro</div>
+                  <div class="col-5">
+                    <p-radioButton
+                      class="yellow"
+                      formControlName="nivel"
+                      value="otro"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-4" style="align-self: start">
+              <div class="grid">
+                <div class="col-2" style="font-weight: bold"></div>
+                <div class="col-6" style="font-weight: bold">
+                  PARTO O LEGRADO:
+                </div>
+                <div class="col-4" style="font-weight: bold">NEONATO</div>
+              </div>
+              <div class="grid">
+                <div class="col-6 text-right">Médico</div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="partoLegrado"
+                    value="medico"
+                  ></p-radioButton>
+                </div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="neonato"
+                    value="medico"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-6 text-right">Residente Médico</div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="partoLegrado"
+                    value="residente medico"
+                  ></p-radioButton>
+                </div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="neonato"
+                    value="residente medico"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-6 text-right">Obstetriz</div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="partoLegrado"
+                    value="obstetriz"
+                  ></p-radioButton>
+                </div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="neonato"
+                    value="obstetriz"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-6 text-right">Interno</div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="partoLegrado"
+                    value="interno"
+                  ></p-radioButton>
+                </div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="neonato"
+                    value="interno"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-6 text-right">Enfermera</div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="partoLegrado"
+                    value="enfermera"
+                  ></p-radioButton>
+                </div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="neonato"
+                    value="enfermera"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-6 text-right">Tec. de Enfermeria</div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="partoLegrado"
+                    value="tecnico enfermeria"
+                  ></p-radioButton>
+                </div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="white"
+                    formControlName="neonato"
+                    value="tecnico enfermeria"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-6 text-right">estudiante</div>
+                <div class="col-3">
+                  <p-radioButton
+                    formControlName="partoLegrado"
+                    value="estudiante"
+                    class="yellow"
+                  >
+                  </p-radioButton>
+                </div>
+                <div class="col-3">
+                  <p-radioButton
+                    formControlName="neonato"
+                    value="estudiante"
+                    class="yellow"
+                  >
+                  </p-radioButton>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-6 text-right">Empirica partera</div>
+                <div class="col-3">
+                  <p-radioButton
+                    formControlName="partoLegrado"
+                    value="empirica partera"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+                <div class="col-3">
+                  <p-radioButton
+                    formControlName="neonato"
+                    value="empirica partera"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-6 text-right">Familiar</div>
+                <div class="col-3">
+                  <p-radioButton
+                    formControlName="partoLegrado"
+                    value="familiar"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+                <div class="col-3">
+                  <p-radioButton
+                    formControlName="neonato"
+                    value="familiar"
+                    class="yellow"
+                  ></p-radioButton>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-6 text-right">Otro</div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="yellow"
+                    formControlName="partoLegrado"
+                    value="otro"
+                  ></p-radioButton>
+                </div>
+                <div class="col-3">
+                  <p-radioButton
+                    class="yellow"
+                    formControlName="neonato"
+                    value="otro"
+                  ></p-radioButton>
+                </div>
+              </div>
+            </div>
+            <div class="col-3" style="align-self: start">
+              <div>
+                <h5>Responsable de la Atención del Parto:</h5>
+                <textarea rows="5" cols="25" pInputTextarea></textarea>
+              </div>
+              <div>
+                <h5>Responsable de la atencion del Neonato</h5>
+                <textarea rows="5" cols="25" pInputTextarea></textarea>
+              </div>
+            </div>
+          </div>
+        </p-fieldset>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="flex justify-content-end mt-3">
+  <p-button
+    icon="pi pi-save"
+    label="Guardar"
+    (onClick)="save()"
+    styleClass="p-button-info p-button-sm"
+  >
+  </p-button>
+</div>

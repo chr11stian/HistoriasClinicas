@@ -12,15 +12,15 @@ export class ColegioProfesionalService {
   constructor(private http: HttpClient) { }
 
   getColegioProfesional() {
-    return this.http.get(`${this.base_url}/${this.bd}/api/colegioprofesional`);
+    return this.http.get(`${this.base_url}/${this.bd}/colegioprofesional`);
   }
   createColegioProfesional(colegio) {
-    return this.http.post<any>(`${this.base_url}/${this.bd}/api/colegioprofesional`, colegio)
+    return this.http.post<any>(`${this.base_url}/${this.bd}/colegioprofesional`, colegio)
   }
   deleteColegioProfesional(id) {
-    return this.http.delete(`${this.base_url}/${this.bd}/api/colegioprofesional/${id}`)
+    return this.http.delete(`${this.base_url}/${this.bd}/colegioprofesional/${id}`)
   }
   editColegioProfesional(colegio) {
-    return this.http.put<any>(`${this.base_url}/${this.bd}/api/colegioprofesional`, colegio)
+    return this.http.put<any>(`${this.base_url}/${this.bd}/colegioprofesional`, colegio)
   }
 }

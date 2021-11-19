@@ -1,0 +1,17 @@
+p-table >>> .p-datatable table {
+    width: auto;
+ }
+ 
+ p-table >>> .p-datatable .p-datatable-thead > tr > th {
+    text-align: center !important;
+    border: 1px solid #b6b6b6;
+    background-color: #DDDDDD;
+    padding: 0.3rem;
+ }
+p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+    padding: 2px
+}
+.cell_container {
+    width: 100%;
+    height: 100%;
+}

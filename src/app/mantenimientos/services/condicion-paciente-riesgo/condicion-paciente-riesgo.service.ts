@@ -12,15 +12,15 @@ export class CondicionPacienteRiesgoService {
   constructor(private http: HttpClient) {}
 
   getCondicionPacienteRiesgo() {
-    return this.http.get(`${this.base_url}/${this.bd}/api/condicionpacienteriesgo`);
+    return this.http.get(`${this.base_url}/${this.bd}/condicionpacienteriesgo`);
   }
   createCondicionPacienteRiesgo(condicion){
-    return this.http.post<any>(`${this.base_url}/${this.bd}/api/condicionpacienteriesgo`, condicion)
+    return this.http.post<any>(`${this.base_url}/${this.bd}/condicionpacienteriesgo`, condicion)
   }
   deleteCondicionPacienteRiesgo(id){
-    return this.http.delete(`${this.base_url}/${this.bd}/api/condicionpacienteriesgo/${id}`)
+    return this.http.delete(`${this.base_url}/${this.bd}/condicionpacienteriesgo/${id}`)
   }
   editCondicionPacienteRiesgo(condicion){
-    return this.http.put<any>(`${this.base_url}/${this.bd}/api/condicionpacienteriesgo`, condicion)
+    return this.http.put<any>(`${this.base_url}/${this.bd}/condicionpacienteriesgo`, condicion)
   }
 }

@@ -36,7 +36,11 @@
 
 <br>
 <div class="stepsdemo-content" *ngIf="stepName === 'ipress'">
-    <app-ipress></app-ipress>
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-ipress></app-ipress>
+        </ng-template>
+    </p-card>
 </div>
 
 <div class="stepsdemo-content" *ngIf="stepName === 'asegurado-usuario'">

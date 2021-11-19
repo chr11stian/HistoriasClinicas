@@ -13,34 +13,34 @@ export class UpsService {
     constructor(private http: HttpClient) { }
 
     getUPS() {
-        return this.http.get(`${this.base_url}/${this.bd}/api/ups/listar`);
+        return this.http.get(`${this.base_url}/${this.bd}/ups/listar`);
     }
 
     getUPSByCodUPS() {
-        return this.http.get(`${this.base_url}/${this.bd}/api/ups/codUps`);
+        return this.http.get(`${this.base_url}/${this.bd}/ups/codUps`);
     }
 
     postUPS(dataUPS) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/ups/save`, dataUPS);
+        return this.http.post(`${this.base_url}/${this.bd}/ups/save`, dataUPS);
     }
 
     putUPS(idUPS, dataUPS) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/ups/update/${idUPS}`, dataUPS);
+        return this.http.post(`${this.base_url}/${this.bd}/ups/update/${idUPS}`, dataUPS);
     }
 
     deleteUPS(idUPS) {
-        return this.http.delete(`${this.base_url}/${this.bd}/api/ups/delete/${idUPS}`);
+        return this.http.delete(`${this.base_url}/${this.bd}/ups/delete/${idUPS}`);
     }
 
     postAddSubTitulo(idUPS, dataUPS) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/ups/add_subtitulo/${idUPS}`, dataUPS);
+        return this.http.post(`${this.base_url}/${this.bd}/ups/add_subtitulo/${idUPS}`, dataUPS);
     }
 
     deleteSubTituloUPS(idUPS, nombreSubTipo) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/ups/delete_subtitulo/${idUPS}`, nombreSubTipo);
+        return this.http.post(`${this.base_url}/${this.bd}/ups/delete_subtitulo/${idUPS}`, nombreSubTipo);
     }
 
     updateSubtitulosUPS(idUPS, dataUPS) {
-        return this.http.post(`${this.base_url}/${this.bd}/api/ups/update_subtitulo/${idUPS}`, dataUPS);
+        return this.http.post(`${this.base_url}/${this.bd}/ups/update_subtitulo/${idUPS}`, dataUPS);
     }
 }

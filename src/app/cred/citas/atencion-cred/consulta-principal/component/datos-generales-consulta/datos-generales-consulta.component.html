@@ -1,1 +1,147 @@
-<p>datos-generales-consulta works!</p>
+<div class="grid">
+    <div class="col-12 md:col-10 mt-0">
+        <h3 class="ml-2">DATOS GENERALES </h3>
+    </div>
+    <div class="col-12 md:col-2 text-right">
+        <button pButton pRipple type="button"
+                icon="pi pi-angle-right"
+                iconPos="right"
+                (click)="onNext()"
+                label="Siguiente"
+                class="p-button-info">
+        </button>
+    </div>
+</div>
+
+<!-- Datos generales -->
+<p-fieldset legend="Información Básica" [toggleable]="true">
+    <form [formGroup]="generalInfoFG">
+        <div class="grid">
+            <div class="col-12 md:col-2 text-center mt-2">
+                Nombre completo:
+            </div>
+            <div class="col-12 md:col-10">
+                <input type="text"
+                       pInputText
+                       formControlName="name"
+                       class="inputfield w-full"
+                       placeholder="Nombre del paciente "/>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-12 md:col-2 text-center mt-2">
+                Fecha de atención:
+            </div>
+            <div class="col-12 md:col-2">
+                <p-calendar [showIcon]="true"
+                            class="inputfield w-full"
+                            inputId="icon">
+                </p-calendar>
+            </div>
+            <div class="col-12 md:col-1 text-center mt-2">
+                Hora:
+            </div>
+            <div class="col-12 md:col-1">
+                <p-calendar [timeOnly]="true"
+                            inputId="timeonly">
+                </p-calendar>
+            </div>
+            <div class="col-12 md:col-1 text-center mt-2">
+                Edad:
+            </div>
+            <div class="col-12 md:col-1">
+                <p-inputNumber placeholder="años"
+                               inputId="year" suffix=" años">
+                </p-inputNumber>
+            </div>
+        </div>
+    </form>
+
+</p-fieldset>
+
+
+<p-fieldset legend="Descarte de signos de peligro"
+            [toggleable]="true"
+            [formGroup]="signoPeligroFG">
+    <div class="grid">
+        <div class="col-10 md:col-10">
+            <select-btn field="NO PRESENTA SIGNOS"
+                        [alignment]="'text-right font-bold'"
+                        formControlName="presentSigns">
+            </select-btn>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-12 md:col-4">
+            <h4 class="text-center"> MENOR DE 2 MESES:</h4>
+            <div *ngFor="let formC of twoMonths">
+                <select-btn [field]="formC.label"
+                            [formControlName]="formC.nameFC">
+                </select-btn>
+            </div>
+        </div>
+        <div class="col-12 md:col-4">
+            <h4 class="text-center"> DE 2 MESES a 4 AÑOS:</h4>
+            <div *ngFor="let formC of twoMonthsMore">
+                <select-btn [field]="formC.label"
+                            [formControlName]="formC.nameFC">
+                </select-btn>
+            </div>
+        </div>
+        <div class="col-12 md:col-4">
+            <h4 class="text-center"> PARA TODAS LAS EDADES:</h4>
+            <div *ngFor="let formC of allYear">
+                <select-btn [field]="formC.label"
+                            [formControlName]="formC.nameFC">
+                </select-btn>
+            </div>
+        </div>
+    </div>
+    <p-divider></p-divider>
+    <h4> IDENTIFIQUE FACTORES DE RIESGO</h4>
+    <div class="grid">
+        <div class="col-2">
+            ¿Quién cuida al niño?
+        </div>
+        <div class="col-10">
+            <input type="text"
+                   pInputText
+                   class="inputfield w-full"
+                   placeholder="Detalle"/>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-12 md:col-5">
+            <select-btn field="¿Participa el padre en el cuidado del niño?"
+                        alignment="text-left">
+            </select-btn>
+        </div>
+        <div class="col-12 md:col-5">
+            <select-btn field="¿El niño recibe muestras de afecto?"
+                        alignment="text-left">
+            </select-btn>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-2">
+            Especifique:
+        </div>
+        <div class="col-10">
+            <input type="text"
+                   pInputText
+                   class="inputfield w-full"
+                   placeholder="Detalle"/>
+        </div>
+    </div>
+</p-fieldset>
+
+<p-fieldset legend="ANAMNESIS" [toggleable]="true">
+    <textarea class="inputfield w-full"
+              pInputTextarea>
+    </textarea>
+</p-fieldset>
+
+
+<!-- End Datos generales -->
+
+
