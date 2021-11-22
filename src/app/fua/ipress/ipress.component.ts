@@ -6,8 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ipress.component.css']
 })
 export class IpressComponent implements OnInit {
-
-  constructor() { }
+  twoOptions:any[];
+  constructor() {
+    this.twoOptions=[{
+      name:'si',code:'si'
+    },{name:'no',code:'no'}]
+  }
 
   ngOnInit(): void {
   }

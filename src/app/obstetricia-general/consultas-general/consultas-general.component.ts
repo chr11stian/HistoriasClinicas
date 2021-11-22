@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { DialogService } from 'primeng/dynamicdialog';
+import { DialogConsultaComponent } from './dialog-consulta/dialog-consulta.component';
 @Component({
     selector: 'app-consultas-general',
     templateUrl: './consultas-general.component.html',
-    styleUrls: ['./consultas-general.component.css']
+    styleUrls: ['./consultas-general.component.css'],
+    providers: [DialogService]
 })
 export class ConsultasGeneralComponent implements OnInit {
     options: any;
@@ -11,8 +14,10 @@ export class ConsultasGeneralComponent implements OnInit {
     consultaDialog: boolean;
     form: FormGroup;
     prueba: any[];
+    // ref: DynamicDialogRef
     constructor(
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        public dialog: DialogService
     ) {
         this.buildForm();
         this.options = [
@@ -82,6 +87,23 @@ export class ConsultasGeneralComponent implements OnInit {
             pesoRN: [''],
         })
     }
+
+    openDialogConsulta() {
+        let dialog = this.dialog.open(DialogConsultaComponent, {
+            header: "CONSULTA",
+            width: "95%",
+            contentStyle: {
+                "max-height": "500px",
+                overflow: "auto",
+            },
+            // footer:`hola mundo`,
+            data:{
+                texto:'datossss'
+            }
+        })
+
+    }
+
     ngOnInit(): void {
     }
 
@@ -91,3 +113,4 @@ interface data {
     name: string
     code: number
 }
+

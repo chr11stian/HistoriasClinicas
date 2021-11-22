@@ -1,0 +1,791 @@
+<div>
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0"></h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
+                    style="background: #2196F3; border: 1px solid #2196F3;"></button>
+        </ng-template>
+    </p-toolbar>
+    <br>
+    <p-fieldset legend="ANTECEDENTES" [toggleable]="true" collapsed="">
+        <form [formGroup]='formAntecedentes'>
+
+            <div class="grid">
+                <div class="col">
+                    <p-fieldset legend="Antecedentes obstetricos" [toggleable]="false">
+                        <!--                    <div id="visNetwork" #visNetwork></div>-->
+                        <div class="d-flex alig-items-center;">
+                            <img class="d-flex alig-items-center; logo_Region"
+                                 src="../../../../assets/images/grafo.png">
+                        </div>
+
+                    </p-fieldset>
+                </div>
+                <div class="col">
+                    <p-fieldset legend="Gestación Anterior" [toggleable]="false">
+
+                        <div class="grid">
+                            <div class="col">
+                                <div class="grid col">
+                                    <div class="p-inputgroup" style="text-align: right">
+                                        <label>Fecha:</label>
+                                        <p-calendar [showIcon]="true" inputId="icon">
+                                        </p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="grid col">
+                                    <div class="p-inputgroup" style="text-align: right">
+                                        <label>Per Intergenésico Adecuado: </label>
+                                        <p-selectButton [options]="opciones"
+                                                        optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="col" style="align-self: start">
+                                <div class="grid ">
+                                    <div class="col-12" style="text-align: right">
+                                        <label class="colorear">Terminacion: </label>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Parto Vaginal: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton name="terminacion" formControlName="terminacion"
+                                                       value="partoVaginal"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Cesária: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton class="amarillo" name="terminacion" formControlName="terminacion"
+                                                       value="cesaria"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Aborto: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton class="amarillo" name="terminacion" formControlName="terminacion"
+                                                       value="aborto"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Ectópico: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton class="amarillo" name="terminacion" formControlName="terminacion"
+                                                       value="ectópico"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Aborto Molar: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton class="amarillo" name="terminacion" formControlName="terminacion"
+                                                       value="abortoMolar"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>No aplica: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton class="amarillo" name="terminacion" formControlName="terminacion"
+                                                       value="noAplica"></p-radioButton>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col" style="align-self: start">
+                                <div class="grid ">
+                                    <div class="col-12" style="text-align: right">
+                                        <label class="colorear">Si fuese aborto: </label>
+                                    </div>
+                                    <div class="col-12" style="text-align: right">
+                                        <label class="colorear">Tipo de aborto </label>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Incompleto: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton formControlName="incompleto"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Completo: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton formControlName="completo"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Frusto/Retenido: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton formControlName="frustoRetenido"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Séptico: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton formControlName="septico"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>No aplica: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton formControlName="noAplica2"></p-radioButton>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col" style="align-self: start">
+                                <div class="grid ">
+                                    <div class="col-12" style="text-align: right">
+                                        <label class="colorear">Laptancia Materna </label>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>No hubo: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton formControlName="noHubo"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label> < 6 meses: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton formControlName="menorSeisMeses"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>6 meses o mas: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton formControlName="SeisMesesMas"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>No aplica: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton formControlName="noAplica3"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-12" style="text-align: right">
+                                        <label class="colorear">Lugar de parto </label>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col" style="text-align: right">
+                                        <label>EESS </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton formControlName="EESS"></p-radioButton>
+                                    </div>
+
+                                    <div class="col" style="text-align: right">
+                                        <label>Domic. </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-radioButton formControlName="domic"></p-radioButton>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </p-fieldset>
+                    <br>
+                    <div class="p-fieldset">
+                        <br>
+                        <div class="grid">
+
+                            <div class="col" style="align-self: start">
+                                <div class="grid">
+                                    <div class="col-6" style="text-align: right">
+                                        <label>Captada: </label>
+                                    </div>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="opciones"
+                                                        optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col" style="align-self: start">
+                                <div class="grid">
+                                    <div class="col-6" style="text-align: right">
+                                        <label>Referida por Ag. Comuni. </label>
+                                    </div>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="opciones"
+                                                        optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="col">
+                    <p-fieldset legend="Antecedentes Familiares">
+                        <div class="grid">
+                            <div class="col-6">
+                                <div class="grid">
+                                    <div class="col-6" style="text-align: center">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-6" style="text-align: left">
+                                        <label class="colorear">Quien:</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="grid">
+                                    <div class="col-6" style="text-align: center">
+                                        <label></label>
+                                    </div>
+                                    <div class="col-6" style="text-align: left">
+                                        <label class="colorear">Quien: </label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="grid">
+                            <div class="col" style="align-self: start">
+                                <div class="grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Ninguno: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox name="uno" value="val1" class="mt-1"
+                                                    (onChange)="fnCheckbox(val)" #val>
+                                        </p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Alergias: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Enf. Hepertens. emb. </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Epilepcia: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Diabetes: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Enf. Congénitas: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Emb. Multiple: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col" style="align-self: start">
+                                <div class="field grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Malaria:</label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="field grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Hip. Arterial: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="field grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Hipo tiroidismo:</label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="field grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Neoplásica: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="field grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>TBC Pulmonar: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="field grid ">
+                                    <div class="col-4" style="text-align: right">
+                                        <label>Otros: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                    <div class="p-field col-6">
+                                        <p-dropdown
+                                                [options]="familiares"
+                                                optionLabel="name"
+                                                placeholder="Selec"
+                                                [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                    </p-fieldset>
+                    <br>
+                    <p-fieldset legend="Antecendentes">
+                        <div class="grid">
+                            <div class="col-3">
+                                <label>Partos Domiciliarios:</label>
+                            </div>
+                            <div>
+                                <input type="text" pInputText>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+
+                <div class="col">
+                    <p-fieldset legend="Antecedentes Personales" [toggleable]="false">
+                        <div class="grid">
+                            <div class="col" style="align-self: start">
+                                <div class="grid">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Ninguno: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Aborto habitual / recurrente: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Violencia: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Cardiopatia: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Cirugia Pélvica Uterina: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Eclampsia: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Pre Eclampsia: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Hemorra. Postparto: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>TBC Pulmonar: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>VIH/SIDA: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col" style="align-self: start">
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Alcoholismo: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Alergia a medicamentos: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Asma Bronquial: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Diabetes: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Enferm. Congénitas: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Enferm. Infecciosas: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Epilepsia: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Hip. Arterial: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Consumo de hoja de coca: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col" style="align-self: start">
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Infertilidad: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Neoplasias: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Otras Drogas: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Parto Prolong: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Preeclampsia: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Prematuridad: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Reten. Placenta: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Tabaco: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="grid ">
+                                    <div class="col-10" style="text-align: right">
+                                        <label>Transtorn. Mentales: </label>
+                                    </div>
+                                    <div class="col-2">
+                                        <p-checkbox inputId="ny"></p-checkbox>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="grid col-12">
+                                <div class="col-3" style="text-align: right">
+                                    <label>Otros: </label>
+                                </div>
+                                <div class="col-1">
+                                    <p-checkbox inputId="ny"></p-checkbox>
+                                </div>
+
+                                <div class="col-8">
+                                    <input type="text" pInputText class="inputfield w-full">
+                                </div>
+                            </div>
+
+                        </div>
+                    </p-fieldset>
+                    <br>
+                    <p-fieldset legend="Psicoprofilaxis">
+                        <div class="grid">
+                            <div class="col-2">
+                                <label>Sesiones:</label>
+                            </div>
+                            <div>
+                                <input type="text" pInputText>
+                            </div>
+                        </div>
+                    </p-fieldset>
+
+                </div>
+            </div>
+        </form>
+    </p-fieldset>
+</div>

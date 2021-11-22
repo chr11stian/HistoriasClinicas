@@ -1,0 +1,769 @@
+{
+    "escalaEval_EEDP_0_4_anios": [
+        {
+            "edad": "1_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_1",
+                    "areEvaluacion": "S",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_2",
+                    "areEvaluacion": "L",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_3",
+                    "areEvaluacion": "M",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_4",
+                    "areEvaluacion": "C",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_5",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "2_MESES",
+            "condicion": "N",
+            "fecha": {
+              "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+              {
+                "codigo": "pregunta_6",
+                "areEvaluacion": "S",
+                "descripcion": "Apreta el dedo indice del examinador",
+                "puntajeEEDP": "6",
+                "puntajeBreveN": false,
+                "puntajeBreveR": false
+              },
+              {
+                "codigo": "pregunta_7",
+                "areEvaluacion": "S_L",
+                "descripcion": "Fija la mirada en el rostro del examinador",
+                "puntajeEEDP": "6",
+                "puntajeBreveN": false,
+                "puntajeBreveR": false
+              },
+              {
+                "codigo": "pregunta_8",
+                "areEvaluacion": "C_S",
+                "descripcion": "Reacciona al sonido de la campanilla (detras)",
+                "puntajeEEDP": "6",
+                "puntajeBreveN": false,
+                "puntajeBreveR": false
+              },
+              {
+                "codigo": "pregunta_9",
+                "areEvaluacion": "M",
+                "descripcion": "Apreta el dedo indice del examinador",
+                "puntajeEEDP": "0",
+                "puntajeBreveN": false,
+                "puntajeBreveR": false
+              },
+              {
+                "codigo": "pregunta_10",
+                "areEvaluacion": "L",
+                "descripcion": "Si fue con la vista la argolla (ang 90 grados)(detras)",
+                "puntajeEEDP": "6",
+                "puntajeBreveN": false,
+                "puntajeBreveR": false
+              }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "3_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_11",
+                    "areEvaluacion": "S",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_12",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_13",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_14",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_15",
+                    "areEvaluacion": "L",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "4_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_16",
+                    "areEvaluacion": "C",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_17",
+                    "areEvaluacion": "C_L",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_18",
+                    "areEvaluacion": "M",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_19",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_20",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "5_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_21",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_22",
+                    "areEvaluacion": "C",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_23",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_24",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_25",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "6_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_26",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_27",
+                    "areEvaluacion": "C",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_28",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_29",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_30",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "7_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_31",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_32",
+                    "areEvaluacion": "C",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_33",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_34",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_35",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "8_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_36",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_37",
+                    "areEvaluacion": "C",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_38",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_39",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_40",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "9_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_41",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_42",
+                    "areEvaluacion": "C",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_43",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_44",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_45",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "10_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_46",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_47",
+                    "areEvaluacion": "C",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_48",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_49",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_50",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "12_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_51",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_52",
+                    "areEvaluacion": "C",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_53",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_54",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_55",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "14_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_56",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_57",
+                    "areEvaluacion": "C",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_58",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_59",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_60",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "18_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_61",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_62",
+                    "areEvaluacion": "C",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_63",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_64",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_65",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "21_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_66",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_67",
+                    "areEvaluacion": "C",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_68",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_69",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_70",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        },
+        {
+            "edad": "24_MES",
+            "condicion": "N",
+            "fecha": {
+                "$date": "2005-02-25T17:25:32Z"
+            },
+            "examinador": "Lucas lapadula",
+            "item": [
+                {
+                    "codigo": "pregunta_71",
+                    "areEvaluacion": "S_L",
+                    "descripcion": "Fija la mirada en el rostro del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_72",
+                    "areEvaluacion": "C",
+                    "descripcion": "Reacciona al sonido de la campanilla(detras)",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_73",
+                    "areEvaluacion": "C",
+                    "descripcion": "Aprieta el dedo indice del examinador",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_74",
+                    "areEvaluacion": "M",
+                    "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
+                    "puntajeEEDP": "0",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                },
+                {
+                    "codigo": "pregunta_75",
+                    "areEvaluacion": "M",
+                    "descripcion": "Movimiento de cabeza en posición prona",
+                    "puntajeEEDP": "6",
+                    "puntajeBreveN": false,
+                    "puntajeBreveR": false
+                }
+            ],
+            "deleted": false
+        }
+    ]
+}

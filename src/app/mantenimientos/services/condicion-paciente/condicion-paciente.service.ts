@@ -12,15 +12,15 @@ export class CondicionPacienteService {
   constructor(private http: HttpClient) {}
 
   getCondicionPaciente() {
-    return this.http.get(`${this.base_url}/${this.bd}/api/condicionpaciente`);
+    return this.http.get(`${this.base_url}/${this.bd}/condicionpaciente`);
   }
   createCondicionPaciente(grupo){
-    return this.http.post<any>(`${this.base_url}/${this.bd}/api/condicionpaciente`, grupo)
+    return this.http.post<any>(`${this.base_url}/${this.bd}/condicionpaciente`, grupo)
   }
   deleteCondicionPaciente(id){
-    return this.http.delete(`${this.base_url}/${this.bd}/api/condicionpaciente/${id}`)
+    return this.http.delete(`${this.base_url}/${this.bd}/condicionpaciente/${id}`)
   }
   editCondicionPaciente(grupo){
-    return this.http.put<any>(`${this.base_url}/${this.bd}/api/condicionpaciente`, grupo)
+    return this.http.put<any>(`${this.base_url}/${this.bd}/condicionpaciente`, grupo)
   }
 }

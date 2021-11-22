@@ -8,6 +8,14 @@ import { ConsultaCredComponent } from './citas/consulta-cred/consulta-cred.compo
 import { ConsultaCredGeneralComponent } from './consulta-cred-general/consulta-cred-general.component';
 import { AtencionCredModule } from './citas/atencion-cred/atencion-cred.module';
 import { PaginatorModule } from 'primeng/paginator';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ReproCitasComponent } from './citas/repro-citas/repro-citas.component';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import {RippleModule} from 'primeng/ripple'
+import { WeightChartComponent } from './modals/weight-chart/weight-chart.component';
+import { HeightChartComponent } from './modals/height-chart/height-chart.component';
+import { HeightWeightComponent } from './modals/height-weight/height-weight.component'
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -15,13 +23,23 @@ import { PaginatorModule } from 'primeng/paginator';
     CitasComponent,
     ConsultaCredComponent,
     ConsultaCredGeneralComponent,
+    ReproCitasComponent,
+    WeightChartComponent,
+    HeightChartComponent,
+    HeightWeightComponent
   ],
+
   imports: [
     PrimeModule,
     CommonModule,
     CredRoutingModule,
     AtencionCredModule,
     PaginatorModule,
+    DynamicDialogModule,
+    ToggleButtonModule,
+    RippleModule,
+    SharedModule,
+    RippleModule
   ]
 })
 export class CredModule { }

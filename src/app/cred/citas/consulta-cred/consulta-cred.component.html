@@ -1,1 +1,92 @@
-<p>consulta-cred works!</p>
+<div>
+  <div class="card">
+    <p-card>
+      <div class="grid">
+        <div class="col-9" style="margin: 0px 0px 0px 20px">
+          <span style="font-size: 2em"
+            >CONTROL DE CRECIMIENTO Y DESARROLLO> Consultas</span
+          >
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <span class="p-m-0">CONSULTAS</span>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+      <button
+        pButton
+        pRipple
+        (click)="regresar()"
+        label="Regresar"
+        iconPos="left"
+        style="background-color: #003c71"
+        icon="pi pi-angle-left"
+      ></button>
+      <button
+        pButton
+        pRipple
+        (click)="consulta()"
+        label="Agregar"
+        icon="pi pi-plus-circle"
+        iconPos="left"
+        class="mr-3"
+        style="background-color: #003c71"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    responsiveLayout="scroll"
+    [resizableColumns]="true"
+    scrollDirection="both"
+    [value]="citas"
+    #dt
+    styleClass="p-datatable-gridlines"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [paginator]="true"
+    [autoLayout]="true"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+  >
+    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+      <tr>
+        <th>Nro</th>
+        <th>CONSULTA</th>
+        <th>FECHA</th>
+        <th>PERSONAL DE SALUD</th>
+        <th>ACCIONES</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+      <tr>
+        <td>{{ rowIndex + 1 }}</td>
+        <td>{{ rowData.consulta }}</td>
+        <td>{{ rowData.fecha }}</td>
+        <td>{{ rowData.personal }}</td>
+        <td>
+          <span class="p-buttonset">
+            <button
+              pButton
+              pRipple
+              routerLink="/consulta-principal"
+              class="p-button-info"
+              label="Editar"
+              icon="pi pi-user-edit"
+            ></button>
+            <button
+              pButton
+              pRipple
+              class="p-button-danger"
+              label="Eliminar"
+              icon="pi pi-times"
+            ></button>
+          </span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
