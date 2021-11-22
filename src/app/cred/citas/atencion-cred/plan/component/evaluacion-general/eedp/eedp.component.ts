@@ -164,7 +164,9 @@ export class EEDPComponent implements OnInit {
 
   openEvaluacionEEDP(){
     console.log('clinck  en modal');
+    const header = "Escala Evaluacion EEDP";
     const ref = this.dialogService.open(EscalaEvaluacionEEDPComponent, {
+      header: header,
       height: "90%",
       width: "85%",
     });
