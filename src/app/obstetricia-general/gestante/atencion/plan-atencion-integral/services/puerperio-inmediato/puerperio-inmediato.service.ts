@@ -13,7 +13,7 @@ export class PuerperioInmediatoService {
   constructor(private http:HttpClient) {}
 
   createPuerperioService(dataPuerperio) {
-    return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio`,dataPuerperio);
+    return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio/DNI/10101010s`,dataPuerperio);
   }
 
 

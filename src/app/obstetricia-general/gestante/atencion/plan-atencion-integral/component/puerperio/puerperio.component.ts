@@ -54,16 +54,9 @@ export class PuerperioComponent implements OnInit {
         }
         if (req.fechaAtencion.trim() !== "") {
             this.puerperioService.createPuerperioService(req).subscribe(
-                result => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Agregado correctamente',
-                        text: '',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-
-                    this.consultaPuerperio = false;
+                (resp) => {
+                   console.log(resp)
+                    console.log(req)
                 }
             )
         }
