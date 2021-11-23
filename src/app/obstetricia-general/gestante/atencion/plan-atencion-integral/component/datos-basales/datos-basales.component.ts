@@ -16,15 +16,8 @@ export class DatosBasalesComponent implements OnInit {
   city: any;
   examenFisico: any;
   hemoglobina: any;
-  listExamenFisico = [
-    { key: '0', value: 'clinico' },
-    { key: '1', value: 'mamas' },
-    { key: '2', value: 'cuello uterino' },
-    { key: '3', value: 'pelvis' },
-    { key: '4', value: 'odontologia 1' },
-    { key: '5', value: 'odontologia 2' },
-  ];
   datosBasales: any;
+  otrosExamenes: any;
 
   constructor(
     private fb: FormBuilder,
@@ -132,15 +125,36 @@ export class DatosBasalesComponent implements OnInit {
       dateHospitalizacion: new FormControl(''),
       dateEmergencia: new FormControl(''),
       dateViolencia: new FormControl(''),
+      datevdrl1: new FormControl(''),
+      dateTpha: new FormControl(''),
+      dateVih1: new FormControl(''),
+      dateHepatitis: new FormControl(''),
+      dateElisa1: new FormControl(''),
+      dateElisa2: new FormControl(''),
+      dateGlicemia1: new FormControl(''),
+      dateGlicemia2: new FormControl(''),
+      dateGlucosa: new FormControl(''),
+      dateOrina1: new FormControl(''),
+      dateOrina2: new FormControl(''),
+      dateOrina3: new FormControl(''),
+      dateBacteriuria: new FormControl(''),
+      dateNitritos: new FormControl(''),
+      dateUrocultivo: new FormControl(''),
+      dateEsputo: new FormControl(''),
+      dateWestern: new FormControl(''),
+      dateThlv1: new FormControl(''),
+      dateTorch: new FormControl(''),
+      dateGotaGruesa: new FormControl(''),
+      dateProteinuriaCuanti: new FormControl(''),
+      dateProteinuriaCuali: new FormControl(''),
+      dateSecrecionVag: new FormControl(''),
+      datePap: new FormControl(''),
+      dateIvaa: new FormControl('')
     });
   }
 
-  fnCheckbox(value) {
-    console.log(value);
-  }
-
   recuperarDatos() {
-    // this.recuperarExamenFisico();
+    this.recuperarExamenFisico();
     this.recuperarHemoglobina();
     let vacPrev: string[] = [];
 
@@ -234,42 +248,27 @@ export class DatosBasalesComponent implements OnInit {
   }
 
   recuperarExamenFisico() {
-    // this.examenFisico = '';
-    let auxExamClin = this.form.value.clinico;
-    let auxExamMamas = this.form.value.mamas;
-    let auxExamCuelloUte = this.form.value.cuelloUter;
-    let auxExamPelvis = this.form.value.pelvis;
-    let auxExamOdont1 = this.form.value.odont1;
-    let auxExamOdont2 = this.form.value.odont2;
-    const splitedClinico = auxExamClin.split("-");
-    const splitedMamas = auxExamMamas.split("-");
-    const splitedCuelloUte = auxExamCuelloUte.split("-");
-    const splitedPelvis = auxExamPelvis.split("-");
-    const splitedOdont1 = auxExamOdont1.split("-");
-    const splitedOdont2 = auxExamOdont2.split("-");
-    console.log('name exam fis ', this.listExamenFisico['0'].value);
     this.examenFisico = [
       {
-        nombre: this.listExamenFisico[splitedClinico[0]].value,
-        valor: splitedClinico[1]
+        nombre: 'clinico',
+        valor: this.form.value.clinico
       }, {
-        nombre: this.listExamenFisico[splitedMamas[0]].value,
-        valor: splitedMamas[1]
+        nombre: 'mamas',
+        valor: this.form.value.mamas
       }, {
-        nombre: this.listExamenFisico[splitedCuelloUte[0]].value,
-        valor: splitedCuelloUte[1]
+        nombre: 'cuello uterino',
+        valor: this.form.value.cuelloUter
       }, {
-        nombre: this.listExamenFisico[splitedPelvis[0]].value,
-        valor: splitedPelvis[1]
+        nombre: 'pelvis',
+        valor: this.form.value.pelvis
       }, {
-        nombre: this.listExamenFisico[splitedOdont1[0]].value,
-        valor: splitedOdont1[1]
+        nombre: 'odonto 1',
+        valor: this.form.value.odont1
       }, {
-        nombre: this.listExamenFisico[splitedOdont2[0]].value,
-        valor: splitedOdont2[1]
+        nombre: 'odonto 2',
+        valor: this.form.value.odont2
       }
     ]
-    console.log('data examen fisico ', this.examenFisico);
   }
 
   recuperarHemoglobina() {
@@ -281,8 +280,117 @@ export class DatosBasalesComponent implements OnInit {
     ]
   }
 
-  rbtn() {
-    const auxHemo1 = (this.form.value.clinico).split("-")
-    console.log('split rbtn', auxHemo1);
+  recuperarOtrosExamenes() {
+    this.otrosExamenes = [
+      {
+        nombre: 'VDRL/RPR 1',
+        valor: this.form.value.vdrl1,
+        fecha: this.form.value.datevdrl1
+      }, {
+        nombre: 'VDRL/RPR 2',
+        valor: this.form.value.vdrl2,
+        fecha: this.form.value.dateVdrl2
+      }, {
+        nombre: 'TPHA/VDRL (RPR reactivo)',
+        valor: this.form.value.tpha,
+        fecha: this.form.value.dateTpha
+      }, {
+        nombre: 'VIH Prueba Rapida 1',
+        valor: this.form.value.vih1,
+        fecha: this.form.value.dateVih1
+      }, {
+        nombre: 'VIH Prueba Rapida 2',
+        valor: this.form.value.vih2,
+        fecha: this.form.value.dateVih2
+      }, {
+        nombre: 'PR Hepatitis',
+        valor: this.form.value.hepatitis,
+        fecha: this.form.value.dateHepatitis
+      }, {
+        nombre: 'ELISA 1',
+        valor: this.form.value.elisa1,
+        fecha: this.form.value.dateElisa1
+      }, {
+        nombre: 'ELISA 2',
+        valor: this.form.value.elisa2,
+        fecha: this.form.value.dateElisa2
+      }, {
+        nombre: 'Glicemia 1',
+        valor: this.form.value.glicemia1,
+        fecha: this.form.value.dateGlicemia1
+      }, {
+        nombre: 'Glicemia 2',
+        valor: this.form.value.glicemia2,
+        fecha: this.form.value.dateGlicemia2
+      }, {
+        nombre: 'Tolerancia Glucosa',
+        valor: this.form.value.glucosa,
+        fecha: this.form.value.dateGlucosa
+      }, {
+        nombre: 'Ex. Comp Orina 1',
+        valor: this.form.value.orina1,
+        fecha: this.form.value.dateOrina1
+      }, {
+        nombre: 'Ex. Comp Orina 2',
+        valor: this.form.value.orina2,
+        fecha: this.form.value.dateOrina2
+      }, {
+        nombre: 'Ex. Comp Orina 3',
+        valor: this.form.value.orina3,
+        fecha: this.form.value.dateOrina3
+      }, {
+        nombre: 'Bacteriuria',
+        valor: this.form.value.bacteriuria,
+        fecha: this.form.value.dateBacteriuria
+      }, {
+        nombre: 'Nitritos',
+        valor: this.form.value.nitritos,
+        fecha: this.form.value.datevdrl1
+      }, {
+        nombre: 'Urocultivo',
+        valor: this.form.value.urocultivo,
+        fecha: this.form.value.dateUrocultivo
+      }, {
+        nombre: 'BK en Esputo',
+        valor: this.form.value.esputo,
+        fecha: this.form.value.dateEsputo
+      }, {
+        nombre: 'Western Bolt/Ifi',
+        valor: this.form.value.western,
+        fecha: this.form.value.dateWestern
+      }, {
+        nombre: 'THLV1',
+        valor: this.form.value.thlv1,
+        fecha: this.form.value.dateThlv1
+      }, {
+        nombre: 'TORCH',
+        valor: this.form.value.torch,
+        fecha: this.form.value.dateTorch
+      }, {
+        nombre: 'Gota Gruesa',
+        valor: this.form.value.gotaGruesa,
+        fecha: this.form.value.dateGotaGruesa
+      }, {
+        nombre: 'Proteinuria Cuantitativa',
+        valor: this.form.value.proteinuriaCuanti,
+        fecha: this.form.value.dateProteinuriaCuanti
+      }, {
+        nombre: 'Proteinuria Cualitativa',
+        valor: this.form.value.proteinuriaCuali,
+        fecha: this.form.value.dateProteinuriaCuali
+      }, {
+        nombre: 'Secreción Vaginal',
+        valor: this.form.value.secrecionVag,
+        fecha: this.form.value.dateSecrecionVag
+      }, {
+        nombre: 'PAP',
+        valor: this.form.value.pap,
+        fecha: this.form.value.datevdrl1
+      }, {
+        nombre: 'IVAA',
+        valor: this.form.value.ivaa,
+        fecha: this.form.value.dateIvaa
+      }
+    ]
   }
 }

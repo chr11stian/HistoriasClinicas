@@ -4,7 +4,8 @@
             <h3 class="p-m-0">Datos Basales del Embarazo Actual</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary" (click)="guardarDatos()"></button>
+            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"
+                (click)="guardarDatos()"></button>
         </ng-template>
     </p-toolbar>
     <form [formGroup]='form'>
@@ -78,15 +79,16 @@
                             <span class="text-xs">Sin Dosis</span>
                             <p-radioButton name="firstDosis" formControlName="firstDosis" value="0"
                                 class="amarillo mb-4 mt-3"> </p-radioButton>
-                            <p-radioButton name="secondDosis" formControlName="secondDosis" value="1" class="amarillo mb-5">
+                            <p-radioButton name="secondDosis" formControlName="secondDosis" value="1"
+                                class="amarillo mb-5">
                             </p-radioButton>
                         </div>
                         <div class="col-2 flex flex-column">
                             <span class="text-xs">No Aplica</span>
-                            <p-radioButton name="firstDosis" formControlName="firstDosis" value="1"
-                                inputId="city2" class="default mb-4 mt-3"></p-radioButton>
-                            <p-radioButton name="secondDosis" formControlName="secondDosis" value="2"
-                                inputId="city2" class="default mb-5"></p-radioButton>
+                            <p-radioButton name="firstDosis" formControlName="firstDosis" value="1" inputId="city2"
+                                class="default mb-4 mt-3"></p-radioButton>
+                            <p-radioButton name="secondDosis" formControlName="secondDosis" value="2" inputId="city2"
+                                class="default mb-5"></p-radioButton>
                         </div>
                     </div>
                     <div class="grid">
@@ -123,16 +125,19 @@
                             <span class="ml-1 text-xs">Rh(-)Sen </span>
                             <span class="ml-1 text-xs">Desc</span>
                         </div>
-                        <p-radioButton name="rh" formControlName="rh" value="rh - sen desc" inputId="city2" class="amarillo ml-2">
+                        <p-radioButton name="rh" formControlName="rh" value="rh - sen desc" inputId="city2"
+                            class="amarillo ml-2">
                         </p-radioButton>
                         <div class="flex flex-column">
                             <span class="ml-1 text-xs">Rh(-)No</span>
                             <span class="ml-1 text-xs">Sen</span>
                         </div>
-                        <p-radioButton name="rh" formControlName="rh" value="rh - no sen" inputId="city2" class="amarillo ml-2">
+                        <p-radioButton name="rh" formControlName="rh" value="rh - no sen" inputId="city2"
+                            class="amarillo ml-2">
                         </p-radioButton>
                         <span class="ml-1 text-xs">Rh(-) Sen</span>
-                        <p-radioButton name="rh" formControlName="rh" value="rh - sen" inputId="city2" class="rojo ml-2">
+                        <p-radioButton name="rh" formControlName="rh" value="rh - sen" inputId="city2"
+                            class="rojo ml-2">
                         </p-radioButton>
                     </div>
                 </p-fieldset>
@@ -379,15 +384,15 @@
                             <label>Clínico: </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="clinico" formControlName="clinico" value="0-sin examen" class="amarillo" (click)="rbtn()">
+                            <p-radioButton name="clinico" formControlName="clinico" value="sin examen" class="amarillo">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="clinico" formControlName="clinico" value="0-normal" class="default" (click)="rbtn()">
+                            <p-radioButton name="clinico" formControlName="clinico" value="normal" class="default">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="clinico" formControlName="clinico" value="0-patologico" class="amarillo">
+                            <p-radioButton name="clinico" formControlName="clinico" value="patologico" class="amarillo">
                             </p-radioButton>
                         </div>
                     </div>
@@ -396,15 +401,15 @@
                             <label>Mamas: </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="mamas" formControlName="mamas" value="1-sin examen" class="amarillo">
+                            <p-radioButton name="mamas" formControlName="mamas" value="sin examen" class="amarillo">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="mamas" formControlName="mamas" value="1-normal" class="default">
+                            <p-radioButton name="mamas" formControlName="mamas" value="normal" class="default">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="mamas" formControlName="mamas" value="1-patologico" class="amarillo">
+                            <p-radioButton name="mamas" formControlName="mamas" value="patologico" class="amarillo">
                             </p-radioButton>
                         </div>
                     </div>
@@ -413,15 +418,15 @@
                             <label>Cuello Uterino: </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="2-sin examen"
+                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="sin examen"
                                 class="amarillo"></p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="2-normal"
+                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="normal"
                                 class="default"></p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="2-patologico"
+                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="patologico"
                                 class="amarillo"></p-radioButton>
                         </div>
                     </div>
@@ -430,15 +435,15 @@
                             <label>Pelvis: </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="pelvis" formControlName="pelvis" value="3-sin examen" class="amarillo">
+                            <p-radioButton name="pelvis" formControlName="pelvis" value="sin examen" class="amarillo">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="pelvis" formControlName="pelvis" value="3-normal" class="default">
+                            <p-radioButton name="pelvis" formControlName="pelvis" value="normal" class="default">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="pelvis" formControlName="pelvis" value="3-patologico" class="amarillo">
+                            <p-radioButton name="pelvis" formControlName="pelvis" value="patologico" class="amarillo">
                             </p-radioButton>
                         </div>
                     </div>
@@ -447,15 +452,15 @@
                             <label>Odont(1): </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont1" formControlName="odont1" value="4-sin examen" class="amarillo">
+                            <p-radioButton name="odont1" formControlName="odont1" value="sin examen" class="amarillo">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont1" formControlName="odont1" value="4-normal" class="default">
+                            <p-radioButton name="odont1" formControlName="odont1" value="normal" class="default">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont1" formControlName="odont1" value="4-patologico" class="amarillo">
+                            <p-radioButton name="odont1" formControlName="odont1" value="patologico" class="amarillo">
                             </p-radioButton>
                         </div>
                     </div>
@@ -464,15 +469,15 @@
                             <label>Odont(2): </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont2" formControlName="odont2" value="5-sin examen" class="amarillo">
+                            <p-radioButton name="odont2" formControlName="odont2" value="sin examen" class="amarillo">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont2" formControlName="odont2" value="5-normal" class="default">
+                            <p-radioButton name="odont2" formControlName="odont2" value="normal" class="default">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont2" formControlName="odont2" value="5-patologico" class="amarillo">
+                            <p-radioButton name="odont2" formControlName="odont2" value="patologico" class="amarillo">
                             </p-radioButton>
                         </div>
                     </div>
@@ -482,7 +487,7 @@
         <div class="grid">
             <div class="col-12">
                 <p-fieldset legend="Examen de Laboratorio">
-                    <div class="grid">  
+                    <div class="grid">
                         <div class="col-6">
                             <div class="grid">
                                 <div class="col-3">
@@ -597,7 +602,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="datevdrl1" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -645,7 +650,7 @@
                                     </p-radioButton>
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="date" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateTpha" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -668,7 +673,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateVih1" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -716,7 +721,7 @@
                                         class="default"></p-radioButton>
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateHepatitis" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -741,7 +746,7 @@
                                         class="default"></p-radioButton>
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateElisa1" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -766,7 +771,7 @@
                                         class="default"></p-radioButton>
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateElisa2" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -807,7 +812,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateGlicemia1" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -830,7 +835,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateGlicemia2" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -855,7 +860,7 @@
                                         class="default"></p-radioButton>
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateGlucosa" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -899,7 +904,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateOrina1" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -922,7 +927,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateOrina2" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -945,7 +950,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateOrina3" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -968,7 +973,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateBacteriuria" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -991,7 +996,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateNitritos" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -1014,7 +1019,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateUrocultivo" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -1035,11 +1040,11 @@
                                         value="no se hizo"></p-radioButton>
                                 </div>
                                 <div class="col-1">
-                                    <p-radioButton name="esputo" formControlName="esputo" value="negativo"
+                                    <p-radioButton name="esputo" formControlName="esputo" value="no aplica"
                                         class="default"></p-radioButton>
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateEsputo" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -1060,11 +1065,11 @@
                                         value="no se hizo"></p-radioButton>
                                 </div>
                                 <div class="col-1">
-                                    <p-radioButton name="esputo" formControlName="esputo" value="negativo"
+                                    <p-radioButton name="western" formControlName="western" value="negativo"
                                         class="default"></p-radioButton>
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateWestern" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -1085,11 +1090,11 @@
                                         value="no se hizo"></p-radioButton>
                                 </div>
                                 <div class="col-1">
-                                    <p-radioButton name="esputo" formControlName="esputo" value="negativo"
+                                    <p-radioButton name="thlv1" formControlName="thlv1" value="negativo"
                                         class="default"></p-radioButton>
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateThlv1" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -1110,11 +1115,11 @@
                                         value="no se hizo"></p-radioButton>
                                 </div>
                                 <div class="col-1">
-                                    <p-radioButton name="esputo" formControlName="esputo" value="negativo"
+                                    <p-radioButton name="torch" formControlName="torch" value="negativo"
                                         class="default"></p-radioButton>
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateTorch" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -1135,11 +1140,11 @@
                                         value="no se hizo"></p-radioButton>
                                 </div>
                                 <div class="col-1">
-                                    <p-radioButton name="esputo" formControlName="esputo" value="negativo"
+                                    <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" value="negativo"
                                         class="default"></p-radioButton>
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateGotaGruesa" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -1180,7 +1185,8 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateProteinuriaCuanti" [showIcon]="true"
+                                        inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -1201,11 +1207,11 @@
                                         class="amarillo" value="no se hizo"></p-radioButton>
                                 </div>
                                 <div class="col-1">
-                                    <p-radioButton name="esputo" formControlName="esputo" value="negativo"
-                                        class="default"></p-radioButton>
+                                    <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
+                                        value="negativo" class="default"></p-radioButton>
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateProteinuriaCuali" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -1228,7 +1234,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateSecrecionVag" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -1251,7 +1257,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="datePap" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
@@ -1274,7 +1280,7 @@
                                 <div class="col-1">
                                 </div>
                                 <div class="col-4 ml-3">
-                                    <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                    <p-calendar formControlName="dateIvaa" [showIcon]="true" inputId="icon">
                                     </p-calendar>
                                 </div>
                             </div>
