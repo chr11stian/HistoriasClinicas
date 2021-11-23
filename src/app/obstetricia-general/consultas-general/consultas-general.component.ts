@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { DialogService } from 'primeng/dynamicdialog';
+import { DialogConsultaUniversalComponent } from './dialog-consulta-universal/dialog-consulta-universal.component';
 import { DialogConsultaComponent } from './dialog-consulta/dialog-consulta.component';
 @Component({
     selector: 'app-consultas-general',
@@ -77,7 +78,7 @@ export class ConsultasGeneralComponent implements OnInit {
             header: "CONSULTA",
             width: "95%",
             contentStyle: {
-                "max-height": "500px",
+                "max-height": "700px",
                 overflow: "auto",
             },
             // footer:`hola mundo`,
@@ -86,6 +87,21 @@ export class ConsultasGeneralComponent implements OnInit {
             }
         })
 
+    }
+
+    openDialogConsultaUniversal(){
+        let dialog = this.dialog.open(DialogConsultaUniversalComponent, {
+            header: "CONSULTA UNIVERSAL",
+            width: "95%",
+            contentStyle: {
+                "max-height": "500px",
+                overflow: "auto",
+            },
+            // footer:`hola mundo`,
+            data:{
+                texto:'datossss'
+            }
+        })
     }
 
     ngOnInit(): void {
