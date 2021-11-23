@@ -16,6 +16,8 @@ import {PartoAbortoService} from "../../services/parto-aborto/parto-aborto.servi
   styleUrls: ["./partos.component.css"],
 })
 export class PartosComponent implements OnInit {
+  tipoDoc:string="DNI"
+  dniPaciente:string="77777777"
   treeOptionsOptions: any[];
   twoOptions: any[];
   TFOptions:any[];
@@ -32,7 +34,7 @@ export class PartosComponent implements OnInit {
     this.treeOptionsOptions = [
       { label: "Si", value: "si" },
       { label: "No", value: "no" },
-      { label: ".", value: "no aplica" },
+      { label: "No Aplica", value: "no aplica" },
     ];
     this.TFOptions=[
       {label :"Si",value:true},
@@ -64,6 +66,7 @@ export class PartosComponent implements OnInit {
       menbranas: new FormControl("", Validators.required),
       liquidoAmniotico: new FormControl("", Validators.required),
       fechaRuptura: new FormControl("", Validators.required),
+
       anasarca: new FormControl("", Validators.required),
       cianosis: new FormControl("", Validators.required),
       escotomas: new FormControl("", Validators.required),
@@ -74,6 +77,7 @@ export class PartosComponent implements OnInit {
       ictericia: new FormControl("", Validators.required),
       petequies: new FormControl("", Validators.required),
       proteuniria: new FormControl("", Validators.required),
+      // tercera fila
       corticoidesAntenatales: new FormControl("", Validators.required),
       semanaInicio: new FormControl("", Validators.required),
       cesaria: new FormControl("", Validators.required),
@@ -88,7 +92,7 @@ export class PartosComponent implements OnInit {
       partoGrama: new FormControl("", Validators.required),
       muerteIntrauterina: new FormControl("", Validators.required),
       placenta: new FormControl("", Validators.required),
-      partoAconpanante: new FormControl("", Validators.required),
+      partoAcompanante: new FormControl("", Validators.required),
       episiotomia: new FormControl("", Validators.required),
       ligaduraCordon: new FormControl("", Validators.required),
       indicacionPrincipalHubo: new FormControl("", Validators.required),
@@ -109,6 +113,7 @@ export class PartosComponent implements OnInit {
     // this.myGroup.valueChanges.pipe(debounceTime(350)).subscribe((value) => {
     //   console.log(value);
     // });
+
   }
 
   // ngDoCheck(): void {
@@ -117,6 +122,11 @@ export class PartosComponent implements OnInit {
   getFC(control: string): AbstractControl {
     return this.myGroup.get(control);
   }
+  buscarSSAlarma(lista,nombre){
+    const found = lista.find(element => element.nombre  == nombre);
+    return found.valor;
+  }
+
   save() {
 
     const partoAbortoInput:any={
@@ -143,9 +153,9 @@ export class PartosComponent implements OnInit {
         inicio:this.getFC("inicio").value,
         dilatacion:this.getFC("dilatacion").value,
         membranas:this.getFC("menbranas").value,
-        liquidoAmoniaco:this.getFC("liquidoAmniotico").value,
+        liquidoAmniotico:this.getFC("liquidoAmniotico").value,
         fechaRuptura:this.getFechaHora(this.getFC("fechaRuptura").value)
-        //  fechaRuptura:"2020-05-18 15:15:00"
+
       },
       signoSintomaAlarma:[
         {
@@ -185,7 +195,7 @@ export class PartosComponent implements OnInit {
           valor:this.getFC("petequies").value
         },
         {
-          nombre:"protenuaria",
+          nombre:"proteuniria",
           valor:this.getFC("proteuniria").value
         }
       ],
@@ -213,7 +223,8 @@ export class PartosComponent implements OnInit {
         partoGrama:this.getFC("partoGrama").value,
         muerteIntraUterina:this.getFC("muerteIntrauterina").value,
         placenta:this.getFC("placenta").value,
-        partoConAcompaniante:this.getFC("partoAconpanante").value,
+        partoConAcompaniante:this.getFC("partoAcompanante").value,
+        episiotomia:this.getFC("episiotomia").value,
         ligaduraCordon:this.getFC("ligaduraCordon").value
       },
       atencion:{
@@ -224,10 +235,7 @@ export class PartosComponent implements OnInit {
         responsableAtencionNeonato:this.getFC("responsableAtencionNeonato").value
       }
     }
-    let tipoDoc="DNI"
-    let dniPaciente="77777777"
-
-    this.partoAbortoService.addPartoAborto(tipoDoc,dniPaciente,partoAbortoInput).subscribe((resp)=>{
+    this.partoAbortoService.addPartoAborto(this.tipoDoc,this.dniPaciente,partoAbortoInput).subscribe((resp)=>{
       console.log(resp)
       console.log(partoAbortoInput)
     })
@@ -246,5 +254,75 @@ export class PartosComponent implements OnInit {
     else{
       return '';
     }
+  }
+  getPartoAborto() {
+
+    this.partoAbortoService.getPartoAborto(this.tipoDoc, this.dniPaciente).subscribe((resp)=>{
+      let respuesta=resp['object'];
+      this.getFC('hcmp').setValue(respuesta.estado.hcmp);
+      this.getFC('pc').setValue(respuesta.estado.productoConcepcion);
+      this.getFC('orden').setValue(respuesta.estado.orden);
+      // this.getFC('ingresoEstablecimientoPartoFecha').setValue(respuesta.ingresoEstablecimientoParto.fechaIngreso);
+      this.getFC('referenciaIngreso').setValue(respuesta.ingresoEstablecimientoParto.referenciaIngreso);
+      this.getFC('pulsoMaterno').setValue(respuesta.ingresoEstablecimientoParto.pulsoMaterno);
+      this.getFC('presionArterial').setValue(respuesta.ingresoEstablecimientoParto.presionArterial);
+      this.getFC('frecuenciaRespiratoria').setValue(respuesta.ingresoEstablecimientoParto.frecuenciaRespiratoria);
+      this.getFC('temperatura').setValue(respuesta.ingresoEstablecimientoParto.temperatura);
+      this.getFC('peso').setValue(respuesta.ingresoEstablecimientoParto.peso);
+      this.getFC('eg').setValue(respuesta.ingresoEstablecimientoParto.eg);
+      this.getFC('situacion').setValue(respuesta.ingresoEstablecimientoParto.situacion);
+      this.getFC('posicion').setValue(respuesta.ingresoEstablecimientoParto.posicion);
+      this.getFC('tamanoFetalAcorde').setValue(respuesta.ingresoEstablecimientoParto.tamFetalAcorde);
+      this.getFC('inicio').setValue(respuesta.ingresoEstablecimientoParto.inicio);
+      this.getFC('dilatacion').setValue(respuesta.ingresoEstablecimientoParto.dilatacion);
+      this.getFC('presentacion').setValue(respuesta.ingresoEstablecimientoParto.presentacion);
+      this.getFC('alturaUterina').setValue(respuesta.ingresoEstablecimientoParto.alturaUterina);
+      this.getFC('fcf').setValue(respuesta.ingresoEstablecimientoParto.fcf);
+      this.getFC('menbranas').setValue(respuesta.ingresoEstablecimientoParto.membranas);
+      this.getFC('liquidoAmniotico').setValue(respuesta.ingresoEstablecimientoParto.liquidoAmniotico);
+      // this.getFC('fechaRuptura').setValue(respuesta.ingresoEstablecimientoParto.fechaRuptura);
+      //tercera fila->>>
+
+      this.getFC('anasarca').setValue(this.buscarSSAlarma(respuesta.signoSintomaAlarma,"anasarca"));
+      this.getFC('cianosis').setValue(this.buscarSSAlarma(respuesta.signoSintomaAlarma,"cianosis"));
+      this.getFC('escotomas').setValue(this.buscarSSAlarma(respuesta.signoSintomaAlarma,"escotomas"));
+      this.getFC('epigastralgia').setValue(this.buscarSSAlarma(respuesta.signoSintomaAlarma,"epigastralgia"));
+      this.getFC('dolorDerecho').setValue(this.buscarSSAlarma(respuesta.signoSintomaAlarma,"dolorDerecho"));
+      this.getFC('hermaturia').setValue(this.buscarSSAlarma(respuesta.signoSintomaAlarma,"hermaturia"));
+      this.getFC('hipoOrtostatica').setValue(this.buscarSSAlarma(respuesta.signoSintomaAlarma,"hipoOrtostatica"));
+      this.getFC('ictericia').setValue(this.buscarSSAlarma(respuesta.signoSintomaAlarma,"ictericia"));
+      this.getFC('petequies').setValue(this.buscarSSAlarma(respuesta.signoSintomaAlarma,"petequies"));
+      this.getFC('proteuniria').setValue(this.buscarSSAlarma(respuesta.signoSintomaAlarma,"proteuniria"));
+      //
+      this.getFC('corticoidesAntenatales').setValue(respuesta.coticoidesAntenatales.nombre);
+      this.getFC('semanaInicio').setValue(respuesta.coticoidesAntenatales.semanaInicio);
+      this.getFC('cesaria').setValue(respuesta.tipoProcedimiento.cesaria);
+      this.getFC('aborto').setValue(respuesta.tipoProcedimiento.aborto);
+
+      // this.getFC('terminacionFecha').setValue(respuesta.ingresoEstablecimientoParto.fecha);
+      this.getFC('terminacion').setValue(respuesta.terminacion.terminacion);
+      this.getFC('desgarros').setValue(respuesta.terminacion.desgarros);
+      this.getFC('posicionGestante').setValue(respuesta.terminacion.posiGestante);
+      this.getFC('duracion').setValue(respuesta.terminacion.duracion);
+      this.getFC('alumbramiento').setValue(respuesta.terminacion.alumbramiento);
+      this.getFC('partoGrama').setValue(respuesta.terminacion.partoGrama);
+      this.getFC('muerteIntrauterina').setValue(respuesta.terminacion.muerteIntraUterina);
+      this.getFC('placenta').setValue(respuesta.terminacion.placenta);
+      this.getFC('partoAcompanante').setValue(respuesta.terminacion.partoConAcompaniante);
+      this.getFC('episiotomia').setValue(respuesta.terminacion.episiotomia);
+      this.getFC('ligaduraCordon').setValue(respuesta.terminacion.ligaduraCordon);
+
+      this.getFC('indicacionPrincipalHubo').setValue(respuesta.hubo);
+      this.getFC('indicacionPrincipalPartoOperatorio').setValue(respuesta.indicacionPrincipalParto);
+
+      this.getFC('nivel').setValue(respuesta.atencion.nivel);
+      this.getFC('partoLegrado').setValue(respuesta.atencion.partoLegrado);
+      this.getFC('neonato').setValue(respuesta.atencion.neonato);
+      this.getFC('responsableAtencionParto').setValue(respuesta.atencion.responsableAtencionParto);
+      this.getFC('responsableAtencionNeonato').setValue(respuesta.atencion.responsableAtencionNeonato);
+      console.log(respuesta);
+      console.log(resp);
+    });
+
   }
 }

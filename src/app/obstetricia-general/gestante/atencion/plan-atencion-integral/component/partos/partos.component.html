@@ -3,23 +3,14 @@
     <h3 class="p-m-0">PARTOS O ABORTO</h3>
   </ng-template>
   <ng-template pTemplate="right" class="button">
-    <button
-      pButton
-      pRipple
-      label="Atras"
-      icon="pi pi-angle-left"
-      iconPos="left"
-      class="mr-3"
-      style="background-color: #5b5b5b"
-    ></button>
-    <button
-      pButton
-      pRipple
-      label="Siguiente"
-      icon="pi pi-angle-right"
-      iconPos="right"
-      style="background-color: #003c71"
-    ></button>
+
+    <p-button
+            icon="pi pi-save"
+            label="recuperar"
+            (onClick)="getPartoAborto()"
+            styleClass="p-button-info p-button-sm"
+    >
+    </p-button>
   </ng-template>
 </p-toolbar>
 
@@ -38,7 +29,7 @@
                   <div class="col-2 text-left">
                     <p-radioButton
                       class="white"
-                      value="atencion Prenatal"
+                      value="Atencion Prenatal"
                       formControlName="hcmp"
                     ></p-radioButton>
                   </div>
@@ -50,7 +41,7 @@
                   <div class="col-2 text-left">
                     <p-radioButton
                       class="yellow"
-                      value="aborto"
+                      value="Aborto"
                       formControlName="hcmp"
                     ></p-radioButton>
                   </div>
@@ -62,7 +53,7 @@
                   <div class="col-2 text-left">
                     <p-radioButton
                       class="white"
-                      value="parto"
+                      value="Parto"
                       formControlName="hcmp"
                     ></p-radioButton>
                   </div>
@@ -81,7 +72,7 @@
                   <div class="col-2 text-left">
                     <p-radioButton
                       class="white"
-                      value="hijo unico"
+                      value="Hijo Unico"
                       formControlName="pc"
                     ></p-radioButton>
                   </div>
@@ -93,7 +84,7 @@
                   <div class="col-2 text-left">
                     <p-radioButton
                       class="yellow"
-                      value="embarazo multiple"
+                      value="Embarazo Multiple"
                       formControlName="pc"
                     ></p-radioButton>
                   </div>
@@ -125,7 +116,7 @@
                   <div class="col-5 text-left">
                     <p-radioButton
                       class="white"
-                      value="aborto"
+                      value="Aborto"
                       formControlName="pc"
                     ></p-radioButton>
                   </div>
@@ -253,7 +244,7 @@
                     <div class="col-5">
                       <p-radioButton
                         class="white"
-                        value="longitudinal"
+                        value="Longitudinal"
                         formControlName="situacion"
                       ></p-radioButton>
                     </div>
@@ -262,9 +253,9 @@
                     <div class="col-8 text-right">Transversal:</div>
                     <div class="col-5">
                       <p-radioButton
-                        class="white"
-                        value="transversal"
-                        formControlName="situacion"
+                              class="white"
+                              value="Transversal"
+                              formControlName="situacion"
                       ></p-radioButton>
                     </div>
                   </div>
@@ -278,7 +269,7 @@
                     <div class="col-5">
                       <p-radioButton
                         class="white"
-                        value="derecha"
+                        value="Derecha"
                         formControlName="posicion"
                       ></p-radioButton>
                     </div>
@@ -288,7 +279,7 @@
                     <div class="col-5">
                       <p-radioButton
                         class="white"
-                        value="izquierda"
+                        value="Izquierda"
                         formControlName="posicion"
                       ></p-radioButton>
                     </div>
@@ -316,7 +307,8 @@
                     <div class="col-8 text-right">Espontánea:</div>
                     <div class="col-5">
                       <p-radioButton
-                        value="espontanea"
+                              class="white"
+                        value="Espontanea"
                         formControlName="inicio"
                       ></p-radioButton>
                     </div>
@@ -327,7 +319,7 @@
                       <p-radioButton
                         class="yellow"
                         formControlName="inicio"
-                        value="inducido"
+                        value="Inducido"
                       ></p-radioButton>
                     </div>
                   </div>
@@ -356,7 +348,7 @@
                       <p-radioButton
                         class="white"
                         formControlName="presentacion"
-                        value="cefalica"
+                        value="Cefalica"
                       ></p-radioButton>
                     </div>
                   </div>
@@ -364,7 +356,7 @@
                     <div class="col-8 text-right">Pelvica:</div>
                     <div class="col-5">
                       <p-radioButton
-                        value="pelvica"
+                        value="Pelvica"
                         formControlName="presentacion"
                         class="yellow"
                       ></p-radioButton>
@@ -404,7 +396,7 @@
                     <div class="col-8 text-right">Rotas:</div>
                     <div class="col-5">
                       <p-radioButton
-                        value="rotas"
+                        value="Rotas"
                         formControlName="menbranas"
                         class="yellow"
                       ></p-radioButton>
@@ -415,7 +407,7 @@
                     <div class="col-5">
                       <p-radioButton
                         class="white"
-                        value="integras"
+                        value="Integras"
                         formControlName="menbranas"
                       ></p-radioButton>
                     </div>
@@ -433,7 +425,7 @@
                   <div class="col-5">
                     <p-radioButton
                       class="white"
-                      value="claro"
+                      value="Claro"
                       formControlName="liquidoAmniotico"
                     ></p-radioButton>
                   </div>
@@ -444,7 +436,7 @@
                     <p-radioButton
                       class="white"
                       formControlName="liquidoAmniotico"
-                      value="verde claro"
+                      value="Verde Claro"
                     ></p-radioButton>
                   </div>
                 </div>
@@ -453,7 +445,7 @@
                   <div class="col-5">
                     <p-radioButton
                       formControlName="liquidoAmniotico"
-                      value="verde oscuro"
+                      value="Verde Oscuro"
                       class="red"
                     ></p-radioButton>
                   </div>
@@ -466,12 +458,13 @@
                   FECHA DE RUPTURA:
                 </div>
                 <p-calendar
-                  [showIcon]="true"
-                  dateFormat="dd/mm/yy"
-                  inputId="icon"
-                  class="fechaRuptura"
-                  [showTime]="true"
-                  formControlName="fechaRuptura"
+                        class="fechaRuptura"
+                        [showIcon]="true"
+                        dateFormat="dd/mm/yy"
+                        inputId="icon"
+                        [showTime]="true"
+                        formControlName="fechaRuptura"
+
                 ></p-calendar>
               </div>
             </div>
@@ -594,7 +587,7 @@
                     <p-radioButton
                       class="white"
                       formControlName="corticoidesAntenatales"
-                      value="completo"
+                      value="Completo"
                     ></p-radioButton>
                   </div>
                 </div>
@@ -604,7 +597,7 @@
                   <div class="col-10 text-right">Incompleto:</div>
                   <div class="col-2">
                     <p-radioButton
-                      value="incompleto"
+                      value="Incompleto"
                       formControlName="corticoidesAntenatales"
                       class="yellow"
                     ></p-radioButton>
@@ -616,7 +609,7 @@
                   <div class="col-10 text-right">No Recibe:</div>
                   <div class="col-2">
                     <p-radioButton
-                      value="no recibe"
+                      value="No Recibe"
                       formControlName="corticoidesAntenatales"
                       class="red"
                     ></p-radioButton>
@@ -630,7 +623,7 @@
                     <p-radioButton
                       class="white"
                       formControlName="corticoidesAntenatales"
-                      value="no aplica"
+                      value="No Aplica"
                     ></p-radioButton>
                   </div>
                 </div>
@@ -663,7 +656,7 @@
                       <div class="col-3">
                         <p-radioButton
                                 class="white"
-                                value="corporal"
+                                value="Corporal"
                                 formControlName="cesaria"
                         ></p-radioButton>
                       </div>
@@ -683,7 +676,7 @@
                     <div class="col-3">
                       <p-radioButton
                               class="white"
-                              value="no Aplica"
+                              value="No Aplica"
                               formControlName="cesaria"
                       ></p-radioButton>
                     </div>
@@ -718,7 +711,7 @@
                     <div class="col-3">
                       <p-radioButton
                               class="white"
-                              value="no Aplica"
+                              value="No Aplica"
                               formControlName="aborto"
                       ></p-radioButton>
                     </div>
@@ -829,7 +822,7 @@
                 <div class="col-5">
                   <p-radioButton
                     formControlName="terminacion"
-                    value="aborto"
+                    value="Aborto"
                     class="red"
                   ></p-radioButton>
                 </div>
@@ -839,7 +832,7 @@
                 <div class="col-5">
                   <p-radioButton
                     class="white"
-                    value="p. expontaneo"
+                    value="P. Expontaneo"
                     formControlName="terminacion"
                   ></p-radioButton>
                 </div>
@@ -848,7 +841,7 @@
                 <div class="col-8 text-right">Forceps:</div>
                 <div class="col-5">
                   <p-radioButton
-                    value="forceps"
+                    value="Forceps"
                     formControlName="terminacion"
                     class="yellow"
                   ></p-radioButton>
@@ -858,7 +851,7 @@
                 <div class="col-8 text-right">vacumm:</div>
                 <div class="col-5">
                   <p-radioButton
-                    value="vacumm"
+                    value="Vacumm"
                     formControlName="terminacion"
                     class="yellow"
                   ></p-radioButton>
@@ -868,7 +861,7 @@
                 <div class="col-8 text-right">Cesária electiva:</div>
                 <div class="col-5">
                   <p-radioButton
-                    value="cesaria electiva"
+                    value="Cesaria Electiva"
                     formControlName="terminacion"
                     class="yellow"
                   ></p-radioButton>
@@ -879,7 +872,7 @@
                 <div class="col-5">
                   <p-radioButton
                     class="white"
-                    value="cesaria elmerg"
+                    value="Cesaria Elmerg"
                     formControlName="terminacion"
                   ></p-radioButton>
                 </div>
@@ -893,7 +886,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="desgarros"
-                    value="no hubo"
+                    value="No Hubo"
                   ></p-radioButton>
                 </div>
               </div>
@@ -933,7 +926,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="desgarros"
-                    value="no aplica"
+                    value="No Aplica"
                   ></p-radioButton>
                 </div>
               </div>
@@ -950,7 +943,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="posicionGestante"
-                    value="horizontal"
+                    value="Horizontal"
                   ></p-radioButton>
                 </div>
               </div>
@@ -960,7 +953,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="posicionGestante"
-                    value="vertical"
+                    value="Vertical"
                   ></p-radioButton>
                 </div>
               </div>
@@ -970,7 +963,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="posicionGestante"
-                    value="no aplica"
+                    value="No Aplica"
                   ></p-radioButton>
                 </div>
               </div>
@@ -983,7 +976,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="duracion"
-                    value="normal"
+                    value="Normal"
                   ></p-radioButton>
                 </div>
               </div>
@@ -991,7 +984,7 @@
                 <div class="col-8 text-right">Prolongado</div>
                 <div class="col-5">
                   <p-radioButton
-                    value="prolongado"
+                    value="Prolongado"
                     formControlName="duracion"
                     class="yellow"
                   ></p-radioButton>
@@ -1001,7 +994,7 @@
                 <div class="col-8 text-right">Precipitado</div>
                 <div class="col-5">
                   <p-radioButton
-                    value="precipitado"
+                    value="Precipitado"
                     formControlName="duracion"
                     class="yellow"
                   ></p-radioButton>
@@ -1012,7 +1005,7 @@
                 <div class="col-5">
                   <p-radioButton
                     class="white"
-                    value="no aplica"
+                    value="No Aplica"
                     formControlName="duracion"
                   ></p-radioButton>
                 </div>
@@ -1027,7 +1020,7 @@
                 <div class="col-5">
                   <p-radioButton
                     class="white"
-                    value="activo"
+                    value="Activo"
                     formControlName="alumbramiento"
                   ></p-radioButton>
                 </div>
@@ -1036,7 +1029,7 @@
                 <div class="col-8 text-right">Espontáneo</div>
                 <div class="col-5">
                   <p-radioButton
-                    value="expontaneo"
+                    value="Expontaneo"
                     formControlName="alumbramiento"
                     class="yellow"
                   ></p-radioButton>
@@ -1046,7 +1039,7 @@
                 <div class="col-8 text-right">No Aplica</div>
                 <div class="col-5">
                   <p-radioButton
-                    value="no aplica"
+                    value="No Aplica"
                     formControlName="alumbramiento"
                     class="red"
                   ></p-radioButton>
@@ -1065,7 +1058,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="partoGrama"
-                    value="si"
+                    value="Si"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1074,7 +1067,7 @@
                 <div class="col-5">
                   <p-radioButton
                     formControlName="partoGrama"
-                    value="no"
+                    value="No"
                     class="yellow"
                   ></p-radioButton>
                 </div>
@@ -1085,7 +1078,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="partoGrama"
-                    value="no aplica"
+                    value="No Aplica"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1109,7 +1102,7 @@
                 <div class="col-5">
                   <p-radioButton
                     formControlName="muerteIntrauterina"
-                    value="durante embarazo"
+                    value="Durante Embarazo"
                     class="yellow"
                   ></p-radioButton>
                 </div>
@@ -1119,7 +1112,7 @@
                 <div class="col-5">
                   <p-radioButton
                     formControlName="muerteIntrauterina"
-                    value="durante parto"
+                    value="Durante Parto"
                     class="yellow"
                   ></p-radioButton>
                 </div>
@@ -1129,7 +1122,7 @@
                 <div class="col-5">
                   <p-radioButton
                     formControlName="muerteIntrauterina"
-                    value="momento desconocido"
+                    value="Momento Desconocido"
                     class="yellow"
                   ></p-radioButton>
                 </div>
@@ -1143,7 +1136,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="placenta"
-                    value="completa"
+                    value="Completa"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1152,7 +1145,7 @@
                 <div class="col-5">
                   <p-radioButton
                     formControlName="placenta"
-                    value="incompleta"
+                    value="Incompleta"
                     class="yellow"
                   ></p-radioButton>
                 </div>
@@ -1162,7 +1155,7 @@
                 <div class="col-5">
                   <p-radioButton
                     formControlName="placenta"
-                    value="retenida"
+                    value="Retenida"
                     class="red"
                   ></p-radioButton>
                 </div>
@@ -1179,8 +1172,8 @@
                 <div class="col-5">
                   <p-radioButton
                     class="white"
-                    formControlName="partoAconpanante"
-                    value="si"
+                    formControlName="partoAcompanante"
+                    value="Si"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1188,8 +1181,8 @@
                 <div class="col-8 text-right">No</div>
                 <div class="col-5">
                   <p-radioButton
-                    formControlName="partoAconpanante"
-                    value="no"
+                    formControlName="partoAcompanante"
+                    value="No"
                     class="yellow"
                   ></p-radioButton>
                 </div>
@@ -1204,7 +1197,7 @@
                 <div class="col-5">
                   <p-radioButton
                     formControlName="episiotomia"
-                    value="si"
+                    value="Si"
                     class="yellow"
                   ></p-radioButton>
                 </div>
@@ -1215,7 +1208,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="episiotomia"
-                    value="no"
+                    value="No"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1225,7 +1218,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="episiotomia"
-                    value="no aplica"
+                    value="No Aplica"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1239,7 +1232,7 @@
                 <div class="col-5">
                   <p-radioButton
                     formControlName="ligaduraCordon"
-                    value="precoz"
+                    value="Precoz"
                     class="red"
                   ></p-radioButton>
                 </div>
@@ -1249,7 +1242,7 @@
                 <div class="col-5">
                   <p-radioButton
                     formControlName="ligaduraCordon"
-                    value="temprana"
+                    value="Temprana"
                     class="yellow"
                   ></p-radioButton>
                 </div>
@@ -1260,7 +1253,7 @@
                   <p-radioButton
                     class="white"
                     formControlName="ligaduraCordon"
-                    value="tardia"
+                    value="Tardia"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1303,7 +1296,7 @@
                     <p-radioButton
                       class="white"
                       formControlName="nivel"
-                      value="fonep"
+                      value="Fonep"
                     ></p-radioButton>
                   </div>
                 </div>
@@ -1312,7 +1305,7 @@
                   <div class="col-5">
                     <p-radioButton
                       formControlName="nivel"
-                      value="foneb"
+                      value="Foneb"
                       class="white"
                     >
                     </p-radioButton>
@@ -1324,7 +1317,7 @@
                     <p-radioButton
                       class="white"
                       formControlName="nivel"
-                      value="fone"
+                      value="Fone"
                     ></p-radioButton>
                   </div>
                 </div>
@@ -1334,7 +1327,7 @@
                     <p-radioButton
                       class="white"
                       formControlName="nivel"
-                      value="foni"
+                      value="Foni"
                     ></p-radioButton>
                   </div>
                 </div>
@@ -1343,7 +1336,7 @@
                   <div class="col-5">
                     <p-radioButton
                       formControlName="nivel"
-                      value="domicilio"
+                      value="Domicilio"
                       class="yellow"
                     ></p-radioButton>
                   </div>
@@ -1354,7 +1347,7 @@
                     <p-radioButton
                       class="yellow"
                       formControlName="nivel"
-                      value="otro"
+                      value="Otro"
                     ></p-radioButton>
                   </div>
                 </div>
@@ -1374,14 +1367,14 @@
                   <p-radioButton
                     class="white"
                     formControlName="partoLegrado"
-                    value="medico"
+                    value="Medico"
                   ></p-radioButton>
                 </div>
                 <div class="col-3">
                   <p-radioButton
                     class="white"
                     formControlName="neonato"
-                    value="medico"
+                    value="Medico"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1391,14 +1384,14 @@
                   <p-radioButton
                     class="white"
                     formControlName="partoLegrado"
-                    value="residente medico"
+                    value="Residente Medico"
                   ></p-radioButton>
                 </div>
                 <div class="col-3">
                   <p-radioButton
                     class="white"
                     formControlName="neonato"
-                    value="residente medico"
+                    value="Residente Medico"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1408,14 +1401,14 @@
                   <p-radioButton
                     class="white"
                     formControlName="partoLegrado"
-                    value="obstetriz"
+                    value="Obstetriz"
                   ></p-radioButton>
                 </div>
                 <div class="col-3">
                   <p-radioButton
                     class="white"
                     formControlName="neonato"
-                    value="obstetriz"
+                    value="Obstetriz"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1425,14 +1418,14 @@
                   <p-radioButton
                     class="white"
                     formControlName="partoLegrado"
-                    value="interno"
+                    value="Interno"
                   ></p-radioButton>
                 </div>
                 <div class="col-3">
                   <p-radioButton
                     class="white"
                     formControlName="neonato"
-                    value="interno"
+                    value="Interno"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1442,14 +1435,14 @@
                   <p-radioButton
                     class="white"
                     formControlName="partoLegrado"
-                    value="enfermera"
+                    value="Enfermera"
                   ></p-radioButton>
                 </div>
                 <div class="col-3">
                   <p-radioButton
                     class="white"
                     formControlName="neonato"
-                    value="enfermera"
+                    value="Enfermera"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1459,14 +1452,14 @@
                   <p-radioButton
                     class="white"
                     formControlName="partoLegrado"
-                    value="tecnico enfermeria"
+                    value="Tecnico Enfermeria"
                   ></p-radioButton>
                 </div>
                 <div class="col-3">
                   <p-radioButton
                     class="white"
                     formControlName="neonato"
-                    value="tecnico enfermeria"
+                    value="Tecnico Enfermeria"
                   ></p-radioButton>
                 </div>
               </div>
@@ -1475,7 +1468,7 @@
                 <div class="col-3">
                   <p-radioButton
                     formControlName="partoLegrado"
-                    value="estudiante"
+                    value="Estudiante"
                     class="yellow"
                   >
                   </p-radioButton>
@@ -1483,7 +1476,7 @@
                 <div class="col-3">
                   <p-radioButton
                     formControlName="neonato"
-                    value="estudiante"
+                    value="Estudiante"
                     class="yellow"
                   >
                   </p-radioButton>
@@ -1494,14 +1487,14 @@
                 <div class="col-3">
                   <p-radioButton
                     formControlName="partoLegrado"
-                    value="empirica partera"
+                    value="Empirica Partera"
                     class="yellow"
                   ></p-radioButton>
                 </div>
                 <div class="col-3">
                   <p-radioButton
                     formControlName="neonato"
-                    value="empirica partera"
+                    value="Empirica Partera"
                     class="yellow"
                   ></p-radioButton>
                 </div>
@@ -1511,14 +1504,14 @@
                 <div class="col-3">
                   <p-radioButton
                     formControlName="partoLegrado"
-                    value="familiar"
+                    value="Familiar"
                     class="yellow"
                   ></p-radioButton>
                 </div>
                 <div class="col-3">
                   <p-radioButton
                     formControlName="neonato"
-                    value="familiar"
+                    value="Familiar"
                     class="yellow"
                   ></p-radioButton>
                 </div>
@@ -1529,14 +1522,14 @@
                   <p-radioButton
                     class="yellow"
                     formControlName="partoLegrado"
-                    value="otro"
+                    value="Otro"
                   ></p-radioButton>
                 </div>
                 <div class="col-3">
                   <p-radioButton
                     class="yellow"
                     formControlName="neonato"
-                    value="otro"
+                    value="Otro"
                   ></p-radioButton>
                 </div>
               </div>
