@@ -67,8 +67,8 @@
                                         <label class="text-sm">Apetito:</label>
                                     </div>
                                     <div class="col-8">
-                                        <p-dropdown class="p-fluid w-full" placeholder="Seleccionar" optionLabel="name"
-                                            [showClear]="true"></p-dropdown>
+                                        <p-dropdown class="p-fluid w-full" placeholder="Seleccionar"
+                                            optionLabel="name" [showClear]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -78,8 +78,8 @@
                                         <label class="text-sm">Sed:</label>
                                     </div>
                                     <div class="col-8">
-                                        <p-dropdown class="p-fluid w-full" placeholder="Seleccionar" optionLabel="name"
-                                            [showClear]="true"></p-dropdown>
+                                        <p-dropdown class="p-fluid w-full" placeholder="Seleccionar"
+                                            optionLabel="name" [showClear]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -89,8 +89,8 @@
                                         <label class="text-sm">Sueño:</label>
                                     </div>
                                     <div class="col-8">
-                                        <p-dropdown class="p-fluid w-full" placeholder="Seleccionar" optionLabel="name"
-                                            [showClear]="true"></p-dropdown>
+                                        <p-dropdown class="p-fluid w-full" placeholder="Seleccionar"
+                                            optionLabel="name" [showClear]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -100,8 +100,8 @@
                                         <label class="text-sm">Estado de animo:</label>
                                     </div>
                                     <div class="col-8">
-                                        <p-dropdown class="p-fluid w-full" placeholder="Seleccionar" optionLabel="name"
-                                            [showClear]="true"></p-dropdown>
+                                        <p-dropdown class="p-fluid w-full" placeholder="Seleccionar"
+                                            optionLabel="name" [showClear]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -469,38 +469,6 @@
                         </div>
                     </p-fieldset>
                 </div>
-                <!-- <div class="col-12 md:col-6">
-                    <p-fieldset legend="Examen Fetal">
-                        <div class="col-12">
-                            <div class="grid mt-2">
-
-                            </div>
-                        </div>
-                        <div class="grid mt-2">
-                            <label>Fetal:</label>
-                            <div class="col-11">
-                                <input type="text" pInputText formControlName='fetal' placeholder=""
-                                    class="p-inputtext-sm inputfield w-full">
-                            </div>
-                        </div>
-                        <div class="grid mt-2">
-                            <div class="col-6">
-                                <div class="grid">
-                                    <label>Movimiento Fetal:</label>
-                                    <input type="text" pInputText formControlName='movimientoFetal' placeholder=""
-                                        class="p-inputtext-sm funcionesBiologicas inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="grid">
-                                    <label>Latidos Cardíacos Fetales:</label>
-                                    <input type="text" pInputText formControlName='latidosCardiacosFetales'
-                                        placeholder="" class="p-inputtext-sm funcionesBiologicas inputfield w-full">
-                                </div>
-                            </div>
-                        </div>
-                    </p-fieldset>
-                </div> -->
                 <div class="col-12">
                     <p-tabView>
                         <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-exclamation-circle"
@@ -926,7 +894,6 @@
                                 </div>
                             </div>
                             <div class="col-6 text-center">
-
                                 <div class="grid ">
                                     <div class="col-12">
                                         <label class="text-sm">Personal que atendió:</label>
@@ -939,19 +906,9 @@
                 </div>
             </div>
         </form>
-        <!-- </ng-template> -->
-        <!-- <div class="col-12">
-            <button pButton type="button" label="Cancelar" class="p-button-danger"></button>
-            <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"></button>
-            <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"></button>
-        </div> -->
-        <div class="col-12 text-right">
-            <button pButton type="button" label="Cancel" class="p-button-danger mr-2"></button>
-            <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"></button>
-        </div>
-        <!-- <div class="ui-dialog-footer">
-            <button pButton type="button" label="Cancel" class="p-button-danger"></button>
-    <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar"></button>
-        </div> -->
     </div>
 </div>
+<div class="footer">
+    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
+</div>
+<!-- </p-card> -->

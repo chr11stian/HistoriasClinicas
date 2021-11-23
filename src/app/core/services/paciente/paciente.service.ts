@@ -13,23 +13,23 @@ export class PacienteService {
   constructor(private http: HttpClient) { }
 
   getPacientes() {
-    return this.http.get(`${this.base_url}/${this.bd}/api/paciente`);
+    return this.http.get(`${this.base_url}/${this.bd}/paciente`);
   }
 
   postPacientes(data) {
-    return this.http.post(`${this.base_url}/${this.bd}/api/paciente`, data);
+    return this.http.post(`${this.base_url}/${this.bd}/paciente`, data);
   }
 
   putPaciente(data) {
-    return this.http.put(`${this.base_url}/${this.bd}/api/paciente`, data);
+    return this.http.put(`${this.base_url}/${this.bd}/paciente`, data);
   }
 
   deletePaciente(idPaciente) {
-    return this.http.delete(`${this.base_url}/${this.bd}/api/paciente/${idPaciente}`);
+    return this.http.delete(`${this.base_url}/${this.bd}/paciente/${idPaciente}`);
   }
 
   getPacienteByNroDoc(nroDoc) {
-    return this.http.post(`${this.base_url}/${this.bd}/api/paciente/docId`, nroDoc)
+    return this.http.post(`${this.base_url}/${this.bd}/paciente/docId`, nroDoc)
   }
 
 }

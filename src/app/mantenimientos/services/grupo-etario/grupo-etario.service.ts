@@ -12,15 +12,15 @@ export class GrupoEtarioService {
   constructor(private http: HttpClient) {}
 
   getGrupoEtario() {
-    return this.http.get(`${this.base_url}/${this.bd}/api/grupoetario`);
+    return this.http.get(`${this.base_url}/${this.bd}/grupoetario`);
   }
   createGrupoEtario(grupo){
-    return this.http.post<any>(`${this.base_url}/${this.bd}/api/grupoetario`, grupo)
+    return this.http.post<any>(`${this.base_url}/${this.bd}/grupoetario`, grupo)
   }
   deleteGrupoEtario(id){
-    return this.http.delete(`${this.base_url}/${this.bd}/api/grupoetario/${id}`)
+    return this.http.delete(`${this.base_url}/${this.bd}/grupoetario/${id}`)
   }
   editGrupoEtario(grupo){
-    return this.http.put<any>(`${this.base_url}/${this.bd}/api/grupoetario`, grupo)
+    return this.http.put<any>(`${this.base_url}/${this.bd}/grupoetario`, grupo)
   }
 }

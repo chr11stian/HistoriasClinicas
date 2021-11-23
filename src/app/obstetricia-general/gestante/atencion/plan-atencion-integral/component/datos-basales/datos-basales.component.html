@@ -4,7 +4,7 @@
             <h3 class="p-m-0">Datos Basales del Embarazo Actual</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"></button>
+            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary" (click)="guardarDatos()"></button>
         </ng-template>
     </p-toolbar>
     <form [formGroup]='form'>
@@ -16,7 +16,7 @@
                             <label class="text-sm">IMC: </label>
                         </div>
                         <div class="col-5">
-                            <input type="text" pInputText formControlName='imc' placeholder=""
+                            <input type="number" pInputText formControlName='imc' placeholder=""
                                 class="inputfield w-full p-inputtext-sm">
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                             <label class="text-sm">Peso Habitual: </label>
                         </div>
                         <div class="col-5">
-                            <input type="text" pInputText formControlName='pesoHabitual' placeholder=""
+                            <input type="number" pInputText formControlName='pesoHabitual' placeholder=""
                                 class="inputfield w-full p-inputtext-sm">
                         </div>
                         <div class="col-1">Kg</div>
@@ -35,7 +35,7 @@
                             <label class="text-sm">Talla: </label>
                         </div>
                         <div class="col-5">
-                            <input type="text" pInputText formControlName='talla' placeholder=""
+                            <input type="number" pInputText formControlName='talla' placeholder=""
                                 class="inputfield w-full p-inputtext-sm">
                         </div>
                         <div class="col-2">
@@ -49,7 +49,7 @@
                     <div class="grid">
                         <div class="col-3 flex flex-column mt-4">
                             <label class="text-sm">N° Dosis Previas: </label>
-                            <input type="text" pInputText formControlName='pesoHabitual' placeholder=""
+                            <input type="number" pInputText formControlName='nroDosisPrevias' placeholder=""
                                 class="inputfield w-full">
                         </div>
                         <div class="col-5 flex flex-column">
@@ -59,7 +59,7 @@
                                     <label>1ra: </label>
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" pInputText formControlName='pesoHabitual' placeholder=""
+                                    <input type="number" pInputText formControlName='primeraDosis' placeholder=""
                                         class="inputfield w-full">
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                                     <label>2da: </label>
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" pInputText formControlName='talla' placeholder=""
+                                    <input type="text" pInputText formControlName='segundaDosis' placeholder=""
                                         class="inputfield w-full">
                                 </div>
                             </div>
@@ -76,16 +76,16 @@
                         <div class="col-2 flex flex-column ">
                             <!-- <label>Sin</label> -->
                             <span class="text-xs">Sin Dosis</span>
-                            <p-radioButton name="sinDosis" formControlName="sinDosis" value="0"
+                            <p-radioButton name="firstDosis" formControlName="firstDosis" value="0"
                                 class="amarillo mb-4 mt-3"> </p-radioButton>
-                            <p-radioButton name="sinDosis" formControlName="sinDosis" value="1" class="amarillo mb-5">
+                            <p-radioButton name="secondDosis" formControlName="secondDosis" value="1" class="amarillo mb-5">
                             </p-radioButton>
                         </div>
                         <div class="col-2 flex flex-column">
                             <span class="text-xs">No Aplica</span>
-                            <p-radioButton name="dosisNoAplica" formControlName="dosisNoAplica" value="1"
+                            <p-radioButton name="firstDosis" formControlName="firstDosis" value="1"
                                 inputId="city2" class="default mb-4 mt-3"></p-radioButton>
-                            <p-radioButton name="dosisNoAplica" formControlName="dosisNoAplica" value="2"
+                            <p-radioButton name="secondDosis" formControlName="secondDosis" value="2"
                                 inputId="city2" class="default mb-5"></p-radioButton>
                         </div>
                     </div>
@@ -117,22 +117,22 @@
                     <div class="grid pt-6 p-mb-4">
                         <label>Rh: </label>
                         <span class="ml-2 text-xs">Rh(+)</span>
-                        <p-radioButton name="rh" formControlName="rh" value="0" inputId="city2" class="default ml-2">
+                        <p-radioButton name="rh" formControlName="rh" value="rh +" inputId="city2" class="default ml-2">
                         </p-radioButton>
                         <div class="flex flex-column">
                             <span class="ml-1 text-xs">Rh(-)Sen </span>
                             <span class="ml-1 text-xs">Desc</span>
                         </div>
-                        <p-radioButton name="rh" formControlName="rh" value="1" inputId="city2" class="amarillo ml-2">
+                        <p-radioButton name="rh" formControlName="rh" value="rh - sen desc" inputId="city2" class="amarillo ml-2">
                         </p-radioButton>
                         <div class="flex flex-column">
                             <span class="ml-1 text-xs">Rh(-)No</span>
                             <span class="ml-1 text-xs">Sen</span>
                         </div>
-                        <p-radioButton name="rh" formControlName="rh" value="2" inputId="city2" class="amarillo ml-2">
+                        <p-radioButton name="rh" formControlName="rh" value="rh - no sen" inputId="city2" class="amarillo ml-2">
                         </p-radioButton>
                         <span class="ml-1 text-xs">Rh(-) Sen</span>
-                        <p-radioButton name="rh" formControlName="rh" value="3" inputId="city2" class="rojo ml-2">
+                        <p-radioButton name="rh" formControlName="rh" value="rh - sen" inputId="city2" class="rojo ml-2">
                         </p-radioButton>
                     </div>
                 </p-fieldset>
@@ -141,7 +141,7 @@
                 <p-fieldset legend="Fuma">
                     <div class=" grid p-field flex flex-column">
                         <label class="text-sm">N° Cigarrillos/Dia: </label>
-                        <input type="text" pInputText formControlName='cigarrillosDia' placeholder=""
+                        <input type="number" pInputText formControlName='cigarrillosDia' placeholder=""
                             class="inputfield w-full">
                     </div>
                 </p-fieldset>

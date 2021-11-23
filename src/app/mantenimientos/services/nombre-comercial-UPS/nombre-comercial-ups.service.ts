@@ -19,18 +19,18 @@ export class NombreComercialUPSService {
     // }
 
     getNombreComercial_UPS() {
-        return this.http.get(`${this.base_url}/${this.bd}/api/nc-ups/listar`);
+        return this.http.get(`${this.base_url}/${this.bd}/nc-ups/listar`);
     }
 
     createNombreComercial_UPS(data) {
-        return this.http.post<any>(`${this.base_url}/${this.bd}/api/nc-ups/save`, data)
+        return this.http.post<any>(`${this.base_url}/${this.bd}/nc-ups/save`, data)
     }
 
     deleteNombreComercial_UPS(id) {
-        return this.http.delete(`${this.base_url}/${this.bd}/api/nc-ups/${id}`)
+        return this.http.delete(`${this.base_url}/${this.bd}/nc-ups/${id}`)
     }
 
     editNombreComercial_UPS(id, data) {
-        return this.http.put(`${this.base_url}/${this.bd}/api/nc-ups/actualizar/${id}`, data)
+        return this.http.put(`${this.base_url}/${this.bd}/nc-ups/actualizar/${id}`, data)
     }
 }
