@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
 import {formatDate} from "@angular/common";
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-datos-generales-filiacion',
@@ -26,8 +27,8 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     constructor(private formDatosGenerales: FormBuilder,
                 private filiancionService: FiliancionService) {
         this.options = [
-            {name: 'SI', code: 'S'},
-            {name: 'NO', code: 'N'},
+            {name: true, code: "SI"},
+            {name: false, code: "NO"}
         ];
 
         this.studies = [
@@ -176,10 +177,60 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         return edad + " años, " + meses + " meses y " + dias + " días";
     }
 
+    agrgarFiliacionDatoPersonales() {
+        let tipodoc = "DNI";
+        let nroDoc = "24015415";
+
+        const req = {
+            apePaterno: this.formDatos_Generales.value.apePaterno,
+            apeMaterno: this.formDatos_Generales.value.apeMaterno,
+            nombres: this.formDatos_Generales.value.nombres,
+            docIndentidad: this.formDatos_Generales.value.docIndentidad,
+            fechaNacimiento: this.formDatos_Generales.value.fechaNacimiento,
+            edad: this.formDatos_Generales.value.edad,
+            establecimiento: this.formDatos_Generales.value.establecimiento,
+            estadoCivil: this.formDatos_Generales.value.estadoCivil,
+
+            departamento: this.formDatos_Generales.value.departamento,
+            provincia: this.formDatos_Generales.value.provincia,
+            distrito: this.formDatos_Generales.value.distrito,
+
+            estabOrigen: this.formDatos_Generales.value.estabOrigen,
+            aplica: this.formDatos_Generales.value.aplica.name,
+            referencia: this.formDatos_Generales.value.referencia.name,
+            codAficiaconSIS: this.formDatos_Generales.value.codAficiaconSIS,
+            ocupacion: this.formDatos_Generales.value.ocupacion,
+
+            direccion: this.formDatos_Generales.value.direccion,
+            gradoInstruccion: this.formDatos_Generales.value.gradoInstruccion,
+            amiosAprobados: this.formDatos_Generales.value.amiosAprobados,
+            nombreNroSector: this.formDatos_Generales.value.nombreNroSector,
+            nombreRN: this.formDatos_Generales.value.nombreRN,
+            pabreRN: this.formDatos_Generales.value.pabreRN,
+            religion: this.formDatos_Generales.value.religion,
+            cel1: this.formDatos_Generales.value.cel1,
+            cel2: this.formDatos_Generales.value.cel2,
+            idioma: this.formDatos_Generales.value.idioma,
+        };
+        console.log("data", req);
+        this.filiancionService.addPacienteFiliacion(tipodoc, nroDoc, req).subscribe(
+            result => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Afiliado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
+        )
+
+    }
+
     pacienteByNroDoc() {
 
         let tipoDoc = "DNI";
-        let nroDoc = "10101011"
+        let nroDoc = "24015415"
         // nroDoc: "24015415"
         this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.dataPacientes = res.object
@@ -199,8 +250,8 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             this.formDatos_Generales.get('fechaNacimiento').setValue(this.dataPacientes.nacimiento.fechaNacimiento);
             this.formDatos_Generales.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
             this.formDatos_Generales.get('departamento').setValue(this.dataPacientes.domicilio.departamento);
-            // this.formDatos_Generales.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
-            // this.formDatos_Generales.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
+            this.formDatos_Generales.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
+            this.formDatos_Generales.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
 
             this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataPacientes.gradoInstruccion);
 
@@ -231,6 +282,8 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             nombreNroSector: new FormControl(''),
             estadoCivil: new FormControl(''),
             departamento: new FormControl(''),
+            provincia: new FormControl(''),
+            distrito: new FormControl(''),
             nombreRN: new FormControl(''),
             pabreRN: new FormControl(''),
             religion: new FormControl(''),
