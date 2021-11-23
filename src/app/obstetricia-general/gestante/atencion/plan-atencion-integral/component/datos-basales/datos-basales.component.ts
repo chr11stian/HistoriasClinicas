@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DatosBasalesService } from '../../services/datos-basales/datos-basales.service';
 
 @Component({
   selector: 'app-datos-basales',
@@ -21,6 +22,7 @@ export class DatosBasalesComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private datosBasalesService: DatosBasalesService,
   ) {
     this.inicalizarForm();
   }
@@ -149,13 +151,18 @@ export class DatosBasalesComponent implements OnInit {
       dateProteinuriaCuali: new FormControl(''),
       dateSecrecionVag: new FormControl(''),
       datePap: new FormControl(''),
-      dateIvaa: new FormControl('')
+      dateIvaa: new FormControl(''),
+      datePatolog1: new FormControl(''),
+      datePatolog2: new FormControl(''),
+      datePatolog3: new FormControl(''),
+      datePatolog4: new FormControl(''),
     });
   }
 
   recuperarDatos() {
     this.recuperarExamenFisico();
     this.recuperarHemoglobina();
+    this.recuperarOtrosExamenes();
     let vacPrev: string[] = [];
 
     let aux1: boolean = this.form.value.rubeola;
@@ -231,20 +238,27 @@ export class DatosBasalesComponent implements OnInit {
       examenFisico: this.examenFisico,
       examenLaboratorio: {
         hemoglobina: this.hemoglobina,
-      }
+        otrosExamenes: this.otrosExamenes
+      },
+      patologiaMaternoDiagnosticado: [
+        {
+          nombre: this.form.value.patologiasMaternas1,
+          fecha: this.form.value.datePatolog1
+        },
+        {
+          nombre: this.form.value.patologiasMaternas2,
+          fecha: this.form.value.datePatolog2
+        },
+        {
+          nombre: this.form.value.patologiasMaternas3,
+          fecha: this.form.value.datePatolog3
+        },
+        {
+          nombre: this.form.value.patologiasMaternas4,
+          fecha: this.form.value.datePatolog4
+        }
+      ]
     }
-  }
-
-  guardarDatos() {
-    this.recuperarDatos();
-    // this.recuperarHemoglobina()
-    console.log('data to save ', this.datosBasales);
-
-
-    console.log('examen fisico ', this.form.value.clinico);
-    // this.recuperarExamenFisico();
-    // const splited = auxExamClin.split("-");
-    // console.log('splited data ', splited);
   }
 
   recuperarExamenFisico() {
@@ -392,5 +406,19 @@ export class DatosBasalesComponent implements OnInit {
         fecha: this.form.value.dateIvaa
       }
     ]
+  }
+
+  guardarDatos() {
+    this.recuperarDatos();
+    // this.recuperarHemoglobina()
+    console.log('data to save ', this.datosBasales);
+    this.datosBasalesService.postDatosBasales('DNI', '10101011', this.datosBasales).subscribe((res: any) => {
+      console.log('se guardo con exito ', res)
+    })
+
+    console.log('examen fisico ', this.form.value.clinico);
+    // this.recuperarExamenFisico();
+    // const splited = auxExamClin.split("-");
+    // console.log('splited data ', splited);
   }
 }
