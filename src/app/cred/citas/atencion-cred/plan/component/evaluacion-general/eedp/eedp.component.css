@@ -1,0 +1,57 @@
+p-table >>> .p-datatable table {
+    width: auto;
+ }
+ 
+ p-table >>> .p-datatable .p-datatable-thead > tr > th {
+    text-align: center !important;
+    border: 1px solid #b6b6b6;
+    background-color: #DDDDDD;
+    padding: 0.3rem;
+ }
+p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+    padding: 2px
+}
+.cell_container {
+    width: 100%;
+    height: 100%;
+}
+.container_resultados {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.container_button {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+.container_fecha {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+.label_titulo {
+    font-weight: bold;
+    font-size: 20px;
+}
+.label_fecha {
+    font-weight: bold;
+    font-size: 14px;
+}
+.div_line_Separate_card {
+    width: 100%;
+    height: 2px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #bfbdc9;
+    border-color: 1px solid #bfbdc9
+}
+.input_fecha {
+    margin-left: 10px;
+}
+.input_examinador {
+    margin-right: 10px;
+}
