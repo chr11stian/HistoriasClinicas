@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-dialog-consulta',
@@ -28,6 +29,7 @@ export class DialogConsultaComponent implements OnInit {
   ];
   constructor(
     private fb: FormBuilder,
+    private ref: DynamicDialogRef,
     // private 
   ) { this.prueba = [{
     tratamientos: "Tomar paracetamol 500mg",
@@ -92,4 +94,9 @@ export class DialogConsultaComponent implements OnInit {
       cuelloUterino: new FormControl(""),
     });
   }
+
+  closeDialog(){
+    this.ref.close();
+  }
+
 }
