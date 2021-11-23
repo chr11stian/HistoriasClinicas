@@ -11,6 +11,7 @@ import {PaginatorModule} from "primeng/paginator";
 import {PlanAtencionIntegralRoutingModule} from "./plan-atencion-integral-routing.module";
 import {PrimeModule} from "../../../../shared/prime/prime.module";
 import { DatosGeneralesFiliacionComponent } from './component/datos-generales-filiacion/datos-generales-filiacion.component';
+import {MantenimientosModule} from "../../../../mantenimientos/mantenimientos.module";
 
 
 
@@ -25,11 +26,12 @@ import { DatosGeneralesFiliacionComponent } from './component/datos-generales-fi
     StepGeneralComponent,
     DatosGeneralesFiliacionComponent,
   ],
-  imports: [
-    CommonModule,
-    PaginatorModule,
-    PrimeModule,
-    PlanAtencionIntegralRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        PaginatorModule,
+        PrimeModule,
+        PlanAtencionIntegralRoutingModule,
+        MantenimientosModule
+    ]
 })
 export class PlanAtencionIntegralModule { }

@@ -13,6 +13,6 @@ export class FiliancionService {
     }
 
     getPacienteNroDocFiliacion(tipoDoc, nroDoc) {
-        return this.http.get(`${this.base_url}/${this.bd}/api/filiacion/buscarpaciente/${tipoDoc}/${nroDoc}`)
+        return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarpaciente/${tipoDoc}/${nroDoc}`)
     }
 }
