@@ -36,9 +36,7 @@
             </span>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Agregar" icon="pi pi-save" (click)="openNew()"
-                class="p-button-raised p-button-secondary"></button>
-                <button pButton pRipple label="Agregar otro modal" icon="pi pi-save" (click)="openDialogConsulta()"
+            <button pButton pRipple label="Agregar" icon="pi pi-save" (click)="openDialogConsulta()"
                 class="p-button-raised p-button-secondary"></button>
         </ng-template>
     </p-toolbar>
@@ -71,7 +69,7 @@
                 <td style="text-align: center">{{ rowData.fecha }}</td>
                 <td style="text-align: center">
                     <span class="p-buttonset">
-                        <button pButton pRipple (click)="openNew()" class="p-button-info" label="Editar"
+                        <button pButton pRipple (click)="openDialogConsulta()" class="p-button-info" label="Editar"
                             icon="pi pi-check"></button>
                         <button pButton pRipple class="p-button-danger" label="Cancelar" icon="pi pi-times"></button>
                     </span>

@@ -53,19 +53,19 @@ export class IntervaloPartoComponent implements OnInit {
   }
   openDialogConsulta() {
     let dialog = this.dialog.open(IntervaloDialogoComponent, {
-        header: "CONSULTA",
-        width: "95%",
-        contentStyle: {
-            "max-height": "500px",
-            overflow: "auto",
-        },
-        footer:`hola mundo`,
-        data:{
-            texto:'datossss'
-        }
+      header: "CONSULTA",
+      width: "95%",
+      contentStyle: {
+        "max-height": "500px",
+        overflow: "auto",
+      },
+      footer: `hola mundo`,
+      data: {
+        texto: 'datossss'
+      }
     })
 
-}
+  }
   ngOnInit(): void {
     this.buildForm();
   }

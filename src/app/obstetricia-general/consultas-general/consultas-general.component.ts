@@ -77,7 +77,7 @@ export class ConsultasGeneralComponent implements OnInit {
             header: "CONSULTA",
             width: "95%",
             contentStyle: {
-                "max-height": "500px",
+                "max-height": "700px",
                 overflow: "auto",
             },
             // footer:`hola mundo`,
