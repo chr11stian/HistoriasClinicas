@@ -13,12 +13,20 @@ import {DatePipe} from "@angular/common";
 })
 export class AtencionesComponent implements OnInit {
     form: FormGroup;
+    formFetos: FormGroup;
+    formOrientacion: FormGroup;
+    formFechaEcografia: FormGroup;
+    formAcidoFolico: FormGroup;
+    formHierroYAcidoFolico: FormGroup;
+    formCalcio:FormGroup;
+    formInterconsulta:FormGroup;
+    formVisitaDomiciliario:FormGroup;
+    formProxCita: FormGroup;
+
     data: any[] = [];
     isUpdate: boolean = false;
     idUpdate: string = "";
-    datafecha: any;
 
-    dataPacientes: any;
 
     /* ---  listas ---*/
     situacionList: any[];
@@ -51,12 +59,30 @@ export class AtencionesComponent implements OnInit {
     proteinaCualitativa: string;
     edema: string;
     reflejoOsteotendinoso: string;
+    /*Fecha de ecografia (fecha, hora, descripcion,edad gestacional*/
     fechaEcografia: Date;
+    descripcion:string;
+    edadGestacionalEcografia: string;
+    /*Orientacion o consejeria*/
+    consejeria:any[]=[];
     consejeriaIntegral: string;
-    indAcidoFolico: string;
+    cie10:string;
+
+    indAcidoFolico: any[]=[];
+    descripcionT:string;
+    numeroT:string;
+    dosisT:string;
+    viaAdministracion:string;
+    freuencia:string;
+
     indFierro: string;
     indCalcio: string;
-    interconsulta: string;
+
+    interconsulta: any[]=[];
+    consultorio:string;
+    motivo:string;
+    fecha:Date;
+
     planParto: string;
     visitaDomiciliaria: string;
     proximaCita: string;
@@ -136,6 +162,7 @@ export class AtencionesComponent implements OnInit {
             proteinaCualitativa: ['', [Validators.required]],
             edema: ['', [Validators.required]],
             reflejoOsteotendinoso: ['', [Validators.required]],
+            /*ARREGLO DE ECOGRAFIA*/
             fechaEcografia: ['', [Validators.required]],
             consejeriaIntegral: ['', [Validators.required]],
             indAcidoFolico: ['', [Validators.required]],
@@ -319,16 +346,8 @@ export class AtencionesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getPacientes();
+
     }
 
-    getPacientes() {
-        // this.atencionesService.getPacientes().subscribe((res: any) => {
-        //     this.dataPacientes = res;
-        //     // console.log("pacientes", res);
-        //     console.log("pacientes", this.dataPacientes);
-        //
-        // })
-    }
 }
 

@@ -12,80 +12,70 @@
     </ng-template>
     </p-toolbar>
     <br>
-
     <p-fieldset legend="PURPERIO INMEDIATO" [toggleable]="true">
         <form [formGroup]="formPurperio">
-            <div class="grid">
-                <div class="col-6">
+            <div class="grid" >
+                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                    <label>Fecha de atencion:</label>
+                    <p-calendar type="date" showIcon="true" type dateFormat="dd-mm-yy" formControlName="fechaAtencion"></p-calendar>
+                </div>
+                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                    <label>Pulso (latido/minuto):</label>
+                    <p-calendar  showIcon="true" [showTime]="true"  dateFormat="dd/mm/yy"  class="inputfield" formControlName="horasDias"></p-calendar>
+                </div>
 
-                    <div class="field grid">
-                        <span class="col-5" style="text-align: right">Fecha de atencion:</span>
-                        <div class="col">
-                            <p-calendar type dateFormat="dd-mm-yy"></p-calendar>
-                        </div>
-                    </div>
-
-                    <div class="field grid">
-                        <span class="col-5" style="text-align: right">Horas/dias post parto o aborto:</span>
-                        <div class="col">
-                            <input type="text" pInputText [style]="{width: '80px'}">
-                            <input type="text" pInputText [style]="{width: '80px'}">
-                        </div>
-                    </div>
-
-                    <div class="field grid">
-                        <span class="col-5" style="text-align: right">Pulso (latido/minuto):</span>
-                        <div class="col">
-                            <input type="text" pInputText class="inputfield">
-                        </div>
-                    </div>
-                    <div class="field grid">
-                        <span class="col-5" style="text-align: right">Involucion Uterina:</span>
-                        <div class="col">
-                            <input type="text" pInputText class="inputfield">
-                        </div>
-                    </div>
-                    <div class="field grid">
-                        <span class="col-5" style="text-align: right">Herida operación:</span>
-                        <div class="col">
-                            <input type="text" pInputText class="inputfield">
-                        </div>
-                    </div>
-                    <div class="field grid">
-                        <span class="col-5" style="text-align: right">Observaciones:</span>
-                        <div class="col">
-                            <input type="text" pInputText class="inputfield">
-                        </div>
-                    </div>
-
+                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                    <label>Pulso (latido/minuto):</label>
+                    <input type="text" pInputText class="inputfield" formControlName="pulso">
+                </div>
+                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                    <label>Involucion Uterina:</label>
+                    <input type="text" pInputText class="inputfield" formControlName="involucionUterina">
+                </div>
+                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                    <label>Herida operación:</label>
+                    <input type="text" pInputText class="inputfield" formControlName="heridaOperacion">
+                </div>
+                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                    <label>Observaciones:</label>
+                    <input type="text" pInputText class="inputfield" formControlName="observaciones">
+                </div>
+                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                    <label>Temperatura:</label>
+                    <input type="text" pInputText class="inputfield" formControlName="temperatura">
 
                 </div>
-                <div class="col-6">
-
-                    <div class="field grid">
-                        <span class="col-fixed">Temperatura:</span>
-                        <div class="col">
-                            <input type="text" pInputText class="inputfield">
-                        </div>
-                    </div>
-                    <div class="field grid">
-                        <span class="col-fixed">Pres. Arterial max/min (mm. Hg.):</span>
-                        <div class="col">
-                            <input type="text" pInputText class="inputfield">
-                        </div>
-                    </div>
-                    <div class="field grid">
-                        <span class="col-fixed">Caract. Loquios:</span>
-                        <div class="col">
-                            <input type="text" pInputText class="inputfield">
-                        </div>
-                    </div>
-
-
+                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                    <label>Pres. Arterial max/min (mm. Hg.):</label>
+                    <input type="text" pInputText class="inputfield" formControlName="presionArterial">
+                </div>
+                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                    <label>Caract. Loquios:</label>
+                    <input type="text" pInputText class="inputfield" formControlName="caracteristicasLoquios">
                 </div>
             </div>
         </form>
+
+        <div class="footer">
+            <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
+            <button pButton type="button" label="Guardar" class="p-button-danger mt-4" (click)="saveForm()"></button>
+            <button pButton type="button" label="Editar" class="p-button-danger mt-4"></button>
+        </div>
+
     </p-fieldset>
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0"></h3>
+        </ng-template>
+
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Agregar 2do. Puerperio" icon="pi pi-plus" class="p-button-danger mr-2"
+                    style="background-color: #003c71" (click)="openModalPuerperio()"></button>
+            <button pButton pRipple label="Agregar 3er. Puerperio" icon="pi pi-plus" class="p-button-danger mr-2"
+                    style="background-color: #003c71" (click)="openModalPuerperio()"></button>
+
+        </ng-template>
+    </p-toolbar>
     <br>
 
 </div>
