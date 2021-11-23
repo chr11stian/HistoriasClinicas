@@ -28,7 +28,7 @@ export class DatosBasalesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.loadData();
   }
 
   inicalizarForm() {
@@ -420,5 +420,9 @@ export class DatosBasalesComponent implements OnInit {
     // this.recuperarExamenFisico();
     // const splited = auxExamClin.split("-");
     // console.log('splited data ', splited);
+  }
+
+  loadData(){
+    this.form.patchValue({'imc':123});
   }
 }
