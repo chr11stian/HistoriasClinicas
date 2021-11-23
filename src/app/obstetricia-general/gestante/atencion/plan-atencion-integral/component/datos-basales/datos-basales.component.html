@@ -379,15 +379,15 @@
                             <label>Clínico: </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="clinico" formControlName="clinico" value="sin examen" class="amarillo">
+                            <p-radioButton name="clinico" formControlName="clinico" value="0-sin examen" class="amarillo" (click)="rbtn()">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="clinico" formControlName="clinico" value="normal" class="default">
+                            <p-radioButton name="clinico" formControlName="clinico" value="0-normal" class="default" (click)="rbtn()">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="clinico" formControlName="clinico" value="patologico" class="amarillo">
+                            <p-radioButton name="clinico" formControlName="clinico" value="0-patologico" class="amarillo">
                             </p-radioButton>
                         </div>
                     </div>
@@ -396,15 +396,15 @@
                             <label>Mamas: </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="mamas" formControlName="mamas" value="sin examen" class="amarillo">
+                            <p-radioButton name="mamas" formControlName="mamas" value="1-sin examen" class="amarillo">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="mamas" formControlName="mamas" value="normal" class="default">
+                            <p-radioButton name="mamas" formControlName="mamas" value="1-normal" class="default">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="mamas" formControlName="mamas" value="patologico" class="amarillo">
+                            <p-radioButton name="mamas" formControlName="mamas" value="1-patologico" class="amarillo">
                             </p-radioButton>
                         </div>
                     </div>
@@ -413,15 +413,15 @@
                             <label>Cuello Uterino: </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="sin examen"
+                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="2-sin examen"
                                 class="amarillo"></p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="normal"
+                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="2-normal"
                                 class="default"></p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="patologico"
+                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="2-patologico"
                                 class="amarillo"></p-radioButton>
                         </div>
                     </div>
@@ -430,15 +430,15 @@
                             <label>Pelvis: </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="pelvis" formControlName="pelvis" value="sin examen" class="amarillo">
+                            <p-radioButton name="pelvis" formControlName="pelvis" value="3-sin examen" class="amarillo">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="pelvis" formControlName="pelvis" value="normal" class="default">
+                            <p-radioButton name="pelvis" formControlName="pelvis" value="3-normal" class="default">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="pelvis" formControlName="pelvis" value="patologico" class="amarillo">
+                            <p-radioButton name="pelvis" formControlName="pelvis" value="3-patologico" class="amarillo">
                             </p-radioButton>
                         </div>
                     </div>
@@ -447,15 +447,15 @@
                             <label>Odont(1): </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont1" formControlName="odont1" value="sin examen" class="amarillo">
+                            <p-radioButton name="odont1" formControlName="odont1" value="4-sin examen" class="amarillo">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont1" formControlName="odont1" value="normal" class="default">
+                            <p-radioButton name="odont1" formControlName="odont1" value="4-normal" class="default">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont1" formControlName="odont1" value="patologico" class="amarillo">
+                            <p-radioButton name="odont1" formControlName="odont1" value="4-patologico" class="amarillo">
                             </p-radioButton>
                         </div>
                     </div>
@@ -464,15 +464,15 @@
                             <label>Odont(2): </label>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont2" formControlName="odont2" value="sin examen" class="amarillo">
+                            <p-radioButton name="odont2" formControlName="odont2" value="5-sin examen" class="amarillo">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont2" formControlName="odont2" value="normal" class="default">
+                            <p-radioButton name="odont2" formControlName="odont2" value="5-normal" class="default">
                             </p-radioButton>
                         </div>
                         <div class="col-3">
-                            <p-radioButton name="odont2" formControlName="odont2" value="patologico" class="amarillo">
+                            <p-radioButton name="odont2" formControlName="odont2" value="5-patologico" class="amarillo">
                             </p-radioButton>
                         </div>
                     </div>
@@ -482,7 +482,7 @@
         <div class="grid">
             <div class="col-12">
                 <p-fieldset legend="Examen de Laboratorio">
-                    <div class="grid">
+                    <div class="grid">  
                         <div class="col-6">
                             <div class="grid">
                                 <div class="col-3">
@@ -491,11 +491,11 @@
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='hemo1' placeholder=""
+                                    <input type="text" pInputText formControlName='hg1' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='hemo1' placeholder=""
+                                    <input type="text" pInputText formControlName='conFactor1' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-5">
@@ -510,11 +510,11 @@
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='hemo2' placeholder=""
+                                    <input type="text" pInputText formControlName='hg2' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='hemo2' placeholder=""
+                                    <input type="text" pInputText formControlName='conFactor2' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-5">
@@ -529,11 +529,11 @@
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='hemo3' placeholder=""
+                                    <input type="text" pInputText formControlName='hg3' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='hemo3' placeholder=""
+                                    <input type="text" pInputText formControlName='conFactor3' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-5">
@@ -548,11 +548,11 @@
                                     </div>
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='hemo4' placeholder=""
+                                    <input type="text" pInputText formControlName='hg4' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-2">
-                                    <input type="text" pInputText formControlName='hemo4' placeholder=""
+                                    <input type="text" pInputText formControlName='conFactor4' placeholder=""
                                         class="inputfield w-full p-inputtext-sm">
                                 </div>
                                 <div class="col-5">
