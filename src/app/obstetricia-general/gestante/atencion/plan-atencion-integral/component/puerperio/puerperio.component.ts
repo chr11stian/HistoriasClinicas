@@ -33,16 +33,9 @@ export class PuerperioComponent implements OnInit {
     ngOnInit(): void {
 
     }
-    // getPuerperioPorDoc(){
-    //
-    //     let TipoDoc="DNI";
-    //     let nroDoc="10101010"
-    //     this.puerperioService.getPuerperioService(TipoDoc,nroDoc).subscribe((res: any) => {
-    //         this.dataPuerperio = res.object
-    //         console.log('puerperio: ', this.dataPuerperio)
-    //    });
-    // }
     saveForm() {
+        let tipoDoc ="DNI";
+        let nroDoc = "10101010;"
         this.isUpdate = false;
         const req = {
             fechaAtencion: this.formPurperio.value.fechaAtencion,
@@ -52,16 +45,29 @@ export class PuerperioComponent implements OnInit {
             heridaOperacion:this.formPurperio.value.heridaOperacion,
             observaciones:this.formPurperio.value.observaciones,
         }
-        if (req.fechaAtencion.trim() !== "") {
-            this.puerperioService.createPuerperioService(req).subscribe(
+        if (req.fechaAtencion !== "") {
+            this.puerperioService.addPuerperioService(tipoDoc,nroDoc,req).subscribe(
                 (resp) => {
-                   console.log(resp)
-                    console.log(req)
+                    console.log(resp);
+                    console.log(req);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Agregado correctamente',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
                 }
             )
         }
-    }
 
+    }
+   recuperarPuerperios(){
+       let tipoDoc ="DNI";
+       let nroDoc = "10101010;"
+       this.isUpdate = true;
+
+   }
     openNew(){
         this.consultaPuerperio=true;
     }

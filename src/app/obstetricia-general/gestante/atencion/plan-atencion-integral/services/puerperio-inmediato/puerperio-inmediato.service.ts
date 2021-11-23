@@ -12,9 +12,11 @@ export class PuerperioInmediatoService {
   bd = environment.bd;
   constructor(private http:HttpClient) {}
 
-  createPuerperioService(dataPuerperio) {
-    return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio/DNI/10101010s`,dataPuerperio);
+  recuperarPuerperioService(tipoDoc, nroDoc,dataPuerperio) {
+    return this.http.put(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio/${tipoDoc}/${nroDoc}`,dataPuerperio);
   }
-
+  addPuerperioService(tipoDoc, nroDoc, dataPuerperio) {
+    return this.http.post<any>(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio/${tipoDoc}/${nroDoc}`,dataPuerperio);
+  }
 
 }
