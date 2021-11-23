@@ -22,5 +22,58 @@
 }
 
 ::ng-deep .p-dialog-footer {
-    background: red;
+  background: red;
+}
+
+.body {
+  position: relative;
+  min-height: 100%;
+}
+
+.footer {
+  text-align: right;
+  /* display: flexbox; */
+  /* text-align: center; */
+  background: white;
+  position: absolute;
+  /* margin-top: 2.5; */
+  bottom: 0;
+  width: 97%;
+  height: 5em;
+  color: white;
+  bottom: 0;
+  z-index: 100;
+}
+
+
+.funcionesBiologicas {
+  flex: 8%;
+  margin: 0.7em;
+}
+.examenObst{
+  flex: 11%;
+  margin: 0.5em;
+}
+p-fieldset >>> .p-fieldset .p-fieldset-legend {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  background: #d8dee5;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: small;
+}
+
+p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
+  content: url("src\assets\svg-icons\check-svgrepo-com.svg");
+}
+
+::ng-deep .default .p-radiobutton .p-radiobutton-icon{
+  background: #2196f3;
+  border: #2196f3;
+}
+
+::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight{
+  background: #2196f3;
+  border: #2196f3;
 }
