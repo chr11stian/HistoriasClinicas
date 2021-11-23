@@ -27,11 +27,12 @@ import { PuerperioModalComponent } from './component/puerperio-modal/puerperio-m
     DatosGeneralesFiliacionComponent,
     PuerperioModalComponent,
   ],
-  imports: [
-    CommonModule,
-    PaginatorModule,
-    PrimeModule,
-    PlanAtencionIntegralRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        PaginatorModule,
+        PrimeModule,
+        PlanAtencionIntegralRoutingModule,
+
+    ]
 })
 export class PlanAtencionIntegralModule { }

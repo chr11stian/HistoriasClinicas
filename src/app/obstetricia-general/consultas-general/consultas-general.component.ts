@@ -60,23 +60,7 @@ export class ConsultasGeneralComponent implements OnInit {
                 fecha: "16/11/2021"
             },
         ];
-        this.prueba = [{
-            tratamientos: "Tomar paracetamol 500mg",
-            diagnostico: "Presenta sintomas de alerta",
-        },
-        {
-            tratamientos: "Mantener Reposo",
-            diagnostico: "Presenta sintomas leves",
-        },
-        {
-            tratamientos: "Tomar paracetamol 500mg",
-            diagnostico: "Presenta sintomas de peligro",
-        },
-        {
-            tratamientos: "Tomar paracetamol 500mg",
-            diagnostico: "Presenta sintomas leves",
-        }]
-
+    
     }
     openNew() {
         this.consultaDialog = true;
