@@ -10,10 +10,13 @@ export class PartoAbortoService {
   bd = environment.bd;
 
   constructor(private http:HttpClient) { }
-  addPartoAborto(tipoDoc,dniPaciente,inputParto:any) {
-    return this.http.put(`${this.base_url}/${this.bd}/filiacion/guardarparto-aborto/${tipoDoc}/${dniPaciente}`,inputParto);
+  addPartoAborto(idPaciente,inputParto:any) {
+    return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarparto-aborto/${idPaciente}`,inputParto);
   }
-  getPartoAborto(tipoDoc,dniPaciente) {
-    return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarparto-aborto/${tipoDoc}/${dniPaciente}`);
+  updatePartoAborto(idPaciente,inputParto:any) {
+    return this.http.put(`${this.base_url}/${this.bd}/filiacion/guardarparto-aborto/${idPaciente}`,inputParto);
+  }
+  getPartoAborto(idPaciente) {
+    return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarparto-aborto/${idPaciente}`);
   }
 }

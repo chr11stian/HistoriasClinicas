@@ -741,19 +741,34 @@
                   <ng-template pTemplate="caption">
                     <div class="flex justify-content-between">
                       <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                              (click)="openNew()"></button>
+                              (click)="addMedicacion()"></button>
                     </div>
                   </ng-template>
                   <ng-template pTemplate="header">
                     <tr>
                       <th>Nro</th>
                       <th>Medicacion</th>
+                      <th>Accion</th>
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-product let-index="rowIndex">
                     <tr>
                       <td>{{index+1}}</td>
-                      <td>{{product.medicacion}}</td>
+                      <td pEditableColumn>
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" formControlName="cualquierCosa">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{product.medicacion}}
+                          </ng-template>
+                        </p-cellEditor>
+                      </td>
+                      <td>
+                        <button pButton (click)="eliminarMedicacion(rowData)" pTooltip="Eliminar" pRipple type="button"
+                                icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                        </button>
+                      </td>
                     </tr>
                   </ng-template>
                 </p-table>
@@ -763,7 +778,7 @@
                   <ng-template pTemplate="caption">
                     <div class="flex justify-content-between">
                       <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                              (click)="openNew()"></button>
+                              (click)="addMedicamento()"></button>
                     </div>
                   </ng-template>
                   <ng-template pTemplate="header">
@@ -1559,3 +1574,4 @@
   >
   </p-button>
 </div>
+
