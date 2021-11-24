@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DialogConsultaUniversalComponent } from './dialog-consulta-universal/dialog-consulta-universal.component';
 import { DialogConsultaComponent } from './dialog-consulta/dialog-consulta.component';
 @Component({
@@ -15,10 +15,11 @@ export class ConsultasGeneralComponent implements OnInit {
     consultaDialog: boolean;
     form: FormGroup;
     prueba: any[];
-    // ref: DynamicDialogRef
+    
+    ref: DynamicDialogRef
     constructor(
         private formBuilder: FormBuilder,
-        public dialog: DialogService
+        public dialog: DialogService,
     ) {
         this.buildForm();
         this.options = [
@@ -61,7 +62,7 @@ export class ConsultasGeneralComponent implements OnInit {
                 fecha: "16/11/2021"
             },
         ];
-    
+
     }
     openNew() {
         this.consultaDialog = true;
@@ -82,15 +83,15 @@ export class ConsultasGeneralComponent implements OnInit {
                 overflow: "auto",
             },
             // footer:`hola mundo`,
-            data:{
-                texto:'datossss'
+            data: {
+                texto: 'datossss'
             }
         })
 
     }
 
-    openDialogConsultaUniversal(){
-        let dialog = this.dialog.open(DialogConsultaUniversalComponent, {
+    openDialogConsultaUniversal() {
+        this.ref = this.dialog.open(DialogConsultaUniversalComponent, {
             header: "CONSULTA UNIVERSAL",
             width: "95%",
             contentStyle: {
@@ -98,9 +99,13 @@ export class ConsultasGeneralComponent implements OnInit {
                 overflow: "auto",
             },
             // footer:`hola mundo`,
-            data:{
-                texto:'datossss'
+            data: {
+                texto: 'datossss'
             }
+        })
+
+        this.ref.onClose.subscribe((data: any) => {
+            console.log('data de otro dialog ', data)
         })
     }
 
