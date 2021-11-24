@@ -1,0 +1,47 @@
+.margen {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+  .p-inputtext-sm {
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+  }
+  .titulo {
+    display: block;
+    margin: auto;
+  }
+  ::ng-deep .p-dialog-title {
+    color: red;
+    display: block;
+    margin: auto;
+    text-align: center;
+  }
+  
+  ::ng-deep .p-dialog-footer {
+    background: red;
+  }
+  
+  .body {
+    position: relative;
+    min-height: 100%;
+  }
+  
+  .footer {
+    text-align: right;
+    /* display: flexbox; */
+    /* text-align: center; */
+    background: white;
+    position: absolute;
+    /* margin-top: 2.5; */
+    bottom: 0;
+    width: 97%;
+    height: 5em;
+    color: white;
+    bottom: 0;
+    z-index: 100;
+  }
+  

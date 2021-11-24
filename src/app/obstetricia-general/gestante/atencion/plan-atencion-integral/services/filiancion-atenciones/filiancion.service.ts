@@ -15,4 +15,8 @@ export class FiliancionService {
     getPacienteNroDocFiliacion(tipoDoc, nroDoc) {
         return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarpaciente/${tipoDoc}/${nroDoc}`)
     }
+
+    addPacienteFiliacion(tipoDoc, nroDoc, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarafiliacion/${tipoDoc}/${nroDoc}`, data)
+    }
 }

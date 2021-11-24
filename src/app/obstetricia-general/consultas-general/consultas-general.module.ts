@@ -6,12 +6,14 @@ import {PaginatorModule} from "primeng/paginator";
 import {ConsultasGeneralComponent} from "./consultas-general.component";
 import { DialogConsultaComponent } from './dialog-consulta/dialog-consulta.component';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DialogConsultaUniversalComponent } from './dialog-consulta-universal/dialog-consulta-universal.component';
 
 
 @NgModule({
     declarations: [
         ConsultasGeneralComponent,
         DialogConsultaComponent,
+        DialogConsultaUniversalComponent,
     ],
     imports: [
         CommonModule,
