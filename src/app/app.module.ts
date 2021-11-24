@@ -15,6 +15,7 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {PrimeModule} from './shared/prime/prime.module'
 import {ChartModule} from 'primeng/chart';
 import {DividerModule} from "primeng/divider";
+import {ToggleButtonModule} from 'primeng/togglebutton';
 
 
 @NgModule({
@@ -34,6 +35,8 @@ import {DividerModule} from "primeng/divider";
         ChartModule,
         ReactiveFormsModule,
         DividerModule,
+        ToggleButtonModule,
+        
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts'),
         }),

@@ -1,11 +1,12 @@
 <div>
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-            <h3 class="p-m-0"></h3>
+            <h3 class="p-m-1"></h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
-                    style="background: #2196F3; border: 1px solid #2196F3;"></button>
+                    style="background: #2196F3; border: 1px solid #2196F3;"
+                    (click)="agrgarFiliacionDatoPersonales()"></button>
         </ng-template>
     </p-toolbar>
     <br>
@@ -14,224 +15,236 @@
             <div class="grid">
                 <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
-                        <label class="m-2">Apellido Paterno: </label>
-                        <input type="text" pInputText class="inputfield w-full">
+                        <label class="m-1">Apellido Paterno: </label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="apePaterno">
                     </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
-                        <label class="m-2">Apellido Materno:</label>
-                        <input type="text" pInputText class="inputfield w-full">
+                        <label class="m-1">Apellido Materno:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="apeMaterno">
                     </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
-                        <label class="m-2">Nombres: </label>
-                        <input type="text" pInputText class="inputfield w-full">
+                        <label class="m-1">Nombres: </label>
+                        <input type="text" pInputText class="inputfield w-full " formControlName="nombres">
                     </div>
                 </div>
             </div>
-
             <div class="grid">
-                <div class="col-12 md:col-6 lg:col-4 p-field">
+
+                <div class="col-12 md:col-6 lg:col-3 p-field">
                     <div class="">
-                        <label class="m-2">Establecimiento: </label>
-                        <input type="text" pInputText class="inputfield w-full">
+                        <label class="m-1">Documento de Identidad:</label>
+                        <!--                        <input type="text" pInputText class="inputfield w-full" formControlName="docIndentidad">-->
+                        <p-inputNumber class="inputfield w-full" formControlName="docIndentidad"
+                                       [useGrouping]="false" mode="decimal">
+                        </p-inputNumber>
                     </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-4 p-field">
-                    <div class="">
-                        <label class="m-2">Estab. Origen:</label>
-                        <input type="text" pInputText class="inputfield w-full">
-                    </div>
-                </div>
+
                 <div class="col-12 md:col-6 lg:col-2 p-field">
                     <div class="">
-                        <label class="m-2">Aplica: </label>
-                        <p-selectButton [options]="options" formControlName="aplica"
-                                        optionLabel="name"></p-selectButton>
+                        <label class="m-1">Fecha de Nacimiento:</label>
+                        <input type="date" pInputText class="inputfield w-full" formControlName="fechaNacimiento">
                     </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-2 p-field">
-                    <div class="">
-                        <label class="m-2">Referencia: </label>
-                        <p-selectButton [options]="options" formControlName="referencia"
-                                        optionLabel="name"></p-selectButton>
-                    </div>
-                </div>
-            </div>
 
+                <div class="col-12 md:col-6 lg:col-1 p-field">
+                    <div class="">
+                        <label class="m-1">Edad:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="edad">
+                    </div>
+                </div>
+
+
+                <div class="col-12 md:col-6 lg:col-6 p-field">
+                    <div class="">
+                        <label class="m-1">Establecimiento: </label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="establecimiento">
+                    </div>
+                </div>
+
+            </div>
             <div class="grid">
-                <div class="col-12 md:col-6 lg:col-4 p-field">
+                <div class="col-12 md:col-6 lg:col-3 p-field">
                     <div class="">
-                        <label class="m-2">Código Afiliación SIS:</label>
-                        <input type="text" pInputText class="inputfield w-full">
-                    </div>
-                </div>
-                <div class="col-4 p-field">
-                    <div class="">
-                        <label class="m-2">Documento de Identidad N°:</label>
-                        <input type="text" pInputText class="inputfield w-full">
+                        <label class="m-1">Estado Civil:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="estadoCivil">
                     </div>
                 </div>
 
-                <div class="col-4 p-field">
-                    <div class="">
-                        <label class="m-2">Fecha de Nacimiento:</label>
-                        <input type="text" pInputText class="inputfield w-full">
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="grid col-12">
-
-                <div class="col-4 p-field">
-                    <div class="">
-                        <label class="m-2">Ocupacion:</label>
-                        <input type="text" pInputText class="inputfield w-full">
-                    </div>
-                </div>
-                <div class="col-2 p-field">
-                    <div class="">
-                        <label class="m-2">Edad:</label>
-                        <input type="text" pInputText class="inputfield w-full">
-                    </div>
-                </div>
-                <div class="col-6 p-field">
-                    <div class="">
-                        <label class="m-2">Dirección:</label>
-                        <input type="text" pInputText class="inputfield w-full">
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="grid col-12">
-
-                <div class="col-3 p-field">
-                    <label class="m-2">Estudios:</label>
-                    <div style="width: auto">
-                        <p-dropdown [options]="studies"
-                                    placeholder="Selec Estudios"
-                                    optionLabel="name"
-                                    [showClear]="false">
+                <div class="col-12 md:col-6 lg:col-3 p-field p-fluid">
+                    <label class="m-1">Departamento:</label>
+                    <div>
+                        <p-dropdown
+                                inputId="dropdown"
+                                [options]="departamentos"
+                                defaultLabel="Seleccione departamento"
+                                formControlName="departamento"
+                                optionLabel="departamento"
+                                optionValue="departamento">
                         </p-dropdown>
                     </div>
                 </div>
 
-                <div class="col-3 p-field">
-                    <div>
-                        <label class="m-2">Años Aprobados:</label>
-                        <input type="text" pInputText class="inputfield w-full">
-                    </div>
-                </div>
-
-                <div class="col-6 p-field">
+                <div class="col-12 md:col-6 lg:col-3 p-field p-fluid">
                     <div class="">
-                        <label class="m-2">Nombre/N° Sector:</label>
-                        <input type="text" pInputText class="inputfield w-full">
-                    </div>
-                </div>
-
-
-            </div>
-
-            <div class="grid col-12">
-
-                <div class="col-3 p-field">
-                    <label class="m-2">Estado Civil:</label>
-                    <div>
-                        <p-dropdown [options]="studies"
-                                    placeholder="Selec estado civil"
-                                    optionLabel="name"
-                                    [showClear]="false">
-                        </p-dropdown>
-                    </div>
-                </div>
-
-                <div class="col-3 p-field">
-                    <label class="m-2">Departamento:</label>
-                    <div>
-                        <p-dropdown [options]="departamentos"
-                                    placeholder="Seleccione Departamento"
-                                    optionLabel="name"
-                                    [showClear]="false">
-                        </p-dropdown>
-                    </div>
-                </div>
-
-                <div class="col-3 p-field">
-                    <div class="">
-                        <label class="m-2">Provincia:</label>
+                        <label class="m-1">Provincia:</label>
                         <div>
-                            <p-dropdown [options]="departamentos"
-                                        placeholder="Seleccione provincia"
-                                        optionLabel="name"
-                                        [showClear]="false">
+                            <p-dropdown
+                                    inputId="dropdown"
+                                    [options]="provincias"
+                                    defaultLabel="Seleccione departamento"
+                                    formControlName="provincia"
+                                    optionLabel="provincia"
+                                    optionValue="provincia">
                             </p-dropdown>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-3 p-field">
-                    <label class="m-2">Distrito:</label>
+                <div class="col-12 md:col-6 lg:col-3 p-field p-fluid">
+                    <label class="m-1">Distrito:</label>
                     <div>
-                        <p-dropdown [options]="departamentos"
-                                    placeholder="Selec distrito"
-                                    optionLabel="name"
+                        <p-dropdown
+                                inputId="dropdown2"
+                                [options]="distritos"
+                                formControlName="distrito"
+                                defaultLabel="Seleccione distrito"
+                                optionLabel="distrito"
+                                optionValue="distrito">
+                        </p-dropdown>
+                    </div>
+                </div>
+
+            </div>
+            <div class="grid">
+            </div>
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="">
+                        <label class="m-1">Estab. Origen:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="estabOrigen">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-2 p-field">
+                    <div class="">
+                        <label class="m-1">Aplica: </label>
+                        <p-selectButton [options]="options" formControlName="aplica"
+                                        optionLabel="code"></p-selectButton>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-2 p-field">
+                    <div class="">
+                        <label class="m-1">Referencia: </label>
+                        <p-selectButton [options]="options" formControlName="referencia"
+                                        optionLabel="code"></p-selectButton>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-2 p-field">
+                    <div class="">
+                        <label class="m-1">Código Afiliación SIS:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="codAficiaconSIS">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="">
+                        <label class="m-1">Ocupacion:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="ocupacion">
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6 p-field">
+                    <div class="">
+                        <label class="m-1">Dirección:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="direccion">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="grid">
+
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <label class="m-1">Estudios:</label>
+                    <div style="width: auto">
+                        <p-dropdown [options]="studies"
+                                    placeholder="Selec Estudios"
+                                    optionLabel="gradoInstruccion"
+                                    optionValue="gradoInstruccion"
+                                    formControlName="gradoInstruccion"
                                     [showClear]="false">
                         </p-dropdown>
                     </div>
                 </div>
 
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div>
+                        <label class="m-1">Años Aprobados:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="amiosAprobados">
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6 p-field">
+                    <div class="">
+                        <label class="m-1">Nombre/N° Sector:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="nombreNroSector">
+                    </div>
+                </div>
+
 
             </div>
 
-            <div class="grid col-12">
 
-                <div class="col-4 p-field">
+            <div class="grid ">
+
+                <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
-                        <label class="m-2">Nombre de RN:</label>
-                        <input type="text" pInputText class="inputfield w-full">
+                        <label class="m-1">Nombre de RN:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="nombreRN">
                     </div>
                 </div>
-                <div class="col-4 p-field">
+                <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
-                        <label class="m-2">Padre de RN:</label>
-                        <input type="text" pInputText class="inputfield w-full">
+                        <label class="m-1">Padre de RN:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="pabreRN">
                     </div>
                 </div>
-
-                <div class="col-4 p-field">
+                <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="">
-                        <label class="m-2">Religion:</label>
-                        <input type="text" pInputText class="inputfield w-full">
+                        <label class="m-1">Religion:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="religion">
                     </div>
                 </div>
 
             </div>
 
-            <div class="grid col-12">
+            <div class="grid">
 
-                <div class="col-3 p-field">
+                <div class="col-12 md:col-6 lg:col-3 p-field">
                     <div class="">
-                        <label class="m-2">Cel. N° 1:</label>
-                        <input type="text" pInputText class="inputfield w-full">
+                        <label class="m-1">Cel. N° 1:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="cel1">
                     </div>
                 </div>
 
-                <div class="col-3 p-field">
+                <div class="col-12 md:col-6 lg:col-3 p-field">
                     <div class="">
-                        <label class="m-2">Cel. N° 2:</label>
-                        <input type="text" pInputText class="inputfield w-full">
+                        <label class="m-1">Cel. N° 2:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="cel2">
                     </div>
                 </div>
 
-                <div class="col-3 p-field">
+                <div class="col-12 md:col-6 lg:col-3 p-field">
                     <div class="">
-                        <label class="m-2">Idioma:</label>
-                        <input type="text" pInputText class="inputfield w-full">
+                        <label class="m-1">Idioma:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="idioma">
                     </div>
                 </div>
 

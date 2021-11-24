@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PuerperioComponent } from './puerperio.component';
+import { IntervaloDialogoComponent } from './intervalo-dialogo.component';
 
-describe('PuerperioComponent', () => {
-  let component: PuerperioComponent;
-  let fixture: ComponentFixture<PuerperioComponent>;
+describe('IntervaloDialogoComponent', () => {
+  let component: IntervaloDialogoComponent;
+  let fixture: ComponentFixture<IntervaloDialogoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PuerperioComponent ]
+      declarations: [ IntervaloDialogoComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PuerperioComponent);
+    fixture = TestBed.createComponent(IntervaloDialogoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ResultadosComponent} from './component/resultados/resultados.component';
 import {ObtetriciaRoutingModule} from "./examenes-routing.module";
+import {PrimeModule} from "../../../../shared/prime/prime.module";
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import {ObtetriciaRoutingModule} from "./examenes-routing.module";
     ],
     imports: [
         CommonModule,
-        ObtetriciaRoutingModule
+        ObtetriciaRoutingModule,
+        PrimeModule
     ]
 })
 export class ExamenesModule {

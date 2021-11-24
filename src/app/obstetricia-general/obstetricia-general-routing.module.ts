@@ -3,8 +3,10 @@ import {RouterModule, Routes} from "@angular/router";
 import {CitasComponent} from "./citas.component";
 import {ConsultaComponent} from "./gestante/consulta/consulta.component";
 import {GestanteComponent} from "./gestante/gestante.component";
+import {AtencionComponent} from "./gestante/atencion/atencion.component";
 
 const routes: Routes = [
+
     {
         path: "gestante",
         component: GestanteComponent

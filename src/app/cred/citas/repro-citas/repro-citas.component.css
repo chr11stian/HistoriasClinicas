@@ -1,0 +1,20 @@
+p-table >>> * {
+    font-size: small;
+  }
+  p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+    text-align: center !important;
+    word-wrap: break-word;
+    
+  }
+  p-table >>> .p-datatable .p-datatable-thead > tr > th {
+    text-align: center !important;
+  }
+
+  p-fieldset >>> .p-fieldset .p-fieldset-content {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+p-dialog >>> .p-dialog .p-dialog-header {
+  padding: 1rem;
+  
+}

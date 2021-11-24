@@ -216,7 +216,7 @@ export class CuposComponent implements OnInit {
 
             paciente: {
                 nombre: this.formCuposOferta.value.primerNombre + ", " + this.formCuposOferta.value.otrosNombres,
-                apellidos: this.formCuposOferta.value.apePaterno + ", "+ this.formCuposOferta.value.apeMaterno,
+                apellidos: this.formCuposOferta.value.apePaterno + ", " + this.formCuposOferta.value.apeMaterno,
                 tipoDoc: this.formCuposOferta.value.tipoDoc.abreviatura,
                 nroDoc: this.formCuposOferta.value.nroDoc,
             },

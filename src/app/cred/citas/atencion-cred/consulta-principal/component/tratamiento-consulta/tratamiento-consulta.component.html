@@ -1,1 +1,163 @@
-<p>tratamiento-consulta works!</p>
+<div class="p-card">
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <h2 class="p-m-0">TRATAMIENTO</h2>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button
+                    style="background: rgb(10, 79, 163)"
+                    pButton
+                    pRipple
+                    iconPos="left"
+                    label="atrás"
+                    icon="pi pi-chevron-left"
+            ></button>
+            <button
+                    style="background: rgb(10, 79, 163)"
+                    pButton
+                    pRipple
+                    iconPos="right"
+                    label="Siguiente"
+                    icon="pi pi-chevron-right"
+            ></button>
+        </ng-template>
+    </p-toolbar>
+    <div class="grid">
+        <div class="col-6 md-4 lg-3">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <span class="p-m-0">Tratamiento</span>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button
+                            style="background: rgb(10, 79, 163)"
+                            pButton
+                            pRipple
+                            iconPos="right"
+                            label="Agregar"
+                            icon="pi pi-plus-circle"
+                    ></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table class="table-over" [value]="tratamiento" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                     [rowsPerPageOptions]="[10, 25, 50]"
+                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center" class="font-2">Nro</th>
+                        <th style="text-align: center" class="font-1">Tratamiento</th>
+                        <th style="text-align: center" class="font-2">ACCIÓN</th>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.tratamiento }}</td>
+
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                    (click)="editar(rowData)" pTooltip="Editar">
+                            </button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                    (click)="eliminar(rowData)" pTooltip="Eliminar">
+                            </button>
+
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+        <div class="col-6 md-4 lg-3">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <span class="p-m-0">Acuerdos y compromisos negociados con la madre y/o cuidador del niño</span>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button
+                            style="background: rgb(10, 79, 163)"
+                            pButton
+                            pRipple
+                            iconPos="right"
+                            label="Agregar"
+                            icon="pi pi-plus-circle"
+                    ></button>
+                </ng-template>
+            </p-toolbar>
+
+            <p-table class="table-over" [value]="acuerdo" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                     [rowsPerPageOptions]="[10, 25, 50]"
+                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center" class="font-2">Nro</th>
+                        <th style="text-align: center" class="font-1">Acuerdo</th>
+                        <th style="text-align: center" class="font-2">ACCIÓN</th>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.acuerdo }}</td>
+
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                    (click)="editar(rowData)" pTooltip="Editar">
+                            </button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                    (click)="eliminar(rowData)" pTooltip="Eliminar">
+                            </button>
+
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-6 md-4 lg-3">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <span class="p-m-0">Evaluación de ojos y presión</span>
+                </ng-template>
+            </p-toolbar>
+            <div class="grid">
+                <div class="flex col-6 md-4 lg-3 align-items-center">
+                    <div class="col-2 md-4 lg-3">
+                        <span>OD: </span>
+                    </div>
+                    <div class="col-10 md-4 lg-3">
+                        <input type="text"
+                               pInputText
+                               class="inputfield w-full"
+                               placeholder="Otros"/>
+                    </div>
+                </div>
+                <div class="flex col-6 md-4 lg-3 align-items-center">
+                    <div class="col-2 md-4 lg-3">
+                        <span>OI: </span>
+                    </div>
+                    <div class="col-10 md-4 lg-3">
+                        <input type="text"
+                               pInputText
+                               class="inputfield w-full"
+                               placeholder="Otros"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 md-4 lg-3">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <span class="p-m-0">Tamisaje en salud mental (VIF)</span>
+                </ng-template>
+            </p-toolbar>
+        </div>
+    </div>
+</div>
