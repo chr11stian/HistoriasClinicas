@@ -3,37 +3,47 @@
         <ng-template pTemplate="header">
             <label class="">GESTACIONES DEL PACIENTE</label>
         </ng-template>
-        <form [formGroup]="paciente">
+        <div class="">
             <div class="grid">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="">
-                        <span class="">TIPO DOCUMENTO</span>
+                <div class="col-12 md:col-6 lg:col-1 p-field">
+                    <div class="col-12 md:col-6 lg:col-1 p-field">
+                        <div class="image-container">
+                            <p-image src="assets/images/paciente.jpg" alt="Image" width="35"></p-image>
+                        </div>
                     </div>
-                    <div class="p-inputgroup">
-                        <input type="text" pInputText formControlName="tipoDocumento" disabled>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="">
-                        <span class="">NUMERO DE DOCUMENTO</span>
-                    </div>
-                    <div class="p-inputgroup">
-                        <input type="text" pInputText formControlName="nroDocumento" disabled>
-                    </div>
+
                 </div>
 
-                <div class="col-12 md:col-6 lg:col-6 p-field">
-                    <div class="">
-                        <span class="">APELLIDOS Y NOMBRES</span>
+                <div class="col-12 md:col-6 lg:col-11 p-field">
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-2 p-field">
+                            <div class="p-inputgroup">
+                                <label>{{tipoDoc}}:</label>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-8 p-field">
+                            <div class="p-inputgroup">
+                                <tr>{{nroDoc}}</tr>
+                            </div>
+                        </div>
                     </div>
-                    <div class="p-inputgroup">
-                        <input type="text" pInputText formControlName="apellidosNombres" disabled>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-2 p-field">
+                            <div class="p-inputgroup">
+                                <label>APELLIDOS Y NOMBRES:</label>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-8 p-field">
+                            <div class="p-inputgroup">
+                                <tr>{{apellidosNombres}}</tr>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
 
-        </form>
+
+        </div>
 
     </p-panel>
 
@@ -51,29 +61,28 @@
     </p-toolbar>
 
 
-    <p-table [value]="gestacion" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+    <p-table [value]="pacientesFiliacion" #dt styleClass="p-datatable-gridlines" [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50]"
              [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
-                <th style="text-align: center">Nro</th>
-                <th style="text-align: center">GESTACION</th>
-                <th style="text-align: center">GESTACION</th>
+                <th style="text-align: center">NUMERO DE GESTACION</th>
                 <th style="text-align: center">ESTADO</th>
                 <th style="text-align: center">ACCIONES</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
-                <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                <td style="text-align: center">{{ rowData.nroGestacion }}</td>
-                <td style="text-align: center">{{ rowData.gestacion }}</td>
+                <td style="text-align: center">{{ rowData.nroEmbarazo }}</td>
                 <td style="text-align: center">{{ rowData.estado }}</td>
                 <td style="text-align: center">
                     <span class="p-buttonset">
-                        <button pButton pRipple class="p-button-success" label="Ver" icon="pi pi-caret-right"></button>
-<!--                        <button pButton pRipple class="p-button-danger" label="Cancelar" icon="pi pi-times"></button>-->
+                        <button pButton pRipple class="p-button-success" routerLink="obstetricia" label="Ver"
+                                icon="pi pi-caret-right"
+                                (click)="ver(rowData)"></button>
+                        <!--                        <button pButton pRipple class="p-button-danger" label="Cancelar" icon="pi pi-times"></button>-->
                     </span>
                 </td>
             </tr>
