@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
 
 @Component({
   selector: 'app-datos-basales',
@@ -9,6 +10,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class DatosBasalesComponent implements OnInit {
 
   form: FormGroup;
+  id:any;
   sino = [
     { label: 'SI', value: true },
     { label: 'NO', value: false }
@@ -16,14 +18,15 @@ export class DatosBasalesComponent implements OnInit {
   city: any;
   datosBasales: any;
 
-  constructor(
+  constructor(private filiancionService: FiliancionService,
     private fb: FormBuilder,
   ) {
     this.inicalizarForm();
   }
 
   ngOnInit(): void {
-
+   this.id=this.filiancionService.id;
+   console.log(this.id);
   }
 
   inicalizarForm() {

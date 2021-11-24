@@ -12,11 +12,19 @@ export class PuerperioInmediatoService {
   bd = environment.bd;
   constructor(private http:HttpClient) {}
 
-  recuperarPuerperioService(tipoDoc, nroDoc,dataPuerperio) {
-    return this.http.put(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio/${tipoDoc}/${nroDoc}`,dataPuerperio);
+  getPuerperioService(tipoDoc, nroDoc) {
+    return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarpuerperio/${tipoDoc}/${nroDoc}`);
+  }
+  getPuerperioService2(id) {
+    return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarpuerperio/${id}`);
   }
   addPuerperioService(tipoDoc, nroDoc, dataPuerperio) {
     return this.http.post<any>(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio/${tipoDoc}/${nroDoc}`,dataPuerperio);
   }
+  addPuerperioService2(id,dataPuerperio) {
+    return this.http.post<any>(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio/${id}`,dataPuerperio);
+  }
+
+
 
 }

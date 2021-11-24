@@ -23,7 +23,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     selected1: any;
     selected2: any;
-
+    id: any;
 
     formAntecedentes: FormGroup;
 
@@ -75,6 +75,8 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     ngOnInit(): void {
         this.buildForm2();
+        this.id=this.filiancionService.id;
+        console.log(this.id);
     }
 
 
