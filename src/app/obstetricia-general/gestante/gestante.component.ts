@@ -4,6 +4,7 @@ import {ObstetriciaGeneralService} from "../services/obstetricia-general.service
 import {FiliancionService} from "./atencion/plan-atencion-integral/services/filiancion-atenciones/filiancion.service";
 import {Route, Router, RouterLink} from "@angular/router";
 
+
 @Component({
     selector: 'app-gestante',
     templateUrl: './gestante.component.html',
@@ -17,7 +18,9 @@ export class GestanteComponent implements OnInit {
     tipoDoc: any;
     nroDoc: any;
     apellidosNombres: any;
-    idDocumento: string;
+
+    id: string;
+
 
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -37,12 +40,14 @@ export class GestanteComponent implements OnInit {
             this.pacientesFiliacion = res.object
             console.log('paciente filiados ', this.pacientesFiliacion)
         });
-
+        this.obstetriciaGeneralService.idGestacion = this.id;
     }
 
     ver(event) {
-        console.log("id documento", event.id);
-        this.obstetriciaGeneralService.observable$.emit(event.id);
+        // console.log("id documento", this.idDocumento);
+        // this.obstetriciaGeneralService.observable$.emit(event.id);
+        this.obstetriciaGeneralService.idGestacion = event.id;
+
     }
 
     // buildForm() {
@@ -65,6 +70,7 @@ export class GestanteComponent implements OnInit {
             this.tipoDoc = this.dataLifiado.tipoDoc
             this.nroDoc = this.dataLifiado.nroDoc;
             this.apellidosNombres = this.dataLifiado.apePaterno + ', ' + this.dataLifiado.apeMaterno + ', ' + this.dataLifiado.primerNombre + ' ' + this.dataLifiado.otrosNombres;
+
         });
         this.getpacientesFiliados(tipoDoc, nroDoc);
     }
