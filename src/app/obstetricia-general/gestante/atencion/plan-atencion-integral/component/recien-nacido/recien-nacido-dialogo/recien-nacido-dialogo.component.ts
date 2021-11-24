@@ -160,6 +160,7 @@ export class RecienNacidoDialogoComponent implements OnInit {
     this.datosEgresos.push(recienNacidoEgreso)
   }
   enviarRecienNacidos() {
+    console.log("Datos de los egresos ",this.datosEgresos)
     var recienNacido = {
       recienNacidoHcl: this.form.value.recienNacidoHcl,
       nombreRecienNacido: this.form.value.nombreRecienNacido,
@@ -238,8 +239,10 @@ export class RecienNacidoDialogoComponent implements OnInit {
         rh: this.form.value.rh
       },
     }
-    this.datosRecienNacido.push(recienNacido)
+    this.datosRecienNacido.push(recienNacido);
+    console.log("Datos de los recien nacidos ",this.datosEgresos);
   }
+  
   canceledEgreso() {
     Swal.fire({
       icon: 'warning',
@@ -250,6 +253,7 @@ export class RecienNacidoDialogoComponent implements OnInit {
     })
     this.egresoRNDialog = false;
   }
+
   ngOnInit(): void {
   }
 
