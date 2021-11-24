@@ -11,6 +11,7 @@ export class ObstetriciaGeneralService {
 
     observable$ = new EventEmitter<string>();
 
+
     constructor(private http: HttpClient) {
     }
 
