@@ -11,7 +11,7 @@ import { debounceTime } from "rxjs/operators";
 import {PartoAbortoService} from "../../services/parto-aborto/parto-aborto.service";
 import {formatDate} from "@angular/common";
 import {MessageService} from 'primeng/api';
-import {ComunicationServiceService} from "../../services/comunication-service.service";
+
 
 
 
@@ -35,7 +35,7 @@ export class PartosComponent implements OnInit {
   constructor(public fb: FormBuilder,
               private partoAbortoService:PartoAbortoService,
               private messageService: MessageService,
-              public comunicacionService :ComunicationServiceService) {
+            ) {
     this.twoOptions = [
       { label: "Si", value: "si" },
       { label: "No", value: "no" },
