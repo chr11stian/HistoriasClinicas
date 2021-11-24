@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {GestanteComponent} from "../gestante.component";
+import {ObstetriciaGeneralService} from "../../services/obstetricia-general.service";
 
 @Component({
-  selector: 'app-atencion',
-  templateUrl: './atencion.component.html',
-  styleUrls: ['./atencion.component.css']
+    selector: 'app-atencion',
+    templateUrl: './atencion.component.html',
+    styleUrls: ['./atencion.component.css']
 })
 export class AtencionComponent implements OnInit {
 
-  constructor() {}
+    idDocumento: string;
 
-  ngOnInit(): void {
-  }
+    constructor(private obstetriciaGeneralService: ObstetriciaGeneralService) {
+    }
+
+    ngOnInit(): void {
+        this.obstetriciaGeneralService.observable$.subscribe(id => {
+            this.idDocumento = id;
+            console.log("ID", id);
+        });
+    }
 
 }

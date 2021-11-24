@@ -1,9 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable, EventEmitter} from '@angular/core';
+import {environment} from "../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ObstetriciaGeneralService {
+    base_url = environment.baseUrl;
+    bd = environment.bd;
 
-  constructor() { }
+    observable$ = new EventEmitter<string>();
+
+    constructor(private http: HttpClient) {
+    }
+
+    getPacienteFiliacion(tipoDoc, nroDoc) {
+        return this.http.get(`${this.base_url}/${this.bd}/filiacion/listarfiliacion/${tipoDoc}/${nroDoc}`)
+    }
 }

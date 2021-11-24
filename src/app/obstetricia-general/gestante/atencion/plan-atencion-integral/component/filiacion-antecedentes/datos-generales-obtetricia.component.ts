@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnInit, ViewChild,} from "@angular
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Network, DataSet} from 'vis';
 import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
+import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 
 @Component({
     selector: "app-datos-generales-obtetricia",
@@ -23,7 +24,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     selected1: any;
     selected2: any;
-
+    // idDocumento: string;
 
     formAntecedentes: FormGroup;
 
@@ -31,7 +32,8 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     dataPacientes: any;
 
     constructor(private form: FormBuilder,
-                private filiancionService: FiliancionService) {
+                private filiancionService: FiliancionService,
+                private obstetriciaGeneralService: ObstetriciaGeneralService) {
         this.opciones = [
             {name: 'SI', code: 'S'},
             {name: 'NO', code: 'N'},
@@ -74,10 +76,12 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        // this.obstetriciaGeneralService.observable$.subscribe(id => {
+        //     this.idDocumento = id;
+        //     console.log("ID", this.idDocumento);
+        // })
         this.buildForm2();
     }
-
-
 
 
     buildForm2() {

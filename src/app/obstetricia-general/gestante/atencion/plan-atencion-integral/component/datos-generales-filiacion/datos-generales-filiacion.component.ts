@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
 import {formatDate} from "@angular/common";
 import Swal from "sweetalert2";
+import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 
 @Component({
     selector: 'app-datos-generales-filiacion',
@@ -21,11 +22,12 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
     fechanacimiento: string;
     edad: any;
-
+    // idDocumento: string;
     formDatos_Generales: FormGroup;
 
     constructor(private formDatosGenerales: FormBuilder,
-                private filiancionService: FiliancionService) {
+                private filiancionService: FiliancionService,
+                private obstetriciaGeneralService: ObstetriciaGeneralService) {
         this.options = [
             {name: true, code: "SI"},
             {name: false, code: "NO"}
@@ -75,6 +77,10 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
 
     ngOnInit(): void {
+        // this.obstetriciaGeneralService.observable$.subscribe(id => {
+        //     this.idDocumento = id;
+        //     console.log("ID", this.idDocumento);
+        // })
         this.buildForm();
         this.pacienteByNroDoc();
     }
