@@ -11,6 +11,8 @@ import { debounceTime } from "rxjs/operators";
 import {PartoAbortoService} from "../../services/parto-aborto/parto-aborto.service";
 import {formatDate} from "@angular/common";
 import {MessageService} from 'primeng/api';
+import {ComunicationServiceService} from "../../services/comunication-service.service";
+
 
 
 @Component({
@@ -32,7 +34,8 @@ export class PartosComponent implements OnInit {
 
   constructor(public fb: FormBuilder,
               private partoAbortoService:PartoAbortoService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              public comunicacionService :ComunicationServiceService) {
     this.twoOptions = [
       { label: "Si", value: "si" },
       { label: "No", value: "no" },
@@ -363,5 +366,20 @@ export class PartosComponent implements OnInit {
   onRowEditInit(product: any) {
     this.clonedProducts[product.id] = {...product};
   }
+//   probando(){
+//     const myObservable = Rx.Observable.create((observer) => {
+//       observer.next(Math.random()); // generamos un número aleatorio
+//     });
+//
+// // Subscripción 1
+//     myObservable.subscribe(data => {
+//       console.log(data); // 0.799234057357979
+//     });
+//
+// // Subscripción 2
+//     myObservable.subscribe(data => {
+//       console.log(data); //0.9293311109721503
+//     });
+//   }
 
 }
