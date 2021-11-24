@@ -755,7 +755,7 @@
                                 </ng-template>
                             </p-table>
                         </p-tabPanel>
-                        <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-chart-bar" header="LABORATORIO">
+                        <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-chart-bar" header="RESUL. LABORATORIO">
                             <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-gridlines"
                                 [paginator]="true" [autoLayout]="true" class="m-3"
                                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
@@ -795,8 +795,8 @@
                                 </ng-template>
                             </p-table>
                         </p-tabPanel>
-                        <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-chart-bar"
-                            header="INTERCONSULTA">
+                        <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-calendar"
+                            header="INTERCONSULTAS">
                             <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
                                 [autoLayout]="true" class="m-3"
                                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
@@ -910,6 +910,6 @@
 </div>
 <div class="footer">
     <button pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2"></button>
-    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
+    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
 </div>
 <!-- </p-card> -->

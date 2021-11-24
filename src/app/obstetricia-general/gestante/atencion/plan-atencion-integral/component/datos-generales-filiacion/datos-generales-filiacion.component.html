@@ -5,7 +5,8 @@
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
-                    style="background: #2196F3; border: 1px solid #2196F3;"></button>
+                    style="background: #2196F3; border: 1px solid #2196F3;"
+                    (click)="agrgarFiliacionDatoPersonales()"></button>
         </ng-template>
     </p-toolbar>
     <br>
@@ -67,18 +68,10 @@
 
             </div>
             <div class="grid">
-                <div class="col-12 md:col-6 lg:col-3 p-field p-fluid">
-                    <label class="m-1">Estado Civil:</label>
-                    <div>
-                        <p-dropdown
-                                inputId="dropdown-1"
-                                [options]="stadoCivil"
-                                formControlName='estadoCivil'
-                                optionValue='estadoCivil'
-                                optionLabel="estadoCivil"
-                                placeholder="Seleccione"
-                                id="1">
-                        </p-dropdown>
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="">
+                        <label class="m-1">Estado Civil:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="estadoCivil">
                     </div>
                 </div>
 
@@ -89,6 +82,7 @@
                                 inputId="dropdown"
                                 [options]="departamentos"
                                 defaultLabel="Seleccione departamento"
+                                formControlName="departamento"
                                 optionLabel="departamento"
                                 optionValue="departamento">
                         </p-dropdown>
@@ -102,7 +96,8 @@
                             <p-dropdown
                                     inputId="dropdown"
                                     [options]="provincias"
-                                    defaultLabel="Seleccione provincia"
+                                    defaultLabel="Seleccione departamento"
+                                    formControlName="provincia"
                                     optionLabel="provincia"
                                     optionValue="provincia">
                             </p-dropdown>
@@ -114,8 +109,9 @@
                     <label class="m-1">Distrito:</label>
                     <div>
                         <p-dropdown
-                                inputId="dropdown"
+                                inputId="dropdown2"
                                 [options]="distritos"
+                                formControlName="distrito"
                                 defaultLabel="Seleccione distrito"
                                 optionLabel="distrito"
                                 optionValue="distrito">
@@ -139,14 +135,14 @@
                     <div class="">
                         <label class="m-1">Aplica: </label>
                         <p-selectButton [options]="options" formControlName="aplica"
-                                        optionLabel="name"></p-selectButton>
+                                        optionLabel="code"></p-selectButton>
                     </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-2 p-field">
                     <div class="">
                         <label class="m-1">Referencia: </label>
                         <p-selectButton [options]="options" formControlName="referencia"
-                                        optionLabel="name"></p-selectButton>
+                                        optionLabel="code"></p-selectButton>
                     </div>
                 </div>
             </div>
