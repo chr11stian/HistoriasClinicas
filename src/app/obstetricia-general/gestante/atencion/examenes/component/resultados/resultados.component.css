@@ -1,6 +1,6 @@
 .bg-rojo {
     width: 95%;
-    height: 7em;
+    height: auto;
     background: rgb(206, 23, 23);
     border-top: 0.1em solid;
     border-right: 0.1em solid;
@@ -16,7 +16,7 @@
   }
   .bg-blanco {
     width: 95%;
-    height: 7rem;
+    height: auto;
     /* background: blue; */
     border-bottom: 0.1em solid;
     border-right: 0.1em solid;

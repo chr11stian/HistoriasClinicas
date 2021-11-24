@@ -34,6 +34,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { AccordionModule } from 'primeng/accordion';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DividerModule } from 'primeng/divider';
+import { SplitterModule } from 'primeng/splitter';
 
 const importsApi = [
   ToolbarModule,
@@ -83,6 +84,7 @@ const importsApi = [
   AccordionModule,
   DynamicDialogModule,
   DividerModule,
+  SplitterModule
 ];
 
 @NgModule({
