@@ -11,6 +11,7 @@ import { debounceTime } from "rxjs/operators";
 import {PartoAbortoService} from "../../services/parto-aborto/parto-aborto.service";
 import {formatDate} from "@angular/common";
 import {MessageService} from 'primeng/api';
+import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 
 
 
@@ -23,7 +24,7 @@ import {MessageService} from 'primeng/api';
 export class PartosComponent implements OnInit {
   isUpdate:boolean=false;
   // tipoDoc:string="DNI"
-  idPaciente:string="619d00785773280f8183f0ea"
+  idPaciente:string;
   treeOptionsOptions: any[];
   twoOptions: any[];
   TFOptions:any[];
@@ -35,7 +36,9 @@ export class PartosComponent implements OnInit {
   constructor(public fb: FormBuilder,
               private partoAbortoService:PartoAbortoService,
               private messageService: MessageService,
+              private obstetriciaGeneralService: ObstetriciaGeneralService
             ) {
+    this.idPaciente=obstetriciaGeneralService.idGestacion;
     this.twoOptions = [
       { label: "Si", value: "si" },
       { label: "No", value: "no" },
@@ -122,6 +125,7 @@ export class PartosComponent implements OnInit {
     // this.myGroup.valueChanges.pipe(debounceTime(350)).subscribe((value) => {
     //   console.log(value);
     // });
+    this.getPartoAborto();
 
   }
   // ngDoCheck(): void {
@@ -242,16 +246,22 @@ export class PartosComponent implements OnInit {
         responsableAtencionNeonato:this.getFC("responsableAtencionNeonato").value
       }
     }
-    if(this.isUpdate){
-      this.partoAbortoService.updatePartoAborto('DNI/24015415',partoAbortoInput).subscribe((resp)=>{
-        this.messageService.add({severity:'info', summary:'Actualizado', detail:'Parto o aborto fue Actualizado satisfactoriamente'});
+    this.isUpdate
+      this.partoAbortoService.addUpdatePartoAborto(this.idPaciente,partoAbortoInput).subscribe((resp)=>{
+        if(this.isUpdate){
+          this.messageService.add({severity:'info', summary:'Actualizado', detail:'Parto o aborto fue Actualizado satisfactoriamente'});
+        }
+        else{
+          this.messageService.add({severity:'su', summary:'Agregado', detail:'Parto o aborto fue agregado satisfactoriamente'});
+
+        }
       })
-    }
-    else {
-    this.partoAbortoService.addPartoAborto(this.idPaciente,partoAbortoInput).subscribe((resp)=>{
-      this.messageService.add({severity:'su', summary:'Agregado', detail:'Parto o aborto fue agregado satisfactoriamente'});
-    })
-    }
+    // }
+    // else {
+    // this.partoAbortoService.addPartoAborto(this.idPaciente,partoAbortoInput).subscribe((resp)=>{
+    //   this.messageService.add({severity:'su', summary:'Agregado', detail:'Parto o aborto fue agregado satisfactoriamente'});
+    // })
+    // }
   }
   getFechaHora(date:Date){
     // let fecha=a.toLocaleDateString();
@@ -343,11 +353,12 @@ export class PartosComponent implements OnInit {
       // console.log(respuesta);
       // console.log(resp);
         this.isUpdate=true;
-        console.log('registro recuperado satifactoriamente')
-    }
+        this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro recuperado satisfactoriamente'});
+
+      }
       else{
         this.isUpdate=false;
-        console.log('no existe registro de este paciente')
+        this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe registro parto aborto'});
       }
     });
 

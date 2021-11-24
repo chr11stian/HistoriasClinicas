@@ -13,8 +13,8 @@ export class PartoAbortoService {
   addPartoAborto(idPaciente,inputParto:any) {
     return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarparto-aborto/${idPaciente}`,inputParto);
   }
-  updatePartoAborto(idPaciente,inputParto:any) {
-    return this.http.put(`${this.base_url}/${this.bd}/filiacion/guardarparto-aborto/${idPaciente}`,inputParto);
+  addUpdatePartoAborto(idPaciente,inputParto:any) {
+    return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarparto-aborto/${idPaciente}`,inputParto);
   }
   getPartoAborto(idPaciente) {
     return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarparto-aborto/${idPaciente}`);
