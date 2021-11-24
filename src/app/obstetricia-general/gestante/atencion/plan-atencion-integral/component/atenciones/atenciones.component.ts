@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
+import {AtencionesService} from "../../services/atenciones/Atenciones.service";
+import {DatePipe} from "@angular/common";
 
 
 @Component({
@@ -11,10 +13,20 @@ import Swal from "sweetalert2";
 })
 export class AtencionesComponent implements OnInit {
     form: FormGroup;
+    formFetos: FormGroup;
+    formOrientacion: FormGroup;
+    formFechaEcografia: FormGroup;
+    formAcidoFolico: FormGroup;
+    formHierroYAcidoFolico: FormGroup;
+    formCalcio:FormGroup;
+    formInterconsulta:FormGroup;
+    formVisitaDomiciliario:FormGroup;
+    formProxCita: FormGroup;
+
     data: any[] = [];
     isUpdate: boolean = false;
     idUpdate: string = "";
-    datafecha: any;
+
 
     /* ---  listas ---*/
     situacionList: any[];
@@ -31,7 +43,7 @@ export class AtencionesComponent implements OnInit {
     atencionGestanteDialog: boolean;
 
     nroAtencion: number;
-    fechaAtencion: string;
+    fechaAtencion: Date;
     edadGestacional: number;
     pesoMadre: number;
     evalNutricional: string;
@@ -47,12 +59,30 @@ export class AtencionesComponent implements OnInit {
     proteinaCualitativa: string;
     edema: string;
     reflejoOsteotendinoso: string;
-    fechaEcografia: string;
+    /*Fecha de ecografia (fecha, hora, descripcion,edad gestacional*/
+    fechaEcografia: Date;
+    descripcion:string;
+    edadGestacionalEcografia: string;
+    /*Orientacion o consejeria*/
+    consejeria:any[]=[];
     consejeriaIntegral: string;
-    indAcidoFolico: string;
+    cie10:string;
+
+    indAcidoFolico: any[]=[];
+    descripcionT:string;
+    numeroT:string;
+    dosisT:string;
+    viaAdministracion:string;
+    freuencia:string;
+
     indFierro: string;
     indCalcio: string;
-    interconsulta: string;
+
+    interconsulta: any[]=[];
+    consultorio:string;
+    motivo:string;
+    fecha:Date;
+
     planParto: string;
     visitaDomiciliaria: string;
     proximaCita: string;
@@ -60,9 +90,8 @@ export class AtencionesComponent implements OnInit {
     establecimientoAtencion: string;
 
 
-    constructor(
-        private formBuilder: FormBuilder
-    ) {
+    constructor(private formBuilder: FormBuilder,
+                private atencionesService: AtencionesService) {
 
         this.buildForm();
         /*LLENADO DE LISSTAS- VALORES QUE PUEDEN TOMAR CIERTAS PROPIEDADES*/
@@ -113,9 +142,7 @@ export class AtencionesComponent implements OnInit {
         this.visitaDomiciliariaList = [{label: 'Si', value: '1'},
             {label: 'No', value: '2'},
             {label: 'No Aplica', value: '3'}];
-
     }
-
     buildForm() {
         this.form = this.formBuilder.group({
             nroAtencion: ['', [Validators.required]],
@@ -135,6 +162,7 @@ export class AtencionesComponent implements OnInit {
             proteinaCualitativa: ['', [Validators.required]],
             edema: ['', [Validators.required]],
             reflejoOsteotendinoso: ['', [Validators.required]],
+            /*ARREGLO DE ECOGRAFIA*/
             fechaEcografia: ['', [Validators.required]],
             consejeriaIntegral: ['', [Validators.required]],
             indAcidoFolico: ['', [Validators.required]],
@@ -149,7 +177,6 @@ export class AtencionesComponent implements OnInit {
         });
 
     }
-
 
     save(form: any) {
         this.isUpdate = false;
@@ -199,7 +226,6 @@ export class AtencionesComponent implements OnInit {
         this.form.get('visitaDomiciliaria').setValue("");
         this.form.get('responsableAtencion').setValue("");
         this.form.get('establecimientoAtencion').setValue("");
-
         this.atencionGestanteDialog = true;
     }
 
@@ -320,6 +346,8 @@ export class AtencionesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
     }
+
 }
 

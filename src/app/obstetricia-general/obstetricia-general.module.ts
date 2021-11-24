@@ -9,6 +9,7 @@ import {ConsultaComponent} from './gestante/consulta/consulta.component';
 import {ConsultasGeneralModule} from "./consultas-general/consultas-general.module";
 import {GestanteComponent} from "./gestante/gestante.component";
 import {CitasComponent} from "./citas.component";
+import {ImageModule} from "primeng/image";
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {CitasComponent} from "./citas.component";
         PaginatorModule,
 
         AtencionModule,
-        ConsultasGeneralModule
+        ConsultasGeneralModule,
+        ImageModule
 
     ]
 })

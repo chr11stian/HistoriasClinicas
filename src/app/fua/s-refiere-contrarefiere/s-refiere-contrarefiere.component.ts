@@ -11,8 +11,8 @@ export class SRefiereContrarefiereComponent implements OnInit {
   formRefContraref: FormGroup;
   data:any[]=[];
   sino = [
-    { label: 'SI', value: 'SI' },
-    { label: 'NO', value: 'NO' }
+    { label: 'Si', value: 'SI' },
+    { label: 'No', value: 'NO' }
   ];
   TamizajeOptions=[
     {label:'PAT.', value: 'PAT'},

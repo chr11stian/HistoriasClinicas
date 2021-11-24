@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-dialog-consulta-universal',
@@ -14,6 +15,7 @@ export class DialogConsultaUniversalComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private ref: DynamicDialogRef
     // private 
   ) { }
 
@@ -28,7 +30,11 @@ export class DialogConsultaUniversalComponent implements OnInit {
   }
 
   closeDialog(){
-    
+    let a = {
+      a:2,
+      b:'hola mundo'
+    }
+    this.ref.close(a);
   }
 
 }
