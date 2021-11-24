@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatosBasalesService } from '../../services/datos-basales/datos-basales.service';
 
 @Component({
@@ -19,6 +19,7 @@ export class DatosBasalesComponent implements OnInit {
   hemoglobina: any;
   datosBasales: any;
   otrosExamenes: any;
+  rptaDatosBasales: any;
 
   constructor(
     private fb: FormBuilder,
@@ -42,9 +43,6 @@ export class DatosBasalesComponent implements OnInit {
       firstDosis: new FormControl(''),
       secondDosis: new FormControl(''),
       drogas: new FormControl(''),
-      aplica: new FormControl(''),
-      sinDosis: new FormControl(''),
-      dosisNoAplica: new FormControl(''),
       cigarrillosDia: new FormControl(''),
       tipoSangreGrupo: new FormControl(''),
       rh: new FormControl(''),
@@ -407,9 +405,9 @@ export class DatosBasalesComponent implements OnInit {
     this.recuperarDatos();
     // this.recuperarHemoglobina()
     console.log('data to save ', this.datosBasales);
-    this.datosBasalesService.postDatosBasales('DNI', '10101011', this.datosBasales).subscribe((res: any) => {
-      console.log('se guardo con exito ', res)
-    })
+    // this.datosBasalesService.postDatosBasales('DNI', '10101011', this.datosBasales).subscribe((res: any) => {
+    //   console.log('se guardo con exito ', res)
+    // })
 
     console.log('examen fisico ', this.form.value.clinico);
     // this.recuperarExamenFisico();
@@ -419,33 +417,41 @@ export class DatosBasalesComponent implements OnInit {
 
   loadData() {
     this.datosBasalesService.getDatosBasalesById('619cffaf5773280f8183f0e9').subscribe((res: any) => {
-      console.log('datos de embarazo', res)
-      this.form.patchValue({ 'imc': 123 });
-      this.form.patchValue({ 'pesoHabitual': 123 });
-      this.form.patchValue({ 'talla': '' });
-      this.form.patchValue({ 'nroDosisPrevias': '' });
-      this.form.patchValue({ 'primeraDosis': '' });
-      this.form.patchValue({ 'segundaDosis': '' });
-      this.form.patchValue({ 'firstDosis': '' });
-      this.form.patchValue({ 'secondDosis': '' });
-      this.form.patchValue({ 'drogas': '' });
-      this.form.patchValue({ 'aplica': '' });
-      this.form.patchValue({ 'sinDosis': '' });
-      this.form.patchValue({ 'dosisNoAplica': '' });
-      this.form.patchValue({ 'cigarrillosDia': '' });
-      this.form.patchValue({ 'tipoSangreGrupo': '' });
-      this.form.patchValue({ 'rh': '' });
-      this.form.patchValue({ 'duda': '' });
-      this.form.patchValue({ 'hospitalizacion': '' });
-      this.form.patchValue({ 'diagnosticoHosp': '' });
-      this.form.patchValue({ 'diagnosticoEmergenci': '' });
-      this.form.patchValue({ 'hospitalizacionCIE': '' });
-      this.form.patchValue({ 'emergenciaCIE': '' });
-      this.form.patchValue({ 'talla': '' });
-      this.form.patchValue({ 'talla': '' });
+
+      this.rptaDatosBasales = res.object;
+      console.log('datos de embarazo', this.rptaDatosBasales)
+      this.form.patchValue({ 'imc': this.rptaDatosBasales.pesoTalla.imc });
+      this.form.patchValue({ 'pesoHabitual': this.rptaDatosBasales.pesoTalla.pesoHabitual });
+      this.form.patchValue({ 'talla': this.rptaDatosBasales.pesoTalla.talla });
+      this.form.patchValue({ 'nroDosisPrevias': this.rptaDatosBasales.antitetanica.nroDosisPrevia });
+      console.log('data consult ', typeof (this.rptaDatosBasales.antitetanica.dosis[0].dosis));
+      this.form.patchValue({ 'primeraDosis': new Date(this.rptaDatosBasales.antitetanica.dosis[0].dosis) });
+      this.form.patchValue({ 'segundaDosis': new Date(this.rptaDatosBasales.antitetanica.dosis[1].dosis) });
+      this.form.patchValue({ 'firstDosis': this.rptaDatosBasales.antitetanica.dosis[0].detalle });
+      this.form.patchValue({ 'secondDosis': this.rptaDatosBasales.antitetanica.dosis[1].detalle });
+      this.form.patchValue({ 'tipoSangreGrupo': this.rptaDatosBasales.tipoSangre.grupo });
+      this.form.patchValue({ 'rh': this.rptaDatosBasales.tipoSangre.rh });
+      this.form.patchValue({ 'drogas': this.rptaDatosBasales.drogas });
+      this.form.patchValue({ 'cigarrillosDia': this.rptaDatosBasales.nroCigarrosAlDia });
+
+      // let aux()
+      this.form.patchValue({ 'hospitalizacion': this.rptaDatosBasales.hospitalizacion[0].hospitalizacion });
+      this.form.patchValue({ 'dateHospitalizacion': new Date(this.rptaDatosBasales.hospitalizacion[0].fecha) });
+      this.form.patchValue({ 'diagnosticoHosp': this.rptaDatosBasales.hospitalizacion[0].diagnostico });
+      this.form.patchValue({ 'hospitalizacionCIE': this.rptaDatosBasales.hospitalizacion[0].cie10 });
+      this.form.patchValue({ 'dateEmergencia': new Date(this.rptaDatosBasales.emergencia.fecha) });
+      this.form.patchValue({ 'diagnosticoEmergenci': this.rptaDatosBasales.emergencia.diagnostico });
+      this.form.patchValue({ 'emergenciaCIE': this.rptaDatosBasales.emergencia.cie10 });
+      this.form.patchValue({ 'rubeola': this.vacPrevias('Rubeola', this.rptaDatosBasales.vacunasPrevias) });
+      
+      console.log('find ', this.vacPrevias('Rubeola', this.rptaDatosBasales.vacunasPrevias) );
       this.form.patchValue({ 'talla': '' });
       this.form.patchValue({ 'talla': '' });
       this.form.patchValue({ 'talla': '' });
     });
+  }
+
+  vacPrevias(name: string, listVacPrev) {
+    listVacPrev.find(item => item === name)
   }
 }

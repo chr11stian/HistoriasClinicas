@@ -11,6 +11,7 @@ export class GestanteComponent implements OnInit {
     selectedOption: data
     gestacion: any[]
     paciente: FormGroup;
+    id:string;
 
     constructor(private form: FormBuilder) {
         this.options = [
@@ -58,7 +59,6 @@ export class GestanteComponent implements OnInit {
             apellidosNombres: new FormControl('q'),
         })
     }
-
 }
 
 interface data {
