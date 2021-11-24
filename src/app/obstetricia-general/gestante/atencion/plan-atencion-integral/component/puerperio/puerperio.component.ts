@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import {DialogConsultaComponent} from "../../../../../consultas-general/dialog-consulta/dialog-consulta.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
+import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 
 @Component({
     selector: 'app-puerperio',
@@ -23,18 +24,18 @@ export class PuerperioComponent implements OnInit {
     idUpdate: string = "";
     cantidadPuerperios: any;
 
-
     constructor(
         private form: FormBuilder,
         private puerperioService: PuerperioInmediatoService,
         private dialog: DialogService,
-        private filiancionService: FiliancionService
+        private filiancionService: FiliancionService,
+        private obstetriciaService:ObstetriciaGeneralService
     ) {
         this.buildForm();
     }
 
     ngOnInit(): void {
-        this.id = this.filiancionService.id;
+        this.id = this.obstetriciaService.id;
         console.log(this.id);
         this.recuperarPuerperio();
     }
@@ -44,10 +45,8 @@ export class PuerperioComponent implements OnInit {
             console.log('puerperio por id: ', this.dataPuerperio)
             this.formPurperio.get('')
         });
-
     }
     recuperarPuerperio() {
-
          this.dataPuerperio = {
              puerperioInmediato: [
                  {
@@ -69,11 +68,10 @@ export class PuerperioComponent implements OnInit {
         this.recuperarPuerperio();
         console.log('Datos a guardar en puerperio: ', this.dataPuerperio);
     }
-
     saveForm() {
-        this.id=this.filiancionService.id;
-        let tipoDoc = "DNI";
-        let nroDoc = "24015415";
+        this.id = this.obstetriciaService.id;
+        // let tipoDoc = "DNI";
+        // let nroDoc = "24015415";
         this.isUpdate = false;
 
         const req = {
@@ -92,9 +90,7 @@ export class PuerperioComponent implements OnInit {
                 ],
                 proceso: "puerperio"
             }
-
-            // this.puerperioService.addPuerperioService2(this.id,req).subscribe(
-            this.puerperioService.addPuerperioService(tipoDoc,nroDoc,req).subscribe(
+            this.puerperioService.addPuerperioService2(this.id,req).subscribe(
                     (resp) => {
                     console.log(resp);
                     console.log(req);
@@ -108,27 +104,12 @@ export class PuerperioComponent implements OnInit {
                 }
             )
     }
-
    recuperarPuerperios() {
-       let tipoDoc = "DNI";
-       let nroDoc = "24015415";
        this.isUpdate = true;
        console.log(this.id);
-       this.puerperioService.getPuerperioService(tipoDoc,nroDoc).subscribe((res: any) => {
+       this.puerperioService.getPuerperioService2(this.id).subscribe((res: any) => {
            this.dataPuerperio = res.object
-            console.log('paciente por doc', this.dataPuerperio);
-
-           // this.formPurperio.get('fechaAtencion').setValue(this.dataPuerperio);
-           // "fechaAtencion":"2020-02-12",
-           //     "horasDiasPostPartoAborto":"4",
-           //     "temperatura":"24",
-           //     "pulso":"55",
-           //     "presionArterialMaxima":"35",
-           //     "involucionUteriana":"no se que poner",
-           //     "caracteristicasLoquios":"vacio",
-           //     "heridaOperacion":"no hay ninguna herida",
-           //     "observaciones":"mas adelante habra mas
-
+            console.log('puerperio:', this.dataPuerperio);
        });
    }
     openNew(){
@@ -173,7 +154,6 @@ export class PuerperioComponent implements OnInit {
     getFechaHora(date:Date){
         // let fecha=a.toLocaleDateString();
         if(date.toString()!==''){
-
             let hora=date.toLocaleTimeString();
             // return fecha+' '+hora;
             let dd = date.getDate();
