@@ -13,7 +13,7 @@ export class DialogConsultaComponent implements OnInit {
   prueba: any[];
   isUpdate: boolean = false;
   listaSituacion = [
-    { name: "Lontitudinal", code: "1" },
+    { name: "Longitudinal", code: "1" },
     { name: "Transversal", code: "2" },
     { name: "No Aplica", code: "3" },
   ];
