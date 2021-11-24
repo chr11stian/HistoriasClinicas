@@ -40,14 +40,14 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table class="table-over" [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10"
+            <p-table class="table-over" [value]="tratamiento" #dt styleClass="p-datatable-gridlines" [rows]="10"
                      [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center" class="font-2">Nro</th>
-                        <th style="text-align: center" class="font-1">TRATAMIENTO</th>
+                        <th style="text-align: center" class="font-1">Tratamiento</th>
                         <th style="text-align: center" class="font-2">ACCIÓN</th>
 
                     </tr>
@@ -88,14 +88,14 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table class="table-over" [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10"
+            <p-table class="table-over" [value]="acuerdo" #dt styleClass="p-datatable-gridlines" [rows]="10"
                      [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center" class="font-2">Nro</th>
-                        <th style="text-align: center" class="font-1">TRATAMIENTO</th>
+                        <th style="text-align: center" class="font-1">Acuerdo</th>
                         <th style="text-align: center" class="font-2">ACCIÓN</th>
 
                     </tr>
@@ -103,7 +103,7 @@
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
                         <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.tratamiento }}</td>
+                        <td style="text-align: center">{{ rowData.acuerdo }}</td>
 
                         <td style="text-align: center">
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
@@ -128,11 +128,27 @@
                 </ng-template>
             </p-toolbar>
             <div class="grid">
-                <div class="col-6 md-4 lg-3">
-
+                <div class="flex col-6 md-4 lg-3 align-items-center">
+                    <div class="col-2 md-4 lg-3">
+                        <span>OD: </span>
+                    </div>
+                    <div class="col-10 md-4 lg-3">
+                        <input type="text"
+                               pInputText
+                               class="inputfield w-full"
+                               placeholder="Otros"/>
+                    </div>
                 </div>
-                <div class="col-6 md-4 lg-3">
-
+                <div class="flex col-6 md-4 lg-3 align-items-center">
+                    <div class="col-2 md-4 lg-3">
+                        <span>OI: </span>
+                    </div>
+                    <div class="col-10 md-4 lg-3">
+                        <input type="text"
+                               pInputText
+                               class="inputfield w-full"
+                               placeholder="Otros"/>
+                    </div>
                 </div>
             </div>
         </div>
