@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {GestanteComponent} from "../gestante.component";
+import {ObstetriciaGeneralService} from "../../services/obstetricia-general.service";
 
 @Component({
-  selector: 'app-atencion',
-  templateUrl: './atencion.component.html',
-  styleUrls: ['./atencion.component.css']
+    selector: 'app-atencion',
+    templateUrl: './atencion.component.html',
+    styleUrls: ['./atencion.component.css']
 })
 export class AtencionComponent implements OnInit {
   titleBienvenida: string = "¡Iniciemos!";
@@ -13,9 +16,14 @@ export class AtencionComponent implements OnInit {
   titleSegundaFase: string="Por último";
   contentSegundaFase:string="";
 
-  constructor() {}
+    idDocumento: string;
+    id:string="";
+    constructor(private obstetriciaGeneralService: ObstetriciaGeneralService) {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+        this.id=this.obstetriciaGeneralService.id;
+        console.log("xxxxx",this.id);
+    }
 
 }

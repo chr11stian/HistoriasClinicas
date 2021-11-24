@@ -1,5 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {ObstetriciaGeneralService} from "../services/obstetricia-general.service";
+import {FiliancionService} from "./atencion/plan-atencion-integral/services/filiancion-atenciones/filiancion.service";
+import {Route, Router, RouterLink} from "@angular/router";
 
 @Component({
     selector: 'app-gestante',
@@ -7,61 +10,67 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
     styleUrls: ['./gestante.component.css']
 })
 export class GestanteComponent implements OnInit {
-    options: data[]
-    selectedOption: data
-    gestacion: any[]
-    paciente: FormGroup;
 
-    constructor(private form: FormBuilder) {
-        this.options = [
-            {name: "DNI", code: 1},
-            {name: "CARNET RN", code: 2},
-            {name: "C EXTRANJERIA", code: 3},
-            {name: "OTROS", code: 4},
-        ]
-        this.gestacion = [
-            {
-                tipoDoc: "DNI",
-                dni: "10101010",
-                apnombres:"XXXXX XXXX XXX",
-                nroGestacion: 1,
-                gestacion: "Normal",
-                estado: "Inactivo",
-            },
-            {
-                tipoDoc: "DNI",
-                dni: "10101010",
-                nroGestacion: 2,
-                gestacion: "Normal",
-                estado: "Activo",
-            },
-            // {
-            //     tipoDoc: "DNI",
-            //     dni: "10101010",
-            //     nroGestacion: 3,
-            //     gestacion: "Normal",
-            //     estado: "Activo",
-            // },
+    pacientesFiliacion: any;
+    dataLifiado: any;
+    FormPaciente: FormGroup;
+    tipoDoc: any;
+    nroDoc: any;
+    apellidosNombres: any;
 
-        ]
+    id:string;
+
+    constructor(private form: FormBuilder,
+                private obstetriciaGeneralService: ObstetriciaGeneralService,
+                private filiancionService: FiliancionService) {
 
     }
 
     ngOnInit(): void {
-        this.buildForm();
+        // this.buildForm();
+        this.pacienteByNroDoc();
     }
 
-    buildForm() {
-        this.paciente = this.form.group({
-            tipoDocumento: new FormControl('dni'),
-            nroDocumento: new FormControl('q'),
-            apellidosNombres: new FormControl('q'),
-        })
+    getpacientesFiliados(tipoDoc, nroDoc) {
+        // let tipoDoc = "DNI";
+        // let nroDoc = "24015415";
+        this.obstetriciaGeneralService.getPacienteFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
+            this.pacientesFiliacion = res.object
+            console.log('paciente filiados ', this.pacientesFiliacion)
+        });
+        this.obstetriciaGeneralService.id = this.id;
+    }
+    ver(event) {
+
+        this.obstetriciaGeneralService.observable$.emit(event.id);
+        this.obstetriciaGeneralService.id=event.id;
+
+    }
+
+    // buildForm() {
+    //     // this.FormPaciente = this.form.group({
+    //     //     tipoDocumento: new FormControl(),
+    //     //     nroDocumento: new FormControl(),
+    //     //     apellidosNombres: new FormControl(),
+    //     // })
+    // }
+
+    pacienteByNroDoc() {
+        let tipoDoc = "DNI";
+        let nroDoc = "24015415"
+        // nroDoc: "24015415"
+        this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
+            this.dataLifiado = res.object
+            console.log('paciente por doc ', this.dataLifiado)
+
+
+            this.tipoDoc = this.dataLifiado.tipoDoc
+            this.nroDoc = this.dataLifiado.nroDoc;
+            this.apellidosNombres = this.dataLifiado.apePaterno + ', ' + this.dataLifiado.apeMaterno + ', ' + this.dataLifiado.primerNombre + ' ' + this.dataLifiado.otrosNombres;
+
+        });
+        this.getpacientesFiliados(tipoDoc, nroDoc);
     }
 
 }
 
-interface data {
-    name: string
-    code: number
-}

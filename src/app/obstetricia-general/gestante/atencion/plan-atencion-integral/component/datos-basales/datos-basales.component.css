@@ -88,6 +88,11 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
   background: red;
 }
 
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight:hover {
+  border-color: red;
+  background: red;
+}
+
 ::ng-deep .default .p-radiobutton .p-radiobutton-icon {
   background: #2196f3;
   border: #2196f3;

@@ -8,7 +8,6 @@ const routes: Routes = [
         path: "obstetricia",
         component: AtencionComponent
     },
-
 ];
 
 @NgModule({
