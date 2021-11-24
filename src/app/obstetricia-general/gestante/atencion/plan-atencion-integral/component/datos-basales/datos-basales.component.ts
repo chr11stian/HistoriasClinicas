@@ -36,17 +36,12 @@ export class DatosBasalesComponent implements OnInit {
       imc: new FormControl(''),
       pesoHabitual: new FormControl(''),
       talla: new FormControl(''),
-      check: new FormControl(''),
       nroDosisPrevias: new FormControl(''),
       primeraDosis: new FormControl(''),
       segundaDosis: new FormControl(''),
       firstDosis: new FormControl(''),
       secondDosis: new FormControl(''),
-      a: new FormControl(''),
       drogas: new FormControl(''),
-      date: new FormControl(''),
-      rdo: new FormControl(''),
-      console: new FormControl(''),
       aplica: new FormControl(''),
       sinDosis: new FormControl(''),
       dosisNoAplica: new FormControl(''),
@@ -422,7 +417,35 @@ export class DatosBasalesComponent implements OnInit {
     // console.log('splited data ', splited);
   }
 
-  loadData(){
-    this.form.patchValue({'imc':123});
+  loadData() {
+    this.datosBasalesService.getDatosBasalesById('619cffaf5773280f8183f0e9').subscribe((res: any) => {
+      console.log('datos de embarazo', res)
+      this.form.patchValue({ 'imc': 123 });
+      this.form.patchValue({ 'pesoHabitual': 123 });
+      this.form.patchValue({ 'talla': '' });
+      this.form.patchValue({ 'nroDosisPrevias': '' });
+      this.form.patchValue({ 'primeraDosis': '' });
+      this.form.patchValue({ 'segundaDosis': '' });
+      this.form.patchValue({ 'firstDosis': '' });
+      this.form.patchValue({ 'secondDosis': '' });
+      this.form.patchValue({ 'drogas': '' });
+      this.form.patchValue({ 'aplica': '' });
+      this.form.patchValue({ 'sinDosis': '' });
+      this.form.patchValue({ 'dosisNoAplica': '' });
+      this.form.patchValue({ 'cigarrillosDia': '' });
+      this.form.patchValue({ 'tipoSangreGrupo': '' });
+      this.form.patchValue({ 'rh': '' });
+      this.form.patchValue({ 'duda': '' });
+      this.form.patchValue({ 'hospitalizacion': '' });
+      this.form.patchValue({ 'diagnosticoHosp': '' });
+      this.form.patchValue({ 'diagnosticoEmergenci': '' });
+      this.form.patchValue({ 'hospitalizacionCIE': '' });
+      this.form.patchValue({ 'emergenciaCIE': '' });
+      this.form.patchValue({ 'talla': '' });
+      this.form.patchValue({ 'talla': '' });
+      this.form.patchValue({ 'talla': '' });
+      this.form.patchValue({ 'talla': '' });
+      this.form.patchValue({ 'talla': '' });
+    });
   }
 }
