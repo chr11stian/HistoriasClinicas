@@ -191,13 +191,13 @@
                                     <label>1.</label>
                                 </div>
                                 <div class="col-5">
-                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                    <input type="text" formControlName="patologia1" class="p-inputtext-sm " pInputText />
                                 </div>
                                 <div class="col-3">
-                                    <input type="date" class="p-inputtext-sm " pInputText />
+                                    <input type="date" formControlName="patologiaFecha1" class="p-inputtext-sm " pInputText />
                                 </div>
                                 <div class="col-3">
-                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                    <input type="text" formControlName="patologiaCIE1" class="p-inputtext-sm " pInputText />
                                 </div>
                             </div>
                             <div class="grid">
@@ -205,13 +205,13 @@
                                     <label>2.</label>
                                 </div>
                                 <div class="col-5">
-                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                    <input type="text" formControlName="patologia2" class="p-inputtext-sm " pInputText />
                                 </div>
                                 <div class="col-3">
-                                    <input type="date" class="p-inputtext-sm " pInputText />
+                                    <input type="date" formControlName="patologiaFecha2" class="p-inputtext-sm " pInputText />
                                 </div>
                                 <div class="col-3">
-                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                    <input type="text" formControlName="patologiaCIE2" class="p-inputtext-sm " pInputText />
                                 </div>
                             </div>
                             <div class="grid">
@@ -219,13 +219,13 @@
                                     <label>3.</label>
                                 </div>
                                 <div class="col-5">
-                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                    <input type="text" formControlName="patologia3" class="p-inputtext-sm " pInputText />
                                 </div>
                                 <div class="col-3">
-                                    <input type="date" class="p-inputtext-sm " pInputText />
+                                    <input type="date" formControlName="patologiaFecha3" class="p-inputtext-sm " pInputText />
                                 </div>
                                 <div class="col-3">
-                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                    <input type="text" formControlName="patologiaCIE3" class="p-inputtext-sm " pInputText />
                                 </div>
                             </div>
                         </div>
@@ -912,7 +912,7 @@
                             <div class="grid">
                                 <div class="col-2"></div>
                                 <div class="col-8">
-                                    <input type="date" formControlName="fechaRN" class="p-inputtext-sm " pInputText />
+                                    <input type="datetime-local" formControlName="fechaRN" class="p-inputtext-sm " pInputText />
                                 </div>
                                 <div class="col-2"></div>
                             </div>
@@ -997,7 +997,7 @@
                                     pInputText />
                             </div>
                             <div class="col-2">
-                                <p-checkbox name="dxfNoAplica" formControlName="dxFallecimientoNoAplica" value="true"
+                                <p-checkbox name="dxfNoAplica" formControlName="dxFallecimientoNoAplica" value=true
                                     inputId="dxFallecimiento" class="azul pb-0"> </p-checkbox>
                             </div>
                         </div>
@@ -1011,7 +1011,7 @@
                                 <input type="text" formControlName="dxTraslado" class="p-inputtext-sm " pInputText />
                             </div>
                             <div class="col-2">
-                                <p-checkbox name="dxtNoAplica" formControlName="dxTrasladoNoAplica" value="true"
+                                <p-checkbox name="dxtNoAplica" formControlName="dxTrasladoNoAplica" value=true
                                     class="azul pb-0"> </p-checkbox>
                             </div>
                         </div>
@@ -1026,7 +1026,7 @@
                                     pInputText />
                             </div>
                             <div class="col-2">
-                                <p-checkbox name="estaNoAplica" formControlName="estaNoAplica" value="true"
+                                <p-checkbox name="estaNoAplica" formControlName="estaNoAplica" value=true
                                     inputId="estaNoAplica" class="azul pb-0"> </p-checkbox>
                             </div>
                         </div>
@@ -1110,7 +1110,7 @@
                             <div class="grid">
                                 <div class="col-1"></div>
                                 <div class="col-7">
-                                    <input type="date" class="p-inputtext-sm " formControlName="fechaIngresoMaterno"
+                                    <input type="datetime-local" class="p-inputtext-sm " formControlName="fechaIngresoMaterno"
                                         pInputText />
                                 </div>
                                 <div class="col-4">
@@ -1119,7 +1119,7 @@
                                             <span>ReIngreso:</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-checkbox id="reIngreso" value="true" formControlName="reIngreso">
+                                            <p-checkbox id="reIngreso" value=true formControlName="reIngreso">
                                             </p-checkbox>
                                         </div>
                                     </div>
@@ -1208,7 +1208,7 @@
                                     pInputText />
                             </div>
                             <div class="col-2">
-                                <p-checkbox name="dxMfNoAplica" formControlName="dxMfNoAplica" value="true"
+                                <p-checkbox name="dxMfNoAplica" formControlName="dxMfNoAplica" value=true
                                     class="azul pb-0">
                                 </p-checkbox>
                             </div>
@@ -1224,7 +1224,7 @@
                                     pInputText />
                             </div>
                             <div class="col-2">
-                                <p-checkbox name="dxMtNoAplica" formControlName="dxMtNoAplica" value="true"
+                                <p-checkbox name="dxMtNoAplica" formControlName="dxMtNoAplica" value=true
                                     class="azul pb-0"> </p-checkbox>
                             </div>
                         </div>
@@ -1240,7 +1240,7 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox name="MaternoEstaNoAplica" formControlName="MaternoEstaNoAplica"
-                                    value="true" inputId="MaternoEstaNoAplica" class="azul pb-0"> </p-checkbox>
+                                    value=true inputId="MaternoEstaNoAplica" class="azul pb-0"> </p-checkbox>
                             </div>
                         </div>
                     </div>
@@ -1512,7 +1512,7 @@
                         <tr style="text-align: center">
                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.fecha }}</td>
-                            <td style="text-align: center">{{ rowData.reIngreso }}</td>
+                            <td style="text-align: center">{{ rowData.reingreso }}</td>
                             <td style="text-align: center">{{ rowData.diagnostico }}</td>
                             <td style="text-align: center">{{ rowData.fechaIngreso }}</td>
                             <td style="text-align: center;width: 8rem; display: flex">
@@ -1531,8 +1531,8 @@
     </form>
 </div>
 <div class="footer">
-    <button pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2"></button>
-    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
+    <button pButton type="button" (click)="closeDialogGuardar()" label="Guardar" class="p-button-primary mt-4 mr-2"></button>
+    <button pButton type="button" (click)="closeDialog()" label="Cancelar" class="p-button-danger mt-4"></button>
 </div>
 <!-- dialogo para egresos de recien nacidos -->
 <p-dialog class="dialogo" [(visible)]="egresoRNDialog" [style]="{width: '800px'}" [modal]="true" styleClass="p-fluid">
@@ -1546,7 +1546,7 @@
                     <div class="grid">
                         <div class="col-1"></div>
                         <div class="col-6">
-                            <input type="date" formControlName="fechaRN" class="p-inputtext-sm " pInputText />
+                            <input type="datetime-local" formControlName="fechaRN" class="p-inputtext-sm " pInputText />
                         </div>
                         <div class="col-5">
                             <div class="grid">
@@ -1579,7 +1579,7 @@
                                     <span>Fecha Ingreso:</span>
                                 </div>
                                 <div class="col-6">
-                                    <input type="date" formControlName="fechaIngreso" class="p-inputtext-sm "
+                                    <input type="datetime-local" formControlName="fechaIngreso" class="p-inputtext-sm "
                                         pInputText />
                                 </div>
                                 <div class="col-1"></div>
@@ -1668,7 +1668,7 @@
                         <input type="text" formControlName="dxFallecimiento" class="p-inputtext-sm " pInputText />
                     </div>
                     <div class="col-2">
-                        <p-checkbox name="dxfNoAplica" formControlName="dxfNoAplica" value="true" inputId="dxfNoAplica"
+                        <p-checkbox name="dxfNoAplica" formControlName="dxfNoAplica" value=true inputId="dxfNoAplica"
                             class="azul pb-0"> </p-checkbox>
                     </div>
                 </div>
@@ -1682,7 +1682,7 @@
                         <input type="text" formControlName="dxTraslado" class="p-inputtext-sm " pInputText />
                     </div>
                     <div class="col-2">
-                        <p-checkbox name="dxtNoAplica" formControlName="dxtNoAplica" value="true" class="azul pb-0">
+                        <p-checkbox name="dxtNoAplica" formControlName="dxtNoAplica" value=true class="azul pb-0">
                         </p-checkbox>
                     </div>
                 </div>
@@ -1696,7 +1696,7 @@
                         <input type="text" formControlName="establecimientoTras" class="p-inputtext-sm " pInputText />
                     </div>
                     <div class="col-2">
-                        <p-checkbox name="estaNoAplica" formControlName="estaNoAplica" value="true"
+                        <p-checkbox name="estaNoAplica" formControlName="estaNoAplica" value=true
                             inputId="estaNoAplica" class="azul pb-0"> </p-checkbox>
                     </div>
                 </div>
@@ -1709,7 +1709,7 @@
                         <span>Fecha Control:</span>
                     </div>
                     <div class="col-3">
-                        <input type="date" formControlName="fechaContro" class="p-inputtext-sm " pInputText />
+                        <input type="datetime-local" formControlName="fechaContro" class="p-inputtext-sm " pInputText />
                     </div>
                     <div class="col-3 text-right">
                         <span>Control RN:</span>
@@ -1725,7 +1725,7 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Guardar"></button>
+        <button pButton type="button" label="Guardar" (click)="enviarEgresosRecienNacido()"></button>
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceledEgreso()"></button>
     </ng-template>
 </p-dialog>
