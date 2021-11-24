@@ -4,6 +4,7 @@ import {ObstetriciaGeneralService} from "../services/obstetricia-general.service
 import {FiliancionService} from "./atencion/plan-atencion-integral/services/filiancion-atenciones/filiancion.service";
 import {Route, Router, RouterLink} from "@angular/router";
 
+
 @Component({
     selector: 'app-gestante',
     templateUrl: './gestante.component.html',
@@ -19,6 +20,7 @@ export class GestanteComponent implements OnInit {
     apellidosNombres: any;
 
     id:string;
+
 
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -40,9 +42,10 @@ export class GestanteComponent implements OnInit {
         });
         this.obstetriciaGeneralService.id = this.id;
     }
-    ver(event) {
 
-        this.obstetriciaGeneralService.observable$.emit(event.id);
+    ver(event) {
+        // console.log("id documento", this.idDocumento);
+        // this.obstetriciaGeneralService.observable$.emit(event.id);
         this.obstetriciaGeneralService.id=event.id;
 
     }
