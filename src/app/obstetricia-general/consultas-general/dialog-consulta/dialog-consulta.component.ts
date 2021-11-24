@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-dialog-consulta',
@@ -12,7 +13,7 @@ export class DialogConsultaComponent implements OnInit {
   prueba: any[];
   isUpdate: boolean = false;
   listaSituacion = [
-    { name: "Lontitudinal", code: "1" },
+    { name: "Longitudinal", code: "1" },
     { name: "Transversal", code: "2" },
     { name: "No Aplica", code: "3" },
   ];
@@ -28,6 +29,7 @@ export class DialogConsultaComponent implements OnInit {
   ];
   constructor(
     private fb: FormBuilder,
+    private ref: DynamicDialogRef,
     // private 
   ) { this.prueba = [{
     tratamientos: "Tomar paracetamol 500mg",
@@ -92,4 +94,9 @@ export class DialogConsultaComponent implements OnInit {
       cuelloUterino: new FormControl(""),
     });
   }
+
+  closeDialog(){
+    this.ref.close();
+  }
+
 }
