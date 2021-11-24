@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
 import {formatDate} from "@angular/common";
@@ -11,6 +11,8 @@ import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-gen
     styleUrls: ['./datos-generales-filiacion.component.css']
 })
 export class DatosGeneralesFiliacionComponent implements OnInit {
+    /****/
+    /****/
     departamentos: any;
     provincias: any;
     distritos: any
@@ -19,7 +21,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     familiares: any
     studies: any;
     dataPacientes: any;
-
+    id:any;
     fechanacimiento: string;
     edad: any;
     // idDocumento: string;
@@ -83,6 +85,8 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         // })
         this.buildForm();
         this.pacienteByNroDoc();
+        this.id=this.obstetriciaGeneralService.id;
+        console.log("recuperado", this.id);
     }
 
 
@@ -182,7 +186,6 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         this.edad = edad;
         return edad + " años, " + meses + " meses y " + dias + " días";
     }
-
     agrgarFiliacionDatoPersonales() {
         let tipodoc = "DNI";
         let nroDoc = "24015415";
@@ -241,8 +244,6 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.dataPacientes = res.object
             console.log('paciente por doc ', this.dataPacientes)
-
-
             this.formDatos_Generales.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
             this.formDatos_Generales.get('nombres').setValue(this.dataPacientes.primerNombre + ' ' + this.dataPacientes.otrosNombres);
@@ -259,14 +260,20 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             this.formDatos_Generales.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
             this.formDatos_Generales.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
 
+
             this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataPacientes.gradoInstruccion);
+            this.id=this.dataPacientes.id;
 
             this.fechanacimiento = this.dataPacientes.nacimiento.fechaNacimiento;
             this.calcularEdad2(this.fechanacimiento);
+
+
             // this.calcularEdad2("1990-09-21");
             this.formDatos_Generales.get('edad').setValue(this.edad);
+
         });
     }
+
 
     buildForm() {
         this.formDatos_Generales = this.formDatosGenerales.group({

@@ -9,8 +9,8 @@ export class ObstetriciaGeneralService {
     base_url = environment.baseUrl;
     bd = environment.bd;
 
-    observable$ = new EventEmitter<string>();
-
+    // observable$ = new EventEmitter<string>();
+    id: string = "";
 
     constructor(private http: HttpClient) {
     }

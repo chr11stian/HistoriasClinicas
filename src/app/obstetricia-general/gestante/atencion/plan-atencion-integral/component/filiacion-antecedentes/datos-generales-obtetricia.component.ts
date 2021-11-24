@@ -14,8 +14,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     // @ViewChild('network', {static: false})
     // @ViewChild('visNetwork', {static: false}) visNetwork!: ElementRef;
     // private networkInstance: any;
-
-
     departamentos: any;
     opciones: any;
     estadoCivil: any;
@@ -24,6 +22,9 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     selected1: any;
     selected2: any;
+
+
+
     // idDocumento: string;
 
     formAntecedentes: FormGroup;
@@ -81,6 +82,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         //     console.log("ID", this.idDocumento);
         // })
         this.buildForm2();
+
     }
 
 

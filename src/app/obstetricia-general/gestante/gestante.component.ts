@@ -18,7 +18,8 @@ export class GestanteComponent implements OnInit {
     tipoDoc: any;
     nroDoc: any;
     apellidosNombres: any;
-    idDocumento: string;
+
+    id:string;
 
 
     constructor(private form: FormBuilder,
@@ -39,13 +40,14 @@ export class GestanteComponent implements OnInit {
             this.pacientesFiliacion = res.object
             console.log('paciente filiados ', this.pacientesFiliacion)
         });
-
+        this.obstetriciaGeneralService.id = this.id;
     }
 
     ver(event) {
-        this.idDocumento = event.id;
         // console.log("id documento", this.idDocumento);
-        this.obstetriciaGeneralService.observable$.emit(this.idDocumento);
+        // this.obstetriciaGeneralService.observable$.emit(event.id);
+        this.obstetriciaGeneralService.id=event.id;
+
     }
 
     // buildForm() {
@@ -68,6 +70,7 @@ export class GestanteComponent implements OnInit {
             this.tipoDoc = this.dataLifiado.tipoDoc
             this.nroDoc = this.dataLifiado.nroDoc;
             this.apellidosNombres = this.dataLifiado.apePaterno + ', ' + this.dataLifiado.apeMaterno + ', ' + this.dataLifiado.primerNombre + ' ' + this.dataLifiado.otrosNombres;
+
         });
         this.getpacientesFiliados(tipoDoc, nroDoc);
     }
