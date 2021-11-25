@@ -32,11 +32,12 @@ export class FillDataGraphService {
                     addSerie: Array<number[]>,
                     attributeAddSerie: { color: string, name: string },
                     colors: string[],
-                    measurementUnits: { xAxis: 'meses' | 'cm', yAxis: 'kg' | 'cm' }
+                    measurementUnits: { xAxis: 'meses' | 'cm' | 'trimestre', yAxis: 'kg' | 'cm' }
     ): Array<any> {
         const valueSeriesEcharts = []
         if (nameSeries.length !== colors.length) {
             console.log('no coinciden las longitudes ')
+            alert('no coinciden las longitudes ')
             return valueSeriesEcharts
         }
         nameSeries.forEach((name, iName) => {
@@ -47,8 +48,40 @@ export class FillDataGraphService {
         }
         if (measurementUnits.xAxis === 'meses') {
             valueSeriesEcharts[0]['markLine'] = this.getMarkLineMeses()
+        } else if (measurementUnits.xAxis === 'trimestre') {
+            valueSeriesEcharts[0]['markLine'] = this.getMarkLineTrimestre()
         }
         return valueSeriesEcharts
+    }
+
+    getMarkLineTrimestre() {
+        return {
+            silent: true,
+            lineStyle: {
+                color: 'rgba(0,0,0,0.69)',
+                width: 2,
+            },
+
+            label: {
+                formatter: (params) => {
+                    const year = Math.floor((params.value as number) / 13)
+                    return year + ' ° Trimestre'
+                },
+                fontSize: 14,
+            },
+            data: [
+                {
+                    xAxis: 13,
+                },
+                {
+                    xAxis: 13 * 2,
+                },
+                {
+                    xAxis: 13 * 3,
+                }
+            ],
+        }
+
     }
 
     getMarkLineMeses() {
@@ -116,7 +149,6 @@ export class FillDataGraphService {
                 show: true
             },
             hoverLayerThreshold: 5
-
         }
     }
 }

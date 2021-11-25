@@ -81,7 +81,9 @@ export class WeightChartComponent implements OnInit {
             titleGraph: 'Puntuación Z ',
             subTitleGraph: '(Nacimiento a 5 años)',
             measurementUnits: ['kg', 'meses'],
-            series: valueSerie
+            // measurementUnits: ['meses', 'kg'],
+            series: valueSerie,
+            typeAxisX: 'year'
         }
     }
 }

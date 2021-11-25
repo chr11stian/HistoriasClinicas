@@ -36,7 +36,6 @@ export class MotivoConsultaComponent implements OnInit {
             inicioFC: new FormControl({value: null, disabled: false}, []),
             cursoFC: new FormControl({value: null, disabled: false}, []),
         })
-
         /** examen fisico */
         this.examFG = new FormGroup({
             detailFC: new FormControl({value: null, disabled: false}, [])

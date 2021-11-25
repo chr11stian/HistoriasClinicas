@@ -12,5 +12,6 @@ export interface GraphInterface {
     /**/
     series: any[]
     /** */
-    hasYears?: boolean
+    // hasYears?: boolean
+    typeAxisX: 'year' | 'trimestre' | 'peso' | 'altura' | 'longitud'
 }
