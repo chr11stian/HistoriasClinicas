@@ -10,12 +10,15 @@ import {AtencionComponent} from "./atencion.component";
 import {AtencionRoutingModule} from "./atencion-routing.module";
 import {PlanAtencionIntegralModule} from "./plan-atencion-integral/plan-atencion-integral.module";
 import {PrimeModule} from "../../../shared/prime/prime.module";
+import { PesoEmbarazoUnicoMultipleComponent } from './modals/peso-normal-embarazo-unico-multiple/peso-embarazo-unico-multiple.component';
+import {SharedModule} from '../../../shared/shared.module'
 
 
 @NgModule({
     declarations: [
 
         AtencionComponent,
+          PesoEmbarazoUnicoMultipleComponent,
 
     ],
     exports: [AtencionComponent],
@@ -29,6 +32,7 @@ import {PrimeModule} from "../../../shared/prime/prime.module";
         PlanAtencionIntegralModule,
         PlanDePartoModule,
         ExamenesModule,
+        SharedModule,
 
     ]
 })

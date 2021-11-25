@@ -71,7 +71,8 @@ export class HeightChartComponent implements OnInit {
             titleGraph: 'Puntuación Z ',
             subTitleGraph: '(Nacimiento a 5 años)',
             measurementUnits: ['cm', 'meses'],
-            series: valueSerie
+            series: valueSerie,
+            typeAxisX:'altura'
         }
     }
 
