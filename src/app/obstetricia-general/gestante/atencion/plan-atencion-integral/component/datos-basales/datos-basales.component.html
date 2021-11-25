@@ -267,8 +267,11 @@
                                 <label class=" mr-1">CIE 10: </label>
                             </div>
                             <div class="col-8">
-                                <input type="text" pInputText formControlName='hospitalizacionCIE' placeholder=""
-                                    class="inputfield w-full">
+                                <!-- <input type="text" pInputText formControlName='hospitalizacionCIE' placeholder=""
+                                    class="inputfield w-full"> -->
+                                <p-autoComplete formControlName="hospitalizacionCIE" [suggestions]="listaDeCIE"
+                                    (completeMethod)="filterCountry($event)" field="name" [minLength]="1">
+                                </p-autoComplete>
                             </div>
                         </div>
                     </div>

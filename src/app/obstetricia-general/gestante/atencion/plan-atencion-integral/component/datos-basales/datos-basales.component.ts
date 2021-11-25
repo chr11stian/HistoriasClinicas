@@ -27,12 +27,23 @@ export class DatosBasalesComponent implements OnInit {
   otrosExamenes: any;
   rptaDatosBasales: any;
   idGestante: string;
+  listaDeCIE = [
+    { "name": "Afghanistan", "code": "AF" },
+    { "name": "Åland Islands", "code": "AX" },
+    { "name": "Albania", "code": "AL" },
+    { "name": "Algeria", "code": "DZ" },
+    { "name": "American Samoa", "code": "AS" },
+    { "name": "Andorra", "code": "AD" },
+    { "name": "Angola", "code": "AO" },
+  ]
+
+
 
   constructor(private filiancionService: FiliancionService,
     private fb: FormBuilder,
     private datosBasalesService: DatosBasalesService,
     private obstetriciaService: ObstetriciaGeneralService,
-    private messageService:MessageService,
+    private messageService: MessageService,
   ) {
     this.inicalizarForm();
     this.idGestante = this.obstetriciaService.idGestacion
@@ -268,7 +279,7 @@ export class DatosBasalesComponent implements OnInit {
           fecha: this.form.value.datePatolog4
         }
       ],
-      proceso:'datosBasales'
+      proceso: 'datosBasales'
     }
   }
 
@@ -485,14 +496,14 @@ export class DatosBasalesComponent implements OnInit {
       this.form.patchValue({ 'dateEmergencia': new Date(this.rptaDatosBasales.emergencia.fecha) });
       this.form.patchValue({ 'diagnosticoEmergenci': this.rptaDatosBasales.emergencia.diagnostico });
       this.form.patchValue({ 'emergenciaCIE': this.rptaDatosBasales.emergencia.cie10 });
-      auxVac = this.rptaDatosBasales.vacunasPrevias.find(item=>item == "rubeola")
-      this.form.patchValue({ 'rubeola': auxVac==undefined? false:true });
-      auxVac = this.rptaDatosBasales.vacunasPrevias.find(item=>item == "hepatitis B")
-      this.form.patchValue({ 'hepatitisB': auxVac==undefined? false:true });
-      auxVac = this.rptaDatosBasales.vacunasPrevias.find(item=>item == "papiloma")
-      this.form.patchValue({ 'papiloma': auxVac==undefined? false:true });
-      auxVac = this.rptaDatosBasales.vacunasPrevias.find(item=>item == "influenza")
-      this.form.patchValue({ 'influenza': auxVac==undefined? false:true });
+      auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
+      this.form.patchValue({ 'rubeola': auxVac == undefined ? false : true });
+      auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "hepatitis B")
+      this.form.patchValue({ 'hepatitisB': auxVac == undefined ? false : true });
+      auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "papiloma")
+      this.form.patchValue({ 'papiloma': auxVac == undefined ? false : true });
+      auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "influenza")
+      this.form.patchValue({ 'influenza': auxVac == undefined ? false : true });
       this.form.patchValue({ 'tamizaje': this.rptaDatosBasales.violenciaGenero.fichaTamizaje });
       this.form.patchValue({ 'violencia': this.rptaDatosBasales.violenciaGenero.violencia });
       this.form.patchValue({ 'dateViolencia': new Date(this.rptaDatosBasales.violenciaGenero.fecha) });
@@ -559,7 +570,7 @@ export class DatosBasalesComponent implements OnInit {
       this.form.patchValue({ 'datePap': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[25].fecha) });
       this.form.patchValue({ 'ivaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].valor });
       this.form.patchValue({ 'dateIvaa': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].fecha) });
-      
+
       this.form.patchValue({ 'patologiasMaternas1': this.rptaDatosBasales.patologiaMaternoDiagnosticado[0].nombre });
       this.form.patchValue({ 'datePatolog1': new Date(this.rptaDatosBasales.patologiaMaternoDiagnosticado[0].fecha) });
       this.form.patchValue({ 'patologiasMaternas2': this.rptaDatosBasales.patologiaMaternoDiagnosticado[1].nombre });
@@ -569,5 +580,10 @@ export class DatosBasalesComponent implements OnInit {
       this.form.patchValue({ 'patologiasMaternas4': this.rptaDatosBasales.patologiaMaternoDiagnosticado[3].nombre });
       this.form.patchValue({ 'datePatolog4': new Date(this.rptaDatosBasales.patologiaMaternoDiagnosticado[3].fecha) });;
     });
+  }
+
+  filterCountry(event) {
+    console.log('event autocomplete ', event, this.listaDeCIE)
+    this.listaDeCIE = this.listaDeCIE;
   }
 }
