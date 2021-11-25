@@ -8,13 +8,11 @@ import {HttpClient} from "@angular/common/http";
 export class ObstetriciaGeneralService {
     base_url = environment.baseUrl;
     bd = environment.bd;
-
     // observable$ = new EventEmitter<string>();
     id: string = "";
 
     constructor(private http: HttpClient) {
     }
-
     getPacienteFiliacion(tipoDoc, nroDoc) {
         return this.http.get(`${this.base_url}/${this.bd}/filiacion/listarfiliacion/${tipoDoc}/${nroDoc}`)
     }

@@ -22,6 +22,10 @@ export class AtencionComponent implements OnInit {
 
     idDocumento: string;
     id: string = "";
+    nroHCL: string = "";
+
+    dni : string ="";
+    nroEmbarazo: any;
 
     constructor(private obstetriciaGeneralService: ObstetriciaGeneralService) {
     }
@@ -34,6 +38,8 @@ export class AtencionComponent implements OnInit {
 
         this.id = this.obstetriciaGeneralService.id;
         console.log("xxxxx", this.id);
+        console.log("xxxxx", this.nroHCL);
+
     }
 
     ngOnDestroy() {

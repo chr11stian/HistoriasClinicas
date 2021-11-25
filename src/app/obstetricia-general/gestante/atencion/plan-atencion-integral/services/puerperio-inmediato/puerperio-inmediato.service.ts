@@ -6,21 +6,15 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class PuerperioInmediatoService {
-
+  tamanio:number=0;
   base_url = environment.baseUrl;
-  // bd = environment.bd;
+
   bd = environment.bd;
   constructor(private http:HttpClient) {}
 
-  // getPuerperioService(tipoDoc, nroDoc) {
-  //   return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarpuerperio/${tipoDoc}/${nroDoc}`);
-  // }
   getPuerperioService2(id) {
     return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarpuerperio/${id}`);
   }
-  // addPuerperioService(tipoDoc, nroDoc, dataPuerperio) {
-  //   return this.http.post<any>(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio/${tipoDoc}/${nroDoc}`,dataPuerperio);
-  // }
   addPuerperioService2(id,dataPuerperio) {
     return this.http.post<any>(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio/${id}`,dataPuerperio);
   }

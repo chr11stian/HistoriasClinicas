@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {PuerperioInmediatoService} from "../../services/puerperio-inmediato/puerperio-inmediato.service";
+import {PuerperioInmediatoService} from "../../../services/puerperio-inmediato/puerperio-inmediato.service";
 import Swal from "sweetalert2";
 
 @Component({
@@ -13,7 +13,7 @@ export class PuerperioModalComponent implements OnInit {
   dataPuerperio: any[] = [];
   isUpdate:boolean=false;
   idUpdate: string="";
-
+  tamanio:number = 0;
   constructor(private form: FormBuilder, private puerperioService:PuerperioInmediatoService
   ) {
     this.buildForm();
@@ -51,6 +51,7 @@ export class PuerperioModalComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.tamanio = this.puerperioService.tamanio;
   }
 
 }

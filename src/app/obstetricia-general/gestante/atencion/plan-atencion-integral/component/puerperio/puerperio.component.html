@@ -12,66 +12,115 @@
     </ng-template>
     </p-toolbar>
     <br>
+<!--    <p-table class="table-over" [value]="dataPuerperio" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"-->
+<!--             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"-->
+<!--             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">-->
+
+<!--        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">-->
+<!--            <tr>-->
+<!--                <th style="text-align: center" class="font-2">PUERPERIO N° </th>-->
+<!--                <th style="text-align: center" class="font-1">Fecha de Atencion</th>-->
+<!--                <th style="text-align: center" class="font-2">Horas/Dias post Parto/Aborto</th>-->
+<!--                <th style="text-align: center" class="font-2">Temperatura(°C)</th>-->
+<!--                <th style="text-align: center" class="font-1">Pulso</th>-->
+<!--                <th style="text-align: center" class="font-2">P.A.(mm. Hg) </th>-->
+<!--                <th style="text-align: center" class="font-1">Involuacion Uterina</th>-->
+<!--                <th style="text-align: center" class="font-2">Características Loquios</th>-->
+<!--                <th style="text-align: center" class="font-1">Herida Operación</th>-->
+<!--                <th style="text-align: center" class="font-1">Observaciones</th>-->
+<!--                <th style="text-align: center" class="font-1">Acciones</th>-->
+
+<!--            </tr>-->
+<!--        </ng-template>-->
+<!--        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
+<!--            <tr>-->
+<!--                <td style="text-align: center" class="font-2">Nro. {{ rowIndex + 1 }}</td>-->
+<!--                <td style="text-align: center">{{ rowData.fechaAtencion }} </td>-->
+<!--                <td style="text-align: center">{{ rowData.horasDiasPostPartoAborto }}</td>-->
+<!--                <td style="text-align: center">{{ rowData.temperatura}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.pulso}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.presionArterialMaxima}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.involucionUteriana}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.caracteristicasLoquios}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.heridaOperacion}}</td>-->
+<!--                <td style="text-align: center">{{ rowData.observaciones}}</td>-->
+<!--                <td style="text-align: center">-->
+<!--                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"-->
+<!--                            (click)="recuperarPuerperios()" pTooltip="Editar">-->
+<!--                    </button>-->
+<!--                    <button pButton pTooltip="Visualizar" pRipple type="button"-->
+<!--                            icon="pi pi-eye" class="p-button-rounded p-button-help m-1">-->
+<!--                    </button>-->
+
+<!--                </td>-->
+<!--            </tr>-->
+<!--        </ng-template>-->
+<!--    </p-table>-->
+
+
+
     <p-fieldset legend="PURPERIO INMEDIATO" [toggleable]="true">
-        <form [formGroup]="formPurperio">
-            <div class="grid" >
-                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
-                    <label>Fecha de atencion:</label>
-                    <p-calendar type="text" showIcon="true" type dateFormat="dd-mm-yy" formControlName="fechaAtencion"></p-calendar>
-                </div>
-                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
-                    <label>Horas Dias Post-parto/aborto:</label>
-                    <p-calendar  type="text" showIcon="true" [showTime]="true"  dateFormat="dd/mm/yy"  class="inputfield" formControlName="horasDias"></p-calendar>
-                </div>
+<!--        <div formArrayName="puerperioInmediato" *ngFor="let puerperioInmediato of PuerperiosArray.controls; let i = index">-->
+            <form [formGroup]="formPurperio">
+                <div class="grid" >
+                    <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                        <label>Fecha de atencion:</label>
+                        <p-calendar type="date" showIcon="true" dateFormat="dd/mm/yy" formControlName="fechaAtencion"></p-calendar>
+                    </div>
+                    <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                        <label>Horas Dias Post-parto/aborto:</label>
+    <!--                    <p-calendar  type="date" showIcon="true" [showTime]="true"  class="inputfield" formControlName="horasDias"></p-calendar>-->
+                        <input type="text" pInputText class="inputfield" formControlName="horasDias">
+                    </div>
+                    <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                        <label>Pulso (latido/minuto):</label>
+                        <input type="text" pInputText class="inputfield" formControlName="pulso">
+                    </div>
+                    <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                        <label>Involucion Uterina:</label>
+                        <input type="text" pInputText class="inputfield" formControlName="involucionUterina">
+                    </div>
+                    <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                        <label>Herida operación:</label>
+                        <input type="text" pInputText class="inputfield" formControlName="heridaOperacion">
+                    </div>
+                    <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                        <label>Observaciones:</label>
+                        <input type="text" pInputText class="inputfield" formControlName="observaciones">
+                    </div>
+                    <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                        <label>Temperatura:</label>
+                        <input type="text" pInputText class="inputfield" formControlName="temperatura">
 
-                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
-                    <label>Pulso (latido/minuto):</label>
-                    <input type="text" pInputText class="inputfield" formControlName="pulso">
+                    </div>
+                    <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                        <label>Pres. Arterial max/min (mm. Hg.):</label>
+                        <input type="text" pInputText class="inputfield" formControlName="presionArterial">
+                    </div>
+                    <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
+                        <label>Caract. Loquios:</label>
+                        <input type="text" pInputText class="inputfield" formControlName="caracteristicasLoquios">
+                    </div>
                 </div>
-                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
-                    <label>Involucion Uterina:</label>
-                    <input type="text" pInputText class="inputfield" formControlName="involucionUterina">
-                </div>
-                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
-                    <label>Herida operación:</label>
-                    <input type="text" pInputText class="inputfield" formControlName="heridaOperacion">
-                </div>
-                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
-                    <label>Observaciones:</label>
-                    <input type="text" pInputText class="inputfield" formControlName="observaciones">
-                </div>
-                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
-                    <label>Temperatura:</label>
-                    <input type="text" pInputText class="inputfield" formControlName="temperatura">
-
-                </div>
-                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
-                    <label>Pres. Arterial max/min (mm. Hg.):</label>
-                    <input type="text" pInputText class="inputfield" formControlName="presionArterial">
-                </div>
-                <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
-                    <label>Caract. Loquios:</label>
-                    <input type="text" pInputText class="inputfield" formControlName="caracteristicasLoquios">
-                </div>
-            </div>
-        </form>
-
+            </form>
+<!--        </div>-->
         <div class="footer">
-            <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
-            <button pButton type="button" label="Guardar" class="p-button-danger mt-4" (click)="saveForm()"></button>
-            <button pButton type="button" label="Editar" class="p-button-danger mt-4" (click)="recuperarPuerperios()"></button>
+            <button pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="canceled()"></button>
+            <button pButton type="button" label="Guardar" class="p-button-danger mt-4" (click)=saveForm()></button>
+            <button pButton type="button" label="Editar" class="p-button-danger mt-4"(click)="recuperarPuerperios()"></button>
         </div>
 
     </p-fieldset>
+<!--    <app-puerperio-modal></app-puerperio-modal>-->
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
             <h3 class="p-m-0"></h3>
         </ng-template>
 
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Agregar 2do. Puerperio" icon="pi pi-plus" class="p-button-danger mr-2"
-                    style="background-color: #003c71" (click)="openModalPuerperio()"></button>
-            <button pButton pRipple label="Agregar 3er. Puerperio" icon="pi pi-plus" class="p-button-danger mr-2"
+<!--            <button pButton pRipple label="Agregar 2do. Puerperio" icon="pi pi-plus" class="p-button-danger mr-2"-->
+<!--                    style="background-color: #003c71" (click)="openModalPuerperio()"></button>-->
+            <button pButton pRipple label="Agregar Puerperio" icon="pi pi-plus" class="p-button-danger mr-2"
                     style="background-color: #003c71" (click)="openModalPuerperio()"></button>
 
         </ng-template>

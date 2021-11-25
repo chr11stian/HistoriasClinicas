@@ -32,8 +32,7 @@ export class DatosBasalesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.id = this.filiancionService.id;
-        console.log(this.id);
+
         this.loadData();
     }
 

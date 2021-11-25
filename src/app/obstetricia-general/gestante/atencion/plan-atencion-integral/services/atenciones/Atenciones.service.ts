@@ -14,27 +14,13 @@ export class AtencionesService {
     // bd2 = environment.bd2;//pacientes
 
 
-    private _atenciones: any[];
+
 
     constructor(private http: HttpClient) {
     }
-
-    getAtenciones() {
-        return this.http.get(this.base_url + "/all")
-
+    getAtencionService(nroHcl,nroEmbarazo ) {
+        return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarpuerperio/${nroHcl}/${nroEmbarazo}`);
     }
 
-    get atenciones(): any[] {
-        return [this._atenciones];
-    }
-
-    agregarAtencion(atencion: any) {
-        this._atenciones.push(atencion);
-    }
-
-
-    getPacientes() {
-        // return this.http.get(`${this.base_url}/data`);
-    }
 
 }
