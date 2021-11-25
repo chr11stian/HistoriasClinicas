@@ -14,6 +14,8 @@ import { DatosGeneralesFiliacionComponent } from './component/datos-generales-fi
 import { PuerperioModalComponent } from './component/puerperio-modal/puerperio-modal.component';
 import {MantenimientosModule} from "../../../../mantenimientos/mantenimientos.module";
 import { RecienNacidoDialogoComponent } from './component/recien-nacido/recien-nacido-dialogo/recien-nacido-dialogo.component';
+import { PartosModalComponent } from './component/partos-modal/partos-modal.component';
+
 
 
 
@@ -29,6 +31,8 @@ import { RecienNacidoDialogoComponent } from './component/recien-nacido/recien-n
     DatosGeneralesFiliacionComponent,
     PuerperioModalComponent,
     RecienNacidoDialogoComponent,
+    PartosModalComponent,
+
   ],
     imports: [
         CommonModule,

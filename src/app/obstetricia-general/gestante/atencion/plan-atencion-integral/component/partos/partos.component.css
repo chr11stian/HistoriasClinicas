@@ -88,3 +88,6 @@ p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
 /*  padding-top: 0 !important;*/
 /*  padding-bottom: 0 !important;*/
 /*}*/
+::ng-deep .dialogo .p-dialog-mask .p-element{
+  display: block;
+}
