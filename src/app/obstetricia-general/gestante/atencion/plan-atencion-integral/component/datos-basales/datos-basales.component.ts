@@ -6,6 +6,7 @@ import { FiliancionService } from "../../services/filiancion-atenciones/filianci
 import { DatosBasalesService } from '../../services/datos-basales/datos-basales.service';
 import { ObstetriciaGeneralService } from 'src/app/obstetricia-general/services/obstetricia-general.service';
 import { MessageService } from 'primeng/api';
+import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 
 @Component({
   selector: 'app-datos-basales',
@@ -27,23 +28,14 @@ export class DatosBasalesComponent implements OnInit {
   otrosExamenes: any;
   rptaDatosBasales: any;
   idGestante: string;
-  listaDeCIE = [
-    { "name": "Afghanistan", "code": "AF" },
-    { "name": "Åland Islands", "code": "AX" },
-    { "name": "Albania", "code": "AL" },
-    { "name": "Algeria", "code": "DZ" },
-    { "name": "American Samoa", "code": "AS" },
-    { "name": "Andorra", "code": "AD" },
-    { "name": "Angola", "code": "AO" },
-  ]
-
-
+  listaDeCIE: any;
 
   constructor(private filiancionService: FiliancionService,
     private fb: FormBuilder,
     private datosBasalesService: DatosBasalesService,
     private obstetriciaService: ObstetriciaGeneralService,
     private messageService: MessageService,
+    private CieService: CieService,
   ) {
     this.inicalizarForm();
     this.idGestante = this.obstetriciaService.idGestacion
@@ -583,7 +575,13 @@ export class DatosBasalesComponent implements OnInit {
   }
 
   filterCountry(event) {
-    console.log('event autocomplete ', event, this.listaDeCIE)
-    this.listaDeCIE = this.listaDeCIE;
+    console.log('event ', event.query);
+    this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+      this.listaDeCIE = res.object
+    })
+  }
+
+  selectedOption(event){
+    console.log('seleccion de autocomplete ', event)
   }
 }

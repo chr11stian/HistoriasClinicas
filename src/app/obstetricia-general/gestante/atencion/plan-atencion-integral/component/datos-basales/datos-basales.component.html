@@ -259,8 +259,9 @@
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico: </label>
-                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
-                                formControlName="diagnosticoHosp" pInputTextarea></textarea>
+                            <p-autoComplete formControlName="hospitalizacionCIE" [suggestions]="listaDeCIE"
+                                    (completeMethod)="filterCountry($event)" field="descripcionItem" [minLength]="1" class="areaText">
+                                </p-autoComplete>
                         </div>
                         <div class="grid mt-2">
                             <div class="col-4">
@@ -270,7 +271,7 @@
                                 <!-- <input type="text" pInputText formControlName='hospitalizacionCIE' placeholder=""
                                     class="inputfield w-full"> -->
                                 <p-autoComplete formControlName="hospitalizacionCIE" [suggestions]="listaDeCIE"
-                                    (completeMethod)="filterCountry($event)" field="name" [minLength]="1">
+                                    (completeMethod)="filterCountry($event)" field="codigoItem" [minLength]="1" (onSelect)="selectedOption($event)" class="">
                                 </p-autoComplete>
                             </div>
                         </div>
