@@ -21,18 +21,33 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     familiares: any
     studies: any;
     dataPacientes: any;
-    id:any;
+    id: any;
     fechanacimiento: string;
     edad: any;
     // idDocumento: string;
+    dataIDfiliacion: any;
     formDatos_Generales: FormGroup;
+
+
+    idRecuperado: string = "";
+
+    tipoDocRecuperado: string;
+    nroDocRecuperado: string;
+
+    fechaConvertido: string;
 
     constructor(private formDatosGenerales: FormBuilder,
                 private filiancionService: FiliancionService,
                 private obstetriciaGeneralService: ObstetriciaGeneralService) {
+
+        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
+        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
+        this.idRecuperado = this.obstetriciaGeneralService.id;
+
+
         this.options = [
-            {name: true, code: "SI"},
-            {name: false, code: "NO"}
+            {booleano: true, name: "SI"},
+            {booleano: false, name: "NO"}
         ];
 
         this.studies = [
@@ -84,18 +99,14 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         //     console.log("ID", this.idDocumento);
         // })
         this.buildForm();
-        this.pacienteByNroDoc();
-        this.id=this.obstetriciaGeneralService.id;
-        console.log("recuperado", this.id);
+        console.log("recuperado", this.idRecuperado);
+
+        if (this.idRecuperado == null) {
+            this.getpacienteByNroDoc();
+        } else this.getpacienteFiiacionByID();
+
     }
 
-
-    calEdad() {
-        let edad;
-        // let fechaActual = this.añoActual;
-        // let anioNacimiento = fechanacimiento.split(3)
-        // console.log("edad", fechaActual);
-    }
 
     calcularEdad(fecha) {
         let hoy = new Date();
@@ -186,91 +197,148 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         this.edad = edad;
         return edad + " años, " + meses + " meses y " + dias + " días";
     }
+
     agrgarFiliacionDatoPersonales() {
-        let tipodoc = "DNI";
-        let nroDoc = "24015415";
-
         const req = {
-            apePaterno: this.formDatos_Generales.value.apePaterno,
-            apeMaterno: this.formDatos_Generales.value.apeMaterno,
-            nombres: this.formDatos_Generales.value.nombres,
-            docIndentidad: this.formDatos_Generales.value.docIndentidad,
+            nroHcl: null,
+            nroGestante: 0,
+            nombreApellidos: "",
+            ipressNombre: this.formDatos_Generales.value.establecimiento,
+            ipressOrigen: this.formDatos_Generales.value.estabOrigen,
+            noAplica: this.formDatos_Generales.value.aplica,
+            referencia: this.formDatos_Generales.value.referencia,
+            codigoAfiliacionSis: this.formDatos_Generales.value.codAficiaconSIS,
+            nroDoc: this.formDatos_Generales.value.docIndentidad,
             fechaNacimiento: this.formDatos_Generales.value.fechaNacimiento,
+            ocupacion: this.formDatos_Generales.value.ocupacion,
             edad: this.formDatos_Generales.value.edad,
-            establecimiento: this.formDatos_Generales.value.establecimiento,
-            estadoCivil: this.formDatos_Generales.value.estadoCivil,
-
+            direccion: this.formDatos_Generales.value.direccion,
+            estudios: this.formDatos_Generales.value.gradoInstruccion,
+            aniosAprobados: this.formDatos_Generales.value.amiosAprobados,
+            nombreNroSector: this.formDatos_Generales.value.nombreNroSector,
             departamento: this.formDatos_Generales.value.departamento,
             provincia: this.formDatos_Generales.value.provincia,
             distrito: this.formDatos_Generales.value.distrito,
-
-            estabOrigen: this.formDatos_Generales.value.estabOrigen,
-            aplica: this.formDatos_Generales.value.aplica.name,
-            referencia: this.formDatos_Generales.value.referencia.name,
-            codAficiaconSIS: this.formDatos_Generales.value.codAficiaconSIS,
-            ocupacion: this.formDatos_Generales.value.ocupacion,
-
-            direccion: this.formDatos_Generales.value.direccion,
-            gradoInstruccion: this.formDatos_Generales.value.gradoInstruccion,
-            amiosAprobados: this.formDatos_Generales.value.amiosAprobados,
-            nombreNroSector: this.formDatos_Generales.value.nombreNroSector,
-            nombreRN: this.formDatos_Generales.value.nombreRN,
-            pabreRN: this.formDatos_Generales.value.pabreRN,
             religion: this.formDatos_Generales.value.religion,
-            cel1: this.formDatos_Generales.value.cel1,
-            cel2: this.formDatos_Generales.value.cel2,
+            nroCelular: [
+                this.formDatos_Generales.value.cel1, this.formDatos_Generales.value.cel2,
+            ]
+            ,
             idioma: this.formDatos_Generales.value.idioma,
+            nombreRecienNacido: this.formDatos_Generales.value.nombreRN,
+            padreRecienNacido: this.formDatos_Generales.value.pabreRN,
+            estadoCivil: this.formDatos_Generales.value.estadoCivil,
+            proceso: null,
+
+
+            apePaterno: this.formDatos_Generales.value.apePaterno,
+            apeMaterno: this.formDatos_Generales.value.apeMaterno,
+            primerNombre: this.formDatos_Generales.value.primerNombre,
+            otrosNombres: "",
+
+
         };
         console.log("data", req);
-        this.filiancionService.addPacienteFiliacion(tipodoc, nroDoc, req).subscribe(
-            result => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Afiliado correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-            }
-        )
 
+        if (this.idRecuperado == null) {
+            this.filiancionService.addPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
+                result => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Guardo con exito',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+            )
+        } else
+            this.filiancionService.UpdatePacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
+                result => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizo con exito',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+            )
     }
 
-    pacienteByNroDoc() {
-
-        let tipoDoc = "DNI";
-        let nroDoc = "24015415"
-        // nroDoc: "24015415"
-        this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
+    getpacienteByNroDoc() {
+        this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientes = res.object
             console.log('paciente por doc ', this.dataPacientes)
             this.formDatos_Generales.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
-            this.formDatos_Generales.get('nombres').setValue(this.dataPacientes.primerNombre + ' ' + this.dataPacientes.otrosNombres);
+            this.formDatos_Generales.get('primerNombre').setValue(this.dataPacientes.primerNombre);
+            this.formDatos_Generales.get('docIndentidad').setValue(this.dataPacientes.nroDoc);
             this.formDatos_Generales.get('establecimiento').setValue(this.dataPacientes.nombreEESS);
             this.formDatos_Generales.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
 
-            // this.formDatos_Generales.get('aplica').setValue(this.dataPacientes.aplica);
-            // this.formDatos_Generales.get('referencia').setValue(this.dataPacientes.nacimiento.fechaNacimiento);
             this.formDatos_Generales.get('codAficiaconSIS').setValue(this.dataPacientes.codAficiaconSIS);
-            this.formDatos_Generales.get('docIndentidad').setValue(this.dataPacientes.nroDoc);
-            this.formDatos_Generales.get('fechaNacimiento').setValue(this.dataPacientes.nacimiento.fechaNacimiento);
             this.formDatos_Generales.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
             this.formDatos_Generales.get('departamento').setValue(this.dataPacientes.domicilio.departamento);
             this.formDatos_Generales.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
             this.formDatos_Generales.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
-
-
             this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataPacientes.gradoInstruccion);
-            this.id=this.dataPacientes.id;
+
 
             this.fechanacimiento = this.dataPacientes.nacimiento.fechaNacimiento;
-            this.calcularEdad2(this.fechanacimiento);
-
+            this.convertiFecha();
+            this.formDatos_Generales.get('fechaNacimiento').setValue(this.fechaConvertido);
+            this.calcularEdad2(this.fechaConvertido);
 
             // this.calcularEdad2("1990-09-21");
             this.formDatos_Generales.get('edad').setValue(this.edad);
 
+        });
+    }
+
+    convertiFecha() {
+        let values = this.fechanacimiento.split('/');
+        let dia = values[2];
+        let mes = values[1];
+        let anio = values[0];
+
+        this.fechaConvertido = dia + '-' + mes + '-' + anio;
+        console.log("fecha Convertido", this.fechaConvertido);
+    }
+
+
+    getpacienteFiiacionByID() {
+        this.filiancionService.getPacienteFiliacionId(this.idRecuperado).subscribe((res: any) => {
+            this.dataIDfiliacion = res.object;
+            console.log('fiilacion por ID ', this.dataIDfiliacion)
+            this.formDatos_Generales.get('apePaterno').setValue(this.dataIDfiliacion.apePaterno);
+            this.formDatos_Generales.get('apeMaterno').setValue(this.dataIDfiliacion.apeMaterno);
+            this.formDatos_Generales.get('primerNombre').setValue(this.dataIDfiliacion.primerNombre + ' ' + this.dataIDfiliacion.otrosNombres);
+            this.formDatos_Generales.get('establecimiento').setValue(this.dataIDfiliacion.ipressNombre);
+            this.formDatos_Generales.get('estadoCivil').setValue(this.dataIDfiliacion.estadoCivil);
+
+            this.formDatos_Generales.get('aplica').setValue(this.dataIDfiliacion.noAplica);
+            this.formDatos_Generales.get('referencia').setValue(this.dataIDfiliacion.referencia);
+
+            this.formDatos_Generales.get('codAficiaconSIS').setValue(this.dataIDfiliacion.codigoAfiliacionSis);
+            this.formDatos_Generales.get('docIndentidad').setValue(this.dataIDfiliacion.nroDoc);
+            this.formDatos_Generales.get('fechaNacimiento').setValue(this.dataIDfiliacion.fechaNacimiento);
+            this.formDatos_Generales.get('direccion').setValue(this.dataIDfiliacion.direccion);
+            this.formDatos_Generales.get('departamento').setValue(this.dataIDfiliacion.departamento);
+            this.formDatos_Generales.get('provincia').setValue(this.dataIDfiliacion.provincia);
+            this.formDatos_Generales.get('distrito').setValue(this.dataIDfiliacion.distrito);
+            this.formDatos_Generales.get('ocupacion').setValue(this.dataIDfiliacion.ocupacion);
+            this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataIDfiliacion.estudios);
+            this.formDatos_Generales.get('estabOrigen').setValue(this.dataIDfiliacion.ipressOrigen);
+            this.formDatos_Generales.get('religion').setValue(this.dataIDfiliacion.religion);
+            this.formDatos_Generales.get('nombreRN').setValue(this.dataIDfiliacion.nombreRecienNacido);
+            this.formDatos_Generales.get('pabreRN').setValue(this.dataIDfiliacion.padreRecienNacido);
+            this.formDatos_Generales.get('idioma').setValue(this.dataIDfiliacion.idioma);
+            this.formDatos_Generales.get('amiosAprobados').setValue(this.dataIDfiliacion.aniosAprobados);
+            this.formDatos_Generales.get('nombreNroSector').setValue(this.dataIDfiliacion.nombreNroSector);
+            this.formDatos_Generales.get('cel1').setValue(this.dataIDfiliacion.nroCelular[0]);
+            this.formDatos_Generales.get('cel2').setValue(this.dataIDfiliacion.nroCelular[1]);
+            this.formDatos_Generales.get('edad').setValue(this.dataIDfiliacion.edad);
         });
     }
 
@@ -279,7 +347,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         this.formDatos_Generales = this.formDatosGenerales.group({
             apePaterno: new FormControl(''),
             apeMaterno: new FormControl(''),
-            nombres: new FormControl(''),
+            primerNombre: new FormControl(''),
             establecimiento: new FormControl(''),
             estabOrigen: new FormControl(''),
             aplica: new FormControl(''),

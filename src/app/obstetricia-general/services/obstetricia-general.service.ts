@@ -12,6 +12,9 @@ export class ObstetriciaGeneralService {
     // observable$ = new EventEmitter<string>();
     id: string = "";
 
+    tipoDoc: string= "";
+    nroDoc: string= "";
+
     constructor(private http: HttpClient) {
     }
 
