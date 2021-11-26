@@ -42,7 +42,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
         this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
         this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        this.idRecuperado = this.obstetriciaGeneralService.id;
+        this.idRecuperado = this.obstetriciaGeneralService.idGestacion;
 
 
         this.options = [

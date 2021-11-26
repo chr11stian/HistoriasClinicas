@@ -4,7 +4,7 @@
             <h3 class="p-m-0">Datos del recien nacido</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"></button>
+            <button pButton pRipple label="Guardar" (click)="guardarRecienNacidos()" icon="pi pi-save" class="p-button-primary"></button>
         </ng-template>
     </p-toolbar>
     <p-table [value]="todosRN" #dt [rows]="5" styleClass="p-datatable-gridlines" [paginator]="true"
@@ -30,11 +30,11 @@
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr style="text-align: center">
                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                <td style="text-align: center">{{ rowData.nombre }}</td>
+                <td style="text-align: center">{{ rowData.nombreRecienNacido }}</td>
                 <td style="text-align: center">{{ rowData.sexo }}</td>
-                <td style="text-align: center">{{ rowData.hcl }}</td>
+                <td style="text-align: center">{{ rowData.recienNacidoHcl }}</td>
                 <td style="text-align: center;width: 8rem; display: flex">
-                    <button pButton (click)="openDialogRN()" pTooltip="Editar" pRipple type="button"
+                    <button pButton (click)="openDialogEditarRN(rowData,rowIndex)" pTooltip="Editar" pRipple type="button"
                         icon="pi pi-pencil" class="p-button-rounded m-1">
                     </button>
                     <button pButton (click)="openDialogRN()" pTooltip="Visualizar" pRipple type="button"

@@ -98,7 +98,6 @@ export class ConsultasGeneralComponent implements OnInit {
                 "max-height": "500px",
                 overflow: "auto",
             },
-            // footer:`hola mundo`,
             data: {
                 texto: 'datossss'
             }

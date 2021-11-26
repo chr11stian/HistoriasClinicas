@@ -84,3 +84,7 @@ p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
   /*width: 25px;*/
   /*height: 25px;*/
 }
+/*:host ::ng-deep .p-cellEditor {*/
+/*  padding-top: 0 !important;*/
+/*  padding-bottom: 0 !important;*/
+/*}*/

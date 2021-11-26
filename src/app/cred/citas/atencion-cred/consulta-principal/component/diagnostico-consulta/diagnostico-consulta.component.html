@@ -1,1 +1,227 @@
-<p>diagnostico-consulta works!</p>
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">DIAGNÓSTICOS GESTANTES</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right" class="guardar mr-2"></button>
+    </ng-template>
+</p-toolbar>
+<br>
+<div class="grid">
+    <div class="lg:col-6 md:col-6 col-fixed"> 
+        <p-table [value]="customers" [rowHover]="true"
+    [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
+    [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [filterDelay]="0">
+    <ng-template pTemplate="caption">
+        <div class="flex justify-content-between">
+            <div class="table-header mt-2">
+                1. Diagnóstico Nosológico o Sindrómico
+            </div>
+            <div>
+                <button pButton pRipple label="Agregar" icon="pi pi-plus-circle" class="guardar mr-2"></button>  
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="name">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    Nro
+                </div>
+            </th>
+            <th pSortableColumn="country.name">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    DIAGNOSTICOS
+                </div>
+            </th>
+            <th pSortableColumn="representative.name">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    CIE10
+                </div>
+            </th>
+            <th pSortableColumn="date">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    ACCIONES
+                </div>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+        <tr class="p-selectable-row">
+            <td>
+                1
+            </td>
+            <td>
+                Diagnóstico...
+            </td>
+            <td>
+                0000000
+            </td>
+            <td>
+                <span class="p-buttonset">
+                    <button pButton pRipple routerLink="atencion" class="boton-azul"label="Atender" icon="pi pi-check"></button>
+                    <button pButton pRipple routerLink="consulta" class="boton-mostaza" label="Consulta" icon="pi pi-book"></button>
+                    <button pButton pRipple class="boton-red" label="Cancelar" icon="pi pi-times"></button>
+                </span>
+            </td>
+        </tr>
+    </ng-template>
+        </p-table>
+        <br>
+        <p-table [value]="customers" [rowHover]="true"
+            [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
+            [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [filterDelay]="0">
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-between">
+                    <div class="table-header mt-2">
+                        4. Factores condicionales de la salud, nutrición y desarrollo 
+                    </div>
+                    <div>
+                        <button pButton pRipple label="Agregar" icon="pi pi-plus-circle" class="guardar mr-2"></button>  
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            Nro
+                        </div>
+                    </th>
+                    <th pSortableColumn="country.name">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            FACTOR
+                        </div>
+                    </th>
+                    <th pSortableColumn="date">
+                        <div class="p-d-flex p-jc-between p-ai-center">
+                            ACCIONES
+                        </div>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr class="p-selectable-row">
+                    <td>
+                        1
+                    </td>
+                    <td>
+                        Factores...
+                    </td>
+                    <td>
+                        <span class="p-buttonset">
+                            <button pButton pRipple routerLink="atencion" class="boton-azul"label="Atender" icon="pi pi-check"></button>
+                            <button pButton pRipple routerLink="consulta" class="boton-mostaza" label="Consulta" icon="pi pi-book"></button>
+                            <button pButton pRipple class="boton-red" label="Cancelar" icon="pi pi-times"></button>
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="lg:col-6 md:col-6 col-fixed">
+        <div class="card flex flex-row">
+            <div class="col-6 col-fixed">
+                <p-card>
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <div class="font-semibold"> 2. Condición de Crecimiento y Estado Nutricional</div>
+                        </ng-template>
+                    </p-toolbar>
+                    <br>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Crecimiento adecuado:</span>
+                        <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Crecimiento inadecuado:</span>
+                        <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed ml-2 font-bold text-sm" style="width:167px">RIESGO NUTRICIONAL</span>
+                        <span class="col-fixed text-right font-bold text-sm">P/T</span>
+                        <span class="col-fixed text-right font-bold text-sm">T/E</span>
+                        <span class="col-fixed text-right font-bold text-sm">P/T</span>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Ganancia inadecuada de peso y talla</span>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Desnutrición</span>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Sobrepeso</span>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Obesidad</span>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Otros</span>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Otros</span>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                        <p-radioButton class="mr-2" name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                </p-card>
+            </div>
+            <div class="col-6 col-fixed">
+                <p-card>
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <div class="font-semibold"> 3. Condición de Desarrollo Psicomotor</div>
+                        </ng-template>
+                    </p-toolbar>
+                    <br>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Normal:</span>
+                        <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Riesgo de desarrollo:</span>
+                        <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Deficit del desarrollo según PB:</span>
+                        <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                    <div class="field grid">
+                        <span class="col-fixed text-right mr-2" style="width:180px">Transtorno del desarrollo:</span>
+                        <p-radioButton name="groupname" value="val1" [(ngModel)]="selectedValue"></p-radioButton>
+                    </div>
+                </p-card>
+            </div>           
+        </div>
+        <div class="col-12 col-fixed">
+            <p-card>
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <div class="font-semibold"> OBSERVACIONES</div>
+                    </ng-template>
+                </p-toolbar>
+                <div class="field col-12">
+                    <textarea id="address" type="text" rows="4" pInputTextarea style="width: inherit;" placeholder="Ingrese sus observaciones..."></textarea>
+                </div>
+            </p-card>
+        </div> 
+    </div>
+</div>
