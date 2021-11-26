@@ -1,13 +1,15 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">DATOS BASALES DEL EMBARAZO ACTUAL</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                (click)="guardarDatos()" class="guardar mr-2"></button>
+    </ng-template>
+</p-toolbar>
+<br>
 <div class="p-card">
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <h3 class="p-m-0">Datos Basales del Embarazo Actual</h3>
-        </ng-template>
-        <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"
-                (click)="guardarDatos()"></button>
-        </ng-template>
-    </p-toolbar>
     <form [formGroup]='form'>
         <div class="grid">
             <div class="col-2">

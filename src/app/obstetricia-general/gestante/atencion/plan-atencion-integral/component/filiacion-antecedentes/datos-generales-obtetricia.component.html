@@ -1,15 +1,16 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">ANTECEDENTES</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                class="guardar mr-2"></button>
+    </ng-template>
+</p-toolbar>
+<br>
 <div>
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <h3 class="p-m-0"></h3>
-        </ng-template>
-        <ng-template pTemplate="right" class="button">
-            <button  pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
-                    style="background: #2196F3; border: 1px solid #2196F3;"></button>
-        </ng-template>
-    </p-toolbar>
-    <br>
-    <p-fieldset  legend="ANTECEDENTES" [toggleable]="true" collapsed="">
+    <p-fieldset legend="ANTECEDENTES" [toggleable]="true" collapsed="">
         <form [formGroup]='formAntecedentes'>
 
             <div class="grid">
