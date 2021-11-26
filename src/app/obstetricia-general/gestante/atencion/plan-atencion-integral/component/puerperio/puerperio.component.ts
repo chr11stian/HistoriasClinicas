@@ -3,8 +3,9 @@ import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validat
 import {PuerperioModalComponent} from "./puerperio-modal/puerperio-modal.component"
 import {PuerperioInmediatoService} from "../../services/puerperio-inmediato/puerperio-inmediato.service";
 import Swal from "sweetalert2";
-import {DialogService} from "primeng/dynamicdialog";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-puerperio',
@@ -13,32 +14,34 @@ import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-gen
     providers:[DialogService]
 })
 export class PuerperioComponent implements OnInit {
+
     id: any;
+    ref: DynamicDialogRef;
     dataPuerperio: any;
     consultaPuerperio: boolean;
     isUpdate: boolean = false;
     idUpdate: string = "";
-    tamanioPuerperio:any;
     proceso:string="";
-    cantidadPuerperios: any;
     fecha = new Date();
     formPurperio: FormGroup;
-    formPrueba:FormGroup;
+    data: any[] = [];
+
     constructor(
         private form: FormBuilder,
         private puerperioService: PuerperioInmediatoService,
         private dialog: DialogService,
+        private messageService: MessageService,
         private obstetriciaService:ObstetriciaGeneralService
     ) {
         this.buildForm();
-
     }
-
     ngOnInit(): void {
-        this.id = this.obstetriciaService.id;
+        this.id = this.obstetriciaService.idGestacion;
         console.log(this.id);
         this.recuperarPuerperios();
+
     }
+
     buildForm() {
         this.formPurperio = new FormGroup({
             fechaAtencion:new FormControl("", [Validators.required]),
@@ -52,10 +55,10 @@ export class PuerperioComponent implements OnInit {
             observaciones: new FormControl("", [Validators.required]),
             proceso:new FormControl("", []),
         });
+        // this.puerperios = new FormArray([this.formPurperio]);
     }
-
     saveForm() {
-        this.id = this.obstetriciaService.id;
+        this.id = this.obstetriciaService.idGestacion;
         this.isUpdate = false;
         const req = {
                 puerperioInmediato: [
@@ -77,6 +80,7 @@ export class PuerperioComponent implements OnInit {
                     (resp) => {
                     console.log(resp);
                     console.log(req);
+                    // this.puerperios.push(this.formPurperio);
                     Swal.fire({
                         icon: 'success',
                         title: 'Agregado correctamente',
@@ -100,10 +104,10 @@ export class PuerperioComponent implements OnInit {
            }else {
                this.proceso = this.recuperarProceso(this.dataPuerperio);
                console.log(this.dataPuerperio.puerperioInmediato);
-               // let fecha  = this.dataPuerperio.puerperioInmediato[0].fechaAtencion;
+               let fecha  = this.dataPuerperio.puerperioInmediato[0].fechaAtencion;
                // console.log(this.recuperarFecha(fecha));
                // this.formPurperio.get("fechaAtencion").setValue(fecha);
-               // this.formPurperio.get("fechaAtencion").setValue(this.dataPuerperio.puerperioInmediato[0].fechaAtencion);
+               this.formPurperio.get("fechaAtencion").setValue(this.ObtenerFecha(fecha));
                this.formPurperio.get('pulso').setValue(this.dataPuerperio.puerperioInmediato[0].pulso);
                this.formPurperio.get('horasDias').setValue(this.dataPuerperio.puerperioInmediato[0].horasDiasPostPartoAborto);
                this.formPurperio.get('involucionUterina').setValue(this.dataPuerperio.puerperioInmediato[0].involucionUteriana);
@@ -127,16 +131,16 @@ export class PuerperioComponent implements OnInit {
    openNew(){
         this.consultaPuerperio=true;
    }
-   openModalPuerperio() {
-        let dialog = this.dialog.open(PuerperioModalComponent, {
-            header: "AGREGAR PUERPERIO",
-            width:"60%",
-            height:"50%",
-            data:{
-                texto:'datos'
-            }
-        })
-   }
+   // openModalPuerperio() {
+   //      let dialog = this.dialog.open(PuerperioModalComponent, {
+   //          header: "AGREGAR PUERPERIO",
+   //          width:"60%",
+   //          height:"50%",
+   //          data:{
+   //              texto:'datos'
+   //          }
+   //      })
+   // }
    canceled() {
         Swal.fire({
             icon: 'warning',
@@ -153,6 +157,15 @@ export class PuerperioComponent implements OnInit {
         let mm = date.getMonth() +1;
         let yyyy = date.getFullYear();
         return yyyy+'-'+mm+'-'+dd
+    }
+   ObtenerFecha(date:string){
+        let values = date.split("-");
+        let dia = values[2];
+        let mes = values[1];
+        let anio = values[0];
+        return dia+"/"+mes+"/"+anio;
+
+
     }
 
 }

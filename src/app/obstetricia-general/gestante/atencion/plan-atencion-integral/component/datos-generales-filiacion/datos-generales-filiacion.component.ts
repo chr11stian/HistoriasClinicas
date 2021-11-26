@@ -21,7 +21,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     familiares: any
     studies: any;
     dataPacientes: any;
-    id:any;
+    id: any;
     fechanacimiento: string;
     edad: any;
     // idDocumento: string;
@@ -30,6 +30,9 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     constructor(private formDatosGenerales: FormBuilder,
                 private filiancionService: FiliancionService,
                 private obstetriciaGeneralService: ObstetriciaGeneralService) {
+        this.id = this.obstetriciaGeneralService.idGestacion;
+        console.log("Id Recuperado para datos generales", this.id);
+
         this.options = [
             {name: true, code: "SI"},
             {name: false, code: "NO"}
@@ -79,23 +82,10 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
 
     ngOnInit(): void {
-        // this.obstetriciaGeneralService.observable$.subscribe(id => {
-        //     this.idDocumento = id;
-        //     console.log("ID", this.idDocumento);
-        // })
         this.buildForm();
         this.pacienteByNroDoc();
-        this.id=this.obstetriciaGeneralService.id;
-        console.log("recuperado", this.id);
     }
 
-
-    calEdad() {
-        let edad;
-        // let fechaActual = this.añoActual;
-        // let anioNacimiento = fechanacimiento.split(3)
-        // console.log("edad", fechaActual);
-    }
 
     calcularEdad(fecha) {
         let hoy = new Date();
@@ -186,6 +176,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         this.edad = edad;
         return edad + " años, " + meses + " meses y " + dias + " días";
     }
+
     agrgarFiliacionDatoPersonales() {
         let tipodoc = "DNI";
         let nroDoc = "24015415";
@@ -262,7 +253,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
 
             this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataPacientes.gradoInstruccion);
-            this.id=this.dataPacientes.id;
+            this.id = this.dataPacientes.id;
 
             this.fechanacimiento = this.dataPacientes.nacimiento.fechaNacimiento;
             this.calcularEdad2(this.fechanacimiento);

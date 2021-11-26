@@ -31,14 +31,15 @@ export class AtencionComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
         // this.obstetriciaGeneralService.observable$.subscribe((id: any) => {
         //     this.idDocumento = id;
         //     console.log("ID", id);
         // });
 
-        this.id = this.obstetriciaGeneralService.id;
-        console.log("xxxxx", this.id);
-        console.log("xxxxx", this.nroHCL);
+
+        this.id = this.obstetriciaGeneralService.idGestacion;
+        console.log("ID recuperado", this.id);
 
     }
 

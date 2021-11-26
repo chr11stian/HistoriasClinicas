@@ -18,8 +18,9 @@ export class GestanteComponent implements OnInit {
     tipoDoc: any;
     nroDoc: any;
     apellidosNombres: any;
-    nroHCL = "";
+
     id:string;
+
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
                 private filiancionService: FiliancionService) {
@@ -38,14 +39,14 @@ export class GestanteComponent implements OnInit {
             this.pacientesFiliacion = res.object
             console.log('paciente filiados ', this.pacientesFiliacion)
         });
-        this.obstetriciaGeneralService.id = this.id;
+        this.obstetriciaGeneralService.idGestacion = this.id;
 
     }
 
     ver(event) {
         // console.log("id documento", this.idDocumento);
         // this.obstetriciaGeneralService.observable$.emit(event.id);
-        this.obstetriciaGeneralService.id=event.id;
+        this.obstetriciaGeneralService.idGestacion = event.id;
 
 
     }
