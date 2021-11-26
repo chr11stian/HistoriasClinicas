@@ -32,7 +32,7 @@ export class PartosComponent implements OnInit {
   twoOptions: any[];
   TFOptions:any[];
   myGroup: FormGroup;
-  smallGroup:FormGroup;
+
   medicacionList=[]
   medicamentoList=[]
   constructor(public fb: FormBuilder,
