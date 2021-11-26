@@ -27,7 +27,6 @@ import {TipoTurnoModalComponent} from "../../../../../../mantenimientos/componen
 })
 export class PartosComponent implements OnInit {
   isUpdate:boolean=false;
-  // tipoDoc:string="DNI"
   idPaciente:string;
   treeOptionsOptions: any[];
   twoOptions: any[];
@@ -35,9 +34,7 @@ export class PartosComponent implements OnInit {
   myGroup: FormGroup;
   smallGroup:FormGroup;
   medicacionList=[]
-  // medicamentoList=[]
-  medicamentoList=['medicamento1xx','medicamento2xx']
-
+  medicamentoList=[]
   constructor(public fb: FormBuilder,
               private partoAbortoService:PartoAbortoService,
               private messageService: MessageService,
@@ -59,9 +56,6 @@ export class PartosComponent implements OnInit {
       {label:"No",value:false}
     ]
     this.buildForm();
-    // this.smallGroup = new FormGroup({
-    //   nombreMedicamento: new FormControl("", [Validators.required]),
-    // })
   }
   buildForm() {
     this.myGroup = new FormGroup({
@@ -131,15 +125,10 @@ export class PartosComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    // this.myGroup.valueChanges.pipe(debounceTime(350)).subscribe((value) => {
-    //   console.log(value);
-    // });
+
     this.getPartoAborto();
 
   }
-  // ngDoCheck(): void {
-  //   this.mostrarDatos();
-  // }
   getFC(control: string): AbstractControl {
     return this.myGroup.get(control);
   }
@@ -229,8 +218,7 @@ export class PartosComponent implements OnInit {
       },
       procedimientoParto:{
         medicacion:this.medicacionList,
-        // medicacion:this.medicacionList,
-        medicamentos:["medicamento 1"]
+        medicamentos:this.medicamentoList
       },
       indicacionPrincipalParto:this.getFC("indicacionPrincipalPartoOperatorio").value,
       hubo:this.getFC("indicacionPrincipalHubo").value,
@@ -340,6 +328,7 @@ export class PartosComponent implements OnInit {
       this.getFC('aborto').setValue(respuesta.tipoProcedimiento.aborto);
       //la lista
       this.medicacionList=respuesta.procedimientoParto.medicacion;
+      this.medicamentoList=respuesta.procedimientoParto.medicamentos;
 
       if (respuesta.terminacion.fecha) {
         this.getFC('terminacionFecha').setValue(new Date(respuesta.terminacion.fecha));
@@ -384,15 +373,16 @@ export class PartosComponent implements OnInit {
   isUpdate3:boolean=false
   medi:string='';
   agregarActualizar(index?:number) {
-    let medicacion='';
+    let mandado='';
     // let header: string = "Agregar Medicacion";
-    if (this.isUpdate2) {
-      medicacion = this.medicacionList[index];
-      // header = "Actualizar tipo turno";
+    if (this.isUpdate2 && this.medi=='medicacion') {
+      mandado = this.medicacionList[index];
+    }
+    if(this.isUpdate3 && this.medi=='medicamento'){
+      mandado=this.medicamentoList[index]
     }
     this.ref = this.dialogService.open(PartosModalComponent, {
-      data:  medicacion ,
-      // header: header,
+      data:  mandado ,
       width: "50%",
     });
     this.ref.onClose.subscribe((mensaje?: string) => {
@@ -400,37 +390,34 @@ export class PartosComponent implements OnInit {
       // let summary: string = "Agregado";
       console.log('mensaje llegado:',mensaje)
       if(mensaje!=null ){
-
-        if(this.isUpdate2){
-          console.log('entra')
-          this.medicacionList.splice(index,1,mensaje)
+        if(this.medi=='medicacion'){
+          if(this.isUpdate2){
+            console.log('entra')
+            this.medicacionList.splice(index,1,mensaje)
+          }
+          else{
+            this.medicacionList.push(mensaje)
+          }
         }
-        else{
-          this.medicacionList.push(mensaje)
-
+        if(this.medi=='medicamento'){
+          if(this.isUpdate3){
+            console.log('entra')
+            this.medicamentoList.splice(index,1,mensaje)
+          }
+          else{
+            this.medicamentoList.push(mensaje)
+          }
         }
-
       }
-      // if( index!=null && mensaje!=null){
-      //   this.medicacionList.push({medicacion:mensaje})
-      // }
-
-      // if (mensaje === "actualizado") {
-      //   detail = "Elemento Actualizado satisfactoriamente";
-      //   summary = "Actualizado";
-      // }
-      // if (mensaje === "actualizado" || mensaje === "agregado") {
-      //   this.getTipoTurno();
-      //   this.messageService.add({
-      //     severity: "success",
-      //     summary: summary,
-      //     detail: detail,
-      //   });
-      // }
     });
   }
   delete(index){
-    this.medicacionList.splice(index,1)
+    if(this.medi=='medicacion'){
+      this.medicacionList.splice(index,1)
+    }
+    if(this.medi=='medicamento'){
+      this.medicamentoList.splice(index,1)
+    }
   }
-
+n
 }

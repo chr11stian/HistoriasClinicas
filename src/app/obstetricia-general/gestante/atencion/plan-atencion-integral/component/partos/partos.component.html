@@ -135,7 +135,6 @@
       </p-fieldset>
     </div>
   </div>
-
   <!-- Segunda fila -->
   <div class="grid">
     <div class="col-12">
@@ -483,104 +482,182 @@
   <!-- tercera fila -->
   <div class="grid">
     <div class="md:col-4">
-      <p-fieldset legend="Signos y sintomas de Alerta">
-        <div class="grid">
-          <div class="md:col-6">
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Anasarca:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="anasarca"
-              ></p-selectButton>
+      <div>
+        <p-fieldset legend="Signos y sintomas de Alerta">
+          <div class="grid">
+            <div class="md:col-6">
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Anasarca:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="anasarca"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Cianosis:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="cianosis"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Escotomas:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="escotomas"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Epigastralgia:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="epigastralgia"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Dolor Hiponóndr.Der.:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="dolorDerecho"
+                ></p-selectButton>
+              </div>
             </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Cianosis:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="cianosis"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Escotomas:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="escotomas"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Epigastralgia:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="epigastralgia"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Dolor Hiponóndr.Der.:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="dolorDerecho"
-              ></p-selectButton>
+            <div class="md:col-6">
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Hermaturia:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="hermaturia"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Hipot. Ortostática:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="hipoOrtostatica"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Ictericia:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="ictericia"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Petequies:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="petequies"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Proteuniria:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="proteuniria"
+                ></p-selectButton>
+              </div>
             </div>
           </div>
-          <div class="md:col-6">
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Hermaturia:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="hermaturia"
-              ></p-selectButton>
+        </p-fieldset>
+      </div>
+      <div>
+        <p-fieldset legend="Tipo Procedimiento">
+          <div class="grid">
+            <div class="col-6">
+              <div class="">
+                <div class="text-center" style="font-weight: bold">CESÁRIA:</div>
+                <div class="grid">
+                  <div class="col-9 text-right">Corporal:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="Corporal"
+                            formControlName="cesaria"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="grid">
+                  <div class="col-9 text-right">Segmentaria:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="Segementaria"
+                            formControlName="cesaria"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="grid">
+                  <div class="col-9 text-right">No aplica:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="No Aplica"
+                            formControlName="cesaria"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Hipot. Ortostática:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="hipoOrtostatica"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Ictericia:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="ictericia"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Petequies:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="petequies"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Proteuniria:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="proteuniria"
-              ></p-selectButton>
+            <div class="col-6">
+              <div class="">
+                <div class="text-center" style="font-weight: bold">ABORTO:</div>
+                <div class="grid">
+                  <div class="col-9 text-right">Ameu:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="Ameu"
+                            formControlName="aborto"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="grid">
+                  <div class="col-9 text-right">Legrado:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="Legrado"
+                            formControlName="aborto"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="grid">
+                  <div class="col-9 text-right">No aplica:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="No Aplica"
+                            formControlName="aborto"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </p-fieldset>
+        </p-fieldset>
+      </div>
     </div>
     <div class="md:col-8">
       <div class="grid">
@@ -652,83 +729,7 @@
         </div>
       </div>
       <div class="grid">
-        <div class="md:col-4">
-          <p-fieldset legend="Tipo Procedimiento">
-            <div class="grid">
-              <div class="col-6">
-                <div class="">
-                  <div class="text-center" style="font-weight: bold">CESÁRIA:</div>
-                  <div class="grid">
-                      <div class="col-9 text-right">Corporal:</div>
-                      <div class="col-3">
-                        <p-radioButton
-                                class="white"
-                                value="Corporal"
-                                formControlName="cesaria"
-                        ></p-radioButton>
-                      </div>
-                  </div>
-                  <div class="grid">
-                    <div class="col-9 text-right">Segmentaria:</div>
-                    <div class="col-3">
-                      <p-radioButton
-                              class="white"
-                              value="Segementaria"
-                              formControlName="cesaria"
-                      ></p-radioButton>
-                    </div>
-                  </div>
-                  <div class="grid">
-                    <div class="col-9 text-right">No aplica:</div>
-                    <div class="col-3">
-                      <p-radioButton
-                              class="white"
-                              value="No Aplica"
-                              formControlName="cesaria"
-                      ></p-radioButton>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="">
-                  <div class="text-center" style="font-weight: bold">ABORTO:</div>
-                  <div class="grid">
-                    <div class="col-9 text-right">Ameu:</div>
-                    <div class="col-3">
-                      <p-radioButton
-                              class="white"
-                              value="Ameu"
-                              formControlName="aborto"
-                      ></p-radioButton>
-                    </div>
-                  </div>
-                  <div class="grid">
-                    <div class="col-9 text-right">Legrado:</div>
-                    <div class="col-3">
-                      <p-radioButton
-                              class="white"
-                              value="Legrado"
-                              formControlName="aborto"
-                      ></p-radioButton>
-                    </div>
-                  </div>
-                  <div class="grid">
-                    <div class="col-9 text-right">No aplica:</div>
-                    <div class="col-3">
-                      <p-radioButton
-                              class="white"
-                              value="No Aplica"
-                              formControlName="aborto"
-                      ></p-radioButton>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </p-fieldset>
-        </div>
-        <div class="md:col-8">
+        <div class="col-12">
           <p-fieldset legend="Procedimiento en parto (Ver anexo)">
 
             <div class="grid">
@@ -785,12 +786,15 @@
                     <div class="flex justify-content-between">
                       <button pButton pRipple label="Nueva medicamento" icon="pi pi-plus" class="p-button-danger p-mr-2"
                               (click)="isUpdate3=false; medi='medicamento';agregarActualizar();"></button>
+                      <div>
+                      </div>
                     </div>
+
                   </ng-template>
                   <ng-template pTemplate="header">
                     <tr>
                       <th>Nro</th>
-                      <th>Medicacion</th>
+                      <th>Medicamento</th>
                       <th>Accion</th>
                     </tr>
                   </ng-template>
