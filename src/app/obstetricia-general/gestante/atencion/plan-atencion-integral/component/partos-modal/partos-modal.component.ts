@@ -28,7 +28,6 @@ export class PartosModalComponent implements OnInit {
 
   }
   buildForm() {
-    console.log(this.medicacion)
     this.medicacionFG = new FormGroup({
       medicacion: new FormControl("", Validators.required),
     });

@@ -42,6 +42,7 @@ export class PartosComponent implements OnInit {
               public dialogService: DialogService
             ) {
     this.idPaciente=obstetriciaGeneralService.idGestacion;
+    console.log('hola:',this.idPaciente);
     this.twoOptions = [
       { label: "Si", value: "si" },
       { label: "No", value: "no" },
@@ -244,14 +245,14 @@ export class PartosComponent implements OnInit {
         responsableAtencionNeonato:this.getFC("responsableAtencionNeonato").value
       }
     }
-    this.isUpdate
+
       this.partoAbortoService.addUpdatePartoAborto(this.idPaciente,partoAbortoInput).subscribe((resp)=>{
+        console.log(resp)
         if(this.isUpdate){
-          console.log(partoAbortoInput)
           this.messageService.add({severity:'info', summary:'Actualizado', detail:'Parto o aborto fue Actualizado satisfactoriamente'});
         }
         else{
-          this.messageService.add({severity:'su', summary:'Agregado', detail:'Parto o aborto fue agregado satisfactoriamente'});
+          this.messageService.add({severity:'info', summary:'Agregado', detail:'Parto o aborto fue agregado satisfactoriamente'});
 
         }
       })
@@ -353,8 +354,6 @@ export class PartosComponent implements OnInit {
       this.getFC('neonato').setValue(respuesta.atencion.neonato);
       this.getFC('responsableAtencionParto').setValue(respuesta.atencion.responsableAtencionParto);
       this.getFC('responsableAtencionNeonato').setValue(respuesta.atencion.responsableAtencionNeonato);
-      // console.log(respuesta);
-      // console.log(resp);
         this.isUpdate=true;
         this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro recuperado satisfactoriamente'});
 
@@ -388,11 +387,11 @@ export class PartosComponent implements OnInit {
     this.ref.onClose.subscribe((mensaje?: string) => {
       // let detail: string = "Elemento agregado satisfactoriomente";
       // let summary: string = "Agregado";
-      console.log('mensaje llegado:',mensaje)
+
       if(mensaje!=null ){
         if(this.medi=='medicacion'){
           if(this.isUpdate2){
-            console.log('entra')
+
             this.medicacionList.splice(index,1,mensaje)
           }
           else{
@@ -401,7 +400,7 @@ export class PartosComponent implements OnInit {
         }
         if(this.medi=='medicamento'){
           if(this.isUpdate3){
-            console.log('entra')
+
             this.medicamentoList.splice(index,1,mensaje)
           }
           else{
@@ -419,5 +418,4 @@ export class PartosComponent implements OnInit {
       this.medicamentoList.splice(index,1)
     }
   }
-n
 }
