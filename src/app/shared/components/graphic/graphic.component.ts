@@ -116,8 +116,22 @@ export class GraphicComponent implements OnInit, OnChanges {
                     show: true,
                     label: {
                         formatter: function (params) {
-                            // return params.value + 'cm'
-                            return params.value + 'cm'
+                            const year = Math.floor((params.value as number) / 12)
+                            const mes = Math.floor((params.value as number) % 12)
+                            if (year > 0) {
+                                if (year === 1) {
+                                    if (mes > 0) {
+                                        return year + ' año ' + mes + ' mes(es)'
+                                    }
+                                    return year + ' año '
+                                }
+                                if (mes > 0) {
+                                    return year + ' años ' + mes + ' mes(es)'
+                                }
+                                return year + ' años'
+                            } else {
+                                return mes + ' mes(es)'
+                            }
                         }
                     }
                 }
