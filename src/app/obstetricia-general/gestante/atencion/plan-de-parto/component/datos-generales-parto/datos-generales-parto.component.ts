@@ -13,24 +13,30 @@ export class DatosGeneralesPartoComponent implements OnInit {
   idRecuperado: string = "";
   tipoDocRecuperado: string;
   nroDocRecuperado: string;
-  fechaConvertido: string;
-  fechanacimiento: string;
   dataPacientes: any;
-  edad: any;
-  dataIDdatosgenerales: any;
   constructor(
     private formBuilder: FormBuilder,
     private filiancionService: FiliancionService,
-    private datosGeneralesParto: DatosGeneralesPartoService,
+    private datosGeneralesPartoService: DatosGeneralesPartoService,
     private obstetriciaGeneralService: ObstetriciaGeneralService) {
     this.buildForm();
     this.idRecuperado = this.obstetriciaGeneralService.idGestacion;
+    this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
+    this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
     console.log("recuperado", this.idRecuperado);
-    if (this.idRecuperado == null) {
-      this.getpacienteByNroDoc();
-    } else this.getDatosGeneralesById();
+    this.consultaExistePlanParto();
+    
   }
 
+  consultaExistePlanParto(){
+    this.datosGeneralesPartoService.getConsultaExistePlanParto(this.idRecuperado).subscribe((res: any) => {
+      if (res.object==null) {
+        this.getpacienteByNroDoc();
+      } else {
+        this.getDatosGeneralesById();
+      };
+    })
+  }
   buildForm() {
     this.form = this.formBuilder.group({
       nombreGestante: [''],
@@ -51,104 +57,66 @@ export class DatosGeneralesPartoComponent implements OnInit {
     })
   }
 
-  esNumero(strNumber) {
-    if (strNumber == null) return false;
-    if (strNumber == undefined) return false;
-    if (typeof strNumber === "number" && !isNaN(strNumber)) return true;
-    if (strNumber == "") return false;
-    if (strNumber === "") return false;
-    let psInt, psFloat;
-    psInt = parseInt(strNumber);
-    psFloat = parseFloat(strNumber);
-    return !isNaN(strNumber) && !isNaN(psFloat);
-  }
-
-  calcularEdad2(fecha) {
-    // Si la fecha es correcta, calculamos la edad
-    if (typeof fecha != "string" && fecha && this.esNumero(fecha.getTime())) {
-      fecha = fecha.formatDate(fecha, "yyyy-MM-dd");
-    }
-
-    //separamos lod dias meses y año
-    let values = fecha.split("-");
-    let dia = values[2];
-    let mes = values[1];
-    let anio = values[0];
-
-    // cogemos los valores actuales
-    let fechaActual = new Date();
-    let anioActual = fechaActual.getFullYear();
-    let mesActual = fechaActual.getMonth() + 1;
-    let diaActual = fechaActual.getDate();
-
-
-    // realizamos el calculo de la edad en años
-    var edad = (anioActual) - anio;
-    if (mesActual < mes) {
-      edad--;
-    }
-    if ((mes == mesActual) && (diaActual < dia)) {
-      edad--;
-    }
-    if (edad > anioActual) {
-      edad -= anioActual;
-    }
-
-    // calculamos los meses
-    let meses = 0;
-
-    if (mesActual > mes && dia > diaActual)
-      meses = mesActual - mes - 1;
-    else if (mesActual > mes)
-      meses = mesActual - mes
-    if (mesActual < mes && dia < diaActual)
-      meses = 12 - (mes - mesActual);
-    else if (mesActual < mes)
-      meses = 12 - (mes - mesActual + 1);
-    if (mesActual == mes && dia > diaActual)
-      meses = 11;
-
-    // calculamos los dias
-    let dias = 0;
-    if (diaActual > dia)
-      dias = diaActual - dia;
-    if (diaActual < dia) {
-      let ultimoDiaMes = new Date(anioActual, mesActual - 1, 0);
-      dias = ultimoDiaMes.getDate() - (dia - diaActual);
-    }
-    console.log("edad", edad + " años, " + meses + " meses y " + dias + " días");
-
-    this.edad = edad;
-    return edad + " años, " + meses + " meses y " + dias + " días";
-  }
-
-  convertiFecha() {
-    let values = this.fechanacimiento.split('/');
-    let dia = values[2];
-    let mes = values[1];
-    let anio = values[0];
-
-    this.fechaConvertido = dia + '-' + mes + '-' + anio;
-    console.log("fecha Convertido", this.fechaConvertido);
-  }
   getpacienteByNroDoc() {
     this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
       this.dataPacientes = res.object
-      console.log('paciente por doc ', this.dataPacientes)
-      this.form.get('apePaterno').setValue(this.dataPacientes.apePaterno);
-      this.form.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
-      this.fechanacimiento = this.dataPacientes.nacimiento.fechaNacimiento;
-      this.convertiFecha();
-      this.form.get('fechaNacimiento').setValue(this.fechaConvertido);
-      this.calcularEdad2(this.fechaConvertido);
-      this.form.get('edad').setValue(this.edad);
+      console.log('paciente por doc ', this.dataPacientes);
+      this.form.get('nombreGestante').setValue(this.dataPacientes.apePaterno+" "+this.dataPacientes.apeMaterno+", "+this.dataPacientes.primerNombre+" "+this.dataPacientes.otrosNombres);
+      this.form.get('nroHistoria').setValue(this.dataPacientes.nroHcl);
+      this.form.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
+      this.form.get('eess').setValue(this.dataPacientes.nombreEESS);
     });
-  }
-  getDatosGeneralesById() {
-    this.datosGeneralesParto.getDatosGeneralesById(this.idRecuperado).subscribe((res:any)=>{
-      console.log('datos traidos por el plan de parto',res.object)
+    this.datosGeneralesPartoService.getDatosGeneralesById(this.idRecuperado).subscribe((res: any) => {
+      console.log('datos traidos por el plan de parto', res.object)
+      this.form.get('fpp').setValue(res.object.fpp);
+      this.form.get('grupoSanguineo').setValue(res.object.grupoSanguineo);
+      this.form.get('edad').setValue(res.object.edad);
     })
   }
 
-  ngOnInit(): void {}
+  getDatosGeneralesById() {
+    this.datosGeneralesPartoService.getDatosGeneralesById(this.idRecuperado).subscribe((res: any) => {
+      console.log('datos traidos por el plan de parto', res.object);
+      let gestante=res.object;
+      this.form.get('nombreGestante').setValue(gestante.nombreGestante);
+      this.form.get('nroHistoria').setValue(gestante.nroHcl);
+      this.form.get('direccion').setValue(gestante.direccion);
+      this.form.get('edad').setValue(gestante.edad);
+      this.form.get('grupoSanguineo').setValue(gestante.grupoSanguineo);
+      this.form.get('fpp').setValue(gestante.fpp);
+      this.form.get('direccionReferencia').setValue(this.dataPacientes.referenciaDireccion);
+      this.form.get('eess').setValue(this.dataPacientes.eess);
+      this.form.get('microRed').setValue(this.dataPacientes.microRed);
+      this.form.get('red').setValue(this.dataPacientes.nombreGestante);
+      this.form.get('telefonoEess').setValue(this.dataPacientes.telefonoEess);
+      this.form.get('frecuenciaRadioEess').setValue(this.dataPacientes.frecuenciaRadioEess);
+      this.form.get('telefonoComunidad').setValue(this.dataPacientes.telefonoComunidad);
+      this.form.get('nombrePromotor').setValue(this.dataPacientes.nombrePromotorSalud);
+      this.form.get('tiempoLlegarEess').setValue(this.dataPacientes.tiempoLlegarEess);
+    })
+  }
+
+  guardarDatosGeneralesPlanParto(){
+    var data={
+      nombreGestante: this.form.value.nombreGestante,
+      edad: this.form.value.edad,
+      nroHistoria: this.form.value.nroHistoria,
+      grupoSanguineo: this.form.value.grupoSanguineo,
+      fpp: this.form.value.fpp,
+      direccion: this.form.value.direccion,
+      direccionReferencia: this.form.value.direccionReferencia,
+      eess: this.form.value.eess,
+      microRed: this.form.value.microRed,
+      red: this.form.value.red,
+      telefonoEess: this.form.value.telefonoEess,
+      frecuenciaRadioEess: this.form.value.frecuenciaRadioEess,
+      telefonoComunidad: this.form.value.telefonoComunidad,
+      nombrePromotor: this.form.value.nombrePromotor,
+      tiempoLlegarEess: this.form.value.tiempoLlegarEess,
+    }
+    this.datosGeneralesPartoService.postDatosGenerales(this.idRecuperado,data).subscribe((res: any) => {
+      console.log("Guardado correctamente",res.object);
+    })
+  }
+  ngOnInit(): void { }
 }

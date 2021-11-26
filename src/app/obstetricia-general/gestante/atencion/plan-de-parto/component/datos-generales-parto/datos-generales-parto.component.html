@@ -4,7 +4,7 @@
             <h3 class="p-m-0">Datos Generales de la Gestante</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"></button>
+            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary" (click)="guardarDatosGeneralesPlanParto()"></button>
         </ng-template>
     </p-toolbar>
     <form [formGroup]='form'>
