@@ -61,7 +61,7 @@
                                 <div class="col-3">
                                     <label>1ra: </label>
                                 </div>
-                                <div class="col-9">
+                                <div class="col-9 text-sm">
                                     <!-- <input type="number" pInputText formControlName='primeraDosis' placeholder=""
                                         class="inputfield w-full"> -->
                                     <p-calendar formControlName="primeraDosis">
@@ -261,16 +261,20 @@
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico: </label>
-                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
-                                formControlName="diagnosticoHosp" pInputTextarea></textarea>
+                            <p-autoComplete formControlName="hospitalizacionCIE" [suggestions]="listaDeCIE"
+                                    (completeMethod)="filterCountry($event)" field="descripcionItem" [minLength]="1" class="areaText">
+                                </p-autoComplete>
                         </div>
                         <div class="grid mt-2">
                             <div class="col-4">
                                 <label class=" mr-1">CIE 10: </label>
                             </div>
                             <div class="col-8">
-                                <input type="text" pInputText formControlName='hospitalizacionCIE' placeholder=""
-                                    class="inputfield w-full">
+                                <!-- <input type="text" pInputText formControlName='hospitalizacionCIE' placeholder=""
+                                    class="inputfield w-full"> -->
+                                <p-autoComplete formControlName="hospitalizacionCIE" [suggestions]="listaDeCIE"
+                                    (completeMethod)="filterCountry($event)" field="codigoItem" [minLength]="1" (onSelect)="selectedOption($event)" class="">
+                                </p-autoComplete>
                             </div>
                         </div>
                     </div>

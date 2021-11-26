@@ -141,3 +141,21 @@ input[type='number'] {
     padding-left: 0.3em;
     text-align: left;
 }
+
+
+::ng-deep .areaText .p-autocomplete-input{
+  display: grid;
+  height: 5em;
+  /* width: 15em; */
+  
+  /* overflow-wrap: break-word; */
+  word-break: break-word;
+  /* display: block; */
+  /* width: 100%; */
+  overflow: hidden;
+  resize: both;
+  min-height: 40px;
+  line-height: 20px;
+  grid-row: 4;
+
+}

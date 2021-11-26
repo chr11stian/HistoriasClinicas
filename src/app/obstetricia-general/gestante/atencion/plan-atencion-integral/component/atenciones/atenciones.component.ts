@@ -260,6 +260,7 @@ export class AtencionesComponent implements OnInit {
         if (this.isUpdate) return 'EDITE ATENCION PRENATAL'
         else return 'NUEVA ATENCION PRENATAL'
     }
+
     // /** grafica segun el tipo de grafico que se le manda tipoGrafico -> opciones: sobrepeso | normal | bajo_peso | obesidad */
     graficar(tipoGrafico: string) {
 
@@ -279,6 +280,7 @@ export class AtencionesComponent implements OnInit {
                 break
         }
 
+        /* data  tipo de dato:Array<number[]>; ejemplo: [[semana,peso],...] ejmpl2: [[1,1.45],[2,1.46]]*/
         this.openModal([], tipoGrafico, titleModal)
 
     }

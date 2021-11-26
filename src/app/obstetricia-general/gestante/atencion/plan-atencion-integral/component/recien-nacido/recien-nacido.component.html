@@ -34,7 +34,7 @@
                 <td style="text-align: center">{{ rowData.sexo }}</td>
                 <td style="text-align: center">{{ rowData.recienNacidoHcl }}</td>
                 <td style="text-align: center;width: 8rem; display: flex">
-                    <button pButton (click)="openDialogRN()" pTooltip="Editar" pRipple type="button"
+                    <button pButton (click)="openDialogEditarRN(rowData,rowIndex)" pTooltip="Editar" pRipple type="button"
                         icon="pi pi-pencil" class="p-button-rounded m-1">
                     </button>
                     <button pButton (click)="openDialogRN()" pTooltip="Visualizar" pRipple type="button"

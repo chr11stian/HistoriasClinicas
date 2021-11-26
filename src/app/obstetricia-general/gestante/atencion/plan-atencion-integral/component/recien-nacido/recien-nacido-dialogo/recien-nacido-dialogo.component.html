@@ -678,8 +678,8 @@
                                             <span>-</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-radioButton name="sLueticaVdrlRpr" formControlName="sLueticaVdrlRpr"
-                                                value="-" inputId="sLueticaVdrlRpr" class="azul pb-0"> </p-radioButton>
+                                            <p-radioButton name="slueticaVdrlRpr" formControlName="slueticaVdrlRpr"
+                                                value="-" inputId="slueticaVdrlRpr" class="azul pb-0"> </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -687,8 +687,8 @@
                                             <span>+</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-radioButton name="sLueticaVdrlRpr" formControlName="sLueticaVdrlRpr"
-                                                value="+" inputId="sLueticaVdrlRpr" class="amarillo pb-0">
+                                            <p-radioButton name="slueticaVdrlRpr" formControlName="slueticaVdrlRpr"
+                                                value="+" inputId="slueticaVdrlRpr" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -697,8 +697,8 @@
                                             <span>No se hizo</span>
                                         </div>
                                         <div class="col-4">
-                                            <p-radioButton name="sLueticaVdrlRpr" formControlName="sLueticaVdrlRpr"
-                                                value="No se hizo" inputId="sLueticaVdrlRpr" class="amarillo pb-0">
+                                            <p-radioButton name="slueticaVdrlRpr" formControlName="slueticaVdrlRpr"
+                                                value="No se hizo" inputId="slueticaVdrlRpr" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -891,7 +891,7 @@
                         </div>
                         <div class="col-12">
                             <p-selectButton [options]="stateOptions" formControlName="bcg" optionLabel="label"
-                                optionValue="value" value="Si"></p-selectButton>
+                                optionValue="value"></p-selectButton>
                         </div>
                     </div>
                     <div class="grid text-center">
@@ -1512,14 +1512,14 @@
                         <tr style="text-align: center">
                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.fecha }}</td>
-                            <td style="text-align: center">{{ rowData.reingreso }}</td>
+                            <td style="text-align: center">{{ rowData.reingreso? "Si" : "No" }}</td>
                             <td style="text-align: center">{{ rowData.diagnostico }}</td>
                             <td style="text-align: center">{{ rowData.fechaIngreso }}</td>
                             <td style="text-align: center;width: 8rem; display: flex">
-                                <button pButton (click)="openNew(rowData)" pTooltip="Editar" pRipple type="button"
+                                <button pButton (click)="openDialogEditarRN(rowData)" pTooltip="Editar" pRipple type="button"
                                     icon="pi pi-pencil" class="p-button-rounded m-1">
                                 </button>
-                                <button pButton (click)="openNew(rowData)" pTooltip="Visualizar" pRipple type="button"
+                                <button pButton (click)="openDialogEditarRN(rowData)" pTooltip="Visualizar" pRipple type="button"
                                     icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
                                 </button>
                             </td>
@@ -1725,7 +1725,8 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Guardar" (click)="enviarEgresosRecienNacido()"></button>
+        <button pButton *ngIf="estadoEditarRN"type="button" label="Guardar E" (click)="guardarEdicionEgresoRN()"></button>
+        <button pButton *ngIf="!estadoEditarRN"type="button" label="Guardar N" (click)="enviarEgresosRecienNacido()"></button>
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceledEgreso()"></button>
     </ng-template>
 </p-dialog>
