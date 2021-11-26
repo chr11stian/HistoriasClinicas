@@ -83,7 +83,7 @@ export class HeightWeightComponent implements OnInit {
             subTitleGraph: '(Nacimiento a 2 años)',
             measurementUnits: ['kg', 'meses'],
             series: valueSerie,
-            hasYears: true
+            typeAxisX: 'longitud'
         }
     }
 
