@@ -13,7 +13,6 @@ export class AseguradoUsuarioComponent implements OnInit {
       code:"no",name:"no"
     }]
   }
-
   ngOnInit(): void {
   }
 
