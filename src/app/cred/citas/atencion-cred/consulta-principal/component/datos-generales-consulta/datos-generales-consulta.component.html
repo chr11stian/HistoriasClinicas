@@ -1,18 +1,13 @@
-<div class="grid">
-    <div class="col-12 md:col-10 mt-0">
-        <h3 class="ml-2">DATOS GENERALES </h3>
-    </div>
-    <div class="col-12 md:col-2 text-right">
-        <button pButton pRipple type="button"
-                icon="pi pi-angle-right"
-                iconPos="right"
-                (click)="onNext()"
-                label="Siguiente"
-                class="p-button-info">
-        </button>
-    </div>
-</div>
-
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">DATOS GENERALES</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Siguiente" (click)="onNext()" iconPos="right" icon="pi pi-angle-right"
+                class="guardar mr-2"></button>
+    </ng-template>
+</p-toolbar>
+<br>
 <!-- Datos generales -->
 <p-fieldset legend="Información Básica" [toggleable]="true">
     <form [formGroup]="generalInfoFG">

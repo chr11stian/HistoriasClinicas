@@ -1,27 +1,15 @@
 <div class="p-card">
     <p-toolbar>
         <ng-template pTemplate="left">
-            <h2 class="p-m-0">TRATAMIENTO</h2>
+            <h3 class="mt-2">TRATAMIENTO</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button
-                    style="background: rgb(10, 79, 163)"
-                    pButton
-                    pRipple
-                    iconPos="left"
-                    label="atrás"
-                    icon="pi pi-chevron-left"
-            ></button>
-            <button
-                    style="background: rgb(10, 79, 163)"
-                    pButton
-                    pRipple
-                    iconPos="right"
-                    label="Siguiente"
-                    icon="pi pi-chevron-right"
-            ></button>
+            <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                    class="guardar mr-2"></button>
         </ng-template>
     </p-toolbar>
+    <br>
     <div class="grid">
         <div class="col-6 md-4 lg-3">
             <p-toolbar>
@@ -29,14 +17,8 @@
                     <span class="p-m-0">Tratamiento</span>
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
-                    <button
-                            style="background: rgb(10, 79, 163)"
-                            pButton
-                            pRipple
-                            iconPos="right"
-                            label="Agregar"
-                            icon="pi pi-plus-circle"
-                    ></button>
+                    <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"
+                            class="guardar mr-2"></button>
                 </ng-template>
             </p-toolbar>
 
@@ -77,14 +59,8 @@
                     <span class="p-m-0">Acuerdos y compromisos negociados con la madre y/o cuidador del niño</span>
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
-                    <button
-                            style="background: rgb(10, 79, 163)"
-                            pButton
-                            pRipple
-                            iconPos="right"
-                            label="Agregar"
-                            icon="pi pi-plus-circle"
-                    ></button>
+                    <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"
+                            class="guardar mr-2"></button>
                 </ng-template>
             </p-toolbar>
 

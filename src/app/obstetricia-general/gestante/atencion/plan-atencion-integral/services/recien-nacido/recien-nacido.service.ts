@@ -14,8 +14,7 @@ export class RecienNacidoService {
   getRecienNacidoById(idRecienNacido) {
     return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarreciennacido/${idRecienNacido}`)
   }
-
-  postRecienNacido(tipoDoc: string, nroDoc: string, data) {
-    return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarreciennacido/${tipoDoc}/${nroDoc}`, data)
+  postRecienNacido(idRecienNacido, data) {
+    return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarreciennacido/${idRecienNacido}`, data)
   }
 }
