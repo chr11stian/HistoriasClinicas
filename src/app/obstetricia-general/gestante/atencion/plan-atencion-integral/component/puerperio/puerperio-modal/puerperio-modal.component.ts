@@ -35,31 +35,32 @@ export class PuerperioModalComponent implements OnInit {
   buildForm() {
     this.formPurperio = this.form.group({
       fechaAtencion:new FormControl("", [Validators.required]),
-      horasDias: new FormControl("", [Validators.required]),
+      horasDiasPostPartoAborto: new FormControl("", [Validators.required]),
       temperatura: new FormControl("", [Validators.required]),
       pulso: new FormControl("", [Validators.required]),
-      presionArterial: new FormControl("", [Validators.required]),
-      involucionUterina: new FormControl("", [Validators.required]),
+      presionArterialMaxima: new FormControl("", [Validators.required]),
+      involucionUteriana: new FormControl("", [Validators.required]),
       heridaOperacion: new FormControl("", [Validators.required]),
       caracteristicasLoquios: new FormControl("", [Validators.required]),
       observaciones: new FormControl("", [Validators.required]),
     });
   }
+  tituloPuerperio(){
+    return "Ingrese nuevo Puerperi";
+  }
   openNew(){
     this.formPurperio.reset();
     this.PuerperioDialog = true;
   }
-  closeDialog(){
-    this.ref.close();
-  }
+
   enviarPuerperios(){
     var puerperioData = {
       fechaAtencion: this.datePipe.transform(this.formPurperio.value.fechaAtencion, 'yyyy-MM-dd'),
-      horasDias:this.formPurperio.value.horasDias,
+      horasDiasPostPartoAborto:this.formPurperio.value.horasDiasPostPartoAborto,
       temperatura:this.formPurperio.value.temperatura,
       pulso:this.formPurperio.value.pulso,
-      presionArterial: this.formPurperio.value.presionArterial,
-      involucionUterina:this.formPurperio.value.involucionUterina,
+      presionArterialMaxima: this.formPurperio.value.presionArterialMaxima,
+      involucionUteriana:this.formPurperio.value.involucionUteriana,
       heridaOperacion:this.formPurperio.value.heridaOperacion,
       caracteristicasLoquios:this.formPurperio.value.caracteristicasLoquios,
       observaciones:this.formPurperio.value.observaciones
@@ -81,15 +82,15 @@ export class PuerperioModalComponent implements OnInit {
     this.estadoEditar = false;
   }
   llenarCamposPuerperio(){
-    let configuracion=this.config.data.puerperioInmediato.row;
+    let configuracion=this.config.data.row;
     this.formPurperio.get("fechaAtencion").setValue(configuracion.fechaAtencion);
     this.formPurperio.get("pulso").setValue(configuracion.pulso);
-    this.formPurperio.get("horasDias").setValue(configuracion.horasDias);
-    this.formPurperio.get("involucionUterina").setValue(configuracion.involucionUterina);
+    this.formPurperio.get("horasDiasPostPartoAborto").setValue(configuracion.horasDiasPostPartoAborto);
+    this.formPurperio.get("involucionUteriana").setValue(configuracion.involucionUteriana);
     this.formPurperio.get("heridaOperacion").setValue(configuracion.heridaOperacion);
     this.formPurperio.get("observaciones").setValue(configuracion.observaciones);
     this.formPurperio.get("temperatura").setValue(configuracion.temperatura);
-    this.formPurperio.get("presionArterial").setValue(configuracion.presionArterial);
+    this.formPurperio.get("presionArterialMaxima").setValue(configuracion.presionArterialMaxima);
     this.formPurperio.get("caracteristicasLoquios").setValue(configuracion.caracteristicasLoquios);
   }
  openDialogPuerperio(rowData, rowIndex){
@@ -98,25 +99,45 @@ export class PuerperioModalComponent implements OnInit {
     this.formPurperio.reset();
        this.formPurperio.get("fechaAtencion").setValue(rowData.fechaAtencion);
        this.formPurperio.get("pulso").setValue(rowData.pulso);
-       this.formPurperio.get("horasDias").setValue(rowData.horasDias);
-       this.formPurperio.get("involucionUterina").setValue(rowData.involucionUterina);
+       this.formPurperio.get("horasDiasPostPartoAborto").setValue(rowData.horasDiasPostPartoAborto);
+       this.formPurperio.get("involucionUteriana").setValue(rowData.involucionUteriana);
        this.formPurperio.get("heridaOperacion").setValue(rowData.heridaOperacion);
        this.formPurperio.get("observaciones").setValue(rowData.observaciones);
        this.formPurperio.get("temperatura").setValue(rowData.temperatura);
-       this.formPurperio.get("presionArterial").setValue(rowData.presionArterial);
+       this.formPurperio.get("presionArterialMaxima").setValue(rowData.presionArterialMaxima);
        this.formPurperio.get("caracteristicasLoquios").setValue(rowData.caracteristicasLoquios);
       this.PuerperioDialog = true;
+  }
+  guardarPuerperio(){
+    var puerperiodata = {
+      fechaAtencion: this.datePipe.transform(this.formPurperio.value.fechaAtencion, 'yyyy-MM-dd'),
+        horasDiasPostPartoAborto:this.formPurperio.value.horasDiasPostPartoAborto,
+      temperatura:this.formPurperio.value.temperatura,
+      pulso:this.formPurperio.value.pulso,
+        presionArterialMaxima: this.formPurperio.value.presionArterialMaxima,
+        involucionUteriana:this.formPurperio.value.involucionUteriana,
+      heridaOperacion:this.formPurperio.value.heridaOperacion,
+      caracteristicasLoquios:this.formPurperio.value.caracteristicasLoquios,
+      observaciones:this.formPurperio.value.observaciones
+    }
+    console.log(puerperiodata);
+    this.dataPuerperio.splice(this.indicePuerperio,1,puerperiodata);
+    this.PuerperioDialog = false;
+    this.estadoEditar = false;
   }
   closeDialogGuardar(){
     this.enviarPuerperios();
     this.ref.close(
         this.config.data?{
-              index: this.config.data.puerperioInmediato.index,
+              index: this.config.data.index,
               row: this.dataPuerperio[0]
             }:
             this.dataPuerperio[0]);
   }
 
+  closeDialog(){
+    this.ref.close();
+  }
   canceled() {
     Swal.fire({
       icon: 'warning',
