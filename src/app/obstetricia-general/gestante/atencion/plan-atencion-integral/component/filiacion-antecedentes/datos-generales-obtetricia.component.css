@@ -1,3 +1,24 @@
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background: #0c3866;
+    border-color: #0c3866;
+}
+
+p-calendar >>> .p-button {
+    background: #0c3866;
+    border: 1px solid #0c3866;
+    align-self: center;
+}
+
+.guardar {
+    background: #0c3866;
+    border-color: #0c3866;
+    align-items: center;
+}
+
+p-toolbar >>> * {
+    align-self: center;
+}
+
 label {
     font-weight: normal;
 }
@@ -88,11 +109,11 @@ p-checkbox >>> .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
 /*}*/
 
 
-::ng-deep .amarillo .p-checkbox  .p-checkbox-box{
+::ng-deep .amarillo .p-checkbox .p-checkbox-box {
     background-color: #f6e41a;
 }
 
-::ng-deep .rojo .p-checkbox  .p-checkbox-box{
+::ng-deep .rojo .p-checkbox .p-checkbox-box {
     background-color: rgba(197, 0, 9, 0.63);
 }
 
@@ -111,66 +132,67 @@ p-checkbox >>> .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
 /*}*/
 
 
-
-p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
+p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
     content: url("src\assets\svg-icons\check-svgrepo-com.svg");
 }
-::ng-deep .blanco .p-radiobutton .p-radiobutton-icon{
+
+::ng-deep .blanco .p-radiobutton .p-radiobutton-icon {
     background: rgb(255, 255, 255);
     border: rgb(128, 128, 128);
 }
 
-::ng-deep .blanco .p-radiobutton .p-radiobutton-box.p-highlight{
+::ng-deep .blanco .p-radiobutton .p-radiobutton-box.p-highlight {
     border-color: rgb(155, 154, 154);
     background: rgb(255, 255, 255);
 }
-::ng-deep .blanco .p-radiobutton .p-radiobutton-box{
+
+::ng-deep .blanco .p-radiobutton .p-radiobutton-box {
     background: rgb(76, 120, 49);
     border: rgb(101, 100, 100);
 }
 
 
-
-
-::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon{
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon {
     background: rgb(242, 236, 56);
     border: rgb(242, 236, 56);
 }
 
-::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight{
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight {
     border-color: rgb(242, 236, 56);
     background: rgb(242, 236, 56);
 }
-::ng-deep .amarillo .p-radiobutton .p-radiobutton-box{
+
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box {
     background: rgb(242, 236, 56);
     border: rgb(242, 236, 56);
 }
+
 /* ::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight:hover{
     border-color: rgb(223, 217, 57);
     background: rgb(223, 217, 57);
 } */
 
-::ng-deep .rojo .p-radiobutton .p-radiobutton-icon{
+::ng-deep .rojo .p-radiobutton .p-radiobutton-icon {
     background: red;
     border: red;
 }
 
-::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight{
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight {
     border-color: red;
     background: red;
 }
 
-::ng-deep .rojo .p-radiobutton .p-radiobutton-box{
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box {
     border-color: red;
     background: red;
 }
 
-::ng-deep .default .p-radiobutton .p-radiobutton-icon{
+::ng-deep .default .p-radiobutton .p-radiobutton-icon {
     background: #2196f3;
     border: #2196f3;
 }
 
-::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight{
+::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight {
     background: #2196f3;
     border: #2196f3;
 }

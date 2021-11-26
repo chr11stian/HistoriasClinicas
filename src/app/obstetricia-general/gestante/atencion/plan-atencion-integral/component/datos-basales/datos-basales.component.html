@@ -1,13 +1,15 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">DATOS BASALES DEL EMBARAZO ACTUAL</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                (click)="guardarDatos()" class="guardar mr-2"></button>
+    </ng-template>
+</p-toolbar>
+<br>
 <div class="p-card">
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <h3 class="p-m-0">Datos Basales del Embarazo Actual</h3>
-        </ng-template>
-        <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"
-                (click)="guardarDatos()"></button>
-        </ng-template>
-    </p-toolbar>
     <form [formGroup]='form'>
         <div class="grid">
             <div class="col-2">
@@ -59,7 +61,7 @@
                                 <div class="col-3">
                                     <label>1ra: </label>
                                 </div>
-                                <div class="col-9">
+                                <div class="col-9 text-sm">
                                     <!-- <input type="number" pInputText formControlName='primeraDosis' placeholder=""
                                         class="inputfield w-full"> -->
                                     <p-calendar formControlName="primeraDosis">
@@ -259,16 +261,20 @@
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico: </label>
-                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
-                                formControlName="diagnosticoHosp" pInputTextarea></textarea>
+                            <p-autoComplete formControlName="hospitalizacionCIE" [suggestions]="listaDeCIE"
+                                    (completeMethod)="filterCountry($event)" field="descripcionItem" [minLength]="1" class="areaText">
+                                </p-autoComplete>
                         </div>
                         <div class="grid mt-2">
                             <div class="col-4">
                                 <label class=" mr-1">CIE 10: </label>
                             </div>
                             <div class="col-8">
-                                <input type="text" pInputText formControlName='hospitalizacionCIE' placeholder=""
-                                    class="inputfield w-full">
+                                <!-- <input type="text" pInputText formControlName='hospitalizacionCIE' placeholder=""
+                                    class="inputfield w-full"> -->
+                                <p-autoComplete formControlName="hospitalizacionCIE" [suggestions]="listaDeCIE"
+                                    (completeMethod)="filterCountry($event)" field="codigoItem" [minLength]="1" (onSelect)="selectedOption($event)" class="">
+                                </p-autoComplete>
                             </div>
                         </div>
                     </div>

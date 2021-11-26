@@ -1,12 +1,15 @@
 <div class="p-card">
-    <p-toolbar styleClass="p-mb-4">
+    <p-toolbar>
         <ng-template pTemplate="left">
-            <h3 class="p-m-0">Datos del recien nacido</h3>
+            <h3 class="mt-2">RECIÉN NACIDOS</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Guardar" (click)="guardarRecienNacidos()" icon="pi pi-save" class="p-button-primary"></button>
+            <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                    (click)="guardarRecienNacidos()" class="guardar mr-2"></button>
         </ng-template>
     </p-toolbar>
+    <br>
     <p-table [value]="todosRN" #dt [rows]="5" styleClass="p-datatable-gridlines" [paginator]="true"
         [autoLayout]="true" class="m-3"
         currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
