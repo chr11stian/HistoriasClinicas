@@ -9,11 +9,13 @@ import {GraphInterface} from '../../models/graph.interface'
 })
 export class GraphicComponent implements OnInit, OnChanges {
     @Input() data: GraphInterface
-
     chartOption: EChartsOption = {}
 
-
     constructor() {
+    }
+
+    ngOnInit(): void {
+
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -62,7 +64,6 @@ export class GraphicComponent implements OnInit, OnChanges {
                     }
                 },
                 splitNumber: 30
-
             }
             const yAxisGraph: any = {
                 type: 'value',
@@ -110,7 +111,56 @@ export class GraphicComponent implements OnInit, OnChanges {
                 nameGap: 2,
 
             }
-            if (this.data.hasYears === true) {
+            if (this.data.typeAxisX === 'year') {
+                tooltipGraph['axisPointer'] = {
+                    show: true,
+                    label: {
+                        formatter: function (params) {
+                            const year = Math.floor((params.value as number) / 12)
+                            const mes = Math.floor((params.value as number) % 12)
+                            if (year > 0) {
+                                if (year === 1) {
+                                    if (mes > 0) {
+                                        return year + ' año ' + mes + ' mes(es)'
+                                    }
+                                    return year + ' año '
+                                }
+                                if (mes > 0) {
+                                    return year + ' años ' + mes + ' mes(es)'
+                                }
+                                return year + ' años'
+                            } else {
+                                return mes + ' mes(es)'
+                            }
+                        }
+                    }
+                }
+                xAxisGraph['axisLabel'] = {
+                    rotate: 90,
+                    fontWeight: 'bold',
+                    fontSize: 14
+                }
+                xAxisGraph['nameGap'] = 2
+            } else if (this.data.typeAxisX === 'trimestre') {
+                console.log('hola mundo trimestre')
+                tooltipGraph['axisPointer'] = {
+                    show: true,
+                    label: {
+                        formatter: function (params) {
+                            return params.value + ' semanas'
+                        }
+                    }
+                }
+                xAxisGraph['axisLabel'] = {
+                    rotate: 90,
+                    fontWeight: 'bold',
+                    fontSize: 14,
+                    formatter: (value, index) => {
+                        return value
+                    }
+                }
+                yAxisGraph['min'] = -4
+            } else if (this.data.typeAxisX === 'longitud') {
                 tooltipGraph['axisPointer'] = {
                     show: true,
                     label: {
@@ -124,10 +174,11 @@ export class GraphicComponent implements OnInit, OnChanges {
                     fontWeight: 'bold',
                     fontSize: 14
                 }
-                xAxisGraph['min'] = 50
+                xAxisGraph['min'] = 45
                 xAxisGraph['max'] = 110
+                // xAxisGraph['min'] = 45
+                // xAxisGraph['max'] = 60
                 xAxisGraph['nameGap'] = 2
-
             } else {
                 tooltipGraph['axisPointer'] = {
                     show: true,
@@ -174,14 +225,9 @@ export class GraphicComponent implements OnInit, OnChanges {
                 // series: {
                 //    hoverLayerThreshold:5
                 // },
-
             }
         }
     }
 
-
-    ngOnInit(): void {
-
-    }
 
 }

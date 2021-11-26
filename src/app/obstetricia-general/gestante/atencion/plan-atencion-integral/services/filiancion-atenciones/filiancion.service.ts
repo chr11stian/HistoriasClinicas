@@ -22,4 +22,13 @@ export class FiliancionService {
         return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarafiliacion/${tipoDoc}/${nroDoc}`, data)
     }
 
+    UpdatePacienteFiliacion(tipoDoc, nroDoc, data) {
+        return this.http.put(`${this.base_url}/${this.bd}/filiacion/guardarafiliacion/${tipoDoc}/${nroDoc}`, data)
+    }
+
+    getPacienteFiliacionId(id) {
+        return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarafiliacion/${id}`)
+    }
+
+
 }
