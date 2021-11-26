@@ -153,10 +153,7 @@ export class AtencionesComponent implements OnInit {
             responsableAtencion: ['', [Validators.required]],
             establecimientoAtencion: ['', [Validators.required]],
         })
-
     }
-
-
     save(form: any) {
         this.isUpdate = false
         console.log('enviando datos...')
@@ -173,7 +170,6 @@ export class AtencionesComponent implements OnInit {
         })
         this.atencionGestanteDialog = false
     }
-
 
     openNew() {
         this.isUpdate = false
@@ -205,10 +201,8 @@ export class AtencionesComponent implements OnInit {
         this.form.get('visitaDomiciliaria').setValue('')
         this.form.get('responsableAtencion').setValue('')
         this.form.get('establecimientoAtencion').setValue('')
-
         this.atencionGestanteDialog = true
     }
-
     editar(rowData) {
 
         this.isUpdate = true
@@ -243,8 +237,6 @@ export class AtencionesComponent implements OnInit {
         this.atencionGestanteDialog = true
 
     }
-
-
     canceled() {
         Swal.fire({
             icon: 'warning',
@@ -280,7 +272,7 @@ export class AtencionesComponent implements OnInit {
         }
 
         this.openModal([], tipoGrafico, titleModal)
-
+ //** peso - edad gestacional*/
     }
 
     openModal(data: Array<number[]>, tipoGrafico: string, titleModal: string): void {

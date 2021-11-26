@@ -20,26 +20,23 @@ export class AtencionComponent implements OnInit {
     titleSegundaFase: string = "Por último";
     contentSegundaFase: string = "";
 
-    idDocumento: string;
-    id: string = "";
-    nroHCL: string = "";
+    idRecuperado: string = "";
+    tipoDocRecuperado: string;
+    nroDocRecuperado: string;
 
-    dni : string ="";
-    nroEmbarazo: any;
 
     constructor(private obstetriciaGeneralService: ObstetriciaGeneralService) {
+        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
+        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
+
     }
 
     ngOnInit(): void {
 
-        // this.obstetriciaGeneralService.observable$.subscribe((id: any) => {
-        //     this.idDocumento = id;
-        //     console.log("ID", id);
-        // });
 
-
-        this.id = this.obstetriciaGeneralService.idGestacion;
-        console.log("ID recuperado", this.id);
+        console.log("IdRecuperado", this.idRecuperado);
+        console.log("TipoDocRecuperado", this.tipoDocRecuperado);
+        console.log("NroDocRecuparado", this.nroDocRecuperado);
 
     }
 

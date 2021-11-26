@@ -18,6 +18,9 @@ export class PuerperioInmediatoService {
   addPuerperioService2(id,dataPuerperio) {
     return this.http.post<any>(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio/${id}`,dataPuerperio);
   }
+  editPuerperioService(id,dataPuerperio){
+    return this.http.post<any>(`${this.base_url}/${this.bd}/filiacion/guardarpuerperio/${id}`,dataPuerperio);
+  }
 
 
 

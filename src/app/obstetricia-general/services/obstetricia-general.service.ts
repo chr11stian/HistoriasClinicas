@@ -12,6 +12,9 @@ export class ObstetriciaGeneralService {
     //id para recuperar en cada componente
     idGestacion: string = "";
 
+    tipoDoc: string= "";
+    nroDoc: string= "";
+
     constructor(private http: HttpClient) {
     }
     getPacienteFiliacion(tipoDoc, nroDoc) {

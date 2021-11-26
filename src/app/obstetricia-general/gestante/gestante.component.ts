@@ -47,6 +47,8 @@ export class GestanteComponent implements OnInit {
         // console.log("id documento", this.idDocumento);
         // this.obstetriciaGeneralService.observable$.emit(event.id);
         this.obstetriciaGeneralService.idGestacion = event.id;
+        this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
+        this.obstetriciaGeneralService.nroDoc = event.nroDoc;
 
 
     }
@@ -61,7 +63,7 @@ export class GestanteComponent implements OnInit {
 
     pacienteByNroDoc() {
         let tipoDoc = "DNI";
-        let nroDoc = "24015415"
+        let nroDoc = "10101013"
         // nroDoc: "24015415"
 
         this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
@@ -75,5 +77,9 @@ export class GestanteComponent implements OnInit {
         this.getpacientesFiliados(tipoDoc, nroDoc);
     }
 
-}
+    newEmbarazo() {
+        this.obstetriciaGeneralService.tipoDoc = this.tipoDoc;
+        this.obstetriciaGeneralService.nroDoc = this.nroDoc;
+    }
 
+}
