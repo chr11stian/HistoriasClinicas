@@ -8,15 +8,17 @@
             <div class="field grid" *ngFor="let inmu1 of lista1">
                 <span class="col-fixed text-right mr-2" style="width:120px">{{inmu1.nombreVacuna}}:</span>
                 <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"
-                    dateFormat="dd/mm/yyyy"
-                    [(ngModel)]="dateValue"></p-calendar>
+                    <p-calendar [showIcon]="true" placeholder="Fecha"
+                                dateFormat="dd/mm/yy"
+                                inputId="icon"
+                                [(ngModel)]="dateValue"></p-calendar>
                 </div>
                 <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" [(ngModel)]="dateValue"></p-calendar>
+                    <p-calendar [showIcon]="true" [disabled]=true placeholder="Fecha"
+                                [(ngModel)]="dateValue"></p-calendar>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
     <div class="lg:col-4 md:col-6 col-fixed">
         <div class="card flex flex-column">
@@ -33,10 +35,10 @@
                     <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
     <div class="lg:col-4 md:col-6 col-fixed">
-        <div class="card flex flex-column" >
+        <div class="card flex flex-column">
             <div class="field grid">
                 <div class="mr-2 text-right" style="width:200px">Fecha</div>
                 <div class="text-right" style="width:140px">Fecha Tentativa</div>
@@ -50,6 +52,6 @@
                     <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
 </div>
