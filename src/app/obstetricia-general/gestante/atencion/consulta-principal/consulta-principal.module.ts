@@ -8,6 +8,7 @@ import {TratamientoComponent} from "./component/tratamiento/tratamiento.componen
 import {ResultadosComponent} from "./component/resultados/resultados.component";
 import {ConsultaPrincipalRoutingModule} from "./consulta-principal-routing.module";
 import {PrimeModule} from "../../../../shared/prime/prime.module";
+import { DialogExamenesFetalesComponent } from './component/interrogatorio/dialog-examenes-fetales/dialog-examenes-fetales.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {PrimeModule} from "../../../../shared/prime/prime.module";
         GiagnosticosComponent,
         TratamientoComponent,
         ResultadosComponent,
+        DialogExamenesFetalesComponent,
     ],
     imports: [
         ConsultaPrincipalRoutingModule,
