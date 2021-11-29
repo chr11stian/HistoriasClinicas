@@ -10,13 +10,13 @@ export class IntervaloPartoService {
   bd = environment.bd;
   constructor(private http: HttpClient) { }
 
-  getIntervalosPartoById(id,fecha) {
-    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/planparto/obtener/PlanItems/${id}/${fecha}`)
+  getIntervalosPartoById(id) {
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/planparto/listar/items/${id}`)
   }
   postIntervalosParto(id, data) {
     return this.http.post(`${this.base_url}/${this.bd}/obstetricia/planparto/guardar/agregarPlanItem/${id}`, data)
   }
-  /*getConsultaExistePlanParto(id) {
-    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/planparto/existe/${id}`)
-  }*/
+  editarIntervalosParto(id, data){
+    return this.http.post(`${this.base_url}/${this.bd}/obstetricia/planparto/modificar/PlanItem/${id}`, data)
+  }
 }
