@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core'
-import {FormGroup} from '@angular/forms'
+import { ReproCitasService } from '../../services/repro-citas.service';
 
 @Component({
     selector: 'app-repro-citas',
@@ -8,17 +8,16 @@ import {FormGroup} from '@angular/forms'
 })
 export class ReproCitasComponent implements OnInit {
     datos: any[] = []
-
+    dni:string = '619e90f0314f7469f8544cc1';
     desabilitar1: boolean= false;
     desabilitar2: boolean = false;
-    reproFG: FormGroup
+    tablaBD = [];
+    
 
-    // rojo  /* true  este ya esta cogido */
-    // / blanco * null  este esta por coger */
-    /*  amarillo  false  este esta por coger */
+
     days = ['Hora', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo']
 
-    constructor() {
+    constructor(private reproService: ReproCitasService) {
         this.datos = [
             ['07:00 am - 08:30 am',1,null,1,null,null,1,null],
             ['08:30 am - 10:00 am',1,null,1,1,null,1,null],
@@ -30,8 +29,20 @@ export class ReproCitasComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.getTablaDatos();
     }
 
+    async getTablaDatos() {
+        await this.reproService.getDatosGenerales(this.dni)
+        .toPromise().then(res => res['object'])
+        .then(data => {
+            this.tablaBD = data['datosGeneralesConsulta'];
+        })
+        .catch(error => { return error;});
+        console.log("joder",this.tablaBD);
+    }
+    
+        
     send(rowIndex, indexCol): void {
         alert('Usted selecciona el dia : ' + this.days[indexCol] + ' a las ' + this.datos[rowIndex][0])
         this.desabilitar2 = true;
