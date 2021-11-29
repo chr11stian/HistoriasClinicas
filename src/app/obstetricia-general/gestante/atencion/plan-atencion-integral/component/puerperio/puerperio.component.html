@@ -1,15 +1,13 @@
 <div>
-    <p-toolbar styleClass="p-mb-4">
+    <p-toolbar>
         <ng-template pTemplate="left">
-            <h3 class="p-m-0"></h3>
+            <h3 class="mt-2">PUERPERIO</h3>
         </ng-template>
-
-       <ng-template pTemplate="right" class="button">
-        <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
-                style="background: #2196F3; border: 1px solid #2196F3;"></button>
-        <button pButton pRipple label="Continuar" routerLink=".." icon="pi pi-angle-right" iconPos="right" style="background-color: #003c71"
-        ></button>
-    </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+            <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                    class="guardar mr-2"></button>
+        </ng-template>
     </p-toolbar>
     <br>
     <p-fieldset legend="PURPERIO INMEDIATO" [toggleable]="true">

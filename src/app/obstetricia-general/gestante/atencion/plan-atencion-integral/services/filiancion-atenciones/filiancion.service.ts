@@ -9,11 +9,12 @@ import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-gen
 export class FiliancionService {
     base_url = environment.baseUrl;
     bd = environment.bd;
-    id:string ="";
+    id: string = "";
 
 
     constructor(private http: HttpClient) {
     }
+
     getPacienteNroDocFiliacion(tipoDoc, nroDoc) {
         return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarpaciente/${tipoDoc}/${nroDoc}`)
     }
@@ -28,6 +29,14 @@ export class FiliancionService {
 
     getPacienteFiliacionId(id) {
         return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarafiliacion/${id}`)
+    }
+
+    UpdateAntecedentesFiliacion(tipoDoc, nroDoc, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarfiliacion/${tipoDoc}/${nroDoc}`, data)
+    }
+
+    getAntecedentesFiliacion(id) {
+        return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarfiliacion/${id}`)
     }
 
 

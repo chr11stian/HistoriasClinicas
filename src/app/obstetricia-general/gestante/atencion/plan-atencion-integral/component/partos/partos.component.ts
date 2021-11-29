@@ -12,6 +12,9 @@ import {PartoAbortoService} from "../../services/parto-aborto/parto-aborto.servi
 import {formatDate} from "@angular/common";
 import {MessageService} from 'primeng/api';
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {PartosModalComponent} from "../partos-modal/partos-modal.component";
+import {TipoTurnoModalComponent} from "../../../../../../mantenimientos/component/tipo-turno-modal/tipo-turno-modal.component";
 
 
 
@@ -20,25 +23,26 @@ import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-gen
   selector: "app-partos",
   templateUrl: "./partos.component.html",
   styleUrls: ["./partos.component.css"],
+  providers: [DialogService]
 })
 export class PartosComponent implements OnInit {
   isUpdate:boolean=false;
-  // tipoDoc:string="DNI"
   idPaciente:string;
   treeOptionsOptions: any[];
   twoOptions: any[];
   TFOptions:any[];
   myGroup: FormGroup;
-  medicacionList=[{ medicacion:'medicacion1'},{medicacion:'medicacion2'},{medicacion:'medicacion3'}]
-  medicamentoList=[{ medicamento:'medicamento1'},{medicamento:'medicamento2'}]
-  display: boolean = false;
 
+  medicacionList=[]
+  medicamentoList=[]
   constructor(public fb: FormBuilder,
               private partoAbortoService:PartoAbortoService,
               private messageService: MessageService,
-              private obstetriciaGeneralService: ObstetriciaGeneralService
+              private obstetriciaGeneralService: ObstetriciaGeneralService,
+              public dialogService: DialogService
             ) {
     this.idPaciente=obstetriciaGeneralService.idGestacion;
+    console.log('hola:',this.idPaciente);
     this.twoOptions = [
       { label: "Si", value: "si" },
       { label: "No", value: "no" },
@@ -122,15 +126,10 @@ export class PartosComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    // this.myGroup.valueChanges.pipe(debounceTime(350)).subscribe((value) => {
-    //   console.log(value);
-    // });
+
     this.getPartoAborto();
 
   }
-  // ngDoCheck(): void {
-  //   this.mostrarDatos();
-  // }
   getFC(control: string): AbstractControl {
     return this.myGroup.get(control);
   }
@@ -219,8 +218,8 @@ export class PartosComponent implements OnInit {
         aborto:this.getFC("aborto").value
       },
       procedimientoParto:{
-        medicacion:["mediacion 1"],
-        medicamentos:["medicamento 1"]
+        medicacion:this.medicacionList,
+        medicamentos:this.medicamentoList
       },
       indicacionPrincipalParto:this.getFC("indicacionPrincipalPartoOperatorio").value,
       hubo:this.getFC("indicacionPrincipalHubo").value,
@@ -246,13 +245,14 @@ export class PartosComponent implements OnInit {
         responsableAtencionNeonato:this.getFC("responsableAtencionNeonato").value
       }
     }
-    this.isUpdate
+
       this.partoAbortoService.addUpdatePartoAborto(this.idPaciente,partoAbortoInput).subscribe((resp)=>{
+        console.log(resp)
         if(this.isUpdate){
           this.messageService.add({severity:'info', summary:'Actualizado', detail:'Parto o aborto fue Actualizado satisfactoriamente'});
         }
         else{
-          this.messageService.add({severity:'su', summary:'Agregado', detail:'Parto o aborto fue agregado satisfactoriamente'});
+          this.messageService.add({severity:'info', summary:'Agregado', detail:'Parto o aborto fue agregado satisfactoriamente'});
 
         }
       })
@@ -327,6 +327,10 @@ export class PartosComponent implements OnInit {
       this.getFC('semanaInicio').setValue(respuesta.coticoidesAntenatales.semanaInicio);
       this.getFC('cesaria').setValue(respuesta.tipoProcedimiento.cesaria);
       this.getFC('aborto').setValue(respuesta.tipoProcedimiento.aborto);
+      //la lista
+      this.medicacionList=respuesta.procedimientoParto.medicacion;
+      this.medicamentoList=respuesta.procedimientoParto.medicamentos;
+
       if (respuesta.terminacion.fecha) {
         this.getFC('terminacionFecha').setValue(new Date(respuesta.terminacion.fecha));
       }
@@ -350,8 +354,6 @@ export class PartosComponent implements OnInit {
       this.getFC('neonato').setValue(respuesta.atencion.neonato);
       this.getFC('responsableAtencionParto').setValue(respuesta.atencion.responsableAtencionParto);
       this.getFC('responsableAtencionNeonato').setValue(respuesta.atencion.responsableAtencionNeonato);
-      // console.log(respuesta);
-      // console.log(resp);
         this.isUpdate=true;
         this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro recuperado satisfactoriamente'});
 
@@ -361,36 +363,59 @@ export class PartosComponent implements OnInit {
         this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe registro parto aborto'});
       }
     });
+  }
 
-  }
-  addMedicacion(){
-    this.display=true;
-    this.medicacionList.push({medicacion:'medicamento...'})
-  }
-  addMedicamento(){
-    this.medicamentoList.push({medicamento:'medicamento...'})
-  }
-  eliminarMedicacion(rowData){
-    this.medicacionList.splice(rowData,1)
-  }
-  clonedProducts: { [s: string]: any; } = {};
-  onRowEditInit(product: any) {
-    this.clonedProducts[product.id] = {...product};
-  }
-//   probando(){
-//     const myObservable = Rx.Observable.create((observer) => {
-//       observer.next(Math.random()); // generamos un número aleatorio
-//     });
-//
-// // Subscripción 1
-//     myObservable.subscribe(data => {
-//       console.log(data); // 0.799234057357979
-//     });
-//
-// // Subscripción 2
-//     myObservable.subscribe(data => {
-//       console.log(data); //0.9293311109721503
-//     });
-//   }
 
+
+  ref: DynamicDialogRef;
+  isUpdate2:boolean=false;
+  isUpdate3:boolean=false
+  medi:string='';
+  agregarActualizar(index?:number) {
+    let mandado='';
+    // let header: string = "Agregar Medicacion";
+    if (this.isUpdate2 && this.medi=='medicacion') {
+      mandado = this.medicacionList[index];
+    }
+    if(this.isUpdate3 && this.medi=='medicamento'){
+      mandado=this.medicamentoList[index]
+    }
+    this.ref = this.dialogService.open(PartosModalComponent, {
+      data:  mandado ,
+      width: "50%",
+    });
+    this.ref.onClose.subscribe((mensaje?: string) => {
+      // let detail: string = "Elemento agregado satisfactoriomente";
+      // let summary: string = "Agregado";
+
+      if(mensaje!=null ){
+        if(this.medi=='medicacion'){
+          if(this.isUpdate2){
+
+            this.medicacionList.splice(index,1,mensaje)
+          }
+          else{
+            this.medicacionList.push(mensaje)
+          }
+        }
+        if(this.medi=='medicamento'){
+          if(this.isUpdate3){
+
+            this.medicamentoList.splice(index,1,mensaje)
+          }
+          else{
+            this.medicamentoList.push(mensaje)
+          }
+        }
+      }
+    });
+  }
+  delete(index){
+    if(this.medi=='medicacion'){
+      this.medicacionList.splice(index,1)
+    }
+    if(this.medi=='medicamento'){
+      this.medicamentoList.splice(index,1)
+    }
+  }
 }
