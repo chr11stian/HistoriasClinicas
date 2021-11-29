@@ -17,7 +17,6 @@ import { HeightChartComponent } from './modals/height-chart/height-chart.compone
 import { HeightWeightComponent } from './modals/height-weight/height-weight.component'
 import { SharedModule } from '../shared/shared.module';
 
-
 @NgModule({
   declarations: [
     CitasComponent,
@@ -26,7 +25,7 @@ import { SharedModule } from '../shared/shared.module';
     ReproCitasComponent,
     WeightChartComponent,
     HeightChartComponent,
-    HeightWeightComponent
+    HeightWeightComponent,
   ],
 
   imports: [

@@ -1,32 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { DialogConsultaUniversalComponent } from './dialog-consulta-universal/dialog-consulta-universal.component';
-import { DialogConsultaComponent } from './dialog-consulta/dialog-consulta.component';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, Validators, FormGroup} from "@angular/forms";
+import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {DialogConsultaUniversalComponent} from './dialog-consulta-universal/dialog-consulta-universal.component';
+import {DialogConsultaComponent} from './dialog-consulta/dialog-consulta.component';
+
 @Component({
-    selector: 'app-consultas-general',
-    templateUrl: './consultas-general.component.html',
-    styleUrls: ['./consultas-general.component.css'],
+    selector: 'app-historias-consultas',
+    templateUrl: './historia-consultas.component.html',
+    styleUrls: ['./historia-consultas.component.css'],
     providers: [DialogService]
 })
-export class ConsultasGeneralComponent implements OnInit {
+export class HistoriaConsultasComponent implements OnInit {
     options: any;
     citas: any[];
     consultaDialog: boolean;
     form: FormGroup;
     prueba: any[];
-    
+
     ref: DynamicDialogRef
+
     constructor(
         private formBuilder: FormBuilder,
         public dialog: DialogService,
     ) {
         this.buildForm();
         this.options = [
-            { name: "DNI", code: 1 },
-            { name: "CARNET RN", code: 2 },
-            { name: "C EXTRANJERIA", code: 3 },
-            { name: "OTROS", code: 4 },
+            {name: "DNI", code: 1},
+            {name: "CARNET RN", code: 2},
+            {name: "C EXTRANJERIA", code: 3},
+            {name: "OTROS", code: 4},
         ];
         this.citas = [
             {
@@ -64,9 +66,11 @@ export class ConsultasGeneralComponent implements OnInit {
         ];
 
     }
+
     openNew() {
         this.consultaDialog = true;
     }
+
     buildForm() {
         this.form = this.formBuilder.group({
             sexo: [''],

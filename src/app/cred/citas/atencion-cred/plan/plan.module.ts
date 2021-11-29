@@ -36,6 +36,14 @@ import { SesionesAtencionTempranaComponent } from './component/plan-atencion-int
     TratamientoSeguimientoAnemiaComponent,
     SesionesAtencionTempranaComponent,
   ],
+  exports: [
+    InmunizacionesComponent,
+    ControlCrecimientoComponent,
+    SuplementacionesMicronutrientesComponent,
+    TratamientoSeguimientoAnemiaComponent,
+    SesionesAtencionTempranaComponent,
+    DescartesComponent
+  ],
   imports: [
     CommonModule,
     EvaluacionGeneralModule,

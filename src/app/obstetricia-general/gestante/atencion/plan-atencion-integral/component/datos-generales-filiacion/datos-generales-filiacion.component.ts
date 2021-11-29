@@ -30,7 +30,6 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
 
     idRecuperado: string = "";
-
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
 
@@ -94,10 +93,10 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
 
     ngOnInit(): void {
-        // this.obstetriciaGeneralService.observable$.subscribe(id => {
-        //     this.idDocumento = id;
-        //     console.log("ID", this.idDocumento);
-        // })
+        console.log("IdRecuperado", this.idRecuperado);
+        console.log("TipoDocRecuperado", this.tipoDocRecuperado);
+        console.log("NroDocRecuparado", this.nroDocRecuperado);
+        
         this.buildForm();
         console.log("recuperado", this.idRecuperado);
 
@@ -228,13 +227,14 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             nombreRecienNacido: this.formDatos_Generales.value.nombreRN,
             padreRecienNacido: this.formDatos_Generales.value.pabreRN,
             estadoCivil: this.formDatos_Generales.value.estadoCivil,
-            proceso: null,
+            proceso: "proseso de gestacion",
 
 
             apePaterno: this.formDatos_Generales.value.apePaterno,
             apeMaterno: this.formDatos_Generales.value.apeMaterno,
             primerNombre: this.formDatos_Generales.value.primerNombre,
             otrosNombres: "",
+
 
 
         };

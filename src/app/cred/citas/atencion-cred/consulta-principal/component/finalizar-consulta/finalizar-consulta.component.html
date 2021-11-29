@@ -1,1 +1,72 @@
-<p>finalizar-consulta works!</p>
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">FINALIZACIÓN DE LA CONSULTA</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+        <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                class="guardar mr-2"></button>
+    </ng-template>
+</p-toolbar>
+<br>
+<p-fieldset legend="Acuerdos y Compromisos"
+            styleClass="mb-2"
+            [toggleable]="true">
+    <form [formGroup]="acuerdosFG">
+        <div class="col-12 md:col-12 mt-12">
+            Acuerdos y compromisos negociados con la madre y/o cuidador del niño :
+        </div>
+        <textarea class="inputfield w-full mb-2"
+                  formControlName="detailAcuerdoFC"
+                  pInputTextarea>
+        </textarea>
+        <div class="grid">
+            <div class="col-12 md:col-2 mt-2">
+                Próxima cita :
+            </div>
+            <div class="col-12 md:col-2">
+                <p-calendar
+                        formControlName="proximaCitaFC"
+                        [showIcon]="true"
+                        inputId="icon"
+                ></p-calendar>
+            </div>
+            <div class="col-12 md:col-2 mt-2">
+                Atendido por :
+            </div>
+            <div class="col-12 md:col-2">
+                <input type="text"
+                       pInputText
+                       formControlName="atendidoFC"
+                       class="inputfield w-full"/>
+            </div>
+            <div class="col-12 md:col-2 mt-2 text-right">
+                DNI :
+            </div>
+            <div class="col-12 md:col-2">
+                <input type="text"
+                       pInputText
+                       formControlName="dniFC"
+                       class="inputfield w-full"/>
+            </div>
+
+            <div class="col-12 md:col-12 mt-12 text-left">
+                <button pButton pRipple label="Examenes Auxiliares" iconPos="right" icon="pi pi-plus-circle"
+                        class="guardar mr-2"></button>
+                <button pButton pRipple label="Referencia" iconPos="right" icon="pi pi-plus-circle"
+                        class="guardar mr-2"></button>
+                <button pButton pRipple label="Plan de Atención Integral" iconPos="right" icon="pi pi-plus-circle"
+                        routerLink="../plan-control-consulta" class="guardar mr-2"></button>
+                <button pButton pRipple label="Evaluaciones" iconPos="right" icon="pi pi-plus-circle"
+                        routerLink="../evaluaciones-consulta" class="guardar mr-2"></button>
+            </div>
+            <div class="col-12 md:col-2 mt-2">
+                Observación :
+            </div>
+            <textarea class="inputfield w-full mb-2"
+                      formControlName="observacionFC"
+                      pInputTextarea>
+            </textarea>
+        </div>
+    </form>
+</p-fieldset>
