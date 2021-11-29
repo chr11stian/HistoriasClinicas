@@ -5,19 +5,18 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class DatosGeneralesPartoService {
+export class IntervaloPartoService {
   base_url = environment.baseUrl;
   bd = environment.bd;
-
   constructor(private http: HttpClient) { }
 
-  getDatosGeneralesById(id) {
-    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/planparto/obtener/datosGenerales/${id}`)
+  getIntervalosPartoById(id,fecha) {
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/planparto/obtener/PlanItems/${id}/${fecha}`)
   }
-  postDatosGenerales(id, data) {
-    return this.http.post(`${this.base_url}/${this.bd}/obstetricia/planparto/guardar/datosGenerales/${id}`, data)
+  postIntervalosParto(id, data) {
+    return this.http.post(`${this.base_url}/${this.bd}/obstetricia/planparto/guardar/agregarPlanItem/${id}`, data)
   }
-  getConsultaExistePlanParto(id) {
+  /*getConsultaExistePlanParto(id) {
     return this.http.get(`${this.base_url}/${this.bd}/obstetricia/planparto/existe/${id}`)
-  }
+  }*/
 }
