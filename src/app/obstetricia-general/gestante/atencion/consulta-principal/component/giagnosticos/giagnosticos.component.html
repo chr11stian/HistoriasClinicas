@@ -86,26 +86,39 @@
 
 
 <!-------------INICIO DIALOG INGRESAR ATENCION--->
-<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog"  [modal]="true" [style]="{width: 'auto'}"
+<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog"  [modal]="true" [style]="{width: '60%'}"
           [draggable]="false" [resizable]="false">
+        <div class="grid">
+            <div class="col-6">
+                <div class="p-field-radiobutton">
+                    <p-radioButton name="city" value="Chicago" [(ngModel)]="opcionBusqueda"  value="porDescripcion" inputId="opcion1"></p-radioButton>
+                    <label>Buscar por Descripcion</label>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="p-field-radiobutton">
+                    <p-radioButton name="city" value="Los Angeles" [(ngModel)]="opcionBusqueda" value="porcie10" inputId="opcion2" ></p-radioButton>
+                    <label>Buscar por Cie10</label>
+                </div>
+            </div>
+        </div>
 
     <form   [formGroup]='form' (ngSubmit)="save(formTemplate)" #formTemplate ="ngForm" >
-        <p-autoComplete [(ngModel)]="termino" [suggestions]="filteredDxDescripcion" (completeMethod)="buscar($event)"
-                        field="name" formControlName="diagnostico"></p-autoComplete>
             <div class="p-d-inline p-fluid">
-                 <div class="p-field resp">
-                    <label>Diagnóstico:</label>
 
-                     <span class="p-float-label p-input-icon-right">
-                        <i class="pi pi-search"></i>
-                         <input style="border-radius: 10px" type="text" [(ngModel)]="termino" pInputText formControlName='diagnostico' placeholder="CIE10"
-                                required />
-                    </span>
-                </div>
+                 <div class="p-field resp">
+                    <label *ngIf="opcionBusqueda=='porDescripcion'">Diagnóstico:</label>
+                     <p-autoComplete *ngIf="opcionBusqueda=='porDescripcion'" formControlName="diagnostico" [suggestions]="Cie10" [style]="{width: '400px', heigth:'400px'}"
+                                     (completeMethod)="filterDiagnostico($event)" field="descripcionItem" [minLength]="1" placeholder="Descripcion">
+                     </p-autoComplete>
+<!--                     <i class="pi pi-search"></i>-->
+                 </div>
                 <div class="p-field resp">
-                    <label>CIE 10:</label>
-                    <input style="border-radius: 10px" type="text" [(ngModel)]="Cie10" pInputText formControlName='CIE10' placeholder="CIE10"
-                           required />
+                    <label  *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>
+
+                    <p-autoComplete  *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico" [suggestions]="Cie10" disabled [style]="{width: '400px' , heigth:'400px'}"
+                                    (completeMethod)="filterDiagnostico($event)" field="codigoItem" [minLength]="1" (onSelect)="selectedOption($event)" placeholder="CIE 10">
+                    </p-autoComplete>
                 </div>
 
             </div>
@@ -117,7 +130,7 @@
     </div>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"(click)="canceled()"></button>
-        <button *ngIf="!isUpdate" [disabled]="!form.valid"  class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="save(formTemplate)" ></button>
+        <button  class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="save(formTemplate)" ></button>
 
     </ng-template>
 

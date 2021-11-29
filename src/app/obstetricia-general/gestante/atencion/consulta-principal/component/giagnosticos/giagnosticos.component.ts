@@ -11,37 +11,30 @@ import {Subject} from "rxjs";
   styleUrls: ['./giagnosticos.component.css']
 })
 export class GiagnosticosComponent implements OnInit {
-  selectedCountry: any;
+  selectedDiagnostico: any;
   form: FormGroup;
   data: any[] = [];
   dataDiagnostico:any[] = [];
   isUpdate: boolean = false;
-  datafecha: any;
+  opcionBusqueda:string;
+
   diagnosticoDialog: boolean;
   /*LISTA CIE 10*/
-  filtroDiag: any[];
+
   Cie10: any;
-  filteredDxDescripcion: any[];
+
   displayModal: boolean;
   idObstetricia: string = "";
   termino:string ="";
   results: any[]=[];
   hayError: boolean=false;
-  debouncer: Subject<string> = new Subject();
-  dataCIE: any[]=[];
-  onEnter: EventEmitter<string> = new EventEmitter();
-  onDebounce: EventEmitter<string> = new EventEmitter();
-  placeholder: string ='';
-
-
-    constructor (private formBuilder: FormBuilder,
+  constructor (private formBuilder: FormBuilder,
                private obstetriciaService:ObstetriciaGeneralService,
                private cieService: CieService) {
     this.buildForm();
     this.idObstetricia = this.obstetriciaService.idGestacion;
 
   }
-
 
   showModalDialog() {
     this.displayModal = true;
@@ -50,9 +43,11 @@ export class GiagnosticosComponent implements OnInit {
   private buildForm() {
     this.form = this.formBuilder.group({
       diagnostico: ['', [Validators.required]],
-      CIE10: ['', [Validators.required]],
 
     });
+  }
+  recuperarDatosDiagnostico(){
+    console.log(this.idObstetricia);
   }
   save(form: any) {
     this.isUpdate = false;
@@ -75,7 +70,6 @@ export class GiagnosticosComponent implements OnInit {
     this.isUpdate = false;
     this.form.reset();
     this.form.get('diagnostico').setValue("");
-    this.form.get('CIE10').setValue("");
     this.diagnosticoDialog = true;
   }
 
@@ -90,39 +84,33 @@ export class GiagnosticosComponent implements OnInit {
     this.diagnosticoDialog = false;
   }
 
-  buscarDiag(termino:string){
-      this.hayError = false;
-      this.termino = termino;
-      this.cieService.getCIEByDescripcion(this.termino).subscribe((resp:any)=> {
-        this.results = resp.object;
-      },(err) => {
-            this.hayError = true;
-            this.results =[];
-          }
-      );
+  // buscarDiag(termino:string){
+  //     this.hayError = false;
+  //     this.termino = termino;
+  //     this.cieService.getCIEByDescripcion(this.termino).subscribe((resp:any)=> {
+  //       this.results = resp.object;
+  //     },(err) => {
+  //           this.hayError = true;
+  //           this.results =[];
+  //         }
+  //     );
+  // }
+  filterDiagnostico(event) {
+    console.log('event ', event.query);
+    this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+      this.Cie10 = res.object;
+
+
+    })
+  }
+  selectedOption(event){
+    console.log('seleccion de autocomplete ', event)
   }
   sugerencias(termino:string){
     this.hayError = false;
     // TODO crear sugerencias
   }
-  // buscarCIE(termino:string){
-  //   // let item = this.obtenerItem();
-  //   this.cieService.getCIEByDescripcion(termino).subscribe(
-  //       (resp:any) => {this.results = resp.object;
-  //         console.log(resp);
-  //         // this.dataDiagnostico.push(this.results);
-  //         // console.log(this.dataDiagnostico);
-  //         let i: number = 0;
-  //         while(i<this.results.length){
-  //           this.dataDiagnostico.push(this.results[i].descripcionItem);
-  //           console.log(this.dataDiagnostico);
-  //           i++;
-  //         }
-  //       }, (err) => {
-  //           this.hayError = true;
-  //       }
-  //   )
-  // }
+
   titulo() {
     if (this.isUpdate) return "EDITE DIAGNOSTICO";
     else return "INGRESAR UN DIAGNOSTICO";
@@ -137,20 +125,5 @@ export class GiagnosticosComponent implements OnInit {
 
 
   }
-  buscar(event){
-
-    this.buscarDiag(this.termino);
-    console.log(this.results);
-      let filtro:any[]=[];
-      let query = event.query;
-      for(let i = 0;i<this.results.length;i++){
-         let filtroDes = this.results[i];
-         if(filtroDes.descripcionItem.toLowerCase().indexOf(query.toLowerCase())== 0)
-         {
-            filtro.push(filtroDes);
-         }
-      }
-      this.filteredDxDescripcion = filtro;
-  }
-
+  //
 }

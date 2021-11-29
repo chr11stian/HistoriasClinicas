@@ -12,6 +12,8 @@ import {FormsModule} from "@angular/forms";
 import {ModalInmunizacionesComponent } from './component/tratamiento/modal-inmunizaciones/modal-inmunizaciones.component';
 import {ModalTratamientoComponent} from "./component/tratamiento/modal-tratamiento/modal-tratamiento.component";
 
+import { DialogExamenesFetalesComponent } from './component/interrogatorio/dialog-examenes-fetales/dialog-examenes-fetales.component';
+
 
 @NgModule({
     declarations: [
@@ -21,8 +23,10 @@ import {ModalTratamientoComponent} from "./component/tratamiento/modal-tratamien
         GiagnosticosComponent,
         TratamientoComponent,
         ResultadosComponent,
+
         ModalTratamientoComponent,
         ModalInmunizacionesComponent,
+        DialogExamenesFetalesComponent,
     ],
     imports: [
         ConsultaPrincipalRoutingModule,
