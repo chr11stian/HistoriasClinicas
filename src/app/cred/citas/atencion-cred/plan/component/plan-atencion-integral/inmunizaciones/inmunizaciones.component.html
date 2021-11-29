@@ -7,15 +7,14 @@
             </div>
             <div class="field grid" *ngFor="let inmu1 of lista1">
                 <span class="col-fixed text-right mr-2" style="width:120px">{{inmu1.nombreVacuna}}:</span>
-                <div style="width:110px" class="mr-2">
+                <div style="width:113px" class="mr-2">
                     <p-calendar [showIcon]="true" placeholder="Fecha"
-                                dateFormat="dd/mm/yy"
-                                inputId="icon"
-                                [(ngModel)]="dateValue"></p-calendar>
+                                dateFormat="yy-mm-dd"
+                                [(ngModel)]="inmu1.fecha"></p-calendar>
                 </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" [disabled]=true placeholder="Fecha"
-                                [(ngModel)]="dateValue"></p-calendar>
+                <div style="width:113px">
+                    <p-calendar [showIcon]="true" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd"
+                                [(ngModel)]="inmu1.fechaTentativa"></p-calendar>
                 </div>
             </div>
         </div>
@@ -28,11 +27,13 @@
             </div>
             <div class="field grid" *ngFor="let inmu2 of lista2">
                 <span class="col-fixed text-right mr-2" style="width:120px">{{inmu2.nombreVacuna}}:</span>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div style="width:113px" class="mr-2">
+                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd"
+                    [(ngModel)]="inmu2.fecha"></p-calendar>
                 </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                <div style="width:113px">
+                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd"
+                    [(ngModel)]="inmu2.fechaTentativa"></p-calendar>
                 </div>
             </div>
         </div>
@@ -45,11 +46,13 @@
             </div>
             <div class="field grid" *ngFor="let inmu3 of lista3">
                 <span class="col-fixed text-right mr-2" style="width:120px">{{inmu3.nombreVacuna}}:</span>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div style="width:113px" class="mr-2">
+                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd"
+                    [(ngModel)]="inmu3.fecha"></p-calendar>
                 </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                <div style="width:113px">
+                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd"
+                    [(ngModel)]="inmu3.fechaTentativa"></p-calendar>
                 </div>
             </div>
         </div>
