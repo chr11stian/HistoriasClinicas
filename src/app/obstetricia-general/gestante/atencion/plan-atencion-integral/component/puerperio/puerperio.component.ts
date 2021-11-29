@@ -3,7 +3,6 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {PuerperioModalComponent} from "../puerperio-modal/puerperio-modal.component"
 import {PuerperioInmediatoService} from "../../services/puerperio-inmediato/puerperio-inmediato.service";
 import Swal from "sweetalert2";
-import {DialogConsultaComponent} from "../../../../../consultas-general/dialog-consulta/dialog-consulta.component";
 import {DialogService} from "primeng/dynamicdialog";
 import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
 

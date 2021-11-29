@@ -11,7 +11,7 @@
                                         <label class="text-sm">Fecha de atención:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="p-inputtext-sm " pInputText />
+                                        <input type="text" class="p-inputtext-sm " pInputText/>
                                     </div>
                                 </div>
                             </div>
@@ -21,7 +21,7 @@
                                         <label class="text-sm">Hora:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="p-inputtext-sm " pInputText />
+                                        <input type="text" class="p-inputtext-sm " pInputText/>
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                                         <label class="text-sm">Edad:</label>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="p-inputtext-sm " pInputText />
+                                        <input type="text" class="p-inputtext-sm " pInputText/>
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                                         <label class="text-sm">N° de A. Prenatal:</label>
                                     </div>
                                     <div class="col-6">
-                                        <input type="text" class="p-inputtext-sm " pInputText />
+                                        <input type="text" class="p-inputtext-sm " pInputText/>
                                     </div>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
                                         <label class="text-sm">Cambio de Domicilio:</label>
                                     </div>
                                     <div class="col-10">
-                                        <input type="text" class="p-inputtext-sm " pInputText />
+                                        <input type="text" class="p-inputtext-sm " pInputText/>
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="col-8">
                                         <p-dropdown class="p-fluid w-full" placeholder="Seleccionar" optionLabel="name"
-                                            [showClear]="true"></p-dropdown>
+                                                    [showClear]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                                     </div>
                                     <div class="col-8">
                                         <p-dropdown class="p-fluid w-full" placeholder="Seleccionar" optionLabel="name"
-                                            [showClear]="true"></p-dropdown>
+                                                    [showClear]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="col-8">
                                         <p-dropdown class="p-fluid w-full" placeholder="Seleccionar" optionLabel="name"
-                                            [showClear]="true"></p-dropdown>
+                                                    [showClear]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="col-8">
                                         <p-dropdown class="p-fluid w-full" placeholder="Seleccionar" optionLabel="name"
-                                            [showClear]="true"></p-dropdown>
+                                                    [showClear]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="col-8">
                                         <p-dropdown class="p-fluid w-full" placeholder="Seleccionar..."
-                                            optionLabel="name" [showClear]="true"></p-dropdown>
+                                                    optionLabel="name" [showClear]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
                                     </div>
                                     <div class="col-8">
                                         <p-dropdown class="p-fluid w-full" placeholder="Seleccionar..."
-                                            optionLabel="name" [showClear]="true"></p-dropdown>
+                                                    optionLabel="name" [showClear]="true"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -177,9 +177,9 @@
                 </div>
                 <div class="col-12 md:col-6">
                     <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-gridlines" [paginator]="true"
-                        [autoLayout]="true" class="m-3"
-                        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                        [showCurrentPageReport]="true" responsiveLayout="scroll">
+                             [autoLayout]="true" class="m-3"
+                             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                             [showCurrentPageReport]="true" responsiveLayout="scroll">
                         <ng-template pTemplate="caption">
                             <div class="grid">
                                 <div class="col-10">
@@ -187,8 +187,8 @@
                                 </div>
                                 <div class="col-2">
                                     <button pButton pRipple label="Agregar" icon="pi pi-plus"
-                                        class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
-                                        (click)="openNew()"></button>
+                                            class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
+                                            (click)="openNew()"></button>
                                 </div>
                             </div>
                         </ng-template>
@@ -206,9 +206,9 @@
                                 <td style="text-align: center">
                                     <span class="p-buttonset">
                                         <button pButton pRipple routerLink="new-consulta" class="p-button-info"
-                                            label="Editar" icon="pi pi-check"></button>
+                                                label="Editar" icon="pi pi-check"></button>
                                         <button pButton pRipple class="p-button-danger" label="Cancelar"
-                                            icon="pi pi-times"></button>
+                                                icon="pi pi-times"></button>
                                     </span>
                                 </td>
                             </tr>
@@ -227,9 +227,9 @@
                 </div>
                 <div class="col-12 md:col-6">
                     <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-gridlines" [paginator]="true"
-                        [autoLayout]="true" class="m-3"
-                        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                        [showCurrentPageReport]="true" responsiveLayout="scroll">
+                             [autoLayout]="true" class="m-3"
+                             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                             [showCurrentPageReport]="true" responsiveLayout="scroll">
                         <ng-template pTemplate="caption">
                             <div class="grid">
                                 <div class="col-10">
@@ -237,8 +237,8 @@
                                 </div>
                                 <div class="col-2">
                                     <button pButton pRipple label="Agregar" icon="pi pi-plus"
-                                        class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
-                                        (click)="openNew()"></button>
+                                            class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
+                                            (click)="openNew()"></button>
                                 </div>
                             </div>
                         </ng-template>
@@ -256,9 +256,9 @@
                                 <td style="text-align: center">
                                     <span class="p-buttonset">
                                         <button pButton pRipple routerLink="new-consulta" class="p-button-info"
-                                            label="Editar" icon="pi pi-check"></button>
+                                                label="Editar" icon="pi pi-check"></button>
                                         <button pButton pRipple class="p-button-danger" label="Cancelar"
-                                            icon="pi pi-times"></button>
+                                                icon="pi pi-times"></button>
                                     </span>
                                 </td>
                             </tr>
@@ -283,7 +283,7 @@
                                     <label class="text-sm">PRÓXIMA CITA:</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="date" class="p-inputtext-sm " pInputText />
+                                    <input type="date" class="p-inputtext-sm " pInputText/>
                                 </div>
                             </div>
                         </div>
@@ -297,7 +297,7 @@
                                     <label class="text-sm">REFERENCIA:</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                    <input type="text" class="p-inputtext-sm " pInputText/>
                                 </div>
                             </div>
                         </div>
@@ -307,7 +307,7 @@
                                     <label class="text-sm">N° REFERENCIA:</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="p-inputtext-sm " pInputText />
+                                    <input type="text" class="p-inputtext-sm " pInputText/>
                                 </div>
                             </div>
                         </div>

@@ -34,19 +34,19 @@
             </span>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Agregar" icon="pi pi-save" (click)="openNew()"
-                class="p-button-raised p-button-secondary"></button>
+            <!-- <button pButton pRipple label="Agregar" icon="pi pi-save" (click)="openNew()"
+                    class="p-button-raised p-button-secondary"></button>
             <button pButton pRipple label="Agregar otro modal" icon="pi pi-save" (click)="openDialogConsulta()"
-                class="p-button-raised p-button-secondary"></button>
+                    class="p-button-raised p-button-secondary"></button>
             <button pButton pRipple label="Modal universal" icon="pi pi-save" (click)="openDialogConsultaUniversal()"
-                class="p-button-raised p-button-secondary"></button>
+                    class="p-button-raised p-button-secondary"></button> -->
         </ng-template>
     </p-toolbar>
 
 
     <p-table [value]="citas" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-        [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
@@ -72,7 +72,7 @@
                 <td style="text-align: center">
                     <span class="p-buttonset">
                         <button pButton pRipple (click)="openDialogConsulta()" class="p-button-info" label="Editar"
-                            icon="pi pi-check"></button>
+                                icon="pi pi-check"></button>
                         <button pButton pRipple class="p-button-danger" label="Cancelar" icon="pi pi-times"></button>
                     </span>
                 </td>
