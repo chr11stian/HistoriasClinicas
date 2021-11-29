@@ -103,7 +103,7 @@ export class PuerperioComponent implements OnInit {
             (resp) => {
                 console.log(resp);
                 console.log(req);
-                // this.puerperios.push(this.formPurperio);
+                // this.puerperios.push(req);
                 Swal.fire({
                     icon: 'success',
                     title: 'Agregado correctamente',

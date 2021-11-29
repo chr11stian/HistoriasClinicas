@@ -13,11 +13,15 @@ import {Subject} from "rxjs";
 export class GiagnosticosComponent implements OnInit {
   selectedDiagnostico: any;
   form: FormGroup;
+  formOtrosDatos:FormGroup;
   data: any[] = [];
+  consultorio: any;
+  motivo:any;
+  codReanes:any;
   dataDiagnostico:any[] = [];
   isUpdate: boolean = false;
   opcionBusqueda:string;
-
+  consejeriaDialog:boolean;
   diagnosticoDialog: boolean;
   /*LISTA CIE 10*/
 
@@ -28,6 +32,7 @@ export class GiagnosticosComponent implements OnInit {
   termino:string ="";
   results: any[]=[];
   hayError: boolean=false;
+  private form2: FormGroup;
   constructor (private formBuilder: FormBuilder,
                private obstetriciaService:ObstetriciaGeneralService,
                private cieService: CieService) {
@@ -43,10 +48,12 @@ export class GiagnosticosComponent implements OnInit {
   private buildForm() {
     this.form = this.formBuilder.group({
       diagnostico: ['', [Validators.required]],
-
-    });
+    })
+    this.form2 =this.formBuilder.group({
+      orientaciones:['',[Validators.required]]
+    })
   }
-  recuperarDatosDiagnostico(){
+  recuperarDatos(){
     console.log(this.idObstetricia);
   }
   save(form: any) {
@@ -65,14 +72,20 @@ export class GiagnosticosComponent implements OnInit {
     })
     this.diagnosticoDialog = false;
   }
-
-  openNew() {
+  openDiagnostico() {
     this.isUpdate = false;
     this.form.reset();
     this.form.get('diagnostico').setValue("");
+    // this.form.get('orientaciones').setValue("");
     this.diagnosticoDialog = true;
   }
-
+  openOrientaciones() {
+    this.isUpdate = false;
+    this.form2.reset();
+    // // this.form.get('diagnostico').setValue("");
+    this.form2.get('orientaciones').setValue("");
+    this.diagnosticoDialog = true;
+  }
   canceled() {
     Swal.fire({
       icon: 'warning',
@@ -83,34 +96,15 @@ export class GiagnosticosComponent implements OnInit {
     })
     this.diagnosticoDialog = false;
   }
-
-  // buscarDiag(termino:string){
-  //     this.hayError = false;
-  //     this.termino = termino;
-  //     this.cieService.getCIEByDescripcion(this.termino).subscribe((resp:any)=> {
-  //       this.results = resp.object;
-  //     },(err) => {
-  //           this.hayError = true;
-  //           this.results =[];
-  //         }
-  //     );
-  // }
   filterDiagnostico(event) {
     console.log('event ', event.query);
     this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
       this.Cie10 = res.object;
-
-
     })
   }
   selectedOption(event){
     console.log('seleccion de autocomplete ', event)
   }
-  sugerencias(termino:string){
-    this.hayError = false;
-    // TODO crear sugerencias
-  }
-
   titulo() {
     if (this.isUpdate) return "EDITE DIAGNOSTICO";
     else return "INGRESAR UN DIAGNOSTICO";
@@ -122,8 +116,10 @@ export class GiagnosticosComponent implements OnInit {
     console.log("eliminando" + rowData)
   }
   ngOnInit() {
-
+    this.recuperarDatos();
+  }
+  guardarDatos(){
 
   }
-  //
+
 }

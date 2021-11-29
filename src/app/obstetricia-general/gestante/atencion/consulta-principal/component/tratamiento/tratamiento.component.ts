@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import Swal from "sweetalert2";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
-import {DiagnosticoConsultaComponent} from "../../../../../../cred/citas/atencion-cred/consulta-principal/component/diagnostico-consulta/diagnostico-consulta.component";
-import {DiagnosticosService} from "../../services/diagnosticos/diagnosticos.service";
 import {ModalTratamientoComponent} from "./modal-tratamiento/modal-tratamiento.component";
 import {PuerperioModalComponent} from "../../../plan-atencion-integral/component/puerperio/puerperio-modal/puerperio-modal.component";
 
@@ -40,8 +37,7 @@ export class TratamientoComponent implements OnInit {
 
   constructor (private formBuilder: FormBuilder,
                private obstetriciaServie: ObstetriciaGeneralService,
-               private dialog:DialogService,
-               private dataConsulta: DiagnosticosService) {
+               private dialog:DialogService) {
     this.buildForm();
     /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR EL TRATAMIENTO*/
     this.intervaloList = [{label: 'CADA 1 HORA', value: '1'},
