@@ -1,15 +1,16 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">ANTECEDENTES</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                class="guardar mr-2" (click)="addData()"></button>
+    </ng-template>
+</p-toolbar>
+<br>
 <div>
-    <p-toolbar styleClass="p-mb-4">
-        <ng-template pTemplate="left">
-            <h3 class="p-m-0"></h3>
-        </ng-template>
-        <ng-template pTemplate="right" class="button">
-            <button  pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
-                    style="background: #2196F3; border: 1px solid #2196F3;"></button>
-        </ng-template>
-    </p-toolbar>
-    <br>
-    <p-fieldset  legend="ANTECEDENTES" [toggleable]="true" collapsed="">
+    <p-fieldset legend="ANTECEDENTES" [toggleable]="true" collapsed="">
         <form [formGroup]='formAntecedentes'>
 
             <div class="grid">
@@ -31,7 +32,8 @@
                                 <div class="grid col">
                                     <div class="p-inputgroup" style="text-align: right">
                                         <label>Fecha:</label>
-                                        <p-calendar [showIcon]="true" inputId="icon">
+                                        <p-calendar [showIcon]="true" inputId="icon" dateFormat="yy-mm-dd"
+                                                    formControlName="fecha">
                                         </p-calendar>
                                     </div>
                                 </div>
@@ -41,7 +43,10 @@
                                     <div class="p-inputgroup" style="text-align: right">
                                         <label>Per Intergenésico Adecuado: </label>
                                         <p-selectButton [options]="opciones"
-                                                        optionLabel="name"></p-selectButton>
+                                                        optionLabel="name"
+                                                        optionValue="booleano"
+                                                        formControlName="intergenesico"
+                                        ></p-selectButton>
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +129,8 @@
                                         <label>Incompleto: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-radioButton formControlName="incompleto"></p-radioButton>
+                                        <p-radioButton value="incompleto" name="tipoAborto"
+                                                       formControlName="tipoAborto"></p-radioButton>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -132,7 +138,8 @@
                                         <label>Completo: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-radioButton formControlName="completo"></p-radioButton>
+                                        <p-radioButton value="completo" name="tipoAborto"
+                                                       formControlName="tipoAborto"></p-radioButton>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -140,7 +147,9 @@
                                         <label>Frusto/Retenido: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-radioButton formControlName="frustoRetenido"></p-radioButton>
+                                        <p-radioButton value="frustoRetenido"
+                                                       name="tipoAborto"
+                                                       formControlName="tipoAborto"></p-radioButton>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -148,7 +157,8 @@
                                         <label>Séptico: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-radioButton formControlName="septico"></p-radioButton>
+                                        <p-radioButton value="septico" name="tipoAborto"
+                                                       formControlName="tipoAborto"></p-radioButton>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -156,7 +166,8 @@
                                         <label>No aplica: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-radioButton formControlName="noAplica2"></p-radioButton>
+                                        <p-radioButton value="noAplica" name="tipoAborto"
+                                                       formControlName="tipoAborto"></p-radioButton>
                                     </div>
                                 </div>
 
@@ -172,7 +183,8 @@
                                         <label>No hubo: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-radioButton formControlName="noHubo"></p-radioButton>
+                                        <p-radioButton value="noHubo" name="lactaciaMaterna"
+                                                       formControlName="lactaciaMaterna"></p-radioButton>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -180,7 +192,8 @@
                                         <label> < 6 meses: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-radioButton formControlName="menorSeisMeses"></p-radioButton>
+                                        <p-radioButton value="menorSeisMeses" name="lactaciaMaterna"
+                                                       formControlName="lactaciaMaterna"></p-radioButton>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -188,7 +201,8 @@
                                         <label>6 meses o mas: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-radioButton formControlName="SeisMesesMas"></p-radioButton>
+                                        <p-radioButton value="SeisMesesMas" name="lactaciaMaterna"
+                                                       formControlName="lactaciaMaterna"></p-radioButton>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -196,7 +210,8 @@
                                         <label>No aplica: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-radioButton formControlName="noAplica3"></p-radioButton>
+                                        <p-radioButton value="noAplica3" name="lactaciaMaterna"
+                                                       formControlName="lactaciaMaterna"></p-radioButton>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -209,14 +224,16 @@
                                         <label>EESS </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-radioButton formControlName="EESS"></p-radioButton>
+                                        <p-radioButton value="EESS" name="lugarParto"
+                                                       formControlName="lugarParto"></p-radioButton>
                                     </div>
 
                                     <div class="col" style="text-align: right">
                                         <label>Domic. </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-radioButton formControlName="domic"></p-radioButton>
+                                        <p-radioButton value="domic" name="lugarParto"
+                                                       formControlName="lugarParto"></p-radioButton>
                                     </div>
 
                                 </div>
@@ -236,7 +253,10 @@
                                     </div>
                                     <div class="col-6">
                                         <p-selectButton [options]="opciones"
-                                                        optionLabel="name"></p-selectButton>
+                                                        optionLabel="name"
+                                                        optionValue="booleano"
+                                                        formControlName="captada"
+                                        ></p-selectButton>
                                     </div>
                                 </div>
 
@@ -248,7 +268,10 @@
                                     </div>
                                     <div class="col-6">
                                         <p-selectButton [options]="opciones"
-                                                        optionLabel="name"></p-selectButton>
+                                                        optionLabel="name"
+                                                        optionValue="booleano"
+                                                        formControlName="referidaporAgComuni"
+                                        ></p-selectButton>
                                     </div>
                                 </div>
 
@@ -295,17 +318,9 @@
                                         <label>Ninguno: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox name="uno" value="val1" class="mt-1"
-                                                    (onChange)="fnCheckbox(val)" #val>
+                                        <p-checkbox
+                                                value="ninguno" formControlName="ninguno">
                                         </p-checkbox>
-                                    </div>
-                                    <div class="p-field col-6">
-                                        <p-dropdown
-                                                [options]="familiares"
-                                                optionLabel="name"
-                                                placeholder="Selec"
-                                                [showClear]="false">
-                                        </p-dropdown>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -313,12 +328,14 @@
                                         <label>Alergias: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox value="alergias" formControlName="alergia"></p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar1"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -329,12 +346,16 @@
                                         <label>Enf. Hepertens. emb. </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="EnferHepertens" value="Enfer. Hepertens"
+                                                    class="mt-1">
+                                        </p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar2"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -345,12 +366,15 @@
                                         <label>Epilepcia: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="epilepcia" value="Epilepcia" class="mt-1">
+                                        </p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar3"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -361,12 +385,16 @@
                                         <label>Diabetes: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="diabetes" value="Diabetes" class="mt-1">
+
+                                        </p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar4"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -377,12 +405,17 @@
                                         <label>Enf. Congénitas: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="EnfCongenitas" value="Enf. Congenitas"
+                                                    class="mt-1">
+
+                                        </p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar5"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -393,12 +426,15 @@
                                         <label>Emb. Multiple: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="EmbMultiple" value="Emb. Multiple" class="mt-1">
+                                        </p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar6"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -411,12 +447,14 @@
                                         <label>Malaria:</label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="malaria" value="Malaria" class="mt-1"></p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar7"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -427,12 +465,15 @@
                                         <label>Hip. Arterial: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="HipArterial" value="Hip. Arterial"
+                                                    class="mt-1"></p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar8"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -443,12 +484,15 @@
                                         <label>Hipo tiroidismo:</label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="HipoTiroidismo" value="Hipo tiroidismo"
+                                                    class="mt-1"></p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar9"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -459,12 +503,15 @@
                                         <label>Neoplásica: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="neoplásica" value="Neoplásica"
+                                                    class="mt-1"></p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar10"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -475,12 +522,15 @@
                                         <label>TBC Pulmonar: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="TBCPulmonar" value="TBC Pulmonar"
+                                                    class="mt-1"></p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar11"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -491,12 +541,15 @@
                                         <label>Otros: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="otros" value="Otros"
+                                                    class="mt-1"></p-checkbox>
                                     </div>
                                     <div class="p-field col-6">
                                         <p-dropdown
                                                 [options]="familiares"
-                                                optionLabel="name"
+                                                optionLabel="nombrefamiliar"
+                                                optionValue="nombrefamiliar"
+                                                formControlName="nombrefamiliar12"
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
@@ -513,7 +566,7 @@
                                 <label>Partos Domiciliarios:</label>
                             </div>
                             <div>
-                                <input type="text" pInputText>
+                                <input type="text" pInputText formControlName="PartosDomiciliarios">
                             </div>
                         </div>
                     </p-fieldset>
@@ -528,7 +581,7 @@
                                         <label>Ninguno: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="Ninguno1" value="Ninguno" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -536,7 +589,7 @@
                                         <label>Aborto habitual / recurrente: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="Abortohabitualrecurrente" value="Aborto habitual / recurrente" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid">
@@ -544,7 +597,7 @@
                                         <label>Violencia: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="violencia" value="Violencia" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -552,7 +605,7 @@
                                         <label>Cardiopatia: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="cardiopatia" value="Cardiopatia" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -560,7 +613,7 @@
                                         <label>Cirugia Pélvica Uterina: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="cirugiaPélvicaUterina" value="Cirugia Pélvica Uterina" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -568,7 +621,7 @@
                                         <label>Eclampsia: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="eclampsia" value="Eclampsia" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -576,7 +629,7 @@
                                         <label>Pre Eclampsia: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="preEclampsia" value="Pre Eclampsia" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -584,7 +637,7 @@
                                         <label>Hemorra. Postparto: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="hemorraPostparto" value="Hemorragia. Postparto" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -592,7 +645,7 @@
                                         <label>TBC Pulmonar: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="TBCPulmonar2" value="TBC Pulmonar" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -600,7 +653,7 @@
                                         <label>VIH/SIDA: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="VIHSIDA" value="VIH/SIDA" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                             </div>
@@ -610,7 +663,7 @@
                                         <label>Alcoholismo: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="alcoholismo" value="Alcoholismo" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -618,7 +671,7 @@
                                         <label>Alergia a medicamentos: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="alergiaAmedicamentos" value="Alergia a medicamentos" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -626,7 +679,7 @@
                                         <label>Asma Bronquial: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="asmaBronquial" value="Asma Bronquial" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -634,7 +687,7 @@
                                         <label>Diabetes: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="diabetes2" value="Diabetes" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -642,7 +695,7 @@
                                         <label>Enferm. Congénitas: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="enfermCongénitas" value="Enferm. Congénitas" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -650,7 +703,7 @@
                                         <label>Enferm. Infecciosas: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="enfermInfecciosas" value="Enferm. Infecciosas" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -658,7 +711,7 @@
                                         <label>Epilepsia: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="epilepsia" value="Epilepsia" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -666,7 +719,7 @@
                                         <label>Hip. Arterial: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="hipArterial" value="Hip. Arterial" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -674,7 +727,7 @@
                                         <label>Consumo de hoja de coca: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="consumoHojaDeCoca" value="Consumo de hoja de coca" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
 
@@ -685,7 +738,7 @@
                                         <label>Infertilidad: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="infertilidad" value="Infertilidad" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -693,7 +746,7 @@
                                         <label>Neoplasias: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="neoplasias" value="Neoplasias" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -701,7 +754,7 @@
                                         <label>Otras Drogas: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="otrasDrogas" value="Otras Drogas" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -709,7 +762,7 @@
                                         <label>Parto Prolong: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="partoProlong" value="Parto Prolong" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -717,7 +770,7 @@
                                         <label>Preeclampsia: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="preeclampsia" value="Preeclampsia" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -725,7 +778,7 @@
                                         <label>Prematuridad: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="prematuridad" value="Prematuridad" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -733,7 +786,7 @@
                                         <label>Reten. Placenta: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="retenPlacenta" value="Reten. Placenta" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -741,7 +794,7 @@
                                         <label>Tabaco: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="tabaco" value="Tabaco" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="grid ">
@@ -749,7 +802,7 @@
                                         <label>Transtorn. Mentales: </label>
                                     </div>
                                     <div class="col-2">
-                                        <p-checkbox inputId="ny"></p-checkbox>
+                                        <p-checkbox formControlName="transtornMentales" value="Transtornos Mentales" class="mt-1"></p-checkbox>
                                     </div>
                                 </div>
 
@@ -762,7 +815,7 @@
                                     <label>Otros: </label>
                                 </div>
                                 <div class="col-1">
-                                    <p-checkbox inputId="ny"></p-checkbox>
+                                    <p-checkbox formControlName="Otros2" value="Otros" class="mt-1"></p-checkbox>
                                 </div>
 
                                 <div class="col-8">
@@ -779,7 +832,7 @@
                                 <label>Sesiones:</label>
                             </div>
                             <div>
-                                <input type="text" pInputText>
+                                <input type="text" pInputText formControlName="sesiones">
                             </div>
                         </div>
                     </p-fieldset>

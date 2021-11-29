@@ -1,20 +1,31 @@
+<p-toolbar>
+  <ng-template pTemplate="left">
+    <h3 class="mt-2">PARTOS O ABORTO</h3>
+  </ng-template>
+  <ng-template pTemplate="right" class="button">
+    <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+            class="guardar mr-2"></button>
+  </ng-template>
+</p-toolbar>
+<br>
 <p-toolbar styleClass="mb-4">
   <ng-template pTemplate="left">
 <h3 class="p-m-0">PARTOS O ABORTO</h3>
   </ng-template>
   <ng-template pTemplate="right" class="button">
 
+<!--    <p-button-->
+<!--            icon="pi pi-save"-->
+<!--            label="recuperar"-->
+<!--            (onClick)="getPartoAborto()"-->
+<!--            styleClass="p-button-info p-button-sm"-->
+<!--    >-->
+<!--    </p-button>-->
     <p-button
             icon="pi pi-save"
-            label="recuperar"
-            (onClick)="getPartoAborto()"
-            styleClass="p-button-info p-button-sm"
-    >
-    </p-button>
-    <p-button
-            icon="pi pi-save"
-            label="pruebas"
-            (onClick)="probando()"
+            label="Guardar"
+            (onClick)="save()"
             styleClass="p-button-info p-button-sm"
     >
     </p-button>
@@ -135,7 +146,6 @@
       </p-fieldset>
     </div>
   </div>
-
   <!-- Segunda fila -->
   <div class="grid">
     <div class="col-12">
@@ -483,104 +493,182 @@
   <!-- tercera fila -->
   <div class="grid">
     <div class="md:col-4">
-      <p-fieldset legend="Signos y sintomas de Alerta">
-        <div class="grid">
-          <div class="md:col-6">
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Anasarca:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="anasarca"
-              ></p-selectButton>
+      <div>
+        <p-fieldset legend="Signos y sintomas de Alerta">
+          <div class="grid">
+            <div class="md:col-6">
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Anasarca:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="anasarca"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Cianosis:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="cianosis"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Escotomas:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="escotomas"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Epigastralgia:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="epigastralgia"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Dolor Hiponóndr.Der.:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="dolorDerecho"
+                ></p-selectButton>
+              </div>
             </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Cianosis:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="cianosis"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Escotomas:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="escotomas"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Epigastralgia:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="epigastralgia"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Dolor Hiponóndr.Der.:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="dolorDerecho"
-              ></p-selectButton>
+            <div class="md:col-6">
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Hermaturia:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="hermaturia"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Hipot. Ortostática:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="hipoOrtostatica"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Ictericia:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="ictericia"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Petequies:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="petequies"
+                ></p-selectButton>
+              </div>
+              <div class="flex" style="padding: 3px">
+                <div class="col-7 text-right">Proteuniria:</div>
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="proteuniria"
+                ></p-selectButton>
+              </div>
             </div>
           </div>
-          <div class="md:col-6">
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Hermaturia:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="hermaturia"
-              ></p-selectButton>
+        </p-fieldset>
+      </div>
+      <div>
+        <p-fieldset legend="Tipo Procedimiento">
+          <div class="grid">
+            <div class="col-6">
+              <div class="">
+                <div class="text-center" style="font-weight: bold">CESÁRIA:</div>
+                <div class="grid">
+                  <div class="col-9 text-right">Corporal:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="Corporal"
+                            formControlName="cesaria"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="grid">
+                  <div class="col-9 text-right">Segmentaria:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="Segementaria"
+                            formControlName="cesaria"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="grid">
+                  <div class="col-9 text-right">No aplica:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="No Aplica"
+                            formControlName="cesaria"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Hipot. Ortostática:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="hipoOrtostatica"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Ictericia:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="ictericia"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Petequies:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="petequies"
-              ></p-selectButton>
-            </div>
-            <div class="flex" style="padding: 3px">
-              <div class="col-7 text-right">Proteuniria:</div>
-              <p-selectButton
-                [options]="twoOptions"
-                optionLabel="label"
-                optionValue="value"
-                formControlName="proteuniria"
-              ></p-selectButton>
+            <div class="col-6">
+              <div class="">
+                <div class="text-center" style="font-weight: bold">ABORTO:</div>
+                <div class="grid">
+                  <div class="col-9 text-right">Ameu:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="Ameu"
+                            formControlName="aborto"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="grid">
+                  <div class="col-9 text-right">Legrado:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="Legrado"
+                            formControlName="aborto"
+                    ></p-radioButton>
+                  </div>
+                </div>
+                <div class="grid">
+                  <div class="col-9 text-right">No aplica:</div>
+                  <div class="col-3">
+                    <p-radioButton
+                            class="white"
+                            value="No Aplica"
+                            formControlName="aborto"
+                    ></p-radioButton>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </p-fieldset>
+        </p-fieldset>
+      </div>
     </div>
     <div class="md:col-8">
       <div class="grid">
@@ -652,103 +740,16 @@
         </div>
       </div>
       <div class="grid">
-        <div class="md:col-4">
-          <p-fieldset legend="Tipo Procedimiento">
-            <div class="grid">
-              <div class="col-6">
-                <div class="">
-                  <div class="text-center" style="font-weight: bold">CESÁRIA:</div>
-                  <div class="grid">
-                      <div class="col-9 text-right">Corporal:</div>
-                      <div class="col-3">
-                        <p-radioButton
-                                class="white"
-                                value="Corporal"
-                                formControlName="cesaria"
-                        ></p-radioButton>
-                      </div>
-                  </div>
-                  <div class="grid">
-                    <div class="col-9 text-right">Segmentaria:</div>
-                    <div class="col-3">
-                      <p-radioButton
-                              class="white"
-                              value="Segementaria"
-                              formControlName="cesaria"
-                      ></p-radioButton>
-                    </div>
-                  </div>
-                  <div class="grid">
-                    <div class="col-9 text-right">No aplica:</div>
-                    <div class="col-3">
-                      <p-radioButton
-                              class="white"
-                              value="No Aplica"
-                              formControlName="cesaria"
-                      ></p-radioButton>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
-                <div class="">
-                  <div class="text-center" style="font-weight: bold">ABORTO:</div>
-                  <div class="grid">
-                    <div class="col-9 text-right">Ameu:</div>
-                    <div class="col-3">
-                      <p-radioButton
-                              class="white"
-                              value="Ameu"
-                              formControlName="aborto"
-                      ></p-radioButton>
-                    </div>
-                  </div>
-                  <div class="grid">
-                    <div class="col-9 text-right">Legrado:</div>
-                    <div class="col-3">
-                      <p-radioButton
-                              class="white"
-                              value="Legrado"
-                              formControlName="aborto"
-                      ></p-radioButton>
-                    </div>
-                  </div>
-                  <div class="grid">
-                    <div class="col-9 text-right">No aplica:</div>
-                    <div class="col-3">
-                      <p-radioButton
-                              class="white"
-                              value="No Aplica"
-                              formControlName="aborto"
-                      ></p-radioButton>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </p-fieldset>
-        </div>
-        <div class="md:col-8">
+        <div class="col-12">
           <p-fieldset legend="Procedimiento en parto (Ver anexo)">
-<!--            <div>-->
-<!--              <div class="flex" style="padding: 3px">-->
-<!--                <div class="col-5 text-right">Medicación:</div>-->
-<!--                <div class="col-7" style="background-color: #495057"></div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--              <div class="flex" style="padding: 3px">-->
-<!--                <div class="col-5 text-right">Medicamentos:</div>-->
-<!--                <div class="col-7" style="background-color: #495057"></div>-->
-<!--              </div>-->
-<!--            </div>-->
+
             <div class="grid">
               <div class="col-6 align-self-start">
-                <p-table [value]="medicacionList" responsiveLayout="scroll">
+                <p-table [value]="medicacionList" [scrollable]="true" scrollHeight="200px">
                   <ng-template pTemplate="caption">
                     <div class="flex justify-content-between">
-                      <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                              (click)="addMedicacion()"></button>
+                      <button pButton pRipple label="Nueva medicacion" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                              (click)="isUpdate2=false; medi='medicacion'; agregarActualizar();"></button>
                     </div>
                   </ng-template>
                   <ng-template pTemplate="header">
@@ -761,45 +762,83 @@
                   <ng-template pTemplate="body" let-product let-index="rowIndex">
                     <tr>
                       <td>{{index+1}}</td>
-                      <td pEditableColumn>
-                        <p-cellEditor>
-                          <ng-template pTemplate="input">
-                            <input pInputText type="text" formControlName="cualquierCosa">
-                          </ng-template>
-                          <ng-template pTemplate="output">
-                            {{product.medicacion}}
-                          </ng-template>
-                        </p-cellEditor>
-                      </td>
-                      <td>
-                        <button pButton (click)="eliminarMedicacion(rowData)" pTooltip="Eliminar" pRipple type="button"
-                                icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
-                        </button>
+                      <td>{{product}}</td>
+                      <td class="flex justify-content-around">
+                        <span class="p-column-title">Acciones</span>
+                        <button
+                                pButton
+                                pRipple
+                                type="button"
+                                icon="pi pi-pencil"
+                                (click)="isUpdate2 = true; medi='medicacion'; agregarActualizar(index)"
+                                pTooltip="Editar tipo turno"
+                                tooltipPosition="bottom"
+                                class="p-button-raised p-button-info p-button-rounded"
+                        ></button>
+                        <button
+                                pButton
+                                pRipple
+                                type="button"
+                                (click)=" medi='medicacion';delete(index)"
+                                icon="pi pi-trash"
+                                pTooltip="Eliminar tipo turno"
+                                tooltipPosition="bottom"
+                                class="p-button-raised p-button-danger p-button-rounded"
+                        ></button>
                       </td>
                     </tr>
                   </ng-template>
+
                 </p-table>
               </div>
-              <div class="col-6 align-self-start" >
-                <p-table [value]="medicamentoList" responsiveLayout="scroll">
+              <div class="col-6 align-self-start">
+                <p-table [value]="medicamentoList" [scrollable]="true" scrollHeight="200px">
                   <ng-template pTemplate="caption">
                     <div class="flex justify-content-between">
-                      <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                              (click)="addMedicamento()"></button>
+                      <button pButton pRipple label="Nueva medicamento" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                              (click)="isUpdate3=false; medi='medicamento';agregarActualizar();"></button>
+                      <div>
+                      </div>
                     </div>
+
                   </ng-template>
                   <ng-template pTemplate="header">
                     <tr>
                       <th>Nro</th>
                       <th>Medicamento</th>
+                      <th>Accion</th>
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-product let-index="rowIndex">
                     <tr>
                       <td>{{index+1}}</td>
-                      <td>{{product.medicamento}}</td>
+                      <td>{{product}}</td>
+                      <td class="flex justify-content-around">
+                        <span class="p-column-title">Acciones</span>
+                        <button
+                                pButton
+                                pRipple
+                                type="button"
+                                icon="pi pi-pencil"
+                                (click)="isUpdate3 = true;medi='medicamento'; agregarActualizar(index)"
+                                pTooltip="Editar tipo turno"
+                                tooltipPosition="bottom"
+                                class="p-button-raised p-button-info p-button-rounded"
+                        ></button>
+                        <button
+                                pButton
+                                pRipple
+                                type="button"
+                                (click)=" medi='medicamento';delete(index)"
+                                icon="pi pi-trash"
+                                pTooltip="Eliminar tipo turno"
+                                tooltipPosition="bottom"
+                                class="p-button-raised p-button-danger p-button-rounded"
+                        ></button>
+                      </td>
                     </tr>
                   </ng-template>
+
                 </p-table>
               </div>
 
@@ -1572,13 +1611,3 @@
     </div>
   </div>
 </form>
-<div class="flex justify-content-end mt-3">
-  <p-button
-    icon="pi pi-save"
-    label="Guardar"
-    (onClick)="save()"
-    styleClass="p-button-info p-button-sm"
-  >
-  </p-button>
-</div>
-

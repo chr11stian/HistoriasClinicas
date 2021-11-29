@@ -14,7 +14,12 @@ import { DatosGeneralesFiliacionComponent } from './component/datos-generales-fi
 import { PuerperioModalComponent } from './component/puerperio-modal/puerperio-modal.component';
 import {MantenimientosModule} from "../../../../mantenimientos/mantenimientos.module";
 import { RecienNacidoDialogoComponent } from './component/recien-nacido/recien-nacido-dialogo/recien-nacido-dialogo.component';
+<<<<<<< HEAD
 import {RippleModule} from 'primeng/ripple'
+=======
+import { PartosModalComponent } from './component/partos-modal/partos-modal.component';
+
+>>>>>>> 8b3351014acd95e638cf84f347e5c3774f6701db
 
 
 
@@ -30,6 +35,8 @@ import {RippleModule} from 'primeng/ripple'
     DatosGeneralesFiliacionComponent,
     PuerperioModalComponent,
     RecienNacidoDialogoComponent,
+    PartosModalComponent,
+
   ],
     imports: [
         CommonModule,
