@@ -227,13 +227,14 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             nombreRecienNacido: this.formDatos_Generales.value.nombreRN,
             padreRecienNacido: this.formDatos_Generales.value.pabreRN,
             estadoCivil: this.formDatos_Generales.value.estadoCivil,
-            proceso: null,
+            proceso: "proseso de gestacion",
 
 
             apePaterno: this.formDatos_Generales.value.apePaterno,
             apeMaterno: this.formDatos_Generales.value.apeMaterno,
             primerNombre: this.formDatos_Generales.value.primerNombre,
             otrosNombres: "",
+
 
 
         };

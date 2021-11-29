@@ -2,7 +2,7 @@ import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { DialogService } from "primeng/dynamicdialog";
-import { DialogConsultaComponent } from "../../consultas-general/dialog-consulta/dialog-consulta.component";
+import { DialogConsultaComponent } from "../../historia-consultas/dialog-consulta/dialog-consulta.component";
 
 @Component({
   selector: "app-consulta",

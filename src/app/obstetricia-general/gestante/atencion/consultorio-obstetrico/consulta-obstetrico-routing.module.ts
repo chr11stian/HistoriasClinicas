@@ -4,21 +4,20 @@ import {StepGeneral_consultaComponent} from "./component/step-general-consulta/s
 
 const routes: Routes = [
     {
-        path: "consulta-principal",
+        path: "consultorio-obstetrico",
         component: StepGeneral_consultaComponent
     },
 
     {
         path: "obstetricia",
-        loadChildren: () => import('src/app/obstetricia-general/gestante/atencion/consulta-principal/consulta-principal.module').then(n => n.ConsultaPrincipalModule),
+        loadChildren: () => import('src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/consulta-obstetrico.module').then(n => n.ConsultaObstetricoModule),
     },
 
 
 ];
-
 @NgModule({
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
 })
-export class ConsultaPrincipalRoutingModule {
+export class ConsultaObstetricoRoutingModule {
 }
