@@ -12,7 +12,6 @@ import {PlanAtencionIntegralRoutingModule} from "./plan-atencion-integral-routin
 import {PrimeModule} from "../../../../shared/prime/prime.module";
 import { DatosGeneralesFiliacionComponent } from './component/datos-generales-filiacion/datos-generales-filiacion.component';
 import { PuerperioModalComponent } from './component/puerperio/puerperio-modal/puerperio-modal.component';
-import {MantenimientosModule} from "../../../../mantenimientos/mantenimientos.module";
 import { RecienNacidoDialogoComponent } from './component/recien-nacido/recien-nacido-dialogo/recien-nacido-dialogo.component';
 
 

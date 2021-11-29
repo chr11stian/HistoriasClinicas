@@ -20,4 +20,5 @@ export class ObstetriciaGeneralService {
     getPacienteFiliacion(tipoDoc, nroDoc) {
         return this.http.get(`${this.base_url}/${this.bd}/filiacion/listarfiliacion/${tipoDoc}/${nroDoc}`)
     }
+
 }

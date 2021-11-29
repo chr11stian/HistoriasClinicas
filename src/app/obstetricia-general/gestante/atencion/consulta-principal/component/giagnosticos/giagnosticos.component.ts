@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
+import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
+import {CieService} from "../../../../../services/cie.service";
+import {Subject} from "rxjs";
 
 @Component({
   selector: 'app-giagnosticos',
@@ -8,32 +11,44 @@ import Swal from "sweetalert2";
   styleUrls: ['./giagnosticos.component.css']
 })
 export class GiagnosticosComponent implements OnInit {
-
+  selectedCountry: any;
   form: FormGroup;
   data: any[] = [];
+  dataDiagnostico:any[] = [];
   isUpdate: boolean = false;
   datafecha: any;
   diagnosticoDialog: boolean;
   /*LISTA CIE 10*/
-  DiagnosticoList: any[];
+  filtroDiag: any[];
   Cie10: any;
+  filteredDxDescripcion: any[];
   displayModal: boolean;
+  idObstetricia: string = "";
+  termino:string ="";
+  results: any[]=[];
+  hayError: boolean=false;
+  debouncer: Subject<string> = new Subject();
+  dataCIE: any[]=[];
+  onEnter: EventEmitter<string> = new EventEmitter();
+  onDebounce: EventEmitter<string> = new EventEmitter();
+  placeholder: string ='';
 
 
-  constructor (private formBuilder: FormBuilder) {
+    constructor (private formBuilder: FormBuilder,
+               private obstetriciaService:ObstetriciaGeneralService,
+               private cieService: CieService) {
     this.buildForm();
-    /*LLENADO DE LISSTAS DE DX*/
-    // this.DiagnosticoList = [{label: 'Longitudinal', value: '1'},
-    //   {label: 'Transversa', value: '2'},
-    //   {label: 'No Aplica', value: '3'}];
+    this.idObstetricia = this.obstetriciaService.idGestacion;
+
   }
+
+
   showModalDialog() {
     this.displayModal = true;
   }
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      /* idCIE: ['', [Validators.required]],*/
       diagnostico: ['', [Validators.required]],
       CIE10: ['', [Validators.required]],
 
@@ -74,20 +89,68 @@ export class GiagnosticosComponent implements OnInit {
     })
     this.diagnosticoDialog = false;
   }
+
+  buscarDiag(termino:string){
+      this.hayError = false;
+      this.termino = termino;
+      this.cieService.getCIEByDescripcion(this.termino).subscribe((resp:any)=> {
+        this.results = resp.object;
+      },(err) => {
+            this.hayError = true;
+            this.results =[];
+          }
+      );
+  }
+  sugerencias(termino:string){
+    this.hayError = false;
+    // TODO crear sugerencias
+  }
+  // buscarCIE(termino:string){
+  //   // let item = this.obtenerItem();
+  //   this.cieService.getCIEByDescripcion(termino).subscribe(
+  //       (resp:any) => {this.results = resp.object;
+  //         console.log(resp);
+  //         // this.dataDiagnostico.push(this.results);
+  //         // console.log(this.dataDiagnostico);
+  //         let i: number = 0;
+  //         while(i<this.results.length){
+  //           this.dataDiagnostico.push(this.results[i].descripcionItem);
+  //           console.log(this.dataDiagnostico);
+  //           i++;
+  //         }
+  //       }, (err) => {
+  //           this.hayError = true;
+  //       }
+  //   )
+  // }
   titulo() {
     if (this.isUpdate) return "EDITE DIAGNOSTICO";
     else return "INGRESAR UN DIAGNOSTICO";
   }
-  ngOnInit(): void
-  {
-  }
-
-
   editar(rowData: any) {
     console.log("modificando" + rowData)
   }
-
   eliminar(rowData: any) {
     console.log("eliminando" + rowData)
   }
+  ngOnInit() {
+
+
+  }
+  buscar(event){
+
+    this.buscarDiag(this.termino);
+    console.log(this.results);
+      let filtro:any[]=[];
+      let query = event.query;
+      for(let i = 0;i<this.results.length;i++){
+         let filtroDes = this.results[i];
+         if(filtroDes.descripcionItem.toLowerCase().indexOf(query.toLowerCase())== 0)
+         {
+            filtro.push(filtroDes);
+         }
+      }
+      this.filteredDxDescripcion = filtro;
+  }
+
 }

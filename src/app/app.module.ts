@@ -22,7 +22,7 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
     declarations: [
         AppComponent,
         LoginComponent,
-        NotFoundComponent,
+        NotFoundComponent
     ],
     imports: [
         BrowserModule,

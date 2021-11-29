@@ -2,16 +2,15 @@
     <p-toolbar>
 
         <ng-template pTemplate="left">
-
-
             <h3 class="p-m-0">DIAGNÓSTICOS</h3>
         </ng-template>
-
+        <ng-template  pTemplate="right" class="button">
+             <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" ></button>
+        </ng-template>
     </p-toolbar>
     <p-table class="table-over" [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
              [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
                 <th style="text-align: center" class="font-2">Nro </th>
@@ -52,13 +51,24 @@
 
     <p-toolbar>
         <ng-template pTemplate="left" >
-            <h3 class="p-m-0">DIAGNÓSTICOS</h3>
+            <h3 class="p-m-0">REFERENCIA</h3>
         </ng-template>
         <ng-template pTemplate="right" >
             <div class="p-field">
-                <p-dropdown   inputId="dropdown" [options]="" formControlName="intervalo"
-                             placeholder="seleccionar" optionLabel="label" optionValue="value">
-                </p-dropdown>
+              <div class="grid">
+                  <div class="col-4 md:col-4 xs:col-12">
+                      <label> Consultorio:</label>
+                      <input type="text">
+                  </div>
+                  <div class="col-4 md:col-4 xs:col-12">
+                      <label> Motivo:</label>
+                      <input type="text">
+                  </div>
+                  <div class="col-4 md:col-4 xs:col-12">
+                      <label> codRENAES:</label>
+                      <input type="text">
+                  </div>
+              </div>
             </div>
         </ng-template>
     </p-toolbar>
@@ -68,7 +78,7 @@
         </ng-template>
         <ng-template pTemplate="right" >
             <div class="p-field p-fluid">
-                <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                <p-calendar [showIcon]="true" dateFormat="yy-mm-dd" inputId="icon"></p-calendar>
             </div>
         </ng-template>
     </p-toolbar>
@@ -78,27 +88,33 @@
 <!-------------INICIO DIALOG INGRESAR ATENCION--->
 <p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog"  [modal]="true" [style]="{width: 'auto'}"
           [draggable]="false" [resizable]="false">
-    <form [formGroup]='form' (ngSubmit)="save(formTemplate)" #formTemplate ="ngForm">
 
+    <form   [formGroup]='form' (ngSubmit)="save(formTemplate)" #formTemplate ="ngForm" >
+        <p-autoComplete [(ngModel)]="termino" [suggestions]="filteredDxDescripcion" (completeMethod)="buscar($event)"
+                        field="name" formControlName="diagnostico"></p-autoComplete>
             <div class="p-d-inline p-fluid">
                  <div class="p-field resp">
                     <label>Diagnóstico:</label>
 
-                    <span class="p-float-label p-input-icon-right">
+                     <span class="p-float-label p-input-icon-right">
                         <i class="pi pi-search"></i>
-                         <input style="border-radius: 10px"type="text" pInputText formControlName='diagnostico' placeholder="diagnostico"
+                         <input style="border-radius: 10px" type="text" [(ngModel)]="termino" pInputText formControlName='diagnostico' placeholder="CIE10"
                                 required />
                     </span>
                 </div>
                 <div class="p-field resp">
                     <label>CIE 10:</label>
-                    <input style="border-radius: 10px" type="text" pInputText formControlName='CIE10' placeholder="CIE10"
+                    <input style="border-radius: 10px" type="text" [(ngModel)]="Cie10" pInputText formControlName='CIE10' placeholder="CIE10"
                            required />
                 </div>
 
             </div>
 
     </form>
+    <div    *ngIf="hayError"
+            class="alert alert-danger">
+        No se encontró nada en el término {{termino}}
+    </div>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"(click)="canceled()"></button>
         <button *ngIf="!isUpdate" [disabled]="!form.valid"  class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="save(formTemplate)" ></button>

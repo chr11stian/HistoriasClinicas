@@ -8,6 +8,9 @@ import {TratamientoComponent} from "./component/tratamiento/tratamiento.componen
 import {ResultadosComponent} from "./component/resultados/resultados.component";
 import {ConsultaPrincipalRoutingModule} from "./consulta-principal-routing.module";
 import {PrimeModule} from "../../../../shared/prime/prime.module";
+import {FormsModule} from "@angular/forms";
+import {ModalInmunizacionesComponent } from './component/tratamiento/modal-inmunizaciones/modal-inmunizaciones.component';
+import {ModalTratamientoComponent} from "./component/tratamiento/modal-tratamiento/modal-tratamiento.component";
 
 
 @NgModule({
@@ -18,11 +21,14 @@ import {PrimeModule} from "../../../../shared/prime/prime.module";
         GiagnosticosComponent,
         TratamientoComponent,
         ResultadosComponent,
+        ModalTratamientoComponent,
+        ModalInmunizacionesComponent,
     ],
     imports: [
         ConsultaPrincipalRoutingModule,
         CommonModule,
-        PrimeModule
+        PrimeModule,
+        FormsModule
     ]
 })
 export class ConsultaPrincipalModule {

@@ -28,8 +28,6 @@ export class PuerperioComponent implements OnInit {
         private obstetriciaService: ObstetriciaGeneralService
     ) {
         this.idObstetricia = this.obstetriciaService.idGestacion;
-
-
     }
     ngOnInit(): void {
 
@@ -39,14 +37,14 @@ export class PuerperioComponent implements OnInit {
     openDialogPuerperio() {
         this.ref = this.dialog.open(PuerperioModalComponent, {
             header: "PUERPERIO",
-            width: "95%",
+            width: "70%",
             contentStyle: {
                 "max-height": "500px",
                 overflow: "auto",
             },
         })
         this.ref.onClose.subscribe((data: any) => {
-            console.log('data de otro dialog ', data)
+            console.log('datos de modal puerperio ', data)
             if (data !== undefined)
                 this.puerperios.push(data);
         })
@@ -67,7 +65,7 @@ export class PuerperioComponent implements OnInit {
             data: aux
         })
         this.ref.onClose.subscribe((data: any) => {
-            console.log('data de otro dialog ', data)
+            console.log('datos de modal puerperio ', data)
             if(data!==undefined) {
                 this.puerperios.splice(data.index, 1,data.row);
             };
@@ -88,7 +86,7 @@ export class PuerperioComponent implements OnInit {
             data: aux
         })
         this.ref.onClose.subscribe((data: any) => {
-            console.log('data de otro dialog ', data)
+            console.log('datos de modal puerperio ', data)
             if(data!==undefined) {
                 this.puerperios.splice(data.index, 1,data.row);
             };
@@ -125,7 +123,7 @@ export class PuerperioComponent implements OnInit {
             console.log(this.dataPuerperio.puerperioInmediato.length);
             if (this.dataPuerperio.puerperioInmediato.length === null || this.dataPuerperio.puerperioInmediato.length === 0) {
                 console.log("debe ingresar un puerperio, NO SE ATENDIO HASTA EL MOMENTO");
-                // this.saveForm();
+
             } else {
                 let i: number = 0;
                 while (i < this.dataPuerperio.puerperioInmediato.length) {

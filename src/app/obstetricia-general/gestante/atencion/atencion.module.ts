@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
+import { AutoCompleteModule } from 'primeng/autocomplete'
 import {PaginatorModule} from "primeng/paginator";
 
 import {ConsultaPrincipalModule} from "./consulta-principal/consulta-principal.module";
@@ -11,14 +12,14 @@ import {AtencionRoutingModule} from "./atencion-routing.module";
 import {PlanAtencionIntegralModule} from "./plan-atencion-integral/plan-atencion-integral.module";
 import {PrimeModule} from "../../../shared/prime/prime.module";
 import { PesoEmbarazoUnicoMultipleComponent } from './modals/peso-normal-embarazo-unico-multiple/peso-embarazo-unico-multiple.component';
-import {SharedModule} from '../../../shared/shared.module'
+import {SharedModule} from '../../../shared/shared.module';
 
 
 @NgModule({
     declarations: [
 
         AtencionComponent,
-          PesoEmbarazoUnicoMultipleComponent,
+        PesoEmbarazoUnicoMultipleComponent
 
     ],
     exports: [AtencionComponent],
@@ -27,6 +28,7 @@ import {SharedModule} from '../../../shared/shared.module'
         AtencionRoutingModule,
         PrimeModule,
         PaginatorModule,
+        AutoCompleteModule,
 
         ConsultaPrincipalModule,
         PlanAtencionIntegralModule,

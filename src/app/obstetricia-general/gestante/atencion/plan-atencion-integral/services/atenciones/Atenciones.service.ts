@@ -18,8 +18,8 @@ export class AtencionesService {
 
     constructor(private http: HttpClient) {
     }
-    getAtencionService(nroHcl,nroEmbarazo ) {
-        return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarpuerperio/${nroHcl}/${nroEmbarazo}`);
+    getAtencionService(id ) {
+        return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarpuerperio/${id}`);
     }
 
 

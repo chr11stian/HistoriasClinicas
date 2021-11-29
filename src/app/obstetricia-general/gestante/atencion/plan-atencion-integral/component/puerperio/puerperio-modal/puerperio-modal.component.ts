@@ -45,9 +45,9 @@ export class PuerperioModalComponent implements OnInit {
       observaciones: new FormControl("", [Validators.required]),
     });
   }
-  tituloPuerperio(){
-    return "Ingrese nuevo Puerperi";
-  }
+  // tituloPuerperio(){
+  //   return "Ingrese nuevo Puerperio";
+  // }
   openNew(){
     this.formPurperio.reset();
     this.PuerperioDialog = true;
@@ -70,7 +70,7 @@ export class PuerperioModalComponent implements OnInit {
     this.dataPuerperio.push(puerperioData);
     this.PuerperioDialog = false;
   }
-  canceledPuerperui() {
+  canceledPuerperio() {
     Swal.fire({
       icon: 'warning',
       title: 'Cancelado...',
@@ -93,38 +93,38 @@ export class PuerperioModalComponent implements OnInit {
     this.formPurperio.get("presionArterialMaxima").setValue(configuracion.presionArterialMaxima);
     this.formPurperio.get("caracteristicasLoquios").setValue(configuracion.caracteristicasLoquios);
   }
- openDialogPuerperio(rowData, rowIndex){
-    this.estadoEditar =true;
-    this.indicePuerperio = rowIndex;
-    this.formPurperio.reset();
-       this.formPurperio.get("fechaAtencion").setValue(rowData.fechaAtencion);
-       this.formPurperio.get("pulso").setValue(rowData.pulso);
-       this.formPurperio.get("horasDiasPostPartoAborto").setValue(rowData.horasDiasPostPartoAborto);
-       this.formPurperio.get("involucionUteriana").setValue(rowData.involucionUteriana);
-       this.formPurperio.get("heridaOperacion").setValue(rowData.heridaOperacion);
-       this.formPurperio.get("observaciones").setValue(rowData.observaciones);
-       this.formPurperio.get("temperatura").setValue(rowData.temperatura);
-       this.formPurperio.get("presionArterialMaxima").setValue(rowData.presionArterialMaxima);
-       this.formPurperio.get("caracteristicasLoquios").setValue(rowData.caracteristicasLoquios);
-      this.PuerperioDialog = true;
-  }
-  guardarPuerperio(){
-    var puerperiodata = {
-      fechaAtencion: this.datePipe.transform(this.formPurperio.value.fechaAtencion, 'yyyy-MM-dd'),
-        horasDiasPostPartoAborto:this.formPurperio.value.horasDiasPostPartoAborto,
-      temperatura:this.formPurperio.value.temperatura,
-      pulso:this.formPurperio.value.pulso,
-        presionArterialMaxima: this.formPurperio.value.presionArterialMaxima,
-        involucionUteriana:this.formPurperio.value.involucionUteriana,
-      heridaOperacion:this.formPurperio.value.heridaOperacion,
-      caracteristicasLoquios:this.formPurperio.value.caracteristicasLoquios,
-      observaciones:this.formPurperio.value.observaciones
-    }
-    console.log(puerperiodata);
-    this.dataPuerperio.splice(this.indicePuerperio,1,puerperiodata);
-    this.PuerperioDialog = false;
-    this.estadoEditar = false;
-  }
+ // openDialogPuerperio(rowData, rowIndex){
+ //    this.estadoEditar =true;
+ //    this.indicePuerperio = rowIndex;
+ //    this.formPurperio.reset();
+ //       this.formPurperio.get("fechaAtencion").setValue(rowData.fechaAtencion);
+ //       this.formPurperio.get("pulso").setValue(rowData.pulso);
+ //       this.formPurperio.get("horasDiasPostPartoAborto").setValue(rowData.horasDiasPostPartoAborto);
+ //       this.formPurperio.get("involucionUteriana").setValue(rowData.involucionUteriana);
+ //       this.formPurperio.get("heridaOperacion").setValue(rowData.heridaOperacion);
+ //       this.formPurperio.get("observaciones").setValue(rowData.observaciones);
+ //       this.formPurperio.get("temperatura").setValue(rowData.temperatura);
+ //       this.formPurperio.get("presionArterialMaxima").setValue(rowData.presionArterialMaxima);
+ //       this.formPurperio.get("caracteristicasLoquios").setValue(rowData.caracteristicasLoquios);
+ //      this.PuerperioDialog = true;
+ //  }
+ //  guardarPuerperio(){
+ //    var puerperiodata = {
+ //      fechaAtencion: this.datePipe.transform(this.formPurperio.value.fechaAtencion, 'yyyy-MM-dd'),
+ //        horasDiasPostPartoAborto:this.formPurperio.value.horasDiasPostPartoAborto,
+ //      temperatura:this.formPurperio.value.temperatura,
+ //      pulso:this.formPurperio.value.pulso,
+ //        presionArterialMaxima: this.formPurperio.value.presionArterialMaxima,
+ //        involucionUteriana:this.formPurperio.value.involucionUteriana,
+ //      heridaOperacion:this.formPurperio.value.heridaOperacion,
+ //      caracteristicasLoquios:this.formPurperio.value.caracteristicasLoquios,
+ //      observaciones:this.formPurperio.value.observaciones
+ //    }
+ //    console.log(puerperiodata);
+ //    this.dataPuerperio.splice(this.indicePuerperio,1,puerperiodata);
+ //    this.PuerperioDialog = false;
+ //    this.estadoEditar = false;
+ //  }
   closeDialogGuardar(){
     this.enviarPuerperios();
     this.ref.close(
