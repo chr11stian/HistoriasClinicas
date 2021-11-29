@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
@@ -8,6 +8,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
   styleUrls: ['./dialog-consulta-universal.component.css']
 })
 export class DialogConsultaUniversalComponent implements OnInit {
+  @Input() dataHijo: string;
 
   form: FormGroup;
   prueba: any;

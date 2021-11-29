@@ -19,4 +19,8 @@ export class DatosBasalesService {
   postDatosBasales(tipoDoc: string, nroDoc: string, data) {
     return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarembarazo/${tipoDoc}/${nroDoc}`, data)
   }
+
+  postDatosBasalesById(idGestacion: string, data) {
+    return this.http.post(`${this.base_url}/${this.bd}/filiacion/guardarembarazo/${idGestacion}`, data)
+  }
 }

@@ -1,3 +1,4 @@
+import { ThisReceiver } from "@angular/compiler";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 
@@ -23,8 +24,9 @@ export class InterrogatorioComponent implements OnInit {
     { name: "Izquierda", code: "2" },
     { name: "No Aplica", code: "3" },
   ];
+  interrogatorioData: any;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.inicializarForm();
@@ -35,6 +37,7 @@ export class InterrogatorioComponent implements OnInit {
       temperatura: new FormControl(""),
       presion: new FormControl(""),
       fc: new FormControl(""),
+      fr: new FormControl(""),
       peso: new FormControl(""),
       talla: new FormControl(""),
       imc: new FormControl(""),
@@ -46,7 +49,7 @@ export class InterrogatorioComponent implements OnInit {
       deposiciones: new FormControl(""),
       motivoConsulta: new FormControl(""),
       tiempoEnfermedad: new FormControl(""),
-      interrogatorioOtro: new FormControl(""),
+      observaciones: new FormControl(""),
       piel: new FormControl(""),
       mucosas: new FormControl(""),
       cabeza: new FormControl(""),
@@ -71,5 +74,38 @@ export class InterrogatorioComponent implements OnInit {
       vagina: new FormControl(""),
       cuelloUterino: new FormControl(""),
     });
+  }
+
+  recuperarDatos() {
+    this.interrogatorioData = {
+      funcionesVitales: [
+        { funcion: 'Temperatura', valor: this.form.value.temperatura },
+        { funcion: 'Presion', valor: this.form.value.presion },
+        { funcion: 'FC', valor: this.form.value.fc },
+        { funcion: 'FR', valor: this.form.value.fr },
+        { funcion: 'Peso', valor: this.form.value.peso },
+        { funcion: 'Talla', valor: this.form.value.talla },
+        { funcion: 'IMC', valor: this.form.value.imc },
+      ],
+      funcionesBiologicas: [
+        { funcion: 'Apetito', valor: this.form.value.apetito },
+        { funcion: 'Sed', valor: this.form.value.sed },
+        { funcion: 'Sueños', valor: this.form.value.suenos },
+        { funcion: 'Estado Animo', valor: this.form.value.estadoAnimo },
+        { funcion: 'Orina', valor: this.form.value.orina },
+        { funcion: 'Deposiciones', valor: this.form.value.deposiciones },
+      ],
+      interrogatorio:[
+        { funcion: 'Motido de consulta', valor: this.form.value.motivoConsulta },
+        { funcion: 'Tiempo de enfermedad', valor: this.form.value.tiempoEnfermedad },
+        { funcion: 'observacion', valor: this.form.value.observaciones },
+      ],
+      
+    }
+  }
+
+  guardarDatos() {
+    this.recuperarDatos();
+    console.log('data to save ', this.interrogatorioData);
   }
 }

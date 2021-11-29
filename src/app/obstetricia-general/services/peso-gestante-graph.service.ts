@@ -22,7 +22,11 @@ export class PesoGestanteGraphService {
 
     getDataBajoPesoGestanteGraph() {
         return this.http
-            .get<any>('assets/data/bajoPesoGestanteGraph.json')
+            .get<any>('assets/data/bajoPesoGestanteGraph.json',{
+                params:{
+
+                }
+            })
     }
 
     getDataObesidadGestanteGraph() {
