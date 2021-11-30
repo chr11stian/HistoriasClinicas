@@ -15,3 +15,19 @@ export interface ControlCrecimiento{
     fecha?: string,
     fechaTentativa: string
 }
+export interface SuplementacionMicronutrientes{
+    descripcionEdad: string,
+    nombre: string,
+    nroSuplemento: number,
+    estado: boolean,
+    fecha?: string,
+    fechaTentativa: string
+}
+export interface TratamientoSeguimientoAnemia{
+    descripcionEdad?: string,
+    nombre: string,
+    nroControl: number,
+    valorHb: number,
+    fecha?: string,
+    fechaTentativa?: string
+}

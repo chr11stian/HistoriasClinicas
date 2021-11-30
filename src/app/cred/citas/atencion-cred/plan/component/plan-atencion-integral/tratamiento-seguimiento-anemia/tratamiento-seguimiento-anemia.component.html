@@ -7,168 +7,48 @@
     </div>
 </div>
 <div class="grid">
-    <!-- SUPLEMENTACION CON SF -->
+    <!-- TRATAMIENTO ANEMIA -->
     <div class="lg:col-6 col-fixed">
-        <p-fieldset legend="Recien Nacido" [toggleable]="true" [collapsed]="expandir">
+        <p-fieldset legend="Tratamiento Anemia" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:230px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:235px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item1 of tratamiento_Anemia">
+                    <span class="col-fixed text-right mr-2" style="width:30px">{{item1.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb." [(ngModel)]="item1.valorHb">
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item1.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item1.fechaTentativa"></p-calendar>
                     </div>
                 </div>
             </div> 
         </p-fieldset>
     </div>
-    <!-- FIN - SUPLEMENTACION CON SF -->
-    <!-- TRATAMIENTO Y SEGUIMIENTO ANEMIA -->
+    <!-- FIN - TRATAMIENTO ANEMIA -->
+    <!-- DOSAJE HB -->
     <div class="lg:col-6 col-fixed">
-        <p-fieldset legend="Menor de 01 año" [toggleable]="true" [collapsed]="expandir">
+        <p-fieldset legend="Dosaje Hb." [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
                     <div class="mr-2 text-right" style="width:230px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item2 of dosaje_Hb">
+                    <span class="col-fixed text-right mr-2" style="width:30px">{{item2.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb." [(ngModel)]="item2.valorHb">
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item2.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">3°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">4°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">5°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">6°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">7°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">8°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">9°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">10°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">11°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">12°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:120px" placeholder="Dosaje Hb.">
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item2.fechaTentativa"></p-calendar>
                     </div>
                 </div>
             </div> 
         </p-fieldset>
     </div>
-    <!-- FIN - TRATAMIENTO Y SEGUIMIENTO ANEMIA -->
+    <!-- FIN - DOSAJE HB -->
 </div>
