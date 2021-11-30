@@ -7,6 +7,7 @@ import {DialogConsultaComponent} from './dialog-consulta/dialog-consulta.compone
 import {DynamicDialogModule} from 'primeng/dynamicdialog';
 import {HistoriaConsultasComponent} from "./historia-consultas.component";
 import {DialogConsultaUniversalComponent} from "./dialog-consulta-universal/dialog-consulta-universal.component";
+import { ConsultaNoGestanteComponent } from './consulta-no-gestante/consulta-no-gestante.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import {DialogConsultaUniversalComponent} from "./dialog-consulta-universal/dial
         HistoriaConsultasComponent,
         DialogConsultaComponent,
         DialogConsultaUniversalComponent,
+        ConsultaNoGestanteComponent,
     ],
     imports: [
         CommonModule,
