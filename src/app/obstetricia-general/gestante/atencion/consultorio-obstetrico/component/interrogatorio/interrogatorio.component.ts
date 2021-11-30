@@ -52,6 +52,7 @@ export class InterrogatorioComponent implements OnInit {
 
   ngOnInit(): void {
     this.inicializarForm();
+    this.loadData();
   }
 
   inicializarForm() {
@@ -180,12 +181,6 @@ export class InterrogatorioComponent implements OnInit {
 
   guardarDatos() {
     this.recuperarDatos();
-    console.log('data to save ', this.interrogatorioData);
-    // this.consultaObstetricaService.addConsultas('DNI', '10101013', this.interrogatorioData).subscribe((res: any) => {
-    //   console.log('rpta ', res.object);
-    // });
-
-
     this.consultaObstetricaService.updateConsultas(this.interrogatorioData).subscribe((res: any) => {
       console.log('rpta', res);
     });
@@ -234,5 +229,17 @@ export class InterrogatorioComponent implements OnInit {
 
   btnCancelarExamFis() {
     this.examenesFisicosDialog = false;
+  }
+
+  loadData(){
+    let auxData = {
+      nroHcl:"10101013",
+      nroEmbarazo:1,
+      nroAtencion:1
+    }
+    
+    this.consultaObstetricaService.getConsultaPrenatalByEmbarazo(auxData).subscribe((res:any)=>{
+
+    })
   }
 }
