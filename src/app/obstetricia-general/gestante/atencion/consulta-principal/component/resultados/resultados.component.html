@@ -25,130 +25,98 @@
 <div class="m-3" >
   <div>
     <p-fieldset legend="Examen de laboratorio">
-<!--      <div class="grid mb-3">-->
-<!--        <div class="col-2" style="text-align: right; font-weight: bold">-->
-<!--          Fecha de resultados:-->
-<!--        </div>-->
-<!--        <div class="col-10">-->
-<!--          <p-calendar-->
-<!--            [showIcon]="true"-->
-<!--            inputId="icon"-->
-<!--            placeholder="dd/mm/aaaa"-->
-<!--          ></p-calendar>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="grid">-->
-<!--        <div class="col-6 md:col-4 xl:col-2 grid">-->
-<!--          <div class="col-6" style="font-weight: bold; text-align: right">-->
-<!--            Grupo S:-->
-<!--          </div>-->
-<!--          <div class="col-6 p-fluid">-->
-<!--            <input type="text" pInputText placeholder="Grupo S"-->
-<!--            />-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-6 md:col-4 xl:col-2 grid">-->
-<!--          <div class="col-6" style="font-weight: bold; text-align: right">-->
-<!--            F.RH.:-->
-<!--          </div>-->
-<!--          <div class="col-6 p-fluid">-->
-<!--            <input type="text" pInputText placeholder="F.RH."-->
-<!--            />-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-6 md:col-4 xl:col-3 grid">-->
-<!--          <div class="col-6" style="font-weight: bold; text-align: right">-->
-<!--            Hemograma:-->
-<!--          </div>-->
-<!--          <div class="col-6 p-fluid">-->
-<!--            <input type="text" pInputText placeholder="Hemograma"-->
-<!--            />-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-6 md:col-4 xl:col-3 grid">-->
-<!--          <div class="col-6" style="font-weight: bold; text-align: right">-->
-<!--            Hemoglobina:-->
-<!--          </div>-->
-<!--          <div class="col-6 p-fluid">-->
-<!--            <input type="text" pInputText placeholder="Hemoglobina"-->
-<!--            />-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-6 md:col-4 xl:col-2 grid">-->
-<!--          <div class="col-6" style="font-weight: bold; text-align: right">-->
-<!--            Hto:-->
-<!--          </div>-->
-<!--          <div class="col-6 p-fluid">-->
-<!--            <input type="text" pInputText placeholder=" Hto"-->
+      <div class="flex justify-content-between">
+        <form [formGroup]="resultadoFG" class="col-4 grid border align-self-start mt-3"  >
+          <div class="col-12 p-fluid">
+              <div>Prueba:</div>
+              <div>
+                <p-dropdown [options]="examenList"  optionValue="name" optionLabel="name" formControlName="examen"></p-dropdown>
+              </div>
+          </div>
+          <div class="col-6 p-fluid">
+            <div>Resultado:</div>
+            <div>
+              <input type="text" pInputText formControlName="valor"/>
+            </div>
+          </div>
+          <div class="col-6 p-fluid">
+            <div>Fecha:</div>
+            <div>
+              <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha" ></p-calendar>
+            </div>
+          </div>
+          <div class="col-12 flex justify-content-end pt-3">
+            <button
+                    pButton
+                    pRipple
+                    label="Agregar consulta"
+                    icon="pi pi-plus-circle"
+                    class="p-button-primary"
+                    [disabled]="resultadoFG.invalid"
+                    style="background-color: #003c71"
+                    (click)="agregarResultado()"
+            ></button>
+          </div>
+        </form>
 
-<!--            />-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-6 md:col-4 xl:col-3 grid">-->
-<!--          <div class="col-6" style="font-weight: bold; text-align: right">-->
-<!--            Glucosa:-->
-<!--          </div>-->
-<!--          <div class="col-6 p-fluid">-->
-<!--            <input type="text" pInputText placeholder=" Glucosa"-->
-<!--            />-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-6 md:col-4 xl:col-2 grid">-->
-<!--          <div class="col-6" style="font-weight: bold; text-align: right">-->
-<!--            E.Orina:-->
-<!--          </div>-->
-<!--          <div class="col-6 p-fluid">-->
-<!--            <input type="text" pInputText placeholder="E.Orina"-->
+        <div class="col-7 border">
+          <p-table [value]="examenTomadosList"  responsiveLayout="scroll" [scrollable]="true" scrollHeight="300px">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Nro</th>
+                <th>Nombre</th>
+                <th>Valor</th>
+                <th>Fecha</th>
+                <th>Accion</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-examen let-index="rowIndex">
+              <tr>
+                <td>{{index+1}}</td>
+                <td>{{examen.examen}}</td>
+                <td>{{examen.resultado}}</td>
+                <td>{{examen.fechaResultado |  date: 'shortDate'}}</td>
+                <td class="flex justify-content-around">
+                  <button
+                          pButton
+                          pRipple
+                          type="button"
+                          icon="pi pi-pencil"
+                          (click)="isUpdate = true; actualizar(index)"
+                          pTooltip="Editar tipo turno"
+                          tooltipPosition="bottom"
+                          class="p-button-raised p-button-info p-button-rounded"
+                  ></button>
+                  <button
+                          pButton
+                          pRipple
+                          type="button"
+                          (click)=" delete(index)"
+                          icon="pi pi-trash"
+                          pTooltip="Eliminar tipo turno"
+                          tooltipPosition="bottom"
+                          class="p-button-raised p-button-danger p-button-rounded"
+                  ></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
 
-<!--            />-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-6 md:col-4 xl:col-2 grid">-->
-<!--          <div class="col-6" style="font-weight: bold; text-align: right">-->
-<!--            RPR:-->
-<!--          </div>-->
-<!--          <div class="col-6 p-fluid">-->
-<!--            <input type="text" pInputText placeholder="RPR"-->
 
-<!--            />-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-6 md:col-4 xl:col-2 grid">-->
-<!--          <div class="col-6" style="font-weight: bold; text-align: right">-->
-<!--            PREVIH:-->
-<!--          </div>-->
-<!--          <div class="col-6 p-fluid">-->
-<!--            <input type="text" pInputText placeholder="PREVIH"-->
+        </div>
 
-<!--            />-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="col-6 md:col-4 xl:col-3 grid">-->
-<!--          <div class="col-6" style="font-weight: bold; text-align: right">-->
-<!--            Ex.Sec.V:-->
-<!--          </div>-->
-<!--          <div class="col-6 p-fluid">-->
-<!--            <input type="text" pInputText placeholder=" Ex.Sec.V"-->
-<!--            />-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-      <p-dropdown [options]="examenList"  optionLabel="name"></p-dropdown>
-
+      </div>
     </p-fieldset>
 
   </div>
+  <form [formGroup]="ecografiaResultadosFG">
   <div class="grid mt-3">
     <div class="col-12 xl:col-6">
       <p-fieldset legend="-1° Ecografia">
         <div class="grid">
           <div class="col-3" style="text-align: right">Fecha de ecografía:</div>
           <div class="col-9">
-            <p-calendar
-              [showIcon]="true"
-              inputId="icon"
-              placeholder="dd/mm/aaaa"
-            ></p-calendar>
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fechaEcografia1" ></p-calendar>
           </div>
         </div>
         <div class="grid">
@@ -162,7 +130,20 @@
               pInputTextarea
               autoResize="autoResize"
               placeholder="Ingresar resultado..."
+              formControlName="resultado1"
             ></textarea>
+          </div>
+        </div>
+        <div class="grid ">
+          <div class="col-3" style="text-align: right">Edad Gestacional(Semana):</div>
+          <div class="col-3 p-fluid">
+            <input type="text" pInputText  placeholder="1-40" formControlName="semana1"/>
+          </div>
+          <div class="col-3 ">
+            Edad Gestacional(Dia):
+          </div>
+          <div class="col-3 p-fluid">
+            <input type="text" pInputText  placeholder="1-7" formControlName="dia1"/>
           </div>
         </div>
       </p-fieldset>
@@ -172,12 +153,7 @@
         <div class="grid">
           <div class="col-3" style="text-align: right">Fecha de ecografía:</div>
           <div class="col-9">
-            <p-calendar
-              [showIcon]="true"
-              inputId="icon"
-              placeholder="dd/mm/aaaa"
-
-            ></p-calendar>
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fechaEcografia2" ></p-calendar>
           </div>
         </div>
         <div class="grid">
@@ -191,8 +167,21 @@
               pInputTextarea
               autoResize="autoResize"
               placeholder="Ingresar resultado..."
+              formControlName="resultado2"
 
             ></textarea>
+          </div>
+        </div>
+        <div class="grid ">
+          <div class="col-3" style="text-align: right">Edad Gestacional(Semana):</div>
+          <div class="col-3 p-fluid">
+            <input type="text" pInputText  placeholder="1-40" formControlName="semana2"/>
+          </div>
+          <div class="col-3 ">
+            Edad Gestacional(Dia):
+          </div>
+          <div class="col-3 p-fluid">
+            <input type="text" pInputText  placeholder="1-7" formControlName="dia2"/>
           </div>
         </div>
       </p-fieldset>
@@ -202,13 +191,7 @@
         <div class="grid">
           <div class="col-3" style="text-align: right">Fecha de ecografía:</div>
           <div class="col-9">
-            <p-calendar
-              [showIcon]="true"
-              inputId="icon"
-              placeholder="dd/mm/aaaa"
-
-
-            ></p-calendar>
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fechaEcografia3" ></p-calendar>
           </div>
         </div>
         <div class="grid">
@@ -222,50 +205,32 @@
               pInputTextarea
               autoResize="autoResize"
               placeholder="Ingresar resultado..."
-
+              formControlName="resultado3"
 
             ></textarea>
           </div>
         </div>
-      </p-fieldset>
-    </div>
-    <div class="col-12 xl:col-6">
-      <p-fieldset legend="-4° Ecografia">
-        <div class="grid">
-          <div class="col-3" style="text-align: right">Fecha de ecografía:</div>
-          <div class="col-9">
-            <p-calendar
-              [showIcon]="true"
-              inputId="icon"
-              placeholder="dd/mm/aaaa"
-
-
-            ></p-calendar>
+        <div class="grid ">
+          <div class="col-3" style="text-align: right">Edad Gestacional(Semana):</div>
+          <div class="col-3 p-fluid">
+            <input type="text" pInputText  placeholder="1-40" formControlName="semana3"/>
           </div>
-        </div>
-        <div class="grid">
-          <div class="col-3 align-self-start" style="text-align: right">
-            Resultado:
+          <div class="col-3 ">
+            Edad Gestacional(Dia):
           </div>
-          <div class="col-9">
-            <textarea
-              [rows]="5"
-              [cols]="45"
-              pInputTextarea
-              autoResize="autoResize"
-              placeholder="Ingresar resultado..."
-
-
-            ></textarea>
+          <div class="col-3 p-fluid">
+            <input type="text" pInputText  placeholder="1-7" formControlName="dia3"/>
           </div>
         </div>
       </p-fieldset>
     </div>
   </div>
+  </form>
   <div class="flex justify-content-end pt-3">
     <button
       pButton
       pRipple
+      (click)="agregar()"
       label="Agregar consulta"
       icon="pi pi-plus-circle"
       class="p-button-primary"
