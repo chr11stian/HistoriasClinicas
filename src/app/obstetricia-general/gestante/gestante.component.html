@@ -55,7 +55,7 @@
             </span>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple routerLink="obstetricia" label=" Nuevo Enbarazo" icon="pi pi-plus"
+            <button pButton pRipple routerLink="obstetricia" label=" Nuevo Embarazo" icon="pi pi-plus"
                     class="p-button-raised p-button-primary" (click)="newEmbarazo()"></button>
         </ng-template>
     </p-toolbar>
@@ -79,10 +79,10 @@
                 <td style="text-align: center">{{ rowData.estado }}</td>
                 <td style="text-align: center">
                     <span class="p-buttonset">
-                        <button pButton pRipple class="p-button-success" routerLink="obstetricia" label="Ver"
+                        <button pButton pRipple class="p-button-success" routerLink="obstetricia" label="Atencion"
                                 icon="pi pi-caret-right"
                                 (click)="ver(rowData)"></button>
-                        <!--                        <button pButton pRipple class="p-button-danger" label="Cancelar" icon="pi pi-times"></button>-->
+                        <button pButton pRipple class="p-button-info" label="Consultas" routerLink="../../consulta" icon="pi pi-book"></button>
                     </span>
                 </td>
             </tr>

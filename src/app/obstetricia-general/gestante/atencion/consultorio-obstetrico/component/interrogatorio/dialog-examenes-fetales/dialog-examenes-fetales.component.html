@@ -1,0 +1,55 @@
+<div class="grid">
+    <div class="col-12">
+        <form [formGroup]='form'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Situación Fetal</label>
+                    <p-dropdown [options]="listaSituacion" formControlName="selectSituacion" optionLabel="name"
+                        optionValue="code" class="inputfield p-fluid w-full examenObst">
+                    </p-dropdown>
+                </div>
+                <div class="col-4">
+                    <label>Presentación Fetal</label>
+                    <p-dropdown [options]="listaPresentacion" formControlName="selectPresentacion" optionLabel="name"
+                        optionValue="code" class="inputfield p-fluid w-full examenObst">
+                    </p-dropdown>
+                </div>
+                <div class="col-4">
+                    <label>Posición Fetal</label>
+                    <p-dropdown [options]="listaPosicion" formControlName="selectPosicion" optionLabel="name"
+                        optionValue="code" class="inputfield p-fluid w-full examenObst">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-4">
+                    <label class="">Movimiento Fetal:</label>
+                    <input type="text" pInputText formControlName='movimientoFetal' placeholder=""
+                        class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                </div>
+                <div class="col-4 mt-4">
+                    <div class="grid">
+                        <div class="col-6">
+                            <label class="">Latidos Cardíacos Fetales:</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="number" pInputText formControlName='latidosCardiacos' placeholder=""
+                                class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                        </div>
+                        <div class="col-2 text-sm font-italic">
+                            <span>X minuto</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid mt-4">
+                <div class="col-12 text-right">
+                    <button pButton pRipple label="Agregar" icon="pi pi-plus" class=" bg-blue-700"
+                        (click)="btnGuardar()"></button>
+                    <button pButton pRipple label="Cancelar" icon="pi pi-plus" class="p-button-danger ml-2"
+                        (click)="btnCancelar()"></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

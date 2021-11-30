@@ -186,7 +186,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     addData() {
 
-        console.log("aaaaa", this.formAntecedentes.value.alergia[0])
         const req = {
             gestacionAnterior: {
                 fecha: this.formAntecedentes.value.fecha,
@@ -201,7 +200,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             psicoprofilaxisNroSesiones: this.formAntecedentes.value.sesiones,
             antecedentesPartosPersonales: this.formAntecedentes.value.PartosDomiciliarios,
 
-
+            proceso: "EN GESTACION",
             antecedentesFamiliares: [
                 {
                     nombre: this.formAntecedentes.value.ninguno[0],
@@ -258,35 +257,34 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             ],
 
             antecedentesPersonales: [
-
-                this.formAntecedentes.value.Ninguno1[0],
-                this.formAntecedentes.value.Abortohabitualrecurrente[0],
-                this.formAntecedentes.value.violencia[0],
-                this.formAntecedentes.value.cardiopatia[0],
-                this.formAntecedentes.value.cirugiaPélvicaUterina[0],
-                this.formAntecedentes.value.eclampsia[0],
-                this.formAntecedentes.value.preEclampsia[0],
-                this.formAntecedentes.value.hemorraPostparto[0],
-                this.formAntecedentes.value.TBCPulmonar2[0],
-                this.formAntecedentes.value.VIHSIDA[0],
-                this.formAntecedentes.value.alcoholismo[0],
-                this.formAntecedentes.value.alergiaAmedicamentos[0],
-                this.formAntecedentes.value.asmaBronquial[0],
-                this.formAntecedentes.value.diabetes2[0],
-                this.formAntecedentes.value.enfermCongénitas[0],
-                this.formAntecedentes.value.enfermInfecciosas[0],
-                this.formAntecedentes.value.epilepsia[0],
-                this.formAntecedentes.value.hipArterial[0],
-                this.formAntecedentes.value.consumoHojaDeCoca[0],
-                this.formAntecedentes.value.infertilidad[0],
-                this.formAntecedentes.value.neoplasias[0],
-                this.formAntecedentes.value.otrasDrogas[0],
-                this.formAntecedentes.value.partoProlong[0],
-                this.formAntecedentes.value.preeclampsia[0],
-                this.formAntecedentes.value.prematuridad[0],
-                this.formAntecedentes.value.retenPlacenta[0],
-                this.formAntecedentes.value.tabaco[0],
-                this.formAntecedentes.value.transtornMentales[0],
+                this.formAntecedentes.value.Ninguno1[1],
+                this.formAntecedentes.value.Abortohabitualrecurrente[1],
+                this.formAntecedentes.value.violencia[1],
+                this.formAntecedentes.value.cardiopatia[1],
+                this.formAntecedentes.value.cirugiaPélvicaUterina[1],
+                this.formAntecedentes.value.eclampsia[1],
+                this.formAntecedentes.value.preEclampsia[1],
+                this.formAntecedentes.value.hemorraPostparto[1],
+                this.formAntecedentes.value.TBCPulmonar2[1],
+                this.formAntecedentes.value.VIHSIDA[1],
+                this.formAntecedentes.value.alcoholismo[1],
+                this.formAntecedentes.value.alergiaAmedicamentos[1],
+                this.formAntecedentes.value.asmaBronquial[1],
+                this.formAntecedentes.value.diabetes2[1],
+                this.formAntecedentes.value.enfermCongénitas[1],
+                this.formAntecedentes.value.enfermInfecciosas[1],
+                this.formAntecedentes.value.epilepsia[1],
+                this.formAntecedentes.value.hipArterial[1],
+                this.formAntecedentes.value.consumoHojaDeCoca[1],
+                this.formAntecedentes.value.infertilidad[1],
+                this.formAntecedentes.value.neoplasias[1],
+                this.formAntecedentes.value.otrasDrogas[1],
+                this.formAntecedentes.value.partoProlong[1],
+                this.formAntecedentes.value.preeclampsia[1],
+                this.formAntecedentes.value.prematuridad[1],
+                this.formAntecedentes.value.retenPlacenta[1],
+                this.formAntecedentes.value.tabaco[1],
+                this.formAntecedentes.value.transtornMentales[1],
 
             ],
         }
@@ -299,7 +297,9 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                     text: '',
                     showConfirmButton: false,
                     timer: 1500,
-                })
+                }).then(
+
+                )
             }
         )
     }
