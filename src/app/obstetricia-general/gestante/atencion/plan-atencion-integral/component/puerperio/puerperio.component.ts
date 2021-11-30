@@ -5,7 +5,8 @@ import {PuerperioInmediatoService} from "../../services/puerperio-inmediato/puer
 import Swal from "sweetalert2";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
-
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService, ConfirmEventType,MessageService} from 'primeng/api';
 @Component({
     selector: 'app-puerperio',
     templateUrl: './puerperio.component.html',
@@ -23,6 +24,8 @@ export class PuerperioComponent implements OnInit {
         private form: FormBuilder,
         private puerperioService: PuerperioInmediatoService,
         private dialog: DialogService,
+        private messageService: MessageService,
+        private confirmationService: ConfirmationService,
         private obstetriciaService: ObstetriciaGeneralService
     ) {
         this.idObstetricia = this.obstetriciaService.idGestacion;
@@ -94,7 +97,7 @@ export class PuerperioComponent implements OnInit {
 
         const req = {
             puerperioInmediato: this.puerperios,
-            proceso: "puerperio"
+            proceso: "PUERPERIO"
         }
         console.log('data to save ', this.puerperios);
         this.puerperioService.addPuerperioService2(this.idObstetricia, req).subscribe(
@@ -104,15 +107,68 @@ export class PuerperioComponent implements OnInit {
                 // this.puerperios.push(req);
                 Swal.fire({
                     icon: 'success',
-                    title: 'Agregado correctamente',
+                    title: 'Actualizado correctamente',
                     text: '',
                     showConfirmButton: false,
                     timer: 1500,
                 })
+
             }
         )
+        this.confirmFinalizar();
+    }
+    cambiarProceso(){
+
+    }
+    confirmFinalizar(){
+        this.confirmationService.confirm({
+            message: '¿Desea Finalizar el Proceso de Gestación?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.messageService.add({severity:'info', summary:'Confirmed', detail:'Se Finalizo esta gestación'});
+                this.cambiarProceso();
+            },
+            reject: (type) => {
+
+                switch(type) {
+                    case ConfirmEventType.REJECT:
+                        this.messageService.add({severity:'error', summary:'Rejected', detail:'No se guardaron cambios'});
+                        break;
+                    case ConfirmEventType.CANCEL:
+                        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'Usted cancelo la acción'});
+                        break;
+                }
+            }
+        });
+
     }
 
+    confirm() {
+
+        this.confirmationService.confirm({
+            message: '¿Esta seguro(a) que desea guardar cambios?',
+            header: 'Confirmation',
+            icon: 'pi pi-exclamation-triangle',
+            accept: () => {
+                this.messageService.add({severity:'info', summary:'Confirmed', detail:'Se guardo el puerperio'});
+                this.guardarPuerperios();
+                this.confirmFinalizar();
+
+            },
+            reject: (type) => {
+
+                switch(type) {
+                    case ConfirmEventType.REJECT:
+                        this.messageService.add({severity:'error', summary:'Rejected', detail:'No se guardaron cambios'});
+                        break;
+                    case ConfirmEventType.CANCEL:
+                        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'Usted cancelo la acción'});
+                        break;
+                }
+            }
+        });
+    }
     recuperar2() {
 
         console.log(this.idObstetricia);
@@ -121,6 +177,7 @@ export class PuerperioComponent implements OnInit {
             console.log(this.dataPuerperio.puerperioInmediato.length);
             if (this.dataPuerperio.puerperioInmediato.length === null || this.dataPuerperio.puerperioInmediato.length === 0) {
                 console.log("debe ingresar un puerperio, NO SE ATENDIO HASTA EL MOMENTO");
+
 
             } else {
                 let i: number = 0;
