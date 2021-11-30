@@ -1,5 +1,5 @@
 <p-card>
-    <span class="text-3xl">GESTANTES > Consulta Obstétrica</span>
+    <span class="text-3xl">GESTANTES >> Consulta Obstétrica</span>
     <span class="text-xs"></span>
     <form [formGroup]="formConsulta">
         <p-toolbar class="p-mb-4">
@@ -9,6 +9,10 @@
             <ng-template pTemplate="right" class="button">
                 <button pButton pRipple label="Regresar" icon="pi pi-arrow-left" class="p-button-primary"
                     (click)="regresar()"></button>
+                <button pButton pRipple label="Agregar otro modal" icon="pi pi-save" (click)="openDialogConsulta()"
+                    class="p-button-raised p-button-secondary"></button>
+                <button pButton pRipple label="Modal universal" icon="pi pi-save"
+                    (click)="openDialogConsultaUniversal()" class="p-button-raised p-button-secondary"></button>
             </ng-template>
         </p-toolbar>
         <div class="grid">
