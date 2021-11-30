@@ -1,0 +1,47 @@
+.bg-rojo {
+    width: 95%;
+    height: 4em;
+    background: #0C3866;
+    border-top: 0.1em solid;
+    border-right: 0.1em solid;
+    border-left: 0.1em solid;
+    border-color: rgba(95, 92, 92, 0.45);
+    /* border: 1px solid; */
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    /* box-shadow: 3px 0px 1px rgba(0, 0, 0, 0.2); */
+    margin-bottom: 0.5em;
+    /* box-shadow: rgba(0, 0, 0, 0.25) 14px 0px 28px; */
+    box-shadow: rgba(0, 0, 0, 0.45) 10px 0px 20px -3px;
+}
+.bg-blanco {
+    width: 95%;
+    height: 6rem;
+    /* background: blue; */
+    border-bottom: 0.1em solid;
+    border-right: 0.1em solid;
+    border-left: 0.1em solid;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    /* box-shadow: 2px 3x 1px rgba(0, 0, 0, 0.2); */
+    box-shadow: rgba(0, 0, 0, 0.45) 9px 0px 20px -3px;
+    border-color: rgba(95, 92, 92, 0.45);
+}
+
+.imgPsico {
+    margin-top: 1em;
+    margin-left: 1em;
+    height: 8em;
+    width: 6em;
+    z-index: 1;
+}
+
+.texto {
+    text-align:justify;
+    z-index: 1;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-left: 6em;
+    font-size: 1.2em;
+    color: #0C3866;
+}
