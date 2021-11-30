@@ -12,6 +12,7 @@ import {PlanAtencionIntegralModule} from "./plan-atencion-integral/plan-atencion
 import {PrimeModule} from "../../../shared/prime/prime.module";
 import { PesoEmbarazoUnicoMultipleComponent } from './modals/peso-normal-embarazo-unico-multiple/peso-embarazo-unico-multiple.component';
 import {SharedModule} from '../../../shared/shared.module';
+import {ConsultaObstetricoModule} from "./consultorio-obstetrico/consulta-obstetrico.module";
 
 
 
@@ -31,6 +32,7 @@ import {SharedModule} from '../../../shared/shared.module';
         AutoCompleteModule,
 
         PlanAtencionIntegralModule,
+        ConsultaObstetricoModule,
         PlanDePartoModule,
         ExamenesModule,
         SharedModule,

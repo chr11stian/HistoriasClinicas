@@ -9,10 +9,16 @@ import {ResultadosComponent} from "./component/resultados/resultados.component";
 import {PrimeModule} from "../../../../shared/prime/prime.module";
 import {DialogExamenesFetalesComponent} from "./component/interrogatorio/dialog-examenes-fetales/dialog-examenes-fetales.component";
 import {ConsultaObstetricoRoutingModule} from "./consulta-obstetrico-routing.module";
+import {ModalTratamientoComponent} from "./component/tratamiento/modal-tratamiento/modal-tratamiento.component";
+import {ModalInmunizacionesComponent} from "./component/tratamiento/modal-inmunizaciones/modal-inmunizaciones.component";
+import {PaginatorModule} from "primeng/paginator";
 
 
 @NgModule({
     declarations: [
+        ModalTratamientoComponent,
+        ModalInmunizacionesComponent,
+
         DatosGeneralesComponent,
         StepGeneral_consultaComponent,
         InterrogatorioComponent,
@@ -24,7 +30,8 @@ import {ConsultaObstetricoRoutingModule} from "./consulta-obstetrico-routing.mod
     imports: [
         ConsultaObstetricoRoutingModule,
         CommonModule,
-        PrimeModule
+        PrimeModule,
+        PaginatorModule
     ]
 })
 export class ConsultaObstetricoModule {

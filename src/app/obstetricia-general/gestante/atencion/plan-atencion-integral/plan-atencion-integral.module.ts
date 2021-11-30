@@ -31,7 +31,6 @@ import { PartosModalComponent } from './component/partos-modal/partos-modal.comp
     PuerperioModalComponent,
     RecienNacidoDialogoComponent,
     PartosModalComponent,
-
   ],
     imports: [
         CommonModule,

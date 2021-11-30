@@ -36,25 +36,25 @@ export class AtencionesComponent implements OnInit {
         this.idObstetricia = this.obstetriciaService.idGestacion;
 
     }
-    recuperarAtenciones() {
-        console.log(this.idObstetricia);
-        this.atencionesService.getAtencionService(this.idObstetricia).subscribe((res: any) => {
-            this.dataAtenciones= res.object;
-            console.log("Atenciones recuperadas:"  + res);
-            if (this.dataAtenciones.length === null || this.dataAtenciones.length === 0) {
-                console.log("debe INGRESAR AL MENOS UNA ATENCION");
-
-            } else {
-                let i: number = 0;
-                while (i < this.dataAtenciones.length) {
-                    console.log("atencion", i);
-                    console.log("atencion", this.dataAtenciones[i]);
-                    this.atenciones.push(this.dataAtenciones[i]);
-                    i++;
-                }
-            }
-        });
-    }
+    // recuperarAtenciones() {
+    //     console.log(this.idObstetricia);
+    //     this.atencionesService.getAtencionService(this.idObstetricia).subscribe((res: any) => {
+    //         this.dataAtenciones= res.object;
+    //         console.log("Atenciones recuperadas:"  + res);
+    //         if (this.dataAtenciones.length === null || this.dataAtenciones.length === 0) {
+    //             console.log("debe INGRESAR AL MENOS UNA ATENCION");
+    //
+    //         } else {
+    //             let i: number = 0;
+    //             while (i < this.dataAtenciones.length) {
+    //                 console.log("atencion", i);
+    //                 console.log("atencion", this.dataAtenciones[i]);
+    //                 this.atenciones.push(this.dataAtenciones[i]);
+    //                 i++;
+    //             }
+    //         }
+    //     });
+    // }
     buildForm() {
         this.form = this.formBuilder.group({
             nroAtencion: new FormControl(),
