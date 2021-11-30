@@ -1,15 +1,15 @@
 <div class="p-card">
     <p-toolbar>
         <ng-template pTemplate="left">
-            <h3 class="p-m-0">ATENCIONES GESTACIONALES</h3>
+            <h3 class="p-m-0">INTERVALOS GESTACIONALES</h3>
         </ng-template>
 
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Agregar Atención" icon="pi pi-plus" pButton type="button"
-                class="button-agregar" (click)="openDialogConsulta()"></button>
+                class="button-agregar" (click)="openDialogIntervaloNuevo()"></button>
         </ng-template>
     </p-toolbar>
-    <p-table class="table-over" [value]="prueba" #dt styleClass="p-datatable-gridlines" [rows]="10"
+    <p-table class="table-over" [value]="todasAtenciones" #dt styleClass="p-datatable-gridlines" [rows]="10"
         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
@@ -25,10 +25,10 @@
             <tr>
                 <td style="text-align: center" class="font-2">ATENCION {{ rowIndex + 1 }}</td>
                 <td style="text-align: center">{{ rowData.fecha }}</td>
-                <td style="text-align: center">{{ rowData.edad }}</td>
+                <td style="text-align: center">{{ rowData.items[0].valor }}</td>
                 <td style="text-align: center">
-                    <button pButton (click)="openDialogConsulta()" pTooltip="Visualizar" pRipple type="button"
-                        icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                    <button pButton (click)="openDialogIntervaloEditar(rowData, rowIndex)" pTooltip="Editar" pRipple type="button"
+                        icon="pi pi-pencil" class="p-button-rounded m-1">
                     </button>
                 </td>
             </tr>

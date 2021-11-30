@@ -12,7 +12,6 @@ export class ObstetriciaGeneralService {
     // observable$ = new EventEmitter<string>();
     //id para recuperar en cada componente
     idGestacion: string = "";
-
     tipoDoc: string= "";
     nroDoc: string= "";
 
