@@ -1,14 +1,15 @@
 import { Location } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
-import { DialogService } from "primeng/dynamicdialog";
-import { DialogConsultaComponent } from "../../consultas-general/dialog-consulta/dialog-consulta.component";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { DialogConsultaUniversalComponent } from "../../historia-consultas/dialog-consulta-universal/dialog-consulta-universal.component";
+import { DialogConsultaComponent } from "../../historia-consultas/dialog-consulta/dialog-consulta.component";
 
 @Component({
   selector: "app-consulta",
   templateUrl: "./consulta.component.html",
   styleUrls: ["./consulta.component.css"],
-  providers:[DialogService],
+  providers: [DialogService],
 })
 export class ConsultaComponent implements OnInit {
   listaDocumentos: any;
@@ -30,6 +31,8 @@ export class ConsultaComponent implements OnInit {
       personalSalud: "MOROCCO LAYME JONATHAN",
     },
   ];
+
+  ref: DynamicDialogRef;
 
   constructor(
     private fb: FormBuilder,
@@ -53,31 +56,50 @@ export class ConsultaComponent implements OnInit {
 
   }
 
-  regresar(){
+  regresar() {
     this.location.back();
   }
 
-  editar(){
+  editar() {
     console.log("btn editar");
+  
   }
 
-  listDiagnosticos(){
+  listDiagnosticos() {
 
   }
 
   openDialogConsulta() {
     let dialog = this.dialog.open(DialogConsultaComponent, {
-        header: "CONSULTA",
-        width: "95%",
-        contentStyle: {
-            "max-height": "500px",
-            overflow: "auto",
-        },
-        footer:`hola mundo`,
-        data:{
-            texto:'datossss'
-        }
+      header: "CONSULTA",
+      width: "95%",
+      contentStyle: {
+        "max-height": "700px",
+        overflow: "auto",
+      },
+      // footer:`hola mundo`,
+      data: {
+        texto: 'datossss'
+      }
     })
 
-}
+  }
+
+  openDialogConsultaUniversal() {
+    this.ref = this.dialog.open(DialogConsultaUniversalComponent, {
+      header: "CONSULTA UNIVERSAL",
+      width: "95%",
+      contentStyle: {
+        "max-height": "500px",
+        overflow: "auto",
+      },
+      data: {
+        texto: 'datossss'
+      }
+    });
+
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('data de otro dialog ', data)
+    });
+  }
 }

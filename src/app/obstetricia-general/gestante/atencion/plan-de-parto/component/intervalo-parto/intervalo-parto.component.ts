@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { IntervaloPartoService } from '../../services/intervalo-parto/intervalo-parto.service';
 import { IntervaloDialogoComponent } from './intervalo-dialogo/intervalo-dialogo.component';
-
+import { ObstetriciaGeneralService } from 'src/app/obstetricia-general/services/obstetricia-general.service';
 @Component({
   selector: 'app-intervalo-parto',
   templateUrl: './intervalo-parto.component.html',
@@ -10,64 +10,65 @@ import { IntervaloDialogoComponent } from './intervalo-dialogo/intervalo-dialogo
   providers: [DialogService]
 })
 export class IntervaloPartoComponent implements OnInit {
-  form: FormGroup;
-  stateOptions: any[];
-  intervaloDialog: boolean;
-  prueba: any[];
+  todasAtenciones: any[] =[];
+  ref: DynamicDialogRef;
+  idObstetricia: string;
 
   constructor(
-    private formBuilder: FormBuilder,
-    public dialog: DialogService
+    public dialog: DialogService,
+    public obstetriciaIntervalos: IntervaloPartoService,
+    private obstetriciaGeneralService: ObstetriciaGeneralService
   ) {
-    this.stateOptions = [{ label: 'Si', value: 'Si' }, { label: 'No', value: 'No' }];
-    this.buildForm();
-    this.prueba = [{
-      fecha: "01/02/2021",
-      edad: "10 semanas",
-    },
-    {
-      fecha: "01/04/2021",
-      edad: "20 semanas",
-    },
-    {
-      fecha: "01/06/2021",
-      edad: "30 semanas",
-    },
-    {
-      fecha: "01/09/2021",
-      edad: "36 semanas",
-    }]
+    this.idObstetricia=this.obstetriciaGeneralService.idGestacion;
+    this.recuperarIntervalos();
+    
   }
 
-  buildForm() {
-    this.form = this.formBuilder.group({
-      descripcion: ['', [Validators.required]],
-      dondeParto: ['', [Validators.required]],
-      posicionParto: ['', [Validators.required]],
-      transporteParto: ['', [Validators.required]],
-      selected: ['', [Validators.required]],
-    })
-  }
-  openNew() {
-    this.intervaloDialog = true;
-  }
-  openDialogConsulta() {
-    let dialog = this.dialog.open(IntervaloDialogoComponent, {
-      header: "CONSULTA",
+  openDialogIntervaloNuevo() {
+    this.ref = this.dialog.open(IntervaloDialogoComponent, {
+      header: "INTERVALOS DEL PLAN DE PARTO",
       width: "95%",
       contentStyle: {
-        "max-height": "500px",
+        "max-height": "800px",
         overflow: "auto",
       },
-      footer: `hola mundo`,
-      data: {
-        texto: 'datossss'
-      }
     })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('data de otro dialog ', data)
+      if(data!==undefined) this.recuperarIntervalos();
+    })
+  }
+  openDialogIntervaloEditar(row, index) {
+    console.log(typeof(row.fecha));
+    let aux={
+      index: index,
+      row: row
+    }
+    this.ref = this.dialog.open(IntervaloDialogoComponent, {
+      header: "INTERVALOS DEL PLAN DE PARTO",
+      width: "95%",
+      contentStyle: {
+        "max-height": "800px",
+        overflow: "auto",
+      },
+      data: aux
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('data de otro dialog ', data)
+      if(data!==undefined) {
+        this.recuperarIntervalos();
+      };
+    })
+  }
+  
+  recuperarIntervalos(){
+    console.log('data to save ', this.todasAtenciones);
+    this.obstetriciaIntervalos.getIntervalosPartoById(this.idObstetricia).subscribe((res: any) => {
+      console.log('trajo datos exito ', res)
+      this.todasAtenciones=res.object?res.object:[];
+    })
+  }
 
-  }
-  ngOnInit(): void {
-    this.buildForm();
-  }
+  ngOnInit(): void {}
 
 }

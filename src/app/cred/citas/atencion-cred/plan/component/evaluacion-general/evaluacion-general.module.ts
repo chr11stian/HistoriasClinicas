@@ -18,10 +18,11 @@ import { TestTepsiComponent } from './test-tepsi/test-tepsi.component';
         EvaluacionGeneralComponent,
         TestDesarrolloComponent,
         CabeceraEvaGnrlComponent,
-        TestTepsiComponent
+        TestTepsiComponent,
     ],
     exports: [
-        EvaluacionGeneralComponent
+        EvaluacionGeneralComponent,
+        TestTepsiComponent,
     ],
     imports: [
         PrimeModule,
