@@ -1,5 +1,5 @@
 
-<!-------------INICIO DIALOG TRATAMIENTO COMUN--->
+<!-------------INICIO DIALOG TRATAMIENTO INMUNIZACIONES--->
 <form [formGroup]='formInmunizaciones'>
 
     <div class="p-grid p-fluid">
@@ -10,17 +10,17 @@
         </div>
         <div class="p-col-6 p-md-4 p-lg-3">
             <label>Descripcion:</label>
-            <input type="number"  style="border-radius: 10px" pInputText formControlName='descripcionIn' placeholder="descripcion"
-                   required />
+            <input type="text"  style="border-radius: 10px" pInputText formControlName='descripcion' placeholder="descripcion"
+                   required/>
         </div>
         <div class="p-col-6 p-md-4 p-lg-3">
             <label>Cantidad:</label>
-            <input type="number"  style="border-radius: 10px" pInputText formControlName='numeroIn' placeholder="cantidad"
+            <input type="number"  style="border-radius: 10px" pInputText formControlName='numero' placeholder="cantidad"
                    required />
         </div>
         <div class="p-col-6 p-md-4 p-lg-3">
             <label>Dosis:</label>
-            <input type="text" style="border-radius: 10px" pInputText formControlName='dosisIn' placeholder="dosis"
+            <input type="text" style="border-radius: 10px" pInputText formControlName='dosis' placeholder="dosis"
                    required />
         </div>
 
@@ -41,7 +41,7 @@
         <br>
         <div class="p-col-6 p-md-4 p-lg-3">
             <label>Fecha Vencimiento:</label>
-            <p-calendar type="Date"  showIcon="true" style="border-radius: 10px" pInputText formControlName='fechaVenc' required>
+            <p-calendar type="Date"  showIcon="true" pInputText formControlName='fechaVenc'  dateFormat="yy-mm-dd" [showTime]="true" [showSeconds]="true" inputId="time" required>
             </p-calendar>
         </div>
     </div>

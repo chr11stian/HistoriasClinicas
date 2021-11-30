@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {DynamicDialogRef} from "primeng/dynamicdialog";
+import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../../services/obstetricia-general.service";
 import Swal from "sweetalert2";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-modal-inmunizaciones',
@@ -10,25 +11,24 @@ import Swal from "sweetalert2";
   styleUrls: ['./modal-inmunizaciones.component.css']
 })
 export class ModalInmunizacionesComponent implements OnInit {
- formInmunizaciones:FormGroup;
+  formInmunizaciones:FormGroup;
   viaadministracionList: any[];
   dialogInmunizaciones = false;
   dataInmunizaciones:any[]=[];
   idObstetricia:string;
-
+  datePipe = new DatePipe('en-US');
   constructor(private form:FormBuilder,
               private ref:DynamicDialogRef,
               private obstetriciaGeneralService:ObstetriciaGeneralService,
-              public config:DynamicDialogRef)
+              public config: DynamicDialogConfig)
   {
 
     this.idObstetricia=this.obstetriciaGeneralService.idGestacion;
-    // console.log(config.data);
-    // this.buildForm();
-    // if(config.data){
-    //   this.llenarCamposTratamientoInmunizaciones();
-    // }
-
+    console.log(config.data);
+    this.buildForm();
+    if(config.data){
+      this.llenarCamposTratamientoInmunizaciones();
+    }
 
     this.viaadministracionList = [{label: 'ENDOVENOSA', value: 'ENDOVENOSA'},
       {label: 'INHALADORA', value: 'INHALADORA'},
@@ -49,24 +49,15 @@ export class ModalInmunizacionesComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  closeDialogGuardar() {
-
-  }
-
-  closeDialog() {
-
-  }
-
   buildForm() {
     this.formInmunizaciones = this.form.group({
       codigo:new FormControl("",[Validators.required]),
-      descripcionIn:new FormControl("",[Validators.required]),
-      numeroIn:new FormControl("",[Validators.required]),
-      dosisIn:new FormControl("",[Validators.required]),
+      descripcion:new FormControl("",[Validators.required]),
+      numero:new FormControl("",[Validators.required]),
+      dosis:new FormControl("",[Validators.required]),
       viaAdministracion:new FormControl("",[Validators.required]),
       lote:new FormControl("",[Validators.required]),
       fechaVenc:new FormControl("",[Validators.required]),
-
 
     })
   }
@@ -74,15 +65,15 @@ export class ModalInmunizacionesComponent implements OnInit {
     this.formInmunizaciones.reset();
     this.dialogInmunizaciones = true;
   }
-  enviarTratamientiInmunizaciones(){
+  enviarTratamientoInmunizaciones(){
     var tratamientoInmunizaciones ={
       codigo:this.formInmunizaciones.value.codigo,
-      descripcionIn:this.formInmunizaciones.value.descripcionIn,
-      numeroIn:this.formInmunizaciones.value.numeroIn,
-      dosisIn:this.formInmunizaciones.value.dosisIn,
+      descripcion:this.formInmunizaciones.value.descripcion,
+      numero:this.formInmunizaciones.value.numero,
+      dosis:this.formInmunizaciones.value.dosis,
       viaAdministracion:this.formInmunizaciones.value.viaAdministracion,
       lote:this.formInmunizaciones.value.lote,
-      fechaVen:this.formInmunizaciones.value.fechaVen
+      fechaVenc: this.datePipe.transform(this.formInmunizaciones.value.fechaVenc, 'yyyy-MM-dd HH:mm:ss'),
 
     }
     console.log(tratamientoInmunizaciones);
@@ -100,8 +91,27 @@ export class ModalInmunizacionesComponent implements OnInit {
     this.dialogInmunizaciones = false;
   }
   llenarCamposTratamientoInmunizaciones() {
-    // let configuracion = this.config.data.row;
-    // this.formInmunizaciones.get("codigo").setValue(configuracion.codigo);
+    let configuracion = this.config.data.row;
+    this.formInmunizaciones.get("codigo").setValue(configuracion.codigo);
+    this.formInmunizaciones.get("descripcion").setValue(configuracion.descripcion);
+    this.formInmunizaciones.get("numero").setValue(configuracion.numero);
+    this.formInmunizaciones.get("dosis").setValue(configuracion.dosis);
+    this.formInmunizaciones.get("viaAdministracion").setValue(configuracion.viaAdministracion);
+    this.formInmunizaciones.get("lote").setValue(configuracion.lote);
+    this.formInmunizaciones.get("fechaVenc").setValue(configuracion.fechaVenc);
     
   }
+    closeDialogGuardar() {
+        this.enviarTratamientoInmunizaciones();
+        this.ref.close(
+            this.config.data?{
+                    index: this.config.data.index,
+                    row: this.dataInmunizaciones[0]
+                }:
+                this.dataInmunizaciones[0]);
+    }
+
+    closeDialog() {
+        this.ref.close();
+    }
 }

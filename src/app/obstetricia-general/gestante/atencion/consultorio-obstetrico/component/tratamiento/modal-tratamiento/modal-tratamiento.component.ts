@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from "sweetalert2";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {DatePipe} from "@angular/common";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../../services/obstetricia-general.service";
 

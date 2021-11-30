@@ -4,6 +4,7 @@ import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 import {ModalTratamientoComponent} from "./modal-tratamiento/modal-tratamiento.component";
 import {PuerperioModalComponent} from "../../../plan-atencion-integral/component/puerperio/puerperio-modal/puerperio-modal.component";
+import {ModalInmunizacionesComponent} from "./modal-inmunizaciones/modal-inmunizaciones.component";
 
 @Component({
   selector: 'app-tratamiento',
@@ -18,16 +19,19 @@ export class TratamientoComponent implements OnInit {
   ref: DynamicDialogRef;
   tratamientosComunes:any[]=[];
   idObstetricia: string;
-  private dataTratamientoComun:any;
+  dataTratamientoComun:any;
   /*campos para el tratamiento suplementario*/
   tratamientosSuplementarios:any[]=[];
-  private dataTratamientoSuplementario:any;
+  dataTratamientoSuplementario:any
+  /*campos para el tratamiento inmunizaciones*/
+  tratamientoInmunizaciones:any[]=[];
+  dataTratamientoInmunizaciones:any;
   /*LISTA CIE 10*/
   intervaloList: any[];
   viaadministracionList: any[];
   formRIEP: FormGroup;
   formTratamientoSuplementario:FormGroup;
-  // formTratamientoInmunizacion:FormGroup;
+  formTratamientoInmunizacion:FormGroup;
 
   recomendaciones: string;
   interconsulta: string;
@@ -98,10 +102,7 @@ export class TratamientoComponent implements OnInit {
     //   duracion:  ['', [Validators.required]],
     //
     // })
-
-
   }
-
   ngOnInit(): void
   {
   }
@@ -119,8 +120,6 @@ export class TratamientoComponent implements OnInit {
         console.log(this.formTratamiento);
     })
   }
-
-
   openDialogEditarTratamientoComun(row,index){
     let aux={
       index: index,
@@ -138,6 +137,20 @@ export class TratamientoComponent implements OnInit {
       if(data!==undefined) {
         this.tratamientosComunes.splice(data.index, 1,data.row);
       };
+    })
+  }
+  openDialogTratamientoSuplementario(){
+    this.ref = this.dialog.open(ModalTratamientoComponent, {
+      header: "TRATAMIENTOS",
+      contentStyle:{
+        overflow:"auto",
+      },
+    })
+    this.ref.onClose.subscribe((data:any)=>{
+      console.log("data de modal tratamiento",data)
+      if(data!==undefined)
+        this.tratamientosSuplementarios.push(data);
+      console.log(this.formTratamientoSuplementario);
     })
   }
   openDialogEditarTratamientoSuplementario(row,index){
@@ -159,9 +172,9 @@ export class TratamientoComponent implements OnInit {
       };
     })
   }
-  openDialogTratamientoSuplementario(){
-    this.ref = this.dialog.open(ModalTratamientoComponent, {
-      header: "TRATAMIENTOS",
+  openDialogTratamientoInmunizaciones(){
+    this.ref = this.dialog.open(ModalInmunizacionesComponent, {
+      header: "INMUNIZACIONES",
       contentStyle:{
         overflow:"auto",
       },
@@ -169,23 +182,38 @@ export class TratamientoComponent implements OnInit {
     this.ref.onClose.subscribe((data:any)=>{
       console.log("data de modal tratamiento",data)
       if(data!==undefined)
-        this.tratamientosSuplementarios.push(data);
-      console.log(this.formTratamientoSuplementario);
+        this.tratamientoInmunizaciones.push(data);
+        console.log(this.formTratamientoInmunizacion);
+    })
+  }
+  openDialogEditarTratamientoInmunizaciones(row,index){
+    let aux={
+      index: index,
+      row: row
+    }
+    this.ref = this.dialog.open(ModalInmunizacionesComponent, {
+      header: "INMUNIZACIONES",
+      contentStyle: {
+        overflow: "auto",
+      },
+      data: aux
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('data de modal inmunizaciones ', data)
+      if(data!==undefined) {
+        this.tratamientoInmunizaciones.splice(data.index, 1,data.row);
+      };
     })
   }
   guardarTodosDatos(){
-
   }
   recuperarDatos(){
-
   }
   eliminarTratamientoComun(){
-
   }
   editar(rowData: any) {
     console.log("modificando" + rowData)
   }
-
   eliminar(rowData: any) {
     console.log("eliminando" + rowData)
   }
