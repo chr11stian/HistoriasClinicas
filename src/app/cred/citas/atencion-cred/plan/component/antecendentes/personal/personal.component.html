@@ -21,7 +21,8 @@
                                 <p-selectButton [options]="stateOptions"
                                                 formControlName="normalE"
                                                 optionLabel="label"
-                                                optionValue="value">
+                                                optionValue="value"
+                                                (onChange)="cambio($event,'complicadoE')">
                                 </p-selectButton>
                                 
                             </div>
@@ -33,7 +34,8 @@
                                 <p-selectButton [options]="stateOptions"
                                                 formControlName="complicadoE"
                                                 optionLabel="label"
-                                                optionValue="value">
+                                                optionValue="value"
+                                                (onChange)="cambio($event,'normalE')">
                                 </p-selectButton>
                             </div>
                             

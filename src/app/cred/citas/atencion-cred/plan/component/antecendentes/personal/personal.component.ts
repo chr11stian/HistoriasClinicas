@@ -211,9 +211,19 @@ export class PersonalComponent implements OnInit {
   ngOnInit(): void {
     
     console.log(this.personalFG);
+    //this.cambiarEstado();
     
   }
 
+  // cambiarEstado(){
+  //   this.getFC('normalE').valueChanges.subscribe(v=>{
+  //     this.getFC('complicadoE').setValue(!this.getFC('complicadoE').value)
+  //   })
+  // }
+  cambio(e,nombre:string){
+    console.log(e.value, nombre);
+    this.getFC(nombre).setValue(!e.value)
+  }
   save(){
     this.personalEmit.emit({
       embarazo: {

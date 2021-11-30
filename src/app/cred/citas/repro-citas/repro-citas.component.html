@@ -6,7 +6,7 @@
                     <label style="padding: 0.5rem;">DNI U OTRA IDENTIFICAON:</label>
                 </div>
                 <div class="col">
-                    <input id="dni" type="text" placeholder="DNI" [disabled]="true" [ngModel]="tablaBD['nroHistoria']" class="inputfield w-full" pInputText>
+                    <input id="dni" type="text" placeholder="DNI" [disabled]="true" [ngModel]="tablaBD?.nroDoc" class="inputfield w-full" pInputText>
                 </div>
             </div>
 
@@ -15,7 +15,7 @@
                     <label style="padding: 0.5rem;">APELLIDOS Y NOMBRES:</label>
                 </div>
                 <div class="col">
-                    <input id="nombres" type="text" [disabled]="true" placeholder="Apellidos y Nombres"  [ngModel]="tablaBD['nombresApellidos']" class="inputfield w-full" pInputText>
+                    <input id="nombres" type="text" [disabled]="true" placeholder="Apellidos y Nombres"  [ngModel]="tablaBD?.apePaterno +' '+ tablaBD?.apeMaterno +', ' +tablaBD?.primerNombre" class="inputfield w-full" pInputText>
                 </div>
             </div>
 
@@ -24,7 +24,7 @@
                     <label style="padding: 0.5rem;">EDAD</label>
                 </div>
                 <div class="col">
-                    <input id="edad" type="text" [disabled]="true" placeholder="Edad" [ngModel]="tablaBD['edad']" class="inputfield w-full" pInputText>
+                    <input id="edad" type="text" [disabled]="true" placeholder="Edad" [ngModel]="age" class="inputfield w-full" pInputText>
                 </div>
             </div>
         </div>
@@ -33,31 +33,31 @@
             <div class="col ">
                 <label style="padding: 0.5rem;">TELEFONO</label>
                 <div class="col">
-                    <input id="telefono" placeholder="Telefono" type="text" [disabled]="true" class="inputfield w-full" pInputText>
+                    <input id="telefono" placeholder="Telefono" type="text" [disabled]="true" [ngModel]="tablaBD?.celular" class="inputfield w-full" pInputText>
                 </div>
             </div>
             <div class="col">
                 <label style="padding: 0.5rem;">NACIONALIDAD</label>
                 <div class="col">
-                    <input id="nacionalidad" placeholder="Nacionalidad" type="text" [disabled]="true" class="inputfield w-full" pInputText>
+                    <input id="nacionalidad" placeholder="Nacionalidad" type="text" [disabled]="true" [ngModel]="tablaBD?.nacionalidad" class="inputfield w-full" pInputText>
                 </div>
             </div>
             <div class="col">
                 <label style="padding: 0.5rem;">DEPARTAMENTO</label>
                 <div class="col">
-                    <input id="departamento" placeholder="Departamento" type="text" [disabled]="true" class="inputfield w-full" pInputText>
+                    <input id="departamento" placeholder="Departamento" type="text" [disabled]="true" [ngModel]="tablaBD?.nacimiento.departamento" class="inputfield w-full" pInputText>
                 </div>
             </div>
             <div class="col">
                 <label style="padding: 0.5rem;">PROVINCIA</label>
                 <div class="col">
-                    <input id="provincia" placeholder="Provincia" type="text" [disabled]="true" class="inputfield w-full" pInputText>
+                    <input id="provincia" placeholder="Provincia" type="text" [disabled]="true" [ngModel]="tablaBD?.nacimiento.provincia" class="inputfield w-full" pInputText>
                 </div>
             </div>
             <div class="col">
                 <label style="padding: 0.5rem;">DISTRITO</label>
                 <div class="col">
-                    <input id="distrito" placeholder="Distrito" type="text" [disabled]="true" class="inputfield w-full" pInputText>
+                    <input id="distrito" placeholder="Distrito" type="text" [disabled]="true" [ngModel]="tablaBD?.nacimiento.distrito" class="inputfield w-full" pInputText>
                 </div>
             </div>
         </div>
@@ -66,13 +66,13 @@
             <div class="col ">
                 <label style="padding: 0.5rem;">CENTRO POBLADO:</label>
                 <div class="col">
-                    <input id="CP" placeholder="Centro Poblado" type="text" [disabled]="true" class="inputfield w-full" pInputText>
+                    <input id="CP" placeholder="Centro Poblado" type="text" [disabled]="true" [ngModel]="tablaBD?.domicilio.ccpp" class="inputfield w-full" pInputText>
                 </div>
             </div>
             <div class="col">
                 <label style="padding: 0.5rem;">DOMICILIO ACTUAL:</label>
                 <div class="col">
-                    <input id="domicilio" placeholder="Domicilio Actual" type="text" [disabled]="true" class="inputfield w-full" pInputText>
+                    <input id="domicilio" placeholder="Domicilio Actual" type="text" [disabled]="true" [ngModel]="tablaBD?.domicilio.direccion" class="inputfield w-full" pInputText>
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@
         [value]="datos"
         [autoLayout]="true"
         [rows]="10"
-        
+        [loading]="loadisg"
         [showCurrentPageReport]="true"
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
         <ng-template pTemplate="header" let-columns>

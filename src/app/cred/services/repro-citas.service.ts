@@ -14,7 +14,7 @@ export class ReproCitasService {
 
 
   getDatosGenerales(dni:string){
-    return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/datosgenerales/${dni}`);
+    return this.http.get(`${this.base_url}/${this.bd}/paciente/${dni}`);
   }
 }
 
