@@ -967,7 +967,7 @@ export class IpressComponent implements OnInit {
       tipoDoc: this.formEncargado.value.tipoDocumento.abreviatura,
       nroDoc: this.formEncargado.value.nroDoc,
     }
-    if (req.nroDoc!==this.encargadoActual.nroDoc){
+    if (this.encargadoActual==null || req.nroDoc!==this.encargadoActual.nroDoc){
       this.ipressservice.createEncargadoIpress(req).subscribe(
         result => {
           Swal.fire({
