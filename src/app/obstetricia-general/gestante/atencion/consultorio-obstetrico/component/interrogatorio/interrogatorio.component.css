@@ -35,3 +35,7 @@ p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{
     background: #2196f3;
     border: #2196f3;
 }
+
+::ng-deep .dialogo .p-dialog-mask .p-element{
+    display: block;
+}   

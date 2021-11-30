@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { RecienNacidoDialogoComponent } from './recien-nacido-dialogo/recien-nacido-dialogo.component';
@@ -31,7 +30,7 @@ export class RecienNacidoComponent implements OnInit {
       header: "RECIEN NACIDO",
       width: "95%",
       contentStyle: {
-        "max-height": "500px",
+        "max-height": "800px",
         overflow: "auto",
       },
     })
@@ -50,7 +49,7 @@ export class RecienNacidoComponent implements OnInit {
       header: "RECIEN NACIDO",
       width: "95%",
       contentStyle: {
-        "max-height": "500px",
+        "max-height": "800px",
         overflow: "auto",
       },
       data: aux
