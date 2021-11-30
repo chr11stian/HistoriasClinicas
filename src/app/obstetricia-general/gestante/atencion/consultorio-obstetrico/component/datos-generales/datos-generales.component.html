@@ -15,25 +15,25 @@
             <div class="col-12 md:col-6 lg:col-3 p-field">
                 <div class="">
                     <label class="">Documento de identidad: </label>
-                    <input type="text" pInputText class="inputfield w-full">
+                    <input type="text" pInputText class="inputfield w-full" formControlName="nroDoc">
                 </div>
             </div>
             <div class="col-12 md:col-6 lg:col-3 p-field">
                 <div class="">
                     <label class="">Apellido Paterno:</label>
-                    <input type="text" pInputText class="inputfield w-full">
+                    <input type="text" pInputText class="inputfield w-full" formControlName="apePaterno">
                 </div>
             </div>
             <div class="col-12 md:col-6 lg:col-3 p-field">
                 <div class="">
                     <label class="">Apellido Materno: </label>
-                    <input type="text" pInputText class="inputfield w-full">
+                    <input type="text" pInputText class="inputfield w-full" formControlName="apeMaterno">
                 </div>
             </div>
             <div class="col-12 md:col-6 lg:col-3 p-field">
                 <div class="">
                     <label class="">Nombres: </label>
-                    <input type="text" pInputText class="inputfield w-full">
+                    <input type="text" pInputText class="inputfield w-full" formControlName="nombres">
                 </div>
             </div>
         </div>
@@ -41,19 +41,19 @@
             <div class="col-12 md:col-6 lg:col-2 p-field">
                 <div class="">
                     <label class="">Edad: </label>
-                    <input type="text" pInputText class="inputfield w-full">
+                    <input type="text" pInputText class="inputfield w-full" formControlName="edad">
                 </div>
             </div>
             <div class="col-12 md:col-6 lg:col-3 p-field">
                 <div class="">
                     <label class="">Telefono:</label>
-                    <input type="text" pInputText class="inputfield w-full">
+                    <input type="text" pInputText class="inputfield w-full" formControlName="telefono">
                 </div>
             </div>
             <div class="col-12 md:col-6 lg:col-7 p-field">
                 <div class="">
                     <label class="">Grado de instrucción: </label>
-                    <input type="text" pInputText class="inputfield w-full">
+                    <input type="text" pInputText class="inputfield w-full" formControlName="gradoInstruccion">
                 </div>
             </div>
         </div>
@@ -61,19 +61,19 @@
             <div class="col-12 md:col-6 lg:col-5 p-field">
                 <div class="">
                     <label class="">Dirección: </label>
-                    <input type="text" pInputText class="inputfield w-full">
+                    <input type="text" pInputText class="inputfield w-full" formControlName="direccion">
                 </div>
             </div>
             <div class="col-12 md:col-6 lg:col-3 p-field">
                 <div class="">
                     <label class="">Ocupación:</label>
-                    <input type="text" pInputText class="inputfield w-full">
+                    <input type="text" pInputText class="inputfield w-full" formControlName="ocupacion">
                 </div>
             </div>
             <div class="col-12 md:col-6 lg:col-2 p-field">
                 <div class="">
                     <label class="">Fecha: </label>
-                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                    <p-calendar [showIcon]="true" inputId="icon" formControlName="fecha"></p-calendar>
                 </div>
             </div>
 
@@ -81,7 +81,7 @@
             <div class="col-12 md:col-6 lg:col-2 p-field">
                 <div class="">
                     <label class="">Hora: </label>
-                    <input type="text" pInputText class="inputfield w-full">
+                    <input type="text" pInputText class="inputfield w-full" formControlName="hora">
                 </div>
             </div>
         </div>

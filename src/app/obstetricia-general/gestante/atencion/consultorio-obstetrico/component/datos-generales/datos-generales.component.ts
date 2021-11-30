@@ -23,9 +23,19 @@ export class DatosGeneralesComponent implements OnInit {
 
     buildForm() {
         this.formDatos_Generales = this.form.group({
-            // apPaterno: new FormControl(''),
-            // ApMaterno: new FormControl(''),
-            // nombres: new FormControl(''),
+            nroDoc: new FormControl(''),
+            apePaterno: new FormControl(''),
+            apeMaterno: new FormControl(''),
+            nombres: new FormControl(''),
+            edad: new FormControl(''),
+            telefono: new FormControl(''),
+            gradoInstruccion: new FormControl(''),
+            direccion: new FormControl(''),
+            ocupacion: new FormControl(''),
+            fecha: new FormControl(''),
+            hora: new FormControl(''),
+
+
             aplica: new FormControl(''),
             gesAnterior: new FormControl(''),
             // referencia: new FormControl(''),
