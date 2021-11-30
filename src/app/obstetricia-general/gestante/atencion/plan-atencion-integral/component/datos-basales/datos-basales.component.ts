@@ -53,7 +53,7 @@ export class DatosBasalesComponent implements OnInit {
       pesoHabitual: new FormControl(''),
       talla: new FormControl(''),
       nroDosisPrevias: new FormControl(''),
-      primeraDosis: new FormControl(''),
+      primeraDosis: new FormControl(null),
       segundaDosis: new FormControl(''),
       firstDosis: new FormControl(''),
       secondDosis: new FormControl(''),
@@ -462,7 +462,7 @@ export class DatosBasalesComponent implements OnInit {
       this.form.patchValue({ 'pesoHabitual': this.rptaDatosBasales.pesoTalla.pesoHabitual });
       this.form.patchValue({ 'talla': this.rptaDatosBasales.pesoTalla.talla });
       this.form.patchValue({ 'nroDosisPrevias': this.rptaDatosBasales.antitetanica.nroDosisPrevia });
-      this.form.patchValue({ 'primeraDosis': new Date(this.rptaDatosBasales.antitetanica.dosis[0].dosis) });
+      this.form.patchValue({ 'primeraDosis': new Date(this.rptaDatosBasales.antitetanica.dosis[0].dosis + 18000) });
       this.form.patchValue({ 'segundaDosis': new Date(this.rptaDatosBasales.antitetanica.dosis[1].dosis) });
       this.form.patchValue({ 'firstDosis': this.rptaDatosBasales.antitetanica.dosis[0].detalle });
       this.form.patchValue({ 'secondDosis': this.rptaDatosBasales.antitetanica.dosis[1].detalle });
@@ -579,7 +579,7 @@ export class DatosBasalesComponent implements OnInit {
     })
   }
 
-  selectedOption(event){
+  selectedOption(event) {
     console.log('seleccion de autocomplete ', event)
   }
 }

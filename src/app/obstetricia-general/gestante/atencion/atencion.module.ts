@@ -4,7 +4,6 @@ import {CommonModule} from '@angular/common';
 import { AutoCompleteModule } from 'primeng/autocomplete'
 import {PaginatorModule} from "primeng/paginator";
 
-import {ConsultaPrincipalModule} from "./consulta-principal/consulta-principal.module";
 import {PlanDePartoModule} from "./plan-de-parto/plan-de-parto.module";
 import {ExamenesModule} from "./examenes/examenes.module";
 import {AtencionComponent} from "./atencion.component";
@@ -13,6 +12,7 @@ import {PlanAtencionIntegralModule} from "./plan-atencion-integral/plan-atencion
 import {PrimeModule} from "../../../shared/prime/prime.module";
 import { PesoEmbarazoUnicoMultipleComponent } from './modals/peso-normal-embarazo-unico-multiple/peso-embarazo-unico-multiple.component';
 import {SharedModule} from '../../../shared/shared.module';
+
 
 
 @NgModule({
@@ -30,7 +30,6 @@ import {SharedModule} from '../../../shared/shared.module';
         PaginatorModule,
         AutoCompleteModule,
 
-        ConsultaPrincipalModule,
         PlanAtencionIntegralModule,
         PlanDePartoModule,
         ExamenesModule,

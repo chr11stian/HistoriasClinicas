@@ -32,17 +32,15 @@ label {
     font-weight: bold;
 }
 
-/*!*p-selectButton >>> .p-selectbutton .p-button {*!*/
-/*!*    background: #FFFFFF;*!*/
-/*!*    color: #495057;*!*/
-/*!*    border-color: #2196F3;*!*/
-/*!*}*!*/
-
-/*p-checkbox >>> .p-checkbox .p-checkbox-box {*/
-/*    border-radius: 10px;*/
-/*    border: 2px solid #F64D1AFF;*/
-/*    background: #ffd600;*/
+/*p-selectButton >>> .p-selectbutton .p-button {*/
+/*    background: #FFFFFF;*/
+/*    color: #495057;*/
+/*    border-color: #2196F3;*/
 /*}*/
+
+p-checkbox >>> .p-checkbox .p-checkbox-box {
+    border-radius: 10px;
+}
 
 /*p-checkbox >>> .p-checkbox .p-checkbox-box .p-checkbox-icon {*/
 /*    color: #ffffff;*/
@@ -132,8 +130,6 @@ label {
 /*!*}*!*/
 
 
-
-
 /*p-radiobutton>>> .p-radiobutton .p-radiobutton-icon{*/
 /*    content: url("src\assets\svg-icons\check-svgrepo-com.svg");*/
 /*}*/
@@ -150,8 +146,6 @@ label {
 /*    background: rgb(76, 120, 49);*/
 /*    border: rgb(101, 100, 100);*/
 /*}*/
-
-
 
 
 /*::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon{*/

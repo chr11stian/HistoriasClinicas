@@ -5,8 +5,6 @@ import {PuerperioInmediatoService} from "../../services/puerperio-inmediato/puer
 import Swal from "sweetalert2";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
-import {MessageService} from "primeng/api";
-import {RecienNacidoDialogoComponent} from "../recien-nacido/recien-nacido-dialogo/recien-nacido-dialogo.component";
 
 @Component({
     selector: 'app-puerperio',
