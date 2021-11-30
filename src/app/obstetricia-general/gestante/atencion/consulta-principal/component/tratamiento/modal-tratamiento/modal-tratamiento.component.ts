@@ -29,8 +29,8 @@ export class ModalTratamientoComponent implements OnInit {
   constructor(private form: FormBuilder,
               private ref: DynamicDialogRef,
               private obstetriciaGeneralService: ObstetriciaGeneralService,
-              public config: DynamicDialogConfig
-  ) {
+              public config: DynamicDialogConfig)
+  {
     this.idObstetricia=this.obstetriciaGeneralService.idGestacion;
     console.log(config.data);
     this.buildForm();

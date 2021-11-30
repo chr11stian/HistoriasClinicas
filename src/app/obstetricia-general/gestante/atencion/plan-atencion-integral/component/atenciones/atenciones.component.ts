@@ -25,7 +25,6 @@ export class AtencionesComponent implements OnInit {
     idObstetricia = "";
     dataAtenciones:any[] = [];
     atenciones:any[] = [];
-    dataPesoEdad: any[]=[];
     constructor(
         private formBuilder: FormBuilder,
         public dialogService: DialogService,
@@ -58,116 +57,116 @@ export class AtencionesComponent implements OnInit {
     }
     buildForm() {
         this.form = this.formBuilder.group({
-            nroAtencion: ['', [Validators.required]],
-            fechaAtencion: ['', [Validators.required]],
-            edadGestacional: ['', [Validators.required]],
-            pesoMadre: ['', [Validators.required]],
-            evalNutricional: ['', [Validators.required]],
-            temperatura: ['', [Validators.required]],
-            presionArterial: ['', [Validators.required]],
-            pulsoMaterno: ['', [Validators.required]],
-            alturaUterinal: ['', [Validators.required]],
-            situacion: ['', [Validators.required]],
-            presentacion: ['', [Validators.required]],
-            posicion: ['', [Validators.required]],
-            fcf: ['', [Validators.required]],
-            movFetal: ['', [Validators.required]],
-            proteinaCualitativa: ['', [Validators.required]],
-            edema: ['', [Validators.required]],
-            reflejoOsteotendinoso: ['', [Validators.required]],
-            fechaEcografia: ['', [Validators.required]],
-            consejeriaIntegral: ['', [Validators.required]],
-            indAcidoFolico: ['', [Validators.required]],
-            indFierro: ['', [Validators.required]],
-            indCalcio: ['', [Validators.required]],
-            interconsulta: ['', [Validators.required]],
-            planParto: ['', [Validators.required]],
-            visitaDomiciliaria: ['', [Validators.required]],
-            proximaCita: ['', [Validators.required]],
-            responsableAtencion: ['', [Validators.required]],
-            establecimientoAtencion: ['', [Validators.required]],
+            nroAtencion: new FormControl(),
+            fechaAtencion: new FormControl(),
+            edadGestacional: new FormControl(),
+            pesoMadre: new FormControl(),
+            evalNutricional: new FormControl(),
+            temperatura: new FormControl(),
+            presionArterial: new FormControl(),
+            pulsoMaterno: new FormControl(),
+            alturaUterinal: new FormControl(),
+            situacion: new FormControl(),
+            presentacion: new FormControl(),
+            posicion: new FormControl(),
+            fcf: new FormControl(),
+            movFetal: new FormControl(),
+            proteinaCualitativa: new FormControl(),
+            edema: new FormControl(),
+            reflejoOsteotendinoso: new FormControl(),
+            fechaEcografia: new FormControl(),
+            consejeriaIntegral: new FormControl(),
+            indAcidoFolico: new FormControl(),
+            indFierro: new FormControl(),
+            indCalcio: new FormControl(),
+            interconsulta: new FormControl(),
+            planParto: new FormControl(),
+            visitaDomiciliaria: new FormControl(),
+            proximaCita: new FormControl(),
+            responsableAtencion: new FormControl(),
+            establecimientoAtencion: new FormControl(),
         })
     }
-    // save(form: any) {
-    //     this.isUpdate = false
-    //     console.log('enviando datos...')
-    //     console.log(form)
-    //     console.log(form.value)
-    //     this.data.push(form.value)
-    //
-    //     Swal.fire({
-    //         icon: 'success',
-    //         title: 'Agregado correctamente',
-    //         text: '',
-    //         showConfirmButton: false,
-    //         timer: 1500,
-    //     })
-    //     this.atencionGestanteDialog = false
-    // }
+    save(form: any) {
+        this.isUpdate = false
+        console.log('enviando datos...')
+        console.log(form)
+        console.log(form.value)
+        this.data.push(form.value)
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Agregado correctamente',
+            text: '',
+            showConfirmButton: false,
+            timer: 1500,
+        })
+        this.atencionGestanteDialog = false
+    }
 
     openNew() {
         this.isUpdate = false
-        this.form.reset()
-        this.form.get('nroAtencion').setValue('1')
-        this.form.get('fechaAtencion').setValue('')
-        this.form.get('edadGestacional').setValue('0')
-        this.form.get('pesoMadre').setValue('0')
-        this.form.get('evalNutricional').setValue('')
-        this.form.get('temperatura').setValue('0')
-        this.form.get('presionArterial').setValue('')
-        this.form.get('pulsoMaterno').setValue('')
-        this.form.get('alturaUterinal').setValue('0')
-        this.form.get('situacion').setValue('')
-        this.form.get('presentacion').setValue('')
-        this.form.get('posicion').setValue('')
-        this.form.get('fcf').setValue('')
-        this.form.get('movFetal').setValue('')
-        this.form.get('proteinaCualitativa').setValue('')
-        this.form.get('edema').setValue('')
-        this.form.get('reflejoOsteotendinoso').setValue('')
-        this.form.get('fechaEcografia').setValue('')
-        this.form.get('consejeriaIntegral').setValue('')
-        this.form.get('indAcidoFolico').setValue('')
-        this.form.get('indFierro').setValue('')
-        this.form.get('indCalcio').setValue('')
-        this.form.get('interconsulta').setValue('')
-        this.form.get('proximaCita').setValue('')
-        this.form.get('visitaDomiciliaria').setValue('')
-        this.form.get('responsableAtencion').setValue('')
-        this.form.get('establecimientoAtencion').setValue('')
+        // this.form.reset()
+        // this.form.get('nroAtencion').setValue('')
+        // this.form.get('fechaAtencion').setValue('')
+        // this.form.get('edadGestacional').setValue('')
+        // this.form.get('pesoMadre').setValue('')
+        // this.form.get('evalNutricional').setValue('')
+        // this.form.get('temperatura').setValue('')
+        // this.form.get('presionArterial').setValue('')
+        // this.form.get('pulsoMaterno').setValue('')
+        // this.form.get('alturaUterinal').setValue('')
+        // this.form.get('situacion').setValue('')
+        // this.form.get('presentacion').setValue('')
+        // this.form.get('posicion').setValue('')
+        // this.form.get('fcf').setValue('')
+        // this.form.get('movFetal').setValue('')
+        // this.form.get('proteinaCualitativa').setValue('')
+        // this.form.get('edema').setValue('')
+        // this.form.get('reflejoOsteotendinoso').setValue('')
+        // this.form.get('fechaEcografia').setValue('')
+        // this.form.get('consejeriaIntegral').setValue('')
+        // this.form.get('indAcidoFolico').setValue('')
+        // this.form.get('indFierro').setValue('')
+        // this.form.get('indCalcio').setValue('')
+        // this.form.get('interconsulta').setValue('')
+        // this.form.get('proximaCita').setValue('')
+        // this.form.get('visitaDomiciliaria').setValue('')
+        // this.form.get('responsableAtencion').setValue('')
+        // this.form.get('establecimientoAtencion').setValue('')
         this.atencionGestanteDialog = true
     }
     editar(rowData) {
-        this.isUpdate = true
-        this.form.get('fechaAtencion').setValue(rowData.fechaAtencion)
-        this.form.get('edadGestacional').setValue(rowData.edadGestacional)
-        this.form.get('pesoMadre').setValue(rowData.pesoMadre)
-        this.form.get('evalNutricional').setValue(rowData.evalNutricional)
-        this.form.get('temperatura').setValue(rowData.temperatura)
-        this.form.get('presionArterial').setValue(rowData.presionArterial)
-        this.form.get('pulsoMaterno').setValue(rowData.pulsoMaterno)
-        this.form.get('alturaUterinal').setValue(rowData.alturaUterinal)
-        this.form.get('situacion').setValue(rowData.situacion)
-        this.form.get('presentacion').setValue(rowData.presentacion)
-        this.form.get('posicion').setValue(rowData.posicion)
-        this.form.get('fcf').setValue(rowData.fcf)
-        this.form.get('movFetal').setValue(rowData.movFetal)
-        this.form.get('proteinaCualitativa').setValue(rowData.proteinaCualitativa)
-        this.form.get('edema').setValue(rowData.edema)
-        this.form.get('reflejoOsteotendinoso').setValue(rowData.reflejoOsteotendinoso)
-        this.form.get('fechaEcografia').setValue(rowData.fechaEcografia)
-        this.form.get('consejeriaIntegral').setValue(rowData.consejeriaIntegral)
-        this.form.get('indAcidoFolico').setValue(rowData.indAcidoFolico)
-        this.form.get('indFierro').setValue(rowData.indFierro)
-        this.form.get('indCalcio').setValue(rowData.indCalcio)
-        this.form.get('interconsulta').setValue(rowData.interconsulta)
-        this.form.get('proximaCita').setValue(rowData.proximaCita)
-        this.form.get('visitaDomiciliaria').setValue(rowData.visitaDomiciliaria),
-        this.form.get('responsableAtencion').setValue(rowData.responsableAtencion)
-        this.form.get('responsableAtencion').setValue(rowData.responsableAtencion)
-        this.form.get('establecimientoAtencion').setValue(rowData.establecimientoAtencion)
-        this.isUpdate = rowData.id
-        this.atencionGestanteDialog = true
+        // this.isUpdate = true
+        // this.form.get('fechaAtencion').setValue(rowData.fechaAtencion)
+        // this.form.get('edadGestacional').setValue(rowData.edadGestacional)
+        // this.form.get('pesoMadre').setValue(rowData.pesoMadre)
+        // this.form.get('evalNutricional').setValue(rowData.evalNutricional)
+        // this.form.get('temperatura').setValue(rowData.temperatura)
+        // this.form.get('presionArterial').setValue(rowData.presionArterial)
+        // this.form.get('pulsoMaterno').setValue(rowData.pulsoMaterno)
+        // this.form.get('alturaUterinal').setValue(rowData.alturaUterinal)
+        // this.form.get('situacion').setValue(rowData.situacion)
+        // this.form.get('presentacion').setValue(rowData.presentacion)
+        // this.form.get('posicion').setValue(rowData.posicion)
+        // this.form.get('fcf').setValue(rowData.fcf)
+        // this.form.get('movFetal').setValue(rowData.movFetal)
+        // this.form.get('proteinaCualitativa').setValue(rowData.proteinaCualitativa)
+        // this.form.get('edema').setValue(rowData.edema)
+        // this.form.get('reflejoOsteotendinoso').setValue(rowData.reflejoOsteotendinoso)
+        // this.form.get('fechaEcografia').setValue(rowData.fechaEcografia)
+        // this.form.get('consejeriaIntegral').setValue(rowData.consejeriaIntegral)
+        // this.form.get('indAcidoFolico').setValue(rowData.indAcidoFolico)
+        // this.form.get('indFierro').setValue(rowData.indFierro)
+        // this.form.get('indCalcio').setValue(rowData.indCalcio)
+        // this.form.get('interconsulta').setValue(rowData.interconsulta)
+        // this.form.get('proximaCita').setValue(rowData.proximaCita)
+        // this.form.get('visitaDomiciliaria').setValue(rowData.visitaDomiciliaria),
+        // this.form.get('responsableAtencion').setValue(rowData.responsableAtencion)
+        // this.form.get('responsableAtencion').setValue(rowData.responsableAtencion)
+        // this.form.get('establecimientoAtencion').setValue(rowData.establecimientoAtencion)
+        // this.isUpdate = rowData.id
+        // this.atencionGestanteDialog = true
     }
     canceled() {
         Swal.fire({
@@ -226,68 +225,10 @@ export class AtencionesComponent implements OnInit {
         })
     }
 
-    // valorTipoSituacion(valor) {
-    //     for (let i = 0; i < this.situacionList.length; i++) {
-    //         if (valor === this.situacionList[i].value) return this.situacionList[i].label
-    //     }
-    // }
-    //
-    // valorTipoPresentacion(valor) {
-    //     for (let i = 0; i < this.presentacionList.length; i++) {
-    //         if (valor === this.presentacionList[i].value) return this.presentacionList[i].label
-    //     }
-    // }
-    //
-    // valorTipoPosicion(valor) {
-    //     for (let i = 0; i < this.posicionList.length; i++) {
-    //         if (valor === this.posicionList[i].value) return this.posicionList[i].label
-    //     }
-    // }
-    //
-    // valorTipomovFetal(valor) {
-    //     for (let i = 0; i < this.movFetalList.length; i++) {
-    //         if (valor === this.movFetalList[i].value) return this.movFetalList[i].label
-    //     }
-    // }
-    //
-    // valorproteiCualitativa(valor) {
-    //     for (let i = 0; i < this.protcualitList.length; i++) {
-    //         if (valor === this.protcualitList[i].value) return this.protcualitList[i].label
-    //     }
-    // }
-    //
-    // valorEdema(valor) {
-    //     for (let i = 0; i < this.edemaList.length; i++) {
-    //         if (valor === this.edemaList[i].value) return this.edemaList[i].label
-    //     }
-    // }
-    //
-    // valorReflejoO(valor) {
-    //     for (let i = 0; i < this.reflejoOsteotendinosoList.length; i++) {
-    //         if (valor === this.reflejoOsteotendinosoList[i].value) return this.reflejoOsteotendinosoList[i].label
-    //     }
-    // }
-    //
-    // valorInterconsultas(valor) {
-    //     for (let i = 0; i < this.interconsultaList.length; i++) {
-    //         if (valor === this.interconsultaList[i].value) return this.interconsultaList[i].label
-    //     }
-    // }
-    //
-    // valorPlanParto(valor) {
-    //     for (let i = 0; i < this.planPartoList.length; i++) {
-    //         if (valor === this.planPartoList[i].value) return this.planPartoList[i].label
-    //     }
-    // }
-    //
-    // valorVisitaDomiciliaria(valor) {
-    //     for (let i = 0; i < this.visitaDomiciliariaList.length; i++) {
-    //         if (valor === this.visitaDomiciliariaList[i].value) return this.visitaDomiciliariaList[i].label
-    //     }
-    // }
+
 
     ngOnInit(): void {
-        this.recuperarAtenciones();
+        // this.recuperarAtenciones();
     }
 }
 

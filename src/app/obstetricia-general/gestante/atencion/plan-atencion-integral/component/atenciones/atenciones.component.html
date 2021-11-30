@@ -72,7 +72,7 @@
 
 </div>
 
-<!-------------INICIO DIALOG INGRESAR ATENCION--->
+<!-----------INICIO DIALOG INGRESAR ATENCION-->
 <!--<p-dialog header={{titulo()}} [(visible)]="atencionGestanteDialog" [baseZIndex]="10000"-->
 <!--          styleClass="p-fluid" [modal]="true" [responsive]="true" [draggable]="false" [resizable]="false">-->
 
@@ -85,10 +85,8 @@
 <!--            <div class="p-fluid grid">-->
 <!--                <div class="col-6">-->
 <!--                    <label>FECHA DE ATENCION:</label>-->
-<!--                    &lt;!&ndash;                    <input type="date" class="p-fluid" pInputText formControlName="fechaAtencion" class="p-inputtext-sm "&ndash;&gt;-->
-<!--                    &lt;!&ndash;                           required/>&ndash;&gt;-->
-<!--                    <p-calendar type="date" class="inputfield w-full" showIcon="True" formControlName='fechaAtencion'-->
-<!--                                dateFormat="dd-mm-yy"></p-calendar>-->
+<!--                     <p-calendar type="date" class="inputfield w-full" showIcon="True" formControlName='fechaAtencion'-->
+<!--                      dateFormat="dd-mm-yy"></p-calendar>-->
 <!--                </div>-->
 <!--            </div>-->
 <!--            <div class="grid p-fluid">-->
@@ -96,19 +94,16 @@
 <!--                <div class="p-field resp">-->
 <!--                    <label>EDAD GESTACIONAL(Semanas)</label>-->
 <!--                    <input type="number" class="p-fluid" pInputText formControlName='edadGestacional'-->
-<!--                           placeholder="semanas"-->
-<!--                           required/>-->
+<!--                           placeholder="semanas">-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>PESO MADRE</label>-->
-<!--                    <input type="decimal" class="p-fluid" pInputText formControlName='pesoMadre' placeholder="kg"-->
-<!--                           required/>-->
+<!--                    <input type="decimal" class="p-fluid" pInputText formControlName='pesoMadre' placeholder="kg">-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>EVALUACION NUTRICIONAL</label>-->
 <!--                    <input type="text" class="p-fluid" pInputText formControlName='evalNutricional'-->
-<!--                           placeholder="evaluacion"-->
-<!--                           required/>-->
+<!--                           placeholder="evaluacion">-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>TEMPERATURA(°C) </label>-->
@@ -119,148 +114,114 @@
 <!--                <div class="p-field resp">-->
 <!--                    <label>PRESION ARTERIAL</label>-->
 <!--                    <input type="text" class="p-fluid" pInputText formControlName='presionArterial'-->
-<!--                           placeholder="mm. Hg." required/>-->
+<!--                           placeholder="mm. Hg.">-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>PULSO MATERNO(por min)</label>-->
-<!--                    <input type="text" class="p-fluid" pInputText formControlName='pulsoMaterno' placeholder="por min."-->
-<!--                           required/>-->
+<!--                    <input type="text" class="p-fluid" pInputText formControlName='pulsoMaterno' placeholder="por min.">-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>ALTURA UTERINAL(cm)</label>-->
-<!--                    <input type="decimal" class="p-fluid" pInputText formControlName='alturaUterinal' placeholder="cm"-->
-<!--                           required/>-->
+<!--                    <input type="decimal" class="p-fluid" pInputText formControlName='alturaUterinal' placeholder="cm">-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>SITUACION</label>-->
 <!--                    <div class="p-field resp">-->
-<!--                        <p-dropdown inputId="dropdown"  formControlName="situacion"-->
-<!--                                    placeholder="seleccionar" optionLabel="label" optionValue="value"-->
-<!--                                    defaultLabel="Seleccione:">-->
-<!--                        </p-dropdown>-->
+<!--                        <input  type="text" pInputText formControlName="situacion" placeholder="situacion">-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>PRESENTACION</label>-->
 <!--                    <div class="p-field">-->
-<!--                        <p-dropdown inputId="dropdown"  formControlName="presentacion"-->
-<!--                                    placeholder="seleccionar" optionLabel="label" optionValue="value"-->
-<!--                                    defaultLabel="Seleccione:">-->
-<!--                        </p-dropdown>-->
+<!--                        <input  type="text" pInputText formControlName="presentacion" placeholder="presentacion">-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--                <div class=" p-fluid resp">-->
 <!--                    <label>POSICION FETAL</label>-->
 <!--                    <div class="p-field">-->
-<!--                        <p-dropdown inputId="dropdown"  formControlName="posicion"-->
-<!--                                    placeholder="seleccionar" optionLabel="label" optionValue="value"-->
-<!--                                    defaultLabel="Seleccione:">-->
-<!--                        </p-dropdown>-->
+<!--                        <input   type="text" pInputText formControlName="posicion" placeholder="seleccionar">-->
 <!--                    </div>-->
 <!--                </div>-->
-<!--                <div class="p-field resp">-->
+<!--                <div class="p-fluid">-->
 <!--                    <label>FCF</label>-->
-<!--                    <input type="text" pInputText formControlName='fcf' placeholder="por min." required/>-->
+<!--                    <input type="text" pInputText formControlName='fcf' placeholder="por min.">-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>MOVIMIENTO FETAL</label>-->
 <!--                    <div class="p-field resp">-->
-<!--                        <p-dropdown inputId="dropdown"  formControlName="movFetal"-->
-<!--                                    optionLabel="label" optionValue="value"-->
-<!--                                    placeholder="seleccionar" defaultLabel="Seleccione:">-->
-<!--                        </p-dropdown>-->
+<!--                        <input type="text" pInputText formControlName="movFetal" placeholder="mov Fetal">-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>PROTEINURIA CUALITATIVA</label>-->
 <!--                    <div class="p-field">-->
-<!--                        <p-dropdown inputId="dropdown"  formControlName="proteinaCualitativa"-->
-<!--                                    optionLabel="label" optionValue="value"-->
-<!--                                    placeholder="seleccionar" defaultLabel="Seleccione:">-->
-<!--                        </p-dropdown>-->
+<!--                        <input type="text" pInputText formControlName="proteinaCualitativa" placeholder="Proteina Cualitativa">-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>EDEMA</label>-->
 <!--                    <div class="p-field">-->
-<!--                        <p-dropdown inputId="dropdown"  formControlName="edema"-->
-<!--                                    optionLabel="label" optionValue="value"-->
-<!--                                    defaultLabel="Seleccione:" placeholder="seleccionar">-->
-<!--                        </p-dropdown>-->
+<!--                        <input type="text" pInputText formControlName="edema"  placeholder="edema">-->
+
 <!--                    </div>-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>REFLEJO OSTEOTENDINOSO</label>-->
 <!--                    <div class="p-field">-->
-<!--                        <p-dropdown inputId="dropdown"-->
-<!--                                    formControlName="reflejoOsteotendinoso" optionLabel="label" optionValue="value"-->
-<!--                                    defaultLabel="Seleccione:" placeholder="seleccionar">-->
-<!--                        </p-dropdown>-->
+<!--                        <input type="text" pInputText formControlName="reflejoOsteotendinoso" placeholder="reflejo">-->
+
 <!--                    </div>-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>FECHA ECOGRAFIA</label>-->
-<!--                    &lt;!&ndash;                    <input type="date"&ndash;&gt;-->
-<!--                    &lt;!&ndash;                           pInputText&ndash;&gt;-->
-<!--                    &lt;!&ndash;                           formControlName="fechaEcografia" class="p-inputtext-sm " required=""/>&ndash;&gt;-->
 <!--                    <p-calendar class="inputfield w-full" showIcon="True" formControlName='fechaEcografia'></p-calendar>-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>CONSEJERIA INTEGRAL</label>-->
-<!--                    <input type="text" pInputText formControlName='consejeriaIntegral' placeholder="consejeria"-->
-<!--                           required/>-->
+<!--                    <input type="text" pInputText formControlName='consejeriaIntegral' placeholder="consejeria">-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>INDICADOR DE ACIDO FOLICO</label>-->
-<!--                    <input type="text" pInputText formControlName='indAcidoFolico' placeholder="Ind. Ac. Fólico"-->
-<!--                           required/>-->
+<!--                    <input type="text" pInputText formControlName='indAcidoFolico' placeholder="Ind. Ac. Fólico">-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>INDICADOR FIERRO</label>-->
-<!--                    <input type="text" pInputText formControlName='indFierro' placeholder="Indide Fierro" required/>-->
+<!--                    <input type="text" pInputText formControlName='indFierro' placeholder="Indide Fierro">-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>INDICADOR CALCIO</label>-->
-<!--                    <input type="text" pInputText formControlName='indCalcio' placeholder="Indide Calcio" required/>-->
+<!--                    <input type="text" pInputText formControlName='indCalcio' placeholder="Indide Calcio">-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>INTERCONSULTA</label>-->
 <!--                    <div class="p-field">-->
-<!--                        <p-dropdown inputId="dropdown" formControlName="interconsulta"-->
-<!--                                    optionLabel="label" optionValue="value"-->
-<!--                                    defaultLabel="Seleccione:" placeholder="seleccionar">-->
-<!--                        </p-dropdown>-->
+<!--                        <input type="text" pInputText formControlName="interconsulta" placeholder="interconsulta">-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>PLAN PARTO</label>-->
 <!--                    <div class="p-field">-->
-<!--                        <p-dropdown inputId="dropdown"  formControlName="planParto"-->
-<!--                                    optionLabel="label" optionValue="value"-->
-<!--                                    defaultLabel="Seleccione:" placeholder="seleccionar">-->
-<!--                        </p-dropdown>-->
+<!--                        <input type="text" pInputText  formControlName="planParto" placeholder="plan Parto">-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>VISITA DOMICILIARIA</label>-->
 <!--                    <div class="p-field">-->
-<!--                        <p-dropdown inputId="dropdown" -->
-<!--                                    formControlName="visitaDomiciliaria" optionLabel="label" optionValue="value"-->
-<!--                                    defaultLabel="Seleccione:" placeholder="seleccionar">-->
-<!--                        </p-dropdown>-->
+<!--                        <input type="text" pInputText formControlName="visitaDomiciliaria" placeholder="Visita Domiciliaria">-->
+
 <!--                    </div>-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>PROXIMA CITA</label>-->
-<!--                    <input type="date" formControlName="proximaCita" class="p-inputtext-sm " pInputText/>-->
+<!--                    <input type="date" pInputText formControlName="proximaCita" class="p-inputtext-sm " pInputText>-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>RESPONSABLE ATENCION</label>-->
-<!--                    <input type="text" pInputText formControlName='responsableAtencion' required/>-->
+<!--                    <input type="text" pInputText formControlName='responsableAtencion'>-->
 <!--                </div>-->
 <!--                <div class="p-field resp">-->
 <!--                    <label>ESTABLECIMIENTO ATENCION</label>-->
-<!--                    <input type="text" pInputText formControlName='establecimientoAtencion' required/>-->
+<!--                    <input type="text" pInputText formControlName='establecimientoAtencion'>-->
 <!--                </div>-->
 
 <!--            </div>-->
@@ -271,10 +232,7 @@
 <!--                (click)="canceled()"></button>-->
 <!--        <button *ngIf="!isUpdate" [disabled]="!form.valid" class="button-agregar" icon="pi pi-save" pButton-->
 <!--                type="button" label="Guardar" (click)="save(formTemplate)"></button>-->
-
 <!--    </ng-template>-->
-
-
 <!--</p-dialog>-->
-<!--------------------------------- FIN DIALOG INGRESAR ATENCION---->
+<!------------------------------- FIN DIALOG INGRESAR ATENCION---->
 
