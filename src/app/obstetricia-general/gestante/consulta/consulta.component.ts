@@ -62,6 +62,7 @@ export class ConsultaComponent implements OnInit {
 
   editar() {
     console.log("btn editar");
+  
   }
 
   listDiagnosticos() {

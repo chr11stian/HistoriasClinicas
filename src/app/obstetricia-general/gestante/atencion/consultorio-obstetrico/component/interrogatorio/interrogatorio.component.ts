@@ -114,6 +114,12 @@ export class InterrogatorioComponent implements OnInit {
 
   recuperarDatos() {
     this.interrogatorioData = {
+      hc:'10101013',
+      nroAtencion:'1',
+      nroControlSis:'1',
+      nroEmbarazo:'1',
+      tipoDoc:'DNI',
+      nroDoc:'10101013',
       funcionesVitales: [
         { funcion: 'Temperatura', valor: this.form.value.temperatura },
         { funcion: 'Presion', valor: this.form.value.presion },
