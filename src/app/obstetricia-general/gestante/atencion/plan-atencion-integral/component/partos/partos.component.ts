@@ -243,11 +243,12 @@ export class PartosComponent implements OnInit {
         neonato:this.getFC("neonato").value,
         responsableAtencionParto:this.getFC("responsableAtencionParto").value,
         responsableAtencionNeonato:this.getFC("responsableAtencionNeonato").value
-      }
+      },
+      proceso: 'parto'
     }
 
       this.partoAbortoService.addUpdatePartoAborto(this.idPaciente,partoAbortoInput).subscribe((resp)=>{
-        console.log(resp)
+        // console.log(resp)
         if(this.isUpdate){
           this.messageService.add({severity:'info', summary:'Actualizado', detail:'Parto o aborto fue Actualizado satisfactoriamente'});
         }
@@ -283,6 +284,7 @@ export class PartosComponent implements OnInit {
 
     this.partoAbortoService.getPartoAborto(this.idPaciente).subscribe((resp)=> {
       if (resp['cod'] == '2005') {
+        console.log("hola",resp)
       let respuesta = resp['object'];
       this.getFC('hcmp').setValue(respuesta.estado.hcmp);
       this.getFC('pc').setValue(respuesta.estado.productoConcepcion);
