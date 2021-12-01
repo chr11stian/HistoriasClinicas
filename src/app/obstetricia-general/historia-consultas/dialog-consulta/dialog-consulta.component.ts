@@ -115,7 +115,14 @@ export class DialogConsultaComponent implements OnInit {
             osteotendinoso: new FormControl(""),
             genitalesExter: new FormControl(""),
             vagina: new FormControl(""),
-            cuelloUterino: new FormControl(""),
+            cuelloUterino: new FormControl(""), 
+
+            //diagnosticos
+            //tratamientos
+            //recomendaciones
+            //examenes auxiliares
+            //referencias
+            //orientaciones
         });
     }
     boton(){
