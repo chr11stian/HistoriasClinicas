@@ -12,6 +12,8 @@ import {ConsultaObstetricoRoutingModule} from "./consulta-obstetrico-routing.mod
 import {ModalTratamientoComponent} from "./component/tratamiento/modal-tratamiento/modal-tratamiento.component";
 import {ModalInmunizacionesComponent} from "./component/tratamiento/modal-inmunizaciones/modal-inmunizaciones.component";
 import {PaginatorModule} from "primeng/paginator";
+import { ModalInterconsultaComponent } from './component/tratamiento/modal-interconsulta/modal-interconsulta.component';
+import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import {PaginatorModule} from "primeng/paginator";
         TratamientoComponent,
         ResultadosComponent,
         DialogExamenesFetalesComponent,
+        ModalInterconsultaComponent,
+        ModalRecomendacionesComponent,
     ],
     imports: [
         ConsultaObstetricoRoutingModule,

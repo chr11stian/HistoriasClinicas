@@ -7,6 +7,8 @@ import {PuerperioModalComponent} from "../../../plan-atencion-integral/component
 import {ModalInmunizacionesComponent} from "./modal-inmunizaciones/modal-inmunizaciones.component";
 import {ConsultasService} from "../../services/consultas.service";
 import Swal from "sweetalert2";
+import {ModalInterconsultaComponent} from "./modal-interconsulta/modal-interconsulta.component";
+import {ModalRecomendacionesComponent} from "./modal-recomendaciones/modal-recomendaciones.component";
 
 @Component({
   selector: 'app-tratamiento',
@@ -24,17 +26,24 @@ export class TratamientoComponent implements OnInit {
   dataTratamientoComun:any;
   /*campos para el tratamiento suplementario*/
   tratamientosSuplementarios:any[]=[];
-  dataTratamientoSuplementario:any
+  suplementarios:any;
+  evaluacionNutricional:any;
+  examenesAuxiliares:any;
   /*campos para el tratamiento inmunizaciones*/
   tratamientoInmunizaciones:any[]=[];
   dataTratamientoInmunizaciones:any;
+  /*INTERCONSULTAS*/
+  interconsultas:any[]=[];
+  recomendaciones:any[]=[];
   /*LISTA CIE 10*/
   intervaloList: any[];
   viaadministracionList: any[];
   formRIEP: FormGroup;
-  formTratamientoSuplementario:FormGroup;
   formTratamientoInmunizacion:FormGroup;
-  suplementarios:any;
+  formInterconsultas:FormGroup;
+  formRecomendaciones:FormGroup;
+
+
   constructor (private formBuilder: FormBuilder,
                private obstetriciaServie: ObstetriciaGeneralService,
                private dialog:DialogService,
@@ -74,10 +83,10 @@ export class TratamientoComponent implements OnInit {
   private buildForm() {
 
     this.formRIEP=this.formBuilder.group({
-      recomendaciones: ['', [Validators.required]],
-      interconsulta:  ['', [Validators.required]],
+      valor: ['', [Validators.required]],
+      indicador:  ['', [Validators.required]],
       examenesAuxiliares:  ['', [Validators.required]],
-      personalResponsable:  ['', [Validators.required]],
+      // personalResponsable:  ['', [Validators.required]],
       descripcionc: ['', [Validators.required]],
       dosisc: ['', [Validators.required]],
       numeroc: ['', [Validators.required]],
@@ -134,36 +143,40 @@ export class TratamientoComponent implements OnInit {
       };
     })
   }
-  openDialogTratamientoSuplementario(){
-    this.ref = this.dialog.open(ModalTratamientoComponent, {
-      header: "TRATAMIENTOS",
+  openDialogInterconsultas(){
+    this.ref = this.dialog.open(ModalInterconsultaComponent, {
+      header: "INTERCONSULTA",
       contentStyle:{
+        width:"500px",
+        heigth:"500px",
         overflow:"auto",
       },
     })
     this.ref.onClose.subscribe((data:any)=>{
-      console.log("data de modal tratamiento",data)
+      console.log("data de modal interconsultas",data)
       if(data!==undefined)
-        this.tratamientosSuplementarios.push(data);
-      console.log(this.formTratamientoSuplementario);
+        this.interconsultas.push(data);
+      console.log(this.formInterconsultas);
     })
   }
-  openDialogEditarTratamientoSuplementario(row,index){
+  openDialogEditarinterconsultas(row,index){
     let aux={
       index: index,
       row: row
     }
-    this.ref = this.dialog.open(ModalTratamientoComponent, {
-      header: "TRATAMIENTO",
+    this.ref = this.dialog.open(ModalInterconsultaComponent, {
+      header: "INTERCONSULTA",
       contentStyle: {
-        overflow: "auto",
+        width:"500px",
+        heigth:"500px",
+        overflow:"auto",
       },
       data: aux
     })
     this.ref.onClose.subscribe((data: any) => {
-      console.log('data de modal tratamiento ', data)
+      console.log('data de modal interconsulta ', data)
       if(data!==undefined) {
-        this.tratamientosSuplementarios.splice(data.index, 1,data.row);
+        this.interconsultas.splice(data.index, 1,data.row);
       };
     })
   }
@@ -200,10 +213,46 @@ export class TratamientoComponent implements OnInit {
       };
     })
   }
-
-  recuperarDatosForm(){
+  openDialogRecomendaciones(){
+    this.ref = this.dialog.open(ModalRecomendacionesComponent, {
+      header: "RECOMENDACIONES",
+      contentStyle:{
+        width:"500px",
+        heigth:"500px",
+        overflow:"auto",
+      },
+    })
+    this.ref.onClose.subscribe((data:any)=>{
+      console.log("data de modal recomendaciones",data)
+      if(data!==undefined)
+        this.recomendaciones.push(data);
+      console.log(this.formRecomendaciones);
+    })
+  }
+  openDialogEditarRecomendaciones(row,index){
+    let aux={
+      index: index,
+      row: row
+    }
+    this.ref = this.dialog.open(ModalRecomendacionesComponent, {
+      header: "RECOMENDACIONES",
+      contentStyle: {
+        width:"500px",
+        heigth:"500px",
+        overflow:"auto",
+      },
+      data: aux
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('data de modal Recomendaciones ', data)
+      if(data!==undefined) {
+        this.recomendaciones.splice(data.index, 1,data.row);
+      };
+    })
+  }
+  recuperarDatoSuplementarios(){
    this.suplementarios = {
-     tratamientoFolico: {
+     acidoFolico: {
        descripcion: this.formRIEP.value.descripciona,
        dosis: this.formRIEP.value.dosisa,
        numero: this.formRIEP.value.numeroa,
@@ -211,7 +260,7 @@ export class TratamientoComponent implements OnInit {
        viaAdministracion: this.formRIEP.value.viaAdministraciona,
        duracion: this.formRIEP.value.duraciona
      },
-     tratamientoHierro: {
+     hierroYAcidoFolico: {
        descripcion: this.formRIEP.value.descripcionf,
        dosis: this.formRIEP.value.dosisf,
        numero: this.formRIEP.value.numerof,
@@ -219,7 +268,7 @@ export class TratamientoComponent implements OnInit {
        viaAdministracion: this.formRIEP.value.viaAdministracionf,
        duracion: this.formRIEP.value.duracionf
      },
-     tratamientoCalcio: {
+     calcio: {
        descripcion: this.formRIEP.value.descripcionc,
        dosis: this.formRIEP.value.dosisc,
        numero: this.formRIEP.value.numeroc,
@@ -228,11 +277,23 @@ export class TratamientoComponent implements OnInit {
        duracion: this.formRIEP.value.duracionc
      }
    }
-
-
+  }
+  recuperarDatosEvaluacion(){
+    this.evaluacionNutricional={
+        valor:this.formRIEP.value.valor,
+        indicador:this.formRIEP.value.indicador
+    }
+  }
+  recuperarExamenesAuxiliares(){
+    this.examenesAuxiliares = {
+      examenesAuxiliares:this.formRIEP.value.examenesAuxiliares
+    }
   }
   guardarTodosDatos(){
-    this.recuperarDatosForm();
+    this.recuperarDatoSuplementarios();
+    this.recuperarDatosEvaluacion();
+    this.recuperarExamenesAuxiliares();
+    this.recuperarDatoSuplementarios();
     const req={
       nroHcl: "10101013",
       nroAtencion: 1,
@@ -242,13 +303,19 @@ export class TratamientoComponent implements OnInit {
       nroDoc: "10101013",
       inmunizaciones: this.tratamientoInmunizaciones,
       tratamientos:this.tratamientosComunes,
-      tratamientosSuplementos:this.suplementarios
+      tratamientosSuplementos:this.suplementarios,
+      interconsultas:this.interconsultas,
+      evaluacionNutricional:this.evaluacionNutricional,
+      recomendaciones:this.recomendaciones,
 
-      // tratamientosSuplementos:this.tratamientosSuplementarios,
     }
     console.log('data a guardar INMUNIZACION:',this.tratamientoInmunizaciones);
     console.log('data a guardar TRATAMIENTO COMUN:', this.tratamientosComunes);
     console.log('data a guardar SUPLEMENTARIO:', this.tratamientosSuplementarios);
+    console.log('data a guardar SUPLEMENTARIO:', this.evaluacionNutricional);
+    console.log('data a guardar de interconsultas: ', this.interconsultas);
+    console.log('data a guardar de recomendaciones: ', this.recomendaciones);
+
     this.tratamientoService.updateConsultas(req).subscribe(
         (resp) => {
           console.log(resp);
@@ -265,10 +332,18 @@ export class TratamientoComponent implements OnInit {
         }
     )
   }
-  recuperarDatos(){
 
+  eliminarTratamientoComun(index){
+      this.tratamientosComunes.splice(index,1)
   }
-  eliminarTratamientoComun(){
+  eliminarInmunizaciones(index){
+      this.tratamientoInmunizaciones.splice(index,1)
+  }
+  eliminarRecomendaciones(index){
+    this.recomendaciones.splice(index,1);
+  }
+  eliminarInterconsulta(index){
+    this.interconsultas.splice(index,1)
   }
 
   editar(rowData: any) {
