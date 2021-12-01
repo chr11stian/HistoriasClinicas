@@ -73,11 +73,10 @@ export class ConsultaComponent implements OnInit {
     let dialog = this.dialog.open(DialogConsultaComponent, {
       header: "CONSULTA",
       width: "95%",
+      autoZIndex: false,
       contentStyle: {
         "max-height": "700px",
-        overflow: "auto",
       },
-      // footer:`hola mundo`,
       data: {
         texto: 'datossss'
       }
