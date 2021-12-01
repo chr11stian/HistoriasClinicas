@@ -15,25 +15,25 @@
                     <div class="grid">
                         <label>T°:</label>
                         <input type="number" pInputText formControlName='temperatura' placeholder=""
-                            class="p-inputtext-sm funcionesVitales inputfield w-full">
+                            class="funcionesVitales inputfield w-full">
                         <label>PA:</label>
                         <input type="number" pInputText formControlName='presion' placeholder=""
-                            class="p-inputtext-sm funcionesVitales inputfield w-full">
+                            class="funcionesVitales inputfield w-full">
                         <label>F.C:</label>
                         <input type="number" pInputText formControlName='fc' placeholder=""
-                            class="p-inputtext-sm funcionesVitales inputfield w-full">
+                            class="funcionesVitales inputfield w-full">
                         <label>F.R.:</label>
                         <input type="number" pInputText formControlName='fr' placeholder=""
-                            class="p-inputtext-sm funcionesVitales inputfield w-full">
+                            class="funcionesVitales inputfield w-full">
                         <label>Peso:</label>
                         <input type="number" pInputText formControlName='peso' placeholder=""
-                            class="p-inputtext-sm funcionesVitales inputfield w-full">
+                            class="funcionesVitales inputfield w-full">
                         <label>Talla:</label>
                         <input type="number" pInputText formControlName='talla' placeholder=""
-                            class="p-inputtext-sm funcionesVitales inputfield w-full">
+                            class="funcionesVitales inputfield w-full">
                         <label>IMC:</label>
                         <input type="number" pInputText formControlName='imc' placeholder=""
-                            class="p-inputtext-sm funcionesVitales inputfield w-full">
+                            class="funcionesVitales inputfield w-full">
                     </div>
                 </p-fieldset>
             </div>
@@ -44,22 +44,22 @@
                     <div class="grid">
                         <label>Apetito:</label>
                         <input type="text" pInputText formControlName='apetito' placeholder=""
-                            class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                            class="funcionesBiologicas inputfield w-full">
                         <label>Sed:</label>
                         <input type="text" pInputText formControlName='sed' placeholder=""
-                            class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                            class="funcionesBiologicas inputfield w-full">
                         <label>Sueños:</label>
                         <input type="text" pInputText formControlName='suenos' placeholder=""
-                            class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                            class="funcionesBiologicas inputfield w-full">
                         <label>Estado de Animo:</label>
                         <input type="text" pInputText formControlName='estadoAnimo' placeholder=""
-                            class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                            class="funcionesBiologicas inputfield w-full">
                         <label>Orina:</label>
                         <input type="text" pInputText formControlName='orina' placeholder=""
-                            class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                            class="funcionesBiologicas inputfield w-full">
                         <label>Deposiciones:</label>
                         <input type="text" pInputText formControlName='deposiciones' placeholder=""
-                            class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                            class="funcionesBiologicas inputfield w-full">
                     </div>
                 </p-fieldset>
             </div>
@@ -93,33 +93,33 @@
                             <div class="grid">
                                 <label>Piel:</label>
                                 <input type="text" pInputText formControlName='piel' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                                 <label>Mucosas:</label>
                                 <input type="text" pInputText formControlName='mucosas' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                                 <label>Cabeza:</label>
                                 <input type="text" pInputText formControlName='cabeza' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                                 <label>Cuello:</label>
                                 <input type="text" pInputText formControlName='cuello' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                                 <label>Cardio Vasc.:</label>
                                 <input type="text" pInputText formControlName='cardioVasc' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                             </div>
                             <div class="grid mt-2">
                                 <label>Pulmones:</label>
                                 <input type="text" pInputText formControlName='pulmones' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                                 <label>Mamas:</label>
                                 <input type="text" pInputText formControlName='mamas' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                                 <label>Pezones:</label>
                                 <input type="text" pInputText formControlName='pezones' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                                 <label>Abdomen:</label>
                                 <input type="text" pInputText formControlName='abdomen' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                             </div>
                             <div class="grid mt-2">
                                 <button pButton pRipple label="Otros Examenes Fisicos" icon="pi pi-plus"
@@ -127,8 +127,7 @@
                             </div>
                             <div class="grid mt-2">
                                 <div class="col-4">
-                                    <p-table [value]="listaOtrosPruebasFisicas"
-                                        [showCurrentPageReport]="true" 
+                                    <p-table [value]="listaOtrosPruebasFisicas" [showCurrentPageReport]="true"
                                         [filterDelay]="0">
                                         <ng-template pTemplate="caption">
                                             <div class="flex justify-content-between">
@@ -169,14 +168,14 @@
                                 <div class="grid">
                                     <label>Miembros Inferiores:</label>
                                     <input type="text" pInputText formControlName='miembrosInferiores' placeholder=""
-                                        class="p-inputtext-sm funcionesBiologicas p-fluid w-full">
+                                        class="funcionesBiologicas p-fluid w-full">
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="grid">
                                     <label>Altura Uterina:</label>
                                     <input type="text" pInputText formControlName='alturaUterina' placeholder=""
-                                        class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                        class="funcionesBiologicas inputfield w-full">
                                 </div>
                             </div>
                             <div class="col-4">
@@ -196,13 +195,13 @@
                                 <div class="grid">
                                     <label>Genitales Externos:</label>
                                     <input type="text" pInputText formControlName='genitalesExter' placeholder=""
-                                        class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                        class="funcionesBiologicas inputfield w-full">
                                     <label>Vagina:</label>
                                     <input type="text" pInputText formControlName='vagina' placeholder=""
-                                        class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                        class="funcionesBiologicas inputfield w-full">
                                     <label>Cuello Uterino:</label>
                                     <input type="text" pInputText formControlName='cuelloUterino' placeholder=""
-                                        class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                        class="funcionesBiologicas inputfield w-full">
                                 </div>
                             </div>
                         </div>
@@ -232,12 +231,12 @@
                             <label>Semanas:</label>
                             <div class="col-1">
                                 <input type="number" pInputText formControlName='semanas' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                             </div>
                             <label class="ml-3">Días:</label>
                             <div class="col-1">
                                 <input type="number" pInputText formControlName='dias' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                             </div>
                         </div>
                     </p-fieldset>
@@ -323,7 +322,7 @@
                     <div class="col-4">
                         <label class="">Movimiento Fetal:</label>
                         <input type="text" pInputText formControlName='movimientoFetal' placeholder=""
-                            class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                            class="funcionesBiologicas inputfield w-full">
                     </div>
                     <div class="col-4 mt-4">
                         <div class="grid">
@@ -332,7 +331,7 @@
                             </div>
                             <div class="col-4">
                                 <input type="number" pInputText formControlName='latidosCardiacos' placeholder=""
-                                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                                    class="funcionesBiologicas inputfield w-full">
                             </div>
                             <div class="col-2 text-sm font-italic">
                                 <span>X minuto</span>
@@ -363,12 +362,12 @@
             <div class="col-4">
                 <label>Nombre Examen:</label>
                 <input type="text" pInputText formControlName='examName' placeholder=""
-                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                    class="funcionesBiologicas inputfield w-full">
             </div>
             <div class="col-8">
                 <label>Resultado:</label>
                 <input type="text" pInputText formControlName='examResult' placeholder=""
-                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+                    class="funcionesBiologicas inputfield w-full">
             </div>
         </div>
         <div class="grid mt-4">
