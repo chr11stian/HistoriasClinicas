@@ -82,6 +82,7 @@ export class HistoriaConsultasComponent implements OnInit {
         let dialog = this.dialog.open(DialogConsultaComponent, {
             header: "CONSULTA",
             width: "95%",
+            
             contentStyle: {
                 "max-height": "700px",
                 overflow: "auto",

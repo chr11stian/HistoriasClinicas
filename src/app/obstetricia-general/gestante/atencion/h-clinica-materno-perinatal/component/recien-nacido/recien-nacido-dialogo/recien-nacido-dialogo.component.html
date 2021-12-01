@@ -1755,11 +1755,9 @@
         </form>
     </ng-template>
 
-    <ng-template pTemplate="footer">
-        <button pButton *ngIf="estadoEditarRN" type="button" label="Guardar E"
-                (click)="guardarEdicionEgresoRN()"></button>
-        <button pButton *ngIf="!estadoEditarRN" type="button" label="Guardar N"
-                (click)="enviarEgresosRecienNacido()"></button>
+    <ng-template pTemplate="footer" class="text-right">
+        <button pButton *ngIf="estadoEditarRN"type="button" label="Guardar E" (click)="guardarEdicionEgresoRN()"></button>
+        <button pButton *ngIf="!estadoEditarRN"type="button" label="Guardar N" (click)="enviarEgresosRecienNacido()"></button>
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceledEgreso()"></button>
     </ng-template>
 </p-dialog>

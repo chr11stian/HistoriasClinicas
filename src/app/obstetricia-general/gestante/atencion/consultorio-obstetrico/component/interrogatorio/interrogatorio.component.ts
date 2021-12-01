@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import Swal from "sweetalert2";
+import { ConsultasService } from "../../services/consultas.service";
 
 @Component({
   selector: "app-interrogatorio",
@@ -45,10 +47,12 @@ export class InterrogatorioComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public dialog: DialogService,
+    private consultaObstetricaService: ConsultasService,
   ) { }
 
   ngOnInit(): void {
     this.inicializarForm();
+    this.loadData();
   }
 
   inicializarForm() {
@@ -114,15 +118,23 @@ export class InterrogatorioComponent implements OnInit {
 
   recuperarDatos() {
     this.interrogatorioData = {
-      funcionesVitales: [
-        { funcion: 'Temperatura', valor: this.form.value.temperatura },
-        { funcion: 'Presion', valor: this.form.value.presion },
-        { funcion: 'FC', valor: this.form.value.fc },
-        { funcion: 'FR', valor: this.form.value.fr },
-        { funcion: 'Peso', valor: this.form.value.peso },
-        { funcion: 'Talla', valor: this.form.value.talla },
-        { funcion: 'IMC', valor: this.form.value.imc },
-      ],
+      nroHcl: '10101013',
+      nroAtencion: 1,
+      nroControlSis: 1,
+      nroEmbarazo: 1,
+      tipoDoc: 'DNI',
+      nroDoc: '10101013',
+      funcionesVitales: {
+        t: this.form.value.temperatura,
+        presionSistolica: this.form.value.presion,
+        fc: this.form.value.fc,
+        fr: this.form.value.fr,
+        peso: this.form.value.peso,
+        talla: this.form.value.talla,
+        imc: this.form.value.imc,
+        presionDiastolica: 70,
+      }
+      ,
       funcionesBiologicas: [
         { funcion: 'Apetito', valor: this.form.value.apetito },
         { funcion: 'Sed', valor: this.form.value.sed },
@@ -132,9 +144,9 @@ export class InterrogatorioComponent implements OnInit {
         { funcion: 'Deposiciones', valor: this.form.value.deposiciones },
       ],
       interrogatorio: [
-        { funcion: 'Motido de consulta', valor: this.form.value.motivoConsulta },
-        { funcion: 'Tiempo de enfermedad', valor: this.form.value.tiempoEnfermedad },
-        { funcion: 'observacion', valor: this.form.value.observaciones },
+        { pregunta: 'Motido de consulta', respuesta: this.form.value.motivoConsulta },
+        { pregunta: 'Tiempo de enfermedad', respuesta: this.form.value.tiempoEnfermedad },
+        { pregunta: 'observacion', respuesta: this.form.value.observaciones },
       ],
       examenesFisicos: [
         { funcion: 'piel', valor: this.form.value.piel },
@@ -145,7 +157,7 @@ export class InterrogatorioComponent implements OnInit {
         { funcion: 'pulmones', valor: this.form.value.pulmones },
         { funcion: 'mamas', valor: this.form.value.mamas },
         { funcion: 'pezones', valor: this.form.value.pezones },
-        { funcion: 'abdomen', valor: this.form.value.abdomen }
+        { funcion: 'abdomen', valor: this.form.value.abdomen },
       ],
       examenesObstetricos: {
         alturaUterina: this.form.value.alturaUterina,
@@ -158,7 +170,8 @@ export class InterrogatorioComponent implements OnInit {
         semanas: this.form.value.semanas,
         dias: this.form.value.dias,
       },
-      examenesFetos: this.listaExamenesFetos
+      examenesFetos: this.listaExamenesFetos,
+      examenFisicoObservaciones: this.form.value.obsExamFisico
     }
   }
 
@@ -168,7 +181,9 @@ export class InterrogatorioComponent implements OnInit {
 
   guardarDatos() {
     this.recuperarDatos();
-    console.log('data to save ', this.interrogatorioData);
+    this.consultaObstetricaService.updateConsultas(this.interrogatorioData).subscribe((res: any) => {
+      console.log('rpta', res);
+    });
   }
 
   openDialogExamenesFeto() {
@@ -195,7 +210,6 @@ export class InterrogatorioComponent implements OnInit {
 
   btnCancelar() {
     this.encargadoDialog = false;
-
   }
   openDialogExamenesFinal() {
     this.formExamFisico.reset();
@@ -214,5 +228,53 @@ export class InterrogatorioComponent implements OnInit {
 
   btnCancelarExamFis() {
     this.examenesFisicosDialog = false;
+  }
+
+  loadData() {
+    let auxData = {
+      nroHcl: "10101013",
+      nroEmbarazo: 1,
+      nroAtencion: 1
+    }
+    let Rpta;
+    this.consultaObstetricaService.getInterrogatorioByEmbarazo(auxData).subscribe((res: any) => {
+      Rpta = res.object[0];
+      console.log('rpta ', Rpta);
+      this.form.patchValue({ temperatura: Rpta.funcionesVitales.t });
+      this.form.patchValue({ presion: Rpta.funcionesVitales.presionDiastolica });
+      this.form.patchValue({ fc: Rpta.funcionesVitales.fc });
+      this.form.patchValue({ fr: Rpta.funcionesVitales.fr });
+      this.form.patchValue({ peso: Rpta.funcionesVitales.peso });
+      this.form.patchValue({ talla: Rpta.funcionesVitales.talla });
+      this.form.patchValue({ imc: Rpta.funcionesVitales.imc });
+      this.form.patchValue({ apetito: Rpta.funcionesBiologicas[0].valor });
+      this.form.patchValue({ sed: Rpta.funcionesBiologicas[1].valor });
+      this.form.patchValue({ suenos: Rpta.funcionesBiologicas[2].valor });
+      this.form.patchValue({ estadoAnimo: Rpta.funcionesBiologicas[3].valor });
+      this.form.patchValue({ orina: Rpta.funcionesBiologicas[4].valor });
+      this.form.patchValue({ deposiciones: Rpta.funcionesBiologicas[5].valor });
+      this.form.patchValue({ motivoConsulta: Rpta.interrogatorio[0].respuesta });
+      this.form.patchValue({ tiempoEnfermedad: Rpta.interrogatorio[1].respuesta });
+      this.form.patchValue({ observaciones: Rpta.interrogatorio[2].respuesta });
+      this.form.patchValue({ piel: Rpta.examenesFisicos[0].valor });
+      this.form.patchValue({ mucosas: Rpta.examenesFisicos[1].valor });
+      this.form.patchValue({ cabeza: Rpta.examenesFisicos[2].valor });
+      this.form.patchValue({ cuello: Rpta.examenesFisicos[3].valor });
+      this.form.patchValue({ cardioVasc: Rpta.examenesFisicos[4].valor });
+      this.form.patchValue({ pulmones: Rpta.examenesFisicos[5].valor });
+      this.form.patchValue({ mamas: Rpta.examenesFisicos[6].valor });
+      this.form.patchValue({ pezones: Rpta.examenesFisicos[7].valor });
+      this.form.patchValue({ abdomen: Rpta.examenesFisicos[8].valor });
+      this.form.patchValue({ obsExamFisico: Rpta.examenFisicoObservaciones });
+      this.form.patchValue({ miembrosInferiores: Rpta.examenesObstetricos.miembrosInferiores });
+      this.form.patchValue({ alturaUterina: Rpta.examenesObstetricos.alturaUterina });
+      this.form.patchValue({ edema: Rpta.examenesObstetricos.edema });
+      this.form.patchValue({ genitalesExter: Rpta.examenesObstetricos.genitalesExternos });
+      this.form.patchValue({ vagina: Rpta.examenesObstetricos.vagina });
+      this.form.patchValue({ cuelloUterino: Rpta.examenesObstetricos.cuelloUterino });
+      this.form.patchValue({ osteotendinoso: Rpta.examenesObstetricos.reflejoOsteotendinoso });
+      this.form.patchValue({ semanas: Rpta.examenesObstetricos.semanas });
+      this.form.patchValue({ dias: Rpta.examenesObstetricos.dias });
+    });
   }
 }

@@ -3,7 +3,8 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { DialogConsultaUniversalComponent } from "../../historia-consultas/dialog-consulta-universal/dialog-consulta-universal.component";
-import { DialogConsultaComponent } from "../../historia-consultas/dialog-consulta/dialog-consulta.component";
+import { DialogConsultaComponent } from "./dialog-consulta/dialog-consulta.component";
+
 
 @Component({
   selector: "app-consulta",
@@ -62,6 +63,7 @@ export class ConsultaComponent implements OnInit {
 
   editar() {
     console.log("btn editar");
+  
   }
 
   listDiagnosticos() {
@@ -72,11 +74,10 @@ export class ConsultaComponent implements OnInit {
     let dialog = this.dialog.open(DialogConsultaComponent, {
       header: "CONSULTA",
       width: "95%",
+      autoZIndex: false,
       contentStyle: {
         "max-height": "700px",
-        overflow: "auto",
       },
-      // footer:`hola mundo`,
       data: {
         texto: 'datossss'
       }
