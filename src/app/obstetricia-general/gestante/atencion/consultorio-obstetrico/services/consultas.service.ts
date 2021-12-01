@@ -12,7 +12,7 @@ export class ConsultasService {
     constructor(private http: HttpClient) {
     }
 
-    addConsultas(tipoDoc, nroDoc, data) {
+    addConsultas(data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultorio`, data)
     }
 }

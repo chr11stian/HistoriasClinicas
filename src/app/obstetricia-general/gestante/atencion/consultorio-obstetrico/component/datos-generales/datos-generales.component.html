@@ -4,7 +4,7 @@
     </ng-template>
     <ng-template pTemplate="right" class="button" style="text-align: right">
         <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-danger mr-2"
-                style="background: #2196F3; border: 1px solid #2196F3;"></button>
+                style="background: #2196F3; border: 1px solid #2196F3;" (click)="addConsultas()"></button>
     </ng-template>
 </p-toolbar>
 
@@ -50,10 +50,16 @@
                     <input type="text" pInputText class="inputfield w-full" formControlName="telefono">
                 </div>
             </div>
-            <div class="col-12 md:col-6 lg:col-7 p-field">
+            <div class="col-12 md:col-6 lg:col-7 p-field p-fluid">
                 <div class="">
-                    <label class="">Grado de instrucción: </label>
-                    <input type="text" pInputText class="inputfield w-full" formControlName="gradoInstruccion">
+                    <label>Grado de instrucción: </label>
+                    <p-dropdown [options]="gradInstruccion"
+                                placeholder="Selec Estudios"
+                                optionLabel="gradoInstruccion"
+                                optionValue="gradoInstruccion"
+                                formControlName="gradoInstruccion1"
+                                [showClear]="false">
+                    </p-dropdown>
                 </div>
             </div>
         </div>
@@ -73,7 +79,8 @@
             <div class="col-12 md:col-6 lg:col-2 p-field">
                 <div class="">
                     <label class="">Fecha: </label>
-                    <p-calendar [showIcon]="true" inputId="icon" formControlName="fecha"></p-calendar>
+                    <p-calendar [showIcon]="true" inputId="icon" formControlName="fecha"
+                                dateFormat="yy-mm-dd"></p-calendar>
                 </div>
             </div>
 
