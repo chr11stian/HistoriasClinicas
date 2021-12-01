@@ -79,12 +79,12 @@ export class ModalTratamientoComponent implements OnInit {
     this.formTratamientoComun = this.form.group({
       /*CAMPOS DE TRATAMIENTO*/
       descripcion : new FormControl("", [Validators.required]),
-      cantidad:  new FormControl("", [Validators.required]),
+      numero:  new FormControl("", [Validators.required]),
       dosis: new FormControl("", [Validators.required]),
       intervalo: new FormControl("", [Validators.required]),
       viaAdministracion: new FormControl("", [Validators.required]),
       duracion:  new FormControl("", [Validators.required]),
-      indAdicional: new FormControl("", []),
+      // indAdicional: new FormControl("", []),
 
     });
 
@@ -98,12 +98,12 @@ export class ModalTratamientoComponent implements OnInit {
   enviarTratamientosComunes(){
     var tratamientosComunes = {
       descripcion:this.formTratamientoComun.value.descripcion,
-      cantidad:this.formTratamientoComun.value.cantidad,
+      numero:this.formTratamientoComun.value.numero,
       dosis:this.formTratamientoComun.value.dosis,
       intervalo:this.formTratamientoComun.value.intervalo,
       viaAdministracion:this.formTratamientoComun.value.viaAdministracion,
       duracion:this.formTratamientoComun.value.duracion,
-      indAdicional:this.formTratamientoComun.value.indAdicional,
+      // indAdicional:this.formTratamientoComun.value.indAdicional,
 
     }
     console.log(tratamientosComunes);
@@ -113,12 +113,12 @@ export class ModalTratamientoComponent implements OnInit {
   enviarTratamientosSuplementos(){
     var tratamientosInmunizaciones= {
       descripcion:this.formTratamientoComun.value.descripcion,
-      cantidad:this.formTratamientoComun.value.cantidad,
+      numero:this.formTratamientoComun.value.numero,
       dosis:this.formTratamientoComun.value.dosis,
       intervalo:this.formTratamientoComun.value.intervalo,
       viaAdministracion:this.formTratamientoComun.value.viaAdministracion,
       duracion:this.formTratamientoComun.value.duracion,
-      indAdicional:this.formTratamientoComun.value.indAdicional,
+      // indAdicional:this.formTratamientoComun.value.indAdicional,
 
     }
     console.log(tratamientosInmunizaciones);
@@ -139,22 +139,22 @@ export class ModalTratamientoComponent implements OnInit {
   llenarCamposTratamientoComun(){
     let configuracion=this.config.data.row;
     this.formTratamientoComun.get("descripcion").setValue(configuracion.descripcion);
-    this.formTratamientoComun.get("cantidad").setValue(configuracion.cantidad);
+    this.formTratamientoComun.get("numero").setValue(configuracion.numero);
     this.formTratamientoComun.get("dosis").setValue(configuracion.dosis);
     this.formTratamientoComun.get("intervalo").setValue(configuracion.intervalo);
     this.formTratamientoComun.get("viaAdministracion").setValue(configuracion.viaAdministracion);
     this.formTratamientoComun.get("duracion").setValue(configuracion.duracion);
-    this.formTratamientoComun.get("indAdicional").setValue(configuracion.indAdicional);
+    // this.formTratamientoComun.get("indAdicional").setValue(configuracion.indAdicional);
   }
   llenarCamposTratamientoSuplementos(){
     let configuracion=this.config.data.row;
     this.formTratamientoComun.get("descripcion").setValue(configuracion.descripcion);
-    this.formTratamientoComun.get("cantidad").setValue(configuracion.cantidad);
+    this.formTratamientoComun.get("numero").setValue(configuracion.numero);
     this.formTratamientoComun.get("dosis").setValue(configuracion.dosis);
     this.formTratamientoComun.get("intervalo").setValue(configuracion.intervalo);
     this.formTratamientoComun.get("viaAdministracion").setValue(configuracion.viaAdministracion);
     this.formTratamientoComun.get("duracion").setValue(configuracion.duracion);
-    this.formTratamientoComun.get("indAdicional").setValue(configuracion.indAdicional);
+    // this.formTratamientoComun.get("indAdicional").setValue(configuracion.indAdicional);
   }
   closeDialogGuardar(){
     this.enviarTratamientosComunes();

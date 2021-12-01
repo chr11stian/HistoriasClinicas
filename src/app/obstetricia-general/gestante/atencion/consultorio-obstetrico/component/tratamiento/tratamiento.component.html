@@ -5,7 +5,7 @@
             <h3 class="p-m-0">TRATAMIENTOS</h3>
         </ng-template>
         <ng-template  pTemplate="right" class="button">
-            <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" ></button>
+            <button class="button-agregar" icon="pi pi-save" (click)="guardarTodosDatos()" pButton type="button" label="Guardar" ></button>
         </ng-template>
 
     </p-toolbar>
@@ -26,8 +26,8 @@
                 <th style="text-align: center" class="font-2">DOSIS</th>
                 <th style="text-align: center" class="font-2">INTERVALO</th>
                 <th style="text-align: center" class="font-2">VIA ADMIN.</th>
-                <th style="text-align: center" class="font-2">DURACION</th>
-                <th style="text-align: center" class="font-2">IND. ADICIONAL</th>
+<!--                <th style="text-align: center" class="font-2">DURACION</th>-->
+<!--                <th style="text-align: center" class="font-2">IND. ADICIONAL</th>-->
                 <th style="text-align: center" class="font-2">Acciones</th>
 
             </tr>
@@ -36,12 +36,12 @@
             <tr>
                 <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                 <td style="text-align: center">{{ rowData.descripcion }}</td>
-                <td style="text-align: center">{{ rowData.cantidad }}</td>
+                <td style="text-align: center">{{ rowData.numero }}</td>
                 <td style="text-align: center">{{ rowData.dosis }}</td>
                 <td style="text-align: center">{{ rowData.intervalo }}</td>
                 <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
-                <td style="text-align: center">{{ rowData.duracion }}</td>
-                <td style="text-align: center">{{ rowData.indAdicional }}</td>
+<!--                <td style="text-align: center">{{ rowData.duracion }}</td>-->
+<!--                <td style="text-align: center">{{ rowData.indAdicional }}</td>-->
 
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
@@ -66,64 +66,65 @@
         </div>
 
     </p-toolbar>
+
     <!--TRATAMIENTO SUPLEMENTOS -->
-    <p-toolbar>
-        <ng-template pTemplate="left">
-            <h3 class="p-m-0">TRATAMIENTO SUPLEMENTARIO</h3>
-        </ng-template>
-    </p-toolbar>
-    <p-table class="table-over" [value]="tratamientosSuplementarios" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+<!--    <p-toolbar>-->
+<!--        <ng-template pTemplate="left">-->
+<!--            <h3 class="p-m-0">TRATAMIENTO SUPLEMENTARIO</h3>-->
+<!--        </ng-template>-->
+<!--    </p-toolbar>-->
+<!--    <p-table class="table-over" [value]="tratamientosSuplementarios" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"-->
+<!--             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"-->
+<!--             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">-->
 
-        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-            <tr>
-                <th style="text-align: center" class="font-2">Nro </th>
-                <th style="text-align: center" class="font-1">DESCRIPCIÓN</th>
-                <th style="text-align: center" class="font-2">CANTIDAD</th>
-                <th style="text-align: center" class="font-2">DOSIS</th>
-                <th style="text-align: center" class="font-2">INTERVALO</th>
-                <th style="text-align: center" class="font-2">VIA ADMIN.</th>
-                <th style="text-align: center" class="font-2">DURACION</th>
-                <th style="text-align: center" class="font-2">IND. ADICIONAL</th>
-                <th style="text-align: center" class="font-2">Acciones</th>
+<!--        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">-->
+<!--            <tr>-->
+<!--                <th style="text-align: center" class="font-2">Nro </th>-->
+<!--                <th style="text-align: center" class="font-1">DESCRIPCIÓN</th>-->
+<!--                <th style="text-align: center" class="font-2">CANTIDAD</th>-->
+<!--                <th style="text-align: center" class="font-2">DOSIS</th>-->
+<!--                <th style="text-align: center" class="font-2">INTERVALO</th>-->
+<!--                <th style="text-align: center" class="font-2">VIA ADMIN.</th>-->
+<!--&lt;!&ndash;                <th style="text-align: center" class="font-2">DURACION</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                <th style="text-align: center" class="font-2">IND. ADICIONAL</th>&ndash;&gt;-->
+<!--                <th style="text-align: center" class="font-2">Acciones</th>-->
 
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-            <tr>
-                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                <td style="text-align: center">{{ rowData.descripcion }}</td>
-                <td style="text-align: center">{{ rowData.cantidad }}</td>
-                <td style="text-align: center">{{ rowData.dosis }}</td>
-                <td style="text-align: center">{{ rowData.intervalo }}</td>
-                <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
-                <td style="text-align: center">{{ rowData.duracion }}</td>
-                <td style="text-align: center">{{ rowData.indAdicional }}</td>
+<!--            </tr>-->
+<!--        </ng-template>-->
+<!--        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
+<!--            <tr>-->
+<!--                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>-->
+<!--                <td style="text-align: center">{{ rowData.descripcion }}</td>-->
+<!--                <td style="text-align: center">{{ rowData.numero }}</td>-->
+<!--                <td style="text-align: center">{{ rowData.dosis }}</td>-->
+<!--                <td style="text-align: center">{{ rowData.intervalo }}</td>-->
+<!--                <td style="text-align: center">{{ rowData.viaAdministracion }}</td>-->
+<!--&lt;!&ndash;                <td style="text-align: center">{{ rowData.duracion }}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                <td style="text-align: center">{{ rowData.indAdicional }}</td>&ndash;&gt;-->
 
-                <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                            (click)="openDialogEditarTratamientoSuplementario(rowData,rowIndex)" pTooltip="Editar">
-                    </button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                            (click)="eliminar(rowData)" pTooltip="Eliminar">
-                    </button>
-                    <button pButton (click)="openDialogEditarTratamientoSuplementario(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
-                            icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
-                    </button>
+<!--                <td style="text-align: center">-->
+<!--                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"-->
+<!--                            (click)="openDialogEditarTratamientoSuplementario(rowData,rowIndex)" pTooltip="Editar">-->
+<!--                    </button>-->
+<!--                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"-->
+<!--                            (click)="eliminar(rowData)" pTooltip="Eliminar">-->
+<!--                    </button>-->
+<!--                    <button pButton (click)="openDialogEditarTratamientoSuplementario(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"-->
+<!--                            icon="pi pi-eye" class="p-button-rounded p-button-help m-1">-->
+<!--                    </button>-->
 
-                </td>
-            </tr>
-        </ng-template>
+<!--                </td>-->
+<!--            </tr>-->
+<!--        </ng-template>-->
 
-    </p-table>
-    <p-toolbar>
-        <div class="p-toolbar-group-right">
-            <button pButton pRipple label="Agregar Tratamiento Suplementario" icon="pi pi-plus" pButton type="button" class="button-agregar"
-                    (click)="openDialogTratamientoSuplementario()"></button>
-        </div>
+<!--    </p-table>-->
+<!--    <p-toolbar>-->
+<!--        <div class="p-toolbar-group-right">-->
+<!--            <button pButton pRipple label="Agregar Tratamiento Suplementario" icon="pi pi-plus" pButton type="button" class="button-agregar"-->
+<!--                    (click)="openDialogTratamientoSuplementario()"></button>-->
+<!--        </div>-->
 
-    </p-toolbar>
+<!--    </p-toolbar>-->
     <br>
     <!--INMUNIZACIONES -->
     <p-toolbar>
@@ -183,39 +184,173 @@
         </div>
 
     </p-toolbar>
-
-
     <br>
     <form [formGroup]='formRIEP'>
-        <p-fieldset legend="RECOMENDACIONES">
-            <div class="p-fluid">
-                <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName='recomendaciones'  />
-    <!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="recomendaciones" ]/>-->
-            </div>
-        </p-fieldset>
-            <br>
-        <p-fieldset legend="EXAMENES AUXILIARES">
-                <div class="p-fluid">
-                    <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="examenesAuxiliares"/>
-    <!--                <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="examenesAuxiliares"/>-->
+        <p-fieldset legend="ACIDO FOLICO">
+            <div class="grid p-fluid">
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Medicamentos:</label>
+                    <input type="text"  pInputText formControlName='descripciona' placeholder="medicamentos"
+                           required/>
                 </div>
-
-        </p-fieldset>
-            <br>
-        <p-fieldset legend="INTERCONSULTA">
-            <div class="p-fluid">
-                <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="interconsulta"/>
-    <!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="interconsulta"/>-->
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Cantidad:</label>
+                    <input type="number"  pInputText formControlName='numeroa' placeholder="cantidad"
+                           required />
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Dosis:</label>
+                    <input type="text"  pInputText formControlName='dosisa' placeholder="dosis"
+                           required />
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Intervalo</label>
+                    <div class="p-field">
+                        <p-dropdown  inputId="dropdown" [options]="intervaloList" formControlName="intervaloa"
+                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                     defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Via Admin.</label>
+                    <div class="p-field">
+                        <p-dropdown  inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministraciona"
+                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                     defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Duración:</label>
+                    <input type="text" pInputText formControlName='duraciona' placeholder="duración"
+                           required />
+                </div>
+            </div>
+       </p-fieldset>
+        <br>
+        <p-fieldset legend="HIERRO Y ACIDO FOLICO">
+            <div class="grid p-fluid">
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Medicamentos:</label>
+                    <input type="text"  pInputText formControlName='descripcionf' placeholder="medicamentos"
+                           required/>
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Cantidad:</label>
+                    <input type="number"  pInputText formControlName='numerof' placeholder="cantidad"
+                           required />
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Dosis:</label>
+                    <input type="text"  pInputText formControlName='dosisf' placeholder="dosis"
+                           required />
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Intervalo</label>
+                    <div class="p-field">
+                        <p-dropdown  inputId="dropdown" [options]="intervaloList" formControlName="intervalof"
+                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                     defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Via Admin.</label>
+                    <div class="p-field">
+                        <p-dropdown  inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracionf"
+                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                     defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Duración:</label>
+                    <input type="text" pInputText formControlName='duracionf' placeholder="duración"
+                           required />
+                </div>
             </div>
         </p-fieldset>
-            <br>
-        <p-fieldset legend="PERSONAL RESPONSABLE DE LA ATENCION">
-            <div class="p-fluid">
-                <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="interconsulta" />
-    <!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="personalResponsable"/>-->
+        <p-fieldset legend="CALCIO">
+            <div class="grid p-fluid">
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Medicamentos:</label>
+                    <input type="text"  pInputText formControlName='descripcionc' placeholder="medicamentos"
+                           required/>
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Cantidad:</label>
+                    <input type="number"  pInputText formControlName='numeroc' placeholder="cantidad"
+                           required />
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Dosis:</label>
+                    <input type="text"  pInputText formControlName='dosisc' placeholder="dosis"
+                           required />
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Intervalo</label>
+                    <div class="p-field">
+                        <p-dropdown  inputId="dropdown" [options]="intervaloList" formControlName="intervaloc"
+                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                     defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Via Admin.</label>
+                    <div class="p-field">
+                        <p-dropdown  inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracionc"
+                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                     defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="lg:col-2 md:col:4 col-12 p-field">
+                    <label>Duración:</label>
+                    <input type="text" pInputText formControlName='duracionc' placeholder="duraciónc"
+                           required />
+                </div>
             </div>
         </p-fieldset>
+        <br>
+        <div class="grid">
+            <div class="col-6">
+                <p-fieldset legend="RECOMENDACIONES">
+                    <div class="p-fluid">
+                        <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName='recomendaciones'  />
+            <!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="recomendaciones" ]/>-->
+                    </div>
+                </p-fieldset>
+            </div>
 
+            <div class="col-6">
+                <p-fieldset legend="EXAMENES AUXILIARES">
+                        <div class="p-fluid">
+                            <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="examenesAuxiliares"/>
+            <!--                <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="examenesAuxiliares"/>-->
+                        </div>
+
+                </p-fieldset>
+            </div>
+            <br>
+            <div class="col-6">
+                <p-fieldset legend="INTERCONSULTA">
+                    <div class="p-fluid">
+                        <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="interconsulta"/>
+            <!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="interconsulta"/>-->
+                    </div>
+                </p-fieldset>
+            </div>
+            <div class="col-6">
+                <p-fieldset legend="PERSONAL RESPONSABLE DE LA ATENCION">
+                    <div class="p-fluid">
+                        <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="interconsulta" />
+            <!--            <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="personalResponsable"/>-->
+                    </div>
+                </p-fieldset>
+            </div>
+        </div>
     </form>
 </div>
 

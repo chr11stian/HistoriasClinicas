@@ -5,6 +5,8 @@ import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-gen
 import {ModalTratamientoComponent} from "./modal-tratamiento/modal-tratamiento.component";
 import {PuerperioModalComponent} from "../../../plan-atencion-integral/component/puerperio/puerperio-modal/puerperio-modal.component";
 import {ModalInmunizacionesComponent} from "./modal-inmunizaciones/modal-inmunizaciones.component";
+import {ConsultasService} from "../../services/consultas.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-tratamiento',
@@ -32,16 +34,11 @@ export class TratamientoComponent implements OnInit {
   formRIEP: FormGroup;
   formTratamientoSuplementario:FormGroup;
   formTratamientoInmunizacion:FormGroup;
-
-  recomendaciones: string;
-  interconsulta: string;
-  examenesAuxiliares: string;
-  personalResponsable: string;
-
-
+  suplementarios:any;
   constructor (private formBuilder: FormBuilder,
                private obstetriciaServie: ObstetriciaGeneralService,
-               private dialog:DialogService) {
+               private dialog:DialogService,
+               private tratamientoService:ConsultasService) {
     this.buildForm();
     /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR EL TRATAMIENTO*/
     this.intervaloList = [{label: 'CADA 1 HORA', value: '1'},
@@ -81,27 +78,25 @@ export class TratamientoComponent implements OnInit {
       interconsulta:  ['', [Validators.required]],
       examenesAuxiliares:  ['', [Validators.required]],
       personalResponsable:  ['', [Validators.required]],
+      descripcionc: ['', [Validators.required]],
+      dosisc: ['', [Validators.required]],
+      numeroc: ['', [Validators.required]],
+      intervaloc: ['', [Validators.required]],
+      viaAdministracionc: ['', [Validators.required]],
+      duracionc: ['', [Validators.required]],
+      descripciona: ['', [Validators.required]],
+      dosisa: ['', [Validators.required]],
+      numeroa: ['', [Validators.required]],
+      intervaloa: ['', [Validators.required]],
+      viaAdministraciona: ['', [Validators.required]],
+      duraciona: ['', [Validators.required]],
+      descripcionf: ['', [Validators.required]],
+      dosisf: ['', [Validators.required]],
+      numerof: ['', [Validators.required]],
+      intervalof: ['', [Validators.required]],
+      viaAdministracionf: ['', [Validators.required]],
+      duracionf: ['', [Validators.required]]
     })
-    // this.formTratamientoSuplementario = this.formBuilder.group({
-    //   /*CAMPOS DE TRATAMIENTO*/
-    //   medicamento : ['', [Validators.required]],
-    //   cantidad:  ['', [Validators.required]],
-    //   dosis: ['', [Validators.required]],
-    //   intervalo: ['', [Validators.required]],
-    //   viaAdministracion: ['', [Validators.required]],
-    //   duracion:  ['', [Validators.required]],
-    //
-    // }),
-    // this.formTratamientoInmunizacion = this.formBuilder.group({
-    //   /*CAMPOS DE TRATAMIENTO*/
-    //   medicamento : ['', [Validators.required]],
-    //   cantidad:  ['', [Validators.required]],
-    //   dosis: ['', [Validators.required]],
-    //   intervalo: ['', [Validators.required]],
-    //   viaAdministracion: ['', [Validators.required]],
-    //   duracion:  ['', [Validators.required]],
-    //
-    // })
   }
   ngOnInit(): void
   {
@@ -205,12 +200,77 @@ export class TratamientoComponent implements OnInit {
       };
     })
   }
+
+  recuperarDatosForm(){
+   this.suplementarios = {
+     tratamientoFolico: {
+       descripcion: this.formRIEP.value.descripciona,
+       dosis: this.formRIEP.value.dosisa,
+       numero: this.formRIEP.value.numeroa,
+       intervalo: this.formRIEP.value.intervaloa,
+       viaAdministracion: this.formRIEP.value.viaAdministraciona,
+       duracion: this.formRIEP.value.duraciona
+     },
+     tratamientoHierro: {
+       descripcion: this.formRIEP.value.descripcionf,
+       dosis: this.formRIEP.value.dosisf,
+       numero: this.formRIEP.value.numerof,
+       intervalo: this.formRIEP.value.intervalof,
+       viaAdministracion: this.formRIEP.value.viaAdministracionf,
+       duracion: this.formRIEP.value.duracionf
+     },
+     tratamientoCalcio: {
+       descripcion: this.formRIEP.value.descripcionc,
+       dosis: this.formRIEP.value.dosisc,
+       numero: this.formRIEP.value.numeroc,
+       intervalo: this.formRIEP.value.intervaloc,
+       viaAdministracion: this.formRIEP.value.viaAdministracionc,
+       duracion: this.formRIEP.value.duracionc
+     }
+   }
+
+
+  }
   guardarTodosDatos(){
+    this.recuperarDatosForm();
+    const req={
+      nroHcl: "10101013",
+      nroAtencion: 1,
+      nroControlSis: 1,
+      nroEmbarazo: 1,
+      tipoDoc: "DNI",
+      nroDoc: "10101013",
+      inmunizaciones: this.tratamientoInmunizaciones,
+      tratamientos:this.tratamientosComunes,
+      tratamientosSuplementos:this.suplementarios
+
+      // tratamientosSuplementos:this.tratamientosSuplementarios,
+    }
+    console.log('data a guardar INMUNIZACION:',this.tratamientoInmunizaciones);
+    console.log('data a guardar TRATAMIENTO COMUN:', this.tratamientosComunes);
+    console.log('data a guardar SUPLEMENTARIO:', this.tratamientosSuplementarios);
+    this.tratamientoService.updateConsultas(req).subscribe(
+        (resp) => {
+          console.log(resp);
+          console.log(req);
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Actualizado correctamente',
+            text: '',
+            showConfirmButton: false,
+            timer: 1500,
+          })
+
+        }
+    )
   }
   recuperarDatos(){
+
   }
   eliminarTratamientoComun(){
   }
+
   editar(rowData: any) {
     console.log("modificando" + rowData)
   }
