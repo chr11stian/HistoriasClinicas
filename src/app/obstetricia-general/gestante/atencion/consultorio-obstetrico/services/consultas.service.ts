@@ -23,4 +23,8 @@ export class ConsultasService {
     getConsultaPrenatalByEmbarazo(data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar`, data);
     }
+
+    getInterrogatorioByEmbarazo(data){
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarInterrogatorio`, data);
+    }
 }
