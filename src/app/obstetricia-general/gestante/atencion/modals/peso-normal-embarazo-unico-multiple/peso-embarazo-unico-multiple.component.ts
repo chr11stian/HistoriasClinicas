@@ -51,8 +51,9 @@ export class PesoEmbarazoUnicoMultipleComponent implements OnInit {
         }
     }
 
+
     weightObesidad() {
-        this.pesoGestanteGraphService.getDataBajoPesoGestanteGraph().subscribe(
+        this.pesoGestanteGraphService.getDataObesidadGestanteGraph().subscribe(
             result => {
                 this.fillData(result['data'])
             }

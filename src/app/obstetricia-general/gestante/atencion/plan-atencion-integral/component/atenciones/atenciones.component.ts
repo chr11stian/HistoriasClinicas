@@ -263,6 +263,7 @@ export class AtencionesComponent implements OnInit {
 
     // /** grafica segun el tipo de grafico que se le manda tipoGrafico -> opciones: sobrepeso | normal | bajo_peso | obesidad */
     graficar(tipoGrafico: string) {
+        tipoGrafico = 'sobrepeso'
 
         let titleModal = ''
         switch (tipoGrafico) {
@@ -273,7 +274,7 @@ export class AtencionesComponent implements OnInit {
                 titleModal = 'Sobrepeso (IMC Pre-gestacional 25.0 a 29.9 kg/m2) / Embarazo único y múltiple - Ganancia de peso'
                 break
             case 'bajo_peso':
-                titleModal = 'Pajo Peso (IMC Pre-gestacional <18.5 kg/m2 ) / Embarazo único - Ganancia de peso'
+                titleModal = 'Bajo Peso (IMC Pre-gestacional <18.5 kg/m2 ) / Embarazo único - Ganancia de peso'
                 break
             case 'obesidad':
                 titleModal = 'Obesidad (IMC Pre-gestacional = 30.0 kg/m2) / Embarazo único y múltiple - Ganancia de peso'
@@ -365,4 +366,3 @@ export class AtencionesComponent implements OnInit {
     ngOnInit(): void {
     }
 }
-
