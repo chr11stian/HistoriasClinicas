@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import Swal from 'sweetalert2';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {DynamicDialogRef} from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-dialog-consulta',
@@ -126,17 +125,9 @@ export class DialogConsultaComponent implements OnInit {
         });
     }
     boton(){
-        Swal.fire({
-            icon: 'warning',
-            title: 'Cancelado...',
-            text: '',
-            showConfirmButton: false,
-            timer: 5000,
-            
-        })
+        
     }
     closeDialog() {
         this.ref.close();
     }
-
 }
