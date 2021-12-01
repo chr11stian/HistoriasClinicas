@@ -144,7 +144,7 @@ export class ControlCrecimientoComponent implements OnInit {
     }
 
     onWeightChart(): void {
-        const isBoy = false
+        const isBoy = true
         this.ref = this.dialogService.open(WeightChartComponent, {
             data: {
                 dataChild: [
@@ -164,7 +164,7 @@ export class ControlCrecimientoComponent implements OnInit {
     }
 
     onHeightChart(): void {
-        const isBoy = true
+        const isBoy = false
         this.ref = this.dialogService.open(HeightChartComponent, {
             data: {
                 dataChild: [
@@ -184,7 +184,7 @@ export class ControlCrecimientoComponent implements OnInit {
     }
 
     onHeightWeightChart(): void {
-        const isBoy = true
+        const isBoy = false
         this.ref = this.dialogService.open(HeightWeightComponent, {
             data: {
                 dataChild: [], /* debe ser dataChild:[[altura,peso],..] ejem: dataChild:[[1,4.5],..]  */

@@ -88,6 +88,7 @@ export class PacienteComponent implements OnInit {
       idRed: new FormControl(''),
       tipoDoc: new FormControl(''),
       nroDoc: new FormControl(''),
+      nroHcl: new FormControl(''),
       primerNombre: new FormControl(''),
       otrosNombres: new FormControl(''),
       apPaterno: new FormControl(''),

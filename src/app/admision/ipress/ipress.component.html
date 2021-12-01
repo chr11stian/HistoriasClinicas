@@ -85,7 +85,7 @@
 
 
 <!--IPRESS DIALOG-->
-<p-dialog [(visible)]="ipressDialog" [style]="{width: '950px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
+<p-dialog [(visible)]="ipressDialog" [style]="{width: '950px', height: '585px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
     <ng-template pTemplate="header">
         <h3 class="m-0">{{titulo()}}</h3>
     </ng-template>
@@ -267,7 +267,7 @@
                     </div>
                     <div class="p-field col-12">
                         <label>Nombre Personal:</label>
-                        <input type="text" pInputText formControlName='nombre' placeholder="Nombre Personal">
+                        <input type="text" pInputText formControlName='nombre' placeholder="Nombre Personal" disabled>
                     </div>
                 </div>
             </div>
