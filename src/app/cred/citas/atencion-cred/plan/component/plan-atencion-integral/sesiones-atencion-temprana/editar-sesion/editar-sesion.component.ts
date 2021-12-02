@@ -2,7 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
 import {SesionesTempranas, respuestaSesionesTempranas} from 'src/app/cred/models/plan-atencion-integral/plan-atencion-integral.model'
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import {SesionesAtencionTempranaService} from 'src/app/cred/services/plan-atencion-integral/sesiones-atencion-temprana/sesiones-atencion-temprana.service'
+import {SesionesAtencionTempranaService} from 'src/app/cred/services/plan-atencion-integral/sesiones-atencion-temprana/sesiones-atencion-temprana.service';
+import {NotifyService} from 'src/app/shared/notify/notify.service';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 
 
 @Component({
@@ -16,7 +18,13 @@ export class EditarSesionComponent implements OnInit {
   dni: string;
   control: FormGroup;
 
-  constructor(private servicio: SesionesAtencionTempranaService, private fb: FormBuilder, public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
+  constructor(private servicio: SesionesAtencionTempranaService, 
+              private fb: FormBuilder, 
+              public notify: NotifyService,
+              public ref: DynamicDialogRef, 
+              public config: DynamicDialogConfig,
+              private route: ActivatedRoute,
+              private router: Router,  ) { }
 
   ngOnInit(){
     this.sesion= this.config.data.sesion;
@@ -26,6 +34,11 @@ export class EditarSesionComponent implements OnInit {
       descripcion: [this.sesion.descripcion, Validators.required],
       fecha: [this.sesion.fecha, Validators.required]
     }); 
+  }
+  onGoToSesiones() {
+    this.router.navigate(["../../", "plan-atencion-integral/sesiones-atencion-temprana"], {
+      relativeTo: this.route
+    });
   }
   onSelectMethod(event) {
     let d = new Date(Date.parse(event));
@@ -56,8 +69,21 @@ export class EditarSesionComponent implements OnInit {
       console.log("datos nuevos",this.dni,sesionUpdate);
       this.servicio.updateSesion(this.dni,[sesionUpdate])
         .toPromise().then(res => {
-          this.ref.close(res);
-      })
+          console.log('respuesta',res);
+          if(res){
+            if (res.mensaje ==="200 OK"){
+              this.notify.showExito("Se actualizo con éxito la sesion")
+              this.onGoToSesiones()
+            }
+            else {
+              this.notify.showError("Error al modificar la sesion!");
+              this.onGoToSesiones();
+            }
+
+          }
+          
+        }
+      )
     }
   }
 
