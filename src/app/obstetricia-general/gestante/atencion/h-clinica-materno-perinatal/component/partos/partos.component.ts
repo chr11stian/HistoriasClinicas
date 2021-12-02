@@ -132,7 +132,7 @@ export class PartosComponent implements OnInit {
         const found = lista.find(element => element.nombre  == nombre);
         return found.valor;
     }
-    save() {
+        save() {
 
         const partoAbortoInput:any={
             estado:{
