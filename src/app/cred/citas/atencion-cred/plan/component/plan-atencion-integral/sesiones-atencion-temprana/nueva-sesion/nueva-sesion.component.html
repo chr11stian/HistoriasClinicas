@@ -1,0 +1,25 @@
+<p-divider></p-divider>
+<div [formGroup]="control">
+    <div class="flex flex-column">
+        <p class="font-medium w-10">Descripción:</p>
+        <input type="text" class="mr-2" pInputText style="width:auto" placeholder="Ingrese descripción..." formControlName="descripcion"> 
+        <!-- error message -->
+        <small *ngIf="controlInvalido('descripcion')" class="form-text text-danger">Ingrese descripción</small>
+    </div>
+    <div>
+        <p class="font-medium w-10">Fecha:</p>
+        <div style="width: 50%" class="mr-2">
+            <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" formControlName="fecha"></p-calendar>
+        </div>
+        <!-- error message -->
+        <small *ngIf="controlInvalido('fecha')" class="form-text text-danger">Ingrese una fecha</small>
+    </div>
+    <br>
+</div>
+<p-divider></p-divider>
+<div class="flex justify-content-end">
+    <button pButton pRipple type="button" label="Primary" label="Cancelar" icon="pi pi-times"  class="p-button-danger mr-2" (click)="cancelar()" ></button>
+    <button pButton pRipple label="Guardar" class="guardar" icon="pi pi-save" styleClass="p-button" (click)="guardar()"></button>
+</div>
+
+

@@ -81,11 +81,11 @@
                                 formControlName="tiempoEnfermedad" pInputTextarea></textarea>
                         </div>
                     </div>
-                    <div class="grid">
-                        <div class="col-2 text-right">
+                    <div class="grid mt-2">
+                        <div class="col-12">
                             <label>Observaciones:</label>
-                        </div>
-                        <div class="col-10">
+                            <!-- </div> -->
+                            <!-- <div class="col-10"> -->
                             <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
                                 formControlName="observaciones" pInputTextarea></textarea>
                         </div>
@@ -124,48 +124,16 @@
                                     class="funcionesBiologicas inputfield w-full">
                             </div>
                             <div class="grid mt-2">
-                                <button pButton pRipple label="Otros Examenes Fisicos" icon="pi pi-plus"
-                                    class="p-button-primary" style="background-color: #0c3866" (click)="openDialogExamenesFinal()" class="mt-4"></button>
-                            </div>
-                            <div class="grid mt-2">
-                                <div class="col-4">
-                                    <p-table [value]="listaOtrosPruebasFisicas" [showCurrentPageReport]="true"
-                                        [filterDelay]="0">
-                                        <ng-template pTemplate="caption">
-                                            <div class="flex justify-content-between">
-                                                <div class="table-header mt-2">
-                                                    Otros Examenes Fisicos
-                                                </div>
-                                            </div>
-                                        </ng-template>
-                                        <ng-template pTemplate="header">
-                                            <tr>
-                                                <th>Nro</th>
-                                                <th>Nombre</th>
-                                                <th>Resultado</th>
-                                                <th style="text-align: center; width:4rem">Acción</th>
-                                            </tr>
-                                        </ng-template>
-                                        <ng-template pTemplate="body" let-otrosExam let-i="rowIndex">
-                                            <tr>
-                                                <td>{{ i + 1}}</td>
-                                                <td>{{otrosExam.funcion}}</td>
-                                                <td>{{otrosExam.valor}}</td>
-                                            </tr>
-                                        </ng-template>
-                                    </p-table>
-                                </div>
-                                <div class="col-1"></div>
-                                <div class="col-7 align-content-start">
-                                    <label>Observaciones :</label>
+                                <div class="col-12">
+                                    <label>Otros Exámenes:</label>
                                     <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
-                                        formControlName="obsExamFisico" pInputTextarea></textarea>
+                                        formControlName="examenFisicoOtro" pInputTextarea></textarea>
                                 </div>
                             </div>
                         </div>
                     </p-fieldset>
                     <p-fieldset legend="Examen Obstetrico">
-                        <div class="grid mt-2">
+                        <div class="grid">
                             <div class="col-4">
                                 <div class="grid">
                                     <label>Miembros Inferiores:</label>
@@ -245,14 +213,14 @@
                     <div class="col-12 mt-3">
                         <div class="grid">
                             <button pButton pRipple label="Examenes de Feto" icon="pi pi-plus" class="p-button-primary"
-                                (click)="openDialogExamenesFeto()" class="mt-4" style="background-color: #0c3866"></button>
+                                (click)="openDialogExamenesFeto()" class="mt-4"></button>
                         </div>
-                        <div class="grid">
+                        <div class="grid mt-2">
                             <div class="lg:col-12 md:col-12 col-fixed">
                                 <p-table [value]="listaExamenesFetos" [rowHover]="true" [rows]="5"
                                     [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]" [paginator]="true"
                                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                                    [filterDelay]="0">
+                                    [filterDelay]="0" styleClass="p-datatable-gridlines">
                                     <ng-template pTemplate="caption">
                                         <div class="flex justify-content-between">
                                             <div class="table-header mt-2">
@@ -279,6 +247,12 @@
                                             <td>{{examFeto.posicion}}</td>
                                             <td>{{examFeto.movimientosFetales}}</td>
                                             <td>{{examFeto.fcf}} x min</td>
+                                            <td style="display: flex;">
+                                                <button pButton pRipple class="p-button-info botones"
+                                                    icon="pi pi-pencil" label="Editar" (click)="editarExamenFetos(examFeto, i)"></button>
+                                                <button pButton pRipple class="p-button-danger botones"
+                                                    icon="pi pi-times" label="Eliminar" (click)="eliminar(i)"></button>
+                                            </td>
                                         </tr>
                                     </ng-template>
                                 </p-table>
@@ -292,7 +266,7 @@
 </div>
 
 <!-- Dialog de examenes  fetales -->
-<p-dialog [(visible)]="encargadoDialog" [style]="{width: '70%'}" [modal]="true" styleClass="p-fluid" autoZIndex
+<p-dialog [(visible)]="fetalesExamDialog" [style]="{width: '70%'}" [modal]="true" styleClass="p-fluid" autoZIndex
     class="dialogo">
     <div class="grid">
         <div class="col-12">
@@ -342,9 +316,13 @@
                     </div>
                 </div>
                 <div class="grid mt-4">
-                    <div class="col-2 text-right">
+                    <div class="col-2 text-right" *ngIf="!update">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class=" bg-blue-700"
                             (click)="btnGuardar()"></button>
+                    </div>
+                    <div class="col-2 text-right" *ngIf="update">
+                        <button pButton pRipple label="Editar" icon="pi pi-plus" class=" bg-blue-700"
+                            (click)="btnEditarExamenFetal()"></button>
                     </div>
                     <div class="col-2 text-right">
                         <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-danger ml-2"
@@ -354,33 +332,4 @@
             </form>
         </div>
     </div>
-</p-dialog>
-
-<!-- Dialog de otros examenes fisicos -->
-<p-dialog [(visible)]="examenesFisicosDialog" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid" autoZIndex
-    class="dialogo" header="Otros Examenes Fisicos">
-    <form [formGroup]='formExamFisico'>
-        <div class="grid">
-            <div class="col-4">
-                <label>Nombre Examen:</label>
-                <input type="text" pInputText formControlName='examName' placeholder=""
-                    class="funcionesBiologicas inputfield w-full">
-            </div>
-            <div class="col-8">
-                <label>Resultado:</label>
-                <input type="text" pInputText formControlName='examResult' placeholder=""
-                    class="funcionesBiologicas inputfield w-full">
-            </div>
-        </div>
-        <div class="grid mt-4">
-            <div class="col-4 text-right">
-                <button pButton pRipple label="Agregar" icon="pi pi-plus" class=" bg-blue-700"
-                    (click)="btnGuardarExamFis()"></button>
-            </div>
-            <div class="col-4 text-right">
-                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-danger"
-                    (click)="btnCancelarExamFis()"></button>
-            </div>
-        </div>
-    </form>
 </p-dialog>

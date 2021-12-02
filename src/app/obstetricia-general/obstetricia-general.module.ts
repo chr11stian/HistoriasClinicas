@@ -19,6 +19,7 @@ import { DialogConsultaComponent } from './gestante/consulta/dialog-consulta/dia
         CitasComponent,
         DialogConsultaComponent
 
+
     ],
     exports: [],
     imports: [

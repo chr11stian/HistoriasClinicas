@@ -169,6 +169,7 @@ export class EEDPComponent implements OnInit {
       header: header,
       height: "90%",
       width: "85%",
+      baseZIndex: 10000
     });
   }
 }

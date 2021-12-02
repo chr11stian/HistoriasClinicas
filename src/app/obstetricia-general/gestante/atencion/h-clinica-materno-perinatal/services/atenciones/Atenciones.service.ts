@@ -12,29 +12,9 @@ export class AtencionesService {
 
     // base_url2 = environment.baseUrl2;
     // bd2 = environment.bd2;//pacientes
-
-
-    private _atenciones: any[];
-
     constructor(private http: HttpClient) {
     }
-
-    getAtenciones() {
-        return this.http.get(this.base_url + "/all")
-
+    getAtencionService(id ) {
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/atencionprenatal/listar/${id}`);
     }
-
-    get atenciones(): any[] {
-        return [this._atenciones];
-    }
-
-    agregarAtencion(atencion: any) {
-        this._atenciones.push(atencion);
-    }
-
-
-    getPacientes() {
-        // return this.http.get(`${this.base_url}/data`);
-    }
-
 }

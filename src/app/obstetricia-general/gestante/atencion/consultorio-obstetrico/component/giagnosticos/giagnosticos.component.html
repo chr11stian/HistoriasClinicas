@@ -10,14 +10,12 @@
         </ng-template>
     </p-toolbar>
     <br>
-    <p-table class="table-over" [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10"
-             [rowsPerPageOptions]="[10, 25, 50]"
+    <p-table class="table-over" [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
              [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
-                <th style="text-align: center" class="font-2">Nro</th>
+                <th style="text-align: center" class="font-2">Nro </th>
                 <th style="text-align: center" class="font-1">CIE 10</th>
                 <th style="text-align: center" class="font-2">DIAGNOSTICOS</th>
                 <th style="text-align: center" class="font-2">ACCIÓN</th>
@@ -27,8 +25,8 @@
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
                 <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                <td style="text-align: center">{{ rowData.CIE10 }}</td>
-                <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                <td style="text-align: center">{{ rowData.diagnostico.codigoItem }}</td>
+                <td style="text-align: center">{{ rowData.diagnostico.descripcionItem }}</td>
 
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
@@ -47,72 +45,136 @@
 
         <ng-template pTemplate="right" class="button">
 
-            <button pButton pRipple label="Agregar Diagnóstico" icon="pi pi-plus" pButton type="button"
-                    class="button-agregar"
-                    (click)="openNew()"></button>
+            <button pButton pRipple label="Agregar Diagnóstico" icon="pi pi-plus" pButton type="button" class="button-agregar"
+                    (click)="openDiagnostico()"></button>
+        </ng-template>
+
+    </p-toolbar>
+    <p-toolbar>
+
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">ORIENTACIONES</h3>
+        </ng-template>
+    </p-toolbar>
+    <p-table class="table-over" [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center" class="font-2">Nro </th>
+                <th style="text-align: center" class="font-1">CIE 10</th>
+                <th style="text-align: center" class="font-2">DIAGNOSTICOS</th>
+                <th style="text-align: center" class="font-2">ACCIÓN</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.diagnostico.codigoItem }}</td>
+                <td style="text-align: center">{{ rowData.diagnostico.descripcionItem }}</td>
+
+                <td style="text-align: center">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                            (click)="editar(rowData)" pTooltip="Editar">
+                    </button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                            (click)="eliminar(rowData)" pTooltip="Eliminar">
+                    </button>
+
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+    <p-toolbar>
+
+        <ng-template pTemplate="right" class="button">
+
+            <button pButton pRipple label="Agregar Diagnóstico" icon="pi pi-plus" pButton type="button" class="button-agregar"
+                    (click)="openOrientaciones()"></button>
         </ng-template>
 
     </p-toolbar>
 
-    <p-toolbar>
-        <ng-template pTemplate="left">
-            <h3 class="p-m-0">DIAGNÓSTICOS</h3>
-        </ng-template>
-        <ng-template pTemplate="right">
-            <div class="p-field">
-                <p-dropdown inputId="dropdown" [options]="" formControlName="intervalo"
-                            placeholder="seleccionar" optionLabel="label" optionValue="value">
-                </p-dropdown>
+        <p-fieldset legend="REFERENCIA">
+            <div class="grid p-fluid">
+                <div class=" p-field p-fluid col:12 md:col-4 xs:col-12">
+                    <label>Consultorio:</label>
+                    <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="consultorio"  />
+                </div>
+                <div class=" p-field p-fluid col:12 md:col-4 xs:col-12">
+                    <label>Motivo:</label>
+                    <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="motivo"  />
+                </div>
+                <div class=" p-field p-fluid col:12 md:col-4 xs:col-12">
+                    <label>Cod. Renaes:</label>
+                    <input type="text" pInputText style="border-radius: 10px" class="mt-3" [(ngModel)]="codReanes"  />
+                </div>
             </div>
-        </ng-template>
-    </p-toolbar>
-    <p-toolbar>
-        <ng-template pTemplate="left">
-            <h3 class="p-m-0">PROXIMA CITA</h3>
-        </ng-template>
-        <ng-template pTemplate="right">
-            <div class="p-field p-fluid">
-                <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+        </p-fieldset>
+        <br>
+        <p-fieldset legend="PROXIMA CITA">
+            <div class="p-fluid">
+                <div class="p-field p-fluid">
+                    <p-calendar [showIcon]="true" dateFormat="yy-mm-dd" inputId="icon"></p-calendar>
+                </div>
             </div>
-        </ng-template>
-    </p-toolbar>
+
+        </p-fieldset>
+        <br>
+
 </div>
 
 
-<!-------------INICIO DIALOG INGRESAR ATENCION--->
-<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog" [modal]="true" [style]="{width: 'auto'}"
+<!-------------INICIO DIALOG INGRESAR DIAGNOSTICO--->
+<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog"  [modal]="true" [style]="{width: '60%'}"
           [draggable]="false" [resizable]="false">
-    <form [formGroup]='form' (ngSubmit)="save(formTemplate)" #formTemplate="ngForm">
-
-        <div class="p-d-inline p-fluid">
-            <div class="p-field resp">
-                <label>Diagnóstico:</label>
-
-                <span class="p-float-label p-input-icon-right">
-                        <i class="pi pi-search"></i>
-                         <input style="border-radius: 10px" type="text" pInputText formControlName='diagnostico'
-                                placeholder="diagnostico"
-                                required/>
-                    </span>
+        <div class="grid">
+            <div class="col-6">
+                <div class="p-field-radiobutton">
+                    <p-radioButton name="city" value="Chicago" [(ngModel)]="opcionBusqueda"  value="porDescripcion" inputId="opcion1"></p-radioButton>
+                    <label>Buscar por Descripcion</label>
+                </div>
             </div>
-            <div class="p-field resp">
-                <label>CIE 10:</label>
-                <input style="border-radius: 10px" type="text" pInputText formControlName='CIE10' placeholder="CIE10"
-                       required/>
+            <div class="col-6">
+                <div class="p-field-radiobutton">
+                    <p-radioButton name="city" value="Los Angeles" [(ngModel)]="opcionBusqueda" value="porcie10" inputId="opcion2" ></p-radioButton>
+                    <label>Buscar por Cie10</label>
+                </div>
             </div>
-
         </div>
 
+    <form   [formGroup]='form' (ngSubmit)="save(formTemplate)" #formTemplate ="ngForm" >
+            <div class="p-d-inline p-fluid">
+
+                 <div class="p-field resp">
+                    <label *ngIf="opcionBusqueda=='porDescripcion'">Diagnóstico:</label>
+                     <p-autoComplete *ngIf="opcionBusqueda=='porDescripcion'" formControlName="diagnostico" [suggestions]="Cie10" [style]="{width: '400px', heigth:'400px'}"
+                                     (completeMethod)="filterDiagnostico($event)" field="descripcionItem" [minLength]="1" placeholder="Descripcion">
+                     </p-autoComplete>
+<!--                     <i class="pi pi-search"></i>-->
+                 </div>
+                <div class="p-field resp">
+                    <label  *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>
+
+                    <p-autoComplete  *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico" [suggestions]="Cie10" disabled [style]="{width: '400px' , heigth:'400px'}"
+                                    (completeMethod)="filterDiagnostico($event)" field="codigoItem" [minLength]="1" (onSelect)="selectedOption($event)" placeholder="CIE 10">
+                    </p-autoComplete>
+                </div>
+
+            </div>
+
     </form>
+    <div    *ngIf="hayError"
+            class="alert alert-danger">
+        No se encontró nada en el término {{termino}}
+    </div>
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
-                (click)="canceled()"></button>
-        <button *ngIf="!isUpdate" [disabled]="!form.valid" class="button-agregar" icon="pi pi-save" pButton
-                type="button" label="Guardar" (click)="save(formTemplate)"></button>
+        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"(click)="canceled()"></button>
+        <button  class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="save(formTemplate)" ></button>
 
     </ng-template>
 
 
 </p-dialog>
-<!--------------------------------- FIN DIALOG INGRESAR ATENCION---->
-
