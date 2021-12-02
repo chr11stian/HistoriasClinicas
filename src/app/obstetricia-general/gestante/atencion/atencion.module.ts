@@ -7,11 +7,11 @@ import {PlanDePartoModule} from "./plan-de-parto/plan-de-parto.module";
 import {ExamenesModule} from "./examenes/examenes.module";
 import {AtencionComponent} from "./atencion.component";
 import {AtencionRoutingModule} from "./atencion-routing.module";
-import {PlanAtencionIntegralModule} from "./plan-atencion-integral/plan-atencion-integral.module";
 import {PrimeModule} from "../../../shared/prime/prime.module";
 import {PesoEmbarazoUnicoMultipleComponent} from './modals/peso-normal-embarazo-unico-multiple/peso-embarazo-unico-multiple.component';
 import {SharedModule} from '../../../shared/shared.module'
 import {ConsultaObstetricoModule} from "./consultorio-obstetrico/consulta-obstetrico.module";
+import {HClinicaMaternoPerinatalModule} from "./h-clinica-materno-perinatal/h-clinica-materno-perinatal.module";
 
 
 @NgModule({
@@ -29,7 +29,7 @@ import {ConsultaObstetricoModule} from "./consultorio-obstetrico/consulta-obstet
         PaginatorModule,
 
         ConsultaObstetricoModule,
-        PlanAtencionIntegralModule,
+        HClinicaMaternoPerinatalModule,
         PlanDePartoModule,
         ExamenesModule,
         SharedModule,

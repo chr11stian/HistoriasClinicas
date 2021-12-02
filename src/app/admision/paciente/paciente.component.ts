@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -142,21 +143,36 @@ export class PacienteComponent implements OnInit {
   }
 
   recuperarDatos() {
+    let datePipe = new DatePipe("en-US");
     let aux = this.formPaciente.value.etnia;
     console.log('datos de etnia ', aux);
+    let auxNroHcl = this.formPaciente.value.nroDoc
     this.dataPaciente = {
+      nroHcl: auxNroHcl,
       tipoDoc: this.formPaciente.value.tipoDoc.abreviatura,
+      nroDoc: this.formPaciente.value.nroDoc,
       primerNombre: this.formPaciente.value.primerNombre,
-      otrosNombres: this.formPaciente.value.otrosNombres,
       apePaterno: this.formPaciente.value.apPaterno,
       apeMaterno: this.formPaciente.value.apMaterno,
+      sexo: this.formPaciente.value.sexo,
+      nacimiento: {
+        // fechaNacimiento: new Date(this.formPaciente.value.fechaNacimiento)
+        fechaNacimiento: "1998-10-15"
+      },
       celular: this.formPaciente.value.celular,
       tipoSeguro: this.formPaciente.value.tipoSeguro,
+      discapacidad: this.formPaciente.value.discapacidad,
       nacionalidad: this.formPaciente.value.nacionalidad,
+      estadoCivil: this.formPaciente.value.estadoCivil,
       procedencia: this.formPaciente.value.procedencia,
-      nacimiento: {
-        fechaNacimiento: this.formPaciente.value.fechaNacimiento
+      etnia: {
+        tipoEtnia: aux.tipoEtnia,
+        etnia: aux.descripcion
       },
+      gradoInstruccion: this.formPaciente.value.gradoInstruccion,
+      fechaInscripcion: this.formPaciente.value.fechaInscripcion,
+      fechaEmision: this.formPaciente.value.fechaEmision,
+      restricion: this.formPaciente.value.restriccion,
       domicilio: {
         departamento: this.dpto.departamento,
         provincia: this.prov.provincia,
@@ -166,22 +182,10 @@ export class PacienteComponent implements OnInit {
         ccpp: this.ccpp.ccpp,
         ubigeo: this.dpto.iddd + this.prov.idpp + this.dist.iddis
       },
-      estadoCivil: this.formPaciente.value.estadoCivil,
-      etnia: {
-        tipoEtnia: aux.tipoEtnia,
-        etnia: aux.descripcion
-      },
-      gradoInstruccion: this.formPaciente.value.gradoInstruccion,
-      sexo: this.formPaciente.value.sexo,
-      fechaNacimiento: this.formPaciente.value.fechaNacimiento,
-      fechaInscripcion: this.formPaciente.value.fechaInscripcion,
-      fechaEmision: this.formPaciente.value.fechaEmision,
-      restricion: this.formPaciente.value.restriccion,
-      discapacidad: this.formPaciente.value.discapacidad,
       // nombrePadre: this.formPaciente.value.nombrePadre,
       // nombreMadre: this.formPaciente.value.nombreMadre,
       idIpress: this.auxipress,
-      nroDoc: this.formPaciente.value.nroDoc
+
     }
   }
 
@@ -211,13 +215,12 @@ export class PacienteComponent implements OnInit {
   aceptarDialogPaciente() {
     this.recuperarDatos();
     console.log('datos paciente ', this.dataPaciente);
-    // this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
-    //   console.log('res ', res)
-    //   this.formPaciente.reset();
-    //   this.cargarPacientes();
-    //   this.closeDialogPaciente();
-    //   this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
-    // });
+    this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
+      this.formPaciente.reset();
+      this.cargarPacientes();
+      this.closeDialogPaciente();
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
+    });
   }
 
   openEditarPaciente(row) {
@@ -378,7 +381,7 @@ export class PacienteComponent implements OnInit {
     this.dataPaciente.id = this.id;
     console.log('control name ', this.formPaciente.value.etnia);
     console.log('actualizar ', this.formPaciente.value.etnia);
-    
+
     // this.pacienteService.putPaciente(this.dataPaciente).subscribe((res: any) => {
     //   this.cargarPacientes();
     //   this.closeDialogPaciente();
