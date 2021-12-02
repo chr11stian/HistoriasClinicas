@@ -16,8 +16,11 @@ export class DatosGeneralesComponent implements OnInit {
     dataPacientes: any;
     gradInstruccion: any;
     fechanacimiento: any;
-    fecha: any;
-    edad;
+    datafecha: Date = new Date();
+    horaActualString: string;
+    fecha: Date;//fecha Actual
+    fechaConvertido: string;//fecha convertido
+    edad: any;
 
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
@@ -36,38 +39,43 @@ export class DatosGeneralesComponent implements OnInit {
             {name: 'SI', code: 'S'},
             {name: 'NO', code: 'N'},
         ];
-
-        this.gradInstruccion = [
-            {gradoInstruccion: 'Analfabeta', code: 'Analfabeta'},
-            {gradoInstruccion: 'Primaria', code: 'Primaria'},
-            {gradoInstruccion: 'Secundaria', code: 'Secundaria'},
-            {gradoInstruccion: 'Superior', code: 'Superior'},
-            {gradoInstruccion: 'Superior No Univ.', code: 'SuperiorNo'},
-        ];
     }
 
-
     ngOnInit(): void {
+        this.horaActualString = this.datafecha.getHours() + ':' + (this.datafecha.getMinutes() + 1) + ':' + this.datafecha.getSeconds();
+
         this.buildForm();
+        this.obternerFechaActual();
+
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
         console.log("Nro de embarazo", this.nroEmbarazo);
-        this.getpacienteByNroDoc()
-        // this.ageCalculator();
-        this.fecha = this.dataPacientes.nacimiento
-        console.log("naciento", this.fecha)
+        this.getpacienteByNroDoc()//recupera los pacientes por numero de documento
+
+    }
+
+    //recupera la el dia, el mes y el año de la fecha actual
+    obternerFechaActual() {
+        this.fecha = new Date();
+        let dd = this.fecha.getDate();
+        let mm = this.fecha.getMonth() + 1;
+        let yy = this.fecha.getFullYear();
+        this.fechaConvertido = dd + '-' + mm + '-' + yy;
+        console.log("FECHAS ACTUAL", this.fechaConvertido);
     }
 
 
+    //Calcular el año desde la fecha de nacimiento
     ageCalculator() {
-        if (this.fecha) {
-            const convertAge = new Date(this.fecha);
+        if (this.fechaConvertido) {
+            const convertAge = new Date(this.fechaConvertido);
             const timeDiff = Math.abs(Date.now() - convertAge.getTime());
             this.edad = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+            console.log("edad", this.edad);
         }
-        console.log("edad", this.edad);
     }
 
+    //Recuperar datos de un paciendo por su documento de identidad
     getpacienteByNroDoc() {
         this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientes = res.object
@@ -77,10 +85,15 @@ export class DatosGeneralesComponent implements OnInit {
             this.formDatos_Generales.get('nombres').setValue(this.dataPacientes.primerNombre);
             this.formDatos_Generales.get('nroDoc').setValue(this.dataPacientes.nroDoc);
             this.formDatos_Generales.get('telefono').setValue(this.dataPacientes.celular);
-            this.formDatos_Generales.get('gradoInstruccion1').setValue(this.dataPacientes.gradoInstruccion);
+            this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataPacientes.gradoInstruccion);
             this.formDatos_Generales.get('direccion').setValue(this.dataPacientes.domicilio.direccion + "," + this.dataPacientes.domicilio.departamento);
-
+            this.fechaConvertido = this.dataPacientes.nacimiento.fechaNacimiento;
+            console.log("nacimiento", this.fechaConvertido)
+            this.ageCalculator();//calcula la edad desde la fecha de nacimiento
+            this.formDatos_Generales.get('edad').setValue(this.edad);
+            this.formDatos_Generales.get('hora').setValue(this.horaActualString);
         });
+
     }
 
 
@@ -92,7 +105,7 @@ export class DatosGeneralesComponent implements OnInit {
             nombres: new FormControl(''),
             edad: new FormControl(''),
             telefono: new FormControl(''),
-            gradoInstruccion1: new FormControl(''),
+            gradoInstruccion: new FormControl(''),
             direccion: new FormControl(''),
             ocupacion: new FormControl(''),
             fecha: new FormControl(''),
@@ -106,6 +119,7 @@ export class DatosGeneralesComponent implements OnInit {
         })
     }
 
+    //Agregar la consulta
     addConsultas() {
         const req = {
             nroHcl: this.dataPacientes.nroHcl,

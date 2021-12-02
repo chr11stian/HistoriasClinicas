@@ -9,6 +9,7 @@ import {ResultadosComponent} from "./component/resultados/resultados.component";
 import {PrimeModule} from "../../../../shared/prime/prime.module";
 import {DialogExamenesFetalesComponent} from "./component/interrogatorio/dialog-examenes-fetales/dialog-examenes-fetales.component";
 import {ConsultaObstetricoRoutingModule} from "./consulta-obstetrico-routing.module";
+import {PaginatorModule} from "primeng/paginator";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {ConsultaObstetricoRoutingModule} from "./consulta-obstetrico-routing.mod
     imports: [
         ConsultaObstetricoRoutingModule,
         CommonModule,
-        PrimeModule
+        PrimeModule,
+        PaginatorModule
     ]
 })
 export class ConsultaObstetricoModule {
