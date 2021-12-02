@@ -535,7 +535,7 @@ export class PersonalSaludComponent implements OnInit {
   }
   saveForm() {
     this.isUpdate = false;
-    let otrosNombres = this.form.value.nombres.split(" ");
+    let otrosNombres = this.form.value.nombres.split("/", 2);
     let otros = otrosNombres.shift();
     otrosNombres = otrosNombres.join(" ");
     let primerNombre = this.form.value.nombres.split(" ")[0];
@@ -648,9 +648,9 @@ export class PersonalSaludComponent implements OnInit {
       .setValue(
         rowData.detalleIpress
           ? this.datePipe.transform(
-              rowData.detalleIpress[0].fechaInicio,
-              "yyyy-MM-dd"
-            )
+            rowData.detalleIpress[0].fechaInicio,
+            "yyyy-MM-dd"
+          )
           : ""
       );
     console.log(rowData.detalleIpress[0].fechaInicio);
@@ -895,5 +895,5 @@ export class PersonalSaludComponent implements OnInit {
         this.guardarNuevoEspecialidad();
       });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
