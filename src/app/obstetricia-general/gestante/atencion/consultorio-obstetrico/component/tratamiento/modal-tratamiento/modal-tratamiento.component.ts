@@ -84,7 +84,7 @@ export class ModalTratamientoComponent implements OnInit {
       intervalo: new FormControl("", [Validators.required]),
       viaAdministracion: new FormControl("", [Validators.required]),
       duracion:  new FormControl("", [Validators.required]),
-      // indAdicional: new FormControl("", []),
+      observaciones: new FormControl("", []),
 
     });
 
@@ -103,7 +103,7 @@ export class ModalTratamientoComponent implements OnInit {
       intervalo:this.formTratamientoComun.value.intervalo,
       viaAdministracion:this.formTratamientoComun.value.viaAdministracion,
       duracion:this.formTratamientoComun.value.duracion,
-      // indAdicional:this.formTratamientoComun.value.indAdicional,
+      observaciones:this.formTratamientoComun.value.observaciones,
 
     }
     console.log(tratamientosComunes);
@@ -118,7 +118,7 @@ export class ModalTratamientoComponent implements OnInit {
       intervalo:this.formTratamientoComun.value.intervalo,
       viaAdministracion:this.formTratamientoComun.value.viaAdministracion,
       duracion:this.formTratamientoComun.value.duracion,
-      // indAdicional:this.formTratamientoComun.value.indAdicional,
+      observaciones:this.formTratamientoComun.value.observaciones,
 
     }
     console.log(tratamientosInmunizaciones);
@@ -144,7 +144,7 @@ export class ModalTratamientoComponent implements OnInit {
     this.formTratamientoComun.get("intervalo").setValue(configuracion.intervalo);
     this.formTratamientoComun.get("viaAdministracion").setValue(configuracion.viaAdministracion);
     this.formTratamientoComun.get("duracion").setValue(configuracion.duracion);
-    // this.formTratamientoComun.get("indAdicional").setValue(configuracion.indAdicional);
+    this.formTratamientoComun.get("observaciones").setValue(configuracion.observaciones);
   }
   llenarCamposTratamientoSuplementos(){
     let configuracion=this.config.data.row;
@@ -154,7 +154,7 @@ export class ModalTratamientoComponent implements OnInit {
     this.formTratamientoComun.get("intervalo").setValue(configuracion.intervalo);
     this.formTratamientoComun.get("viaAdministracion").setValue(configuracion.viaAdministracion);
     this.formTratamientoComun.get("duracion").setValue(configuracion.duracion);
-    // this.formTratamientoComun.get("indAdicional").setValue(configuracion.indAdicional);
+    this.formTratamientoComun.get("observaciones").setValue(configuracion.observaciones);
   }
   closeDialogGuardar(){
     this.enviarTratamientosComunes();

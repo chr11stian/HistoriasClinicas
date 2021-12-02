@@ -17,6 +17,7 @@ import {HistoriaConsultasModule} from "./historia-consultas/historia-consultas.m
         ConsultaComponent,
         CitasComponent,
 
+
     ],
     exports: [],
     imports: [

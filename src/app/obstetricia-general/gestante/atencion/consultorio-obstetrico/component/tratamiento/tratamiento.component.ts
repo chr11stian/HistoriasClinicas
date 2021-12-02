@@ -9,6 +9,7 @@ import {ConsultasService} from "../../services/consultas.service";
 import Swal from "sweetalert2";
 import {ModalInterconsultaComponent} from "./modal-interconsulta/modal-interconsulta.component";
 import {ModalRecomendacionesComponent} from "./modal-recomendaciones/modal-recomendaciones.component";
+import {ModalExamenesAuxiliaresComponent} from "./modal-examenes-auxiliares/modal-examenes-auxiliares.component";
 
 @Component({
   selector: 'app-tratamiento',
@@ -28,22 +29,25 @@ export class TratamientoComponent implements OnInit {
   tratamientosSuplementarios:any[]=[];
   suplementarios:any;
   evaluacionNutricional:any;
-  examenesAuxiliares:any;
+
   /*campos para el tratamiento inmunizaciones*/
   tratamientoInmunizaciones:any[]=[];
   dataTratamientoInmunizaciones:any;
   /*INTERCONSULTAS*/
   interconsultas:any[]=[];
   recomendaciones:any[]=[];
+  examenesAuxiliares:any[]=[];
   /*LISTA CIE 10*/
   intervaloList: any[];
   viaadministracionList: any[];
+  /*Form de datos generales*/
   formRIEP: FormGroup;
+  /*form de todos los arreglos dialogs*/
   formTratamientoInmunizacion:FormGroup;
   formInterconsultas:FormGroup;
   formRecomendaciones:FormGroup;
-
-
+  formExamenesAuxiliares:FormGroup;
+  dataConsulta:any;
   constructor (private formBuilder: FormBuilder,
                private obstetriciaServie: ObstetriciaGeneralService,
                private dialog:DialogService,
@@ -85,8 +89,6 @@ export class TratamientoComponent implements OnInit {
     this.formRIEP=this.formBuilder.group({
       valor: ['', [Validators.required]],
       indicador:  ['', [Validators.required]],
-      examenesAuxiliares:  ['', [Validators.required]],
-      // personalResponsable:  ['', [Validators.required]],
       descripcionc: ['', [Validators.required]],
       dosisc: ['', [Validators.required]],
       numeroc: ['', [Validators.required]],
@@ -109,7 +111,9 @@ export class TratamientoComponent implements OnInit {
   }
   ngOnInit(): void
   {
+    this.recuperarDatos();
   }
+  /*DATOS RECIBIDOS DE LOS MODALES*/
   openDialogTratamientoComun(){
     this.ref = this.dialog.open(ModalTratamientoComponent, {
         header: "TRATAMIENTOS",
@@ -148,8 +152,8 @@ export class TratamientoComponent implements OnInit {
       header: "INTERCONSULTA",
       contentStyle:{
         width:"500px",
-        heigth:"500px",
-        overflow:"auto",
+        heigth:"700px",
+        // overflow:"auto",
       },
     })
     this.ref.onClose.subscribe((data:any)=>{
@@ -168,8 +172,8 @@ export class TratamientoComponent implements OnInit {
       header: "INTERCONSULTA",
       contentStyle: {
         width:"500px",
-        heigth:"500px",
-        overflow:"auto",
+        heigth:"700px",
+        // overflow:"auto",
       },
       data: aux
     })
@@ -184,7 +188,9 @@ export class TratamientoComponent implements OnInit {
     this.ref = this.dialog.open(ModalInmunizacionesComponent, {
       header: "INMUNIZACIONES",
       contentStyle:{
-        overflow:"auto",
+        width:"500px",
+        heigth:"700px",
+        // overflow:"auto",
       },
     })
     this.ref.onClose.subscribe((data:any)=>{
@@ -202,7 +208,9 @@ export class TratamientoComponent implements OnInit {
     this.ref = this.dialog.open(ModalInmunizacionesComponent, {
       header: "INMUNIZACIONES",
       contentStyle: {
-        overflow: "auto",
+        width:"500px",
+        heigth:"700px",
+        // overflow:"auto",
       },
       data: aux
     })
@@ -250,6 +258,43 @@ export class TratamientoComponent implements OnInit {
       };
     })
   }
+  openDialogExamenesAuxiliares(){
+    this.ref = this.dialog.open(ModalExamenesAuxiliaresComponent, {
+      header: "EXAMENES AUXILIARES",
+      contentStyle:{
+        width:"500px",
+        heigth:"500px",
+        overflow:"auto",
+      },
+    })
+    this.ref.onClose.subscribe((data:any)=>{
+      console.log("data de modal examenes Aux",data)
+      if(data!==undefined)
+        this.examenesAuxiliares.push(data);
+      console.log(this.formExamenesAuxiliares);
+    })
+  }
+  openDialogEditarAuxiliares(row,index){
+    let aux={
+      index: index,
+      row: row
+    }
+    this.ref = this.dialog.open(ModalExamenesAuxiliaresComponent, {
+      header: "EXAMENES AUXILIARES",
+      contentStyle: {
+        width:"500px",
+        heigth:"500px",
+        overflow:"auto",
+      },
+      data: aux
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('data de modal Exa. Aux. ', data)
+      if(data!==undefined) {
+        this.examenesAuxiliares.splice(data.index, 1,data.row);
+      };
+    })
+  }
   recuperarDatoSuplementarios(){
    this.suplementarios = {
      acidoFolico: {
@@ -284,15 +329,10 @@ export class TratamientoComponent implements OnInit {
         indicador:this.formRIEP.value.indicador
     }
   }
-  recuperarExamenesAuxiliares(){
-    this.examenesAuxiliares = {
-      examenesAuxiliares:this.formRIEP.value.examenesAuxiliares
-    }
-  }
   guardarTodosDatos(){
     this.recuperarDatoSuplementarios();
     this.recuperarDatosEvaluacion();
-    this.recuperarExamenesAuxiliares();
+    console.log(this.examenesAuxiliares);
     this.recuperarDatoSuplementarios();
     const req={
       nroHcl: "10101013",
@@ -305,6 +345,7 @@ export class TratamientoComponent implements OnInit {
       tratamientos:this.tratamientosComunes,
       tratamientosSuplementos:this.suplementarios,
       interconsultas:this.interconsultas,
+      examenesAuxiliares:this.examenesAuxiliares,
       evaluacionNutricional:this.evaluacionNutricional,
       recomendaciones:this.recomendaciones,
 
@@ -332,7 +373,7 @@ export class TratamientoComponent implements OnInit {
         }
     )
   }
-
+  /* ELIMINAR ITEMS DE CADA TABLA */
   eliminarTratamientoComun(index){
       this.tratamientosComunes.splice(index,1)
   }
@@ -345,11 +386,127 @@ export class TratamientoComponent implements OnInit {
   eliminarInterconsulta(index){
     this.interconsultas.splice(index,1)
   }
-
-  editar(rowData: any) {
-    console.log("modificando" + rowData)
+  // eliminar(rowData: any) {
+  //   console.log("eliminando" + rowData)
+  // }
+  eliminarExamenesAuxiliares(index) {
+    this.examenesAuxiliares.splice(index,1);
   }
-  eliminar(rowData: any) {
-    console.log("eliminando" + rowData)
+  recuperarDatos(){
+    let aux ={
+      "nroHcl":"10101013",
+      "nroEmbarazo":1,
+      "nroAtencion":1
+    }
+
+    this.tratamientoService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
+      this.dataConsulta = res.object;
+      console.log(this.dataConsulta);
+      /*recuperar tratamientos comunes*/
+      // console.log(this.dataConsulta.tratamientos);
+      if(this.dataConsulta.tratamientos.length === null || this.dataConsulta.tratamientos.length === 0 ){
+        console.log("NO INGRESO NINGUN TRATAMIENTO AUN, POR FAVOR INGRESE AL MENOS UNO");
+      }
+      else{
+        let i: number = 0;
+        while(i<this.dataConsulta.tratamientos.length){
+          // console.log("tratamiento nro: " ,i);
+          // console.log("tratamiento consta de: ", this.dataConsulta.tratamientos[i]);
+          this.tratamientosComunes.push(this.dataConsulta.tratamientos[i]);
+          i++;
+        }
+      }
+      /*recuperar inmunizaciones*/
+      console.log(this.dataConsulta.inmunizaciones);
+      if(this.dataConsulta.inmunizaciones.length === null || this.dataConsulta.inmunizaciones.length === 0 ){
+        console.log("NO INGRESO NINGUN TRATAMIENTO INMUNIZACIONES AUN, POR FAVOR INGRESE AL MENOS UNO");
+      }
+      else{
+        let i: number = 0;
+        while(i<this.dataConsulta.inmunizaciones.length){
+          // console.log("tratamiento INMUNIZACION nro: " ,i);
+          // console.log("tratamiento consta de: ", this.dataConsulta.inmunizaciones[i]);
+          this.tratamientoInmunizaciones.push(this.dataConsulta.inmunizaciones[i]);
+          i++;
+        }
+      }
+      /*reuperar datos: tratamientos suplementarios - evaluacion suplmentaria - exam auxiliares*/
+      // console.log(this.dataConsulta.tratamientosSuplementos)
+      /* recuperar suplementario acido folico*/
+      /*descripcion*/
+      this.formRIEP.patchValue({ 'descripciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.descripcion });
+      this.formRIEP.patchValue({ 'numeroa': this.dataConsulta.tratamientosSuplementos.acidoFolico.numero });
+      this.formRIEP.patchValue({ 'dosisa': this.dataConsulta.tratamientosSuplementos.acidoFolico.dosis });
+      this.formRIEP.patchValue({ 'viaAdministraciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.viaAdministracion });
+      this.formRIEP.patchValue({ 'intervaloa': this.dataConsulta.tratamientosSuplementos.acidoFolico.intervalo });
+      this.formRIEP.patchValue({ 'duraciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.duracion });
+      this.formRIEP.patchValue({ 'observacionesa': this.dataConsulta.tratamientosSuplementos.acidoFolico.observaciones });
+      /* recuperar suplementario hierroYAcidoFolico*/
+      /*descripcion*/
+      this.formRIEP.patchValue({ 'descripcionf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.descripcion });
+      this.formRIEP.patchValue({ 'numerof': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.numero });
+      this.formRIEP.patchValue({ 'dosisf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.dosis });
+      this.formRIEP.patchValue({ 'viaAdministracionf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.viaAdministracion });
+      this.formRIEP.patchValue({ 'intervalof': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.intervalo });
+      this.formRIEP.patchValue({ 'duracionf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.duracion });
+      this.formRIEP.patchValue({ 'observacionesf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.observaciones });
+      /* recuperar suplementario calcio*/
+      /*descripcion*/
+      this.formRIEP.patchValue({ 'descripcionc': this.dataConsulta.tratamientosSuplementos.calcio.descripcion });
+      this.formRIEP.patchValue({ 'numeroc': this.dataConsulta.tratamientosSuplementos.calcio.numero });
+      this.formRIEP.patchValue({ 'dosisc': this.dataConsulta.tratamientosSuplementos.calcio.dosis });
+      this.formRIEP.patchValue({ 'viaAdministracionc': this.dataConsulta.tratamientosSuplementos.calcio.viaAdministracion });
+      this.formRIEP.patchValue({ 'intervaloc': this.dataConsulta.tratamientosSuplementos.calcio.intervalo });
+      this.formRIEP.patchValue({ 'duracionc': this.dataConsulta.tratamientosSuplementos.calcio.duracion });
+      this.formRIEP.patchValue({ 'observacionesc': this.dataConsulta.tratamientosSuplementos.calcio.observaciones });
+      /*recuperar examenes auxiliares*/
+      this.formRIEP.patchValue({ 'examenesAuxiliares': this.dataConsulta.examenesAuxiliares });
+      /*recuperar evaluacion Nutricional*/
+      this.formRIEP.patchValue({ 'valor': this.dataConsulta.evaluacionNutricional.valor });
+      this.formRIEP.patchValue({ 'indicador': this.dataConsulta.evaluacionNutricional.indicador });
+      /* recuperar interconsultas*/
+      console.log(this.dataConsulta.interconsultas)
+      if(this.dataConsulta.interconsultas.length === null || this.dataConsulta.interconsultas.length === 0 ){
+        console.log("NO INGRESO NINGUNA INTERCONSULTA AUN, POR FAVOR INGRESE AL MENOS UNO");
+      }
+      else{
+        let i: number = 0;
+        while(i<this.dataConsulta.interconsultas.length){
+          // console.log("interconsultas nro: " ,i);
+          // console.log("interconsultas consta de: ", this.dataConsulta.interconsultas[i]);
+          this.interconsultas.push(this.dataConsulta.interconsultas[i]);
+          i++;
+        }
+      }
+      /* recuperar recomendaciones*/
+      console.log(this.dataConsulta.recomendaciones);
+      if(this.dataConsulta.recomendaciones.length === null || this.dataConsulta.recomendaciones.length === 0 ){
+        console.log("NO INGRESO NINGUNA INTERCONSULTA AUN, POR FAVOR INGRESE AL MENOS UNO");
+      }
+      else{
+        let i: number = 0;
+        while(i<this.dataConsulta.recomendaciones.length){
+          // console.log("interconsultas nro: " ,i);
+          // console.log("interconsultas consta de: ", this.dataConsulta.recomendaciones[i]);
+          this.recomendaciones.push(this.dataConsulta.recomendaciones[i]);
+          i++;
+        }
+      }
+      /* recuperar EXAMENES AUXILIARES*/
+      console.log(this.dataConsulta.examenesAuxiliares);
+      if(this.dataConsulta.examenesAuxiliares.length === null || this.dataConsulta.examenesAuxiliares.length === 0 ){
+        console.log("NO INGRESO NINGUNA INTERCONSULTA AUN, POR FAVOR INGRESE AL MENOS UNO");
+      }
+      else{
+        let i: number = 0;
+        while(i<this.dataConsulta.examenesAuxiliares.length){
+          // console.log("interconsultas nro: " ,i);
+          // console.log("interconsultas consta de: ", this.dataConsulta.examenesAuxiliares[i]);
+          this.examenesAuxiliares.push(this.dataConsulta.examenesAuxiliares[i]);
+          i++;
+        }
+      }
+
+    });
   }
 }

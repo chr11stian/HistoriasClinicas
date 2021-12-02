@@ -1,0 +1,52 @@
+
+<!-------------INICIO DIALOG INGRESAR DIAGNOSTICO--->
+<!--<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog"  [modal]="true" [style]="{width: '60%'}"-->
+<!--          [draggable]="false" [resizable]="false">-->
+<!--    <div class="grid">-->
+<!--        <div class="col-6">-->
+<!--            <div class="p-field-radiobutton">-->
+<!--                <p-radioButton name="city" value="Chicago" [(ngModel)]="opcionBusqueda"  value="porDescripcion" inputId="opcion1"></p-radioButton>-->
+<!--                <label>Buscar por Descripcion</label>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="col-6">-->
+<!--            <div class="p-field-radiobutton">-->
+<!--                <p-radioButton name="city" value="Los Angeles" [(ngModel)]="opcionBusqueda" value="porcie10" inputId="opcion2" ></p-radioButton>-->
+<!--                <label>Buscar por Cie10</label>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <form   [formGroup]='form' (ngSubmit)="save(formTemplate)" #formTemplate ="ngForm" >-->
+<!--        <div class="p-d-inline p-fluid">-->
+
+<!--            <div class="p-field resp">-->
+<!--                <label *ngIf="opcionBusqueda=='porDescripcion'">Diagnóstico:</label>-->
+<!--                <p-autoComplete *ngIf="opcionBusqueda=='porDescripcion'" formControlName="diagnostico" [suggestions]="Cie10" [style]="{width: '400px', heigth:'400px'}"-->
+<!--                                (completeMethod)="filterDiagnostico($event)" field="descripcionItem" [minLength]="1" placeholder="Descripcion">-->
+<!--                </p-autoComplete>-->
+<!--                &lt;!&ndash;                     <i class="pi pi-search"></i>&ndash;&gt;-->
+<!--            </div>-->
+<!--            <div class="p-field resp">-->
+<!--                <label  *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>-->
+
+<!--                <p-autoComplete  *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico" [suggestions]="Cie10" disabled [style]="{width: '400px' , heigth:'400px'}"-->
+<!--                                 (completeMethod)="filterDiagnostico($event)" field="codigoItem" [minLength]="1" (onSelect)="selectedOption($event)" placeholder="CIE 10">-->
+<!--                </p-autoComplete>-->
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--    </form>-->
+<!--&lt;!&ndash;    <div    *ngIf="hayError"&ndash;&gt;-->
+<!--&lt;!&ndash;            class="alert alert-danger">&ndash;&gt;-->
+<!--&lt;!&ndash;        No se encontró nada en el término {{termino}}&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--    <ng-template pTemplate="footer">-->
+<!--        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"(click)="canceled()"></button>-->
+<!--        <button  class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="save(formTemplate)" ></button>-->
+
+<!--    </ng-template>-->
+
+
+<!--</p-dialog>-->

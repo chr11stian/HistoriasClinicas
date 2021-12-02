@@ -26,8 +26,8 @@
                 <th style="text-align: center" class="font-2">DOSIS</th>
                 <th style="text-align: center" class="font-2">INTERVALO</th>
                 <th style="text-align: center" class="font-2">VIA ADMIN.</th>
-<!--                <th style="text-align: center" class="font-2">DURACION</th>-->
-<!--                <th style="text-align: center" class="font-2">IND. ADICIONAL</th>-->
+                <th style="text-align: center" class="font-2">DURACION</th>
+                <th style="text-align: center" class="font-2">IND. ADICIONAL</th>
                 <th style="text-align: center" class="font-2">Acciones</th>
 
             </tr>
@@ -40,15 +40,15 @@
                 <td style="text-align: center">{{ rowData.dosis }}</td>
                 <td style="text-align: center">{{ rowData.intervalo }}</td>
                 <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
-<!--                <td style="text-align: center">{{ rowData.duracion }}</td>-->
-<!--                <td style="text-align: center">{{ rowData.indAdicional }}</td>-->
+                <td style="text-align: center">{{ rowData.duracion }}</td>
+                <td style="text-align: center">{{ rowData.observaciones }}</td>
 
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
                             (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Editar">
                     </button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                            (click)="eliminarTratamientoComun(rowData)" pTooltip="Eliminar">
+                            (click)="eliminarTratamientoComun(rowIndex)" pTooltip="Eliminar">
                     </button>
                     <button pButton (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
                             icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
@@ -64,7 +64,6 @@
             <button pButton pRipple label="Agregar Tratamiento" icon="pi pi-plus" pButton type="button" class="button-agregar"
                     (click)="openDialogTratamientoComun()"></button>
         </div>
-
     </p-toolbar>
     <br>
     <!--INMUNIZACIONES -->
@@ -85,7 +84,7 @@
                 <th style="text-align: center" class="font-2">NUMERO</th>
                 <th style="text-align: center" class="font-2">DOSIS</th>
                 <th style="text-align: center" class="font-2">VIA ADMIN.</th>
-                <th style="text-align: center" class="font-2">LOTEN</th>
+                <th style="text-align: center" class="font-2">LOTE</th>
                 <th style="text-align: center" class="font-2">FECHA VENCIMIENTO</th>
                 <th style="text-align: center" class="font-2">Acciones</th>
 
@@ -107,7 +106,7 @@
                             (click)="openDialogEditarTratamientoInmunizaciones(rowData,rowIndex)" pTooltip="Editar">
                     </button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                            (click)="eliminarInmunizaciones(rowData)" pTooltip="Eliminar">
+                            (click)="eliminarInmunizaciones(rowIndex)" pTooltip="Eliminar">
                     </button>
                     <button pButton (click)="openDialogEditarTratamientoInmunizaciones(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
                             icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
@@ -256,7 +255,7 @@
         </p-fieldset>
         <br>
         <div class="grid">
-            <div class="lg:col-6 md:col-6 xs:col-12 col-12 p-fluid">
+            <div class="col-12 p-fluid">
                 <p-fieldset legend="EVALUACION NUTRICIONAL">
                     <div class=" grid p-fluid">
                         <div class="lg:col-6 md:col:6 col-12 p-field">
@@ -270,14 +269,6 @@
                                    required />
                         </div>
                     </div>
-                </p-fieldset>
-            </div>
-            <div class="lg:col-6 md:col-6 xs:col-12 col-12 p-fluid">
-                <p-fieldset legend="EXAMENES AUXILIARES">
-                        <div class="p-fluid">
-                            <input type="text" pInputText formControlName="examenesAuxiliares" placeholder="examenes auxiliares"/>
-                        </div>
-
                 </p-fieldset>
             </div>
             <br>
@@ -311,7 +302,7 @@
                                         (click)="openDialogEditarinterconsultas(rowData,rowIndex)" pTooltip="Editar">
                                 </button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarInterconsulta(rowData)" pTooltip="Eliminar">
+                                        (click)="eliminarInterconsulta(rowIndex)" pTooltip="Eliminar">
                                 </button>
                                 <button pButton (click)="openDialogEditarinterconsultas(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
                                         icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
@@ -332,7 +323,7 @@
         </div>
     </div>
     <div class="grid">
-        <div class="col-12">
+        <div class="lg:col-6  col-12">
             <p-fieldset legend="RECOMENDACIONES">
                 <p-table class="table-over" [value]="recomendaciones" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
                          [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
@@ -356,7 +347,7 @@
                                         (click)="openDialogEditarRecomendaciones(rowData,rowIndex)" pTooltip="Editar">
                                 </button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarRecomendaciones(rowData)" pTooltip="Eliminar">
+                                        (click)="eliminarRecomendaciones(rowIndex)" pTooltip="Eliminar">
                                 </button>
                                 <button pButton (click)="openDialogEditarRecomendaciones(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
                                         icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
@@ -371,6 +362,49 @@
                     <div class="p-toolbar-group-right">
                         <button pButton pRipple label="Agregar Recomendaciones" icon="pi pi-plus" pButton type="button" class="button-agregar"
                                 (click)="openDialogRecomendaciones()"></button>
+                    </div>
+                </p-toolbar>
+            </p-fieldset>
+        </div>
+        <div class="lg:col-6 col-12">
+            <p-fieldset legend="EXAMENES AUXLIARES">
+                <p-table class="table-over" [value]="examenesAuxiliares" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro </th>
+                            <th style="text-align: center" class="font-1">EXAMENES AUXILIARES</th>
+                            <th style="text-align: center" class="font-2">Acciones</th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData}}</td>
+
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                        (click)="openDialogEditarAuxiliares(rowData,rowIndex)" pTooltip="Editar">
+                                </button>
+                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                        (click)="eliminarExamenesAuxiliares(rowIndex)" pTooltip="Eliminar">
+                                </button>
+                                <button pButton (click)="openDialogEditarAuxiliares(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
+                                        icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                                </button>
+
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+                <p-toolbar>
+                    <div class="p-toolbar-group-right">
+                        <button pButton pRipple label="Agregar Examenes" icon="pi pi-plus" pButton type="button" class="button-agregar"
+                                (click)="openDialogExamenesAuxiliares()"></button>
                     </div>
                 </p-toolbar>
             </p-fieldset>
