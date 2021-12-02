@@ -1,6 +1,6 @@
 <p-toolbar styleClass="mb-4">
   <ng-template pTemplate="left">
-    <h3 class="p-m-0">RESULTADOS DE LABORATORIO Y ECOGRAFIA</h3>
+    <h3 class="p-m-0">RESULTADOS DE LABORATORIO Y ECOGRAFIA </h3>
   </ng-template>
   <ng-template pTemplate="right" class="button">
     <button
@@ -22,101 +22,402 @@
     ></button>
   </ng-template>
 </p-toolbar>
+
+<form [formGroup]="resultadoEcografiaFG">
 <div class="m-3" >
   <div>
     <p-fieldset legend="Examen de laboratorio">
-      <div class="flex justify-content-between">
-        <form [formGroup]="resultadoFG" class="col-4 grid border align-self-start mt-3"  >
-          <div class="col-12 p-fluid">
-              <div>Prueba:</div>
-              <div>
-                <p-dropdown [options]="examenList"  optionValue="name" optionLabel="name" formControlName="examen"></p-dropdown>
-              </div>
-          </div>
-          <div class="col-6 p-fluid">
-            <div>Resultado:</div>
-            <div>
-              <input type="text" pInputText formControlName="valor"/>
-            </div>
-          </div>
-          <div class="col-6 p-fluid">
-            <div>Fecha:</div>
-            <div>
-              <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha" ></p-calendar>
-            </div>
-          </div>
-          <div class="col-12 flex justify-content-end pt-3">
-            <button
-                    pButton
-                    pRipple
-                    label="Agregar consulta"
-                    icon="pi pi-plus-circle"
-                    class="p-button-primary"
-                    [disabled]="resultadoFG.invalid"
-                    style="background-color: #003c71"
-                    (click)="agregarResultado()"
-            ></button>
-          </div>
-        </form>
 
-        <div class="col-7 border">
-          <p-table [value]="examenTomadosList"  responsiveLayout="scroll" [scrollable]="true" scrollHeight="300px">
-            <ng-template pTemplate="header">
-              <tr>
-                <th>Nro</th>
-                <th>Nombre</th>
-                <th>Valor</th>
-                <th>Fecha</th>
-                <th>Accion</th>
-              </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-examen let-index="rowIndex">
-              <tr>
-                <td>{{index+1}}</td>
-                <td>{{examen.examen}}</td>
-                <td>{{examen.resultado}}</td>
-                <td>{{examen.fechaResultado |  date: 'shortDate'}}</td>
-                <td class="flex justify-content-around">
-                  <button
-                          pButton
-                          pRipple
-                          type="button"
-                          icon="pi pi-pencil"
-                          (click)="isUpdate = true; actualizar(index)"
-                          pTooltip="Editar tipo turno"
-                          tooltipPosition="bottom"
-                          class="p-button-raised p-button-info p-button-rounded"
-                  ></button>
-                  <button
-                          pButton
-                          pRipple
-                          type="button"
-                          (click)=" delete(index)"
-                          icon="pi pi-trash"
-                          pTooltip="Eliminar tipo turno"
-                          tooltipPosition="bottom"
-                          class="p-button-raised p-button-danger p-button-rounded"
-                  ></button>
-                </td>
-              </tr>
-            </ng-template>
-          </p-table>
 
+      <div class="grid">
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Grupo Sanguineo:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="grupoSanguineo"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha1" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Factor RH:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="factorRH"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha2" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">hemograma:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="hemograma"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha3" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
 
         </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Hemoglobina:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="hemoglobina"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha4" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Factor Correpcion:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="factorCorrepcion"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha5" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
 
       </div>
-    </p-fieldset>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">hto:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="hto"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha6" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Glucosa:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="glucosa"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha7" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
 
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Tolerancia Glucosa:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="toleranciaGlucosa"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha8" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Exa. Orina:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="exaOrina"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha9" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">rpr:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="rpr"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha10" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">rpr Reactivo:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="rprReactivo"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha11" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">ExSecV:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="exSecV"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha12" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Protenuaria Cuantitativa:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="protenuariaCuantitativa"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha13" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+
+
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Protenuaria Cualitativa:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="protenuariaCualitativa"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha14" dateFormat="dd/mm/yy" ></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Prueva VIH:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="pruevaVIH"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha15" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Prueva Hepatitis:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="pruHepatitis"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha16" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Elisa:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="elisa"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha17" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Glicemia:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="glicemia"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha18" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Bacteriuniria:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="bacteriuniria"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha19" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Nitritos:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="nitritos"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha20" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Urocultivo:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="urocultivo"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha21" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">BK Esputo:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="bkEsputo"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha22" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">wsternBlotlfi:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="wsternBlotlfi"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha23" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">thlvl:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="thlvl"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha24" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Torch:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="torch"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha25" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Gota Gruesa:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="gotaGruesa"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha26" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">Pap:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="pap"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha27" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+        <div class="col-4 grid">
+          <div class="col-4 text-right">ivaa:</div>
+          <div class="col-4 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    placeholder="150"
+                    formControlName="ivaa"
+            ></p-inputNumber>
+          </div>
+          <div class="col-4">
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fecha28" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+        </div>
+      </div>
+
+
+<!--      <div class="flex justify-content-end">-->
+<!--      <p-calendar  [showIcon]="true" inputId="icon" formControlName="fechaExamen"></p-calendar>-->
+<!--      </div>-->
+
+
+    </p-fieldset>
   </div>
-  <form [formGroup]="ecografiaResultadosFG">
   <div class="grid mt-3">
-    <div class="col-12 xl:col-6">
+    <div class="col-6  ">
       <p-fieldset legend="-1° Ecografia">
         <div class="grid">
           <div class="col-3" style="text-align: right">Fecha de ecografía:</div>
           <div class="col-9">
-            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fechaEcografia1" ></p-calendar>
+            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fechaEcografia1" dateFormat="dd/mm/yy"></p-calendar>
           </div>
         </div>
         <div class="grid">
@@ -134,107 +435,37 @@
             ></textarea>
           </div>
         </div>
-        <div class="grid ">
-          <div class="col-3" style="text-align: right">Edad Gestacional(Semana):</div>
-          <div class="col-3 p-fluid">
-            <input type="text" pInputText  placeholder="1-40" formControlName="semana1"/>
+
+          <div class="grid ">
+            <div class="col-3" style="text-align: right">Edad Gestacional(Semana):</div>
+            <div class="col-9 p-fluid">
+              <input type="text" pInputText  placeholder="1-40" formControlName="semana1"/>
+            </div>
           </div>
-          <div class="col-3 ">
-            Edad Gestacional(Dia):
-          </div>
-          <div class="col-3 p-fluid">
-            <input type="text" pInputText  placeholder="1-7" formControlName="dia1"/>
-          </div>
+        <div class="grid">
+
+            <div class="col-3 ">
+              Edad Gestacional(Dia):
+            </div>
+            <div class="col-9 p-fluid">
+              <input type="text" pInputText  placeholder="1-7" formControlName="dia1"/>
+            </div>
         </div>
+
       </p-fieldset>
     </div>
-    <div class="col-12 xl:col-6">
-      <p-fieldset legend="-2° Ecografia">
-        <div class="grid">
-          <div class="col-3" style="text-align: right">Fecha de ecografía:</div>
-          <div class="col-9">
-            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fechaEcografia2" ></p-calendar>
-          </div>
-        </div>
-        <div class="grid">
-          <div class="col-3 align-self-start" style="text-align: right">
-            Resultado:
-          </div>
-          <div class="col-9">
-            <textarea
-              [rows]="5"
-              [cols]="45"
-              pInputTextarea
-              autoResize="autoResize"
-              placeholder="Ingresar resultado..."
-              formControlName="resultado2"
-
-            ></textarea>
-          </div>
-        </div>
-        <div class="grid ">
-          <div class="col-3" style="text-align: right">Edad Gestacional(Semana):</div>
-          <div class="col-3 p-fluid">
-            <input type="text" pInputText  placeholder="1-40" formControlName="semana2"/>
-          </div>
-          <div class="col-3 ">
-            Edad Gestacional(Dia):
-          </div>
-          <div class="col-3 p-fluid">
-            <input type="text" pInputText  placeholder="1-7" formControlName="dia2"/>
-          </div>
-        </div>
-      </p-fieldset>
-    </div>
-    <div class="col-12 xl:col-6">
-      <p-fieldset legend="-3° Ecografia">
-        <div class="grid">
-          <div class="col-3" style="text-align: right">Fecha de ecografía:</div>
-          <div class="col-9">
-            <p-calendar  [showIcon]="true" inputId="icon" formControlName="fechaEcografia3" ></p-calendar>
-          </div>
-        </div>
-        <div class="grid">
-          <div class="col-3 align-self-start" style="text-align: right">
-            Resultado:
-          </div>
-          <div class="col-9">
-            <textarea
-              [rows]="5"
-              [cols]="45"
-              pInputTextarea
-              autoResize="autoResize"
-              placeholder="Ingresar resultado..."
-              formControlName="resultado3"
-
-            ></textarea>
-          </div>
-        </div>
-        <div class="grid ">
-          <div class="col-3" style="text-align: right">Edad Gestacional(Semana):</div>
-          <div class="col-3 p-fluid">
-            <input type="text" pInputText  placeholder="1-40" formControlName="semana3"/>
-          </div>
-          <div class="col-3 ">
-            Edad Gestacional(Dia):
-          </div>
-          <div class="col-3 p-fluid">
-            <input type="text" pInputText  placeholder="1-7" formControlName="dia3"/>
-          </div>
-        </div>
-      </p-fieldset>
     </div>
   </div>
-  </form>
-  <div class="flex justify-content-end pt-3">
-    <button
-      pButton
-      pRipple
-      (click)="agregar()"
-      label="Agregar consulta"
-      icon="pi pi-plus-circle"
-      class="p-button-primary"
-      style="background-color: #003c71"
-    ></button>
-  </div>
+
+</form>
+<div class="flex justify-content-end pt-3">
+  <button
+          pButton
+          pRipple
+          (click)="agregar()"
+          label="Agregar consulta"
+          icon="pi pi-plus-circle"
+          class="p-button-primary"
+          style="background-color: #003c71"
+  ></button>
 </div>

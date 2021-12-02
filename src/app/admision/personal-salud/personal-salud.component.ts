@@ -524,11 +524,12 @@ export class PersonalSaludComponent implements OnInit {
   getPersonal() {
     this.personalservice.getPersonal().subscribe((res: any) => {
       this.data = res.object;
+
     });
   }
   getListaUps() {
     this.rolGuardiaService
-      .getServiciosPorIpress("615b30b37194ce03d782561c")
+      .getServiciosPorIpress("616de45e0273042236434b51")
       .subscribe((resp) => {
         this.listaUpsX = resp["object"];
       });
