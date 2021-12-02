@@ -1,8 +1,8 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {ObstetriciaGeneralService} from "../services/obstetricia-general.service";
-import {FiliancionService} from "./atencion/plan-atencion-integral/services/filiancion-atenciones/filiancion.service";
 import {Route, Router, RouterLink} from "@angular/router";
+import {FiliancionService} from "./atencion/h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 
 
 @Component({
@@ -49,6 +49,7 @@ export class GestanteComponent implements OnInit {
         this.obstetriciaGeneralService.idGestacion = event.id;
         this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = event.nroDoc;
+        this.obstetriciaGeneralService.nroEmbarazo = event.nroEmbarazo;
 
     }
 

@@ -14,6 +14,7 @@
                 <div class="field grid">
                     <div class="mr-2 text-right" style="width:235px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
+                    <div class="text-right" style="width:75px">(Edad)</div>
                 </div>
                 <div class="field grid" *ngFor="let item1 of tratamiento_Anemia">
                     <span class="col-fixed text-right mr-2" style="width:30px">{{item1.nroControl}}°:</span>
@@ -24,6 +25,7 @@
                     <div style="width:113px">
                         <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item1.fechaTentativa"></p-calendar>
                     </div>
+                    <span class="col-fixed text-center text-sm" style="width:90px">({{item1.descripcionEdad}})</span>
                 </div>
             </div> 
         </p-fieldset>
@@ -36,6 +38,7 @@
                 <div class="field grid">
                     <div class="mr-2 text-right" style="width:230px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
+                    <div class="text-right" style="width:75px">(Edad)</div>
                 </div>
                 <div class="field grid" *ngFor="let item2 of dosaje_Hb">
                     <span class="col-fixed text-right mr-2" style="width:30px">{{item2.nroControl}}°:</span>
@@ -46,6 +49,7 @@
                     <div style="width:113px">
                         <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item2.fechaTentativa"></p-calendar>
                     </div>
+                    <span class="col-fixed text-center text-sm" style="width:90px">({{item2.descripcionEdad}})</span>
                 </div>
             </div> 
         </p-fieldset>
