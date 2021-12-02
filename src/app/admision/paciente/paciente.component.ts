@@ -91,7 +91,7 @@ export class PacienteComponent implements OnInit {
       nroDoc: new FormControl(''),
       nroHcl: new FormControl(''),
       primerNombre: new FormControl(''),
-      otrosNombres: new FormControl(''),
+      otrosNombres: new FormControl(""),
       apPaterno: new FormControl(''),
       apMaterno: new FormControl(''),
       celular: new FormControl(''),
@@ -117,7 +117,7 @@ export class PacienteComponent implements OnInit {
   cargarPacientes() {
     this.pacienteService.getPacientes().subscribe((res: any) => {
       this.listaPacientes = res.object;
-      // console.log('lista de pacientes ', this.listaPacientes)
+      console.log('lista de pacientes ', this.listaPacientes)
     });
   }
 
@@ -143,21 +143,23 @@ export class PacienteComponent implements OnInit {
   }
 
   recuperarDatos() {
-    let datePipe = new DatePipe("en-US");
     let aux = this.formPaciente.value.etnia;
-    console.log('datos de etnia ', aux);
-    let auxNroHcl = this.formPaciente.value.nroDoc
+    let auxNroHcl = this.formPaciente.value.nroDoc;
+    let auxFechaNac = this.formPaciente.value.fechaNacimiento;
+    let auxDay = auxFechaNac.split("/", 3);
+
     this.dataPaciente = {
       nroHcl: auxNroHcl,
       tipoDoc: this.formPaciente.value.tipoDoc.abreviatura,
       nroDoc: this.formPaciente.value.nroDoc,
       primerNombre: this.formPaciente.value.primerNombre,
+      otrosNombres: this.formPaciente.value.otrosNombres,
       apePaterno: this.formPaciente.value.apPaterno,
       apeMaterno: this.formPaciente.value.apMaterno,
       sexo: this.formPaciente.value.sexo,
       nacimiento: {
-        // fechaNacimiento: new Date(this.formPaciente.value.fechaNacimiento)
-        fechaNacimiento: "1998-10-15"
+        // fechaNacimiento: this.formPaciente.value.fechaNacimiento
+        fechaNacimiento: auxDay[2] + '-' + auxDay[1] + '-' + auxDay[0] + ' 00:00:00'
       },
       celular: this.formPaciente.value.celular,
       tipoSeguro: this.formPaciente.value.tipoSeguro,
@@ -215,12 +217,12 @@ export class PacienteComponent implements OnInit {
   aceptarDialogPaciente() {
     this.recuperarDatos();
     console.log('datos paciente ', this.dataPaciente);
-    this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
-      this.formPaciente.reset();
-      this.cargarPacientes();
-      this.closeDialogPaciente();
-      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
-    });
+    // this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
+    //   this.formPaciente.reset();
+    //   this.cargarPacientes();
+    //   this.closeDialogPaciente();
+    //   this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
+    // });
   }
 
   openEditarPaciente(row) {
