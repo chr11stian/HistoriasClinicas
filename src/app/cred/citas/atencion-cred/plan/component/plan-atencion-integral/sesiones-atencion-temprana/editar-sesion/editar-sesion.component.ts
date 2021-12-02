@@ -71,7 +71,7 @@ export class EditarSesionComponent implements OnInit {
         .toPromise().then(res => {
           console.log('respuesta',res);
           if(res){
-            if (res.mensaje ==="200 OK"){
+            if (res ==="200 OK"){
               this.notify.showExito("Se actualizo con éxito la sesion")
               this.onGoToSesiones()
             }
