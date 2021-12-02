@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
-import Swal from "sweetalert2";
 import { ConsultasService } from "../../services/consultas.service";
 
 @Component({
@@ -15,7 +14,7 @@ export class InterrogatorioComponent implements OnInit {
   formExamenFetal: FormGroup;
   formExamFisico: FormGroup;
   listaSituacion = [
-    { name: "Lontitudinal", code: "Lontitudinal" },
+    { name: "Longitudinal", code: "Longitudinal" },
     { name: "Transversal", code: "Transversal" },
     { name: "No Aplica", code: "No Aplica" },
   ];
@@ -38,11 +37,13 @@ export class InterrogatorioComponent implements OnInit {
   ]
   interrogatorioData: any;
   ref: DynamicDialogRef;
-  encargadoDialog: boolean = false;
+  fetalesExamDialog: boolean = false;
   examenesFetales: any;
   listaExamenesFetos: any[] = [];
   listaOtrosPruebasFisicas: any[] = [];
   examenesFisicosDialog: boolean = false;
+  indexEdit: number = 0;
+  update: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -158,6 +159,7 @@ export class InterrogatorioComponent implements OnInit {
         { funcion: 'mamas', valor: this.form.value.mamas },
         { funcion: 'pezones', valor: this.form.value.pezones },
         { funcion: 'abdomen', valor: this.form.value.abdomen },
+        { funcion: 'otros examenes', valor: this.form.value.examenFisicoOtro },
       ],
       examenesObstetricos: {
         alturaUterina: this.form.value.alturaUterina,
@@ -187,8 +189,9 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   openDialogExamenesFeto() {
+    this.update = false;
     this.formExamenFetal.reset();
-    this.encargadoDialog = true;
+    this.fetalesExamDialog = true;
   }
 
   recuperarDatosExamFet() {
@@ -204,12 +207,12 @@ export class InterrogatorioComponent implements OnInit {
   btnGuardar() {
     console.log('form ', this.formExamenFetal.value.selectSituacion)
     this.recuperarDatosExamFet();
-    this.encargadoDialog = false;
+    this.fetalesExamDialog = false;
     this.listaExamenesFetos.push(this.examenesFetales)
   }
 
   btnCancelar() {
-    this.encargadoDialog = false;
+    this.fetalesExamDialog = false;
   }
   openDialogExamenesFinal() {
     this.formExamFisico.reset();
@@ -265,6 +268,7 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ mamas: Rpta.examenesFisicos[6].valor });
       this.form.patchValue({ pezones: Rpta.examenesFisicos[7].valor });
       this.form.patchValue({ abdomen: Rpta.examenesFisicos[8].valor });
+      this.form.patchValue({ examenFisicoOtro: Rpta.examenesFisicos[9].valor });
       this.form.patchValue({ obsExamFisico: Rpta.examenFisicoObservaciones });
       this.form.patchValue({ miembrosInferiores: Rpta.examenesObstetricos.miembrosInferiores });
       this.form.patchValue({ alturaUterina: Rpta.examenesObstetricos.alturaUterina });
@@ -275,6 +279,30 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ osteotendinoso: Rpta.examenesObstetricos.reflejoOsteotendinoso });
       this.form.patchValue({ semanas: Rpta.examenesObstetricos.semanas });
       this.form.patchValue({ dias: Rpta.examenesObstetricos.dias });
+      this.listaExamenesFetos = Rpta.examenesFetos;
     });
+  }
+
+  editarExamenFetos(row, index) {
+    this.update = true;
+    console.log('a editar ', row, index);
+    this.indexEdit = index;
+    this.fetalesExamDialog = true;
+    this.formExamenFetal.patchValue({ selectSituacion: row.situacion });
+    this.formExamenFetal.patchValue({ selectPosicion: row.posicion });
+    this.formExamenFetal.patchValue({ selectPresentacion: row.presentacion });
+    this.formExamenFetal.patchValue({ movimientoFetal: row.movimientosFetales });
+    this.formExamenFetal.patchValue({ latidosCardiacos: row.fcf });
+    // this.listaExamenesFetos.splice(index,1,)
+  }
+
+  btnEditarExamenFetal() {
+    this.recuperarDatosExamFet();
+    this.listaExamenesFetos.splice(this.indexEdit, 1, this.examenesFetales);
+    this.fetalesExamDialog = false;
+  }
+
+  eliminar(index) {
+    this.listaExamenesFetos.splice(index, 1)
   }
 }

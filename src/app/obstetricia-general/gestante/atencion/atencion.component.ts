@@ -24,6 +24,7 @@ export class AtencionComponent implements OnInit {
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
 
+
     constructor(private obstetriciaGeneralService: ObstetriciaGeneralService) {
         this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
         this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
@@ -31,9 +32,12 @@ export class AtencionComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+
         console.log("IdRecuperado", this.idRecuperado);
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
+
     }
 
     ngOnDestroy() {
