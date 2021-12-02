@@ -257,7 +257,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-12 md:col-8">
                         <div class="grid">
                             <div class="col-12">
@@ -363,7 +362,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 md:col-4">
+                    <div class="col-12 md:col-3">
                         <p-fieldset legend="Examen Obstetrico">
                             <div class="grid">
                                 <div class="col-6">
@@ -395,10 +394,10 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="grid">
-                                        <div class="col-5">
+                                        <div class="col-12">
                                             <label>Reflejo Osteotendinoso: </label>
                                         </div>
-                                        <div class="col-7">
+                                        <div class="col-12 text-center ">
                                             <p-radioButton name="osteotendinoso" formControlName="osteotendinoso"
                                                 value="o" class="default ml-2">
                                             </p-radioButton>
@@ -457,52 +456,285 @@
                             </div>
                         </p-fieldset>
                     </div>
-                    <div class="col-12 md:col-8">
+                    <div class="col-12 md:col-9">
                         <p-fieldset legend="Examen Fetal">
                             <div class="grid ">
                                 <div class="col-12">
-                                    <div class="grid">
-                                        <div class="col-12">
-                                            <label>Movimientos Fetales:</label>
-                                            <input type="text" pInputText formControlName='vagina' placeholder=""
-                                                class="p-inputtext-sm inputfield w-full">
-                                        </div>
+                                    <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-sm"
+                                        [paginator]="true" [autoLayout]="true" class="m-3"
+                                        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                        [showCurrentPageReport]="true" responsiveLayout="scroll">
+                                        <ng-template pTemplate="caption">
+                                            <div class="grid">
+                                                <div class="col-10">
+                                                    <h3>EXAMENES FETALES</h3>
+                                                </div>
+                                                <div class="col-2">
+                                                    <button pButton pRipple icon="pi pi-plus" type="button"
+                                                        label="Agregar" class="p-button-raised mt-3"
+                                                        (click)="openNewExamenFetal()"></button>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th style="text-align: center">Nro</th>
+                                                <th style="text-align: center">Movimientos Fetales</th>
+                                                <th style="text-align: center">Latidos Cardíacos Fetales</th>
+                                                <th style="text-align: center">Situación</th>
+                                                <th style="text-align: center">Presentación</th>
+                                                <th style="text-align: center">Posición</th>
+                                                <th style="text-align: center">Acción</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                            <tr style="text-align: center">
+                                                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                                <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                                                <td style="text-align: center">{{ rowData.tratamiento }}</td>
+                                                <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                                                <td style="text-align: center">{{ rowData.tratamiento }}</td>
+                                                <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                                                <td style="text-align: center">
+                                                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                        class="p-button-rounded p-button-text"></button>
+                                                    <button pButton pRipple type="button" icon="pi pi-trash"
+                                                        class="p-button-rounded p-button-danger p-button-text"></button>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
 
-                                        <div class="col-12">
-                                            <label>Latidos Cardíacos Fetales::</label>
-                                            <input type="text" pInputText formControlName='vagina' placeholder=""
-                                                class="p-inputtext-sm inputfield w-full">
-                                        </div>
-                                        <div class="col-4">
-                                            <label>Situación</label>
-                                            <p-dropdown [options]="listaSituacion" formControlName="selectSitiacion"
-                                                optionLabel="name" optionValue="code" class="inputfield p-fluid w-full">
-                                            </p-dropdown>
-                                        </div>
-                                        <div class="col-4">
-                                            <label>Presentación</label>
-                                            <p-dropdown [options]="listaPresentacion"
-                                                formControlName="selectPresentacion" optionLabel="name"
-                                                optionValue="code" class="inputfield p-fluid w-full">
-                                            </p-dropdown>
-                                        </div>
-                                        <div class="col-4">
-                                            <label>Posición</label>
-                                            <p-dropdown [options]="listaPosicion" formControlName="selectSitiacion"
-                                                optionLabel="name" optionValue="code" class="inputfield p-fluid w-full">
-                                            </p-dropdown>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </p-fieldset>
                     </div>
                     <div class="col-12">
                         <p-tabView>
+                            <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-chart-line"
+                                header="SIG. ALARMA Y ORIENTACIONES">
+                                <div class="grid">
+                                    <div class="col-6">
+                                        <p-fieldset legend="DESCARTAR SIGNOS DE ALARMA" [toggleable]="true">
+                                            <form [formGroup]='form'>
+                                                <div class="grid">
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Dificultad
+                                                                respiratoria:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Hipertención
+                                                                Arterial:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Sangrado
+                                                                nasal:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Deshidratación
+                                                                aguda:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Compromiso del
+                                                                sensorio:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Traumatismo
+                                                                Quemadura</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Abdomen
+                                                                agudo:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Intoxicación
+                                                                Envenenamiento</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Fiebre
+                                                                alta</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8"
+                                                                style="text-align: right">Convulciones</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Sangrado
+                                                                genital</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Dolor de
+                                                                cabeza</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Edema</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </p-fieldset>
+                                    </div>
+                                    <div class="col-6">
+                                        <p-fieldset legend="ATENCIÓN INTEGRAL" [toggleable]="true">
+                                            <form [formGroup]='form'>
+                                                <div class="grid">
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Orientación y
+                                                                Consejería - Signos de alarma:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Consejería en
+                                                                enfermedades comunes:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Sospechas de
+                                                                Tuberculosis:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Infecciones de
+                                                                transmisión sexual:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Orientación
+                                                                Nutricional:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Orientación en
+                                                                planificación familiar:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Orientación en
+                                                                prevención de Cancer ginecológico:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Orientación y
+                                                                consej. Pretest. VIH:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Orientación en
+                                                                estilos de vida saludable:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Orientación al
+                                                                acompañante:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Violencia
+                                                                familiar:</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 lg:col-6 p-field">
+                                                        <div class="p-inputgroup">
+                                                            <span class="col-8" style="text-align: right">Plan de
+                                                                parto</span>
+                                                            <p-selectButton [options]="opciones" optionLabel="name">
+                                                            </p-selectButton>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </p-fieldset>
+                                    </div>
+                                </div>
+                            </p-tabPanel>
                             <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-exclamation-circle"
                                 header="DIAGNOSTICOS">
-                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-gridlines"
-                                    [paginator]="true" [autoLayout]="true" class="m-3"
+                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
+                                    [autoLayout]="true" class="m-3"
                                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
                                     [showCurrentPageReport]="true" responsiveLayout="scroll">
                                     <ng-template pTemplate="caption">
@@ -511,9 +743,8 @@
                                                 <h3>DIAGNOSTICOS</h3>
                                             </div>
                                             <div class="col-2">
-                                                <button pButton pRipple label="Agregar" icon="pi pi-plus"
-                                                    class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
-                                                    (click)="openNew()"></button>
+                                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                    class="p-button-raised mt-3" (click)="openNewDiagnostico()"></button>
                                             </div>
                                         </div>
                                     </ng-template>
@@ -529,55 +760,10 @@
                                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
                                             <td style="text-align: center">{{ rowData.diagnostico }}</td>
                                             <td style="text-align: center">
-                                                <span class="p-buttonset">
-                                                    <button pButton pRipple routerLink="new-consulta"
-                                                        class="p-button-info" label="Editar"
-                                                        icon="pi pi-check"></button>
-                                                    <button pButton pRipple class="p-button-danger" label="Cancelar"
-                                                        icon="pi pi-times"></button>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </p-tabPanel>
-                            <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-chart-line"
-                                header="ORIENTACIONES">
-                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-gridlines"
-                                    [paginator]="true" [autoLayout]="true" class="m-3"
-                                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                                    [showCurrentPageReport]="true" responsiveLayout="scroll">
-                                    <ng-template pTemplate="caption">
-                                        <div class="grid">
-                                            <div class="col-10">
-                                                <h3>ORIENTACIONES</h3>
-                                            </div>
-                                            <div class="col-2">
-                                                <button pButton pRipple label="Agregar" icon="pi pi-plus"
-                                                    class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
-                                                    (click)="openNew()"></button>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th style="text-align: center">Nro</th>
-                                            <th style="text-align: center">Orientacion</th>
-                                            <th style="text-align: center">Acción</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                                        <tr style="text-align: center">
-                                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                            <td style="text-align: center">{{ rowData.diagnostico }}</td>
-                                            <td style="text-align: center">
-                                                <span class="p-buttonset">
-                                                    <button pButton pRipple routerLink="new-consulta"
-                                                        class="p-button-info" label="Editar"
-                                                        icon="pi pi-check"></button>
-                                                    <button pButton pRipple class="p-button-danger" label="Cancelar"
-                                                        icon="pi pi-times"></button>
-                                                </span>
+                                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                    class="p-button-rounded p-button-text"></button>
+                                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                                    class="p-button-rounded p-button-danger p-button-text"></button>
                                             </td>
                                         </tr>
                                     </ng-template>
@@ -585,8 +771,8 @@
                             </p-tabPanel>
                             <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-check-square"
                                 header="TRATAMIENTOS">
-                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-gridlines"
-                                    [paginator]="true" [autoLayout]="true" class="m-3"
+                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
+                                    [autoLayout]="true" class="m-3"
                                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
                                     [showCurrentPageReport]="true" responsiveLayout="scroll">
                                     <ng-template pTemplate="caption">
@@ -595,9 +781,8 @@
                                                 <h3>TRATAMIENTOS</h3>
                                             </div>
                                             <div class="col-2">
-                                                <button pButton pRipple label="Agregar" icon="pi pi-plus"
-                                                    class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
-                                                    (click)="openNew()"></button>
+                                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                    class="p-button-raised mt-3" (click)="openNewTratamiento()"></button>
                                             </div>
                                         </div>
                                     </ng-template>
@@ -611,65 +796,24 @@
                                     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                                         <tr style="text-align: center">
                                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                            <td style="text-align: center">{{ rowData.tratamientos }}</td>
+                                            <td style="text-align: center">{{ rowData.diagnostico }}</td>
                                             <td style="text-align: center">
-                                                <span class="p-buttonset">
-                                                    <button pButton pRipple routerLink="new-consulta"
-                                                        class="p-button-info" label="Editar"
-                                                        icon="pi pi-check"></button>
-                                                    <button pButton pRipple class="p-button-danger" label="Cancelar"
-                                                        icon="pi pi-times"></button>
-                                                </span>
+                                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                    class="p-button-rounded p-button-text"></button>
+                                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                                    class="p-button-rounded p-button-danger p-button-text"></button>
                                             </td>
                                         </tr>
                                     </ng-template>
                                 </p-table>
                             </p-tabPanel>
                             <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-heart" header="SUPLEMENTOS">
-                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-gridlines"
-                                    [paginator]="true" [autoLayout]="true" class="m-3"
-                                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                                    [showCurrentPageReport]="true" responsiveLayout="scroll">
-                                    <ng-template pTemplate="caption">
-                                        <div class="grid">
-                                            <div class="col-10">
-                                                <h3>SUPLEMENTOS</h3>
-                                            </div>
-                                            <div class="col-2">
-                                                <button pButton pRipple label="Agregar" icon="pi pi-plus"
-                                                    class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
-                                                    (click)="openNew()"></button>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th style="text-align: center">Nro</th>
-                                            <th style="text-align: center">Suplemento</th>
-                                            <th style="text-align: center">Acción</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                                        <tr style="text-align: center">
-                                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                            <td style="text-align: center">{{ rowData.diagnostico }}</td>
-                                            <td style="text-align: center">
-                                                <span class="p-buttonset">
-                                                    <button pButton pRipple routerLink="new-consulta"
-                                                        class="p-button-info" label="Editar"
-                                                        icon="pi pi-check"></button>
-                                                    <button pButton pRipple class="p-button-danger" label="Cancelar"
-                                                        icon="pi pi-times"></button>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
+                                
                             </p-tabPanel>
                             <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-shield"
                                 header="INMUNIZACIONES">
-                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-gridlines"
-                                    [paginator]="true" [autoLayout]="true" class="m-3"
+                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
+                                    [autoLayout]="true" class="m-3"
                                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
                                     [showCurrentPageReport]="true" responsiveLayout="scroll">
                                     <ng-template pTemplate="caption">
@@ -678,9 +822,8 @@
                                                 <h3>INMUNIZACIONES</h3>
                                             </div>
                                             <div class="col-2">
-                                                <button pButton pRipple label="Agregar" icon="pi pi-plus"
-                                                    class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
-                                                    (click)="openNew()"></button>
+                                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                    class="p-button-raised mt-3" (click)="openNewInmunizacion()"></button>
                                             </div>
                                         </div>
                                     </ng-template>
@@ -696,13 +839,10 @@
                                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
                                             <td style="text-align: center">{{ rowData.diagnostico }}</td>
                                             <td style="text-align: center">
-                                                <span class="p-buttonset">
-                                                    <button pButton pRipple routerLink="new-consulta"
-                                                        class="p-button-info" label="Editar"
-                                                        icon="pi pi-check"></button>
-                                                    <button pButton pRipple class="p-button-danger" label="Cancelar"
-                                                        icon="pi pi-times"></button>
-                                                </span>
+                                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                    class="p-button-rounded p-button-text"></button>
+                                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                                    class="p-button-rounded p-button-danger p-button-text"></button>
                                             </td>
                                         </tr>
                                     </ng-template>
@@ -710,8 +850,8 @@
                             </p-tabPanel>
                             <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-bell"
                                 header="RECOMENDACIONES">
-                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-gridlines"
-                                    [paginator]="true" [autoLayout]="true" class="m-3"
+                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
+                                    [autoLayout]="true" class="m-3"
                                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
                                     [showCurrentPageReport]="true" responsiveLayout="scroll">
                                     <ng-template pTemplate="caption">
@@ -720,9 +860,8 @@
                                                 <h3>RECOMENDACIONES</h3>
                                             </div>
                                             <div class="col-2">
-                                                <button pButton pRipple label="Agregar" icon="pi pi-plus"
-                                                    class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
-                                                    (click)="openNew()"></button>
+                                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                    class="p-button-raised mt-3" (click)="openNewRecomendacion()"></button>
                                             </div>
                                         </div>
                                     </ng-template>
@@ -738,101 +877,17 @@
                                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
                                             <td style="text-align: center">{{ rowData.diagnostico }}</td>
                                             <td style="text-align: center">
-                                                <span class="p-buttonset">
-                                                    <button pButton pRipple routerLink="new-consulta"
-                                                        class="p-button-info" label="Editar"
-                                                        icon="pi pi-check"></button>
-                                                    <button pButton pRipple class="p-button-danger" label="Cancelar"
-                                                        icon="pi pi-times"></button>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </p-tabPanel>
-                            <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-book"
-                                header="EXAMENES AUXILIARES">
-                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-gridlines"
-                                    [paginator]="true" [autoLayout]="true" class="m-3"
-                                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                                    [showCurrentPageReport]="true" responsiveLayout="scroll">
-                                    <ng-template pTemplate="caption">
-                                        <div class="grid">
-                                            <div class="col-10">
-                                                <h3>EXAMENES AUXILIARES</h3>
-                                            </div>
-                                            <div class="col-2">
-                                                <button pButton pRipple label="Agregar" icon="pi pi-plus"
-                                                    class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
-                                                    (click)="openNew()"></button>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th style="text-align: center">Nro</th>
-                                            <th style="text-align: center">Examen</th>
-                                            <th style="text-align: center">Acción</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                                        <tr style="text-align: center">
-                                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                            <td style="text-align: center">{{ rowData.diagnostico }}</td>
-                                            <td style="text-align: center">
-                                                <span class="p-buttonset">
-                                                    <button pButton pRipple routerLink="new-consulta"
-                                                        class="p-button-info" label="Editar"
-                                                        icon="pi pi-check"></button>
-                                                    <button pButton pRipple class="p-button-danger" label="Cancelar"
-                                                        icon="pi pi-times"></button>
-                                                </span>
+                                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                    class="p-button-rounded p-button-text"></button>
+                                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                                    class="p-button-rounded p-button-danger p-button-text"></button>
                                             </td>
                                         </tr>
                                     </ng-template>
                                 </p-table>
                             </p-tabPanel>
                             <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-chart-bar"
-                                header="RESUL. LABORATORIO">
-                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-gridlines"
-                                    [paginator]="true" [autoLayout]="true" class="m-3"
-                                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                                    [showCurrentPageReport]="true" responsiveLayout="scroll">
-                                    <ng-template pTemplate="caption">
-                                        <div class="grid">
-                                            <div class="col-10">
-                                                <h3>LABORATORIO</h3>
-                                            </div>
-                                            <div class="col-2">
-                                                <button pButton pRipple label="Agregar" icon="pi pi-plus"
-                                                    class="p-button-danger bg-blue-700 border-200 h-3rem p-mr-2"
-                                                    (click)="openNew()"></button>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th style="text-align: center">Nro</th>
-                                            <th style="text-align: center">Examen de laboratorio</th>
-                                            <th style="text-align: center">Acción</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                                        <tr style="text-align: center">
-                                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                            <td style="text-align: center">{{ rowData.diagnostico }}</td>
-                                            <td style="text-align: center">
-                                                <span class="p-buttonset">
-                                                    <button pButton pRipple routerLink="new-consulta"
-                                                        class="p-button-info" label="Editar"
-                                                        icon="pi pi-check"></button>
-                                                    <button pButton pRipple class="p-button-danger" label="Cancelar"
-                                                        icon="pi pi-times"></button>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
+                                header="LABORATORIO">
                             </p-tabPanel>
                             <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-calendar"
                                 header="INTERCONSULTAS">
@@ -847,7 +902,7 @@
                                             </div>
                                             <div class="col-2">
                                                 <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
-                                                    class="p-button-raised mt-3" (click)="openNew()"></button>
+                                                    class="p-button-raised mt-3" (click)="openNewInterconsulta()"></button>
                                             </div>
                                         </div>
                                     </ng-template>
@@ -949,8 +1004,235 @@
         </div>
     </div>
     <div class="footer">
-        <button pButton type="button" (click)="boton()" label="Guardar" class="p-button-primary mt-4 mr-2"></button>
+        <button pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2"></button>
         <button pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
     </div>
 </div>
-<!-- </p-card> -->
+<!-- DIALOGS -->
+<!-- DIALOG EXAMENES FETALES -->
+<p-dialog class="dialogo m-4" [(visible)]="examenFetalDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>EXAMEN FETAL</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formExamenFetal'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Situación</label>
+                    <p-dropdown [options]="listaSituacion" formControlName="selectSituacion" optionLabel="name"
+                        optionValue="code" class="inputfield p-fluid w-full">
+                    </p-dropdown>
+                </div>
+                <div class="col-4">
+                    <label>Presentación</label>
+                    <p-dropdown [options]="listaPresentacion" formControlName="selectPresentacion" optionLabel="name"
+                        optionValue="code" class="inputfield p-fluid w-full">
+                    </p-dropdown>
+                </div>
+                <div class="col-4">
+                    <label>Posición</label>
+                    <p-dropdown [options]="listaPosicion" formControlName="selectPosicion" optionLabel="name"
+                        optionValue="code" class="inputfield p-fluid w-full">
+                    </p-dropdown>
+                </div>
+                <div class="col-12">
+                    <label>Movimientos Fetales:</label>
+                    <input type="text" pInputText formControlName='movimientosFetales' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+
+                <div class="col-12">
+                    <label>Latidos Cardíacos Fetales::</label>
+                    <input type="text" pInputText formControlName='latidosCardiacosFetales' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button pButton type="button" label="Guardar"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"></button>
+    </ng-template>
+</p-dialog>
+<!-- DIALOG DIAGNOSTICOS -->
+<p-dialog class="dialogo m-4" [(visible)]="diagnosticoDialog" [style]="{width: '500px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>NUEVO DIAGNOSTICO</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formDiagnostico'>
+            <div class="grid">
+                <div class="col-12">
+                    <label>Diagnostico</label>
+                    <input type="text" pInputText formControlName='diagnostico' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-12">
+                    <label>CIE10</label>
+                    <input type="text" pInputText formControlName='cie10' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button pButton type="button" label="Guardar"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"></button>
+    </ng-template>
+</p-dialog>
+<!-- DIALOG TRATAMIENTOS -->
+<p-dialog class="dialogo m-4" [(visible)]="tratamientoDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>NUEVO TRATAMIENTO</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formTratamiento'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Descripcion:</label>
+                    <input type="text" pInputText formControlName='descripcion' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Numero:</label>
+                    <input type="text" pInputText formControlName='numero' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Dosis:</label>
+                    <input type="text" pInputText formControlName='dosis' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-6">
+                    <label>Via de Administracion:</label>
+                    <input type="text" pInputText formControlName='viaAdministracion' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-6">
+                    <label>Frecuencia:</label>
+                    <input type="text" pInputText formControlName='viaAdministracion' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button pButton type="button" label="Guardar"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"></button>
+    </ng-template>
+</p-dialog>
+<!-- DIALOG INTERCONSULTAS -->
+<p-dialog class="dialogo m-4" [(visible)]="interconsultaDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>NUEVA INTERCONSULTA</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formInterconsulta'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Consultorio</label>
+                    <input type="text" pInputText formControlName='consultorio' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Motivo</label>
+                    <input type="text" pInputText formControlName='motivo' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Fecha</label>
+                    <input type="text" pInputText formControlName='fecha' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button pButton type="button" label="Guardar"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"></button>
+    </ng-template>
+</p-dialog>
+<!-- DIALOG RECOMENDACIONES -->
+<p-dialog class="dialogo m-4" [(visible)]="recomendacionDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>NUEVA RECOMENDACION</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formRecomendacion'>
+            <div class="grid">
+                <div class="col-12">
+                    <label>Recomendacion:</label>
+                    <input type="text" pInputText formControlName='recomendacion' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button pButton type="button" label="Guardar"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"></button>
+    </ng-template>
+</p-dialog>
+<!-- DIALOG INMUNIZACIONES -->
+<p-dialog class="dialogo m-4" [(visible)]="inmunizacionDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>NUEVA INMUNIZACION</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formInmunizacion'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Codigo:</label>
+                    <input type="text" pInputText formControlName='codigo' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Descripción:</label>
+                    <input type="text" pInputText formControlName='descripcion' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Numero:</label>
+                    <input type="text" pInputText formControlName='numero' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Dosis:</label>
+                    <input type="text" pInputText formControlName='dosis' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Via de Administracion:</label>
+                    <input type="text" pInputText formControlName='viaAdministracion' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Lote:</label>
+                    <input type="text" pInputText formControlName='lote' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Fecha Vencimiento:</label>
+                    <input type="text" pInputText formControlName='fechaVenc' placeholder=""
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button pButton type="button" label="Guardar"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"></button>
+    </ng-template>
+</p-dialog>
