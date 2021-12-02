@@ -31,3 +31,13 @@ export interface TratamientoSeguimientoAnemia{
     fecha?: string,
     fechaTentativa?: string
 }
+export interface SesionesTempranas{
+    descripcion: string,
+    fecha: string
+}
+export interface respuestaSesionesTempranas{
+    cod: string,
+    mensaje: string,
+    cod_Http: string,
+    object: SesionesTempranas[]
+}

@@ -19,6 +19,8 @@ import {DescartesComponent} from './component/plan-atencion-integral/descartes/d
 import {SuplementacionesMicronutrientesComponent} from './component/plan-atencion-integral/suplementaciones-micronutrientes/suplementaciones-micronutrientes.component';
 import {TratamientoSeguimientoAnemiaComponent} from './component/plan-atencion-integral/tratamiento-seguimiento-anemia/tratamiento-seguimiento-anemia.component';
 import {SesionesAtencionTempranaComponent} from './component/plan-atencion-integral/sesiones-atencion-temprana/sesiones-atencion-temprana.component';
+import { NuevaSesionComponent } from './component/plan-atencion-integral/sesiones-atencion-temprana/nueva-sesion/nueva-sesion.component';
+import { EditarSesionComponent } from './component/plan-atencion-integral/sesiones-atencion-temprana/editar-sesion/editar-sesion.component';
 
 @NgModule({
     declarations: [
@@ -35,6 +37,8 @@ import {SesionesAtencionTempranaComponent} from './component/plan-atencion-integ
         SuplementacionesMicronutrientesComponent,
         TratamientoSeguimientoAnemiaComponent,
         SesionesAtencionTempranaComponent,
+        NuevaSesionComponent,
+        EditarSesionComponent,
     ],
     exports: [
         InmunizacionesComponent,
