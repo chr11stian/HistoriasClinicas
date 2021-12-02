@@ -1,44 +1,43 @@
 <div class="card">
-    <p-card>
-        <div class="grid">
-            <div class="col-9" style="margin: 0px 0px 0px 20px;">
-                <span style="font-size: 2em;">PLAN DE PARTO > </span>
-            </div>
-            <div class="col-12 flex" style="margin: 0px 0px 0px 20px;">
-                <div class="col-2">
-                    <div class="field grid">
-                        <strong
-                        ><label class="line-height-4" for="username2"
-                        >*Tipo de documento:</label
-                        ></strong
-                        >
-                        <p-dropdown
-                                placeholder="Seleccionar"
-                                [options]="options"
-                                optionLabel="name">
-                        </p-dropdown>
-                    </div>
-                </div>
-                <div class="col-3 align-items-end">
-                    <div class="field grid">
-                        <strong>
-                            <label class="line-height-4" for="username2">
-                                *Ingrese valor del documento*
-                            </label>
-                        </strong>
-                        <input style="width: 450px" id="username2" pInputText/>
-                    </div>
-                </div>
-                <div class="col-1">
-                    <button pButton style="margin-top: 10px">
-                        <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;cargar
-                    </button>
-                </div>
-            </div>
-        </div>
-    </p-card>
-</div>
 
+    <div class="grid">
+        <div class="col-9" style="margin: 20px 0 20px 20px;">
+            <span style="font-size: 2em;">PLAN DE PARTO > </span>
+        </div>
+        <!--<div class="col-12 flex" style="margin: 0px 0px 0px 20px;">
+            <div class="col-2">
+                <div class="field grid">
+                    <strong
+                    ><label class="line-height-4" for="username2"
+                    >*Tipo de documento:</label
+                    ></strong
+                    >
+                    <p-dropdown
+                            placeholder="Seleccionar"
+                            [options]="options"
+                            optionLabel="name">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="col-3 align-items-end">
+                <div class="field grid">
+                    <strong>
+                        <label class="line-height-4" for="username2">
+                            *Ingrese valor del documento*
+                        </label>
+                    </strong>
+                    <input style="width: 450px" id="username2" pInputText/>
+                </div>
+            </div>
+            <div class="col-1">
+                <button pButton style="margin-top: 10px">
+                    <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;cargar
+                </button>
+            </div>
+        </div>-->
+    </div>
+
+</div>
 
 
 <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo" (activeIndexChange)="ChangeStep($event)">
