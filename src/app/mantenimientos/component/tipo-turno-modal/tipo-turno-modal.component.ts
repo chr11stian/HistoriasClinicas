@@ -33,8 +33,8 @@ export class TipoTurnoModalComponent implements OnInit {
           let resp = res.object;
           console.log(resp);
           this.getFC("nombre").setValue(resp.nombre);
-          this.getFC("horasInicio").setValue(resp.horasInicio);
-          this.getFC("horasFin").setValue(resp.horasFin);
+          // this.getFC("horasInicio").setValue(resp.horasInicio);
+          // this.getFC("horasFin").setValue(resp.horasFin);
           this.getFC("nroHoras").setValue(resp.nroHoras);
           this.getFC("abreviatura").setValue(resp.abreviatura);
         });
@@ -50,8 +50,8 @@ export class TipoTurnoModalComponent implements OnInit {
   buildForm() {
     this.tipoTurnoFG = new FormGroup({
       nombre: new FormControl("", Validators.required),
-      horasInicio: new FormControl("", Validators.required),
-      horasFin: new FormControl("", Validators.required),
+      // horasInicio: new FormControl("", Validators.required),
+      // horasFin: new FormControl("", Validators.required),
       nroHoras: new FormControl("", Validators.required),
       abreviatura: new FormControl("", Validators.required),
     });
@@ -59,8 +59,8 @@ export class TipoTurnoModalComponent implements OnInit {
   save() {
     const tipoTurnoInput: any = {
       nombre: this.getFC("nombre").value,
-      horasInicio: this.getFC("horasInicio").value,
-      horasFin: this.getFC("horasFin").value,
+      // horasInicio: this.getFC("horasInicio").value,
+      // horasFin: this.getFC("horasFin").value,
       nroHoras: this.getFC("nroHoras").value,
       abreviatura: this.getFC("abreviatura").value,
     };
