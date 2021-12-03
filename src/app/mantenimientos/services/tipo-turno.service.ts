@@ -10,18 +10,18 @@ export class TipoTurnoService {
   bd = environment.bd;
   constructor(private http: HttpClient) {}
   getTipoTurnos() {
-    return this.http.get(`${this.base_url}/${this.bd}/api/tipoturno`);
+    return this.http.get(`${this.base_url}/${this.bd}/tipoturno`);
   }
   deleteTipoTurno(id: string) {
-    return this.http.delete(`${this.base_url}/${this.bd}/api/tipoturno/${id}`);
+    return this.http.delete(`${this.base_url}/${this.bd}/tipoturno/${id}`);
   }
   getTipoTurno(id: string) {
-    return this.http.get(`${this.base_url}/${this.bd}/api/tipoturno/${id}`);
+    return this.http.get(`${this.base_url}/${this.bd}/tipoturno/${id}`);
   }
   addTipoTurno(turno: any) {
-    return this.http.post(`${this.base_url}/${this.bd}/api/tipoturno`, turno);
+    return this.http.post(`${this.base_url}/${this.bd}/tipoturno`, turno);
   }
   updateTipoTurno(turno: any) {
-    return this.http.put(`${this.base_url}/${this.bd}/api/tipoturno`, turno);
+    return this.http.put(`${this.base_url}/${this.bd}/tipoturno`, turno);
   }
 }

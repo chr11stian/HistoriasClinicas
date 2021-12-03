@@ -70,18 +70,16 @@ export class EditarSesionComponent implements OnInit {
       this.servicio.updateSesion(this.dni,[sesionUpdate])
         .toPromise().then(res => {
           console.log('respuesta',res);
-          // if(res){
-          //   if (res.mensaje ==="200 OK"){
-          //     this.notify.showExito("Se actualizo con éxito la sesion")
-          //     this.onGoToSesiones()
-          //   }
-          //   else {
-          //     this.notify.showError("Error al modificar la sesion!");
-          //     this.onGoToSesiones();
-          //   }
-
-          // }
-          
+          if(res){
+            if (res ==="200 OK"){
+              this.notify.showExito("Se actualizo con éxito la sesion")
+              this.onGoToSesiones()
+            }
+            else {
+              this.notify.showError("Error al modificar la sesion!");
+              this.onGoToSesiones();
+            }
+          }
         }
       )
     }

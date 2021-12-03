@@ -1,38 +1,16 @@
-<p-panel>
-    <ng-template pTemplate="header">
-        <h3 class="m-1">COSULTAS OBSTETRICAS</h3>
-    </ng-template>
-    <div class="grid">
-        <div class="col-12 md:col-6 lg:col-3 p-field">
-            <div class="">
-                <span class="">TIPO DOCUMENTO</span>
-            </div>
-            <div class="">
-                <p-dropdown
-                        placeholder="Seleccionarddd"
-                        [options]="options"
-                        optionLabel="name">
-                </p-dropdown>
+<div class="card">
+    <p-card>
+        <div class="grid">
+            <div class="col-9" style="margin: 0 0 0 20px;">
+                <span style="font-size: 2em;">OBSTETRICIA> Consulta </span>
             </div>
         </div>
-        <div class="col-12 md:col-6 lg:col-3 p-field">
-            <div class="">
-                <span class="">NUMERO DE DOCUMENTO</span>
-            </div>
-            <div class="p-inputgroup">
-                <input type="text" pInputText>
-                <button pButton type="button" icon="pi pi-search" iconPos="right"
-                        class="p-button-text p-button-text"></button>
-            </div>
-        </div>
+    </p-card>
+</div>
 
-    </div>
-    <p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
-             (activeIndexChange)="ChangeStep($event)" class="col-12 md:col-6 lg:col-12 p-field">
-    </p-steps>
-
-</p-panel>
-
+<p-steps [model]="items" [readonly]="false" [(activeIndex)]="indiceActivo"
+         (activeIndexChange)="ChangeStep($event)" class="col-12 md:col-6 lg:col-12 p-field">
+</p-steps>
 
 <br>
 <div class="stepsdemo-content" *ngIf="stepName === 'datos'">

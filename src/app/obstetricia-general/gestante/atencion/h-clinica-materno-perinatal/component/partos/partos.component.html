@@ -4,33 +4,34 @@
     </ng-template>
     <ng-template pTemplate="right" class="button">
         <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
-        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+        <button (click)="save()"
+                pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
                 class="guardar mr-2"></button>
     </ng-template>
 </p-toolbar>
 <br>
-<p-toolbar styleClass="mb-4">
-    <ng-template pTemplate="left">
-        <h3 class="p-m-0">PARTOS O ABORTO</h3>
-    </ng-template>
-    <ng-template pTemplate="right" class="button">
+<!--<p-toolbar styleClass="mb-4">-->
+<!--  <ng-template pTemplate="left">-->
+<!--<h3 class="p-m-0">PARTOS O ABORTO</h3>-->
+<!--  </ng-template>-->
+<!--  <ng-template pTemplate="right" class="button">-->
 
-        <!--    <p-button-->
-        <!--            icon="pi pi-save"-->
-        <!--            label="recuperar"-->
-        <!--            (onClick)="getPartoAborto()"-->
-        <!--            styleClass="p-button-info p-button-sm"-->
-        <!--    >-->
-        <!--    </p-button>-->
-        <p-button
-                icon="pi pi-save"
-                label="Guardar"
-                (onClick)="save()"
-                styleClass="p-button-info p-button-sm"
-        >
-        </p-button>
-    </ng-template>
-</p-toolbar>
+<!--&lt;!&ndash;    <p-button&ndash;&gt;-->
+<!--&lt;!&ndash;            icon="pi pi-save"&ndash;&gt;-->
+<!--&lt;!&ndash;            label="recuperar"&ndash;&gt;-->
+<!--&lt;!&ndash;            (onClick)="getPartoAborto()"&ndash;&gt;-->
+<!--&lt;!&ndash;            styleClass="p-button-info p-button-sm"&ndash;&gt;-->
+<!--&lt;!&ndash;    >&ndash;&gt;-->
+<!--&lt;!&ndash;    </p-button>&ndash;&gt;-->
+<!--    <p-button-->
+<!--            icon="pi pi-save"-->
+<!--            label="Guardar"-->
+<!--            (onClick)="save()"-->
+<!--            styleClass="p-button-info p-button-sm"-->
+<!--    >-->
+<!--    </p-button>-->
+<!--  </ng-template>-->
+<!--</p-toolbar>-->
 
 <form [formGroup]="myGroup">
     <!-- primera fila -->
@@ -157,7 +158,7 @@
                         </div>
                         <div class="col-6 grid">
                             <div class="col-4" style="text-align: right">Fecha y Hora:</div>
-                            <div class="col-8 p-fluid">
+                            <div class="col-8 p-fluid" >
                                 <p-calendar
                                         class="colorIconCalendar"
                                         [showIcon]="true"
@@ -748,8 +749,7 @@
                                 <p-table [value]="medicacionList" [scrollable]="true" scrollHeight="200px">
                                     <ng-template pTemplate="caption">
                                         <div class="flex justify-content-between">
-                                            <button pButton pRipple label="Nueva medicacion" icon="pi pi-plus"
-                                                    class="p-button-danger p-mr-2"
+                                            <button pButton pRipple label="Nueva medicacion" icon="pi pi-plus" class="p-button-danger p-mr-2"
                                                     (click)="isUpdate2=false; medi='medicacion'; agregarActualizar();"></button>
                                         </div>
                                     </ng-template>
@@ -762,7 +762,7 @@
                                     </ng-template>
                                     <ng-template pTemplate="body" let-product let-index="rowIndex">
                                         <tr>
-                                            <td>{{index + 1}}</td>
+                                            <td>{{index+1}}</td>
                                             <td>{{product}}</td>
                                             <td class="flex justify-content-around">
                                                 <span class="p-column-title">Acciones</span>
@@ -796,8 +796,7 @@
                                 <p-table [value]="medicamentoList" [scrollable]="true" scrollHeight="200px">
                                     <ng-template pTemplate="caption">
                                         <div class="flex justify-content-between">
-                                            <button pButton pRipple label="Nueva medicamento" icon="pi pi-plus"
-                                                    class="p-button-danger p-mr-2"
+                                            <button pButton pRipple label="Nueva medicamento" icon="pi pi-plus" class="p-button-danger p-mr-2"
                                                     (click)="isUpdate3=false; medi='medicamento';agregarActualizar();"></button>
                                             <div>
                                             </div>
@@ -813,7 +812,7 @@
                                     </ng-template>
                                     <ng-template pTemplate="body" let-product let-index="rowIndex">
                                         <tr>
-                                            <td>{{index + 1}}</td>
+                                            <td>{{index+1}}</td>
                                             <td>{{product}}</td>
                                             <td class="flex justify-content-around">
                                                 <span class="p-column-title">Acciones</span>
@@ -853,7 +852,7 @@
     <!-- Cuarta fila -->
     <div class="grid">
         <div class="col-12 lg:col-6">
-            <p-fieldset>
+            <p-fieldset >
                 <ng-template pTemplate="header">
                     <div class="grid">
                         <div class="col-3">
@@ -861,7 +860,7 @@
                         </div>
                         <div class="col-9 grid">
                             <div class="col-4" style="text-align: right">Fecha :</div>
-                            <div class="col-8 p-fluid">
+                            <div class="col-8 p-fluid" >
                                 <p-calendar
                                         class="colorIconCalendar"
                                         [showIcon]="true"
@@ -1600,13 +1599,11 @@
                         <div class="col-3" style="align-self: start">
                             <div>
                                 <h5>Responsable de la Atención del Parto:</h5>
-                                <textarea rows="5" cols="25" pInputTextarea
-                                          formControlName="responsableAtencionParto"></textarea>
+                                <textarea rows="5" cols="25" pInputTextarea formControlName="responsableAtencionParto"></textarea>
                             </div>
                             <div>
                                 <h5>Responsable de la atencion del Neonato</h5>
-                                <textarea rows="5" cols="25" pInputTextarea
-                                          formControlName="responsableAtencionNeonato"></textarea>
+                                <textarea rows="5" cols="25" pInputTextarea formControlName="responsableAtencionNeonato"></textarea>
                             </div>
                         </div>
                     </div>
