@@ -103,10 +103,12 @@
                                 <div class="p-inputgroup">
                                             <span class="col-5"
                                                   style="text-align: right">V. Antitetánica 1° Dosis:</span>
-                                    <p-selectButton [options]="opciones" optionValue="name" optionLabel="name"
+                                    <p-selectButton [options]="opciones1" optionValue="decripcion" optionLabel="name"
                                                     formControlName="vAntitetánica1Dosis"></p-selectButton>
                                     <p-calendar [showIcon]="true" inputId="icon" formControlName="fecha1"
+                                                dateFormat="yy-mm-dd"
                                                 [showTime]="true" [showSeconds]="true"></p-calendar>
+
                                 </div>
                             </div>
                         </div>
@@ -115,9 +117,10 @@
                                 <div class="p-inputgroup">
                                             <span class="col-5"
                                                   style="text-align: right">V. Antitetánica 2° Dosis:</span>
-                                    <p-selectButton [options]="opciones" optionValue="name" optionLabel="name"
+                                    <p-selectButton [options]="opciones2" optionValue="decripcion" optionLabel="name"
                                                     formControlName="vAntitetánica2Dosis"></p-selectButton>
                                     <p-calendar [showIcon]="true" inputId="icon" formControlName="fecha2"
+                                                dateFormat="yy-mm-dd"
                                                 [showTime]="true" [showSeconds]="true"></p-calendar>
                                 </div>
                             </div>
@@ -126,9 +129,10 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-5" style="text-align: right">Rubeola:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                    <p-selectButton [options]="opciones3" optionValue="decripcion" optionLabel="name"
                                                     formControlName="rubeola"></p-selectButton>
                                     <p-calendar [showIcon]="true" inputId="icon" formControlName="fecha3"
+                                                dateFormat="yy-mm-dd"
                                                 [showTime]="true" [showSeconds]="true"></p-calendar>
                                 </div>
                             </div>
@@ -137,9 +141,10 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-5" style="text-align: right">Hepatites B:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                    <p-selectButton [options]="opciones4" optionValue="decripcion" optionLabel="name"
                                                     formControlName="HepatitesB"></p-selectButton>
                                     <p-calendar [showIcon]="true" inputId="icon" formControlName="fecha4"
+                                                dateFormat="yy-mm-dd"
                                                 [showTime]="true" [showSeconds]="true"></p-calendar>
                                 </div>
                             </div>
@@ -148,9 +153,10 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-5" style="text-align: right">Papiloma V.</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                    <p-selectButton [options]="opciones5" optionValue="decripcion" optionLabel="name"
                                                     formControlName="PapilomaV"></p-selectButton>
                                     <p-calendar [showIcon]="true" inputId="icon" formControlName="fecha5"
+                                                dateFormat="yy-mm-dd"
                                                 [showTime]="true" [showSeconds]="true"></p-calendar>
                                 </div>
                             </div>
@@ -159,9 +165,10 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <div class="p-inputgroup">
                                     <span class="col-5" style="text-align: right">Covid-19:</span>
-                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                    <p-selectButton [options]="opciones6" optionValue="decripcion" optionLabel="name"
                                                     formControlName="Covid19"></p-selectButton>
                                     <p-calendar [showIcon]="true" inputId="icon" formControlName="fecha6"
+                                                dateFormat="yy-mm-dd"
                                                 [showTime]="true" [showSeconds]="true"></p-calendar>
                                 </div>
                             </div>
@@ -169,21 +176,22 @@
                     </div>
                 </form>
             </p-fieldset>
+
             <p-fieldset legend="ANT. GINECO OBSTETRICO" [toggleable]="true">
                 <form [formGroup]='formDatos_Generales'>
                     <div class="grid">
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="p-inputgroup">
-                                <span class="col-4" style="text-align: right">FUR:</span>
-                                <input type="text" pInputText class="inputfield w-full">
+                                <span class="col-4" style="text-align: right">Fecha UR:</span>
+                                <p-calendar formControlName="FUR" dateFormat="yy-mm-dd"></p-calendar>
                             </div>
                         </div>
                     </div>
                     <div class="grid">
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="p-inputgroup">
-                                <span class="col-4" style="text-align: right">FPP:</span>
-                                <input type="text" pInputText class="inputfield w-full">
+                                <span class="col-4" style="text-align: right">Fecha PP:</span>
+                                <p-calendar formControlName="FPP" dateFormat="yy-mm-dd"></p-calendar>
                             </div>
                         </div>
                     </div>
@@ -191,11 +199,12 @@
                     <div class="grid">
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="p-inputgroup">
-                                <span class="col-6" style="text-align: center">FUR:</span>
-                                <input type="text" pInputText class="inputfield w-full ">
+                                <span class="col-4" style="text-align: right">R CAT:</span>
+                                <input type="text" pInputText class="" formControlName="RCAT">
                             </div>
                         </div>
                     </div>
+
                     <div class="grid">
                         <div class="col-12 md:col-6 lg:col-6 p-field">
                             <div class="p-inputgroup">
@@ -236,7 +245,7 @@
                         <div class="col-12 md:col-6 lg:col-12 p-field" style="align-self: start">
                             <span class="col-12" style="text-align: center">R.N. DE MAYOR PESO:</span>
                             <div class="p-inputgroup">
-                                <input type="text" pInputText class="inputfield w-full">
+                                <input type="text" pInputText formControlName="RNpesoMayor">
                                 <span>GR.</span>
                             </div>
 
@@ -250,7 +259,8 @@
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="">
                                 <span class="" style="text-align: right">Antecedentes Familiares:</span>
-                                <input type="text" pInputText class="inputfield w-full">
+                                <input type="text" pInputText class="inputfield w-full"
+                                       formControlName="AntecedentesFamiliares">
                             </div>
                         </div>
                     </div>
@@ -258,7 +268,8 @@
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="">
                                 <span class="" style="text-align: right">Antecedentes Personales:</span>
-                                <input type="text" pInputText class="inputfield w-full">
+                                <input type="text" pInputText class="inputfield w-full"
+                                       formControlName="AntecedentesPersonales">
                             </div>
                         </div>
                     </div>
@@ -266,7 +277,8 @@
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="p-inputgroup">
                                 <span class="col-6" style="text-align: right">Fuma Cigarros:</span>
-                                <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                                formControlName="FumaCigarros"></p-selectButton>
                             </div>
                         </div>
                     </div>
@@ -274,7 +286,8 @@
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="p-inputgroup">
                                 <span class="col-6" style="text-align: right">Drogas:</span>
-                                <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="boleano"
+                                                formControlName="Drogas"></p-selectButton>
                             </div>
                         </div>
                     </div>
@@ -282,7 +295,8 @@
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="p-inputgroup">
                                 <span class="col-6" style="text-align: right">Psicoprofilaxis:</span>
-                                <p-selectButton [options]="opciones" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="opciones" optionLabel="name" optionValue="name"
+                                                formControlName="Psicoprofilaxis"></p-selectButton>
                             </div>
                         </div>
                     </div>

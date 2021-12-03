@@ -14,6 +14,13 @@ import {DatePipe} from "@angular/common";
 export class DatosGeneralesComponent implements OnInit {
     formDatos_Generales: FormGroup;
     opciones: any;
+    opciones1: any;
+    opciones2: any;
+    opciones3: any;
+    opciones4: any;
+    opciones5: any;
+    opciones6: any;
+
     data: any;
     dataPacientes: any;
     gradInstruccion: any;
@@ -40,9 +47,36 @@ export class DatosGeneralesComponent implements OnInit {
         this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
 
         this.opciones = [
-            {name: 'SI'},
-            {name: 'NO'},
+            {name: 'SI', boleano: true},
+            {name: 'NO', boleano: false}
         ];
+
+        //opciones de vacunas previas///
+        this.opciones1 = [
+            {name: 'SI', decripcion: 'SI, V. Antitetánica 1° Dosis'},
+            {name: 'NO', decripcion: 'No, V. Antitetánica 1° Dosis'}
+        ];
+        this.opciones2 = [
+            {name: 'SI', decripcion: 'SI, V. Antitetánica 2° Dosis'},
+            {name: 'NO', decripcion: 'No, V. Antitetánica 2° Dosis'}
+        ];
+        this.opciones3 = [
+            {name: 'SI', decripcion: 'SI, Rubeola'},
+            {name: 'NO', decripcion: 'No, Rubeola'}
+        ];
+        this.opciones4 = [
+            {name: 'SI', decripcion: 'SI, Hepatites B'},
+            {name: 'NO', decripcion: 'No, Hepatites B'}
+        ];
+        this.opciones5 = [
+            {name: 'SI', decripcion: 'SI, Papiloma V'},
+            {name: 'NO', decripcion: 'No, Papiloma V'}
+        ];
+        this.opciones6 = [
+            {name: 'SI', decripcion: 'SI, Covid-19'},
+            {name: 'NO', decripcion: 'No, Covid-19'}
+        ];
+        //opciones de vacunas previas///
     }
 
     ngOnInit(): void {
@@ -76,6 +110,36 @@ export class DatosGeneralesComponent implements OnInit {
             this.formDatos_Generales.get('ocupacion').setValue(this.dataConsultas.datosPersonales.ocupacion);
             this.formDatos_Generales.get('edad').setValue(this.dataConsultas.datosPerHist.edad);
             this.formDatos_Generales.get('direccion').setValue(this.dataConsultas.datosPerHist.direccion);
+
+            //Recuperar Vacunas previas
+            this.formDatos_Generales.get('vAntitetánica1Dosis').setValue(this.dataConsultas.vacunasPrevias[0].descripcion);
+            this.formDatos_Generales.get('fecha1').setValue(this.dataConsultas.vacunasPrevias[0].fecha);
+            this.formDatos_Generales.get('vAntitetánica2Dosis').setValue(this.dataConsultas.vacunasPrevias[1].descripcion);
+            this.formDatos_Generales.get('fecha2').setValue(this.dataConsultas.vacunasPrevias[1].fecha);
+            this.formDatos_Generales.get('rubeola').setValue(this.dataConsultas.vacunasPrevias[2].descripcion);
+            this.formDatos_Generales.get('fecha3').setValue(this.dataConsultas.vacunasPrevias[2].fecha);
+            this.formDatos_Generales.get('HepatitesB').setValue(this.dataConsultas.vacunasPrevias[3].descripcion);
+            this.formDatos_Generales.get('fecha4').setValue(this.dataConsultas.vacunasPrevias[3].fecha);
+            this.formDatos_Generales.get('PapilomaV').setValue(this.dataConsultas.vacunasPrevias[4].descripcion);
+            this.formDatos_Generales.get('fecha5').setValue(this.dataConsultas.vacunasPrevias[4].fecha);
+            this.formDatos_Generales.get('Covid19').setValue(this.dataConsultas.vacunasPrevias[5].descripcion);
+            this.formDatos_Generales.get('fecha6').setValue(this.dataConsultas.vacunasPrevias[5].fecha);
+
+            //recuperar Antecedentes Gineco Obstetrico
+            this.formDatos_Generales.get('FUR').setValue(this.dataConsultas.antecedentesGinObs[0].fechaUltRegla);
+            this.formDatos_Generales.get('FPP').setValue(this.dataConsultas.antecedentesGinObs[0].fechaPosiParto);
+            this.formDatos_Generales.get('RCAT').setValue(this.dataConsultas.antecedentesGinObs[0].rcat);
+            this.formDatos_Generales.get('gesAnterior').setValue(this.dataConsultas.antecedentesGinObs[0].gestAnterior);
+            this.formDatos_Generales.get('RNpesoMayor').setValue(this.dataConsultas.antecedentesGinObs[0].rnMayorPeso);
+
+            //RECUPERA LOS ANTECEDENTES
+            this.formDatos_Generales.get('AntecedentesFamiliares').setValue(this.dataConsultas.antecedentesFamiliares[0]);
+            this.formDatos_Generales.get('AntecedentesPersonales').setValue(this.dataConsultas.antecedentesPersonales[0]);
+            this.formDatos_Generales.get('FumaCigarros').setValue(this.dataConsultas.fumaCigarros);
+            this.formDatos_Generales.get('Drogas').setValue(this.dataConsultas.drogas);
+            this.formDatos_Generales.get('Psicoprofilaxis').setValue(this.dataConsultas.psicoprofilaxis.estado);
+
+
         });
     }
 
@@ -124,6 +188,7 @@ export class DatosGeneralesComponent implements OnInit {
 
     buildForm() {
         this.formDatos_Generales = this.form.group({
+            //Datos generales del paciente
             nroDoc: new FormControl(''),
             apePaterno: new FormControl(''),
             apeMaterno: new FormControl(''),
@@ -135,6 +200,7 @@ export class DatosGeneralesComponent implements OnInit {
             ocupacion: new FormControl(''),
             hora: new FormControl(''),
 
+            //Vacunas previas del paciente
             vAntitetánica1Dosis: new FormControl(''),
             fecha1: new FormControl(''),
             vAntitetánica2Dosis: new FormControl(''),
@@ -148,11 +214,21 @@ export class DatosGeneralesComponent implements OnInit {
             Covid19: new FormControl(''),
             fecha6: new FormControl(''),
 
-
-            aplica: new FormControl(''),
+            //Antecedentes Gineco Obstetrico
+            FUR: new FormControl(''),
+            FPP: new FormControl(''),
+            RCAT: new FormControl(''),
             gesAnterior: new FormControl(''),
-            // referencia: new FormControl(''),
-            // partoVaginal: new FormControl(''),
+            RNpesoMayor: new FormControl(''),
+
+            //ANTECEDENTES
+            AntecedentesFamiliares: new FormControl(''),
+            AntecedentesPersonales: new FormControl(''),
+            FumaCigarros: new FormControl(''),
+            Drogas: new FormControl(''),
+            Psicoprofilaxis: new FormControl(''),
+
+
         })
     }
 
@@ -226,24 +302,50 @@ export class DatosGeneralesComponent implements OnInit {
                 {
                     descripcion: this.formDatos_Generales.value.vAntitetánica2Dosis,
                     fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha2, 'yyyy-MM-dd HH:mm:ss'),
-                }
+                },
+                {
+                    descripcion: this.formDatos_Generales.value.rubeola,
+                    fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha3, 'yyyy-MM-dd HH:mm:ss'),
+                },
+                {
+                    descripcion: this.formDatos_Generales.value.HepatitesB,
+                    fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha4, 'yyyy-MM-dd HH:mm:ss'),
+                },
+                {
+                    descripcion: this.formDatos_Generales.value.PapilomaV,
+                    fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha5, 'yyyy-MM-dd HH:mm:ss'),
+                },
+                {
+                    descripcion: this.formDatos_Generales.value.Covid19,
+                    fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha6, 'yyyy-MM-dd HH:mm:ss'),
+                },
             ],
+
+            antecedentesGinObs: [{
+                fechaUltRegla: this.formDatos_Generales.value.FUR,
+                fechaPosiParto: this.formDatos_Generales.value.FPP,
+                rcat: this.formDatos_Generales.value.RCAT,
+                gestAnterior: this.formDatos_Generales.value.gesAnterior,
+                rnMayorPeso: this.formDatos_Generales.value.RNpesoMayor + '' + 'GR',
+
+            }],
+            antecedentesFamiliares: [
+                this.formDatos_Generales.value.AntecedentesFamiliares,
+            ],
+            antecedentesPersonales: [
+                this.formDatos_Generales.value.AntecedentesPersonales,
+            ],
+            fumaCigarros: this.formDatos_Generales.value.FumaCigarros,
+            drogas: this.formDatos_Generales.value.Drogas,
+
+            psicoprofilaxis: {
+                estado: this.formDatos_Generales.value.Psicoprofilaxis,
+                fecha: "",
+            },
+
             descarteSignosAlarmas: [],
             atencionesIntegrales: []
 
-
-            // vAntitetánica1Dosis: new FormControl(''),
-            // fecha1: new FormControl(''),
-            // vAntitetánica2Dosis: new FormControl(''),
-            // fecha2: new FormControl(''),
-            // rubeola: new FormControl(''),
-            // fecha3: new FormControl(''),
-            // HepatitesB: new FormControl(''),
-            // fecha4: new FormControl(''),
-            // PapilomaV: new FormControl(''),
-            // fecha5: new FormControl(''),
-            // Covid19: new FormControl(''),
-            // fecha6: new FormControl(''),
         }
 
         console.log("DATA UPDATE CONSULTAS", this.data);
