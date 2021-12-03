@@ -10,7 +10,7 @@ import {StepGeneralComponent} from "./component/step-general/step-general.compon
 import {PaginatorModule} from "primeng/paginator";
 import {PrimeModule} from "../../../../shared/prime/prime.module";
 import {DatosGeneralesFiliacionComponent} from './component/datos-generales-filiacion/datos-generales-filiacion.component';
-import {PuerperioModalComponent} from './component/puerperio-modal/puerperio-modal.component';
+import {PuerperioModalComponent} from './component/puerperio/puerperio-modal/puerperio-modal.component';
 import {MantenimientosModule} from "../../../../mantenimientos/mantenimientos.module";
 import {RecienNacidoDialogoComponent} from './component/recien-nacido/recien-nacido-dialogo/recien-nacido-dialogo.component';
 import {PartosModalComponent} from './component/partos-modal/partos-modal.component';

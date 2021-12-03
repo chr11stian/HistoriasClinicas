@@ -11,16 +11,20 @@ p-fieldset >>> .p-fieldset .p-fieldset-content {
   padding: 2px;
   font-size: xx-small;
 }
-:host ::ng-deep>>> .p-inputtext  {
+/*:host ::ng-deep>>> .p-inputtext  {*/
+/*  border-radius: 10px;*/
+/*  height: 25px;*/
+/*}*/
+/* >>> .p-calendar .p-inputtext  {*/
+/*  border-radius: 0px;*/
+/*  height: 25px;*/
+/*}*/
+/*p-calendar >>> .p-button.p-button-icon-only {*/
+/*  background-color: #003c71;*/
+/*  width: 25px;*/
+/*  height: 25px;*/
+/*}*/
+.border{
+  border: 1px solid black;
   border-radius: 10px;
-  height: 25px;
-}
- >>> .p-calendar .p-inputtext  {
-  border-radius: 0px;
-  height: 25px;
-}
-p-calendar >>> .p-button.p-button-icon-only {
-  background-color: #003c71;
-  width: 25px;
-  height: 25px;
 }

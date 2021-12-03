@@ -17,3 +17,8 @@ p-card >>> .p-card .p-button {
   border-color: #0c3866;
   align-items: center;
 }
+.agregar {
+  border-color: #0c3866;
+  color: #0c3866;
+  align-items: start;
+}

@@ -1,14 +1,12 @@
 <form [formGroup]="formPurperio">
-    <div class="grid">
+    <div class="grid" >
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
             <label>Fecha de atencion:</label>
-            <p-calendar type="date" showIcon="true" type dateFormat="dd-mm-yy"
-                        formControlName="fechaAtencion"></p-calendar>
+            <p-calendar type="date" showIcon="true" type dateFormat="yy-mm-dd" formControlName="fechaAtencion"></p-calendar>
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
-            <label>Pulso (latido/minuto):</label>
-            <p-calendar showIcon="true" [showTime]="true" dateFormat="dd/mm/yy" class="inputfield"
-                        formControlName="horasDias"></p-calendar>
+            <label>Horas/Dias PostParto:</label>
+            <input type="text" pInputText class="inputfield" formControlName="horasDiasPostPartoAborto">
         </div>
 
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
@@ -17,7 +15,7 @@
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
             <label>Involucion Uterina:</label>
-            <input type="text" pInputText class="inputfield" formControlName="involucionUterina">
+            <input type="text" pInputText class="inputfield" formControlName="involucionUteriana">
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
             <label>Herida operación:</label>
@@ -34,7 +32,7 @@
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
             <label>Pres. Arterial max/min (mm. Hg.):</label>
-            <input type="text" pInputText class="inputfield" formControlName="presionArterial">
+            <input type="text" pInputText class="inputfield" formControlName="presionArterialMaxima">
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
             <label>Caract. Loquios:</label>
@@ -44,7 +42,6 @@
 </form>
 
 <div class="footer">
-    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"></button>
-    <button pButton type="button" label="Guardar" class="p-button-danger mt-4"></button>
-    <button pButton type="button" label="Editar" class="p-button-danger mt-4"></button>
+    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-danger mt-4"></button>
+    <button pButton type="button" label="Cancelar" (click)="closeDialog()"  class="p-button-danger mt-4"></button>
 </div>
