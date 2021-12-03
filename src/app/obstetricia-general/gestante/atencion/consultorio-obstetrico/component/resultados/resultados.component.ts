@@ -11,6 +11,34 @@ import {MessageService} from "primeng/api";
 export class ResultadosComponent implements OnInit {
     resultadoEcografiaFG: FormGroup;
     isUpdate:boolean=false;
+    grupoSanguineo = [
+        {name: 'A', code: 'A'},
+        {name: 'B', code: 'B'},
+        {name: 'AB', code: 'AB'},
+        {name: 'O', code: 'O'}
+    ];
+    factorRH=[
+        {name:'+',code:'+'},
+        {name:'-',code:'-'}
+    ]
+    toleranciaGlucosa=[
+        {name:'normal',code:'normal'},
+        {name:'anormal',code:'anormal'},
+        {name:'no se hizo',code:'no se hizo'},
+        {name:'no aplica',code:'no aplica'},
+    ]
+    exaOrina=[
+        {name:'negativo',code:'negativo'},
+        {name:'positivo',code:'positivo'},
+        {name:'no se hizo',code:'no se hizo'},
+        {name:'no aplica',code:'no aplica'},
+    ]
+    rpr=[
+        {name:'reactivo',code:'reactivo'},
+        {name:'no reactivo',code:'no reactivo'},
+        {name:'no se hizo',code:'no se hizo'},
+        {name:'no aplica',code:'no aplica'},
+    ]
     constructor(private resultadosService:ResultadosService,
     private messageService: MessageService) {
         this.buildForm();
