@@ -142,7 +142,6 @@ export class PuerperioComponent implements OnInit {
         });
 
     }
-
     confirm() {
         this.confirmationService.confirm({
             message: '¿Esta seguro(a) que desea guardar cambios?',
