@@ -185,13 +185,9 @@ export class InterrogatorioComponent implements OnInit {
     }
   }
 
-  asignarDatos() {
-    this.form.patchValue({ pulmones: '' })
-  }
-
   guardarDatos() {
     this.recuperarDatos();
-    console.log('data to save ', this.interrogatorioData);
+    // console.log('data to save ', this.interrogatorioData);
     this.consultaObstetricaService.updateConsultas(this.interrogatorioData).subscribe((res: any) => {
       this.messageService.add({
         severity: "success",
@@ -255,7 +251,6 @@ export class InterrogatorioComponent implements OnInit {
     let Rpta;
     this.consultaObstetricaService.getInterrogatorioByEmbarazo(auxData).subscribe((res: any) => {
       Rpta = res.object[0];
-      console.log('rpta ', Rpta);
       this.form.patchValue({ temperatura: Rpta.funcionesVitales.t });
       this.form.patchValue({ presion: Rpta.funcionesVitales.presionDiastolica });
       this.form.patchValue({ fc: Rpta.funcionesVitales.fc });
@@ -294,7 +289,6 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ dias: Rpta.examenesObstetricos.dias });
       this.listaExamenesFetos = Rpta.examenesFetos;
       for (let i = 9; i < Rpta.examenesFisicos.length; i++) {
-        console.log('tienes elementos extra ', i);
         this.listaOtrosPruebasFisicas.push(Rpta.examenesFisicos[i]);
       }
     });
@@ -302,7 +296,6 @@ export class InterrogatorioComponent implements OnInit {
 
   editarExamenFetos(row, index) {
     this.update = true;
-    console.log('a editar ', row, index);
     this.indexEdit = index;
     this.fetalesExamDialog = true;
     this.formExamenFetal.patchValue({ selectSituacion: row.situacion });
