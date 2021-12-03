@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
-import {SesionesTempranas} from 'src/app/cred/models/plan-atencion-integral/plan-atencion-integral.model'
+import { AddSesionesTempranas, respuestaSesionesTempranas} from 'src/app/cred/models/plan-atencion-integral/plan-atencion-integral.model'
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import {SesionesAtencionTempranaService} from 'src/app/cred/services/plan-atencion-integral/sesiones-atencion-temprana/sesiones-atencion-temprana.service';
+import {MessageService} from 'primeng/api';
+
 
 @Component({
   selector: 'app-nueva-sesion',
@@ -11,10 +14,18 @@ import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dy
 export class NuevaSesionComponent implements OnInit {
 
   control: FormGroup;
+  dni: string;
 
-  constructor(private fb: FormBuilder, public ref: DynamicDialogRef, public config: DynamicDialogConfig) { }
+  constructor(private servicio: SesionesAtencionTempranaService,
+              private fb: FormBuilder, 
+              public ref: DynamicDialogRef,
+              public config: DynamicDialogConfig,
+              public messageService: MessageService) { }
 
   ngOnInit() {
+    this.dni= this.config.data;
+    console.log("dni nuevo", this.dni);
+    
     this.control = this.fb.group({
       descripcion: ["", Validators.required],
       fecha: ["", Validators.required]
@@ -29,77 +40,41 @@ export class NuevaSesionComponent implements OnInit {
       this.control.get(tipoControl).touched 
     );
   }
+  onSelectMethod(event) {
+    let d = new Date(Date.parse(event));
+    // console.log("sin formato", d);
+    
+    //  transformamos la fecha al formato :2021-11-30 00:00:00
+    this.control.value.fecha = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()} 00:00:00`;
+    console.log("fecha actualizada", this.control.value.fecha);
+  }
   guardar() {
-    // this.confirmationService.confirm({
-    //     message: 'Are you sure that you want to proceed?',
-    //     header: 'Confirmation',
-    //     icon: 'pi pi-exclamation-triangle',
-    //     accept: () => {
-    //         this.messageService.add({severity:'info', summary:'Confirmed', detail:'You have accepted'});
-    //     },
-    //     reject: (type) => {
-    //         switch(type) {
-    //             case ConfirmEventType.REJECT:
-    //                 this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
-    //             break;
-    //             case ConfirmEventType.CANCEL:
-    //                 this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
-    //             break;
-    //         }
-    //     }
-    // });
+    this.validateAllFormFields(this.control);
+    if(this.control.valid){
+      console.log("control validado");
+      const sesionAdd: AddSesionesTempranas = {
+          descripcion: this.control.value.descripcion,
+          fecha: this.control.value.fecha,
+      };
+      console.log("sesion nueva", sesionAdd);
+      this.servicio.addNuevaSesion(this.dni, sesionAdd)
+      .toPromise().then(res => <respuestaSesionesTempranas> res)
+      .then(codigo => { 
+        if(codigo.cod_Http==="200 OK"){
+          console.log("entre aqui");
+          this.messageService.add({severity:'success', summary: 'Se agregó con éxito la sesion', detail: sesionAdd.descripcion});
+          this.ref.close();
+        }        
+        else {
+          this.ref.close();
+        }
+      }
+      )
+    }
   }
 
   cancelar() {
-    // this.confirmationService.confirm({
-    //     message: 'Do you want to delete this record?',
-    //     header: 'Delete Confirmation',
-    //     icon: 'pi pi-info-circle',
-    //     accept: () => {
-    //         this.messageService.add({severity:'info', summary:'Confirmed', detail:'Record deleted'});
-    //     },
-    //     reject: (type) => {
-    //         switch(type) {
-    //             case ConfirmEventType.REJECT:
-    //                 this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
-    //             break;
-    //             case ConfirmEventType.CANCEL:
-    //                 this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
-    //             break;
-    //         }
-    //     }
-    // });
-  }
-  onGuardarCambios(){
-    this.validateAllFormFields(this.control);
-    const value=this.control.value;
-    const contra1=value.contraNueva1;
-    const contra2=value.contraNueva2;
-    // console.log("1",value.contraNueva1);
-    // console.log("2",value.contraNueva2);
-    // if(contra1==contra2){
-    //   const change: changePass={
-    //     id: this.usuario.id,
-    //     passNuevo: contra2
-    //   }
-    //   // console.log("cambios", change);
-    //   this.apiUser.updatePassword(change).subscribe(respuesta => {
-    //     if (respuesta) {
-    //       if (respuesta.respuesta === "Se modifico la contraseña satisfactoriamente") {
-    //         this.notify.showExito("Se modificó correctamente la contraseña del usuario");
-    //         // cerrar
-    //         this.activeModal.dismiss('Cross click')
-    //       } else {
-    //         this.notify.showError("Error al modificar la contraseña del Usuario!");
-    //         this.activeModal.dismiss('Cross click')
-    //       }
-    //     }
-    //   });
-    // } else {
-    //   // console.log("las contraseñas no coinciden");
-    //   this.notify.showError("Las contraseñas del usuario no coinciden!");
-      
-    // }
+    this.ref.close();
   }
 
 }
