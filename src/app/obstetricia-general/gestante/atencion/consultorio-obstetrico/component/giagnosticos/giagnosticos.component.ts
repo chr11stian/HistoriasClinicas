@@ -13,8 +13,6 @@ import {DatePipe} from "@angular/common";
   styleUrls: ['./giagnosticos.component.css']
 })
 export class GiagnosticosComponent implements OnInit {
-  /********************/
-  /****************/
   selectedDiagnostico: any;
   form: FormGroup
   data: any[] = []; // data dx
@@ -220,7 +218,6 @@ export class GiagnosticosComponent implements OnInit {
       "nroEmbarazo":1,
       "nroAtencion":1
     }
-
     this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
       this.dataAux = res.object;
       console.log(this.dataAux);

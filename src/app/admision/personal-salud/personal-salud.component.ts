@@ -524,18 +524,19 @@ export class PersonalSaludComponent implements OnInit {
   getPersonal() {
     this.personalservice.getPersonal().subscribe((res: any) => {
       this.data = res.object;
+
     });
   }
   getListaUps() {
     this.rolGuardiaService
-      .getServiciosPorIpress("615b30b37194ce03d782561c")
+      .getServiciosPorIpress("616de45e0273042236434b51")
       .subscribe((resp) => {
         this.listaUpsX = resp["object"];
       });
   }
   saveForm() {
     this.isUpdate = false;
-    let otrosNombres = this.form.value.nombres.split(" ");
+    let otrosNombres = this.form.value.nombres.split("/", 2);
     let otros = otrosNombres.shift();
     otrosNombres = otrosNombres.join(" ");
     let primerNombre = this.form.value.nombres.split(" ")[0];
@@ -648,9 +649,9 @@ export class PersonalSaludComponent implements OnInit {
       .setValue(
         rowData.detalleIpress
           ? this.datePipe.transform(
-              rowData.detalleIpress[0].fechaInicio,
-              "yyyy-MM-dd"
-            )
+            rowData.detalleIpress[0].fechaInicio,
+            "yyyy-MM-dd"
+          )
           : ""
       );
     console.log(rowData.detalleIpress[0].fechaInicio);
@@ -895,5 +896,5 @@ export class PersonalSaludComponent implements OnInit {
         this.guardarNuevoEspecialidad();
       });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

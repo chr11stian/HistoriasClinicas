@@ -1,16 +1,25 @@
 <div class="p-card">
     <p-toolbar>
-
         <ng-template pTemplate="left">
-            <h3 class="p-m-0">DIAGNÓSTICOS</h3>
+            <h3 class="mt-2">DIAGNÓSTICO</h3>
         </ng-template>
+
         <ng-template  pTemplate="right" class="button">
              <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="guardarTodosDatos()"></button>
         </ng-template>
     </p-toolbar>
-     <p-table class="table-over" [value]="diagnosticos" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Atras" icon="pi pi-angle-left"
+                    class="p-button-secondary mr-2"></button>
+            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                    class="guardar mr-2" style="background-color: #0c3866"></button>
+        </ng-template>
+
+    <br>
+    <p-table class="table-over" [value]="diagnosticos" #dt styleClass="p-datatable-gridlines"
+             [rows]="10" [rowsPerPageOptions]="[10, 25, 50]">
+
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
                 <th style="text-align: center" class="font-2">Nro </th>
@@ -26,7 +35,8 @@
                 <td style="text-align: center">{{ rowData.cie10 }}</td>
                 <td style="text-align: center">{{ rowData.diagnostico }}</td>
                 <td style="text-align: center">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                    <button pButton pRipple icon="pi pi-pencil"
+                            class="p-button-rounded p-button-primary m-1"
                             (click)="editar(rowData)" pTooltip="Editar">
                     </button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
@@ -42,7 +52,8 @@
 
         <ng-template pTemplate="right" class="button">
 
-            <button pButton pRipple label="Agregar Diagnóstico" icon="pi pi-plus" pButton type="button" class="button-agregar"
+            <button pButton pRipple label="Agregar Diagnóstico" icon="pi pi-plus"
+                    pButton type="button" class="button-agregar"
                     (click)="openDiagnostico()"></button>
         </ng-template>
 
@@ -53,7 +64,8 @@
             <h3 class="p-m-0">ORIENTACIONES</h3>
         </ng-template>
     </p-toolbar>
-    <p-table class="table-over" [value]="orientaciones" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+    <p-table class="table-over" [value]="orientaciones" #dt styleClass="p-datatable-gridlines"
+             [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
              [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
@@ -114,7 +126,9 @@
         <p-fieldset legend="PROXIMA CITA">
             <div class="p-fluid">
                 <div class="p-field p-fluid">
-                    <p-calendar [showIcon]="true" dateFormat="yy-mm-dd" formControlName="proxCita" inputId="icon" [showTime]="true" [showSeconds]="true" inputId="time" required></p-calendar>
+                    <p-calendar [showIcon]="true" dateFormat="yy-mm-dd" formControlName="proxCita"
+                                inputId="icon" [showTime]="true" [showSeconds]="true"
+                                inputId="time" required></p-calendar>
                 </div>
             </div>
 
@@ -130,13 +144,15 @@
         <div class="grid">
             <div class="col-6">
                 <div class="p-field-radiobutton">
-                    <p-radioButton name="city" value="Chicago" [(ngModel)]="opcionBusqueda"  value="porDescripcion" inputId="opcion1"></p-radioButton>
+                    <p-radioButton name="city" value="Chicago" [(ngModel)]="opcionBusqueda"  value="porDescripcion"
+                                   inputId="opcion1"></p-radioButton>
                     <label>Buscar por Descripcion</label>
                 </div>
             </div>
             <div class="col-6">
                 <div class="p-field-radiobutton">
-                    <p-radioButton name="city" value="Los Angeles" [(ngModel)]="opcionBusqueda" value="porcie10" inputId="opcion2" ></p-radioButton>
+                    <p-radioButton name="city" value="Los Angeles" [(ngModel)]="opcionBusqueda" value="porcie10"
+                                   inputId="opcion2" ></p-radioButton>
                     <label>Buscar por Cie10</label>
                 </div>
             </div>
@@ -146,16 +162,19 @@
 
                  <div class="p-field resp">
                     <label *ngIf="opcionBusqueda=='porDescripcion'">Diagnóstico:</label>
-                     <p-autoComplete *ngIf="opcionBusqueda=='porDescripcion'" formControlName="diagnostico" [suggestions]="Cie10"
-                                     (completeMethod)="filterDiagnostico($event)" field="descripcionItem" [minLength]="1" placeholder="Descripcion" class="areaText">
+                     <p-autoComplete *ngIf="opcionBusqueda=='porDescripcion'" formControlName="diagnostico"
+                                     [suggestions]="Cie10" (completeMethod)="filterDiagnostico($event)"
+                                     field="descripcionItem" [minLength]="1" placeholder="Descripcion" class="areaText">
                      </p-autoComplete>
 <!--                     <i class="pi pi-search"></i>-->
                  </div>
                 <div class="p-field resp">
                     <label  *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>
 
-                    <p-autoComplete  *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico" [suggestions]="Cie10" disabled
-                                     (completeMethod)="filterDiagnostico($event)" field="codigoItem" [minLength]="1" placeholder="CIE 10">
+                    <p-autoComplete  *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico"
+                                     [suggestions]="Cie10" disabled
+                                     (completeMethod)="filterDiagnostico($event)" field="codigoItem"
+                                     [minLength]="1" placeholder="CIE 10">
                     </p-autoComplete>
                 </div>
             </div>
@@ -165,8 +184,10 @@
         No se encontró nada en el término
     </div>
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"(click)="canceled1()"></button>
-        <button  class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="save1(formTemplate)" ></button>
+        <button pButton type="button" label="Cancelar" class="button-cancelar"
+                icon="pi pi-times"(click)="canceled1()"></button>
+        <button  class="button-agregar" icon="pi pi-save" pButton type="button"
+                 label="Guardar" (click)="save1(formTemplate)" ></button>
 
     </ng-template>
 </p-dialog>

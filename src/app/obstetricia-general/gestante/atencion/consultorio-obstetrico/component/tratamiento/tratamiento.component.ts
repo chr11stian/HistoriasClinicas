@@ -431,9 +431,7 @@ export class TratamientoComponent implements OnInit {
         }
       }
       /*reuperar datos: tratamientos suplementarios - evaluacion suplmentaria - exam auxiliares*/
-      // console.log(this.dataConsulta.tratamientosSuplementos)
       /* recuperar suplementario acido folico*/
-      /*descripcion*/
       this.formRIEP.patchValue({ 'descripciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.descripcion });
       this.formRIEP.patchValue({ 'numeroa': this.dataConsulta.tratamientosSuplementos.acidoFolico.numero });
       this.formRIEP.patchValue({ 'dosisa': this.dataConsulta.tratamientosSuplementos.acidoFolico.dosis });

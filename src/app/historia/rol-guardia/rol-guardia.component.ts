@@ -10,7 +10,7 @@ import { DynamicDialogRef } from "primeng/dynamicdialog";
 })
 export class RolGuardiaComponent implements OnInit {
   isMesPasado: boolean = false;
-  idIpressZarzuela = "615b30b37194ce03d782561c";
+  idIpressZarzuela = "616de45e0273042236434b51";//la posta medica x defecto
   loading: boolean = true;
   loadingUps: boolean = true;
   listaTurno: any[] = [];
@@ -38,7 +38,7 @@ export class RolGuardiaComponent implements OnInit {
     this.numeroDiasMes();
     this.generarCabecera();
     this.colorearCabecera();
-    this.isModificable();
+    // this.isModificable();
 
     this.getListaUps();
     this.getListaTurno();
@@ -165,21 +165,21 @@ export class RolGuardiaComponent implements OnInit {
     }
   }
 
-  isModificable() {
-    let isVisible: boolean;
-    let fechaActual = new Date();
-    if (
-      this.fecha.getFullYear() > fechaActual.getFullYear() ||
-      (this.fecha.getFullYear() == fechaActual.getFullYear() &&
-        this.fecha.getMonth() >= fechaActual.getMonth())
-    ) {
-      isVisible = true;
-    } else {
-      isVisible = false;
-    }
-    this.isMesPasado = isVisible;
-    //console.log("esModficable", isVisible);
-  }
+  // isModificable() {
+  //   let isVisible: boolean;
+  //   let fechaActual = new Date();
+  //   if (
+  //     this.fecha.getFullYear() > fechaActual.getFullYear() ||
+  //     (this.fecha.getFullYear() == fechaActual.getFullYear() &&
+  //       this.fecha.getMonth() >= fechaActual.getMonth())
+  //   ) {
+  //     isVisible = true;
+  //   } else {
+  //     isVisible = false;
+  //   }
+  //   this.isMesPasado = isVisible;
+  //   //console.log("esModficable", isVisible);
+  // }
   cambiarFecha(fechaseleccionada: Date) {
     this.upsSeleccionada = "";
     this.fecha = fechaseleccionada;
@@ -190,7 +190,7 @@ export class RolGuardiaComponent implements OnInit {
     this.matriz = [];
     //this.crearMatriz(); //si cambia fecha
     //this.IniciarHoras();
-    this.isModificable();
+    // this.isModificable();
   }
   IniciarHoras() {
     this.listaHoras = [];
@@ -319,11 +319,11 @@ export class RolGuardiaComponent implements OnInit {
     for (let i = 0; i < this.matriz.length; i++) {
       let mesInput: any = {
         anio: this.fecha.getFullYear(),
-        mes: this.fecha.getMonth() + 1,
-        ambiente: "MEDICINA 2",
+        mes: this.fecha.getMonth() +   1,
+        ambiente: "medicina01",
         ipress: {
-          idIpress: "615b30b37194ce03d782561c",
-          nombre: "Zarzuela Baja",
+          idIpress: "616de45e0273042236434b51",
+          nombre: "la posta medica",
           servicio: this.upsSeleccionada["nombreUPS"],
         },
         personal: {
@@ -336,6 +336,7 @@ export class RolGuardiaComponent implements OnInit {
       this.rolGuardiaService.AddRolGuardia(mesInput).subscribe(
         (resp) => {
           if (i + 1 == this.matriz.length) {
+            console.log(resp)
             this.messageService.add({
               severity: "success",
               summary: "Modificar",
