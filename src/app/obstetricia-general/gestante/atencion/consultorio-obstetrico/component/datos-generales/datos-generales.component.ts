@@ -13,6 +13,8 @@ import {DatePipe} from "@angular/common";
 })
 export class DatosGeneralesComponent implements OnInit {
     formDatos_Generales: FormGroup;
+
+    //opciones de vacunas previas///
     opciones: any;
     opciones1: any;
     opciones2: any;
@@ -20,6 +22,9 @@ export class DatosGeneralesComponent implements OnInit {
     opciones4: any;
     opciones5: any;
     opciones6: any;
+
+    /****DESCARTE SIGNO DE ALARMA******/
+    descarteSigAlarma: any;
 
     data: any;
     dataPacientes: any;
@@ -46,6 +51,7 @@ export class DatosGeneralesComponent implements OnInit {
         this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
         this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
 
+        /** OTRAS OPCIONES**/
         this.opciones = [
             {name: 'SI', boleano: true},
             {name: 'NO', boleano: false}
@@ -129,6 +135,11 @@ export class DatosGeneralesComponent implements OnInit {
             this.formDatos_Generales.get('FUR').setValue(this.dataConsultas.antecedentesGinObs[0].fechaUltRegla);
             this.formDatos_Generales.get('FPP').setValue(this.dataConsultas.antecedentesGinObs[0].fechaPosiParto);
             this.formDatos_Generales.get('RCAT').setValue(this.dataConsultas.antecedentesGinObs[0].rcat);
+            this.formDatos_Generales.get('G').setValue(this.dataConsultas.antecedentesGinObs[0].g);
+            this.formDatos_Generales.get('P1').setValue(this.dataConsultas.antecedentesGinObs[0].p1);
+            this.formDatos_Generales.get('P2').setValue(this.dataConsultas.antecedentesGinObs[0].p2);
+            this.formDatos_Generales.get('P3').setValue(this.dataConsultas.antecedentesGinObs[0].p3);
+            this.formDatos_Generales.get('P4').setValue(this.dataConsultas.antecedentesGinObs[0].p4);
             this.formDatos_Generales.get('gesAnterior').setValue(this.dataConsultas.antecedentesGinObs[0].gestAnterior);
             this.formDatos_Generales.get('RNpesoMayor').setValue(this.dataConsultas.antecedentesGinObs[0].rnMayorPeso);
 
@@ -139,6 +150,34 @@ export class DatosGeneralesComponent implements OnInit {
             this.formDatos_Generales.get('Drogas').setValue(this.dataConsultas.drogas);
             this.formDatos_Generales.get('Psicoprofilaxis').setValue(this.dataConsultas.psicoprofilaxis.estado);
 
+            //RECUPERA DESCARTE SIGNOS DE ALARMA
+            this.formDatos_Generales.get('DificultadRespiratoria').setValue(this.dataConsultas.descarteSignosAlarmas[0].valor);
+            this.formDatos_Generales.get('HipertenciónArterial').setValue(this.dataConsultas.descarteSignosAlarmas[1].valor);
+            this.formDatos_Generales.get('SangradoNasal').setValue(this.dataConsultas.descarteSignosAlarmas[2].valor);
+            this.formDatos_Generales.get('DeshidrataciónAguda').setValue(this.dataConsultas.descarteSignosAlarmas[3].valor);
+            this.formDatos_Generales.get('CompromisoDelSensorio').setValue(this.dataConsultas.descarteSignosAlarmas[4].valor);
+            this.formDatos_Generales.get('TraumatismoQuemadura').setValue(this.dataConsultas.descarteSignosAlarmas[5].valor);
+            this.formDatos_Generales.get('AbdomenAgudo').setValue(this.dataConsultas.descarteSignosAlarmas[6].valor);
+            this.formDatos_Generales.get('IntoxicaciónEnvenenamiento').setValue(this.dataConsultas.descarteSignosAlarmas[7].valor);
+            this.formDatos_Generales.get('FiebreAlta').setValue(this.dataConsultas.descarteSignosAlarmas[8].valor);
+            this.formDatos_Generales.get('Convulciones').setValue(this.dataConsultas.descarteSignosAlarmas[9].valor);
+            this.formDatos_Generales.get('SangradoGenital').setValue(this.dataConsultas.descarteSignosAlarmas[10].valor);
+            this.formDatos_Generales.get('DolorDeCabeza').setValue(this.dataConsultas.descarteSignosAlarmas[11].valor);
+            this.formDatos_Generales.get('Edema').setValue(this.dataConsultas.descarteSignosAlarmas[12].valor);
+
+            //RECUPERA DESCARTE ATENSION INTEGRAL
+            this.formDatos_Generales.get('OrientaciónConsegeríaSignosAlarma').setValue(this.dataConsultas.atencionesIntegrales[0].valor);
+            this.formDatos_Generales.get('ConsejeríaEnfermedadesComunes').setValue(this.dataConsultas.atencionesIntegrales[1].valor);
+            this.formDatos_Generales.get('SospechasTuberculosis').setValue(this.dataConsultas.atencionesIntegrales[2].valor);
+            this.formDatos_Generales.get('InfeccionesTransmisiónSexual').setValue(this.dataConsultas.atencionesIntegrales[3].valor);
+            this.formDatos_Generales.get('OrientaciónNutricional').setValue(this.dataConsultas.atencionesIntegrales[4].valor);
+            this.formDatos_Generales.get('OrientaciónPlanificaiónFamiliar').setValue(this.dataConsultas.atencionesIntegrales[5].valor);
+            this.formDatos_Generales.get('OrientaciónPrevenciónDeCancerGinecológico').setValue(this.dataConsultas.atencionesIntegrales[6].valor);
+            this.formDatos_Generales.get('OrientaciónConsejeriaPretestVIH').setValue(this.dataConsultas.atencionesIntegrales[7].valor);
+            this.formDatos_Generales.get('OrientaciónEnEstilosDeVidaSaludable').setValue(this.dataConsultas.atencionesIntegrales[8].valor);
+            this.formDatos_Generales.get('OrientaciónAcompañante').setValue(this.dataConsultas.atencionesIntegrales[9].valor);
+            this.formDatos_Generales.get('ViolenciaFamiliar').setValue(this.dataConsultas.atencionesIntegrales[10].valor);
+            this.formDatos_Generales.get('PlanDeParto').setValue(this.dataConsultas.atencionesIntegrales[11].valor);
 
         });
     }
@@ -198,6 +237,7 @@ export class DatosGeneralesComponent implements OnInit {
             gradoInstruccion: new FormControl(''),
             direccion: new FormControl(''),
             ocupacion: new FormControl(''),
+            fechaDatospersonales: new FormControl(''),
             hora: new FormControl(''),
 
             //Vacunas previas del paciente
@@ -218,6 +258,11 @@ export class DatosGeneralesComponent implements OnInit {
             FUR: new FormControl(''),
             FPP: new FormControl(''),
             RCAT: new FormControl(''),
+            G: new FormControl(''),
+            P1: new FormControl(''),
+            P2: new FormControl(''),
+            P3: new FormControl(''),
+            P4: new FormControl(''),
             gesAnterior: new FormControl(''),
             RNpesoMayor: new FormControl(''),
 
@@ -227,6 +272,35 @@ export class DatosGeneralesComponent implements OnInit {
             FumaCigarros: new FormControl(''),
             Drogas: new FormControl(''),
             Psicoprofilaxis: new FormControl(''),
+
+            /****DESCARTE SIGNO DE ALARMA******/
+            DificultadRespiratoria: new FormControl(''),
+            HipertenciónArterial: new FormControl(''),
+            SangradoNasal: new FormControl(''),
+            DeshidrataciónAguda: new FormControl(''),
+            CompromisoDelSensorio: new FormControl(''),
+            TraumatismoQuemadura: new FormControl(''),
+            AbdomenAgudo: new FormControl(''),
+            IntoxicaciónEnvenenamiento: new FormControl(''),
+            FiebreAlta: new FormControl(''),
+            Convulciones: new FormControl(''),
+            SangradoGenital: new FormControl(''),
+            DolorDeCabeza: new FormControl(''),
+            Edema: new FormControl(''),
+
+            /****ATENSION INTEGRAL******/
+            OrientaciónConsegeríaSignosAlarma: new FormControl(''),
+            ConsejeríaEnfermedadesComunes: new FormControl(''),
+            SospechasTuberculosis: new FormControl(''),
+            InfeccionesTransmisiónSexual: new FormControl(''),
+            OrientaciónNutricional: new FormControl(''),
+            OrientaciónPlanificaiónFamiliar: new FormControl(''),
+            OrientaciónPrevenciónDeCancerGinecológico: new FormControl(''),
+            OrientaciónConsejeriaPretestVIH: new FormControl(''),
+            OrientaciónEnEstilosDeVidaSaludable: new FormControl(''),
+            OrientaciónAcompañante: new FormControl(''),
+            ViolenciaFamiliar: new FormControl(''),
+            PlanDeParto: new FormControl(''),
 
 
         })
@@ -284,6 +358,8 @@ export class DatosGeneralesComponent implements OnInit {
             nroEmbarazo: this.dataConsultas.nroEmbarazo,
             tipoDoc: this.dataConsultas.tipoDoc,
             nroDoc: this.dataConsultas.nroDoc,
+            // fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha1, 'yyyy-MM-dd HH:mm:ss'),
+
 
             datosPerHist: {
                 edad: this.formDatos_Generales.value.edad,
@@ -325,6 +401,10 @@ export class DatosGeneralesComponent implements OnInit {
                 fechaUltRegla: this.formDatos_Generales.value.FUR,
                 fechaPosiParto: this.formDatos_Generales.value.FPP,
                 rcat: this.formDatos_Generales.value.RCAT,
+                p1: this.formDatos_Generales.value.P1,
+                p2: this.formDatos_Generales.value.P2,
+                p3: this.formDatos_Generales.value.P3,
+                p4: this.formDatos_Generales.value.P4,
                 gestAnterior: this.formDatos_Generales.value.gesAnterior,
                 rnMayorPeso: this.formDatos_Generales.value.RNpesoMayor + '' + 'GR',
 
@@ -343,9 +423,113 @@ export class DatosGeneralesComponent implements OnInit {
                 fecha: "",
             },
 
-            descarteSignosAlarmas: [],
-            atencionesIntegrales: []
+            descarteSignosAlarmas: [
+                {
+                    descripcion: "Dificultad respiratoria",
+                    valor: this.formDatos_Generales.value.DificultadRespiratoria,
+                },
+                {
+                    descripcion: "Hipertención Arterial",
+                    valor: this.formDatos_Generales.value.HipertenciónArterial,
+                },
+                {
+                    descripcion: "Sangrado nasal",
+                    valor: this.formDatos_Generales.value.SangradoNasal,
+                },
+                {
+                    descripcion: "Deshidratación aguda",
+                    valor: this.formDatos_Generales.value.DeshidrataciónAguda,
+                },
+                {
+                    descripcion: "Compromiso del sensorio",
+                    valor: this.formDatos_Generales.value.CompromisoDelSensorio,
+                },
+                {
+                    descripcion: "Traumatismo Quemadura",
+                    valor: this.formDatos_Generales.value.TraumatismoQuemadura,
+                },
 
+                {
+                    descripcion: "Abdomen agudo",
+                    valor: this.formDatos_Generales.value.AbdomenAgudo,
+                },
+                {
+                    descripcion: "Intoxicación Envenenamiento",
+                    valor: this.formDatos_Generales.value.IntoxicaciónEnvenenamiento,
+                },
+
+                {
+                    descripcion: "Fiebre alta",
+                    valor: this.formDatos_Generales.value.FiebreAlta,
+                },
+                {
+                    descripcion: "Convulciones",
+                    valor: this.formDatos_Generales.value.Convulciones,
+                },
+                {
+                    descripcion: "Sangrado genital",
+                    valor: this.formDatos_Generales.value.SangradoGenital,
+                },
+                {
+                    descripcion: "Dolor de cabeza",
+                    valor: this.formDatos_Generales.value.DolorDeCabeza,
+                },
+                {
+                    descripcion: "Edema",
+                    valor: this.formDatos_Generales.value.Edema,
+                },
+
+            ],
+            atencionesIntegrales: [
+                {
+                    descripcion: "Orientación y Consegería Signos de alarma",
+                    valor: this.formDatos_Generales.value.OrientaciónConsegeríaSignosAlarma,
+                },
+                {
+                    descripcion: "Consejería en enfermedades comunes",
+                    valor: this.formDatos_Generales.value.ConsejeríaEnfermedadesComunes,
+                },
+                {
+                    descripcion: "Sospechas de Tuberculosis",
+                    valor: this.formDatos_Generales.value.SospechasTuberculosis,
+                },
+                {
+                    descripcion: "Infecciones de transmisión sexual",
+                    valor: this.formDatos_Generales.value.InfeccionesTransmisiónSexual,
+                },
+                {
+                    descripcion: "Orientación Nutricional",
+                    valor: this.formDatos_Generales.value.OrientaciónNutricional,
+                },
+                {
+                    descripcion: "Orientación en planificaión familiar",
+                    valor: this.formDatos_Generales.value.OrientaciónPlanificaiónFamiliar,
+                },
+                {
+                    descripcion: "Orientación en prevención de Cancer ginecológico",
+                    valor: this.formDatos_Generales.value.OrientaciónPrevenciónDeCancerGinecológico,
+                },
+                {
+                    descripcion: "Orientación y consej. Pretest. VIH",
+                    valor: this.formDatos_Generales.value.OrientaciónConsejeriaPretestVIH,
+                },
+                {
+                    descripcion: "Orientación en estilos de vida saludable",
+                    valor: this.formDatos_Generales.value.OrientaciónEnEstilosDeVidaSaludable,
+                },
+                {
+                    descripcion: "Orientación al acompañante",
+                    valor: this.formDatos_Generales.value.OrientaciónAcompañante,
+                },
+                {
+                    descripcion: "Violencia familiar",
+                    valor: this.formDatos_Generales.value.ViolenciaFamiliar,
+                },
+                {
+                    descripcion: "Plan de parto",
+                    valor: this.formDatos_Generales.value.PlanDeParto,
+                },
+            ],
         }
 
         console.log("DATA UPDATE CONSULTAS", this.data);
