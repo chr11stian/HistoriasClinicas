@@ -36,6 +36,7 @@ export class PacienteComponent implements OnInit {
   dist: Distrito;
   ccpp: any;
   id: string;
+  peruvian: boolean = true;
   auxipress: string = "615b30b37194ce03d782561c";
   listaEstadoCivil = [
     'Soltero',
@@ -76,7 +77,9 @@ export class PacienteComponent implements OnInit {
     private etniaService: EtniaService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.inicializarForm();
@@ -91,7 +94,7 @@ export class PacienteComponent implements OnInit {
       nroDoc: new FormControl(''),
       nroHcl: new FormControl(''),
       primerNombre: new FormControl(''),
-      otrosNombres: new FormControl(""),
+      otrosNombres: new FormControl(''),
       apPaterno: new FormControl(''),
       apMaterno: new FormControl(''),
       celular: new FormControl(''),
@@ -144,13 +147,19 @@ export class PacienteComponent implements OnInit {
 
   recuperarDatos() {
     let aux = this.formPaciente.value.etnia;
-    let auxNroHcl = this.formPaciente.value.nroDoc;
+    let auxNroHcl: string;
+    if (this.peruvian) {
+      auxNroHcl = this.formPaciente.value.nroDoc;
+    } else {
+      auxNroHcl = this.formPaciente.value.nroHcl;
+    }
+
     let auxFechaNac = this.formPaciente.value.fechaNacimiento;
     let auxDay = auxFechaNac.split("/", 3);
 
     this.dataPaciente = {
       nroHcl: auxNroHcl,
-      tipoDoc: this.formPaciente.value.tipoDoc.abreviatura,
+      tipoDoc: this.formPaciente.value.tipoDoc,
       nroDoc: this.formPaciente.value.nroDoc,
       primerNombre: this.formPaciente.value.primerNombre,
       otrosNombres: this.formPaciente.value.otrosNombres,
@@ -198,12 +207,13 @@ export class PacienteComponent implements OnInit {
   }
 
   openDialogPaciente() {
+    this.inicializarForm();
     this.dpto = {};
     this.prov = {};
     this.dist = {};
     this.ccpp = {};
     this.update = false;
-    this.formPaciente.reset();
+    // this.formPaciente.reset();
     this.dialogPaciente = true;
     this.cargarDocumentos();
     this.cargarEtnia();
@@ -216,17 +226,16 @@ export class PacienteComponent implements OnInit {
 
   aceptarDialogPaciente() {
     this.recuperarDatos();
-    console.log('datos paciente ', this.dataPaciente);
-    // this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
-    //   this.formPaciente.reset();
-    //   this.cargarPacientes();
-    //   this.closeDialogPaciente();
-    //   this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
-    // });
+    console.log('data paciente ', this.dataPaciente);
+    this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
+      this.formPaciente.reset();
+      this.cargarPacientes();
+      this.closeDialogPaciente();
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
+    });
   }
 
   openEditarPaciente(row) {
-    console.log('row ', row)
     this.dpto = {};
     this.prov = {};
     this.dist = {};
@@ -405,5 +414,13 @@ export class PacienteComponent implements OnInit {
     this.pacienteService.getPacienteByNroDoc(auxNroDoc).subscribe((res: any) => {
       console.log('paciente por doc ', res.object)
     });
+  }
+
+  selectedTipoDoc(event) {
+    if (event.value == 'DNI') {
+      this.peruvian = true;
+    } else {
+      this.peruvian = false;
+    }
   }
 }

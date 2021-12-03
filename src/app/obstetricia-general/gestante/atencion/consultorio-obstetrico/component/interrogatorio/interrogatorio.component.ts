@@ -1,5 +1,7 @@
+import { ThrowStmt } from "@angular/compiler";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { MessageService } from "primeng/api";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { ConsultasService } from "../../services/consultas.service";
 
@@ -49,11 +51,13 @@ export class InterrogatorioComponent implements OnInit {
     private fb: FormBuilder,
     public dialog: DialogService,
     private consultaObstetricaService: ConsultasService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
     this.inicializarForm();
     this.loadData();
+    console.log('listar otros exam ', this.listaOtrosPruebasFisicas);
   }
 
   inicializarForm() {
@@ -118,6 +122,21 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   recuperarDatos() {
+    let auxPhysicalExam: any[] = [
+      { funcion: 'piel', valor: this.form.value.piel },
+      { funcion: 'mucosas', valor: this.form.value.mucosas },
+      { funcion: 'cabeza', valor: this.form.value.cabeza },
+      { funcion: 'cuello', valor: this.form.value.cuello },
+      { funcion: 'cardioVasc', valor: this.form.value.cardioVasc },
+      { funcion: 'pulmones', valor: this.form.value.pulmones },
+      { funcion: 'mamas', valor: this.form.value.mamas },
+      { funcion: 'pezones', valor: this.form.value.pezones },
+      { funcion: 'abdomen', valor: this.form.value.abdomen },
+    ]
+
+    for (let i = 0; i < this.listaOtrosPruebasFisicas.length; i++) {
+      auxPhysicalExam.push(this.listaOtrosPruebasFisicas[i]);
+    }
     this.interrogatorioData = {
       nroHcl: '10101013',
       nroAtencion: 1,
@@ -149,18 +168,7 @@ export class InterrogatorioComponent implements OnInit {
         { pregunta: 'Tiempo de enfermedad', respuesta: this.form.value.tiempoEnfermedad },
         { pregunta: 'observacion', respuesta: this.form.value.observaciones },
       ],
-      examenesFisicos: [
-        { funcion: 'piel', valor: this.form.value.piel },
-        { funcion: 'mucosas', valor: this.form.value.mucosas },
-        { funcion: 'cabeza', valor: this.form.value.cabeza },
-        { funcion: 'cuello', valor: this.form.value.cuello },
-        { funcion: 'cardioVasc', valor: this.form.value.cardioVasc },
-        { funcion: 'pulmones', valor: this.form.value.pulmones },
-        { funcion: 'mamas', valor: this.form.value.mamas },
-        { funcion: 'pezones', valor: this.form.value.pezones },
-        { funcion: 'abdomen', valor: this.form.value.abdomen },
-        { funcion: 'otros examenes', valor: this.form.value.examenFisicoOtro },
-      ],
+      examenesFisicos: auxPhysicalExam,
       examenesObstetricos: {
         alturaUterina: this.form.value.alturaUterina,
         miembrosInferiores: this.form.value.miembrosInferiores,
@@ -183,8 +191,13 @@ export class InterrogatorioComponent implements OnInit {
 
   guardarDatos() {
     this.recuperarDatos();
+    console.log('data to save ', this.interrogatorioData);
     this.consultaObstetricaService.updateConsultas(this.interrogatorioData).subscribe((res: any) => {
-      console.log('rpta', res);
+      this.messageService.add({
+        severity: "success",
+        summary: "Exito",
+        detail: res.mensaje
+      });
     });
   }
 
@@ -280,6 +293,10 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ semanas: Rpta.examenesObstetricos.semanas });
       this.form.patchValue({ dias: Rpta.examenesObstetricos.dias });
       this.listaExamenesFetos = Rpta.examenesFetos;
+      for (let i = 9; i < Rpta.examenesFisicos.length; i++) {
+        console.log('tienes elementos extra ', i);
+        this.listaOtrosPruebasFisicas.push(Rpta.examenesFisicos[i]);
+      }
     });
   }
 
@@ -303,6 +320,10 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   eliminar(index) {
-    this.listaExamenesFetos.splice(index, 1)
+    this.listaExamenesFetos.splice(index, 1);
+  }
+
+  eliminarExamFisicos(index) {
+    this.listaOtrosPruebasFisicas.splice(index, 1);
   }
 }
