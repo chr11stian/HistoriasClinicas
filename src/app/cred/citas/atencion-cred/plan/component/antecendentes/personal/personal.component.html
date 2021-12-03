@@ -59,7 +59,7 @@
                             </p-selectButton>
                         </div>
                         <div class="col-2 md:col-2 lg:col-2  align-self-start justify-content-center ">
-                            <span style="padding: 0.5rem;">N° de embarazo</span>
+                            <span style="padding: 0.5rem;">N° de APN</span>
                             <div class="col">
                                 <input  id="nroE2" formControlName="nroE2" type="text" class="inputfield w-full"pInputText>
                             </div>
@@ -90,7 +90,8 @@
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="partoE"
                                                     optionLabel="label"
-                                                    optionValue="value">
+                                                    optionValue="value"
+                                                    (onChange)="cambio($event,'complicadoP')">
                                     </p-selectButton>
                                 </div>
                                 
@@ -101,7 +102,8 @@
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="complicadoP"
                                                     optionLabel="label"
-                                                    optionValue="value">
+                                                    optionValue="value"
+                                                    (onChange)="cambio($event,'partoE')">
                                 </p-selectButton>
                                 </div>
                             </div>
@@ -121,7 +123,8 @@
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="eessP"
                                                     optionLabel="label"
-                                                    optionValue="value">
+                                                    optionValue="value"
+                                                    (onChange)="cambio2($event,'domicilioP','consultaPP')">
                                     </p-selectButton>
                                 </div>
                                 <div class="col-4  flex flex-column flex align-items-center justify-content-center">
@@ -129,7 +132,8 @@
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="domicilioP"
                                                     optionLabel="label"
-                                                    optionValue="value">
+                                                    optionValue="value"
+                                                    (onChange)="cambio2($event,'eessP','consultaPP')">
                                     </p-selectButton>
                                 </div>
                                 <div class="col-4  flex flex-column flex align-items-center justify-content-center">
@@ -137,7 +141,8 @@
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="consultaPP"
                                                     optionLabel="label"
-                                                    optionValue="value">
+                                                    optionValue="value"
+                                                    (onChange)="cambio2($event,'eessP','domicilioP')">
                                     </p-selectButton>
                                 </div>
                             </div>
@@ -148,7 +153,8 @@
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="profSaludP"
                                                     optionLabel="label"
-                                                    optionValue="value">
+                                                    optionValue="value"
+                                                    (onChange)="cambio3($event,'tecnicoP','acsP','familiarP','otroP')">
                                     </p-selectButton>
                                 </div>
                                 <div class="col-3 flex flex-column flex align-items-center justify-content-center">
@@ -156,7 +162,8 @@
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="tecnicoP"
                                                     optionLabel="label"
-                                                    optionValue="value">
+                                                    optionValue="value"
+                                                    (onChange)="cambio3($event,'profSaludP','acsP','familiarP','otroP')">
                                     </p-selectButton>
                                 </div>
                                 <div class="col-3 flex flex-column flex align-items-center justify-content-center">
@@ -164,7 +171,8 @@
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="acsP"
                                                     optionLabel="label"
-                                                    optionValue="value">
+                                                    optionValue="value"
+                                                    (onChange)="cambio3($event,'tecnicoP','profSaludP','familiarP','otroP')">
                                     </p-selectButton>
                                 </div>
                                 <div class="col-3 flex flex-column flex align-items-center justify-content-center">
@@ -172,7 +180,8 @@
                                     <p-selectButton [options]="stateOptions"
                                                     formControlName="familiarP"
                                                     optionLabel="label"
-                                                    optionValue="value">
+                                                    optionValue="value"
+                                                    (onChange)="cambio3($event,'tecnicoP','acsP','profSaludP','otroP')">
                                     </p-selectButton>
                                 </div>
                             </div>                       
@@ -186,7 +195,8 @@
                                         <p-selectButton [options]="stateOptions"
                                                         formControlName="otroP"
                                                         optionLabel="label"
-                                                        optionValue="value">
+                                                        optionValue="value"
+                                                        (onChange)="cambio3($event,'tecnicoP','acsP','familiarP','profSaludP')">
                                         </p-selectButton>
                                     </div>
                                     <div class="col md:col align-self-end flex ">
