@@ -9,7 +9,8 @@ import {MessageService} from 'primeng/api';
 @Component({
   selector: 'app-nueva-sesion',
   templateUrl: './nueva-sesion.component.html',
-  styleUrls: ['./nueva-sesion.component.css']
+  styleUrls: ['./nueva-sesion.component.css'],
+  providers: [MessageService]
 })
 export class NuevaSesionComponent implements OnInit {
 
@@ -66,6 +67,7 @@ export class NuevaSesionComponent implements OnInit {
           this.ref.close();
         }        
         else {
+          this.messageService.add({severity:'error', summary: 'Error al agregar la sesion', detail: sesionAdd.descripcion});
           this.ref.close();
         }
       }
