@@ -14,7 +14,6 @@ import {ModalInmunizacionesComponent} from "./component/tratamiento/modal-inmuni
 import {PaginatorModule} from "primeng/paginator";
 import { ModalInterconsultaComponent } from './component/tratamiento/modal-interconsulta/modal-interconsulta.component';
 import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
-import { ModalDiagnosticoComponent } from './component/giagnosticos/modal-diagnostico/modal-diagnostico.component';
 import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
 
 
@@ -32,7 +31,6 @@ import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-
         DialogExamenesFetalesComponent,
         ModalInterconsultaComponent,
         ModalRecomendacionesComponent,
-        ModalDiagnosticoComponent,
         ModalExamenesAuxiliaresComponent,
     ],
     imports: [
