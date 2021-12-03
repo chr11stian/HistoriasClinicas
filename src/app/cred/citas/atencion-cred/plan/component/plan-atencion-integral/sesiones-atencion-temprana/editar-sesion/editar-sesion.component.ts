@@ -4,12 +4,14 @@ import {SesionesTempranas, respuestaSesionesTempranas} from 'src/app/cred/models
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import {SesionesAtencionTempranaService} from 'src/app/cred/services/plan-atencion-integral/sesiones-atencion-temprana/sesiones-atencion-temprana.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import {MessageService} from 'primeng/api';
 
 
 @Component({
   selector: 'app-editar-sesion',
   templateUrl: './editar-sesion.component.html',
-  styleUrls: ['./editar-sesion.component.css']
+  styleUrls: ['./editar-sesion.component.css'],
+  providers: [MessageService]
 })
 export class EditarSesionComponent implements OnInit {
 
@@ -22,7 +24,8 @@ export class EditarSesionComponent implements OnInit {
               public ref: DynamicDialogRef, 
               public config: DynamicDialogConfig,
               private route: ActivatedRoute,
-              private router: Router,  ) { }
+              private router: Router,
+              public messageService: MessageService) { }
 
   ngOnInit(){
     this.sesion= this.config.data.sesion;
@@ -71,12 +74,12 @@ export class EditarSesionComponent implements OnInit {
         .then( codigo=> {
           console.log('respuesta',codigo);
             if (codigo.cod_Http ==="200 OK"){
-              // this.notify.showExito("Se actualizo con éxito la sesion")
+              this.messageService.add({severity:'success', summary: 'Se actualizo con éxito la sesion', detail: sesionUpdate.descripcion});
               this.ref.close();
               // this.onGoToSesiones()
             }
             else {
-              // this.notify.showError("Error al modificar la sesion!");
+              this.messageService.add({severity:'error', summary: 'Error al modificar la sesion!', detail: sesionUpdate.descripcion});
               this.ref.close();
               // this.onGoToSesiones();
             } 
