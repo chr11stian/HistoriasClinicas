@@ -1,356 +1,63 @@
 <div class="grid">
     <div class="lg:col-4 md:col-6 col-fixed">
-        <div class="card flex flex-column" style="justify-content: flex-end;">
+        <div class="card flex flex-column">
             <div class="field grid">
-                <div class="mr-2 text-right" style="width:200px">Fecha</div>
-                <div class="text-right" style="width:140px">Fecha Tentativa</div>
+                <div class="mr-2 text-right" style="width:170px">Fecha</div>
+                <div class="text-right" style="width:135px">Fecha Tentativa</div>
             </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">BCG:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+            <div class="field grid" *ngFor="let inmu1 of lista1">
+                <span class="col-fixed text-right mr-1" style="width:100px;">{{inmu1.nombreVacuna}}:</span>
+                <div style="width:105px" class="mr-2">
+                    <p-calendar [showIcon]="true" placeholder="Fecha" [disabled]=true
+                                dateFormat="yy-mm-dd"
+                                [(ngModel)]="inmu1.fecha"></p-calendar>
                 </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                <div style="width:105px" class="mr-2">
+                    <p-calendar [showIcon]="true" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd"
+                                [(ngModel)]="inmu1.fechaTentativa"></p-calendar>
                 </div>
+                <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-outlined agregar" pTooltip="Editar Inmunización" (click)=editarSesion(item)></button>
             </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">HVB:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">IPV 1°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">IPV 2°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">APO 3°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">APO 1R°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">APO 2R°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>  
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">AMA:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-        </div>  
+        </div>
     </div>
     <div class="lg:col-4 md:col-6 col-fixed">
         <div class="card flex flex-column">
             <div class="field grid">
-                <div class="mr-2 text-right" style="width:200px">Fecha</div>
-                <div class="text-right" style="width:140px">Fecha Tentativa</div>
+                <div class="mr-2 text-right" style="width:170px">Fecha</div>
+                <div class="text-right" style="width:135px">Fecha Tentativa</div>
             </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">Pentavalente 1°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+            <div class="field grid" *ngFor="let inmu2 of lista2">
+                <span class="col-fixed text-right mr-1" style="width:100px">{{inmu2.nombreVacuna}}:</span>
+                <div style="width:105px" class="mr-2">
+                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd"
+                    [(ngModel)]="inmu2.fecha" [disabled]=true></p-calendar>
                 </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                <div style="width:105px" class="mr-2">
+                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd"
+                    [(ngModel)]="inmu2.fechaTentativa"></p-calendar>
                 </div>
+                <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-outlined agregar" pTooltip="Editar Inmunización" (click)=editarSesion(item)></button>
             </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">Pentavalente 2°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">Pentavalente 3°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">Rotavirus 1°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">Rotavirus 2°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">Neumococo 1°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">Neumococo 2°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">Neumococo 3°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-        </div>  
+        </div>
     </div>
     <div class="lg:col-4 md:col-6 col-fixed">
         <div class="card flex flex-column">
             <div class="field grid">
-                <div class="mr-2 text-right" style="width:200px">Fecha</div>
-                <div class="text-right" style="width:140px">Fecha Tentativa</div>
+                <div class="mr-2 text-right" style="width:170px">Fecha</div>
+                <div class="text-right" style="width:135px">Fecha Tentativa</div>
             </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">Influenza 1°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+            <div class="field grid" *ngFor="let inmu3 of lista3">
+                <span class="col-fixed text-right mr-1" style="width:100px">{{inmu3.nombreVacuna}}:</span>
+                <div style="width:105px" class="mr-2">
+                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd"
+                    [(ngModel)]="inmu3.fecha" [disabled]=true></p-calendar>
                 </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                <div style="width:105px" class="mr-2">
+                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd"
+                    [(ngModel)]="inmu3.fechaTentativa"></p-calendar>
                 </div>
+                <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-outlined agregar" pTooltip="Editar Inmunización" (click)=editarSesion(item)></button>
             </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">Influenza 2°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">SPR 1°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">SPR 2°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">DPT 1°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>
-            <div class="field grid">
-                <span class="col-fixed text-right mr-2" style="width:120px">DPT 2°:</span>
-                <p-selectButton [options]="stateOptions"
-                                
-                                optionLabel="label"
-                                class="mr-2"
-                                optionValue="value">
-                </p-selectButton>
-                <div style="width:110px" class="mr-2">
-                    <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                </div>
-                <div style="width:110px">
-                    <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                </div>
-            </div>                
-        </div>  
+        </div>
     </div>
 </div>

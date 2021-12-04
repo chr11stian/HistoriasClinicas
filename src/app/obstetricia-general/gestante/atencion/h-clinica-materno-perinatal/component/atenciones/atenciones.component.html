@@ -1,0 +1,238 @@
+<div class="p-card">
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <h3 class="mt-2">ATENCIONES GESTACIONALES</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                    class="guardar mr-2" style="background-color: #0c3866"></button>
+        </ng-template>
+    </p-toolbar>
+    <br>
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0"></h3>
+        </ng-template>
+
+        <ng-template pTemplate="right" class="button">
+
+            <button pButton pRipple label="Grafico" icon="pi pi-file-o" icon="pi pi-chart-line" class="button-graficar"
+                    pButton type="button"
+                    (click)="graficar('normal')"
+            ></button>
+            <button pButton pRipple label="Agregar Atención" icon="pi pi-plus" pButton type="button"
+                    class="button-agregar"
+                    (click)="openNew()"></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table class="table-over" [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50]"
+             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center" class="font-2">ATENCION PRENATAL</th>
+                <th style="text-align: center" class="font-1">Fecha Atención</th>
+                <th style="text-align: center" class="font-2">Edad Gest.(Semanas)</th>
+                <th style="text-align: center" class="font-2">Peso Madre (Kg)</th>
+                <th style="text-align: center" class="font-1">Eval. Nutricional</th>
+                <th style="text-align: center" class="font-2">Temperatura(°C)</th>
+                <th style="text-align: center" class="font-1">Presion Arterial(mm. Hg)</th>
+                <th style="text-align: center" class="font-2">Pulso Materno(por min)</th>
+                <th style="text-align: center" class="font-1">Altura Uterina(cm)</th>
+                <th style="text-align: center" class="font-1">Acción</th>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center" class="font-2">ATENCION {{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.fechaAtencion }} </td>
+                <td style="text-align: center">{{ rowData.edadGestacional }}</td>
+                <td style="text-align: center">{{ rowData.pesoMadre}}</td>
+                <td style="text-align: center">{{ rowData.evalNutricional}}</td>
+                <td style="text-align: center">{{ rowData.temperatura}}</td>
+                <td style="text-align: center">{{ rowData.presionArterial}}</td>
+                <td style="text-align: center">{{ rowData.pulsoMaterno}}</td>
+                <td style="text-align: center">{{ rowData.alturaUterinal}}</td>
+                <td style="text-align: center">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                            (click)="editar(rowData)" pTooltip="Editar">
+                    </button>
+                    <button pButton (click)="editar(rowData)" pTooltip="Visualizar" pRipple type="button"
+                            icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                    </button>
+
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
+
+<!-----------INICIO DIALOG INGRESAR ATENCION-->
+<!--<p-dialog header={{titulo()}} [(visible)]="atencionGestanteDialog" [baseZIndex]="10000"-->
+<!--          styleClass="p-fluid" [modal]="true" [responsive]="true" [draggable]="false" [resizable]="false">-->
+
+
+<!--    <form [formGroup]='form' (ngSubmit)="save(formTemplate)" #formTemplate="ngForm">-->
+<!--        <p-panel>-->
+<!--            <ng-template pTemplate="header">-->
+<!--                <h3 class="m-2">ATENCION NRO. 001 </h3>-->
+<!--            </ng-template>-->
+<!--            <div class="p-fluid grid">-->
+<!--                <div class="col-6">-->
+<!--                    <label>FECHA DE ATENCION:</label>-->
+<!--                     <p-calendar type="date" class="inputfield w-full" showIcon="True" formControlName='fechaAtencion'-->
+<!--                      dateFormat="dd-mm-yy"></p-calendar>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="grid p-fluid">-->
+<!--                &lt;!&ndash;            <div class="p-col-12 p-md-6 p-lg-3 p-xl-3">&ndash;&gt;-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>EDAD GESTACIONAL(Semanas)</label>-->
+<!--                    <input type="number" class="p-fluid" pInputText formControlName='edadGestacional'-->
+<!--                           placeholder="semanas">-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>PESO MADRE</label>-->
+<!--                    <input type="decimal" class="p-fluid" pInputText formControlName='pesoMadre' placeholder="kg">-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>EVALUACION NUTRICIONAL</label>-->
+<!--                    <input type="text" class="p-fluid" pInputText formControlName='evalNutricional'-->
+<!--                           placeholder="evaluacion">-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>TEMPERATURA(°C) </label>-->
+<!--                    <p-inputNumber formControlName='temperatura' class="p-fluid" prefix="↑ " inputId="temperature"-->
+<!--                                   suffix="℃" [min]="0" [max]="40">-->
+<!--                    </p-inputNumber>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>PRESION ARTERIAL</label>-->
+<!--                    <input type="text" class="p-fluid" pInputText formControlName='presionArterial'-->
+<!--                           placeholder="mm. Hg.">-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>PULSO MATERNO(por min)</label>-->
+<!--                    <input type="text" class="p-fluid" pInputText formControlName='pulsoMaterno' placeholder="por min.">-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>ALTURA UTERINAL(cm)</label>-->
+<!--                    <input type="decimal" class="p-fluid" pInputText formControlName='alturaUterinal' placeholder="cm">-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>SITUACION</label>-->
+<!--                    <div class="p-field resp">-->
+<!--                        <input  type="text" pInputText formControlName="situacion" placeholder="situacion">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>PRESENTACION</label>-->
+<!--                    <div class="p-field">-->
+<!--                        <input  type="text" pInputText formControlName="presentacion" placeholder="presentacion">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class=" p-fluid resp">-->
+<!--                    <label>POSICION FETAL</label>-->
+<!--                    <div class="p-field">-->
+<!--                        <input   type="text" pInputText formControlName="posicion" placeholder="seleccionar">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="p-fluid">-->
+<!--                    <label>FCF</label>-->
+<!--                    <input type="text" pInputText formControlName='fcf' placeholder="por min.">-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>MOVIMIENTO FETAL</label>-->
+<!--                    <div class="p-field resp">-->
+<!--                        <input type="text" pInputText formControlName="movFetal" placeholder="mov Fetal">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>PROTEINURIA CUALITATIVA</label>-->
+<!--                    <div class="p-field">-->
+<!--                        <input type="text" pInputText formControlName="proteinaCualitativa" placeholder="Proteina Cualitativa">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>EDEMA</label>-->
+<!--                    <div class="p-field">-->
+<!--                        <input type="text" pInputText formControlName="edema"  placeholder="edema">-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>REFLEJO OSTEOTENDINOSO</label>-->
+<!--                    <div class="p-field">-->
+<!--                        <input type="text" pInputText formControlName="reflejoOsteotendinoso" placeholder="reflejo">-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>FECHA ECOGRAFIA</label>-->
+<!--                    <p-calendar class="inputfield w-full" showIcon="True" formControlName='fechaEcografia'></p-calendar>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>CONSEJERIA INTEGRAL</label>-->
+<!--                    <input type="text" pInputText formControlName='consejeriaIntegral' placeholder="consejeria">-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>INDICADOR DE ACIDO FOLICO</label>-->
+<!--                    <input type="text" pInputText formControlName='indAcidoFolico' placeholder="Ind. Ac. Fólico">-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>INDICADOR FIERRO</label>-->
+<!--                    <input type="text" pInputText formControlName='indFierro' placeholder="Indide Fierro">-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>INDICADOR CALCIO</label>-->
+<!--                    <input type="text" pInputText formControlName='indCalcio' placeholder="Indide Calcio">-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>INTERCONSULTA</label>-->
+<!--                    <div class="p-field">-->
+<!--                        <input type="text" pInputText formControlName="interconsulta" placeholder="interconsulta">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>PLAN PARTO</label>-->
+<!--                    <div class="p-field">-->
+<!--                        <input type="text" pInputText  formControlName="planParto" placeholder="plan Parto">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>VISITA DOMICILIARIA</label>-->
+<!--                    <div class="p-field">-->
+<!--                        <input type="text" pInputText formControlName="visitaDomiciliaria" placeholder="Visita Domiciliaria">-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>PROXIMA CITA</label>-->
+<!--                    <input type="date" pInputText formControlName="proximaCita" class="p-inputtext-sm " pInputText>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>RESPONSABLE ATENCION</label>-->
+<!--                    <input type="text" pInputText formControlName='responsableAtencion'>-->
+<!--                </div>-->
+<!--                <div class="p-field resp">-->
+<!--                    <label>ESTABLECIMIENTO ATENCION</label>-->
+<!--                    <input type="text" pInputText formControlName='establecimientoAtencion'>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </p-panel>-->
+<!--    </form>-->
+<!--    <ng-template pTemplate="footer">-->
+<!--        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"-->
+<!--                (click)="canceled()"></button>-->
+<!--        <button *ngIf="!isUpdate" [disabled]="!form.valid" class="button-agregar" icon="pi pi-save" pButton-->
+<!--                type="button" label="Guardar" (click)="save(formTemplate)"></button>-->
+<!--    </ng-template>-->
+<!--</p-dialog>-->
+<!------------------------------- FIN DIALOG INGRESAR ATENCION---->
+

@@ -1,24 +1,26 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
+import { AutoCompleteModule } from 'primeng/autocomplete'
 import {PaginatorModule} from "primeng/paginator";
 
 import {PlanDePartoModule} from "./plan-de-parto/plan-de-parto.module";
 import {ExamenesModule} from "./examenes/examenes.module";
 import {AtencionComponent} from "./atencion.component";
 import {AtencionRoutingModule} from "./atencion-routing.module";
-import {PlanAtencionIntegralModule} from "./plan-atencion-integral/plan-atencion-integral.module";
 import {PrimeModule} from "../../../shared/prime/prime.module";
-import {PesoEmbarazoUnicoMultipleComponent} from './modals/peso-normal-embarazo-unico-multiple/peso-embarazo-unico-multiple.component';
-import {SharedModule} from '../../../shared/shared.module'
+import { PesoEmbarazoUnicoMultipleComponent } from './modals/peso-normal-embarazo-unico-multiple/peso-embarazo-unico-multiple.component';
+import {SharedModule} from '../../../shared/shared.module';
 import {ConsultaObstetricoModule} from "./consultorio-obstetrico/consulta-obstetrico.module";
+import {HClinicaMaternoPerinatalModule} from "./h-clinica-materno-perinatal/h-clinica-materno-perinatal.module";
+
 
 
 @NgModule({
     declarations: [
 
         AtencionComponent,
-        PesoEmbarazoUnicoMultipleComponent,
+        PesoEmbarazoUnicoMultipleComponent
 
     ],
     exports: [AtencionComponent],
@@ -27,9 +29,13 @@ import {ConsultaObstetricoModule} from "./consultorio-obstetrico/consulta-obstet
         AtencionRoutingModule,
         PrimeModule,
         PaginatorModule,
+        AutoCompleteModule,
+
 
         ConsultaObstetricoModule,
-        PlanAtencionIntegralModule,
+
+        ConsultaObstetricoModule,
+        HClinicaMaternoPerinatalModule,
         PlanDePartoModule,
         ExamenesModule,
         SharedModule,
@@ -37,4 +43,5 @@ import {ConsultaObstetricoModule} from "./consultorio-obstetrico/consulta-obstet
     ]
 })
 export class AtencionModule {
+
 }

@@ -11,34 +11,23 @@
         </div>
     </div>
 </div>
-<div class="grid" [formGroup]="controlCrecimientoFG">
+<div class="grid">
     <div class="lg:col-6 md:col-6 col-fixed">                
         <p-fieldset legend="Recién Nacido" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:250px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:265px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" formControlName="RN1peso" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" formControlName="RN1talla" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" formControlName="RN1fecha"></p-calendar>
+                <div class="field grid" *ngFor="let itemRN of RN">
+                    <span class="col-fixed text-right mr-4" style="width:20px">{{itemRN.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="itemRN.peso"/>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="itemRN.talla"/> 
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="itemRN.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" formControlName="RN2peso" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" formControlName="RN2talla" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" formControlName="RN2fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="itemRN.fechaTentativa"></p-calendar>
                     </div>
                 </div>
             </div>  
@@ -47,117 +36,18 @@
         <p-fieldset legend="Menor de 01 año" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:250px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:265px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" formControlName="Menor1peso" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" formControlName="Menor1talla" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" formControlName="Menor1fecha"></p-calendar>
+                <div class="field grid" *ngFor="let itemMN1 of Menor_1A">
+                    <span class="col-fixed text-right mr-4" style="width:20px">{{itemMN1.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="itemMN1.peso"/>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="itemMN1.talla"/> 
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="itemMN1.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" formControlName="Menor2peso" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" formControlName="Menor2talla" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" formControlName="Menor2fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">3°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" formControlName="Menor3peso" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">4°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">5°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">6°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">7°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">8°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">9°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">10°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="itemMN1.fechaTentativa"></p-calendar>
                     </div>
                 </div>
             </div>  
@@ -166,73 +56,18 @@
         <p-fieldset legend="1 año" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:250px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:265px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item1 of A1">
+                    <span class="col-fixed text-right mr-4" style="width:20px">{{item1.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item1.peso"/>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item1.talla"/> 
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item1.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">3°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">4°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">5°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">6°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item1.fechaTentativa"></p-calendar>
                     </div>
                 </div>
             </div>  
@@ -241,52 +76,18 @@
         <p-fieldset legend="2 años" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:250px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:265px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item2 of A2">
+                    <span class="col-fixed text-right mr-4" style="width:20px">{{item2.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item2.peso"/>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item2.talla"/> 
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item2.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                    
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">3°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">4°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item2.fechaTentativa"></p-calendar>
                     </div>
                 </div>
             </div>  
@@ -296,51 +97,18 @@
         <p-fieldset legend="3 años" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:250px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:265px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item3 of A3">
+                    <span class="col-fixed text-right mr-4" style="width:20px">{{item3.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item3.peso"/>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item3.talla"/> 
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item3.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">3°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">4°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item3.fechaTentativa"></p-calendar>
                     </div>
                 </div>
             </div>  
@@ -349,82 +117,38 @@
         <p-fieldset legend="4 años" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:250px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:265px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item4 of A4">
+                    <span class="col-fixed text-right mr-4" style="width:20px">{{item4.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item4.peso"/>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item4.talla"/> 
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item4.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item4.fechaTentativa"></p-calendar>
                     </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">3°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">4°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>                       
+                </div>                     
             </div>  
         </p-fieldset>
         <br>
         <p-fieldset legend="5 años" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:250px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:265px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item5 of A5">
+                    <span class="col-fixed text-right mr-4" style="width:20px">{{item5.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item5.peso"/>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item5.talla"/> 
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item5.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item5.fechaTentativa"></p-calendar>
                     </div>
                 </div>
             </div>  
@@ -433,29 +157,18 @@
         <p-fieldset legend="6 años" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:250px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:265px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item6 of A6">
+                    <span class="col-fixed text-right mr-4" style="width:20px">{{item6.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item6.peso"/>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item6.talla"/> 
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item6.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item6.fechaTentativa"></p-calendar>
                     </div>
                 </div>
             </div>  
@@ -464,29 +177,18 @@
         <p-fieldset legend="7 años" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:250px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:265px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item7 of A7">
+                    <span class="col-fixed text-right mr-4" style="width:20px">{{item7.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item7.peso"/>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item7.talla"/> 
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item7.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item7.fechaTentativa"></p-calendar>
                     </div>
                 </div>
             </div>  
@@ -495,29 +197,18 @@
         <p-fieldset legend="8 años" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:250px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:265px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item8 of A8">
+                    <span class="col-fixed text-right mr-4" style="width:20px">{{item8.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item8.peso"/>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item8.talla"/> 
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item8.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item8.fechaTentativa"></p-calendar>
                     </div>
                 </div>
             </div>  
@@ -526,31 +217,20 @@
         <p-fieldset legend="9 años" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
                 <div class="field grid">
-                    <div class="mr-2 text-right" style="width:250px">Fecha</div>
+                    <div class="mr-2 text-right" style="width:265px">Fecha</div>
                     <div class="text-right" style="width:140px">Fecha Tentativa</div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item9 of A9">
+                    <span class="col-fixed text-right mr-4" style="width:20px">{{item9.nroControl}}°:</span>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item9.peso"/>
+                    <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item9.talla"/> 
+                    <div class="mr-2" style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item9.fecha"></p-calendar>
                     </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
+                    <div style="width:113px">
+                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item9.fechaTentativa"></p-calendar>
                     </div>
                 </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:20px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Peso"> 
-                    <input type="text" class="mr-2" pInputText style="width:70px" placeholder="Talla"> 
-                    <div class="mr-2" style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha"></p-calendar>
-                    </div>
-                </div> 
             </div>
         </p-fieldset>
     </div>

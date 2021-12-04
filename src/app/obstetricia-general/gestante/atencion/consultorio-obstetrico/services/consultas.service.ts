@@ -12,7 +12,23 @@ export class ConsultasService {
     constructor(private http: HttpClient) {
     }
 
-    addConsultas(tipoDoc, nroDoc, data) {
+    getConsultas(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar`, data)
+    }
+
+    addConsultas(data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultorio`, data)
+    }
+
+    updateConsultas(data) {
+        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio`, data);
+    }
+
+    getConsultaPrenatalByEmbarazo(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar`, data);
+    }
+
+    getInterrogatorioByEmbarazo(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarInterrogatorio`, data);
     }
 }

@@ -43,7 +43,7 @@ export class TipoTurnoComponent implements OnInit {
     this.ref = this.dialogService.open(TipoTurnoModalComponent, {
       data: { id: id },
       header: header,
-      width: "70%",
+      width: "40%",
     });
     this.ref.onClose.subscribe((mensaje?: string) => {
       let detail: string = "Elemento agregado satisfactoriomente";

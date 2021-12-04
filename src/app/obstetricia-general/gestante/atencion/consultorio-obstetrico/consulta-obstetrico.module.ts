@@ -10,9 +10,20 @@ import {PrimeModule} from "../../../../shared/prime/prime.module";
 import {DialogExamenesFetalesComponent} from "./component/interrogatorio/dialog-examenes-fetales/dialog-examenes-fetales.component";
 import {ConsultaObstetricoRoutingModule} from "./consulta-obstetrico-routing.module";
 
+import {PaginatorModule} from "primeng/paginator";
+import {ModalTratamientoComponent} from "./component/tratamiento/modal-tratamiento/modal-tratamiento.component";
+import {ModalInmunizacionesComponent} from "./component/tratamiento/modal-inmunizaciones/modal-inmunizaciones.component";
+import { ModalInterconsultaComponent } from './component/tratamiento/modal-interconsulta/modal-interconsulta.component';
+import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
+import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
+
+
 
 @NgModule({
     declarations: [
+        ModalTratamientoComponent,
+        ModalInmunizacionesComponent,
+
         DatosGeneralesComponent,
         StepGeneral_consultaComponent,
         InterrogatorioComponent,
@@ -20,11 +31,15 @@ import {ConsultaObstetricoRoutingModule} from "./consulta-obstetrico-routing.mod
         TratamientoComponent,
         ResultadosComponent,
         DialogExamenesFetalesComponent,
+        ModalInterconsultaComponent,
+        ModalRecomendacionesComponent,
+        ModalExamenesAuxiliaresComponent,
     ],
     imports: [
         ConsultaObstetricoRoutingModule,
         CommonModule,
-        PrimeModule
+        PrimeModule,
+        PaginatorModule
     ]
 })
 export class ConsultaObstetricoModule {

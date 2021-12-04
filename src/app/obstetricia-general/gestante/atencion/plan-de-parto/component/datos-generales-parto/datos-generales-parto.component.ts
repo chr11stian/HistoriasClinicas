@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { ObstetriciaGeneralService } from 'src/app/obstetricia-general/services/obstetricia-general.service';
-import { FiliancionService } from '../../../plan-atencion-integral/services/filiancion-atenciones/filiancion.service';
 import { DatosGeneralesPartoService } from '../../services/datos-generales-parto/datos-generales-parto.service';
 import { DatePipe } from '@angular/common';
+import {FiliancionService} from "../../../h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 
 @Component({
   selector: 'app-datos-generales-parto',

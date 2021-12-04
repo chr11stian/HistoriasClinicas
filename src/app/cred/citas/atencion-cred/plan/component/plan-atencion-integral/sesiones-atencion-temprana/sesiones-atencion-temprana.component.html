@@ -1,53 +1,26 @@
 <div class="grid">
-    <div class="lg:col-4 col-fixed">
+    <div class="lg:col-5 col-fixed">
         <div class=" mb-2">
             <div class="col flex justify-content-end">
                 <div>
-                    <button pButton pRipple label="Atención nueva" class="guardar" icon="pi pi-plus-circle" styleClass="p-button"></button>
+                    <button pButton pRipple label="Atención nueva" class="guardar" icon="pi pi-plus-circle" styleClass="p-button" (click)="nuevaSesion()"></button>
                 </div>
             </div>
         </div>
         <p-fieldset legend="Sesiones de Atención Temprana" [toggleable]="true">
             <div class="card flex flex-column">
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">1°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
+                <div class="field grid" *ngFor="let item of listaControles; let iItem=index">
+                    <span class="col-fixed text-right mr-2" style="width:30px">{{iItem +1}}°:</span>
+                    <input type="text" class="mr-2" [disabled]=true pInputText style="width:200px" placeholder="Descripción" [(ngModel)]="item.descripcion"> 
+                    <div style="width:113px" class="mr-2">
+                        <p-calendar [showIcon]="true" [disabled]=true inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item.fecha"></p-calendar>
                     </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">2°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">3°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">4°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
-                </div>
-                <div class="field grid">
-                    <span class="col-fixed text-right mr-2" style="width:30px">5°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:140px" placeholder="Descripción"> 
-                    <div style="width:110px">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha"></p-calendar>
-                    </div>
+                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-outlined agregar" pTooltip="Editar Sesión" (click)=editarSesion(item)></button>
                 </div>
             </div>
         </p-fieldset>  
     </div>
-    <div class="lg:col-8 col-fixed">
+    <div class="lg:col-7 col-fixed">
         <p-fieldset legend="Materiales - Atención Temprana" [toggleable]="true">
             <div class="card flex flex-row">
                 <div class="col-6 col-fixed">

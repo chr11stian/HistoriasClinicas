@@ -31,7 +31,20 @@ export class CuposService {
         return this.http.post(`${this.base_url}/${this.bd}/cupo/save`, data)
     }
 
-    getCuposServicioFecha(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/cupo/find/servicio`, data)
+
+    //Actualiza el estado de las ofertas despues de guardar un cupo LIBRE / OCUPADO
+    updateEstadoOferta(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/actualizar-horario`, data)
     }
+
+    //Crear las ofertas de acuerdo a los Ids de rol de guardias por servicio
+    crearOfertas(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/crear-ofertas`, data)
+    }
+
+    getCuposServicioFecha(idipres, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/servicio/${idipres}`, data)
+    }
+
+
 }
