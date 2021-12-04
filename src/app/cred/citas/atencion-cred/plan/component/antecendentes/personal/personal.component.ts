@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl, Validators, FormControl } from '@angular/forms';
-import { AntecedentesPersonales } from '../../models/antecedentes.interface';
+import { AntecedentesPersonalesFormType } from '../../models/antecedentes.interface';
 
 // export interface AntecedentesPersonales {
 //   dni?: string;
@@ -80,7 +80,7 @@ import { AntecedentesPersonales } from '../../models/antecedentes.interface';
   styleUrls: ['./personal.component.css']
 })
 export class PersonalComponent implements OnInit {
-  @Output() personalEmit: EventEmitter<AntecedentesPersonales> = new EventEmitter<AntecedentesPersonales>();
+  @Output() personalEmit: EventEmitter<AntecedentesPersonalesFormType> = new EventEmitter<AntecedentesPersonalesFormType>();
   
   stateOptions: any[];
   stateOptions1: any[];
@@ -155,7 +155,7 @@ export class PersonalComponent implements OnInit {
     })
   }
 
-  rellenarForm(tabla: AntecedentesPersonales): void {
+  rellenarForm(tabla: AntecedentesPersonalesFormType): void {
 
     this.getFC('patologiasE1').setValue(tabla.embarazo.patologias1)
     this.getFC('patologiasE2').setValue(tabla.embarazo.patologias2)
