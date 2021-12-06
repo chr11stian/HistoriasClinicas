@@ -3,14 +3,15 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from 
 import {SesionesTempranas, respuestaSesionesTempranas} from 'src/app/cred/models/plan-atencion-integral/plan-atencion-integral.model'
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import {SesionesAtencionTempranaService} from 'src/app/cred/services/plan-atencion-integral/sesiones-atencion-temprana/sesiones-atencion-temprana.service';
-import {NotifyService} from 'src/app/shared/notify/notify.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import {MessageService} from 'primeng/api';
 
 
 @Component({
   selector: 'app-editar-sesion',
   templateUrl: './editar-sesion.component.html',
-  styleUrls: ['./editar-sesion.component.css']
+  styleUrls: ['./editar-sesion.component.css'],
+  providers: [MessageService]
 })
 export class EditarSesionComponent implements OnInit {
 
@@ -20,11 +21,11 @@ export class EditarSesionComponent implements OnInit {
 
   constructor(private servicio: SesionesAtencionTempranaService, 
               private fb: FormBuilder, 
-              public notify: NotifyService,
               public ref: DynamicDialogRef, 
               public config: DynamicDialogConfig,
               private route: ActivatedRoute,
-              private router: Router,  ) { }
+              private router: Router,
+              public messageService: MessageService) { }
 
   ngOnInit(){
     this.sesion= this.config.data.sesion;
@@ -35,11 +36,11 @@ export class EditarSesionComponent implements OnInit {
       fecha: [this.sesion.fecha, Validators.required]
     }); 
   }
-  onGoToSesiones() {
-    this.router.navigate(["../../", "plan-atencion-integral/sesiones-atencion-temprana"], {
-      relativeTo: this.route
-    });
-  }
+  // onGoToSesiones() {
+  //   this.router.navigate(["../", "plan-atencion-integral/sesiones-atencion-temprana"], {
+  //     relativeTo: this.route
+  //   });
+  // }
   onSelectMethod(event) {
     let d = new Date(Date.parse(event));
     // console.log("sin formato", d);
@@ -63,25 +64,25 @@ export class EditarSesionComponent implements OnInit {
     if(this.control.valid){
       console.log("control validado");
       const sesionUpdate: SesionesTempranas = {
+          id: this.sesion.id,
           descripcion: this.control.value.descripcion,
           fecha: this.control.value.fecha,
       };
       console.log("datos nuevos",this.dni,sesionUpdate);
-      this.servicio.updateSesion(this.dni,[sesionUpdate])
-        .toPromise().then(res => {
-          console.log('respuesta',res);
-          if(res){
-            if (res ==="200 OK"){
-              this.notify.showExito("Se actualizo con éxito la sesion")
-              this.onGoToSesiones()
+      this.servicio.updateSesion(this.dni,sesionUpdate)
+        .toPromise().then(res => <respuestaSesionesTempranas> res)
+        .then( codigo=> {
+          console.log('respuesta',codigo);
+            if (codigo.cod_Http ==="200 OK"){
+              this.messageService.add({severity:'success', summary: 'Se actualizo con éxito la sesion', detail: sesionUpdate.descripcion});
+              this.ref.close();
+              // this.onGoToSesiones()
             }
             else {
-              this.notify.showError("Error al modificar la sesion!");
-              this.onGoToSesiones();
-            }
-
-          }
-          
+              this.messageService.add({severity:'error', summary: 'Error al modificar la sesion!', detail: sesionUpdate.descripcion});
+              this.ref.close();
+              // this.onGoToSesiones();
+            } 
         }
       )
     }

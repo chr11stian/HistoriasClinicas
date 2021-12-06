@@ -32,6 +32,11 @@ export interface TratamientoSeguimientoAnemia{
     fechaTentativa?: string
 }
 export interface SesionesTempranas{
+    id: number,
+    descripcion: string,
+    fecha: string
+}
+export interface AddSesionesTempranas{
     descripcion: string,
     fecha: string
 }

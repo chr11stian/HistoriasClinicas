@@ -17,18 +17,17 @@ import {ModalExamenesAuxiliaresComponent} from "./modal-examenes-auxiliares/moda
   providers:[DialogService]
 })
 export class TratamientoComponent implements OnInit {
+  idObstetricia: string;
 
-  formTratamiento: FormGroup;
-  /*campos para el tratamiento comun*/
+  /***campos para el tratamiento comun****/
   ref: DynamicDialogRef;
   tratamientosComunes:any[]=[];
-  idObstetricia: string;
   dataTratamientoComun:any;
-  /*campos para el tratamiento suplementario*/
+  /***campos para el tratamiento suplementario***/
   tratamientosSuplementarios:any[]=[];
   suplementarios:any;
+  /*campos de Evaluacion Nutricional*/
   evaluacionNutricional:any;
-
   /*campos para el tratamiento inmunizaciones*/
   tratamientoInmunizaciones:any[]=[];
   dataTratamientoInmunizaciones:any;
@@ -36,17 +35,20 @@ export class TratamientoComponent implements OnInit {
   interconsultas:any[]=[];
   recomendaciones:any[]=[];
   examenesAuxiliares:any[]=[];
-  /*LISTA CIE 10*/
+  /*LISTA DE LOS DROPDOWNS*/
   intervaloList: any[];
   viaadministracionList: any[];
   /*Form de datos generales*/
   formRIEP: FormGroup;
   /*form de todos los arreglos dialogs*/
   formTratamientoInmunizacion:FormGroup;
+  formTratamiento: FormGroup;
   formInterconsultas:FormGroup;
   formRecomendaciones:FormGroup;
   formExamenesAuxiliares:FormGroup;
+  /*CAMPOS PARA RECUPERAR LA DATA PRINCIPAL*/
   dataConsulta:any;
+
   constructor (private formBuilder: FormBuilder,
                private obstetriciaServie: ObstetriciaGeneralService,
                private dialog:DialogService,
@@ -84,7 +86,6 @@ export class TratamientoComponent implements OnInit {
 
   }
   private buildForm() {
-
     this.formRIEP=this.formBuilder.group({
       valor: ['', [Validators.required]],
       indicador:  ['', [Validators.required]],
@@ -94,18 +95,21 @@ export class TratamientoComponent implements OnInit {
       intervaloc: ['', [Validators.required]],
       viaAdministracionc: ['', [Validators.required]],
       duracionc: ['', [Validators.required]],
+      observacionesc:['', [Validators.required]],
       descripciona: ['', [Validators.required]],
       dosisa: ['', [Validators.required]],
       numeroa: ['', [Validators.required]],
       intervaloa: ['', [Validators.required]],
       viaAdministraciona: ['', [Validators.required]],
       duraciona: ['', [Validators.required]],
+      observacionesa:['', [Validators.required]],
       descripcionf: ['', [Validators.required]],
       dosisf: ['', [Validators.required]],
       numerof: ['', [Validators.required]],
       intervalof: ['', [Validators.required]],
       viaAdministracionf: ['', [Validators.required]],
-      duracionf: ['', [Validators.required]]
+      duracionf: ['', [Validators.required]],
+      observacionesf: ['', [Validators.required]]
     })
   }
   ngOnInit(): void
@@ -150,9 +154,7 @@ export class TratamientoComponent implements OnInit {
     this.ref = this.dialog.open(ModalInterconsultaComponent, {
       header: "INTERCONSULTA",
       contentStyle:{
-        width:"500px",
-        heigth:"700px",
-        // overflow:"auto",
+        overflow:"auto",
       },
     })
     this.ref.onClose.subscribe((data:any)=>{
@@ -170,9 +172,7 @@ export class TratamientoComponent implements OnInit {
     this.ref = this.dialog.open(ModalInterconsultaComponent, {
       header: "INTERCONSULTA",
       contentStyle: {
-        width:"500px",
-        heigth:"700px",
-        // overflow:"auto",
+        overflow:"auto",
       },
       data: aux
     })
@@ -187,9 +187,7 @@ export class TratamientoComponent implements OnInit {
     this.ref = this.dialog.open(ModalInmunizacionesComponent, {
       header: "INMUNIZACIONES",
       contentStyle:{
-        width:"500px",
-        heigth:"700px",
-        // overflow:"auto",
+        overflow:"auto",
       },
     })
     this.ref.onClose.subscribe((data:any)=>{
@@ -207,9 +205,9 @@ export class TratamientoComponent implements OnInit {
     this.ref = this.dialog.open(ModalInmunizacionesComponent, {
       header: "INMUNIZACIONES",
       contentStyle: {
-        width:"500px",
-        heigth:"700px",
-        // overflow:"auto",
+        heigth: "300px",
+        width:"350px",
+        overflow:"auto",
       },
       data: aux
     })
@@ -302,7 +300,8 @@ export class TratamientoComponent implements OnInit {
        numero: this.formRIEP.value.numeroa,
        intervalo: this.formRIEP.value.intervaloa,
        viaAdministracion: this.formRIEP.value.viaAdministraciona,
-       duracion: this.formRIEP.value.duraciona
+       duracion: this.formRIEP.value.duraciona,
+       observaciones: this.formRIEP.value.observacionesa
      },
      hierroYAcidoFolico: {
        descripcion: this.formRIEP.value.descripcionf,
@@ -310,7 +309,8 @@ export class TratamientoComponent implements OnInit {
        numero: this.formRIEP.value.numerof,
        intervalo: this.formRIEP.value.intervalof,
        viaAdministracion: this.formRIEP.value.viaAdministracionf,
-       duracion: this.formRIEP.value.duracionf
+       duracion: this.formRIEP.value.duracionf,
+       observaciones:this.formRIEP.value.observacionesf
      },
      calcio: {
        descripcion: this.formRIEP.value.descripcionc,
@@ -318,7 +318,8 @@ export class TratamientoComponent implements OnInit {
        numero: this.formRIEP.value.numeroc,
        intervalo: this.formRIEP.value.intervaloc,
        viaAdministracion: this.formRIEP.value.viaAdministracionc,
-       duracion: this.formRIEP.value.duracionc
+       duracion: this.formRIEP.value.duracionc,
+       observaciones:this.formRIEP.value.observacionesc
      }
    }
   }
@@ -352,7 +353,7 @@ export class TratamientoComponent implements OnInit {
     console.log('data a guardar INMUNIZACION:',this.tratamientoInmunizaciones);
     console.log('data a guardar TRATAMIENTO COMUN:', this.tratamientosComunes);
     console.log('data a guardar SUPLEMENTARIO:', this.tratamientosSuplementarios);
-    console.log('data a guardar SUPLEMENTARIO:', this.evaluacionNutricional);
+    console.log('data a guardar EVALUACION NUTRICIONAL:', this.evaluacionNutricional);
     console.log('data a guardar de interconsultas: ', this.interconsultas);
     console.log('data a guardar de recomendaciones: ', this.recomendaciones);
 
@@ -430,9 +431,7 @@ export class TratamientoComponent implements OnInit {
         }
       }
       /*reuperar datos: tratamientos suplementarios - evaluacion suplmentaria - exam auxiliares*/
-      // console.log(this.dataConsulta.tratamientosSuplementos)
       /* recuperar suplementario acido folico*/
-      /*descripcion*/
       this.formRIEP.patchValue({ 'descripciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.descripcion });
       this.formRIEP.patchValue({ 'numeroa': this.dataConsulta.tratamientosSuplementos.acidoFolico.numero });
       this.formRIEP.patchValue({ 'dosisa': this.dataConsulta.tratamientosSuplementos.acidoFolico.dosis });
