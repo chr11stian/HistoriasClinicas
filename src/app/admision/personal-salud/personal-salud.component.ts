@@ -39,12 +39,14 @@ export class PersonalSaludComponent implements OnInit {
   docList: DocumentoIdentidad[];
   tiposPersonalList: TipoPersonal[];
   especialidadesList: Especialidad[];
+  rolesXList:any[];
   colegiosList: ColegioProfesional[];
   tiposContratoList: any[];
   domicilioList: any[];
   stateOptions: any[];
   nombrePersonal: string = "";
   idEspecialidad: string = "";
+  idRolX:string="";
   estadoUpdateEspecialidad: boolean;
   ipressList: any[];
   datosPersonales: any[];
@@ -524,7 +526,7 @@ export class PersonalSaludComponent implements OnInit {
   getPersonal() {
     this.personalservice.getPersonal().subscribe((res: any) => {
       this.data = res.object;
-
+      console.log(this.data)
     });
   }
   getListaUps() {
@@ -532,6 +534,7 @@ export class PersonalSaludComponent implements OnInit {
       .getServiciosPorIpress("616de45e0273042236434b51")
       .subscribe((resp) => {
         this.listaUpsX = resp["object"];
+        console.log('ups-->',this.listaUpsX)
       });
   }
   saveForm() {
@@ -791,10 +794,10 @@ export class PersonalSaludComponent implements OnInit {
     this.personalEspecialidadDialog = true;
   }
   newRolX(rowData) {
-    console.log(rowData);
     this.rolesX = rowData.roles;
+    console.log(this.rolesX);
     this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
-    this.idEspecialidad = rowData.id;
+    this.idRolX = rowData.id;
     this.form.reset();
     this.personalRolDialogX = true;
   }
@@ -804,6 +807,12 @@ export class PersonalSaludComponent implements OnInit {
     this.formEspecialidad.get("nombre").setValue("");
     this.formEspecialidad.get("nroEspecialidad").setValue("");
   }
+  guardarNuevoRol() {
+    this.isUpdateRolX = false;
+    this.formRol.reset();
+    // this.formRol.get("nombreFuncion").setValue("");
+    // this.formRol.get("ups").setValue("");
+  }
   editarEspecialidad(rowData) {
     console.log("editar", rowData);
     this.isUpdateEspecialidad = true;
@@ -812,6 +821,14 @@ export class PersonalSaludComponent implements OnInit {
       .get("nroEspecialidad")
       .setValue(rowData.nroEspecialidad);
     this.estadoUpdateEspecialidad = rowData.estado;
+  }
+  editarRolX(rowData){
+    console.log("editar", rowData);
+    this.isUpdateRolX = true;
+    this.formRol.get("nombreFuncion").setValue(rowData.nombreFuncion);
+    this.formRol.get("ups").setValue(rowData.codUPS);
+    // this.estadoUpdateRol = rowData.estado;
+
   }
   tituloEspecialidad() {
     if (this.isUpdateEspecialidad) return "Edite Especialidad";
@@ -829,7 +846,7 @@ export class PersonalSaludComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.personalservice
-          .deletePersonalEspecialidad(this.idEspecialidad, rowData.nombre)
+          .deletePersonalEspecialidad(this.idRolX, rowData.nombre)
           .subscribe((result) => {
             this.getPersonalIdEspecialidad();
             this.getPersonal();
@@ -843,6 +860,35 @@ export class PersonalSaludComponent implements OnInit {
         });
       }
     });
+  }
+  eliminarRolX(rowData,index){
+    this.isUpdateRolX = false;
+    Swal.fire({
+      showCancelButton: true,
+      confirmButtonText: "Eliminar",
+      icon: "warning",
+      title: "Estas seguro de eliminar",
+      text: "",
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.personalservice
+            .deleteRol(this.idRolX, rowData.codUPS)
+            .subscribe((result) => {
+              Swal.fire({
+                icon: "success",
+                title: "Eliminado correctamente",
+                text: "",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              this.rolesX.splice(index,1)
+              this.getPersonalIdEspecialidad();
+              // this.getPersonal();
+            });
+      }
+    });
+
   }
   saveEspecialidad(rowData) {
     let est = this.especialidadesList.find(
@@ -868,6 +914,30 @@ export class PersonalSaludComponent implements OnInit {
         this.getPersonal();
         this.guardarNuevoEspecialidad();
       });
+  }
+  saveRol(){
+    // let est = this.rolesXList.find(
+    //     (rol) => rol.codUPS === this.formRol.value.ups
+    // );
+    const req = {
+      nombreFuncion: this.formRol.value.nombreFuncion,
+      codUPS: this.formRol.value.ups,
+    }
+    this.personalservice
+        .addRolesPersonal(this.idRolX , req)
+        .subscribe((result) => {
+          Swal.fire({
+            icon: "success",
+            title: "Agregado correctamente",
+            text: "",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.rolesX.push(req);
+          // this.getPersonalIdEspecialidad();
+          // this.getPersonal();
+          this.guardarNuevoRol();
+        });
   }
   saveEdicionEspecialidad() {
     let est = this.especialidadesList.find(
@@ -895,6 +965,31 @@ export class PersonalSaludComponent implements OnInit {
         this.getPersonal();
         this.guardarNuevoEspecialidad();
       });
+  }
+  saveEdicionRol(){
+    // let est = this.especialidadesList.find(
+    //     (espe) => espe.nombre === this.formEspecialidad.value.nombre
+    // );
+    // console.log(est);
+    const req = {
+      nombreFuncion: this.formRol.value.nombreFuncion,
+      codUPS: this.formRol.value.ups,
+    }
+    console.log(req);
+
+    this.personalservice.editRol(this.idRolX, req)
+        .subscribe((result) => {
+          Swal.fire({
+            icon: "success",
+            title: "Editado correctamente",
+            text: "",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          // this.getPersonalIdEspecialidad();
+          // this.getPersonal();
+          this.guardarNuevoEspecialidad();
+        });
   }
   ngOnInit(): void { }
 }

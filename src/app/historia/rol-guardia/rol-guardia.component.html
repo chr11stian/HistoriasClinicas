@@ -1,21 +1,21 @@
 <div #calendarWrapper></div>
 <div #dropdown></div>
 <p-table
+  responsiveLayout="scroll"
   rowExpandMode="single"
   scrollDirection="both"
   sortMode="single"
   selectionMode="single"
-  [resizableColumns]="'false'"
+  [resizableColumns]="true"
   #dt
   styleClass="p-datatable p-datatable-gridlines p-mt-3"
   [value]="listaPersonal"
   [rowHover]="true"
   [loading]="loading || loadingUps"
-
 >
   <ng-template pTemplate="header">
     <tr>
-      <th rowSpan="2" colSpan="3" class="text-center frozenCol">
+      <th rowSpan="2" colSpan="3" class="text-center">
         <strong>
           <label class="line-height-4" for="username2" class="text-base">
             Personal por servicio(UPS):</label
@@ -23,8 +23,8 @@
         </strong>
         <div>
           <p-dropdown
+                  panelStyleClass="minWidthOverride"
             [options]="listaUps"
-            #dd
             [appendTo]="dropdown"
             optionLabel="nombreUPS"
             placeholder="Personal Servicio"
@@ -88,25 +88,21 @@
     </tr>
     <tr>
       <th
-        class="frozenCol"
-        pFrozenColumn
-        [frozen]="true"
+
+
         style="background-color: #dfe6e9"
       >
         Nro
       </th>
       <th
-        class="frozenCol"
-        pFrozenColumn
-        [frozen]="true"
+
+
+
         style="background-color: #dfe6e9"
       >
         Apellidos
       </th>
       <th
-        class="frozenCol"
-        pFrozenColumn
-        [frozen]="true"
         style="background-color: #dfe6e9"
       >
         Nombres
@@ -122,22 +118,18 @@
   </ng-template>
   <ng-template pTemplate="body" let-rowData let-i="rowIndex;">
     <tr>
-      <td class="border-500 text-900 frozenCol" pFrozenColumn [frozen]="true">
+      <td class="border-500 text-900 ">
         {{ i + 1 }}
       </td>
       <td
-        class="border-500 text-900 frozenCol"
+        class="border-500 text-900 "
         style="background-color: #f3a683"
-        pFrozenColumn
-        [frozen]="true"
       >
         {{ rowData.apePaterno }} {{ rowData.apeMaterno }}
       </td>
       <td
-        class="border-500 text-900 frozenCol"
+        class="border-500 text-900 "
         style="background-color: #f3a683"
-        pFrozenColumn
-        [frozen]="true"
       >
         {{ rowData.nombre }}
       </td>
@@ -147,6 +139,7 @@
       >
         <!-- {{ i }} -{{ j }} -->
         <p-dropdown
+                #dd
           placeholder=""
           [inline]="false"
           [appendTo]="dropdown"

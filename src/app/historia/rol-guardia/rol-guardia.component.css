@@ -1,5 +1,6 @@
 p-table >>> .p-datatable table {
   width: auto;
+  /*overflow: visible;*/
 }
 p-table >>> .p-datatable .p-datatable-thead > tr > th {
   text-align: center;
@@ -19,6 +20,32 @@ p-table >>> .p-datatable .p-datatable-tbody > tr > td {
   border: solid 1px black;
   border-radius: 10px;
 }
-/*:Host >>> .ui-dropdown-item {*/
-/*  background: white;*/
+:Host >>> .ui-dropdown-item {
+  background: red;
+}
+
+
+::ng-deep p-table >>> .p-datatable-resizable .p-datatable-thead>tr>th {
+  /*overflow: visible;
+  /*z-index: 9999;*/
+  /*!*opacity:1;*!*/
+}
+/*::ng-deep p-table >>> .p-datatable-resizable .p-datatable-tbody>tr>td {*/
+/*  overflow: visible;*/
 /*}*/
+/**{*/
+/*  overflow: visible!important*/
+/*}*/
+
+.minWidthOverride {
+  min-width: 650px !important;
+}
+
+::ng-deep p-dropdown>>> .p-dropdown {
+  overflow: visible;
+  z-index: 9999;
+  opacity:1;
+}
+::ng-deep .dialogo .p-dialog-mask .p-element{
+  display: block;
+}
