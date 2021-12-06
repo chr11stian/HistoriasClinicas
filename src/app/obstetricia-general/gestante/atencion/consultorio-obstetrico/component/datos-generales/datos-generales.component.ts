@@ -94,11 +94,17 @@ export class DatosGeneralesComponent implements OnInit {
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
         console.log("Nro de embarazo", this.nroEmbarazo);
-        this.getpacienteByNroDoc();//recupera los pacientes por numero de documento
+
+        /**Si la datos de consultorio esta en vacio recupera los datos del paciente***/
+        /**Caso contrario recupera los datos de Consultorio***/
+        if (this.dataConsultas == null) {
+            this.getpacienteByNroDoc();
+        } else {
+            this.getConsultas();
+        }
     }
 
-
-    //Recupera la cunsulta por HCL y Numero de embarazo
+    /***Recupera la cunsulta por HCL y Numero de embarazo**/
     getConsultas() {
         let data = {
             nroHcl: this.dataPacientes.nroHcl,
@@ -116,6 +122,8 @@ export class DatosGeneralesComponent implements OnInit {
             this.formDatos_Generales.get('ocupacion').setValue(this.dataConsultas.datosPersonales.ocupacion);
             this.formDatos_Generales.get('edad').setValue(this.dataConsultas.datosPerHist.edad);
             this.formDatos_Generales.get('direccion').setValue(this.dataConsultas.datosPerHist.direccion);
+            this.formDatos_Generales.get('fecha').setValue(this.dataConsultas.fecha);
+            // this.formDatos_Generales.get('hora').setValue(this.dataConsultas.fecha);
 
             //Recuperar Vacunas previas
             this.formDatos_Generales.get('vAntitetánica1Dosis').setValue(this.dataConsultas.vacunasPrevias[0].descripcion);
@@ -237,7 +245,7 @@ export class DatosGeneralesComponent implements OnInit {
             gradoInstruccion: new FormControl(''),
             direccion: new FormControl(''),
             ocupacion: new FormControl(''),
-            fechaDatospersonales: new FormControl(''),
+            fecha: new FormControl(''),
             hora: new FormControl(''),
 
             //Vacunas previas del paciente
@@ -306,60 +314,17 @@ export class DatosGeneralesComponent implements OnInit {
         })
     }
 
-    //Agregar la consulta
-    addConsultas() {
-        const req = {
+
+    //Agregar, actualizar datos de consultorio obstetrico
+    Add_updateConsultas() {
+        this.data = {
             nroHcl: this.dataPacientes.nroHcl,
             nroAtencion: 1,
             nroControlSis: 1,
             nroEmbarazo: this.nroEmbarazo,
             tipoDoc: this.tipoDocRecuperado,
-            nroDoc: this.formDatos_Generales.value.nroDoc,
-
-            datosPerHist: {
-                edad: this.formDatos_Generales.value.edad,
-                direccion: this.formDatos_Generales.value.direccion,
-            },
-
-            datosPersonales: {
-                telefono: this.formDatos_Generales.value.telefono,
-                ocupacion: this.formDatos_Generales.value.ocupacion,
-                gradoInstitucional: this.formDatos_Generales.value.gradoInstruccion,
-            },
-            // vacunasPrevias: [{
-            //     descripcion: this.formDatos_Generales.value.vAntitetánica1Dosis,
-            //     fecha: this.formDatos_Generales.value.fecha
-            //         .getFullYear() + '-' + this.formDatos_Generales.value.fecha
-            //         .getMonth() + '-' + this.formDatos_Generales.value.fecha
-            //         .getDate(),
-            // }]
-
-        }
-        console.log("data", req);
-        this.consultasService.addConsultas(req).subscribe(
-            result => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Guardo con exito',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-            }
-        )
-    }
-
-    //actualizar datos de consultorio obstetrico
-    updateConsultas() {
-        this.data = {
-            nroHcl: this.dataPacientes.nroHcl,
-            nroAtencion: 1,
-            nroControlSis: 1,
-            nroEmbarazo: this.dataConsultas.nroEmbarazo,
-            tipoDoc: this.dataConsultas.tipoDoc,
-            nroDoc: this.dataConsultas.nroDoc,
-            // fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha1, 'yyyy-MM-dd HH:mm:ss'),
-
+            nroDoc: this.nroDocRecuperado,
+            fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
 
             datosPerHist: {
                 edad: this.formDatos_Generales.value.edad,
@@ -401,12 +366,13 @@ export class DatosGeneralesComponent implements OnInit {
                 fechaUltRegla: this.formDatos_Generales.value.FUR,
                 fechaPosiParto: this.formDatos_Generales.value.FPP,
                 rcat: this.formDatos_Generales.value.RCAT,
+                g: this.formDatos_Generales.value.P1 + this.formDatos_Generales.value.P2 + this.formDatos_Generales.value.P3,
                 p1: this.formDatos_Generales.value.P1,
                 p2: this.formDatos_Generales.value.P2,
                 p3: this.formDatos_Generales.value.P3,
                 p4: this.formDatos_Generales.value.P4,
                 gestAnterior: this.formDatos_Generales.value.gesAnterior,
-                rnMayorPeso: this.formDatos_Generales.value.RNpesoMayor + '' + 'GR',
+                rnMayorPeso: this.formDatos_Generales.value.RNpesoMayor,
 
             }],
             antecedentesFamiliares: [
@@ -531,18 +497,31 @@ export class DatosGeneralesComponent implements OnInit {
                 },
             ],
         }
-
-        console.log("DATA UPDATE CONSULTAS", this.data);
-        this.consultasService.updateConsultas(this.data).subscribe((result: any) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Actualizo con exito',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                });
-                console.log('rpta', result);
-            }
-        );
+        console.log("DATA UPDATE ADD CONSULTAS", this.data);
+        if (this.dataConsultas == null) {
+            this.consultasService.addConsultas(this.data).subscribe(
+                result => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Se guardo con exito',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+            )
+        } else {
+            this.consultasService.updateConsultas(this.data).subscribe((result: any) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizo con exito',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    console.log('rpta', result);
+                }
+            );
+        }
     }
 }

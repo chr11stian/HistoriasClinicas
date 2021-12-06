@@ -4,7 +4,7 @@
     </ng-template>
     <ng-template pTemplate="right" class="button">
         <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                class="guardar mr-2" style="background-color: #0c3866" (click)="updateConsultas()"></button>
+                class="guardar mr-2" style="background-color: #0c3866" (click)="Add_updateConsultas()"></button>
     </ng-template>
 </p-toolbar>
 
@@ -70,23 +70,17 @@
                 </div>
             </div>
         </div>
-    </form>
 
-    <div class="grid">
-        <div class="col-12 md:col-6 lg:col-2 p-field">
-            <label>Fecha: </label>
-            <p-calendar type [(ngModel)]="datePipe" dateFormat="dd-mm-yy" formControlName="fechaDatospersonales"></p-calendar>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-2 p-field">
+                <label>Fecha / Hora: </label>
+                <p-calendar formControlName="fecha"
+                            dateFormat="yy-mm-dd"
+                            [showTime]="true" [showSeconds]="true">
+                </p-calendar>
+            </div>
         </div>
-        <div class="col-12 md:col-6 lg:col-2 p-field">
-            <form [formGroup]='formDatos_Generales'>
-                <div class="">
-                    <label class="">Hora: </label>
-                    <input type="text" pInputText class="inputfield w-full"
-                           formControlName="hora">
-                </div>
-            </form>
-        </div>
-    </div>
+    </form>
 
 
 </p-fieldset>
@@ -108,7 +102,6 @@
                                     <p-calendar formControlName="fecha1" placeholder="Fecha"
                                                 dateFormat="yy-mm-dd"
                                                 [showTime]="true" [showSeconds]="true"></p-calendar>
-
                                 </div>
                             </div>
                         </div>
@@ -183,7 +176,8 @@
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="p-inputgroup">
                                 <span class="col-4" style="text-align: right">FUR:</span>
-                                <p-calendar formControlName="FUR" dateFormat="yy-mm-dd" placeholder="Fecha ultima regla"></p-calendar>
+                                <p-calendar formControlName="FUR" dateFormat="yy-mm-dd"
+                                            placeholder="Fecha ultima regla"></p-calendar>
                             </div>
                         </div>
                     </div>
@@ -191,7 +185,8 @@
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="p-inputgroup">
                                 <span class="col-4" style="text-align: right">FPP:</span>
-                                <p-calendar formControlName="FPP" dateFormat="yy-mm-dd" placeholder="Fecha post parto  "></p-calendar>
+                                <p-calendar formControlName="FPP" dateFormat="yy-mm-dd"
+                                            placeholder="Fecha post parto  "></p-calendar>
                             </div>
                         </div>
                     </div>
@@ -209,7 +204,7 @@
                         <div class="col-12 md:col-6 lg:col-6 p-field">
                             <div class="p-inputgroup">
                                 <span class="col-2" style="text-align: right">G:</span>
-                                <input type="text" pInputText formControlName="G">
+                                <input type="text" pInputText formControlName="G" disabled>
                             </div>
                         </div>
 
