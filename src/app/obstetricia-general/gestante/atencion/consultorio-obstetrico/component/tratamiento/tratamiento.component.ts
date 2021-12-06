@@ -335,12 +335,12 @@ export class TratamientoComponent implements OnInit {
     console.log(this.examenesAuxiliares);
     this.recuperarDatoSuplementarios();
     const req={
-      nroHcl: "10101013",
-      nroAtencion: 1,
+      nroHcl:"10101044",
+      nroEmbarazo:1,
+      nroAtencion:1,
       nroControlSis: 1,
-      nroEmbarazo: 1,
       tipoDoc: "DNI",
-      nroDoc: "10101013",
+      nroDoc: "10101044",
       inmunizaciones: this.tratamientoInmunizaciones,
       tratamientos:this.tratamientosComunes,
       tratamientosSuplementos:this.suplementarios,
@@ -394,7 +394,7 @@ export class TratamientoComponent implements OnInit {
   }
   recuperarDatos(){
     let aux ={
-      "nroHcl":"10101013",
+      "nroHcl":"10101044",
       "nroEmbarazo":1,
       "nroAtencion":1
     }

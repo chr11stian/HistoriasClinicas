@@ -57,13 +57,13 @@ export class InterrogatorioComponent implements OnInit {
   ngOnInit(): void {
     this.inicializarForm();
     this.loadData();
-    console.log('listar otros exam ', this.listaOtrosPruebasFisicas);
   }
 
   inicializarForm() {
     this.form = this.fb.group({
       temperatura: new FormControl(""),
-      presion: new FormControl(""),
+      presionSisto: new FormControl(""),
+      presionDisto: new FormControl(""),
       fc: new FormControl(""),
       fr: new FormControl(""),
       peso: new FormControl(""),
@@ -138,21 +138,21 @@ export class InterrogatorioComponent implements OnInit {
       auxPhysicalExam.push(this.listaOtrosPruebasFisicas[i]);
     }
     this.interrogatorioData = {
-      nroHcl: '10101013',
+      nroHcl: '24015415',
       nroAtencion: 1,
       nroControlSis: 1,
       nroEmbarazo: 1,
       tipoDoc: 'DNI',
-      nroDoc: '10101013',
+      nroDoc: '24015415',
       funcionesVitales: {
         t: this.form.value.temperatura,
-        presionSistolica: this.form.value.presion,
+        presionSistolica: this.form.value.presionSisto,
         fc: this.form.value.fc,
         fr: this.form.value.fr,
         peso: this.form.value.peso,
         talla: this.form.value.talla,
         imc: this.form.value.imc,
-        presionDiastolica: 70,
+        presionDiastolica: this.form.value.presionDisto,
       }
       ,
       funcionesBiologicas: [
@@ -244,7 +244,7 @@ export class InterrogatorioComponent implements OnInit {
 
   loadData() {
     let auxData = {
-      nroHcl: "10101013",
+      nroHcl: "24015415",
       nroEmbarazo: 1,
       nroAtencion: 1
     }
@@ -252,7 +252,8 @@ export class InterrogatorioComponent implements OnInit {
     this.consultaObstetricaService.getInterrogatorioByEmbarazo(auxData).subscribe((res: any) => {
       Rpta = res.object[0];
       this.form.patchValue({ temperatura: Rpta.funcionesVitales.t });
-      this.form.patchValue({ presion: Rpta.funcionesVitales.presionDiastolica });
+      this.form.patchValue({ presionSisto: Rpta.funcionesVitales.presionSistolica });
+      this.form.patchValue({ presionDisto: Rpta.funcionesVitales.presionDiastolica });
       this.form.patchValue({ fc: Rpta.funcionesVitales.fc });
       this.form.patchValue({ fr: Rpta.funcionesVitales.fr });
       this.form.patchValue({ peso: Rpta.funcionesVitales.peso });

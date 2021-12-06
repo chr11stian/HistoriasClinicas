@@ -206,12 +206,12 @@ export class GiagnosticosComponent implements OnInit {
   guardarTodosDatos() {
     this.enviarDatosRefProxCita();
     const req = {
-      nroHcl: "10101013",
-      nroAtencion: 1,
+      nroHcl:"24015415",
+      nroEmbarazo:1,
+      nroAtencion:1,
       nroControlSis: 1,
-      nroEmbarazo: 1,
       tipoDoc: "DNI",
-      nroDoc: "10101013",
+      nroDoc: "24015415",
       referencia: this.referencia,
       proxCita: this.proxCita,
       visitaDomiciliaria:this.visitaDomiciliaria,
@@ -238,7 +238,7 @@ export class GiagnosticosComponent implements OnInit {
   }
   recuperarDatosGuardados(){
     let aux ={
-      "nroHcl":"10101013",
+      "nroHcl":"24015415",
       "nroEmbarazo":1,
       "nroAtencion":1
     }

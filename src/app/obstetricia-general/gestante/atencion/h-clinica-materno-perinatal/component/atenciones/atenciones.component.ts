@@ -16,12 +16,13 @@ import {ModalAtencionesComponent} from "./modal-atenciones/modal-atenciones.comp
 })
 export class AtencionesComponent implements OnInit {
     form: FormGroup
-    atenciones: any[] = []
+    atenciones: any[] = [];
+    datosGrafico: any[]=[];
     edadPeso: any[] = []
-    isUpdate: boolean = false
-    atencionGestanteDialog: boolean
-    datos
-    ref: DynamicDialogRef
+    isUpdate: boolean = false;
+    atencionGestanteDialog: boolean;
+    // datos
+    ref: DynamicDialogRef;
     idObstetricia = "";
 
     constructor(
@@ -38,11 +39,16 @@ export class AtencionesComponent implements OnInit {
 
         })
     }
-
     recuperarDatosAtenciones(){
         this.atencionesService.getAtencionService(this.idObstetricia).subscribe((res:any)=>{
             this.atenciones = res.object;
             console.log(this.atenciones);
+        })
+    }
+    recuperarDatosGraficoPesoMadre(){
+        this.atencionesService.getDatosGrafico(this.idObstetricia).subscribe((res:any)=>{
+            this.datosGrafico  =res.obj;
+            console.log(this.datosGrafico);
         })
     }
     openDialogAtenciones(){
@@ -124,6 +130,7 @@ export class AtencionesComponent implements OnInit {
     }
     ngOnInit(): void {
         this.recuperarDatosAtenciones();
+        this.recuperarDatosGraficoPesoMadre();
     }
 
     openNew() {
