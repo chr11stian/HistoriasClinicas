@@ -35,8 +35,12 @@ import { AccordionModule } from 'primeng/accordion';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DividerModule } from 'primeng/divider';
 import { SplitterModule } from 'primeng/splitter';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 const importsApi = [
+  MessagesModule,
+  MessageModule,
   ToolbarModule,
   SelectButtonModule,
   DialogModule,
