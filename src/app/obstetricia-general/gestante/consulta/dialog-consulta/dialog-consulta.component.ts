@@ -44,6 +44,17 @@ export class DialogConsultaComponent implements OnInit {
         { name: "Izquierda", code: "2" },
         { name: "No Aplica", code: "3" },
     ];
+    listaEdema= [
+        { name: "+", code: "1" },
+        { name: "++", code: "2" },
+        { name: "+++", code: "3" },
+        { name: "es", code: "4" },
+    ];
+    listaIndicadores=[
+        { name: "GAP", code: "1" },
+        { name: "GEP", code: "2" },
+        { name: "GIP", code: "3" },
+    ];
     opciones = [
         {name: 'Si', code: 'Si'},
         {name: 'No', code: 'No'},
@@ -103,6 +114,8 @@ export class DialogConsultaComponent implements OnInit {
             peso: new FormControl(""),
             talla: new FormControl(""),
             imc: new FormControl(""),
+            evalNutricionalValor: new FormControl(""),
+            evalNutricionalIndicador: new FormControl(""),
 
             //interrogatorio
             motivoConsulta: new FormControl(""),
@@ -130,6 +143,24 @@ export class DialogConsultaComponent implements OnInit {
             genitalesExter: new FormControl(""),
             vagina: new FormControl(""),
             cuelloUterino: new FormControl(""), 
+            edemaExamen: new FormControl(""), 
+            edadSemanas: new FormControl(""), 
+            edadDias: new FormControl(""), 
+            
+            //signos de alarma
+            dificultadRespiratoria: new FormControl(""), 
+            hipertensionArterial: new FormControl(""), 
+            sangradoNasal: new FormControl(""), 
+            deshidratacionAguda: new FormControl(""), 
+            compromisoSensorio: new FormControl(""), 
+            traumatismoQuemadura: new FormControl(""), 
+            abdomenAgudo: new FormControl(""), 
+            intoxicacionEnvenenamiento: new FormControl(""), 
+            fiebreAlta: new FormControl(""), 
+            convulsiones: new FormControl(""), 
+            sangradoGenital: new FormControl(""), 
+            dolorCabeza: new FormControl(""),
+            edema: new FormControl(""), 
 
             //orientaciones
             consejeria1: new FormControl(""),
@@ -154,6 +185,8 @@ export class DialogConsultaComponent implements OnInit {
             cie10_10: new FormControl(""),
             consejeria11: new FormControl(""),
             cie10_11: new FormControl(""),
+            consejeria12: new FormControl(""),
+            cie10_12: new FormControl(""),
 
             //referencia
             consultorio_referencia: new FormControl(""),
@@ -249,6 +282,9 @@ export class DialogConsultaComponent implements OnInit {
             ivaa: new FormControl(""),
             ivaaFecha: new FormControl(""), 
 
+            //ecografia
+            ecografiaEdadSemanas: new FormControl(""),
+            ecografiaEdadDias: new FormControl(""),
         });
 
         this.formExamenFetal = this.fb.group({
