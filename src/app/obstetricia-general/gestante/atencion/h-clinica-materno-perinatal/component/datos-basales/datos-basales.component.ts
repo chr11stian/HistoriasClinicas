@@ -170,6 +170,8 @@ export class DatosBasalesComponent implements OnInit {
             datePatolog2: new FormControl(''),
             datePatolog3: new FormControl(''),
             datePatolog4: new FormControl(''),
+            autocompleteHosp: new FormControl(''),
+            autocompleteEmerg: new FormControl(''),
         });
     }
 
@@ -602,8 +604,27 @@ export class DatosBasalesComponent implements OnInit {
         })
     }
 
-    selectedOption(event) {
-        console.log('seleccion de autocomplete ', event)
+    selectedOption(event, cieType) {
+        if (cieType == 0) {
+            this.form.patchValue({ diagnosticoHosp: event.descripcionItem });
+        }
+        if (cieType == 1) {
+            this.form.patchValue({ diagnosticoEmergenci: event.descripcionItem });
+        }
+    }
+
+    selectedOptionNameCIE(event, cieType) {
+        console.log('lista de cie ', this.listaDeCIE);
+        if (cieType == 0) {
+            this.form.patchValue({ diagnosticoHosp: event.descripcionItem });
+            this.form.patchValue({ autocompleteHosp: '' });
+            this.form.patchValue({ hospitalizacionCIE: event }, { emitEvent: false });
+        }
+        if (cieType == 1) {
+            this.form.patchValue({ diagnosticoEmergenci: event.descripcionItem });
+            this.form.patchValue({ autocompleteEmerg: '' });
+            this.form.patchValue({ emergenciaCIE: event }, { emitEvent: false });
+        }
     }
 
     getFechaHora(date: Date) {

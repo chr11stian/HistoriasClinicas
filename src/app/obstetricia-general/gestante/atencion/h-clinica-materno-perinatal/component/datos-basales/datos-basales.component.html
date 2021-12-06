@@ -274,21 +274,22 @@
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico: </label>
-                            <p-autoComplete formControlName="hospitalizacionCIE" [suggestions]="listaDeCIE"
-                                (completeMethod)="filterCountry($event)" field="descripcionItem" [minLength]="1"
-                                class="areaText ">
+                            <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCountry($event)"
+                                field="descripcionItem" [minLength]="1" class="areaText "
+                                formControlName="autocompleteHosp" (onSelect)="selectedOptionNameCIE($event,0)">
                             </p-autoComplete>
+                            <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoHosp"
+                                pInputTextarea disabled></textarea>
                         </div>
-                        <div class="grid mt-2">
+                        <div class="grid mt-2 p-fluid">
                             <div class="col-4">
                                 <label class=" mr-1">CIE 10: </label>
                             </div>
-                            <div class="col-8">
-                                <!-- <input type="text" pInputText formControlName='hospitalizacionCIE' placeholder=""
-                                    class="inputfield w-full"> -->
+                            <div class="col-8 field">
                                 <p-autoComplete formControlName="hospitalizacionCIE" [suggestions]="listaDeCIE"
                                     (completeMethod)="filterCountry($event)" field="codigoItem" [minLength]="1"
-                                    (onSelect)="selectedOption($event)" class="">
+                                    (onSelect)="selectedOption($event,0)" class="" [forceSelection]="true"
+                                    dataKey="codigoItem">
                                 </p-autoComplete>
                             </div>
                         </div>
@@ -307,16 +308,23 @@
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico</label>
-                            <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
-                                formControlName="diagnosticoEmergenci" pInputTextarea></textarea>
+                            <p-autoComplete formControlName="autocompleteEmerg" [suggestions]="listaDeCIE"
+                                (completeMethod)="filterCountry($event)" field="descripcionItem" [minLength]="1"
+                                class="areaText" (onSelect)="selectedOptionNameCIE($event,1)">
+                            </p-autoComplete>
+                            <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoEmergenci"
+                                pInputTextarea></textarea>
                         </div>
-                        <div class="grid mt-2">
+                        <div class="grid mt-2 p-fluid">
                             <div class="col-4">
                                 <label class=" mr-1">CIE 10: </label>
                             </div>
                             <div class="col-8">
-                                <input type="text" pInputText formControlName='emergenciaCIE' placeholder=""
-                                    class="inputfield w-full">
+                                <p-autoComplete formControlName="emergenciaCIE" [suggestions]="listaDeCIE"
+                                    (completeMethod)="filterCountry($event)" field="codigoItem" [minLength]="1"
+                                    (onSelect)="selectedOption($event,1)" class="" [forceSelection]="true"
+                                    dataKey="codigoItem">
+                                </p-autoComplete>
                             </div>
                         </div>
                     </div>

@@ -133,6 +133,7 @@ export class InterrogatorioComponent implements OnInit {
       { funcion: 'pezones', valor: this.form.value.pezones },
       { funcion: 'abdomen', valor: this.form.value.abdomen },
     ]
+    
 
     for (let i = 0; i < this.listaOtrosPruebasFisicas.length; i++) {
       auxPhysicalExam.push(this.listaOtrosPruebasFisicas[i]);
@@ -277,7 +278,9 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ mamas: Rpta.examenesFisicos[6].valor });
       this.form.patchValue({ pezones: Rpta.examenesFisicos[7].valor });
       this.form.patchValue({ abdomen: Rpta.examenesFisicos[8].valor });
-      this.form.patchValue({ examenFisicoOtro: Rpta.examenesFisicos[9].valor });
+      if (Rpta.examenesFisicos[8].valor.length > 9) {
+        this.form.patchValue({ examenFisicoOtro: Rpta.examenesFisicos[9].valor });
+      }
       this.form.patchValue({ obsExamFisico: Rpta.examenFisicoObservaciones });
       this.form.patchValue({ miembrosInferiores: Rpta.examenesObstetricos.miembrosInferiores });
       this.form.patchValue({ alturaUterina: Rpta.examenesObstetricos.alturaUterina });

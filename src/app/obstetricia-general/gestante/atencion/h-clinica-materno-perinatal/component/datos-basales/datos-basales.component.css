@@ -72,30 +72,13 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
     content: url("src\assets\svg-icons\check-svgrepo-com.svg");
 }
 
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box,
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight:hover,
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon {
     background: rgb(242, 236, 56);
     border: rgb(242, 236, 56);
 }
-
-::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight {
-    border-color: rgb(242, 236, 56);
-    background: rgb(242, 236, 56);
-}
-
-::ng-deep .amarillo .p-radiobutton .p-radiobutton-box {
-    background: rgb(242, 236, 56);
-    border: rgb(242, 236, 56);
-}
-
-::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight:hover {
-    border-color: rgb(242, 236, 56);
-    background: rgb(242, 236, 56);
-}
-
-/* ::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight:hover{
-    border-color: rgb(223, 217, 57);
-    background: rgb(223, 217, 57);
-} */
 
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-icon {
     background: red;
@@ -142,19 +125,3 @@ input[type='number'] {
     text-align: left;
 }
 
-
-::ng-deep .areaText .p-autocomplete-input {
-    display: grid;
-    height: 5em;
-    /* width: 15em; */
-
-    /* overflow-wrap: break-word; */
-    word-break: break-word;
-    /* display: block; */
-    /* width: 100%; */
-    overflow: hidden;
-    resize: both;
-    min-height: 40px;
-    line-height: 20px;
-    grid-row: 4;
-}
