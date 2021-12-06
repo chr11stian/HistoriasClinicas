@@ -48,11 +48,12 @@ export class GestanteComponent implements OnInit {
         this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = event.nroDoc;
         this.obstetriciaGeneralService.nroEmbarazo = event.nroEmbarazo;
+
     }
 
     pacienteByNroDoc() {
         let tipoDoc = "DNI";
-        let nroDoc = "10101015";
+        let nroDoc = "10101044";
         // nroDoc: "24015415"
         // nroDoc: "10101011"
         // nroDoc: "10101013"
