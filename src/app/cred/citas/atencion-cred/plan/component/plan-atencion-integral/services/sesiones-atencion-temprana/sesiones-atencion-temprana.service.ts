@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import { environment } from "src/environments/environment";
-import { SesionesTempranas, AddSesionesTempranas} from '../../../models/plan-atencion-integral/plan-atencion-integral.model' 
+import { SesionesTempranas, AddSesionesTempranas} from '../../models/plan-atencion-integral.model' 
 
 export const headers = new HttpHeaders({
   "Content-Type": "application/json"

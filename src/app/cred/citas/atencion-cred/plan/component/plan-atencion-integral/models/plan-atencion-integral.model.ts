@@ -46,3 +46,25 @@ export interface respuestaSesionesTempranas{
     cod_Http: string,
     object: SesionesTempranas[]
 }
+export interface estructuraDescartesItem{
+    nroControl: number,
+    valorHg: number,
+    fecha: string
+}
+export interface estructuraDescartes{
+    _0A: estructuraDescartesItem[],
+    _1A: estructuraDescartesItem[],
+    _2A: estructuraDescartesItem[],
+    _3A: estructuraDescartesItem[],
+    _4A: estructuraDescartesItem[]
+}
+export interface Descartes {
+    descarteAnemia: estructuraDescartes[],
+    parasitSeriado: estructuraDescartes[],
+    saludBucal: estructuraDescartes[],
+    testGraham: estructuraDescartes[],
+    tamizajeVIF: estructuraDescartes[],
+    profAntiparasitaria: estructuraDescartes[],
+    visitDomiciliaria: estructuraDescartes[],
+    sesionDemostrativas: estructuraDescartes[]
+}

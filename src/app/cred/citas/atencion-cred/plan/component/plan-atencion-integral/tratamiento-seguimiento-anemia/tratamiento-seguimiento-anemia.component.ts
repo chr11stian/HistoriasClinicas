@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {TratamientoSeguimientoAnemiaService} from 'src/app/cred/services/plan-atencion-integral/tratamiento-seguimiento-anemia/tratamiento-seguimiento-anemia.service'
-import {TratamientoSeguimientoAnemia} from 'src/app/cred/models/plan-atencion-integral/plan-atencion-integral.model'
+import {TratamientoSeguimientoAnemiaService} from '../services/tratamiento-seguimiento-anemia/tratamiento-seguimiento-anemia.service'
+import {TratamientoSeguimientoAnemia} from 'src/app/cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model'
 
 @Component({
   selector: 'app-tratamiento-seguimiento-anemia',

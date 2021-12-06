@@ -11,6 +11,13 @@
     <div class="lg:col-6 col-fixed">
         <p-fieldset legend="Descarte Anemia" [toggleable]="true" [collapsed]="expandir">
             <div class="card flex flex-column">
+                <ng-container *ngFor="let anemia of lista_descarteAnemia[0]">
+                    <div *ngFor="let menor of anemia._0A">
+                        <div *ngFor="let item of menor">
+                            {{item.nroControl}}
+                        </div>
+                    </div>
+                </ng-container>
                 <div class="field grid">
                     <span class="col-fixed text-right mr-2" style="width:80px">< 1 año:</span>
                     <input type="text" class="mr-2" pInputText style="width:110px" placeholder="Dosaje Hb">
