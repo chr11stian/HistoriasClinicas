@@ -199,7 +199,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
     agrgarFiliacionDatoPersonales() {
         const req = {
-            nroHcl: null,
+            nroHcl: this.dataPacientes.nroHcl,
             nroGestante: 0,
             nombreApellidos: "",
             ipressNombre: this.formDatos_Generales.value.establecimiento,

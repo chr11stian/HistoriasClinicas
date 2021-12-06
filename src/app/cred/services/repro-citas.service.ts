@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ReproCitasService {
 
-  base_url = environment.baseUrl;
+  base_url = environment.baseUrlPublic;
   bd = environment.bd;
 
   constructor(private http: HttpClient) { }
