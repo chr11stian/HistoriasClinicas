@@ -195,7 +195,8 @@
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="p-inputgroup">
                                 <span class="col-4" style="text-align: right">R. CAT:</span>
-                                <input type="text" pInputText class="" formControlName="RCAT">
+                                <input type="text" pInputText class="" formControlName="RCAT"
+                                       placeholder="Regimen catamenial">
                             </div>
                         </div>
                     </div>
@@ -211,9 +212,9 @@
                         <div class="col-12 md:col-6 lg:col-6 p-field">
                             <div class="p-inputgroup">
                                 <span class="col-2" style="text-align: right">P:</span>
-                                <input type="text" pInputText formControlName="P1">
-                                <input type="text" pInputText formControlName="P2">
-                                <input type="text" pInputText formControlName="P3">
+                                <input type="text" id="txt1" pInputText formControlName="P1" (keyup)="calcularGestas()">
+                                <input type="text" id="txt2" pInputText formControlName="P2" (keyup)="calcularGestas()">
+                                <input type="text" id="txt3" pInputText formControlName="P3" (keyup)="calcularGestas()">
                                 <input type="text" pInputText formControlName="P4">
                             </div>
                         </div>

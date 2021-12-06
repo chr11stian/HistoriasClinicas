@@ -23,6 +23,8 @@ export class DatosGeneralesComponent implements OnInit {
     opciones5: any;
     opciones6: any;
 
+    sumagestas: any;
+
     /****DESCARTE SIGNO DE ALARMA******/
     descarteSigAlarma: any;
 
@@ -86,8 +88,6 @@ export class DatosGeneralesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.horaActualString = this.datafecha.getHours() + ':' + (this.datafecha.getMinutes() + 1) + ':' + this.datafecha.getSeconds();
-
         this.buildForm();
         this.obternerFechaActual();
 
@@ -104,7 +104,7 @@ export class DatosGeneralesComponent implements OnInit {
         }
     }
 
-    /***Recupera la cunsulta por HCL y Numero de embarazo**/
+    /***Recupera la cunsulta por HCL y Numero de embarazo***/
     getConsultas() {
         let data = {
             nroHcl: this.dataPacientes.nroHcl,
@@ -190,7 +190,7 @@ export class DatosGeneralesComponent implements OnInit {
         });
     }
 
-    //recupera la el dia, el mes y el año de la fecha actual
+    /***Recupera la el dia, el mes y el año de la fecha actual***/
     obternerFechaActual() {
         this.fecha = new Date();
         let dd = this.fecha.getDate();
@@ -201,7 +201,20 @@ export class DatosGeneralesComponent implements OnInit {
     }
 
 
-    //Calcular el año desde la fecha de nacimiento
+    /**Calcula las gestas del paciente con los primeros digitos**/
+    calcularGestas() {
+        let p1 = ((document.getElementById("txt1") as HTMLInputElement).value);
+        let p2 = ((document.getElementById("txt2") as HTMLInputElement).value);
+        let p3 = ((document.getElementById("txt3") as HTMLInputElement).value);
+        let p11 = Number(p1);
+        let p22 = Number(p2);
+        let p33 = Number(p3);
+        this.sumagestas = p11 + p22 + p33;
+        this.formDatos_Generales.get('G').setValue(this.sumagestas);
+        console.log("GESTAS", this.sumagestas);
+    }
+
+    /***Calcular el año desde la fecha de nacimiento**/
     ageCalculator() {
         if (this.fechaConvertido) {
             const convertAge = new Date(this.fechaConvertido);
@@ -215,7 +228,7 @@ export class DatosGeneralesComponent implements OnInit {
     getpacienteByNroDoc() {
         this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientes = res.object
-            console.log('paciente por doc ', this.dataPacientes)
+            console.log('PACIENTES POR DOC ', this.dataPacientes)
             this.formDatos_Generales.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
             this.formDatos_Generales.get('nombres').setValue(this.dataPacientes.primerNombre);
@@ -366,7 +379,7 @@ export class DatosGeneralesComponent implements OnInit {
                 fechaUltRegla: this.formDatos_Generales.value.FUR,
                 fechaPosiParto: this.formDatos_Generales.value.FPP,
                 rcat: this.formDatos_Generales.value.RCAT,
-                g: this.formDatos_Generales.value.P1 + this.formDatos_Generales.value.P2 + this.formDatos_Generales.value.P3,
+                g: this.formDatos_Generales.value.G,
                 p1: this.formDatos_Generales.value.P1,
                 p2: this.formDatos_Generales.value.P2,
                 p3: this.formDatos_Generales.value.P3,
