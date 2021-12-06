@@ -1,30 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
-import { AntecedentesFamiliares } from '../../models/antecedentes.interface';
-
-// export interface AntecedentesFamiliares {
-//   dni?: string;
-//   tbc:boolean;
-//   tbcQuien:string;
-//   asma:boolean;
-//   asmaQuien:string;
-//   vih:boolean;
-//   vihQuien:string;
-//   diabetes:boolean;
-//   diabetesQuien:string;
-//   epilepsia:boolean;
-//   epilepsiaQuien:string;
-//   alergiaMedicinas:boolean;
-//   alergiaMediQuien:string;
-//   violenciaFam:boolean;
-//   violenciaFamQuien:string;
-//   alcoholismo:boolean;
-//   alcoholismoQuien:string;
-//   drogadiccion:boolean;
-//   drogadiccionQuien:string;
-//   hepatitisB:boolean;
-//   hepatitisBQuien:string;
-// }
+import { AntecedenteFamiliarService } from 'src/app/cred/services/antecedentes/antecedente-familiar.service';
+import { AntecedentesFamiliaresFormType, AntecedentesFamiliaresType } from '../../models/antecedentes.interface';
 
 @Component({
   selector: 'app-familiar',
@@ -32,13 +9,16 @@ import { AntecedentesFamiliares } from '../../models/antecedentes.interface';
   styleUrls: ['./familiar.component.css']
 })
 export class FamiliarComponent implements OnInit {
-  @Output() familiarEmit: EventEmitter<AntecedentesFamiliares> = new EventEmitter<AntecedentesFamiliares>();
+  @Output() familiarEmit: EventEmitter<AntecedentesFamiliaresFormType> = new EventEmitter<AntecedentesFamiliaresFormType>();
   familiarFG: FormGroup;
 
   familiares: any[];
   stateOptions: any[];
 
-  constructor(private formBuilder: FormBuilder) {
+  datosFamiliares: AntecedentesFamiliaresType[];
+
+  constructor(private formBuilder: FormBuilder,
+              private familiarServicio: AntecedenteFamiliarService) {
     this.buildForm();
     this.stateOptions = [{label: 'SI', value: true},
                           {label: 'NO', value: false}];
@@ -47,9 +27,23 @@ export class FamiliarComponent implements OnInit {
                             {name: 'Madre', code: 'M'},
                             {name: 'Hermano', code: 'H'},
                             {name: 'Abuelo', code: 'A'},
-                            {name: 'Otro', code: 'O'}
+                            {name: 'Otro', code: 'T'}
                         ];
   }
+
+  async getTablaDatos() {
+    await this.familiarServicio.getDatosGenerales('11111111')
+    .toPromise().then(res => <AntecedentesFamiliaresType[]> res['object'])
+    .then(data => {
+        this.datosFamiliares = data;
+        console.log(this.datosFamiliares);
+        this.rellenarForm(this.datosFamiliares);
+    })
+    .catch(error => { return error;});
+    
+    
+    
+}
 
   getFC(control: string): AbstractControl {
     return this.familiarFG.get(control)
@@ -57,58 +51,58 @@ export class FamiliarComponent implements OnInit {
 
   buildForm(): void {
     this.familiarFG = this.formBuilder.group({
-      tuberculosis: [true],
+      tuberculosis: [null],
       tuberculosisQuien: [''],
-      asma: [true],
+      asma: [null],
       asmaQuien: [''],
-      sida: [true],
+      sida: [null],
       sidaQuien: [''],
-      diabetes: [true],
+      diabetes: [null],
       diabetesQuien: [''],
-      epilepsia: [true],
+      epilepsia: [null],
       epilepsiaQuien: [''],
-      alergiam: [true],
+      alergiam: [null],
       alergiamQuien: [''],
-      violenciaF: [true],
+      violenciaF: [null],
       violenciaFQuien: [''],
-      alcoholismo: [true],
+      alcoholismo: [null],
       alcoholismoQuien: [''],
-      droga: [true],
+      droga: [null],
       drogaQuien: [''],
-      hepatitisB: [true],
+      hepatitisB: [null],
       hepatitisBQuien: [''],
       
     })
   }
 
 
-  rellenarForm(tabla: AntecedentesFamiliares): void {
+  rellenarForm(tabla: AntecedentesFamiliaresType[]): void {
 
-    this.getFC('tuberculosis').setValue(tabla.tbc)
-    this.getFC('tuberculosisQuien').setValue(tabla.tbcQuien)
-    this.getFC('asma').setValue(tabla.asma)
-    this.getFC('asmaQuien').setValue(tabla.asmaQuien)
-    this.getFC('sida').setValue(tabla.vih)
-    this.getFC('sidaQuien').setValue(tabla.vihQuien)
-    this.getFC('diabetes').setValue(tabla.diabetes)
-    this.getFC('diabetesQuien').setValue(tabla.diabetesQuien)
-    this.getFC('epilepsia').setValue(tabla.epilepsia)
-    this.getFC('epilepsiaQuien').setValue(tabla.epilepsiaQuien)
-    this.getFC('alergiam').setValue(tabla.alergiaMedicinas)
-    this.getFC('alergiamQuien').setValue(tabla.alergiaMediQuien)
-    this.getFC('violenciaF').setValue(tabla.violenciaFam)
-    this.getFC('violenciaFQuien').setValue(tabla.violenciaFamQuien)
-    this.getFC('alcoholismo').setValue(tabla.alcoholismo)
-    this.getFC('alcoholismoQuien').setValue(tabla.alcoholismoQuien)
-    this.getFC('droga').setValue(tabla.drogadiccion)
-    this.getFC('drogaQuien').setValue(tabla.drogadiccionQuien)
-    this.getFC('hepatitisB').setValue(tabla.hepatitisB)
-    this.getFC('hepatitisBQuien').setValue(tabla.hepatitisBQuien)    
+    this.getFC('tuberculosis').setValue(tabla[0].valor)
+    this.getFC('tuberculosisQuien').setValue(tabla[0].quien)
+    this.getFC('asma').setValue(tabla[1].valor)
+    this.getFC('asmaQuien').setValue(tabla[1].quien)
+    this.getFC('sida').setValue(tabla[2].valor)
+    this.getFC('sidaQuien').setValue(tabla[2].quien)
+    this.getFC('diabetes').setValue(tabla[3].valor)
+    this.getFC('diabetesQuien').setValue(tabla[3].quien)
+    this.getFC('epilepsia').setValue(tabla[4].valor)
+    this.getFC('epilepsiaQuien').setValue(tabla[4].quien)
+    this.getFC('alergiam').setValue(tabla[5].valor)
+    this.getFC('alergiamQuien').setValue(tabla[5].quien)
+    this.getFC('violenciaF').setValue(tabla[6].valor)
+    this.getFC('violenciaFQuien').setValue(tabla[6].quien)
+    this.getFC('alcoholismo').setValue(tabla[7].valor)
+    this.getFC('alcoholismoQuien').setValue(tabla[7].quien)
+    this.getFC('droga').setValue(tabla[8].valor)
+    this.getFC('drogaQuien').setValue(tabla[8].quien)
+    this.getFC('hepatitisB').setValue(tabla[9].valor)
+    this.getFC('hepatitisBQuien').setValue(tabla[9].quien)    
 
   }
 
   ngOnInit(): void {
-
+    this.getTablaDatos();
   }
   
   save() {
