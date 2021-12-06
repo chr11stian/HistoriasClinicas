@@ -134,6 +134,36 @@
 
         </p-fieldset>
         <br>
+        <p-fieldset legend="DATOS ADICIONALES">
+            <div class="grid p-fluid">
+                <div class="col-6">
+                        <label>Plan de Parto/Reenfocada:</label>
+                        <div class="p-field">
+                            <p-dropdown  inputId="dropdown" [options]="planPartoList" formControlName="planPartoReenfocada"
+                                         placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                         defaultLabel="Seleccione:" >
+                            </p-dropdown>
+                        </div>
+                </div>
+                <div class="col-2">
+                    <label>Visita Domiciliaria:</label>
+                    <div class="p-field">
+                        <p-dropdown  inputId="dropdown" [options]="visitaDomiciliariaList" formControlName="visita"
+                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                     defaultLabel="Seleccione:" >
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <label>Fecha-Visita Domiciliaria:</label>
+                    <div class="p-field">
+                        <p-calendar [showIcon]="true" dateFormat="yy-mm-dd" formControlName="fechaVisita"
+                                    inputId="icon" [showTime]="true" [showSeconds]="true"
+                                    inputId="time" required></p-calendar>
+                    </div>
+                </div>
+            </div>
+        </p-fieldset>
     </form>
 </div>
 

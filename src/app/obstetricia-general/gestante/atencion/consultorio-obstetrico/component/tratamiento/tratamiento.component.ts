@@ -410,8 +410,6 @@ export class TratamientoComponent implements OnInit {
       else{
         let i: number = 0;
         while(i<this.dataConsulta.tratamientos.length){
-          // console.log("tratamiento nro: " ,i);
-          // console.log("tratamiento consta de: ", this.dataConsulta.tratamientos[i]);
           this.tratamientosComunes.push(this.dataConsulta.tratamientos[i]);
           i++;
         }

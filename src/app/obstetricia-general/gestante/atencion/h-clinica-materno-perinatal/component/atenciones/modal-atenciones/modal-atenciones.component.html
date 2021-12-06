@@ -1,0 +1,98 @@
+
+<!-------------INICIO DIALOG TRATAMIENTO INMUNIZACIONES--->
+<form [formGroup]='formAtenciones'>
+    <div class="grid" >
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Fecha de atencion:</label>
+            <br>
+            <p-calendar type="date" showIcon="true" type dateFormat="yy-mm-dd" formControlName="fechaAtencion"></p-calendar>
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Edad gestacional:</label>
+            <input type="text" pInputText class="inputfield" formControlName="edadGestacionalSemanas">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Peso Madre:</label>
+            <input type="text" pInputText class="inputfield" formControlName="peso">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Evaluación Nutricional:</label>
+            <input type="text" pInputText class="inputfield" formControlName="evaluacionNutricional">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Temperatura:</label>
+            <input type="text" pInputText class="inputfield" formControlName="temperatura">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Presion Arterial:</label>
+            <input type="text" pInputText class="inputfield" formControlName="presionArterial">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Pulso Materno:</label>
+            <input type="text" pInputText class="inputfield" formControlName="pulso">
+
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Altura Uterina:</label>
+            <input type="text" pInputText class="inputfield" formControlName="alturaUterina">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Proteinuria:</label>
+            <input type="text" pInputText class="inputfield" formControlName="proteinuria">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Edema:</label>
+            <input type="text" pInputText class="inputfield" formControlName="edema">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Reflejo Osteotendinoso:</label>
+            <input type="text" pInputText class="inputfield" formControlName="reflejoOsteotendinoso">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Fecha Ecografía:</label>
+            <input type="text" pInputText class="inputfield" formControlName="ecografia">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Consejería Integral:</label>
+            <input type="text" pInputText class="inputfield" formControlName="consejeriaIntegral">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Ind. Ac. Fólico:</label>
+            <input type="text" pInputText class="inputfield" formControlName="acidoFolico">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Ind. Fierro/Ac. Fólico:</label>
+            <input type="text" pInputText class="inputfield" formControlName="hierroYAcidoFolico">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Ind. Calcio:</label>
+            <input type="text" pInputText class="inputfield" formControlName="calcio">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Plan de Parto:</label>
+            <input type="text" pInputText class="inputfield" formControlName="planPartoReenfocada">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Visita Domiciliaria:</label>
+            <input type="text" pInputText class="inputfield" formControlName="visitaDomiciliaria">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Próxima Cita:</label>
+            <input type="text" pInputText class="inputfield" formControlName="proxCita">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Responsable de atención:</label>
+            <input type="text" pInputText class="inputfield" formControlName="encargado">
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Establecimiento de atención:</label>
+            <input type="text" pInputText class="inputfield" formControlName="establecimiento">
+        </div>
+    </div>
+</form>
+
+<br>
+<div class="footer">
+    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-danger mt-4"></button>
+    <button pButton type="button" label="Cancelar" (click)="closeDialog()"  class="p-button-danger mt-4"></button>
+</div>
