@@ -18,6 +18,7 @@ import {PlanControlConsultaComponent} from './component/plan-control-consulta/pl
 import {EvaluacionesConsultaComponent} from './component/evaluaciones-consulta/evaluaciones-consulta.component';
 import {PlanModule} from '../plan/plan.module';
 import {EvaluacionGeneralModule} from "../plan/component/evaluacion-general/evaluacion-general.module";
+import {PlanAtencionIntegralModule} from '../plan/component/plan-atencion-integral/plan-atencion-integral.module'
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -40,6 +41,7 @@ import {EvaluacionGeneralModule} from "../plan/component/evaluacion-general/eval
         RippleModule,
         SharedModule,
         DividerModule,
+        PlanAtencionIntegralModule
     ]
 })
 export class ConsultaPrincipalModule {

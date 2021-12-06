@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core'
-import {InmunizacionesService} from 'src/app/cred/services/plan-atencion-integral/inmunizaciones/inmunizaciones.service'
-import {Inmunizaciones} from '../../../../../../models/plan-atencion-integral/plan-atencion-integral.model'
+import {InmunizacionesService} from '../services/inmunizaciones/inmunizaciones.service'
+import {Inmunizaciones} from '../models/plan-atencion-integral.model'
 
 
 @Component({

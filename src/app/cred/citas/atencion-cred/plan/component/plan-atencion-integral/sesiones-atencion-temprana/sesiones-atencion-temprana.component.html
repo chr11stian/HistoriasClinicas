@@ -11,9 +11,9 @@
             <div class="card flex flex-column">
                 <div class="field grid" *ngFor="let item of listaControles; let iItem=index">
                     <span class="col-fixed text-right mr-2" style="width:30px">{{iItem +1}}°:</span>
-                    <input type="text" class="mr-2" pInputText style="width:200px" placeholder="Descripción" [(ngModel)]="item.descripcion"> 
+                    <input type="text" class="mr-2" [disabled]=true pInputText style="width:200px" placeholder="Descripción" [(ngModel)]="item.descripcion"> 
                     <div style="width:113px" class="mr-2">
-                        <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item.fecha"></p-calendar>
+                        <p-calendar [showIcon]="true" [disabled]=true inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item.fecha"></p-calendar>
                     </div>
                     <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-outlined agregar" pTooltip="Editar Sesión" (click)=editarSesion(item)></button>
                 </div>

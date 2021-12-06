@@ -1,4 +1,5 @@
 <p-divider></p-divider>
+<p-messages></p-messages>
 <div [formGroup]="control">
     <div class="flex flex-column">
         <p class="font-medium w-10">Descripción:</p>
@@ -9,7 +10,7 @@
     <div>
         <p class="font-medium w-10">Fecha:</p>
         <div style="width: 50%" class="mr-2">
-            <p-calendar [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" formControlName="fecha"></p-calendar>
+            <p-calendar [showIcon]="true" inputId="icon" appendTo="body" placeholder="Fecha" dateFormat="yy-mm-dd" formControlName="fecha" (onSelect)="onSelectMethod($event)"></p-calendar>
         </div>
         <!-- error message -->
         <small *ngIf="controlInvalido('fecha')" class="form-text text-danger">Ingrese una fecha</small>
