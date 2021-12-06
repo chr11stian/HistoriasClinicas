@@ -49,13 +49,13 @@
             <tr>
                 <td style="text-align: center" class="font-2">ATENCION {{ rowIndex + 1 }}</td>
                 <td style="text-align: center">{{ rowData.fechaAtencion }} </td>
-                <td style="text-align: center">{{ rowData.edadGestacional }}</td>
-                <td style="text-align: center">{{ rowData.pesoMadre}}</td>
-                <td style="text-align: center">{{ rowData.evalNutricional}}</td>
-                <td style="text-align: center">{{ rowData.temperatura}}</td>
-                <td style="text-align: center">{{ rowData.presionArterial}}</td>
-                <td style="text-align: center">{{ rowData.pulsoMaterno}}</td>
-                <td style="text-align: center">{{ rowData.alturaUterinal}}</td>
+                <td style="text-align: center">{{ rowData.edadGestacionalSemanas + rowData.edadGestacionalDias +"/7" }}</td>
+                <td style="text-align: center">{{ rowData.peso}}</td>
+                <td style="text-align: center">{{ rowData.evaluacionNutricional}}</td>
+                <td style="text-align: center">{{ rowData.t}}</td>
+                <td style="text-align: center">{{ rowData.presionDiastolica + "/" +rowData.presionSistolica}}</td>
+                <td style="text-align: center">{{ rowData.pulso}}</td>
+                <td style="text-align: center">{{ rowData.alturaUterina}}</td>
                 <td style="text-align: center">
 
                     <button pButton (click)="openDialogMostrarAtenciones(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"

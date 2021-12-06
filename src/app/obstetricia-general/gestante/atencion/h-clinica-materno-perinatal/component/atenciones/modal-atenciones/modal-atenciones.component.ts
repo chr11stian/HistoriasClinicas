@@ -69,8 +69,8 @@ export class ModalAtencionesComponent implements OnInit {
     this.formAtenciones.get("edadGestacionalSemanas").setValue(configuracion.edadGestacionalSemanas);
     this.formAtenciones.get("peso").setValue(configuracion.peso);
     this.formAtenciones.get("evaluacionNutricional").setValue(configuracion.evaluacionNutricional);
-    this.formAtenciones.get("temperatura").setValue(configuracion.temperatura);
-    this.formAtenciones.get("presionArterial").setValue(configuracion.presionArterial);
+    this.formAtenciones.get("temperatura").setValue(configuracion.t);
+    this.formAtenciones.get("presionArterial").setValue(configuracion.presionSistolica + "/");
     this.formAtenciones.get("pulso").setValue(configuracion.pulso);
     this.formAtenciones.get("alturaUterina").setValue(configuracion.alturaUterina);
     this.formAtenciones.get("proteinuria").setValue(configuracion.proteinuria);

@@ -250,7 +250,7 @@ export class GiagnosticosComponent implements OnInit {
       this.formOtrosDatos.patchValue({'codRENAES':this.dataAux.referencia.codRENAES});
       this.formOtrosDatos.patchValue({'proxCita':this.dataAux.proxCita});
       this.formOtrosDatos.patchValue({'visita':this.dataAux.visitaDomiciliaria.estado});
-      // this.formOtrosDatos.patchValue({'fechaVisita':this.dataAux.visitaDomiciliaria.fecha});
+      this.formOtrosDatos.patchValue({'fechaVisita':this.dataAux.visitaDomiciliaria.fecha});
       this.formOtrosDatos.patchValue({'planPartoReenfocada':this.dataAux.planPartoReenfocada});
 
       if(this.dataAux.orientaciones.length === null || this.dataAux.orientaciones.length === 0 ){
