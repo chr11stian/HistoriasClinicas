@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
+import { FiliancionService } from "../../services/filiancion-atenciones/filiancion.service";
 
-import {DatosBasalesService} from '../../services/datos-basales/datos-basales.service';
-import {ObstetriciaGeneralService} from 'src/app/obstetricia-general/services/obstetricia-general.service';
-import {MessageService} from 'primeng/api';
-import {CieService} from 'src/app/obstetricia-general/services/cie.service';
+import { DatosBasalesService } from '../../services/datos-basales/datos-basales.service';
+import { ObstetriciaGeneralService } from 'src/app/obstetricia-general/services/obstetricia-general.service';
+import { MessageService } from 'primeng/api';
+import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 
 @Component({
     selector: 'app-datos-basales',
@@ -18,8 +18,8 @@ export class DatosBasalesComponent implements OnInit {
     form: FormGroup;
     id: any;
     sino = [
-        {label: 'SI', value: true},
-        {label: 'NO', value: false}
+        { label: 'Si', value: true },
+        { label: 'No', value: false }
     ];
     city: any;
     examenFisico: any;
@@ -31,11 +31,11 @@ export class DatosBasalesComponent implements OnInit {
     listaDeCIE: any;
 
     constructor(private filiancionService: FiliancionService,
-                private fb: FormBuilder,
-                private datosBasalesService: DatosBasalesService,
-                private obstetriciaService: ObstetriciaGeneralService,
-                private messageService: MessageService,
-                private CieService: CieService,
+        private fb: FormBuilder,
+        private datosBasalesService: DatosBasalesService,
+        private obstetriciaService: ObstetriciaGeneralService,
+        private messageService: MessageService,
+        private CieService: CieService,
     ) {
         this.inicalizarForm();
         this.idGestante = this.obstetriciaService.idGestacion
@@ -47,6 +47,7 @@ export class DatosBasalesComponent implements OnInit {
         this.id = this.filiancionService.id;
         console.log(this.id);
         this.loadData();
+        this.form.patchValue({ hg1: null })
     }
 
     inicalizarForm() {
@@ -444,7 +445,7 @@ export class DatosBasalesComponent implements OnInit {
 
     guardarDatos() {
         this.recuperarDatos();
-
+        console.log('data to save ', this.datosBasales);
         this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
             console.log('se guardo correctamente ', res.object);
             this.messageService.add({
@@ -460,117 +461,136 @@ export class DatosBasalesComponent implements OnInit {
         this.datosBasalesService.getDatosBasalesById(this.idGestante).subscribe((res: any) => {
             this.rptaDatosBasales = res.object;
             console.log('datos de embarazo', this.rptaDatosBasales)
-            this.form.patchValue({'imc': this.rptaDatosBasales.pesoTalla.imc});
-            this.form.patchValue({'pesoHabitual': this.rptaDatosBasales.pesoTalla.pesoHabitual});
-            this.form.patchValue({'talla': this.rptaDatosBasales.pesoTalla.talla});
-            this.form.patchValue({'nroDosisPrevias': this.rptaDatosBasales.antitetanica.nroDosisPrevia});
-            this.form.patchValue({'primeraDosis': new Date(this.rptaDatosBasales.antitetanica.dosis[0].dosis + 18000)});
-            this.form.patchValue({'segundaDosis': new Date(this.rptaDatosBasales.antitetanica.dosis[1].dosis)});
-            this.form.patchValue({'firstDosis': this.rptaDatosBasales.antitetanica.dosis[0].detalle});
-            this.form.patchValue({'secondDosis': this.rptaDatosBasales.antitetanica.dosis[1].detalle});
-            this.form.patchValue({'tipoSangreGrupo': this.rptaDatosBasales.tipoSangre.grupo});
-            this.form.patchValue({'rh': this.rptaDatosBasales.tipoSangre.rh});
-            this.form.patchValue({'drogas': this.rptaDatosBasales.drogas});
-            this.form.patchValue({'cigarrillosDia': this.rptaDatosBasales.nroCigarrosAlDia});
-            this.form.patchValue({'dateFUM': new Date(this.rptaDatosBasales.fechaUltimaMestruacion.fum)});
-            this.form.patchValue({'duda': this.rptaDatosBasales.fechaUltimaMestruacion.duda});
-            this.form.patchValue({'dateProbableParto': new Date(this.rptaDatosBasales.fechaUltimaMestruacion.fechaProbableParto)});
-            this.form.patchValue({'ecografia1': this.rptaDatosBasales.fechaUltimaMestruacion.primeraEcografia});
-            this.form.patchValue({'dateEco1': new Date(this.rptaDatosBasales.fechaUltimaMestruacion.fechaPrimeraEcografia)});
-            this.form.patchValue({'ecografia2': this.rptaDatosBasales.fechaUltimaMestruacion.segundaEcografia});
-            this.form.patchValue({'dateEco2': new Date(this.rptaDatosBasales.fechaUltimaMestruacion.fechaSegundaEcografia)});
-            this.form.patchValue({'ecografia3': this.rptaDatosBasales.fechaUltimaMestruacion.terceraEcografia});
-            this.form.patchValue({'dateEco3': new Date(this.rptaDatosBasales.fechaUltimaMestruacion.fechaTerceraEcografia)});
-            this.form.patchValue({'hospitalizacion': this.rptaDatosBasales.hospitalizacion[0].hospitalizacion});
-            this.form.patchValue({'dateHospitalizacion': new Date(this.rptaDatosBasales.hospitalizacion[0].fecha)});
-            this.form.patchValue({'diagnosticoHosp': this.rptaDatosBasales.hospitalizacion[0].diagnostico});
-            this.form.patchValue({'hospitalizacionCIE': this.rptaDatosBasales.hospitalizacion[0].cie10});
-            this.form.patchValue({'dateEmergencia': new Date(this.rptaDatosBasales.emergencia.fecha)});
-            this.form.patchValue({'diagnosticoEmergenci': this.rptaDatosBasales.emergencia.diagnostico});
-            this.form.patchValue({'emergenciaCIE': this.rptaDatosBasales.emergencia.cie10});
+            this.form.patchValue({ 'imc': this.rptaDatosBasales.pesoTalla.imc });
+            this.form.patchValue({ 'pesoHabitual': this.rptaDatosBasales.pesoTalla.pesoHabitual });
+            this.form.patchValue({ 'talla': this.rptaDatosBasales.pesoTalla.talla });
+            this.form.patchValue({ 'nroDosisPrevias': this.rptaDatosBasales.antitetanica.nroDosisPrevia });
+            if (this.rptaDatosBasales.antitetanica.dosis[0].dosis) {
+                this.form.patchValue({ 'primeraDosis': new Date(this.rptaDatosBasales.antitetanica.dosis[0].dosis) });
+            } else {
+                this.form.patchValue({ 'primeraDosis': '' });
+            }
+            if (this.rptaDatosBasales.antitetanica.dosis[1].dosis) {
+                this.form.patchValue({ 'segundaDosis': this.rptaDatosBasales.antitetanica.dosis[1].dosis });
+            } else {
+                this.form.patchValue({ 'segundaDosis': '' });
+            }
+
+            this.form.patchValue({ 'firstDosis': this.rptaDatosBasales.antitetanica.dosis[0].detalle });
+            this.form.patchValue({ 'secondDosis': this.rptaDatosBasales.antitetanica.dosis[1].detalle });
+            this.form.patchValue({ 'tipoSangreGrupo': this.rptaDatosBasales.tipoSangre.grupo });
+            this.form.patchValue({ 'rh': this.rptaDatosBasales.tipoSangre.rh });
+            this.form.patchValue({ 'drogas': this.rptaDatosBasales.drogas });
+            this.form.patchValue({ 'cigarrillosDia': this.rptaDatosBasales.nroCigarrosAlDia });
+            if (this.rptaDatosBasales.fechaUltimaMestruacion.fum != null) {
+                this.form.patchValue({ 'dateFUM': new Date(this.rptaDatosBasales.fechaUltimaMestruacion.fum) });
+            } else {
+                this.form.patchValue({ 'dateFUM': '' });
+            }
+            // this.form.patchValue({ 'dateFUM': new Date(this.rptaDatosBasales.fechaUltimaMestruacion.fum) });
+            this.form.patchValue({ 'duda': this.rptaDatosBasales.fechaUltimaMestruacion.duda });
+            if (this.rptaDatosBasales.fechaUltimaMestruacion.fechaProbableParto) {
+                this.form.patchValue({ 'dateProbableParto': new Date(this.rptaDatosBasales.fechaUltimaMestruacion.fechaProbableParto) });
+            } else {
+                this.form.patchValue({ 'dateProbableParto': '' });
+            }
+
+            this.form.patchValue({ 'ecografia1': this.rptaDatosBasales.fechaUltimaMestruacion.primeraEcografia });
+            this.form.patchValue({ 'dateEco1': this.rptaDatosBasales.fechaUltimaMestruacion.fechaPrimeraEcografia });
+            this.form.patchValue({ 'ecografia2': this.rptaDatosBasales.fechaUltimaMestruacion.segundaEcografia });
+            this.form.patchValue({ 'dateEco2': this.rptaDatosBasales.fechaUltimaMestruacion.fechaSegundaEcografia });
+            this.form.patchValue({ 'ecografia3': this.rptaDatosBasales.fechaUltimaMestruacion.terceraEcografia });
+            this.form.patchValue({ 'dateEco3': this.rptaDatosBasales.fechaUltimaMestruacion.fechaTerceraEcografia });
+            this.form.patchValue({ 'hospitalizacion': this.rptaDatosBasales.hospitalizacion[0].hospitalizacion });
+            this.form.patchValue({ 'dateHospitalizacion': new Date(this.rptaDatosBasales.hospitalizacion[0].fecha) });
+            this.form.patchValue({ 'diagnosticoHosp': this.rptaDatosBasales.hospitalizacion[0].diagnostico });
+            this.form.patchValue({ 'hospitalizacionCIE': this.rptaDatosBasales.hospitalizacion[0].cie10 });
+            this.form.patchValue({ 'dateEmergencia': new Date(this.rptaDatosBasales.emergencia.fecha) });
+            this.form.patchValue({ 'diagnosticoEmergenci': this.rptaDatosBasales.emergencia.diagnostico });
+            this.form.patchValue({ 'emergenciaCIE': this.rptaDatosBasales.emergencia.cie10 });
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
-            this.form.patchValue({'rubeola': auxVac == undefined ? false : true});
+            this.form.patchValue({ 'rubeola': auxVac == undefined ? false : true });
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "hepatitis B")
-            this.form.patchValue({'hepatitisB': auxVac == undefined ? false : true});
+            this.form.patchValue({ 'hepatitisB': auxVac == undefined ? false : true });
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "papiloma")
-            this.form.patchValue({'papiloma': auxVac == undefined ? false : true});
+            this.form.patchValue({ 'papiloma': auxVac == undefined ? false : true });
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "influenza")
-            this.form.patchValue({'influenza': auxVac == undefined ? false : true});
-            this.form.patchValue({'tamizaje': this.rptaDatosBasales.violenciaGenero.fichaTamizaje});
-            this.form.patchValue({'violencia': this.rptaDatosBasales.violenciaGenero.violencia});
-            this.form.patchValue({'dateViolencia': new Date(this.rptaDatosBasales.violenciaGenero.fecha)});
-            this.form.patchValue({'dateViolencia': new Date(this.rptaDatosBasales.violenciaGenero.fecha)});
-            this.form.patchValue({'clinico': this.rptaDatosBasales.examenFisico[0].valor});
-            this.form.patchValue({'mamas': this.rptaDatosBasales.examenFisico[1].valor});
-            this.form.patchValue({'cuelloUter': this.rptaDatosBasales.examenFisico[2].valor});
-            this.form.patchValue({'pelvis': this.rptaDatosBasales.examenFisico[3].valor});
-            this.form.patchValue({'odont1': this.rptaDatosBasales.examenFisico[4].valor});
-            this.form.patchValue({'odont2': this.rptaDatosBasales.examenFisico[5].valor});
+            this.form.patchValue({ 'influenza': auxVac == undefined ? false : true });
+            this.form.patchValue({ 'tamizaje': this.rptaDatosBasales.violenciaGenero.fichaTamizaje });
+            this.form.patchValue({ 'violencia': this.rptaDatosBasales.violenciaGenero.violencia });
+            this.form.patchValue({ 'dateViolencia': this.rptaDatosBasales.violenciaGenero.fecha });
+            this.form.patchValue({ 'dateViolencia': new Date(this.rptaDatosBasales.violenciaGenero.fecha) });
+            this.form.patchValue({ 'clinico': this.rptaDatosBasales.examenFisico[0].valor });
+            this.form.patchValue({ 'mamas': this.rptaDatosBasales.examenFisico[1].valor });
+            this.form.patchValue({ 'cuelloUter': this.rptaDatosBasales.examenFisico[2].valor });
+            this.form.patchValue({ 'pelvis': this.rptaDatosBasales.examenFisico[3].valor });
+            this.form.patchValue({ 'odont1': this.rptaDatosBasales.examenFisico[4].valor });
+            this.form.patchValue({ 'odont2': this.rptaDatosBasales.examenFisico[5].valor });
 
-            this.form.patchValue({'vdrl1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[0].valor});
-            this.form.patchValue({'datevdrl1': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[0].fecha)});
-            this.form.patchValue({'vdrl2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[1].valor});
-            this.form.patchValue({'dateVdrl2': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[1].fecha)});
-            this.form.patchValue({'tpha': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[2].valor});
-            this.form.patchValue({'dateTpha': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[2].fecha)});
-            this.form.patchValue({'vih1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[3].valor});
-            this.form.patchValue({'dateVih1': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[3].fecha)});
-            this.form.patchValue({'vih2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[4].valor});
-            this.form.patchValue({'dateVih2': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[4].fecha)});
-            this.form.patchValue({'hepatitis': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[5].valor});
-            this.form.patchValue({'dateHepatitis': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[5].fecha)});
-            this.form.patchValue({'elisa1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[6].valor});
-            this.form.patchValue({'dateElisa1': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[6].fecha)});
-            this.form.patchValue({'elisa2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[7].valor});
-            this.form.patchValue({'dateElisa2': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[7].fecha)});
-            this.form.patchValue({'glicemia1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[8].valor});
-            this.form.patchValue({'dateGlicemia1': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[8].fecha)});
-            this.form.patchValue({'glicemia2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[9].valor});
-            this.form.patchValue({'dateGlicemia2': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[9].fecha)});
-            this.form.patchValue({'glucosa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[10].valor});
-            this.form.patchValue({'dateGlucosa': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[10].fecha)});
+            this.form.patchValue({ 'vdrl1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[0].valor });
+            this.form.patchValue({ 'datevdrl1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[0].fecha });
+            this.form.patchValue({ 'vdrl2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[1].valor });
+            this.form.patchValue({ 'dateVdrl2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[1].fecha });
+            this.form.patchValue({ 'tpha': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[2].valor });
+            this.form.patchValue({ 'dateTpha': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[2].fecha });
+            this.form.patchValue({ 'vih1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[3].valor });
+            this.form.patchValue({ 'dateVih1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[3].fecha });
+            this.form.patchValue({ 'vih2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[4].valor });
+            this.form.patchValue({ 'dateVih2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[4].fecha });
+            this.form.patchValue({ 'hepatitis': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[5].valor });
+            this.form.patchValue({ 'dateHepatitis': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[5].fecha });
+            this.form.patchValue({ 'elisa1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[6].valor });
+            this.form.patchValue({ 'dateElisa1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[6].fecha });
+            this.form.patchValue({ 'elisa2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[7].valor });
+            this.form.patchValue({ 'dateElisa2': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[7].fecha) });
+            this.form.patchValue({ 'glicemia1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[8].valor });
+            this.form.patchValue({ 'dateGlicemia1': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[8].fecha) });
+            this.form.patchValue({ 'glicemia2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[9].valor });
+            this.form.patchValue({ 'dateGlicemia2': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[9].fecha) });
+            this.form.patchValue({ 'glucosa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[10].valor });
+            this.form.patchValue({ 'dateGlucosa': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[10].fecha) });
 
-            this.form.patchValue({'orina1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[11].valor});
-            this.form.patchValue({'dateOrina1': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[11].fecha)});
-            this.form.patchValue({'orina2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[12].valor});
-            this.form.patchValue({'dateOrina2': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[12].fecha)});
-            this.form.patchValue({'orina3': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[13].valor});
-            this.form.patchValue({'dateOrina3': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[13].fecha)});
-            this.form.patchValue({'bacteriuria': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[14].valor});
-            this.form.patchValue({'dateBacteriuria': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[14].fecha)});
-            this.form.patchValue({'nitritos': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[15].valor});
-            this.form.patchValue({'dateNitritos': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[15].fecha)});
-            this.form.patchValue({'urocultivo': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[16].valor});
-            this.form.patchValue({'dateUrocultivo': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[16].fecha)});
-            this.form.patchValue({'esputo': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[17].valor});
-            this.form.patchValue({'dateEsputo': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[17].fecha)});
-            this.form.patchValue({'western': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[18].valor});
-            this.form.patchValue({'dateWestern': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[18].fecha)});
-            this.form.patchValue({'thlv1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[19].valor});
-            this.form.patchValue({'dateThlv1': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[19].fecha)});
-            this.form.patchValue({'torch': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[20].valor});
-            this.form.patchValue({'dateTorch': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[20].fecha)});
-            this.form.patchValue({'gotaGruesa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[21].valor});
-            this.form.patchValue({'dateGotaGruesa': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[21].fecha)});
-            this.form.patchValue({'proteinuriaCuanti': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[22].valor});
-            this.form.patchValue({'dateProteinuriaCuanti': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[22].fecha)});
-            this.form.patchValue({'proteinuriaCuali': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[23].valor});
-            this.form.patchValue({'dateProteinuriaCuali': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[23].fecha)});
-            this.form.patchValue({'secrecionVag': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[24].valor});
-            this.form.patchValue({'dateSecrecionVag': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[24].fecha)});
-            this.form.patchValue({'pap': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[25].valor});
-            this.form.patchValue({'datePap': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[25].fecha)});
-            this.form.patchValue({'ivaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].valor});
-            this.form.patchValue({'dateIvaa': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].fecha)});
+            this.form.patchValue({ 'orina1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[11].valor });
+            this.form.patchValue({ 'dateOrina1': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[11].fecha) });
+            this.form.patchValue({ 'orina2': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[12].valor });
+            this.form.patchValue({ 'dateOrina2': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[12].fecha) });
+            this.form.patchValue({ 'orina3': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[13].valor });
+            this.form.patchValue({ 'dateOrina3': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[13].fecha) });
+            this.form.patchValue({ 'bacteriuria': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[14].valor });
+            this.form.patchValue({ 'dateBacteriuria': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[14].fecha) });
+            this.form.patchValue({ 'nitritos': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[15].valor });
+            this.form.patchValue({ 'dateNitritos': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[15].fecha) });
+            this.form.patchValue({ 'urocultivo': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[16].valor });
+            this.form.patchValue({ 'dateUrocultivo': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[16].fecha) });
+            this.form.patchValue({ 'esputo': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[17].valor });
+            this.form.patchValue({ 'dateEsputo': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[17].fecha) });
+            this.form.patchValue({ 'western': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[18].valor });
+            this.form.patchValue({ 'dateWestern': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[18].fecha) });
+            this.form.patchValue({ 'thlv1': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[19].valor });
+            this.form.patchValue({ 'dateThlv1': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[19].fecha) });
+            this.form.patchValue({ 'torch': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[20].valor });
+            this.form.patchValue({ 'dateTorch': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[20].fecha) });
+            this.form.patchValue({ 'gotaGruesa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[21].valor });
+            this.form.patchValue({ 'dateGotaGruesa': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[21].fecha) });
+            this.form.patchValue({ 'proteinuriaCuanti': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[22].valor });
+            this.form.patchValue({ 'dateProteinuriaCuanti': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[22].fecha) });
+            this.form.patchValue({ 'proteinuriaCuali': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[23].valor });
+            this.form.patchValue({ 'dateProteinuriaCuali': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[23].fecha) });
+            this.form.patchValue({ 'secrecionVag': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[24].valor });
+            this.form.patchValue({ 'dateSecrecionVag': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[24].fecha) });
+            this.form.patchValue({ 'pap': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[25].valor });
+            this.form.patchValue({ 'datePap': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[25].fecha) });
+            this.form.patchValue({ 'ivaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].valor });
+            this.form.patchValue({ 'dateIvaa': new Date(this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].fecha) });
 
-            this.form.patchValue({'patologiasMaternas1': this.rptaDatosBasales.patologiaMaternoDiagnosticado[0].nombre});
-            this.form.patchValue({'datePatolog1': new Date(this.rptaDatosBasales.patologiaMaternoDiagnosticado[0].fecha)});
-            this.form.patchValue({'patologiasMaternas2': this.rptaDatosBasales.patologiaMaternoDiagnosticado[1].nombre});
-            this.form.patchValue({'datePatolog2': new Date(this.rptaDatosBasales.patologiaMaternoDiagnosticado[1].fecha)});
-            this.form.patchValue({'patologiasMaternas3': this.rptaDatosBasales.patologiaMaternoDiagnosticado[2].nombre});
-            this.form.patchValue({'datePatolog3': new Date(this.rptaDatosBasales.patologiaMaternoDiagnosticado[2].fecha)});
-            this.form.patchValue({'patologiasMaternas4': this.rptaDatosBasales.patologiaMaternoDiagnosticado[3].nombre});
-            this.form.patchValue({'datePatolog4': new Date(this.rptaDatosBasales.patologiaMaternoDiagnosticado[3].fecha)});
+            this.form.patchValue({ 'patologiasMaternas1': this.rptaDatosBasales.patologiaMaternoDiagnosticado[0].nombre });
+            this.form.patchValue({ 'datePatolog1': new Date(this.rptaDatosBasales.patologiaMaternoDiagnosticado[0].fecha) });
+            this.form.patchValue({ 'patologiasMaternas2': this.rptaDatosBasales.patologiaMaternoDiagnosticado[1].nombre });
+            this.form.patchValue({ 'datePatolog2': new Date(this.rptaDatosBasales.patologiaMaternoDiagnosticado[1].fecha) });
+            this.form.patchValue({ 'patologiasMaternas3': this.rptaDatosBasales.patologiaMaternoDiagnosticado[2].nombre });
+            this.form.patchValue({ 'datePatolog3': new Date(this.rptaDatosBasales.patologiaMaternoDiagnosticado[2].fecha) });
+            this.form.patchValue({ 'patologiasMaternas4': this.rptaDatosBasales.patologiaMaternoDiagnosticado[3].nombre });
+            this.form.patchValue({ 'datePatolog4': new Date(this.rptaDatosBasales.patologiaMaternoDiagnosticado[3].fecha) });
             ;
         });
     }
@@ -584,5 +604,21 @@ export class DatosBasalesComponent implements OnInit {
 
     selectedOption(event) {
         console.log('seleccion de autocomplete ', event)
+    }
+
+    getFechaHora(date: Date) {
+        // let fecha=a.toLocaleDateString();
+        if (date.toString() !== '') {
+
+            let hora = date.toLocaleTimeString();
+            // return fecha+' '+hora;
+            let dd = date.getDate();
+            let mm = date.getMonth() + 1; //January is 0!
+            let yyyy = date.getFullYear();
+            return yyyy + '-' + mm + '-' + dd + ' ' + hora
+        }
+        else {
+            return '';
+        }
     }
 }
