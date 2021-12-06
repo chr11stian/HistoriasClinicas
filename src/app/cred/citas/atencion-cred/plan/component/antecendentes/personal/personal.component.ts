@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl, Validators, FormControl } from '@angular/forms';
-import { AntecedentesPersonales } from '../../models/antecedentes.interface';
+import { AntecedentesPersonalesFormType } from '../../models/antecedentes.interface';
 
 // export interface AntecedentesPersonales {
 //   dni?: string;
@@ -80,7 +80,7 @@ import { AntecedentesPersonales } from '../../models/antecedentes.interface';
   styleUrls: ['./personal.component.css']
 })
 export class PersonalComponent implements OnInit {
-  @Output() personalEmit: EventEmitter<AntecedentesPersonales> = new EventEmitter<AntecedentesPersonales>();
+  @Output() personalEmit: EventEmitter<AntecedentesPersonalesFormType> = new EventEmitter<AntecedentesPersonalesFormType>();
   
   stateOptions: any[];
   stateOptions1: any[];
@@ -105,23 +105,23 @@ export class PersonalComponent implements OnInit {
     this.personalFG = this.formBuilder.group({
       patologiasE1: [''],
       patologiasE2: [''],
-      normalE: [true],
-      complicadoE: [true],
+      normalE: [null],
+      complicadoE: [null],
       nroE1: [''],
       atencionPrenaE: [true],
       nroE2: [''],
       lugarApn: [''],
       patologiasP: [''],
-      partoE: [true],
-      complicadoP: [true],
-      eessP: [true],
-      domicilioP: [true],
-      consultaPP: [true],
-      profSaludP: [true],
-      tecnicoP: [true],
-      acsP: [true],
-      familiarP: [true],
-      otroP: [true],
+      partoE: [null],
+      complicadoP: [null],
+      eessP: [null],
+      domicilioP: [null],
+      consultaPP: [null],
+      profSaludP: [null],
+      tecnicoP: [null],
+      acsP: [null],
+      familiarP: [null],
+      otroP: [null],
       otroDetalleP: [''],
       edadN: [''],
       pesoN: [''],
@@ -155,7 +155,7 @@ export class PersonalComponent implements OnInit {
     })
   }
 
-  rellenarForm(tabla: AntecedentesPersonales): void {
+  rellenarForm(tabla: AntecedentesPersonalesFormType): void {
 
     this.getFC('patologiasE1').setValue(tabla.embarazo.patologias1)
     this.getFC('patologiasE2').setValue(tabla.embarazo.patologias2)
@@ -224,6 +224,31 @@ export class PersonalComponent implements OnInit {
     console.log(e.value, nombre);
     this.getFC(nombre).setValue(!e.value)
   }
+
+  cambio2(e,nombre1:string,nombre2:string){
+    if (this.getFC(nombre1).value===false && this.getFC(nombre2).value===false){
+      return
+    }
+    if (e.value===false){
+      return
+    }
+  
+    this.getFC(nombre1).setValue(!e.value)
+    this.getFC(nombre2).setValue(!e.value)
+  }
+  cambio3(e,nombre1:string,nombre2:string,nombre3:string,nombre4:string){
+    if (this.getFC(nombre1).value===false && this.getFC(nombre2).value===false && this.getFC(nombre3).value===false && this.getFC(nombre4).value===false){
+      return
+    }
+    if (e.value===false){
+      return
+    }
+    this.getFC(nombre1).setValue(!e.value)
+    this.getFC(nombre2).setValue(!e.value)
+    this.getFC(nombre3).setValue(!e.value)
+    this.getFC(nombre4).setValue(!e.value)
+  }
+
   save(){
     this.personalEmit.emit({
       embarazo: {

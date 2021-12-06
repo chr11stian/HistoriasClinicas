@@ -152,7 +152,7 @@
 <!--PERSONAL DIALOG-->
 <p-dialog
   [(visible)]="personalDialog"
-  [style]="{ width: '1200px' }"
+  [style]="{ width: '1300px', height: '1200px' }"
   [modal]="true"
   styleClass="p-fluid"
   autoZIndex
@@ -415,6 +415,7 @@
             optionLabel="nombre"
             optionValue="nombre"
             id="tipoid"
+            scrollHeight="100px" 
             required
           >
           </p-dropdown>
@@ -429,6 +430,7 @@
             optionLabel="nombre"
             optionValue="nombre"
             id="tipoid"
+            scrollHeight="100px" 
             required
           >
           </p-dropdown>
@@ -449,6 +451,7 @@
             placeholder="Tipo de Contrato"
             optionValue="abreviatura"
             id="tipoid"
+            scrollHeight="80px" 
             required
           >
           </p-dropdown>
@@ -463,6 +466,7 @@
             optionLabel="abreviatura"
             optionValue="abreviatura"
             id="tipoid"
+            scrollHeight="80px" 
             required
           >
           </p-dropdown>
@@ -480,6 +484,7 @@
             optionLabel="nombreEESS"
             placeholder="Seleccione Ipress"
             optionValue="id"
+            scrollHeight="80px" 
             required
           >
           </p-dropdown>
@@ -494,6 +499,7 @@
             optionLabel="nombreEESS"
             [disabled]="true"
             optionValue="id"
+            scrollHeight="80px" 
             required
           >
           </p-dropdown>

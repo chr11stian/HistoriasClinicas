@@ -4,7 +4,7 @@
     </ng-template>
     <ng-template pTemplate="right" class="button">
         <button pButton pRipple label="Siguiente" (click)="onNext()" iconPos="right" icon="pi pi-angle-right"
-                class="guardar mr-2"></button>
+                class="guardar mr-2" style="background-color: #0c3866"></button>
     </ng-template>
 </p-toolbar>
 <br>
@@ -29,6 +29,7 @@
             </div>
             <div class="col-12 md:col-2">
                 <p-calendar [showIcon]="true"
+                            formControlName="dateAttention"
                             class="inputfield w-full"
                             inputId="icon">
                 </p-calendar>
@@ -38,20 +39,22 @@
             </div>
             <div class="col-12 md:col-1">
                 <p-calendar [timeOnly]="true"
+                            formControlName="hour"
                             inputId="timeonly">
                 </p-calendar>
             </div>
             <div class="col-12 md:col-1 text-center mt-2">
                 Edad:
             </div>
-            <div class="col-12 md:col-1">
-                <p-inputNumber placeholder="años"
-                               inputId="year" suffix=" años">
-                </p-inputNumber>
+            <div class="col-12 md:col-3">
+                <input type="text"
+                       pInputText
+                       formControlName="year"
+                       class="inputfield w-full"
+                       placeholder="Edad del paciente"/>
             </div>
         </div>
     </form>
-
 </p-fieldset>
 
 
@@ -93,45 +96,52 @@
         </div>
     </div>
     <p-divider></p-divider>
-    <h4> IDENTIFIQUE FACTORES DE RIESGO</h4>
-    <div class="grid">
-        <div class="col-2">
-            ¿Quién cuida al niño?
+    <form [formGroup]="factorRiesgoFG">
+        <h4> IDENTIFIQUE FACTORES DE RIESGO</h4>
+        <div class="grid">
+            <div class="col-2">
+                ¿Quién cuida al niño?
+            </div>
+            <div class="col-10">
+                <input type="text"
+                       pInputText
+                       formControlName="cuidaNinio"
+                       class="inputfield w-full"
+                       placeholder="Detalle"/>
+            </div>
         </div>
-        <div class="col-10">
-            <input type="text"
-                   pInputText
-                   class="inputfield w-full"
-                   placeholder="Detalle"/>
+        <div class="grid">
+            <div class="col-12 md:col-5">
+                <select-btn field="¿Participa el padre en el cuidado del niño?"
+                            formControlName="participaPadre"
+                            alignment="text-left">
+                </select-btn>
+            </div>
+            <div class="col-12 md:col-5">
+                <select-btn field="¿El niño recibe muestras de afecto?"
+                            formControlName="recibeAfecto"
+                            alignment="text-left">
+                </select-btn>
+            </div>
         </div>
-    </div>
-    <div class="grid">
-        <div class="col-12 md:col-5">
-            <select-btn field="¿Participa el padre en el cuidado del niño?"
-                        alignment="text-left">
-            </select-btn>
+        <div class="grid">
+            <div class="col-2">
+                Especifique:
+            </div>
+            <div class="col-10">
+                <input type="text"
+                       pInputText
+                       class="inputfield w-full"
+                       formControlName="especificacion"
+                       placeholder="Detalle"/>
+            </div>
         </div>
-        <div class="col-12 md:col-5">
-            <select-btn field="¿El niño recibe muestras de afecto?"
-                        alignment="text-left">
-            </select-btn>
-        </div>
-    </div>
-    <div class="grid">
-        <div class="col-2">
-            Especifique:
-        </div>
-        <div class="col-10">
-            <input type="text"
-                   pInputText
-                   class="inputfield w-full"
-                   placeholder="Detalle"/>
-        </div>
-    </div>
+    </form>
 </p-fieldset>
 
 <p-fieldset legend="ANAMNESIS" [toggleable]="true">
     <textarea class="inputfield w-full"
+              [formControl]="anamnesisFC"
               pInputTextarea>
     </textarea>
 </p-fieldset>

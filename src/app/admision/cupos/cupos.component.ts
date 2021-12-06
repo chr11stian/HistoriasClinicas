@@ -13,6 +13,7 @@ import {CuposService} from "../../core/services/cupos.service";
 import {DocumentoIdentidadService} from "../../mantenimientos/services/documento-identidad/documento-identidad.service";
 import {UpsService} from "../../mantenimientos/services/ups/ups.service";
 import {PacienteService} from "../../core/services/paciente/paciente.service";
+import {RolGuardiaService} from "../../core/services/rol-guardia/rol-guardia.service";
 
 
 @Component({
@@ -22,6 +23,8 @@ import {PacienteService} from "../../core/services/paciente/paciente.service";
     styleUrls: ['./cupos.component.css']
 })
 export class CuposComponent implements OnInit {
+    idIpressZarzuela = "616de45e0273042236434b51";
+    listaUps: any;
     dataCupos_por_fechas_servicio: any;
     personalSelected2: any;
     isUpdate: boolean = false;
@@ -42,7 +45,7 @@ export class CuposComponent implements OnInit {
     listaDocumentosIdentidad: any
 
     dataOfertasCupos: any;
-    ups: any;
+    ups: [] = [];
     datePipe = new DatePipe('en-US');
     selectedCupo: any;
     cuposDialog: boolean;
@@ -57,7 +60,7 @@ export class CuposComponent implements OnInit {
     formCuposOferta: FormGroup;
 
 
-    iprees: string = "Zarzuela Baja";
+    iprees: string = "la posta medica";
 
     constructor(
         private config: DynamicDialogConfig,
@@ -69,6 +72,7 @@ export class CuposComponent implements OnInit {
         private upsService: UpsService,
         private documentoIdentidadService: DocumentoIdentidadService,
         private pacienteService: PacienteService,
+        private rolGuardiaService: RolGuardiaService
     ) {
         this.justifyOptions = [
             {icon: "pi pi-align-left", justify: "Left"},
@@ -85,25 +89,13 @@ export class CuposComponent implements OnInit {
 
     ngOnInit(): void {
         this.buildForm();
-        this.getDataUPS();
+        // this.getDataUPS();
+        this.getListaUps();
         this.getDocumentosIdentidad();
         this.datafechaActual = this.datafecha.getDate() + '-' + (this.datafecha.getMonth() + 1) + '-' + this.datafecha.getFullYear();
         console.log("FECHAS", this.datafechaActual);
         console.log("HORARIO", this.selectedHorario);
 
-    }
-
-    recuperar(rowData) {
-        this.isUpdate = true;
-        this.formCuposOferta.reset();
-        this.formCuposOferta.get('nroDoc').setValue(rowData.nroDoc);
-        this.formCuposOferta.get('tipoDoc').setValue(rowData.tipoDoc);
-        this.formCuposOferta.get('apePaterno').setValue(rowData.apePaterno);
-        this.formCuposOferta.get('apeMaterno').setValue(rowData.apeMaterno);
-        this.formCuposOferta.get('primerNombre').setValue(rowData.primerNombre);
-        // console.log(rowData.detalleIpress[0].fechaInicio);
-        // this.idUpdate = rowData.id;
-        // this.personalDialog = true;
     }
 
 
@@ -116,7 +108,6 @@ export class CuposComponent implements OnInit {
         this.pacienteService.getPacienteByNroDoc(auxNroDoc).subscribe((res: any) => {
             this.dataPacientes = res.object
             console.log('paciente por doc ', this.dataPacientes)
-
             this.formCuposOferta.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formCuposOferta.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
             this.formCuposOferta.get('primerNombre').setValue(this.dataPacientes.primerNombre);
@@ -129,11 +120,18 @@ export class CuposComponent implements OnInit {
         });
     }
 
-    getCupos_Fecha_Servicio(data) {
-        this.cuposService.getCuposServicioFecha(data).subscribe((res: any) => {
-            this.dataCupos_por_fechas_servicio = res.object;
-            console.log('Listasssss ', this.dataCupos_por_fechas_servicio);
-        })
+
+    getListaUps() {
+        this.rolGuardiaService
+            .getServiciosPorIpress(this.idIpressZarzuela)
+            .subscribe((resp) => {
+                this.ups = resp["object"];
+                // this.loading = false;
+            });
+    }
+
+    getCupos_Fecha_Servicio() {
+
     }
 
     getDocumentosIdentidad() {
@@ -143,12 +141,12 @@ export class CuposComponent implements OnInit {
         })
     }
 
-    getDataUPS() {
-        this.upsService.getUPS().subscribe((resp: any) => {
-            this.ups = resp.object;
-            console.log("ups", this.ups);
-        });
-    }
+    // getDataUPS() {
+    //     this.upsService.getUPS().subscribe((resp: any) => {
+    //         this.ups = resp.object;
+    //         console.log("ups", this.ups);
+    //     });
+    // }
 
 
     getOfertascuposListar(data) {
@@ -204,6 +202,7 @@ export class CuposComponent implements OnInit {
 
     saveForm() {
         this.isUpdate = false;
+        var llll;
         const req = {
             fechaAtencion: this.personalSelected2.fechaOferta,
             nroCupo: this.personalSelected2.totalOfertas,
@@ -221,24 +220,22 @@ export class CuposComponent implements OnInit {
                 nroDoc: this.formCuposOferta.value.nroDoc,
             },
 
-
             // transeunte: this.formCuposOferta.value.transeunte,
             transeunte: false,
             estado: this.estadoCupo,
-
 
             personal: {
                 nombre: this.personalSelected2.personal.nombre,
                 turno: this.personalSelected2.nombreTurno,
                 nroDoc: this.personalSelected2.personal.nroDoc,
             },
-
             ipress: {
                 ipress_id: this.personalSelected2.ipress.idIpress,
                 nombre: this.personalSelected2.ipress.nombre,
                 servicio: this.personalSelected2.ipress.servicio
             },
         };
+
         console.log("guardar", req);
 
         this.cuposService.saveCupos(req).subscribe(
@@ -253,8 +250,30 @@ export class CuposComponent implements OnInit {
             }
         )
 
+        this.actualizarOfertaEstado();
+
     }
 
+    //Actualiza el estado de las ofertas despues de guardar un cupo LIBRE / OCUPADO
+    actualizarOfertaEstado() {
+        let data = {
+            idOferta: this.personalSelected2.id,
+            horaInicio: this.selectedHorario[0].horaInicio,
+            horaFin: this.selectedHorario[0].horaFin,
+            estado: "OCUPADO"
+        }
+
+        console.log("DATA ACTUALIZAR OFERTA", data);
+        this.cuposService.updateEstadoOferta(data).subscribe(resp => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Estado Actualizado',
+                text: '',
+                showConfirmButton: false,
+                timer: 1500,
+            })
+        })
+    }
 
     openModal() {
         this.selectedHorario = null;
@@ -267,7 +286,7 @@ export class CuposComponent implements OnInit {
             this.messageService.add({severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario'});
             return;
         }
-        console.log('horario ', this.selectedHorario)
+        console.log('HORARIO SELECCIONADO', this.selectedHorario)
         console.log('selected servicio ', this.selectedServicio)
         this.cuposDialog = false;
         this.openDialog2();
@@ -306,20 +325,22 @@ export class CuposComponent implements OnInit {
         console.log('select personal....', this.personalSelected2);
     }
 
-    selectCupos() {
+    selectCupos(event) {
 
+        console.log("servicio", event);
         let data = {
-            servicio: this.selectedServicio.nombreUPS,
-            fecha: "2021-10-3",
+            servicio: "ACUPUNTURA Y AFINES",
+            fecha: "01-12-2021",
+
         }
-
-        this.getCupos_Fecha_Servicio(data);
-
+        this.cuposService.getCuposServicioFecha(this.idIpressZarzuela, data).subscribe((res: any) => {
+            this.dataCupos_por_fechas_servicio = res.object;
+            console.log('Listasssss ', this.dataCupos_por_fechas_servicio);
+        })
 
         if (this.dataCupos_por_fechas_servicio != null) {
             this.dataCupos_por_fechas_servicio = null;
         }
-
     }
 
     onRowUnselect(event) {
@@ -335,7 +356,7 @@ export class CuposComponent implements OnInit {
             fechaOferta: this.datafecha,
         }
         this.getOfertascuposListar(data);
-        // this.listaPersonal = this.dataOfertasCupos.filter(item => item.horaLaboral == event.horaLaboral);
+        console.log("FECHA OFERTA", data)
     }
 
     GuardarPersona() {

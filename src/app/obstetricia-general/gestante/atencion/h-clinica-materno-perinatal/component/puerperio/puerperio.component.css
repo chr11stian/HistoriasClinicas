@@ -1,0 +1,13 @@
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background: #0c3866;
+    border-color: #0c3866;
+}
+.guardar {
+    background: #0c3866;
+    border-color: #0c3866;
+    align-items: center;
+}
+
+p-toolbar >>> * {
+    align-self: center;
+}

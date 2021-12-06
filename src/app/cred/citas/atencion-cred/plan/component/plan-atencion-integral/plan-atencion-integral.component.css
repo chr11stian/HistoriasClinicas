@@ -1,40 +1,46 @@
 p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
-  background: #0c3866;
-  border-color: #0c3866;
+    background: #0c3866;
+    border-color: #0c3866;
 }
+
 p-calendar >>> .p-button {
-  background: #0c3866;
-  border: 1px solid #0c3866;
-  align-self: center;
+    background: #0c3866;
+    border: 1px solid #0c3866;
+    align-self: center;
 }
+
 .guardar {
-  background: #0c3866;
-  border-color: #0c3866;
-  align-items: center;
+    background: #0c3866;
+    border-color: #0c3866;
+    align-items: center;
 }
+
 p-toolbar >>> * {
-  align-self: center;
+    align-self: center;
 }
+
 p-card >>> * {
-  font-size: small;
-  align-self: start;
-  justify-self: center;
+    font-size: small;
+    align-self: start;
+    justify-self: center;
 }
+
 p-tabview >>> .p-tabview-title {
-  font-size: small;
-  color: black;
+    font-size: small;
+    color: black;
 }
+
 p-tabview >>> .p-tabview .p-tabview-nav {
-  justify-content: space-between;
-  margin: 0.5rem 0.5rem 1rem 0.5rem;
+    justify-content: space-between;
+    margin: 0.5rem 0.5rem 1rem 0.5rem;
 }
 
 p-tabview >>> .p-tabview .p-tabview-panels {
-  height: 100%;
+    height: 100%;
 }
 
 p-tabview >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  background: #d1d1d1;
-  border-color: #d1d1d1;
-  color: #d1d1d1;
+    background: #d1d1d1;
+    border-color: #d1d1d1;
+    color: #d1d1d1;
 }
