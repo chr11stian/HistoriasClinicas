@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core'
 import {HttpClient} from '@angular/common/http'
-import {ConsultaAPI, ConsultaInputType, CreateConsultaInterface} from '../models/consultaGeneral'
+import {ApiConsulta, DataQuery} from '../models/consultaGeneral'
 import {environment} from 'src/environments/environment'
+import {map} from 'rxjs/operators'
 
 
 @Injectable({
@@ -17,14 +18,19 @@ export class ConsultaGeneralService {
 
     // http://192.168.5.3:3012/api/hce/cred/consulta/crear/
 
-    crearConsulta(create: CreateConsultaInterface) {
+    crearConsulta(create: DataQuery) {
         const url = `${this.base_url}/crear/`
-        return this.http.post<ConsultaAPI>(url,
+        return this.http.post<ApiConsulta>(url,
             create
         )
     }
 
-    saveConsultaDatosGenerales(consulta: ConsultaInputType, idConsulta: string) {
-
+    traerConsulta(idConsulta: string) {
+        const url = `${this.base_url}/datosgenerales/${idConsulta}`
+        return this.http.get<any>(url)
     }
+
+    // saveConsultaDatosGenerales(consulta: ConsultaInputType, idConsulta: string) {
+    //
+    // }
 }

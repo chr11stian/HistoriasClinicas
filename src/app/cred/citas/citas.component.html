@@ -1,248 +1,234 @@
 <div class="card">
-  <p-card>
-    <div class="grid">
-      <div class="col-9" style="margin: 0px 0px 0px 20px">
-        <span style="font-size: 2em"
-          >CONTROL DE CRECIMIENTO Y DESARROLLO>
-        </span>
-      </div>
-      <div class="col-12 flex" style="margin: 0px 0px 0px 20px">
-        <div class="col-2">
-          <div class="field grid">
-            <strong
-              ><label class="line-height-4" for="username2"
-                >*Tipo de documento:</label
-              ></strong
-            >
-            <p-dropdown
-              placeholder="Seleccionar"
-              [options]="options"
-              (ngModel)="(selectedOption)"
-              optionLabel="name"
-            >
-            </p-dropdown>
-          </div>
+    <p-card>
+        <div class="grid">
+            <div class="col-9" style="margin: 0px 0px 0px 20px">
+                <span style="font-size: 2em">
+                    CONTROL DE CRECIMIENTO Y DESARROLLO>
+                </span>
+            </div>
+            <div class="col-12 flex" style="margin: 0px 0px 0px 20px">
+                <div class="col-2">
+                    <div class="field grid">
+                        <strong>
+                            <label class="line-height-4" for="username2">
+                                *Tipo de documento:
+                            </label>
+                        </strong>
+                        <p-dropdown placeholder="Seleccionar"
+                                    [options]="options"
+                                    (ngModel)="(selectedOption)"
+                                    optionLabel="name">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="col-3 align-items-end">
+                    <div class="field grid">
+                        <strong>
+                            <label class="line-height-4" for="username2">
+                                *Ingrese valor del documento*
+                            </label>
+                        </strong>
+                        <input style="width: 450px" id="username2" pInputText/>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <button pButton class="boton-red" style="margin-top: 25px">
+                        <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;Buscar
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="col-3 align-items-end">
-          <div class="field grid">
-            <strong>
-              <label class="line-height-4" for="username2">
-                *Ingrese valor del documento*
-              </label>
-            </strong>
-            <input style="width: 450px" id="username2" pInputText />
-          </div>
-        </div>
-        <div class="col-1">
-          <button pButton class="boton-red" style="margin-top: 25px">
-            <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;Buscar
-          </button>
-        </div>
-      </div>
-    </div>
-  </p-card>
+    </p-card>
 </div>
 <div>
-  <p-accordion>
-    <p-accordionTab
-      header="LISTA DE NIÑOS/NIÑAS CON CITAS EL DIA DE HOY"
-      [selected]="true"
-    >
-      <div class="tableScroll" style="width: 100%">
-        <p-table
-          responsiveLayout="scroll"
-          [resizableColumns]="true"
-          scrollDirection="both"
-          [value]="citas"
-          #dt
-          styleClass="p-datatable-gridlines"
-          [rows]="10"
-          [rowsPerPageOptions]="[10, 25, 50]"
-          [paginator]="true"
-          [autoLayout]="true"
-          [showCurrentPageReport]="true"
-          currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
-        >
-          <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-            <tr>
-              <th>Nro</th>
-              <th>DNI</th>
-              <th>APELLIDOS</th>
-              <th>NOMBRES</th>
-              <th>CONSULTORIO</th>
-              <th>HORARIO</th>
-              <th>FECHA</th>
-              <th>ACCIONES</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-            <tr>
-              <td>{{ rowIndex + 1 }}</td>
-              <td>{{ rowData.dni }}</td>
-              <td>{{ rowData.apellidos }}</td>
-              <td>{{ rowData.nombres }}</td>
-              <td>{{ rowData.consultorio }}</td>
-              <td>{{ rowData.horario }}</td>
-              <td>{{ rowData.fecha }}</td>
-              <td>
-                <span class="p-buttonset">
-                  <button
-                    pButton
-                    pRipple
-                    routerLink="atencion"
-                    class="boton-azul"
-                    label="Atender"
-                    icon="pi pi-check"
-                  ></button>
-                  <button
-                    pButton
-                    pRipple
-                    routerLink="consulta"
-                    class="boton-mostaza"
-                    label="Consulta"
-                    icon="pi pi-book"
-                  ></button>
-                  <button
-                    pButton
-                    pRipple
-                    class="boton-red"
-                    label="Cancelar"
-                    icon="pi pi-times"
-                  ></button>
-                </span>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
-    </p-accordionTab>
-    <p-accordionTab header="LISTA DE NIÑOS/NIÑAS CON CITAS NO ATENDIDAS">
-      <p-table
-        responsiveLayout="scroll"
-        [resizableColumns]="true"
-        scrollDirection="both"
-        class="tableScroll"
-        style="width: 100%"
-        [value]="citas"
-        #dt
-        styleClass="p-datatable-gridlines"
-        [rows]="10"
-        [rowsPerPageOptions]="[10, 25, 50]"
-        [paginator]="true"
-        [autoLayout]="true"
-        [showCurrentPageReport]="true"
-        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
-      >
-        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-          <tr>
-            <th>Nro</th>
-            <th>DNI</th>
-            <th>APELLIDOS</th>
-            <th>NOMBRES</th>
-            <th>CONSULTORIO</th>
-            <th>HORARIO</th>
-            <th>FECHA</th>
-            <th>ACCIONES</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-          <tr>
-            <td>{{ rowIndex + 1 }}</td>
-            <td>{{ rowData.dni }}</td>
-            <td>{{ rowData.apellidos }}</td>
-            <td>{{ rowData.nombres }}</td>
-            <td>{{ rowData.consultorio }}</td>
-            <td>{{ rowData.horario }}</td>
-            <td>{{ rowData.fecha }}</td>
-            <td>
-              <span class="p-buttonset">
-                <button
-                  pButton
-                  pRipple
-                  class="boton-azul"
-                  label="Reprogramar"
-                  (click)="openReprogramar()"
-                  icon="pi pi-undo"
-                ></button>
-                <button
-                  pButton
-                  pRipple
-                  class="boton-morado"
-                  label="Cancelar"
-                  icon="pi pi-times"
-                ></button>
-                <button
-                  pButton
-                  pRipple
-                  class="boton-red"
-                  label="Eliminar"
-                  icon="pi pi-trash"
-                ></button>
-              </span>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-accordionTab>
-    <p-accordionTab header="LISTA DE NIÑOS/NIÑAS CON CITAS CANCELADAS">
-      <p-table
-        responsiveLayout="scroll"
-        [resizableColumns]="true"
-        scrollDirection="both"
-        class="tableScroll"
-        style="width: 100%"
-        [value]="citas"
-        #dt
-        styleClass="p-datatable-gridlines"
-        [rows]="10"
-        [rowsPerPageOptions]="[10, 25, 50]"
-        [paginator]="true"
-        [autoLayout]="true"
-        [showCurrentPageReport]="true"
-        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
-      >
-        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-          <tr>
-            <th>Nro</th>
-            <th>DNI</th>
-            <th>APELLIDOS</th>
-            <th>NOMBRES</th>
-            <th>CONSULTORIO</th>
-            <th>HORARIO</th>
-            <th>FECHA</th>
-            <th>ACCIONES</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-          <tr>
-            <td>{{ rowIndex + 1 }}</td>
-            <td>{{ rowData.dni }}</td>
-            <td>{{ rowData.apellidos }}</td>
-            <td>{{ rowData.nombres }}</td>
-            <td>{{ rowData.consultorio }}</td>
-            <td>{{ rowData.horario }}</td>
-            <td>{{ rowData.fecha }}</td>
-            <td>
-              <span class="p-buttonset">
-                <button
-                  pButton
-                  pRipple
-                  class="boton-azul"
-                  label="Reprogramar"
-                  icon="pi pi-undo"
-                ></button>
-                <button
-                  pButton
-                  pRipple
-                  class="boton-red"
-                  label="Eliminar"
-                  icon="pi pi-trash"
-                ></button>
-              </span>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </p-accordionTab>
-  </p-accordion>
+    <p-accordion>
+        <p-accordionTab header="LISTA DE NIÑOS/NIÑAS CON CITAS EL DIA DE HOY"
+                        [selected]="true">
+            <div class="tableScroll" style="width: 100%">
+                <p-table
+                    responsiveLayout="scroll"
+                    [resizableColumns]="true"
+                    scrollDirection="both"
+                    [value]="citas"
+                    #dt
+                    styleClass="p-datatable-gridlines"
+                    [rows]="10"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    [paginator]="true"
+                    [autoLayout]="true"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th>Nro</th>
+                            <th>DNI</th>
+                            <th>APELLIDOS</th>
+                            <th>NOMBRES</th>
+                            <th>CONSULTORIO</th>
+                            <th>HORARIO</th>
+                            <th>FECHA</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ rowIndex + 1 }}</td>
+                            <td>{{ rowData.dni }}</td>
+                            <td>{{ rowData.apellidos }}</td>
+                            <td>{{ rowData.nombres }}</td>
+                            <td>{{ rowData.consultorio }}</td>
+                            <td>{{ rowData.horario }}</td>
+                            <td>{{ rowData.fecha }}</td>
+                            <td>
+                                <span class="p-buttonset">
+<!--                                    routerLink="atencion"-->
+                                    <button pButton
+                                            pRipple
+                                            class="boton-azul"
+                                            label="Atender"
+                                            (click)="atender(rowData)"
+                                            icon="pi pi-check">
+                                    </button>
+                                    <button pButton
+                                            pRipple
+                                            routerLink="consulta"
+                                            class="boton-mostaza"
+                                            label="Consulta"
+                                            icon="pi pi-book">
+                                    </button>
+                                    <button pButton
+                                            pRipple
+                                            class="boton-red"
+                                            label="Cancelar"
+                                            icon="pi pi-times">
+                                    </button>
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-accordionTab>
+        <p-accordionTab header="LISTA DE NIÑOS/NIÑAS CON CITAS NO ATENDIDAS">
+            <p-table responsiveLayout="scroll"
+                     [resizableColumns]="true"
+                     scrollDirection="both"
+                     class="tableScroll"
+                     style="width: 100%"
+                     [value]="citas"
+                     #dt
+                     styleClass="p-datatable-gridlines"
+                     [rows]="10"
+                     [rowsPerPageOptions]="[10, 25, 50]"
+                     [paginator]="true"
+                     [autoLayout]="true"
+                     [showCurrentPageReport]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th>Nro</th>
+                        <th>DNI</th>
+                        <th>APELLIDOS</th>
+                        <th>NOMBRES</th>
+                        <th>CONSULTORIO</th>
+                        <th>HORARIO</th>
+                        <th>FECHA</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td>{{ rowIndex + 1 }}</td>
+                        <td>{{ rowData.dni }}</td>
+                        <td>{{ rowData.apellidos }}</td>
+                        <td>{{ rowData.nombres }}</td>
+                        <td>{{ rowData.consultorio }}</td>
+                        <td>{{ rowData.horario }}</td>
+                        <td>{{ rowData.fecha }}</td>
+                        <td>
+                            <span class="p-buttonset">
+                                <button pButton
+                                        pRipple
+                                        class="boton-azul"
+                                        label="Reprogramar"
+                                        (click)="openReprogramar()"
+                                        icon="pi pi-undo">
+                                </button>
+                                <button pButton
+                                        pRipple
+                                        class="boton-morado"
+                                        label="Cancelar"
+                                        icon="pi pi-times">
+                                </button>
+                                <button pButton
+                                        pRipple
+                                        class="boton-red"
+                                        label="Eliminar"
+                                        icon="pi pi-trash">
+                                </button>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-accordionTab>
+        <p-accordionTab header="LISTA DE NIÑOS/NIÑAS CON CITAS CANCELADAS">
+            <p-table
+                responsiveLayout="scroll"
+                [resizableColumns]="true"
+                scrollDirection="both"
+                class="tableScroll"
+                style="width: 100%"
+                [value]="citas"
+                #dt
+                styleClass="p-datatable-gridlines"
+                [rows]="10"
+                [rowsPerPageOptions]="[10, 25, 50]"
+                [paginator]="true"
+                [autoLayout]="true"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+            >
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th>Nro</th>
+                        <th>DNI</th>
+                        <th>APELLIDOS</th>
+                        <th>NOMBRES</th>
+                        <th>CONSULTORIO</th>
+                        <th>HORARIO</th>
+                        <th>FECHA</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td>{{ rowIndex + 1 }}</td>
+                        <td>{{ rowData.dni }}</td>
+                        <td>{{ rowData.apellidos }}</td>
+                        <td>{{ rowData.nombres }}</td>
+                        <td>{{ rowData.consultorio }}</td>
+                        <td>{{ rowData.horario }}</td>
+                        <td>{{ rowData.fecha }}</td>
+                        <td>
+                            <span class="p-buttonset">
+                                <button pButton
+                                        pRipple
+                                        class="boton-azul"
+                                        label="Reprogramar"
+                                        icon="pi pi-undo">
+                                </button>
+                                <button pButton
+                                        pRipple
+                                        class="boton-red"
+                                        label="Eliminar"
+                                        icon="pi pi-trash">
+                                </button>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-accordionTab>
+    </p-accordion>
 </div>
