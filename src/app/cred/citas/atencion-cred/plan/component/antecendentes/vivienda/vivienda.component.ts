@@ -1,14 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
-import { AntecedentesVivienda } from '../../models/antecedentes.interface';
-
-// export interface AntecedentesVivienda {
-//   dni?: string;
-//   aguaPotable:boolean;
-//   aguaPotableDetalle:string;
-//   desague:boolean;
-//   desagueDetalle:string;
-// }
+import { AntecedentesViviendaFormType, AntecedentesViviendaType } from '../../models/antecedentes.interface';
+import { AntecedenteViviendaService } from '../../../../../../services/antecedentes/antecedente-vivienda.service';
 
 @Component({
   selector: 'app-vivienda',
@@ -16,21 +9,32 @@ import { AntecedentesVivienda } from '../../models/antecedentes.interface';
   styleUrls: ['./vivienda.component.css']
 })
 export class ViviendaComponent implements OnInit {
-  @Output() viviendaEmit: EventEmitter<AntecedentesVivienda> = new EventEmitter<AntecedentesVivienda>();
+  @Output() viviendaEmit: EventEmitter<AntecedentesViviendaFormType> = new EventEmitter<AntecedentesViviendaFormType>();
   viviendaFG: FormGroup;
 
   stateOptions: any[];
-  prueba: AntecedentesVivienda[];
+  datosVivienda: AntecedentesViviendaType[];
 
   constructor(
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private servicioVivienda: AntecedenteViviendaService) {
 
       this.buildForm();
       this.stateOptions = [{label: 'SI', value: true},
                             {label: 'NO', value: false}];
   }
 
-
+  async getTablaDatos() {
+    await this.servicioVivienda.getDatosGenerales('11111111')
+    .toPromise().then(res => <AntecedentesViviendaType[]> res['object'])
+    .then(data => {
+        this.datosVivienda = data;
+        console.log(this.datosVivienda);
+        this.rellenarForm(this.datosVivienda);
+    })
+    .catch(error => { return error;});
+    
+}
   getFC(control: string): AbstractControl {
     return this.viviendaFG.get(control)
   }
@@ -46,16 +50,16 @@ export class ViviendaComponent implements OnInit {
   }
 
 
-  rellenarForm(tabla: AntecedentesVivienda): void {
+  rellenarForm(tabla: AntecedentesViviendaType[]): void {
 
-    this.getFC('agua').setValue(tabla.aguaPotable)
-    this.getFC('detalleAgua').setValue(tabla.aguaPotableDetalle)
-    this.getFC('desague').setValue(tabla.desague)
-    this.getFC('detalleDesague').setValue(tabla.desagueDetalle)
+    this.getFC('agua').setValue(tabla[0].valor)
+    this.getFC('detalleAgua').setValue(tabla[0].especificar)
+    this.getFC('desague').setValue(tabla[0].valor)
+    this.getFC('detalleDesague').setValue(tabla[0].especificar)
     }
 
   ngOnInit(): void {
-    //console.log(this.viviendaFG);
+    this.getTablaDatos();
     
   }
 

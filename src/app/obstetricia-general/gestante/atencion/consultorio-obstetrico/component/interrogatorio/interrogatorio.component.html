@@ -1,15 +1,13 @@
 <div class="p-card">
-    <p-toolbar>
+    <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-            <h3 class="mt-2">INTERROGATORIO</h3>
+            <h3 class="p-m-0">Interrogatorio</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
-            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                    class="guardar mr-2" style="background-color: #0c3866" (click)="guardarDatos()"></button>
+            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"
+                (click)="guardarDatos()"></button>
         </ng-template>
     </p-toolbar>
-    <br>
     <form [formGroup]='form'>
         <div class="grid">
             <div class="col-12">
@@ -18,8 +16,11 @@
                         <label>T°:</label>
                         <input type="number" pInputText formControlName='temperatura' placeholder=""
                             class="funcionesVitales inputfield w-full">
-                        <label>PA:</label>
-                        <input type="number" pInputText formControlName='presion' placeholder=""
+                        <label>PA Sisto:</label>
+                        <input type="number" pInputText formControlName='presionSisto' placeholder=""
+                            class="funcionesVitales inputfield w-full">
+                        <label>PA Diasto:</label>
+                        <input type="number" pInputText formControlName='presionDisto' placeholder=""
                             class="funcionesVitales inputfield w-full">
                         <label>F.C:</label>
                         <input type="number" pInputText formControlName='fc' placeholder=""
@@ -130,14 +131,13 @@
                                         formControlName="examenFisicoOtro" pInputTextarea></textarea>
                                 </div>
                             </div> -->
-                            <div class="grid mt-2">
+                            <div class="grid mt-2 ">
                                 <button pButton pRipple label="Otros Examenes Fisicos" icon="pi pi-plus"
                                     class="p-button-primary" (click)="openDialogExamenesFinal()" class="mt-4"></button>
                             </div>
                             <div class="grid mt-2">
                                 <div class="col-4">
-                                    <p-table [value]="listaOtrosPruebasFisicas"
-                                        [showCurrentPageReport]="true" 
+                                    <p-table [value]="listaOtrosPruebasFisicas" [showCurrentPageReport]="true"
                                         [filterDelay]="0">
                                         <ng-template pTemplate="caption">
                                             <div class="flex justify-content-between">
@@ -161,7 +161,8 @@
                                                 <td>{{otrosExam.valor}}</td>
                                                 <td>
                                                     <button pButton pRipple class="p-button-danger botones"
-                                                    icon="pi pi-times" label="Eliminar" (click)="eliminarExamFisicos(i)"></button>
+                                                        icon="pi pi-times" label="Eliminar"
+                                                        (click)="eliminarExamFisicos(i)"></button>
                                                 </td>
                                             </tr>
                                         </ng-template>
@@ -293,7 +294,8 @@
                                             <td>{{examFeto.fcf}} x min</td>
                                             <td style="display: flex;">
                                                 <button pButton pRipple class="p-button-info botones"
-                                                    icon="pi pi-pencil" label="Editar" (click)="editarExamenFetos(examFeto, i)"></button>
+                                                    icon="pi pi-pencil" label="Editar"
+                                                    (click)="editarExamenFetos(examFeto, i)"></button>
                                                 <button pButton pRipple class="p-button-danger botones"
                                                     icon="pi pi-times" label="Eliminar" (click)="eliminar(i)"></button>
                                             </td>
