@@ -7,7 +7,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class AntecedenteFamiliarService {
 
-  base_url = environment.baseUrlPublic;
+  base_url = environment.baseUrl;
   bd = environment.bd;
 
   constructor(private http: HttpClient) { }
