@@ -16,30 +16,16 @@ import { ConsultaObstetriciaService } from "./services/consulta-obstetricia/cons
 export class ConsultaComponent implements OnInit {
   listaDocumentos: any;
   formConsulta: FormGroup;
-  consultas = [
-    {
-      consulta: "consulta",
-      fecha: "12-12-2021",
-      personalSalud: "MOROCCO LAYME JONATHAN",
-    },
-    {
-      consulta: "consulta",
-      fecha: "12-12-2021",
-      personalSalud: "MOROCCO LAYME JONATHAN",
-    },
-    {
-      consulta: "consulta",
-      fecha: "12-12-2021",
-      personalSalud: "MOROCCO LAYME JONATHAN",
-    },
-  ];
+  consultas = [];
   ref: DynamicDialogRef;
   constructor(
     private fb: FormBuilder,
     private location: Location,
     private dialog: DialogService,
     private consultaObstetriciaService: ConsultaObstetriciaService
-  ) { }
+  ) {
+    this.recuperarConsultas();
+   }
 
   ngOnInit(): void {
     this.inicializarForm();
@@ -93,7 +79,11 @@ export class ConsultaComponent implements OnInit {
     })
   }
   
-  recuperarConsultas(data){
+  recuperarConsultas(){
+    let data={
+      "nroHcl":"10101013",
+      "nroEmbarazo":1
+     }
     this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
       console.log('trajo datos exito ', res)
       this.consultas=res.object?res.object:[];

@@ -1127,7 +1127,7 @@ export class DialogConsultaComponent implements OnInit {
                     valor: this.form.value.glucosa,
                     fecha: this.datePipe.transform(this.form.value.glucosaFecha,'yyyy-MM-dd HH:mm:ss'),
                 },
-                toleranciGlucosa: {
+                toleranciaGlucosa: {
                     valor: this.form.value.toleranciaGlucosa,
                     fecha: this.datePipe.transform(this.form.value.toleranciaGlucosaFecha,'yyyy-MM-dd HH:mm:ss'),
                 },

@@ -25,19 +25,18 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Nro</th>
-                            <!-- <th>DNI</th> -->
-                            <th>CONSULTA</th>
+                            <th>DNI</th>
                             <th>FECHA</th>
-                            <th>PERSONAL DE SALUD</th>
+                            <th>NRO ATENCION</th>
                             <th>ACCIONES</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-consulta let-i="rowIndex">
                         <tr>
                             <td>{{i+1}}</td>
-                            <td>{{consulta.consulta}}</td>
+                            <td>{{consulta.nroDoc}}</td>
                             <td>{{consulta.fecha}}</td>
-                            <td>{{consulta.personalSalud}}</td>
+                            <td>{{consulta.nroAtencion}}</td>
                             <td>
                                 <span class="p-buttonset">
                                     <button pButton pTooltip="Editar" pRipple type="button" label="Editar"
