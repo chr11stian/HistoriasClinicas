@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {SuplementacionesMicronutrientesService} from 'src/app/cred/services/plan-atencion-integral/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service'
-import {SuplementacionMicronutrientes} from 'src/app/cred/models/plan-atencion-integral/plan-atencion-integral.model'
+import {SuplementacionesMicronutrientesService} from '../services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service'
+import {SuplementacionMicronutrientes} from 'src/app/cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model'
 
 @Component({
   selector: 'app-suplementaciones-micronutrientes',

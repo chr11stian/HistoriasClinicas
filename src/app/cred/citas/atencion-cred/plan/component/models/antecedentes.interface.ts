@@ -1,13 +1,13 @@
 /** Intefaz general de antecedentes **/
-export interface Antecedentes {
+export interface AntecedentesFormType {
   dni?: string;
-  antecedentePersonal: AntecedentesPersonales;
-  antecedenteFamiliar: AntecedentesFamiliares;
-  antecedenteVivienda: AntecedentesVivienda;
+  antecedentePersonal: AntecedentesPersonalesFormType;
+  antecedenteFamiliar: AntecedentesFamiliaresFormType;
+  antecedenteVivienda: AntecedentesViviendaFormType;
 }
 
 /** Intefaz de Antecedente Personal **/
-export interface AntecedentesPersonales {
+export interface AntecedentesPersonalesFormType {
     dni?: string;
     embarazo: AEmbarazo;
     parto: AParto;
@@ -79,7 +79,7 @@ export interface AntecedentesPersonales {
     detalleOtro?:string;
   }
 /** Intefaz de Antecedente Familiar **/
-  export interface AntecedentesFamiliares {
+  export interface AntecedentesFamiliaresFormType {
     dni?: string;
     tbc?:boolean;
     tbcQuien?:string;
@@ -103,10 +103,87 @@ export interface AntecedentesPersonales {
     hepatitisBQuien?:string;
   }
   /** Intefaz de Antecedente Vivienda **/
-  export interface AntecedentesVivienda {
+  export interface AntecedentesViviendaFormType {
     dni?: string;
     aguaPotable?:boolean;
     aguaPotableDetalle?:string;
     desague?:boolean;
     desagueDetalle?:string;
   }
+
+  // interfaz que devuelve la base de datos
+  //Antecedente Familiar
+  export interface AntecedentesPersonalesType {
+    embarazo:         Embarazo;
+    parto:            Parto;
+    nacimiento:       Nacimiento;
+    alimentacion:     Alimentacion;
+    patologias:       Patologia[];
+    otroAntecedentes: null;
+}
+
+export interface Alimentacion {
+    mixta:                           null;
+    artificial:                      null;
+    inicioAlimentacionComplemetaria: Date;
+    suplementoHierro:                boolean;
+    menosDosAnios:                   boolean;
+    lme:                             string;
+}
+
+export interface Embarazo {
+    tipoEmbarazo:              string;
+    patologiaDuranteGestacion: string;
+    nroEmbarazo:               number;
+    atencionPrenatal:          boolean;
+    nroAP:                     number;
+    lugarApn:                  string;
+}
+
+export interface Nacimiento {
+    edadGestacionalAlNacer:          number;
+    pesoAlNacer:                     number;
+    tallaAlNacer:                    number;
+    perimetroCefalico:               number;
+    perimetroToracico:               number;
+    respiracionLlantoNacerInmediato: boolean;
+    apgar:                           number;
+    reanimacion:                     boolean;
+    patologiaNeonatal:               boolean;
+    especifique:                     string;
+    hospitalizacion:                 boolean;
+    tiempoHospitalizacion:           TiempoHospitalizacion;
+}
+
+export interface TiempoHospitalizacion {
+    anio: string;
+    mes:  string;
+    dia:  string;
+}
+
+export interface Parto {
+    tipoParto:              string;
+    complicacionesDelParto: string;
+    lugarParto:             string;
+    atendidoPor:            string;
+}
+
+export interface Patologia {
+    codigo: null;
+    nombre: string;
+    valor:  boolean;
+}
+
+export interface AntecedentesFamiliaresType {
+
+    codigo: string;
+    antecedente: null;
+    quien:  string;
+    valor:  boolean;
+}
+
+export interface AntecedentesViviendaType {
+  descripcion: string;
+  valor:       boolean;
+  especificar: string;
+}
