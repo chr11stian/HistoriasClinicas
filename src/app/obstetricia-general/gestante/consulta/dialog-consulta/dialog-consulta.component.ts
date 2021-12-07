@@ -1,10 +1,11 @@
 
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { EspecialidadService } from 'src/app/mantenimientos/services/especialidad/especialidad.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ObstetriciaGeneralService } from 'src/app/obstetricia-general/services/obstetricia-general.service';
 import Swal from 'sweetalert2';
+import { ConsultaObstetriciaService } from '../services/consulta-obstetricia/consulta-obstetricia.service';
 
 @Component({
     selector: 'app-dialog-consulta',
@@ -100,12 +101,21 @@ export class DialogConsultaComponent implements OnInit {
     indexRecomendacionEditado: number;
     indexInmunizacionEditado: number;
 
+    estadoEdicion: boolean;
+    datePipe = new DatePipe('en-US');
     constructor(
         private fb: FormBuilder,
         private ref: DynamicDialogRef,
-        private obstetriciaGeneralService: ObstetriciaGeneralService
+        private obstetriciaGeneralService: ObstetriciaGeneralService,
+        private consultaObstetriciaService: ConsultaObstetriciaService,
+        public config: DynamicDialogConfig
     ) {
-        this.idObstetricia=this.obstetriciaGeneralService.idGestacion;
+        this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
+        this.estadoEdicion = false;
+        if (config.data) {
+            //this.llenarCamposEdicionIntervalo();
+            this.estadoEdicion = true;
+        }
     }
 
     ngOnInit(): void {
@@ -223,18 +233,14 @@ export class DialogConsultaComponent implements OnInit {
             proxCita: new FormControl(""),
 
             //suplementos
+            acidoFolicoSuplemento: new FormControl(""),
             acidoFolicoDescripcion: new FormControl(""),
             acidoFolicoNumero: new FormControl(""),
             acidoFolicoDosis: new FormControl(""),
             acidoFolicoViaAdministracion: new FormControl(""),
             acidoFolicoIntervalo: new FormControl(""),
             acidoFolicoDuracion: new FormControl(""),
-            hierroYAcidoFolicoDescripcion: new FormControl(""),
-            hierroYAcidoFolicoNumero: new FormControl(""),
-            hierroYAcidoFolicoDosis: new FormControl(""),
-            hierroYAcidoFolicoViaAdministracion: new FormControl(""),
-            hierroYAcidoFolicoIntervalo: new FormControl(""),
-            hierroYAcidoFolicoDuracion: new FormControl(""),
+            calcioSuplemento: new FormControl(""),
             calcioDescripcion: new FormControl(""),
             calcioNumero: new FormControl(""),
             calcioDosis: new FormControl(""),
@@ -314,6 +320,7 @@ export class DialogConsultaComponent implements OnInit {
             ecografiaEdadSemanas: new FormControl(""),
             ecografiaEdadDias: new FormControl(""),
             descripcionEcografia: new FormControl(""),
+            ecografiaFecha: new FormControl(""),
         });
 
         this.formExamenFetal = this.fb.group({
@@ -437,7 +444,7 @@ export class DialogConsultaComponent implements OnInit {
             situacion: this.formExamenFetal.value.selectSituacion,
             presentacion: this.formExamenFetal.value.selectPresentacion,
             posicion: this.formExamenFetal.value.selectPosicion,
-            fcf: this.formExamenFetal.value.latidosCardiacosFetales
+            fcf: parseInt(this.formExamenFetal.value.latidosCardiacosFetales)
         }
         console.log(examenFetal);
         this.datosExamenesFetales.push(examenFetal);
@@ -471,7 +478,7 @@ export class DialogConsultaComponent implements OnInit {
             situacion: this.formExamenFetal.value.selectSituacion,
             presentacion: this.formExamenFetal.value.selectPresentacion,
             posicion: this.formExamenFetal.value.selectPosicion,
-            fcf: this.formExamenFetal.value.latidosCardiacosFetales
+            fcf: parseInt(this.formExamenFetal.value.latidosCardiacosFetales)
         }
         console.log(examenFetal);
         this.datosExamenesFetales.splice(this.indexExamenFetalEditado, 1, examenFetal);
@@ -500,7 +507,6 @@ export class DialogConsultaComponent implements OnInit {
             }
         })
     }
-
     openNewDiagnostico() {
         //this.isUpdate = false;
         this.formDiagnostico.reset();
@@ -574,7 +580,7 @@ export class DialogConsultaComponent implements OnInit {
     guardarNuevoTratamiento() {
         var tratamiento = {
             descripcion: this.formTratamiento.value.descripcion,
-            numero: this.formTratamiento.value.numero,
+            numero: parseInt(this.formTratamiento.value.numero),
             dosis: this.formTratamiento.value.dosis,
             viaAdministracion: this.formTratamiento.value.viaAdministracion,
             intervalo: this.formTratamiento.value.intervalo,
@@ -610,7 +616,7 @@ export class DialogConsultaComponent implements OnInit {
     guardarEdicionTratamiento() {
         var tratamiento = {
             descripcion: this.formTratamiento.value.descripcion,
-            numero: this.formTratamiento.value.numero,
+            numero: parseInt(this.formTratamiento.value.numero),
             dosis: this.formTratamiento.value.dosis,
             viaAdministracion: this.formTratamiento.value.viaAdministracion,
             intervalo: this.formTratamiento.value.intervalo,
@@ -652,7 +658,7 @@ export class DialogConsultaComponent implements OnInit {
         var interconsulta = {
             consultorio: this.formInterconsulta.value.consultorio,
             motivo: this.formInterconsulta.value.motivo,
-            fecha: this.formInterconsulta.value.fecha,
+            fecha: this.datePipe.transform(this.formInterconsulta.value.fecha,'yyyy-MM-dd HH:mm:ss'),
         }
         console.log(interconsulta);
         this.datosInterconsultas.push(interconsulta);
@@ -682,7 +688,7 @@ export class DialogConsultaComponent implements OnInit {
         var interconsulta = {
             consultorio: this.formInterconsulta.value.consultorio,
             motivo: this.formInterconsulta.value.motivo,
-            fecha: this.formInterconsulta.value.fecha,
+            fecha: this.datePipe.transform(this.formInterconsulta.value.fecha,'yyyy-MM-dd HH:mm:ss'),
         }
         console.log(interconsulta);
         this.datosInterconsultas.splice(this.indexInterconsultaEditado, 1, interconsulta);
@@ -776,11 +782,11 @@ export class DialogConsultaComponent implements OnInit {
         var inmunizacion = {
             codigo: this.formInmunizacion.value.codigo,
             descripcion: this.formInmunizacion.value.descripcion,
-            numero: this.formInmunizacion.value.numero,
+            numero: parseInt(this.formInmunizacion.value.numero),
             dosis: this.formInmunizacion.value.dosis,
             viaAdministracion: this.formInmunizacion.value.viaAdministracion,
             lote: this.formInmunizacion.value.lote,
-            fechaVenc: this.formInmunizacion.value.fechaVenc,
+            fechaVenc: this.datePipe.transform(this.formInmunizacion.value.fechaVenc,'yyyy-MM-dd HH:mm:ss'),
         }
         console.log(inmunizacion);
         this.datosInmunizaciones.push(inmunizacion);
@@ -814,11 +820,11 @@ export class DialogConsultaComponent implements OnInit {
         var inmunizacion = {
             codigo: this.formInmunizacion.value.codigo,
             descripcion: this.formInmunizacion.value.descripcion,
-            numero: this.formInmunizacion.value.numero,
+            numero: parseInt(this.formInmunizacion.value.numero),
             dosis: this.formInmunizacion.value.dosis,
             viaAdministracion: this.formInmunizacion.value.viaAdministracion,
             lote: this.formInmunizacion.value.lote,
-            fechaVenc: this.formInmunizacion.value.fechaVenc,
+            fechaVenc: this.datePipe.transform(this.formInmunizacion.value.fechaVenc,'yyyy-MM-dd HH:mm:ss'),
         }
         console.log(inmunizacion);
         this.datosInmunizaciones.splice(this.indexInmunizacionEditado, 1, inmunizacion);
@@ -848,145 +854,395 @@ export class DialogConsultaComponent implements OnInit {
         })
     }
 
-    guardarConsulta() {
-        var consulta={
-            nroHcl: "75757575",
-            nroAtencion: this.form.value.edad.nroAtencion,
-            nroControlSis: this.form.value.edad.nroControlSis,
+    closeDialogGuardar() {
+        var consulta = {
+            nroHcl: "10101013",
+            nroAtencion: parseInt(this.form.value.nroAtencion),
+            nroControlSis: parseInt(this.form.value.nroControlSis),
             nroEmbarazo: 1,
-            tipoDoc:"DNI",
-            nroDoc: "75757575",
-            fecha: this.form.value.fecha,
-            datosPerHist:{
-                edad: this.form.value.edad,
+            tipoDoc: "DNI",
+            nroDoc: "10101013",
+            fecha: this.datePipe.transform(this.form.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
+            datosPerHist: {
+                edad: parseInt(this.form.value.edad),
                 direccion: this.form.value.direccion
             },
-            psicoprofilaxis:{
-                estado:this.form.value.psicoProfilaxis,
-                fecha: this.form.value.fechaPsicoProfilaxis
+            psicoprofilaxis: {
+                estado: this.form.value.psicoProfilaxis,
+                fecha: this.datePipe.transform(this.form.value.fechaPsicoProfilaxis, 'yyyy-MM-dd HH:mm:ss'),
             },
-            decarteSignosAlarmas:[
+            decarteSignosAlarmas: [
                 {
                     descripcion: "Dificultad respiratoria",
-                    valor: this.form.value.dificultadRespiratoria
+                    valor: this.form.value.dificultadRespiratoria === "true" ? true : false
                 },
                 {
                     descripcion: "Hipertension arterial",
-                    valor: this.form.value.hipertensionArterial
+                    valor: this.form.value.hipertensionArterial === "true" ? true : false
                 },
                 {
                     descripcion: "Sangrado nasal",
-                    valor: this.form.value.sangradoNasal
+                    valor: this.form.value.sangradoNasal === "true" ? true : false
                 },
                 {
                     descripcion: "Deshidratacion aguda",
-                    valor: this.form.value.deshidratacionAguda
+                    valor: this.form.value.deshidratacionAguda === "true" ? true : false
                 },
                 {
                     descripcion: "Compromiso del sensorio",
-                    valor: this.form.value.compromisoSensorio
+                    valor: this.form.value.compromisoSensorio === "true" ? true : false
                 },
                 {
                     descripcion: "Traumatismo quemadura",
-                    valor: this.form.value.traumatismoQuemadura
+                    valor: this.form.value.traumatismoQuemadura === "true" ? true : false
                 },
                 {
                     descripcion: "Abdomen agudo",
-                    valor: this.form.value.abdomenAgudo
+                    valor: this.form.value.abdomenAgudo === "true" ? true : false
                 },
                 {
                     descripcion: "Intoxicacion Envenenamiento",
-                    valor: this.form.value.intoxicacionEnvenenamiento
+                    valor: this.form.value.intoxicacionEnvenenamiento === "true" ? true : false
                 },
                 {
                     descripcion: "Fiebre alta",
-                    valor: this.form.value.fiebreAlta
+                    valor: this.form.value.fiebreAlta === "true" ? true : false
                 },
                 {
                     descripcion: "Convulsiones",
-                    valor: this.form.value.convulsiones
+                    valor: this.form.value.convulsiones === "true" ? true : false
                 },
                 {
                     descripcion: "Sangrado genital",
-                    valor: this.form.value.sangradoGenital
+                    valor: this.form.value.sangradoGenital === "true" ? true : false
                 },
                 {
                     descripcion: "Dolor de cabeza",
-                    valor: this.form.value.dolorCabeza
+                    valor: this.form.value.dolorCabeza === "true" ? true : false
                 },
                 {
                     descripcion: "Edema",
-                    valor: this.form.value.edema
+                    valor: this.form.value.edema === "true" ? true : false
                 }
             ],
-            orientaciones:[
+            orientaciones: [
                 {
                     consejeria: "Orientacion y consejeria Signos de alarma",
-                    valor: this.form.value.consejeria1,
+                    valor: this.form.value.consejeria1 === "true" ? true : false,
                     cie10: this.form.value.cie10_1
                 },
                 {
-                    descripcion: "Consejeria en enfermedades comunes",
-                    valor: this.form.value.consejeria2,
+                    consejeria: "Consejeria en enfermedades comunes",
+                    valor: this.form.value.consejeria2 === "true" ? true : false,
                     cie10: this.form.value.cie10_2
                 },
                 {
-                    descripcion: "Sospecha de Tuberculosis",
-                    valor: this.form.value.consejeria3,
+                    consejeria: "Sospecha de Tuberculosis",
+                    valor: this.form.value.consejeria3 === "true" ? true : false,
                     cie10: this.form.value.cie10_3
                 },
                 {
-                    descripcion: "Infecciones de transmision sexual",
-                    valor: this.form.value.consejeria4,
+                    consejeria: "Infecciones de transmision sexual",
+                    valor: this.form.value.consejeria4 === "true" ? true : false,
                     cie10: this.form.value.cie10_4
                 },
                 {
-                    descripcion: "Orientacion nutricional",
-                    valor: this.form.value.consejeria5,
+                    consejeria: "Orientacion nutricional",
+                    valor: this.form.value.consejeria5 === "true" ? true : false,
                     cie10: this.form.value.cie10_5
                 },
                 {
-                    descripcion: "Orientacion en planificacion familiar ",
-                    valor: this.form.value.consejeria6,
+                    consejeria: "Orientacion en planificacion familiar ",
+                    valor: this.form.value.consejeria6 === "true" ? true : false,
                     cie10: this.form.value.cie10_6
                 },
                 {
-                    descripcion: "Orientacion en prevención de cáncer ginecológico",
-                    valor: this.form.value.consejeria7,
+                    consejeria: "Orientacion en prevención de cáncer ginecológico",
+                    valor: this.form.value.consejeria7 === "true" ? true : false,
                     cie10: this.form.value.cie10_7
                 },
                 {
-                    descripcion: "Orientacion y consejeria Pretest. VIH",
-                    valor: this.form.value.consejeria8,
+                    consejeria: "Orientacion y consejeria Pretest. VIH",
+                    valor: this.form.value.consejeria8 === "true" ? true : false,
                     cie10: this.form.value.cie10_8
                 },
                 {
-                    descripcion: "Consejeria en estilos de vida saludable",
-                    valor: this.form.value.consejeria9,
+                    consejeria: "Consejeria en estilos de vida saludable",
+                    valor: this.form.value.consejeria9 === "true" ? true : false,
                     cie10: this.form.value.cie10_9
                 },
                 {
-                    descripcion: "Orientacion al acompañante",
-                    valor: this.form.value.consejeria10,
+                    consejeria: "Orientacion al acompañante",
+                    valor: this.form.value.consejeria10 === "true" ? true : false,
                     cie10: this.form.value.cie10_10
                 },
                 {
-                    descripcion: "Violencia Intrafamiliar",
-                    valor: this.form.value.consejeria11,
+                    consejeria: "Violencia Intrafamiliar",
+                    valor: this.form.value.consejeria11 === "true" ? true : false,
                     cie10: this.form.value.cie10_11
                 },
                 {
-                    descripcion: "Plan de parto",
-                    valor: this.form.value.consejeria12,
+                    consejeria: "Plan de parto",
+                    valor: this.form.value.consejeria12 === "true" ? true : false,
                     cie10: this.form.value.cie10_12
                 }
             ],
             funcionesVitales: {
-                
-            }
+                t: parseFloat(this.form.value.temperatura),
+                presionSistolica: parseInt(this.form.value.presionSis),
+                presionDiastolica: parseInt(this.form.value.presionDias),
+                fc: parseInt(this.form.value.fc),
+                fr: parseInt(this.form.value.fr),
+                peso: parseFloat(this.form.value.peso),
+                talla: parseFloat(this.form.value.talla),
+                imc: parseFloat(this.form.value.imc)
+            },
+            funcionesBiologicas: [
+                { funcion: "Apetito", valor: this.form.value.apetito },
+                { funcion: "Sed", valor: this.form.value.sed },
+                { funcion: "Sueño", valor: this.form.value.sueño },
+                { funcion: "Estado animo", valor: this.form.value.estadoAnimo },
+                { funcion: "Orina", valor: this.form.value.orina },
+                { funcion: "Deposiciones", valor: this.form.value.deposiciones }
+            ],
+            interrogatorio: [
+                { pregunta: "motivo de consulta", respuesta: this.form.value.motivoConsulta },
+                { pregunta: "tiempo de enfermedad", respuesta: this.form.value.tiempoEnfermedad },
+                { pregunta: "observaciones", respuesta: this.form.value.interrogatorioOtro }
+            ],
+            examenesFisicos: [
+                { funcion: "Piel", valor: this.form.value.piel },
+                { funcion: "Mucosas", valor: this.form.value.mucosas },
+                { funcion: "Cabeza", valor: this.form.value.cabeza },
+                { funcion: "Cuello", valor: this.form.value.cuello },
+                { funcion: "CardioVascular", valor: this.form.value.cardioVascular },
+                { funcion: "Pulmones", valor: this.form.value.pulmones },
+                { funcion: "Mamas", valor: this.form.value.mamas },
+                { funcion: "Pezones", valor: this.form.value.pezones },
+                { funcion: "Abdomen", valor: this.form.value.pezones },
+            ],
+            examenesObstetricos: {
+                alturaUterina: this.form.value.alturaUterina,
+                miembrosInferiores: this.form.value.miembrosInferiores,
+                reflejoOsteotendinoso: this.form.value.osteotendinoso,
+                genitalesExternos: this.form.value.genitalesExter,
+                vagina: this.form.value.vagina,
+                cuelloUterino: this.form.value.cuelloUterino,
+                edemaUterino: this.form.value.edemaExamen,
+                semanas: parseInt(this.form.value.edadSemanas),
+                dias: parseInt(this.form.value.edadDias)
+            },
+            examenesFetos: this.datosExamenesFetales,
+            examenFisicoObservaciones: this.form.value.examenFisicoObservaciones,
+            diagnosticos: this.datosDiagnosticos,
+            referencia: {
+                consultorio: this.form.value.consultorioReferencia,
+                motivo: this.form.value.motivoReferencia,
+                codRENAES: this.form.value.codRENAESReferencia
+            },
+            interconsultas: this.datosInterconsultas,
+            proxCita: this.datePipe.transform(this.form.value.proxCita, 'yyyy-MM-dd HH:mm:ss'),
+            tratamientos: this.datosTratamientos,
+            tratamientosSuplementos: {
+                acidoFolico: {
+                    descripcion: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                        this.form.value.acidoFolicoDescripcion : "",
+                    numero: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                        parseInt(this.form.value.acidoFolicoNumero) : 0,
+                    dosis: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                        this.form.value.acidoFolicoDosis : "",
+                    viaAdministracion: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                        this.form.value.acidoFolicoViaAdministracion : "",
+                    intervalo: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                        this.form.value.acidoFolicoIntervalo : "",
+                    duracion: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                        this.form.value.acidoFolicoDuracion : ""
+                },
+                hierroYAcidoFolico: {
+                    descripcion: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                        this.form.value.acidoFolicoDescripcion : "",
+                    numero: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                        parseInt(this.form.value.acidoFolicoNumero) : 0,
+                    dosis: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                        this.form.value.acidoFolicoDosis : "",
+                    viaAdministracion: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                        this.form.value.acidoFolicoViaAdministracion : "",
+                    intervalo: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                        this.form.value.acidoFolicoIntervalo : "",
+                    duracion: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                        this.form.value.acidoFolicoDuracion : "",
+                },
+                calcio: {
+                    descripcion: this.form.value.calcioSuplemento === "Calcio" ?
+                        this.form.value.calcioDescripcion : "",
+                    numero: this.form.value.calcioSuplemento === "Calcio" ?
+                        parseInt(this.form.value.calcioNumero) : 0,
+                    dosis: this.form.value.calcioSuplemento === "Calcio" ?
+                        this.form.value.calcioDosis : "",
+                    viaAdministracion: this.form.value.calcioSuplemento === "Calcio" ?
+                        this.form.value.calcioViaAdministracion : "",
+                    intervalo: this.form.value.calcioSuplemento === "Calcio" ?
+                        this.form.value.calcioIntervalo : "",
+                    duracion: this.form.value.calcioSuplemento === "Calcio" ?
+                        this.form.value.calcioDuracion : "",
+                }
+            },
+            inmunizaciones: this.datosInmunizaciones,
+            recomendaciones: this.datosRecomendaciones,
+            examenesAuxiliares: null,
+            evaluacionNutricional: {
+                valor: this.form.value.evalNutricionalValor,
+                indicador: this.form.value.evalNutricionalIndicador
+            },
+            visitaDomiciliaria: {
+                estado: this.form.value.visitaDomiciliariaEstado,
+                fecha: this.datePipe.transform(this.form.value.visitaDomiciliariaFecha, 'yyyy-MM-dd HH:mm:ss'),
+            },
+            laboratorios: {
+                grupoSanguineo: {
+                    valor: this.form.value.grupoSanguineo,
+                    fecha: this.datePipe.transform(this.form.value.grupoSanguineoFecha, 'yyyy-MM-dd HH:mm:ss'),
+                },
+                factorRH: {
+                    valor: this.form.value.factorRH,
+                    fecha: this.datePipe.transform(this.form.value.factorRHFecha, 'yyyy-MM-dd HH:mm:ss'),
+                },
+                hemograma: {
+                    valor: this.form.value.hemograma,
+                    fecha: this.datePipe.transform(this.form.value.hemogramaFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                hemoglobina: {
+                    valor: this.form.value.hemoglobina,
+                    fecha: this.datePipe.transform(this.form.value.hemoglobinaFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                factorCorreccion: {
+                    valor: this.form.value.factorCorreccion,
+                    fecha: this.datePipe.transform(this.form.value.factorCorreccionFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                hto: {
+                    valor: this.form.value.hto,
+                    fecha: this.datePipe.transform(this.form.value.htoFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                glucosa: {
+                    valor: this.form.value.glucosa,
+                    fecha: this.datePipe.transform(this.form.value.glucosaFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                toleranciGlucosa: {
+                    valor: this.form.value.toleranciaGlucosa,
+                    fecha: this.datePipe.transform(this.form.value.toleranciaGlucosaFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                exaOrina: {
+                    valor: this.form.value.exaOrina,
+                    fecha: this.datePipe.transform(this.form.value.exaOrinaFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                rpr: {
+                    valor: this.form.value.rpr,
+                    fecha: this.datePipe.transform(this.form.value.rprFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                rprReactivo: {
+                    valor: this.form.value.rprReactivo,
+                    fecha: this.datePipe.transform(this.form.value.rprReactivoFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                exSecV: {
+                    valor: this.form.value.exSecV,
+                    fecha: this.datePipe.transform(this.form.value.exSecVFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                proteinuriaCuantitativa: {
+                    valor: this.form.value.proteinuriaCuantitativa,
+                    fecha: this.datePipe.transform(this.form.value.proteinuriaCuantitativaFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                proteinuriaCualitativa: {
+                    valor: this.form.value.proteinuriaCualitativa,
+                    fecha: this.datePipe.transform(this.form.value.proteinuriaCualitativaFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                pruebaVIH: {
+                    valor: this.form.value.pruebaVIH,
+                    fecha: this.datePipe.transform(this.form.value.pruebaVIHFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                prHepatitis: {
+                    valor: this.form.value.prHepatitis,
+                    fecha: this.datePipe.transform(this.form.value.prHepatitisFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                elisa: {
+                    valor: this.form.value.elisa,
+                    fecha: this.datePipe.transform(this.form.value.elisaFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                glicemia: {
+                    valor: this.form.value.glicemia,
+                    fecha: this.datePipe.transform(this.form.value.glicemiaFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                bacteriuria: {
+                    valor: this.form.value.bacteriuria,
+                    fecha: this.datePipe.transform(this.form.value.bacteriuriaFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                nitritos: {
+                    valor: this.form.value.nitritos,
+                    fecha: this.datePipe.transform(this.form.value.nitritosFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                urocultivo: {
+                    valor: this.form.value.urocultivo,
+                    fecha: this.datePipe.transform(this.form.value.urocultivoFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                bkEsputo: {
+                    valor: this.form.value.bkEsputo,
+                    fecha: this.datePipe.transform(this.form.value.bkEsputoFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                wsternBlotlfi: {
+                    valor: this.form.value.wsternBlotlfi,
+                    fecha: this.datePipe.transform(this.form.value.wsternBlotlfiFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                thlv1: {
+                    valor: this.form.value.thlv1,
+                    fecha: this.datePipe.transform(this.form.value.thlv1Fecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                torch: {
+                    valor: this.form.value.torch,
+                    fecha: this.datePipe.transform(this.form.value.torchFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                gotaGruesa: {
+                    valor: this.form.value.gotaGruesa,
+                    fecha: this.datePipe.transform(this.form.value.gotaGruesaFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                pap: {
+                    valor: this.form.value.pap,
+                    fecha: this.datePipe.transform(this.form.value.papFecha,'yyyy-MM-dd HH:mm:ss'),
+                },
+                ivaa: {
+                    valor: this.form.value.ivaa,
+                    fecha: this.datePipe.transform(this.form.value.ivaaFecha,'yyyy-MM-dd HH:mm:ss'),
+                }
+
+            },
+            ecografia: {
+                fecha: this.datePipe.transform(this.form.value.ecografiaFecha,'yyyy-MM-dd HH:mm:ss'),
+                descripcion: this.form.value.descripcionEcografia,
+                semanas: parseInt(this.form.value.ecografiaEdadSemanas),
+                dias: parseInt(this.form.value.ecografiaEdadDias),
+            },
+            codRENAES: "123123",
+            planPartoReenfocada: this.form.value.planPartoReenfocada,
         }
+        console.log('data to save ', consulta);
+
+        if (!this.estadoEdicion) {
+            this.consultaObstetriciaService.postDatoConsultaObstetrica(consulta).subscribe((res: any) => {
+                console.log('rpta ', res.object);
+                this.ref.close(res);
+            });
+        }
+        else {
+            this.consultaObstetriciaService.postDatoConsultaObstetrica(consulta).subscribe((res: any) => {
+                console.log('rpta ', res.object);
+                this.ref.close(res);
+            });
+        }
+        this.estadoEdicion = false;
     }
     closeDialog() {
         this.ref.close();
+        this.estadoEdicion = false;
+    }
+    llenarCamposEdicionConsulta() {
+
     }
 }
