@@ -5,18 +5,14 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class CieService {
+export class ImcService {
 
   base_url = environment.baseUrl;
   bd = environment.bd;
 
   constructor(private http: HttpClient) { }
 
-  getCIEByDescripcion(item) {
-    return this.http.get(`${this.base_url}/${this.bd}/cie10his/filtro/${item}`)
-  }
-
-  getCIEByCod(codCIE) {
-    return this.http.get(`${this.base_url}/${this.bd}/cie10his/buscar/${codCIE}`)
+  getGananciaPesoRegular(week) {
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaPesoRegular/${week}`)
   }
 }

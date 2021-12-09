@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/api';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { HemoglobinaDialogComponent } from './hemoglobina-dialog/hemoglobina-dialog.component';
+import { ImcService } from 'src/app/obstetricia-general/services/imc.service';
 
 @Component({
     selector: 'app-datos-basales',
@@ -45,6 +46,7 @@ export class DatosBasalesComponent implements OnInit {
         private messageService: MessageService,
         private CieService: CieService,
         private dialog: DialogService,
+        private imcService: ImcService,
     ) {
         this.inicalizarForm();
         this.idGestante = this.obstetriciaService.idGestacion
@@ -652,20 +654,24 @@ export class DatosBasalesComponent implements OnInit {
 
     calcularEdadGestacional() {
         // let auxFUM: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd')   + (3600000 * 5)
-        let pesoActual = 70;
-        let altura = 1.6;
+        let pesoActual = this.form.value.pesoHabitual;
+        let altura = this.form.value.talla;
 
         let today = new Date().getTime();
         let auxFUM = new Date(this.form.value.dateFUM).getTime();
         auxFUM = auxFUM + 0;
         let auxWeek = today - auxFUM;
         this.edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24 * 7));
+        
         console.log('edad gestacional ', this.edadGestacional);
-        this.CieService.getGananciaPesoRegular(this.edadGestacional).subscribe((res: any) => {
-            this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
-            this.form.patchValue({ imc: ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2) });
-            console.log('imc ', ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2));
-        });
+        if (this.edadGestacional > 0) {
+            this.imcService.getGananciaPesoRegular(this.edadGestacional).subscribe((res: any) => {
+                this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
+                console.log('peso ', pesoActual, 'talle ', altura);
+                this.form.patchValue({ imc: ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2) });
+                console.log('imc ', ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2));
+            });
+        }
     }
 
     openDialogHemoglobina() {

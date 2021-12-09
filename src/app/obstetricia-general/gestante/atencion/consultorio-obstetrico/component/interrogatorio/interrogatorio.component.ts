@@ -52,10 +52,11 @@ export class InterrogatorioComponent implements OnInit {
     public dialog: DialogService,
     private consultaObstetricaService: ConsultasService,
     private messageService: MessageService,
-  ) { }
+  ) {
+    this.inicializarForm();
+  }
 
   ngOnInit(): void {
-    this.inicializarForm();
     this.loadData();
   }
 
