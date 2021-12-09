@@ -1,24 +1,59 @@
+:host ::ng-deep .p-datatable-header {
+  font-size: 1.2rem;
+  font-weight:normal;
+  text-align: center;
+}
 p-table >>> .p-datatable table {
   width: auto;
+  /*overflow: visible;*/
 }
 p-table >>> .p-datatable .p-datatable-thead > tr > th {
+  width:auto;
   text-align: center;
-  font-size: small;
+  font-size: 1rem;
   word-wrap: break-word;
-  padding: 0rem;
+  padding: 1rem;
   border: 1px solid #b6b6b6;
 
   /* background-color: #dddddd; */
 }
 p-table >>> .p-datatable .p-datatable-tbody > tr > td {
   text-align: center;
-  font-size: small;
+  font-size: 1rem;
   word-wrap: break-word;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .borde {
   border: solid 1px black;
   border-radius: 10px;
 }
-/*:Host >>> .ui-dropdown-item {*/
-/*  background: white;*/
+:Host >>> .ui-dropdown-item {
+  background: red;
+}
+
+
+::ng-deep p-table >>> .p-datatable-resizable .p-datatable-thead>tr>th {
+  /*overflow: visible;
+  /*z-index: 9999;*/
+  /*!*opacity:1;*!*/
+}
+/*::ng-deep p-table >>> .p-datatable-resizable .p-datatable-tbody>tr>td {*/
+/*  overflow: visible;*/
 /*}*/
+/**{*/
+/*  overflow: visible!important*/
+/*}*/
+
+.minWidthOverride {
+  min-width: 650px !important;
+}
+
+::ng-deep p-dropdown>>> .p-dropdown {
+  overflow: visible;
+  z-index: 9999;
+  opacity:1;
+}
+::ng-deep .dialogo .p-dialog-mask .p-element{
+  display: block;
+}

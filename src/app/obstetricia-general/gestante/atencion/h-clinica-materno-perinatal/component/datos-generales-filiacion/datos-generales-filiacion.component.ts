@@ -11,8 +11,8 @@ import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-gen
     styleUrls: ['./datos-generales-filiacion.component.css']
 })
 export class DatosGeneralesFiliacionComponent implements OnInit {
-    /****/
-    /****/
+
+    fecha: Date;//fecha Actual
     departamentos: any;
     provincias: any;
     distritos: any
@@ -96,7 +96,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         console.log("IdRecuperado", this.idRecuperado);
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
-
+        this.obternerFechaActual();
         this.buildForm();
         console.log("recuperado", this.idRecuperado);
 
@@ -107,99 +107,31 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     }
 
 
-    calcularEdad(fecha) {
-        let hoy = new Date();
-        let cumpleanos = new Date(fecha);
-        let edad = hoy.getFullYear() - cumpleanos.getFullYear();
-
-        let m = hoy.getMonth() - cumpleanos.getMonth();
-
-        if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
-            edad--;
-        }
-
-
-        console.log(edad)
-        return edad;
-
+    obternerFechaActual() {
+        this.fecha = new Date();
+        let dd = this.fecha.getDate();
+        let mm = this.fecha.getMonth() + 1;
+        let yy = this.fecha.getFullYear();
+        this.fechaConvertido = dd + '-' + mm + '-' + yy;
+        console.log("FECHAS ACTUAL", this.fechaConvertido);
     }
 
-    esNumero(strNumber) {
-        if (strNumber == null) return false;
-        if (strNumber == undefined) return false;
-        if (typeof strNumber === "number" && !isNaN(strNumber)) return true;
-        if (strNumber == "") return false;
-        if (strNumber === "") return false;
-        let psInt, psFloat;
-        psInt = parseInt(strNumber);
-        psFloat = parseFloat(strNumber);
-        return !isNaN(strNumber) && !isNaN(psFloat);
+    ageCalculator() {
+        if (this.fechaConvertido) {
+            const convertAge = new Date(this.fechaConvertido);
+            const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+            this.edad = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+            console.log("edad", this.edad);
+        }
     }
 
-
-    calcularEdad2(fecha) {
-        // Si la fecha es correcta, calculamos la edad
-        if (typeof fecha != "string" && fecha && this.esNumero(fecha.getTime())) {
-            // fecha = fecha.formatDate(fecha, "dd-MM-yyyy");
-            fecha = fecha.formatDate(fecha, "yyyy-MM-dd");
-        }
-
-        //separamos lod dias meses y año
-        let values = fecha.split("-");
-        let dia = values[2];
-        let mes = values[1];
-        let anio = values[0];
-
-        // cogemos los valores actuales
-        let fechaActual = new Date();
-        let anioActual = fechaActual.getFullYear();
-        let mesActual = fechaActual.getMonth() + 1;
-        let diaActual = fechaActual.getDate();
-
-
-        // realizamos el calculo de la edad en años
-        var edad = (anioActual) - anio;
-        if (mesActual < mes) {
-            edad--;
-        }
-        if ((mes == mesActual) && (diaActual < dia)) {
-            edad--;
-        }
-        if (edad > anioActual) {
-            edad -= anioActual;
-        }
-
-        // calculamos los meses
-        let meses = 0;
-
-        if (mesActual > mes && dia > diaActual)
-            meses = mesActual - mes - 1;
-        else if (mesActual > mes)
-            meses = mesActual - mes
-        if (mesActual < mes && dia < diaActual)
-            meses = 12 - (mes - mesActual);
-        else if (mesActual < mes)
-            meses = 12 - (mes - mesActual + 1);
-        if (mesActual == mes && dia > diaActual)
-            meses = 11;
-
-        // calculamos los dias
-        let dias = 0;
-        if (diaActual > dia)
-            dias = diaActual - dia;
-        if (diaActual < dia) {
-            let ultimoDiaMes = new Date(anioActual, mesActual - 1, 0);
-            dias = ultimoDiaMes.getDate() - (dia - diaActual);
-        }
-        console.log("edad", edad + " años, " + meses + " meses y " + dias + " días");
-
-        this.edad = edad;
-        return edad + " años, " + meses + " meses y " + dias + " días";
-    }
 
     agrgarFiliacionDatoPersonales() {
+        if (this.dataIDfiliacion.nroHcl = "") {
+            this.dataIDfiliacion
+        }
         const req = {
-            nroHcl: this.dataPacientes.nroHcl,
+            nroHcl: this.formDatos_Generales.value.HCL,
             nroGestante: 0,
             nombreApellidos: "",
             ipressNombre: this.formDatos_Generales.value.establecimiento,
@@ -272,6 +204,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             this.formDatos_Generales.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
             this.formDatos_Generales.get('primerNombre').setValue(this.dataPacientes.primerNombre);
+            this.formDatos_Generales.get('HCL').setValue(this.dataPacientes.nroHcl);
             this.formDatos_Generales.get('docIndentidad').setValue(this.dataPacientes.nroDoc);
             this.formDatos_Generales.get('establecimiento').setValue(this.dataPacientes.nombreEESS);
             this.formDatos_Generales.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
@@ -283,11 +216,10 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             this.formDatos_Generales.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
             this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataPacientes.gradoInstruccion);
 
-
             this.fechanacimiento = this.dataPacientes.nacimiento.fechaNacimiento;
             this.convertiFecha();
             this.formDatos_Generales.get('fechaNacimiento').setValue(this.fechaConvertido);
-            this.calcularEdad2(this.fechaConvertido);
+            this.ageCalculator();
 
             // this.calcularEdad2("1990-09-21");
             this.formDatos_Generales.get('edad').setValue(this.edad);
@@ -296,12 +228,10 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     }
 
     convertiFecha() {
-        let values = this.fechanacimiento.split('/');
-        let dia = values[2];
-        let mes = values[1];
-        let anio = values[0];
+        let values = this.fechanacimiento.split(' ');
+        let fecha = values[0];
 
-        this.fechaConvertido = dia + '-' + mes + '-' + anio;
+        this.fechaConvertido = fecha;
         console.log("fecha Convertido", this.fechaConvertido);
     }
 
@@ -313,6 +243,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             this.formDatos_Generales.get('apePaterno').setValue(this.dataIDfiliacion.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataIDfiliacion.apeMaterno);
             this.formDatos_Generales.get('primerNombre').setValue(this.dataIDfiliacion.primerNombre + ' ' + this.dataIDfiliacion.otrosNombres);
+            this.formDatos_Generales.get('HCL').setValue(this.dataIDfiliacion.nroHcl);
             this.formDatos_Generales.get('establecimiento').setValue(this.dataIDfiliacion.ipressNombre);
             this.formDatos_Generales.get('estadoCivil').setValue(this.dataIDfiliacion.estadoCivil);
 
@@ -344,6 +275,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
     buildForm() {
         this.formDatos_Generales = this.formDatosGenerales.group({
+            HCL: new FormControl(''),
             apePaterno: new FormControl(''),
             apeMaterno: new FormControl(''),
             primerNombre: new FormControl(''),

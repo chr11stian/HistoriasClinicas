@@ -14,6 +14,9 @@ import {DatePipe} from "@angular/common";
 export class DatosGeneralesComponent implements OnInit {
     formDatos_Generales: FormGroup;
 
+    /**Recupera el Id del Consultorio Obstetrico**/
+    idConsultoriObstetrico: string;
+
     //opciones de vacunas previas///
     opciones: any;
     opciones1: any;
@@ -52,6 +55,7 @@ export class DatosGeneralesComponent implements OnInit {
         this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
         this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
         this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
+        this.idConsultoriObstetrico = this.obstetriciaGeneralService.idConsultoriObstetrico;
 
         /** OTRAS OPCIONES**/
         this.opciones = [
@@ -94,6 +98,7 @@ export class DatosGeneralesComponent implements OnInit {
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
         console.log("Nro de embarazo", this.nroEmbarazo);
+        console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
 
         /**Si la datos de consultorio esta en vacio recupera los datos del paciente***/
         /**Caso contrario recupera los datos de Consultorio***/
@@ -174,18 +179,18 @@ export class DatosGeneralesComponent implements OnInit {
             this.formDatos_Generales.get('Edema').setValue(this.dataConsultas.descarteSignosAlarmas[12].valor);
 
             //RECUPERA DESCARTE ATENSION INTEGRAL
-            this.formDatos_Generales.get('OrientaciónConsegeríaSignosAlarma').setValue(this.dataConsultas.atencionesIntegrales[0].valor);
-            this.formDatos_Generales.get('ConsejeríaEnfermedadesComunes').setValue(this.dataConsultas.atencionesIntegrales[1].valor);
-            this.formDatos_Generales.get('SospechasTuberculosis').setValue(this.dataConsultas.atencionesIntegrales[2].valor);
-            this.formDatos_Generales.get('InfeccionesTransmisiónSexual').setValue(this.dataConsultas.atencionesIntegrales[3].valor);
-            this.formDatos_Generales.get('OrientaciónNutricional').setValue(this.dataConsultas.atencionesIntegrales[4].valor);
-            this.formDatos_Generales.get('OrientaciónPlanificaiónFamiliar').setValue(this.dataConsultas.atencionesIntegrales[5].valor);
-            this.formDatos_Generales.get('OrientaciónPrevenciónDeCancerGinecológico').setValue(this.dataConsultas.atencionesIntegrales[6].valor);
-            this.formDatos_Generales.get('OrientaciónConsejeriaPretestVIH').setValue(this.dataConsultas.atencionesIntegrales[7].valor);
-            this.formDatos_Generales.get('OrientaciónEnEstilosDeVidaSaludable').setValue(this.dataConsultas.atencionesIntegrales[8].valor);
-            this.formDatos_Generales.get('OrientaciónAcompañante').setValue(this.dataConsultas.atencionesIntegrales[9].valor);
-            this.formDatos_Generales.get('ViolenciaFamiliar').setValue(this.dataConsultas.atencionesIntegrales[10].valor);
-            this.formDatos_Generales.get('PlanDeParto').setValue(this.dataConsultas.atencionesIntegrales[11].valor);
+            // this.formDatos_Generales.get('OrientaciónConsegeríaSignosAlarma').setValue(this.dataConsultas.atencionesIntegrales[0].valor);
+            // this.formDatos_Generales.get('ConsejeríaEnfermedadesComunes').setValue(this.dataConsultas.atencionesIntegrales[1].valor);
+            // this.formDatos_Generales.get('SospechasTuberculosis').setValue(this.dataConsultas.atencionesIntegrales[2].valor);
+            // this.formDatos_Generales.get('InfeccionesTransmisiónSexual').setValue(this.dataConsultas.atencionesIntegrales[3].valor);
+            // this.formDatos_Generales.get('OrientaciónNutricional').setValue(this.dataConsultas.atencionesIntegrales[4].valor);
+            // this.formDatos_Generales.get('OrientaciónPlanificaiónFamiliar').setValue(this.dataConsultas.atencionesIntegrales[5].valor);
+            // this.formDatos_Generales.get('OrientaciónPrevenciónDeCancerGinecológico').setValue(this.dataConsultas.atencionesIntegrales[6].valor);
+            // this.formDatos_Generales.get('OrientaciónConsejeriaPretestVIH').setValue(this.dataConsultas.atencionesIntegrales[7].valor);
+            // this.formDatos_Generales.get('OrientaciónEnEstilosDeVidaSaludable').setValue(this.dataConsultas.atencionesIntegrales[8].valor);
+            // this.formDatos_Generales.get('OrientaciónAcompañante').setValue(this.dataConsultas.atencionesIntegrales[9].valor);
+            // this.formDatos_Generales.get('ViolenciaFamiliar').setValue(this.dataConsultas.atencionesIntegrales[10].valor);
+            // this.formDatos_Generales.get('PlanDeParto').setValue(this.dataConsultas.atencionesIntegrales[11].valor);
 
         });
     }
@@ -275,11 +280,12 @@ export class DatosGeneralesComponent implements OnInit {
             Covid19: new FormControl(''),
             fecha6: new FormControl(''),
 
+
             //Antecedentes Gineco Obstetrico
             FUR: new FormControl(''),
             FPP: new FormControl(''),
             RCAT: new FormControl(''),
-            G: new FormControl(''),
+            G: new FormControl('',),
             P1: new FormControl(''),
             P2: new FormControl(''),
             P3: new FormControl(''),

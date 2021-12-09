@@ -15,6 +15,7 @@ import {MantenimientosModule} from "../../../../mantenimientos/mantenimientos.mo
 import {RecienNacidoDialogoComponent} from './component/recien-nacido/recien-nacido-dialogo/recien-nacido-dialogo.component';
 import {PartosModalComponent} from './component/partos-modal/partos-modal.component';
 import {HClinicaMaternoPerinatalRoutingModule} from "./h-clinica-materno-perinatal-routing.module";
+import { HemoglobinaDialogComponent } from './component/datos-basales/hemoglobina-dialog/hemoglobina-dialog.component';
 import { ModalAtencionesComponent } from './component/atenciones/modal-atenciones/modal-atenciones.component';
 
 
@@ -31,6 +32,7 @@ import { ModalAtencionesComponent } from './component/atenciones/modal-atencione
         PuerperioModalComponent,
         RecienNacidoDialogoComponent,
         PartosModalComponent,
+        HemoglobinaDialogComponent,
         ModalAtencionesComponent,
 
     ],

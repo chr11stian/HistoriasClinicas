@@ -16,4 +16,11 @@ export class CieService {
     return this.http.get(`${this.base_url}/${this.bd}/cie10his/filtro/${item}`)
   }
 
+  getCIEByCod(codCIE) {
+    return this.http.get(`${this.base_url}/${this.bd}/cie10his/buscar/${codCIE}`)
+  }
+
+  getGananciaPesoRegular(week) {
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaPesoRegular/${week}`)
+  }
 }
