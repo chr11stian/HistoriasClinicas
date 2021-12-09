@@ -31,16 +31,16 @@
                             <th>ACCIONES</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-consulta let-i="rowIndex">
+                    <ng-template pTemplate="body" let-row let-i="rowIndex">
                         <tr>
                             <td>{{i+1}}</td>
-                            <td>{{consulta.nroDoc}}</td>
-                            <td>{{consulta.fecha}}</td>
-                            <td>{{consulta.nroAtencion}}</td>
+                            <td>{{row.nroDoc}}</td>
+                            <td>{{row.fecha}}</td>
+                            <td>{{row.nroAtencion}}</td>
                             <td>
                                 <span class="p-buttonset">
                                     <button pButton pTooltip="Editar" pRipple type="button" label="Editar"
-                                        (click)="editar()">
+                                        (click)="openDialogConsultaEditar(row,i)">
                                     </button>
                                     <button pButton pTooltip="Eliminar" pRipple label="Eliminar" class="p-button-danger"
                                         type="button">

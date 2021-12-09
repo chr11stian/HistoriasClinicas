@@ -51,10 +51,10 @@ export class ConsultaComponent implements OnInit {
         "max-height": "700px",
       },
     })
-    /*this.ref.onClose.subscribe((data: any) => {
+    this.ref.onClose.subscribe((data: any) => {
       console.log('data de otro dialog ', data)
-      //if(data!==undefined) this.recuperarConsultas();
-    })*/
+      if(data!==undefined) this.recuperarConsultas();
+    })
   }
 
   openDialogConsultaEditar(row, index) {
@@ -74,7 +74,7 @@ export class ConsultaComponent implements OnInit {
     this.ref.onClose.subscribe((data: any) => {
       console.log('data de otro dialog ', data)
       if(data!==undefined) {
-        //this.recuperarConsultas(data);
+        this.recuperarConsultas();
       };
     })
   }
