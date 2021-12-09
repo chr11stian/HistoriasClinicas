@@ -8,17 +8,27 @@ import {HttpClient} from "@angular/common/http";
 export class ObstetriciaGeneralService {
     base_url = environment.baseUrl;
     bd = environment.bd;
-    // observable$ = new EventEmitter<string>();
-    //id para recuperar en cada componente
+
+    /**Id, tipoDoc,nroDoc,nroEmbarazo de la Historia clinica materno perinatal: para actualizar el documento**/
     idGestacion: string = "";
     tipoDoc: string = "";
     nroDoc: string = "";
     nroEmbarazo: string = "";
+    nroHcl: string;
+
+
+    /***Id del consultorio obstetrico***/
+    idConsultoriObstetrico: string = "";
 
     constructor(private http: HttpClient) {
     }
+
     getPacienteFiliacion(tipoDoc, nroDoc) {
         return this.http.get(`${this.base_url}/${this.bd}/filiacion/listarfiliacion/${tipoDoc}/${nroDoc}`)
+    }
+
+    getConsultorioObstetrico(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar/`, data)
     }
 
 }
