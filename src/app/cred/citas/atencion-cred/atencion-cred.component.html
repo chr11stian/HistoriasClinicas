@@ -1,74 +1,66 @@
 <div style="background: #f8f9fa">
-  <span class="titulo_">CONTROL DE CRECIMIENTO Y DESARROLLO > </span>
-  <div style="margin: 50px 50px 0px 50px">
-    <p-card>
-      <div class="grid">
-        <div class="col-4">
-          <div class="d-flex alig-items-center;">
-            <img
-              style="width: 70%; height: 70%"
-              class="d-flex alig-items-center;"
-              src="../../assets/images/nino.png"
-            />
-          </div>
-        </div>
-        <div class="col-8">
-          <div class="d-flex alig-items-center;">
-            <p class="titulo">¡Iniciemos!</p>
-            <p class="texto">
-              Puedes empezar seleccionando "Plan de Atención Integral"
-            </p>
-            <p class="texto">
-              Cada una de las secciones contiene todo lo que necesitas para
-              completar su primera consulta
-            </p>
-          </div>
-        </div>
-      </div>
-    </p-card>
-  </div>
-  <div>
-    <div class="flex justify-content-between" style="margin-left: 50px; margin-right: 50px;">
-      <div class="col-12 md:col-6 lg:col-4" style="align-content: center;">
-        <button
-          pButton
-          pRipple
-          icon="pi pi-plus-circle"
-          iconPos="left"
-          type="button"
-          routerLink="plan-atencion-integral"
-          class="p-button-raised p-button-secondary"
-        >
-          PLAN DE ATENCIÓN INTEGRAL
-        </button>
-      </div>
-      <div class="col-12 md:col-6 lg:col-4 ">
-        <button
-          pButton
-          pRipple
-          icon="pi pi-plus-circle"
-          iconPos="left"
-          type="button"
-          routerLink="consulta-principal"
-          class="p-button-raised p-button-secondary"
-        >
-          CONSULTA PRINCIPAL
-        </button>
-      </div>
-
-      <div class="col-12 md:col-6 lg:col-4 ">
-        <button
-          pButton
-          pRipple
-          icon="pi pi-plus-circle"
-          iconPos="left"
-          type="button"
-          routerLink="examenes"
-          class="p-button-raised p-button-secondary"
-        >
-          OTROS EXAMENES
-        </button>
-      </div>
+    <span class="titulo_">CONTROL DE CRECIMIENTO Y DESARROLLO > </span>
+    <div style="margin: 50px 50px 0 50px">
+        <p-card>
+            <div class="grid">
+                <div class="col-4">
+                    <div class="d-flex alig-items-center;">
+                        <img style="width: 70%; height: 70%"
+                             class="d-flex alig-items-center;"
+                             src="../../assets/images/nino.png"/>
+                    </div>
+                </div>
+                <div class="col-8">
+                    <div class="d-flex alig-items-center;">
+                        <p class="titulo">¡Iniciemos!</p>
+                        <p class="texto">
+                            Puedes empezar seleccionando "Plan de Atención Integral"
+                        </p>
+                        <p class="texto">
+                            Cada una de las secciones contiene todo lo que necesitas para
+                            completar su primera consulta
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </p-card>
     </div>
-  </div>
+    <div>
+        <div class="flex justify-content-between" style="margin-left: 50px; margin-right: 50px;">
+            <div class="col-12 md:col-6 lg:col-4" style="align-content: center;">
+                <button pButton
+                        pRipple
+                        icon="pi pi-plus-circle"
+                        iconPos="left"
+                        type="button"
+                        routerLink="plan-atencion-integral"
+                        class="p-button-raised p-button-secondary">
+                    PLAN DE ATENCIÓN INTEGRAL
+                </button>
+            </div>
+            <div class="col-12 md:col-6 lg:col-4 ">
+                <button pButton
+                        pRipple
+                        icon="pi pi-plus-circle"
+                        iconPos="left"
+                        type="button"
+                        (click)="getConsultaPrincipal()"
+                        class="p-button-raised p-button-secondary">
+                    CONSULTA PRINCIPAL
+                </button>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-4 ">
+                <button pButton
+                        pRipple
+                        icon="pi pi-plus-circle"
+                        iconPos="left"
+                        type="button"
+                        routerLink="examenes"
+                        class="p-button-raised p-button-secondary">
+                    OTROS EXAMENES
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

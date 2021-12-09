@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {SesionesAtencionTempranaService} from 'src/app/cred/services/plan-atencion-integral/sesiones-atencion-temprana/sesiones-atencion-temprana.service'
-import {SesionesTempranas, respuestaSesionesTempranas} from 'src/app/cred/models/plan-atencion-integral/plan-atencion-integral.model'
+import {SesionesAtencionTempranaService} from '../services/sesiones-atencion-temprana/sesiones-atencion-temprana.service';
+import {SesionesTempranas, respuestaSesionesTempranas} from 'src/app/cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model'
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import {NuevaSesionComponent} from './nueva-sesion/nueva-sesion.component'
 import {EditarSesionComponent} from './editar-sesion/editar-sesion.component'

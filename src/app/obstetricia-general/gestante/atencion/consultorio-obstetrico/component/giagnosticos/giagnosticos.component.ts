@@ -28,6 +28,8 @@ export class GiagnosticosComponent implements OnInit {
   displayModal: boolean;
   hayError: boolean = false;
   form2: FormGroup; /*FORM DE ORIENTACIONES*/
+  planPartoList: any[];
+  visitaDomiciliariaList:any[];
   formOtrosDatos: FormGroup;
     referencia: any;
     proxCita: any;
@@ -38,11 +40,23 @@ export class GiagnosticosComponent implements OnInit {
   datePipe = new DatePipe('en-US');
 
   cies: any[]=[];
+  visitaDomiciliaria: any;
+  private planPartoReenfocada: any;
   constructor(private formBuilder: FormBuilder,
               private obstetriciaService: ObstetriciaGeneralService,
               private cieService: CieService,
               private DxService: ConsultasService) {
     this.buildForm();
+    this.planPartoList = [{label: 'CONTROL', value: 'CONTROL'},
+      {label: 'VISITA', value: 'VISITA'},
+      {label: 'NO SE HIZO', value: 'NO SE HIZO'},
+      {label: 'NO APLICA', value: 'NO APLICA'}
+    ];
+    this.visitaDomiciliariaList = [
+      {label: 'SI', value: 'SI'},
+      {label: 'NO', value: 'NO'},
+      {label: 'NO APLICA', value: 'NO APLICA'}
+    ];
   }
 
   showModalDialog() {
@@ -60,7 +74,10 @@ export class GiagnosticosComponent implements OnInit {
           consultorio: ['', [Validators.required]],
           motivo: ['', [Validators.required]],
           codRENAES: ['', [Validators.required]],
-          proxCita: ['', [Validators.required]]
+          proxCita: ['', [Validators.required]],
+          planPartoReenfocada: ['', [Validators.required]],
+          visita: ['', [Validators.required]],
+          fechaVisita: ['', [Validators.required]]
         })
   }
    /*guardar datos de diagnosticos*/
@@ -178,20 +195,27 @@ export class GiagnosticosComponent implements OnInit {
       codRENAES: this.formOtrosDatos.value.codRENAES
     },
     this.proxCita = this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd HH:mm:ss')
+    this.visitaDomiciliaria = {
+      estado: this.formOtrosDatos.value.visita,
+      fecha:  this.datePipe.transform(this.formOtrosDatos.value.fechaVisita, 'yyyy-MM-dd HH:mm:ss')
 
+    }
+    this.planPartoReenfocada = this.formOtrosDatos.value.planPartoReenfocada
   }
 
   guardarTodosDatos() {
     this.enviarDatosRefProxCita();
     const req = {
-      nroHcl: "10101013",
-      nroAtencion: 1,
+      nroHcl:"24015415",
+      nroEmbarazo:1,
+      nroAtencion:1,
       nroControlSis: 1,
-      nroEmbarazo: 1,
       tipoDoc: "DNI",
-      nroDoc: "10101013",
+      nroDoc: "24015415",
       referencia: this.referencia,
       proxCita: this.proxCita,
+      visitaDomiciliaria:this.visitaDomiciliaria,
+      planPartoReenfocada:this.planPartoReenfocada,
       orientaciones:this.orientaciones,
       diagnosticos:this.diagnosticos
 
@@ -214,7 +238,7 @@ export class GiagnosticosComponent implements OnInit {
   }
   recuperarDatosGuardados(){
     let aux ={
-      "nroHcl":"10101013",
+      "nroHcl":"24015415",
       "nroEmbarazo":1,
       "nroAtencion":1
     }
@@ -225,6 +249,10 @@ export class GiagnosticosComponent implements OnInit {
       this.formOtrosDatos.patchValue({'motivo':this.dataAux.referencia.motivo});
       this.formOtrosDatos.patchValue({'codRENAES':this.dataAux.referencia.codRENAES});
       this.formOtrosDatos.patchValue({'proxCita':this.dataAux.proxCita});
+      this.formOtrosDatos.patchValue({'visita':this.dataAux.visitaDomiciliaria.estado});
+      this.formOtrosDatos.patchValue({'fechaVisita':this.dataAux.visitaDomiciliaria.fecha});
+      this.formOtrosDatos.patchValue({'planPartoReenfocada':this.dataAux.planPartoReenfocada});
+
       if(this.dataAux.orientaciones.length === null || this.dataAux.orientaciones.length === 0 ){
         console.log("NO INGRESO NINGUN DIAGNOSTICO AUN, POR FAVOR INGRESE AL MENOS UNO");
       }

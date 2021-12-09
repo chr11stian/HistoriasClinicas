@@ -33,7 +33,7 @@ export class RolGuardiaComponent implements OnInit {
     private personalService: PersonalService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    public ref: DynamicDialogRef
+    //public ref: DynamicDialogRef
   ) {
     this.numeroDiasMes();
     this.generarCabecera();
@@ -97,23 +97,19 @@ export class RolGuardiaComponent implements OnInit {
       let dia = fecha1.getDay();
 
       if (dia == 0)
-        this.cabeceraMes.push({ abreviatura: "don", label: "Domingo", dia: i });
+        this.cabeceraMes.push({ abreviatura: "D", label: "Domingo", dia: i });
       else if (dia == 1)
-        this.cabeceraMes.push({ abreviatura: "Lun", label: "Lunes", dia: i });
+        this.cabeceraMes.push({ abreviatura: "L", label: "Lunes", dia: i });
       else if (dia == 2)
-        this.cabeceraMes.push({ abreviatura: "Mar", label: "Martes", dia: i });
+        this.cabeceraMes.push({ abreviatura: "M", label: "Martes", dia: i });
       else if (dia == 3)
-        this.cabeceraMes.push({
-          abreviatura: "Mie",
-          label: "Miercoles",
-          dia: i,
-        });
+        this.cabeceraMes.push({ abreviatura: "M", label: "Miercoles", dia: i, });
       else if (dia == 4)
-        this.cabeceraMes.push({ abreviatura: "Jue", label: "Jueves", dia: i });
+        this.cabeceraMes.push({ abreviatura: "J", label: "Jueves", dia: i });
       else if (dia == 5)
-        this.cabeceraMes.push({ abreviatura: "vie", label: "Viernes", dia: i });
+        this.cabeceraMes.push({ abreviatura: "V", label: "Viernes", dia: i });
       else
-        this.cabeceraMes.push({ abreviatura: "sab", label: "Sabado", dia: i });
+        this.cabeceraMes.push({ abreviatura: "S", label: "Sabado", dia: i });
     }
   }
   colorearCabecera() {
@@ -123,12 +119,12 @@ export class RolGuardiaComponent implements OnInit {
     this.cabeceraMes.forEach((day) => {
       if (hasColor) {
         day.bg = colorR;
-        if (day.abreviatura === "sab") {
+        if (day.abreviatura === "S") {
           hasColor = !hasColor;
         }
       } else {
         day.bg = colorB;
-        if (day.abreviatura === "sab") {
+        if (day.abreviatura === "S") {
           hasColor = !hasColor;
         }
       }

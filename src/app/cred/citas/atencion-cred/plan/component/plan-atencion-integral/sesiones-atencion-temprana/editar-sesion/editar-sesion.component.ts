@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms"
-import {SesionesTempranas, respuestaSesionesTempranas} from 'src/app/cred/models/plan-atencion-integral/plan-atencion-integral.model'
+import {SesionesTempranas, respuestaSesionesTempranas} from 'src/app/cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model'
 import { DialogService, DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import {SesionesAtencionTempranaService} from 'src/app/cred/services/plan-atencion-integral/sesiones-atencion-temprana/sesiones-atencion-temprana.service';
+import {SesionesAtencionTempranaService} from '../../services/sesiones-atencion-temprana/sesiones-atencion-temprana.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import {MessageService} from 'primeng/api';
 

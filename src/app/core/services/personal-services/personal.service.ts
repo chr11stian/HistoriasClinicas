@@ -81,4 +81,19 @@ export class PersonalService {
             reqInput
         );
     }
+    //roles del personal
+        addRolesPersonal(idPersonal,reqInput:any){
+        return this.http.put(`${this.base_url}/${this.bd}/personal/ingresarrol/${idPersonal}`,reqInput)
+    }
+    deleteRol(idPersonal, idUPS) {
+        return this.http.delete<any>(
+            `${this.base_url}/${this.bd}/personal/eliminarrol/${idPersonal}/${idUPS}`
+        );
+    }
+    editRol(idPersonal, reqRol) {
+        return this.http.put<any>(
+            `${this.base_url}/${this.bd}/personal/actualizaroll/${idPersonal}`,
+            reqRol
+        );
+    }
 }

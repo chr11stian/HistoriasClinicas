@@ -17,4 +17,7 @@ export class AtencionesService {
     getAtencionService(id ) {
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/atencionprenatal/listar/${id}`);
     }
+    getDatosGrafico(id){
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/atencionprenatal/graficoPesoMadreid/${id}`);
+    }
 }

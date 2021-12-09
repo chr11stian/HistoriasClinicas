@@ -1,12 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {ConsultaGeneralService} from '../../services/consulta-general.service'
-import {
-    ConsultaGeneralInterface,
-    ConsultaInputType, Edad,
-    FactorRiesgoInput,
-    Menor2MInput
-} from '../../models/consultaGeneral'
 
 interface formControlInterface {
     label: string,
@@ -21,7 +15,8 @@ interface formControlInterface {
 
 
 export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
-    @Input() consulta: ConsultaGeneralInterface
+    // @Input() consulta: ConsultaGeneralInterface
+    @Input() consulta: any
     generalInfoFG: FormGroup
     signoPeligroFG: FormGroup
     factorRiesgoFG: FormGroup
@@ -188,7 +183,8 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     }
 
     save(): void {
-        const consultaInput: ConsultaInputType = {
+        // const consultaInput: ConsultaInputType = {
+        const consultaInput: any = {
             anamnesis: this.anamnesisFC.value,
             datosGeneralesConsulta: {
                 tipoDocPaciente: this.consulta.datosGenerales.datosGeneralesConsulta.tipoDocPaciente,
@@ -227,8 +223,6 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         }
         console.log('guardar ')
         console.log(consultaInput)
-
-
     }
 
 

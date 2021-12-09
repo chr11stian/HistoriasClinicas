@@ -138,12 +138,12 @@ export class InterrogatorioComponent implements OnInit {
       auxPhysicalExam.push(this.listaOtrosPruebasFisicas[i]);
     }
     this.interrogatorioData = {
-      nroHcl: '10101013',
+      nroHcl: '24015415',
       nroAtencion: 1,
       nroControlSis: 1,
       nroEmbarazo: 1,
       tipoDoc: 'DNI',
-      nroDoc: '10101013',
+      nroDoc: '24015415',
       funcionesVitales: {
         t: this.form.value.temperatura,
         presionSistolica: this.form.value.presionSisto,
@@ -187,7 +187,6 @@ export class InterrogatorioComponent implements OnInit {
 
   guardarDatos() {
     this.recuperarDatos();
-    // console.log('data to save ', this.interrogatorioData);
     this.consultaObstetricaService.updateConsultas(this.interrogatorioData).subscribe((res: any) => {
       this.messageService.add({
         severity: "success",
@@ -244,7 +243,7 @@ export class InterrogatorioComponent implements OnInit {
 
   loadData() {
     let auxData = {
-      nroHcl: "10101013",
+      nroHcl: "24015415",
       nroEmbarazo: 1,
       nroAtencion: 1
     }
@@ -277,7 +276,9 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ mamas: Rpta.examenesFisicos[6].valor });
       this.form.patchValue({ pezones: Rpta.examenesFisicos[7].valor });
       this.form.patchValue({ abdomen: Rpta.examenesFisicos[8].valor });
-      this.form.patchValue({ examenFisicoOtro: Rpta.examenesFisicos[9].valor });
+      if (Rpta.examenesFisicos[8].valor.length > 9) {
+        this.form.patchValue({ examenFisicoOtro: Rpta.examenesFisicos[9].valor });
+      }
       this.form.patchValue({ obsExamFisico: Rpta.examenFisicoObservaciones });
       this.form.patchValue({ miembrosInferiores: Rpta.examenesObstetricos.miembrosInferiores });
       this.form.patchValue({ alturaUterina: Rpta.examenesObstetricos.alturaUterina });

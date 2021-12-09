@@ -69,7 +69,7 @@
     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
       <tr style="text-align: center">
         <td style="text-align: center">{{ rowIndex + 1 }}</td>
-        <td style="text-align: center">{{ rowData.nroDoc }}</td>
+        <td style="text-align: center">{{ rowData.id }}</td>
         <td style="text-align: center">
           {{ rowData.apePaterno + " " + rowData.apeMaterno }}
         </td>
@@ -771,10 +771,9 @@
                   inputId="dropdown"
                   [options]="listaUpsX"
                   formControlName="ups"
-                  optionLabel="id"
-                  optionValue="nombre"
+                  optionLabel="nombreUPS"
+                  optionValue="id"
                   id="tipoid"
-                  required
                   placeholder="Selecciones Especialidad"
                 >
                 </p-dropdown>
@@ -789,7 +788,6 @@
                   optionLabel="id"
                   optionValue="nombre"
                   id="tipoid"
-                  required
                 >
                 </p-dropdown>
               </div>
@@ -798,22 +796,22 @@
           <br />
           <div class="flex justify-content-end">
             <button
-              *ngIf="!isUpdateRol"
-              [disabled]="!formEspecialidad.valid"
-              pButton
-              type="button"
-              label="Guardar"
-              class="m-1 w-9rem"
-              (click)="saveEspecialidad()"
+                    *ngIf="!isUpdateRolX"
+                    [disabled]="!formRol.valid"
+                    pButton
+                    type="button"
+                    label="Guardar"
+                    class="m-1 w-9rem"
+                    (click)="saveRol()"
             ></button>
             <button
-              *ngIf="isUpdateEspecialidad"
-              [disabled]="!formEspecialidad.valid"
-              pButton
-              type="button"
-              label="Guardar"
-              class="m-1 w-9rem"
-              (click)="saveEdicionEspecialidad()"
+                    *ngIf="isUpdateRolX"
+                    [disabled]="!formRol.valid"
+                    pButton
+                    type="button"
+                    label="Guardar"
+                    class="m-1 w-9rem"
+                    (click)="saveEdicionRol()"
             ></button>
             <button
               pButton
@@ -831,7 +829,7 @@
       </div>
       <div class="col-8">
         <p-table
-          [value]="rolesX"
+            [value]="rolesX"
           #dt
           styleClass="p-datatable-gridlines"
           [rows]="10"
@@ -862,7 +860,7 @@
               <td>
                 <button
                   pButton
-                  (click)="editarEspecialidad(rowData)"
+                  (click)="editarRolX(rowData)"
                   pTooltip="Editar"
                   pRipple
                   type="button"
@@ -871,7 +869,7 @@
                 ></button>
                 <button
                   pButton
-                  (click)="eliminarEspecialidad(rowData)"
+                  (click)="eliminarRolX(rowData,rowIndex)"
                   pTooltip="Eliminar"
                   pRipple
                   type="button"
