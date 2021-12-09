@@ -133,7 +133,6 @@ export class InterrogatorioComponent implements OnInit {
       { funcion: 'pezones', valor: this.form.value.pezones },
       { funcion: 'abdomen', valor: this.form.value.abdomen },
     ]
-    
 
     for (let i = 0; i < this.listaOtrosPruebasFisicas.length; i++) {
       auxPhysicalExam.push(this.listaOtrosPruebasFisicas[i]);
@@ -188,7 +187,6 @@ export class InterrogatorioComponent implements OnInit {
 
   guardarDatos() {
     this.recuperarDatos();
-    // console.log('data to save ', this.interrogatorioData);
     this.consultaObstetricaService.updateConsultas(this.interrogatorioData).subscribe((res: any) => {
       this.messageService.add({
         severity: "success",
