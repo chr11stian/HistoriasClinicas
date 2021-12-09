@@ -183,7 +183,6 @@ export class GiagnosticosComponent implements OnInit {
   eliminarDx(index) {
     this.diagnosticos.splice(index, 1)
   }
-
   eliminarOrientaciones(index) {
     this.orientaciones.splice(index, 1)
   }
@@ -198,7 +197,6 @@ export class GiagnosticosComponent implements OnInit {
     this.visitaDomiciliaria = {
       estado: this.formOtrosDatos.value.visita,
       fecha:  this.datePipe.transform(this.formOtrosDatos.value.fechaVisita, 'yyyy-MM-dd HH:mm:ss')
-
     }
     this.planPartoReenfocada = this.formOtrosDatos.value.planPartoReenfocada
   }
@@ -232,7 +230,6 @@ export class GiagnosticosComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           })
-
         }
     )
   }

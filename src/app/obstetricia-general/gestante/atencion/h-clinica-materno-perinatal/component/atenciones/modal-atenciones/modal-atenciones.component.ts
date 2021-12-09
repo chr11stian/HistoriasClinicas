@@ -15,7 +15,7 @@ export class ModalAtencionesComponent implements OnInit {
   formAtenciones:FormGroup;
   dialogAtenciones = false;
   idObstetricia:string;
-  datePippe = new DatePipe('en-US');
+  // datePippe = new DatePipe('en-US');
   examenesFetos: any[]=[];
   nroAtencion: any;
 
@@ -24,8 +24,8 @@ export class ModalAtencionesComponent implements OnInit {
               private obstetriciaGeneralService:ObstetriciaGeneralService,
               private config:DynamicDialogConfig)
   {
-    this.idObstetricia=this.obstetriciaGeneralService.idGestacion;
-    console.log(config.data);
+   // this.idObstetricia=this.obstetriciaGeneralService.idGestacion;
+   //  console.log(config.data);
     this.buildForm();
     if(config.data){
       this.llenarCamposTratamientoInmunizaciones();
@@ -72,11 +72,11 @@ export class ModalAtencionesComponent implements OnInit {
     let configuracion = this.config.data.row;
     this.examenesFetos = configuracion.examenesFetos;
     this.formAtenciones.get("fechaAtencion").setValue(configuracion.fechaAtencion);
-    this.formAtenciones.get("edadGestacionalSemanas").setValue(configuracion.edadGestacionalSemanas + configuracion.edadGestacionalDias + "/7");
+    this.formAtenciones.get("edadGestacionalSemanas").setValue(configuracion.edadGestacionalSemanas + " " +  configuracion.edadGestacionalDias + "/7");
     this.formAtenciones.get("peso").setValue(configuracion.peso);
     this.formAtenciones.get("evaluacionNutricional").setValue(configuracion.evaluacionNutricional.valor +" "+ configuracion.evaluacionNutricional.indicador);
     this.formAtenciones.get("temperatura").setValue(configuracion.t);
-    this.formAtenciones.get("presionArterial").setValue(configuracion.presionSistolica + "/" + configuracion.presionSistolica);
+    this.formAtenciones.get("presionArterial").setValue(configuracion.presionSistolica + "/" + configuracion.presionDiastolica);
     this.formAtenciones.get("pulso").setValue(configuracion.fc);
     this.formAtenciones.get("alturaUterina").setValue(configuracion.alturaUterina);
     this.formAtenciones.get("proteinuria").setValue(configuracion.proteinuria);
@@ -104,7 +104,6 @@ export class ModalAtencionesComponent implements OnInit {
       this.formAtenciones.get("interconsultas").setValue(configuracion.interconsultas[i].consultorio+"/"+configuracion.interconsultas[i-1].consultorio);/*ojo*/
     }
 
-    /**********Recorriendo todos los datos del array EXAMENES FETALES************************************/
   }
 
   closeDialog() {
