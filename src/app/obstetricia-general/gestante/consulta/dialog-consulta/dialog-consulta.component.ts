@@ -74,9 +74,15 @@ export class DialogConsultaComponent implements OnInit {
     listaSuplementoCalcio = [
         { name: "Calcio", code: "1" },
     ];
+    listaTiposDiagnosticos = [
+        { name: "R", code: "1" },
+        { name: "D", code: "2" },
+        { name: "T", code: "3" },
+    ];
     datosOtrosPruebasFisicas: any[] = [];
     indexEditarOtrosPruebasFisicasEditado: number = 0;
     estadoEditarOtrosPruebasFisicas: boolean = false;
+
     //tablas adicionales
     datosExamenesFetales: any[] = [];
     datosDiagnosticos: any[] = [];
@@ -103,6 +109,7 @@ export class DialogConsultaComponent implements OnInit {
 
     estadoEdicion: boolean;
     datePipe = new DatePipe('en-US');
+
     constructor(
         private fb: FormBuilder,
         private ref: DynamicDialogRef,
@@ -110,17 +117,17 @@ export class DialogConsultaComponent implements OnInit {
         private consultaObstetriciaService: ConsultaObstetriciaService,
         public config: DynamicDialogConfig
     ) {
+        this.inicializarForm();
         this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
         this.estadoEdicion = false;
+        console.log("este config", config.data);
         if (config.data) {
-            //this.llenarCamposEdicionIntervalo();
+            this.llenarCamposEdicionConsulta();
             this.estadoEdicion = true;
         }
     }
 
-    ngOnInit(): void {
-        this.inicializarForm();
-    }
+    ngOnInit(): void { }
 
     inicializarForm() {
         this.form = this.fb.group({
@@ -334,6 +341,7 @@ export class DialogConsultaComponent implements OnInit {
         this.formDiagnostico = this.fb.group({
             diagnostico: new FormControl(""),
             cie10: new FormControl(""),
+            tipoDiagnostico: new FormControl(""),
         });
 
         this.formTratamiento = this.fb.group({
@@ -658,7 +666,7 @@ export class DialogConsultaComponent implements OnInit {
         var interconsulta = {
             consultorio: this.formInterconsulta.value.consultorio,
             motivo: this.formInterconsulta.value.motivo,
-            fecha: this.datePipe.transform(this.formInterconsulta.value.fecha,'yyyy-MM-dd HH:mm:ss'),
+            fecha: this.datePipe.transform(this.formInterconsulta.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
         }
         console.log(interconsulta);
         this.datosInterconsultas.push(interconsulta);
@@ -688,7 +696,7 @@ export class DialogConsultaComponent implements OnInit {
         var interconsulta = {
             consultorio: this.formInterconsulta.value.consultorio,
             motivo: this.formInterconsulta.value.motivo,
-            fecha: this.datePipe.transform(this.formInterconsulta.value.fecha,'yyyy-MM-dd HH:mm:ss'),
+            fecha: this.datePipe.transform(this.formInterconsulta.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
         }
         console.log(interconsulta);
         this.datosInterconsultas.splice(this.indexInterconsultaEditado, 1, interconsulta);
@@ -786,7 +794,7 @@ export class DialogConsultaComponent implements OnInit {
             dosis: this.formInmunizacion.value.dosis,
             viaAdministracion: this.formInmunizacion.value.viaAdministracion,
             lote: this.formInmunizacion.value.lote,
-            fechaVenc: this.datePipe.transform(this.formInmunizacion.value.fechaVenc,'yyyy-MM-dd HH:mm:ss'),
+            fechaVenc: this.datePipe.transform(this.formInmunizacion.value.fechaVenc, 'yyyy-MM-dd HH:mm:ss'),
         }
         console.log(inmunizacion);
         this.datosInmunizaciones.push(inmunizacion);
@@ -824,7 +832,7 @@ export class DialogConsultaComponent implements OnInit {
             dosis: this.formInmunizacion.value.dosis,
             viaAdministracion: this.formInmunizacion.value.viaAdministracion,
             lote: this.formInmunizacion.value.lote,
-            fechaVenc: this.datePipe.transform(this.formInmunizacion.value.fechaVenc,'yyyy-MM-dd HH:mm:ss'),
+            fechaVenc: this.datePipe.transform(this.formInmunizacion.value.fechaVenc, 'yyyy-MM-dd HH:mm:ss'),
         }
         console.log(inmunizacion);
         this.datosInmunizaciones.splice(this.indexInmunizacionEditado, 1, inmunizacion);
@@ -871,7 +879,7 @@ export class DialogConsultaComponent implements OnInit {
                 estado: this.form.value.psicoProfilaxis,
                 fecha: this.datePipe.transform(this.form.value.fechaPsicoProfilaxis, 'yyyy-MM-dd HH:mm:ss'),
             },
-            decarteSignosAlarmas: [
+            descarteSignosAlarmas: [
                 {
                     descripcion: "Dificultad respiratoria",
                     valor: this.form.value.dificultadRespiratoria === "true" ? true : false
@@ -1028,7 +1036,7 @@ export class DialogConsultaComponent implements OnInit {
                 genitalesExternos: this.form.value.genitalesExter,
                 vagina: this.form.value.vagina,
                 cuelloUterino: this.form.value.cuelloUterino,
-                edemaUterino: this.form.value.edemaExamen,
+                edema: this.form.value.edemaExamen,
                 semanas: parseInt(this.form.value.edadSemanas),
                 dias: parseInt(this.form.value.edadDias)
             },
@@ -1109,112 +1117,112 @@ export class DialogConsultaComponent implements OnInit {
                 },
                 hemograma: {
                     valor: this.form.value.hemograma,
-                    fecha: this.datePipe.transform(this.form.value.hemogramaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.hemogramaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 hemoglobina: {
                     valor: this.form.value.hemoglobina,
-                    fecha: this.datePipe.transform(this.form.value.hemoglobinaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.hemoglobinaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 factorCorreccion: {
                     valor: this.form.value.factorCorreccion,
-                    fecha: this.datePipe.transform(this.form.value.factorCorreccionFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.factorCorreccionFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 hto: {
                     valor: this.form.value.hto,
-                    fecha: this.datePipe.transform(this.form.value.htoFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.htoFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 glucosa: {
                     valor: this.form.value.glucosa,
-                    fecha: this.datePipe.transform(this.form.value.glucosaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.glucosaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 toleranciaGlucosa: {
                     valor: this.form.value.toleranciaGlucosa,
-                    fecha: this.datePipe.transform(this.form.value.toleranciaGlucosaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.toleranciaGlucosaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 exaOrina: {
                     valor: this.form.value.exaOrina,
-                    fecha: this.datePipe.transform(this.form.value.exaOrinaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.exaOrinaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 rpr: {
                     valor: this.form.value.rpr,
-                    fecha: this.datePipe.transform(this.form.value.rprFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.rprFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 rprReactivo: {
                     valor: this.form.value.rprReactivo,
-                    fecha: this.datePipe.transform(this.form.value.rprReactivoFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.rprReactivoFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 exSecV: {
                     valor: this.form.value.exSecV,
-                    fecha: this.datePipe.transform(this.form.value.exSecVFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.exSecVFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 proteinuriaCuantitativa: {
                     valor: this.form.value.proteinuriaCuantitativa,
-                    fecha: this.datePipe.transform(this.form.value.proteinuriaCuantitativaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.proteinuriaCuantitativaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 proteinuriaCualitativa: {
                     valor: this.form.value.proteinuriaCualitativa,
-                    fecha: this.datePipe.transform(this.form.value.proteinuriaCualitativaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.proteinuriaCualitativaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 pruebaVIH: {
                     valor: this.form.value.pruebaVIH,
-                    fecha: this.datePipe.transform(this.form.value.pruebaVIHFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.pruebaVIHFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 prHepatitis: {
                     valor: this.form.value.prHepatitis,
-                    fecha: this.datePipe.transform(this.form.value.prHepatitisFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.prHepatitisFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 elisa: {
                     valor: this.form.value.elisa,
-                    fecha: this.datePipe.transform(this.form.value.elisaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.elisaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 glicemia: {
                     valor: this.form.value.glicemia,
-                    fecha: this.datePipe.transform(this.form.value.glicemiaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.glicemiaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 bacteriuria: {
                     valor: this.form.value.bacteriuria,
-                    fecha: this.datePipe.transform(this.form.value.bacteriuriaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.bacteriuriaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 nitritos: {
                     valor: this.form.value.nitritos,
-                    fecha: this.datePipe.transform(this.form.value.nitritosFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.nitritosFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 urocultivo: {
                     valor: this.form.value.urocultivo,
-                    fecha: this.datePipe.transform(this.form.value.urocultivoFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.urocultivoFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 bkEsputo: {
                     valor: this.form.value.bkEsputo,
-                    fecha: this.datePipe.transform(this.form.value.bkEsputoFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.bkEsputoFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 wsternBlotlfi: {
                     valor: this.form.value.wsternBlotlfi,
-                    fecha: this.datePipe.transform(this.form.value.wsternBlotlfiFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.wsternBlotlfiFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 thlv1: {
                     valor: this.form.value.thlv1,
-                    fecha: this.datePipe.transform(this.form.value.thlv1Fecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.thlv1Fecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 torch: {
                     valor: this.form.value.torch,
-                    fecha: this.datePipe.transform(this.form.value.torchFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.torchFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 gotaGruesa: {
                     valor: this.form.value.gotaGruesa,
-                    fecha: this.datePipe.transform(this.form.value.gotaGruesaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.gotaGruesaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 pap: {
                     valor: this.form.value.pap,
-                    fecha: this.datePipe.transform(this.form.value.papFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.papFecha, 'yyyy-MM-dd HH:mm:ss'),
                 },
                 ivaa: {
                     valor: this.form.value.ivaa,
-                    fecha: this.datePipe.transform(this.form.value.ivaaFecha,'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.form.value.ivaaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 }
 
             },
             ecografia: {
-                fecha: this.datePipe.transform(this.form.value.ecografiaFecha,'yyyy-MM-dd HH:mm:ss'),
+                fecha: this.datePipe.transform(this.form.value.ecografiaFecha, 'yyyy-MM-dd HH:mm:ss'),
                 descripcion: this.form.value.descripcionEcografia,
                 semanas: parseInt(this.form.value.ecografiaEdadSemanas),
                 dias: parseInt(this.form.value.ecografiaEdadDias),
@@ -1231,7 +1239,7 @@ export class DialogConsultaComponent implements OnInit {
             });
         }
         else {
-            this.consultaObstetriciaService.postDatoConsultaObstetrica(consulta).subscribe((res: any) => {
+            this.consultaObstetriciaService.putDatoConsultaObstetrica(consulta).subscribe((res: any) => {
                 console.log('rpta ', res.object);
                 this.ref.close(res);
             });
@@ -1243,6 +1251,247 @@ export class DialogConsultaComponent implements OnInit {
         this.estadoEdicion = false;
     }
     llenarCamposEdicionConsulta() {
+        let configuracion = this.config.data.row;
+        console.log("Imprimiento objeto del dialog", configuracion);
+        this.form.get('fecha').setValue(configuracion.fecha ?
+            this.datePipe.transform(new Date(configuracion.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('edad').setValue(configuracion.datosPerHist.edad);
+        this.form.get('nroAtencion').setValue(configuracion.nroAtencion);
+        this.form.get('nroControlSis').setValue(configuracion.nroControlSis);
+
+        this.form.get('direccion').setValue(configuracion.datosPerHist.direccion);
+        this.form.get('psicoProfilaxis').setValue(configuracion.psicoprofilaxis.estado);
+        this.form.get('fechaPsicoProfilaxis').setValue(configuracion.psicoprofilaxis.fecha ?
+            this.datePipe.transform(new Date(configuracion.psicoprofilaxis.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('apetito').setValue(configuracion.funcionesBiologicas[0].valor);
+        this.form.get('sed').setValue(configuracion.funcionesBiologicas[1].valor);
+        this.form.get('sueño').setValue(configuracion.funcionesBiologicas[2].valor);
+        this.form.get('estadoAnimo').setValue(configuracion.funcionesBiologicas[3].valor);
+        this.form.get('orina').setValue(configuracion.funcionesBiologicas[4].valor);
+        this.form.get('deposiciones').setValue(configuracion.funcionesBiologicas[5].valor);
+
+        this.form.get('temperatura').setValue(configuracion.funcionesVitales.t);
+        this.form.get('presionSis').setValue(configuracion.funcionesVitales.presionSistolica);
+        this.form.get('presionDias').setValue(configuracion.funcionesVitales.presionDiastolica);
+        this.form.get('fc').setValue(configuracion.funcionesVitales.fc);
+        this.form.get('fr').setValue(configuracion.funcionesVitales.fr);
+        this.form.get('peso').setValue(configuracion.funcionesVitales.peso);
+        this.form.get('talla').setValue(configuracion.funcionesVitales.talla);
+        this.form.get('imc').setValue(configuracion.funcionesVitales.imc);
+        this.form.get('evalNutricionalValor').setValue(configuracion.evaluacionNutricional.valor);
+        this.form.get('evalNutricionalIndicador').setValue(configuracion.evaluacionNutricional.indicador);
+
+        this.form.get('motivoConsulta').setValue(configuracion.interrogatorio[0].respuesta);
+        this.form.get('tiempoEnfermedad').setValue(configuracion.interrogatorio[1].respuesta);
+        this.form.get('interrogatorioOtro').setValue(configuracion.interrogatorio[2].respuesta);
+
+        this.form.get('piel').setValue(configuracion.examenesFisicos[0].valor);
+        this.form.get('mucosas').setValue(configuracion.examenesFisicos[1].valor);
+        this.form.get('cabeza').setValue(configuracion.examenesFisicos[2].valor);
+        this.form.get('cuello').setValue(configuracion.examenesFisicos[3].valor);
+        this.form.get('cardioVascular').setValue(configuracion.examenesFisicos[4].valor);
+        this.form.get('pulmones').setValue(configuracion.examenesFisicos[5].valor);
+        this.form.get('mamas').setValue(configuracion.examenesFisicos[6].valor);
+        this.form.get('pezones').setValue(configuracion.examenesFisicos[7].valor);
+        this.form.get('abdomen').setValue(configuracion.examenesFisicos[8].valor);
+        this.form.get('examenFisicoOtro').setValue(configuracion.examenesFisicos[0].valor);// modificar
+        this.form.get('examenFisicoObservaciones').setValue(configuracion.examenFisicoObservaciones);
+        this.form.get('alturaUterina').setValue(configuracion.examenesObstetricos.alturaUterina);
+        this.form.get('miembrosInferiores').setValue(configuracion.examenesObstetricos.miembrosInferiores);
+        this.form.get('osteotendinoso').setValue(configuracion.examenesObstetricos.reflejoOsteotendinoso);
+        this.form.get('genitalesExter').setValue(configuracion.examenesObstetricos.genitalesExternos);
+        this.form.get('vagina').setValue(configuracion.examenesObstetricos.vagina);
+        this.form.get('cuelloUterino').setValue(configuracion.examenesObstetricos.cuelloUterino);
+        this.form.get('edemaExamen').setValue(configuracion.examenesObstetricos.edema);
+        this.form.get('edadSemanas').setValue(configuracion.examenesObstetricos.semanas);
+        this.form.get('edadDias').setValue(configuracion.examenesObstetricos.dias);
+
+        this.form.get('dificultadRespiratoria').setValue(configuracion.descarteSignosAlarmas[0].valor ? "true" : "false");
+        this.form.get('hipertensionArterial').setValue(configuracion.descarteSignosAlarmas[1].valor ? "true" : "false");
+        this.form.get('sangradoNasal').setValue(configuracion.descarteSignosAlarmas[2].valor ? "true" : "false");
+        this.form.get('deshidratacionAguda').setValue(configuracion.descarteSignosAlarmas[3].valor ? "true" : "false");
+        this.form.get('compromisoSensorio').setValue(configuracion.descarteSignosAlarmas[4].valor ? "true" : "false");
+        this.form.get('traumatismoQuemadura').setValue(configuracion.descarteSignosAlarmas[5].valor ? "true" : "false");
+        this.form.get('abdomenAgudo').setValue(configuracion.descarteSignosAlarmas[6].valor ? "true" : "false");
+        this.form.get('intoxicacionEnvenenamiento').setValue(configuracion.descarteSignosAlarmas[7].valor ? "true" : "false");
+        this.form.get('fiebreAlta').setValue(configuracion.descarteSignosAlarmas[8].valor ? "true" : "false");
+        this.form.get('convulsiones').setValue(configuracion.descarteSignosAlarmas[9].valor ? "true" : "false");
+        this.form.get('sangradoGenital').setValue(configuracion.descarteSignosAlarmas[10].valor ? "true" : "false");
+        this.form.get('dolorCabeza').setValue(configuracion.descarteSignosAlarmas[11].valor ? "true" : "false");
+        this.form.get('edema').setValue(configuracion.descarteSignosAlarmas[12].valor ? "true" : "false");
+        //orientaciones
+        this.form.get('consejeria1').setValue(configuracion.orientaciones[0].valor ? "true" : "false");
+        this.form.get('cie10_1').setValue(configuracion.orientaciones[0].cie10);
+        this.form.get('consejeria2').setValue(configuracion.orientaciones[1].valor ? "true" : "false");
+        this.form.get('cie10_2').setValue(configuracion.orientaciones[1].cie10);
+        this.form.get('consejeria3').setValue(configuracion.orientaciones[2].valor ? "true" : "false");
+        this.form.get('cie10_3').setValue(configuracion.orientaciones[2].cie10);
+        this.form.get('consejeria4').setValue(configuracion.orientaciones[3].valor ? "true" : "false");
+        this.form.get('cie10_4').setValue(configuracion.orientaciones[3].cie10);
+        this.form.get('consejeria5').setValue(configuracion.orientaciones[4].valor ? "true" : "false");
+        this.form.get('cie10_5').setValue(configuracion.orientaciones[4].cie10);
+        this.form.get('consejeria6').setValue(configuracion.orientaciones[5].valor ? "true" : "false");
+        this.form.get('cie10_6').setValue(configuracion.orientaciones[5].cie10);
+        this.form.get('consejeria7').setValue(configuracion.orientaciones[6].valor ? "true" : "false");
+        this.form.get('cie10_7').setValue(configuracion.orientaciones[6].cie10);
+        this.form.get('consejeria8').setValue(configuracion.orientaciones[7].valor ? "true" : "false");
+        this.form.get('cie10_8').setValue(configuracion.orientaciones[7].cie10);
+        this.form.get('consejeria9').setValue(configuracion.orientaciones[8].valor ? "true" : "false");
+        this.form.get('cie10_9').setValue(configuracion.orientaciones[8].cie10);
+        this.form.get('consejeria10').setValue(configuracion.orientaciones[9].valor ? "true" : "false");
+        this.form.get('cie10_10').setValue(configuracion.orientaciones[9].cie10);
+        this.form.get('consejeria11').setValue(configuracion.orientaciones[10].valor ? "true" : "false");
+        this.form.get('cie10_11').setValue(configuracion.orientaciones[10].cie10);
+        this.form.get('consejeria12').setValue(configuracion.orientaciones[11].valor ? "true" : "false");
+        this.form.get('cie10_12').setValue(configuracion.orientaciones[11].cie10);
+        //atencion
+        this.form.get('consultorioReferencia').setValue(configuracion.referencia.consultorio);
+        this.form.get('motivoReferencia').setValue(configuracion.referencia.motivo);
+        this.form.get('codRENAESReferencia').setValue(configuracion.referencia.codRENAES);
+        this.form.get('proxCita').setValue(configuracion.proxCita ?
+            this.datePipe.transform(new Date(configuracion.proxCita), 'yyyy-MM-ddTHH:mm') : "");
+        //suplementos
+        this.form.get('acidoFolicoSuplemento').setValue(
+            configuracion.tratamientosSuplementos.acidoFolico.descripcion !== "" ?
+                "Acido Folico" :
+                (configuracion.tratamientosSuplementos.hierroYAcidoFolico.descripcion !== "" ?
+                    "Acido Folico y Hierro" : ""));
+        if (configuracion.tratamientosSuplementos.acidoFolico.descripcion !== "") {
+            this.form.get('acidoFolicoDescripcion').setValue(configuracion.tratamientosSuplementos.acidoFolico.descripcion);
+            this.form.get('acidoFolicoNumero').setValue(configuracion.tratamientosSuplementos.acidoFolico.numero);
+            this.form.get('acidoFolicoDosis').setValue(configuracion.tratamientosSuplementos.acidoFolico.dosis);
+            this.form.get('acidoFolicoViaAdministracion').setValue(configuracion.tratamientosSuplementos.acidoFolico.viaAdministracion);
+            this.form.get('acidoFolicoIntervalo').setValue(configuracion.tratamientosSuplementos.acidoFolico.intervalo);
+            this.form.get('acidoFolicoDuracion').setValue(configuracion.tratamientosSuplementos.acidoFolico.duracion);
+        }
+        else {
+            if (configuracion.tratamientosSuplementos.hierroYAcidoFolico.descripcion !== "") {
+                this.form.get('acidoFolicoDescripcion').setValue(configuracion.tratamientosSuplementos.hierroYAcidoFolico.descripcion);
+                this.form.get('acidoFolicoNumero').setValue(configuracion.tratamientosSuplementos.hierroYAcidoFolico.numero);
+                this.form.get('acidoFolicoDosis').setValue(configuracion.tratamientosSuplementos.hierroYAcidoFolico.dosis);
+                this.form.get('acidoFolicoViaAdministracion').setValue(configuracion.tratamientosSuplementos.hierroYAcidoFolico.viaAdministracion);
+                this.form.get('acidoFolicoIntervalo').setValue(configuracion.tratamientosSuplementos.hierroYAcidoFolico.intervalo);
+                this.form.get('acidoFolicoDuracion').setValue(configuracion.tratamientosSuplementos.hierroYAcidoFolico.duracion);
+            }
+            else {
+                this.form.get('acidoFolicoDescripcion').setValue("");
+                this.form.get('acidoFolicoNumero').setValue("");
+                this.form.get('acidoFolicoDosis').setValue("");
+                this.form.get('acidoFolicoViaAdministracion').setValue("");
+                this.form.get('acidoFolicoIntervalo').setValue("");
+                this.form.get('acidoFolicoDuracion').setValue("");
+            }
+        }
+        this.form.get('calcioSuplemento').setValue(configuracion.tratamientosSuplementos.calcio.descripcion);
+        this.form.get('calcioDescripcion').setValue(configuracion.tratamientosSuplementos.calcio.descripcion);
+        this.form.get('calcioNumero').setValue(configuracion.tratamientosSuplementos.calcio.numero);
+        this.form.get('calcioDosis').setValue(configuracion.tratamientosSuplementos.calcio.dosis);
+        this.form.get('calcioViaAdministracion').setValue(configuracion.tratamientosSuplementos.calcio.viaAdministracion);
+        this.form.get('calcioIntervalo').setValue(configuracion.tratamientosSuplementos.calcio.intervalo);
+        this.form.get('calcioDuracion').setValue(configuracion.tratamientosSuplementos.calcio.duracion);
+        //visita domiciliaria
+        this.form.get('visitaDomiciliariaEstado').setValue(configuracion.visitaDomiciliaria.estado);
+        this.form.get('visitaDomiciliariaFecha').setValue(configuracion.visitaDomiciliaria.fecha ?
+            this.datePipe.transform(new Date(configuracion.visitaDomiciliaria.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('planPartoReenfocada').setValue(configuracion.planPartoReenfocada);
+        //laboratorio
+        this.form.get('grupoSanguineo').setValue(configuracion.laboratorios.grupoSanguineo.valor);
+        this.form.get('grupoSanguineoFecha').setValue(configuracion.laboratorios.grupoSanguineo.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.grupoSanguineo.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('factorRH').setValue(configuracion.laboratorios.factorRH.valor);
+        this.form.get('factorRHFecha').setValue(configuracion.laboratorios.factorRH.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.factorRH.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('hemograma').setValue(configuracion.laboratorios.hemograma.valor);
+        this.form.get('hemogramaFecha').setValue(configuracion.laboratorios.hemograma.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.hemograma.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('hemoglobina').setValue(configuracion.laboratorios.hemoglobina.valor);
+        this.form.get('hemoglobinaFecha').setValue(configuracion.laboratorios.hemoglobina.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.hemoglobina.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('factorCorreccion').setValue(configuracion.laboratorios.factorCorreccion.valor);
+        this.form.get('factorCorreccionFecha').setValue(configuracion.laboratorios.factorCorreccion.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.factorCorreccion.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('hto').setValue(configuracion.laboratorios.hto.valor);
+        this.form.get('htoFecha').setValue(configuracion.laboratorios.hto.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.hto.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('glucosa').setValue(configuracion.laboratorios.glucosa.valor);
+        this.form.get('glucosaFecha').setValue(configuracion.laboratorios.glucosa.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.glucosa.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('rpr').setValue(configuracion.laboratorios.rpr.valor);
+        this.form.get('rprFecha').setValue(configuracion.laboratorios.rpr.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.rpr.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('rprReactivo').setValue(configuracion.laboratorios.rprReactivo.valor);
+        this.form.get('rprReactivoFecha').setValue(configuracion.laboratorios.rprReactivo.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.rprReactivo.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('pruebaVIH').setValue(configuracion.laboratorios.pruebaVIH.valor);
+        this.form.get('pruebaVIHFecha').setValue(configuracion.laboratorios.pruebaVIH.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.pruebaVIH.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('prHepatitis').setValue(configuracion.laboratorios.prHepatitis.valor);
+        this.form.get('prHepatitisFecha').setValue(configuracion.laboratorios.prHepatitis.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.prHepatitis.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('elisa').setValue(configuracion.laboratorios.elisa.valor);
+        this.form.get('elisaFecha').setValue(configuracion.laboratorios.elisa.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.elisa.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('toleranciaGlucosa').setValue(configuracion.laboratorios.toleranciaGlucosa.valor);
+        this.form.get('toleranciaGlucosaFecha').setValue(configuracion.laboratorios.toleranciaGlucosa.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.toleranciaGlucosa.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('glicemia').setValue(configuracion.laboratorios.glicemia.valor);
+        this.form.get('glicemiaFecha').setValue(configuracion.laboratorios.glicemia.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.glicemia.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('exaOrina').setValue(configuracion.laboratorios.exaOrina.valor);
+        this.form.get('exaOrinaFecha').setValue(configuracion.laboratorios.exaOrina.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.exaOrina.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('bacteriuria').setValue(configuracion.laboratorios.bacteriuria.valor);
+        this.form.get('bacteriuriaFecha').setValue(configuracion.laboratorios.bacteriuria.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.bacteriuria.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('nitritos').setValue(configuracion.laboratorios.nitritos.valor);
+        this.form.get('nitritosFecha').setValue(configuracion.laboratorios.nitritos.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.nitritos.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('urocultivo').setValue(configuracion.laboratorios.urocultivo.valor);
+        this.form.get('urocultivoFecha').setValue(configuracion.laboratorios.urocultivo.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.urocultivo.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('bkEsputo').setValue(configuracion.laboratorios.bkEsputo.valor);
+        this.form.get('bkEsputoFecha').setValue(configuracion.laboratorios.bkEsputo.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.bkEsputo.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('wsternBlotlfi').setValue(configuracion.laboratorios.wsternBlotlfi.valor);
+        this.form.get('wsternBlotlfiFecha').setValue(configuracion.laboratorios.wsternBlotlfi.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.wsternBlotlfi.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('thlv1').setValue(configuracion.laboratorios.thlv1.valor);
+        this.form.get('thlv1Fecha').setValue(configuracion.laboratorios.thlv1.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.thlv1.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('torch').setValue(configuracion.laboratorios.torch.valor);
+        this.form.get('torchFecha').setValue(configuracion.laboratorios.torch.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.torch.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('gotaGruesa').setValue(configuracion.laboratorios.gotaGruesa.valor);
+        this.form.get('gotaGruesaFecha').setValue(configuracion.laboratorios.gotaGruesa.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.gotaGruesa.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('proteinuriaCuantitativa').setValue(configuracion.laboratorios.proteinuriaCuantitativa.valor);
+        this.form.get('proteinuriaCuantitativaFecha').setValue(configuracion.laboratorios.proteinuriaCuantitativa.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.proteinuriaCuantitativa.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('proteinuriaCualitativa').setValue(configuracion.laboratorios.proteinuriaCualitativa.valor);
+        this.form.get('proteinuriaCualitativaFecha').setValue(configuracion.laboratorios.proteinuriaCualitativa.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.proteinuriaCualitativa.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('exSecV').setValue(configuracion.laboratorios.exSecV.valor);
+        this.form.get('exSecVFecha').setValue(configuracion.laboratorios.exSecV.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.exSecV.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('pap').setValue(configuracion.laboratorios.pap.valor);
+        this.form.get('papFecha').setValue(configuracion.laboratorios.pap.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.pap.fecha), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('ivaa').setValue(configuracion.laboratorios.ivaa.valor);
+        this.form.get('ivaaFecha').setValue(configuracion.laboratorios.ivaa.fecha ?
+            this.datePipe.transform(new Date(configuracion.laboratorios.ivaa.fecha), 'yyyy-MM-ddTHH:mm') : "");
+
+        this.form.get('ecografiaEdadSemanas').setValue(configuracion.ecografia.semanas);
+        this.form.get('ecografiaEdadDias').setValue(configuracion.ecografia.dias);
+        this.form.get('descripcionEcografia').setValue(configuracion.ecografia.descripcion);
+        this.form.get('ecografiaFecha').setValue(configuracion.ecografia.fecha ?
+            this.datePipe.transform(new Date(configuracion.ecografia.fecha), 'yyyy-MM-ddTHH:mm') : "");
+
+        this.datosExamenesFetales = configuracion.examenesFetos;
+        this.datosDiagnosticos = configuracion.diagnosticos;
+        this.datosTratamientos = configuracion.tratamientos;
+        this.datosInterconsultas = configuracion.interconsultas;
+        this.datosRecomendaciones = configuracion.recomendaciones;
+        this.datosInmunizaciones = configuracion.inmunizaciones;
 
     }
 }
