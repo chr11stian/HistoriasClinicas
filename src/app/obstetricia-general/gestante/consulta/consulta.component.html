@@ -9,7 +9,7 @@
             <ng-template pTemplate="right" class="button">
                 <button pButton pRipple label="Regresar" icon="pi pi-arrow-left" class="p-button-primary mr-2"
                     (click)="regresar()"></button>
-                <button pButton pRipple label="Agregar Consulta" icon="pi pi-save" (click)="openDialogConsulta()"
+                <button pButton pRipple label="Agregar Consulta" icon="pi pi-save" (click)="openDialogConsultaNuevo()"
                     class="p-button-raised p-button-primary mr-2"></button>
                 <button pButton pRipple label="Modal universal" icon="pi pi-save"
                     (click)="openDialogConsultaUniversal()" class="p-button-raised p-button-secondary"></button>
@@ -25,19 +25,18 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Nro</th>
-                            <!-- <th>DNI</th> -->
-                            <th>CONSULTA</th>
+                            <th>DNI</th>
                             <th>FECHA</th>
-                            <th>PERSONAL DE SALUD</th>
+                            <th>NRO ATENCION</th>
                             <th>ACCIONES</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-consulta let-i="rowIndex">
                         <tr>
                             <td>{{i+1}}</td>
-                            <td>{{consulta.consulta}}</td>
+                            <td>{{consulta.nroDoc}}</td>
                             <td>{{consulta.fecha}}</td>
-                            <td>{{consulta.personalSalud}}</td>
+                            <td>{{consulta.nroAtencion}}</td>
                             <td>
                                 <span class="p-buttonset">
                                     <button pButton pTooltip="Editar" pRipple type="button" label="Editar"

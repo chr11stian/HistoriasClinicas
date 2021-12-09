@@ -24,10 +24,11 @@
         </ng-template>
         <ng-template pTemplate="body" let-paciente style="text-align: center;" let-i="rowIndex">
             <tr>
-                <td style="text-align: center;">{{ i }}</td>
+                <td style="text-align: center;">{{ i +1 }}</td>
                 <td style="text-align: center;">{{ paciente.nroDoc }}</td>
                 <td style="text-align: center;">
-                    {{ paciente.apePaterno +' '+  paciente.apeMaterno + ', '+ paciente.primerNombre + ' '+ paciente.otrosNombres }}
+                    {{ paciente.apePaterno +' '+ paciente.apeMaterno + ', '+ paciente.primerNombre + ' '+
+                    paciente.otrosNombres }}
                 </td>
                 <td style="text-align: center;">{{ paciente.nacionalidad }}</td>
                 <td style="text-align: center;">{{ paciente.tipoSeguro }}</td>
@@ -52,12 +53,18 @@
             <div class="p-field col-3">
                 <label>Tipo Doc</label>
                 <p-dropdown [options]="listaDocumentos" formControlName="tipoDoc"
-                    placeholder="Seleccione tipo de documento" optionLabel="abreviatura" [showClear]="false">
+                    placeholder="Seleccione tipo de documento" optionLabel="abreviatura" optionValue="abreviatura"
+                    [showClear]="false" (onChange)="selectedTipoDoc($event)">
                 </p-dropdown>
             </div>
             <div class="p-field col-3">
                 <label>Número Doc:</label>
                 <input type="text" pInputText placeholder="Ingrese el número de doc" formControlName="nroDoc"
+                    class="inputTest" />
+            </div>
+            <div class="p-field col-3" *ngIf="!peruvian">
+                <label>Nro. Historia Clinica:</label>
+                <input type="text" pInputText placeholder="Ingrese el número historia" formControlName="nroHcl"
                     class="inputTest" />
             </div>
         </div>
@@ -68,7 +75,7 @@
             </div>
             <div class="p-field col-3">
                 <label>Otros Nombres:</label>
-                <input type="text" pInputText formControlName="otrosNombres" class="inputTest" />
+                <input type="text" pInputText formControlName="otrosNombres" />
             </div>
             <div class="p-field col-3">
                 <label>Apellido Paterno:</label>
@@ -82,7 +89,7 @@
         <div class="grid mt-1">
             <div class="p-field col-3">
                 <label>Celular:</label>
-                <input type="number" pInputText formControlName="celular" class="inputTest" />
+                <input type="text" pInputText formControlName="celular" class="inputTest" />
             </div>
             <div class="p-field col-3">
                 <label>Tipo Seguro:</label>
@@ -177,7 +184,8 @@
         <div class="grid mt-1">
             <div class="p-field col-3">
                 <label>Fecha de Nacimiento:</label>
-                <p-inputMask mask="99/99/9999" formControlName="fechaNacimiento" slotChar="dd/mm/yyyy" dateFormat = "dd/mm/yy"></p-inputMask>
+                <p-inputMask class="maskInput" mask="99/99/9999" formControlName="fechaNacimiento" slotChar="dd/mm/yyyy"
+                    dateFormat="dd/mm/yy"></p-inputMask>
             </div>
             <div class="p-field col-3">
                 <label>Fecha de Inscripción:</label>

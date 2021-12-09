@@ -1,15 +1,13 @@
 <div class="p-card">
-    <p-toolbar>
+    <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-            <h3 class="mt-2">INTERROGATORIO</h3>
+            <h3 class="p-m-0">Interrogatorio</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
-            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                    class="guardar mr-2" style="background-color: #0c3866" (click)="guardarDatos()"></button>
+            <button pButton pRipple label="Guardar" icon="pi pi-save" class="p-button-primary"
+                (click)="guardarDatos()"></button>
         </ng-template>
     </p-toolbar>
-    <br>
     <form [formGroup]='form'>
         <div class="grid">
             <div class="col-12">
@@ -18,8 +16,11 @@
                         <label>T°:</label>
                         <input type="number" pInputText formControlName='temperatura' placeholder=""
                             class="funcionesVitales inputfield w-full">
-                        <label>PA:</label>
-                        <input type="number" pInputText formControlName='presion' placeholder=""
+                        <label>PA Sisto:</label>
+                        <input type="number" pInputText formControlName='presionSisto' placeholder=""
+                            class="funcionesVitales inputfield w-full">
+                        <label>PA Diasto:</label>
+                        <input type="number" pInputText formControlName='presionDisto' placeholder=""
                             class="funcionesVitales inputfield w-full">
                         <label>F.C:</label>
                         <input type="number" pInputText formControlName='fc' placeholder=""
@@ -123,11 +124,55 @@
                                 <input type="text" pInputText formControlName='abdomen' placeholder=""
                                     class="funcionesBiologicas inputfield w-full">
                             </div>
-                            <div class="grid mt-2">
+                            <!-- <div class="grid mt-2">
                                 <div class="col-12">
                                     <label>Otros Exámenes:</label>
                                     <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
                                         formControlName="examenFisicoOtro" pInputTextarea></textarea>
+                                </div>
+                            </div> -->
+                            <div class="grid mt-2 ">
+                                <button pButton pRipple label="Otros Examenes Fisicos" icon="pi pi-plus"
+                                    class="p-button-primary" (click)="openDialogExamenesFinal()" class="mt-4"></button>
+                            </div>
+                            <div class="grid mt-2">
+                                <div class="col-4">
+                                    <p-table [value]="listaOtrosPruebasFisicas" [showCurrentPageReport]="true"
+                                        [filterDelay]="0">
+                                        <ng-template pTemplate="caption">
+                                            <div class="flex justify-content-between">
+                                                <div class="table-header mt-2">
+                                                    Otros Examenes Fisicos
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>Nro</th>
+                                                <th>Nombre</th>
+                                                <th>Resultado</th>
+                                                <th style="text-align: center; width:4rem">Acción</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-otrosExam let-i="rowIndex">
+                                            <tr>
+                                                <td>{{ i + 1}}</td>
+                                                <td>{{otrosExam.funcion}}</td>
+                                                <td>{{otrosExam.valor}}</td>
+                                                <td>
+                                                    <button pButton pRipple class="p-button-danger botones"
+                                                        icon="pi pi-times" label="Eliminar"
+                                                        (click)="eliminarExamFisicos(i)"></button>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <div class="col-1"></div>
+                                <div class="col-7 align-content-start">
+                                    <label>Observaciones Examen Fisico:</label>
+                                    <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
+                                        formControlName="obsExamFisico" pInputTextarea></textarea>
                                 </div>
                             </div>
                         </div>
@@ -249,7 +294,8 @@
                                             <td>{{examFeto.fcf}} x min</td>
                                             <td style="display: flex;">
                                                 <button pButton pRipple class="p-button-info botones"
-                                                    icon="pi pi-pencil" label="Editar" (click)="editarExamenFetos(examFeto, i)"></button>
+                                                    icon="pi pi-pencil" label="Editar"
+                                                    (click)="editarExamenFetos(examFeto, i)"></button>
                                                 <button pButton pRipple class="p-button-danger botones"
                                                     icon="pi pi-times" label="Eliminar" (click)="eliminar(i)"></button>
                                             </td>
@@ -264,6 +310,35 @@
         </div>
     </form>
 </div>
+
+<!-- Dialog de otros examenes fisicos -->
+<p-dialog [(visible)]="examenesFisicosDialog" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid" autoZIndex
+    class="dialogo" header="Otros Examenes Fisicos">
+    <form [formGroup]='formExamFisico'>
+        <div class="grid">
+            <div class="col-4">
+                <label>Nombre Examen:</label>
+                <input type="text" pInputText formControlName='examName' placeholder=""
+                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+            </div>
+            <div class="col-8">
+                <label>Resultado:</label>
+                <input type="text" pInputText formControlName='examResult' placeholder=""
+                    class="p-inputtext-sm funcionesBiologicas inputfield w-full">
+            </div>
+        </div>
+        <div class="grid mt-4">
+            <div class="col-4 text-right">
+                <button pButton pRipple label="Agregar" icon="pi pi-plus" class=" bg-blue-700"
+                    (click)="btnGuardarExamFis()"></button>
+            </div>
+            <div class="col-4 text-right">
+                <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-danger"
+                    (click)="btnCancelarExamFis()"></button>
+            </div>
+        </div>
+    </form>
+</p-dialog>
 
 <!-- Dialog de examenes  fetales -->
 <p-dialog [(visible)]="fetalesExamDialog" [style]="{width: '70%'}" [modal]="true" styleClass="p-fluid" autoZIndex

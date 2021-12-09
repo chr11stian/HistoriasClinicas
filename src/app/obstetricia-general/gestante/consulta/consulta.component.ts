@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { DialogConsultaUniversalComponent } from "../../historia-consultas/dialog-consulta-universal/dialog-consulta-universal.component";
 import { DialogConsultaComponent } from "./dialog-consulta/dialog-consulta.component";
+import { ConsultaObstetriciaService } from "./services/consulta-obstetricia/consulta-obstetricia.service";
 
 
 @Component({
@@ -15,31 +16,16 @@ import { DialogConsultaComponent } from "./dialog-consulta/dialog-consulta.compo
 export class ConsultaComponent implements OnInit {
   listaDocumentos: any;
   formConsulta: FormGroup;
-  consultas = [
-    {
-      consulta: "consulta",
-      fecha: "12-12-2021",
-      personalSalud: "MOROCCO LAYME JONATHAN",
-    },
-    {
-      consulta: "consulta",
-      fecha: "12-12-2021",
-      personalSalud: "MOROCCO LAYME JONATHAN",
-    },
-    {
-      consulta: "consulta",
-      fecha: "12-12-2021",
-      personalSalud: "MOROCCO LAYME JONATHAN",
-    },
-  ];
-
+  consultas = [];
   ref: DynamicDialogRef;
-
   constructor(
     private fb: FormBuilder,
     private location: Location,
-    private dialog: DialogService
-  ) { }
+    private dialog: DialogService,
+    private consultaObstetriciaService: ConsultaObstetriciaService
+  ) {
+    this.recuperarConsultas();
+   }
 
   ngOnInit(): void {
     this.inicializarForm();
@@ -53,53 +39,71 @@ export class ConsultaComponent implements OnInit {
     });
   }
 
-  close() {
-
-  }
-
   regresar() {
     this.location.back();
   }
 
-  editar() {
-    console.log("btn editar");
-  
-  }
-
-  listDiagnosticos() {
-
-  }
-
-  openDialogConsulta() {
+  openDialogConsultaNuevo() {
     let dialog = this.dialog.open(DialogConsultaComponent, {
       header: "CONSULTA",
       width: "95%",
-      autoZIndex: false,
       contentStyle: {
         "max-height": "700px",
       },
-      data: {
-        texto: 'datossss'
-      }
     })
-
+    /*this.ref.onClose.subscribe((data: any) => {
+      console.log('data de otro dialog ', data)
+      //if(data!==undefined) this.recuperarConsultas();
+    })*/
   }
 
-  openDialogConsultaUniversal() {
-    this.ref = this.dialog.open(DialogConsultaUniversalComponent, {
-      header: "CONSULTA UNIVERSAL",
+  openDialogConsultaEditar(row, index) {
+    let aux={
+      index: index,
+      row: row
+    }
+    this.ref = this.dialog.open(DialogConsultaComponent, {
+      header: "CONSULTA",
       width: "95%",
       contentStyle: {
-        "max-height": "500px",
+        "max-height": "800px",
         overflow: "auto",
       },
-      data: {
-        texto: 'datossss'
-      }
-    });
-
+      data: aux
+    })
     this.ref.onClose.subscribe((data: any) => {
       console.log('data de otro dialog ', data)
-    });
+      if(data!==undefined) {
+        //this.recuperarConsultas(data);
+      };
+    })
   }
+  
+  recuperarConsultas(){
+    let data={
+      "nroHcl":"10101013",
+      "nroEmbarazo":1
+     }
+    this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
+      console.log('trajo datos exito ', res)
+      this.consultas=res.object?res.object:[];
+    })
+  }
+  // openDialogConsultaUniversal() {
+  //   this.ref = this.dialog.open(DialogConsultaUniversalComponent, {
+  //     header: "CONSULTA UNIVERSAL",
+  //     width: "95%",
+  //     contentStyle: {
+  //       "max-height": "500px",
+  //       overflow: "auto",
+  //     },
+  //     data: {
+  //       texto: 'datossss'
+  //     }
+  //   });
+
+  //   this.ref.onClose.subscribe((data: any) => {
+  //     console.log('data de otro dialog ', data)
+  //   });
+  // }
 }

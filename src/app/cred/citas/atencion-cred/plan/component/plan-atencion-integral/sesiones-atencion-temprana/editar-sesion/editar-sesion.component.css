@@ -8,3 +8,7 @@ p-calendar >>> .p-button {
   border: 1px solid #0c3866;
   align-self: center;
 }
+/* p-calendar >>> .p-calendar {
+  height: 200px;
+  width: 200px;
+} */
