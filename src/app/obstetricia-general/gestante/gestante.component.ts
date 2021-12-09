@@ -57,6 +57,7 @@ export class GestanteComponent implements OnInit {
         // nroDoc: "10101011"
         // nroDoc: "10101013"
 
+
         this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.dataLifiado = res.object
             console.log('paciente por doc ', this.dataLifiado)

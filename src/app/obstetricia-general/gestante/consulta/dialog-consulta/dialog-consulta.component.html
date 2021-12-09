@@ -12,7 +12,7 @@
                                             <label>Fecha de atención:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input formControlName="fecha" type="date" class="p-inputtext-sm"
+                                            <input formControlName="fecha" type="datetime-local" class="p-inputtext-sm"
                                                 pInputText />
                                         </div>
                                     </div>
@@ -166,7 +166,7 @@
                                         <div class="col-6">
                                             <p-dropdown [options]="listaIndicadores"
                                                 formControlName="evalNutricionalIndicador" optionLabel="name"
-                                                optionValue="code" class="inputfield p-fluid w-full">
+                                                optionValue="name" class="inputfield p-fluid w-full">
                                             </p-dropdown>
                                         </div>
                                     </div>
@@ -281,7 +281,7 @@
                                         </div>
                                         <div class="col-6 ">
                                             <label>Fecha:</label>
-                                            <input type="date" pInputText formControlName='fechaPsicoProfilaxis'
+                                            <input type="datetime-local" pInputText formControlName='fechaPsicoProfilaxis'
                                                 placeholder="" class="p-inputtext-sm inputfield w-full">
                                         </div>
                                     </div>
@@ -1213,7 +1213,7 @@
                                                 <div class="col-4">
                                                     <label>Suplemento:</label>
                                                     <p-dropdown [options]="listaSuplementoAcido"
-                                                        formControlName="acidoFolicoDescripcion" optionLabel="name"
+                                                        formControlName="acidoFolicoSuplemento" optionLabel="name"
                                                         optionValue="name" class="inputfield p-fluid w-full">
                                                     </p-dropdown>
                                                 </div>
@@ -1258,7 +1258,7 @@
                                                 <div class="col-4">
                                                     <label>Suplemento:</label>
                                                     <p-dropdown [options]="listaSuplementoCalcio"
-                                                        formControlName="acidoFolicoDescripcion" optionLabel="name"
+                                                        formControlName="calcioSuplemento" optionLabel="name"
                                                         optionValue="name" class="inputfield p-fluid w-full">
                                                     </p-dropdown>
                                                 </div>
@@ -1411,7 +1411,7 @@
                                                         placeholder="" class="inputfield w-full p-inputtext-sm">
                                                 </div>
                                                 <div class="col-4">
-                                                    <input type="date" formControlName="grupoSanguineoFecha"
+                                                    <input type="datetime-local" formControlName="grupoSanguineoFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -1428,7 +1428,7 @@
                                                         placeholder="" class="inputfield w-full p-inputtext-sm">
                                                 </div>
                                                 <div class="col-4">
-                                                    <input type="date" formControlName="factorRHFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="factorRHFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -1444,7 +1444,7 @@
                                                         placeholder="" class="inputfield w-full p-inputtext-sm">
                                                 </div>
                                                 <div class="col-4">
-                                                    <input type="date" formControlName="hemogramaFecha"
+                                                    <input type="datetime-local" formControlName="hemogramaFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -1461,7 +1461,7 @@
                                                         placeholder="" class="inputfield w-full p-inputtext-sm">
                                                 </div>
                                                 <div class="col-4">
-                                                    <input type="date" formControlName="hemoglobinaFecha"
+                                                    <input type="datetime-local" formControlName="hemoglobinaFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -1478,7 +1478,7 @@
                                                         placeholder="" class="inputfield w-full p-inputtext-sm">
                                                 </div>
                                                 <div class="col-4">
-                                                    <input type="date" formControlName="factorCorreccionFecha"
+                                                    <input type="datetime-local" formControlName="factorCorreccionFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -1495,7 +1495,7 @@
                                                         class="inputfield w-full p-inputtext-sm">
                                                 </div>
                                                 <div class="col-4">
-                                                    <input type="date" formControlName="htoFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="htoFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -1511,7 +1511,7 @@
                                                         placeholder="" class="inputfield w-full p-inputtext-sm">
                                                 </div>
                                                 <div class="col-4">
-                                                    <input type="date" formControlName="glucosaFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="glucosaFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid text-center">
@@ -1551,7 +1551,7 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="rprFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="rprFecha" inputId="icon" />
                                                 </div>
                                             </div>
 
@@ -1578,7 +1578,7 @@
                                                     </p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="rprReactivoFecha"
+                                                    <input type="datetime-local" formControlName="rprReactivoFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -1602,7 +1602,7 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="pruebaVIHFecha"
+                                                    <input type="datetime-local" formControlName="pruebaVIHFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -1627,7 +1627,7 @@
                                                         value="no aplica" class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="prHepatitisFecha"
+                                                    <input type="datetime-local" formControlName="prHepatitisFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -1652,7 +1652,7 @@
                                                         value="no aplica" class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="elisaFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="elisaFecha" inputId="icon" />
                                                 </div>
                                             </div>
 
@@ -1693,7 +1693,7 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="glicemiaFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="glicemiaFecha" inputId="icon" />
                                                 </div>
                                             </div>
 
@@ -1722,7 +1722,7 @@
                                                         class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="toleranciaGlucosaFecha"
+                                                    <input type="datetime-local" formControlName="toleranciaGlucosaFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -1766,7 +1766,7 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="exaOrinaFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="exaOrinaFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -1788,7 +1788,7 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="bacteriuriaFecha"
+                                                    <input type="datetime-local" formControlName="bacteriuriaFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -1811,7 +1811,7 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="nitritosFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="nitritosFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -1833,7 +1833,7 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="urocultivoFecha"
+                                                    <input type="datetime-local" formControlName="urocultivoFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -1858,7 +1858,7 @@
                                                         value="no aplica" class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="bkEsputoFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="bkEsputoFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -1882,7 +1882,7 @@
                                                         value="no aplica" class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="wsternBlotlfiFecha"
+                                                    <input type="datetime-local" formControlName="wsternBlotlfiFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -1907,7 +1907,7 @@
                                                         value="no aplica" class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="thlv1Fecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="thlv1Fecha" inputId="icon" />
 
                                                 </div>
                                             </div>
@@ -1932,7 +1932,7 @@
                                                         value="no aplica" class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="torchFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="torchFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -1956,7 +1956,7 @@
                                                         value="no aplica" class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="gotaGruesaFecha"
+                                                    <input type="datetime-local" formControlName="gotaGruesaFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -2000,7 +2000,7 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="proteinuriaCuantitativaFecha"
+                                                    <input type="datetime-local" formControlName="proteinuriaCuantitativaFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -2029,7 +2029,7 @@
                                                         class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="proteinuriaCualitativaFecha"
+                                                    <input type="datetime-local" formControlName="proteinuriaCualitativaFecha"
                                                         inputId="icon" />
                                                 </div>
                                             </div>
@@ -2052,7 +2052,7 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="exSecVFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="exSecVFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -2077,7 +2077,7 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="papFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="papFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -2101,7 +2101,7 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="date" formControlName="ivaaFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="ivaaFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                         </div>
@@ -2159,7 +2159,7 @@
                                         <div class="grid p-fluid">
                                             <div class="col-6">
                                                 <label class="text-sm">Fecha:</label>
-                                                <input type="text" class="p-inputtext-sm " pInputText />
+                                                <input formControlName="ecografiaFecha" type="datetime-local" class="p-inputtext-sm " pInputText />
                                             </div>
                                             <div class="col-6">
                                                 <label class="text-sm">Edad Gestacional:</label>
@@ -2196,7 +2196,7 @@
                                 </div>
                                 <div class="col-4">
                                     <label class="text-sm">Visita Dom. Fecha:</label>
-                                    <input formControlName="visitaDomiciliariaFecha" type="date" class="p-inputtext-sm "
+                                    <input formControlName="visitaDomiciliariaFecha" type="datetime-local" class="p-inputtext-sm "
                                         pInputText />
                                 </div>
                                 <div class="col-4">
@@ -2238,7 +2238,7 @@
                                     <div class="grid">
                                         <div class="col-12">
                                             <label class="text-sm">PRÓXIMA CITA:</label>
-                                            <input formControlName="proxCita" type="date" class="p-inputtext-sm "
+                                            <input formControlName="proxCita" type="datetime-local" class="p-inputtext-sm "
                                                 pInputText />
                                         </div>
                                     </div>
@@ -2260,7 +2260,7 @@
         </div>
     </div>
     <div class="footer">
-        <button pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2"></button>
+        <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-primary mt-4 mr-2"></button>
         <button pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
     </div>
 </div>
@@ -2421,7 +2421,7 @@
                 </div>
                 <div class="col-4">
                     <label>Fecha</label>
-                    <input type="text" pInputText formControlName='fecha' placeholder=""
+                    <input type="datetime-local" pInputText formControlName='fecha' placeholder=""
                         class="p-inputtext-sm inputfield w-full">
                 </div>
             </div>
@@ -2500,7 +2500,7 @@
                 </div>
                 <div class="col-4">
                     <label>Fecha Vencimiento:</label>
-                    <input type="text" pInputText formControlName='fechaVenc' placeholder=""
+                    <input type="datetime-local" pInputText formControlName='fechaVenc' placeholder=""
                         class="p-inputtext-sm inputfield w-full">
                 </div>
             </div>

@@ -138,12 +138,12 @@ export class InterrogatorioComponent implements OnInit {
       auxPhysicalExam.push(this.listaOtrosPruebasFisicas[i]);
     }
     this.interrogatorioData = {
-      nroHcl: '10101013',
+      nroHcl: '24015415',
       nroAtencion: 1,
       nroControlSis: 1,
       nroEmbarazo: 1,
       tipoDoc: 'DNI',
-      nroDoc: '10101013',
+      nroDoc: '24015415',
       funcionesVitales: {
         t: this.form.value.temperatura,
         presionSistolica: this.form.value.presionSisto,
@@ -243,7 +243,7 @@ export class InterrogatorioComponent implements OnInit {
 
   loadData() {
     let auxData = {
-      nroHcl: "10101013",
+      nroHcl: "24015415",
       nroEmbarazo: 1,
       nroAtencion: 1
     }
