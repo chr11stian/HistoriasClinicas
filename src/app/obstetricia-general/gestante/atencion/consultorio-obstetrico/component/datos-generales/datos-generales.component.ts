@@ -14,6 +14,9 @@ import {DatePipe} from "@angular/common";
 export class DatosGeneralesComponent implements OnInit {
     formDatos_Generales: FormGroup;
 
+    /**Recupera el Id del Consultorio Obstetrico**/
+    idConsultoriObstetrico: string;
+
     //opciones de vacunas previas///
     opciones: any;
     opciones1: any;
@@ -52,6 +55,7 @@ export class DatosGeneralesComponent implements OnInit {
         this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
         this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
         this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
+        this.idConsultoriObstetrico = this.obstetriciaGeneralService.idConsultoriObstetrico;
 
         /** OTRAS OPCIONES**/
         this.opciones = [
@@ -94,6 +98,7 @@ export class DatosGeneralesComponent implements OnInit {
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
         console.log("Nro de embarazo", this.nroEmbarazo);
+        console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
 
         /**Si la datos de consultorio esta en vacio recupera los datos del paciente***/
         /**Caso contrario recupera los datos de Consultorio***/

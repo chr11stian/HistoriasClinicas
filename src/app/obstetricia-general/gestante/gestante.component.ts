@@ -4,7 +4,6 @@ import {ObstetriciaGeneralService} from "../services/obstetricia-general.service
 import {Route, Router, RouterLink} from "@angular/router";
 import {FiliancionService} from "./atencion/h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 
-
 @Component({
     selector: 'app-gestante',
     templateUrl: './gestante.component.html',
@@ -24,7 +23,6 @@ export class GestanteComponent implements OnInit {
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
                 private filiancionService: FiliancionService) {
-
     }
 
     ngOnInit(): void {
@@ -37,9 +35,8 @@ export class GestanteComponent implements OnInit {
             this.pacientesFiliacion = res.object
             console.log('paciente filiados ', this.pacientesFiliacion)
         });
-        this.obstetriciaGeneralService.idGestacion = this.id;
-
     }
+
 
     ver(event) {
         // console.log("id documento", this.idDocumento);
@@ -48,6 +45,7 @@ export class GestanteComponent implements OnInit {
         this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = event.nroDoc;
         this.obstetriciaGeneralService.nroEmbarazo = event.nroEmbarazo;
+        this.obstetriciaGeneralService.nroHcl = event.nroHcl;
 
     }
 

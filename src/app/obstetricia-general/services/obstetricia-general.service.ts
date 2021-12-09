@@ -14,6 +14,7 @@ export class ObstetriciaGeneralService {
     tipoDoc: string = "";
     nroDoc: string = "";
     nroEmbarazo: string = "";
+    nroHcl: string;
 
 
     /***Id del consultorio obstetrico***/
@@ -27,7 +28,7 @@ export class ObstetriciaGeneralService {
     }
 
     getConsultorioObstetrico(data) {
-        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar/`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar/`, data)
     }
 
 }
