@@ -4,7 +4,8 @@
     </ng-template>
     <ng-template pTemplate="right" class="button">
         <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                (click)="agrgarFiliacionDatoPersonales()" class="guardar mr-2" style="background-color: #0c3866"></button>
+                (click)="agrgarFiliacionDatoPersonales()" class="guardar mr-2"
+                style="background-color: #0c3866"></button>
     </ng-template>
 </p-toolbar>
 <br>
@@ -24,10 +25,16 @@
                         <input type="text" pInputText class="inputfield w-full" formControlName="apeMaterno">
                     </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-4 p-field">
+                <div class="col-12 md:col-6 lg:col-2 p-field">
                     <div class="">
                         <label class="m-1">Nombres: </label>
                         <input type="text" pInputText class="inputfield w-full " formControlName="primerNombre">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-2 p-field">
+                    <div class="">
+                        <label class="m-1">HCL: </label>
+                        <input type="text" pInputText class="inputfield w-full " formControlName="HCL">
                     </div>
                 </div>
             </div>
@@ -43,7 +50,8 @@
                 <div class="col-12 md:col-6 lg:col-2 p-field">
                     <div class="">
                         <label class="m-1">Fecha de Nacimiento:</label>
-                        <input type="date" pInputText class="inputfield w-full" formControlName="fechaNacimiento">
+                        <p-calendar formControlName="fechaNacimiento" placeholder="Fecha"
+                                    dateFormat="yy-mm-dd"></p-calendar>
                     </div>
                 </div>
 

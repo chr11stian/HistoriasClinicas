@@ -276,10 +276,8 @@ export class PartosComponent implements OnInit {
     }
 
     getPartoAborto() {
-
         this.partoAbortoService.getPartoAborto(this.idPaciente).subscribe((resp)=> {
             if (resp['cod'] == '2005') {
-                console.log("hola",resp)
                 let respuesta = resp['object'];
                 this.getFC('hcmp').setValue(respuesta.estado.hcmp);
                 this.getFC('pc').setValue(respuesta.estado.productoConcepcion);
@@ -355,7 +353,7 @@ export class PartosComponent implements OnInit {
                 this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro recuperado satisfactoriamente'});
 
             }
-            else{
+            if(resp['cod'] == '2004'){
                 this.isUpdate=false;
                 this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe registro parto aborto'});
             }
