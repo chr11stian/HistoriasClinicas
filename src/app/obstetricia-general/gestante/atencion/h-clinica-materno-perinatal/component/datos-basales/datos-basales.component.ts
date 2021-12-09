@@ -49,14 +49,7 @@ export class DatosBasalesComponent implements OnInit {
         private imcService: ImcService,
     ) {
         this.inicalizarForm();
-        this.idGestante = this.obstetriciaService.idGestacion
-        // let pesoActual: number = 72;
-        // let altura: number = 1.60;
-        // let edadGestacional: number = 13;
-        // this.CieService.getGananciaPesoRegular(edadGestacional).subscribe((res: any) => {
-        //     this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
-        //     this.form.patchValue({ imc: ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2) });
-        // });
+        this.idGestante = this.obstetriciaService.idGestacion;
     }
 
     ngOnInit(): void {
@@ -662,7 +655,7 @@ export class DatosBasalesComponent implements OnInit {
         auxFUM = auxFUM + 0;
         let auxWeek = today - auxFUM;
         this.edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24 * 7));
-        
+
         console.log('edad gestacional ', this.edadGestacional);
         if (this.edadGestacional > 0) {
             this.imcService.getGananciaPesoRegular(this.edadGestacional).subscribe((res: any) => {
@@ -675,10 +668,10 @@ export class DatosBasalesComponent implements OnInit {
     }
 
     openDialogHemoglobina() {
-        // this.hemoglobinaDialog = true;
         this.ref = this.dialog.open(HemoglobinaDialogComponent, {
             header: "HEMOGLOBINA EXTRA",
             width: "50%",
+            height: "500px",
             contentStyle: {
                 "max-height": "500px",
                 overflow: "auto",
@@ -689,7 +682,7 @@ export class DatosBasalesComponent implements OnInit {
         });
 
         this.ref.onClose.subscribe((data: any) => {
-            console.log('data de otro dialog ', data)
+            console.log('data de dialog hemoglobina ', data)
         });
     }
 }

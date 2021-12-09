@@ -17,13 +17,15 @@
                     <label class="">Fecha:</label>
                     <input type="date" pInputText formControlName='fechaHemo' placeholder=""
                         class="funcionesBiologicas inputfield w-full">
-                </div>
-                <div class="col-3">
+                </div>   
+            </div>
+            <div class="grid text-right">
+                <div class="col-12">
                     <button pButton pRipple label="Agregar" icon="pi pi-plus" class=" bg-blue-700"
                         (click)="agregarHemo()"></button>
                 </div>
             </div>
-            <div class="grid">
+            <div class="grid ">
                 <div class="col-12">
                     <p-table [value]="listaHemoglobina" [showCurrentPageReport]="true" [filterDelay]="0">
                         <ng-template pTemplate="caption">
@@ -54,8 +56,15 @@
                                 </td>
                             </tr>
                         </ng-template>
+
                     </p-table>
                 </div>
+            </div>
+            <div class="footer">
+                <button pButton type="button" label="Guardar" (click)="confirmarDialog()"
+                    class="p-button-primary mt-4 mr-2"></button>
+                <button pButton type="button" label="Cancelar" class="p-button-danger mt-4"
+                    (click)="closeDialog()"></button>
             </div>
         </div>
     </form>

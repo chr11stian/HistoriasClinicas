@@ -1,8 +1,8 @@
-import { ThrowStmt } from "@angular/compiler";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { MessageService } from "primeng/api";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { ObstetriciaGeneralService } from "src/app/obstetricia-general/services/obstetricia-general.service";
 import { ConsultasService } from "../../services/consultas.service";
 
 @Component({
@@ -46,14 +46,19 @@ export class InterrogatorioComponent implements OnInit {
   examenesFisicosDialog: boolean = false;
   indexEdit: number = 0;
   update: boolean = false;
+  idConsulta: string;
+  ultimaConsulta: ultimaConsulta;
 
   constructor(
     private fb: FormBuilder,
     public dialog: DialogService,
     private consultaObstetricaService: ConsultasService,
     private messageService: MessageService,
+    private obstetriciaService: ObstetriciaGeneralService
   ) {
     this.inicializarForm();
+    this.idConsulta = this.obstetriciaService.idGestacion;
+    console.log('id Consulta interrogatorio ', this.idConsulta)
   }
 
   ngOnInit(): void {
@@ -123,67 +128,76 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   recuperarDatos() {
-    let auxPhysicalExam: any[] = [
-      { funcion: 'piel', valor: this.form.value.piel },
-      { funcion: 'mucosas', valor: this.form.value.mucosas },
-      { funcion: 'cabeza', valor: this.form.value.cabeza },
-      { funcion: 'cuello', valor: this.form.value.cuello },
-      { funcion: 'cardioVasc', valor: this.form.value.cardioVasc },
-      { funcion: 'pulmones', valor: this.form.value.pulmones },
-      { funcion: 'mamas', valor: this.form.value.mamas },
-      { funcion: 'pezones', valor: this.form.value.pezones },
-      { funcion: 'abdomen', valor: this.form.value.abdomen },
-    ]
-
-    for (let i = 0; i < this.listaOtrosPruebasFisicas.length; i++) {
-      auxPhysicalExam.push(this.listaOtrosPruebasFisicas[i]);
+    let rptaUltimaConsulta: ultimaConsulta;
+    let idData = {
+      id: this.idConsulta
     }
-    this.interrogatorioData = {
-      nroHcl: '24015415',
-      nroAtencion: 1,
-      nroControlSis: 1,
-      nroEmbarazo: 1,
-      tipoDoc: 'DNI',
-      nroDoc: '24015415',
-      funcionesVitales: {
-        t: this.form.value.temperatura,
-        presionSistolica: this.form.value.presionSisto,
-        fc: this.form.value.fc,
-        fr: this.form.value.fr,
-        peso: this.form.value.peso,
-        talla: this.form.value.talla,
-        imc: this.form.value.imc,
-        presionDiastolica: this.form.value.presionDisto,
+    this.consultaObstetricaService.getUltimaConsultaById(idData).subscribe((res: any) => {
+      rptaUltimaConsulta = res.object;
+      let auxPhysicalExam: any[] = [
+        { funcion: 'piel', valor: this.form.value.piel },
+        { funcion: 'mucosas', valor: this.form.value.mucosas },
+        { funcion: 'cabeza', valor: this.form.value.cabeza },
+        { funcion: 'cuello', valor: this.form.value.cuello },
+        { funcion: 'cardioVasc', valor: this.form.value.cardioVasc },
+        { funcion: 'pulmones', valor: this.form.value.pulmones },
+        { funcion: 'mamas', valor: this.form.value.mamas },
+        { funcion: 'pezones', valor: this.form.value.pezones },
+        { funcion: 'abdomen', valor: this.form.value.abdomen },
+      ]
+  
+      for (let i = 0; i < this.listaOtrosPruebasFisicas.length; i++) {
+        auxPhysicalExam.push(this.listaOtrosPruebasFisicas[i]);
       }
-      ,
-      funcionesBiologicas: [
-        { funcion: 'Apetito', valor: this.form.value.apetito },
-        { funcion: 'Sed', valor: this.form.value.sed },
-        { funcion: 'Sueños', valor: this.form.value.suenos },
-        { funcion: 'Estado Animo', valor: this.form.value.estadoAnimo },
-        { funcion: 'Orina', valor: this.form.value.orina },
-        { funcion: 'Deposiciones', valor: this.form.value.deposiciones },
-      ],
-      interrogatorio: [
-        { pregunta: 'Motido de consulta', respuesta: this.form.value.motivoConsulta },
-        { pregunta: 'Tiempo de enfermedad', respuesta: this.form.value.tiempoEnfermedad },
-        { pregunta: 'observacion', respuesta: this.form.value.observaciones },
-      ],
-      examenesFisicos: auxPhysicalExam,
-      examenesObstetricos: {
-        alturaUterina: this.form.value.alturaUterina,
-        miembrosInferiores: this.form.value.miembrosInferiores,
-        reflejoOsteotendinoso: this.form.value.osteotendinoso,
-        genitalesExternos: this.form.value.genitalesExter,
-        vagina: this.form.value.vagina,
-        cuelloUterino: this.form.value.cuelloUterino,
-        edema: this.form.value.edema,
-        semanas: this.form.value.semanas,
-        dias: this.form.value.dias,
-      },
-      examenesFetos: this.listaExamenesFetos,
-      examenFisicoObservaciones: this.form.value.obsExamFisico
-    }
+  
+      this.interrogatorioData = {
+        nroHcl: '24015415',
+        nroAtencion: 1,
+        nroControlSis: 1,
+        nroEmbarazo: 1,
+        tipoDoc: 'DNI',
+        nroDoc: '24015415',
+        funcionesVitales: {
+          t: this.form.value.temperatura,
+          presionSistolica: this.form.value.presionSisto,
+          fc: this.form.value.fc,
+          fr: this.form.value.fr,
+          peso: this.form.value.peso,
+          talla: this.form.value.talla,
+          imc: this.form.value.imc,
+          presionDiastolica: this.form.value.presionDisto,
+        }
+        ,
+        funcionesBiologicas: [
+          { funcion: 'Apetito', valor: this.form.value.apetito },
+          { funcion: 'Sed', valor: this.form.value.sed },
+          { funcion: 'Sueños', valor: this.form.value.suenos },
+          { funcion: 'Estado Animo', valor: this.form.value.estadoAnimo },
+          { funcion: 'Orina', valor: this.form.value.orina },
+          { funcion: 'Deposiciones', valor: this.form.value.deposiciones },
+        ],
+        interrogatorio: [
+          { pregunta: 'Motido de consulta', respuesta: this.form.value.motivoConsulta },
+          { pregunta: 'Tiempo de enfermedad', respuesta: this.form.value.tiempoEnfermedad },
+          { pregunta: 'observacion', respuesta: this.form.value.observaciones },
+        ],
+        examenesFisicos: auxPhysicalExam,
+        examenesObstetricos: {
+          alturaUterina: this.form.value.alturaUterina,
+          miembrosInferiores: this.form.value.miembrosInferiores,
+          reflejoOsteotendinoso: this.form.value.osteotendinoso,
+          genitalesExternos: this.form.value.genitalesExter,
+          vagina: this.form.value.vagina,
+          cuelloUterino: this.form.value.cuelloUterino,
+          edema: this.form.value.edema,
+          semanas: this.form.value.semanas,
+          dias: this.form.value.dias,
+        },
+        examenesFetos: this.listaExamenesFetos,
+        examenFisicoObservaciones: this.form.value.obsExamFisico
+      }
+    });
+    
   }
 
   guardarDatos() {
@@ -213,14 +227,14 @@ export class InterrogatorioComponent implements OnInit {
     }
   }
 
-  btnGuardar() {
+  btnGuardarExamFetal() {
     console.log('form ', this.formExamenFetal.value.selectSituacion)
     this.recuperarDatosExamFet();
     this.fetalesExamDialog = false;
     this.listaExamenesFetos.push(this.examenesFetales)
   }
 
-  btnCancelar() {
+  btnCancelarExamFetal() {
     this.fetalesExamDialog = false;
   }
   openDialogExamenesFinal() {
@@ -322,4 +336,13 @@ export class InterrogatorioComponent implements OnInit {
   eliminarExamFisicos(index) {
     this.listaOtrosPruebasFisicas.splice(index, 1);
   }
+}
+
+export interface ultimaConsulta {
+  nroEmbarazo?: number,
+  estado?: number,
+  direccion?: string,
+  edad?: number,
+  nroUltimaAtencion?: number,
+  nroUltimoControlSis?: number
 }

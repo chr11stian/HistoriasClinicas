@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
@@ -23,27 +23,33 @@ export class HemoglobinaDialogComponent implements OnInit {
 
   inicializarForm() {
     this.formHemoglobina = this.fb.group({
-      hg: new FormControl(''),
-      factorCorrec: new FormControl(''),
-      fechaHemo: new FormControl(''),
+      hg: new FormControl('', Validators.required),
+      factorCorrec: new FormControl('', Validators.required),
+      fechaHemo: new FormControl('', Validators.required),
     });
   }
 
   agregarHemo() {
-    let dataHemo = {
-      hg: this.formHemoglobina.value.hg,
-      factCorrecion: this.formHemoglobina.value.factorCorrec,
-      fecha: this.formHemoglobina.value.fechaHemo
+    if (this.formHemoglobina.valid) {
+      let dataHemo = {
+        hg: this.formHemoglobina.value.hg,
+        factCorrecion: this.formHemoglobina.value.factorCorrec,
+        fecha: this.formHemoglobina.value.fechaHemo
+      }
+      this.listaHemoglobina.push(dataHemo);
+      this.formHemoglobina.reset();
     }
-    this.listaHemoglobina.push(dataHemo);
-    this.formHemoglobina.reset();
   }
 
   eliminarHemo(index) {
     this.listaHemoglobina.splice(index, 1);
   }
 
-  close() {
+  closeDialog() {
     this.ref.close();
+  }
+
+  confirmarDialog() {
+    this.ref.close(this.listaHemoglobina)
   }
 }
