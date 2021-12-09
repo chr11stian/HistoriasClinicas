@@ -174,7 +174,6 @@ export class ResultadosComponent implements OnInit {
             return '';
         }
     }
-
     getFechaHora(date: Date) {
         if (date.toString() !== '') {
             let hora = date.toLocaleTimeString();
