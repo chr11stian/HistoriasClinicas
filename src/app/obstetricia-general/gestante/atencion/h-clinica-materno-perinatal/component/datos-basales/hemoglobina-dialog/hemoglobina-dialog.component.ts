@@ -32,6 +32,7 @@ export class HemoglobinaDialogComponent implements OnInit {
   agregarHemo() {
     if (this.formHemoglobina.valid) {
       let dataHemo = {
+        descripcion: 'hemoglobina ' + this.listaHemoglobina.length + 1,
         hg: this.formHemoglobina.value.hg,
         factCorrecion: this.formHemoglobina.value.factorCorrec,
         fecha: this.formHemoglobina.value.fechaHemo

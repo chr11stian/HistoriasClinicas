@@ -38,6 +38,7 @@ export class DatosBasalesComponent implements OnInit {
     edadGestacional: number;
     hemoglobinaDialog: boolean = false;
     ref: DynamicDialogRef;
+    otrosExamHemo: any[] = [];
 
     constructor(private filiancionService: FiliancionService,
         private fb: FormBuilder,
@@ -336,13 +337,12 @@ export class DatosBasalesComponent implements OnInit {
                 conFactorCorrecion: this.form.value.conFactor3,
                 fecha: this.form.value.hemo3
             },
-            {
-                descripcion: 'hemoglobina 4',
-                hg: this.form.value.hg4,
-                conFactorCorrecion: this.form.value.conFactor4,
-                fecha: this.form.value.hemo4
-            },
         ]
+        if (this.otrosExamHemo.length > 0) {
+            for (let i = 0; i < this.otrosExamHemo.length; i++) {
+                this.hemoglobina.push(this.otrosExamHemo[i]);
+            }
+        }
     }
 
     recuperarOtrosExamenes() {
@@ -682,6 +682,7 @@ export class DatosBasalesComponent implements OnInit {
         });
 
         this.ref.onClose.subscribe((data: any) => {
+            this.otrosExamHemo = data;
             console.log('data de dialog hemoglobina ', data)
         });
     }
