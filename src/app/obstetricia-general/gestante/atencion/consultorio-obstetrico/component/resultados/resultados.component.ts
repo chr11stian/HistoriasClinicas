@@ -9,35 +9,41 @@ import {MessageService} from "primeng/api";
     styleUrls: ['./resultados.component.css']
 })
 export class ResultadosComponent implements OnInit {
-    examenes = [{name: 'grupoSanguineo'},
-        {name: 'factorRH'},
-        {name: 'hemograma'},
-        {name: 'hemoglobina'},
-        {name: 'factorCorreccion'},
-        {name: 'hto'},
-        {name: 'glucosa'},
-        {name: 'toleranciaGlucosa'},
-        { name: 'exaOrina'},
-        { name: 'rpr'},
-        {name: 'rprReactivo'},
-        {name: 'exSecV'},
-        {name: 'proteinuriaCuantitativa'},
-        {name: 'proteinuriaCualitativa' },
-        {name: 'pruebaVIH'},
-        {name: 'prHepatitis' },
-        {name: 'elisa'},
-        {name: 'glicemia'},
-        {name: 'bacteriuria'},
-        {name: 'nitritos'},
-        {name: 'urocultivo'},
-        {name: 'bkEsputo'},
-        {name: 'wsternBlotlfi'},
-        {name: 'thlv1'},
-        {name: 'torch'},
-        {name: 'gotaGruesa'},
-        { name: 'pap'},
-        {name: 'ivaa'}
+    examenSeleccionado='otros';
+    examenes = [
+        {name: 'grupoSanguineo',code:1},
+        {name: 'factorRH',code:2},
+        {name: 'hemograma',code:3},
+        {name: 'hemoglobina',code:4},
+        {name: 'factorCorreccion',code:5},
+        {name: 'hto',code:6},
+        {name: 'glucosa',code:7},
+        {name: 'toleranciaGlucosa',code:8},
+        {name: 'exaOrina',code:9},
+        {name: 'rpr',code:10},
+        {name: 'rprReactivo',code:11},
+        {name: 'exSecV',code:12},
+        {name: 'proteinuriaCuantitativa',code:13},
+        {name: 'proteinuriaCualitativa',code:14},
+        {name: 'pruebaVIH',code:15},
+        {name: 'prHepatitis',code:16},
+        {name: 'elisa',code:17},
+        {name: 'glicemia',code:18},
+        {name: 'bacteriuria',code:19},
+        {name: 'nitritos',code:20},
+        {name: 'urocultivo',code:21},
+        {name: 'bkEsputo',code:22},
+        {name: 'wsternBlotlfi',code:23},
+        {name: 'thlv1',code:24},
+        {name: 'torch',code:25},
+        {name: 'gotaGruesa',code:26},
+        {name: 'pap',code:27},
+        {name: 'ivaa',code:28}
     ]
+    seleccionar(valor){
+        this.examenSeleccionado=valor.value.code
+        console.log(this.examenSeleccionado)
+    }
     resultadoEcografiaFG: FormGroup;
     isUpdate: boolean = false;
     grupoSanguineo = [

@@ -1,20 +1,28 @@
+:host ::ng-deep .p-datatable-header {
+  font-size: 1.2rem;
+  font-weight:normal;
+  text-align: center;
+}
 p-table >>> .p-datatable table {
   width: auto;
   /*overflow: visible;*/
 }
 p-table >>> .p-datatable .p-datatable-thead > tr > th {
+  width:auto;
   text-align: center;
-  font-size: small;
+  font-size: 1rem;
   word-wrap: break-word;
-  padding: 0rem;
+  padding: 1rem;
   border: 1px solid #b6b6b6;
 
   /* background-color: #dddddd; */
 }
 p-table >>> .p-datatable .p-datatable-tbody > tr > td {
   text-align: center;
-  font-size: small;
+  font-size: 1rem;
   word-wrap: break-word;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .borde {
   border: solid 1px black;
