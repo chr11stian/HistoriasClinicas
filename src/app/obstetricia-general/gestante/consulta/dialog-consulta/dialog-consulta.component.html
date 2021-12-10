@@ -1142,7 +1142,8 @@
                                     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                                         <tr style="text-align: center">
                                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                            <td style="text-align: center">{{ rowData.tipo }}</td>
+                                            <td style="text-align: center">{{ rowData.tipo==="R"? "REPETITIVO":
+                                                (rowData.tipo==="D"? "DEFINITIVO":"PRESUNTIVO")}}</td>
                                             <td style="text-align: center">{{ rowData.diagnostico }}</td>
                                             <td style="text-align: center">{{ rowData.cie10 }}</td>
                                             <td style="text-align: center">
@@ -1184,6 +1185,7 @@
                                             <th style="text-align: center">Via Administ.</th>
                                             <th style="text-align: center">Intervalo</th>
                                             <th style="text-align: center">Duracion</th>
+                                            <th style="text-align: center">Observaciones</th>
                                             <th style="text-align: center">Acción</th>
                                         </tr>
                                     </ng-template>
@@ -1196,6 +1198,7 @@
                                             <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
                                             <td style="text-align: center">{{ rowData.intervalo }}</td>
                                             <td style="text-align: center">{{ rowData.duracion }}</td>
+                                            <td style="text-align: center">{{ rowData.observaciones }}</td>
                                             <td style="text-align: center">
                                                 <button pButton pRipple type="button" icon="pi pi-pencil"
                                                     class="p-button-rounded p-button-text"
@@ -1254,7 +1257,12 @@
                                                 <div class="col-3">
                                                     <label>Duracion:</label>
                                                     <input type="text" pInputText formControlName='acidoFolicoDuracion'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Duracion" class="p-inputtext-sm inputfield w-full">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label>Observaciones:</label>
+                                                    <input type="text" pInputText formControlName='acidoFolicoObservaciones'
+                                                        placeholder="Observaciones" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </p-fieldset>
@@ -1301,7 +1309,12 @@
                                                 <div class="col-3">
                                                     <label>Duracion:</label>
                                                     <input type="text" pInputText formControlName='calcioDuracion'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Duracion" class="p-inputtext-sm inputfield w-full">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label>Observaciones:</label>
+                                                    <input type="text" pInputText formControlName='calcioObservaciones'
+                                                        placeholder="Observaciones" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </p-fieldset>
@@ -2359,7 +2372,7 @@
                 <div class="col-6">
                     <label>Tipo Diagnostico</label>
                     <p-dropdown [options]="listaTiposDiagnosticos" formControlName="tipo" optionLabel="name"
-                        optionValue="name" class="inputfield p-fluid w-full" placeholder="Tipo de diagnostico">
+                        optionValue="code" class="inputfield p-fluid w-full" placeholder="Tipo de diagnostico">
                     </p-dropdown>
                 </div>
                 <div class="col-6">
@@ -2423,8 +2436,13 @@
                 </div>
                 <div class="col-6">
                     <label>Duracion:</label>
-                    <input type="text" pInputText formControlName='duracion' placeholder=""
-                        class="p-inputtext-sm inputfield w-full" placeholder="Duracion">
+                    <input type="text" pInputText formControlName='duracion' placeholder="Duracion"
+                        class="p-inputtext-sm inputfield w-full" >
+                </div>
+                <div class="col-6">
+                    <label>Observaciones:</label>
+                    <input type="text" pInputText formControlName='observaciones' placeholder="Observaciones"
+                        class="p-inputtext-sm inputfield w-full">
                 </div>
             </div>
         </form>

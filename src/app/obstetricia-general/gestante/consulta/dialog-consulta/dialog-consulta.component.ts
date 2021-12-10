@@ -14,7 +14,9 @@ import { ConsultaObstetriciaService } from '../services/consulta-obstetricia/con
 })
 export class DialogConsultaComponent implements OnInit {
 
-    idObstetricia: string;
+    nroHcl: string;
+
+    datosNuevaConsulta: any;
 
     form: FormGroup;
     formExamenFetal: FormGroup;
@@ -75,9 +77,9 @@ export class DialogConsultaComponent implements OnInit {
         { name: "CALCIO", code: "1" },
     ];
     listaTiposDiagnosticos = [
-        { name: "R", code: "1" },
-        { name: "D", code: "2" },
-        { name: "T", code: "3" },
+        { name: "REPETITIVO", code: "R" },
+        { name: "DEFINITIVO", code: "D" },
+        { name: "PRESUNTIVO", code: "P" },
     ];
     listaViaAdministracion = [
         {name: 'ENDOVENOSA', code: "1"},
@@ -156,14 +158,18 @@ export class DialogConsultaComponent implements OnInit {
         private consultaObstetriciaService: ConsultaObstetriciaService,
         public config: DynamicDialogConfig
     ) {
-        this.inicializarForm();
-        this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
+        this.nroHcl = this.obstetriciaGeneralService.nroHcl;
         this.estadoEdicion = false;
+        this.consultaObstetriciaService.traerDatosParaConsultaNueva({nroHcl: this.nroHcl}).subscribe((res: any) => {
+            console.log('datos ', res.object);
+            this.datosNuevaConsulta=res.object;
+        });
         console.log("este config", config.data);
         if (config.data) {
             this.llenarCamposEdicionConsulta();
             this.estadoEdicion = true;
         }
+        this.inicializarForm();
     }
 
     ngOnInit(): void { }
@@ -171,10 +177,10 @@ export class DialogConsultaComponent implements OnInit {
     inicializarForm() {
         this.form = this.fb.group({
             fecha: new FormControl(""),
-            edad: new FormControl(""),
-            nroAtencion: new FormControl(""),
-            nroControlSis: new FormControl(""),
-            direccion: new FormControl(""),
+            edad: new FormControl(this.datosNuevaConsulta.edad),
+            nroAtencion: new FormControl(this.datosNuevaConsulta.nroUltimaAtencion+1),
+            nroControlSis: new FormControl(this.datosNuevaConsulta.nroUltimoControlSis+1),
+            direccion: new FormControl(this.datosNuevaConsulta.direccion),
 
             psicoProfilaxis: new FormControl(""),
             fechaPsicoProfilaxis: new FormControl(""),
@@ -286,6 +292,7 @@ export class DialogConsultaComponent implements OnInit {
             acidoFolicoViaAdministracion: new FormControl(""),
             acidoFolicoIntervalo: new FormControl(""),
             acidoFolicoDuracion: new FormControl(""),
+            acidoFolicoObservaciones: new FormControl(""),
             calcioSuplemento: new FormControl(""),
             calcioDescripcion: new FormControl(""),
             calcioNumero: new FormControl(""),
@@ -293,6 +300,7 @@ export class DialogConsultaComponent implements OnInit {
             calcioViaAdministracion: new FormControl(""),
             calcioIntervalo: new FormControl(""),
             calcioDuracion: new FormControl(""),
+            calcioObservaciones: new FormControl(""),
 
             //visita domiciliaria
             visitaDomiciliariaEstado: new FormControl(""),
@@ -368,7 +376,6 @@ export class DialogConsultaComponent implements OnInit {
             descripcionEcografia: new FormControl(""),
             ecografiaFecha: new FormControl(""),
         });
-
         this.formExamenFetal = this.fb.group({
             selectSituacion: new FormControl(""),
             selectPresentacion: new FormControl(""),
@@ -376,13 +383,11 @@ export class DialogConsultaComponent implements OnInit {
             movimientosFetales: new FormControl(""),
             latidosCardiacosFetales: new FormControl(""),
         });
-
         this.formDiagnostico = this.fb.group({
             diagnostico: new FormControl(""),
             cie10: new FormControl(""),
             tipo: new FormControl(""),
         });
-
         this.formTratamiento = this.fb.group({
             descripcion: new FormControl(""),
             numero: new FormControl(""),
@@ -390,14 +395,13 @@ export class DialogConsultaComponent implements OnInit {
             viaAdministracion: new FormControl(""),
             intervalo: new FormControl(""),
             duracion: new FormControl(""),
+            observaciones: new FormControl(""),
         });
-
         this.formInterconsulta = this.fb.group({
             consultorio: new FormControl(""),
             motivo: new FormControl(""),
             fecha: new FormControl(""),
         });
-
         this.formRecomendacion = this.fb.group({
             recomendacion: new FormControl(""),
         });
@@ -414,7 +418,6 @@ export class DialogConsultaComponent implements OnInit {
             nombre: new FormControl(""),
             resultado: new FormControl(""),
         });
-
     }
     openNewOtrosPruebasFisicas() {
         this.formOtrosPruebas.reset();
@@ -635,6 +638,7 @@ export class DialogConsultaComponent implements OnInit {
             viaAdministracion: this.formTratamiento.value.viaAdministracion,
             intervalo: this.formTratamiento.value.intervalo,
             duracion: this.formTratamiento.value.duracion,
+            observaciones: this.formTratamiento.value.observaciones,
         }
         console.log(tratamiento);
         this.datosTratamientos.push(tratamiento);
@@ -661,6 +665,7 @@ export class DialogConsultaComponent implements OnInit {
         this.formTratamiento.get('viaAdministracion').setValue(rowData.viaAdministracion);
         this.formTratamiento.get('intervalo').setValue(rowData.intervalo);
         this.formTratamiento.get('duracion').setValue(rowData.duracion);
+        this.formTratamiento.get('observaciones').setValue(rowData.observaciones);
         this.tratamientoDialog = true;
     }
     guardarEdicionTratamiento() {
@@ -671,6 +676,7 @@ export class DialogConsultaComponent implements OnInit {
             viaAdministracion: this.formTratamiento.value.viaAdministracion,
             intervalo: this.formTratamiento.value.intervalo,
             duracion: this.formTratamiento.value.duracion,
+            observaciones: this.formTratamiento.value.observaciones,
         }
         console.log(tratamiento);
         this.datosTratamientos.splice(this.indexTratamientoEditado, 1, tratamiento);
@@ -906,12 +912,13 @@ export class DialogConsultaComponent implements OnInit {
 
     closeDialogGuardar() {
         var consulta = {
-            nroHcl: "10101013",
+            nroHcl: this.datosNuevaConsulta.nroHcl,
+            nroEmbarazo: this.datosNuevaConsulta.nroEmbarazo,
+            tipoDoc: this.datosNuevaConsulta.tipoDoc,
+            nroDoc: this.datosNuevaConsulta.nroDoc,
+
             nroAtencion: parseInt(this.form.value.nroAtencion),
             nroControlSis: parseInt(this.form.value.nroControlSis),
-            nroEmbarazo: 1,
-            tipoDoc: "DNI",
-            nroDoc: "10101013",
             fecha: this.datePipe.transform(this.form.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
             datosPerHist: {
                 edad: parseInt(this.form.value.edad),
@@ -1106,7 +1113,9 @@ export class DialogConsultaComponent implements OnInit {
                     intervalo: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO" ?
                         this.form.value.acidoFolicoIntervalo : "",
                     duracion: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO" ?
-                        this.form.value.acidoFolicoDuracion : ""
+                        this.form.value.acidoFolicoDuracion : "",
+                    observaciones: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO" ?
+                        this.form.value.acidoFolicoObservaciones : ""
                 },
                 hierroYAcidoFolico: {
                     descripcion: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO Y HIERRO" ?
@@ -1121,6 +1130,8 @@ export class DialogConsultaComponent implements OnInit {
                         this.form.value.acidoFolicoIntervalo : "",
                     duracion: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO Y HIERRO" ?
                         this.form.value.acidoFolicoDuracion : "",
+                    observaciones: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO Y HIERRO" ?
+                        this.form.value.acidoFolicoObservaciones : "",
                 },
                 calcio: {
                     descripcion: this.form.value.calcioSuplemento === "CALCIO" ?
@@ -1135,6 +1146,8 @@ export class DialogConsultaComponent implements OnInit {
                         this.form.value.calcioIntervalo : "",
                     duracion: this.form.value.calcioSuplemento === "CALCIO" ?
                         this.form.value.calcioDuracion : "",
+                    observaciones: this.form.value.calcioSuplemento === "CALCIO" ?
+                        this.form.value.calcioObservaciones : "",
                 }
             },
             inmunizaciones: this.datosInmunizaciones,
@@ -1408,6 +1421,7 @@ export class DialogConsultaComponent implements OnInit {
             this.form.get('acidoFolicoViaAdministracion').setValue(configuracion.tratamientosSuplementos.acidoFolico.viaAdministracion);
             this.form.get('acidoFolicoIntervalo').setValue(configuracion.tratamientosSuplementos.acidoFolico.intervalo);
             this.form.get('acidoFolicoDuracion').setValue(configuracion.tratamientosSuplementos.acidoFolico.duracion);
+            this.form.get('acidoFolicoObservaciones').setValue(configuracion.tratamientosSuplementos.acidoFolico.observaciones);
         }
         else {
             if (configuracion.tratamientosSuplementos.hierroYAcidoFolico.descripcion !== "") {
@@ -1417,6 +1431,7 @@ export class DialogConsultaComponent implements OnInit {
                 this.form.get('acidoFolicoViaAdministracion').setValue(configuracion.tratamientosSuplementos.hierroYAcidoFolico.viaAdministracion);
                 this.form.get('acidoFolicoIntervalo').setValue(configuracion.tratamientosSuplementos.hierroYAcidoFolico.intervalo);
                 this.form.get('acidoFolicoDuracion').setValue(configuracion.tratamientosSuplementos.hierroYAcidoFolico.duracion);
+                this.form.get('acidoFolicoObservaciones').setValue(configuracion.tratamientosSuplementos.hierroYAcidoFolico.observaciones);
             }
             else {
                 this.form.get('acidoFolicoDescripcion').setValue("");
@@ -1425,6 +1440,7 @@ export class DialogConsultaComponent implements OnInit {
                 this.form.get('acidoFolicoViaAdministracion').setValue("");
                 this.form.get('acidoFolicoIntervalo').setValue("");
                 this.form.get('acidoFolicoDuracion').setValue("");
+                this.form.get('acidoFolicoObservaciones').setValue("");
             }
         }
         this.form.get('calcioSuplemento').setValue(configuracion.tratamientosSuplementos.calcio.descripcion!==""?"CALCIO":"");
@@ -1434,6 +1450,7 @@ export class DialogConsultaComponent implements OnInit {
         this.form.get('calcioViaAdministracion').setValue(configuracion.tratamientosSuplementos.calcio.viaAdministracion);
         this.form.get('calcioIntervalo').setValue(configuracion.tratamientosSuplementos.calcio.intervalo);
         this.form.get('calcioDuracion').setValue(configuracion.tratamientosSuplementos.calcio.duracion);
+        this.form.get('calcioObservaciones').setValue(configuracion.tratamientosSuplementos.calcio.observaciones);
         //visita domiciliaria
         this.form.get('visitaDomiciliariaEstado').setValue(configuracion.visitaDomiciliaria.estado);
         this.form.get('visitaDomiciliariaFecha').setValue(configuracion.visitaDomiciliaria.fecha ?

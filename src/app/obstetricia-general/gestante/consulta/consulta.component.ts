@@ -3,6 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { DialogConsultaUniversalComponent } from "../../historia-consultas/dialog-consulta-universal/dialog-consulta-universal.component";
+import { ObstetriciaGeneralService } from "../../services/obstetricia-general.service";
 import { DialogConsultaComponent } from "./dialog-consulta/dialog-consulta.component";
 import { ConsultaObstetriciaService } from "./services/consulta-obstetricia/consulta-obstetricia.service";
 
@@ -18,13 +19,20 @@ export class ConsultaComponent implements OnInit {
   formConsulta: FormGroup;
   consultas = [];
   ref: DynamicDialogRef;
+  nroHcl: string;
+  nroEmbarazo: any;
+
   constructor(
     private fb: FormBuilder,
     private location: Location,
     private dialog: DialogService,
-    private consultaObstetriciaService: ConsultaObstetriciaService
+    private consultaObstetriciaService: ConsultaObstetriciaService,
+    private obstetriciaGeneralService: ObstetriciaGeneralService,
   ) {
     this.inicializarForm();
+    console.log(this.obstetriciaGeneralService);
+    this.nroHcl = this.obstetriciaGeneralService.nroHcl;
+    this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
     this.recuperarConsultas();
     console.log(this.consultas);
   }
@@ -84,8 +92,8 @@ export class ConsultaComponent implements OnInit {
 
   recuperarConsultas() {
     let data = {
-      "nroHcl": "10101013",
-      "nroEmbarazo": 1
+      "nroHcl": this.nroHcl,
+      "nroEmbarazo": this.nroEmbarazo
     }
     this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
       console.log('trajo datos exito ', res)
