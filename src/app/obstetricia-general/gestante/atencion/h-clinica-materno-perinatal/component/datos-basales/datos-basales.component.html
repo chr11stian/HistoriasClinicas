@@ -50,10 +50,12 @@
             <div class="col-6">
                 <p-fieldset legend="Antitetánica">
                     <div class="grid">
-                        <div class="col-3 flex flex-column mt-4">
+                        <div class="col-2 flex flex-column mt-4">
                             <label class="text-sm">N° Dosis Previas: </label>
-                            <input type="number" pInputText formControlName='nroDosisPrevias' placeholder=""
-                                class="inputfield w-full">
+                            <div class="col-8">
+                                <input type="number" pInputText formControlName='nroDosisPrevias' placeholder=""
+                                    class="inputfield w-full">
+                            </div>
                         </div>
                         <div class="col-5 flex flex-column">
                             <label>Dosis</label>
@@ -313,7 +315,7 @@
                                 class="areaText" (onSelect)="selectedOptionNameCIE($event,1)">
                             </p-autoComplete>
                             <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoEmergenci"
-                                pInputTextarea></textarea>
+                                pInputTextarea disabled></textarea>
                         </div>
                         <div class="grid mt-2 p-fluid">
                             <div class="col-4">
@@ -618,11 +620,9 @@
                                 </div>
                             </div>
                             <div class="grid">
-                                <div class="col-5">
-                                    <div class="grid">
-                                        <button pButton pRipple label="Agregar Hemoglobina" icon="pi pi-plus"
-                                            class=" bg-blue-700" (click)="openDialogHemoglobina()"></button>
-                                    </div>
+                                <div class="col-12 text-right ">
+                                    <button pButton pRipple label="Agregar Hemoglobina" icon="pi pi-plus"
+                                        class=" bg-blue-700 mr-2" (click)="openDialogHemoglobina()"></button>
                                 </div>
                                 <!-- <div class="col-2">
                                     <input type="text" pInputText formControlName='hg4' placeholder=""
