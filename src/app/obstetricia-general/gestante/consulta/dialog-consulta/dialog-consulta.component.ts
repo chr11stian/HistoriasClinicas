@@ -37,25 +37,25 @@ export class DialogConsultaComponent implements OnInit {
     otrosPruebasDialog: boolean;
 
     listaSituacion = [
-        { name: "Longitudinal", code: "1" },
-        { name: "Transversal", code: "2" },
-        { name: "No Aplica", code: "3" },
+        { name: "LONGITUDINAL", code: "1" },
+        { name: "TRANSVERSAL", code: "2" },
+        { name: "NO APLICA", code: "3" },
     ];
     listaPresentacion = [
-        { name: "Cefalica", code: "1" },
-        { name: "Pelvica", code: "2" },
-        { name: "No Aplica", code: "3" },
+        { name: "CEFALICA", code: "1" },
+        { name: "PELVICA", code: "2" },
+        { name: "NO APLICA", code: "3" },
     ];
     listaPosicion = [
-        { name: "Derecha", code: "1" },
-        { name: "Izquierda", code: "2" },
-        { name: "No Aplica", code: "3" },
+        { name: "DERECHA", code: "1" },
+        { name: "IZQUIERDA", code: "2" },
+        { name: "NO APLICA", code: "3" },
     ];
     listaEdema = [
         { name: "+", code: "1" },
         { name: "++", code: "2" },
         { name: "+++", code: "3" },
-        { name: "es", code: "4" },
+        { name: "ES", code: "4" },
     ];
     listaIndicadores = [
         { name: "GAP", code: "1" },
@@ -63,21 +63,60 @@ export class DialogConsultaComponent implements OnInit {
         { name: "GIP", code: "3" },
     ];
     opciones = [
-        { name: 'Si', code: 'Si' },
-        { name: 'No', code: 'No' },
+        { name: 'SI', code: 'SI' },
+        { name: 'NO', code: 'NO' },
     ];
 
     listaSuplementoAcido = [
-        { name: "Acido Folico", code: "1" },
-        { name: "Acido Folico y Hierro", code: "2" },
+        { name: "ACIDO FOLICO", code: "1" },
+        { name: "ACIDO FOLICO Y HIERRO", code: "2" },
     ];
     listaSuplementoCalcio = [
-        { name: "Calcio", code: "1" },
+        { name: "CALCIO", code: "1" },
     ];
     listaTiposDiagnosticos = [
         { name: "R", code: "1" },
         { name: "D", code: "2" },
         { name: "T", code: "3" },
+    ];
+    listaViaAdministracion = [
+        {name: 'ENDOVENOSA', code: "1"},
+        {name: 'INHALADORA',code: "2"},
+        {name: 'INTRADERMICO', code: "3"},
+        {name: 'INTRAMUSCULAR', code: "4"},
+        {name: 'NASAL', code: "5"},
+        {name: 'OFTALMICO', code: "6"},
+        {name: 'ORAL', code: "7"},
+        {name: 'OPTICO', code: "8"},
+        {name: 'RECTAL', code: "9"},
+        {name: 'SUBCUTANEO', code: "10"},
+        {name: 'SUBLINGUAL', code: "11"},
+        {name: 'TOPICO', code: "12"},
+        {name: 'VAGINAL', code: "13"},
+    ];
+    listaVisitaDomiciliaria = [
+        {name: 'SI', code: "1"},
+        {name: 'NO',code: "2"},
+        {name: 'NO APLICA', code: "3"}
+    ];
+    listaPlanPartoReenfocada = [
+        {name: 'CONTROL', code: "1"},
+        {name: 'VISITA',code: "2"},
+        {name: 'NO SE HIZO', code: "3"}
+    ];
+    listaIntervalos = [
+        {name: 'CADA 1 HORA', code: '1'},
+        {name: 'CADA 2 HORAS', code: '2'},
+        {name: 'CADA 3 HORAS', code: '3'},
+        {name: 'CADA 4 HORAS', code: '4'},
+        {name: 'CADA 5 HORAS', code: '5'},
+        {name: 'CADA 6 HORAS', code: '6'},
+        {name: 'CADA 8 HORAS', code: '7'},
+        {name: 'CADA 12 HORAS', code: '8'},
+        {name: 'CADA 24 HORAS', code: '9'},
+        {name: 'CONDICIONAL A FIEBRE', code: '10'},
+        {name: 'DOSIS UNICA', code: '11'},
+        {name: 'CADA 48 HORAS', code: '12'}
     ];
     datosOtrosPruebasFisicas: any[] = [];
     indexEditarOtrosPruebasFisicasEditado: number = 0;
@@ -341,7 +380,7 @@ export class DialogConsultaComponent implements OnInit {
         this.formDiagnostico = this.fb.group({
             diagnostico: new FormControl(""),
             cie10: new FormControl(""),
-            tipoDiagnostico: new FormControl(""),
+            tipo: new FormControl(""),
         });
 
         this.formTratamiento = this.fb.group({
@@ -522,6 +561,7 @@ export class DialogConsultaComponent implements OnInit {
     }
     guardarNuevoDiagnostico() {
         var diagnostico = {
+            tipo: this.formDiagnostico.value.tipo,
             diagnostico: this.formDiagnostico.value.diagnostico,
             cie10: this.formDiagnostico.value.cie10,
         }
@@ -546,12 +586,14 @@ export class DialogConsultaComponent implements OnInit {
         this.formDiagnostico.reset();
         this.formDiagnostico.get('diagnostico').setValue(rowData.diagnostico);
         this.formDiagnostico.get('cie10').setValue(rowData.cie10);
+        this.formDiagnostico.get('tipo').setValue(rowData.tipo);
         this.diagnosticoDialog = true;
     }
     guardarEdicionDiagnostico() {
         var diagnostico = {
             diagnostico: this.formDiagnostico.value.diagnostico,
             cie10: this.formDiagnostico.value.cie10,
+            tipo: this.formDiagnostico.value.tipo,
         }
         console.log(diagnostico);
         this.datosDiagnosticos.splice(this.indexDiagnosticoEditado, 1, diagnostico);
@@ -881,116 +923,116 @@ export class DialogConsultaComponent implements OnInit {
             },
             descarteSignosAlarmas: [
                 {
-                    descripcion: "Dificultad respiratoria",
+                    descripcion: "DIFICULTAD RESPIRATORIA",
                     valor: this.form.value.dificultadRespiratoria === "true" ? true : false
                 },
                 {
-                    descripcion: "Hipertension arterial",
+                    descripcion: "HIPERTENSION ARTERIAL",
                     valor: this.form.value.hipertensionArterial === "true" ? true : false
                 },
                 {
-                    descripcion: "Sangrado nasal",
+                    descripcion: "SANGRADO NASAL",
                     valor: this.form.value.sangradoNasal === "true" ? true : false
                 },
                 {
-                    descripcion: "Deshidratacion aguda",
+                    descripcion: "DESHIDRATACION AGUDA",
                     valor: this.form.value.deshidratacionAguda === "true" ? true : false
                 },
                 {
-                    descripcion: "Compromiso del sensorio",
+                    descripcion: "COMPROMISO DEL SENSORIO",
                     valor: this.form.value.compromisoSensorio === "true" ? true : false
                 },
                 {
-                    descripcion: "Traumatismo quemadura",
+                    descripcion: "TRAUMATISMO QUEMADURA",
                     valor: this.form.value.traumatismoQuemadura === "true" ? true : false
                 },
                 {
-                    descripcion: "Abdomen agudo",
+                    descripcion: "ABDOMEN AGUDO",
                     valor: this.form.value.abdomenAgudo === "true" ? true : false
                 },
                 {
-                    descripcion: "Intoxicacion Envenenamiento",
+                    descripcion: "INTOXICACION ENVENENAMIENTO",
                     valor: this.form.value.intoxicacionEnvenenamiento === "true" ? true : false
                 },
                 {
-                    descripcion: "Fiebre alta",
+                    descripcion: "FIEBRE ALTA",
                     valor: this.form.value.fiebreAlta === "true" ? true : false
                 },
                 {
-                    descripcion: "Convulsiones",
+                    descripcion: "CONVULSIONES",
                     valor: this.form.value.convulsiones === "true" ? true : false
                 },
                 {
-                    descripcion: "Sangrado genital",
+                    descripcion: "SANGRADO GENITAL",
                     valor: this.form.value.sangradoGenital === "true" ? true : false
                 },
                 {
-                    descripcion: "Dolor de cabeza",
+                    descripcion: "DOLOR DE CABEZA",
                     valor: this.form.value.dolorCabeza === "true" ? true : false
                 },
                 {
-                    descripcion: "Edema",
+                    descripcion: "EDEMA",
                     valor: this.form.value.edema === "true" ? true : false
                 }
             ],
             orientaciones: [
                 {
-                    consejeria: "Orientacion y consejeria Signos de alarma",
+                    consejeria: "ORIENTACIÓN Y CONSEJERIA SIGNOS DE ALARMA",
                     valor: this.form.value.consejeria1 === "true" ? true : false,
                     cie10: this.form.value.cie10_1
                 },
                 {
-                    consejeria: "Consejeria en enfermedades comunes",
+                    consejeria: "CONSEJERIA EN ENFERMEDADES COMUNES",
                     valor: this.form.value.consejeria2 === "true" ? true : false,
                     cie10: this.form.value.cie10_2
                 },
                 {
-                    consejeria: "Sospecha de Tuberculosis",
+                    consejeria: "SOSPECHA DE TUBERCULOSIS",
                     valor: this.form.value.consejeria3 === "true" ? true : false,
                     cie10: this.form.value.cie10_3
                 },
                 {
-                    consejeria: "Infecciones de transmision sexual",
+                    consejeria: "INFECCIONES DE TRANSMISION SEXUAL",
                     valor: this.form.value.consejeria4 === "true" ? true : false,
                     cie10: this.form.value.cie10_4
                 },
                 {
-                    consejeria: "Orientacion nutricional",
+                    consejeria: "ORIENTACIÓN NUTRICIONAL",
                     valor: this.form.value.consejeria5 === "true" ? true : false,
                     cie10: this.form.value.cie10_5
                 },
                 {
-                    consejeria: "Orientacion en planificacion familiar ",
+                    consejeria: "ORIENTACIÓN EN PLANIFICACIÓN FAMILIAR",
                     valor: this.form.value.consejeria6 === "true" ? true : false,
                     cie10: this.form.value.cie10_6
                 },
                 {
-                    consejeria: "Orientacion en prevención de cáncer ginecológico",
+                    consejeria: "ORIENTACIÓN EN PREVENCION DE CÁNCER GINECOLÓGICO",
                     valor: this.form.value.consejeria7 === "true" ? true : false,
                     cie10: this.form.value.cie10_7
                 },
                 {
-                    consejeria: "Orientacion y consejeria Pretest. VIH",
+                    consejeria: "ORIENTACIÓN Y CONSEJERIA PRETEST. VIH",
                     valor: this.form.value.consejeria8 === "true" ? true : false,
                     cie10: this.form.value.cie10_8
                 },
                 {
-                    consejeria: "Consejeria en estilos de vida saludable",
+                    consejeria: "CONSEJERIA EN ESTILOS DE VIDA SALUDABLE",
                     valor: this.form.value.consejeria9 === "true" ? true : false,
                     cie10: this.form.value.cie10_9
                 },
                 {
-                    consejeria: "Orientacion al acompañante",
+                    consejeria: "ORIENTACIÓN AL ACOMPAÑANTE",
                     valor: this.form.value.consejeria10 === "true" ? true : false,
                     cie10: this.form.value.cie10_10
                 },
                 {
-                    consejeria: "Violencia Intrafamiliar",
+                    consejeria: "VIOLENCIA INTRAFAMILIAR",
                     valor: this.form.value.consejeria11 === "true" ? true : false,
                     cie10: this.form.value.cie10_11
                 },
                 {
-                    consejeria: "Plan de parto",
+                    consejeria: "PLAN DE PARTO",
                     valor: this.form.value.consejeria12 === "true" ? true : false,
                     cie10: this.form.value.cie10_12
                 }
@@ -1006,28 +1048,28 @@ export class DialogConsultaComponent implements OnInit {
                 imc: parseFloat(this.form.value.imc)
             },
             funcionesBiologicas: [
-                { funcion: "Apetito", valor: this.form.value.apetito },
-                { funcion: "Sed", valor: this.form.value.sed },
-                { funcion: "Sueño", valor: this.form.value.sueño },
-                { funcion: "Estado animo", valor: this.form.value.estadoAnimo },
-                { funcion: "Orina", valor: this.form.value.orina },
-                { funcion: "Deposiciones", valor: this.form.value.deposiciones }
+                { funcion: "APETITO", valor: this.form.value.apetito },
+                { funcion: "SED", valor: this.form.value.sed },
+                { funcion: "SUEÑO", valor: this.form.value.sueño },
+                { funcion: "ESTADO ANIMO", valor: this.form.value.estadoAnimo },
+                { funcion: "ORINA", valor: this.form.value.orina },
+                { funcion: "DEPOSICIONES", valor: this.form.value.deposiciones }
             ],
             interrogatorio: [
-                { pregunta: "motivo de consulta", respuesta: this.form.value.motivoConsulta },
-                { pregunta: "tiempo de enfermedad", respuesta: this.form.value.tiempoEnfermedad },
-                { pregunta: "observaciones", respuesta: this.form.value.interrogatorioOtro }
+                { pregunta: "MOTIVO DE CONSULTA", respuesta: this.form.value.motivoConsulta },
+                { pregunta: "TIEMPO DE ENFERMEDAD", respuesta: this.form.value.tiempoEnfermedad },
+                { pregunta: "OBSERVACIONES", respuesta: this.form.value.interrogatorioOtro }
             ],
             examenesFisicos: [
-                { funcion: "Piel", valor: this.form.value.piel },
-                { funcion: "Mucosas", valor: this.form.value.mucosas },
-                { funcion: "Cabeza", valor: this.form.value.cabeza },
-                { funcion: "Cuello", valor: this.form.value.cuello },
-                { funcion: "CardioVascular", valor: this.form.value.cardioVascular },
-                { funcion: "Pulmones", valor: this.form.value.pulmones },
-                { funcion: "Mamas", valor: this.form.value.mamas },
-                { funcion: "Pezones", valor: this.form.value.pezones },
-                { funcion: "Abdomen", valor: this.form.value.pezones },
+                { funcion: "PIEL", valor: this.form.value.piel },
+                { funcion: "MUCOSAS", valor: this.form.value.mucosas },
+                { funcion: "CABEZA", valor: this.form.value.cabeza },
+                { funcion: "CUELLO", valor: this.form.value.cuello },
+                { funcion: "CARDIO VASCULAR", valor: this.form.value.cardioVascular },
+                { funcion: "PULMONES", valor: this.form.value.pulmones },
+                { funcion: "MAMAS", valor: this.form.value.mamas },
+                { funcion: "PEZONES", valor: this.form.value.pezones },
+                { funcion: "ABDOMEN", valor: this.form.value.pezones },
             ],
             examenesObstetricos: {
                 alturaUterina: this.form.value.alturaUterina,
@@ -1053,45 +1095,45 @@ export class DialogConsultaComponent implements OnInit {
             tratamientos: this.datosTratamientos,
             tratamientosSuplementos: {
                 acidoFolico: {
-                    descripcion: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                    descripcion: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO" ?
                         this.form.value.acidoFolicoDescripcion : "",
-                    numero: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                    numero: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO" ?
                         parseInt(this.form.value.acidoFolicoNumero) : 0,
-                    dosis: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                    dosis: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO" ?
                         this.form.value.acidoFolicoDosis : "",
-                    viaAdministracion: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                    viaAdministracion: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO" ?
                         this.form.value.acidoFolicoViaAdministracion : "",
-                    intervalo: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                    intervalo: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO" ?
                         this.form.value.acidoFolicoIntervalo : "",
-                    duracion: this.form.value.acidoFolicoSuplemento === "Acido Folico" ?
+                    duracion: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO" ?
                         this.form.value.acidoFolicoDuracion : ""
                 },
                 hierroYAcidoFolico: {
-                    descripcion: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                    descripcion: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO Y HIERRO" ?
                         this.form.value.acidoFolicoDescripcion : "",
-                    numero: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                    numero: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO Y HIERRO" ?
                         parseInt(this.form.value.acidoFolicoNumero) : 0,
-                    dosis: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                    dosis: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO Y HIERRO" ?
                         this.form.value.acidoFolicoDosis : "",
-                    viaAdministracion: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                    viaAdministracion: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO Y HIERRO" ?
                         this.form.value.acidoFolicoViaAdministracion : "",
-                    intervalo: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                    intervalo: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO Y HIERRO" ?
                         this.form.value.acidoFolicoIntervalo : "",
-                    duracion: this.form.value.acidoFolicoSuplemento === "Acido Folico y Hierro" ?
+                    duracion: this.form.value.acidoFolicoSuplemento === "ACIDO FOLICO Y HIERRO" ?
                         this.form.value.acidoFolicoDuracion : "",
                 },
                 calcio: {
-                    descripcion: this.form.value.calcioSuplemento === "Calcio" ?
+                    descripcion: this.form.value.calcioSuplemento === "CALCIO" ?
                         this.form.value.calcioDescripcion : "",
-                    numero: this.form.value.calcioSuplemento === "Calcio" ?
+                    numero: this.form.value.calcioSuplemento === "CALCIO" ?
                         parseInt(this.form.value.calcioNumero) : 0,
-                    dosis: this.form.value.calcioSuplemento === "Calcio" ?
+                    dosis: this.form.value.calcioSuplemento === "CALCIO" ?
                         this.form.value.calcioDosis : "",
-                    viaAdministracion: this.form.value.calcioSuplemento === "Calcio" ?
+                    viaAdministracion: this.form.value.calcioSuplemento === "CALCIO" ?
                         this.form.value.calcioViaAdministracion : "",
-                    intervalo: this.form.value.calcioSuplemento === "Calcio" ?
+                    intervalo: this.form.value.calcioSuplemento === "CALCIO" ?
                         this.form.value.calcioIntervalo : "",
-                    duracion: this.form.value.calcioSuplemento === "Calcio" ?
+                    duracion: this.form.value.calcioSuplemento === "CALCIO" ?
                         this.form.value.calcioDuracion : "",
                 }
             },
@@ -1230,6 +1272,9 @@ export class DialogConsultaComponent implements OnInit {
             codRENAES: "123123",
             planPartoReenfocada: this.form.value.planPartoReenfocada,
         }
+        for (let i=0;i<this.datosOtrosPruebasFisicas.length;i++){
+            consulta.examenesFisicos.push(this.datosOtrosPruebasFisicas[i])
+        }
         console.log('data to save ', consulta);
 
         if (!this.estadoEdicion) {
@@ -1294,7 +1339,7 @@ export class DialogConsultaComponent implements OnInit {
         this.form.get('mamas').setValue(configuracion.examenesFisicos[6].valor);
         this.form.get('pezones').setValue(configuracion.examenesFisicos[7].valor);
         this.form.get('abdomen').setValue(configuracion.examenesFisicos[8].valor);
-        this.form.get('examenFisicoOtro').setValue(configuracion.examenesFisicos[0].valor);// modificar
+        //this.form.get('examenFisicoOtro').setValue(configuracion.examenesFisicos[0].valor);// modificar
         this.form.get('examenFisicoObservaciones').setValue(configuracion.examenFisicoObservaciones);
         this.form.get('alturaUterina').setValue(configuracion.examenesObstetricos.alturaUterina);
         this.form.get('miembrosInferiores').setValue(configuracion.examenesObstetricos.miembrosInferiores);
@@ -1353,9 +1398,9 @@ export class DialogConsultaComponent implements OnInit {
         //suplementos
         this.form.get('acidoFolicoSuplemento').setValue(
             configuracion.tratamientosSuplementos.acidoFolico.descripcion !== "" ?
-                "Acido Folico" :
+                "ACIDO FOLICO" :
                 (configuracion.tratamientosSuplementos.hierroYAcidoFolico.descripcion !== "" ?
-                    "Acido Folico y Hierro" : ""));
+                    "ACIDO FOLICO Y HIERRO" : ""));
         if (configuracion.tratamientosSuplementos.acidoFolico.descripcion !== "") {
             this.form.get('acidoFolicoDescripcion').setValue(configuracion.tratamientosSuplementos.acidoFolico.descripcion);
             this.form.get('acidoFolicoNumero').setValue(configuracion.tratamientosSuplementos.acidoFolico.numero);
@@ -1382,7 +1427,7 @@ export class DialogConsultaComponent implements OnInit {
                 this.form.get('acidoFolicoDuracion').setValue("");
             }
         }
-        this.form.get('calcioSuplemento').setValue(configuracion.tratamientosSuplementos.calcio.descripcion);
+        this.form.get('calcioSuplemento').setValue(configuracion.tratamientosSuplementos.calcio.descripcion!==""?"CALCIO":"");
         this.form.get('calcioDescripcion').setValue(configuracion.tratamientosSuplementos.calcio.descripcion);
         this.form.get('calcioNumero').setValue(configuracion.tratamientosSuplementos.calcio.numero);
         this.form.get('calcioDosis').setValue(configuracion.tratamientosSuplementos.calcio.dosis);
@@ -1492,6 +1537,14 @@ export class DialogConsultaComponent implements OnInit {
         this.datosInterconsultas = configuracion.interconsultas;
         this.datosRecomendaciones = configuracion.recomendaciones;
         this.datosInmunizaciones = configuracion.inmunizaciones;
-
+        
+        if (configuracion.examenesFisicos.length>9){
+            console.log(configuracion.examenesFisicos.length);
+            for(let i=0;i<configuracion.examenesFisicos.length-9;i++){
+                console.log("entre bucle");
+                this.datosOtrosPruebasFisicas.push(configuracion.examenesFisicos[9+i]);
+                console.log(this.datosOtrosPruebasFisicas);
+            }
+        }
     }
 }

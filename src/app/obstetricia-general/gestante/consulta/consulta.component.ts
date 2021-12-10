@@ -24,13 +24,12 @@ export class ConsultaComponent implements OnInit {
     private dialog: DialogService,
     private consultaObstetriciaService: ConsultaObstetriciaService
   ) {
-    this.recuperarConsultas();
-   }
-
-  ngOnInit(): void {
     this.inicializarForm();
+    this.recuperarConsultas();
     console.log(this.consultas);
   }
+
+  ngOnInit(): void { }
 
   inicializarForm() {
     this.formConsulta = this.fb.group({
@@ -44,27 +43,31 @@ export class ConsultaComponent implements OnInit {
   }
 
   openDialogConsultaNuevo() {
-    let dialog = this.dialog.open(DialogConsultaComponent, {
+    this.ref = this.dialog.open(DialogConsultaComponent, {
       header: "CONSULTA",
       width: "95%",
+      autoZIndex: false,
       contentStyle: {
-        "max-height": "700px",
+        "max-height": "800px",
       },
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log('data de otro dialog ', data)
-      if(data!==undefined) this.recuperarConsultas();
+      if (data !== undefined) {
+        this.recuperarConsultas();
+      }
     })
   }
 
   openDialogConsultaEditar(row, index) {
-    let aux={
+    let aux = {
       index: index,
       row: row
     }
     this.ref = this.dialog.open(DialogConsultaComponent, {
       header: "CONSULTA",
       width: "95%",
+      autoZIndex: false,
       contentStyle: {
         "max-height": "800px",
         overflow: "auto",
@@ -73,20 +76,20 @@ export class ConsultaComponent implements OnInit {
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log('data de otro dialog ', data)
-      if(data!==undefined) {
+      if (data !== undefined) {
         this.recuperarConsultas();
       };
     })
   }
-  
-  recuperarConsultas(){
-    let data={
-      "nroHcl":"10101013",
-      "nroEmbarazo":1
-     }
+
+  recuperarConsultas() {
+    let data = {
+      "nroHcl": "10101013",
+      "nroEmbarazo": 1
+    }
     this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
       console.log('trajo datos exito ', res)
-      this.consultas=res.object?res.object:[];
+      this.consultas = res.object ? res.object : [];
     })
   }
   // openDialogConsultaUniversal() {
