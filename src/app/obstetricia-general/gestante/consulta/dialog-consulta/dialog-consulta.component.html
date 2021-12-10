@@ -6,12 +6,12 @@
                     <div class="col-12  mt-4">
                         <div class="margen border-300">
                             <div class="grid ">
-                                <div class="col-3 md:col-2 text-center">
+                                <div class="col-3 md:col-3 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>Fecha de atención:</label>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-9">
                                             <input formControlName="fecha" type="datetime-local" class="p-inputtext-sm"
                                                 pInputText />
                                         </div>
@@ -24,40 +24,40 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="edad" type="number" class="p-inputtext-sm "
-                                                pInputText />
+                                                pInputText placeholder="Edad"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-3 md:col-2 text-center">
                                     <div class="grid">
-                                        <div class="col-6">
+                                        <div class="col-8">
                                             <label>N° de A. Prenatal:</label>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-4">
                                             <input formControlName="nroAtencion" type="number" class="p-inputtext-sm "
-                                                pInputText />
+                                                pInputText placeholder="Nro aten."/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-3 md:col-2 text-center">
                                     <div class="grid">
-                                        <div class="col-6">
+                                        <div class="col-8">
                                             <label>N° Control SIS:</label>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-4">
                                             <input formControlName="nroControlSis" type="number" class="p-inputtext-sm "
-                                                pInputText />
+                                                pInputText placeholder="Nro control"/>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 md:col-5 text-center">
+                                <div class="col-12 md:col-4 text-center">
                                     <div class="grid">
                                         <div class="col-2">
-                                            <label>Cambio de Domicilio:</label>
+                                            <label>Referencia de Domicilio:</label>
                                         </div>
                                         <div class="col-10">
                                             <input formControlName="direccion" type="text" class="p-inputtext-sm "
-                                                pInputText />
+                                                pInputText placeholder="Referencia domicilio" />
                                         </div>
                                     </div>
                                 </div>
@@ -69,89 +69,112 @@
                             <div class="grid ">
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>T°:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="number" pInputText formControlName='temperatura' placeholder=""
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='temperatura' placeholder="Temp."
                                                 class="p-inputtext-sm inputfield w-full">
                                         </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">C</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>PA(S):</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="number" pInputText formControlName='presionSis' placeholder=""
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='presionSis' placeholder="Sistolica"
                                                 class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">mm.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>PA(D):</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="number" pInputText formControlName='presionDias' placeholder=""
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='presionDias' placeholder="Diastolica"
                                                 class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">Hg.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>F.C:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="number" pInputText formControlName='fc' placeholder=""
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='fc' placeholder="Frec. card."
                                                 class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">por min.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>F.R:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="number" pInputText formControlName='fr' placeholder=""
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='fr' placeholder="Frec. resp."
                                                 class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">por min.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>PESO:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="number" pInputText formControlName='peso' placeholder=""
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='peso' placeholder="Peso"
                                                 class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">kg.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>TALLA:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="number" pInputText formControlName='talla' placeholder=""
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='talla' placeholder="Talla"
                                                 class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">m.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>IMC:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="number" pInputText formControlName='imc' placeholder=""
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='imc' placeholder="IMC"
                                                 class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="col-4">
                                         </div>
                                     </div>
                                 </div>
@@ -184,7 +207,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="apetito" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Apetito" />
                                         </div>
                                     </div>
                                 </div>
@@ -195,7 +218,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="sed" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Sed" />
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +229,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="sueño" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Sueño"/>
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +240,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="estadoAnimo" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Estado Anim."/>
                                         </div>
                                     </div>
                                 </div>
@@ -228,7 +251,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="orina" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Orina" />
                                         </div>
                                     </div>
                                 </div>
@@ -239,7 +262,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="deposiciones" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Deposiciones"/>
                                         </div>
                                     </div>
                                 </div>
@@ -254,19 +277,19 @@
                                         <div class="col-6">
                                             <label>Motivo de Consulta:</label>
                                             <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                                                formControlName="motivoConsulta" pInputTextarea></textarea>
+                                                formControlName="motivoConsulta" pInputTextarea placeholder="Describa motivo de consulta"></textarea>
                                         </div>
                                         <div class="col-6">
                                             <label>Tiempo de la Enfermedad:</label>
                                             <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                                                formControlName="tiempoEnfermedad" pInputTextarea></textarea>
+                                                formControlName="tiempoEnfermedad" pInputTextarea placeholder="Ingrese tiempo de la enfermedad"></textarea>
                                         </div>
                                     </div>
                                     <div class="grid">
                                         <div class="col-12">
                                             <label>Observaciones:</label>
                                             <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                                                formControlName="interrogatorioOtro" pInputTextarea></textarea>
+                                                formControlName="interrogatorioOtro" pInputTextarea placeholder="Ingrese las observaciones"></textarea>
                                         </div>
                                     </div>
                                 </p-fieldset>
@@ -277,12 +300,12 @@
                                         <div class="col-6 ">
                                             <label>Estado:</label>
                                             <input type="text" pInputText formControlName='psicoProfilaxis'
-                                                placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                placeholder="Estado" class="p-inputtext-sm inputfield w-full">
                                         </div>
                                         <div class="col-6 ">
                                             <label>Fecha:</label>
                                             <input type="datetime-local" pInputText
-                                                formControlName='fechaPsicoProfilaxis' placeholder=""
+                                                formControlName='fechaPsicoProfilaxis' 
                                                 class="p-inputtext-sm inputfield w-full">
                                         </div>
                                     </div>
@@ -299,7 +322,7 @@
                                             <div class="grid">
                                                 <div class="col-12 ">
                                                     <label>Piel:</label>
-                                                    <input type="text" pInputText formControlName='piel' placeholder=""
+                                                    <input type="text" pInputText formControlName='piel' placeholder="Piel"
                                                         class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
@@ -309,7 +332,7 @@
                                                 <div class="col-12 ">
                                                     <label>Mucosas:</label>
                                                     <input type="text" pInputText formControlName='mucosas'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Mucosas" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -318,7 +341,7 @@
                                                 <div class="col-12 ">
                                                     <label>Cabeza:</label>
                                                     <input type="text" pInputText formControlName='cabeza'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Cabeza" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -327,7 +350,7 @@
                                                 <div class="col-12">
                                                     <label>Cuello:</label>
                                                     <input type="text" pInputText formControlName='cuello'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Cuello" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -336,7 +359,7 @@
                                                 <div class="col-12">
                                                     <label>Cardio Vasc:</label>
                                                     <input type="text" pInputText formControlName='cardioVascular'
-                                                        placeholder="" class="p-inputtext-sm  inputfield w-full">
+                                                        placeholder="Cardio Vascular" class="p-inputtext-sm  inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -345,7 +368,7 @@
                                                 <div class="col-12 ">
                                                     <label>Pulmones:</label>
                                                     <input type="text" pInputText formControlName='pulmones'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Pulmones" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -353,7 +376,7 @@
                                             <div class="grid">
                                                 <div class="col-12 ">
                                                     <label>Mamas:</label>
-                                                    <input type="text" pInputText formControlName='mamas' placeholder=""
+                                                    <input type="text" pInputText formControlName='mamas' placeholder="Mamas"
                                                         class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
@@ -363,7 +386,7 @@
                                                 <div class="col-12 ">
                                                     <label>Pezones:</label>
                                                     <input type="text" pInputText formControlName='pezones'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Pezones" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -372,7 +395,7 @@
                                                 <div class="col-12">
                                                     <label>Abdomen:</label>
                                                     <input type="text" pInputText formControlName='abdomen'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Abdomen" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -419,19 +442,10 @@
                                                 </ng-template>
                                             </p-table>
                                         </div>
-                                        <!-- <div class="col-9">
-                                            <div class="grid">
-                                                <div class="col-12">
-                                                    <label>Otro(Especifique):</label>
-                                                    <input type="text" pInputText formControlName='examenFisicoOtro'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
-                                                </div>
-                                            </div>
-                                        </div> -->
                                         <div class="col-6">
                                             <label>Examen Fisico:</label>
                                             <textarea formControlName="examenFisicoObservaciones" class="p-fluid w-full"
-                                                rows="6" pInputTextarea></textarea>
+                                                rows="6" pInputTextarea placeholder="Describa el examen fisico"></textarea>
                                         </div>
                                     </div>
                                 </p-fieldset>
@@ -445,8 +459,15 @@
                                     <div class="grid">
                                         <div class="col-12">
                                             <label>Altura Uterina:</label>
-                                            <input type="text" pInputText formControlName='alturaUterina' placeholder=""
-                                                class="p-inputtext-sm  inputfield w-full">
+                                            <div class="grid">
+                                                <div class="col-6">
+                                                    <input type="number" pInputText formControlName='alturaUterina'
+                                                    class="p-inputtext-sm  inputfield w-full">
+                                                </div>
+                                                <div class="mt-2 col-6 text-left">
+                                                    <span class="font-italic">cm.</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1226,18 +1247,18 @@
                                                 <div class="col-6">
                                                     <label>Descripcion:</label>
                                                     <input type="text" pInputText
-                                                        formControlName='acidoFolicoDescripcion' placeholder=""
+                                                        formControlName='acidoFolicoDescripcion' placeholder="Descripcion"
                                                         class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-2">
                                                     <label>Numero:</label>
-                                                    <input type="text" pInputText formControlName='acidoFolicoNumero'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                    <input type="number" pInputText formControlName='acidoFolicoNumero'
+                                                        placeholder="Numero" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Dosis:</label>
                                                     <input type="text" pInputText formControlName='acidoFolicoDosis'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Dosis" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Via de Administracion:</label>
@@ -1280,17 +1301,17 @@
                                                 <div class="col-6">
                                                     <label>Descripcion:</label>
                                                     <input type="text" pInputText formControlName='calcioDescripcion'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Descripcion" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-2">
                                                     <label>Numero:</label>
-                                                    <input type="text" pInputText formControlName='calcioNumero'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                    <input type="number" pInputText formControlName='calcioNumero'
+                                                        placeholder="Numero" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Dosis:</label>
                                                     <input type="text" pInputText formControlName='calcioDosis'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Dosis" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Via de Administracion:</label>

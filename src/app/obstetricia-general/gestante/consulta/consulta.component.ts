@@ -32,6 +32,7 @@ export class ConsultaComponent implements OnInit {
         private consultaObstetriciaService: ConsultaObstetriciaService,
         private obstetriciaGeneralService: ObstetriciaGeneralService
     ) {
+        this.inicializarForm();
         this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
         this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
         this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
@@ -40,7 +41,6 @@ export class ConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.inicializarForm();
         console.log(this.consultas);
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
@@ -60,7 +60,7 @@ export class ConsultaComponent implements OnInit {
     }
 
     openDialogConsultaNuevo() {
-        let dialog = this.dialog.open(DialogConsultaComponent, {
+        this.ref = this.dialog.open(DialogConsultaComponent, {
             header: "CONSULTA",
             width: "95%",
             contentStyle: {
@@ -98,8 +98,8 @@ export class ConsultaComponent implements OnInit {
 
     recuperarConsultas() {
         let data = {
-            "nroHcl": "10101013",
-            "nroEmbarazo": 1
+            "nroHcl": this.obstetriciaGeneralService.nroHcl,
+            "nroEmbarazo": this.obstetriciaGeneralService.nroEmbarazo
         }
         this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
             console.log('trajo datos exito ', res)

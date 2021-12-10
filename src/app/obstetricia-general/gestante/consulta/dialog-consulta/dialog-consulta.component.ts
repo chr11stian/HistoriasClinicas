@@ -160,16 +160,21 @@ export class DialogConsultaComponent implements OnInit {
     ) {
         this.nroHcl = this.obstetriciaGeneralService.nroHcl;
         this.estadoEdicion = false;
+        this.inicializarForm();
         this.consultaObstetriciaService.traerDatosParaConsultaNueva({nroHcl: this.nroHcl}).subscribe((res: any) => {
             console.log('datos ', res.object);
             this.datosNuevaConsulta=res.object;
+            console.log("este config", config.data);
+            this.form.get("edad").setValue(this.datosNuevaConsulta.edad? this.datosNuevaConsulta.edad:"");
+            this.form.get("nroAtencion").setValue(this.datosNuevaConsulta.nroUltimaAtencion? this.datosNuevaConsulta.nroUltimaAtencion+1:"");
+            this.form.get("nroControlSis").setValue(this.datosNuevaConsulta.nroUltimoControlSis? this.datosNuevaConsulta.nroUltimoControlSis+1:"");
+            this.form.get("direccion").setValue(this.datosNuevaConsulta.direccion? this.datosNuevaConsulta.direccion:"");
+            if (config.data) {
+                this.llenarCamposEdicionConsulta();
+                this.estadoEdicion = true;
+            }
         });
-        console.log("este config", config.data);
-        if (config.data) {
-            this.llenarCamposEdicionConsulta();
-            this.estadoEdicion = true;
-        }
-        this.inicializarForm();
+        
     }
 
     ngOnInit(): void { }
@@ -177,10 +182,10 @@ export class DialogConsultaComponent implements OnInit {
     inicializarForm() {
         this.form = this.fb.group({
             fecha: new FormControl(""),
-            edad: new FormControl(this.datosNuevaConsulta.edad),
-            nroAtencion: new FormControl(this.datosNuevaConsulta.nroUltimaAtencion+1),
-            nroControlSis: new FormControl(this.datosNuevaConsulta.nroUltimoControlSis+1),
-            direccion: new FormControl(this.datosNuevaConsulta.direccion),
+            edad: new FormControl(""),
+            nroAtencion: new FormControl(""),
+            nroControlSis: new FormControl(""),
+            direccion: new FormControl(""),
 
             psicoProfilaxis: new FormControl(""),
             fechaPsicoProfilaxis: new FormControl(""),
