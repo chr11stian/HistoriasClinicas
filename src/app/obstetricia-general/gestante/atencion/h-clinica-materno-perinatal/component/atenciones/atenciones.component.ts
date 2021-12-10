@@ -34,7 +34,7 @@ export class AtencionesComponent implements OnInit {
         private atencionesService: AtencionesService
     ) {
 
-        this.idObstetricia = this.obstetriciaService.idGestacion;
+        this.idObstetricia = this.obstetriciaService.idGestacion
     }
     buildForm() {
         this.form = this.formBuilder.group({
@@ -45,6 +45,7 @@ export class AtencionesComponent implements OnInit {
     recuperarDatosAtenciones(){
         this.atencionesService.getAtencionService(this.idObstetricia).subscribe((res:any)=>{
             this.atenciones = res.object;
+            console.log("atenciones", this.atenciones);
             if(this.atenciones!=null || this.atenciones!=undefined){
                 this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro recuperado satisfactoriamente'});
             }

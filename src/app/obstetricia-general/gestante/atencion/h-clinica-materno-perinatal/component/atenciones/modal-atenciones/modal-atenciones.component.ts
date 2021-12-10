@@ -4,6 +4,7 @@ import {DatePipe} from "@angular/common";
 import {DynamicDialogRef,DynamicDialogConfig} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../../services/obstetricia-general.service";
 import Swal from "sweetalert2";
+import {THIS_EXPR} from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'app-modal-atenciones',
@@ -83,7 +84,7 @@ export class ModalAtencionesComponent implements OnInit {
     this.formAtenciones.get("edema").setValue(configuracion.edema);
     this.formAtenciones.get("reflejoOsteotendinoso").setValue(configuracion.reflejoOsteotendinoso);
     this.formAtenciones.get("ecografia").setValue(configuracion.ecografia);
-    this.formAtenciones.get("consejeriaIntegral").setValue(configuracion.consejeriaIntegral);
+    // this.formAtenciones.get("consejeriaIntegral").setValue(configuracion.consejeriaIntegral);
     this.formAtenciones.get("acidoFolico").setValue(configuracion.acidoFolico.numero + "(" + configuracion.acidoFolico.dosis + ")");
     this.formAtenciones.get("hierroYAcidoFolico").setValue(configuracion.hierroYAcidoFolico.numero +"(" + configuracion.acidoFolico.dosis + ")");
     this.formAtenciones.get("calcio").setValue(configuracion.calcio.numero + "(" + configuracion.calcio.dosis + ")");
@@ -95,16 +96,23 @@ export class ModalAtencionesComponent implements OnInit {
     this.formAtenciones.get("nroAtencion").setValue(configuracion.nroAtencion);
 
     /**********Recorriendo todos los datos del array ORIENTACIONES************************************/
-
+    let arrayOrientaciones:any[]=[];
     for(let i = 1;i<configuracion.orientaciones.length;i++){
-      this.formAtenciones.get("orientaciones").setValue(configuracion.orientaciones[i].consejeria +"/"+ configuracion.orientaciones[i-1].consejeria)
+      arrayOrientaciones.push(configuracion.orientaciones[i].consejeria);
     }
+    console.log(arrayOrientaciones);
+    let cadenaOrientaciones = arrayOrientaciones.join("/");
+    this.formAtenciones.get("orientaciones").setValue(cadenaOrientaciones);
     /**********Recorriendo todos los datos del array INTERCONSULTAS**************************************/
-    for(let i = 1;i<configuracion.interconsultas.length;i++){
-      this.formAtenciones.get("interconsultas").setValue(configuracion.interconsultas[i].consultorio+"/"+configuracion.interconsultas[i-1].consultorio);/*ojo*/
+    let arrayConsultorio:any[] = [];
+    for(let i=0;i<configuracion.interconsultas.length;i++){
+       arrayConsultorio.push(configuracion.interconsultas[i].consultorio);
     }
-
-  }
+    console.log(arrayConsultorio);
+    let cad = arrayConsultorio.join("/");
+    this.formAtenciones.get("interconsultas").setValue(cad);
+    /************Fin recorrido interconsultas************/
+   }
 
   closeDialog() {
     this.ref.close();

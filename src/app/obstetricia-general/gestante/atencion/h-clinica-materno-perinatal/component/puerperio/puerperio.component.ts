@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import { FormBuilder} from "@angular/forms";
 import {PuerperioModalComponent} from "./puerperio-modal/puerperio-modal.component"
 import {PuerperioInmediatoService} from "../../services/puerperio-inmediato/puerperio-inmediato.service";
-import Swal from "sweetalert2";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 import {ConfirmationService, ConfirmEventType,MessageService} from 'primeng/api';
