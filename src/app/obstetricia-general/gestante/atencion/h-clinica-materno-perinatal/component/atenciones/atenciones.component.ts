@@ -6,6 +6,7 @@ import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-gen
 import {AtencionesService} from "../../services/atenciones/Atenciones.service";
 import {ModalAtencionesComponent} from "./modal-atenciones/modal-atenciones.component";
 import {MessageService} from "primeng/api";
+import {AlturaUterinaComponent} from "../../../modals/altura-uterina/altura-uterina.component";
 
 @Component({
     selector: 'app-atenciones',
@@ -89,7 +90,6 @@ export class AtencionesComponent implements OnInit {
         // /** grafica segun el tipo de grafico que se le manda tipoGrafico -> opciones: sobrepeso | normal | bajo_peso | obesidad */
     graficar(tipoGrafico: string) {
         tipoGrafico = 'sobrepeso'
-
         let titleModal = ''
         switch (tipoGrafico) {
             case 'normal':
@@ -125,9 +125,32 @@ export class AtencionesComponent implements OnInit {
             },
         })
     }
+    /************+****grafico grafico Altura uterina********************/
+    graficarAltura(){
+        let titleModal = 'Grafico Altura Uterina';
+        this.openModalGraficoAltura([],titleModal);
+
+    }
+    openModalGraficoAltura(data: Array<number[]>, titleModal: string): void
+    {
+        this.ref = this.dialogService.open(AlturaUterinaComponent, {
+            data: {
+                dataPregmant: data
+            },
+            header: titleModal,
+            // width: '90%',
+            height: '90%',
+            width: '70%',
+            style: {
+                position: 'absolute',
+                top: '17px',
+            },
+        })
+    }
+    ///******************************************/
     ngOnInit(): void {
         this.recuperarDatosAtenciones();
-        // this.recuperarDatosGraficoPesoMadre();
+        this.recuperarDatosGraficoPesoMadre();
     }
 
     openNew() {

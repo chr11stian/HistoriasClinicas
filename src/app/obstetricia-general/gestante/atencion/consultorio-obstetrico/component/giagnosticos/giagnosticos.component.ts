@@ -7,12 +7,16 @@ import {ConsultasService} from "../../services/consultas.service";
 import {DatePipe} from "@angular/common";
 import {MessageService} from "primeng/api";
 
+
 @Component({
   selector: 'app-giagnosticos',
   templateUrl: './giagnosticos.component.html',
   styleUrls: ['./giagnosticos.component.css']
 })
 export class GiagnosticosComponent implements OnInit {
+
+  diagnosticos2: any[]=[];
+  formDiagnostico: FormGroup;
 
   selectedDiagnostico: any;
   opcionBusqueda: string;
@@ -48,10 +52,13 @@ export class GiagnosticosComponent implements OnInit {
   private nroDocRecuperado: any;
   private  nroEmbarazo:any;
   private nroHclRecuperado:any;
+  /********Lista tipo Dx*****/
+  private tipoList:any[]= [];
 
   constructor(private formBuilder: FormBuilder,
               private obstetriciaService: ObstetriciaGeneralService,
               private cieService: CieService,
+              // private dialog:DialogService,
               private messageService: MessageService,
               private DxService: ConsultasService) {
     this.buildForm();
@@ -62,6 +69,12 @@ export class GiagnosticosComponent implements OnInit {
     this.idConsultoriObstetrico = this.obstetriciaService.idConsultoriObstetrico;
     this.nroHclRecuperado = this.obstetriciaService.nroHcl;
     /***************DATOS DE LOS DROPDOWNS*******************/
+    /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR EL TRATAMIENTO*/
+    this.tipoList = [{label: 'D', value: 'D'},
+      {label: 'P', value: 'P'},
+      {label: 'R', value: 'R'},
+
+    ];
     this.planPartoList = [{label: 'CONTROL', value: 'CONTROL'},
       {label: 'VISITA', value: 'VISITA'},
       {label: 'NO SE HIZO', value: 'NO SE HIZO'},
@@ -83,10 +96,45 @@ export class GiagnosticosComponent implements OnInit {
   showModalDialog() {
     this.displayModal = true;
   }
-
+  /*****************DATOS RECIBIDOS DEL MODAL DX*************************/
+  // openDialogDiagnostico(){
+  //    this.ref = this.dialog.open(DiagnosticoModalComponent, {
+  //     header: "TRATAMIENTOS",
+  //     contentStyle:{
+  //       overflow:"auto",
+  //     },
+  //   })
+  //   this.ref.onClose.subscribe((data:any)=>{
+  //     console.log("data de modal tratamiento",data)
+  //     if(data!==undefined)
+  //       this.diagnosticos2.push(data);
+  //     console.log(this.formDiagnostico);
+  //   })
+  // }
+  // openDialogEditarDiagnostico(row,index){
+  //   let aux={
+  //     index: index,
+  //     row: row
+  //   }
+  //   this.ref = this.dialog.open(DiagnosticoModalComponent, {
+  //     header: "DIAGNOSTICOS",
+  //     contentStyle: {
+  //       overflow: "auto",
+  //     },
+  //     data: aux
+  //   })
+  //   this.ref.onClose.subscribe((data: any) => {
+  //     console.log('data de modal tratamiento ', data)
+  //     if(data!==undefined) {
+  //       this.diagnosticos2.splice(data.index, 1,data.row);
+  //     };
+  //   })
+  // }
+  /***************************FIN MODAL DX*********************/
   buildForm() {
     this.form = this.formBuilder.group({
       diagnostico: ['', [Validators.required]],
+      // tipo:['', [Validators.required]],
     }),
         this.form2 = this.formBuilder.group({
           orientaciones: ['', [Validators.required]],
@@ -108,7 +156,9 @@ export class GiagnosticosComponent implements OnInit {
     console.log(this.data);
     this.diagnosticos.push({
       diagnostico: this.data[0]['diagnostico']['descripcionItem'],
-      cie10:this.data[0]['diagnostico']['codigoItem']});
+      cie10:this.data[0]['diagnostico']['codigoItem']}),
+        // tipo:this.form.value.tipo;
+      // tipo:this.form.value.tipo;
     Swal.fire({
       icon: 'success',
       title: 'Agregado correctamente',
@@ -253,5 +303,9 @@ export class GiagnosticosComponent implements OnInit {
       }
 
     });
+  }
+
+  openDialogDiagnostico() {
+    console.log("ingresando al otro modal");
   }
 }

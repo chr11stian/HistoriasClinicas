@@ -34,6 +34,7 @@ import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-
         ModalInterconsultaComponent,
         ModalRecomendacionesComponent,
         ModalExamenesAuxiliaresComponent,
+
     ],
     imports: [
         ConsultaObstetricoRoutingModule,

@@ -24,7 +24,6 @@ export class ModalTratamientoComponent implements OnInit {
   intervaloList: any[];
   viaadministracionList: any[];
 
-
   constructor(private form: FormBuilder,
               private ref: DynamicDialogRef,
               private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -33,13 +32,13 @@ export class ModalTratamientoComponent implements OnInit {
     this.idObstetricia=this.obstetriciaGeneralService.idGestacion;
     console.log(config.data);
     this.buildForm();
+
     if(config.data){
       this.llenarCamposTratamientoComun();
     }
-    if(config.data){
-      this.llenarCamposTratamientoSuplementos();
-
-    }
+    // if(config.data){
+    //   this.llenarCamposTratamientoSuplementos();
+    // }
 
     /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR EL TRATAMIENTO*/
     this.intervaloList = [{label: 'CADA 1 HORA', value: '1'},
@@ -145,16 +144,16 @@ export class ModalTratamientoComponent implements OnInit {
     this.formTratamientoComun.get("duracion").setValue(configuracion.duracion);
     this.formTratamientoComun.get("observaciones").setValue(configuracion.observaciones);
   }
-  llenarCamposTratamientoSuplementos(){
-    let configuracion=this.config.data.row;
-    this.formTratamientoComun.get("descripcion").setValue(configuracion.descripcion);
-    this.formTratamientoComun.get("numero").setValue(configuracion.numero);
-    this.formTratamientoComun.get("dosis").setValue(configuracion.dosis);
-    this.formTratamientoComun.get("intervalo").setValue(configuracion.intervalo);
-    this.formTratamientoComun.get("viaAdministracion").setValue(configuracion.viaAdministracion);
-    this.formTratamientoComun.get("duracion").setValue(configuracion.duracion);
-    this.formTratamientoComun.get("observaciones").setValue(configuracion.observaciones);
-  }
+  // llenarCamposTratamientoSuplementos(){
+  //   let configuracion=this.config.data.row;
+  //   this.formTratamientoComun.get("descripcion").setValue(configuracion.descripcion);
+  //   this.formTratamientoComun.get("numero").setValue(configuracion.numero);
+  //   this.formTratamientoComun.get("dosis").setValue(configuracion.dosis);
+  //   this.formTratamientoComun.get("intervalo").setValue(configuracion.intervalo);
+  //   this.formTratamientoComun.get("viaAdministracion").setValue(configuracion.viaAdministracion);
+  //   this.formTratamientoComun.get("duracion").setValue(configuracion.duracion);
+  //   this.formTratamientoComun.get("observaciones").setValue(configuracion.observaciones);
+  // }
   closeDialogGuardar(){
     this.enviarTratamientosComunes();
     this.ref.close(
