@@ -746,35 +746,42 @@
 
                         <div class="grid">
                             <div class="col-6 align-self-start">
-                                <p-table [value]="medicacionList" [scrollable]="true" scrollHeight="200px">
+                                <p-table
+
+                                        [value]="medicacionList"
+                                        [scrollable]="true" scrollHeight="200px"
+                                        [style]="{width:'95%'}"
+                                >
                                     <ng-template pTemplate="caption">
                                         <div class="flex justify-content-between">
                                             <button pButton pRipple label="Nueva medicacion" icon="pi pi-plus" class="p-button-danger p-mr-2"
                                                     (click)="isUpdate2=false; medi='medicacion'; agregarActualizar();"></button>
                                         </div>
                                     </ng-template>
-                                    <ng-template pTemplate="header">
+                                    <ng-template pTemplate="header" >
                                         <tr>
-                                            <th>Nro</th>
-                                            <th>Medicacion</th>
-                                            <th>Accion</th>
+                                            <th style="display: flex;flex:10%">Nro</th>
+                                            <th style="display: flex;flex:70%">Medicacion</th>
+                                            <th style="display: flex;flex:20%">Accion</th>
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="body" let-product let-index="rowIndex">
                                         <tr>
-                                            <td>{{index+1}}</td>
-                                            <td>{{product}}</td>
-                                            <td class="flex justify-content-around">
+                                            <td style="display:flex; flex:10%" >{{index+1}}</td>
+                                            <td style="display:flex; flex:70%">{{product}}</td>
+                                            <td class="flex justify-content-around " style="padding:0.5rem;display: flex;flex:20%">
                                                 <span class="p-column-title">Acciones</span>
                                                 <button
+                                                        style=""
                                                         pButton
                                                         pRipple
                                                         type="button"
                                                         icon="pi pi-pencil"
                                                         (click)="isUpdate2 = true; medi='medicacion'; agregarActualizar(index)"
-                                                        pTooltip="Editar tipo turno"
-                                                        tooltipPosition="bottom"
-                                                        class="p-button-raised p-button-info p-button-rounded"
+                                                        pTooltip="Editar medicacion"
+                                                        tooltipPosition="botton"
+                                                        class="p-button-raised p-button-info p-button-rounded "
+
                                                 ></button>
                                                 <button
                                                         pButton
@@ -793,7 +800,10 @@
                                 </p-table>
                             </div>
                             <div class="col-6 align-self-start">
-                                <p-table [value]="medicamentoList" [scrollable]="true" scrollHeight="200px">
+                                <p-table [value]="medicamentoList"
+                                         [scrollable]="true"
+                                         scrollHeight="200px"
+                                         [style]="{width:'95%'}">
                                     <ng-template pTemplate="caption">
                                         <div class="flex justify-content-between">
                                             <button pButton pRipple label="Nueva medicamento" icon="pi pi-plus" class="p-button-danger p-mr-2"
@@ -801,20 +811,19 @@
                                             <div>
                                             </div>
                                         </div>
-
                                     </ng-template>
                                     <ng-template pTemplate="header">
                                         <tr>
-                                            <th>Nro</th>
-                                            <th>Medicamento</th>
-                                            <th>Accion</th>
+                                            <th style="display:flex; flex:10%">Nro</th>
+                                            <th style="display:flex; flex:70%">Medicamento</th>
+                                            <th style="display:flex; flex:20%">Accion</th>
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="body" let-product let-index="rowIndex">
                                         <tr>
-                                            <td>{{index+1}}</td>
-                                            <td>{{product}}</td>
-                                            <td class="flex justify-content-around">
+                                            <td style="display:flex; flex:10%">{{index+1}}</td>
+                                            <td style="display:flex; flex:70%">{{product}}</td>
+                                            <td class="flex justify-content-around" style="padding:0.5rem;display:flex; flex:20%">
                                                 <span class="p-column-title">Acciones</span>
                                                 <button
                                                         pButton

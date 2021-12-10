@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ResultadosService} from "../../services/resultados/resultados.service";
 import {MessageService} from "primeng/api";
+import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 
 @Component({
     selector: 'app-resultados',
@@ -9,6 +10,11 @@ import {MessageService} from "primeng/api";
     styleUrls: ['./resultados.component.css']
 })
 export class ResultadosComponent implements OnInit {
+    tipoDocRecuperado:string;
+    nroDocRecuperado:string
+    nroEmbarazo:string
+    idConsultoriObstetrico:string;
+
     examenSeleccionado='otros';
     examenes = [
         {name: 'grupoSanguineo',code:1},
@@ -76,11 +82,17 @@ export class ResultadosComponent implements OnInit {
     ]
 
     constructor(private resultadosService: ResultadosService,
-                private messageService: MessageService) {
+                private messageService: MessageService,
+                private obstetriciaGeneralService:ObstetriciaGeneralService ) {
         this.buildForm();
     }
 
     ngOnInit(): void {
+        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
+        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
+        this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
+        this.idConsultoriObstetrico = this.obstetriciaGeneralService.idConsultoriObstetrico;
+        // console.log(this.tipoDocRecuperado,this.nroDocRecuperado,this.nroEmbarazo,this.idConsultoriObstetrico)
         this.getResultados();
     }
 
@@ -185,74 +197,144 @@ export class ResultadosComponent implements OnInit {
             return '';
         }
     }
-
+    resultadosList=[];
+    recuperarData(data){
+            // console.log("-->>",data.value)
+        let examen
+        for (const key in data) {
+            examen=key
+            if(examen!=null && data[key]['valor']!="" && data[key]['fecha']!=null){
+            this.resultadosList.push({prueba:key,valor:data[key]['valor'],fecha:data[key]['fecha']})
+            }
+        }
+        console.log('lista:',this.resultadosList)
+    }
     getResultados() {
         const input = {
-            "nroHcl": "10101013",
+            // "nroHcl": this.nroDocRecuperado,
+            "nroHcl": 10101013,
+            // "nroEmbarazo": this.nroEmbarazo,
             "nroEmbarazo": 1,
             "nroAtencion": 1
         }
         this.resultadosService.getResultado(input).subscribe((resp) => {
-            if (resp['object'] != null && resp['object'][0]['laboratorios']['grupoSanguineo']['fecha'] != null) {
+            if (resp['object'] != null ) {
                 this.isUpdate = true;
                 const resultado = resp['object'][0]
+                this.recuperarData(resultado['laboratorios']);
+                console.log('resultado laboratorios->>>>',resultado['laboratorios'])
                 this.getFC('grupoSanguineo').setValue(resultado.laboratorios.grupoSanguineo.valor);
-
+                if(resultado.laboratorios.grupoSanguineo.fecha){
                 this.getFC('fecha1').setValue(new Date(resultado.laboratorios.grupoSanguineo.fecha));
+                }
                 this.getFC('factorRH').setValue(resultado.laboratorios.factorRH.valor);
+                if(resultado.laboratorios.factorRH.fecha!=null){
                 this.getFC('fecha2').setValue(new Date(resultado.laboratorios.factorRH.fecha));
+                }
                 this.getFC('hemograma').setValue(resultado.laboratorios.hemograma.valor);
+                if(resultado.laboratorios.hemograma.fecha!=null){
                 this.getFC('fecha3').setValue(new Date(resultado.laboratorios.hemograma.fecha));
+                }
                 this.getFC('hemoglobina').setValue(resultado.laboratorios.hemoglobina.valor);
+                if(resultado.laboratorios.hemoglobina.fecha!=null){
                 this.getFC('fecha4').setValue(new Date(resultado.laboratorios.hemoglobina.fecha));
+                }
                 this.getFC('factorCorrepcion').setValue(resultado.laboratorios.factorCorreccion.valor);
+                if(resultado.laboratorios.factorCorreccion.fecha){
                 this.getFC('fecha5').setValue(new Date(resultado.laboratorios.factorCorreccion.fecha));
+                }
                 this.getFC('hto').setValue(resultado.laboratorios.hto.valor);
+                if(resultado.laboratorios.hto.fecha!=null){
                 this.getFC('fecha6').setValue(new Date(resultado.laboratorios.hto.fecha));
+                }
                 this.getFC('glucosa').setValue(resultado.laboratorios.glucosa.valor);
+                if(resultado.laboratorios.glucosa.fecha!=null){
                 this.getFC('fecha7').setValue(new Date(resultado.laboratorios.glucosa.fecha));
+                }
                 this.getFC('toleranciaGlucosa').setValue(resultado.laboratorios.toleranciaGlucosa.valor);
+                if(resultado.laboratorios.toleranciaGlucosa.fecha!=null){
                 this.getFC('fecha8').setValue(new Date(resultado.laboratorios.toleranciaGlucosa.fecha));
+                }
                 this.getFC('exaOrina').setValue(resultado.laboratorios.exaOrina.valor);
+                if(resultado.laboratorios.exaOrina.fecha!=null){
                 this.getFC('fecha9').setValue(new Date(resultado.laboratorios.exaOrina.fecha));
+                }
                 this.getFC('rpr').setValue(resultado.laboratorios.rpr.valor);
+                if(resultado.laboratorios.rpr.fecha!=null){
                 this.getFC('fecha10').setValue(new Date(resultado.laboratorios.rpr.fecha));
+                }
                 this.getFC('rprReactivo').setValue(resultado.laboratorios.rprReactivo.valor);
+                if(resultado.laboratorios.rprReactivo.fecha!=null){
                 this.getFC('fecha11').setValue(new Date(resultado.laboratorios.rprReactivo.fecha));
+                }
                 this.getFC('exSecV').setValue(resultado.laboratorios.exSecV.valor);
+                if(resultado.laboratorios.exSecV.fecha!=null){
                 this.getFC('fecha12').setValue(new Date(resultado.laboratorios.exSecV.fecha));
+                }
                 this.getFC('protenuariaCuantitativa').setValue(resultado.laboratorios.proteinuriaCuantitativa.valor);
+                if(resultado.laboratorios.proteinuriaCuantitativa.fecha!=null){
                 this.getFC('fecha13').setValue(new Date(resultado.laboratorios.proteinuriaCuantitativa.fecha));
+                }
                 this.getFC('protenuariaCualitativa').setValue(resultado.laboratorios.proteinuriaCualitativa.valor);
+                if(resultado.laboratorios.proteinuriaCualitativa.fecha!=null){
                 this.getFC('fecha14').setValue(new Date(resultado.laboratorios.proteinuriaCualitativa.fecha));
+                }
                 this.getFC('pruevaVIH').setValue(resultado.laboratorios.pruebaVIH.valor);
+                if(resultado.laboratorios.pruebaVIH.fecha){
                 this.getFC('fecha15').setValue(new Date(resultado.laboratorios.pruebaVIH.fecha));
+                }
                 this.getFC('pruHepatitis').setValue(resultado.laboratorios.prHepatitis.valor);
+                if(resultado.laboratorios.prHepatitis.fecha!=null){
                 this.getFC('fecha16').setValue(new Date(resultado.laboratorios.prHepatitis.fecha));
+                }
                 this.getFC('elisa').setValue(resultado.laboratorios.elisa.valor);
+                if(resultado.laboratorios.elisa.fecha!=null){
                 this.getFC('fecha17').setValue(new Date(resultado.laboratorios.elisa.fecha));
+                }
                 this.getFC('glicemia').setValue(resultado.laboratorios.glicemia.valor);
+                if(resultado.laboratorios.glicemia.fecha!=null){
                 this.getFC('fecha18').setValue(new Date(resultado.laboratorios.glicemia.fecha));
+                }
                 this.getFC('bacteriuniria').setValue(resultado.laboratorios.bacteriuria.valor);
+                if(resultado.laboratorios.bacteriuria.fecha!=null){
                 this.getFC('fecha19').setValue(new Date(resultado.laboratorios.bacteriuria.fecha));
+                }
                 this.getFC('nitritos').setValue(resultado.laboratorios.nitritos.valor);
+                if(resultado.laboratorios.nitritos.fecha!=null){
                 this.getFC('fecha20').setValue(new Date(resultado.laboratorios.nitritos.fecha));
+                }
                 this.getFC('urocultivo').setValue(resultado.laboratorios.urocultivo.valor);
+                if(resultado.laboratorios.urocultivo.fecha){
                 this.getFC('fecha21').setValue(new Date(resultado.laboratorios.urocultivo.fecha));
+                }
                 this.getFC('bkEsputo').setValue(resultado.laboratorios.bkEsputo.valor);
+                if(resultado.laboratorios.bkEsputo.fecha){
                 this.getFC('fecha22').setValue(new Date(resultado.laboratorios.bkEsputo.fecha));
+                }
                 this.getFC('wsternBlotlfi').setValue(resultado.laboratorios.wsternBlotlfi.valor);
+                if(resultado.laboratorios.wsternBlotlfi.fecha){
                 this.getFC('fecha23').setValue(new Date(resultado.laboratorios.wsternBlotlfi.fecha));
+                }
                 this.getFC('thlvl').setValue(resultado.laboratorios.thlv1.valor);
+                if(resultado.laboratorios.thlv1.fecha){
                 this.getFC('fecha24').setValue(new Date(resultado.laboratorios.thlv1.fecha));
+                }
                 this.getFC('torch').setValue(resultado.laboratorios.torch.valor);
+                if(resultado.laboratorios.torch.fecha){
                 this.getFC('fecha25').setValue(new Date(resultado.laboratorios.torch.fecha));
+                }
                 this.getFC('gotaGruesa').setValue(resultado.laboratorios.gotaGruesa.valor);
+                if(resultado.laboratorios.gotaGruesa.fecha!=null){
                 this.getFC('fecha26').setValue(new Date(resultado.laboratorios.gotaGruesa.fecha));
+                }
                 this.getFC('pap').setValue(resultado.laboratorios.pap.valor);
+                if(resultado.laboratorios.pap.fecha){
                 this.getFC('fecha27').setValue(new Date(resultado.laboratorios.pap.fecha));
+                }
                 this.getFC('ivaa').setValue(resultado.laboratorios.ivaa.valor);
+                if(resultado.laboratorios.ivaa.valor){
                 this.getFC('fecha28').setValue(new Date(resultado.laboratorios.ivaa.fecha));
+                }
                 this.getFC('fechaEcografia1').setValue(new Date(resultado.ecografia.fecha));
                 this.getFC('resultado1').setValue(resultado.ecografia.descripcion);
                 this.getFC('semana1').setValue(resultado.ecografia.semanas);

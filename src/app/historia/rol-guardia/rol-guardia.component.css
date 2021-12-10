@@ -4,7 +4,7 @@
   text-align: center;
 }
 p-table >>> .p-datatable table {
-  width: auto;
+  /*width: auto;*/
   /*overflow: visible;*/
 }
 p-table >>> .p-datatable .p-datatable-thead > tr > th {
