@@ -179,18 +179,18 @@ export class DatosGeneralesComponent implements OnInit {
             this.formDatos_Generales.get('Edema').setValue(this.dataConsultas.descarteSignosAlarmas[12].valor);
 
             //RECUPERA DESCARTE ATENSION INTEGRAL
-            // this.formDatos_Generales.get('OrientaciónConsegeríaSignosAlarma').setValue(this.dataConsultas.atencionesIntegrales[0].valor);
-            // this.formDatos_Generales.get('ConsejeríaEnfermedadesComunes').setValue(this.dataConsultas.atencionesIntegrales[1].valor);
-            // this.formDatos_Generales.get('SospechasTuberculosis').setValue(this.dataConsultas.atencionesIntegrales[2].valor);
-            // this.formDatos_Generales.get('InfeccionesTransmisiónSexual').setValue(this.dataConsultas.atencionesIntegrales[3].valor);
-            // this.formDatos_Generales.get('OrientaciónNutricional').setValue(this.dataConsultas.atencionesIntegrales[4].valor);
-            // this.formDatos_Generales.get('OrientaciónPlanificaiónFamiliar').setValue(this.dataConsultas.atencionesIntegrales[5].valor);
-            // this.formDatos_Generales.get('OrientaciónPrevenciónDeCancerGinecológico').setValue(this.dataConsultas.atencionesIntegrales[6].valor);
-            // this.formDatos_Generales.get('OrientaciónConsejeriaPretestVIH').setValue(this.dataConsultas.atencionesIntegrales[7].valor);
-            // this.formDatos_Generales.get('OrientaciónEnEstilosDeVidaSaludable').setValue(this.dataConsultas.atencionesIntegrales[8].valor);
-            // this.formDatos_Generales.get('OrientaciónAcompañante').setValue(this.dataConsultas.atencionesIntegrales[9].valor);
-            // this.formDatos_Generales.get('ViolenciaFamiliar').setValue(this.dataConsultas.atencionesIntegrales[10].valor);
-            // this.formDatos_Generales.get('PlanDeParto').setValue(this.dataConsultas.atencionesIntegrales[11].valor);
+            this.formDatos_Generales.get('OrientaciónConsegeríaSignosAlarma').setValue(this.dataConsultas.orientaciones[0].valor);
+            this.formDatos_Generales.get('ConsejeríaEnfermedadesComunes').setValue(this.dataConsultas.orientaciones[1].valor);
+            this.formDatos_Generales.get('SospechasTuberculosis').setValue(this.dataConsultas.orientaciones[2].valor);
+            this.formDatos_Generales.get('InfeccionesTransmisiónSexual').setValue(this.dataConsultas.orientaciones[3].valor);
+            this.formDatos_Generales.get('OrientaciónNutricional').setValue(this.dataConsultas.orientaciones[4].valor);
+            this.formDatos_Generales.get('OrientaciónPlanificaiónFamiliar').setValue(this.dataConsultas.orientaciones[5].valor);
+            this.formDatos_Generales.get('OrientaciónPrevenciónDeCancerGinecológico').setValue(this.dataConsultas.orientaciones[6].valor);
+            this.formDatos_Generales.get('OrientaciónConsejeriaPretestVIH').setValue(this.dataConsultas.orientaciones[7].valor);
+            this.formDatos_Generales.get('OrientaciónEnEstilosDeVidaSaludable').setValue(this.dataConsultas.orientaciones[8].valor);
+            this.formDatos_Generales.get('OrientaciónAcompañante').setValue(this.dataConsultas.orientaciones[9].valor);
+            this.formDatos_Generales.get('ViolenciaFamiliar').setValue(this.dataConsultas.orientaciones[10].valor);
+            this.formDatos_Generales.get('PlanDeParto').setValue(this.dataConsultas.orientaciones[11].valor);
 
         });
     }
@@ -465,54 +465,66 @@ export class DatosGeneralesComponent implements OnInit {
                 },
 
             ],
-            atencionesIntegrales: [
+            orientaciones: [
                 {
-                    descripcion: "Orientación y Consegería Signos de alarma",
+                    consejeria: "Orientación y Consegería Signos de alarma",
                     valor: this.formDatos_Generales.value.OrientaciónConsegeríaSignosAlarma,
+                    cie10: ""
                 },
                 {
-                    descripcion: "Consejería en enfermedades comunes",
+                    consejeria: "Consejería en enfermedades comunes",
                     valor: this.formDatos_Generales.value.ConsejeríaEnfermedadesComunes,
+                    cie10: ""
                 },
                 {
-                    descripcion: "Sospechas de Tuberculosis",
+                    consejeria: "Sospechas de Tuberculosis",
                     valor: this.formDatos_Generales.value.SospechasTuberculosis,
+                    cie10: ""
                 },
                 {
-                    descripcion: "Infecciones de transmisión sexual",
+                    consejeria: "Infecciones de transmisión sexual",
                     valor: this.formDatos_Generales.value.InfeccionesTransmisiónSexual,
+                    cie10: ""
                 },
                 {
-                    descripcion: "Orientación Nutricional",
+                    consejeria: "Orientación Nutricional",
                     valor: this.formDatos_Generales.value.OrientaciónNutricional,
+                    cie10: ""
                 },
                 {
-                    descripcion: "Orientación en planificaión familiar",
+                    consejeria: "Orientación en planificaión familiar",
                     valor: this.formDatos_Generales.value.OrientaciónPlanificaiónFamiliar,
+                    cie10: ""
                 },
                 {
-                    descripcion: "Orientación en prevención de Cancer ginecológico",
+                    consejeria: "Orientación en prevención de Cancer ginecológico",
                     valor: this.formDatos_Generales.value.OrientaciónPrevenciónDeCancerGinecológico,
+                    cie10: ""
                 },
                 {
-                    descripcion: "Orientación y consej. Pretest. VIH",
+                    consejeria: "Orientación y consej. Pretest. VIH",
                     valor: this.formDatos_Generales.value.OrientaciónConsejeriaPretestVIH,
+                    cie10: ""
                 },
                 {
-                    descripcion: "Orientación en estilos de vida saludable",
+                    consejeria: "Orientación en estilos de vida saludable",
                     valor: this.formDatos_Generales.value.OrientaciónEnEstilosDeVidaSaludable,
+                    cie10: ""
                 },
                 {
-                    descripcion: "Orientación al acompañante",
+                    consejeria: "Orientación al acompañante",
                     valor: this.formDatos_Generales.value.OrientaciónAcompañante,
+                    cie10: ""
                 },
                 {
-                    descripcion: "Violencia familiar",
+                    consejeria: "Violencia familiar",
                     valor: this.formDatos_Generales.value.ViolenciaFamiliar,
+                    cie10: "Z6381"
                 },
                 {
-                    descripcion: "Plan de parto",
+                    consejeria: "Plan de parto",
                     valor: this.formDatos_Generales.value.PlanDeParto,
+                    cie10: "U1692"
                 },
             ],
         }
