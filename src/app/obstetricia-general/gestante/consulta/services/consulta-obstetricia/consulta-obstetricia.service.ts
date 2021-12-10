@@ -17,6 +17,9 @@ export class ConsultaObstetriciaService {
   postDatoConsultaObstetrica(data) {
     return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsulta`, data)
   }
+  putDatoConsultaObstetrica(data) {
+    return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsulta`, data)
+  }
   /*getConsultaExistePlanParto(id) {
     return this.http.get(`${this.base_url}/${this.bd}/obstetricia/planparto/existe/${id}`)
   }*/
