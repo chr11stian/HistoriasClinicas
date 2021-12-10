@@ -534,7 +534,7 @@
                                         <div class="col-12">
                                             <label>Edema:</label>
                                             <p-dropdown [options]="listaEdema" formControlName="edemaExamen"
-                                                optionLabel="name" optionValue="code" class="inputfield p-fluid w-full">
+                                                optionLabel="name" optionValue="name" class="inputfield p-fluid w-full">
                                             </p-dropdown>
                                         </div>
                                     </div>
@@ -566,10 +566,10 @@
                                             <tr>
                                                 <th style="text-align: center">Nro</th>
                                                 <th style="text-align: center">Movimientos Fetales</th>
-                                                <th style="text-align: center">Latidos Cardíacos Fetales</th>
                                                 <th style="text-align: center">Situación</th>
                                                 <th style="text-align: center">Presentación</th>
                                                 <th style="text-align: center">Posición</th>
+                                                <th style="text-align: center">Latidos Cardíacos Fetales</th>
                                                 <th style="text-align: center">Acción</th>
                                             </tr>
                                         </ng-template>
@@ -860,7 +860,7 @@
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria1"
-                                                                formControlName="consejeria1" value=true
+                                                                formControlName="consejeria1" value=false
                                                                 class="default"></p-radioButton>
                                                         </div>
                                                         <div class="col-3">
@@ -1071,12 +1071,12 @@
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria11"
-                                                                formControlName="consejeria11" value="Si"
+                                                                formControlName="consejeria11" value=true
                                                                 class="default"></p-radioButton>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria11"
-                                                                formControlName="consejeria11" value="No"
+                                                                formControlName="consejeria11" value=false
                                                                 class="default"></p-radioButton>
                                                         </div>
                                                         <div class="col-3">
@@ -2317,7 +2317,7 @@
     </ng-template>
 </p-dialog>
 <!-- DIALOG DIAGNOSTICOS -->
-<p-dialog class="dialogo m-4" [(visible)]="diagnosticoDialog" [style]="{width: '500px'}" [modal]="true"
+<p-dialog class="dialogo m-4" [(visible)]="diagnosticoDialog" [style]="{width: '700px'}" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h3>NUEVO DIAGNOSTICO</h3>
@@ -2325,14 +2325,21 @@
     <ng-template pTemplate="body">
         <form [formGroup]='formDiagnostico'>
             <div class="grid">
-                <div class="col-12">
-                    <label>Diagnostico</label>
-                    <input type="text" pInputText formControlName='diagnostico' placeholder=""
+                
+                <div class="col-6">
+                    <label>Tipo Diagnostico</label>
+                    <p-dropdown [options]="listaTiposDiagnosticos" formControlName="tipoDiagnostico" optionLabel="name"
+                    optionValue="name" class="inputfield p-fluid w-full">
+                    </p-dropdown>
+                </div>
+                <div class="col-6">
+                    <label>CIE10</label>
+                    <input type="text" pInputText formControlName='cie10' placeholder=""
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-12">
-                    <label>CIE10</label>
-                    <input type="text" pInputText formControlName='cie10' placeholder=""
+                    <label>Diagnostico</label>
+                    <input type="text" pInputText formControlName='diagnostico' placeholder=""
                         class="p-inputtext-sm inputfield w-full">
                 </div>
             </div>

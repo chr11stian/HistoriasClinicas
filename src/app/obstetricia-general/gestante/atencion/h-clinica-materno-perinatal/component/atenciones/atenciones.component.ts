@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core'
-import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from '@angular/forms'
-import Swal from 'sweetalert2'
+import {FormBuilder, FormGroup} from '@angular/forms'
 import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog'
 import {PesoEmbarazoUnicoMultipleComponent} from '../../../modals/peso-normal-embarazo-unico-multiple/peso-embarazo-unico-multiple.component'
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 import {AtencionesService} from "../../services/atenciones/Atenciones.service";
 import {ModalAtencionesComponent} from "./modal-atenciones/modal-atenciones.component";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-atenciones',
@@ -15,58 +15,55 @@ import {ModalAtencionesComponent} from "./modal-atenciones/modal-atenciones.comp
 
 })
 export class AtencionesComponent implements OnInit {
+
     form: FormGroup
     atenciones: any[] = [];
     datosGrafico: any[]=[];
-    edadPeso: any[] = []
-    isUpdate: boolean = false;
+    // isUpdate: boolean = false;
+    /**Datos del modal atenciones***/
     atencionGestanteDialog: boolean;
-    // datos
     ref: DynamicDialogRef;
+    /**Datos a recuperar de la coleccion filiacion**/
     idObstetricia = "";
 
     constructor(
         private formBuilder: FormBuilder,
         private dialogService: DialogService,
+        private messageService: MessageService,
         private obstetriciaService:ObstetriciaGeneralService,
         private atencionesService: AtencionesService
     ) {
 
-        this.idObstetricia = this.obstetriciaService.idGestacion;
+        this.idObstetricia = this.obstetriciaService.idGestacion
     }
     buildForm() {
         this.form = this.formBuilder.group({
 
         })
     }
+    /***************Recuperar Datos de Atenciones*********************/
     recuperarDatosAtenciones(){
         this.atencionesService.getAtencionService(this.idObstetricia).subscribe((res:any)=>{
             this.atenciones = res.object;
-            console.log(this.atenciones);
+            console.log("atenciones", this.atenciones);
+            if(this.atenciones!=null || this.atenciones!=undefined){
+                this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro recuperado satisfactoriamente'});
+            }
+            else{
+                this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe registro atenciones'});
+            }
+
         })
     }
+    /*********Recuperar Datos  para el gráfico Peso Madre*************/
     recuperarDatosGraficoPesoMadre(){
         this.atencionesService.getDatosGrafico(this.idObstetricia).subscribe((res:any)=>{
             this.datosGrafico  =res.obj;
             console.log(this.datosGrafico);
         })
     }
-    openDialogAtenciones(){
-        this.ref = this.dialogService.open(ModalAtencionesComponent, {
-            header: "ATENCIONES",
-            width: "70%",
-            contentStyle: {
-                "max-height": "500px",
-                overflow: "auto",
-            },
-        })
-        this.ref.onClose.subscribe((data: any) => {
-            console.log('datos de modal atenciones ', data)
-            if (data !== undefined)
-                this.atenciones.push(data);
-        })
-    }
-    /*abrir modal que muestre las atenciones de la paciente  gestante*/
+
+    /****abrir modal que muestre las atenciones de la paciente  gestante*****/
     openDialogMostrarAtenciones(row,index){
         let aux={
             index: index,
@@ -130,7 +127,7 @@ export class AtencionesComponent implements OnInit {
     }
     ngOnInit(): void {
         this.recuperarDatosAtenciones();
-        this.recuperarDatosGraficoPesoMadre();
+        // this.recuperarDatosGraficoPesoMadre();
     }
 
     openNew() {

@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 import {ModalInterconsultaComponent} from "./modal-interconsulta/modal-interconsulta.component";
 import {ModalRecomendacionesComponent} from "./modal-recomendaciones/modal-recomendaciones.component";
 import {ModalExamenesAuxiliaresComponent} from "./modal-examenes-auxiliares/modal-examenes-auxiliares.component";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-tratamiento',
@@ -48,12 +49,27 @@ export class TratamientoComponent implements OnInit {
   formExamenesAuxiliares:FormGroup;
   /*CAMPOS PARA RECUPERAR LA DATA PRINCIPAL*/
   dataConsulta:any;
-
+  /**Recupera el Id del Consultorio Obstetrico**/
+  idConsultoriObstetrico: string;
+  /****** Data recuperada********/
+  private planPartoReenfocada: any;
+  private tipoDocRecuperado: any;
+  private nroDocRecuperado: any;
+  private  nroEmbarazo:any;
+  private nroHclRecuperado:any;
   constructor (private formBuilder: FormBuilder,
-               private obstetriciaServie: ObstetriciaGeneralService,
+               private obstetriciaService: ObstetriciaGeneralService,
                private dialog:DialogService,
+               private messageService: MessageService,
                private tratamientoService:ConsultasService) {
     this.buildForm();
+    /*********RECUPERAR DATOS*********/
+    this.tipoDocRecuperado = this.obstetriciaService.tipoDoc;
+    this.nroDocRecuperado = this.obstetriciaService.nroDoc;
+    this.nroEmbarazo = this.obstetriciaService.nroEmbarazo;
+    this.idConsultoriObstetrico = this.obstetriciaService.idConsultoriObstetrico;
+    this.nroHclRecuperado = this.obstetriciaService.nroHcl;
+    /***************DATOS DE LOS DROPDOWNS*******************/
     /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR EL TRATAMIENTO*/
     this.intervaloList = [{label: 'CADA 1 HORA', value: '1'},
       {label: 'CADA 2 HORAS', value: 'CADA 2 HORAS'},
@@ -109,7 +125,8 @@ export class TratamientoComponent implements OnInit {
       intervalof: ['', [Validators.required]],
       viaAdministracionf: ['', [Validators.required]],
       duracionf: ['', [Validators.required]],
-      observacionesf: ['', [Validators.required]]
+      observacionesf: ['', [Validators.required]],
+      encargado: ['', [Validators.required]]
     })
   }
   ngOnInit(): void
@@ -335,12 +352,13 @@ export class TratamientoComponent implements OnInit {
     console.log(this.examenesAuxiliares);
     this.recuperarDatoSuplementarios();
     const req={
-      nroHcl:"10101044",
-      nroEmbarazo:1,
+      id:this.idConsultoriObstetrico,
+      nroHcl:this.nroHclRecuperado,
+      nroEmbarazo:this.nroEmbarazo,
       nroAtencion:1,
-      nroControlSis: 1,
-      tipoDoc: "DNI",
-      nroDoc: "10101044",
+      // nroControlSis: 1,
+      tipoDoc: this.tipoDocRecuperado,
+      nroDoc: this.nroDocRecuperado,
       inmunizaciones: this.tratamientoInmunizaciones,
       tratamientos:this.tratamientosComunes,
       tratamientosSuplementos:this.suplementarios,
@@ -348,15 +366,7 @@ export class TratamientoComponent implements OnInit {
       examenesAuxiliares:this.examenesAuxiliares,
       evaluacionNutricional:this.evaluacionNutricional,
       recomendaciones:this.recomendaciones,
-
     }
-    console.log('data a guardar INMUNIZACION:',this.tratamientoInmunizaciones);
-    console.log('data a guardar TRATAMIENTO COMUN:', this.tratamientosComunes);
-    console.log('data a guardar SUPLEMENTARIO:', this.tratamientosSuplementarios);
-    console.log('data a guardar EVALUACION NUTRICIONAL:', this.evaluacionNutricional);
-    console.log('data a guardar de interconsultas: ', this.interconsultas);
-    console.log('data a guardar de recomendaciones: ', this.recomendaciones);
-
     this.tratamientoService.updateConsultas(req).subscribe(
         (resp) => {
           console.log(resp);
@@ -369,7 +379,6 @@ export class TratamientoComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500,
           })
-
         }
     )
   }
@@ -386,16 +395,14 @@ export class TratamientoComponent implements OnInit {
   eliminarInterconsulta(index){
     this.interconsultas.splice(index,1)
   }
-  // eliminar(rowData: any) {
-  //   console.log("eliminando" + rowData)
-  // }
   eliminarExamenesAuxiliares(index) {
     this.examenesAuxiliares.splice(index,1);
   }
   recuperarDatos(){
     let aux ={
-      "nroHcl":"10101044",
-      "nroEmbarazo":1,
+      "id" : this.idConsultoriObstetrico,
+      "nroHcl":this.nroHclRecuperado,
+      "nroEmbarazo":this.nroEmbarazo,
       "nroAtencion":1
     }
 
@@ -405,7 +412,8 @@ export class TratamientoComponent implements OnInit {
       /*recuperar tratamientos comunes*/
       // console.log(this.dataConsulta.tratamientos);
       if(this.dataConsulta.tratamientos.length === null || this.dataConsulta.tratamientos.length === 0 ){
-        console.log("NO INGRESO NINGUN TRATAMIENTO AUN, POR FAVOR INGRESE AL MENOS UNO");
+        this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe ningun Tratamiento ingresado'});
+
       }
       else{
         let i: number = 0;
@@ -417,7 +425,8 @@ export class TratamientoComponent implements OnInit {
       /*recuperar inmunizaciones*/
       console.log(this.dataConsulta.inmunizaciones);
       if(this.dataConsulta.inmunizaciones.length === null || this.dataConsulta.inmunizaciones.length === 0 ){
-        console.log("NO INGRESO NINGUN TRATAMIENTO INMUNIZACIONES AUN, POR FAVOR INGRESE AL MENOS UNO");
+        this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe ningun  Inmunizacion ingresado'});
+
       }
       else{
         let i: number = 0;
@@ -460,10 +469,12 @@ export class TratamientoComponent implements OnInit {
       /*recuperar evaluacion Nutricional*/
       this.formRIEP.patchValue({ 'valor': this.dataConsulta.evaluacionNutricional.valor });
       this.formRIEP.patchValue({ 'indicador': this.dataConsulta.evaluacionNutricional.indicador });
+      /**Recuperar responsable de la atencion**/
+      this.formRIEP.patchValue({'encargado':this.dataConsulta.encargado.tipoDoc + " " + this.dataConsulta.encargado.nroDoc});
       /* recuperar interconsultas*/
       console.log(this.dataConsulta.interconsultas)
       if(this.dataConsulta.interconsultas.length === null || this.dataConsulta.interconsultas.length === 0 ){
-        console.log("NO INGRESO NINGUNA INTERCONSULTA AUN, POR FAVOR INGRESE AL MENOS UNO");
+        this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe ninguna interconsulta ingresada'});
       }
       else{
         let i: number = 0;
@@ -477,7 +488,8 @@ export class TratamientoComponent implements OnInit {
       /* recuperar recomendaciones*/
       console.log(this.dataConsulta.recomendaciones);
       if(this.dataConsulta.recomendaciones.length === null || this.dataConsulta.recomendaciones.length === 0 ){
-        console.log("NO INGRESO NINGUNA INTERCONSULTA AUN, POR FAVOR INGRESE AL MENOS UNO");
+        this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe ninguna recomendacion ingresada'});
+
       }
       else{
         let i: number = 0;
@@ -491,7 +503,8 @@ export class TratamientoComponent implements OnInit {
       /* recuperar EXAMENES AUXILIARES*/
       console.log(this.dataConsulta.examenesAuxiliares);
       if(this.dataConsulta.examenesAuxiliares.length === null || this.dataConsulta.examenesAuxiliares.length === 0 ){
-        console.log("NO INGRESO NINGUNA INTERCONSULTA AUN, POR FAVOR INGRESE AL MENOS UNO");
+        this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe ningun Examen Auxiliar ingresado'});
+
       }
       else{
         let i: number = 0;

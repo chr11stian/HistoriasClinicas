@@ -108,7 +108,6 @@ export class DatosGeneralesComponent implements OnInit {
             this.getConsultas();
         }
     }
-
     /***Recupera la cunsulta por HCL y Numero de embarazo***/
     getConsultas() {
         let data = {
@@ -117,7 +116,6 @@ export class DatosGeneralesComponent implements OnInit {
             nroAtencion: 1
         }
         console.log("data", data);
-
         this.consultasService.getConsultas(data).subscribe((res: any) => {
             this.dataConsultas = res.object
             console.log('DATA CONSULTAS ', this.dataConsultas)
@@ -249,8 +247,6 @@ export class DatosGeneralesComponent implements OnInit {
             this.getConsultas();//Recupera la cunsulta por HCL y Numero de embarazo
         });
     }
-
-
     buildForm() {
         this.formDatos_Generales = this.form.group({
             //Datos generales del paciente
