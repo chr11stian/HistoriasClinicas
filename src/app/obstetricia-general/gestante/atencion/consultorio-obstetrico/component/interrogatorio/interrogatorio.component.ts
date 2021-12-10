@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 import { MessageService } from "primeng/api";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 import { ObstetriciaGeneralService } from "src/app/obstetricia-general/services/obstetricia-general.service";
@@ -54,30 +55,29 @@ export class InterrogatorioComponent implements OnInit {
     public dialog: DialogService,
     private consultaObstetricaService: ConsultasService,
     private messageService: MessageService,
-    private obstetriciaService: ObstetriciaGeneralService
+    private obstetriciaService: ObstetriciaGeneralService,
+    private router: Router,
   ) {
     this.inicializarForm();
     this.idConsulta = this.obstetriciaService.idGestacion;
-
-
+    this.getUltimaConsulta();
+    if (this.idConsulta == '') {
+      this.router.navigate(['dashboard/obstetricia-general/citas'])
+    }
   }
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  async getUltimaConsulta() {
     let idData = {
       id: this.idConsulta
     }
-    this.consultaObstetricaService.getUltimaConsultaById(idData).subscribe((res: any) => {
-      this.ultimaConsulta = res.object;
 
-      if (this.ultimaConsulta == null) {
-        this.messageService.add({
-          severity: "error",
-          summary: "Error",
-          detail: res.mensaje
-        });
-      }
-    });
-    this.loadData();
+    const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
+    this.ultimaConsulta = response.object;
+
   }
 
   inicializarForm() {
@@ -144,6 +144,7 @@ export class InterrogatorioComponent implements OnInit {
 
   recuperarDatos() {
     //RECUPERAR DATOS
+    console.log('ultima consulta prom ', this.ultimaConsulta);
     let auxPhysicalExam: any[] = [
       { funcion: 'piel', valor: this.form.value.piel },
       { funcion: 'mucosas', valor: this.form.value.mucosas },
@@ -267,14 +268,13 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   loadData() {
-    console.log('to load data ', this.ultimaConsulta);
     let auxData = {
-      nroHcl: this.ultimaConsulta.nroHcl,
-      nroEmbarazo: this.ultimaConsulta.nroEmbarazo,
-      nroAtencion: this.ultimaConsulta.nroUltimaAtencion
+      id: this.idConsulta,
+      // nroEmbarazo: this.ultimaConsulta.nroEmbarazo,
+      nroAtencion: 1
     }
     let Rpta;
-    this.consultaObstetricaService.getInterrogatorioByEmbarazo(auxData).subscribe((res: any) => {
+    this.consultaObstetricaService.getInterrogatorioById(auxData).subscribe((res: any) => {
       Rpta = res.object[0];
       this.form.patchValue({ temperatura: Rpta.funcionesVitales.t });
       this.form.patchValue({ presionSisto: Rpta.funcionesVitales.presionSistolica });
