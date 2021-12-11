@@ -9,6 +9,29 @@ import { DynamicDialogRef } from "primeng/dynamicdialog";
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
+  meses=[
+    {mesNro:1,mes:'ENERO'},
+    {mesNro:2,mes:'FEBRERO'},
+    {mesNro:3,mes:'MARZO'},
+    {mesNro:4,mes:'ABRIL'},
+    {mesNro:5,mes:'MAYO'},
+    {mesNro:6,mes:'JUNIO'},
+    {mesNro:7,mes:'JULIO'},
+    {mesNro:8,mes:'AGOSTO'},
+    {mesNro:9,mes:'SETIEMBRE'},
+    {mesNro:10,mes:'OCTUBRE'},
+    {mesNro:11,mes:'NOVIEMBRE'},
+    {mesNro:12,mes:'DICIEMBRE'}
+  ]
+  // buscarSSAlarma(lista,nombre){
+  //   const found = lista.find(element => element.nombre  == nombre);
+  //   return found.valor;
+  // }
+  mesLetras(){
+    const a=this.fecha.getMonth()+1;
+    const aux=this.meses.find(fila=>fila.mesNro===a)
+    return aux.mes;
+  }
   isMesPasado: boolean = false;
   idIpressZarzuela = "616de45e0273042236434b51";//la posta medica x defecto
   loading: boolean = true;
@@ -113,8 +136,8 @@ export class RolGuardiaComponent implements OnInit {
     }
   }
   colorearCabecera() {
-    let colorR = "background-color:#dfe6e9";
-    let colorB = "background-color:white";
+    let colorR = "color:#BF0D21";
+    let colorB = "color:#757476";
     let hasColor = true; //primera semana en pintar rojo
     this.cabeceraMes.forEach((day) => {
       if (hasColor) {
