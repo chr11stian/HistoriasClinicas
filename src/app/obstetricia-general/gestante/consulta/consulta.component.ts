@@ -66,6 +66,7 @@ export class ConsultaComponent implements OnInit {
             contentStyle: {
                 "max-height": "700px",
             },
+            autoZIndex: false,
         })
         this.ref.onClose.subscribe((data: any) => {
             console.log('data de otro dialog ', data)
@@ -81,6 +82,7 @@ export class ConsultaComponent implements OnInit {
         this.ref = this.dialog.open(DialogConsultaComponent, {
             header: "CONSULTA",
             width: "95%",
+            autoZIndex: false,
             contentStyle: {
                 "max-height": "800px",
                 overflow: "auto",

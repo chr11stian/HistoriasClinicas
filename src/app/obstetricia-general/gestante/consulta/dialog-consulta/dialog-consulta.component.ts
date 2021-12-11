@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { ObstetriciaGeneralService } from 'src/app/obstetricia-general/services/obstetricia-general.service';
 import Swal from 'sweetalert2';
 import { ConsultaObstetriciaService } from '../services/consulta-obstetricia/consulta-obstetricia.service';
@@ -57,7 +58,7 @@ export class DialogConsultaComponent implements OnInit {
         { name: "+", code: "1" },
         { name: "++", code: "2" },
         { name: "+++", code: "3" },
-        { name: "ES", code: "4" },
+        { name: "SE", code: "4" },
     ];
     listaIndicadores = [
         { name: "GAP", code: "1" },
@@ -150,13 +151,15 @@ export class DialogConsultaComponent implements OnInit {
 
     estadoEdicion: boolean;
     datePipe = new DatePipe('en-US');
-
+    listaDeCIE: any;
+    
     constructor(
         private fb: FormBuilder,
         private ref: DynamicDialogRef,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
         private consultaObstetriciaService: ConsultaObstetriciaService,
-        public config: DynamicDialogConfig
+        public config: DynamicDialogConfig,
+        private CieService: CieService,
     ) {
         this.nroHcl = this.obstetriciaGeneralService.nroHcl;
         this.estadoEdicion = false;
@@ -257,29 +260,29 @@ export class DialogConsultaComponent implements OnInit {
 
             //orientaciones
             consejeria1: new FormControl(""),
-            cie10_1: new FormControl(""),
+            cie10_1: new FormControl("99401"),
             consejeria2: new FormControl(""),
             cie10_2: new FormControl(""),
             consejeria3: new FormControl(""),
             cie10_3: new FormControl(""),
             consejeria4: new FormControl(""),
-            cie10_4: new FormControl(""),
+            cie10_4: new FormControl("9940205"),
             consejeria5: new FormControl(""),
-            cie10_5: new FormControl(""),
+            cie10_5: new FormControl("99403"),
             consejeria6: new FormControl(""),
-            cie10_6: new FormControl(""),
+            cie10_6: new FormControl("99402"),
             consejeria7: new FormControl(""),
-            cie10_7: new FormControl(""),
+            cie10_7: new FormControl("U138 "),
             consejeria8: new FormControl(""),
-            cie10_8: new FormControl(""),
+            cie10_8: new FormControl("86703"),
             consejeria9: new FormControl(""),
             cie10_9: new FormControl(""),
             consejeria10: new FormControl(""),
             cie10_10: new FormControl(""),
             consejeria11: new FormControl(""),
-            cie10_11: new FormControl(""),
+            cie10_11: new FormControl("U121"),
             consejeria12: new FormControl(""),
-            cie10_12: new FormControl(""),
+            cie10_12: new FormControl("111692"),
 
             //referencia
             consultorioReferencia: new FormControl(""),
@@ -392,6 +395,7 @@ export class DialogConsultaComponent implements OnInit {
             diagnostico: new FormControl(""),
             cie10: new FormControl(""),
             tipo: new FormControl(""),
+            autocompleteDiagnostico: new FormControl(""),
         });
         this.formTratamiento = this.fb.group({
             descripcion: new FormControl(""),
@@ -571,7 +575,7 @@ export class DialogConsultaComponent implements OnInit {
         var diagnostico = {
             tipo: this.formDiagnostico.value.tipo,
             diagnostico: this.formDiagnostico.value.diagnostico,
-            cie10: this.formDiagnostico.value.cie10,
+            cie10: this.formDiagnostico.value.cie10=== '' ? '' : this.formDiagnostico.value.cie10.codigoItem,
         }
         console.log(diagnostico);
         this.datosDiagnosticos.push(diagnostico);
@@ -593,14 +597,16 @@ export class DialogConsultaComponent implements OnInit {
         this.indexDiagnosticoEditado = rowIndex;
         this.formDiagnostico.reset();
         this.formDiagnostico.get('diagnostico').setValue(rowData.diagnostico);
-        this.formDiagnostico.get('cie10').setValue(rowData.cie10);
+        this.CieService.getCIEByCod(rowData.cie10).subscribe((resCIE: any) => {
+            this.formDiagnostico.patchValue({ 'cie10': resCIE.object });
+        })
         this.formDiagnostico.get('tipo').setValue(rowData.tipo);
         this.diagnosticoDialog = true;
     }
     guardarEdicionDiagnostico() {
         var diagnostico = {
             diagnostico: this.formDiagnostico.value.diagnostico,
-            cie10: this.formDiagnostico.value.cie10,
+            cie10: this.formDiagnostico.value.cie10=== '' ? '' : this.formDiagnostico.value.cie10.codigoItem,
             tipo: this.formDiagnostico.value.tipo,
         }
         console.log(diagnostico);
@@ -1567,6 +1573,26 @@ export class DialogConsultaComponent implements OnInit {
                 this.datosOtrosPruebasFisicas.push(configuracion.examenesFisicos[9+i]);
                 console.log(this.datosOtrosPruebasFisicas);
             }
+        }
+    }
+    filterCIE10(event) {
+        this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+            this.listaDeCIE = res.object
+        })
+    }
+
+    selectedOption(event, cieType) {
+        if (cieType == 0) {
+            this.formDiagnostico.patchValue({ diagnostico: event.descripcionItem });
+        }
+    }
+
+    selectedOptionNameCIE(event, cieType) {
+        console.log('lista de cie ', this.listaDeCIE);
+        if (cieType == 0) {
+            this.formDiagnostico.get("diagnostico").setValue(event.descripcionItem);
+            this.formDiagnostico.get("autocompleteDiagnostico").setValue("");
+            this.formDiagnostico.patchValue({ cie10: event }, { emitEvent: false });
         }
     }
 }
