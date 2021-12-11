@@ -211,17 +211,14 @@ export class ResultadosComponent implements OnInit {
     }
     getResultados() {
         const input = {
-            // "nroHcl": this.nroDocRecuperado,
-            "nroHcl": 10101013,
-            // "nroEmbarazo": this.nroEmbarazo,
+            "nroHcl": this.nroDocRecuperado,
             "nroEmbarazo": 1,
             "nroAtencion": 1
         }
         this.resultadosService.getResultado(input).subscribe((resp) => {
-            if (resp['object'] != null ) {
+            if (resp['object'] != null && resp['object'][0]['laboratorios']!=null) {
                 this.isUpdate = true;
                 const resultado = resp['object'][0]
-                this.recuperarData(resultado['laboratorios']);
                 console.log('resultado laboratorios->>>>',resultado['laboratorios'])
                 this.getFC('grupoSanguineo').setValue(resultado.laboratorios.grupoSanguineo.valor);
                 if(resultado.laboratorios.grupoSanguineo.fecha){
@@ -353,12 +350,12 @@ export class ResultadosComponent implements OnInit {
 
     agregar() {
         const input = {
-            nroHcl: "10101013",
+            nroHcl: this.nroDocRecuperado,
             nroAtencion: 1,
             nroControlSis: 1,
-            nroEmbarazo: 1,
-            tipoDoc: "DNI",
-            nroDoc: "10101013",
+            nroEmbarazo: this.nroEmbarazo,
+            tipoDoc: this.tipoDocRecuperado,
+            nroDoc: this.nroDocRecuperado,
             laboratorios: {
                 grupoSanguineo: {
                     valor: this.getFC("grupoSanguineo").value,
