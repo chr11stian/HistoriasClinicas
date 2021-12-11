@@ -24,28 +24,22 @@
                     [showCurrentPageReport]="true">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>Nro</th>
-                            <th>DNI</th>
-                            <th>FECHA</th>
-                            <th>NRO ATENCION</th>
-                            <th>ACCIONES</th>
+                            <th class="text-center">Nro</th>
+                            <th class="text-center">DNI</th>
+                            <th class="text-center">FECHA</th>
+                            <th class="text-center">NRO ATENCION</th>
+                            <th class="text-center">ACCIONES</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-consulta let-i="rowIndex">
+                    <ng-template pTemplate="body" let-row let-i="rowIndex">
                         <tr>
-                            <td>{{i+1}}</td>
-                            <td>{{consulta.nroDoc}}</td>
-                            <td>{{consulta.fecha}}</td>
-                            <td>{{consulta.nroAtencion}}</td>
-                            <td>
-                                <span class="p-buttonset">
-                                    <button pButton pTooltip="Editar" pRipple type="button" label="Editar"
-                                        (click)="editar()">
-                                    </button>
-                                    <button pButton pTooltip="Eliminar" pRipple label="Eliminar" class="p-button-danger"
-                                        type="button">
-                                    </button>
-                                </span>
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">{{row.nroDoc}}</td>
+                            <td class="text-center">{{row.fecha}}</td>
+                            <td class="text-center">{{row.nroAtencion}}</td>
+                            <td class="text-center">
+                                <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button" label="Editar" class="p-button-rounded p-button-info"
+                                (click)="openDialogConsultaEditar(row,i)"></button>
                             </td>
                         </tr>
                     </ng-template>

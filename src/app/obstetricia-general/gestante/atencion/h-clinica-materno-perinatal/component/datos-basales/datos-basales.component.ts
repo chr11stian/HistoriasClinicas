@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/api';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { HemoglobinaDialogComponent } from './hemoglobina-dialog/hemoglobina-dialog.component';
+import { ImcService } from 'src/app/obstetricia-general/services/imc.service';
 
 @Component({
     selector: 'app-datos-basales',
@@ -37,6 +38,7 @@ export class DatosBasalesComponent implements OnInit {
     edadGestacional: number;
     hemoglobinaDialog: boolean = false;
     ref: DynamicDialogRef;
+    otrosExamHemo: any[] = [];
 
     constructor(private filiancionService: FiliancionService,
         private fb: FormBuilder,
@@ -45,16 +47,10 @@ export class DatosBasalesComponent implements OnInit {
         private messageService: MessageService,
         private CieService: CieService,
         private dialog: DialogService,
+        private imcService: ImcService,
     ) {
         this.inicalizarForm();
-        this.idGestante = this.obstetriciaService.idGestacion
-        // let pesoActual: number = 72;
-        // let altura: number = 1.60;
-        // let edadGestacional: number = 13;
-        // this.CieService.getGananciaPesoRegular(edadGestacional).subscribe((res: any) => {
-        //     this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
-        //     this.form.patchValue({ imc: ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2) });
-        // });
+        this.idGestante = this.obstetriciaService.idGestacion;
     }
 
     ngOnInit(): void {
@@ -341,13 +337,12 @@ export class DatosBasalesComponent implements OnInit {
                 conFactorCorrecion: this.form.value.conFactor3,
                 fecha: this.form.value.hemo3
             },
-            {
-                descripcion: 'hemoglobina 4',
-                hg: this.form.value.hg4,
-                conFactorCorrecion: this.form.value.conFactor4,
-                fecha: this.form.value.hemo4
-            },
         ]
+        if (this.otrosExamHemo.length > 0) {
+            for (let i = 0; i < this.otrosExamHemo.length; i++) {
+                this.hemoglobina.push(this.otrosExamHemo[i]);
+            }
+        }
     }
 
     recuperarOtrosExamenes() {
@@ -652,27 +647,31 @@ export class DatosBasalesComponent implements OnInit {
 
     calcularEdadGestacional() {
         // let auxFUM: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd')   + (3600000 * 5)
-        let pesoActual = 70;
-        let altura = 1.6;
+        let pesoActual = this.form.value.pesoHabitual;
+        let altura = this.form.value.talla;
 
         let today = new Date().getTime();
         let auxFUM = new Date(this.form.value.dateFUM).getTime();
         auxFUM = auxFUM + 0;
         let auxWeek = today - auxFUM;
         this.edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24 * 7));
+
         console.log('edad gestacional ', this.edadGestacional);
-        this.CieService.getGananciaPesoRegular(this.edadGestacional).subscribe((res: any) => {
-            this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
-            this.form.patchValue({ imc: ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2) });
-            console.log('imc ', ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2));
-        });
+        if (this.edadGestacional > 0) {
+            this.imcService.getGananciaPesoRegular(this.edadGestacional).subscribe((res: any) => {
+                this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
+                console.log('peso ', pesoActual, 'talle ', altura);
+                this.form.patchValue({ imc: ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2) });
+                console.log('imc ', ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2));
+            });
+        }
     }
 
     openDialogHemoglobina() {
-        // this.hemoglobinaDialog = true;
         this.ref = this.dialog.open(HemoglobinaDialogComponent, {
             header: "HEMOGLOBINA EXTRA",
             width: "50%",
+            height: "500px",
             contentStyle: {
                 "max-height": "500px",
                 overflow: "auto",
@@ -683,7 +682,8 @@ export class DatosBasalesComponent implements OnInit {
         });
 
         this.ref.onClose.subscribe((data: any) => {
-            console.log('data de otro dialog ', data)
+            this.otrosExamHemo = data;
+            console.log('data de dialog hemoglobina ', data)
         });
     }
 }

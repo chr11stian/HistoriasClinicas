@@ -13,7 +13,9 @@ export class PuerperioInmediatoService {
 
     constructor(private http: HttpClient) {
     }
-
+    postFinalizarGestacion(id,estado){
+        return this.http.post<any>(`${this.base_url}/${this.bd}/filiacion/finalizarhistoriaclinica/${id}`,estado);
+    }
     getPuerperioService2(id) {
         return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarpuerperio/${id}`);
     }
