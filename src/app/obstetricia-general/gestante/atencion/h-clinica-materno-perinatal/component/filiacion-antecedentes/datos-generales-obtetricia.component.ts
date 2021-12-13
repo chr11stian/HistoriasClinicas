@@ -12,6 +12,21 @@ import Swal from "sweetalert2";
 })
 export class DatosGeneralesObtetriciaComponent implements OnInit {
 
+
+    // // @ViewChild('network', {static: false})
+    // @ViewChild('visNetwork', {static: false})
+    // visNetwork!: ElementRef;
+    // private networkInstance: any;
+
+    @ViewChild('canvasEl', {static: true})
+    canvasEl: ElementRef<HTMLCanvasElement>;
+
+    // @ViewChild('canvasEl') canvasEl: ElementRef<HTMLCanvasElement>;
+
+    /**Canvas 2d context*/
+    private context: CanvasRenderingContext2D;
+
+
     antecedentes: any;
     antecedentes1: any;
     antecedentes2: any;
@@ -102,8 +117,33 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         // })
         this.buildForm2();
         this.getpacienteFiiacionByID();
-
+        // this.ngAfterViewInit();
     }
+
+
+    // ngAfterViewInit(): void {
+    //     // create an array with nodes
+    //     const nodes = new DataSet<any>([
+    //         {id: 1, label: 'Node 1'},
+    //         {id: 2, label: 'Node 2'},
+    //         {id: 3, label: 'Node 3'},
+    //         {id: 4, label: 'Node 4'},
+    //         {id: 5, label: 'Node 5'},
+    //     ]);
+    //
+    //     // create an array with edges
+    //     const edges = new DataSet<any>([
+    //         {from: '1', to: '3'},
+    //         {from: '1', to: '2'},
+    //         {from: '2', to: '4'},
+    //         {from: '2', to: '5'},
+    //     ]);
+    //
+    //     const data = {nodes, edges};
+    //
+    //     const container = this.visNetwork;
+    //     this.networkInstance = new Network(container.nativeElement, data, {});
+    // }
 
 
     buildForm2() {

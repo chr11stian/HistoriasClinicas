@@ -31,7 +31,6 @@ import {HClinicaMaternoPerinatalModule} from "./h-clinica-materno-perinatal/h-cl
         PaginatorModule,
         AutoCompleteModule,
 
-
         ConsultaObstetricoModule,
 
         ConsultaObstetricoModule,
