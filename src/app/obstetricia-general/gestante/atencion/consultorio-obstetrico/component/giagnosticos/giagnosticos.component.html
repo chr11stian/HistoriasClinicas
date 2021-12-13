@@ -26,6 +26,7 @@
                     <th style="text-align: center" class="font-2">Nro </th>
                     <th style="text-align: center" class="font-1">CIE 10</th>
                     <th style="text-align: center" class="font-2">DIAGNOSTICOS</th>
+                    <th style="text-align: center" class="font-2">TIPO</th>
                     <th style="text-align: center" class="font-2">ACCIÓN</th>
 
                 </tr>
@@ -35,11 +36,8 @@
                     <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                     <td style="text-align: center">{{ rowData.cie10 }}</td>
                     <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                    <td style="text-align: center">{{ rowData.tipo }}</td>
                     <td style="text-align: center">
-                        <button pButton pRipple icon="pi pi-pencil"
-                                class="p-button-rounded p-button-primary m-1"
-                                (click)="editar(rowData)" pTooltip="Editar">
-                        </button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
                                 (click)="eliminarDx(rowIndex)" pTooltip="Eliminar">
                         </button>
@@ -56,9 +54,6 @@
                 <button pButton pRipple label="Agregar Diagnóstico" icon="pi pi-plus"
                         pButton type="button" class="button-agregar"
                         (click)="openDiagnostico()"></button>
-                <button pButton pRipple label="Agregar Diagnóstico PRUEBA" icon="pi pi-plus"
-                        pButton type="button" class="button-agregar"
-                        (click)="openDialogDiagnostico()"></button>
             </ng-template>
 
         </p-toolbar>
@@ -169,17 +164,17 @@
 <!-------------INICIO DIALOG INGRESAR DIAGNOSTICO--->
 <p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog"  [modal]="true"
           [draggable]="false" [resizable]="false">
-    <div class="grid">
+    <div class="grid p-fluid">
         <div class="col-6">
             <div class="p-field-radiobutton">
-                <p-radioButton name="city" value="Chicago" [(ngModel)]="opcionBusqueda"  value="porDescripcion"
+                <p-radioButton name="descripcion" value="opcionBusqueda" [(ngModel)]="opcionBusqueda"  value="porDescripcion"
                                inputId="opcion1"></p-radioButton>
                 <label>Buscar por Descripcion</label>
             </div>
         </div>
         <div class="col-6">
             <div class="p-field-radiobutton">
-                <p-radioButton name="city" value="Los Angeles" [(ngModel)]="opcionBusqueda" value="porcie10"
+                <p-radioButton name="cie10" value="opcionBusqueda" [(ngModel)]="opcionBusqueda" value="porcie10"
                                inputId="opcion2" ></p-radioButton>
                 <label>Buscar por Cie10</label>
             </div>
@@ -187,33 +182,35 @@
     </div>
     <br>
     <form   [formGroup]='form' (ngSubmit)="save1(formTemplate)" #formTemplate ="ngForm" >
-        <div class="col-6 grid  p-fluid">
-
-            <label *ngIf="opcionBusqueda=='porDescripcion'">Diagnóstico:</label>
-            <p-autoComplete *ngIf="opcionBusqueda=='porDescripcion'" formControlName="diagnostico"
-                            [suggestions]="Cie10" (completeMethod)="filterDiagnostico($event)"
-                            field="descripcionItem" [minLength]="1" placeholder="Descripcion" class="areaText">
-            </p-autoComplete>
-
-            <label  *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>
-
-            <p-autoComplete  *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico"
-                             [suggestions]="Cie10" disabled
-                             (completeMethod)="filterDiagnostico($event)" field="codigoItem"
-                             [minLength]="1" placeholder="CIE 10">
-            </p-autoComplete>
-
-        </div>
-        <div class=" col-4 grid">
-            <label>Tipo:</label>
-            <div class="p-field">
-                <p-dropdown  inputId="dropdown"
-                             placeholder="seleccionar" optionLabel="label" optionValue="value"
-                             defaultLabel="Seleccione:" >
-                </p-dropdown>
+        <label *ngIf="opcionBusqueda=='porDescripcion'">Diagnóstico:</label>
+        <label  *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>
+        <div class="grid p-fluid">
+            <div class="col-8">
+                <p-autoComplete *ngIf="opcionBusqueda=='porDescripcion'" formControlName="diagnostico"
+                                [suggestions]="Cie10" (completeMethod)="filterDiagnostico($event)"
+                                field="descripcionItem" [minLength]="1" placeholder="Descripcion" class="areaText">
+                </p-autoComplete>
+                <p-autoComplete  *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico"
+                                 [suggestions]="Cie10" disabled
+                                 (completeMethod)="filterDiagnostico($event)" field="codigoItem"
+                                 [minLength]="1" placeholder="CIE 10">
+                </p-autoComplete>
             </div>
 
         </div>
+        <br>
+        <br>
+        <div class="col-3">
+
+            <div class="p-field">
+                <label>Tipo:</label>
+                <p-dropdown  inputId="dropdown" [options]="tipoList" formControlName="tipo"
+                             placeholder="seleccionar" optionLabel="label" optionValue="value"
+                             defaultLabel="Seleccione:" required>
+                </p-dropdown>
+            </div>
+        </div>
+
     </form>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="button-cancelar"

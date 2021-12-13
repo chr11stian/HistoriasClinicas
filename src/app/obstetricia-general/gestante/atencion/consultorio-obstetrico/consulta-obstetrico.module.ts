@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+
 import {DatosGeneralesComponent} from "./component/datos-generales/datos-generales.component";
 import {StepGeneral_consultaComponent} from "./component/step-general-consulta/step-general-consulta.component";
 import {InterrogatorioComponent} from "./component/interrogatorio/interrogatorio.component";
@@ -16,8 +17,6 @@ import {ModalInmunizacionesComponent} from "./component/tratamiento/modal-inmuni
 import { ModalInterconsultaComponent } from './component/tratamiento/modal-interconsulta/modal-interconsulta.component';
 import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
 import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
-import { ModalDiagnosticoComponent } from './component/giagnosticos/modal-diagnostico/modal-diagnostico.component';
-
 
 
 @NgModule({
@@ -35,7 +34,7 @@ import { ModalDiagnosticoComponent } from './component/giagnosticos/modal-diagno
         ModalInterconsultaComponent,
         ModalRecomendacionesComponent,
         ModalExamenesAuxiliaresComponent,
-        ModalDiagnosticoComponent,
+
 
     ],
     imports: [
