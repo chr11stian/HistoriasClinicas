@@ -6,6 +6,7 @@ import {CieService} from "../../../../../services/cie.service";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ConsultasService} from "../../services/consultas.service";
 import {DatePipe} from "@angular/common";
+import {forkJoin} from "rxjs";
 
 @Component({
   selector: 'app-giagnosticos',
@@ -69,8 +70,9 @@ export class GiagnosticosComponent implements OnInit {
     this.data.push(form.value);
     console.log(this.data);
     this.diagnosticos.push({
-      diagnostico: this.data[0]['diagnostico']['descripcionItem'],
-      cie10:this.data[0]['diagnostico']['codigoItem']});
+        diagnostico: this.data[this.data.length-1]['diagnostico']['descripcionItem'],
+        cie10:this.data[this.data.length-1]['diagnostico']['codigoItem']});
+
     Swal.fire({
       icon: 'success',
       title: 'Agregado correctamente',
@@ -87,8 +89,8 @@ export class GiagnosticosComponent implements OnInit {
     this.data2.push(form.value);
     console.log(this.data2);
     this.orientaciones.push({
-      consejeria: this.data2[0]['orientaciones']['descripcionItem'],
-       cie10:this.data2[0]['orientaciones']['codigoItem']});
+      consejeria: this.data2[this.data2.length-1]['orientaciones']['descripcionItem'],
+       cie10:this.data2[this.data2.length-1]['orientaciones']['codigoItem']});
     Swal.fire({
       icon: 'success',
       title: 'Agregado correctamente',
@@ -198,8 +200,8 @@ export class GiagnosticosComponent implements OnInit {
     }
     this.DxService.updateConsultas(req).subscribe(
         (resp) => {
-          console.log(resp);
-          console.log(req);
+          console.log('resp',resp);
+          console.log('req',req);
 
           Swal.fire({
             icon: 'success',
@@ -220,7 +222,7 @@ export class GiagnosticosComponent implements OnInit {
     }
     this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
       this.dataAux = res.object;
-      console.log(this.dataAux);
+      console.log('dataAux',this.dataAux);
       this.formOtrosDatos.patchValue({'consultorio':this.dataAux.referencia.consultorio});
       this.formOtrosDatos.patchValue({'motivo':this.dataAux.referencia.motivo});
       this.formOtrosDatos.patchValue({'codRENAES':this.dataAux.referencia.codRENAES});

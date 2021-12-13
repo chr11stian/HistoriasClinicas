@@ -31,7 +31,7 @@ export class ModalTratamientoComponent implements OnInit {
               private config: DynamicDialogConfig)
   {
     this.idObstetricia=this.obstetriciaGeneralService.idGestacion;
-    console.log(config.data);
+    console.log('config.data',config);
     this.buildForm();
     if(config.data){
       this.llenarCamposTratamientoComun();

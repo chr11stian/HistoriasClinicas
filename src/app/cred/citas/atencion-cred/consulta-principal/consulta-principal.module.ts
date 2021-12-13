@@ -18,7 +18,13 @@ import {PlanControlConsultaComponent} from './component/plan-control-consulta/pl
 import {EvaluacionesConsultaComponent} from './component/evaluaciones-consulta/evaluaciones-consulta.component';
 import {PlanModule} from '../plan/plan.module';
 import {EvaluacionGeneralModule} from "../plan/component/evaluacion-general/evaluacion-general.module";
-import {PlanAtencionIntegralModule} from '../plan/component/plan-atencion-integral/plan-atencion-integral.module'
+import {PlanAtencionIntegralModule} from '../plan/component/plan-atencion-integral/plan-atencion-integral.module';
+import { ModalNosologicoComponent } from './component/diagnostico-consulta/modal-nosologico/modal-nosologico.component';
+import { ModalFactoresComponent } from './component/diagnostico-consulta/modal-factores/modal-factores.component';
+import { ModalTratamientoComponent } from './component/tratamiento-consulta/modal-tratamiento/modal-tratamiento.component';
+import { ModalAcuerdoComponent } from './component/tratamiento-consulta/modal-acuerdo/modal-acuerdo.component';
+import { ModalExamenesReferenciaComponent } from './component/finalizar-consulta/modal-examenes-referencia/modal-examenes-referencia.component';
+import { ModalReferenciaComponent } from './component/finalizar-consulta/modal-referencia/modal-referencia.component'
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -28,7 +34,13 @@ import {PlanAtencionIntegralModule} from '../plan/component/plan-atencion-integr
         FinalizarConsultaComponent,
         StepGeneralComponent,
         PlanControlConsultaComponent,
-        EvaluacionesConsultaComponent
+        EvaluacionesConsultaComponent,
+        ModalNosologicoComponent,
+        ModalFactoresComponent,
+        ModalTratamientoComponent,
+        ModalAcuerdoComponent,
+        ModalExamenesReferenciaComponent,
+        ModalReferenciaComponent
     ],
     imports: [
         EvaluacionGeneralModule,
