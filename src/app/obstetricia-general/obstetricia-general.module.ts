@@ -10,6 +10,7 @@ import {CitasComponent} from "./citas.component";
 import {ImageModule} from "primeng/image";
 import {HistoriaConsultasModule} from "./historia-consultas/historia-consultas.module";
 import { DialogConsultaComponent } from './gestante/consulta/dialog-consulta/dialog-consulta.component';
+import { ConsultasNoControlComponent } from './consultas-no-control/consultas-no-control.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { DialogConsultaComponent } from './gestante/consulta/dialog-consulta/dia
         GestanteComponent,
         ConsultaComponent,
         CitasComponent,
-        DialogConsultaComponent
+        DialogConsultaComponent,
+        ConsultasNoControlComponent
 
 
     ],
