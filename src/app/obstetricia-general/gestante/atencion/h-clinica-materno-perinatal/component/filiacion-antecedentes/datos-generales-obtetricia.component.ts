@@ -108,6 +108,8 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     buildForm2() {
         this.formAntecedentes = this.form.group({
+            antecendentesObstetricos: new FormControl(''),
+
             fecha: new FormControl(''),
             intergenesico: new FormControl(''),
             tipoAborto: new FormControl(''),

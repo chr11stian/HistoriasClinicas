@@ -22,12 +22,6 @@
     ></button>
   </ng-template>
 </p-toolbar>
-<h1>titulo de prueba</h1>
-<p-dropdown
-  [options]="examenes"
-  optionLabel="name"
-  (onChange)="seleccionar($event)"
-></p-dropdown>
 <form [formGroup]="resultadoEcografiaFG">
   <br />
   <br />
@@ -35,8 +29,20 @@
     <div class="m-3">
       <div>
         <p-fieldset legend="Examen de laboratorio">
+<!--          <div class="grid mt-3">-->
+<!--            <div class="col-2 text-right">Seleccione Examen:</div>-->
+<!--            <div class="col-3 p-fluid">-->
+<!--            <p-dropdown-->
+<!--                    [options]="examenes"-->
+<!--                    optionLabel="name"-->
+<!--                    (onChange)="seleccionar($event)"-->
+<!--            ></p-dropdown>-->
+<!--            </div>-->
+
+<!--          </div>-->
+<!--          <br>-->
           <div class="grid">
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '1'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Grupo Sanguineo:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -56,7 +62,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '2'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Factor RH:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -76,7 +82,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '3'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">hemograma:</div>
               <div class="col-4 p-fluid">
                 <input type="text" pInputText formControlName="hemograma" />
@@ -90,7 +96,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '4'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Hemoglobina:</div>
               <div class="col-4 p-fluid">
                 <p-inputNumber
@@ -111,7 +117,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '5'">
+            <div class="col-12 md:col-6 grid">
               <div class="col-4 text-right">Factor Correpcion:</div>
               <div class="col-4 p-fluid">
                 <p-inputNumber
@@ -132,7 +138,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '6'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">hto:</div>
               <div class="col-4 p-fluid">
                 <input type="text" pInputText formControlName="hto" />
@@ -146,7 +152,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '7'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Glucosa:</div>
               <div class="col-4 p-fluid">
                 <p-inputNumber
@@ -164,7 +170,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '8'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Tolerancia Glucosa:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -184,7 +190,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '9'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Exa. Orina:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -204,7 +210,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '10'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">rpr:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -224,7 +230,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '11'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">rpr Reactivo:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -244,7 +250,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '12'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">ExSecV:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -264,7 +270,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '13'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Protenuaria Cuantitativa:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -284,7 +290,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '14'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Protenuaria Cualitativa:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -304,7 +310,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '15'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Prueva VIH:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -324,7 +330,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '16'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Prueva Hepatitis:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -344,7 +350,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '17'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Elisa:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -364,7 +370,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '18'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Glicemia:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -384,7 +390,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '19'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Bacteriuniria:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -404,7 +410,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '20'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Nitritos:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -424,7 +430,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '21'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Urocultivo:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -444,7 +450,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '22'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">BK Esputo:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -464,7 +470,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '23'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">wsternBlotlfi:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -484,7 +490,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '24'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">thlvl:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -504,7 +510,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '25'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Torch:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -524,7 +530,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '26'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Gota Gruesa:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -544,7 +550,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '27'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">Pap:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -564,7 +570,7 @@
                 ></p-calendar>
               </div>
             </div>
-            <div class="col-4 grid" *ngIf="examenSeleccionado == '28'">
+            <div class="col-12 md:col-6 grid" >
               <div class="col-4 text-right">ivaa:</div>
               <div class="col-4 p-fluid">
                 <p-dropdown
@@ -584,11 +590,36 @@
                 ></p-calendar>
               </div>
             </div>
+
           </div>
+<!--            <div>-->
+<!--                <p-table [value]="resultadosList">-->
+<!--                    <ng-template pTemplate="header" >-->
+<!--                        <tr>-->
+<!--                            <th>Nro</th>-->
+<!--                            <th>Prueba</th>-->
+<!--                            <th>Resultado</th>-->
+<!--                            <th>Fecha</th>-->
+<!--                        </tr>-->
+<!--                    </ng-template>-->
+<!--                    <ng-template pTemplate="body" let-pru let-i=rowIndex >-->
+<!--                        <tr>-->
+<!--                            <td>{{i+1}}</td>-->
+<!--                            <td>{{pru.prueba}}</td>-->
+<!--                            <td>{{pru.valor}}</td>-->
+<!--                            <td>{{pru.fecha}}</td>-->
+<!--                        </tr>-->
+<!--                    </ng-template>-->
+<!--                </p-table>-->
+
+
+
+<!--            </div>-->
 
           <!--      <div class="flex justify-content-end">-->
           <!--      <p-calendar  [showIcon]="true" inputId="icon" formControlName="fechaExamen"></p-calendar>-->
           <!--      </div>-->
+
         </p-fieldset>
       </div>
       <div class="grid mt-3">
