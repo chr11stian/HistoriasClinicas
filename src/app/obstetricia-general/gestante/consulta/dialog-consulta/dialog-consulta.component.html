@@ -6,12 +6,12 @@
                     <div class="col-12  mt-4">
                         <div class="margen border-300">
                             <div class="grid ">
-                                <div class="col-3 md:col-2 text-center">
+                                <div class="col-3 md:col-3 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>Fecha de atención:</label>
                                         </div>
-                                        <div class="col-8">
+                                        <div class="col-9">
                                             <input formControlName="fecha" type="datetime-local" class="p-inputtext-sm"
                                                 pInputText />
                                         </div>
@@ -23,41 +23,41 @@
                                             <label>Edad:</label>
                                         </div>
                                         <div class="col-8">
-                                            <input formControlName="edad" type="text" class="p-inputtext-sm "
-                                                pInputText />
+                                            <input formControlName="edad" type="number" class="p-inputtext-sm "
+                                                pInputText placeholder="Edad" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-3 md:col-2 text-center">
                                     <div class="grid">
-                                        <div class="col-6">
+                                        <div class="col-8">
                                             <label>N° de A. Prenatal:</label>
                                         </div>
-                                        <div class="col-6">
-                                            <input formControlName="nroAtencion" type="text" class="p-inputtext-sm "
-                                                pInputText />
+                                        <div class="col-4">
+                                            <input formControlName="nroAtencion" type="number" class="p-inputtext-sm "
+                                                pInputText placeholder="Nro aten." />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-3 md:col-2 text-center">
                                     <div class="grid">
-                                        <div class="col-6">
+                                        <div class="col-8">
                                             <label>N° Control SIS:</label>
                                         </div>
-                                        <div class="col-6">
-                                            <input formControlName="nroControlSis" type="text" class="p-inputtext-sm "
-                                                pInputText />
+                                        <div class="col-4">
+                                            <input formControlName="nroControlSis" type="number" class="p-inputtext-sm "
+                                                pInputText placeholder="Nro control" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 md:col-5 text-center">
+                                <div class="col-12 md:col-4 text-center">
                                     <div class="grid">
                                         <div class="col-2">
-                                            <label>Cambio de Domicilio:</label>
+                                            <label>Referencia de Domicilio:</label>
                                         </div>
                                         <div class="col-10">
                                             <input formControlName="direccion" type="text" class="p-inputtext-sm "
-                                                pInputText />
+                                                pInputText placeholder="Referencia domicilio" />
                                         </div>
                                     </div>
                                 </div>
@@ -69,89 +69,112 @@
                             <div class="grid ">
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>T°:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="text" pInputText formControlName='temperatura' placeholder=""
-                                                class="p-inputtext-sm inputfield w-full">
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='temperatura'
+                                                placeholder="Temp." class="p-inputtext-sm inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">C</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>PA(S):</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="text" pInputText formControlName='presionSis' placeholder=""
-                                                class="p-inputtext-sm  inputfield w-full">
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='presionSis'
+                                                placeholder="Sistolica" class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">mm.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>PA(D):</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="text" pInputText formControlName='presionDias' placeholder=""
-                                                class="p-inputtext-sm  inputfield w-full">
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='presionDias'
+                                                placeholder="Diastolica" class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">Hg.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>F.C:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="text" pInputText formControlName='fc' placeholder=""
-                                                class="p-inputtext-sm  inputfield w-full">
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='fc'
+                                                placeholder="Frec. card." class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">por min.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>F.R:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="text" pInputText formControlName='fr' placeholder=""
-                                                class="p-inputtext-sm  inputfield w-full">
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='fr'
+                                                placeholder="Frec. resp." class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">por min.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>PESO:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="text" pInputText formControlName='peso' placeholder=""
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='peso' placeholder="Peso"
                                                 class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">kg.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>TALLA:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="text" pInputText formControlName='talla' placeholder=""
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='talla' placeholder="Talla"
                                                 class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">m.</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
                                     <div class="grid">
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <label>IMC:</label>
                                         </div>
-                                        <div class="col-8">
-                                            <input type="text" pInputText formControlName='imc' placeholder=""
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='imc' placeholder="IMC"
                                                 class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="col-4">
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +187,7 @@
                                             </p-inputNumber>
                                         </div>
                                         <div class="col-6">
-                                            <p-dropdown [options]="listaIndicadores"
+                                            <p-dropdown [options]="listaIndicadores" placeholder="Indicador"
                                                 formControlName="evalNutricionalIndicador" optionLabel="name"
                                                 optionValue="name" class="inputfield p-fluid w-full">
                                             </p-dropdown>
@@ -184,7 +207,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="apetito" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Apetito" />
                                         </div>
                                     </div>
                                 </div>
@@ -195,7 +218,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="sed" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Sed" />
                                         </div>
                                     </div>
                                 </div>
@@ -206,7 +229,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="sueño" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Sueño" />
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +240,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="estadoAnimo" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Estado Anim." />
                                         </div>
                                     </div>
                                 </div>
@@ -228,7 +251,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="orina" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Orina" />
                                         </div>
                                     </div>
                                 </div>
@@ -239,7 +262,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input formControlName="deposiciones" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText />
+                                                class="p-inputtext-sm " pInputText placeholder="Deposiciones" />
                                         </div>
                                     </div>
                                 </div>
@@ -254,19 +277,22 @@
                                         <div class="col-6">
                                             <label>Motivo de Consulta:</label>
                                             <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                                                formControlName="motivoConsulta" pInputTextarea></textarea>
+                                                formControlName="motivoConsulta" pInputTextarea
+                                                placeholder="Describa motivo de consulta"></textarea>
                                         </div>
                                         <div class="col-6">
                                             <label>Tiempo de la Enfermedad:</label>
                                             <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                                                formControlName="tiempoEnfermedad" pInputTextarea></textarea>
+                                                formControlName="tiempoEnfermedad" pInputTextarea
+                                                placeholder="Ingrese tiempo de la enfermedad"></textarea>
                                         </div>
                                     </div>
                                     <div class="grid">
                                         <div class="col-12">
                                             <label>Observaciones:</label>
                                             <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                                                formControlName="interrogatorioOtro" pInputTextarea></textarea>
+                                                formControlName="interrogatorioOtro" pInputTextarea
+                                                placeholder="Ingrese las observaciones"></textarea>
                                         </div>
                                     </div>
                                 </p-fieldset>
@@ -277,12 +303,13 @@
                                         <div class="col-6 ">
                                             <label>Estado:</label>
                                             <input type="text" pInputText formControlName='psicoProfilaxis'
-                                                placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                placeholder="Estado" class="p-inputtext-sm inputfield w-full">
                                         </div>
                                         <div class="col-6 ">
                                             <label>Fecha:</label>
-                                            <input type="datetime-local" pInputText formControlName='fechaPsicoProfilaxis'
-                                                placeholder="" class="p-inputtext-sm inputfield w-full">
+                                            <input type="datetime-local" pInputText
+                                                formControlName='fechaPsicoProfilaxis'
+                                                class="p-inputtext-sm inputfield w-full">
                                         </div>
                                     </div>
                                 </p-fieldset>
@@ -298,8 +325,8 @@
                                             <div class="grid">
                                                 <div class="col-12 ">
                                                     <label>Piel:</label>
-                                                    <input type="text" pInputText formControlName='piel' placeholder=""
-                                                        class="p-inputtext-sm inputfield w-full">
+                                                    <input type="text" pInputText formControlName='piel'
+                                                        placeholder="Piel" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -308,7 +335,7 @@
                                                 <div class="col-12 ">
                                                     <label>Mucosas:</label>
                                                     <input type="text" pInputText formControlName='mucosas'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Mucosas" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -317,7 +344,7 @@
                                                 <div class="col-12 ">
                                                     <label>Cabeza:</label>
                                                     <input type="text" pInputText formControlName='cabeza'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Cabeza" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -326,7 +353,7 @@
                                                 <div class="col-12">
                                                     <label>Cuello:</label>
                                                     <input type="text" pInputText formControlName='cuello'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Cuello" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -335,7 +362,8 @@
                                                 <div class="col-12">
                                                     <label>Cardio Vasc:</label>
                                                     <input type="text" pInputText formControlName='cardioVascular'
-                                                        placeholder="" class="p-inputtext-sm  inputfield w-full">
+                                                        placeholder="Cardio Vascular"
+                                                        class="p-inputtext-sm  inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -344,7 +372,7 @@
                                                 <div class="col-12 ">
                                                     <label>Pulmones:</label>
                                                     <input type="text" pInputText formControlName='pulmones'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Pulmones" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -352,8 +380,8 @@
                                             <div class="grid">
                                                 <div class="col-12 ">
                                                     <label>Mamas:</label>
-                                                    <input type="text" pInputText formControlName='mamas' placeholder=""
-                                                        class="p-inputtext-sm inputfield w-full">
+                                                    <input type="text" pInputText formControlName='mamas'
+                                                        placeholder="Mamas" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -362,7 +390,7 @@
                                                 <div class="col-12 ">
                                                     <label>Pezones:</label>
                                                     <input type="text" pInputText formControlName='pezones'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Pezones" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -371,7 +399,7 @@
                                                 <div class="col-12">
                                                     <label>Abdomen:</label>
                                                     <input type="text" pInputText formControlName='abdomen'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Abdomen" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </div>
@@ -418,19 +446,11 @@
                                                 </ng-template>
                                             </p-table>
                                         </div>
-                                        <!-- <div class="col-9">
-                                            <div class="grid">
-                                                <div class="col-12">
-                                                    <label>Otro(Especifique):</label>
-                                                    <input type="text" pInputText formControlName='examenFisicoOtro'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
-                                                </div>
-                                            </div>
-                                        </div> -->
                                         <div class="col-6">
                                             <label>Examen Fisico:</label>
                                             <textarea formControlName="examenFisicoObservaciones" class="p-fluid w-full"
-                                                rows="6" pInputTextarea></textarea>
+                                                rows="6" pInputTextarea
+                                                placeholder="Describa el examen fisico"></textarea>
                                         </div>
                                     </div>
                                 </p-fieldset>
@@ -444,8 +464,15 @@
                                     <div class="grid">
                                         <div class="col-12">
                                             <label>Altura Uterina:</label>
-                                            <input type="text" pInputText formControlName='alturaUterina' placeholder=""
-                                                class="p-inputtext-sm  inputfield w-full">
+                                            <div class="grid">
+                                                <div class="col-6">
+                                                    <input type="number" pInputText formControlName='alturaUterina'
+                                                        class="p-inputtext-sm  inputfield w-full">
+                                                </div>
+                                                <div class="mt-2 col-6 text-left">
+                                                    <span class="font-italic">cm.</span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -534,7 +561,8 @@
                                         <div class="col-12">
                                             <label>Edema:</label>
                                             <p-dropdown [options]="listaEdema" formControlName="edemaExamen"
-                                                optionLabel="name" optionValue="name" class="inputfield p-fluid w-full">
+                                                placeholder="Edema" optionLabel="name" optionValue="name"
+                                                class="inputfield p-fluid w-full">
                                             </p-dropdown>
                                         </div>
                                     </div>
@@ -1132,6 +1160,7 @@
                                     <ng-template pTemplate="header">
                                         <tr>
                                             <th style="text-align: center">Nro</th>
+                                            <th style="text-align: center">Tipo</th>
                                             <th style="text-align: center">Diagnostico</th>
                                             <th style="text-align: center">Cie10</th>
                                             <th style="text-align: center">Acción</th>
@@ -1140,6 +1169,8 @@
                                     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                                         <tr style="text-align: center">
                                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                            <td style="text-align: center">{{ rowData.tipo==="R"? "REPETITIVO":
+                                                (rowData.tipo==="D"? "DEFINITIVO":"PRESUNTIVO")}}</td>
                                             <td style="text-align: center">{{ rowData.diagnostico }}</td>
                                             <td style="text-align: center">{{ rowData.cie10 }}</td>
                                             <td style="text-align: center">
@@ -1181,6 +1212,7 @@
                                             <th style="text-align: center">Via Administ.</th>
                                             <th style="text-align: center">Intervalo</th>
                                             <th style="text-align: center">Duracion</th>
+                                            <th style="text-align: center">Observaciones</th>
                                             <th style="text-align: center">Acción</th>
                                         </tr>
                                     </ng-template>
@@ -1193,6 +1225,7 @@
                                             <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
                                             <td style="text-align: center">{{ rowData.intervalo }}</td>
                                             <td style="text-align: center">{{ rowData.duracion }}</td>
+                                            <td style="text-align: center">{{ rowData.observaciones }}</td>
                                             <td style="text-align: center">
                                                 <button pButton pRipple type="button" icon="pi pi-pencil"
                                                     class="p-button-rounded p-button-text"
@@ -1213,41 +1246,55 @@
                                                 <div class="col-4">
                                                     <label>Suplemento:</label>
                                                     <p-dropdown [options]="listaSuplementoAcido"
-                                                        formControlName="acidoFolicoSuplemento" optionLabel="name"
-                                                        optionValue="name" class="inputfield p-fluid w-full">
+                                                        placeholder="Suplemento" formControlName="acidoFolicoSuplemento"
+                                                        optionLabel="name" optionValue="name"
+                                                        class="inputfield p-fluid w-full">
                                                     </p-dropdown>
                                                 </div>
                                                 <div class="col-6">
                                                     <label>Descripcion:</label>
                                                     <input type="text" pInputText
-                                                        formControlName='acidoFolicoDescripcion' placeholder=""
+                                                        formControlName='acidoFolicoDescripcion'
+                                                        placeholder="Descripcion"
                                                         class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-2">
                                                     <label>Numero:</label>
-                                                    <input type="text" pInputText formControlName='acidoFolicoNumero'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                    <input type="number" pInputText formControlName='acidoFolicoNumero'
+                                                        placeholder="Numero" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Dosis:</label>
                                                     <input type="text" pInputText formControlName='acidoFolicoDosis'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Dosis" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Via de Administracion:</label>
-                                                    <input type="text" pInputText
-                                                        formControlName='acidoFolicoViaAdministracion' placeholder=""
-                                                        class="p-inputtext-sm inputfield w-full">
+                                                    <p-dropdown [options]="listaViaAdministracion"
+                                                        placeholder="Via de administracion"
+                                                        formControlName="acidoFolicoViaAdministracion"
+                                                        optionLabel="name" optionValue="name"
+                                                        class="inputfield p-fluid w-full">
+                                                    </p-dropdown>
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Intervalo:</label>
-                                                    <input type="text" pInputText formControlName='acidoFolicoIntervalo'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                    <p-dropdown [options]="listaIntervalos" placeholder="Intervalo"
+                                                        formControlName="acidoFolicoIntervalo" optionLabel="name"
+                                                        optionValue="name" class="inputfield p-fluid w-full">
+                                                    </p-dropdown>
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Duracion:</label>
                                                     <input type="text" pInputText formControlName='acidoFolicoDuracion'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Duracion" class="p-inputtext-sm inputfield w-full">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label>Observaciones:</label>
+                                                    <input type="text" pInputText
+                                                        formControlName='acidoFolicoObservaciones'
+                                                        placeholder="Observaciones"
+                                                        class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </p-fieldset>
@@ -1258,40 +1305,52 @@
                                                 <div class="col-4">
                                                     <label>Suplemento:</label>
                                                     <p-dropdown [options]="listaSuplementoCalcio"
-                                                        formControlName="calcioSuplemento" optionLabel="name"
-                                                        optionValue="name" class="inputfield p-fluid w-full">
+                                                        placeholder="Suplemento" formControlName="calcioSuplemento"
+                                                        optionLabel="name" optionValue="name"
+                                                        class="inputfield p-fluid w-full">
                                                     </p-dropdown>
                                                 </div>
                                                 <div class="col-6">
                                                     <label>Descripcion:</label>
                                                     <input type="text" pInputText formControlName='calcioDescripcion'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Descripcion"
+                                                        class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-2">
                                                     <label>Numero:</label>
-                                                    <input type="text" pInputText formControlName='calcioNumero'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                    <input type="number" pInputText formControlName='calcioNumero'
+                                                        placeholder="Numero" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Dosis:</label>
                                                     <input type="text" pInputText formControlName='calcioDosis'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Dosis" class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Via de Administracion:</label>
-                                                    <input type="text" pInputText
-                                                        formControlName='calcioViaAdministracion' placeholder=""
-                                                        class="p-inputtext-sm inputfield w-full">
+                                                    <p-dropdown [options]="listaViaAdministracion"
+                                                        placeholder="Via de administracion"
+                                                        formControlName="calcioViaAdministracion" optionLabel="name"
+                                                        optionValue="name" class="inputfield p-fluid w-full">
+                                                    </p-dropdown>
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Intervalo:</label>
-                                                    <input type="text" pInputText formControlName='calcioIntervalo'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                    <p-dropdown [options]="listaIntervalos" placeholder="Intervalo"
+                                                        formControlName="calcioIntervalo" optionLabel="name"
+                                                        optionValue="name" class="inputfield p-fluid w-full">
+                                                    </p-dropdown>
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Duracion:</label>
                                                     <input type="text" pInputText formControlName='calcioDuracion'
-                                                        placeholder="" class="p-inputtext-sm inputfield w-full">
+                                                        placeholder="Duracion" class="p-inputtext-sm inputfield w-full">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label>Observaciones:</label>
+                                                    <input type="text" pInputText formControlName='calcioObservaciones'
+                                                        placeholder="Observaciones"
+                                                        class="p-inputtext-sm inputfield w-full">
                                                 </div>
                                             </div>
                                         </p-fieldset>
@@ -1428,7 +1487,8 @@
                                                         placeholder="" class="inputfield w-full p-inputtext-sm">
                                                 </div>
                                                 <div class="col-4">
-                                                    <input type="datetime-local" formControlName="factorRHFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="factorRHFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -1495,7 +1555,8 @@
                                                         class="inputfield w-full p-inputtext-sm">
                                                 </div>
                                                 <div class="col-4">
-                                                    <input type="datetime-local" formControlName="htoFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="htoFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -1511,7 +1572,8 @@
                                                         placeholder="" class="inputfield w-full p-inputtext-sm">
                                                 </div>
                                                 <div class="col-4">
-                                                    <input type="datetime-local" formControlName="glucosaFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="glucosaFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid text-center">
@@ -1551,7 +1613,8 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="rprFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="rprFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
 
@@ -1652,7 +1715,8 @@
                                                         value="no aplica" class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="elisaFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="elisaFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
 
@@ -1693,7 +1757,8 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="glicemiaFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="glicemiaFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
 
@@ -1722,8 +1787,8 @@
                                                         class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="toleranciaGlucosaFecha"
-                                                        inputId="icon" />
+                                                    <input type="datetime-local"
+                                                        formControlName="toleranciaGlucosaFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1766,7 +1831,8 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="exaOrinaFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="exaOrinaFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -1811,7 +1877,8 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="nitritosFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="nitritosFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -1858,7 +1925,8 @@
                                                         value="no aplica" class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="bkEsputoFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="bkEsputoFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -1907,7 +1975,8 @@
                                                         value="no aplica" class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="thlv1Fecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="thlv1Fecha"
+                                                        inputId="icon" />
 
                                                 </div>
                                             </div>
@@ -1932,7 +2001,8 @@
                                                         value="no aplica" class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="torchFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="torchFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -2000,8 +2070,8 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="proteinuriaCuantitativaFecha"
-                                                        inputId="icon" />
+                                                    <input type="datetime-local"
+                                                        formControlName="proteinuriaCuantitativaFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -2029,8 +2099,8 @@
                                                         class="default"></p-radioButton>
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="proteinuriaCualitativaFecha"
-                                                        inputId="icon" />
+                                                    <input type="datetime-local"
+                                                        formControlName="proteinuriaCualitativaFecha" inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -2052,7 +2122,8 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="exSecVFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="exSecVFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -2077,7 +2148,8 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="papFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="papFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
                                             <div class="grid">
@@ -2101,7 +2173,8 @@
                                                 <div class="col-1">
                                                 </div>
                                                 <div class="col-3 ml-3">
-                                                    <input type="datetime-local" formControlName="ivaaFecha" inputId="icon" />
+                                                    <input type="datetime-local" formControlName="ivaaFecha"
+                                                        inputId="icon" />
                                                 </div>
                                             </div>
                                         </div>
@@ -2110,8 +2183,8 @@
                             </p-tabPanel>
                             <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-calendar"
                                 header="INTERCONSULTAS">
-                                <p-table [value]="prueba" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
-                                    [autoLayout]="true" class="m-3"
+                                <p-table [value]="datosInterconsultas" #dt [rows]="3" styleClass="p-datatable-sm"
+                                    [paginator]="true" [autoLayout]="true" class="m-3"
                                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
                                     [showCurrentPageReport]="true" responsiveLayout="scroll">
                                     <ng-template pTemplate="caption">
@@ -2137,12 +2210,14 @@
                                     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                                         <tr style="text-align: center">
                                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                            <td style="text-align: center">{{ rowData.diagnostico }}</td>
-                                            <td style="text-align: center">{{ rowData.tratamiento }}</td>
+                                            <td style="text-align: center">{{ rowData.consultorio }}</td>
+                                            <td style="text-align: center">{{ rowData.motivo }}</td>
                                             <td style="text-align: center">
                                                 <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                    (click)="openDialogEditarInterconsulta(rowData, rowIndex)"
                                                     class="p-button-rounded p-button-text"></button>
                                                 <button pButton pRipple type="button" icon="pi pi-trash"
+                                                    (click)="eliminarInterconsulta(rowIndex)"
                                                     class="p-button-rounded p-button-danger p-button-text"></button>
                                             </td>
                                         </tr>
@@ -2159,7 +2234,8 @@
                                         <div class="grid p-fluid">
                                             <div class="col-6">
                                                 <label class="text-sm">Fecha:</label>
-                                                <input formControlName="ecografiaFecha" type="datetime-local" class="p-inputtext-sm " pInputText />
+                                                <input formControlName="ecografiaFecha" type="datetime-local"
+                                                    class="p-inputtext-sm " pInputText />
                                             </div>
                                             <div class="col-6">
                                                 <label class="text-sm">Edad Gestacional:</label>
@@ -2190,19 +2266,24 @@
                         <p-fieldset legend="PLAN DE PARTO">
                             <div class="grid">
                                 <div class="col-4">
-                                    <label class="text-sm">Visita Dom. Estado:</label>
-                                    <input formControlName="visitaDomiciliariaEstado" type="text"
-                                        class="p-inputtext-sm " pInputText />
+                                    <label class="text-sm">Visita Domiciliaria:</label>
+                                    <p-dropdown [options]="listaVisitaDomiciliaria" placeholder="Visita Domiciliaria"
+                                        formControlName="visitaDomiciliariaEstado" optionLabel="name" optionValue="name"
+                                        class="inputfield p-fluid w-full">
+                                    </p-dropdown>
+
                                 </div>
                                 <div class="col-4">
                                     <label class="text-sm">Visita Dom. Fecha:</label>
-                                    <input formControlName="visitaDomiciliariaFecha" type="datetime-local" class="p-inputtext-sm "
-                                        pInputText />
+                                    <input formControlName="visitaDomiciliariaFecha" type="datetime-local"
+                                        class="p-inputtext-sm " pInputText />
                                 </div>
                                 <div class="col-4">
-                                    <label class="text-sm ">Plan Parto Reenfocada:</label>
-                                    <input formControlName="planPartoReenfocada" type="text" class="p-inputtext-sm "
-                                        pInputText />
+                                    <label class="text-sm ">Plan Parto/Reenfocada:</label>
+                                    <p-dropdown placeholder="" [options]="listaPlanPartoReenfocada"
+                                        placeholder="Plan Parto/reenfocada" formControlName="planPartoReenfocada"
+                                        optionLabel="name" optionValue="name" class="inputfield p-fluid w-full">
+                                    </p-dropdown>
                                 </div>
                             </div>
                         </p-fieldset>
@@ -2238,8 +2319,8 @@
                                     <div class="grid">
                                         <div class="col-12">
                                             <label class="text-sm">PRÓXIMA CITA:</label>
-                                            <input formControlName="proxCita" type="datetime-local" class="p-inputtext-sm "
-                                                pInputText />
+                                            <input formControlName="proxCita" type="datetime-local"
+                                                class="p-inputtext-sm " pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -2260,7 +2341,8 @@
         </div>
     </div>
     <div class="footer">
-        <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-primary mt-4 mr-2"></button>
+        <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()"
+            class="p-button-primary mt-4 mr-2"></button>
         <button pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
     </div>
 </div>
@@ -2277,40 +2359,40 @@
                 <div class="col-4">
                     <label>Situación</label>
                     <p-dropdown [options]="listaSituacion" formControlName="selectSituacion" optionLabel="name"
-                        optionValue="name" class="inputfield p-fluid w-full">
+                        optionValue="name" class="inputfield p-fluid w-full" placeholder="Situacion Fetal">
                     </p-dropdown>
                 </div>
                 <div class="col-4">
                     <label>Presentación</label>
                     <p-dropdown [options]="listaPresentacion" formControlName="selectPresentacion" optionLabel="name"
-                        optionValue="name" class="inputfield p-fluid w-full">
+                        optionValue="name" class="inputfield p-fluid w-full" placeholder="Presentacion Fetal">
                     </p-dropdown>
                 </div>
                 <div class="col-4">
                     <label>Posición</label>
                     <p-dropdown [options]="listaPosicion" formControlName="selectPosicion" optionLabel="name"
-                        optionValue="name" class="inputfield p-fluid w-full">
+                        optionValue="name" class="inputfield p-fluid w-full" placeholder="Posicion Fetal">
                     </p-dropdown>
                 </div>
                 <div class="col-12">
                     <label>Movimientos Fetales:</label>
                     <input type="text" pInputText formControlName='movimientosFetales' placeholder=""
-                        class="p-inputtext-sm inputfield w-full">
+                        class="p-inputtext-sm inputfield w-full" placeholder="Movimientos Fetales">
                 </div>
 
                 <div class="col-12">
                     <label>Latidos Cardíacos Fetales::</label>
                     <input type="text" pInputText formControlName='latidosCardiacosFetales' placeholder=""
-                        class="p-inputtext-sm inputfield w-full">
+                        class="p-inputtext-sm inputfield w-full" placeholder="Latidos Cardiacos">
                 </div>
             </div>
         </form>
     </ng-template>
 
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="estadoEditarExamenFetal" pButton type="button" label="Guardar E"
+        <button *ngIf="estadoEditarExamenFetal" pButton type="button" label="Guardar"
             (click)="guardarEdicionExamenFetal()"></button>
-        <button *ngIf="!estadoEditarExamenFetal" pButton type="button" label="Guardar N"
+        <button *ngIf="!estadoEditarExamenFetal" pButton type="button" label="Guardar"
             (click)="guardarNuevoExamenFetal()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"
             (click)="canceledExamenFetal()"></button>
@@ -2325,38 +2407,43 @@
     <ng-template pTemplate="body">
         <form [formGroup]='formDiagnostico'>
             <div class="grid">
-                
                 <div class="col-6">
                     <label>Tipo Diagnostico</label>
-                    <p-dropdown [options]="listaTiposDiagnosticos" formControlName="tipoDiagnostico" optionLabel="name"
-                    optionValue="name" class="inputfield p-fluid w-full">
+                    <p-dropdown [options]="listaTiposDiagnosticos" formControlName="tipo" optionLabel="name"
+                        optionValue="code" class="inputfield p-fluid w-full" placeholder="Tipo de diagnostico">
                     </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>CIE10</label>
-                    <input type="text" pInputText formControlName='cie10' placeholder=""
-                        class="p-inputtext-sm inputfield w-full">
+                    <p-autoComplete formControlName="cie10" [suggestions]="listaDeCIE"
+                        (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                        (onSelect)="selectedOption($event,0)" class="" [forceSelection]="true" dataKey="codigoItem">
+                    </p-autoComplete>
                 </div>
                 <div class="col-12">
                     <label>Diagnostico</label>
-                    <input type="text" pInputText formControlName='diagnostico' placeholder=""
-                        class="p-inputtext-sm inputfield w-full">
+                    <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                        field="descripcionItem" [minLength]="1" class="areaText "
+                        formControlName="autocompleteDiagnostico" (onSelect)="selectedOptionNameCIE($event,0)">
+                    </p-autoComplete>
+                    <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnostico" pInputTextarea
+                        disabled></textarea>
                 </div>
             </div>
         </form>
     </ng-template>
 
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="estadoEditarDiagnosticos" pButton type="button" label="Guardar E"
+        <button *ngIf="estadoEditarDiagnosticos" pButton type="button" label="Guardar"
             (click)="guardarEdicionDiagnostico()"></button>
-        <button *ngIf="!estadoEditarDiagnosticos" pButton type="button" label="Guardar N"
+        <button *ngIf="!estadoEditarDiagnosticos" pButton type="button" label="Guardar"
             (click)="guardarNuevoDiagnostico()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"
             (click)="canceledDiagnostico()"></button>
     </ng-template>
 </p-dialog>
 <!-- DIALOG TRATAMIENTOS -->
-<p-dialog class="dialogo m-4" [(visible)]="tratamientoDialog" [style]="{width: '800px'}" [modal]="true"
+<p-dialog class="dialogo m-4" [(visible)]="tratamientoDialog" [style]="{width: '400px'}" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h3>NUEVO TRATAMIENTO</h3>
@@ -2366,32 +2453,40 @@
             <div class="grid">
                 <div class="col-4">
                     <label>Descripcion:</label>
-                    <input type="text" pInputText formControlName='descripcion' placeholder=""
+                    <input type="text" pInputText formControlName='descripcion' placeholder="Descripcion"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-4">
                     <label>Numero:</label>
-                    <input type="text" pInputText formControlName='numero' placeholder=""
+                    <input type="number" pInputText formControlName='numero' placeholder="Numero"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-4">
                     <label>Dosis:</label>
-                    <input type="text" pInputText formControlName='dosis' placeholder=""
+                    <input type="text" pInputText formControlName='dosis' placeholder="Dosis"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-6">
                     <label>Via de Administracion:</label>
-                    <input type="text" pInputText formControlName='viaAdministracion' placeholder=""
-                        class="p-inputtext-sm inputfield w-full">
+                    <p-dropdown [options]="listaViaAdministracion" formControlName="viaAdministracion"
+                        placeholder="Via Administracion" optionLabel="name" optionValue="name"
+                        class="inputfield p-fluid w-full">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Intervalo:</label>
-                    <input type="text" pInputText formControlName='intervalo' placeholder=""
-                        class="p-inputtext-sm inputfield w-full">
+                    <p-dropdown [options]="listaIntervalos" formControlName="intervalo" optionLabel="name"
+                        optionValue="name" class="inputfield p-fluid w-full" placeholder="Intervalo">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Duracion:</label>
-                    <input type="text" pInputText formControlName='duracion' placeholder=""
+                    <input type="text" pInputText formControlName='duracion' placeholder="Duracion"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-6">
+                    <label>Observaciones:</label>
+                    <input type="text" pInputText formControlName='observaciones' placeholder="Observaciones"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
             </div>
@@ -2399,16 +2494,16 @@
     </ng-template>
 
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="estadoEditarTratamientos" pButton type="button" label="Guardar E"
+        <button *ngIf="estadoEditarTratamientos" pButton type="button" label="Guardar"
             (click)="guardarEdicionTratamiento()"></button>
-        <button *ngIf="!estadoEditarTratamientos" pButton type="button" label="Guardar N"
+        <button *ngIf="!estadoEditarTratamientos" pButton type="button" label="Guardar"
             (click)="guardarNuevoTratamiento()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"
             (click)="canceledTratamiento()"></button>
     </ng-template>
 </p-dialog>
 <!-- DIALOG INTERCONSULTAS -->
-<p-dialog class="dialogo m-4" [(visible)]="interconsultaDialog" [style]="{width: '800px'}" [modal]="true"
+<p-dialog class="dialogo m-4" [(visible)]="interconsultaDialog" [style]="{width: '400px'}" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h3>NUEVA INTERCONSULTA</h3>
@@ -2418,17 +2513,17 @@
             <div class="grid">
                 <div class="col-4">
                     <label>Consultorio</label>
-                    <input type="text" pInputText formControlName='consultorio' placeholder=""
+                    <input type="text" pInputText formControlName='consultorio' placeholder="Consultorio"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-4">
                     <label>Motivo</label>
-                    <input type="text" pInputText formControlName='motivo' placeholder=""
+                    <input type="text" pInputText formControlName='motivo' placeholder="Motivo"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-4">
                     <label>Fecha</label>
-                    <input type="datetime-local" pInputText formControlName='fecha' placeholder=""
+                    <input type="datetime-local" pInputText formControlName='fecha'
                         class="p-inputtext-sm inputfield w-full">
                 </div>
             </div>
@@ -2436,8 +2531,12 @@
     </ng-template>
 
     <ng-template pTemplate="footer" class="text-right">
-        <button pButton type="button" label="Guardar"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"></button>
+        <button *ngIf="estadoEditarInterconsultas" pButton type="button" label="Guardar"
+            (click)="guardarEdicionInterconsulta()"></button>
+        <button *ngIf="!estadoEditarInterconsultas" pButton type="button" label="Guardar"
+            (click)="guardarNuevoInterconsulta()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledInterconsulta()"></button>
     </ng-template>
 </p-dialog>
 <!-- DIALOG RECOMENDACIONES -->
@@ -2451,7 +2550,7 @@
             <div class="grid">
                 <div class="col-12">
                     <label>Recomendacion:</label>
-                    <input type="text" pInputText formControlName='recomendacion' placeholder=""
+                    <input type="text" pInputText formControlName='recomendacion' placeholder="Recomendacion"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
             </div>
@@ -2459,9 +2558,9 @@
     </ng-template>
 
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="estadoEditarRecomendaciones" pButton type="button" label="Guardar E"
+        <button *ngIf="estadoEditarRecomendaciones" pButton type="button" label="Guardar"
             (click)="guardarEdicionRecomendacion()"></button>
-        <button *ngIf="!estadoEditarRecomendaciones" pButton type="button" label="Guardar N"
+        <button *ngIf="!estadoEditarRecomendaciones" pButton type="button" label="Guardar"
             (click)="guardarNuevoRecomendacion()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"></button>
     </ng-template>
@@ -2477,37 +2576,39 @@
             <div class="grid">
                 <div class="col-4">
                     <label>Codigo:</label>
-                    <input type="text" pInputText formControlName='codigo' placeholder=""
+                    <input type="text" pInputText formControlName='codigo' placeholder="Codigo"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-4">
                     <label>Descripción:</label>
-                    <input type="text" pInputText formControlName='descripcion' placeholder=""
+                    <input type="text" pInputText formControlName='descripcion' placeholder="Descripcion"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-4">
                     <label>Numero:</label>
-                    <input type="text" pInputText formControlName='numero' placeholder=""
+                    <input type="number" pInputText formControlName='numero' placeholder="Numero"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-4">
                     <label>Dosis:</label>
-                    <input type="text" pInputText formControlName='dosis' placeholder=""
+                    <input type="text" pInputText formControlName='dosis' placeholder="Dosis"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-4">
                     <label>Via de Administracion:</label>
-                    <input type="text" pInputText formControlName='viaAdministracion' placeholder=""
-                        class="p-inputtext-sm inputfield w-full">
+                    <p-dropdown [options]="listaViaAdministracion" formControlName="viaAdministracion"
+                        placeholder="Via de administracion" optionLabel="name" optionValue="name"
+                        class="inputfield p-fluid w-full">
+                    </p-dropdown>
                 </div>
                 <div class="col-4">
                     <label>Lote:</label>
-                    <input type="text" pInputText formControlName='lote' placeholder=""
+                    <input type="text" pInputText formControlName='lote' placeholder="Lote"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-4">
                     <label>Fecha Vencimiento:</label>
-                    <input type="datetime-local" pInputText formControlName='fechaVenc' placeholder=""
+                    <input type="datetime-local" pInputText formControlName='fechaVenc'
                         class="p-inputtext-sm inputfield w-full">
                 </div>
             </div>
@@ -2515,9 +2616,9 @@
     </ng-template>
 
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="estadoEditarInmunizaciones" pButton type="button" label="Guardar E"
+        <button *ngIf="estadoEditarInmunizaciones" pButton type="button" label="Guardar"
             (click)="guardarEdicionInmunizacion()"></button>
-        <button *ngIf="!estadoEditarInmunizaciones" pButton type="button" label="Guardar N"
+        <button *ngIf="!estadoEditarInmunizaciones" pButton type="button" label="Guardar"
             (click)="guardarNuevoInmunizacion()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"
             (click)="canceledInmunizacion()"></button>
@@ -2533,12 +2634,12 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Nombre:</label>
-                    <input type="text" pInputText formControlName='nombre' placeholder=""
+                    <input type="text" pInputText formControlName='nombre' placeholder="Nombre"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
                 <div class="col-6">
                     <label>Resultado:</label>
-                    <input type="text" pInputText formControlName='resultado' placeholder=""
+                    <input type="text" pInputText formControlName='resultado' placeholder="Resultado"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
             </div>
@@ -2546,9 +2647,9 @@
     </ng-template>
 
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="estadoEditarOtrosPruebasFisicas" pButton type="button" label="Guardar E"
+        <button *ngIf="estadoEditarOtrosPruebasFisicas" pButton type="button" label="Guardar"
             (click)="guardarEdicionOtrosPruebasFisicas()"></button>
-        <button *ngIf="!estadoEditarOtrosPruebasFisicas" pButton type="button" label="Guardar N"
+        <button *ngIf="!estadoEditarOtrosPruebasFisicas" pButton type="button" label="Guardar"
             (click)="guardarNuevoOtrosPruebasFisicas()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"
             (click)="canceledOtrosPruebasFisicas()"></button>

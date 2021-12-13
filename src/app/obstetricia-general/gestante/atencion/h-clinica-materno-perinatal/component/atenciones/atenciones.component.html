@@ -17,12 +17,16 @@
 
         <ng-template pTemplate="right" class="button">
 
-            <button pButton pRipple label="Grafico" icon="pi pi-file-o" icon="pi pi-chart-line" class="button-graficar"
+            <button pButton pRipple label="Graficar Peso Madre" icon="pi pi-file-o" icon="pi pi-chart-line" class="button-graficar"
                     pButton type="button"
                     (click)="graficar('normal')"
             ></button>
-            <button pButton pRipple label="Agregar Atención" icon="pi pi-plus" pButton type="button"
-                    class="button-agregar" (click)="openDialogAtenciones()"></button>
+            <button pButton pRipple label="Graficar Altura Uterina" icon="pi pi-file-o" icon="pi pi-chart-line" class="button-graficar"
+                    pButton type="button"
+                    (click)="graficar('normal')"
+            ></button>
+<!--            <button pButton pRipple label="Agregar Atención" icon="pi pi-plus" pButton type="button"-->
+<!--                    class="button-agregar" (click)="openDialogAtenciones()"></button>-->
         </ng-template>
     </p-toolbar>
     <p-table class="table-over" [value]="atenciones" #dt styleClass="p-datatable-gridlines" [rows]="10"
@@ -49,11 +53,11 @@
             <tr>
                 <td style="text-align: center" class="font-2">{{ "Atención" + rowData.nroAtencion }}</td>
                 <td style="text-align: center">{{ rowData.fechaAtencion }} </td>
-                <td style="text-align: center">{{ rowData.edadGestacionalSemanas + rowData.edadGestacionalDias + "/7" }}</td>
+                <td style="text-align: center">{{ rowData.edadGestacionalSemanas + " " + rowData.edadGestacionalDias + "/7" }}</td>
                 <td style="text-align: center">{{ rowData.peso}}</td>
                 <td style="text-align: center">{{ rowData.evaluacionNutricional.valor + " " + rowData.evaluacionNutricional.indicador}}</td>
                 <td style="text-align: center">{{ rowData.t}}</td>
-                <td style="text-align: center">{{ rowData.presionDiastolica + "/" + rowData.presionSistolica}}</td>
+                <td style="text-align: center">{{ rowData.presionSistolica + "/" + rowData.presionDiastolica}}</td>
                 <td style="text-align: center">{{ rowData.fc}}</td>
                 <td style="text-align: center">{{ rowData.alturaUterina}}</td>
                 <td style="text-align: center">

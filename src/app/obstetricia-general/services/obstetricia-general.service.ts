@@ -16,9 +16,9 @@ export class ObstetriciaGeneralService {
     nroEmbarazo: string = "";
     nroHcl: string;
 
-
     /***Id del consultorio obstetrico***/
     idConsultoriObstetrico: string = "";
+
 
     constructor(private http: HttpClient) {
     }

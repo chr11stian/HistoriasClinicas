@@ -12,6 +12,20 @@ import Swal from "sweetalert2";
 })
 export class DatosGeneralesObtetriciaComponent implements OnInit {
 
+    antecedentes: any;
+    antecedentes1: any;
+    antecedentes2: any;
+    antecedentes3: any;
+    antecedentes4: any;
+    antecedentes5: any;
+    antecedentes6: any;
+    antecedentes7: any;
+    antecedentes8: any;
+    antecedentes9: any;
+    antecedentes10: any;
+    antecedentes11: any;
+    antecedentes12: any;
+    antecedentes13: any;
     date: Date
     departamentos: any;
     opciones: any;
@@ -43,6 +57,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             {booleano: true, name: "SI"},
             {booleano: false, name: "NO"}
         ];
+
 
         this.studies = [
             {name: 'Analfabeta'},
@@ -93,12 +108,15 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     buildForm2() {
         this.formAntecedentes = this.form.group({
+            antecendentesObstetricos: new FormControl(''),
+
             fecha: new FormControl(''),
             intergenesico: new FormControl(''),
             tipoAborto: new FormControl(''),
             lactaciaMaterna: new FormControl(''),
             lugarParto: new FormControl(''),
 
+            /**Nombre Antecedentes Familiares**/
             nombrefamiliar1: new FormControl(''),
             nombrefamiliar2: new FormControl(''),
             nombrefamiliar3: new FormControl(''),
@@ -112,6 +130,8 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             nombrefamiliar11: new FormControl(''),
             nombrefamiliar12: new FormControl(''),
 
+
+            /**Antecedentes Familiares**/
             ninguno: new FormControl(''),
             alergia: new FormControl(''),
             EnferHepertens: new FormControl(''),
@@ -119,13 +139,13 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             diabetes: new FormControl(''),
             EnfCongenitas: new FormControl(''),
             EmbMultiple: new FormControl(''),
-
             malaria: new FormControl(''),
             HipArterial: new FormControl(''),
             HipoTiroidismo: new FormControl(''),
             neoplásica: new FormControl(''),
             TBCPulmonar: new FormControl(''),
             otros: new FormControl(''),
+
             captada: new FormControl(''),
             referidaporAgComuni: new FormControl(''),
 
@@ -185,8 +205,10 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
     addData() {
+        console.log("ZZZZZZZz", this.antecedentes)
 
         const req = {
+
             gestacionAnterior: {
                 fecha: this.formAntecedentes.value.fecha,
                 perIntergenesicoAdecuado: this.formAntecedentes.value.intergenesico,
@@ -203,55 +225,56 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             proceso: "EN GESTACION",
             antecedentesFamiliares: [
                 {
-                    nombre: this.formAntecedentes.value.ninguno[0],
-                    valor: null
+                    nombre: this.formAntecedentes.value.ninguno,
+                    valor: ""
                 },
                 {
-                    nombre: this.formAntecedentes.value.alergia[0],
+                    nombre: this.formAntecedentes.value.alergia,
                     valor: this.formAntecedentes.value.nombrefamiliar1,
                 },
                 {
-                    nombre: this.formAntecedentes.value.EnferHepertens[0],
+                    nombre: this.formAntecedentes.value.EnferHepertens,
                     valor: this.formAntecedentes.value.nombrefamiliar2,
                 },
                 {
-                    nombre: this.formAntecedentes.value.epilepcia[0],
+                    nombre: this.formAntecedentes.value.epilepcia,
                     valor: this.formAntecedentes.value.nombrefamiliar3,
                 },
                 {
-                    nombre: this.formAntecedentes.value.diabetes[0],
+                    nombre: this.formAntecedentes.value.diabetes,
                     valor: this.formAntecedentes.value.nombrefamiliar4,
                 },
                 {
-                    nombre: this.formAntecedentes.value.EnfCongenitas[0],
+                    nombre: this.formAntecedentes.value.EnfCongenitas,
                     valor: this.formAntecedentes.value.nombrefamiliar5,
                 },
                 {
-                    nombre: this.formAntecedentes.value.EmbMultiple[0],
+                    nombre: this.formAntecedentes.value.EmbMultiple,
                     valor: this.formAntecedentes.value.nombrefamiliar6,
                 },
                 {
-                    nombre: this.formAntecedentes.value.malaria[0],
+                    nombre: this.formAntecedentes.value.malaria,
                     valor: this.formAntecedentes.value.nombrefamiliar7,
                 },
+
                 {
-                    nombre: this.formAntecedentes.value.HipArterial[0],
+                    nombre: this.formAntecedentes.value.HipArterial,
                     valor: this.formAntecedentes.value.nombrefamiliar8,
                 },
                 {
-                    nombre: this.formAntecedentes.value.HipoTiroidismo[0],
+                    nombre: this.formAntecedentes.value.HipoTiroidismo,
                     valor: this.formAntecedentes.value.nombrefamiliar9,
                 },
                 {
-                    nombre: this.formAntecedentes.value.neoplásica[0],
+                    nombre: this.formAntecedentes.value.neoplásica,
                     valor: this.formAntecedentes.value.nombrefamiliar10,
                 },
                 {
-                    nombre: this.formAntecedentes.value.TBCPulmonar[0],
+                    nombre: this.formAntecedentes.value.TBCPulmonar,
                     valor: this.formAntecedentes.value.nombrefamiliar11,
                 },
                 {
-                    nombre: this.formAntecedentes.value.otros[0],
+                    nombre: this.formAntecedentes.value.otros,
                     valor: this.formAntecedentes.value.nombrefamiliar12,
                 },
             ],
@@ -316,45 +339,44 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.formAntecedentes.get('lactaciaMaterna').setValue(this.dataAntecedentes.gestacionAnterior.lactanciaMaterna);
             this.formAntecedentes.get('lugarParto').setValue(this.dataAntecedentes.gestacionAnterior.lugarParto);
 
-            this.formAntecedentes.get('ninguno').setValue([this.dataAntecedentes.antecedentesFamiliares[0].nombre]);
 
-            this.formAntecedentes.get('alergia').setValue([this.dataAntecedentes.antecedentesFamiliares[1].nombre]);
+            this.formAntecedentes.get('ninguno').setValue(this.dataAntecedentes.antecedentesFamiliares[0].nombre);
+
+            this.formAntecedentes.get('alergia').setValue(this.dataAntecedentes.antecedentesFamiliares[1].nombre);
             this.formAntecedentes.get('nombrefamiliar1').setValue(this.dataAntecedentes.antecedentesFamiliares[1].valor);
 
-            this.formAntecedentes.get('EnferHepertens').setValue([this.dataAntecedentes.antecedentesFamiliares[2].nombre]);
-            this.formAntecedentes.get('nombrefamiliar2').setValue(this.dataAntecedentes.antecedentesFamiliares[2].valor);
+            this.formAntecedentes.get('EnferHepertens').setValue(this.dataAntecedentes.antecedentesFamiliares[2].nombre);
+            this.formAntecedentes.get('nombrefamiliar3').setValue(this.dataAntecedentes.antecedentesFamiliares[2].valor);
 
-            this.formAntecedentes.get('epilepcia').setValue([this.dataAntecedentes.antecedentesFamiliares[3].nombre]);
-            this.formAntecedentes.get('nombrefamiliar3').setValue(this.dataAntecedentes.antecedentesFamiliares[3].valor);
+            this.formAntecedentes.get('epilepcia').setValue(this.dataAntecedentes.antecedentesFamiliares[3].nombre);
+            this.formAntecedentes.get('nombrefamiliar4').setValue(this.dataAntecedentes.antecedentesFamiliares[3].valor);
 
-            this.formAntecedentes.get('diabetes').setValue([this.dataAntecedentes.antecedentesFamiliares[4].nombre]);
-            this.formAntecedentes.get('nombrefamiliar4').setValue(this.dataAntecedentes.antecedentesFamiliares[4].valor);
+            this.formAntecedentes.get('diabetes').setValue(this.dataAntecedentes.antecedentesFamiliares[4].nombre);
+            this.formAntecedentes.get('nombrefamiliar5').setValue(this.dataAntecedentes.antecedentesFamiliares[4].valor);
 
-            this.formAntecedentes.get('EnfCongenitas').setValue([this.dataAntecedentes.antecedentesFamiliares[5].nombre]);
-            this.formAntecedentes.get('nombrefamiliar5').setValue(this.dataAntecedentes.antecedentesFamiliares[5].valor);
+            this.formAntecedentes.get('EnfCongenitas').setValue(this.dataAntecedentes.antecedentesFamiliares[5].nombre);
+            this.formAntecedentes.get('nombrefamiliar6').setValue(this.dataAntecedentes.antecedentesFamiliares[5].valor);
 
-            this.formAntecedentes.get('EmbMultiple').setValue([this.dataAntecedentes.antecedentesFamiliares[6].nombre]);
-            this.formAntecedentes.get('nombrefamiliar6').setValue(this.dataAntecedentes.antecedentesFamiliares[6].valor);
+            this.formAntecedentes.get('EmbMultiple').setValue(this.dataAntecedentes.antecedentesFamiliares[6].nombre);
+            this.formAntecedentes.get('nombrefamiliar7').setValue(this.dataAntecedentes.antecedentesFamiliares[6].valor);
 
+            this.formAntecedentes.get('malaria').setValue(this.dataAntecedentes.antecedentesFamiliares[7].nombre);
+            this.formAntecedentes.get('nombrefamiliar8').setValue(this.dataAntecedentes.antecedentesFamiliares[7].valor);
 
-            this.formAntecedentes.get('malaria').setValue([this.dataAntecedentes.antecedentesFamiliares[7].nombre]);
-            this.formAntecedentes.get('nombrefamiliar7').setValue(this.dataAntecedentes.antecedentesFamiliares[7].valor);
+            this.formAntecedentes.get('HipArterial').setValue(this.dataAntecedentes.antecedentesFamiliares[8].nombre);
+            this.formAntecedentes.get('nombrefamiliar9').setValue(this.dataAntecedentes.antecedentesFamiliares[8].valor);
 
-            this.formAntecedentes.get('HipArterial').setValue([this.dataAntecedentes.antecedentesFamiliares[8].nombre]);
-            this.formAntecedentes.get('nombrefamiliar8').setValue(this.dataAntecedentes.antecedentesFamiliares[8].valor);
+            this.formAntecedentes.get('HipoTiroidismo').setValue(this.dataAntecedentes.antecedentesFamiliares[9].nombre);
+            this.formAntecedentes.get('nombrefamiliar10').setValue(this.dataAntecedentes.antecedentesFamiliares[9].valor);
 
-            this.formAntecedentes.get('HipoTiroidismo').setValue([this.dataAntecedentes.antecedentesFamiliares[9].nombre]);
-            this.formAntecedentes.get('nombrefamiliar9').setValue(this.dataAntecedentes.antecedentesFamiliares[9].valor);
+            this.formAntecedentes.get('neoplásica').setValue(this.dataAntecedentes.antecedentesFamiliares[10].nombre);
+            this.formAntecedentes.get('nombrefamiliar11').setValue(this.dataAntecedentes.antecedentesFamiliares[10].valor);
 
-            this.formAntecedentes.get('neoplásica').setValue([this.dataAntecedentes.antecedentesFamiliares[10].nombre]);
-            this.formAntecedentes.get('nombrefamiliar10').setValue(this.dataAntecedentes.antecedentesFamiliares[10].valor);
+            this.formAntecedentes.get('TBCPulmonar').setValue(this.dataAntecedentes.antecedentesFamiliares[11].nombre);
+            this.formAntecedentes.get('nombrefamiliar12').setValue(this.dataAntecedentes.antecedentesFamiliares[11].valor);
 
-            this.formAntecedentes.get('TBCPulmonar').setValue([this.dataAntecedentes.antecedentesFamiliares[11].nombre]);
-            this.formAntecedentes.get('nombrefamiliar11').setValue(this.dataAntecedentes.antecedentesFamiliares[11].valor);
-
-            this.formAntecedentes.get('otros').setValue([this.dataAntecedentes.antecedentesFamiliares[12].nombre]);
-            this.formAntecedentes.get('nombrefamiliar12').setValue(this.dataAntecedentes.antecedentesFamiliares[12].valor);
-
+            this.formAntecedentes.get('otros').setValue(this.dataAntecedentes.antecedentesFamiliares[12].nombre);
+            this.formAntecedentes.get('nombrefamiliar2').setValue(this.dataAntecedentes.antecedentesFamiliares[12].valor);
 
             this.formAntecedentes.get('captada').setValue(this.dataAntecedentes.captada);
             this.formAntecedentes.get('referidaporAgComuni').setValue(this.dataAntecedentes.referidaAgComunal);

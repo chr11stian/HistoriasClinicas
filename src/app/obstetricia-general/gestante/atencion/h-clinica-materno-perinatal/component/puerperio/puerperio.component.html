@@ -4,30 +4,26 @@
             <h3 class="mt-2">PUERPERIO</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
-            <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                    class="guardar mr-2" style="background-color: #0c3866"></button>
-        </ng-template>
-
-        <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Guardar" (click)="confirm()" icon="pi pi-save" class="p-button-danger mr-2"
-                    style="background: #2196F3; border: 1px solid #2196F3;"></button>
-            <button pButton pRipple label="Continuar" routerLink=".." icon="pi pi-angle-right" iconPos="right" style="background-color: #003c71"
-            ></button>
+            <button pButton pRipple label="Finalizar Gestación" (click)="confirmFinalizar()" icon="pi pi-check-circle" class="p-button-danger mr-2"></button>
+            <button pButton pRipple label="Continuar" routerLink=".." icon="pi pi-angle-right" iconPos="right" style="background-color: #003c71"></button>
         </ng-template>
 
     </p-toolbar>
-    <p-table [value]="puerperios" #dt [rows]="5" styleClass="p-datatable-gridlines" [paginator]="true"
-             [autoLayout]="true" class="m-3"
-             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-             [showCurrentPageReport]="true" responsiveLayout="scroll">
-        <ng-template pTemplate="caption">
-            <div class="flex justify-content-between">
-                <h3>Recien Nacidos</h3>
-                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                        (click)="openDialogPuerperio()"></button>
-            </div>
+</div>
+<br>
+<div>
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <h3>Puerperios</h3>
         </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                    (click)="openDialogPuerperio()"></button>
+            <button pButton pRipple label="Guardar" (click)="confirm()" icon="pi pi-save" style="background-color: #003c71"></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table [value]="puerperios" [paginator]="true" [rows]="5" [showCurrentPageReport]="true" [first]="0" responsiveLayout="scroll"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas" [rowsPerPageOptions]="[10,25,50]">
         <ng-template pTemplate="header">
             <tr>
                 <th style="text-align: center">Nro</th>
@@ -62,6 +58,9 @@
                     </button>
                     <button pButton (click)="openDialogEditarPuerperio2(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
                             icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                    </button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                            (click)="eliminarPuerperio(rowIndex)" pTooltip="Eliminar">
                     </button>
                 </td>
             </tr>
