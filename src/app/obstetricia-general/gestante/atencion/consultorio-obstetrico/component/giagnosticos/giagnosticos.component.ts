@@ -6,6 +6,8 @@ import {CieService} from "../../../../../services/cie.service";
 import {ConsultasService} from "../../services/consultas.service";
 import {DatePipe} from "@angular/common";
 import {MessageService} from "primeng/api";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {ModalDiagnosticoComponent} from "./modal-diagnostico/modal-diagnostico.component";
 
 
 @Component({
@@ -14,7 +16,7 @@ import {MessageService} from "primeng/api";
     styleUrls: ['./giagnosticos.component.css']
 })
 export class GiagnosticosComponent implements OnInit {
-
+    ref: DynamicDialogRef;
     diagnosticos2: any[]=[];
     formDiagnostico: FormGroup;
 
@@ -50,7 +52,7 @@ export class GiagnosticosComponent implements OnInit {
     private planPartoReenfocada: any;
     private tipoDocRecuperado: any;
     private nroDocRecuperado: any;
-    private  nroEmbarazo:any;
+    private nroEmbarazo:any;
     private nroHclRecuperado:any;
     /********Lista tipo Dx*****/
     private tipoList:any[]= [];
@@ -58,7 +60,7 @@ export class GiagnosticosComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private obstetriciaService: ObstetriciaGeneralService,
                 private cieService: CieService,
-                // private dialog:DialogService,
+                // private dialog: DialogService,
                 private messageService: MessageService,
                 private DxService: ConsultasService) {
         this.buildForm();
@@ -97,20 +99,20 @@ export class GiagnosticosComponent implements OnInit {
         this.displayModal = true;
     }
     /*****************DATOS RECIBIDOS DEL MODAL DX*************************/
-    // openDialogDiagnostico(){
-    //    this.ref = this.dialog.open(DiagnosticoModalComponent, {
-    //     header: "TRATAMIENTOS",
-    //     contentStyle:{
-    //       overflow:"auto",
-    //     },
-    //   })
-    //   this.ref.onClose.subscribe((data:any)=>{
-    //     console.log("data de modal tratamiento",data)
-    //     if(data!==undefined)
-    //       this.diagnosticos2.push(data);
-    //     console.log(this.formDiagnostico);
-    //   })
-    // }
+    openDialogDiagnostico(){
+       // this.ref = this.dialog.open(ModalDiagnosticoComponent, {
+      //   header: "TRATAMIENTOS",
+      //   contentStyle:{
+      //     overflow:"auto",
+      //   },
+      // })
+      // this.ref.onClose.subscribe((data:any)=>{
+      //   console.log("data de modal tratamiento",data)
+        // if(data!==undefined)
+        //   this.diagnosticos2.push(data);
+        // console.log(this.formDiagnostico);
+      // })
+    }
     // openDialogEditarDiagnostico(row,index){
     //   let aux={
     //     index: index,
@@ -301,11 +303,6 @@ export class GiagnosticosComponent implements OnInit {
                     i++;
                 }
             }
-
         });
-    }
-
-    openDialogDiagnostico() {
-        console.log("ingresando al otro modal");
     }
 }

@@ -20,6 +20,9 @@ export class AtencionesComponent implements OnInit {
     form: FormGroup
     atenciones: any[] = [];
     datosGrafico: any[]=[];
+    datosGraficoAltura: any[]=[];
+    datosGraficoY: any[]=[];
+
     // isUpdate: boolean = false;
     /**Datos del modal atenciones***/
     atencionGestanteDialog: boolean;
@@ -62,6 +65,20 @@ export class AtencionesComponent implements OnInit {
             this.datosGrafico  =res.obj;
             console.log(this.datosGrafico);
         })
+    }
+    /*********Recuperar Datos  para el gráfico Peso Madre*************/
+    recuperarDatosGraficoAlturaUterina(){
+        this.atencionesService.getDatosGraficoAlturaUterina(this.idObstetricia).subscribe((res:any)=>{
+            let tamanio = res.object.length;
+            let i = 0;
+            while(i<tamanio){
+                this.datosGraficoAltura.push([res.object[i].edadGestacional,res.object[i].alturaUterina]);
+                // this.datosGraficoY.push(res.object[i].alturaUterina)
+                i++;
+            }
+
+        })
+
     }
 
     /****abrir modal que muestre las atenciones de la paciente  gestante*****/
@@ -128,7 +145,7 @@ export class AtencionesComponent implements OnInit {
     /************+****grafico grafico Altura uterina********************/
     graficarAltura(){
         let titleModal = 'Grafico Altura Uterina';
-        this.openModalGraficoAltura([],titleModal);
+        this.openModalGraficoAltura(this.datosGraficoAltura,titleModal);
 
     }
     openModalGraficoAltura(data: Array<number[]>, titleModal: string): void
@@ -150,7 +167,9 @@ export class AtencionesComponent implements OnInit {
     ///******************************************/
     ngOnInit(): void {
         this.recuperarDatosAtenciones();
-        this.recuperarDatosGraficoPesoMadre();
+        this.recuperarDatosGraficoAlturaUterina();
+        // this.recuperarDatosGraficoPesoMadre();
+
     }
 
     openNew() {

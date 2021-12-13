@@ -16,6 +16,7 @@ import {ModalInmunizacionesComponent} from "./component/tratamiento/modal-inmuni
 import { ModalInterconsultaComponent } from './component/tratamiento/modal-interconsulta/modal-interconsulta.component';
 import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
 import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
+import { ModalDiagnosticoComponent } from './component/giagnosticos/modal-diagnostico/modal-diagnostico.component';
 
 
 
@@ -34,6 +35,7 @@ import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-
         ModalInterconsultaComponent,
         ModalRecomendacionesComponent,
         ModalExamenesAuxiliaresComponent,
+        ModalDiagnosticoComponent,
 
     ],
     imports: [

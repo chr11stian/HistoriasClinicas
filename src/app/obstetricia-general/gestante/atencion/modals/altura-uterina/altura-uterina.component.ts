@@ -43,12 +43,12 @@ export class AlturaUterinaComponent implements OnInit {
         data,
         this.names,
         (this.config.data.dataPregmant as Array<number[]>),
-        {color: '#09fff9', name: 'gestante'},
+        {color: '#09fff9', name: 'gestante-altura'},
         this.colors,
         {xAxis: 'trimestre', yAxis: 'cm'}
     )
     this.data = {
-      nameAxisY: 'ALTURA UTERINA (kg)',
+      nameAxisY: 'ALTURA UTERINA (cm)',
       nameAxisX: 'Trimestres',
       titleGraph: 'GRAFICA ALTURA UTERINA ',
       subTitleGraph: '',
@@ -57,5 +57,4 @@ export class AlturaUterinaComponent implements OnInit {
       typeAxisX: 'trimestre'
     }
   }
-
 }
