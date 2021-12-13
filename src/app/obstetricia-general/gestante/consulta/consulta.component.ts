@@ -32,6 +32,7 @@ export class ConsultaComponent implements OnInit {
         private consultaObstetriciaService: ConsultaObstetriciaService,
         private obstetriciaGeneralService: ObstetriciaGeneralService
     ) {
+        this.inicializarForm();
         this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
         this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
         this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
@@ -40,9 +41,7 @@ export class ConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.inicializarForm();
         console.log(this.consultas);
-
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
         console.log("NroHCL", this.nroHcl);
@@ -61,12 +60,13 @@ export class ConsultaComponent implements OnInit {
     }
 
     openDialogConsultaNuevo() {
-        let dialog = this.dialog.open(DialogConsultaComponent, {
+        this.ref = this.dialog.open(DialogConsultaComponent, {
             header: "CONSULTA",
             width: "95%",
             contentStyle: {
                 "max-height": "700px",
             },
+            autoZIndex: false,
         })
         this.ref.onClose.subscribe((data: any) => {
             console.log('data de otro dialog ', data)
@@ -82,6 +82,7 @@ export class ConsultaComponent implements OnInit {
         this.ref = this.dialog.open(DialogConsultaComponent, {
             header: "CONSULTA",
             width: "95%",
+            autoZIndex: false,
             contentStyle: {
                 "max-height": "800px",
                 overflow: "auto",
@@ -99,8 +100,8 @@ export class ConsultaComponent implements OnInit {
 
     recuperarConsultas() {
         let data = {
-            "nroHcl": "10101013",
-            "nroEmbarazo": 1
+            "nroHcl": this.obstetriciaGeneralService.nroHcl,
+            "nroEmbarazo": this.obstetriciaGeneralService.nroEmbarazo
         }
         this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
             console.log('trajo datos exito ', res)
