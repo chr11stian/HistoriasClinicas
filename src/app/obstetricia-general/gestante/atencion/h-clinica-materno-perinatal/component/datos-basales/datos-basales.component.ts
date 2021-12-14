@@ -653,7 +653,9 @@ export class DatosBasalesComponent implements OnInit {
         let today = new Date().getTime();
         let auxFUM = new Date(this.form.value.dateFUM).getTime();
         auxFUM = auxFUM + 0;
+        console.log('auxFUM ', auxFUM, 'today ', today);
         let auxWeek = today - auxFUM;
+        console.log('fecha actual ', auxWeek);
         if (auxWeek < 0) {
             this.messageService.add({
                 severity: "warn",
@@ -663,8 +665,12 @@ export class DatosBasalesComponent implements OnInit {
             this.form.patchValue({ dateFUM: '' });
             return;
         }
-        this.edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24 * 7));
-        this.imcService.getGananciaPesoRegular(this.edadGestacional).subscribe((res: any) => {
+
+        this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
+        let semanasGetacional = Math.trunc(this.edadGestacional / 7);
+        let diasGestacional = Math.trunc(this.edadGestacional % 7);
+        console.log('semanas gestacional ', this.edadGestacional, 'dias gest ', diasGestacional, 'semanas ', semanasGetacional);
+        this.imcService.getGananciaPesoRegular(semanasGetacional).subscribe((res: any) => {
             this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
             console.log('peso ', pesoActual, 'talle ', altura);
             let imcAux = ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2);

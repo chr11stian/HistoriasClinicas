@@ -62,7 +62,7 @@ export class ConsultasNoControlComponent implements OnInit {
   openDialogConsultaNuevo() {
     this.ref = this.dialog.open(DialogConsultaUniversalComponent, {
       header: "CONSULTA GENERAL",
-      width: "90%",
+      width: "95%",
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log('data ', data);
