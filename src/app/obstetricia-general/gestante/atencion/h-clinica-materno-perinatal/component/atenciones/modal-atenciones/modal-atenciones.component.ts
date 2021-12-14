@@ -109,7 +109,7 @@ export class ModalAtencionesComponent implements OnInit {
        arrayConsultorio.push(configuracion.interconsultas[i].consultorio);
     }
     console.log(arrayConsultorio);
-    let cad = arrayConsultorio.join("/");
+    let cad = arrayConsultorio.join(" / ");
     this.formAtenciones.get("interconsultas").setValue(cad);
     /************Fin recorrido interconsultas************/
    }

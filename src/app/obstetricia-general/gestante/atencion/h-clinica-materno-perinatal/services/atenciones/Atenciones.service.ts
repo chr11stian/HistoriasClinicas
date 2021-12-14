@@ -20,4 +20,8 @@ export class AtencionesService {
     getDatosGrafico(id){
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/atencionprenatal/graficoPesoMadreid/${id}`);
     }
+    //obstetricia/atencionprenatal/graficoAlturaUterinaId/61ae63a9b7b1da403c60f598
+    getDatosGraficoAlturaUterina(id){
+        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/atencionprenatal/graficoAlturaUterinaId/${id}`);
+    }
 }
