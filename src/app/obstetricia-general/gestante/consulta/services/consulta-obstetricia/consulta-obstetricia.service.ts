@@ -26,4 +26,16 @@ export class ConsultaObstetriciaService {
   /*getConsultaExistePlanParto(id) {
     return this.http.get(`${this.base_url}/${this.bd}/obstetricia/planparto/existe/${id}`)
   }*/
+  getGananciaSobrePeso(semanas){
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaSobrePeso/${semanas}`)
+  }
+  getGananciaObesa(semanas){
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaObesa/${semanas}`)
+  }
+  getGananciaPesoRegular(semanas){
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaPesoRegular/${semanas}`)
+  }
+  getGananciaBajoPeso(semanas){
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaBajoPeso/${semanas}`)
+  }
 }
