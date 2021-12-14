@@ -10,6 +10,7 @@
 </p-toolbar>
 <br>
 <div>
+
     <p-fieldset legend="ANTECEDENTES" [toggleable]="true" collapsed="">
         <form [formGroup]='formAntecedentes'>
 
@@ -129,6 +130,7 @@
                             </div>
 
                         </div>
+                        <!--                        <div id="visNetwork" #visNetwork></div>-->
                     </p-fieldset>
                 </div>
                 <div class="col">
@@ -392,9 +394,12 @@
                     </div>
                 </div>
             </div>
+        </form>
 
-            <div class="grid">
-                <div class="col">
+        <div class="grid">
+            <div class="col">
+                <form [formGroup]='formAntecedentes'>
+
                     <p-fieldset legend="Antecedentes Familiares">
                         <div class="grid">
                             <div class="col-6">
@@ -688,272 +693,282 @@
                             </div>
                         </div>
                     </p-fieldset>
-                </div>
-                <div class="col">
-                    <p-fieldset legend="Antecedentes Personales" [toggleable]="false">
-                        <div class="grid">
-                            <div class="col" style="align-self: start">
-                                <div class="grid">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Ninguno: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="Ninguno1" value="Ninguno"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
+                </form>
+
+            </div>
+
+
+            <div class="col">
+                <p-fieldset legend="Antecedentes Personales" [toggleable]="false">
+                    <div class="grid">
+                        <div class="col" style="align-self: start">
+                            <div class="grid">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Ninguno: </label>
                                 </div>
-                                <div class="grid">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Aborto habitual / recurrente: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="Abortohabitualrecurrente"
-                                                    value="Aborto habitual / recurrente" class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Violencia: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="violencia" value="Violencia"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Cardiopatia: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="cardiopatia" value="Cardiopatia"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Cirugia Pélvica Uterina: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="cirugiaPélvicaUterina"
-                                                    value="Cirugia Pélvica Uterina" class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Eclampsia: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="eclampsia" value="Eclampsia"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Pre Eclampsia: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="preEclampsia" value="Pre Eclampsia"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Hemorra. Postparto: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="hemorraPostparto" value="Hemorragia. Postparto"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>TBC Pulmonar: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="TBCPulmonar2" value="TBC Pulmonar"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>VIH/SIDA: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="VIHSIDA" value="VIH/SIDA"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Ninguno" value="Ninguno"></p-checkbox>
                                 </div>
                             </div>
-                            <div class="col" style="align-self: start">
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Alcoholismo: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="alcoholismo" value="Alcoholismo"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
+                            <div class="grid">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Aborto habitual / recurrente: </label>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Alergia a medicamentos: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="alergiaAmedicamentos"
-                                                    value="Alergia a medicamentos" class="mt-1"></p-checkbox>
-                                    </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Abortohabitualrecurrente"
+                                                value="Aborto habitual / recurrente"></p-checkbox>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Asma Bronquial: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="asmaBronquial" value="Asma Bronquial"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Diabetes: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="diabetes2" value="Diabetes"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Enferm. Congénitas: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="enfermCongénitas" value="Enferm. Congénitas"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Enferm. Infecciosas: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="enfermInfecciosas" value="Enferm. Infecciosas"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Epilepsia: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="epilepsia" value="Epilepsia"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Hip. Arterial: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="hipArterial" value="Hip. Arterial"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Consumo de hoja de coca: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="consumoHojaDeCoca" value="Consumo de hoja de coca"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
-
                             </div>
-                            <div class="col" style="align-self: start">
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Infertilidad: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="infertilidad" value="Infertilidad"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
+                            <div class="grid">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Violencia: </label>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Neoplasias: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="neoplasias" value="Neoplasias"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Violencia"
+                                                value="Violencia"></p-checkbox>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Otras Drogas: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="otrasDrogas" value="Otras Drogas"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Cardiopatia: </label>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Parto Prolong: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="partoProlong" value="Parto Prolong"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Cardiopatia"
+                                                value="Cardiopatia"></p-checkbox>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Preeclampsia: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="preeclampsia" value="Preeclampsia"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Cirugia Pélvica Uterina: </label>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Prematuridad: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="prematuridad" value="Prematuridad"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="cirugiaPelvicaUterina"
+                                                value="Cirugia Pélvica Uterina"></p-checkbox>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Reten. Placenta: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="retenPlacenta" value="Reten. Placenta"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Eclampsia: </label>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Tabaco: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="tabaco" value="Tabaco" class="mt-1"></p-checkbox>
-                                    </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Eclampsia"
+                                                value="Eclampsia"></p-checkbox>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-10" style="text-align: right">
-                                        <label>Transtorn. Mentales: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-checkbox formControlName="transtornMentales" value="Transtornos Mentales"
-                                                    class="mt-1"></p-checkbox>
-                                    </div>
-                                </div>
+                            </div>
 
 
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Pre Eclampsia: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="preEclampsia"
+                                                value="Pre Eclampsia"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Hemorra. Postparto: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="hemorraPostparto"
+                                                value="Hemorra. Postparto"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>TBC Pulmonar: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="TBCPulmonar2"
+                                                value="TBC Pulmonar"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>VIH/SIDA:</label>
+                                </div>
+                                <div class="col-2">
+                                    <div class="col-2">
+                                        <p-checkbox [(ngModel)]="VIHSIDA"
+                                                    value="VIH/SIDA"></p-checkbox>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="grid">
+                        <div class="col" style="align-self: start">
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Alcoholismo: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="Alcoholismo"
+                                                value="Alcoholismo"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Alergia a medicamentos: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="alergiaAmedicamentos"
+                                                value="Alergia a medicamentos"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Asma Bronquial: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="asmaBronquial"
+                                                value="Asma Bronquial"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Diabetes: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="diabetes2"
+                                                value="Diabetes"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Enferm. Congénitas: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="enfermCongenitas"
+                                                value="Enferm. Congénitas"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Enferm. Infecciosas: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="enfermInfecciosas"
+                                                value="Enferm. Infecciosas"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Epilepsia: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="epilepsia"
+                                                value="Epilepsia"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Hip. Arterial: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="hipArterial"
+                                                value="Hip. Arterial"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Consumo de hoja de coca: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="consumoHojaDeCoca"
+                                                value="Consumo de hoja de coca"></p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col" style="align-self: start">
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Infertilidad: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="infertilidad"
+                                                value="Infertilidad"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Neoplasias: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="neoplasias"
+                                                value="Neoplasias"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Otras Drogas: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="otrasDrogas"
+                                                value="Otras Drogas"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Parto Prolong: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="partoProlong"
+                                                value="Parto Prolong"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Preeclampsia: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="preeclampsia"
+                                                value="Preeclampsia"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Prematuridad: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="prematuridad"
+                                                value="Prematuridad"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Reten. Placenta: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="retenPlacenta"
+                                                value="Reten. Placenta"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Tabaco: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="tabaco"
+                                                value="Tabaco"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <div class="col-10" style="text-align: right">
+                                    <label>Transtorn. Mentales: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox [(ngModel)]="transtornMentales"
+                                                value="Transtorn. Mentales"></p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="grid">
+                        <form [formGroup]='formAntecedentes'>
                             <div class="grid col-12">
                                 <div class="col-3" style="text-align: right">
                                     <label>Otros: </label>
@@ -966,10 +981,13 @@
                                     <input type="text" pInputText class="inputfield w-full">
                                 </div>
                             </div>
+                        </form>
 
-                        </div>
-                    </p-fieldset>
-                    <br>
+                    </div>
+                </p-fieldset>
+                <br>
+                <form [formGroup]='formAntecedentes'>
+
                     <p-fieldset legend="Psicoprofilaxis">
                         <div class="grid">
                             <div class="col-2">
@@ -980,10 +998,10 @@
                             </div>
                         </div>
                     </p-fieldset>
-
-                </div>
+                </form>
 
             </div>
-        </form>
+
+        </div>
     </p-fieldset>
 </div>

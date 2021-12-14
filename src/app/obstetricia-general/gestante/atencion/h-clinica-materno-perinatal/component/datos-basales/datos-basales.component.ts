@@ -461,15 +461,15 @@ export class DatosBasalesComponent implements OnInit {
 
     guardarDatos() {
         this.recuperarDatos();
-        // console.log('data to save ', this.datosBasales);
-        this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
-            console.log('se guardo correctamente ', res.object);
-            this.messageService.add({
-                severity: "success",
-                summary: "Exito",
-                detail: res.mensaje
-            });
-        });
+        console.log('data to save ', this.datosBasales);
+        // this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
+        //     console.log('se guardo correctamente ', res.object);
+        //     this.messageService.add({
+        //         severity: "success",
+        //         summary: "Exito",
+        //         detail: res.mensaje
+        //     });
+        // });
     }
 
     loadData() {
@@ -653,18 +653,37 @@ export class DatosBasalesComponent implements OnInit {
         let today = new Date().getTime();
         let auxFUM = new Date(this.form.value.dateFUM).getTime();
         auxFUM = auxFUM + 0;
+        console.log('auxFUM ', auxFUM, 'today ', today);
         let auxWeek = today - auxFUM;
-        this.edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24 * 7));
-
-        console.log('edad gestacional ', this.edadGestacional);
-        if (this.edadGestacional > 0) {
-            this.imcService.getGananciaPesoRegular(this.edadGestacional).subscribe((res: any) => {
-                this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
-                console.log('peso ', pesoActual, 'talle ', altura);
-                this.form.patchValue({ imc: ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2) });
-                console.log('imc ', ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2));
+        console.log('fecha actual ', auxWeek);
+        if (auxWeek < 0) {
+            this.messageService.add({
+                severity: "warn",
+                summary: "Alerta",
+                detail: 'La fecha de FUM es incorrecta'
             });
+            this.form.patchValue({ dateFUM: '' });
+            return;
         }
+
+        this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
+        let semanasGetacional = Math.trunc(this.edadGestacional / 7);
+        let diasGestacional = Math.trunc(this.edadGestacional % 7);
+        console.log('semanas gestacional ', this.edadGestacional, 'dias gest ', diasGestacional, 'semanas ', semanasGetacional);
+        this.imcService.getGananciaPesoRegular(semanasGetacional).subscribe((res: any) => {
+            this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
+            console.log('peso ', pesoActual, 'talle ', altura);
+            let imcAux = ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2);
+            this.form.patchValue({ imc: imcAux });
+            if (imcAux == '-Infinity') {
+                this.form.patchValue({ dateFUM: null });
+                this.messageService.add({
+                    severity: "warn",
+                    summary: "Alerta",
+                    detail: 'Faltan datos para calcular el imc (peso o talla)'
+                });
+            }
+        });
     }
 
     openDialogHemoglobina() {

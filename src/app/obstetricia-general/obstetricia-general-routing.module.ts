@@ -4,6 +4,7 @@ import {CitasComponent} from "./citas.component";
 import {ConsultaComponent} from "./gestante/consulta/consulta.component";
 import {GestanteComponent} from "./gestante/gestante.component";
 import {AtencionComponent} from "./gestante/atencion/atencion.component";
+import { ConsultasNoControlComponent } from "./consultas-no-control/consultas-no-control.component";
 
 const routes: Routes = [
 
@@ -21,6 +22,11 @@ const routes: Routes = [
         component: ConsultaComponent
     },
     {
+        path: "noControl",
+        component: ConsultasNoControlComponent
+    },
+
+    {
         path: "citas",
         loadChildren: () => import('src/app/obstetricia-general/obstetricia-general.module').then(n => n.ObstetriciaGeneralModule),
     },
@@ -34,6 +40,7 @@ const routes: Routes = [
         path: "gestante",
         loadChildren: () => import('src/app/obstetricia-general/gestante/atencion/atencion.module').then(n => n.AtencionModule),
     },
+    
 
 ];
 

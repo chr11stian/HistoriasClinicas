@@ -35,4 +35,19 @@ export class ConsultasService {
     getUltimaConsultaById(idConsulta) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsultaxid`, idConsulta)
     }
+
+    getLastConsulById(idConsulta) {
+        const promise = this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsultaxid`, idConsulta).toPromise();
+        promise.then((data) => {
+            console.log("Promise resolved with: " + JSON.stringify(data));
+        }).catch((error) => {
+            console.log("Promise rejected with " + JSON.stringify(error));
+        })
+
+        return promise;
+    }
+
+    getInterrogatorioById(consulta) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarInterrogatorioxid`, consulta)
+    }
 }

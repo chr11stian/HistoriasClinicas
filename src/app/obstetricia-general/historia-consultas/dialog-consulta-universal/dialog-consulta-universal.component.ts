@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {DynamicDialogRef} from 'primeng/dynamicdialog';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-dialog-consulta-universal',
@@ -19,14 +19,35 @@ export class DialogConsultaUniversalComponent implements OnInit {
         private ref: DynamicDialogRef
         // private
     ) {
-    }
-
-    ngOnInit(): void {
         this.inicializarForm();
     }
 
+    ngOnInit(): void {
+        
+    }
+
     inicializarForm() {
-        this.form = this.fb.group({})
+        this.form = this.fb.group({
+            fechaAtencion: new FormControl(""),
+            edad: new FormControl(""),
+            nroAtencion: new FormControl(""),
+            nroControlSis: new FormControl(""),
+            direccion: new FormControl(""),
+            //funciones vitales
+            temperatura: new FormControl(""),
+            presionSis: new FormControl(""),//sistolica y diastoloica
+            presionDias: new FormControl(""),
+            fc: new FormControl(""),
+            fr: new FormControl(""),
+            peso: new FormControl(""),
+            talla: new FormControl(""),
+            imc: new FormControl(""),
+
+            apetito: new FormControl(''),
+            sed: new FormControl(''),
+            sueno: new FormControl(''),
+            estadoAnimo: new FormControl(''),
+        })
     }
 
     closeDialog() {
