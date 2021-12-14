@@ -12,6 +12,52 @@ import Swal from "sweetalert2";
 })
 export class DatosGeneralesObtetriciaComponent implements OnInit {
 
+
+    // // @ViewChild('network', {static: false})
+    // @ViewChild('visNetwork', {static: false})
+    // visNetwork!: ElementRef;
+    // private networkInstance: any;
+
+    @ViewChild('canvasEl', {static: true})
+    canvasEl: ElementRef<HTMLCanvasElement>;
+
+    // @ViewChild('canvasEl') canvasEl: ElementRef<HTMLCanvasElement>;
+
+    /**Canvas 2d context*/
+    private context: CanvasRenderingContext2D;
+
+
+    /**Antecedentes Personales**/
+    Ninguno: string;
+    Abortohabitualrecurrente: string;
+    Violencia: string;
+    Cardiopatia: string;
+    cirugiaPelvicaUterina: string;
+    Eclampsia: string;
+    preEclampsia: string;
+    hemorraPostparto: string;
+    TBCPulmonar2: string;
+    VIHSIDA: string;
+    Alcoholismo: string;
+    alergiaAmedicamentos: string;
+    asmaBronquial: string;
+    diabetes2: string;
+    enfermCongenitas: string;
+    enfermInfecciosas: string;
+    epilepsia: string;
+    hipArterial: string;
+    consumoHojaDeCoca: string;
+    infertilidad: string;
+    neoplasias: string;
+    otrasDrogas: string;
+    partoProlong: string;
+    preeclampsia: string;
+    prematuridad: string;
+    retenPlacenta: string;
+    tabaco: string;
+    transtornMentales: string;
+
+
     antecedentes: any;
     antecedentes1: any;
     antecedentes2: any;
@@ -102,8 +148,33 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         // })
         this.buildForm2();
         this.getpacienteFiiacionByID();
-
+        // this.ngAfterViewInit();
     }
+
+
+    // ngAfterViewInit(): void {
+    //     // create an array with nodes
+    //     const nodes = new DataSet<any>([
+    //         {id: 1, label: 'Node 1'},
+    //         {id: 2, label: 'Node 2'},
+    //         {id: 3, label: 'Node 3'},
+    //         {id: 4, label: 'Node 4'},
+    //         {id: 5, label: 'Node 5'},
+    //     ]);
+    //
+    //     // create an array with edges
+    //     const edges = new DataSet<any>([
+    //         {from: '1', to: '3'},
+    //         {from: '1', to: '2'},
+    //         {from: '2', to: '4'},
+    //         {from: '2', to: '5'},
+    //     ]);
+    //
+    //     const data = {nodes, edges};
+    //
+    //     const container = this.visNetwork;
+    //     this.networkInstance = new Network(container.nativeElement, data, {});
+    // }
 
 
     buildForm2() {
@@ -150,34 +221,34 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             referidaporAgComuni: new FormControl(''),
 
 
-            Ninguno1: new FormControl(''),
-            Abortohabitualrecurrente: new FormControl(''),
-            violencia: new FormControl(''),
-            cardiopatia: new FormControl(''),
-            cirugiaPélvicaUterina: new FormControl(''),
-            eclampsia: new FormControl(''),
-            preEclampsia: new FormControl(''),
-            hemorraPostparto: new FormControl(''),
-            TBCPulmonar2: new FormControl(''),
-            VIHSIDA: new FormControl(''),
-            alcoholismo: new FormControl(''),
-            alergiaAmedicamentos: new FormControl(''),
-            asmaBronquial: new FormControl(''),
-            diabetes2: new FormControl(''),
-            enfermCongénitas: new FormControl(''),
-            enfermInfecciosas: new FormControl(''),
-            epilepsia: new FormControl(''),
-            hipArterial: new FormControl(''),
-            consumoHojaDeCoca: new FormControl(''),
-            infertilidad: new FormControl(''),
-            neoplasias: new FormControl(''),
-            otrasDrogas: new FormControl(''),
-            partoProlong: new FormControl(''),
-            preeclampsia: new FormControl(''),
-            prematuridad: new FormControl(''),
-            retenPlacenta: new FormControl(''),
-            tabaco: new FormControl(''),
-            transtornMentales: new FormControl(''),
+            // Ninguno1: new FormControl(''),
+            // Abortohabitualrecurrente: new FormControl(''),
+            // violencia: new FormControl(''),
+            // cardiopatia: new FormControl(''),
+            // cirugiaPélvicaUterina: new FormControl(''),
+            // eclampsia: new FormControl(''),
+            // preEclampsia: new FormControl(''),
+            // hemorraPostparto: new FormControl(''),
+            // TBCPulmonar2: new FormControl(''),
+            // VIHSIDA: new FormControl(''),
+            // alcoholismo: new FormControl(''),
+            // alergiaAmedicamentos: new FormControl(''),
+            // asmaBronquial: new FormControl(''),
+            // diabetes2: new FormControl(''),
+            // enfermCongénitas: new FormControl(''),
+            // enfermInfecciosas: new FormControl(''),
+            // epilepsia: new FormControl(''),
+            // hipArterial: new FormControl(''),
+            // consumoHojaDeCoca: new FormControl(''),
+            // infertilidad: new FormControl(''),
+            // neoplasias: new FormControl(''),
+            // otrasDrogas: new FormControl(''),
+            // partoProlong: new FormControl(''),
+            // preeclampsia: new FormControl(''),
+            // prematuridad: new FormControl(''),
+            // retenPlacenta: new FormControl(''),
+            // tabaco: new FormControl(''),
+            // transtornMentales: new FormControl(''),
             Otros2: new FormControl(''),
 
             terminacion: new FormControl(''),
@@ -280,34 +351,36 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             ],
 
             antecedentesPersonales: [
-                this.formAntecedentes.value.Ninguno1[1],
-                this.formAntecedentes.value.Abortohabitualrecurrente[1],
-                this.formAntecedentes.value.violencia[1],
-                this.formAntecedentes.value.cardiopatia[1],
-                this.formAntecedentes.value.cirugiaPélvicaUterina[1],
-                this.formAntecedentes.value.eclampsia[1],
-                this.formAntecedentes.value.preEclampsia[1],
-                this.formAntecedentes.value.hemorraPostparto[1],
-                this.formAntecedentes.value.TBCPulmonar2[1],
-                this.formAntecedentes.value.VIHSIDA[1],
-                this.formAntecedentes.value.alcoholismo[1],
-                this.formAntecedentes.value.alergiaAmedicamentos[1],
-                this.formAntecedentes.value.asmaBronquial[1],
-                this.formAntecedentes.value.diabetes2[1],
-                this.formAntecedentes.value.enfermCongénitas[1],
-                this.formAntecedentes.value.enfermInfecciosas[1],
-                this.formAntecedentes.value.epilepsia[1],
-                this.formAntecedentes.value.hipArterial[1],
-                this.formAntecedentes.value.consumoHojaDeCoca[1],
-                this.formAntecedentes.value.infertilidad[1],
-                this.formAntecedentes.value.neoplasias[1],
-                this.formAntecedentes.value.otrasDrogas[1],
-                this.formAntecedentes.value.partoProlong[1],
-                this.formAntecedentes.value.preeclampsia[1],
-                this.formAntecedentes.value.prematuridad[1],
-                this.formAntecedentes.value.retenPlacenta[1],
-                this.formAntecedentes.value.tabaco[1],
-                this.formAntecedentes.value.transtornMentales[1],
+                this.Ninguno[0],
+                this.Abortohabitualrecurrente[0],
+                this.Violencia[0],
+                this.Cardiopatia[0],
+                this.cirugiaPelvicaUterina[0],
+                this.Eclampsia[0],
+                this.preEclampsia[0],
+                this.hemorraPostparto[0],
+                this.TBCPulmonar2[0],
+                this.VIHSIDA[0],
+                this.Alcoholismo[0],
+                this.alergiaAmedicamentos[0],
+                this.asmaBronquial[0],
+                this.diabetes2[0],
+                this.enfermCongenitas[0],
+                this.enfermInfecciosas[0],
+                this.epilepsia[0],
+                this.hipArterial[0],
+                this.consumoHojaDeCoca[0],
+
+
+                this.infertilidad[0],
+                this.neoplasias[0],
+                this.otrasDrogas[0],
+                this.partoProlong[0],
+                this.preeclampsia[0],
+                this.prematuridad[0],
+                this.retenPlacenta[0],
+                this.tabaco[0],
+                this.transtornMentales[0],
 
             ],
         }
@@ -382,34 +455,36 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.formAntecedentes.get('referidaporAgComuni').setValue(this.dataAntecedentes.referidaAgComunal);
 
 
-            this.formAntecedentes.get('Ninguno1').setValue([this.dataAntecedentes.antecedentesPersonales[0]]);
-            this.formAntecedentes.get('Abortohabitualrecurrente').setValue([this.dataAntecedentes.antecedentesPersonales[1]]);
-            this.formAntecedentes.get('violencia').setValue([this.dataAntecedentes.antecedentesPersonales[2]]);
-            this.formAntecedentes.get('cardiopatia').setValue([this.dataAntecedentes.antecedentesPersonales[3]]);
-            this.formAntecedentes.get('cirugiaPélvicaUterina').setValue([this.dataAntecedentes.antecedentesPersonales[4]]);
-            this.formAntecedentes.get('eclampsia').setValue([this.dataAntecedentes.antecedentesPersonales[5]]);
-            this.formAntecedentes.get('preEclampsia').setValue([this.dataAntecedentes.antecedentesPersonales[6]]);
-            this.formAntecedentes.get('hemorraPostparto').setValue([this.dataAntecedentes.antecedentesPersonales[7]]);
-            this.formAntecedentes.get('TBCPulmonar2').setValue([this.dataAntecedentes.antecedentesPersonales[8]]);
-            this.formAntecedentes.get('VIHSIDA').setValue([this.dataAntecedentes.antecedentesPersonales[9]]);
-            this.formAntecedentes.get('alcoholismo').setValue([this.dataAntecedentes.antecedentesPersonales[10]]);
-            this.formAntecedentes.get('alergiaAmedicamentos').setValue([this.dataAntecedentes.antecedentesPersonales[11]]);
-            this.formAntecedentes.get('asmaBronquial').setValue([this.dataAntecedentes.antecedentesPersonales[12]]);
-            this.formAntecedentes.get('diabetes2').setValue([this.dataAntecedentes.antecedentesPersonales[13]]);
-            this.formAntecedentes.get('enfermCongénitas').setValue([this.dataAntecedentes.antecedentesPersonales[14]]);
-            this.formAntecedentes.get('enfermInfecciosas').setValue([this.dataAntecedentes.antecedentesPersonales[15]]);
-            this.formAntecedentes.get('epilepsia').setValue([this.dataAntecedentes.antecedentesPersonales[16]]);
-            this.formAntecedentes.get('hipArterial').setValue([this.dataAntecedentes.antecedentesPersonales[17]]);
-            this.formAntecedentes.get('consumoHojaDeCoca').setValue([this.dataAntecedentes.antecedentesPersonales[18]]);
-            this.formAntecedentes.get('infertilidad').setValue([this.dataAntecedentes.antecedentesPersonales[19]]);
-            this.formAntecedentes.get('neoplasias').setValue([this.dataAntecedentes.antecedentesPersonales[20]]);
-            this.formAntecedentes.get('otrasDrogas').setValue([this.dataAntecedentes.antecedentesPersonales[21]]);
-            this.formAntecedentes.get('partoProlong').setValue([this.dataAntecedentes.antecedentesPersonales[22]]);
-            this.formAntecedentes.get('preeclampsia').setValue([this.dataAntecedentes.antecedentesPersonales[23]]);
-            this.formAntecedentes.get('prematuridad').setValue([this.dataAntecedentes.antecedentesPersonales[24]]);
-            this.formAntecedentes.get('retenPlacenta').setValue([this.dataAntecedentes.antecedentesPersonales[25]]);
-            this.formAntecedentes.get('tabaco').setValue([this.dataAntecedentes.antecedentesPersonales[26]]);
-            this.formAntecedentes.get('transtornMentales').setValue([this.dataAntecedentes.antecedentesPersonales[27]]);
+            // this.Ninguno = [this.dataAntecedentes.antecedentesPersonales[0]];
+            // this.Abortohabitualrecurrente = [this.dataAntecedentes.antecedentesPersonales[1]];
+            // this.Violencia = [this.dataAntecedentes.antecedentesPersonales[2]];
+            // this.Cardiopatia = [this.dataAntecedentes.antecedentesPersonales[3]];
+            // this.cirugiaPelvicaUterina = [this.dataAntecedentes.antecedentesPersonales[4]];
+            // this.Eclampsia = [this.dataAntecedentes.antecedentesPersonales[5]];
+            // this.preEclampsia = [this.dataAntecedentes.antecedentesPersonales[6]];
+            // this.hemorraPostparto = [this.dataAntecedentes.antecedentesPersonales[7]];
+            // this.TBCPulmonar2 = [this.dataAntecedentes.antecedentesPersonales[8]];
+            // this.VIHSIDA = [this.dataAntecedentes.antecedentesPersonales[9]];
+            // this.Alcoholismo = [this.dataAntecedentes.antecedentesPersonales[10]];
+            // this.alergiaAmedicamentos = [this.dataAntecedentes.antecedentesPersonales[11]];
+            // this.asmaBronquial = [this.dataAntecedentes.antecedentesPersonales[12]];
+            // this.diabetes2 = [this.dataAntecedentes.antecedentesPersonales[13]];
+            // this.enfermCongenitas = [this.dataAntecedentes.antecedentesPersonales[14]];
+            // this.enfermInfecciosas = [this.dataAntecedentes.antecedentesPersonales[15]];
+            // this.epilepsia = [this.dataAntecedentes.antecedentesPersonales[16]];
+            // this.hipArterial = [this.dataAntecedentes.antecedentesPersonales[17]];
+            // this.consumoHojaDeCoca = [this.dataAntecedentes.antecedentesPersonales[18]];
+            //
+            //
+            // this.infertilidad = [this.dataAntecedentes.antecedentesPersonales[19]];
+            // this.neoplasias = [this.dataAntecedentes.antecedentesPersonales[20]];
+            // this.otrasDrogas = [this.dataAntecedentes.antecedentesPersonales[21]];
+            // this.partoProlong = [this.dataAntecedentes.antecedentesPersonales[22]];
+            // this.preeclampsia = [this.dataAntecedentes.antecedentesPersonales[23]];
+            // this.prematuridad = [this.dataAntecedentes.antecedentesPersonales[24]];
+            // this.retenPlacenta = [this.dataAntecedentes.antecedentesPersonales[25]];
+            // this.tabaco = [this.dataAntecedentes.antecedentesPersonales[26]];
+            // this.transtornMentales = [this.dataAntecedentes.antecedentesPersonales[27]];
 
 
             this.formAntecedentes.get('sesiones').setValue(this.dataAntecedentes.psicoprofilaxisNroSesiones);

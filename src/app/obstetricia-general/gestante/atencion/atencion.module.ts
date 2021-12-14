@@ -13,6 +13,7 @@ import { PesoEmbarazoUnicoMultipleComponent } from './modals/peso-normal-embaraz
 import {SharedModule} from '../../../shared/shared.module';
 import {ConsultaObstetricoModule} from "./consultorio-obstetrico/consulta-obstetrico.module";
 import {HClinicaMaternoPerinatalModule} from "./h-clinica-materno-perinatal/h-clinica-materno-perinatal.module";
+import { AlturaUterinaComponent } from './modals/altura-uterina/altura-uterina.component';
 
 
 
@@ -20,7 +21,8 @@ import {HClinicaMaternoPerinatalModule} from "./h-clinica-materno-perinatal/h-cl
     declarations: [
 
         AtencionComponent,
-        PesoEmbarazoUnicoMultipleComponent
+        PesoEmbarazoUnicoMultipleComponent,
+        AlturaUterinaComponent
 
     ],
     exports: [AtencionComponent],
@@ -30,7 +32,6 @@ import {HClinicaMaternoPerinatalModule} from "./h-clinica-materno-perinatal/h-cl
         PrimeModule,
         PaginatorModule,
         AutoCompleteModule,
-
 
         ConsultaObstetricoModule,
 
