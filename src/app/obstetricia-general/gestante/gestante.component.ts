@@ -59,7 +59,7 @@ export class GestanteComponent implements OnInit {
 
     pacienteByNroDoc() {
         let tipoDoc = "DNI";
-        let nroDoc = "10101044";
+        let nroDoc = "10101013";
 
         // nroDoc: "24015415"
         // nroDoc: "10101011"

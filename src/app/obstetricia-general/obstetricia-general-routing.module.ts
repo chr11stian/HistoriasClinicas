@@ -18,6 +18,10 @@ const routes: Routes = [
     },
 
     {
+        path: "consulta",
+        component: ConsultaComponent
+    },
+    {
         path: "noControl",
         component: ConsultasNoControlComponent
     },
@@ -36,6 +40,7 @@ const routes: Routes = [
         path: "gestante",
         loadChildren: () => import('src/app/obstetricia-general/gestante/atencion/atencion.module').then(n => n.AtencionModule),
     },
+    
 
 ];
 
