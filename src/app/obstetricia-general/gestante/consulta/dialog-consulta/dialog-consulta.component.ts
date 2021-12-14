@@ -170,7 +170,7 @@ export class DialogConsultaComponent implements OnInit {
             console.log("este config", config.data);
             this.form.get("edad").setValue(this.datosNuevaConsulta.edad ? this.datosNuevaConsulta.edad : "");
             this.form.get("nroAtencion").setValue(this.datosNuevaConsulta.nroUltimaAtencion ? this.datosNuevaConsulta.nroUltimaAtencion + 1 : "");
-            this.form.get("nroControlSis").setValue(this.datosNuevaConsulta.nroUltimoControlSis ? this.datosNuevaConsulta.nroUltimoControlSis + 1 : "");
+            this.form.get("nroControlSis").setValue(this.datosNuevaConsulta.nroMayorControlSis ? this.datosNuevaConsulta.nroMayorControlSis + 1 : "");
             this.form.get("direccion").setValue(this.datosNuevaConsulta.direccion ? this.datosNuevaConsulta.direccion : "");
             this.form.get("pesoHabitual").setValue(this.datosNuevaConsulta.pesoHabitual ? this.datosNuevaConsulta.pesoHabitual : "");
             this.form.get("imc").setValue(this.datosNuevaConsulta.imc ? this.datosNuevaConsulta.imc : "");
@@ -1713,4 +1713,6 @@ export class DialogConsultaComponent implements OnInit {
             this.formDiagnostico.patchValue({ cie10: event }, { emitEvent: false });
         }
     }
+
+
 }
