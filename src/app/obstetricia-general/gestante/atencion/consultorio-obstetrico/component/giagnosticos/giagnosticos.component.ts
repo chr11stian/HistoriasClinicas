@@ -20,7 +20,6 @@ export class GiagnosticosComponent implements OnInit {
     idConsultoriObstetrico: string;
     form: FormGroup
     /*****PROPIEDADES del diagnositico**********/
-    data: any[] = []; // data dx
     diagnosticoDialog: boolean;
     diagnosticos: any[]=[];
     /******** PROPIEDADES de orientaciones******/
@@ -50,6 +49,7 @@ export class GiagnosticosComponent implements OnInit {
     private nroHclRecuperado:any;
     /********Lista tipo Dx*****/
     tipoList:any[]= [];
+    eleccion: any;
 
     constructor(private formBuilder: FormBuilder,
                 private obstetriciaService: ObstetriciaGeneralService,
@@ -82,11 +82,12 @@ export class GiagnosticosComponent implements OnInit {
         ];
     }
     ngOnInit() {
-        this.recuperarDatosGuardados();
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
         console.log("Nro de embarazo", this.nroEmbarazo);
         console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
+        this.recuperarDatosGuardados();
+
     }
     showModalDialog() {
         this.displayModal = true;
@@ -111,21 +112,29 @@ export class GiagnosticosComponent implements OnInit {
             })
     }
     /*guardar datos de diagnosticos*/
-
     save1(form: any) {
         this.isUpdate = false;
-        this.data.push(form.value);
-        console.log("esta data es: " + this.data[0]['diagnostico']['descripcionItem']);
-
-        this.diagnosticos.push({
-            diagnostico: this.data[0]['diagnostico']['descripcionItem'],
-            cie10:this.data[0]['diagnostico']['codigoItem'],
-            tipo:this.form.value.tipo}),
-
+        let bandera:boolean = false;
+        let dx = this.form.value.diagnostico.descripcionItem;
+        let cie = this.form.value.diagnostico.codigoItem;
+        /***verificar si ya ingreso este dx************/
+        for(let i=0;i<this.diagnosticos.length;i++)
+        {
+            if (this.diagnosticos[i].cie10===cie){bandera = true;
+            console.log(bandera)}
+        }
+        /***si el dx es repetido -> mensaje si no ingresar al sistema***/
+        if(bandera===true){
+            this.messageService.add({severity:'info', summary:'Recuperado', detail:'Diagnostico ya ingresado, ingrese otro porfavor.'});
+        }
+       else{
+           this.diagnosticos.push({
+               diagnostico: dx,
+               cie10: cie,
+               tipo: this.form.value.tipo
+           }
+           )}
         this.diagnosticoDialog = false;
-        // console.log(this.data[0]['diagnostico']['descripcionItem']);
-        // console.log(this.data[0]['diagnostico']['codigoItem']);
-
     }
     /******ABRIR DIALOGS DX****/
     openDiagnostico() {
@@ -150,7 +159,7 @@ export class GiagnosticosComponent implements OnInit {
         console.log('event ', event.query);
         this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
             this.Cie10 = res.object;
-            console.log('seleccion de autocomplete ', this.Cie10)
+            // console.log('seleccion de autocomplete ', this.Cie10)
 
         })
     }
@@ -166,6 +175,7 @@ export class GiagnosticosComponent implements OnInit {
         console.log("modificando" + rowData)
     }
     /*ELIMINAR DATOS DE LAS TABLAS*/
+
     eliminarDx(index) {
         this.diagnosticos.splice(index, 1)
     }
@@ -255,7 +265,7 @@ export class GiagnosticosComponent implements OnInit {
             }
             else{
                 let i: number = 0;
-                this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de diagnosstico recuperado satisfactoriamente'});
+                this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de diagnostico recuperado satisfactoriamente'});
                 while(i<this.dataAux.diagnosticos.length){
 
                     console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[i]);

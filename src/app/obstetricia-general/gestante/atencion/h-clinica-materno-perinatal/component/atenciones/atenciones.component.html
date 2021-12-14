@@ -51,7 +51,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
-                <td style="text-align: center" class="font-2">{{ "Atención" + rowData.nroAtencion }}</td>
+                <td style="text-align: center">{{ "Atención " + rowData.nroAtencion }}</td>
                 <td style="text-align: center">{{ rowData.fechaAtencion }} </td>
                 <td style="text-align: center">{{ rowData.edadGestacionalSemanas + " " + rowData.edadGestacionalDias + "/7" }}</td>
                 <td style="text-align: center">{{ rowData.peso}}</td>
