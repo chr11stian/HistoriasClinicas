@@ -257,7 +257,8 @@ export class DialogConsultaComponent implements OnInit {
             edemaExamen: new FormControl(""),
             edadSemanas: new FormControl(""),
             edadDias: new FormControl(""),
-
+            nroFetos: new FormControl(""),
+            
             //signos de alarma
             dificultadRespiratoria: new FormControl(""),
             hipertensionArterial: new FormControl(""),
@@ -1205,7 +1206,7 @@ export class DialogConsultaComponent implements OnInit {
                 { funcion: "PULMONES", valor: this.form.value.pulmones },
                 { funcion: "MAMAS", valor: this.form.value.mamas },
                 { funcion: "PEZONES", valor: this.form.value.pezones },
-                { funcion: "ABDOMEN", valor: this.form.value.pezones },
+                { funcion: "ABDOMEN", valor: this.form.value.abdomen },
             ],
             examenesObstetricos: {
                 alturaUterina: this.form.value.alturaUterina,
