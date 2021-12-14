@@ -12,13 +12,16 @@ import {TratamientoConsultaService} from "../../services/tratamiento-consulta.se
 })
 export class TratamientoConsultaComponent implements OnInit {
     data: any[] = [];
-    tratamientos: any[] = [];
-    acuerdos: any[] = [];
+    tratamientos: tratamientoInterface[] = [];
+    acuerdos: acuerdosInterface[] = [];
+    evalOjosVision: evalOjosVisionInterface;
+    tamizajeSaludMental: string
 
     id: string;
     attributeLocalS = 'idConsulta'
     formTratamiento: FormGroup;
     formAcuerdos: FormGroup
+    form: FormGroup
     dialogTratamiento: boolean;
     dialogAcuerdos: boolean;
 
@@ -49,42 +52,48 @@ export class TratamientoConsultaComponent implements OnInit {
         this.formAcuerdos = this.formBuilder.group({
             textoAcuerdo: new FormControl("", []),
         });
+        this.form = this.formBuilder.group({
+            OI: new FormControl("", []),
+            OD: new FormControl("", []),
+            textoForm: new FormControl("", []),
+        })
         this.recuperarTratamiento()
     }
 
     /*  objeto diagnostico */
     recuperarTratamiento() {
         this.tratamientoService.getTratamiento(this.id).subscribe((r: any) => {
+            let aux: evalOjosVisionInterface = {
+                ojoDerecho: 0,
+                ojoIzquierdo: 0
+            }
             //-- recupera informacion de diagnostico
             this.tratamiento = r.object;
             console.log('tratamiento', this.tratamiento)
-            this.tratamientos = this.tratamiento.tratamientos
+            this.tratamientos = (this.tratamiento.tratamientos === null) ? [] : this.tratamiento.tratamientos
             this.acuerdos = (this.tratamiento.acuerdos === null) ? [] : this.tratamiento.acuerdos
-            console.log("tratamientos", this.tratamientos)
+            this.evalOjosVision = this.tratamiento.evalOjosVision === null ? aux : this.tratamiento.evalOjosVision
+            this.tamizajeSaludMental = this.tratamiento.tamizajeSaludMental
+            this.recuperarExtraTratamiento()
         })
-
     }
 
-    guardarTratamientos(): void {
-        for (let i = 0; i < this.tratamientos.length; i++) {
-            let aux = {
-                codigoItem: "string",
-                descripcion: this.tratamientos[i],
-                nroDosis: 1,
-                viaAdministracion: "string",
-                frecuencia: "string",
-                Lote: "string",
-                fechaVencimiento: "string"
-            }
-            this.tratamientos.push(aux);
-        }
+    recuperarExtraTratamiento() {
+        this.form.get('OI').setValue(this.evalOjosVision.ojoIzquierdo === null ? 0 : this.evalOjosVision.ojoIzquierdo);
+        this.form.get('OD').setValue(this.evalOjosVision.ojoDerecho === null ? 0 : this.evalOjosVision.ojoDerecho);
+        this.form.get('textoForm').setValue(this.tamizajeSaludMental);
     }
 
     guardar() {
-        //this.guardarTratamientos()
+        let aux: evalOjosVisionInterface = {
+            ojoDerecho: parseFloat(this.form.value.OD),
+            ojoIzquierdo: parseFloat(this.form.value.OI)
+        }
         const req = {
             tratamientos: this.tratamientos,
-            acuerdos: this.acuerdos
+            acuerdos: this.acuerdos,
+            evalOjosVision: aux,
+            //tamizajeSaludMental: this.form.value.textoForm
         }
         console.log('req', req)
         if (this.tratamientos) {
@@ -123,10 +132,10 @@ export class TratamientoConsultaComponent implements OnInit {
 
     saveTratamiento() {
         let aux = true
-        if (this.bool3 === false) {
+        if (this.bool === false) {
             aux = false
-            this.isUpdate3 = false;
-            let a = {
+            this.isUpdate2 = false;
+            let a: tratamientoInterface = {
                 codigoItem: "string",
                 descripcion: this.formTratamiento.value.textoTratamiento,
                 nroDosis: 1,
@@ -135,7 +144,7 @@ export class TratamientoConsultaComponent implements OnInit {
                 Lote: "string",
                 fechaVencimiento: "string"
             }
-            this.acuerdos.push(a);
+            this.tratamientos.push(a);
         } else {
             this.tratamientos[this.index].descripcion = this.formTratamiento.value.textoTratamiento
             this.bool = false;
@@ -188,7 +197,7 @@ export class TratamientoConsultaComponent implements OnInit {
         if (this.bool3 === false) {
             aux = false
             this.isUpdate3 = false;
-            let a = {
+            let a: acuerdosInterface = {
                 codigo: "string",
                 descripcion: this.formAcuerdos.value.textoAcuerdo
             }
@@ -225,11 +234,13 @@ export class TratamientoConsultaComponent implements OnInit {
 interface tratamientoIntervencionesInterface {
     tratamientos: tratamientoInterface[]
     acuerdos: acuerdosInterface[]
-    evalOjosVision: {
-        ojoDerecho: number,
-        ojoIzquierdo: number
-    }
+    evalOjosVision: evalOjosVisionInterface
     tamizajeSaludMental: string
+}
+
+interface evalOjosVisionInterface {
+    ojoDerecho: number,
+    ojoIzquierdo: number
 }
 
 interface tratamientoInterface {
