@@ -1,236 +1,217 @@
 <div #calendarWrapper></div>
 <div #dropdown></div>
-<p-table
-  rowExpandMode="single"
-  scrollDirection="both"
-  sortMode="single"
-  selectionMode="single"
-  [resizableColumns]="'false'"
-  #dt
-  styleClass="p-datatable p-datatable-gridlines p-mt-3"
-  [value]="listaPersonal"
-  [rowHover]="true"
-  [loading]="loading || loadingUps"
 
+<p-table
+
+        responsiveLayout="scroll"
+        rowExpandMode="single"
+        scrollDirection="both"
+        sortMode="single"
+        selectionMode="single"
+        [resizableColumns]="true"
+        #dt
+        styleClass="p-datatable p-mt-3"
+        [value]="listaPersonal"
+        [rowHover]="true"
+        [loading]="loading || loadingUps"
 >
-  <ng-template pTemplate="header">
-    <tr>
-      <th rowSpan="2" colSpan="3" class="text-center frozenCol">
-        <strong>
-          <label class="line-height-4" for="username2" class="text-base">
-            Personal por servicio(UPS):</label
-          >
-        </strong>
-        <div>
-          <p-dropdown
-            [options]="listaUps"
-            #dd
-            [appendTo]="dropdown"
-            optionLabel="nombreUPS"
-            placeholder="Personal Servicio"
-            styleClass="my-2 py-1"
-            (onChange)="changeUps($event, dd)"
-            [(ngModel)]="upsSeleccionada"
-          ></p-dropdown>
+    <ng-template pTemplate="caption">
+        <div class="table-header" >
+            ASIGNAR ROL DE GUARDIAS AL PERSONAL DE SALUD
         </div>
-      </th>
-      <th
-        [colSpan]="cabeceraMes.length + 1"
-        style="background-color: #dfe6e9; padding: 10px"
-      >
-        <div>
-          <p-calendar
-            [appendTo]="calendarWrapper"
-            [(ngModel)]="dateValue"
-            (onSelect)="cambiarFecha($event)"
-            view="month"
-            dateFormat="mm/yy"
-            [yearNavigator]="true"
-            yearRange="2020:2021"
-          ></p-calendar>
-          <div
-            class="flex align-items-center text-center justify-content-center"
-          >
-            <!-- <button
-              pButton
-              type="button"
-              label=""
-              icon="pi pi-chevron-left"
-              class="p-button-text p-button-secondary"
-            ></button> -->
-            <span class="m-4">
-              {{ fecha.getMonth() + 1 }} {{ fecha.getFullYear() }}
-            </span>
-            <!-- <button
-              pButton
-              type="button"
-              label=""
-              icon="pi pi-chevron-right"
-              class="p-button-text p-button-secondary"
-            ></button> -->
-          </div>
-        </div>
-      </th>
-    </tr>
-    <tr>
-      <th
-        *ngFor="let dia of cabeceraMes"
-        [style]="
-          dia.bg == 'background-color:#dfe6e9'
-            ? 'background-color:#f3a683;'
-            : 'background-color:white;'
-        "
-        style="padding: 10px"
-      >
-        {{ dia.abreviatura }}
-      </th>
-      <th rowspan="2">Horas</th>
-    </tr>
-    <tr>
-      <th
-        class="frozenCol"
-        pFrozenColumn
-        [frozen]="true"
-        style="background-color: #dfe6e9"
-      >
-        Nro
-      </th>
-      <th
-        class="frozenCol"
-        pFrozenColumn
-        [frozen]="true"
-        style="background-color: #dfe6e9"
-      >
-        Apellidos
-      </th>
-      <th
-        class="frozenCol"
-        pFrozenColumn
-        [frozen]="true"
-        style="background-color: #dfe6e9"
-      >
-        Nombres
-      </th>
-      <th
-        *ngFor="let dia of cabeceraMes"
-        [style]="dia.bg"
-        style="padding: 10px"
-      >
-        {{ dia.dia }}
-      </th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-rowData let-i="rowIndex;">
-    <tr>
-      <td class="border-500 text-900 frozenCol" pFrozenColumn [frozen]="true">
-        {{ i + 1 }}
-      </td>
-      <td
-        class="border-500 text-900 frozenCol"
-        style="background-color: #f3a683"
-        pFrozenColumn
-        [frozen]="true"
-      >
-        {{ rowData.apePaterno }} {{ rowData.apeMaterno }}
-      </td>
-      <td
-        class="border-500 text-900 frozenCol"
-        style="background-color: #f3a683"
-        pFrozenColumn
-        [frozen]="true"
-      >
-        {{ rowData.nombre }}
-      </td>
-      <td
-        *ngFor="let dia of cabeceraMes; let j = index"
-        class="border-500 text-900"
-      >
-        <!-- {{ i }} -{{ j }} -->
-        <p-dropdown
-          placeholder=""
-          [inline]="false"
-          [appendTo]="dropdown"
-          [options]="listaTurno"
-          [virtualScroll]="true"
-          optionLabel="abreviatura"
-          dataKey="abreviatura"
-          [(ngModel)]="matriz[i][j]"
-          (onChange)="changeTurno(i, j)"
-        ></p-dropdown>
-      </td>
-      <td class="border-500 text-900">{{ listaHoras[i] }}</td>
-    </tr>
-  </ng-template>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th rowSpan="2" colSpan="3" class="text-center" style="min-width: 250px ;border-bottom:1px solid #CDCDCD" >
+                <strong>
+                    <label class="line-height-4" for="username2" class="text-base" style="font-weight:normal">
+                        Servicio:</label
+                    >
+                </strong>
+                <div class="p-fluid mx-5">
+                    <p-dropdown
+                            class="servicio"
+                            panelStyleClass="minWidthOverride"
+                            [options]="listaUps"
+                            [appendTo]="dropdown"
+                            optionLabel="nombreUPS"
+                            placeholder="Seleccionar"
+                            styleClass="my-2 py-1"
+                            (onChange)="changeUps($event, dd)"
+                            [(ngModel)]="upsSeleccionada"
+                    ></p-dropdown>
+                </div>
+            </th>
+            <th
+                    [colSpan]="cabeceraMes.length + 1"
+                    style="background-color:#D9D9D9;border-bottom: 1px solid #CDCDCD"
+            >
+                <div >
+                    <p-calendar
+                            [appendTo]="calendarWrapper"
+                            [(ngModel)]="dateValue"
+                            (onSelect)="cambiarFecha($event)"
+                            view="month"
+                            dateFormat="mm/yy"
+                            [yearNavigator]="true"
+                            yearRange="2020:2021"
+                    ></p-calendar>
+                    <div
+                            class="flex align-items-center text-center justify-content-center"
+                    >
+                        <!-- <button
+                          pButton
+                          type="button"
+                          label=""
+                          icon="pi pi-chevron-left"
+                          class="p-button-text p-button-secondary"
+                        ></button> -->
+                        <span class="m-3">
+                         {{ mesLetras() }} {{ fecha.getFullYear() }}</span>
+                        <!-- <button
+                          pButton
+                          type="button"
+                          label=""
+                          icon="pi pi-chevron-right"
+                          class="p-button-text p-button-secondary"
+                        ></button> -->
+                    </div>
+                </div>
+            </th>
+        </tr>
+        <tr >
+            <th
+                    *ngFor="let dia of cabeceraMes"
+                    [style]="dia.bg"
+                    style="padding: 0.7em;background-color:#D9D9D9;border-bottom: 1px solid #D9D9D9"
+            >
+                {{ dia.abreviatura }}
+            </th>
+            <th rowspan="2" style="background-color:#D9D9D9">Horas</th>
+        </tr>
+        <tr>
+            <th colspan="3" >
+                PERSONAL DE SALUD
+            </th>
+<!--            <th >-->
+<!--                Apellidos-->
+<!--            </th>-->
+<!--            <th >-->
+<!--                Nombres-->
+<!--            </th>-->
+            <th
+                    *ngFor="let dia of cabeceraMes"
+                    [style]="dia.bg"
+                    style="padding:0.7em;background-color:#D9D9D9"
+            >
+                {{ dia.dia }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-i="rowIndex;">
+        <tr>
+            <td style="min-width: 3rem">
+                {{ i + 1 }}
+            </td>
+            <td class="">
+                {{ rowData.apePaterno }} {{ rowData.apeMaterno }}
+            </td>
+            <td class="" >
+                {{ rowData.nombre }}
+            </td>
+            <td *ngFor="let dia of cabeceraMes; let j = index" class="" >
+                <!-- {{ i }} -{{ j }} -->
+                <p-dropdown
+                    #dd
+                    class="bordeDropTurno"
+                    placeholder=""
+                    [inline]="false"
+                    [appendTo]="dropdown"
+                    [options]="listaTurno"
+                    [virtualScroll]="true"
+                    optionLabel="abreviatura"
+                    dataKey="abreviatura"
+                    [(ngModel)]="matriz[i][j]"
+                    (onChange)="changeTurno(i, j)"
+                ></p-dropdown>
+            </td>
+            <td class="">{{ listaHoras[i] }}</td>
+        </tr>
+    </ng-template>
 </p-table>
-<!-- <p-card> -->
-<!-- <h3 style="color: red" class="text-xl">Leyenda</h3> -->
-<div class="grid mt-5 mb-8">
-  <div class="col-9">
-    <div class="grid borde">
-      <div class="col-2">
+<div style="font-weight:normal;color:#BF0D21;font-size:1.5rem">
+    leyenda:
+</div>
+<div class="grid mt-1 mb-8">
+    <div class="col-9">
+        <div class="grid borde">
+            <div class="col-2">
         <span
-          ><h3>M-Mañana</h3>
-          <h3>T-Tarde</h3>
-          <h3>M/T-Mañana Tarde</h3></span
+        ><p>M-Mañana</p>
+          <p>T-Tarde</p>
+          <p>M/T-Mañana Tarde</p></span
         >
-      </div>
-      <div class="col-3">
+            </div>
+            <div class="col-3">
         <span
-          ><h3>GD-Guardia diurna</h3>
-          <h3>GN-Guardia Nocturna</h3>
-          <h3>T/GN-Tarde Guardia Nocturna</h3></span
+        ><p>GD-Guardia diurna</p>
+          <p>GN-Guardia Nocturna</p>
+          <p>T/GN-Tarde Guardia Nocturna</p></span
         >
-      </div>
-      <div class="col-2">
+            </div>
+            <div class="col-2">
         <span
-          ><h3>N-Noche</h3>
-          <h3>R-Reten</h3>
-          <h3>L-Libre</h3></span
+        ><p>N-Noche</p>
+          <p>R-Reten</p>
+          <p>L-Libre</p></span
         >
-      </div>
-      <div class="col-3">
+            </div>
+            <div class="col-3">
         <span
-          ><h3>V-Vacaciones</h3>
-          <h3>O-Onomastico</h3>
-          <h3>GD(GN)-Guardia Diurna y Nocturna</h3></span
+        ><p>V-Vacaciones</p>
+          <p>O-Onomastico</p>
+          <p>GD(GN)-Guardia Diurna y Nocturna</p></span
         >
-      </div>
-      <div class="col-2">
-        <span><h3>F-Feriado</h3> </span>
-      </div>
+            </div>
+            <div class="col-2">
+                <span><p>F-Feriado</p> </span>
+            </div>
+        </div>
     </div>
-  </div>
-  <!-- Botones -->
-  <div class="col-3 grid">
-    <div class="col-6 flex align-content-center flex-wrap card-container">
-      <button
-        pButton
-        type="button"
-        label="Guardar"
-        class="p-button-danger p-button px-5 mx-1 text-center"
-        icon="pi pi-save"
-        (click)="designar()"
-        [disabled]="upsSeleccionada == ''"
-      ></button>
+    <!-- Botones -->
+    <div class="col-3 grid">
+        <div class="col-6 flex align-content-center flex-wrap card-container">
+            <button
+                    pButton
+                    type="button"
+                    label="Guardar"
+                    class="bg-blue-700 p-button px-5 mx-1 text-center"
+                    icon="pi pi-save"
+                    (click)="designar()"
+                    [disabled]="upsSeleccionada == ''"
+                    style="border-radius: 0.5rem"
+            ></button>
+        </div>
+        <div class="col-6 flex align-content-center flex-wrap card-container">
+            <button
+                    pButton
+                    type="button"
+                    label="Cerrar"
+                    class="p-button-danger p-button px-5 mx-1 text-center p-button-danger "
+                    icon="pi pi-times-circle"
+                    (click)="close()"
+                    style="border-radius: 0.5rem"
+            ></button>
+        </div>
     </div>
-    <div class="col-6 flex align-content-center flex-wrap card-container">
-      <button
-        pButton
-        type="button"
-        label="Cerrar"
-        class="p-button-danger p-button px-5 mx-1 text-center bg-blue-700"
-        icon="pi pi-times-circle"
-        (click)="close()"
-      ></button>
-    </div>
-  </div>
 </div>
 <!-- </p-card> -->
 <p-confirmDialog
-  [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
-  [style]="{ width: '25vw' }"
-  key="positionDialog"
-  [baseZIndex]="10000"
+        [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
+        [style]="{ width: '25vw' }"
+        key="positionDialog"
+        [baseZIndex]="10000"
 ></p-confirmDialog>
 <p-toast [style]="{ marginTop: '80px' }" key="toast1"></p-toast>
 <p-toast [style]="{ marginTop: '80px' }" key="toast2"></p-toast>

@@ -9,6 +9,29 @@ import { DynamicDialogRef } from "primeng/dynamicdialog";
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
+  meses=[
+    {mesNro:1,mes:'ENERO'},
+    {mesNro:2,mes:'FEBRERO'},
+    {mesNro:3,mes:'MARZO'},
+    {mesNro:4,mes:'ABRIL'},
+    {mesNro:5,mes:'MAYO'},
+    {mesNro:6,mes:'JUNIO'},
+    {mesNro:7,mes:'JULIO'},
+    {mesNro:8,mes:'AGOSTO'},
+    {mesNro:9,mes:'SETIEMBRE'},
+    {mesNro:10,mes:'OCTUBRE'},
+    {mesNro:11,mes:'NOVIEMBRE'},
+    {mesNro:12,mes:'DICIEMBRE'}
+  ]
+  // buscarSSAlarma(lista,nombre){
+  //   const found = lista.find(element => element.nombre  == nombre);
+  //   return found.valor;
+  // }
+  mesLetras(){
+    const a=this.fecha.getMonth()+1;
+    const aux=this.meses.find(fila=>fila.mesNro===a)
+    return aux.mes;
+  }
   isMesPasado: boolean = false;
   idIpressZarzuela = "616de45e0273042236434b51";//la posta medica x defecto
   loading: boolean = true;
@@ -33,7 +56,7 @@ export class RolGuardiaComponent implements OnInit {
     private personalService: PersonalService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    public ref: DynamicDialogRef
+    //public ref: DynamicDialogRef
   ) {
     this.numeroDiasMes();
     this.generarCabecera();
@@ -97,38 +120,34 @@ export class RolGuardiaComponent implements OnInit {
       let dia = fecha1.getDay();
 
       if (dia == 0)
-        this.cabeceraMes.push({ abreviatura: "don", label: "Domingo", dia: i });
+        this.cabeceraMes.push({ abreviatura: "D", label: "Domingo", dia: i });
       else if (dia == 1)
-        this.cabeceraMes.push({ abreviatura: "Lun", label: "Lunes", dia: i });
+        this.cabeceraMes.push({ abreviatura: "L", label: "Lunes", dia: i });
       else if (dia == 2)
-        this.cabeceraMes.push({ abreviatura: "Mar", label: "Martes", dia: i });
+        this.cabeceraMes.push({ abreviatura: "M", label: "Martes", dia: i });
       else if (dia == 3)
-        this.cabeceraMes.push({
-          abreviatura: "Mie",
-          label: "Miercoles",
-          dia: i,
-        });
+        this.cabeceraMes.push({ abreviatura: "M", label: "Miercoles", dia: i, });
       else if (dia == 4)
-        this.cabeceraMes.push({ abreviatura: "Jue", label: "Jueves", dia: i });
+        this.cabeceraMes.push({ abreviatura: "J", label: "Jueves", dia: i });
       else if (dia == 5)
-        this.cabeceraMes.push({ abreviatura: "vie", label: "Viernes", dia: i });
+        this.cabeceraMes.push({ abreviatura: "V", label: "Viernes", dia: i });
       else
-        this.cabeceraMes.push({ abreviatura: "sab", label: "Sabado", dia: i });
+        this.cabeceraMes.push({ abreviatura: "S", label: "Sabado", dia: i });
     }
   }
   colorearCabecera() {
-    let colorR = "background-color:#dfe6e9";
-    let colorB = "background-color:white";
+    let colorR = "color:#BF0D21";
+    let colorB = "color:#757476";
     let hasColor = true; //primera semana en pintar rojo
     this.cabeceraMes.forEach((day) => {
       if (hasColor) {
         day.bg = colorR;
-        if (day.abreviatura === "sab") {
+        if (day.abreviatura === "S") {
           hasColor = !hasColor;
         }
       } else {
         day.bg = colorB;
-        if (day.abreviatura === "sab") {
+        if (day.abreviatura === "S") {
           hasColor = !hasColor;
         }
       }

@@ -1,24 +1,52 @@
 p-table >>> .p-datatable table {
-  width: auto;
+  /*display:block;*/
+}
+:host ::ng-deep .p-datatable-header {
+  font-size: 1.2rem;
+  font-weight:normal;
+  text-align: center;
 }
 p-table >>> .p-datatable .p-datatable-thead > tr > th {
+
   text-align: center;
-  font-size: small;
+  font-size: 1rem;
   word-wrap: break-word;
   padding: 0rem;
-  border: 1px solid #b6b6b6;
-
-  /* background-color: #dddddd; */
+  font-weight: normal;
+  min-width: 4rem;
 }
 p-table >>> .p-datatable .p-datatable-tbody > tr > td {
   text-align: center;
-  font-size: small;
+  font-size: 1rem;
   word-wrap: break-word;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0rem;
+  padding-right: 0rem;
+  /*border: 1px solid black;*/
+
+
 }
 .borde {
-  border: solid 1px black;
+  border: solid 1px #CDCDCD;
   border-radius: 10px;
 }
-/*:Host >>> .ui-dropdown-item {*/
-/*  background: white;*/
-/*}*/
+:Host >>> .ui-dropdown-item {
+  background: red;
+}
+:host::ng-deep .servicio  .p-dropdown {
+  margin:0rem;
+  border-radius: 0.5rem;
+  /*box-shadow: 0px 0px 2px 1px black;*/
+}
+:host::ng-deep .bordeDropTurno .p-dropdown {
+  margin:0rem;
+  border-radius: 1rem;
+}
+::ng-deep .dialogo .p-dialog-mask .p-element{
+  display: block;
+}
+span p{
+  margin: 0rem;
+
+}

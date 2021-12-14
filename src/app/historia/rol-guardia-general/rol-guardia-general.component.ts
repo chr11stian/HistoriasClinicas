@@ -17,10 +17,10 @@ export class RolGuardiaGeneralComponent implements OnInit {
       header: "ASIGNAR ROL DE GUARDIAS AL PERSONAL DE SALUD",
       width: "95%",
       contentStyle: {
-        "max-height": "500px",
-        overflow: "auto",
+        // "max-height": "500px",
+        // 'overflow':'visible'
       },
-      baseZIndex: 10000,
+      // baseZIndex: 10000,
     });
 
     // ref.onClose.subscribe((car: Car) => {

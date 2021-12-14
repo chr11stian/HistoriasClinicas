@@ -1,8 +1,8 @@
-import { ThrowStmt } from "@angular/compiler";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { MessageService } from "primeng/api";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { ObstetriciaGeneralService } from "src/app/obstetricia-general/services/obstetricia-general.service";
 import { ConsultasService } from "../../services/consultas.service";
 
 @Component({
@@ -46,16 +46,37 @@ export class InterrogatorioComponent implements OnInit {
   examenesFisicosDialog: boolean = false;
   indexEdit: number = 0;
   update: boolean = false;
+  idConsulta: string;
+  ultimaConsulta: ultimaConsulta;
 
   constructor(
     private fb: FormBuilder,
     public dialog: DialogService,
     private consultaObstetricaService: ConsultasService,
     private messageService: MessageService,
-  ) { }
+    private obstetriciaService: ObstetriciaGeneralService
+  ) {
+    this.inicializarForm();
+    this.idConsulta = this.obstetriciaService.idGestacion;
+
+
+  }
 
   ngOnInit(): void {
-    this.inicializarForm();
+    let idData = {
+      id: this.idConsulta
+    }
+    this.consultaObstetricaService.getUltimaConsultaById(idData).subscribe((res: any) => {
+      this.ultimaConsulta = res.object;
+
+      if (this.ultimaConsulta == null) {
+        this.messageService.add({
+          severity: "error",
+          summary: "Error",
+          detail: res.mensaje
+        });
+      }
+    });
     this.loadData();
   }
 
@@ -122,6 +143,7 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   recuperarDatos() {
+    //RECUPERAR DATOS
     let auxPhysicalExam: any[] = [
       { funcion: 'piel', valor: this.form.value.piel },
       { funcion: 'mucosas', valor: this.form.value.mucosas },
@@ -137,13 +159,14 @@ export class InterrogatorioComponent implements OnInit {
     for (let i = 0; i < this.listaOtrosPruebasFisicas.length; i++) {
       auxPhysicalExam.push(this.listaOtrosPruebasFisicas[i]);
     }
+
     this.interrogatorioData = {
-      nroHcl: '10101013',
-      nroAtencion: 1,
-      nroControlSis: 1,
-      nroEmbarazo: 1,
-      tipoDoc: 'DNI',
-      nroDoc: '10101013',
+      nroHcl: this.ultimaConsulta.nroHcl,
+      nroAtencion: this.ultimaConsulta.nroUltimaAtencion,
+      nroControlSis: this.ultimaConsulta.nroUltimoControlSis,
+      nroEmbarazo: this.ultimaConsulta.nroEmbarazo,
+      tipoDoc: this.ultimaConsulta.tipoDoc,
+      nroDoc: this.ultimaConsulta.nroDoc,
       funcionesVitales: {
         t: this.form.value.temperatura,
         presionSistolica: this.form.value.presionSisto,
@@ -153,8 +176,7 @@ export class InterrogatorioComponent implements OnInit {
         talla: this.form.value.talla,
         imc: this.form.value.imc,
         presionDiastolica: this.form.value.presionDisto,
-      }
-      ,
+      },
       funcionesBiologicas: [
         { funcion: 'Apetito', valor: this.form.value.apetito },
         { funcion: 'Sed', valor: this.form.value.sed },
@@ -183,11 +205,14 @@ export class InterrogatorioComponent implements OnInit {
       examenesFetos: this.listaExamenesFetos,
       examenFisicoObservaciones: this.form.value.obsExamFisico
     }
+
+    // FIN RECUPERAR DATOS
   }
 
   guardarDatos() {
     this.recuperarDatos();
-    // console.log('data to save ', this.interrogatorioData);
+    console.log('last consult ', this.ultimaConsulta);
+    console.log('data to save', this.interrogatorioData);
     this.consultaObstetricaService.updateConsultas(this.interrogatorioData).subscribe((res: any) => {
       this.messageService.add({
         severity: "success",
@@ -213,14 +238,14 @@ export class InterrogatorioComponent implements OnInit {
     }
   }
 
-  btnGuardar() {
+  btnGuardarExamFetal() {
     console.log('form ', this.formExamenFetal.value.selectSituacion)
     this.recuperarDatosExamFet();
     this.fetalesExamDialog = false;
     this.listaExamenesFetos.push(this.examenesFetales)
   }
 
-  btnCancelar() {
+  btnCancelarExamFetal() {
     this.fetalesExamDialog = false;
   }
   openDialogExamenesFinal() {
@@ -233,7 +258,6 @@ export class InterrogatorioComponent implements OnInit {
       funcion: this.formExamFisico.value.examName,
       valor: this.formExamFisico.value.examResult
     }
-
     this.listaOtrosPruebasFisicas.push(auxExamFis);
     this.examenesFisicosDialog = false;
   }
@@ -243,10 +267,11 @@ export class InterrogatorioComponent implements OnInit {
   }
 
   loadData() {
+    console.log('to load data ', this.ultimaConsulta);
     let auxData = {
-      nroHcl: "10101013",
-      nroEmbarazo: 1,
-      nroAtencion: 1
+      nroHcl: this.ultimaConsulta.nroHcl,
+      nroEmbarazo: this.ultimaConsulta.nroEmbarazo,
+      nroAtencion: this.ultimaConsulta.nroUltimaAtencion
     }
     let Rpta;
     this.consultaObstetricaService.getInterrogatorioByEmbarazo(auxData).subscribe((res: any) => {
@@ -277,7 +302,9 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ mamas: Rpta.examenesFisicos[6].valor });
       this.form.patchValue({ pezones: Rpta.examenesFisicos[7].valor });
       this.form.patchValue({ abdomen: Rpta.examenesFisicos[8].valor });
-      this.form.patchValue({ examenFisicoOtro: Rpta.examenesFisicos[9].valor });
+      if (Rpta.examenesFisicos[8].valor.length > 9) {
+        this.form.patchValue({ examenFisicoOtro: Rpta.examenesFisicos[9].valor });
+      }
       this.form.patchValue({ obsExamFisico: Rpta.examenFisicoObservaciones });
       this.form.patchValue({ miembrosInferiores: Rpta.examenesObstetricos.miembrosInferiores });
       this.form.patchValue({ alturaUterina: Rpta.examenesObstetricos.alturaUterina });
@@ -320,4 +347,16 @@ export class InterrogatorioComponent implements OnInit {
   eliminarExamFisicos(index) {
     this.listaOtrosPruebasFisicas.splice(index, 1);
   }
+}
+
+export interface ultimaConsulta {
+  nroEmbarazo?: number,
+  estado?: number,
+  direccion?: string,
+  edad?: number,
+  nroUltimaAtencion?: number,
+  nroUltimoControlSis?: number,
+  nroDoc?: string,
+  tipoDoc?: string,
+  nroHcl?: string
 }

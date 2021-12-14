@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {environment} from "../../../../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { environment } from "../../../../../../environments/environment";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
@@ -30,5 +30,9 @@ export class ConsultasService {
 
     getInterrogatorioByEmbarazo(data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarInterrogatorio`, data);
+    }
+
+    getUltimaConsultaById(idConsulta) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsultaxid`, idConsulta)
     }
 }

@@ -23,20 +23,44 @@ export class AtencionComponent implements OnInit {
     idRecuperado: string = "";
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
+    nroEmbarazo: any;
+    nroHcl: string;
+
+    dataConsultorioObstetrico: any;
 
 
     constructor(private obstetriciaGeneralService: ObstetriciaGeneralService) {
         this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
         this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-
+        this.idRecuperado = this.obstetriciaGeneralService.idGestacion;
+        this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
+        this.nroHcl = this.obstetriciaGeneralService.nroHcl;
     }
 
     ngOnInit(): void {
-
-
         console.log("IdRecuperado", this.idRecuperado);
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
+        console.log("NroHCL", this.nroHcl);
+        console.log("Nro Embarazo", this.nroEmbarazo);
+
+        this.getConsultorioObstetrico();
+
+    }
+
+    getConsultorioObstetrico() {
+        const data = {
+            nroHcl: this.nroHcl,
+            nroEmbarazo: this.nroEmbarazo,
+            nroAtencion: 1,
+        }
+        this.obstetriciaGeneralService.getConsultorioObstetrico(data).subscribe((res: any) => {
+            this.dataConsultorioObstetrico = res.object
+            console.log('Data Consultorio Obstetrico', this.dataConsultorioObstetrico)
+
+            this.obstetriciaGeneralService.idConsultoriObstetrico = this.dataConsultorioObstetrico.id;
+
+        });
 
     }
 

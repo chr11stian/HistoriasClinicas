@@ -82,3 +82,68 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
     background: #2196f3;
     border: #2196f3;
 }
+.amarillo .p-checkbox .p-checkbox-box {
+    background: red !important;
+}
+
+::ng-deep .amarillo .p-checkbox .p-checkbox-box {
+    background: rgb(242, 236, 56);
+    border-color: rgb(242, 236, 56);
+}
+
+p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
+    content: url("src\assets\svg-icons\check-svgrepo-com.svg");
+}
+
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon {
+    background: rgb(242, 236, 56);
+    border: rgb(242, 236, 56);
+}
+
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight {
+    border-color: rgb(242, 236, 56);
+    background: rgb(242, 236, 56);
+}
+
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box {
+    background: rgb(242, 236, 56);
+    border: rgb(242, 236, 56);
+}
+
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight:hover {
+    border-color: rgb(242, 236, 56);
+    background: rgb(242, 236, 56);
+}
+::ng-deep .rojo .p-radiobutton .p-radiobutton-icon {
+    background: red;
+    border: red;
+}
+
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight {
+    border-color: red;
+    background: red;
+}
+
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box {
+    border-color: red;
+    background: red;
+}
+
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight:hover {
+    border-color: red;
+    background: red;
+}
+
+::ng-deep .default .p-radiobutton .p-radiobutton-icon {
+    background: #2196f3;
+    border: #2196f3;
+}
+
+::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight {
+    background: #2196f3;
+    border: #2196f3;
+}
+.texto {
+    font-size: 0.65rem;
+    font-weight: bold;
+}

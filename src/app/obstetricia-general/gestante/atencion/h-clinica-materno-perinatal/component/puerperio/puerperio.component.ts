@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import { FormBuilder} from "@angular/forms";
 import {PuerperioModalComponent} from "./puerperio-modal/puerperio-modal.component"
 import {PuerperioInmediatoService} from "../../services/puerperio-inmediato/puerperio-inmediato.service";
-import Swal from "sweetalert2";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 import {ConfirmationService, ConfirmEventType,MessageService} from 'primeng/api';
@@ -30,7 +29,6 @@ export class PuerperioComponent implements OnInit {
         this.idObstetricia = this.obstetriciaService.idGestacion;
     }
     ngOnInit(): void {
-
         this.recuperar2();
     }
 
@@ -92,8 +90,10 @@ export class PuerperioComponent implements OnInit {
             };
         })
     }
+    eliminarPuerperio(index){
+            this.puerperios.splice(index, 1)
+    }
     guardarPuerperios() {
-
         const req = {
             puerperioInmediato: this.puerperios,
             proceso: "PUERPERIO"
@@ -103,36 +103,28 @@ export class PuerperioComponent implements OnInit {
             (resp) => {
                 console.log(resp);
                 console.log(req);
-                // this.puerperios.push(req);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Actualizado correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-
-            }
-        )
-        this.confirmFinalizar();
+            })
     }
     cambiarProceso(){
-
+        this.puerperioService.postFinalizarGestacion(this.idObstetricia,'FINALIZADO').subscribe(
+            (resp) => {
+                console.log(resp);
+            }
+        )
     }
     confirmFinalizar(){
-        this.confirmationService.confirm({
+             this.confirmationService.confirm({
             message: '¿Desea Finalizar el Proceso de Gestación?',
-            header: 'Confirmation',
+            header: 'Atención',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.messageService.add({severity:'info', summary:'Confirmed', detail:'Se Finalizo esta gestación'});
+                this.messageService.add({severity:'info', summary:'Confirmado', detail:'Se Finalizo esta gestación'});
                 this.cambiarProceso();
             },
             reject: (type) => {
-
                 switch(type) {
                     case ConfirmEventType.REJECT:
-                        this.messageService.add({severity:'error', summary:'Rejected', detail:'No se guardaron cambios'});
+                        this.messageService.add({severity:'error', summary:'Rechazado', detail:'No se finalizo aún el periodo de esta gestación'});
                         break;
                     case ConfirmEventType.CANCEL:
                         this.messageService.add({severity:'warn', summary:'Cancelled', detail:'Usted cancelo la acción'});
@@ -140,21 +132,17 @@ export class PuerperioComponent implements OnInit {
                 }
             }
         });
-
     }
     confirm() {
         this.confirmationService.confirm({
             message: '¿Esta seguro(a) que desea guardar cambios?',
-            header: 'Confirmation',
+            header: 'Atención',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.messageService.add({severity:'info', summary:'Confirmed', detail:'Se guardo el puerperio'});
+                this.messageService.add({severity:'info', summary:'Confirmed', detail:'Se actualizaron los cambios correctamente'});
                 this.guardarPuerperios();
-                this.confirmFinalizar();
-
             },
             reject: (type) => {
-
                 switch(type) {
                     case ConfirmEventType.REJECT:
                         this.messageService.add({severity:'error', summary:'Rejected', detail:'No se guardaron cambios'});
@@ -167,26 +155,20 @@ export class PuerperioComponent implements OnInit {
         });
     }
     recuperar2() {
-
         console.log(this.idObstetricia);
         this.puerperioService.getPuerperioService2(this.idObstetricia).subscribe((res: any) => {
             this.dataPuerperio = res.object;
-            console.log(this.dataPuerperio.puerperioInmediato.length);
-            if (this.dataPuerperio.puerperioInmediato.length === null || this.dataPuerperio.puerperioInmediato.length === 0) {
-                console.log("debe ingresar un puerperio, NO SE ATENDIO HASTA EL MOMENTO");
-
-
-            } else {
+            if (this.dataPuerperio != null || this.dataPuerperio != undefined) {
+                this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro recuperado satisfactoriamente'});
                 let i: number = 0;
                 while (i < this.dataPuerperio.puerperioInmediato.length) {
-                    console.log("puerperio", i);
-                    console.log("puerperio", this.dataPuerperio.puerperioInmediato[i]);
                     this.puerperios.push(this.dataPuerperio.puerperioInmediato[i]);
                     i++;
                 }
-
             }
-
+            else {
+                this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe ninguna atención en Puerperio'});
+            }
         });
     }
 }
