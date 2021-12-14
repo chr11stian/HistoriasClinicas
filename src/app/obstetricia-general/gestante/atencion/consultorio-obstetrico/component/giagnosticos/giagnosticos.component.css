@@ -13,6 +13,20 @@ p-calendar >>> .p-button.p-button-icon-only {
     background-color: #003c71;
 
 }
+p-dialog{
+    display: block;
+    position: absolute;
+}
+p-calendar{
+    position: absolute;
+}
+p-autoComplete{
+    position: absolute;
+}
+p-dropdown{
+    position: absolute;
+}
+
 
 
 /*.form-register{*/
