@@ -280,8 +280,261 @@
                 </div>
                 <div class="col-12">
                     <p-tabView>
-                        <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-exclamation-circle"
-                            header="DIAGNOSTICOS">
+                        <p-tabPanel header="ORIENTACIONES" headerStyleClass="w-2 text-center"
+                            leftIcon="pi pi-chart-line">
+                            <p-fieldset legend="ATENCIÓN INTEGRAL">
+                                <div class="grid">
+                                    <div class="col-6">
+                                        <div class="grid text-center">
+                                            <div class="col-6"></div>
+                                            <div class="col-1">
+                                                <span class="texto">Si</span>
+                                            </div>
+                                            <div class="col-1">
+                                                <span class="texto">No</span>
+                                            </div>
+                                            <div class="col-3">
+                                                <span class="texto">Cie10</span>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-6 text-right">
+                                                <span class="text-xs">Orientación y
+                                                    Consejería - Signos de alarma:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria1" formControlName="consejeria1"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria1" formControlName="consejeria1"
+                                                    value=false class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_1'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-6 text-right">
+                                                <span class="text-xs">Consejería en
+                                                    enfermedades comunes:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria2" formControlName="consejeria2"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria2" formControlName="consejeria2"
+                                                    value=false class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_2'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-6 text-right">
+                                                <span class="text-xs">Sospechas de
+                                                    Tuberculosis:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria3" formControlName="consejeria3"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria3" formControlName="consejeria3"
+                                                    value=false class="default">
+                                                </p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_3'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-6 text-right">
+                                                <span class="text-xs">Infecciones de
+                                                    transmisión sexual:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria4" formControlName="consejeria4"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria4" formControlName="consejeria4"
+                                                    value=false class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_4'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-6 text-right">
+                                                <span class="text-xs">Orientación
+                                                    Nutricional:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria5" formControlName="consejeria5"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria5" formControlName="consejeria5"
+                                                    value=false class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_5'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-6 text-right">
+                                                <span class="text-xs">Orientación en
+                                                    planificación familiar:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria6" formControlName="consejeria6"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria6" formControlName="consejeria6"
+                                                    value=false class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_6'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="grid text-center">
+                                            <div class="col-7"></div>
+                                            <div class="col-1">
+                                                <span class="texto">Si</span>
+                                            </div>
+                                            <div class="col-1">
+                                                <span class="texto">No</span>
+                                            </div>
+                                            <div class="col-3">
+                                                <span class="texto">Cie10</span>
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-7 text-right">
+                                                <span class="text-xs">Orientación en
+                                                    prevención de Cancer ginecológico:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria7" formControlName="consejeria7"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria7" formControlName="consejeria7"
+                                                    value=false class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_7'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-7 text-right">
+                                                <span class="text-xs">Orientación y
+                                                    consej. Pretest. VIH:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria8" formControlName="consejeria8"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria8" formControlName="consejeria8"
+                                                    value=false class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_8'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-7 text-right">
+                                                <span class="text-xs">Orientación en
+                                                    estilos de vida saludable:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria9" formControlName="consejeria9"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria9" formControlName="consejeria9"
+                                                    value=false class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_9'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-7 text-right">
+                                                <span class="text-xs">Orientación al
+                                                    acompañante:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria10" formControlName="consejeria10"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria10" formControlName="consejeria10"
+                                                    value=false class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_10'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-7 text-right">
+                                                <span class="text-xs">Violencia
+                                                    familiar:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria11" formControlName="consejeria11"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria11" formControlName="consejeria11"
+                                                    value=false class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_11'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+                                        <div class="grid">
+                                            <div class="col-7 text-right">
+                                                <span class="text-xs">Plan de
+                                                    parto:</span>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria12" formControlName="consejeria12"
+                                                    value=true class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-1 text-center">
+                                                <p-radioButton name="consejeria12" formControlName="consejeria12"
+                                                    value=false class="default"></p-radioButton>
+                                            </div>
+                                            <div class="col-3">
+                                                <input type="text" pInputText formControlName='cie10_12'
+                                                    class="p-inputtext-sm inputfield w-full" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-fieldset>
+                        </p-tabPanel>
+                        <p-tabPanel header="DIAGNOSTICOS" headerStyleClass="w-2 text-center"
+                            leftIcon="pi pi-exclamation-circle">
                             <p-table [value]="datosDiagnosticos" #dt [rows]="3" styleClass="p-datatable-sm"
                                 [paginator]="true" [autoLayout]="true" class="m-3"
                                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
@@ -325,8 +578,8 @@
                                 </ng-template>
                             </p-table>
                         </p-tabPanel>
-                        <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-check-square"
-                            header="TRATAMIENTOS">
+                        <p-tabPanel header="TRATAMIENTOS" headerStyleClass="w-2 text-center"
+                            leftIcon="pi pi-check-square">
                             <p-table [value]="datosTratamientos" #dt [rows]="3" styleClass="p-datatable-sm"
                                 [paginator]="true" [autoLayout]="true" class="m-3"
                                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
@@ -377,49 +630,187 @@
                                 </ng-template>
                             </p-table>
                         </p-tabPanel>
+                        <p-tabPanel header="INMUNIZACIONES" headerStyleClass="w-2 text-center" leftIcon="pi pi-shield">
+                            <p-table [value]="datosInmunizaciones" #dt [rows]="3" styleClass="p-datatable-sm"
+                                [paginator]="true" [autoLayout]="true" class="m-3"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true" responsiveLayout="scroll">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-10">
+                                            <h3>INMUNIZACIONES</h3>
+                                        </div>
+                                        <div class="col-2">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3" (click)="openNewInmunizacion()"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="text-align: center">Nro</th>
+                                        <th style="text-align: center">Codigo</th>
+                                        <th style="text-align: center">Descripcion</th>
+                                        <th style="text-align: center">Numero</th>
+                                        <th style="text-align: center">Dosis</th>
+                                        <th style="text-align: center">Via Administracion</th>
+                                        <th style="text-align: center">Lote</th>
+                                        <th style="text-align: center">Fecha Venc.</th>
+                                        <th style="text-align: center">Acción</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                    <tr style="text-align: center">
+                                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                        <td style="text-align: center">{{ rowData.codigo }}</td>
+                                        <td style="text-align: center">{{ rowData.descripcion }}</td>
+                                        <td style="text-align: center">{{ rowData.numero }}</td>
+                                        <td style="text-align: center">{{ rowData.dosis }}</td>
+                                        <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
+                                        <td style="text-align: center">{{ rowData.lote }}</td>
+                                        <td style="text-align: center">{{ rowData.fechaVenc }}</td>
+                                        <td style="text-align: center">
+                                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                (click)="openDialogEditarInmunizacion(rowData, rowIndex)"
+                                                class="p-button-rounded p-button-text"></button>
+                                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                                (click)="eliminarInmunizacion(rowIndex)"
+                                                class="p-button-rounded p-button-danger p-button-text"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-tabPanel>
+                        <p-tabPanel header="RECOMENDACIONES" headerStyleClass="w-2 text-center" leftIcon="pi pi-bell">
+                            <p-table [value]="datosRecomendaciones" #dt [rows]="3" styleClass="p-datatable-sm"
+                                [paginator]="true" [autoLayout]="true" class="m-3"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true" responsiveLayout="scroll">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-10">
+                                            <h3>RECOMENDACIONES</h3>
+                                        </div>
+                                        <div class="col-2">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3" (click)="openNewRecomendacion()"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="text-align: center">Nro</th>
+                                        <th style="text-align: center">Recomendacion</th>
+                                        <th style="text-align: center">Acción</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                    <tr style="text-align: center">
+                                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                        <td style="text-align: center">{{ rowData }}</td>
+                                        <td style="text-align: center">
+                                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                (click)="openDialogEditarRecomendacion(rowData, rowIndex)"
+                                                class="p-button-rounded p-button-text"></button>
+                                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                                (click)="eliminarRecomendacion(rowIndex)"
+                                                class="p-button-rounded p-button-danger p-button-text"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-tabPanel>
+                        <p-tabPanel header="INTERCONSULTAS" headerStyleClass="w-2 text-center"
+                            leftIcon="pi pi-calendar">
+                            <p-table [value]="datosInterconsultas" #dt [rows]="3" styleClass="p-datatable-sm"
+                                [paginator]="true" [autoLayout]="true" class="m-3"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true" responsiveLayout="scroll">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-10">
+                                            <h3>INTERCONSULTAS</h3>
+                                        </div>
+                                        <div class="col-2">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3" (click)="openNewInterconsulta()"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="text-align: center">Nro</th>
+                                        <th style="text-align: center">Consultorio</th>
+                                        <th style="text-align: center">Motivo</th>
+                                        <th style="text-align: center">Acción</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                    <tr style="text-align: center">
+                                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                        <td style="text-align: center">{{ rowData.consultorio }}</td>
+                                        <td style="text-align: center">{{ rowData.motivo }}</td>
+                                        <td style="text-align: center">
+                                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                (click)="openDialogEditarInterconsulta(rowData, rowIndex)"
+                                                class="p-button-rounded p-button-text"></button>
+                                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                                (click)="eliminarInterconsulta(rowIndex)"
+                                                class="p-button-rounded p-button-danger p-button-text"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-tabPanel>
                     </p-tabView>
                 </div>
-
                 <div class="col-12 md:col-6">
-                    <div class="grid">
-                        <div class="col-12 md:col-8 text-center">
-                            <div class="grid">
-                                <div class="col-4">
-                                    <label class="text-sm">PRÓXIMA CITA:</label>
-                                </div>
-                                <div class="col-8">
-                                    <input type="date" class="p-inputtext-sm " pInputText
-                                        formControlName="proximaCita" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6">
-                    <div class="grid">
-                        <div class="col-12 md:col-6 text-center">
-                            <div class="grid">
-                                <div class="col-4">
-                                    <label class="text-sm">REFERENCIA:</label>
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="p-inputtext-sm " pInputText
-                                        formControlName="referencia" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 md:col-6 text-center">
-                            <div class="grid">
-                                <div class="col-4">
-                                    <label class="text-sm">N° REFERENCIA:</label>
-                                </div>
-                                <div class="col-8">
-                                    <input type="text" class="p-inputtext-sm " pInputText
-                                        formControlName="nroReferencia" />
+                    <p-fieldset legend="DATOS DE LA ATENCIÓN">
+                        <div class="grid">
+                            <div class="col-12 text-center">
+                                <div class="grid">
+                                    <div class="col-11">
+                                        <label class="text-sm">REFERENCIA</label>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-4">
+                                            <label class="text-sm">Consultorio:</label>
+                                            <input formControlName="consultorioReferencia" type="text"
+                                                class="p-inputtext-sm " pInputText />
+                                        </div>
+                                        <div class="col-4">
+                                            <label class="text-sm">Motivo:</label>
+                                            <input formControlName="motivoReferencia" type="text"
+                                                class="p-inputtext-sm " pInputText />
+                                        </div>
+                                        <div class="col-4">
+                                            <label class="text-sm">IPRESS:</label>
+                                            <input formControlName="codRENAESReferencia" type="text"
+                                                class="p-inputtext-sm " pInputText />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-6 text-center">
+                                <div class="grid">
+                                    <div class="col-12">
+                                        <label class="text-sm">PRÓXIMA CITA:</label>
+                                        <input formControlName="proxCita" type="datetime-local" class="p-inputtext-sm "
+                                            pInputText />
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-6 text-center">
+                                <div class="grid ">
+                                    <div class="col-12">
+                                        <label class="text-sm">Personal que atendió:</label>
+                                        <textarea formControlName="" class="p-fluid w-full" rows="1" cols="45"
+                                            pInputTextarea></textarea>
+                                    </div>
+                                </div>
+                            </div> -->
                         </div>
-                    </div>
+                    </p-fieldset>
                 </div>
                 <div class="col-12">
                     <p-fieldset legend="PERSONAL QUE ATENDIÓ">
@@ -547,3 +938,127 @@
     </ng-template>
 </p-dialog>
 <!-- FIN DIALOG  DE TRATAMIENTO -->
+<!-- DIALOG INTERCONSULTAS -->
+<p-dialog class="dialogo m-4" [(visible)]="interconsultaDialog" [style]="{width: '400px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>NUEVA INTERCONSULTA</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formInterconsulta'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Consultorio</label>
+                    <input type="text" pInputText formControlName='consultorio' placeholder="Consultorio"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Motivo</label>
+                    <input type="text" pInputText formControlName='motivo' placeholder="Motivo"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Fecha</label>
+                    <input type="datetime-local" pInputText formControlName='fecha'
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarInterconsultas" pButton type="button" label="Guardar"
+            (click)="guardarEdicionInterconsulta()"></button>
+        <button *ngIf="!estadoEditarInterconsultas" pButton type="button" label="Guardar"
+            (click)="guardarNuevoInterconsulta()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledInterconsulta()"></button>
+    </ng-template>
+</p-dialog>
+<!-- FIN DIALOG INTERCONSULTA -->
+<!-- DIALOG INMUNIZACIONES -->
+<p-dialog class="dialogo m-4" [(visible)]="inmunizacionDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>INMUNIZACION</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formInmunizacion'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Codigo:</label>
+                    <input type="text" pInputText formControlName='codigo' placeholder="Codigo"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Descripción:</label>
+                    <input type="text" pInputText formControlName='descripcion' placeholder="Descripcion"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Numero:</label>
+                    <input type="number" pInputText formControlName='numero' placeholder="Numero"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Dosis:</label>
+                    <input type="text" pInputText formControlName='dosis' placeholder="Dosis"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Via de Administracion:</label>
+                    <p-dropdown [options]="listaViaAdministracion" formControlName="viaAdministracion"
+                        placeholder="Via de administracion" optionLabel="name" optionValue="name"
+                        class="inputfield p-fluid w-full">
+                    </p-dropdown>
+                </div>
+                <div class="col-4">
+                    <label>Lote:</label>
+                    <input type="text" pInputText formControlName='lote' placeholder="Lote"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Fecha Vencimiento:</label>
+                    <input type="datetime-local" pInputText formControlName='fechaVenc'
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarInmunizaciones" pButton type="button" label="Guardar"
+            (click)="guardarEdicionInmunizacion()"></button>
+        <button *ngIf="!estadoEditarInmunizaciones" pButton type="button" label="Guardar"
+            (click)="guardarNuevoInmunizacion()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledInmunizacion()"></button>
+    </ng-template>
+</p-dialog>
+<!-- DIALOG RECOMENDACIONES -->
+<p-dialog class="dialogo m-4" [(visible)]="recomendacionDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>NUEVA RECOMENDACION</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formRecomendacion'>
+            <div class="grid">
+                <div class="col-12">
+                    <label>Recomendacion:</label>
+                    <input type="text" pInputText formControlName='recomendacion' placeholder="Recomendacion"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarRecomendaciones" pButton type="button" label="Guardar"
+            (click)="guardarEdicionRecomendacion()"></button>
+        <button *ngIf="!estadoEditarRecomendaciones" pButton type="button" label="Guardar"
+            (click)="guardarNuevoRecomendacion()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"></button>
+    </ng-template>
+</p-dialog>
+<!-- FIN DIALOG RECOMENDACIONES -->
