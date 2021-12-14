@@ -465,52 +465,52 @@ export class DatosGeneralesComponent implements OnInit {
                 {
                     consejeria: "Orientación y Consegería Signos de alarma",
                     valor: this.formDatos_Generales.value.OrientaciónConsegeríaSignosAlarma,
-                    cie10: ""
+                    cie10: "3232"
                 },
                 {
                     consejeria: "Consejería en enfermedades comunes",
                     valor: this.formDatos_Generales.value.ConsejeríaEnfermedadesComunes,
-                    cie10: ""
+                    cie10: "1212"
                 },
                 {
                     consejeria: "Sospechas de Tuberculosis",
                     valor: this.formDatos_Generales.value.SospechasTuberculosis,
-                    cie10: ""
+                    cie10: "2232"
                 },
                 {
                     consejeria: "Infecciones de transmisión sexual",
                     valor: this.formDatos_Generales.value.InfeccionesTransmisiónSexual,
-                    cie10: ""
+                    cie10: "4866"
                 },
                 {
                     consejeria: "Orientación Nutricional",
                     valor: this.formDatos_Generales.value.OrientaciónNutricional,
-                    cie10: ""
+                    cie10: "3233"
                 },
                 {
                     consejeria: "Orientación en planificaión familiar",
                     valor: this.formDatos_Generales.value.OrientaciónPlanificaiónFamiliar,
-                    cie10: ""
+                    cie10: "7779"
                 },
                 {
                     consejeria: "Orientación en prevención de Cancer ginecológico",
                     valor: this.formDatos_Generales.value.OrientaciónPrevenciónDeCancerGinecológico,
-                    cie10: ""
+                    cie10: "8889"
                 },
                 {
                     consejeria: "Orientación y consej. Pretest. VIH",
                     valor: this.formDatos_Generales.value.OrientaciónConsejeriaPretestVIH,
-                    cie10: ""
+                    cie10: "7777"
                 },
                 {
                     consejeria: "Orientación en estilos de vida saludable",
                     valor: this.formDatos_Generales.value.OrientaciónEnEstilosDeVidaSaludable,
-                    cie10: ""
+                    cie10: "44545"
                 },
                 {
                     consejeria: "Orientación al acompañante",
                     valor: this.formDatos_Generales.value.OrientaciónAcompañante,
-                    cie10: ""
+                    cie10: "21212"
                 },
                 {
                     consejeria: "Violencia familiar",

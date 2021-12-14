@@ -33,7 +33,6 @@ import { AlturaUterinaComponent } from './modals/altura-uterina/altura-uterina.c
         PaginatorModule,
         AutoCompleteModule,
 
-
         ConsultaObstetricoModule,
 
         ConsultaObstetricoModule,

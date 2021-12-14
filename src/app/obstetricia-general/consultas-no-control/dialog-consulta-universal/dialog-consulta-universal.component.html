@@ -1,0 +1,549 @@
+<div class="grid">
+    <div class="col-12">
+        <form [formGroup]='form'>
+            <div class="grid ">
+                <div class="col-12 md:col-12 mt-2">
+                    <div class="margen border-300">
+                        <div class="grid ">
+                            <div class="col-3 md:col-3 text-center">
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <label>Fecha de atención:</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input formControlName="fecha" type="datetime-local" class="p-inputtext-sm"
+                                            pInputText />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 md:col-1 text-center">
+                                <div class="grid">
+                                    <div class="col-4">
+                                        <label>Edad:</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <input formControlName="edad" type="number" class="p-inputtext-sm " pInputText
+                                            placeholder="Edad" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-3 md:col-2 text-center">
+                                <div class="grid">
+                                    <div class="col-8">
+                                        <label>N° Control SIS:</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input formControlName="nroControlSis" type="number" class="p-inputtext-sm "
+                                            pInputText placeholder="Nro control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 text-center">
+                                <div class="grid">
+                                    <div class="col-2">
+                                        <label>Referencia de Domicilio:</label>
+                                    </div>
+                                    <div class="col-10">
+                                        <input formControlName="direccion" type="text" class="p-inputtext-sm "
+                                            pInputText placeholder="Referencia domicilio" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-6">
+                    <p-fieldset legend="Funciones Vitales">
+                        <div class="grid ">
+                            <div class="col-6 md:col-4 text-center">
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <label>T°:</label>
+                                    </div>
+                                    <div class="col-5">
+                                        <input type="number" pInputText formControlName='temperatura'
+                                            placeholder="Temp." class="p-inputtext-sm inputfield w-full">
+                                    </div>
+                                    <div class="mt-2 col-4 text-left">
+                                        <span class="font-italic">C</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-4 text-center">
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <label>PA(S):</label>
+                                    </div>
+                                    <div class="col-5">
+                                        <input type="number" pInputText formControlName='presionSis'
+                                            placeholder="Sistolica" class="p-inputtext-sm  inputfield w-full">
+                                    </div>
+                                    <div class="mt-2 col-4 text-left">
+                                        <span class="font-italic">mm.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-4 text-center">
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <label>PA(D):</label>
+                                    </div>
+                                    <div class="col-5">
+                                        <input type="number" pInputText formControlName='presionDias'
+                                            placeholder="Diastolica" class="p-inputtext-sm  inputfield w-full">
+                                    </div>
+                                    <div class="mt-2 col-4 text-left">
+                                        <span class="font-italic">Hg.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-4 text-center">
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <label>F.C:</label>
+                                    </div>
+                                    <div class="col-5">
+                                        <input type="number" pInputText formControlName='fc' placeholder="Frec. card."
+                                            class="p-inputtext-sm  inputfield w-full">
+                                    </div>
+                                    <div class="mt-2 col-4 text-left">
+                                        <span class="font-italic">por min.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-4 text-center">
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <label>F.R:</label>
+                                    </div>
+                                    <div class="col-5">
+                                        <input type="number" pInputText formControlName='fr' placeholder="Frec. resp."
+                                            class="p-inputtext-sm  inputfield w-full">
+                                    </div>
+                                    <div class="mt-2 col-4 text-left">
+                                        <span class="font-italic">por min.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-4 text-center">
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <label>Peso:</label>
+                                    </div>
+                                    <div class="col-5">
+                                        <input type="number" pInputText formControlName='peso' placeholder="Peso"
+                                            class="p-inputtext-sm  inputfield w-full">
+                                    </div>
+                                    <div class="mt-2 col-4 text-left">
+                                        <span class="font-italic">kg.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-4 text-center">
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <label>Talla:</label>
+                                    </div>
+                                    <div class="col-5">
+                                        <input type="number" pInputText formControlName='talla' placeholder="Talla"
+                                            class="p-inputtext-sm  inputfield w-full">
+                                    </div>
+                                    <div class="mt-2 col-4 text-left">
+                                        <span class="font-italic">m.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-4 text-center">
+                                <div class="grid">
+                                    <div class="col-3">
+                                        <label>IMC:</label>
+                                    </div>
+                                    <div class="col-5">
+                                        <input type="number" pInputText formControlName='imc' placeholder="IMC"
+                                            class="p-inputtext-sm  inputfield w-full">
+                                    </div>
+                                    <div class="col-4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+                <div class="col-12 md:col-6">
+                    <p-fieldset legend="Estado Actual: Funciones Biológicas">
+                        <div class="grid ">
+                            <div class="col-6 md:col-6 text-center">
+                                <div class="grid">
+                                    <div class="col-4">
+                                        <label>Apetito:</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <input formControlName="apetito" class="p-fluid w-full" type="text"
+                                            class="p-inputtext-sm " pInputText placeholder="Apetito" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-6 text-center">
+                                <div class="grid">
+                                    <div class="col-4">
+                                        <label>Sed:</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <input formControlName="sed" class="p-fluid w-full" type="text"
+                                            class="p-inputtext-sm " pInputText placeholder="Sed" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-6 text-center">
+                                <div class="grid">
+                                    <div class="col-4">
+                                        <label>Sueño:</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <input formControlName="sueño" class="p-fluid w-full" type="text"
+                                            class="p-inputtext-sm " pInputText placeholder="Sueño" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-6 text-center">
+                                <div class="grid">
+                                    <div class="col-4">
+                                        <label>Estado de animo:</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <input formControlName="estadoAnimo" class="p-fluid w-full" type="text"
+                                            class="p-inputtext-sm " pInputText placeholder="Estado Anim." />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-6 text-center">
+                                <div class="grid">
+                                    <div class="col-4">
+                                        <label>Orina:</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <input formControlName="orina" class="p-fluid w-full" type="text"
+                                            class="p-inputtext-sm " pInputText placeholder="Orina" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-6 text-center">
+                                <div class="grid">
+                                    <div class="col-4">
+                                        <label>Deposiciones:</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <input formControlName="deposiciones" class="p-fluid w-full" type="text"
+                                            class="p-inputtext-sm " pInputText placeholder="Deposiciones" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+                <div class="col-12 md:col-6">
+                    <p-fieldset legend="Interrogatorio">
+                        <div class="grid">
+                            <div class="col-6">
+                                <label>Motivo de Consulta:</label>
+                                <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                                    formControlName="motivoConsulta" pInputTextarea
+                                    placeholder="Describa motivo de consulta"></textarea>
+                            </div>
+                            <div class="col-6">
+                                <label>Tiempo de la Enfermedad:</label>
+                                <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                                    formControlName="tiempoEnfermedad" pInputTextarea
+                                    placeholder="Ingrese tiempo de la enfermedad"></textarea>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12">
+                                <label>Observaciones:</label>
+                                <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                                    formControlName="interrogatorioOtro" pInputTextarea
+                                    placeholder="Ingrese las observaciones"></textarea>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+                <div class="col-12 md:col-6">
+                    <p-fieldset legend="Examen Físico">
+                        <div class="grid ">
+                            <div class="col-12 text-center">
+                                <textarea class="p-fluid w-full" rows="8" cols="85" pInputTextarea
+                                    formControlName="obsExamenFisico"></textarea>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+                <div class="col-12">
+                    <p-tabView>
+                        <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-exclamation-circle"
+                            header="DIAGNOSTICOS">
+                            <p-table [value]="datosDiagnosticos" #dt [rows]="3" styleClass="p-datatable-sm"
+                                [paginator]="true" [autoLayout]="true" class="m-3"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true" responsiveLayout="scroll">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-10">
+                                            <h3>DIAGNOSTICOS</h3>
+                                        </div>
+                                        <div class="col-2">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3" (click)="openNewDiagnostico()"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="text-align: center">Nro</th>
+                                        <th style="text-align: center">Tipo</th>
+                                        <th style="text-align: center">Diagnostico</th>
+                                        <th style="text-align: center">Cie10</th>
+                                        <th style="text-align: center">Acción</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                    <tr style="text-align: center">
+                                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                        <td style="text-align: center">{{ rowData.tipo==="R"? "REPETITIVO":
+                                            (rowData.tipo==="D"? "DEFINITIVO":"PRESUNTIVO")}}</td>
+                                        <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                                        <td style="text-align: center">{{ rowData.cie10 }}</td>
+                                        <td style="text-align: center">
+                                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                class="p-button-rounded p-button-text"
+                                                (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                                class="p-button-rounded p-button-danger p-button-text"
+                                                (click)="eliminarDiagnostico(rowIndex)"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-tabPanel>
+                        <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-check-square"
+                            header="TRATAMIENTOS">
+                            <p-table [value]="datosTratamientos" #dt [rows]="3" styleClass="p-datatable-sm"
+                                [paginator]="true" [autoLayout]="true" class="m-3"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true" responsiveLayout="scroll">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-10">
+                                            <h3>TRATAMIENTOS</h3>
+                                        </div>
+                                        <div class="col-2">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3" (click)="openNewTratamiento()"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="text-align: center">Nro</th>
+                                        <th style="text-align: center">Descripcion</th>
+                                        <th style="text-align: center">Numero Trat.</th>
+                                        <th style="text-align: center">Dosis</th>
+                                        <th style="text-align: center">Via Administ.</th>
+                                        <th style="text-align: center">Intervalo</th>
+                                        <th style="text-align: center">Duracion</th>
+                                        <th style="text-align: center">Observaciones</th>
+                                        <th style="text-align: center">Acción</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                    <tr style="text-align: center">
+                                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                        <td style="text-align: center">{{ rowData.descripcion }}</td>
+                                        <td style="text-align: center">{{ rowData.numero }}</td>
+                                        <td style="text-align: center">{{ rowData.dosis }}</td>
+                                        <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
+                                        <td style="text-align: center">{{ rowData.intervalo }}</td>
+                                        <td style="text-align: center">{{ rowData.duracion }}</td>
+                                        <td style="text-align: center">{{ rowData.observaciones }}</td>
+                                        <td style="text-align: center">
+                                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                class="p-button-rounded p-button-text"
+                                                (click)="openDialogEditarTratamiento(rowData, rowIndex)"></button>
+                                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                                class="p-button-rounded p-button-danger p-button-text"
+                                                (click)="eliminarTratamiento(rowIndex)"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </p-tabPanel>
+                    </p-tabView>
+                </div>
+
+                <div class="col-12 md:col-6">
+                    <div class="grid">
+                        <div class="col-12 md:col-8 text-center">
+                            <div class="grid">
+                                <div class="col-4">
+                                    <label class="text-sm">PRÓXIMA CITA:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="date" class="p-inputtext-sm " pInputText
+                                        formControlName="proximaCita" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6">
+                    <div class="grid">
+                        <div class="col-12 md:col-6 text-center">
+                            <div class="grid">
+                                <div class="col-4">
+                                    <label class="text-sm">REFERENCIA:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="p-inputtext-sm " pInputText
+                                        formControlName="referencia" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 text-center">
+                            <div class="grid">
+                                <div class="col-4">
+                                    <label class="text-sm">N° REFERENCIA:</label>
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="p-inputtext-sm " pInputText
+                                        formControlName="nroReferencia" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <p-fieldset legend="PERSONAL QUE ATENDIÓ">
+                        <div class="grid ">
+                            <div class="col-12">
+                                <textarea class="p-fluid w-full" rows="1" cols="45" pInputTextarea></textarea>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="footer">
+    <button pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2"
+        (click)="guardarConsulta()"></button>
+    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
+</div>
+
+<!-- DIALOG DE CONSULTAS -->
+<p-dialog class="dialogo m-4" [(visible)]="diagnosticoDialog" [style]="{width: '700px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>NUEVO DIAGNOSTICO</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formDiagnostico'>
+            <div class="grid">
+                <div class="col-6">
+                    <label>Tipo Diagnostico</label>
+                    <p-dropdown [options]="listaTiposDiagnosticos" formControlName="tipo" optionLabel="name"
+                        optionValue="code" class="inputfield p-fluid w-full" placeholder="Tipo de diagnostico">
+                    </p-dropdown>
+                </div>
+                <div class="col-6">
+                    <label>CIE10</label>
+                    <p-autoComplete formControlName="cie10" [suggestions]="listaDeCIE"
+                        (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                        (onSelect)="selectedOption($event,0)" class="" [forceSelection]="true" dataKey="codigoItem">
+                    </p-autoComplete>
+                </div>
+                <div class="col-12">
+                    <label>Diagnostico</label>
+                    <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                        field="descripcionItem" [minLength]="1" class="areaText "
+                        formControlName="autocompleteDiagnostico" (onSelect)="selectedOptionNameCIE($event,0)">
+                    </p-autoComplete>
+                    <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnostico" pInputTextarea
+                        disabled></textarea>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarDiagnosticos" pButton type="button" label="Guardar"
+            (click)="guardarEdicionDiagnostico()"></button>
+        <button *ngIf="!estadoEditarDiagnosticos" pButton type="button" label="Guardar"
+            (click)="guardarNuevoDiagnostico()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="closeDialogDiagnostico()"></button>
+    </ng-template>
+</p-dialog>
+<!-- FIN DIALOG DE DIAGNOSTICOS -->
+
+<!-- DIALOG  DE TRATAMIENTO -->
+<p-dialog class="dialogo m-4" [(visible)]="tratamientoDialog" [style]="{width: '400px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>NUEVO TRATAMIENTO</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formTratamiento'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Descripcion:</label>
+                    <input type="text" pInputText formControlName='descripcion' placeholder="Descripcion"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Numero:</label>
+                    <input type="number" pInputText formControlName='numero' placeholder="Numero"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Dosis:</label>
+                    <input type="text" pInputText formControlName='dosis' placeholder="Dosis"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-6">
+                    <label>Via de Administracion:</label>
+                    <p-dropdown [options]="listaViaAdministracion" formControlName="viaAdministracion"
+                        placeholder="Via Administracion" optionLabel="name" optionValue="name"
+                        class="inputfield p-fluid w-full">
+                    </p-dropdown>
+                </div>
+                <div class="col-6">
+                    <label>Intervalo:</label>
+                    <p-dropdown [options]="listaIntervalos" formControlName="intervalo" optionLabel="name"
+                        optionValue="name" class="inputfield p-fluid w-full" placeholder="Intervalo">
+                    </p-dropdown>
+                </div>
+                <div class="col-6">
+                    <label>Duracion:</label>
+                    <input type="text" pInputText formControlName='duracion' placeholder="Duracion"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-6">
+                    <label>Observaciones:</label>
+                    <input type="text" pInputText formControlName='observaciones' placeholder="Observaciones"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarTratamientos" pButton type="button" label="Guardar"
+            (click)="guardarEdicionTratamiento()"></button>
+        <button *ngIf="!estadoEditarTratamientos" pButton type="button" label="Guardar"
+            (click)="guardarNuevoTratamiento()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="closeDialogTratamiento()"></button>
+    </ng-template>
+</p-dialog>
+<!-- FIN DIALOG  DE TRATAMIENTO -->
