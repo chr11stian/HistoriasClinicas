@@ -6,6 +6,7 @@ import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-gen
 import {AtencionesService} from "../../services/atenciones/Atenciones.service";
 import {ModalAtencionesComponent} from "./modal-atenciones/modal-atenciones.component";
 import {MessageService} from "primeng/api";
+import {AlturaUterinaComponent} from "../../../modals/altura-uterina/altura-uterina.component";
 
 @Component({
     selector: 'app-atenciones',
@@ -19,6 +20,9 @@ export class AtencionesComponent implements OnInit {
     form: FormGroup
     atenciones: any[] = [];
     datosGrafico: any[]=[];
+    datosGraficoAltura: any[]=[];
+    datosGraficoY: any[]=[];
+
     // isUpdate: boolean = false;
     /**Datos del modal atenciones***/
     atencionGestanteDialog: boolean;
@@ -62,6 +66,20 @@ export class AtencionesComponent implements OnInit {
             console.log(this.datosGrafico);
         })
     }
+    /*********Recuperar Datos  para el gráfico Peso Madre*************/
+    recuperarDatosGraficoAlturaUterina(){
+        this.atencionesService.getDatosGraficoAlturaUterina(this.idObstetricia).subscribe((res:any)=>{
+            let tamanio = res.object.length;
+            let i = 0;
+            while(i<tamanio){
+                this.datosGraficoAltura.push([res.object[i].edadGestacional,res.object[i].alturaUterina]);
+                // this.datosGraficoY.push(res.object[i].alturaUterina)
+                i++;
+            }
+
+        })
+
+    }
 
     /****abrir modal que muestre las atenciones de la paciente  gestante*****/
     openDialogMostrarAtenciones(row,index){
@@ -89,7 +107,6 @@ export class AtencionesComponent implements OnInit {
         // /** grafica segun el tipo de grafico que se le manda tipoGrafico -> opciones: sobrepeso | normal | bajo_peso | obesidad */
     graficar(tipoGrafico: string) {
         tipoGrafico = 'sobrepeso'
-
         let titleModal = ''
         switch (tipoGrafico) {
             case 'normal':
@@ -125,9 +142,34 @@ export class AtencionesComponent implements OnInit {
             },
         })
     }
+    /************+****grafico grafico Altura uterina********************/
+    graficarAltura(){
+        let titleModal = 'Grafico Altura Uterina';
+        this.openModalGraficoAltura(this.datosGraficoAltura,titleModal);
+
+    }
+    openModalGraficoAltura(data: Array<number[]>, titleModal: string): void
+    {
+        this.ref = this.dialogService.open(AlturaUterinaComponent, {
+            data: {
+                dataPregmant: data
+            },
+            header: titleModal,
+            // width: '90%',
+            height: '90%',
+            width: '70%',
+            style: {
+                position: 'absolute',
+                top: '17px',
+            },
+        })
+    }
+    ///******************************************/
     ngOnInit(): void {
         this.recuperarDatosAtenciones();
+        this.recuperarDatosGraficoAlturaUterina();
         // this.recuperarDatosGraficoPesoMadre();
+
     }
 
     openNew() {

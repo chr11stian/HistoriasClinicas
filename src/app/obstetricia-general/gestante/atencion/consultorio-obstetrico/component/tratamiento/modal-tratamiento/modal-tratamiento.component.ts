@@ -24,7 +24,6 @@ export class ModalTratamientoComponent implements OnInit {
   intervaloList: any[];
   viaadministracionList: any[];
 
-
   constructor(private form: FormBuilder,
               private ref: DynamicDialogRef,
               private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -33,14 +32,10 @@ export class ModalTratamientoComponent implements OnInit {
     this.idObstetricia=this.obstetriciaGeneralService.idGestacion;
     console.log(config.data);
     this.buildForm();
+
     if(config.data){
       this.llenarCamposTratamientoComun();
     }
-    if(config.data){
-      this.llenarCamposTratamientoSuplementos();
-
-    }
-
     /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR EL TRATAMIENTO*/
     this.intervaloList = [{label: 'CADA 1 HORA', value: '1'},
       {label: 'CADA 2 HORAS', value: 'CADA 2 HORAS'},
@@ -109,23 +104,7 @@ export class ModalTratamientoComponent implements OnInit {
     this.dataTratamientosComunes.push(tratamientosComunes);
     this.dialogTratamiento = false;
   }
-  enviarTratamientosSuplementos(){
-    var tratamientosInmunizaciones= {
-      descripcion:this.formTratamientoComun.value.descripcion,
-      numero:this.formTratamientoComun.value.numero,
-      dosis:this.formTratamientoComun.value.dosis,
-      intervalo:this.formTratamientoComun.value.intervalo,
-      viaAdministracion:this.formTratamientoComun.value.viaAdministracion,
-      duracion:this.formTratamientoComun.value.duracion,
-      observaciones:this.formTratamientoComun.value.observaciones,
-
-    }
-    console.log(tratamientosInmunizaciones);
-    this.dataTratamientosSuplementos.push(tratamientosInmunizaciones);
-    this.dialogTratamientoSuplementos = false;
-  }
-
-  canceled() {
+   canceled() {
     Swal.fire({
       icon: 'warning',
       title: 'Cancelado...',
@@ -145,16 +124,6 @@ export class ModalTratamientoComponent implements OnInit {
     this.formTratamientoComun.get("duracion").setValue(configuracion.duracion);
     this.formTratamientoComun.get("observaciones").setValue(configuracion.observaciones);
   }
-  llenarCamposTratamientoSuplementos(){
-    let configuracion=this.config.data.row;
-    this.formTratamientoComun.get("descripcion").setValue(configuracion.descripcion);
-    this.formTratamientoComun.get("numero").setValue(configuracion.numero);
-    this.formTratamientoComun.get("dosis").setValue(configuracion.dosis);
-    this.formTratamientoComun.get("intervalo").setValue(configuracion.intervalo);
-    this.formTratamientoComun.get("viaAdministracion").setValue(configuracion.viaAdministracion);
-    this.formTratamientoComun.get("duracion").setValue(configuracion.duracion);
-    this.formTratamientoComun.get("observaciones").setValue(configuracion.observaciones);
-  }
   closeDialogGuardar(){
     this.enviarTratamientosComunes();
     this.ref.close(
@@ -164,15 +133,7 @@ export class ModalTratamientoComponent implements OnInit {
             }:
             this.dataTratamientosComunes[0]);
   }
-  closeDialogGuardarSuplementos(){
-    this.enviarTratamientosSuplementos();
-    this.ref.close(
-        this.config.data?{
-              index: this.config.data.index,
-              row: this.dataTratamientosSuplementos[0]
-            }:
-            this.dataTratamientosSuplementos[0]);
-  }
+
   closeDialog(){
     this.ref.close();
   }

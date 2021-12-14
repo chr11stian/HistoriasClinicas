@@ -6,6 +6,7 @@ import {CieService} from "../../../../../services/cie.service";
 import {ConsultasService} from "../../services/consultas.service";
 import {DatePipe} from "@angular/common";
 import {MessageService} from "primeng/api";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 
 @Component({
     selector: 'app-giagnosticos',
@@ -13,8 +14,7 @@ import {MessageService} from "primeng/api";
     styleUrls: ['./giagnosticos.component.css']
 })
 export class GiagnosticosComponent implements OnInit {
-
-    selectedDiagnostico: any;
+     selectedDiagnostico: any;
     opcionBusqueda: string;
     /**Recupera el Id del Consultorio Obstetrico**/
     idConsultoriObstetrico: string;
@@ -46,8 +46,10 @@ export class GiagnosticosComponent implements OnInit {
     private planPartoReenfocada: any;
     private tipoDocRecuperado: any;
     private nroDocRecuperado: any;
-    private  nroEmbarazo:any;
+    private nroEmbarazo:any;
     private nroHclRecuperado:any;
+    /********Lista tipo Dx*****/
+    tipoList:any[]= [];
 
     constructor(private formBuilder: FormBuilder,
                 private obstetriciaService: ObstetriciaGeneralService,
@@ -62,6 +64,12 @@ export class GiagnosticosComponent implements OnInit {
         this.idConsultoriObstetrico = this.obstetriciaService.idConsultoriObstetrico;
         this.nroHclRecuperado = this.obstetriciaService.nroHcl;
         /***************DATOS DE LOS DROPDOWNS*******************/
+        /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
+        this.tipoList = [{label: 'D', value: 'D'},
+            {label: 'P', value: 'P'},
+            {label: 'R', value: 'R'},
+
+        ];
         this.planPartoList = [{label: 'CONTROL', value: 'CONTROL'},
             {label: 'VISITA', value: 'VISITA'},
             {label: 'NO SE HIZO', value: 'NO SE HIZO'},
@@ -87,6 +95,7 @@ export class GiagnosticosComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             diagnostico: ['', [Validators.required]],
+            tipo:['', [Validators.required]],
         }),
             this.form2 = this.formBuilder.group({
                 orientaciones: ['', [Validators.required]],
@@ -102,21 +111,21 @@ export class GiagnosticosComponent implements OnInit {
             })
     }
     /*guardar datos de diagnosticos*/
+
     save1(form: any) {
         this.isUpdate = false;
         this.data.push(form.value);
-        console.log(this.data);
+        console.log("esta data es: " + this.data[0]['diagnostico']['descripcionItem']);
+
         this.diagnosticos.push({
             diagnostico: this.data[0]['diagnostico']['descripcionItem'],
-            cie10:this.data[0]['diagnostico']['codigoItem']});
-        Swal.fire({
-            icon: 'success',
-            title: 'Agregado correctamente',
-            text: '',
-            showConfirmButton: false,
-            timer: 1500,
-        })
+            cie10:this.data[0]['diagnostico']['codigoItem'],
+            tipo:this.form.value.tipo}),
+
         this.diagnosticoDialog = false;
+        // console.log(this.data[0]['diagnostico']['descripcionItem']);
+        // console.log(this.data[0]['diagnostico']['codigoItem']);
+
     }
     /******ABRIR DIALOGS DX****/
     openDiagnostico() {
@@ -137,13 +146,16 @@ export class GiagnosticosComponent implements OnInit {
     }
     /******EVENTO PARA BUSQUEDA SEGUN FILTRO*****/
     filterDiagnostico(event) {
+
         console.log('event ', event.query);
         this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
             this.Cie10 = res.object;
+            console.log('seleccion de autocomplete ', this.Cie10)
+
         })
     }
     selectedOption(event) {
-        console.log('seleccion de autocomplete ', event)
+        console.log('seleccion de autocomplete ', this.Cie10)
     }
     /*FIN PARA BUSQUEDA SEGUN FILTRO*/
     titulo() {
@@ -245,13 +257,12 @@ export class GiagnosticosComponent implements OnInit {
                 let i: number = 0;
                 this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de diagnosstico recuperado satisfactoriamente'});
                 while(i<this.dataAux.diagnosticos.length){
-                    // console.log("interconsultas nro: " ,i);
+
                     console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[i]);
                     this.diagnosticos.push(this.dataAux.diagnosticos[i]);
                     i++;
                 }
             }
-
         });
     }
 }

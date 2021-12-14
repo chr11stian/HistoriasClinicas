@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+
 import {DatosGeneralesComponent} from "./component/datos-generales/datos-generales.component";
 import {StepGeneral_consultaComponent} from "./component/step-general-consulta/step-general-consulta.component";
 import {InterrogatorioComponent} from "./component/interrogatorio/interrogatorio.component";
@@ -18,7 +19,6 @@ import { ModalRecomendacionesComponent } from './component/tratamiento/modal-rec
 import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
 
 
-
 @NgModule({
     declarations: [
         ModalTratamientoComponent,
@@ -34,6 +34,8 @@ import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-
         ModalInterconsultaComponent,
         ModalRecomendacionesComponent,
         ModalExamenesAuxiliaresComponent,
+
+
     ],
     imports: [
         ConsultaObstetricoRoutingModule,
