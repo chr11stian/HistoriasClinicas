@@ -31,10 +31,12 @@ export class HemoglobinaDialogComponent implements OnInit {
 
   agregarHemo() {
     if (this.formHemoglobina.valid) {
+      let auxIndex = this.listaHemoglobina.length + 4
+      console.log('length ', this.listaHemoglobina.length);
       let dataHemo = {
-        descripcion: 'hemoglobina ' + this.listaHemoglobina.length + 1,
+        descripcion: 'hemoglobina ' + auxIndex,
         hg: this.formHemoglobina.value.hg,
-        factCorrecion: this.formHemoglobina.value.factorCorrec,
+        conFactorCorrecion: this.formHemoglobina.value.factorCorrec,
         fecha: this.formHemoglobina.value.fechaHemo
       }
       this.listaHemoglobina.push(dataHemo);

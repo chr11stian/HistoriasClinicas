@@ -98,7 +98,6 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         console.log("NroDocRecuparado", this.nroDocRecuperado);
         this.obternerFechaActual();
         this.buildForm();
-        console.log("recuperado", this.idRecuperado);
 
         if (this.idRecuperado == null) {
             this.getpacienteByNroDoc();
