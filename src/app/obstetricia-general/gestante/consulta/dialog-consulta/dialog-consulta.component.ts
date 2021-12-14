@@ -174,6 +174,8 @@ export class DialogConsultaComponent implements OnInit {
             this.form.get("direccion").setValue(this.datosNuevaConsulta.direccion ? this.datosNuevaConsulta.direccion : "");
             this.form.get("pesoHabitual").setValue(this.datosNuevaConsulta.pesoHabitual ? this.datosNuevaConsulta.pesoHabitual : "");
             this.form.get("imc").setValue(this.datosNuevaConsulta.imc ? this.datosNuevaConsulta.imc : "");
+            this.calcularEdadGestacional(this.datosNuevaConsulta.fum);
+
             if (config.data) {
                 this.llenarCamposEdicionConsulta();
                 this.estadoEdicion = true;
@@ -181,7 +183,17 @@ export class DialogConsultaComponent implements OnInit {
         });
 
     }
+    calcularEdadGestacional(fum) {
+        let today = new Date().getTime();
+        let auxFUM = new Date(fum).getTime();
+        auxFUM = auxFUM + 0;
+        let auxWeek = today - auxFUM;
+        let edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24));
 
+        this.form.get("edadSemanas").setValue(Math.trunc(edadGestacional/7));
+        this.form.get("edadDias").setValue(edadGestacional%7);
+        console.log('edad gestacional ', edadGestacional);
+    }
     ngOnInit(): void { }
 
     inicializarForm() {
@@ -432,28 +444,29 @@ export class DialogConsultaComponent implements OnInit {
         });
     }
     calcularGanancia() {
-        let gananciaPeso = this.form.value.peso - this.form.value.pesoHabitual;
+        let gananciaPeso = Math.round(((this.form.value.peso - this.form.value.pesoHabitual) + Number.EPSILON) * 100) / 100;
         let imc = this.form.value.imc;
         let indicador = "";
-        let semanas = 13;
+        let semanas = this.form.value.edadSemanas;
         this.form.get("evalNutricionalValor").setValue(gananciaPeso);
         if (parseFloat(imc) < 18.5) {//bajo peso
             this.consultaObstetriciaService.getGananciaBajoPeso(semanas).subscribe((res: any) => {
                 console.log('datos ', res.object);
+                let auxiliar = res.object.recomendacionGananciaBajoPeso[0]
                 if (parseFloat(this.form.value.talla) < 157) {
-                    if (gananciaPeso < res.object.min) {
+                    if (gananciaPeso < auxiliar.min) {
                         indicador = "GIP"
                     }
                     else {
-                        (gananciaPeso > res.object.min && gananciaPeso < res.object.med) ? indicador = "GAP" : indicador = "GEP"
+                        (gananciaPeso > auxiliar.min && gananciaPeso < res.object.med) ? indicador = "GAP" : indicador = "GEP"
                     }
                 }
                 else {
-                    if (gananciaPeso < res.object.med) {
+                    if (gananciaPeso < auxiliar.med) {
                         indicador = "GIP"
                     }
                     else {
-                        (gananciaPeso > res.object.med && gananciaPeso < res.object.max) ? indicador = "GAP" : indicador = "GEP"
+                        (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
                     }
                 }
                 this.form.get("evalNutricionalIndicador").setValue(indicador);
@@ -462,22 +475,22 @@ export class DialogConsultaComponent implements OnInit {
         else {
             if (parseFloat(imc) < 25) {//normal
                 this.consultaObstetriciaService.getGananciaPesoRegular(semanas).subscribe((res: any) => {
-                    let auxiliar = res.object.reecomendacionGananciaPesoRegular[0];
-                    console.log('datos ', res.object.reecomendacionGananciaPesoRegular[0]);
+                    let auxiliar = res.object.recomendacionGananciaPesoRegular[0];
+                    console.log('datos ', auxiliar);
                     if (parseFloat(this.form.value.talla) < 157) {
-                        if (gananciaPeso < res.object.min) {
+                        if (gananciaPeso < auxiliar.min) {
                             indicador = "GIP"
                         }
                         else {
-                            (gananciaPeso > res.object.min && gananciaPeso < res.object.med) ? indicador = "GAP" : indicador = "GEP"
+                            (gananciaPeso > auxiliar.min && gananciaPeso < auxiliar.med) ? indicador = "GAP" : indicador = "GEP"
                         }
                     }
                     else {
-                        if (gananciaPeso < res.object.med) {
+                        if (gananciaPeso < auxiliar.med) {
                             indicador = "GIP"
                         }
                         else {
-                            (gananciaPeso > res.object.med && gananciaPeso < res.object.max) ? indicador = "GAP" : indicador = "GEP"
+                            (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
                         }
                     }
                     this.form.get("evalNutricionalIndicador").setValue(indicador);
@@ -486,21 +499,22 @@ export class DialogConsultaComponent implements OnInit {
             else {
                 if (parseFloat(imc) < 30) {//sobrepeso
                     this.consultaObstetriciaService.getGananciaSobrePeso(semanas).subscribe((res: any) => {
+                        let auxiliar = res.object.recomendacionGananciaSobrePeso[0];
                         console.log('datos ', res.object);
                         if (parseFloat(this.form.value.talla) < 157) {
-                            if (gananciaPeso < res.object.min) {
+                            if (gananciaPeso < auxiliar.min) {
                                 indicador = "GIP"
                             }
                             else {
-                                (gananciaPeso > res.object.min && gananciaPeso < res.object.med) ? indicador = "GAP" : indicador = "GEP"
+                                (gananciaPeso > auxiliar.min && gananciaPeso < res.auxiliar.med) ? indicador = "GAP" : indicador = "GEP"
                             }
                         }
                         else {
-                            if (gananciaPeso < res.object.med) {
+                            if (gananciaPeso < auxiliar.med) {
                                 indicador = "GIP"
                             }
                             else {
-                                (gananciaPeso > res.object.med && gananciaPeso < res.object.max) ? indicador = "GAP" : indicador = "GEP"
+                                (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
                             }
                         }
                         this.form.get("evalNutricionalIndicador").setValue(indicador);
@@ -509,20 +523,21 @@ export class DialogConsultaComponent implements OnInit {
                 else {//obesidad
                     this.consultaObstetriciaService.getGananciaObesa(semanas).subscribe((res: any) => {
                         console.log('datos ', res.object);
+                        let auxiliar = res.object.recomendacionGananciaObesa[0];
                         if (parseFloat(this.form.value.talla) < 157) {
                             if (gananciaPeso < res.object.min) {
                                 indicador = "GIP"
                             }
                             else {
-                                (gananciaPeso > res.object.min && gananciaPeso < res.object.med) ? indicador = "GAP" : indicador = "GEP"
+                                (gananciaPeso > auxiliar.min && gananciaPeso < auxiliar.med) ? indicador = "GAP" : indicador = "GEP"
                             }
                         }
                         else {
-                            if (gananciaPeso < res.object.med) {
+                            if (gananciaPeso < auxiliar.med) {
                                 indicador = "GIP"
                             }
                             else {
-                                (gananciaPeso > res.object.med && gananciaPeso < res.object.max) ? indicador = "GAP" : indicador = "GEP"
+                                (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
                             }
                         }
                         this.form.get("evalNutricionalIndicador").setValue(indicador);
