@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="col-2">
                                     <p-radioButton name="sexo" formControlName="sexo" value="femenino" inputId="sexo"
-                                                   class="azul"></p-radioButton>
+                                        class="azul"></p-radioButton>
                                 </div>
                             </div>
                             <div class="grid">
@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="col-2">
                                     <p-radioButton name="sexo" formControlName="sexo" value="masculino" inputId="sexo"
-                                                   class="azul"></p-radioButton>
+                                        class="azul"></p-radioButton>
                                 </div>
                             </div>
                             <div class="grid">
@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="col-2">
                                     <p-radioButton name="sexo" formControlName="sexo" value="indeterminado"
-                                                   inputId="sexo" class="azul"></p-radioButton>
+                                        inputId="sexo" class="azul"></p-radioButton>
                                 </div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                                     <span>Peso:</span>
                                 </div>
                                 <div class="col-6">
-                                    <input type="text" formControlName="peso" class="p-inputtext-sm " pInputText/>
+                                    <input type="text" formControlName="peso" class="p-inputtext-sm " pInputText />
                                 </div>
                                 <div class="col-1">
                                     <span>g.</span>
@@ -57,7 +57,7 @@
                                 </div>
                                 <div class="col-6">
                                     <input type="text" formControlName="perimetroCefalico" class="p-inputtext-sm "
-                                           pInputText/>
+                                        pInputText />
                                 </div>
                                 <div class="col-1">
                                     <span>mm.</span>
@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="col-6">
                                     <input type="text" formControlName="temperatura" class="p-inputtext-sm "
-                                           pInputText/>
+                                        pInputText />
                                 </div>
                                 <div class="col-1">
                                     <span>C.</span>
@@ -80,7 +80,7 @@
                             <div class="grid espacio-final">
                                 <div class="col-2">
                                     <p-radioButton name="pesoRN" formControlName="pesoRN" value="&lt;2500g"
-                                                   inputId="pesoRN" class="amarillo"></p-radioButton>
+                                        inputId="pesoRN" class="amarillo"></p-radioButton>
                                 </div>
                                 <div class="col-10">
                                     <span>&lt; 2500g</span>
@@ -89,7 +89,7 @@
                             <div class="grid">
                                 <div class="col-2">
                                     <p-radioButton name="pesoRN" formControlName="pesoRN" value="&lt;1500g"
-                                                   inputId="pesoRN" class="rojo"></p-radioButton>
+                                        inputId="pesoRN" class="rojo"></p-radioButton>
                                 </div>
                                 <div class="col-10">
                                     <span> &lt; 1500g</span>
@@ -98,7 +98,7 @@
                             <div class="grid ">
                                 <div class="col-2">
                                     <p-radioButton name="pesoRN" formControlName="pesoRN" value="&gt;4000g"
-                                                   inputId="pesoRN" class="amarillo"></p-radioButton>
+                                        inputId="pesoRN" class="amarillo"></p-radioButton>
                                 </div>
                                 <div class="col-10">
                                     <span>&gt; 4000g</span>
@@ -106,7 +106,7 @@
                             </div>
                         </div>
                     </div>
-                    <br/>
+                    <br />
                     <div class="grid">
                         <div class="col-7 text-right">
                             <div class="grid">
@@ -114,7 +114,7 @@
                                     <label>TALLA:</label>
                                 </div>
                                 <div class="col-6">
-                                    <input type="text" formControlName="talla" class="p-inputtext-sm " pInputText/>
+                                    <input type="text" formControlName="talla" class="p-inputtext-sm " pInputText />
                                 </div>
                                 <div class="col-1">
                                     <span>mm.</span>
@@ -134,7 +134,7 @@
                                 </div>
                                 <div class="col-8">
                                     <input type="text" formControlName="recienNacidoHcl" class="p-inputtext-sm "
-                                           pInputText/>
+                                        pInputText />
                                 </div>
                             </div>
                         </div>
@@ -145,7 +145,7 @@
                                 </div>
                                 <div class="col-8">
                                     <input type="text" formControlName="nombreRecienNacido" class="p-inputtext-sm "
-                                           pInputText/>
+                                        pInputText />
                                 </div>
                             </div>
                         </div>
@@ -168,72 +168,47 @@
                                         </div>
                                         <div class="col-4">
                                             <p-checkbox id="sinPatologias" value="Sin patologias"
-                                                        formControlName="sinPatologias">
+                                                formControlName="sinPatologias">
                                             </p-checkbox>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="grid">
-                                <div class="col-1">
-                                </div>
-                                <div class="col-5">
-                                </div>
-                                <div class="col-3">
-                                    <span>Fecha</span>
-                                </div>
-                                <div class="col-3">
-                                    <span>Otras (CIE10)</span>
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-1">
-                                    <label>1.</label>
-                                </div>
-                                <div class="col-5">
-                                    <input type="text" formControlName="patologia1" class="p-inputtext-sm " pInputText/>
-                                </div>
-                                <div class="col-3">
-                                    <input type="date" formControlName="patologiaFecha1" class="p-inputtext-sm "
-                                           pInputText/>
-                                </div>
-                                <div class="col-3">
-                                    <input type="text" formControlName="patologiaCIE1" class="p-inputtext-sm "
-                                           pInputText/>
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-1">
-                                    <label>2.</label>
-                                </div>
-                                <div class="col-5">
-                                    <input type="text" formControlName="patologia2" class="p-inputtext-sm " pInputText/>
-                                </div>
-                                <div class="col-3">
-                                    <input type="date" formControlName="patologiaFecha2" class="p-inputtext-sm "
-                                           pInputText/>
-                                </div>
-                                <div class="col-3">
-                                    <input type="text" formControlName="patologiaCIE2" class="p-inputtext-sm "
-                                           pInputText/>
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-1">
-                                    <label>3.</label>
-                                </div>
-                                <div class="col-5">
-                                    <input type="text" formControlName="patologia3" class="p-inputtext-sm " pInputText/>
-                                </div>
-                                <div class="col-3">
-                                    <input type="date" formControlName="patologiaFecha3" class="p-inputtext-sm "
-                                           pInputText/>
-                                </div>
-                                <div class="col-3">
-                                    <input type="text" formControlName="patologiaCIE3" class="p-inputtext-sm "
-                                           pInputText/>
-                                </div>
-                            </div>
+                            <p-table [value]="patologiasRN" #dt [rows]="3" styleClass="p-datatable-gridlines"
+                                [paginator]="true" [autoLayout]="true" class="m-3"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true" responsiveLayout="scroll">
+                                <ng-template pTemplate="caption">
+                                    <div class="flex justify-content-between">
+                                        <h3>Patologias</h3>
+                                        <button pButton pRipple label="Nuevo" icon="pi pi-plus"
+                                            class="p-button-danger p-mr-2" (click)="openNewPatologia()"></button>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="text-align: center">Nro</th>
+                                        <th style="text-align: center">Fecha</th>
+                                        <th style="text-align: center">Patologia</th>
+                                        <th style="text-align: center">cie10</th>
+                                        <th style="text-align: center;width: 8rem">Acción</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                    <tr style="text-align: center">
+                                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                        <td style="text-align: center">{{ rowData.fecha }}</td>
+                                        <td style="text-align: center">{{ rowData.patologia }}</td>
+                                        <td style="text-align: center">{{ rowData.cie10 }}</td>
+                                        <td style="text-align: center;width: 8rem; display: flex">
+                                            <button pButton (click)="openDialogEditarPatologia(rowData)"
+                                                pTooltip="Editar" pRipple type="button" icon="pi pi-pencil"
+                                                class="p-button-rounded m-1">
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
                         </div>
                     </div>
                 </p-fieldset>
@@ -251,7 +226,7 @@
                                 </div>
                                 <div class="col-6">
                                     <input type="text" formControlName="edadPorExamenFisico" class="p-inputtext-sm "
-                                           pInputText/>
+                                        pInputText />
                                 </div>
                             </div>
                         </div>
@@ -264,13 +239,13 @@
                                     <div class="grid">
                                         <div class="col-12">
                                             <p-radioButton name="semanasRN" formControlName="semanasRN" value="&lt;37"
-                                                           inputId="semanasRN" class="azul pb-0">
+                                                inputId="semanasRN" class="azul pb-0">
                                             </p-radioButton>
                                             <span>&lt;37</span>
                                         </div>
                                         <div class="col-12">
                                             <p-radioButton name="semanasRN" formControlName="semanasRN" value="&lt;42"
-                                                           inputId="semanasRN" class="azul pt-0">
+                                                inputId="semanasRN" class="azul pt-0">
                                             </p-radioButton>
                                             <span>&lt;42</span>
                                         </div>
@@ -296,7 +271,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input type="text" class="p-inputtext-sm " formControlName="apgar1"
-                                                   pInputText/>
+                                                pInputText />
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -305,7 +280,7 @@
                                         </div>
                                         <div class="col-8">
                                             <input type="text" class="p-inputtext-sm " formControlName="apgar2"
-                                                   pInputText/>
+                                                pInputText />
                                         </div>
                                     </div>
                                 </div>
@@ -314,7 +289,7 @@
                                         <!-- 1' de 4 a 6 -->
                                         <div class="col-12">
                                             <p-checkbox class="amarillo" id="detalleApgar1" value="4-6"
-                                                        formControlName="detalleApgar1">
+                                                formControlName="detalleApgar1">
                                             </p-checkbox>
                                         </div>
                                     </div>
@@ -322,7 +297,7 @@
                                         <!-- 5' de 4 a 6 -->
                                         <div class="col-12">
                                             <p-checkbox class="amarillo" id="detalleApgar2" value="4-6"
-                                                        formControlName="detalleApgar2">
+                                                formControlName="detalleApgar2">
                                             </p-checkbox>
                                         </div>
                                     </div>
@@ -333,7 +308,7 @@
                                         <!-- 1' de 0 a 3 -->
                                         <div class="col-12">
                                             <p-checkbox class="rojo" id="detalleApgar1" value="0-3"
-                                                        formControlName="detalleApgar1">
+                                                formControlName="detalleApgar1">
                                             </p-checkbox>
                                         </div>
                                     </div>
@@ -341,7 +316,7 @@
                                         <!-- 5' de 0 a 3 -->
                                         <div class="col-12">
                                             <p-checkbox class="rojo" id="detalleApgar2" value="0-3"
-                                                        formControlName="detalleApgar2">
+                                                formControlName="detalleApgar2">
                                             </p-checkbox>
                                         </div>
                                     </div>
@@ -365,8 +340,7 @@
                                                 </div>
                                                 <div class="col-4">
                                                     <p-radioButton name="pesoEdadGes" formControlName="pesoEdadGes"
-                                                                   value="Adecuado" inputId="pesoEdadGes"
-                                                                   class="azul pb-0">
+                                                        value="Adecuado" inputId="pesoEdadGes" class="azul pb-0">
                                                     </p-radioButton>
                                                 </div>
                                             </div>
@@ -378,8 +352,7 @@
                                                 </div>
                                                 <div class="col-4">
                                                     <p-radioButton name="pesoEdadGes" formControlName="pesoEdadGes"
-                                                                   value="Pequeño" inputId="pesoEdadGes"
-                                                                   class="azul pb-0">
+                                                        value="Pequeño" inputId="pesoEdadGes" class="azul pb-0">
                                                     </p-radioButton>
                                                 </div>
                                             </div>
@@ -391,8 +364,7 @@
                                                 </div>
                                                 <div class="col-4">
                                                     <p-radioButton name="pesoEdadGes" formControlName="pesoEdadGes"
-                                                                   value="Grande" inputId="pesoEdadGes"
-                                                                   class="azul pb-0">
+                                                        value="Grande" inputId="pesoEdadGes" class="azul pb-0">
                                                     </p-radioButton>
                                                 </div>
                                             </div>
@@ -423,7 +395,7 @@
                                                 </div>
                                                 <div class="col-4">
                                                     <p-radioButton name="reanimacion" formControlName="reanimacion"
-                                                                   value="No" inputId="reanimacion" class="azul pb-0">
+                                                        value="No" inputId="reanimacion" class="azul pb-0">
                                                     </p-radioButton>
                                                 </div>
                                             </div>
@@ -435,8 +407,8 @@
                                                 </div>
                                                 <div class="col-4">
                                                     <p-radioButton name="reanimacion" formControlName="reanimacion"
-                                                                   value="Bolsa y Mascara" inputId="reanimacion"
-                                                                   class="amarillo pb-0"></p-radioButton>
+                                                        value="Bolsa y Mascara" inputId="reanimacion"
+                                                        class="amarillo pb-0"></p-radioButton>
                                                 </div>
                                             </div>
                                         </div>
@@ -447,8 +419,7 @@
                                                 </div>
                                                 <div class="col-4">
                                                     <p-radioButton name="reanimacion" formControlName="reanimacion"
-                                                                   value="Oxigeno" inputId="reanimacion"
-                                                                   class="amarillo pb-0">
+                                                        value="Oxigeno" inputId="reanimacion" class="amarillo pb-0">
                                                     </p-radioButton>
                                                 </div>
                                             </div>
@@ -460,8 +431,8 @@
                                                 </div>
                                                 <div class="col-4">
                                                     <p-radioButton name="reanimacion" formControlName="reanimacion"
-                                                                   value="Reanimacion avanzada" inputId="reanimacion"
-                                                                   class="rojo pb-0"></p-radioButton>
+                                                        value="Reanimacion avanzada" inputId="reanimacion"
+                                                        class="rojo pb-0"></p-radioButton>
                                                 </div>
                                             </div>
                                         </div>
@@ -475,8 +446,8 @@
                             </div>
                             <div class="col-12">
                                 <p-selectButton [options]="stateOptions"
-                                                formControlName="medicacionReanimacionRecienNacido" optionLabel="label"
-                                                optionValue="value"></p-selectButton>
+                                    formControlName="medicacionReanimacionRecienNacido" optionLabel="label"
+                                    optionValue="value"></p-selectButton>
                             </div>
                         </div>
                     </div>
@@ -494,14 +465,14 @@
                                         </div>
                                         <div class="col-6">
                                             <p-selectButton [options]="stateOptions" formControlName="vitaminaK"
-                                                            optionLabel="label" optionValue="value"></p-selectButton>
+                                                optionLabel="label" optionValue="value"></p-selectButton>
                                         </div>
                                         <div class="col-6">
                                             <span>Profilaxis Ocular</span>
                                         </div>
                                         <div class="col-6">
                                             <p-selectButton [options]="stateOptions" formControlName="profilaxisOcular"
-                                                            optionLabel="label" optionValue="value"></p-selectButton>
+                                                optionLabel="label" optionValue="value"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
@@ -518,9 +489,8 @@
                                         </div>
                                         <div class="col-6">
                                             <p-selectButton [options]="stateOptions"
-                                                            formControlName="controlPuerperioInmediato"
-                                                            optionLabel="label"
-                                                            optionValue="value"></p-selectButton>
+                                                formControlName="controlPuerperioInmediato" optionLabel="label"
+                                                optionValue="value"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
@@ -547,7 +517,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="examenFisico" formControlName="examenFisico"
-                                                           value="Normal" inputId="examenFisico" class="azul pb-0">
+                                                value="Normal" inputId="examenFisico" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -557,7 +527,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="examenFisico" formControlName="examenFisico"
-                                                           value="Anormal" inputId="examenFisico" class="amarillo pb-0">
+                                                value="Anormal" inputId="examenFisico" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -575,7 +545,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="examenVih" formControlName="examenVih"
-                                                           value="No reactivo" inputId="examenVih" class="azul pb-0">
+                                                value="No reactivo" inputId="examenVih" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -585,7 +555,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="examenVih" formControlName="examenVih" value="Reactivo"
-                                                           inputId="examenVih" class="amarillo pb-0"></p-radioButton>
+                                                inputId="examenVih" class="amarillo pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -594,7 +564,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="examenVih" formControlName="examenVih"
-                                                           value="No se hizo" inputId="examenVih" class="azul pb-0">
+                                                value="No se hizo" inputId="examenVih" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -604,7 +574,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="examenVih" formControlName="examenVih"
-                                                           value="No aplica" inputId="examenVih" class="azul pb-0">
+                                                value="No aplica" inputId="examenVih" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -625,7 +595,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="hospitalizacion" formControlName="hospitalizacion"
-                                                           value="true" inputId="hospitalizacion" class="azul pb-0">
+                                                value="true" inputId="hospitalizacion" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -635,8 +605,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="hospitalizacion" formControlName="hospitalizacion"
-                                                           value="false" inputId="hospitalizacion"
-                                                           class="amarillo pb-0">
+                                                value="false" inputId="hospitalizacion" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -654,7 +623,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="necropsia" formControlName="necropsia" value="Si"
-                                                           inputId="necropsia" class="azul pb-0"></p-radioButton>
+                                                inputId="necropsia" class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -663,7 +632,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="necropsia" formControlName="necropsia" value="No"
-                                                           inputId="necropsia" class="amarillo pb-0"></p-radioButton>
+                                                inputId="necropsia" class="amarillo pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid mb-6">
@@ -672,7 +641,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="necropsia" formControlName="necropsia"
-                                                           value="No aplica" inputId="necropsia" class="azul pb-0">
+                                                value="No aplica" inputId="necropsia" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -691,8 +660,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="slueticaVdrlRpr" formControlName="slueticaVdrlRpr"
-                                                           value="-" inputId="slueticaVdrlRpr"
-                                                           class="azul pb-0"></p-radioButton>
+                                                value="-" inputId="slueticaVdrlRpr" class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -701,7 +669,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="slueticaVdrlRpr" formControlName="slueticaVdrlRpr"
-                                                           value="+" inputId="slueticaVdrlRpr" class="amarillo pb-0">
+                                                value="+" inputId="slueticaVdrlRpr" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -711,8 +679,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="slueticaVdrlRpr" formControlName="slueticaVdrlRpr"
-                                                           value="No se hizo" inputId="slueticaVdrlRpr"
-                                                           class="amarillo pb-0">
+                                                value="No se hizo" inputId="slueticaVdrlRpr" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -735,9 +702,8 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="alojamientoConjunto"
-                                                           formControlName="alojamientoConjunto" value="Si"
-                                                           inputId="alojamientoConjunto"
-                                                           class="azul pb-0"></p-radioButton>
+                                                formControlName="alojamientoConjunto" value="Si"
+                                                inputId="alojamientoConjunto" class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -746,8 +712,8 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="alojamientoConjunto"
-                                                           formControlName="alojamientoConjunto" value="No"
-                                                           inputId="alojamientoConjunto" class="amarillo pb-0">
+                                                formControlName="alojamientoConjunto" value="No"
+                                                inputId="alojamientoConjunto" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -757,8 +723,8 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="alojamientoConjunto"
-                                                           formControlName="alojamientoConjunto" value="No aplica"
-                                                           inputId="alojamientoConjunto" class="azul pb-0">
+                                                formControlName="alojamientoConjunto" value="No aplica"
+                                                inputId="alojamientoConjunto" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -777,8 +743,8 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="contactoPielaPielLmh"
-                                                           formControlName="contactoPielaPielLmh" value="Si"
-                                                           inputId="contactoPielaPielLmh" class="azul pb-0">
+                                                formControlName="contactoPielaPielLmh" value="Si"
+                                                inputId="contactoPielaPielLmh" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -788,8 +754,8 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="contactoPielaPielLmh"
-                                                           formControlName="contactoPielaPielLmh" value="No"
-                                                           inputId="contactoPielaPielLmh" class="amarillo pb-0">
+                                                formControlName="contactoPielaPielLmh" value="No"
+                                                inputId="contactoPielaPielLmh" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -799,8 +765,8 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="contactoPielaPielLmh"
-                                                           formControlName="contactoPielaPielLmh" value="No aplica"
-                                                           inputId="contactoPielaPielLmh" class="azul pb-0">
+                                                formControlName="contactoPielaPielLmh" value="No aplica"
+                                                inputId="contactoPielaPielLmh" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -819,7 +785,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="lme" formControlName="lme" value="Si" inputId="lme"
-                                                           class="azul pb-0"></p-radioButton>
+                                                class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -828,7 +794,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="lme" formControlName="lme" value="No" inputId="lme"
-                                                           class="amarillo pb-0"></p-radioButton>
+                                                class="amarillo pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid ">
@@ -837,7 +803,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="lme" formControlName="lme" value="No aplica"
-                                                           inputId="lme" class="azul pb-0"></p-radioButton>
+                                                inputId="lme" class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -859,7 +825,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="deposiciones" formControlName="deposiciones" value="Meconial"
-                                                   inputId="deposiciones" class="rojo pb-0"></p-radioButton>
+                                        inputId="deposiciones" class="rojo pb-0"></p-radioButton>
                                 </div>
                             </div>
                             <div class="grid ">
@@ -868,7 +834,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="deposiciones" formControlName="deposiciones"
-                                                   value="Transicional" inputId="deposiciones" class="amarillo pb-0">
+                                        value="Transicional" inputId="deposiciones" class="amarillo pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -878,10 +844,10 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="deposiciones" formControlName="deposiciones" value="Amarillo"
-                                                   inputId="deposiciones" class="azul pb-0"></p-radioButton>
+                                        inputId="deposiciones" class="azul pb-0"></p-radioButton>
                                 </div>
                             </div>
-                            <br/>
+                            <br />
                             <div class="grid text-center">
                                 <div class="col-12">
                                     <div class="grid">
@@ -890,7 +856,7 @@
                                         </div>
                                         <div class="col-12">
                                             <p-selectButton [options]="stateOptions" formControlName="ictericiaPrecoz"
-                                                            optionLabel="label" optionValue="value"></p-selectButton>
+                                                optionLabel="label" optionValue="value"></p-selectButton>
                                         </div>
                                     </div>
                                 </div>
@@ -898,7 +864,7 @@
                         </div>
                     </div>
                 </p-fieldset>
-                <br/>
+                <br />
                 <p-fieldset legend="Vacunas RN">
                     <div class="grid text-center">
                         <div class="col-12">
@@ -906,7 +872,7 @@
                         </div>
                         <div class="col-12">
                             <p-selectButton [options]="stateOptions" formControlName="bcg" optionLabel="label"
-                                            optionValue="value"></p-selectButton>
+                                optionValue="value"></p-selectButton>
                         </div>
                     </div>
                     <div class="grid text-center">
@@ -915,7 +881,7 @@
                         </div>
                         <div class="col-12">
                             <p-selectButton [options]="stateOptions" formControlName="hepatitisb" optionLabel="label"
-                                            optionValue="value"></p-selectButton>
+                                optionValue="value"></p-selectButton>
                         </div>
                     </div>
                 </p-fieldset>
@@ -928,7 +894,7 @@
                                 <div class="col-2"></div>
                                 <div class="col-8">
                                     <input type="datetime-local" formControlName="fechaRN" class="p-inputtext-sm "
-                                           pInputText/>
+                                        pInputText />
                                 </div>
                                 <div class="col-2"></div>
                             </div>
@@ -947,7 +913,7 @@
                                         </div>
                                         <div class="col-5">
                                             <p-radioButton name="egresoRN" formControlName="egresoRN" value="Sano"
-                                                           inputId="egresoRN" class="azul pb-0"></p-radioButton>
+                                                inputId="egresoRN" class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -958,7 +924,7 @@
                                         </div>
                                         <div class="col-5">
                                             <p-radioButton name="egresoRN" formControlName="egresoRN" value="Traslado"
-                                                           inputId="egresoRN" class="amarillo pb-0">
+                                                inputId="egresoRN" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -974,8 +940,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="egresoRN" formControlName="egresoRN"
-                                                           value="Con patologia" inputId="egresoRN"
-                                                           class="amarillo pb-0">
+                                                value="Con patologia" inputId="egresoRN" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -987,7 +952,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="egresoRN" formControlName="egresoRN" value="Fallece"
-                                                           inputId="egresoRN" class="amarillo pb-0">
+                                                inputId="egresoRN" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -1011,11 +976,11 @@
                             </div>
                             <div class="col-7">
                                 <input type="text" formControlName="dxFallecimiento" class="p-inputtext-sm "
-                                       pInputText/>
+                                    pInputText />
                             </div>
                             <div class="col-2">
                                 <p-checkbox name="dxfNoAplica" formControlName="dxFallecimientoNoAplica" value=true
-                                            inputId="dxFallecimiento" class="azul pb-0"></p-checkbox>
+                                    inputId="dxFallecimiento" class="azul pb-0"></p-checkbox>
                             </div>
                         </div>
                     </div>
@@ -1025,11 +990,11 @@
                                 <span>Dx. Traslado.:</span>
                             </div>
                             <div class="col-7">
-                                <input type="text" formControlName="dxTraslado" class="p-inputtext-sm " pInputText/>
+                                <input type="text" formControlName="dxTraslado" class="p-inputtext-sm " pInputText />
                             </div>
                             <div class="col-2">
                                 <p-checkbox name="dxtNoAplica" formControlName="dxTrasladoNoAplica" value=true
-                                            class="azul pb-0"></p-checkbox>
+                                    class="azul pb-0"></p-checkbox>
                             </div>
                         </div>
                     </div>
@@ -1040,11 +1005,11 @@
                             </div>
                             <div class="col-7">
                                 <input type="text" formControlName="establecimientoTras" class="p-inputtext-sm "
-                                       pInputText/>
+                                    pInputText />
                             </div>
                             <div class="col-2">
                                 <p-checkbox name="estaNoAplica" formControlName="estaNoAplica" value=true
-                                            inputId="estaNoAplica" class="azul pb-0"></p-checkbox>
+                                    inputId="estaNoAplica" class="azul pb-0"></p-checkbox>
                             </div>
                         </div>
                     </div>
@@ -1059,7 +1024,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="alimentoAlta" formControlName="alimentoAlta" value="Pecho solo"
-                                                   inputId="alimentoAlta" class="azul pb-0">
+                                        inputId="alimentoAlta" class="azul pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1069,8 +1034,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="alimentoAlta" formControlName="alimentoAlta"
-                                                   value="Pecho y artificial" inputId="alimentoAlta"
-                                                   class="amarillo pb-0">
+                                        value="Pecho y artificial" inputId="alimentoAlta" class="amarillo pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1080,7 +1044,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="alimentoAlta" formControlName="alimentoAlta"
-                                                   value="Artificial solo" inputId="alimentoAlta" class="amarillo pb-0">
+                                        value="Artificial solo" inputId="alimentoAlta" class="amarillo pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1090,7 +1054,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="alimentoAlta" formControlName="alimentoAlta" value="No aplica"
-                                                   inputId="alimentoAlta" class="azul pb-0"></p-radioButton>
+                                        inputId="alimentoAlta" class="azul pb-0"></p-radioButton>
                                 </div>
                             </div>
                         </div>
@@ -1101,16 +1065,16 @@
                                 </div>
                                 <div class="col-12">
                                     <p-selectButton [options]="stateOptions" formControlName="tsh" optionLabel="label"
-                                                    optionValue="value"></p-selectButton>
+                                        optionValue="value"></p-selectButton>
                                 </div>
                             </div>
-                            <br/>
+                            <br />
                             <div class="grid text-right">
                                 <div class="col-4">
                                     <label>Peso:</label>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="p-inputtext-sm" formControlName="pesoEgreso" pInputText/>
+                                    <input type="text" class="p-inputtext-sm" formControlName="pesoEgreso" pInputText />
                                 </div>
                             </div>
                         </div>
@@ -1129,8 +1093,7 @@
                                 <div class="col-1"></div>
                                 <div class="col-7">
                                     <input type="datetime-local" class="p-inputtext-sm "
-                                           formControlName="fechaIngresoMaterno"
-                                           pInputText/>
+                                        formControlName="fechaIngresoMaterno" pInputText />
                                 </div>
                                 <div class="col-4">
                                     <div class="grid ">
@@ -1159,7 +1122,7 @@
                                         </div>
                                         <div class="col-5">
                                             <p-radioButton name="egresoMaterno" formControlName="egresoMaterno"
-                                                           value="Sano" inputId="egresoMaterno" class="azul pb-0">
+                                                value="Sano" inputId="egresoMaterno" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -1171,8 +1134,7 @@
                                         </div>
                                         <div class="col-5">
                                             <p-radioButton name="egresoMaterno" formControlName="egresoMaterno"
-                                                           value="Traslado" inputId="egresoMaterno"
-                                                           class="amarillo pb-0">
+                                                value="Traslado" inputId="egresoMaterno" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -1188,8 +1150,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="egresoMaterno" formControlName="egresoMaterno"
-                                                           value="Con patologia" inputId="egresoMaterno"
-                                                           class="amarillo pb-0">
+                                                value="Con patologia" inputId="egresoMaterno" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -1201,8 +1162,7 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="egresoMaterno" formControlName="egresoMaterno"
-                                                           value="Fallece" inputId="egresoMaterno"
-                                                           class="amarillo pb-0">
+                                                value="Fallece" inputId="egresoMaterno" class="amarillo pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -1227,11 +1187,11 @@
                             </div>
                             <div class="col-7">
                                 <input type="text" formControlName="dxMaternoFallecimiento" class="p-inputtext-sm "
-                                       pInputText/>
+                                    pInputText />
                             </div>
                             <div class="col-2">
                                 <p-checkbox name="dxMfNoAplica" formControlName="dxMfNoAplica" value=true
-                                            class="azul pb-0">
+                                    class="azul pb-0">
                                 </p-checkbox>
                             </div>
                         </div>
@@ -1243,11 +1203,11 @@
                             </div>
                             <div class="col-7">
                                 <input type="text" formControlName="dxMaternoTraslado" class="p-inputtext-sm "
-                                       pInputText/>
+                                    pInputText />
                             </div>
                             <div class="col-2">
                                 <p-checkbox name="dxMtNoAplica" formControlName="dxMtNoAplica" value=true
-                                            class="azul pb-0"></p-checkbox>
+                                    class="azul pb-0"></p-checkbox>
                             </div>
                         </div>
                     </div>
@@ -1258,11 +1218,11 @@
                             </div>
                             <div class="col-7">
                                 <input type="text" class="p-inputtext-sm" formControlName="MaternoEstablecimientoTras"
-                                       pInputText/>
+                                    pInputText />
                             </div>
                             <div class="col-2">
-                                <p-checkbox name="MaternoEstaNoAplica" formControlName="MaternoEstaNoAplica"
-                                            value=true inputId="MaternoEstaNoAplica" class="azul pb-0"></p-checkbox>
+                                <p-checkbox name="MaternoEstaNoAplica" formControlName="MaternoEstaNoAplica" value=true
+                                    inputId="MaternoEstaNoAplica" class="azul pb-0"></p-checkbox>
                             </div>
                         </div>
                     </div>
@@ -1277,8 +1237,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="anticonceptivos" formControlName="anticonceptivos"
-                                                   value="Abstinencia periodica" inputId="anticonceptivos"
-                                                   class="azul pb-0">
+                                        value="Abstinencia periodica" inputId="anticonceptivos" class="azul pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1288,7 +1247,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="anticonceptivos" formControlName="anticonceptivos"
-                                                   value="Condon" inputId="anticonceptivos" class="azul pb-0">
+                                        value="Condon" inputId="anticonceptivos" class="azul pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1298,7 +1257,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="anticonceptivos" formControlName="anticonceptivos" value="DIU"
-                                                   inputId="anticonceptivos" class="azul pb-0"></p-radioButton>
+                                        inputId="anticonceptivos" class="azul pb-0"></p-radioButton>
                                 </div>
                             </div>
 
@@ -1310,7 +1269,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="anticonceptivos" formControlName="anticonceptivos"
-                                                   value="Ligadura Tubaria" inputId="anticonceptivos" class="azul pb-0">
+                                        value="Ligadura Tubaria" inputId="anticonceptivos" class="azul pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1320,7 +1279,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="anticonceptivos" formControlName="anticonceptivos" value="MELA"
-                                                   inputId="anticonceptivos" class="azul pb-0"></p-radioButton>
+                                        inputId="anticonceptivos" class="azul pb-0"></p-radioButton>
                                 </div>
                             </div>
                             <div class="grid ">
@@ -1329,8 +1288,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="anticonceptivos" formControlName="anticonceptivos"
-                                                   value="Progestag. Inyectables" inputId="anticonceptivos"
-                                                   class="azul pb-0">
+                                        value="Progestag. Inyectables" inputId="anticonceptivos" class="azul pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1340,8 +1298,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="anticonceptivos" formControlName="anticonceptivos"
-                                                   value="Progestag. Orales" inputId="anticonceptivos"
-                                                   class="azul pb-0">
+                                        value="Progestag. Orales" inputId="anticonceptivos" class="azul pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1353,8 +1310,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="anticonceptivos" formControlName="anticonceptivos"
-                                                   value="Anticonceptiva combinada" inputId="anticonceptivos"
-                                                   class="azul pb-0">
+                                        value="Anticonceptiva combinada" inputId="anticonceptivos" class="azul pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1364,8 +1320,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="anticonceptivos" formControlName="anticonceptivos"
-                                                   value="Solo orl./ Consej." inputId="anticonceptivos"
-                                                   class="azul pb-0">
+                                        value="Solo orl./ Consej." inputId="anticonceptivos" class="azul pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1375,7 +1330,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="anticonceptivos" formControlName="anticonceptivos"
-                                                   value="Ninguno" inputId="anticonceptivos" class="amarillo pb-0">
+                                        value="Ninguno" inputId="anticonceptivos" class="amarillo pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1385,7 +1340,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="anticonceptivos" formControlName="anticonceptivos" value="Otro"
-                                                   inputId="anticonceptivos" class="azul pb-0"></p-radioButton>
+                                        inputId="anticonceptivos" class="azul pb-0"></p-radioButton>
                                 </div>
                             </div>
                         </div>
@@ -1411,7 +1366,7 @@
                                         </div>
                                         <div class="col-6">
                                             <p-radioButton name="grupo" formControlName="grupo" value="A"
-                                                           inputId="grupo" class="azul pb-0"></p-radioButton>
+                                                inputId="grupo" class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1422,7 +1377,7 @@
                                         </div>
                                         <div class="col-6">
                                             <p-radioButton name="grupo" formControlName="grupo" value="B"
-                                                           inputId="grupo" class="azul pb-0"></p-radioButton>
+                                                inputId="grupo" class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1433,7 +1388,7 @@
                                         </div>
                                         <div class="col-6">
                                             <p-radioButton name="grupo" formControlName="grupo" value="AB"
-                                                           inputId="grupo" class="azul pb-0"></p-radioButton>
+                                                inputId="grupo" class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1444,7 +1399,7 @@
                                         </div>
                                         <div class="col-6">
                                             <p-radioButton name="grupo" formControlName="grupo" value="O"
-                                                           inputId="grupo" class="azul pb-0"></p-radioButton>
+                                                inputId="grupo" class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1455,7 +1410,7 @@
                                         </div>
                                         <div class="col-3">
                                             <p-radioButton name="grupo" formControlName="grupo" value="No se hizo"
-                                                           inputId="grupo" class="azul pb-0">
+                                                inputId="grupo" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -1481,7 +1436,7 @@
                                         </div>
                                         <div class="col-7">
                                             <p-radioButton name="rh" formControlName="rh" value="RH +" inputId="rh"
-                                                           class="azul pb-0"></p-radioButton>
+                                                class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1493,7 +1448,7 @@
                                         </div>
                                         <div class="col-7">
                                             <p-radioButton name="rh" formControlName="rh" value="RH -" inputId="rh"
-                                                           class="azul pb-0"></p-radioButton>
+                                                class="azul pb-0"></p-radioButton>
                                         </div>
                                     </div>
                                 </div>
@@ -1505,7 +1460,7 @@
                                         </div>
                                         <div class="col-3">
                                             <p-radioButton name="rh" formControlName="rh" value="No se hizo"
-                                                           inputId="rh" class="azul pb-0">
+                                                inputId="rh" class="azul pb-0">
                                             </p-radioButton>
                                         </div>
                                     </div>
@@ -1515,14 +1470,14 @@
                     </div>
                 </p-fieldset>
                 <p-table [value]="todosEgresosDelRN" #dt [rows]="5" styleClass="p-datatable-gridlines"
-                         [paginator]="true" [autoLayout]="true" class="m-3"
-                         currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                         [showCurrentPageReport]="true" responsiveLayout="scroll">
+                    [paginator]="true" [autoLayout]="true" class="m-3"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    [showCurrentPageReport]="true" responsiveLayout="scroll">
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
                             <h3>Egresos del Recien Nacido</h3>
                             <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                                    (click)="openNew()"></button>
+                                (click)="openNew()"></button>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -1544,12 +1499,10 @@
                             <td style="text-align: center">{{ rowData.fechaIngreso }}</td>
                             <td style="text-align: center;width: 8rem; display: flex">
                                 <button pButton (click)="openDialogEditarRN(rowData)" pTooltip="Editar" pRipple
-                                        type="button"
-                                        icon="pi pi-pencil" class="p-button-rounded m-1">
+                                    type="button" icon="pi pi-pencil" class="p-button-rounded m-1">
                                 </button>
                                 <button pButton (click)="openDialogEditarRN(rowData)" pTooltip="Visualizar" pRipple
-                                        type="button"
-                                        icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                                    type="button" icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
                                 </button>
                             </td>
                         </tr>
@@ -1561,9 +1514,51 @@
 </div>
 <div class="footer">
     <button pButton type="button" (click)="closeDialogGuardar()" label="Guardar"
-            class="p-button-primary mt-4 mr-2"></button>
+        class="p-button-primary mt-4 mr-2"></button>
     <button pButton type="button" (click)="closeDialog()" label="Cancelar" class="p-button-danger mt-4"></button>
 </div>
+<!-- DIALOG PATOLOGIAS -->
+<p-dialog class="dialogo m-4" [(visible)]="patologiaDialog" [style]="{width: '700px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>NUEVA PATOLOGIA</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formPatologias'>
+            <div class="grid">
+                <div class="col-6">
+                    <label>Fecha</label>
+                    <input type="date" class="inputfield w-full" formControlName="fecha" pInputText />
+                </div>
+                <div class="col-6">
+                    <label>CIE10</label>
+                    <p-autoComplete formControlName="cie10" [suggestions]="listaDeCIE"
+                        (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                        (onSelect)="selectedOption($event,0)" class="" [forceSelection]="true" dataKey="codigoItem">
+                    </p-autoComplete>
+                </div>
+                <div class="col-12">
+                    <label>Diagnostico</label>
+                    <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                        field="descripcionItem" [minLength]="1" class="areaText "
+                        formControlName="autocomplete" (onSelect)="selectedOptionNameCIE($event,0)">
+                    </p-autoComplete>
+                    <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="patologia" pInputTextarea
+                        disabled></textarea>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarPatologia" pButton type="button" label="Guardar"
+            (click)="guardarEdicionPatologiaRN()"></button>
+        <button *ngIf="!estadoEditarPatologia" pButton type="button" label="Guardar"
+            (click)="enviarPatologias()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledPatologia()"></button>
+    </ng-template>
+</p-dialog>
 <!-- dialogo para egresos de recien nacidos -->
 <p-dialog class="dialogo" [(visible)]="egresoRNDialog" [style]="{width: '800px'}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="header">
@@ -1576,7 +1571,7 @@
                     <div class="grid">
                         <div class="col-1"></div>
                         <div class="col-6">
-                            <input type="datetime-local" formControlName="fechaRN" class="p-inputtext-sm " pInputText/>
+                            <input type="datetime-local" formControlName="fechaRN" class="p-inputtext-sm " pInputText />
                         </div>
                         <div class="col-5">
                             <div class="grid">
@@ -1585,7 +1580,7 @@
                                 </div>
                                 <div class="col-5">
                                     <p-selectButton [options]="stateOptions" formControlName="reingreso"
-                                                    optionLabel="label" optionValue="value"></p-selectButton>
+                                        optionLabel="label" optionValue="value"></p-selectButton>
                                 </div>
                             </div>
                         </div>
@@ -1597,7 +1592,7 @@
                                 </div>
                                 <div class="col-6">
                                     <input type="text" formControlName="diagnostico" class="p-inputtext-sm "
-                                           pInputText/>
+                                        pInputText />
                                 </div>
                                 <div class="col-1"></div>
                             </div>
@@ -1610,7 +1605,7 @@
                                 </div>
                                 <div class="col-6">
                                     <input type="datetime-local" formControlName="fechaIngreso" class="p-inputtext-sm "
-                                           pInputText/>
+                                        pInputText />
                                 </div>
                                 <div class="col-1"></div>
                             </div>
@@ -1618,7 +1613,7 @@
                     </div>
                 </div>
             </div>
-            <br/>
+            <br />
             <div class="grid ">
                 <div class="col-1"></div>
                 <div class="col-2">
@@ -1633,7 +1628,7 @@
                                 </div>
                                 <div class="col-5">
                                     <p-radioButton name="egresoRN" formControlName="egresoRN" value="Sano"
-                                                   inputId="egresoRN" class="azul pb-0"></p-radioButton>
+                                        inputId="egresoRN" class="azul pb-0"></p-radioButton>
                                 </div>
                             </div>
                         </div>
@@ -1644,7 +1639,7 @@
                                 </div>
                                 <div class="col-5">
                                     <p-radioButton name="egresoRN" formControlName="egresoRN" value="Traslado"
-                                                   inputId="egresoRN" class="amarillo pb-0">
+                                        inputId="egresoRN" class="amarillo pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1660,7 +1655,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="egresoRN" formControlName="egresoRN" value="Con patologia"
-                                                   inputId="egresoRN" class="amarillo pb-0">
+                                        inputId="egresoRN" class="amarillo pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1672,7 +1667,7 @@
                                 </div>
                                 <div class="col-4">
                                     <p-radioButton name="egresoRN" formControlName="egresoRN" value="Fallece"
-                                                   inputId="egresoRN" class="amarillo pb-0">
+                                        inputId="egresoRN" class="amarillo pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1695,11 +1690,11 @@
                         <span>Dx. Fallecim.:</span>
                     </div>
                     <div class="col-7">
-                        <input type="text" formControlName="dxFallecimiento" class="p-inputtext-sm " pInputText/>
+                        <input type="text" formControlName="dxFallecimiento" class="p-inputtext-sm " pInputText />
                     </div>
                     <div class="col-2">
                         <p-checkbox name="dxfNoAplica" formControlName="dxfNoAplica" value=true inputId="dxfNoAplica"
-                                    class="azul pb-0"></p-checkbox>
+                            class="azul pb-0"></p-checkbox>
                     </div>
                 </div>
             </div>
@@ -1709,7 +1704,7 @@
                         <span>Dx. Traslado.:</span>
                     </div>
                     <div class="col-7">
-                        <input type="text" formControlName="dxTraslado" class="p-inputtext-sm " pInputText/>
+                        <input type="text" formControlName="dxTraslado" class="p-inputtext-sm " pInputText />
                     </div>
                     <div class="col-2">
                         <p-checkbox name="dxtNoAplica" formControlName="dxtNoAplica" value=true class="azul pb-0">
@@ -1723,15 +1718,15 @@
                         <span>Estable. Tras.:</span>
                     </div>
                     <div class="col-7">
-                        <input type="text" formControlName="establecimientoTras" class="p-inputtext-sm " pInputText/>
+                        <input type="text" formControlName="establecimientoTras" class="p-inputtext-sm " pInputText />
                     </div>
                     <div class="col-2">
-                        <p-checkbox name="estaNoAplica" formControlName="estaNoAplica" value=true
-                                    inputId="estaNoAplica" class="azul pb-0"></p-checkbox>
+                        <p-checkbox name="estaNoAplica" formControlName="estaNoAplica" value=true inputId="estaNoAplica"
+                            class="azul pb-0"></p-checkbox>
                     </div>
                 </div>
             </div>
-            <br/>
+            <br />
             <div class="col-12">
                 <div class="grid">
                     <div class="col-1"></div>
@@ -1739,15 +1734,14 @@
                         <span>Fecha Control:</span>
                     </div>
                     <div class="col-3">
-                        <input type="datetime-local" formControlName="fechaContro" class="p-inputtext-sm " pInputText/>
+                        <input type="datetime-local" formControlName="fechaContro" class="p-inputtext-sm " pInputText />
                     </div>
                     <div class="col-3 text-right">
                         <span>Control RN:</span>
                     </div>
                     <div class="col-2 text-left">
                         <p-selectButton [options]="stateOptions" formControlName="controlRecienNacido"
-                                        optionLabel="label"
-                                        optionValue="value"></p-selectButton>
+                            optionLabel="label" optionValue="value"></p-selectButton>
                     </div>
                     <div class="col-1"></div>
                 </div>
@@ -1756,8 +1750,10 @@
     </ng-template>
 
     <ng-template pTemplate="footer" class="text-right">
-        <button pButton *ngIf="estadoEditarRN"type="button" label="Guardar E" (click)="guardarEdicionEgresoRN()"></button>
-        <button pButton *ngIf="!estadoEditarRN"type="button" label="Guardar N" (click)="enviarEgresosRecienNacido()"></button>
+        <button pButton *ngIf="estadoEditarRN" type="button" label="Guardar E"
+            (click)="guardarEdicionEgresoRN()"></button>
+        <button pButton *ngIf="!estadoEditarRN" type="button" label="Guardar N"
+            (click)="enviarEgresosRecienNacido()"></button>
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceledEgreso()"></button>
     </ng-template>
 </p-dialog>

@@ -29,4 +29,16 @@ export class ConsultaObstetriciaService {
   postConsultaNoControl(data) {
     return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultaNoControl`, data)
   }
+  getGananciaSobrePeso(semanas) {
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaSobrePeso/${semanas}`)
+  }
+  getGananciaObesa(semanas) {
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaObesa/${semanas}`)
+  }
+  getGananciaPesoRegular(semanas) {
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaPesoRegular/${semanas}`)
+  }
+  getGananciaBajoPeso(semanas) {
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaBajoPeso/${semanas}`)
+  }
 }

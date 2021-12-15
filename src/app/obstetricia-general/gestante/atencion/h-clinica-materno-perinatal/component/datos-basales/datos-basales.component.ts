@@ -462,14 +462,14 @@ export class DatosBasalesComponent implements OnInit {
     guardarDatos() {
         this.recuperarDatos();
         console.log('data to save ', this.datosBasales);
-        // this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
-        //     console.log('se guardo correctamente ', res.object);
-        //     this.messageService.add({
-        //         severity: "success",
-        //         summary: "Exito",
-        //         detail: res.mensaje
-        //     });
-        // });
+        this.datosBasalesService.postDatosBasalesById(this.idGestante, this.datosBasales).subscribe((res: any) => {
+            console.log('se guardo correctamente ', res.object);
+            this.messageService.add({
+                severity: "success",
+                summary: "Exito",
+                detail: res.mensaje
+            });
+        });
     }
 
     loadData() {

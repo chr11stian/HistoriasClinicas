@@ -1,9 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConsultaObstetriciaService } from '../../gestante/consulta/services/consulta-obstetricia/consulta-obstetricia.service';
 import { CieService } from '../../services/cie.service';
+import { ObstetriciaGeneralService } from '../../services/obstetricia-general.service';
 
 @Component({
     selector: 'app-dialog-consulta-universal',
@@ -80,20 +82,27 @@ export class DialogConsultaUniversalComponent implements OnInit {
     dataConsulta: any;
     consultaNueva: any;
     datePipe = new DatePipe('en-US');
+    data: any;
 
     constructor(
         private fb: FormBuilder,
         private ref: DynamicDialogRef,
         private CieService: CieService,
         private consultaObstetricaService: ConsultaObstetriciaService,
+        private messageService: MessageService,
+        private obstetriciaGeneralService: ObstetriciaGeneralService,
     ) {
         this.inicializarForm();
-        let auxNroHcl: string = '10101044'
+        this.data = this.obstetriciaGeneralService.data;
+        console.log('data de ', this.data);
+        let auxNroHcl: string = '10101013'
         this.consultaObstetricaService.traerDatosParaConsultaNueva({ nroHcl: auxNroHcl }).subscribe((res: any) => {
+
             this.consultaNueva = res.object
             this.form.get("edad").setValue(this.consultaNueva.edad ? this.consultaNueva.edad : "");
             this.form.get("nroControlSis").setValue(this.consultaNueva.nroMayorControlSis ? this.consultaNueva.nroMayorControlSis + 1 : 0);
             this.form.get("direccion").setValue(this.consultaNueva.direccion ? this.consultaNueva.direccion : "");
+            this.form.get("imc").setValue(this.consultaNueva.imc ? this.consultaNueva.imc : "");
         });
     }
 
@@ -129,6 +138,17 @@ export class DialogConsultaUniversalComponent implements OnInit {
             tiempoEnfermedad: new FormControl(""),
             interrogatorioOtro: new FormControl(""),
             //examen Fisico
+            piel: new FormControl(""),
+            mucosas: new FormControl(""),
+            cabeza: new FormControl(""),
+            cuello: new FormControl(""),
+            cardioVascular: new FormControl(""),
+            pulmones: new FormControl(""),
+            mamas: new FormControl(""),
+            pezones: new FormControl(""),
+            abdomen: new FormControl(""),
+            // examenFisicoOtro: new FormControl(""),
+            // examenFisicoObservaciones: new FormControl(""),
             obsExamenFisico: new FormControl(""),
             //otros
             proximaCita: new FormControl(""),
@@ -490,10 +510,6 @@ export class DialogConsultaUniversalComponent implements OnInit {
             // nroAtencion: parseInt(this.form.value.nroAtencion),
             nroControlSis: parseInt(this.form.value.nroControlSis),
             fecha: datePipe.transform(this.form.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
-            // datosPerHist: {
-            //     edad: parseInt(this.form.value.edad),
-            //     direccion: this.form.value.direccion
-            // },
             funcionesVitales: {
                 t: parseFloat(this.form.value.temperatura),
                 presionSistolica: parseInt(this.form.value.presionSis),
@@ -516,6 +532,17 @@ export class DialogConsultaUniversalComponent implements OnInit {
                 { pregunta: "MOTIVO DE CONSULTA", respuesta: this.form.value.motivoConsulta },
                 { pregunta: "TIEMPO DE ENFERMEDAD", respuesta: this.form.value.tiempoEnfermedad },
                 { pregunta: "OBSERVACIONES", respuesta: this.form.value.interrogatorioOtro }
+            ],
+            examenesFisicos: [
+                { funcion: "PIEL", valor: this.form.value.piel },
+                { funcion: "MUCOSAS", valor: this.form.value.mucosas },
+                { funcion: "CABEZA", valor: this.form.value.cabeza },
+                { funcion: "CUELLO", valor: this.form.value.cuello },
+                { funcion: "CARDIO VASCULAR", valor: this.form.value.cardioVascular },
+                { funcion: "PULMONES", valor: this.form.value.pulmones },
+                { funcion: "MAMAS", valor: this.form.value.mamas },
+                { funcion: "PEZONES", valor: this.form.value.pezones },
+                { funcion: "ABDOMEN", valor: this.form.value.abdomen },
             ],
             examenFisicoObservaciones: this.form.value.obsExamenFisico,
             orientaciones: [
@@ -602,7 +629,11 @@ export class DialogConsultaUniversalComponent implements OnInit {
     guardarConsulta() {
         this.recuperarDatos();
         this.consultaObstetricaService.postConsultaNoControl(this.dataConsulta).subscribe((res: any) => {
-            console.log('rpta ', res.object);
+            this.messageService.add({
+                severity: "warn",
+                summary: "Alerta",
+                detail: 'Faltan datos para calcular el imc (peso o talla)'
+            });
         });
     }
 }

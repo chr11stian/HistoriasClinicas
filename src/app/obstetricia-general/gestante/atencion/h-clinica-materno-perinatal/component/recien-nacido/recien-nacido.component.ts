@@ -75,7 +75,7 @@ export class RecienNacidoComponent implements OnInit {
         console.log('data to save ', this.todosRN);
         this.recienNacidoService.getRecienNacidoById(this.idObstetricia).subscribe((res: any) => {
             console.log('trajo datos exito ', res)
-            this.todosRN = res.object.recienNacido ? res.object.recienNacido : [];
+            this.todosRN = res.object===null ?[] : res.object.recienNacido;
         })
     }
 

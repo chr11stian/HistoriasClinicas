@@ -49,6 +49,7 @@ export class InterrogatorioComponent implements OnInit {
   update: boolean = false;
   idConsulta: string;
   ultimaConsulta: ultimaConsulta;
+  edadGestacional: number;
 
   constructor(
     private fb: FormBuilder,
@@ -164,7 +165,7 @@ export class InterrogatorioComponent implements OnInit {
     this.interrogatorioData = {
       nroHcl: this.ultimaConsulta.nroHcl,
       nroAtencion: this.ultimaConsulta.nroUltimaAtencion,
-      nroControlSis: this.ultimaConsulta.nroUltimoControlSis,
+      nroControlSis: this.ultimaConsulta.nroMayorControlSis,
       nroEmbarazo: this.ultimaConsulta.nroEmbarazo,
       tipoDoc: this.ultimaConsulta.tipoDoc,
       nroDoc: this.ultimaConsulta.nroDoc,
@@ -347,6 +348,32 @@ export class InterrogatorioComponent implements OnInit {
   eliminarExamFisicos(index) {
     this.listaOtrosPruebasFisicas.splice(index, 1);
   }
+
+  calcularEdadGestacional() {
+    // let auxFUM: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd')   + (3600000 * 5)
+    let pesoActual = this.form.value.pesoHabitual;
+    let altura = this.form.value.talla;
+
+    let today = new Date().getTime();
+    let auxFUM = new Date(this.form.value.dateFUM).getTime();
+    auxFUM = auxFUM + 0;
+    console.log('auxFUM ', auxFUM, 'today ', today);
+    let auxWeek = today - auxFUM;
+    console.log('fecha actual ', auxWeek);
+    if (auxWeek < 0) {
+      this.messageService.add({
+        severity: "warn",
+        summary: "Alerta",
+        detail: 'La fecha de FUM es incorrecta'
+      });
+      this.form.patchValue({ dateFUM: '' });
+      return;
+    }
+
+    this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
+    let semanasGetacional = Math.trunc(this.edadGestacional / 7);
+    let diasGestacional = Math.trunc(this.edadGestacional % 7);
+  }
 }
 
 export interface ultimaConsulta {
@@ -355,8 +382,11 @@ export interface ultimaConsulta {
   direccion?: string,
   edad?: number,
   nroUltimaAtencion?: number,
-  nroUltimoControlSis?: number,
+  nroMayorControlSis?: number,
   nroDoc?: string,
   tipoDoc?: string,
-  nroHcl?: string
+  nroHcl?: string,
+  pesoHabitual?: number,
+  fum?: string,
+  imc?: string
 }
