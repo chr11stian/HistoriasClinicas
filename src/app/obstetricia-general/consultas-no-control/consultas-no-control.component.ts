@@ -22,6 +22,7 @@ export class ConsultasNoControlComponent implements OnInit {
   nroDocRecuperado: string;
   nroEmbarazo: string;
   nroHcl: string;
+  data: any;
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +37,8 @@ export class ConsultasNoControlComponent implements OnInit {
     this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
     this.nroHcl = this.obstetriciaGeneralService.nroHcl;
     this.recuperarConsultas();
+    this.data = this.obstetriciaGeneralService.data;
+    console.log('data de cita ', this.data);
   }
 
   ngOnInit(): void {
@@ -68,6 +71,4 @@ export class ConsultasNoControlComponent implements OnInit {
       console.log('data ', data);
     })
   }
-
-
 }

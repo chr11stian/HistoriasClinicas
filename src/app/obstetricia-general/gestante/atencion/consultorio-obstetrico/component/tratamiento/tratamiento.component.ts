@@ -367,7 +367,7 @@ export class TratamientoComponent implements OnInit {
       evaluacionNutricional:this.evaluacionNutricional,
       recomendaciones:this.recomendaciones,
     }
-    this.tratamientoService.updateConsultas(req).subscribe(
+    this.tratamientoService.updateConsultas(req,1).subscribe(
         (resp) => {
           console.log(resp);
           console.log(req);
