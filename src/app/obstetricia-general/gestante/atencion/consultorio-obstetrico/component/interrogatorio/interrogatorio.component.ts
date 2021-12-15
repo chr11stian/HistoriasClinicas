@@ -62,9 +62,9 @@ export class InterrogatorioComponent implements OnInit {
     this.inicializarForm();
     this.idConsulta = this.obstetriciaService.idGestacion;
     this.getUltimaConsulta();
-    if (this.idConsulta == '') {
-      this.router.navigate(['dashboard/obstetricia-general/citas'])
-    }
+    // if (this.idConsulta == '') {
+    //   this.router.navigate(['dashboard/obstetricia-general/citas'])
+    // }
   }
 
   ngOnInit(): void {
@@ -215,13 +215,14 @@ export class InterrogatorioComponent implements OnInit {
     this.recuperarDatos();
     console.log('last consult ', this.ultimaConsulta);
     console.log('data to save', this.interrogatorioData);
-    this.consultaObstetricaService.updateConsultas(this.interrogatorioData).subscribe((res: any) => {
-      this.messageService.add({
-        severity: "success",
-        summary: "Exito",
-        detail: res.mensaje
-      });
-    });
+    console.log('length ', this.interrogatorioData.examenesFetos.length);
+    // this.consultaObstetricaService.updateConsultas(this.interrogatorioData,this.interrogatorioData.examenesFetos.length).subscribe((res: any) => {
+    //   this.messageService.add({
+    //     severity: "success",
+    //     summary: "Exito",
+    //     detail: res.mensaje
+    //   });
+    // });
   }
 
   openDialogExamenesFeto() {

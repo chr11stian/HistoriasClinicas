@@ -16,12 +16,12 @@ export class ConsultasService {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar`, data)
     }
 
-    addConsultas(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultorio`, data)
+    addConsultas(nroFetos, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultorio/${1}`, data)
     }
 
-    updateConsultas(data) {
-        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio`, data);
+    updateConsultas(nroFetos, data) {
+        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio/${nroFetos}}`, data);
     }
 
     getConsultaPrenatalByEmbarazo(data) {

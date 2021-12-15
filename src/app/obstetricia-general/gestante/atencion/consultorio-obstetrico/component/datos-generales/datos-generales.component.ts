@@ -108,6 +108,7 @@ export class DatosGeneralesComponent implements OnInit {
             this.getConsultas();
         }
     }
+
     /***Recupera la cunsulta por HCL y Numero de embarazo***/
     getConsultas() {
         let data = {
@@ -247,6 +248,7 @@ export class DatosGeneralesComponent implements OnInit {
             this.getConsultas();//Recupera la cunsulta por HCL y Numero de embarazo
         });
     }
+
     buildForm() {
         this.formDatos_Generales = this.form.group({
             //Datos generales del paciente
@@ -261,6 +263,7 @@ export class DatosGeneralesComponent implements OnInit {
             ocupacion: new FormControl(''),
             fecha: new FormControl(''),
             hora: new FormControl(''),
+            nroFetos: new FormControl(''),
 
             //Vacunas previas del paciente
             vAntitetánica1Dosis: new FormControl(''),
@@ -524,9 +527,10 @@ export class DatosGeneralesComponent implements OnInit {
                 },
             ],
         }
-        console.log("DATA UPDATE ADD CONSULTAS", this.data);
+        console.log("DATA UPDATE Y ADD CONSULTAS", this.data);
         if (this.dataConsultas == null) {
-            this.consultasService.addConsultas(this.data).subscribe(
+            let nroFetos = 1;
+            this.consultasService.addConsultas(nroFetos, this.data).subscribe(
                 result => {
                     Swal.fire({
                         icon: 'success',
@@ -538,7 +542,7 @@ export class DatosGeneralesComponent implements OnInit {
                 }
             )
         } else {
-            this.consultasService.updateConsultas(this.data).subscribe((result: any) => {
+            this.consultasService.updateConsultas(this.data,1).subscribe((result: any) => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Actualizo con exito',

@@ -69,7 +69,7 @@ export class SideBarComponent implements OnInit {
                     {
                         icon: "pi pi-file",
                         label: "obstetricia",
-                        items:[
+                        items: [
                             {
                                 label: "Citas",
                                 routerLink: "obstetricia-general/citas",
@@ -79,13 +79,7 @@ export class SideBarComponent implements OnInit {
                                 routerLink: "obstetricia-general/historia-consultas",
                             },
                         ]
-
                     },
-                    // {
-                    //     icon: "pi pi-file",
-                    //     label: "Obstetricia",
-                    //     routerLink: "atencion/obstetricia",
-                    // },
                     {
                         icon: "pi pi-file",
                         label: "FUA",
@@ -100,7 +94,27 @@ export class SideBarComponent implements OnInit {
 
                 ],
             },
-
+            {
+                label: "Medicina General",
+                items: [
+                    {
+                        icon: "pi pi-file",
+                        label: "Adolescente",
+                        items: [
+                            {
+                                label: "Citas",
+                                icon: "pi pi-pw pi-file",
+                                routerLink: "adolescente/citas",
+                            },
+                            {
+                                label: "Consultas",
+                                icon: "pi pi-pw pi-file",
+                                routerLink: "adolescente/citas/consulta",
+                            },
+                        ]
+                    },
+                ],
+            },
             {
                 label: "Funciones Administrativas",
                 items: [
@@ -118,7 +132,7 @@ export class SideBarComponent implements OnInit {
                     {
                         icon: "pi pi-file",
                         label: "cred",
-                        items:[
+                        items: [
                             {
                                 label: "Citas",
                                 icon: "pi pi-pw pi-file",
@@ -130,13 +144,7 @@ export class SideBarComponent implements OnInit {
                                 routerLink: "cred/consulta-cred-general",
                             },
                         ]
-
                     },
-                    // {
-                    //     icon: "pi pi-file",
-                    //     label: "Gestante",
-                    //     routerLink: "gestante/cabecera",
-                    // }
                 ],
             },
 
