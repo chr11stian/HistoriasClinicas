@@ -66,7 +66,7 @@ export class RecienNacidoComponent implements OnInit {
 
     guardarRecienNacidos() {
         console.log('data to save ', this.todosRN);
-        this.recienNacidoService.postRecienNacido(this.idObstetricia, {recienNacido: this.todosRN}).subscribe((res: any) => {
+        this.recienNacidoService.postRecienNacido(this.idObstetricia, {recienNacido: this.todosRN, proceso:"RECIEN NACIDO"}).subscribe((res: any) => {
             console.log('se guardo con exito ', res)
         })
     }

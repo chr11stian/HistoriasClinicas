@@ -707,7 +707,7 @@
                                     <label>Ninguno: </label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox [(ngModel)]="Ninguno" value="Ninguno"></p-checkbox>
+                                    <p-checkbox [(ngModel)]="Ninguno" name="Ninguno" value="Ninguno"></p-checkbox>
                                 </div>
                             </div>
                             <div class="grid">
@@ -968,20 +968,19 @@
 
                     </div>
                     <div class="grid">
-                        <form [formGroup]='formAntecedentes'>
-                            <div class="grid col-12">
-                                <div class="col-3" style="text-align: right">
-                                    <label>Otros: </label>
-                                </div>
-                                <div class="col-1">
-                                    <p-checkbox formControlName="Otros2" value="Otros" class="mt-1"></p-checkbox>
-                                </div>
-
-                                <div class="col-8">
-                                    <input type="text" pInputText class="inputfield w-full">
-                                </div>
+                        <div class="grid col-12">
+                            <div class="col-3" style="text-align: right">
+                                <label>Otros: </label>
                             </div>
-                        </form>
+                            <div class="col-1">
+                                <p-checkbox [(ngModel)]="otros2" value="Otros" class="mt-1"></p-checkbox>
+                            </div>
+                            <form [formGroup]='formAntecedentes'>
+                                <div class="col-8">
+                                    <input type="text" pInputText  formControlName="otros22" class="inputfield w-full">
+                                </div>
+                            </form>
+                        </div>
 
                     </div>
                 </p-fieldset>
