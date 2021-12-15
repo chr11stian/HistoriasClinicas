@@ -50,6 +50,8 @@ export class GiagnosticosComponent implements OnInit {
     /********Lista tipo Dx*****/
     tipoList:any[]= [];
     eleccion: any;
+    private nroFetos = 1;
+
 
     constructor(private formBuilder: FormBuilder,
                 private obstetriciaService: ObstetriciaGeneralService,
@@ -65,9 +67,9 @@ export class GiagnosticosComponent implements OnInit {
         this.nroHclRecuperado = this.obstetriciaService.nroHcl;
         /***************DATOS DE LOS DROPDOWNS*******************/
         /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
-        this.tipoList = [{label: 'D', value: 'D'},
-            {label: 'P', value: 'P'},
-            {label: 'R', value: 'R'},
+        this.tipoList = [{label: 'DEFINITIVO', value: 'D'},
+            {label: 'PRESUNTIVO', value: 'P'},
+            {label: 'REPETITIVO', value: 'R'},
 
         ];
         this.planPartoList = [{label: 'CONTROL', value: 'CONTROL'},
@@ -177,7 +179,26 @@ export class GiagnosticosComponent implements OnInit {
     /*ELIMINAR DATOS DE LAS TABLAS*/
 
     eliminarDx(index) {
-        this.diagnosticos.splice(index, 1)
+        Swal.fire({
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            icon: 'warning',
+            title: 'Estas seguro de eliminar este registro?',
+            text: '',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.diagnosticos.splice(index, 1)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Eliminado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+
     }
     enviarDatosRefProxCita() {
         this.referencia = {
@@ -209,7 +230,8 @@ export class GiagnosticosComponent implements OnInit {
             diagnosticos:this.diagnosticos
 
         }
-        this.DxService.updateConsultas(req).subscribe(
+        // this.getUltimaConsulta();
+        this.DxService.updateConsultas2(req,this.nroFetos).subscribe(
             (resp) => {
                 console.log(resp);
                 console.log(req);

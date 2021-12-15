@@ -55,8 +55,9 @@ export class TratamientoComponent implements OnInit {
   private planPartoReenfocada: any;
   private tipoDocRecuperado: any;
   private nroDocRecuperado: any;
-  private  nroEmbarazo:any;
+  private nroEmbarazo:any;
   private nroHclRecuperado:any;
+  private nroFetos:number = 1;
   constructor (private formBuilder: FormBuilder,
                private obstetriciaService: ObstetriciaGeneralService,
                private dialog:DialogService,
@@ -342,7 +343,7 @@ export class TratamientoComponent implements OnInit {
   }
   recuperarDatosEvaluacion(){
     this.evaluacionNutricional={
-        valor:this.formRIEP.value.valor,
+        valor: parseFloat(this.formRIEP.value.valor),
         indicador:this.formRIEP.value.indicador
     }
   }
@@ -367,7 +368,7 @@ export class TratamientoComponent implements OnInit {
       evaluacionNutricional:this.evaluacionNutricional,
       recomendaciones:this.recomendaciones,
     }
-    this.tratamientoService.updateConsultas(req).subscribe(
+    this.tratamientoService.updateConsultas2(req,this.nroFetos).subscribe(
         (resp) => {
           console.log(resp);
           console.log(req);
@@ -384,19 +385,113 @@ export class TratamientoComponent implements OnInit {
   }
   /* ELIMINAR ITEMS DE CADA TABLA */
   eliminarTratamientoComun(index){
-      this.tratamientosComunes.splice(index,1)
+    Swal.fire({
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      icon: 'warning',
+      title: 'Estas seguro de eliminar este registro?',
+      text: '',
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.tratamientosComunes.splice(index,1)
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+
   }
   eliminarInmunizaciones(index){
-      this.tratamientoInmunizaciones.splice(index,1)
+    Swal.fire({
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      icon: 'warning',
+      title: 'Estas seguro de eliminar este registro?',
+      text: '',
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.tratamientoInmunizaciones.splice(index,1)
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+
   }
   eliminarRecomendaciones(index){
-    this.recomendaciones.splice(index,1);
+    Swal.fire({
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      icon: 'warning',
+      title: 'Estas seguro de eliminar este registro?',
+      text: '',
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.recomendaciones.splice(index,1);
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+
   }
   eliminarInterconsulta(index){
-    this.interconsultas.splice(index,1)
+    Swal.fire({
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      icon: 'warning',
+      title: 'Estas seguro de eliminar este registro?',
+      text: '',
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.interconsultas.splice(index,1)
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
+
   }
   eliminarExamenesAuxiliares(index) {
-    this.examenesAuxiliares.splice(index,1);
+    Swal.fire({
+      showCancelButton: true,
+      confirmButtonText: 'Eliminar',
+      icon: 'warning',
+      title: 'Estas seguro de eliminar este registro?',
+      text: '',
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.examenesAuxiliares.splice(index,1);
+        Swal.fire({
+          icon: 'success',
+          title: 'Eliminado correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
   }
   recuperarDatos(){
     let aux ={

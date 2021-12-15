@@ -19,16 +19,12 @@ export class ObstetriciaGeneralService {
     /***Id del consultorio obstetrico***/
     idConsultoriObstetrico: string = "";
 
-
     constructor(private http: HttpClient) {
     }
-
     getPacienteFiliacion(tipoDoc, nroDoc) {
         return this.http.get(`${this.base_url}/${this.bd}/filiacion/listarfiliacion/${tipoDoc}/${nroDoc}`)
     }
-
     getConsultorioObstetrico(data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar/`, data)
     }
-
 }
