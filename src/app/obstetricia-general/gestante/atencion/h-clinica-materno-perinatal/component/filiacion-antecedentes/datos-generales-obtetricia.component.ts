@@ -29,6 +29,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     /**Antecedentes Personales**/
     otros2: string;
+    otros23: string[] = [];
     Ninguno: string[] = [];
     Abortohabitualrecurrente: string[] = [];
     Violencia: string[] = [];
@@ -241,6 +242,9 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         if (this.transtornMentales[0] == null) {
             this.transtornMentales = [];
         }
+        if (this.otros2[0] == null) {
+            this.otros2 = null;
+        }
     }
 
 
@@ -329,6 +333,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     addData() {
         console.log("ZZZZZZZz", this.Ninguno);
         console.log("ZZZZZZZz", this.Abortohabitualrecurrente);
+        console.log("wewewewew", this.otros2);
         const req = {
             gestacionAnterior: {
                 fecha: this.formAntecedentes.value.fecha,
@@ -519,7 +524,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                 },
             ],
 
-            otroAncedentePersonal: this.otros2[0],
+            otroAncedentePersonal: this.otros2,
 
         }
         console.log("DATA ANTECEDENTES", req)
@@ -625,6 +630,9 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.tabaco = [this.dataAntecedentes.antecedentesPersonales[26].nombre];
             this.transtornMentales = [this.dataAntecedentes.antecedentesPersonales[27].nombre];
             this.otros2 = this.dataAntecedentes.otroAncedentePersonal;
+            if (this.otros2 !== null) {
+                this.otros23 = ["otros"]
+            }
             console.log("QQQ", this.otros2);
 
 
@@ -633,6 +641,13 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.inicializarArregloAntecedentes();
 
         });
+    }
+
+    eventoKeyup() {
+        if (this.otros2.length > 0) {
+            this.otros23 = ["otros"]
+        } else
+            this.otros23 = null
     }
 
     fnCheckbox(value) {

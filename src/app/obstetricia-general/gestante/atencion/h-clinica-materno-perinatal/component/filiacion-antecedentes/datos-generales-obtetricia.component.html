@@ -398,54 +398,51 @@
 
         <div class="grid">
             <div class="col">
-                <form [formGroup]='formAntecedentes'>
-
-                    <p-fieldset legend="Antecedentes Familiares">
-                        <div class="grid">
-                            <div class="col-6">
-                                <div class="grid">
-                                    <div class="col-6" style="text-align: center">
-                                        <label></label>
-                                    </div>
-                                    <div class="col-6" style="text-align: left">
-                                        <label class="colorear">Quien:</label>
-                                    </div>
+                <p-fieldset legend="Antecedentes Familiares">
+                    <div class="grid">
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-6" style="text-align: center">
+                                    <label></label>
+                                </div>
+                                <div class="col-6" style="text-align: left">
+                                    <label class="colorear">Quien:</label>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-6">
-                                <div class="grid">
-                                    <div class="col-6" style="text-align: center">
-                                        <label></label>
-                                    </div>
-                                    <div class="col-6" style="text-align: left">
-                                        <label class="colorear">Quien: </label>
-                                    </div>
+                        <div class="col-6">
+                            <div class="grid">
+                                <div class="col-6" style="text-align: center">
+                                    <label></label>
                                 </div>
-
+                                <div class="col-6" style="text-align: left">
+                                    <label class="colorear">Quien: </label>
+                                </div>
                             </div>
 
                         </div>
-                        <div class="grid">
-                            <div class="col" style="align-self: start">
-                                <div class="grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Ninguno: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Ninguno" name="ninguno"
-                                                       formControlName="ninguno" class="default"></p-radioButton>
-                                    </div>
+
+                    </div>
+                    <div class="grid">
+                        <div class="col" style="align-self: start">
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Ninguno: </label>
                                 </div>
-                                <div class="grid">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Alergias: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Alergia" name="alergia"
-                                                       formControlName="alergia" class="amarillo"></p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                                <div class="col-2">
+                                    <p-checkbox value="Ninguno" name="ninguno" class="default"></p-checkbox>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Alergias: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Alergia" name="alergia" class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -454,18 +451,20 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Enf. Hepertens. emb. </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Enfer. Hepertens" name="EnferHepertens"
-                                                       class="mt-1" formControlName="EnferHepertens" class="amarillo">
-                                        </p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                            </div>
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Enf. Hepertens. emb. </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Enfer. Hepertens" name="EnferHepertens"
+                                                class="mt-1" class="amarillo">
+                                    </p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -474,18 +473,20 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Epilepcia: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Epilepcia" class="mt-1" name="epilepcia"
-                                                       formControlName="epilepcia" class="amarillo">
-                                        </p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                            </div>
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Epilepcia: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Epilepcia" class="mt-1" name="epilepcia"
+                                                class="amarillo">
+                                    </p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -494,17 +495,19 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Diabetes: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Diabetes" class="mt-1" name="diabetes"
-                                                       formControlName="diabetes" class="amarillo"></p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                            </div>
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Diabetes: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Diabetes" class="mt-1" name="diabetes"
+                                                class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -513,19 +516,20 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Enf. Congénitas: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Enf. Congenitas" name="EnfCongenitas"
-                                                       formControlName="EnfCongenitas"
-                                                       class="mt-1" class="amarillo">
-                                        </p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                            </div>
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Enf. Congénitas: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Enf. Congenitas" name="EnfCongenitas"
+                                                class="mt-1" class="amarillo">
+                                    </p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -534,19 +538,20 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Emb. Multiple: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Emb. Multiple" class="mt-1" name="EmbMultiple"
-                                                       formControlName="EmbMultiple"
-                                                       class="amarillo">
-                                        </p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                            </div>
+                            <div class="grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Emb. Multiple: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Emb. Multiple" class="mt-1" name="EmbMultiple"
+                                                class="amarillo">
+                                    </p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -555,19 +560,21 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="col" style="align-self: start">
-                                <div class="field grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Malaria:</label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Malaria" class="mt-1" name="malaria"
-                                                       formControlName="malaria" class="amarillo"></p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                        </div>
+                        <div class="col" style="align-self: start">
+                            <div class="field grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Malaria:</label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Malaria" class="mt-1" name="malaria"
+                                                class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -576,18 +583,20 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="field grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Hip. Arterial: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Hip. Arterial" name="HipArterial"
-                                                       class="mt-1" formControlName="HipArterial"
-                                                       class="amarillo"></p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                            </div>
+                            <div class="field grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Hip. Arterial: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Hip. Arterial" name="HipArterial"
+                                                class="mt-1"
+                                                class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -596,18 +605,20 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="field grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Hipo tiroidismo:</label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Hipo tiroidismo" name="HipoTiroidismo"
-                                                       class="mt-1" formControlName="HipoTiroidismo"
-                                                       class="amarillo"></p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                            </div>
+                            <div class="field grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Hipo tiroidismo:</label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Hipo tiroidismo" name="HipoTiroidismo"
+                                                class="mt-1"
+                                                class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -616,18 +627,20 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="field grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Neoplásica: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Neoplásica" name="neoplásica"
-                                                       class="mt-1" formControlName="neoplásica"
-                                                       class="amarillo"></p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                            </div>
+                            <div class="field grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Neoplásica: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Neoplásica" name="neoplásica"
+                                                class="mt-1"
+                                                class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -636,18 +649,20 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="field grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>TBC Pulmonar: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="TBC Pulmonar" name="TBCPulmonar"
-                                                       class="mt-1" formControlName="TBCPulmonar"
-                                                       class="amarillo"></p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                            </div>
+                            <div class="field grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>TBC Pulmonar: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="TBC Pulmonar" name="TBCPulmonar"
+                                                class="mt-1"
+                                                class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -656,18 +671,19 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
-                                <div class="field grid ">
-                                    <div class="col-4" style="text-align: right">
-                                        <label>Otros: </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <p-radioButton value="Otros" name="otros"
-                                                       class="mt-1" formControlName="otros"
-                                                       class="amarillo"></p-radioButton>
-                                    </div>
-                                    <div class="p-field col-6">
+                            </div>
+                            <div class="field grid ">
+                                <div class="col-4" style="text-align: right">
+                                    <label>Otros: </label>
+                                </div>
+                                <div class="col-2">
+                                    <p-checkbox value="Otros" name="otros"
+                                                class="mt-1" class="amarillo"></p-checkbox>
+                                </div>
+                                <div class="p-field col-6">
+                                    <form [formGroup]='formAntecedentes'>
                                         <p-dropdown
                                                 [options]="familiares"
                                                 optionLabel="nombrefamiliar"
@@ -676,13 +692,15 @@
                                                 placeholder="Selec"
                                                 [showClear]="false">
                                         </p-dropdown>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <br>
-                    </p-fieldset>
+                    </div>
                     <br>
+                </p-fieldset>
+                <br>
+                <form [formGroup]='formAntecedentes'>
                     <p-fieldset legend="Antecendentes">
                         <div class="grid">
                             <div class="col-3">
@@ -973,13 +991,12 @@
                                 <label>Otros: </label>
                             </div>
                             <div class="col-1">
-                                <p-checkbox [(ngModel)]="otros2" value="Otros" class="mt-1"></p-checkbox>
+                                <p-checkbox [(ngModel)]="otros23" value="otros" class="mt-1"></p-checkbox>
                             </div>
-                            <form [formGroup]='formAntecedentes'>
-                                <div class="col-8">
-                                    <input type="text" pInputText  formControlName="otros22" class="inputfield w-full">
-                                </div>
-                            </form>
+                            <div class="col-8">
+                                <input type="text" pInputText [(ngModel)]="otros2" (keyup)="eventoKeyup()"
+                                       class="inputfield w-full">
+                            </div>
                         </div>
 
                     </div>
