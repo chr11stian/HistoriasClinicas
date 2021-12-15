@@ -1,0 +1,45 @@
+<div class="card">
+    <p-card>
+        <div class="grid">
+            <div class="col-9" style="margin: 0 0 0 20px;">
+                <span style="font-size: 2em;">ADULTO> PLAN DE ATENCIÓN INTEGRAL  </span>
+            </div>
+        </div>
+    </p-card>
+</div>
+<p-steps [model]="items" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo"
+         (activeIndexChange)="ChangeStep($event)">
+</p-steps>
+<div class="stepsdemo-content" *ngIf="stepName === 'problema'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-problemas-adulto-mayor></app-problemas-adulto-mayor>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'dato'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-datos-generales-adulto-mayor></app-datos-generales-adulto-mayor>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'plan'">
+    <p-card>
+        <app-plan-atencion-adulto-mayor></app-plan-atencion-adulto-mayor>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'antecedente'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-antecedentes-adulto-mayor></app-antecedentes-adulto-mayor>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'valoracion'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-valoracion-adulto-mayor></app-valoracion-adulto-mayor>
+        </ng-template>
+    </p-card>
+</div>

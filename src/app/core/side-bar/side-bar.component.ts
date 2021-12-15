@@ -113,6 +113,28 @@ export class SideBarComponent implements OnInit {
                             },
                         ]
                     },
+                    {
+                        icon: "pi pi-file",
+                        label: "Adulto",
+                        items: [
+                            {
+                                label: "Citas",
+                                icon: "pi pi-pw pi-file",
+                                routerLink: "adulto/citas",
+                            },
+                        ]
+                    },
+                    {
+                        icon: "pi pi-file",
+                        label: "Adulto Mayor",
+                        items: [
+                            {
+                                label: "Citas",
+                                icon: "pi pi-pw pi-file",
+                                routerLink: "adulto-mayor/citas",
+                            },
+                        ]
+                    },
                 ],
             },
             {

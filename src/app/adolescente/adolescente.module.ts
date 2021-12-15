@@ -15,10 +15,10 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         CitasAdolescenteComponent
     ],
     imports: [
-        SharedModule,
-        PrimeModule,
         CommonModule,
         AdolescenteRoutingModule,
+        SharedModule,
+        PrimeModule,
         DynamicDialogModule,
         ToggleButtonModule,
         RippleModule,
