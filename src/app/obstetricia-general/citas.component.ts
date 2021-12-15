@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ObstetriciaGeneralService } from './services/obstetricia-general.service';
 
 @Component({
     selector: 'app-citas',
@@ -11,12 +12,14 @@ export class CitasComponent implements OnInit {
     selectedOption: data
     citas: any[]
 
-    constructor() {
+    constructor(
+        private obstetriciaService: ObstetriciaGeneralService,
+    ) {
         this.options = [
-            {name: "DNI", code: 1},
-            {name: "CARNET RN", code: 2},
-            {name: "C EXTRANJERIA", code: 3},
-            {name: "OTROS", code: 4},
+            { name: "DNI", code: 1 },
+            { name: "CARNET RN", code: 2 },
+            { name: "C EXTRANJERIA", code: 3 },
+            { name: "OTROS", code: 4 },
         ]
         this.citas = [
             {
@@ -53,6 +56,11 @@ export class CitasComponent implements OnInit {
             // },
         ]
 
+    }
+
+    irConsultaNoControl(row) {
+        console.log('pasando data ', row);
+        this.obstetriciaService.data = row;
     }
 
     ngOnInit(): void {

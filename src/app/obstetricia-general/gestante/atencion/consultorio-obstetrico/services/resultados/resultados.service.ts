@@ -11,7 +11,7 @@ export class ResultadosService {
   constructor(private http: HttpClient) {
   }
   addresultado(inputRequest) {
-    return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio`, inputRequest)
+    return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio/1`, inputRequest)
   }
   getResultado(inputRequest) {
     return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarResultados`, inputRequest)

@@ -599,6 +599,17 @@
                         <p-fieldset legend="Examen Fetal">
                             <div class="grid ">
                                 <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-4">
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Numero de Fetos:</label>
+                                            <input type="number" pInputText formControlName='nroFetos' placeholder=""
+                                                class="p-inputtext-sm inputfield w-full">
+                                        </div>
+                                        <div class="col-4">
+                                        </div>
+                                    </div>
                                     <p-table [value]="datosExamenesFetales" #dt [rows]="3" styleClass="p-datatable-sm"
                                         [paginator]="true" [autoLayout]="true" class="m-3"
                                         currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"

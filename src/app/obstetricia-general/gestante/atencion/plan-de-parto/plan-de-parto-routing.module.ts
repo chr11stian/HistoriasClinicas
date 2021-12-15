@@ -7,13 +7,10 @@ const routes: Routes = [
         path: "plan-de-parto",
         component: StepGeneralPartoComponent
     },
-
     {
         path: "obstetricia",
         loadChildren: () => import('src/app/obstetricia-general/gestante/atencion/plan-de-parto/plan-de-parto.module').then(n => n.PlanDePartoModule),
     },
-
-
 ];
 
 @NgModule({

@@ -15,6 +15,7 @@ export class ObstetriciaGeneralService {
     nroDoc: string = "";
     nroEmbarazo: string = "";
     nroHcl: string;
+    data:any;
 
     /***Id del consultorio obstetrico***/
     idConsultoriObstetrico: string = "";

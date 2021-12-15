@@ -74,7 +74,7 @@ p-panel>>>.p-panel .p-panel-content{
 }
 /*estilo para responsive formulario*/
 .resp{
-    max-with:1200px;
+    max-width:1200px;
     margin: 0 auto;
     display: grid;
     grid-gap: 0.5rem;
