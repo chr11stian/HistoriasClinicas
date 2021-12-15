@@ -42,28 +42,17 @@ const routes: Routes = [
                 path: "caja",
                 loadChildren: () => import('src/app/caja/caja.module').then(n => n.CajaModule),
             },
-            // {
-            //     path: "gestante",
-            //     loadChildren: () => import('src/app/gestante/gestante.module').then(n => n.GestanteModule),
-            // },
-
-            // {
-            //     path: "obstetricia",
-            //     loadChildren: () => import('src/app/obstetricia/obstetricia.module').then(n => n.ObstetriciaModule),
-            // }
             {
                 path: "obstetricia-general",
                 loadChildren: () => import('src/app/obstetricia-general/obstetricia-general.module').then(n => n.ObstetriciaGeneralModule),
             },
-            // {
-            //     path: "atencion",
-            //     loadChildren: () => import('src/app/atencion/atencion.module').then(n => n.AtencionModule),
-            // },
-
-
             {
                 path: "fua",
                 loadChildren: () => import('src/app/fua/fua.module').then(n => n.FuaModule),
+            },
+            {
+                path: "adolescente",
+                loadChildren: () => import('src/app/adolescente/adolescente.module').then(n => n.AdolescenteModule),
             },
         ]
     }
