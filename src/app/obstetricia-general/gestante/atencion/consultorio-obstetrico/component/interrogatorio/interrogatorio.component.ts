@@ -78,7 +78,7 @@ export class InterrogatorioComponent implements OnInit {
 
     const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
     this.ultimaConsulta = response.object;
-
+    this.form.get("imc").setValue(this.ultimaConsulta.imc);
   }
 
   inicializarForm() {
@@ -216,13 +216,14 @@ export class InterrogatorioComponent implements OnInit {
     console.log('last consult ', this.ultimaConsulta);
     console.log('data to save', this.interrogatorioData);
     console.log('length ', this.interrogatorioData.examenesFetos.length);
-    // this.consultaObstetricaService.updateConsultas(this.interrogatorioData,this.interrogatorioData.examenesFetos.length).subscribe((res: any) => {
-    //   this.messageService.add({
-    //     severity: "success",
-    //     summary: "Exito",
-    //     detail: res.mensaje
-    //   });
-    // });
+    let auxNroFetos = this.interrogatorioData.examenesFetos.length;
+    this.consultaObstetricaService.updateConsultas(auxNroFetos, this.interrogatorioData).subscribe((res: any) => {
+      this.messageService.add({
+        severity: "success",
+        summary: "Exito",
+        detail: res.mensaje
+      });
+    });
   }
 
   openDialogExamenesFeto() {
@@ -285,7 +286,7 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ fr: Rpta.funcionesVitales.fr });
       this.form.patchValue({ peso: Rpta.funcionesVitales.peso });
       this.form.patchValue({ talla: Rpta.funcionesVitales.talla });
-      this.form.patchValue({ imc: Rpta.funcionesVitales.imc });
+      // this.form.patchValue({ imc: this.form.get("imc").setValue(parseFloat(this.ultimaConsulta.imc)) });
       this.form.patchValue({ apetito: Rpta.funcionesBiologicas[0].valor });
       this.form.patchValue({ sed: Rpta.funcionesBiologicas[1].valor });
       this.form.patchValue({ suenos: Rpta.funcionesBiologicas[2].valor });

@@ -21,7 +21,7 @@ export class ConsultasService {
     }
 
     updateConsultas(nroFetos, data) {
-        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio/${nroFetos}}`, data);
+        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio/${nroFetos}`, data);
     }
 
     getConsultaPrenatalByEmbarazo(data) {
