@@ -3,6 +3,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CieService } from 'src/app/obstetricia-general/services/cie.service';
+import { ImcService } from 'src/app/obstetricia-general/services/imc.service';
 import { ObstetriciaGeneralService } from 'src/app/obstetricia-general/services/obstetricia-general.service';
 import Swal from 'sweetalert2';
 import { ConsultaObstetriciaService } from '../services/consulta-obstetricia/consulta-obstetricia.service';
@@ -57,12 +59,12 @@ export class DialogConsultaComponent implements OnInit {
         { name: "+", code: "1" },
         { name: "++", code: "2" },
         { name: "+++", code: "3" },
-        { name: "ES", code: "4" },
+        { name: "SE", code: "4" },
     ];
     listaIndicadores = [
-        { name: "GAP", code: "1" },
-        { name: "GEP", code: "2" },
-        { name: "GIP", code: "3" },
+        { name: "GANANCIA INADECUADA DE PESO", code: "GIP" },
+        { name: "GANANCIA ADECUADA DE PESO", code: "GAP" },
+        { name: "GANANCIA ELEVADA DE PESO", code: "GEP" },
     ];
     opciones = [
         { name: 'SI', code: 'SI' },
@@ -82,43 +84,43 @@ export class DialogConsultaComponent implements OnInit {
         { name: "PRESUNTIVO", code: "P" },
     ];
     listaViaAdministracion = [
-        {name: 'ENDOVENOSA', code: "1"},
-        {name: 'INHALADORA',code: "2"},
-        {name: 'INTRADERMICO', code: "3"},
-        {name: 'INTRAMUSCULAR', code: "4"},
-        {name: 'NASAL', code: "5"},
-        {name: 'OFTALMICO', code: "6"},
-        {name: 'ORAL', code: "7"},
-        {name: 'OPTICO', code: "8"},
-        {name: 'RECTAL', code: "9"},
-        {name: 'SUBCUTANEO', code: "10"},
-        {name: 'SUBLINGUAL', code: "11"},
-        {name: 'TOPICO', code: "12"},
-        {name: 'VAGINAL', code: "13"},
+        { name: 'ENDOVENOSA', code: "1" },
+        { name: 'INHALADORA', code: "2" },
+        { name: 'INTRADERMICO', code: "3" },
+        { name: 'INTRAMUSCULAR', code: "4" },
+        { name: 'NASAL', code: "5" },
+        { name: 'OFTALMICO', code: "6" },
+        { name: 'ORAL', code: "7" },
+        { name: 'OPTICO', code: "8" },
+        { name: 'RECTAL', code: "9" },
+        { name: 'SUBCUTANEO', code: "10" },
+        { name: 'SUBLINGUAL', code: "11" },
+        { name: 'TOPICO', code: "12" },
+        { name: 'VAGINAL', code: "13" },
     ];
     listaVisitaDomiciliaria = [
-        {name: 'SI', code: "1"},
-        {name: 'NO',code: "2"},
-        {name: 'NO APLICA', code: "3"}
+        { name: 'SI', code: "1" },
+        { name: 'NO', code: "2" },
+        { name: 'NO APLICA', code: "3" }
     ];
     listaPlanPartoReenfocada = [
-        {name: 'CONTROL', code: "1"},
-        {name: 'VISITA',code: "2"},
-        {name: 'NO SE HIZO', code: "3"}
+        { name: 'CONTROL', code: "1" },
+        { name: 'VISITA', code: "2" },
+        { name: 'NO SE HIZO', code: "3" }
     ];
     listaIntervalos = [
-        {name: 'CADA 1 HORA', code: '1'},
-        {name: 'CADA 2 HORAS', code: '2'},
-        {name: 'CADA 3 HORAS', code: '3'},
-        {name: 'CADA 4 HORAS', code: '4'},
-        {name: 'CADA 5 HORAS', code: '5'},
-        {name: 'CADA 6 HORAS', code: '6'},
-        {name: 'CADA 8 HORAS', code: '7'},
-        {name: 'CADA 12 HORAS', code: '8'},
-        {name: 'CADA 24 HORAS', code: '9'},
-        {name: 'CONDICIONAL A FIEBRE', code: '10'},
-        {name: 'DOSIS UNICA', code: '11'},
-        {name: 'CADA 48 HORAS', code: '12'}
+        { name: 'CADA 1 HORA', code: '1' },
+        { name: 'CADA 2 HORAS', code: '2' },
+        { name: 'CADA 3 HORAS', code: '3' },
+        { name: 'CADA 4 HORAS', code: '4' },
+        { name: 'CADA 5 HORAS', code: '5' },
+        { name: 'CADA 6 HORAS', code: '6' },
+        { name: 'CADA 8 HORAS', code: '7' },
+        { name: 'CADA 12 HORAS', code: '8' },
+        { name: 'CADA 24 HORAS', code: '9' },
+        { name: 'CONDICIONAL A FIEBRE', code: '10' },
+        { name: 'DOSIS UNICA', code: '11' },
+        { name: 'CADA 48 HORAS', code: '12' }
     ];
     datosOtrosPruebasFisicas: any[] = [];
     indexEditarOtrosPruebasFisicasEditado: number = 0;
@@ -150,33 +152,55 @@ export class DialogConsultaComponent implements OnInit {
 
     estadoEdicion: boolean;
     datePipe = new DatePipe('en-US');
+    listaDeCIE: any;
 
     constructor(
         private fb: FormBuilder,
         private ref: DynamicDialogRef,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
         private consultaObstetriciaService: ConsultaObstetriciaService,
-        public config: DynamicDialogConfig
+        private imcService: ImcService,
+        public config: DynamicDialogConfig,
+        private CieService: CieService,
     ) {
         this.nroHcl = this.obstetriciaGeneralService.nroHcl;
         this.estadoEdicion = false;
         this.inicializarForm();
-        this.consultaObstetriciaService.traerDatosParaConsultaNueva({nroHcl: this.nroHcl}).subscribe((res: any) => {
+        this.consultaObstetriciaService.traerDatosParaConsultaNueva({ nroHcl: this.nroHcl }).subscribe((res: any) => {
             console.log('datos ', res.object);
-            this.datosNuevaConsulta=res.object;
+            this.datosNuevaConsulta = res.object;
             console.log("este config", config.data);
-            this.form.get("edad").setValue(this.datosNuevaConsulta.edad? this.datosNuevaConsulta.edad:"");
-            this.form.get("nroAtencion").setValue(this.datosNuevaConsulta.nroUltimaAtencion? this.datosNuevaConsulta.nroUltimaAtencion+1:"");
-            this.form.get("nroControlSis").setValue(this.datosNuevaConsulta.nroUltimoControlSis? this.datosNuevaConsulta.nroUltimoControlSis+1:"");
-            this.form.get("direccion").setValue(this.datosNuevaConsulta.direccion? this.datosNuevaConsulta.direccion:"");
+            this.form.get("edad").setValue(this.datosNuevaConsulta.edad ? this.datosNuevaConsulta.edad : "");
+            this.form.get("nroAtencion").setValue(this.datosNuevaConsulta.nroUltimaAtencion ? this.datosNuevaConsulta.nroUltimaAtencion + 1 : "");
+            this.form.get("nroControlSis").setValue(this.datosNuevaConsulta.nroMayorControlSis ? this.datosNuevaConsulta.nroMayorControlSis + 1 : "");
+            this.form.get("direccion").setValue(this.datosNuevaConsulta.direccion ? this.datosNuevaConsulta.direccion : "");
+            this.form.get("pesoHabitual").setValue(this.datosNuevaConsulta.pesoHabitual ? this.datosNuevaConsulta.pesoHabitual : "");
+            this.form.get("imc").setValue(this.datosNuevaConsulta.imc ? this.datosNuevaConsulta.imc : "");
+            this.form.get("nroFetos").setValue(this.datosNuevaConsulta.nroFetos ? this.datosNuevaConsulta.nroFetos : "");
+            this.calcularEdadGestacional(this.datosNuevaConsulta.fum);
+
             if (config.data) {
                 this.llenarCamposEdicionConsulta();
                 this.estadoEdicion = true;
             }
         });
-        
-    }
 
+    }
+    calcularEdadGestacional(fum) {
+        if (fum) {
+            let today = new Date().getTime();
+            let auxFUM = new Date(fum).getTime();
+            auxFUM = auxFUM + 0;
+            let auxWeek = today - auxFUM;
+            let edadGestacional = Math.trunc(auxWeek / (1000 * 60 * 60 * 24));
+
+            this.form.get("edadSemanas").setValue(Math.trunc(edadGestacional / 7));
+            this.form.get("edadDias").setValue(edadGestacional % 7);
+            this.form.get("ecografiaEdadSemanas").setValue(Math.trunc(edadGestacional / 7));
+            this.form.get("ecografiaEdadDias").setValue(edadGestacional % 7);
+            console.log('edad gestacional ', edadGestacional);
+        }
+    }
     ngOnInit(): void { }
 
     inicializarForm() {
@@ -205,6 +229,7 @@ export class DialogConsultaComponent implements OnInit {
             fc: new FormControl(""),
             fr: new FormControl(""),
             peso: new FormControl(""),
+            pesoHabitual: new FormControl(""),
             talla: new FormControl(""),
             imc: new FormControl(""),
             evalNutricionalValor: new FormControl(""),
@@ -239,6 +264,7 @@ export class DialogConsultaComponent implements OnInit {
             edemaExamen: new FormControl(""),
             edadSemanas: new FormControl(""),
             edadDias: new FormControl(""),
+            nroFetos: new FormControl(""),
 
             //signos de alarma
             dificultadRespiratoria: new FormControl(""),
@@ -257,29 +283,29 @@ export class DialogConsultaComponent implements OnInit {
 
             //orientaciones
             consejeria1: new FormControl(""),
-            cie10_1: new FormControl(""),
+            cie10_1: new FormControl("99401"),
             consejeria2: new FormControl(""),
             cie10_2: new FormControl(""),
             consejeria3: new FormControl(""),
             cie10_3: new FormControl(""),
             consejeria4: new FormControl(""),
-            cie10_4: new FormControl(""),
+            cie10_4: new FormControl("9940205"),
             consejeria5: new FormControl(""),
-            cie10_5: new FormControl(""),
+            cie10_5: new FormControl("99403"),
             consejeria6: new FormControl(""),
-            cie10_6: new FormControl(""),
+            cie10_6: new FormControl("99402"),
             consejeria7: new FormControl(""),
-            cie10_7: new FormControl(""),
+            cie10_7: new FormControl("U138 "),
             consejeria8: new FormControl(""),
-            cie10_8: new FormControl(""),
+            cie10_8: new FormControl("86703"),
             consejeria9: new FormControl(""),
             cie10_9: new FormControl(""),
             consejeria10: new FormControl(""),
             cie10_10: new FormControl(""),
             consejeria11: new FormControl(""),
-            cie10_11: new FormControl(""),
+            cie10_11: new FormControl("U121"),
             consejeria12: new FormControl(""),
-            cie10_12: new FormControl(""),
+            cie10_12: new FormControl("111692"),
 
             //referencia
             consultorioReferencia: new FormControl(""),
@@ -392,6 +418,7 @@ export class DialogConsultaComponent implements OnInit {
             diagnostico: new FormControl(""),
             cie10: new FormControl(""),
             tipo: new FormControl(""),
+            autocompleteDiagnostico: new FormControl(""),
         });
         this.formTratamiento = this.fb.group({
             descripcion: new FormControl(""),
@@ -423,6 +450,150 @@ export class DialogConsultaComponent implements OnInit {
             nombre: new FormControl(""),
             resultado: new FormControl(""),
         });
+    }
+    calcularGanancia() {
+        let gananciaPeso = Math.round(((this.form.value.peso - this.form.value.pesoHabitual) + Number.EPSILON) * 100) / 100;
+        let imc = this.form.value.imc;
+        let indicador = "";
+        let semanas = this.form.value.edadSemanas;
+        this.form.get("evalNutricionalValor").setValue(gananciaPeso);
+        if (parseFloat(imc) < 18.5) {//bajo peso
+            this.imcService.getGananciaBajoPeso(semanas).subscribe((res: any) => {
+                console.log('datos ', res.object);
+                let auxiliar = res.object.recomendacionGananciaBajoPeso[0]
+
+                if (parseFloat(this.form.value.talla) < 157) {
+                    if (gananciaPeso < auxiliar.min) {
+                        indicador = "GIP"
+                    }
+                    else {
+                        (gananciaPeso > auxiliar.min && gananciaPeso < res.object.med) ? indicador = "GAP" : indicador = "GEP"
+                    }
+                }
+                else {
+                    if (gananciaPeso < auxiliar.med) {
+                        indicador = "GIP"
+                    }
+                    else {
+                        (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
+                    }
+                }
+                this.form.get("evalNutricionalIndicador").setValue(indicador);
+            });
+        }
+        else {
+            if (parseFloat(imc) < 25) {//normal
+                this.imcService.getGananciaPesoRegular(semanas).subscribe((res: any) => {
+                    let auxiliar = res.object.recomendacionGananciaPesoRegular[0];
+                    console.log('datos ', auxiliar);
+                    if (this.form.value.nroFetos < 2) {
+                        if (parseFloat(this.form.value.talla) < 157) {
+                            if (gananciaPeso < auxiliar.min) {
+                                indicador = "GIP"
+                            }
+                            else {
+                                (gananciaPeso > auxiliar.min && gananciaPeso < auxiliar.med) ? indicador = "GAP" : indicador = "GEP"
+                            }
+                        }
+                        else {
+                            if (gananciaPeso < auxiliar.med) {
+                                indicador = "GIP"
+                            }
+                            else {
+                                (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
+                            }
+                        }
+                    }
+                    else {
+                        if (parseFloat(this.form.value.talla) < 157) {
+                            if (gananciaPeso < auxiliar.minMult) {
+                                indicador = "GIP"
+                            }
+                            else {
+                                (gananciaPeso > auxiliar.minMult && gananciaPeso < auxiliar.medMult) ? indicador = "GAP" : indicador = "GEP"
+                            }
+                        }
+                        else {
+                            if (gananciaPeso < auxiliar.medMult) {
+                                indicador = "GIP"
+                            }
+                            else {
+                                (gananciaPeso > auxiliar.medMult && gananciaPeso < auxiliar.maxMult) ? indicador = "GAP" : indicador = "GEP"
+                            }
+                        }
+                    }
+                    this.form.get("evalNutricionalIndicador").setValue(indicador);
+                });
+            }
+            else {
+                if (parseFloat(imc) < 30) {//sobrepeso
+                    this.imcService.getGananciaSobrePeso(semanas).subscribe((res: any) => {
+                        let auxiliar = res.object.recomendacionGananciaSobrePeso[0];
+                        console.log('datos ', res.object);
+                        if (parseFloat(this.form.value.talla) < 157) {
+                            if (gananciaPeso < auxiliar.min) {
+                                indicador = "GIP"
+                            }
+                            else {
+                                (gananciaPeso > auxiliar.min && gananciaPeso < res.auxiliar.med) ? indicador = "GAP" : indicador = "GEP"
+                            }
+                        }
+                        else {
+                            if (gananciaPeso < auxiliar.med) {
+                                indicador = "GIP"
+                            }
+                            else {
+                                (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
+                            }
+                        }
+                        this.form.get("evalNutricionalIndicador").setValue(indicador);
+                    });
+                }
+                else {//obesidad
+                    this.imcService.getGananciaObesa(semanas).subscribe((res: any) => {
+                        console.log('datos ', res.object);
+                        let auxiliar = res.object.recomendacionGananciaObesa[0];
+                        if (this.form.value.nroFetos < 2) {
+                            if (parseFloat(this.form.value.talla) < 157) {
+                                if (gananciaPeso < auxiliar.min) {
+                                    indicador = "GIP"
+                                }
+                                else {
+                                    (gananciaPeso > auxiliar.min && gananciaPeso < auxiliar.med) ? indicador = "GAP" : indicador = "GEP"
+                                }
+                            }
+                            else {
+                                if (gananciaPeso < auxiliar.med) {
+                                    indicador = "GIP"
+                                }
+                                else {
+                                    (gananciaPeso > auxiliar.med && gananciaPeso < auxiliar.max) ? indicador = "GAP" : indicador = "GEP"
+                                }
+                            }
+                        }
+                        else {
+                            if (parseFloat(this.form.value.talla) < 157) {
+                                if (gananciaPeso < auxiliar.minMult) {
+                                    indicador = "GIP"
+                                }
+                                else {
+                                    (gananciaPeso > auxiliar.minMult && gananciaPeso < auxiliar.medMult) ? indicador = "GAP" : indicador = "GEP"
+                                }
+                            }
+                            else {
+                                if (gananciaPeso < auxiliar.medMult) {
+                                    indicador = "GIP"
+                                }
+                                else {
+                                    (gananciaPeso > auxiliar.medMult && gananciaPeso < auxiliar.maxMult) ? indicador = "GAP" : indicador = "GEP"
+                                }
+                            }
+                        }
+                        this.form.get("evalNutricionalIndicador").setValue(indicador);
+                    });
+                }
+            }
+        }
     }
     openNewOtrosPruebasFisicas() {
         this.formOtrosPruebas.reset();
@@ -571,7 +742,7 @@ export class DialogConsultaComponent implements OnInit {
         var diagnostico = {
             tipo: this.formDiagnostico.value.tipo,
             diagnostico: this.formDiagnostico.value.diagnostico,
-            cie10: this.formDiagnostico.value.cie10,
+            cie10: this.formDiagnostico.value.cie10 === '' ? '' : this.formDiagnostico.value.cie10.codigoItem,
         }
         console.log(diagnostico);
         this.datosDiagnosticos.push(diagnostico);
@@ -593,14 +764,16 @@ export class DialogConsultaComponent implements OnInit {
         this.indexDiagnosticoEditado = rowIndex;
         this.formDiagnostico.reset();
         this.formDiagnostico.get('diagnostico').setValue(rowData.diagnostico);
-        this.formDiagnostico.get('cie10').setValue(rowData.cie10);
+        this.CieService.getCIEByCod(rowData.cie10).subscribe((resCIE: any) => {
+            this.formDiagnostico.patchValue({ 'cie10': resCIE.object });
+        })
         this.formDiagnostico.get('tipo').setValue(rowData.tipo);
         this.diagnosticoDialog = true;
     }
     guardarEdicionDiagnostico() {
         var diagnostico = {
             diagnostico: this.formDiagnostico.value.diagnostico,
-            cie10: this.formDiagnostico.value.cie10,
+            cie10: this.formDiagnostico.value.cie10 === '' ? '' : this.formDiagnostico.value.cie10.codigoItem,
             tipo: this.formDiagnostico.value.tipo,
         }
         console.log(diagnostico);
@@ -1081,7 +1254,7 @@ export class DialogConsultaComponent implements OnInit {
                 { funcion: "PULMONES", valor: this.form.value.pulmones },
                 { funcion: "MAMAS", valor: this.form.value.mamas },
                 { funcion: "PEZONES", valor: this.form.value.pezones },
-                { funcion: "ABDOMEN", valor: this.form.value.pezones },
+                { funcion: "ABDOMEN", valor: this.form.value.abdomen },
             ],
             examenesObstetricos: {
                 alturaUterina: this.form.value.alturaUterina,
@@ -1290,19 +1463,19 @@ export class DialogConsultaComponent implements OnInit {
             codRENAES: "123123",
             planPartoReenfocada: this.form.value.planPartoReenfocada,
         }
-        for (let i=0;i<this.datosOtrosPruebasFisicas.length;i++){
+        for (let i = 0; i < this.datosOtrosPruebasFisicas.length; i++) {
             consulta.examenesFisicos.push(this.datosOtrosPruebasFisicas[i])
         }
         console.log('data to save ', consulta);
 
         if (!this.estadoEdicion) {
-            this.consultaObstetriciaService.postDatoConsultaObstetrica(consulta).subscribe((res: any) => {
+            this.consultaObstetriciaService.postDatoConsultaObstetrica(consulta, this.form.value.nroFetos).subscribe((res: any) => {
                 console.log('rpta ', res.object);
                 this.ref.close(res);
             });
         }
         else {
-            this.consultaObstetriciaService.putDatoConsultaObstetrica(consulta).subscribe((res: any) => {
+            this.consultaObstetriciaService.putDatoConsultaObstetrica(consulta, this.form.value.nroFetos).subscribe((res: any) => {
                 console.log('rpta ', res.object);
                 this.ref.close(res);
             });
@@ -1448,7 +1621,7 @@ export class DialogConsultaComponent implements OnInit {
                 this.form.get('acidoFolicoObservaciones').setValue("");
             }
         }
-        this.form.get('calcioSuplemento').setValue(configuracion.tratamientosSuplementos.calcio.descripcion!==""?"CALCIO":"");
+        this.form.get('calcioSuplemento').setValue(configuracion.tratamientosSuplementos.calcio.descripcion !== "" ? "CALCIO" : "");
         this.form.get('calcioDescripcion').setValue(configuracion.tratamientosSuplementos.calcio.descripcion);
         this.form.get('calcioNumero').setValue(configuracion.tratamientosSuplementos.calcio.numero);
         this.form.get('calcioDosis').setValue(configuracion.tratamientosSuplementos.calcio.dosis);
@@ -1559,14 +1732,36 @@ export class DialogConsultaComponent implements OnInit {
         this.datosInterconsultas = configuracion.interconsultas;
         this.datosRecomendaciones = configuracion.recomendaciones;
         this.datosInmunizaciones = configuracion.inmunizaciones;
-        
-        if (configuracion.examenesFisicos.length>9){
+
+        if (configuracion.examenesFisicos.length > 9) {
             console.log(configuracion.examenesFisicos.length);
-            for(let i=0;i<configuracion.examenesFisicos.length-9;i++){
+            for (let i = 0; i < configuracion.examenesFisicos.length - 9; i++) {
                 console.log("entre bucle");
-                this.datosOtrosPruebasFisicas.push(configuracion.examenesFisicos[9+i]);
+                this.datosOtrosPruebasFisicas.push(configuracion.examenesFisicos[9 + i]);
                 console.log(this.datosOtrosPruebasFisicas);
             }
         }
     }
+    filterCIE10(event) {
+        this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+            this.listaDeCIE = res.object
+        })
+    }
+
+    selectedOption(event, cieType) {
+        if (cieType == 0) {
+            this.formDiagnostico.patchValue({ diagnostico: event.descripcionItem });
+        }
+    }
+
+    selectedOptionNameCIE(event, cieType) {
+        console.log('lista de cie ', this.listaDeCIE);
+        if (cieType == 0) {
+            this.formDiagnostico.get("diagnostico").setValue(event.descripcionItem);
+            this.formDiagnostico.get("autocompleteDiagnostico").setValue("");
+            this.formDiagnostico.patchValue({ cie10: event }, { emitEvent: false });
+        }
+    }
+
+
 }

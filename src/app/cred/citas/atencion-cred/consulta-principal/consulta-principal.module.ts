@@ -18,7 +18,7 @@ import {PlanControlConsultaComponent} from './component/plan-control-consulta/pl
 import {EvaluacionesConsultaComponent} from './component/evaluaciones-consulta/evaluaciones-consulta.component';
 import {PlanModule} from '../plan/plan.module';
 import {EvaluacionGeneralModule} from "../plan/component/evaluacion-general/evaluacion-general.module";
-import {PlanAtencionIntegralModule} from '../plan/component/plan-atencion-integral/plan-atencion-integral.module'
+import {PlanAtencionIntegralModule} from '../plan/component/plan-atencion-integral/plan-atencion-integral.module';
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -28,7 +28,7 @@ import {PlanAtencionIntegralModule} from '../plan/component/plan-atencion-integr
         FinalizarConsultaComponent,
         StepGeneralComponent,
         PlanControlConsultaComponent,
-        EvaluacionesConsultaComponent
+        EvaluacionesConsultaComponent,
     ],
     imports: [
         EvaluacionGeneralModule,

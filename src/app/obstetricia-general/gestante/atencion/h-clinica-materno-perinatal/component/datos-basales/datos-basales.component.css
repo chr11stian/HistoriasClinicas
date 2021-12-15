@@ -98,5 +98,13 @@ input[type="number"] {
 }
 
 ::ng-deep .dialogo .p-dialog-mask .p-element {
-    display: block;
-  }
+  display: block;
+}
+
+::ng-deep .p-inputtextarea .p-disabled  {
+  background: red;
+}
+
+.p-inputtextarea:disabled{
+  opacity: 1;
+}

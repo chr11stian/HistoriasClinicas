@@ -55,10 +55,7 @@
             <label>Fecha Ecografía:</label>
             <input type="text" pInputText class="inputfield" formControlName="ecografia" >
         </div>
-        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
-            <label>Consejería Integral:</label>
-            <input type="text" pInputText class="inputfield" formControlName="orientaciones" >
-        </div>
+
         <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
             <label>Ind. Ac. Fólico:</label>
             <input type="text" pInputText class="inputfield" formControlName="acidoFolico" >
@@ -89,12 +86,18 @@
             <input type="text" pInputText class="inputfield" formControlName="encargado" >
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
-            <label>Establecimiento de atención:</label>
+            <label>Estab. de atención:</label>
             <input type="text" pInputText class="inputfield" formControlName="establecimiento" >
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
             <label>Interconsulta:</label>
-            <input type="text" pInputText class="inputfield" formControlName="interconsultas" >
+            <textarea  pInputTextarea autoResize="autoResize" class="inputfield" formControlName="interconsultas"></textarea>
+<!--            <input type="text" pInputText class="inputfield" formControlName="interconsultas" pInputTextarea >-->
+        </div>
+        <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
+            <label>Consejería Integral:</label>
+            <textarea  pInputTextarea autoResize="autoResize" class="inputfield" formControlName="orientaciones"></textarea>
+            <!--            <input type="text" pInputText class="inputfield" formControlName="orientaciones"  pInputTextarea>-->
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-3 xl:col-3 p-fluid">
             <p-table class="table-over" [value]="examenesFetos" >

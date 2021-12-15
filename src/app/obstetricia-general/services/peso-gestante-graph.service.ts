@@ -34,5 +34,10 @@ export class PesoGestanteGraphService {
             .get<any>('assets/data/obesaGestanteGraph.json')
     }
 
+    getDataAlturaUterinaGraph(){
+        return this.http
+            .get<any>('assets/data/alturaUterina.json')
+    }
+
 
 }
