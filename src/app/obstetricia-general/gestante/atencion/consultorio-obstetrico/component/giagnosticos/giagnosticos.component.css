@@ -56,6 +56,17 @@ p-panel>>>.p-panel .p-panel-content{
 
 }
 /*estilo para responsive formulario*/
+<<<<<<< HEAD
+=======
+.resp{
+    max-width:1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 0.5rem;
+    padding: 2px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+>>>>>>> 5d3488cfa3215d003552b1bfeb945d39abacb22b
 
 @media (min-width: 300px){
 }

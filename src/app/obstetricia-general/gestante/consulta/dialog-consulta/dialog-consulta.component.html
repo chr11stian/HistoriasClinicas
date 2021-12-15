@@ -161,7 +161,7 @@
                                                 class="p-inputtext-sm  inputfield w-full">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
-                                            <span class="font-italic">m.</span>
+                                            <span class="font-italic">cm.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -179,17 +179,42 @@
                                     </div>
                                 </div>
                                 <div class="col-6 md:col-4 text-center">
-                                    <label class="text-sm">Evaluacion Nutricional:</label>
-                                    <div class="grid p-fluid">
-                                        <div class="col-6">
-                                            <p-inputNumber formControlName="evalNutricionalValor" inputId="kg"
-                                                suffix=" kg">
-                                            </p-inputNumber>
+                                    <div class="grid">
+                                        <div class="col-3">
+                                            <label>PESO HAB:</label>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='pesoHabitual' placeholder="Peso Hab."
+                                                class="p-inputtext-sm  inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">kg.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2 md:col-4 text-center">
+                                    <button pButton pRipple icon="pi pi-check-circle" type="button"
+                                    label="Calcular ganancia peso" class="p-button-raised mt-3"
+                                    (click)="calcularGanancia()"></button>
+                                </div>
+                                <div class="col-10 md:col-8 text-center">
+                                    <label class="text-sm">EVALUACION NUTRICIONAL</label>
+                                    <div class="grid p-fluid">
+                                        <div class="col-5">
+                                            <div class="grid">
+                                                <div class="col-9">
+                                                    <input type="number" pInputText formControlName='evalNutricionalValor' placeholder="Peso Ganado"
+                                                        class="p-inputtext-sm  inputfield w-full">
+                                                </div>
+                                                <div class="mt-2 col-3 text-left">
+                                                    <span class="font-italic">Kg.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-7">
                                             <p-dropdown [options]="listaIndicadores" placeholder="Indicador"
                                                 formControlName="evalNutricionalIndicador" optionLabel="name"
-                                                optionValue="name" class="inputfield p-fluid w-full">
+                                                optionValue="code" class="inputfield p-fluid w-full text-left">
                                             </p-dropdown>
                                         </div>
                                     </div>
@@ -574,6 +599,17 @@
                         <p-fieldset legend="Examen Fetal">
                             <div class="grid ">
                                 <div class="col-12">
+                                    <div class="grid">
+                                        <div class="col-4">
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Numero de Fetos:</label>
+                                            <input type="number" pInputText formControlName='nroFetos' placeholder=""
+                                                class="p-inputtext-sm inputfield w-full">
+                                        </div>
+                                        <div class="col-4">
+                                        </div>
+                                    </div>
                                     <p-table [value]="datosExamenesFetales" #dt [rows]="3" styleClass="p-datatable-sm"
                                         [paginator]="true" [autoLayout]="true" class="m-3"
                                         currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"

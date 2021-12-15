@@ -1,0 +1,38 @@
+<div class="card">
+    <p-card>
+        <div class="grid">
+            <div class="col-9" style="margin: 0 0 0 20px;">
+                <span style="font-size: 2em;">ADOLESCENTE> Consulta </span>
+            </div>
+        </div>
+    </p-card>
+</div>
+<p-steps [model]="items" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo"
+         (activeIndexChange)="ChangeStep($event)">
+</p-steps>
+<div class="stepsdemo-content" *ngIf="stepName === 'datos'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-datos-generales-consulta-adolescente></app-datos-generales-consulta-adolescente>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'examen'">
+    <p-card>
+        <app-examenes-consulta-adolescente></app-examenes-consulta-adolescente>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'diagnostico'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-diagnostico-consulta-adolescente></app-diagnostico-consulta-adolescente>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'tratamiento'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-tratamiento-consulta-adolescente></app-tratamiento-consulta-adolescente>
+        </ng-template>
+    </p-card>
+</div>

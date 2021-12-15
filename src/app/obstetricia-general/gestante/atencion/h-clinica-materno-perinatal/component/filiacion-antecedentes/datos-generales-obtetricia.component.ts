@@ -28,34 +28,35 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
 
     /**Antecedentes Personales**/
-    Ninguno: any[] = [];
-    Abortohabitualrecurrente: any[] = [];
-    Violencia: any[] = [];
-    Cardiopatia: any[] = [];
-    cirugiaPelvicaUterina: any[] = [];
-    Eclampsia: any[] = [];
-    preEclampsia: any[] = [];
-    hemorraPostparto: any[] = [];
-    TBCPulmonar2: any[] = [];
-    VIHSIDA: any[] = [];
-    Alcoholismo: any[] = [];
-    alergiaAmedicamentos: any[] = [];
-    asmaBronquial: any[] = [];
-    diabetes2: any[] = [];
-    enfermCongenitas: any[] = [];
-    enfermInfecciosas: any[] = [];
-    epilepsia: any[] = [];
-    hipArterial: any[] = [];
-    consumoHojaDeCoca: any[] = [];
-    infertilidad: any[] = [];
-    neoplasias: any[] = [];
-    otrasDrogas: any[] = [];
-    partoProlong: any[] = [];
-    preeclampsia: any[] = [];
-    prematuridad: any[] = [];
-    retenPlacenta: any[] = [];
-    tabaco: any[] = [];
-    transtornMentales: any[] = [];
+    otros2: string;
+    Ninguno: string[] = [];
+    Abortohabitualrecurrente: string[] = [];
+    Violencia: string[] = [];
+    Cardiopatia: string[] = [];
+    cirugiaPelvicaUterina: string[] = [];
+    Eclampsia: string[] = [];
+    preEclampsia: string[] = [];
+    hemorraPostparto: string[] = [];
+    TBCPulmonar2: string[] = [];
+    VIHSIDA: string[] = [];
+    Alcoholismo: string[] = [];
+    alergiaAmedicamentos: string[] = [];
+    asmaBronquial: string[] = [];
+    diabetes2: string[] = [];
+    enfermCongenitas: string[] = [];
+    enfermInfecciosas: string[] = [];
+    epilepsia: string[] = [];
+    hipArterial: string[] = [];
+    consumoHojaDeCoca: string[] = [];
+    infertilidad: string[] = [];
+    neoplasias: string[] = [];
+    otrasDrogas: string[] = [];
+    partoProlong: string[] = [];
+    preeclampsia: string[] = [];
+    prematuridad: string[] = [];
+    retenPlacenta: string[] = [];
+    tabaco: string[] = [];
+    transtornMentales: string[] = [];
 
 
     antecedentes: any;
@@ -148,7 +149,98 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         // })
         this.buildForm2();
         this.getpacienteFiiacionByID();
-        // this.ngAfterViewInit();
+
+
+    }
+
+    /**Inicializa datos del antecedentes personales en vacio**/
+    /**Si alguno de los datos tenga null**/
+    inicializarArregloAntecedentes(): void {
+        if (this.Ninguno[0] == null) {
+            this.Ninguno = [];
+        }
+        if (this.Abortohabitualrecurrente[0] == null) {
+            this.Abortohabitualrecurrente = [];
+        }
+        if (this.Violencia[0] == null) {
+            this.Violencia = [];
+        }
+        if (this.Cardiopatia[0] == null) {
+            this.Cardiopatia = [];
+        }
+        if (this.cirugiaPelvicaUterina[0] == null) {
+            this.cirugiaPelvicaUterina = [];
+        }
+        if (this.Eclampsia[0] == null) {
+            this.Eclampsia = [];
+        }
+        if (this.preEclampsia[0] == null) {
+            this.preEclampsia = [];
+        }
+        if (this.hemorraPostparto[0] == null) {
+            this.hemorraPostparto = [];
+        }
+        if (this.TBCPulmonar2[0] == null) {
+            this.TBCPulmonar2 = [];
+        }
+        if (this.VIHSIDA[0] == null) {
+            this.VIHSIDA = [];
+        }
+
+        if (this.Alcoholismo[0] == null) {
+            this.Alcoholismo = [];
+        }
+        if (this.alergiaAmedicamentos[0] == null) {
+            this.alergiaAmedicamentos = [];
+        }
+        if (this.asmaBronquial[0] == null) {
+            this.asmaBronquial = [];
+        }
+        if (this.diabetes2[0] == null) {
+            this.diabetes2 = [];
+        }
+        if (this.enfermCongenitas[0] == null) {
+            this.enfermCongenitas = [];
+        }
+        if (this.enfermInfecciosas[0] == null) {
+            this.enfermInfecciosas = [];
+        }
+        if (this.epilepsia[0] == null) {
+            this.epilepsia = [];
+        }
+        if (this.hipArterial[0] == null) {
+            this.hipArterial = [];
+        }
+        if (this.consumoHojaDeCoca[0] == null) {
+            this.consumoHojaDeCoca = [];
+        }
+        if (this.infertilidad[0] == null) {
+            this.infertilidad = [];
+        }
+        if (this.neoplasias[0] == null) {
+            this.neoplasias = [];
+        }
+        if (this.otrasDrogas[0] == null) {
+            this.otrasDrogas = [];
+        }
+        if (this.partoProlong[0] == null) {
+            this.partoProlong = [];
+        }
+        if (this.preeclampsia[0] == null) {
+            this.preeclampsia = [];
+        }
+        if (this.prematuridad[0] == null) {
+            this.prematuridad = [];
+        }
+        if (this.retenPlacenta[0] == null) {
+            this.retenPlacenta = [];
+        }
+        if (this.tabaco[0] == null) {
+            this.tabaco = [];
+        }
+        if (this.transtornMentales[0] == null) {
+            this.transtornMentales = [];
+        }
     }
 
 
@@ -181,7 +273,10 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         this.formAntecedentes = this.form.group({
             antecendentesObstetricos: new FormControl(''),
 
+
+            /**Gestacion anterior**/
             fecha: new FormControl(''),
+            terminacion: new FormControl(''),
             intergenesico: new FormControl(''),
             tipoAborto: new FormControl(''),
             lactaciaMaterna: new FormControl(''),
@@ -217,69 +312,24 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             TBCPulmonar: new FormControl(''),
             otros: new FormControl(''),
 
+            //********************************
             captada: new FormControl(''),
             referidaporAgComuni: new FormControl(''),
 
 
-            // Ninguno1: new FormControl(''),
-            // Abortohabitualrecurrente: new FormControl(''),
-            // violencia: new FormControl(''),
-            // cardiopatia: new FormControl(''),
-            // cirugiaPélvicaUterina: new FormControl(''),
-            // eclampsia: new FormControl(''),
-            // preEclampsia: new FormControl(''),
-            // hemorraPostparto: new FormControl(''),
-            // TBCPulmonar2: new FormControl(''),
-            // VIHSIDA: new FormControl(''),
-            // alcoholismo: new FormControl(''),
-            // alergiaAmedicamentos: new FormControl(''),
-            // asmaBronquial: new FormControl(''),
-            // diabetes2: new FormControl(''),
-            // enfermCongénitas: new FormControl(''),
-            // enfermInfecciosas: new FormControl(''),
-            // epilepsia: new FormControl(''),
-            // hipArterial: new FormControl(''),
-            // consumoHojaDeCoca: new FormControl(''),
-            // infertilidad: new FormControl(''),
-            // neoplasias: new FormControl(''),
-            // otrasDrogas: new FormControl(''),
-            // partoProlong: new FormControl(''),
-            // preeclampsia: new FormControl(''),
-            // prematuridad: new FormControl(''),
-            // retenPlacenta: new FormControl(''),
-            // tabaco: new FormControl(''),
-            // transtornMentales: new FormControl(''),
-            Otros2: new FormControl(''),
+            /**Antecedentes Personales**/
+            otros22: new FormControl(''),
 
-            terminacion: new FormControl(''),
 
             sesiones: new FormControl(''),
             PartosDomiciliarios: new FormControl(''),
-
-
-            abortoMolar: new FormControl(''),
-            noAplica: new FormControl(''),
-            incompleto: new FormControl(''),
-            completo: new FormControl(''),
-            frustoRetenido: new FormControl(''),
-            septico: new FormControl(''),
-            noAplica2: new FormControl(''),
-            noHubo: new FormControl(''),
-            menorSeisMeses: new FormControl(''),
-            SeisMesesMas: new FormControl(''),
-            noAplica3: new FormControl(''),
-
-
-            EESS: new FormControl(''),
-            domic: new FormControl(''),
         })
     }
 
     addData() {
-        console.log("ZZZZZZZz", this.antecedentes)
-
+        console.log("ZZZZZZZz", this.Ninguno);
+        console.log("ZZZZZZZz", this.Abortohabitualrecurrente);
         const req = {
-
             gestacionAnterior: {
                 fecha: this.formAntecedentes.value.fecha,
                 perIntergenesicoAdecuado: this.formAntecedentes.value.intergenesico,
@@ -468,6 +518,9 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                     valor: " ",
                 },
             ],
+
+            otroAncedentePersonal: this.otros2[0],
+
         }
         console.log("DATA ANTECEDENTES", req)
         this.filiancionService.UpdateAntecedentesFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
@@ -571,10 +624,13 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.retenPlacenta = [this.dataAntecedentes.antecedentesPersonales[25].nombre];
             this.tabaco = [this.dataAntecedentes.antecedentesPersonales[26].nombre];
             this.transtornMentales = [this.dataAntecedentes.antecedentesPersonales[27].nombre];
+            this.otros2 = this.dataAntecedentes.otroAncedentePersonal;
+            console.log("QQQ", this.otros2);
 
 
             this.formAntecedentes.get('sesiones').setValue(this.dataAntecedentes.psicoprofilaxisNroSesiones);
             this.formAntecedentes.get('PartosDomiciliarios').setValue(this.dataAntecedentes.antecedentesPartosPersonales);
+            this.inicializarArregloAntecedentes();
 
         });
     }
