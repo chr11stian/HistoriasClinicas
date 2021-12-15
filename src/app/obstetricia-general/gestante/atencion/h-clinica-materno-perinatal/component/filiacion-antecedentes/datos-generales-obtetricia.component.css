@@ -50,8 +50,8 @@ p-checkbox >>> .p-checkbox .p-checkbox-box {
 }
 
 ::ng-deep .amarillo .p-checkbox .p-checkbox-box {
-    background: rgb(242, 236, 56);
-    border-color: rgb(242, 236, 56);
+    background: rgb(234, 187, 38);
+    border-color: rgb(234, 187, 38);
 }
 
 p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {

@@ -431,7 +431,8 @@
                                     <label>Ninguno: </label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="Ninguno" name="ninguno" class="default"></p-checkbox>
+                                    <p-checkbox value="Ninguno" [(ngModel)]="antecedentes1" name="ninguno"
+                                                class="default"></p-checkbox>
                                 </div>
                             </div>
                             <div class="grid">
@@ -439,7 +440,8 @@
                                     <label>Alergias: </label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="Alergia" name="alergia" class="amarillo"></p-checkbox>
+                                    <p-checkbox value="Alergia" [(ngModel)]="antecedentes2" name="alergia"
+                                                class="amarillo"></p-checkbox>
                                 </div>
                                 <div class="p-field col-6">
                                     <form [formGroup]='formAntecedentes'>
@@ -459,8 +461,8 @@
                                     <label>Enf. Hepertens. emb. </label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="Enfer. Hepertens" name="EnferHepertens"
-                                                class="mt-1" class="amarillo">
+                                    <p-checkbox value="Enfer. Hepertens" [(ngModel)]="antecedentes3"
+                                                name="EnferHepertens" class="mt-1" class="amarillo">
                                     </p-checkbox>
                                 </div>
                                 <div class="p-field col-6">
@@ -481,9 +483,8 @@
                                     <label>Epilepcia: </label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="Epilepcia" class="mt-1" name="epilepcia"
-                                                class="amarillo">
-                                    </p-checkbox>
+                                    <p-checkbox value="Epilepcia" [(ngModel)]="antecedentes4" class="mt-1"
+                                                name="epilepcia" class="amarillo"></p-checkbox>
                                 </div>
                                 <div class="p-field col-6">
                                     <form [formGroup]='formAntecedentes'>
@@ -503,7 +504,8 @@
                                     <label>Diabetes: </label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="Diabetes" class="mt-1" name="diabetes"
+                                    <p-checkbox value="Diabetes" [(ngModel)]="antecedentes5" class="mt-1"
+                                                name="diabetes"
                                                 class="amarillo"></p-checkbox>
                                 </div>
                                 <div class="p-field col-6">
@@ -524,7 +526,7 @@
                                     <label>Enf. Congénitas: </label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="Enf. Congenitas" name="EnfCongenitas"
+                                    <p-checkbox value="Enf. Congenitas" [(ngModel)]="antecedentes6" name="EnfCongenitas"
                                                 class="mt-1" class="amarillo">
                                     </p-checkbox>
                                 </div>
@@ -546,7 +548,8 @@
                                     <label>Emb. Multiple: </label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="Emb. Multiple" class="mt-1" name="EmbMultiple"
+                                    <p-checkbox value="Emb. Multiple" [(ngModel)]="antecedentes7" class="mt-1"
+                                                name="EmbMultiple"
                                                 class="amarillo">
                                     </p-checkbox>
                                 </div>
@@ -570,7 +573,7 @@
                                     <label>Malaria:</label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="Malaria" class="mt-1" name="malaria"
+                                    <p-checkbox value="Malaria" [(ngModel)]="antecedentes8" class="mt-1" name="malaria"
                                                 class="amarillo"></p-checkbox>
                                 </div>
                                 <div class="p-field col-6">
@@ -591,7 +594,7 @@
                                     <label>Hip. Arterial: </label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="Hip. Arterial" name="HipArterial"
+                                    <p-checkbox value="Hip. Arterial" [(ngModel)]="antecedentes9" name="HipArterial"
                                                 class="mt-1"
                                                 class="amarillo"></p-checkbox>
                                 </div>
@@ -613,7 +616,8 @@
                                     <label>Hipo tiroidismo:</label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="Hipo tiroidismo" name="HipoTiroidismo"
+                                    <p-checkbox value="Hipo tiroidismo" [(ngModel)]="antecedentes10"
+                                                name="HipoTiroidismo"
                                                 class="mt-1"
                                                 class="amarillo"></p-checkbox>
                                 </div>
@@ -635,7 +639,7 @@
                                     <label>Neoplásica: </label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="Neoplásica" name="neoplásica"
+                                    <p-checkbox value="Neoplásica" [(ngModel)]="antecedentes11" name="neoplásica"
                                                 class="mt-1"
                                                 class="amarillo"></p-checkbox>
                                 </div>
@@ -657,7 +661,7 @@
                                     <label>TBC Pulmonar: </label>
                                 </div>
                                 <div class="col-2">
-                                    <p-checkbox value="TBC Pulmonar" name="TBCPulmonar"
+                                    <p-checkbox value="TBC Pulmonar" [(ngModel)]="antecedentes12" name="TBCPulmonar"
                                                 class="mt-1"
                                                 class="amarillo"></p-checkbox>
                                 </div>
@@ -674,26 +678,22 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="field grid ">
-                                <div class="col-4" style="text-align: right">
-                                    <label>Otros: </label>
-                                </div>
-                                <div class="col-2">
-                                    <p-checkbox value="Otros" name="otros"
-                                                class="mt-1" class="amarillo"></p-checkbox>
-                                </div>
-                                <div class="p-field col-6">
-                                    <form [formGroup]='formAntecedentes'>
-                                        <p-dropdown
-                                                [options]="familiares"
-                                                optionLabel="nombrefamiliar"
-                                                optionValue="nombrefamiliar"
-                                                formControlName="nombrefamiliar1"
-                                                placeholder="Selec"
-                                                [showClear]="false">
-                                        </p-dropdown>
-                                    </form>
-                                </div>
+                        </div>
+                    </div>
+
+                    <div class="grid">
+                        <div class="grid col-12">
+                            <div class="col-3" style="text-align: right">
+                                <label>Otros: </label>
+                            </div>
+                            <div class="col-1">
+                                <p-checkbox [(ngModel)]="otrosAntecedentesFamiliares2" value="otros"
+                                            class="mt-1"></p-checkbox>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" pInputText [(ngModel)]="otrosAntecedentesFamiliares"
+                                       (keyup)="eventoKeyupAntecedentesFamiliares()"
+                                       class="inputfield w-full">
                             </div>
                         </div>
                     </div>
@@ -994,11 +994,11 @@
                                 <p-checkbox [(ngModel)]="otros23" value="otros" class="mt-1"></p-checkbox>
                             </div>
                             <div class="col-8">
-                                <input type="text" pInputText [(ngModel)]="otros2" (keyup)="eventoKeyup()"
+                                <input type="text" pInputText [(ngModel)]="otros2"
+                                       (keyup)="eventoKeyupAntecedentesPersonales()"
                                        class="inputfield w-full">
                             </div>
                         </div>
-
                     </div>
                 </p-fieldset>
                 <br>
