@@ -1,18 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {CitasAdultoComponent} from "./citas-adulto/citas-adulto.component";
+import {StepGeneralAdultoComponent} from "./components/step-general-adulto/step-general-adulto.component";
 
 const routes: Routes = [
   {
-    path: "citas",
-    component: CitasAdultoComponent
+    path: "plan",
+    component: StepGeneralAdultoComponent
   },
   {
-    path: "citas",
-    loadChildren: () => import('src/app/adulto/adulto.module').then(n => n.AdultoModule),
-  },
-  {
-    path: "citas",
+    path: "plan",
     loadChildren: () => import('src/app/adulto/citas-adulto/plan-atencion-adulto/plan-atencion-adulto.module').then(n => n.PlanAtencionAdultoModule),
   },
 ];
@@ -21,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AdultoRoutingModule { }
+export class PlanAtencionAdultoRoutingModule { }

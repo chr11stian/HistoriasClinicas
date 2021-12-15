@@ -22,12 +22,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         SaludAdolescenteComponent
     ],
     imports: [
+        CommonModule,
+        PlanAtencionAdolescenteRoutingModule,
         SharedModule,
         PrimeModule,
         FormsModule,
         ReactiveFormsModule,
-        CommonModule,
-        PlanAtencionAdolescenteRoutingModule
     ]
 })
 export class PlanAtencionAdolescenteModule {
