@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {DatePipe} from '@angular/common';
 import {ObstetriciaGeneralService} from 'src/app/obstetricia-general/services/obstetricia-general.service';
+import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 
 @Component({
     selector: 'app-recien-nacido-dialogo',
@@ -13,21 +14,28 @@ import {ObstetriciaGeneralService} from 'src/app/obstetricia-general/services/ob
 export class RecienNacidoDialogoComponent implements OnInit {
     form: FormGroup;
     formEgresoRN: FormGroup;
+    formPatologias: FormGroup;
     stateOptions: any[];
     todosEgresosDelRN: any[] = [];
+    patologiasRN: any[] = [];
     datosRecienNacido: any[] = [];
     RNDialog: boolean;
     egresoRNDialog: boolean;
+    patologiaDialog: boolean;
     idObstetricia: string;
     datePipe = new DatePipe('en-US');
     estadoEditarRN: boolean = false;
     indexRNEditado: number = 0;
+    estadoEditarPatologia: boolean = false;
+    indexPatologiaEditado: number = 0;
+    listaDeCIE: any;
 
     constructor(
         private formBuilder: FormBuilder,
         private ref: DynamicDialogRef,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
-        public config: DynamicDialogConfig
+        public config: DynamicDialogConfig,
+        private CieService: CieService,
     ) {
         this.stateOptions = [{label: 'Si', value: true}, {label: 'No', value: false}];
         this.buildForm();
@@ -35,11 +43,12 @@ export class RecienNacidoDialogoComponent implements OnInit {
         console.log(config.data);
         if (config.data) {
             this.llenarCamposEdicionRN();
-        }
+        }   
     }
 
     buildForm() {
         this.form = this.formBuilder.group({
+            autocompleteDiagnostico: [''],
             sexo: [''],
             peso: [''],
             perimetroCefalico: [''],
@@ -121,6 +130,12 @@ export class RecienNacidoDialogoComponent implements OnInit {
             controlRecienNacido: [''],
             reingreso: [''],
         })
+        this.formPatologias = this.formBuilder.group({
+            fecha: [''],
+            cie10: [''],
+            autocomplete: [''],
+            patologia: [''],
+        })
     }
 
     tituloEgresoRN() {
@@ -180,22 +195,7 @@ export class RecienNacidoDialogoComponent implements OnInit {
             temperatura: parseFloat(this.form.value.temperatura),
             perimetroCefalico: parseFloat(this.form.value.perimetroCefalico),
             sinPatologias: this.form.value.sinPatologias ? true : false,
-            patologiaRecienNacido: [{
-                patologia: this.form.value.patologia1,
-                fecha: this.form.value.patologiaFecha1,
-                cie10: this.form.value.patologiaCIE1,
-            },
-                {
-                    patologia: this.form.value.patologia2,
-                    fecha: this.form.value.patologiaFecha2,
-                    cie10: this.form.value.patologiaCIE2,
-                },
-                {
-                    patologia: this.form.value.patologia3,
-                    fecha: this.form.value.patologiaFecha3,
-                    cie10: this.form.value.patologiaCIE3,
-                }
-            ],
+            patologiaRecienNacido: this.patologiasRN,
             edadPorExamenFisico: this.form.value.edadPorExamenFisico,
             sem: this.form.value.semanasRN,
             pesoPorEdadGestacional: this.form.value.pesoEdadGes,
@@ -288,17 +288,8 @@ export class RecienNacidoDialogoComponent implements OnInit {
         this.form.get('talla').setValue(configuracion.talla);
         this.form.get('recienNacidoHcl').setValue(configuracion.recienNacidoHcl);
         this.form.get('nombreRecienNacido').setValue(configuracion.nombreRecienNacido);
-        this.form.get('sinPatologias').setValue(configuracion.patologiaRecienNacido[0].patologia === '' ? ["Sin patologias"] : []);
-        console.log(configuracion.patologiaRecienNacido[0].patologia === '' ? ["true"] : [])
-        this.form.get('patologia1').setValue(configuracion.patologiaRecienNacido[0].patologia);
-        this.form.get('patologiaFecha1').setValue(configuracion.patologiaRecienNacido[0].fecha !== "" ? configuracion.patologiaRecienNacido[0].fecha : "");
-        this.form.get('patologiaCIE1').setValue(configuracion.patologiaRecienNacido[0].cie10);
-        this.form.get('patologia2').setValue(configuracion.patologiaRecienNacido[1].patologia);
-        this.form.get('patologiaFecha2').setValue(configuracion.patologiaRecienNacido[1].fecha !== "" ? configuracion.patologiaRecienNacido[1].fecha : "");
-        this.form.get('patologiaCIE2').setValue(configuracion.patologiaRecienNacido[1].cie10);
-        this.form.get('patologia3').setValue(configuracion.patologiaRecienNacido[2].patologia);
-        this.form.get('patologiaFecha3').setValue(configuracion.patologiaRecienNacido[2].fecha !== "" ? configuracion.patologiaRecienNacido[2].fecha : "");
-        this.form.get('patologiaCIE3').setValue(configuracion.patologiaRecienNacido[2].cie10);
+        this.form.get('sinPatologias').setValue(configuracion.patologiaRecienNacido.length=== 0 ? ["Sin patologias"] : []);
+        this.patologiasRN= configuracion.patologiaRecienNacido;
         this.form.get('edadPorExamenFisico').setValue(configuracion.edadPorExamenFisico);
         this.form.get('semanasRN').setValue(configuracion.sem);
         this.form.get('apgar1').setValue(configuracion.apgar1);
@@ -412,6 +403,100 @@ export class RecienNacidoDialogoComponent implements OnInit {
                 })
             }
         })
+    }
+
+    openNewPatologia() {
+        //this.isUpdate = false;
+        this.formPatologias.reset();
+        this.patologiaDialog = true;
+    }
+    enviarPatologias() {
+        var patologia = {
+            fecha: this.datePipe.transform(this.formPatologias.value.fecha, 'yyyy-MM-dd'),
+            patologia: this.formPatologias.value.patologia,
+            cie10: this.formPatologias.value.cie10=== '' ? '' : this.formPatologias.value.cie10.codigoItem,
+        }
+        console.log(patologia);
+        this.patologiasRN.push(patologia);
+        this.patologiaDialog = false;
+    }
+    openDialogEditarPatologia(rowData, rowIndex) {
+        this.estadoEditarPatologia = true;
+        this.indexPatologiaEditado = rowIndex;
+        this.formPatologias.reset();
+        this.formPatologias.get('fecha').setValue(rowData.fecha);
+        this.formPatologias.get('patologia').setValue(rowData.patologia);
+        this.CieService.getCIEByCod(rowData.cie10).subscribe((resCIE: any) => {
+            this.formPatologias.get('cie10').setValue(resCIE.object);
+        })
+        
+        this.patologiaDialog = true;
+    }
+    guardarEdicionPatologiaRN() {
+        var patologia = {
+            fecha: this.datePipe.transform(this.formPatologias.value.fecha, 'yyyy-MM-dd'),
+            patologia: this.formPatologias.value.patologia,
+            cie10: this.formPatologias.value.cie10=== '' ? '' : this.formPatologias.value.cie10.codigoItem,
+        }
+        console.log(patologia);
+        this.patologiasRN.splice(this.indexPatologiaEditado, 1, patologia);
+        this.patologiaDialog = false;
+        this.estadoEditarPatologia = false;
+    }
+
+    eliminarPatologiaRN(rowIndex) {
+        this.estadoEditarPatologia = false;
+        Swal.fire({
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            icon: 'warning',
+            title: 'Estas seguro de eliminar egreso del RN',
+            text: '',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.patologiasRN.splice(rowIndex, 1);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Eliminado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+    }
+    canceledPatologia() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cancelado...',
+            text: '',
+            showConfirmButton: false,
+            timer: 1000
+        })
+        this.patologiaDialog = false;
+        this.estadoEditarPatologia = false;
+    }
+
+    filterCIE10(event) {
+        this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+            this.listaDeCIE = res.object
+        })
+    }
+
+    selectedOption(event, cieType) {
+        if (cieType == 0) {
+            this.formPatologias.patchValue({ patologia: event.descripcionItem });
+        }
+    }
+
+    selectedOptionNameCIE(event, cieType) {
+        console.log('lista de cie ', this.listaDeCIE);
+        if (cieType == 0) {
+            this.formPatologias.get("patologia").setValue(event.descripcionItem);
+            this.formPatologias.get("autocomplete").setValue("");
+            this.formPatologias.patchValue({ cie10: event }, { emitEvent: false });
+        }
     }
 
     ngOnInit(): void {
