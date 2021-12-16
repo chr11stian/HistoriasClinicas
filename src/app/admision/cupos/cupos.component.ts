@@ -41,7 +41,7 @@ export class CuposComponent implements OnInit {
     hora: any;
     personals: any;
     datafecha: Date = new Date();
-    datafechaActual: string;
+    fechaParaReservaCupos: string;
     listaDocumentosIdentidad: any
 
     dataOfertasCupos: any;
@@ -52,8 +52,7 @@ export class CuposComponent implements OnInit {
     usuarioDialog: boolean;
     subscription: Subscription;
     selectedServicio: any;
-    selectedServicio2: any;
-    listaPersonal: any;
+
     personalSelected: string = '';
     justifyOptions: any[];
     stateOptions: any[];
@@ -92,18 +91,17 @@ export class CuposComponent implements OnInit {
         // this.getDataUPS();
         this.getListaUps();
         this.getDocumentosIdentidad();
-        this.datafechaActual = this.datafecha.getDate() + '-' + (this.datafecha.getMonth() + 1) + '-' + this.datafecha.getFullYear();
-        console.log("FECHAS", this.datafechaActual);
+        // this.fechaParaReservaCupos = this.datafecha.getFullYear() + '-' + (this.datafecha.getMonth() + 1) + '-' + this.datafecha.getDate();
+        // console.log("FECHAS", this.fechaParaReservaCupos);
         console.log("HORARIO", this.selectedHorario);
-
     }
 
 
+    /**Busca los pacientes por su Numero de Documento**/
     pacienteByNroDoc() {
         let auxNroDoc = {
             tipoDoc: this.formCuposOferta.value.tipoDoc.abreviatura,
             nroDoc: this.formCuposOferta.value.nroDoc,
-            // nroDoc: "24015415"
         }
         this.pacienteService.getPacienteByNroDoc(auxNroDoc).subscribe((res: any) => {
             this.dataPacientes = res.object
@@ -121,6 +119,7 @@ export class CuposComponent implements OnInit {
     }
 
 
+    /**lista los Servicios por IPRESS**/
     getListaUps() {
         this.rolGuardiaService
             .getServiciosPorIpress(this.idIpressZarzuela)
@@ -130,10 +129,8 @@ export class CuposComponent implements OnInit {
             });
     }
 
-    getCupos_Fecha_Servicio() {
 
-    }
-
+    /**Lista los tipos de documentos de Identidad de un paciente**/
     getDocumentosIdentidad() {
         this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
             this.listaDocumentosIdentidad = res.object;
@@ -141,24 +138,13 @@ export class CuposComponent implements OnInit {
         })
     }
 
-    // getDataUPS() {
-    //     this.upsService.getUPS().subscribe((resp: any) => {
-    //         this.ups = resp.object;
-    //         console.log("ups", this.ups);
-    //     });
-    // }
 
-
+    /**Lista las ofertas **/
     getOfertascuposListar(data) {
         this.cuposService.getOfertasListar(data).subscribe((resp: any) => {
             this.dataOfertasCupos = resp.object;
             console.log("OFERTAS HORARIOS", this.dataOfertasCupos);
         });
-    }
-
-
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
     }
 
 
@@ -200,11 +186,19 @@ export class CuposComponent implements OnInit {
     }
 
 
+    separar_Fechas() {
+        let fecha = this.personalSelected2.fechaOferta;
+        let elem = fecha.split(' ',);
+        let fecha1 = elem[0];
+        let hora = elem[1];
+        this.fechaParaReservaCupos = fecha1;
+    }
+
     saveForm() {
+        this.separar_Fechas();
         this.isUpdate = false;
-        var llll;
         const req = {
-            fechaAtencion: this.personalSelected2.fechaOferta,
+            fechaAtencion: this.fechaParaReservaCupos,
             nroCupo: this.personalSelected2.totalOfertas,
             oferta_id: this.personalSelected2.id,
             // descripcion: this.formCuposOferta.value.descripcion,
@@ -254,7 +248,7 @@ export class CuposComponent implements OnInit {
 
     }
 
-    //Actualiza el estado de las ofertas despues de guardar un cupo LIBRE / OCUPADO
+    /****Actualiza el estado de las ofertas despues de guardar un cupo LIBRE / OCUPADO**/
     actualizarOfertaEstado() {
         let data = {
             idOferta: this.personalSelected2.id,
@@ -290,7 +284,6 @@ export class CuposComponent implements OnInit {
         console.log('selected servicio ', this.selectedServicio)
         this.cuposDialog = false;
         this.openDialog2();
-
         console.log("JPC", this.selectedHorario);
     }
 
@@ -313,27 +306,42 @@ export class CuposComponent implements OnInit {
         this.usuarioDialog = true;
     }
 
+
+    /** Selecciona el personal de salud para recuperar datos de un event **/
     onRowSelect(event) {
         console.log('event',);
-
         this.dataSelectAmbiente = event.data.ambiente;
         this.dataSelectServicio = event.data.ipress.servicio;
         this.personalSelected = event.data.personal.nombre;
         this.dataSelectHoras = event.data.horaLaboral;
         console.log('HORAS....', this.dataSelectHoras);
+        /** personalSelected2 almacena todo los datos del event al seleccionar un personal**/
         this.personalSelected2 = event.data;
         console.log('select personal....', this.personalSelected2);
     }
 
-    selectCupos(event) {
 
+    /** Selecciona  un servicio y fecha y lista las ofertas para reservar un cupo **/
+    changeServicioSelected(event) {
+        this.personalSelected = '';
+        console.log(event)
+        let data = {
+            servicio: this.selectedServicio.nombreUPS,
+            nombreIpress: this.iprees,
+            fechaOferta: this.datafecha,
+        }
+        this.getOfertascuposListar(data);
+        console.log("FECHA OFERTA", data)
+    }
+
+
+    selectCupos(event) {
         console.log("servicio", event);
         let data = {
             servicio: "ACUPUNTURA Y AFINES",
             fecha: "01-12-2021",
-
         }
-        this.cuposService.getCuposServicioFecha(this.idIpressZarzuela, data).subscribe((res: any) => {
+        this.cuposService.listaCuposConfirmados(this.idIpressZarzuela, data).subscribe((res: any) => {
             this.dataCupos_por_fechas_servicio = res.object;
             console.log('Listasssss ', this.dataCupos_por_fechas_servicio);
         })
@@ -347,22 +355,6 @@ export class CuposComponent implements OnInit {
         console.log('no seleccionar');
     }
 
-    changeServicioSelected(event) {
-        this.personalSelected = '';
-        console.log(event)
-        let data = {
-            servicio: this.selectedServicio.nombreUPS,
-            nombreIpress: this.iprees,
-            fechaOferta: this.datafecha,
-        }
-        this.getOfertascuposListar(data);
-        console.log("FECHA OFERTA", data)
-    }
-
-    GuardarPersona() {
-
-
-    }
 
     cancelarPersona() {
         console.log('cancelar')

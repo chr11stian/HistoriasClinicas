@@ -1,1 +1,657 @@
 <p>plan-atencion-adolescente works!</p>
+<div>
+    <p-tabView styleClass="tabview-custom" class="text-center">
+        <p-tabPanel>
+            <ng-template pTemplate="header">
+                <i class="pi pi-calendar mx-3"></i>
+                <span class="tabs">Evaluaciones fisicas</span>
+            </ng-template>
+            <div>
+                <p-tabView styleClass="tabview-custom" class="text-center">
+                    <p-tabPanel>
+                        <ng-template pTemplate="header">
+                            <i class="pi pi-calendar mx-3"></i>
+                            <span class="tabs">Evaluación del crecimiento fisico y estado nutricional</span>
+                        </ng-template>
+                        <div>
+                            <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                                styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-8 text-left">
+                                            <h3>Evaluación del crecimiento fisico y estado nutricional</h3>
+                                        </div>
+                                        <div class="col-2 text-right">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3" (click)="openNewEvaluacionCrecimientoFisico()"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th class="text-center">NRO</th>
+                                        <th class="text-center">FECHA</th>
+                                        <th class="text-center">IMC</th>
+                                        <th class="text-center">TALLA</th>
+                                        <th class="text-center">EDAD</th>
+                                        <th class="text-center">ALIMENTACION</th>
+                                        <th class="text-center">ACCIONES</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-row let-i="rowIndex">
+                                    <tr>
+                                        <td class="text-center">{{i+1}}</td>
+                                        <td class="text-center">{{row.fecha}}</td>
+                                        <td class="text-center">{{row.imc}}</td>
+                                        <td class="text-center">{{row.talla}}</td>
+                                        <td class="text-center">{{row.edad}}</td>
+                                        <td class="text-center">{{row.alimentacion}}</td>
+                                        <td class="text-center">
+                                            <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                                label="Editar" class="p-button-rounded p-button-info"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Evaluacion de la agudeza visual y agudeza auditiva">
+                        <ng-template pTemplate="header">
+                            <i class="pi pi-user mx-3"></i>
+                            <span class="tabs">Evaluación de la agudeza visual y agudeza auditiva</span>
+                        </ng-template>
+                        <div>
+                            <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                                styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-8 text-left">
+                                            <h3>Evaluación de la agudeza visual y agudeza auditiva</h3>
+                                        </div>
+                                        <div class="col-2 text-right">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th class="text-center">NRO</th>
+                                        <th class="text-center">FECHA</th>
+                                        <th class="text-center">AGUDEZA VISUAL OD</th>
+                                        <th class="text-center">AGUDEZA VISUAL OI</th>
+                                        <th class="text-center">AGUDEZA AUDITIVA OD</th>
+                                        <th class="text-center">AGUDEZA AUDITIVA OI</th>
+                                        <th class="text-center">ACCIONES</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-row let-i="rowIndex">
+                                    <tr>
+                                        <td class="text-center">{{i+1}}</td>
+                                        <td class="text-center">{{row.fecha}}</td>
+                                        <td class="text-center">{{row.agudezaVisualDerecha}}</td>
+                                        <td class="text-center">{{row.agudezaVisualIzquierda}}</td>
+                                        <td class="text-center">{{row.agudezaAuditivaDerecha}}</td>
+                                        <td class="text-center">{{row.agudezaAuditivaDerecha}}</td>
+                                        <td class="text-center">
+                                            <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                                label="Editar" class="p-button-rounded p-button-info"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Evaluacion fisico postural">
+                        <ng-template pTemplate="header">
+                            <i class="pi pi-bell mx-3"></i>
+                            <span class="tabs">Evaluacion fisico postural</span>
+                        </ng-template>
+                        <div>
+                            <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                                styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-8 text-left">
+                                            <h3>Evaluacion fisico postural</h3>
+                                        </div>
+                                        <div class="col-2 text-right">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th class="text-center">NRO</th>
+                                        <th class="text-center">FECHA</th>
+                                        <th class="text-center">COLUMNA</th>
+                                        <th class="text-center">RODILLA</th>
+                                        <th class="text-center">PIE</th>
+                                        <th class="text-center">ACCIONES</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-row let-i="rowIndex">
+                                    <tr>
+                                        <td class="text-center">{{i+1}}</td>
+                                        <td class="text-center">{{row.fecha}}</td>
+                                        <td class="text-center">{{row.columna}}</td>
+                                        <td class="text-center">{{row.rodilla}}</td>
+                                        <td class="text-center">{{row.pie}}</td>
+                                        <td class="text-center">
+                                            <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                                label="Editar" class="p-button-rounded p-button-info"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Evaluacion del desarrollo sexual">
+                        <ng-template pTemplate="header">
+                            <i class="pi pi-bell mx-3"></i>
+                            <span class="tabs">Evaluacion del desarrollo sexual (TANNER)</span>
+                        </ng-template>
+                        <div>
+                            <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                                styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-8 text-left">
+                                            <h3>Evaluacion del desarrollo sexual (TANNER)</h3>
+                                        </div>
+                                        <div class="col-2 text-right">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th class="text-center">NRO</th>
+                                        <th class="text-center">FECHA</th>
+                                        <th class="text-center">DESARROLLO DE LA MAMA</th>
+                                        <th class="text-center">DESARROLLO DEL PENE</th>
+                                        <th class="text-center">DESARROLLO DEL VELLO PUBIANO</th>
+                                        <th class="text-center">ACCIONES</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-row let-i="rowIndex">
+                                    <tr>
+                                        <td class="text-center">{{i+1}}</td>
+                                        <td class="text-center">{{row.fecha}}</td>
+                                        <td class="text-center">{{row.desarrolloMama}}</td>
+                                        <td class="text-center">{{row.desarrolloPene}}</td>
+                                        <td class="text-center">{{row.desarrolloVelloPubiano}}</td>
+                                        <td class="text-center">
+                                            <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                                label="Editar" class="p-button-rounded p-button-info"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Evaluaciones sociales">
+            <ng-template pTemplate="header">
+                <i class="pi pi-user mx-3"></i>
+                <span class="tabs">Evaluaciones sociales</span>
+            </ng-template>
+            <div>
+                <p-tabView styleClass="tabview-custom" class="text-center">
+                    <p-tabPanel>
+                        <ng-template pTemplate="header">
+                            <i class="pi pi-calendar mx-3"></i>
+                            <span class="tabs">Evaluación de habilidades sociales</span>
+                        </ng-template>
+                        <div>
+                            <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                                styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-8 text-left">
+                                            <h3>Evaluación de habilidades sociales</h3>
+                                        </div>
+                                        <div class="col-2 text-right">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th class="text-center">NRO</th>
+                                        <th class="text-center">FECHA</th>
+                                        <th class="text-center">AUTOESTIMA</th>
+                                        <th class="text-center">COMUNICACION</th>
+                                        <th class="text-center">ASERTIVIDAD</th>
+                                        <th class="text-center">TOMA DE DECISIONES</th>
+                                        <th class="text-center">CALIFICACION TOTAL</th>
+                                        <th class="text-center">ACCIONES</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-row let-i="rowIndex">
+                                    <tr>
+                                        <td class="text-center">{{i+1}}</td>
+                                        <td class="text-center">{{row.fecha}}</td>
+                                        <td class="text-center">{{row.imc}}</td>
+                                        <td class="text-center">{{row.talla}}</td>
+                                        <td class="text-center">{{row.edad}}</td>
+                                        <td class="text-center">{{row.alimentacion}}</td>
+                                        <td class="text-center">
+                                            <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                                label="Editar" class="p-button-rounded p-button-info"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Identificacion de cólera, irritabilidad y agresión">
+                        <ng-template pTemplate="header">
+                            <i class="pi pi-user mx-3"></i>
+                            <span class="tabs">Identificacion de cólera, irritabilidad y agresión</span>
+                        </ng-template>
+                        <div>
+                            <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                                styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-8 text-left">
+                                            <h3>Identificacion de cólera, irritabilidad y agresión</h3>
+                                        </div>
+                                        <div class="col-2 text-right">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th class="text-center">NRO</th>
+                                        <th class="text-center">FECHA</th>
+                                        <th class="text-center">COLERA</th>
+                                        <th class="text-center">IRRITABILIDAD</th>
+                                        <th class="text-center">AGRESION</th>
+                                        <th class="text-center">CALIFICACION TOTAL</th>
+                                        <th class="text-center">ACCIONES</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-row let-i="rowIndex">
+                                    <tr>
+                                        <td class="text-center">{{i+1}}</td>
+                                        <td class="text-center">{{row.fecha}}</td>
+                                        <td class="text-center">{{row.colera}}</td>
+                                        <td class="text-center">{{row.irritabilidad}}</td>
+                                        <td class="text-center">{{row.agresion}}</td>
+                                        <td class="text-center">{{row.calificacionTotal}}</td>
+                                        <td class="text-center">
+                                            <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                                label="Editar" class="p-button-rounded p-button-info"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Tamizaje de violencia">
+                        <ng-template pTemplate="header">
+                            <i class="pi pi-bell mx-3"></i>
+                            <span class="tabs">Tamizaje de violencia</span>
+                        </ng-template>
+                        <div>
+                            <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                                styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-8 text-left">
+                                            <h3>Tamizaje de violencia</h3>
+                                        </div>
+                                        <div class="col-2 text-right">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th class="text-center">NRO</th>
+                                        <th class="text-center">FECHA</th>
+                                        <th class="text-center">FAMILIAR</th>
+                                        <th class="text-center">SEXUAL</th>
+                                        <th class="text-center">POLITICA</th>
+                                        <th class="text-center">ACCIONES</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-row let-i="rowIndex">
+                                    <tr>
+                                        <td class="text-center">{{i+1}}</td>
+                                        <td class="text-center">{{row.fecha}}</td>
+                                        <td class="text-center">{{row.familiar}}</td>
+                                        <td class="text-center">{{row.sexual}}</td>
+                                        <td class="text-center">{{row.politica}}</td>
+                                        <td class="text-center">
+                                            <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                                label="Editar" class="p-button-rounded p-button-info"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Identificacion de factores de riesgo">
+            <ng-template pTemplate="header">
+                <i class="pi pi-bell mx-3"></i>
+                <span class="tabs">Identificacion de factores de riesgo</span>
+            </ng-template>
+            <div>
+                <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                    styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    [showCurrentPageReport]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="grid">
+                            <div class="col-8 text-left">
+                                <h3>Identificacion de factores de riesgo</h3>
+                            </div>
+                            <div class="col-2 text-right">
+                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                    class="p-button-raised mt-3"></button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="text-center">NRO</th>
+                            <th class="text-center">FECHA</th>
+                            <th class="text-center">FACTOR DE RIESGO</th>
+                            <th class="text-center">ACCIONES</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-row let-i="rowIndex">
+                        <tr>
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">{{row.fecha}}</td>
+                            <td class="text-center">{{row.factorRiesgo}}</td>
+                            <td class="text-center">
+                                <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                    label="Editar" class="p-button-rounded p-button-info"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Descarte de enfermedades no transmisibles">
+            <ng-template pTemplate="header">
+                <i class="pi pi-bell mx-3"></i>
+                <span class="tabs">Descarte de enfermedades no transmisibles</span>
+            </ng-template>
+            <div>
+                <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                    styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    [showCurrentPageReport]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="grid">
+                            <div class="col-8 text-left">
+                                <h3>Descarte de enfermedades no transmisibles</h3>
+                            </div>
+                            <div class="col-2 text-right">
+                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                    class="p-button-raised mt-3"></button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="text-center">NRO</th>
+                            <th class="text-center">HEMATOCRITO</th>
+                            <th class="text-center">COLESTEROLEMIA TOTAL</th>
+                            <th class="text-center">GLICEMIA</th>
+                            <th class="text-center">EXAMEN DE ORINA COMPLETO (PROTEINURIA)</th>
+                            <th class="text-center">ACCIONES</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-row let-i="rowIndex">
+                        <tr>
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">{{row.fecha}}</td>
+                            <td class="text-center">{{row.hematocrito}}</td>
+                            <td class="text-center">{{row.colesterolemiaTotal}}</td>
+                            <td class="text-center">{{row.glicemia}}</td>
+                            <td class="text-center">{{row.examenOrinaCompleto}}</td>
+                            <td class="text-center">
+                                <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                    label="Editar" class="p-button-rounded p-button-info"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Escolaridad">
+            <ng-template pTemplate="header">
+                <i class="pi pi-search mx-3"></i>
+                <span class="tabs">Escolaridad</span>
+            </ng-template>
+            <div>
+                <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                    styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    [showCurrentPageReport]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="grid">
+                            <div class="col-8 text-left">
+                                <h3>Escolaridad</h3>
+                            </div>
+                            <div class="col-2 text-right">
+                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                    class="p-button-raised mt-3"></button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="text-center">NRO</th>
+                            <th class="text-center">FECHA</th>
+                            <th class="text-center">ASISTENCIA A LA ESCUELA O COLEGIO</th>
+                            <th class="text-center">RENDIMIENTO ESCOLAR</th>
+                            <th class="text-center">DESERCION ESCOLAR</th>
+                            <th class="text-center">ACCIONES</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-row let-i="rowIndex">
+                        <tr>
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">{{row.fecha}}</td>
+                            <td class="text-center">{{row.asistenciaEscuelaColegio}}</td>
+                            <td class="text-center">{{row.rendimientoEscolar}}</td>
+                            <td class="text-center">{{row.desercionEscolar}}</td>
+                            <td class="text-center">
+                                <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                    label="Editar" class="p-button-rounded p-button-info"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Habitos">
+            <ng-template pTemplate="header" class="habitos">
+                <i class="pi pi-search mx-3"></i>
+                <span class="tabs">Habitos</span>
+            </ng-template>
+            <div>
+                <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                    styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    [showCurrentPageReport]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="grid">
+                            <div class="col-8 text-left">
+                                <h3>Habitos</h3>
+                            </div>
+                            <div class="col-2 text-right">
+                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                    class="p-button-raised mt-3"></button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="text-center">NRO</th>
+                            <th class="text-center">FECHA</th>
+                            <th class="text-center">USO DE TIEMPO LIBRE</th>
+                            <th class="text-center">SEDENTARISMO</th>
+                            <th class="text-center">USO DE ALCOHOL</th>
+                            <th class="text-center">USO DE TABACO</th>
+                            <th class="text-center">USO DE DROGAS</th>
+                            <th class="text-center">PERTENENCIA A PANDILLAS</th>
+                            <th class="text-center">ACCIONES</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-row let-i="rowIndex">
+                        <tr>
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">{{row.fecha}}</td>
+                            <td class="text-center">{{row.usoTiempoLibre}}</td>
+                            <td class="text-center">{{row.sedentarismo}}</td>
+                            <td class="text-center">{{row.usoDeAlcohol}}</td>
+                            <td class="text-center">{{row.usoDeTabaco}}</td>
+                            <td class="text-center">{{row.usoDeDrogas}}</td>
+                            <td class="text-center">{{row.pertenenciaPandillas}}</td>
+                            <td class="text-center">
+                                <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                    label="Editar" class="p-button-rounded p-button-info"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="Salud sexual y reproductiva">
+            <ng-template pTemplate="header">
+                <i class="pi pi-search mx-3"></i>
+                <span class="tabs">Salud sexual y reproductiva</span>
+            </ng-template>
+            <div>
+                <p-table [value]="evaluacionesCrecimientoFisico" responsiveLayout="scroll"
+                    styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    [showCurrentPageReport]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="grid">
+                            <div class="col-8 text-left">
+                                <h3>Salud sexual y reproductiva</h3>
+                            </div>
+                            <div class="col-2 text-right">
+                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                    class="p-button-raised mt-3"></button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th class="text-center">NRO</th>
+                            <th class="text-center">FECHA</th>
+                            <th class="text-center">PAREJA O ENAMORADO</th>
+                            <th class="text-center">RELACIONES SEXUALES</th>
+                            <th class="text-center">CONDUCTA SEXUAL DE RIESGO</th>
+                            <th class="text-center">DOS O MAS PAREJAS</th>
+                            <th class="text-center">SEXO SIN PROTECCION</th>
+                            <th class="text-center">RS CON PERSONAS DEL MISMO SEXO</th>
+                            <th class="text-center">RS CON PERSONAS DEL OTRO SEXO</th>
+                            <th class="text-center">USO DE METODO ANTICONCEPTIVO</th>
+                            <th class="text-center">CONOCIMIENTO PARA PREVENIR EMBARAZO NO DESEADO</th>
+                            <th class="text-center">CONOCIMIENTO PARA PREVENIR LA TRANSMISION DE ITS VIH</th>
+                            <th class="text-center">ACCIONES</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-row let-i="rowIndex">
+                        <tr>
+                            <td class="text-center">{{i+1}}</td>
+                            <td class="text-center">{{row.fecha}}</td>
+                            <td class="text-center">{{row.parejaEnamorado}}</td>
+                            <td class="text-center">{{row.relacionesSexuales}}</td>
+                            <td class="text-center">{{row.conductaSexualRiesgo}}</td>
+                            <td class="text-center">{{row.dosMasParejas}}</td>
+                            <td class="text-center">{{row.sexoSinProteccion}}</td>
+                            <td class="text-center">{{row.rsMismoSexo}}</td>
+                            <td class="text-center">{{row.rsOtroSexo}}</td>
+                            <td class="text-center">{{row.usoMetodoAnticonceptivo}}</td>
+                            <td class="text-center">{{row.conocimientoPrevenirEmbarazo}}</td>
+                            <td class="text-center">{{row.conocimientoPrevenirIts}}</td>
+                            <td class="text-center">
+                                <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                    label="Editar" class="p-button-rounded p-button-info"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+
+<p-dialog class="dialogo m-4" [(visible)]="evaluacionCrecimientoFisicoDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>EVALUACION CRECIMIENTO FISICO</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formEvaluacionCrecimientoFisico'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>IMC:</label>
+                    <input type="number" pInputText formControlName='imc' placeholder=""
+                        class="p-inputtext-sm inputfield w-full" placeholder="Movimientos Fetales">
+                </div>
+                <div class="col-4">
+                    <label>Talla:</label>
+                    <input type="number" pInputText formControlName='talla' placeholder=""
+                        class="p-inputtext-sm inputfield w-full" placeholder="Movimientos Fetales">
+                </div>
+                <div class="col-4">
+                    <label>Edad:</label>
+                    <input type="number" pInputText formControlName='edad' placeholder=""
+                        class="p-inputtext-sm inputfield w-full" placeholder="Movimientos Fetales">
+                </div>
+                <div class="col-12">
+                    <label>Alimentacion:</label>
+                    <input type="text" pInputText formControlName='alimentacion' placeholder=""
+                        class="p-inputtext-sm inputfield w-full" placeholder="Movimientos Fetales">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarEdicionExamenFetal()"></button>
+        <button *ngIf="!estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarNuevoExamenFetal()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledExamenFetal()"></button>
+    </ng-template>
+</p-dialog>
