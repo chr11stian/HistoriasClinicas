@@ -29,6 +29,27 @@ export class SideBarComponent implements OnInit {
             },
 
             {
+                label: "Admision",
+                items: [
+                    {
+                        icon: "pi pi-file",
+                        label: "Cupos",
+                        routerLink: "admision/cupos",
+                    },
+                    {
+                        label: "Caja",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "caja/pagos",
+                    },
+                    {
+                        icon: "pi pi-file",
+                        label: "Paciente",
+                        routerLink: "admision/paciente",
+                    },
+                ],
+            },
+
+            {
                 label: "Historias Clinicas",
                 items: [
                     {
@@ -113,30 +134,17 @@ export class SideBarComponent implements OnInit {
 
                 ],
             },
+
             {
-                label: "Admisión",
+                label: "Administración",
                 items: [
-                    {
-                        icon: "pi pi-file",
-                        label: "Cupos",
-                        routerLink: "admision/cupos",
-                    },
+
                     {
                         icon: "pi pi-file",
                         label: "Rol Guardia",
                         routerLink: "historia/rol-guardia",
                     },
 
-                    {
-                        icon: "pi pi-file",
-                        label: "Paciente",
-                        routerLink: "admision/paciente",
-                    },
-                    {
-                        label: "Caja",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "caja/pagos",
-                    },
                     {
                         label: "Personal de Salud",
                         icon: "pi pi-pw pi-file",
