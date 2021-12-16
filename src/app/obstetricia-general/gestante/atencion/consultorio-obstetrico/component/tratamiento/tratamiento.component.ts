@@ -552,7 +552,6 @@ export class TratamientoComponent implements OnInit {
              this.tratamientoInmunizaciones.push(this.dataConsulta.inmunizaciones[a]);
              a++;
            }
-
            /*reuperar datos: tratamientos suplementarios - evaluacion suplmentaria - exam auxiliares*/
            /* recuperar suplementario acido folico*/
            this.formRIEP.patchValue({'descripciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.descripcion});
@@ -619,7 +618,7 @@ export class TratamientoComponent implements OnInit {
              z++;
 
            }
-         }else{this.messageService.add({severity: 'success', summary: 'Ingresar', detail: 'Registro vacio'});}
+         }else{this.messageService.add({severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía'});}
 
       }
     });
