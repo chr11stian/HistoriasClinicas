@@ -12,4 +12,16 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  sino = [
+    { label: 'SI', value: 'SI' },
+    { label: 'NO', value: 'NO' }
+  ];
+  familiares = [
+    {nombrefamiliar: 'Padre'},
+    {nombrefamiliar: 'Madre'},
+    {nombrefamiliar: 'Hermano'},
+    {nombrefamiliar: 'Hermana'},
+    {nombrefamiliar: 'Abuelo'},
+    {nombrefamiliar: 'Otros'},
+  ];
 }

@@ -264,45 +264,51 @@ export class GiagnosticosComponent implements OnInit {
         }
         this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
             this.dataAux = res.object;
-            console.log(this.dataAux);
-            /************************RECUPERAR DATOS EXTRA**************************/
-            this.formOtrosDatos.patchValue({'consultorio':this.dataAux.referencia.consultorio});
-            this.formOtrosDatos.patchValue({'motivo':this.dataAux.referencia.motivo});
-            this.formOtrosDatos.patchValue({'codRENAES':this.dataAux.referencia.codRENAES});
-            this.formOtrosDatos.patchValue({'proxCita':this.dataAux.proxCita});
-            this.formOtrosDatos.patchValue({'visita':this.dataAux.visitaDomiciliaria.estado});
-            this.formOtrosDatos.patchValue({'fechaVisita':this.dataAux.visitaDomiciliaria.fecha});
-            this.formOtrosDatos.patchValue({'planPartoReenfocada':this.dataAux.planPartoReenfocada});
-            /**********************RECUPERAR DATOS DE ORIENTACIONES********/
-            if(this.dataAux.orientaciones.length === null || this.dataAux.orientaciones.length === 0 ){
-                this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe ninguna orientación ingresada'});
-            }
-            else{
-                let i: number = 0;
-                console.log(this.dataAux.orientaciones);
-                // this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de orientaciones recuperado satisfactoriamente'});
-                while(i<this.dataAux.orientaciones.length){
-                    console.log("orientaciones consta de: ", this.dataAux.orientaciones[i]);
-                    if(this.dataAux.orientaciones[i].valor === true) {
-                        this.orientaciones.push(this.dataAux.orientaciones[i]);
-                    }
-                    i++;
-                }
-            }
-            /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
-            if(this.dataAux.diagnosticos.length === null || this.dataAux.diagnosticos.length === 0 ){
-                console.log("NO INGRESO NINGUN DIAGNOSTICO AUN, POR FAVOR INGRESE AL MENOS UNO");
-                this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe ninguna diagnostico ingresado'});
-            }
-            else{
-                let i: number = 0;
-                this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de diagnostico recuperado satisfactoriamente'});
-                while(i<this.dataAux.diagnosticos.length){
+            console.log("data consulta:" +this.dataAux);
 
-                    console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[i]);
-                    this.diagnosticos.push(this.dataAux.diagnosticos[i]);
-                    i++;
-                }
+            if(res['cod']='2401') {
+                if(this.dataAux!=null){
+                    console.log(this.dataAux);
+                        this.messageService.add({
+                            severity: 'info',
+                            summary: 'Recuperado',
+                            detail: 'Registro recuperado satisfactoriamente'
+                        });
+
+                    /************************RECUPERAR DATOS EXTRA**************************/
+                    this.formOtrosDatos.patchValue({'consultorio': this.dataAux.referencia.consultorio});
+                    this.formOtrosDatos.patchValue({'motivo': this.dataAux.referencia.motivo});
+                    this.formOtrosDatos.patchValue({'codRENAES': this.dataAux.referencia.codRENAES});
+                    this.formOtrosDatos.patchValue({'proxCita': this.dataAux.proxCita});
+                    this.formOtrosDatos.patchValue({'visita': this.dataAux.visitaDomiciliaria.estado});
+                    this.formOtrosDatos.patchValue({'fechaVisita': this.dataAux.visitaDomiciliaria.fecha});
+                    this.formOtrosDatos.patchValue({'planPartoReenfocada': this.dataAux.planPartoReenfocada});
+                    /**********************RECUPERAR DATOS DE ORIENTACIONES********/
+
+                        let i: number = 0;
+                        console.log(this.dataAux.orientaciones);
+                        // this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de orientaciones recuperado satisfactoriamente'});
+                        while (i < this.dataAux.orientaciones.length) {
+                            console.log("orientaciones consta de: ", this.dataAux.orientaciones[i]);
+                            if (this.dataAux.orientaciones[i].valor === true) {
+                                this.orientaciones.push(this.dataAux.orientaciones[i]);
+                            }
+                            i++;
+                        }
+
+                    /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
+                        let x: number = 0;
+
+                        while (i < this.dataAux.diagnosticos.length) {
+
+                            console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[x]);
+                            this.diagnosticos.push(this.dataAux.diagnosticos[x]);
+                            i++;}
+
+}
+
+                else{this.messageService.add({severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía'});}
+
             }
         });
     }

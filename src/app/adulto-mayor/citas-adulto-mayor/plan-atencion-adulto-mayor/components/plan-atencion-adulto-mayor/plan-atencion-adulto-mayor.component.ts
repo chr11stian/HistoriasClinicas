@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PlanEvaluacionAdulto} from "./interfaces/PlanEvaluacionAdulto";
 
 @Component({
   selector: 'app-plan-atencion-adulto-mayor',
@@ -6,10 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./plan-atencion-adulto-mayor.component.css']
 })
 export class PlanAtencionAdultoMayorComponent implements OnInit {
-
+    planAtencion: PlanEvaluacionAdulto[];
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  openDialogEditarPlan(rowData: any, rowIndex: any) {
+    
+  }
 }

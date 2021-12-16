@@ -111,7 +111,6 @@ export class TratamientoComponent implements OnInit {
       {label: 'TOPICO', value: 'TOPICO'},
       {label: 'VAGINAL', value: 'VAGINAL'},
     ];
-    this.recuperarNroFetos();
     this.recuperarDatos();
 
   }
@@ -146,7 +145,6 @@ export class TratamientoComponent implements OnInit {
   }
   ngOnInit(): void
   {
-
   }
   recuperarNroFetos(){
     let idData = {
@@ -374,9 +372,32 @@ export class TratamientoComponent implements OnInit {
     }
 
   }
+  guardarEvaluacionNutricional() {
+    this.recuperarDatosEvaluacion();
+    console.log("peso hab:" + this.pesoHabitual);
+    console.log("peso actual" + this.pesoActual);
+    let aux = this.pesoActual-this.pesoHabitual;
+    console.log(this.evaluacionNutricional.valor);
+    const req = {
+      id: this.idConsultoriObstetrico,
+      nroHcl: this.nroHclRecuperado,
+      nroEmbarazo: this.nroEmbarazo,
+      nroAtencion: 1,
+      // nroControlSis: 1,
+      tipoDoc: this.tipoDocRecuperado,
+      nroDoc: this.nroDocRecuperado,
+      evaluacionNutricional: {valor:aux,indicador:"GAP"}}
+      this.tratamientoService.updateConsultas(this.nroFetos, req).subscribe(
+          (resp) => {
+            console.log(resp);
+            console.log(req);
+          }
+      )
+  }
+
   guardarTodosDatos(){
     this.recuperarDatoSuplementarios();
-    this.recuperarDatosEvaluacion();
+    // this.recuperarDatosEvaluacion();
     console.log(this.evaluacionNutricional.valor);
     console.log(this.examenesAuxiliares);
     this.recuperarDatoSuplementarios();
@@ -393,7 +414,7 @@ export class TratamientoComponent implements OnInit {
       tratamientosSuplementos:this.suplementarios,
       interconsultas:this.interconsultas,
       examenesAuxiliares:this.examenesAuxiliares,
-      evaluacionNutricional:this.evaluacionNutricional,
+      // evaluacionNutricional:this.evaluacionNutricional,
       recomendaciones:this.recomendaciones,
     }
     this.tratamientoService.updateConsultas(this.nroFetos,req).subscribe(
@@ -522,7 +543,9 @@ export class TratamientoComponent implements OnInit {
       }
     })
   }
+
   recuperarDatos(){
+    this.recuperarNroFetos();
     let aux ={
       "id" : this.idConsultoriObstetrico,
       "nroHcl":this.nroHclRecuperado,
@@ -533,14 +556,21 @@ export class TratamientoComponent implements OnInit {
     this.tratamientoService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
       this.dataConsulta = res.object;
       console.log("data consulta:" +this.dataConsulta);
-      /*recuperar peso actual*/
 
-      this.pesoActual = parseFloat(this.dataConsulta.funcionesVitales.peso)
-      /*recuperar tratamientos comunes*/
+
       if(res['cod']='2401') {
         // console.log(this.dataConsulta.tratamientos);
-         if((res.object.tratamientos!=null && res.object.interconsultas!=null && res.object.inmunizaciones!=null && res.object.recomendaciones!=null && res.object.examenesAuxiliares != null))
+        if(this.dataConsulta != null)
          {
+           this.messageService.add({
+             severity: 'info',
+             summary: 'Recuperado',
+             detail: 'Registro recuperado satisfactoriamente'
+           });
+           /*recuperar peso actual*/
+           this.pesoActual = parseFloat(this.dataConsulta.funcionesVitales.peso)
+           this.guardarEvaluacionNutricional();
+           /*recuperar tratamientos comunes*/
            let i: number = 0;
            while (i < this.dataConsulta.tratamientos.length) {
              this.tratamientosComunes.push(this.dataConsulta.tratamientos[i]);
@@ -586,7 +616,7 @@ export class TratamientoComponent implements OnInit {
            console.log("peso actual " + this.pesoActual);
            console.log("peso habituañ " + this.pesoHabitual);
            this.formRIEP.patchValue({'valor': parseFloat(this.dataConsulta.funcionesVitales.peso) - this.pesoHabitual});
-           //  this.formRIEP.patchValue({'valor': this.dataConsulta.evaluacionNutricional.valor});
+           //  this.formRIEP.patchValue({'valor': parseFloat(this.dataConsulta.evaluacionNutricional.valor)});
            this.formRIEP.patchValue({'indicador': this.dataConsulta.evaluacionNutricional.indicador});
            /**Recuperar responsable de la atencion**/
            this.formRIEP.patchValue({'encargado': this.dataConsulta.encargado.tipoDoc + " " + this.dataConsulta.encargado.nroDoc});
