@@ -22,50 +22,15 @@ export class SideBarComponent implements OnInit {
     ngOnInit() {
         this.model = [
             {
-                label: "Administrador del Sistema",
-                items: [
-                    {
-                        label: "Personal de Salud",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "admision/personal-salud",
-                    },
-                    {
-                        label: "Usuarios",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "admision/usuarios",
-                    },
-                    {
-                        label: "Institución Prestadora de Servicios de Salud",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "admision/ipress",
-                    },
-                    {
-                        label: "Caja",
-                        icon: "pi pi-pw pi-file",
-                        routerLink: "caja/pagos",
-                    },
-                ],
+                label: "Triaje",
+                items: [{
+                    label: "Paciente",
+                }]
             },
 
             {
                 label: "Historias Clinicas",
                 items: [
-                    // {
-                    //     label: "Obstetricia Consulta",
-                    //     icon: "pi pi-pw pi-file",
-                    //     routerLink: "obstetricia/cabecera-consulta",
-                    // },
-                    // {
-                    //     label: "Obstetricia Atencion Integral",
-                    //     icon: "pi pi-pw pi-file",
-                    //     routerLink: "obstetricia/cabecera-atencion-integral",
-                    // },
-                    // {
-                    //     label: "Obstetricia plan de parto",
-                    //     icon: "pi pi-pw pi-file",
-                    //     routerLink: "obstetricia/cabecera-plan-parto",
-                    //
-                    // },
                     {
                         icon: "pi pi-file",
                         label: "obstetricia",
@@ -79,77 +44,6 @@ export class SideBarComponent implements OnInit {
                                 routerLink: "obstetricia-general/historia-consultas",
                             },
                         ]
-                    },
-                    {
-                        icon: "pi pi-file",
-                        label: "FUA",
-                        routerLink: "fua/fua",
-                    },
-
-                    {
-                        icon: "pi pi-file",
-                        label: "Rol Guardia",
-                        routerLink: "historia/rol-guardia",
-                    },
-
-                ],
-            },
-            {
-                label: "Medicina General",
-                items: [
-                    {
-                        icon: "pi pi-file",
-                        label: "Adolescente",
-                        items: [
-                            {
-                                label: "Citas",
-                                icon: "pi pi-pw pi-file",
-                                routerLink: "adolescente/citas",
-                            },
-                            {
-                                label: "Consultas",
-                                icon: "pi pi-pw pi-file",
-                                routerLink: "adolescente/citas/consulta",
-                            },
-                        ]
-                    },
-                    {
-                        icon: "pi pi-file",
-                        label: "Adulto",
-                        items: [
-                            {
-                                label: "Citas",
-                                icon: "pi pi-pw pi-file",
-                                routerLink: "adulto/citas",
-                            },
-                        ]
-                    },
-                    {
-                        icon: "pi pi-file",
-                        label: "Adulto Mayor",
-                        items: [
-                            {
-                                label: "Citas",
-                                icon: "pi pi-pw pi-file",
-                                routerLink: "adulto-mayor/citas",
-                            },
-                        ]
-                    },
-                ],
-            },
-            {
-                label: "Funciones Administrativas",
-                items: [
-                    {
-                        icon: "pi pi-file",
-                        label: "Cupos",
-                        routerLink: "admision/cupos",
-                    },
-
-                    {
-                        icon: "pi pi-file",
-                        label: "Paciente",
-                        routerLink: "admision/paciente",
                     },
                     {
                         icon: "pi pi-file",
@@ -167,28 +61,105 @@ export class SideBarComponent implements OnInit {
                             },
                         ]
                     },
+                    {
+                        label: "Medicina General",
+                        items: [
+                            {
+                                icon: "pi pi-file",
+                                label: "Adolescente",
+                                items: [
+                                    {
+                                        label: "Citas",
+                                        icon: "pi pi-pw pi-file",
+                                        routerLink: "adolescente/citas",
+                                    },
+                                    {
+                                        label: "Consultas",
+                                        icon: "pi pi-pw pi-file",
+                                        routerLink: "adolescente/citas/consulta",
+                                    },
+                                ]
+                            },
+                            {
+                                icon: "pi pi-file",
+                                label: "Adulto",
+                                items: [
+                                    {
+                                        label: "Citas",
+                                        icon: "pi pi-pw pi-file",
+                                        routerLink: "adulto/citas",
+                                    },
+                                ]
+                            },
+                            {
+                                icon: "pi pi-file",
+                                label: "Adulto Mayor",
+                                items: [
+                                    {
+                                        label: "Citas",
+                                        icon: "pi pi-pw pi-file",
+                                        routerLink: "adulto-mayor/citas",
+                                    },
+                                ]
+                            },
+                        ],
+                    },
+
+                    {
+                        icon: "pi pi-file",
+                        label: "FUA",
+                        routerLink: "fua/fua",
+                    },
+
                 ],
             },
-
             {
-                label: "Funciones Asistenciales",
+                label: "Admisión",
                 items: [
                     {
                         icon: "pi pi-file",
-                        label: "Enfermeria",
-                        routerLink: "historia/enfermeria",
+                        label: "Cupos",
+                        routerLink: "admision/cupos",
                     },
                     {
                         icon: "pi pi-file",
-                        label: "Medicina General",
-                        routerLink: "historia/medicina_general",
+                        label: "Rol Guardia",
+                        routerLink: "historia/rol-guardia",
                     },
+
+                    {
+                        icon: "pi pi-file",
+                        label: "Paciente",
+                        routerLink: "admision/paciente",
+                    },
+                    {
+                        label: "Caja",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "caja/pagos",
+                    },
+                    {
+                        label: "Personal de Salud",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "admision/personal-salud",
+                    },
+                    {
+                        label: "Usuarios",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "admision/usuarios",
+                    },
+
                 ],
             },
+
 
             {
                 label: "Mantenimientos",
                 items: [
+                    {
+                        label: "IPRESS",
+                        icon: "pi pi-pw pi-file",
+                        routerLink: "admision/ipress",
+                    },
                     {
                         icon: "pi pi-file",
                         label: "Tipo Personal",
