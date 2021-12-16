@@ -542,7 +542,7 @@ export class DatosGeneralesComponent implements OnInit {
                 }
             )
         } else {
-            this.consultasService.updateConsultas(this.data).subscribe((result: any) => {
+            this.consultasService.updateConsultas(this.data,1).subscribe((result: any) => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Actualizo con exito',

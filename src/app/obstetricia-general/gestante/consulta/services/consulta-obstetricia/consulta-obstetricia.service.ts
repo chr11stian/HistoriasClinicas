@@ -12,7 +12,7 @@ export class ConsultaObstetriciaService {
   constructor(private http: HttpClient) { }
 
   getDatosConsultasObstetricasListar(data) {
-    return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listar`,data)
+    return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listar`, data)
   }
   postDatoConsultaObstetrica(data,nroFetos) {
     return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsulta/${nroFetos}`, data)
@@ -20,8 +20,11 @@ export class ConsultaObstetriciaService {
   putDatoConsultaObstetrica(data,nroFetos) {
     return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsulta/${nroFetos}`, data)
   }
-  traerDatosParaConsultaNueva(data){
+  traerDatosParaConsultaNueva(data) {
     return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsulta`, data)
+  }
+  postConsultaNoControl(data) {
+    return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultaNoControl`, data)
   }
   
 }

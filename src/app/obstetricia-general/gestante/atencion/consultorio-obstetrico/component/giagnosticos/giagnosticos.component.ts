@@ -50,8 +50,8 @@ export class GiagnosticosComponent implements OnInit {
     /********Lista tipo Dx*****/
     tipoList:any[]= [];
     eleccion: any;
-    private nroFetos = 1;
-
+    private nroFetos = 0;
+    private idConsulta:any;
 
     constructor(private formBuilder: FormBuilder,
                 private obstetriciaService: ObstetriciaGeneralService,
@@ -64,6 +64,7 @@ export class GiagnosticosComponent implements OnInit {
         this.nroDocRecuperado = this.obstetriciaService.nroDoc;
         this.nroEmbarazo = this.obstetriciaService.nroEmbarazo;
         this.idConsultoriObstetrico = this.obstetriciaService.idConsultoriObstetrico;
+        this.idConsulta = this.obstetriciaService.idGestacion;
         this.nroHclRecuperado = this.obstetriciaService.nroHcl;
         /***************DATOS DE LOS DROPDOWNS*******************/
         /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
@@ -89,12 +90,20 @@ export class GiagnosticosComponent implements OnInit {
         console.log("Nro de embarazo", this.nroEmbarazo);
         console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
         this.recuperarDatosGuardados();
-
+        this.recuperarNroFetos();
+    }
+    recuperarNroFetos(){
+        let idData = {
+            id: this.idConsulta
+        }
+        this.DxService.getUltimaConsultaById(idData).subscribe((res: any) => {
+            this.nroFetos = res.object.nroFetos;
+            console.log("nroFetos:",this.nroFetos)
+        })
     }
     showModalDialog() {
         this.displayModal = true;
     }
-
     buildForm() {
         this.form = this.formBuilder.group({
             diagnostico: ['', [Validators.required]],
@@ -230,8 +239,8 @@ export class GiagnosticosComponent implements OnInit {
             diagnosticos:this.diagnosticos
 
         }
-        // this.getUltimaConsulta();
-        this.DxService.updateConsultas2(req,this.nroFetos).subscribe(
+
+        this.DxService.updateConsultas(1,req).subscribe(
             (resp) => {
                 console.log(resp);
                 console.log(req);

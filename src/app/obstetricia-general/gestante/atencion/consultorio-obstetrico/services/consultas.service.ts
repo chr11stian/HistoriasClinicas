@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {environment} from "../../../../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { environment } from "../../../../../../environments/environment";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
@@ -19,11 +19,7 @@ export class ConsultasService {
     addConsultas(nroFetos, data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultorio/${1}`, data)
     }
-
-    updateConsultas(data) {
-        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio/${1}`, data);
-    }
-    updateConsultas2(data,nroFetos) {
+    updateConsultas(nroFetos, data) {
         return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio/${nroFetos}`, data);
     }
     getConsultaPrenatalByEmbarazo(data) {
@@ -32,7 +28,6 @@ export class ConsultasService {
     getInterrogatorioByEmbarazo(data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarInterrogatorio`, data);
     }
-
     getUltimaConsultaById(idConsulta) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsultaxid`, idConsulta)
     }
