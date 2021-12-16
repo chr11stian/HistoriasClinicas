@@ -17,7 +17,7 @@ export class ConsultasService {
     }
 
     addConsultas(nroFetos, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultorio/${1}`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultorio/${nroFetos}`, data)
     }
     updateConsultas(nroFetos, data) {
         return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio/${nroFetos}`, data);

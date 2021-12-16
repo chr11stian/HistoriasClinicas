@@ -13,11 +13,11 @@ const routes: Routes = [
   },
   {
     path: "citas",
-    loadChildren: () => import('src/app/adolescente/citas-adolescente/plan-atencion-adolescente/plan-atencion-adolescente-routing.module').then(n => n.PlanAtencionAdolescenteRoutingModule),
+    loadChildren: () => import('src/app/adolescente/citas-adolescente/plan-atencion-adolescente/plan-atencion-adolescente.module').then(n => n.PlanAtencionAdolescenteModule),
   },
   {
     path: "citas",
-    loadChildren: () => import('src/app/adolescente/citas-adolescente/consulta-adolescente/consulta-adolescente-routing.module').then(n => n.ConsultaAdolescenteRoutingModule),
+    loadChildren: () => import('src/app/adolescente/citas-adolescente/consulta-adolescente/consulta-adolescente.module').then(n => n.ConsultaAdolescenteModule),
   },
 ];
 

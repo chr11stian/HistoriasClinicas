@@ -54,6 +54,14 @@ const routes: Routes = [
                 path: "adolescente",
                 loadChildren: () => import('src/app/adolescente/adolescente.module').then(n => n.AdolescenteModule),
             },
+            {
+                path: "adulto",
+                loadChildren: () => import('src/app/adulto/adulto.module').then(n => n.AdultoModule),
+            },
+            {
+                path: "adulto-mayor",
+                loadChildren: () => import('src/app/adulto-mayor/adulto-mayor.module').then(n => n.AdultoMayorModule),
+            },
         ]
     }
 ];
