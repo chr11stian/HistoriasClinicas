@@ -82,7 +82,9 @@ export class SideBarComponent implements OnInit {
                             },
                         ]
                     },
+
                     {
+                        icon: "pi pi-file",
                         label: "Medicina General",
                         items: [
                             {
@@ -124,6 +126,25 @@ export class SideBarComponent implements OnInit {
                                 ]
                             },
                         ],
+                    },
+
+
+                    {
+                        icon: "pi pi-file",
+                        label: "Odontologia",
+                        items: []
+                    },
+
+                    {
+                        icon: "pi pi-file",
+                        label: "Psicologia",
+                        items: []
+                    },
+
+                    {
+                        icon: "pi pi-file",
+                        label: "Nutrición",
+                        items: []
                     },
 
                     {
