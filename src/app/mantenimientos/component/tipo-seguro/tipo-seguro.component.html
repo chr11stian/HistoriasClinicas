@@ -39,7 +39,7 @@
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
-                (click)="openDialogAgregarDoc()"></button>
+                (click)="openDialogTipoSeguro()"></button>
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
         </ng-template>
     </p-toolbar>
@@ -76,3 +76,28 @@
         </div>
     </div>
 </div>
+
+<p-dialog class="dialogo m-4" [(visible)]="dialogTipoSeguro" [style]="{width: '400px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>TIPO SEGURO</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formTipoSeguro'>
+            <div class="grid">
+                <div class="col-12">
+                    <label>nombre</label>
+                    <input type="text" pInputText formControlName='consultorio' placeholder="nombre"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button pButton type="button" label="Guardar"
+            (click)="guardarDatosTipos()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledInterconsulta()"></button>
+    </ng-template>
+</p-dialog>

@@ -1,1 +1,88 @@
-<p>tratamiento-consulta-adolescente works!</p>
+<div class="col-12">
+    <form [formGroup]='form'>
+        <div class="grid">
+            <div class="col-12 md:col-8 mt-2">
+                <div class="margen border-300">
+                    <p-table [value]="datosDiagnosticos" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
+                        [autoLayout]="true" class="m-3"
+                        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                        [showCurrentPageReport]="true" responsiveLayout="scroll">
+                        <ng-template pTemplate="caption">
+                            <div class="grid">
+                                <div class="col-9">
+                                    <h3>Diagnóstico:</h3>
+                                </div>
+                                <div class="col-2">
+                                    <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                        class="p-button-raised mt-3" (click)="openDialogTratamiento()"></button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="text-align: center">Nro</th>
+                                <th style="text-align: center">Tratamiento</th>
+                                <th style="text-align: center">Acción</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                            <tr style="text-align: center">
+                                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                <td style="text-align: center">{{ rowData.resultado }}</td>
+                                <td style="text-align: center">
+                                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                                        class="p-button-rounded p-button-text"
+                                        (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                    <button pButton pRipple type="button" icon="pi pi-trash"
+                                        class="p-button-rounded p-button-danger p-button-text"
+                                        (click)="eliminarDiagnostico(rowIndex)"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <div class="col-12 md:col-4 mt-2">
+                <div class="margen border-300">
+                    <div class="col-12 md:col-12">
+                        <label>Solicitud de exámenes auxiliares:</label>
+                        <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                            formControlName="solicitudExam" pInputTextarea
+                            placeholder="Describa la medicación"></textarea>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label>Compromisos y Observaciones:</label>
+                        <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                            formControlName="compromisosObs" pInputTextarea
+                            placeholder="Describa la medicación"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- DIALOG ADD TRATAMIENTO -->
+<p-dialog class="dialogo m-4" [(visible)]="dialogTratamiento" [style]="{width: '30%'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>TRATAMIENTO</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formTratamiento'>
+            <div class="grid">
+                <div class="col-12">
+                    <label>Tratamiento:</label>
+                    <input formControlName="tratamiento" type="text" class="p-inputtext-sm " pInputText />
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="updateTratamiento" pButton type="button" label="Guardar"
+            (click)="guardarEdicionDiagnostico()"></button>
+        <button *ngIf="!updateTratamiento" pButton type="button" label="Guardar"
+            (click)="guardarNuevoDiagnostico()"></button>
+        <button pButton type=" button" label="Cerrar" class="p-button-danger"
+            (click)="closeDialogDiagnostico()"></button>
+    </ng-template>
+</p-dialog>
