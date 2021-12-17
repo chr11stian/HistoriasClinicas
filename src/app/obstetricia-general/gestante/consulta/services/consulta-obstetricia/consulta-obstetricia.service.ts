@@ -26,5 +26,10 @@ export class ConsultaObstetriciaService {
   postConsultaNoControl(data) {
     return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultaNoControl`, data)
   }
-  
+  getListarConsultasNoControl(data) {
+    return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listarNoControl`, data)
+  }
+  getConsultasNoControlById(data) {
+    return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listarNoControlxid`, data)
+  }
 }

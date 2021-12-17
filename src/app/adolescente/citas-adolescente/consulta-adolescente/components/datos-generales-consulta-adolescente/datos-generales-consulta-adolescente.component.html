@@ -1,1 +1,84 @@
-<p>datos-generales-consulta-adolescente works!</p>
+<div class="col-12">
+    <form [formGroup]='form'>
+        <div class="grid">
+            <div class="col-12 md:col-4 mt-2">
+                <div class="margen border-300">
+                    <div class="grid ">
+                        <div class="col-12 md:col-8">
+                            <label>Fecha y hora de atención:</label>
+                            <input formControlName="fecha" type="datetime-local"
+                                class="p-inputtext-sm inputfield w-full" pInputText />
+                        </div>
+                        <div class="col-12 md:col-4">
+                            <label>Edad :</label>
+                            <input formControlName="edad" type="number" class="p-inputtext-sm inputfield w-full"
+                                pInputText placeholder="Edad" />
+                        </div>
+                        <div class="col-12 md:col-8">
+                            <label>FUMN:</label>
+                            <input formControlName="fumn" type="number" class="p-inputtext-sm inputfield w-full"
+                                pInputText placeholder="Nro control" />
+                        </div>
+                        <div class="col-12 md:col-12">
+                            <p-divider align="left">
+                                <div class="p-d-inline-flex p-ai-center">
+                                    <i class="pi pi-angle-double-right p-mr-2"></i>
+                                    <b>Acompañante</b>
+                                </div>
+                            </p-divider>
+                        </div>
+                        <div class="col-12 md:col-12">
+                            <label>Apellidos y Nombres del Acompañante:</label>
+                            <input formControlName="nombresCompletos" type="number"
+                                class="p-inputtext-sm inputfield w-full" pInputText placeholder="Nro control" />
+                        </div>
+                        <div class="col-12 md:col-12">
+                            <p-divider align="left">
+                                <div class="p-d-inline-flex p-ai-center">
+                                    <i class="pi pi-angle-double-right p-mr-2"></i>
+                                    <b>Medicación</b>
+                                </div>
+                            </p-divider>
+                        </div>
+                        <div class="col-12 md:col-12">
+                            <label>Ingrese la medicación recibida</label>
+                            <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                                formControlName="medicacion" pInputTextarea
+                                placeholder="Describa la medicación"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-8 mt-2">
+                <div class="margen border-300">
+                    <div class="grid ">
+                        <div class="col-12 md:col-12 text-center">
+                            <label>Signos de alarma</label>
+                        </div>
+                        <div class="col-12 md:col-12">
+                            <label>Motivo de Consulta:</label>
+                            <input formControlName="motivoConsulta" type="number"
+                                class="p-inputtext-sm inputfield w-full" pInputText placeholder="Nro control" />
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <label>Forma de inicio:</label>
+                            <input formControlName="formaInicio" type="number" class="p-inputtext-sm inputfield w-full"
+                                pInputText placeholder="Nro control" />
+                        </div>
+                        <div class="col-12 md:col-6">
+                            <label>Tiempo de enfermedad:</label>
+                            <input formControlName="tiempoEnfermedad" type="number"
+                                class="p-inputtext-sm inputfield w-full" pInputText placeholder="Nro control" />
+                        </div>
+                        <div class="col-12 md:col-12">
+                            <label>Observaciones:</label>
+                            <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                                formControlName="observacionesSignosAlarma" pInputTextarea
+                                placeholder="Describa la medicación"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
