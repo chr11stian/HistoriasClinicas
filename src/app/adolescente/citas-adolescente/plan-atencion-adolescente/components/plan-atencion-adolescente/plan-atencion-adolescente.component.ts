@@ -56,6 +56,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   saludSexualReproductivaDialog: boolean = false;
   formSaludSexualReproductiva: FormGroup;
 
+  //soi un nuevo comentario xd
   constructor(
     private fb: FormBuilder,
   ) {
