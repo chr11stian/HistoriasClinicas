@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
     templateUrl: './usuarios.component.html',
     styleUrls: ['./usuarios.component.css']
 })
-export class UsuariosComponent implements OnInit, OnDestroy {
+export class UsuariosComponent implements OnInit {
     usuarios: Usuario[];
     usuario: Usuario;
     selectedUsuario: Usuario[];
@@ -53,16 +53,9 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.usuarioService.getUsuarios().subscribe(usuarios => this.usuarios = usuarios);
-        this.subscription = this.usuarioService.refresh.subscribe(() => {
-            this.usuarioService.getUsuarios().subscribe(usuarios => this.usuarios = usuarios);
-        })
+
     }
 
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
-        console.log('Observable Cerraro')
-    }
 
     openNew() {
         // this.usuario = {};
@@ -114,5 +107,4 @@ export class UsuariosComponent implements OnInit, OnDestroy {
         this.usuarioDialog = false;
         // this.usuario = {};
     }
-
 }
