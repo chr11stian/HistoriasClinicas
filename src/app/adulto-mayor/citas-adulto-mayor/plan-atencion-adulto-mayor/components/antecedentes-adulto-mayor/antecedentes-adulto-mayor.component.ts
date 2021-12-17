@@ -24,4 +24,14 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
     {nombrefamiliar: 'Abuelo'},
     {nombrefamiliar: 'Otros'},
   ];
+    medicamentoFrecuentes: any;
+
+  openDialogEditarTratamientosfrec(rowData: any, rowIndex: any) {
+
+  }
+
+  eliminarTratamientoFrecuente(rowIndex: any) {
+
+  }
+
 }
