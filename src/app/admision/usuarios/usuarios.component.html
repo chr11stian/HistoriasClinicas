@@ -33,10 +33,9 @@
         <ng-template class="ng-template" pTemplate="header">
             <tr>
                 <th style="text-align: center">DNI</th>
-                <th style="text-align: center">USUARIO</th>
-                <th style="text-align: center">E-MAIL</th>
+                <th style="text-align: center">APELLIDOS</th>
+                <th style="text-align: center">NOMBRES</th>
                 <th style="text-align: center">TELEFONO</th>
-                <th style="text-align: center">NIVEL DE USUARIO</th>
                 <th style="text-align: center">ROLES</th>
                 <th style="text-align: center">EDITAR / ESTADO</th>
             </tr>
@@ -45,10 +44,9 @@
         <ng-template pTemplate="body" let-usuario style="text-align: center">
             <tr style="text-align: center">
                 <td style="text-align: center">{{usuario.nro_doc}}</td>
-                <td style="text-align: center">{{usuario.usuario}}</td>
-                <td style="text-align: center">{{usuario.email}}</td>
+                <td style="text-align: center">{{usuario.apellidos}}</td>
+                <td style="text-align: center">{{usuario.nombres}}</td>
                 <td style="text-align: center">{{usuario.telefono}}</td>
-                <td style="text-align: center">{{usuario.nivel_usuario}}</td>
                 <td style="text-align: center">{{usuario.roles}}</td>
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
@@ -68,7 +66,7 @@
 </div>
 
 
-<p-dialog [(visible)]="usuarioDialog" [style]="{width: '1080px'}" header="Registrar Pacientes" [modal]="true"
+<p-dialog [(visible)]="usuarioDialog" [style]="{width: '1080px'}" header="Registrar Usuarios" [modal]="true"
           styleClass="p-fluid">
     <ng-template pTemplate="body">
         <div class="grid">

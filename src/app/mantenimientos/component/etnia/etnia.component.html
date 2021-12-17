@@ -29,7 +29,7 @@
             <tr>
                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
                 <td style="text-align: center">{{ rowData.descripcion }}</td>
-                <td style="text-align: center">{{ valorTipoEtnia(rowData.tipoEtnia) }}</td>
+                <td style="text-align: center">{{ rowData.tipoEtnia }}</td>
                 <td style="text-align: center">{{ rowData.codigoSIS }}</td>
                 <td style="text-align: center">{{ rowData.codigoHIS }}</td>
                 <td style="text-align: center">
@@ -66,7 +66,7 @@
                 <div class="p-field col-4">
                     <label>Tipo Etnia</label>
                     <div class="p-field">
-                        <p-dropdown inputId="dropdown" [options]="etniaList" formControlName="tipoEtnia" optionLabel="label" optionValue="value"
+                        <p-dropdown inputId="dropdown" [options]="etniaList" formControlName="tipoEtnia" optionLabel="label" optionValue="label"
                             defaultLabel="Seleccione Etnia" id="etniaid">
                         </p-dropdown>
                     </div>

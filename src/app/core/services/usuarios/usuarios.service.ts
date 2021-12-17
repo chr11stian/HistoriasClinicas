@@ -31,7 +31,6 @@ export class UsuariosService {
             )
     }
 
-
     actualizarUsuarios(personal: Usuario): Observable<Usuario> {
         return this.http.put<Usuario>(`${this.baseUrl}/usuarios/${personal.id}`, personal)
             .pipe(
