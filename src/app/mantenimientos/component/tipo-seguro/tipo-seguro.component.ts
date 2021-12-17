@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, Form, FormControl } from "@angular/forms";
+import { MessageService } from 'primeng/api';
 import Swal from "sweetalert2";
 import { TipoSeguroService } from '../../services/tipo-seguro/tipo-seguro.service';
 
@@ -19,7 +20,8 @@ export class TipoSeguroComponent implements OnInit {
   dialogTipoSeguro: boolean = false;
   constructor(
     private tipoSeguroservice: TipoSeguroService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService: MessageService,
   ) {
     this.buildForm();
     this.getTipoSeguro();
@@ -28,14 +30,11 @@ export class TipoSeguroComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       nombre: ['', [Validators.required]],
-    })
-
-    this.formTipoSeguro =  this.formBuilder.group({
-      nombre: new FormControl(""),
-    })
+    });
   }
 
   getTipoSeguro() {
+
     this.tipoSeguroservice.getTipoSeguro().subscribe((res: any) => {
       this.data = res.object;
     });
@@ -50,32 +49,26 @@ export class TipoSeguroComponent implements OnInit {
     if (req.nombre.trim() !== "") {
       this.tipoSeguroservice.createTipoSeguro(req).subscribe(
         result => {
-          Swal.fire({
-            icon: 'success',
-            title: 'Agregado correctamente',
-            showConfirmButton: false,
-            timer: 1000
-          })
+          this.messageService.add({
+            severity: "success",
+            summary: "Exito",
+            detail: result.mensaje
+          });
           this.getTipoSeguro();
-          this.guardarNuevo();
+          this.dialogTipoSeguro = false;
         }
       )
     } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'Ingresa datos correctos!'
-      })
+      this.messageService.add({
+        severity: "warn",
+        summary: "Alerta!",
+        detail: "Ingrese los datos completos"
+      });
     }
   }
-
-  guardarNuevo() {
-    this.isUpdate = false;
-    this.form.reset();
-  }
-
   editar(rowData) {
     this.isUpdate = true;
+    this.dialogTipoSeguro = true;
     this.form.get('nombre').setValue(rowData.nombre)
     this.idUpdate = rowData.id;
   }
@@ -87,15 +80,13 @@ export class TipoSeguroComponent implements OnInit {
     }
     this.tipoSeguroservice.editTipoSeguro(req).subscribe(
       result => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Editado correctamente',
-          text: 'Tipo Seguro',
-          showConfirmButton: false,
-          timer: 1000
-        })
+        this.messageService.add({
+          severity: "success",
+          summary: "Exito",
+          detail: result.mensaje
+        });
         this.getTipoSeguro();
-        this.guardarNuevo();
+        this.dialogTipoSeguro = false;
       }
     )
   }
@@ -128,18 +119,11 @@ export class TipoSeguroComponent implements OnInit {
   }
 
   openDialogTipoSeguro() {
+    this.form.reset();
     this.dialogTipoSeguro = true;
+    this.isUpdate = false;
   }
 
-  guardarDatosTipos(){
-    let data = {
-      nombre: this.formTipoSeguro.value.nombre,
-    }
-    this.tipoSeguroservice.createTipoSeguro(data).subscribe((res:any)=>{
-      console.log("gg");
-    })
-  }
-  
   ngOnInit(): void {
   }
 
