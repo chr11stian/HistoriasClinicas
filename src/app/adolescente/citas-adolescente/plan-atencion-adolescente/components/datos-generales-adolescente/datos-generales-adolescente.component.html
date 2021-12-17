@@ -1,1 +1,61 @@
-<p>datos-generales-adolescente works!</p>
+<div class="grid">
+    <div class="col-2">
+        <label for="">
+            fecha
+        </label>
+        <div>
+            <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+        </div>
+    </div>
+    <div class="col-3">
+        <label for="">
+            N° seguro:
+        </label>
+        <div>
+            <p-inputMask mask="99999999"  placeholder="99999999"></p-inputMask>
+        </div>
+    </div>
+
+</div>
+<p-divider align="left">
+    <div class="p-d-inline-flex p-ai-center">
+        <i class="pi pi-angle-double-right p-mr-2"></i>
+        <b>Datos Personales</b>
+    </div>
+</p-divider>
+<div class="grid">
+    <div class="col-4 ">
+        <label for="">
+            Apellidos:
+        </label>
+        <div class="p-fluid">
+            <input type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-3">
+        <label for="">
+            Nombres:
+        </label>
+        <div class="p-fluid">
+            <input type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-1">
+        <label for="">Sexo:</label>
+        <div>
+            <p-selectButton [options]="sexo" optionLabel="name"></p-selectButton>
+        </div>
+    </div>
+    <div class="col-1">
+        <label for="">Edad:</label>
+        <div class="p-fluid">
+            <input type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-3">
+        <label for="">Fecha de nacimiento</label>
+        <div>
+            <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+        </div>
+    </div>
+</div>
