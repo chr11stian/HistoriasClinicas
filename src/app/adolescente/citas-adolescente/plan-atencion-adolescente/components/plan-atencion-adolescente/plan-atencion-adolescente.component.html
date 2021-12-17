@@ -614,6 +614,7 @@
     </p-tabView>
 </div>
 
+<!-- EVALUACION CRECIMIENTO FISICO -->
 <p-dialog class="dialogo m-4" [(visible)]="evaluacionCrecimientoFisicoDialog" [style]="{width: '800px'}" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="header">
@@ -623,24 +624,244 @@
         <form [formGroup]='formEvaluacionCrecimientoFisico'>
             <div class="grid">
                 <div class="col-4">
+                    <label>Fecha:</label>
+                    <input type="date" pInputText formControlName='fecha' 
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
+                </div>
+                <div class="col-4">
                     <label>IMC:</label>
-                    <input type="number" pInputText formControlName='imc' placeholder=""
-                        class="p-inputtext-sm inputfield w-full" placeholder="Movimientos Fetales">
+                    <input type="number" pInputText formControlName='imc' 
+                        class="p-inputtext inputfield w-full" placeholder="IMC">
                 </div>
                 <div class="col-4">
                     <label>Talla:</label>
-                    <input type="number" pInputText formControlName='talla' placeholder=""
-                        class="p-inputtext-sm inputfield w-full" placeholder="Movimientos Fetales">
+                    <input type="number" pInputText formControlName='talla' 
+                        class="p-inputtext inputfield w-full" placeholder="Talla">
                 </div>
                 <div class="col-4">
                     <label>Edad:</label>
-                    <input type="number" pInputText formControlName='edad' placeholder=""
-                        class="p-inputtext-sm inputfield w-full" placeholder="Movimientos Fetales">
+                    <input type="number" pInputText formControlName='edad'
+                        class="p-inputtext inputfield w-full" placeholder="Edad">
                 </div>
                 <div class="col-12">
                     <label>Alimentacion:</label>
-                    <input type="text" pInputText formControlName='alimentacion' placeholder=""
-                        class="p-inputtext-sm inputfield w-full" placeholder="Movimientos Fetales">
+                    <input type="text" pInputText formControlName='alimentacion'
+                        class="p-inputtext inputfield w-full" placeholder="Alimentacion">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarEdicionExamenFetal()"></button>
+        <button *ngIf="!estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarNuevoExamenFetal()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledExamenFetal()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog class="dialogo m-4" [(visible)]="evaluacionesAgudezaVisualAuditivaDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>EVALUACION DE AGUDEZA VISUAL Y AUDITIVA</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formEvaluacionesAgudezaVisualAuditiva'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Fecha:</label>
+                    <input type="date" pInputText formControlName='fecha' 
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
+                </div>
+                <div class="col-4">
+                    <label>Agudeza visual OD:</label>
+                    <input type="text" pInputText formControlName='visualOD' 
+                        class="p-inputtext inputfield w-full" placeholder="Agudeza visual OD">
+                </div>
+                <div class="col-4">
+                    <label>Agudeza visual OI:</label>
+                    <input type="text" pInputText formControlName='visualOI' 
+                        class="p-inputtext inputfield w-full" placeholder="Agudeza visual OI">
+                </div>
+                <div class="col-4">
+                    <label>Agudeza auditiva OD:</label>
+                    <input type="text" pInputText formControlName='auditivaOD'
+                        class="p-inputtext inputfield w-full" placeholder="Agudeza auditiva OD">
+                </div>
+                <div class="col-12">
+                    <label>Agudeza auditiva OI:</label>
+                    <input type="text" pInputText formControlName='auditivaOI'
+                        class="p-inputtext inputfield w-full" placeholder="Agudeza auditiva OI">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarEdicionExamenFetal()"></button>
+        <button *ngIf="!estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarNuevoExamenFetal()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledExamenFetal()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog class="dialogo m-4" [(visible)]="evaluacionesFisicoPosturalDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>EVALUACION FISICO POSTURAL</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formEvaluacionesFisicoPostural'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Fecha:</label>
+                    <input type="date" pInputText formControlName='fecha' 
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
+                </div>
+                <div class="col-4">
+                    <label>Columna:</label>
+                    <input type="text" pInputText formControlName='columna' 
+                        class="p-inputtext inputfield w-full" placeholder="Columna">
+                </div>
+                <div class="col-4">
+                    <label>Rodilla:</label>
+                    <input type="text" pInputText formControlName='rodilla'
+                        class="p-inputtext inputfield w-full" placeholder="Rodilla">
+                </div>
+                <div class="col-12">
+                    <label>Pie:</label>
+                    <input type="text" pInputText formControlName='pie'
+                        class="p-inputtext inputfield w-full" placeholder="Pie">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarEdicionExamenFetal()"></button>
+        <button *ngIf="!estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarNuevoExamenFetal()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledExamenFetal()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog class="dialogo m-4" [(visible)]="evaluacionesDesarrolloSexualDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>EVALUACIONES DESARROLLO SEXUAL</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formEvaluacionesDesarrolloSexual'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Fecha:</label>
+                    <input type="date" pInputText formControlName='fecha' 
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
+                </div>
+                <div class="col-4">
+                    <label>Desarrollo mama:</label>
+                    <input type="text" pInputText formControlName='desarrolloMama' 
+                        class="p-inputtext inputfield w-full" placeholder="Desarrollo mama">
+                </div>
+                <div class="col-4">
+                    <label>Desarrollo pene:</label>
+                    <input type="text" pInputText formControlName='desarrolloPene'
+                        class="p-inputtext inputfield w-full" placeholder="Desarrollo pene">
+                </div>
+                <div class="col-12">
+                    <label>Desarrollo vello pubiano:</label>
+                    <input type="text" pInputText formControlName='desarrolloVelloPubiano'
+                        class="p-inputtext inputfield w-full" placeholder="Desarrollo de vello pubiano">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarEdicionExamenFetal()"></button>
+        <button *ngIf="!estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarNuevoExamenFetal()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledExamenFetal()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog class="dialogo m-4" [(visible)]="evaluacionesHabilidadesSocialesDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>EVALUACIONES HABILIDADES SOCIALES</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formEvaluacionesHabilidadesSociales'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Fecha:</label>
+                    <input type="date" pInputText formControlName='fecha' 
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
+                </div>
+                <div class="col-4">
+                    <label>Autoestima:</label>
+                    <input type="text" pInputText formControlName='autoestima' 
+                        class="p-inputtext inputfield w-full" placeholder="Autoestima">
+                </div>
+                <div class="col-4">
+                    <label>Comunicacion:</label>
+                    <input type="text" pInputText formControlName='comunicacion'
+                        class="p-inputtext inputfield w-full" placeholder="Comunicacion">
+                </div>
+                <div class="col-12">
+                    <label>Asertividad:</label>
+                    <input type="text" pInputText formControlName='asertividad'
+                        class="p-inputtext inputfield w-full" placeholder="Asertividad">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarEdicionExamenFetal()"></button>
+        <button *ngIf="!estadoEditarExamenFetal" pButton type="button" label="Guardar"
+            (click)="guardarNuevoExamenFetal()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledExamenFetal()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog class="dialogo m-4" [(visible)]="identificacionesColeraIrritabilidadAgresionDialog" [style]="{width: '800px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>IDENTIFICACION DE COLERA, IRRITABILIDAD Y AGRESION</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formIdentificacionesColeraIrritabilidadAgresion'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Fecha:</label>
+                    <input type="date" pInputText formControlName='fecha' 
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
+                </div>
+                <div class="col-4">
+                    <label>Colera:</label>
+                    <input type="text" pInputText formControlName='colera' 
+                        class="p-inputtext inputfield w-full" placeholder="Colera">
+                </div>
+                <div class="col-4">
+                    <label>Irritabilidad:</label>
+                    <input type="text" pInputText formControlName='irritabilidad'
+                        class="p-inputtext inputfield w-full" placeholder="Irritabilidad">
+                </div>
+                <div class="col-12">
+                    <label>Agresion:</label>
+                    <input type="text" pInputText formControlName='agresion'
+                        class="p-inputtext inputfield w-full" placeholder="Agresion">
                 </div>
             </div>
         </form>

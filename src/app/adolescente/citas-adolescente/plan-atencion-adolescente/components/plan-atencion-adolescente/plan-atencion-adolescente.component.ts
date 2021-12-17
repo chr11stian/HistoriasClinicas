@@ -21,7 +21,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   formEvaluacionesFisicoPostural: FormGroup;
 
   evaluacionesDesarrolloSexual: any[] = [];
-  evaluacionDesarrolloSexualDialog: boolean = false;
+  evaluacionesDesarrolloSexualDialog: boolean = false;
   formEvaluacionesDesarrolloSexual: FormGroup;
 
   evaluacionesHabilidadesSociales: any[] = [];
@@ -56,6 +56,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   saludSexualReproductivaDialog: boolean = false;
   formSaludSexualReproductiva: FormGroup;
 
+  //soi un nuevo comentario xd
   constructor(
     private fb: FormBuilder,
   ) {
@@ -71,80 +72,83 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     })
     this.formEvaluacionesAgudezaVisualAuditiva = this.fb.group({
       fecha: new FormControl(""),
-      imc: new FormControl(""),
-      talla: new FormControl(""),
-      edad: new FormControl(""),
-      alimentacion: new FormControl("")
+      visualOD: new FormControl(""),
+      visualOI: new FormControl(""),
+      auditivaOD: new FormControl(""),
+      auditivaOI: new FormControl("")
     })
     this.formEvaluacionesFisicoPostural = this.fb.group({
       fecha: new FormControl(""),
-      imc: new FormControl(""),
-      talla: new FormControl(""),
-      edad: new FormControl(""),
-      alimentacion: new FormControl("")
+      columna: new FormControl(""),
+      rodilla: new FormControl(""),
+      pie: new FormControl("")
     })
     this.formEvaluacionesDesarrolloSexual = this.fb.group({
       fecha: new FormControl(""),
-      imc: new FormControl(""),
-      talla: new FormControl(""),
-      edad: new FormControl(""),
-      alimentacion: new FormControl("")
+      desarrolloMama: new FormControl(""),
+      desarrolloPene: new FormControl(""),
+      desarrolloVelloPubiano: new FormControl("")
     })
     this.formEvaluacionesHabilidadesSociales = this.fb.group({
       fecha: new FormControl(""),
-      imc: new FormControl(""),
-      talla: new FormControl(""),
-      edad: new FormControl(""),
-      alimentacion: new FormControl("")
+      autoestima: new FormControl(""),
+      comunicacion: new FormControl(""),
+      asertividad: new FormControl(""),
+      tomaDecisiones: new FormControl(""),
+      calificacionTotal: new FormControl("")
     })
     this.formIdentificacionesColeraIrritabilidadAgresion = this.fb.group({
       fecha: new FormControl(""),
-      imc: new FormControl(""),
-      talla: new FormControl(""),
-      edad: new FormControl(""),
-      alimentacion: new FormControl("")
+      colera: new FormControl(""),
+      irritabilidad: new FormControl(""),
+      agresion: new FormControl(""),
+      calificacionTotal: new FormControl("")
     })
     this.formTamizajesViolencia = this.fb.group({
       fecha: new FormControl(""),
-      imc: new FormControl(""),
-      talla: new FormControl(""),
-      edad: new FormControl(""),
-      alimentacion: new FormControl("")
+      familiar: new FormControl(""),
+      sexual: new FormControl(""),
+      politica: new FormControl("")
     })
     this.formIdentificacionesFactoresRiesgo = this.fb.group({
       fecha: new FormControl(""),
-      imc: new FormControl(""),
-      talla: new FormControl(""),
-      edad: new FormControl(""),
-      alimentacion: new FormControl("")
+      nombre: new FormControl(""),
+      valor: new FormControl("")
     })
     this.formDescartesEnfermedadesNoTransmisibles = this.fb.group({
       fecha: new FormControl(""),
-      imc: new FormControl(""),
-      talla: new FormControl(""),
-      edad: new FormControl(""),
-      alimentacion: new FormControl("")
+      hematocrito: new FormControl(""),
+      colesterolemiaTotal: new FormControl(""),
+      glicemia: new FormControl(""),
+      examenOrina: new FormControl("")
     })
     this.formEscolaridades = this.fb.group({
       fecha: new FormControl(""),
-      imc: new FormControl(""),
-      talla: new FormControl(""),
-      edad: new FormControl(""),
-      alimentacion: new FormControl("")
+      asistenciaEscuelaColegio: new FormControl(""),
+      rendimientoEscolar: new FormControl(""),
+      DesercionEscolar: new FormControl("")
     })
     this.formHabitos = this.fb.group({
       fecha: new FormControl(""),
-      imc: new FormControl(""),
-      talla: new FormControl(""),
-      edad: new FormControl(""),
-      alimentacion: new FormControl("")
+      usoTiempoLibre: new FormControl(""),
+      sedentarismo: new FormControl(""),
+      usoAlcohol: new FormControl(""),
+      usoTabaco: new FormControl(""),
+      usoDrogas: new FormControl(""),
+      pertenenciaPandillas: new FormControl(""),
     })
     this.formSaludSexualReproductiva = this.fb.group({
       fecha: new FormControl(""),
-      imc: new FormControl(""),
-      talla: new FormControl(""),
-      edad: new FormControl(""),
-      alimentacion: new FormControl("")
+      parejaEnamorado: new FormControl(""),
+      relacionesSexuales: new FormControl(""),
+      conductaSexualRiesgo: new FormControl(""),
+      dosMasParejas: new FormControl(""),
+      sexoSinProteccion: new FormControl(""),
+      RSConPersonasDelMismoSexo: new FormControl(""),
+      RSConPersonasDelOtroSexo: new FormControl(""),
+      usoMetodoAnticonceptivo: new FormControl(""),
+      conocimientoPrevenirEmbarazoNoDeseado: new FormControl(""),
+      conocimientoPrevenirTransmisionITSVIH: new FormControl("")
     })
 
   }
