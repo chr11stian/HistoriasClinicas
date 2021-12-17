@@ -199,7 +199,7 @@ export class GiagnosticosComponent implements OnInit {
             diagnosticos:this.diagnosticos
 
         }
-        this.DxService.updateConsultas(req).subscribe(
+        this.DxService.updateConsultas(req,1).subscribe(
             (resp) => {
                 console.log(resp);
                 console.log(req);

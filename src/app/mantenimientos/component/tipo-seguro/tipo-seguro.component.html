@@ -1,45 +1,11 @@
 <div class="p-card">
-    <!-- <div class="col-4 mt-5">
-            <p-card class="m-0">
-                <h2 *ngIf="!isUpdate">Ingrese Nuevo Tipo de Seguro</h2>
-                <h2 *ngIf="isUpdate">Edite Tipo de Seguro</h2>
-    
-                <form [formGroup]='form'>
-    
-                    <div class="p-fluid grid flex justify-content-center">
-                        <div class="p-field col-12 md:col-12">
-                            <label id="nombre">Nombre:</label>
-                            <input type="text" pInputText formControlName='nombre' required/>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="flex justify-content-end">
-                        <button *ngIf="!isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar Nuevo" (click)="saveForm()"
-                                class="m-1 w-9rem"></button>
-                        <button *ngIf="isUpdate" [disabled]="!form.valid" pButton type="button" label="Guardar edición" (click)="editarDatos()"
-                                class="m-1 w-9rem"></button>
-                        <button
-                                pButton
-                                type="button"
-                                label="Nuevo"
-                                icon="pi pi-plus"
-                                (click)="guardarNuevo()"
-                                pTooltip="Agregar tipo de seguro"
-                                tooltipPosition="right"
-                                class="p-button-danger m-1 w-9rem"
-                                pRipple
-                        ></button>
-                    </div>
-                </form>
-            </p-card>
-        </div> -->
     <p-toolbar class="p-mb-4">
         <ng-template pTemplate="left">
             <h3 class="p-m-0">Tipo Seguro</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
-                (click)="openDialogAgregarDoc()"></button>
+                (click)="openDialogTipoSeguro()"></button>
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
         </ng-template>
     </p-toolbar>
@@ -76,3 +42,28 @@
         </div>
     </div>
 </div>
+
+<p-dialog class="dialogo m-4" [(visible)]="dialogTipoSeguro" [style]="{width: '400px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>TIPO SEGURO</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='form'>
+            <div class="grid">
+                <div class="col-12">
+                    <label>Nombre:</label>
+                    <input type="text" pInputText formControlName='nombre' placeholder="nombre"
+                        class=" inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="saveForm()"></button>
+        <button *ngIf="isUpdate" pButton type="button" label="Editar" (click)="editarDatos()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledInterconsulta()"></button>
+    </ng-template>
+</p-dialog>

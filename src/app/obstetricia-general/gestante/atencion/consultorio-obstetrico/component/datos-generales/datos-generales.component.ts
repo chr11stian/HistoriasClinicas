@@ -18,6 +18,7 @@ export class DatosGeneralesComponent implements OnInit {
     idConsultoriObstetrico: string;
 
     //opciones de vacunas previas///
+    nroFetos = 1;
     opciones: any;
     opciones1: any;
     opciones2: any;
@@ -529,8 +530,7 @@ export class DatosGeneralesComponent implements OnInit {
         }
         console.log("DATA UPDATE Y ADD CONSULTAS", this.data);
         if (this.dataConsultas == null) {
-            let nroFetos = 1;
-            this.consultasService.addConsultas(nroFetos, this.data).subscribe(
+            this.consultasService.addConsultas(this.nroFetos, this.data).subscribe(
                 result => {
                     Swal.fire({
                         icon: 'success',
@@ -542,7 +542,7 @@ export class DatosGeneralesComponent implements OnInit {
                 }
             )
         } else {
-            this.consultasService.updateConsultas(this.data).subscribe((result: any) => {
+            this.consultasService.updateConsultas(this.nroFetos, this.data).subscribe((result: any) => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Actualizo con exito',

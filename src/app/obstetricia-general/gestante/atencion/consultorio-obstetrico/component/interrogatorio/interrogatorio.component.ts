@@ -49,6 +49,7 @@ export class InterrogatorioComponent implements OnInit {
   update: boolean = false;
   idConsulta: string;
   ultimaConsulta: ultimaConsulta;
+  edadGestacional: number;
 
   constructor(
     private fb: FormBuilder,
@@ -61,9 +62,9 @@ export class InterrogatorioComponent implements OnInit {
     this.inicializarForm();
     this.idConsulta = this.obstetriciaService.idGestacion;
     this.getUltimaConsulta();
-    if (this.idConsulta == '') {
-      this.router.navigate(['dashboard/obstetricia-general/citas'])
-    }
+    // if (this.idConsulta == '') {
+    //   this.router.navigate(['dashboard/obstetricia-general/citas'])
+    // }
   }
 
   ngOnInit(): void {
@@ -77,7 +78,7 @@ export class InterrogatorioComponent implements OnInit {
 
     const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
     this.ultimaConsulta = response.object;
-
+    this.form.get("imc").setValue(this.ultimaConsulta.imc);
   }
 
   inicializarForm() {
@@ -164,7 +165,7 @@ export class InterrogatorioComponent implements OnInit {
     this.interrogatorioData = {
       nroHcl: this.ultimaConsulta.nroHcl,
       nroAtencion: this.ultimaConsulta.nroUltimaAtencion,
-      nroControlSis: this.ultimaConsulta.nroUltimoControlSis,
+      nroControlSis: this.ultimaConsulta.nroMayorControlSis,
       nroEmbarazo: this.ultimaConsulta.nroEmbarazo,
       tipoDoc: this.ultimaConsulta.tipoDoc,
       nroDoc: this.ultimaConsulta.nroDoc,
@@ -212,9 +213,8 @@ export class InterrogatorioComponent implements OnInit {
 
   guardarDatos() {
     this.recuperarDatos();
-    console.log('last consult ', this.ultimaConsulta);
-    console.log('data to save', this.interrogatorioData);
-    this.consultaObstetricaService.updateConsultas(this.interrogatorioData).subscribe((res: any) => {
+    let auxNroFetos = this.interrogatorioData.examenesFetos.length;
+    this.consultaObstetricaService.updateConsultas(auxNroFetos, this.interrogatorioData).subscribe((res: any) => {
       this.messageService.add({
         severity: "success",
         summary: "Exito",
@@ -283,7 +283,7 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ fr: Rpta.funcionesVitales.fr });
       this.form.patchValue({ peso: Rpta.funcionesVitales.peso });
       this.form.patchValue({ talla: Rpta.funcionesVitales.talla });
-      this.form.patchValue({ imc: Rpta.funcionesVitales.imc });
+      // this.form.patchValue({ imc: this.form.get("imc").setValue(parseFloat(this.ultimaConsulta.imc)) });
       this.form.patchValue({ apetito: Rpta.funcionesBiologicas[0].valor });
       this.form.patchValue({ sed: Rpta.funcionesBiologicas[1].valor });
       this.form.patchValue({ suenos: Rpta.funcionesBiologicas[2].valor });
@@ -347,6 +347,32 @@ export class InterrogatorioComponent implements OnInit {
   eliminarExamFisicos(index) {
     this.listaOtrosPruebasFisicas.splice(index, 1);
   }
+
+  calcularEdadGestacional() {
+    // let auxFUM: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd')   + (3600000 * 5)
+    let pesoActual = this.form.value.pesoHabitual;
+    let altura = this.form.value.talla;
+
+    let today = new Date().getTime();
+    let auxFUM = new Date(this.form.value.dateFUM).getTime();
+    auxFUM = auxFUM + 0;
+    console.log('auxFUM ', auxFUM, 'today ', today);
+    let auxWeek = today - auxFUM;
+    console.log('fecha actual ', auxWeek);
+    if (auxWeek < 0) {
+      this.messageService.add({
+        severity: "warn",
+        summary: "Alerta",
+        detail: 'La fecha de FUM es incorrecta'
+      });
+      this.form.patchValue({ dateFUM: '' });
+      return;
+    }
+
+    this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
+    let semanasGetacional = Math.trunc(this.edadGestacional / 7);
+    let diasGestacional = Math.trunc(this.edadGestacional % 7);
+  }
 }
 
 export interface ultimaConsulta {
@@ -355,8 +381,11 @@ export interface ultimaConsulta {
   direccion?: string,
   edad?: number,
   nroUltimaAtencion?: number,
-  nroUltimoControlSis?: number,
+  nroMayorControlSis?: number,
   nroDoc?: string,
   tipoDoc?: string,
-  nroHcl?: string
+  nroHcl?: string,
+  pesoHabitual?: number,
+  fum?: string,
+  imc?: string
 }

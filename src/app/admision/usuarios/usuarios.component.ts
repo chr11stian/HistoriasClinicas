@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
     templateUrl: './usuarios.component.html',
     styleUrls: ['./usuarios.component.css']
 })
-export class UsuariosComponent implements OnInit, OnDestroy {
+export class UsuariosComponent implements OnInit {
     usuarios: Usuario[];
     usuario: Usuario;
     selectedUsuario: Usuario[];
@@ -20,25 +20,45 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     submitted: boolean;
 
-    constructor(
-        private usuarioService: UsuariosService,
-    ) {
+
+    constructor(private usuarioService: UsuariosService,) {
+        this.usuarios = [
+            {
+                id: 1,
+                nro_doc: "46538080",
+                apellidos: "Pimentel Cruz",
+                nombres: "Jimmy",
+                sexo: "Masculino",
+                profesion: "Medicina",
+                renaesIpress: "123456",
+                password: "123456",
+                roles: "admin",
+                email: "",
+                telefono: "931212919",
+            },
+            {
+                id: 2,
+                nro_doc: "242424250",
+                apellidos: "Perez Mendoza",
+                nombres: "Carlos",
+                sexo: "Masculino",
+                profesion: "Obstetricia",
+                renaesIpress: "123456",
+                password: "123456",
+                roles: "admin",
+                email: "",
+                telefono: "11111111",
+            }
+        ]
     }
 
     ngOnInit(): void {
-        this.usuarioService.getUsuarios().subscribe(usuarios => this.usuarios = usuarios);
-        this.subscription = this.usuarioService.refresh.subscribe(() => {
-            this.usuarioService.getUsuarios().subscribe(usuarios => this.usuarios = usuarios);
-        })
+
     }
 
-    ngOnDestroy(): void {
-        this.subscription.unsubscribe();
-        console.log('Observable Cerraro')
-    }
 
     openNew() {
-        this.usuario = {};
+        // this.usuario = {};
         this.submitted = false;
         this.usuarioDialog = true;
     }
@@ -85,7 +105,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
         }
         this.usuarios = [...this.usuarios];
         this.usuarioDialog = false;
-        this.usuario = {};
+        // this.usuario = {};
     }
-
 }
