@@ -155,7 +155,9 @@ export class PacienteComponent implements OnInit {
     }
 
     let auxFechaNac = this.formPaciente.value.fechaNacimiento;
+    let auxFechaInscripcion = this.formPaciente.value.fechaInscripcion;
     let auxDay = auxFechaNac.split("/", 3);
+    let auxInsc = auxFechaInscripcion.split("/",3)
 
     this.dataPaciente = {
       nroHcl: auxNroHcl,
@@ -181,7 +183,7 @@ export class PacienteComponent implements OnInit {
         etnia: aux.descripcion
       },
       gradoInstruccion: this.formPaciente.value.gradoInstruccion,
-      fechaInscripcion: this.formPaciente.value.fechaInscripcion,
+      fechaInscripcion: auxInsc[2] + '-' + auxInsc[1] + '-' + auxInsc[0] + ' 00:00:00',
       fechaEmision: this.formPaciente.value.fechaEmision,
       restricion: this.formPaciente.value.restriccion,
       domicilio: {

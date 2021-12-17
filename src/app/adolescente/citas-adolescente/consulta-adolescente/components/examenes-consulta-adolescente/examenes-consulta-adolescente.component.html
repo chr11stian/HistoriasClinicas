@@ -1,1 +1,273 @@
-<p>examenes-consulta-adolescente works!</p>
+<div class="col-12">
+    <form [formGroup]='form'>
+        <div class="grid">
+            <div class="col-12 md:col-6 mt-2">
+                <div class="margen border-300">
+                    <div class="grid ">
+                        <div class="col-12 md:col-12">
+                            <p-divider align="left">
+                                <div class="p-d-inline-flex p-ai-center">
+                                    <i class="pi pi-angle-double-right p-mr-2"></i>
+                                    <b>Funciones Biológicas</b>
+                                </div>
+                            </p-divider>
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>Apetito:</label>
+                            <input formControlName="apetito" class="p-inputtext-sm  p-fluid w-full" type="text"
+                                pInputText placeholder="Apetito" />
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>Sed:</label>
+                            <input formControlName="sed" class="p-fluid w-full p-inputtext-sm" type="text" pInputText
+                                placeholder="Sed" />
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>Sueño:</label>
+                            <input formControlName="sueño" class="p-fluid w-full" type="text" class="p-inputtext-sm "
+                                pInputText placeholder="Sueño" />
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>Estado de animo:</label>
+                            <input formControlName="estadoAnimo" class="p-fluid w-full" type="text"
+                                class="p-inputtext-sm " pInputText placeholder="Estado Anim." />
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>Orina:</label>
+                            <input formControlName="orina" class="p-fluid w-full" type="text" class="p-inputtext-sm "
+                                pInputText placeholder="Orina" />
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>Deposiciones:</label>
+                            <input formControlName="deposiciones" class="p-fluid w-full" type="text"
+                                class="p-inputtext-sm " pInputText placeholder="Deposiciones" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 mt-2">
+                <div class="margen border-300">
+                    <div class="grid ">
+                        <div class="col-12 md:col-12">
+                            <p-divider align="left">
+                                <div class="p-d-inline-flex p-ai-center">
+                                    <i class="pi pi-angle-double-right p-mr-2"></i>
+                                    <b>Examen Fisico</b>
+                                </div>
+                            </p-divider>
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>T:</label>
+                            <div class="grid">
+                                <div class="col-8">
+                                    <input type="number" pInputText formControlName='temperatura' placeholder="Temp."
+                                        class="p-inputtext-sm inputfield w-full">
+                                </div>
+                                <span class="font-italic text-sm mt-3">°C</span>
+                            </div>
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>PA(S):</label>
+                            <div class="grid">
+                                <div class="col-8">
+                                    <input type="number" pInputText formControlName='presionSis' placeholder="Sistolica"
+                                        class="p-inputtext-sm  inputfield w-full">
+                                </div>
+                                <span class="font-italic text-sm mt-3">mm.</span>
+                            </div>
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>PA(D):</label>
+                            <div class="grid">
+                                <div class="col-8">
+                                    <input type="number" pInputText formControlName='presionDias'
+                                        placeholder="Diastolica" class="p-inputtext-sm  inputfield w-full">
+                                </div>
+                                <span class="font-italic text-sm mt-3">Hg.</span>
+                            </div>
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>F.C:</label>
+                            <div class="grid">
+                                <div class="col-8">
+                                    <input type="number" pInputText formControlName='fc' placeholder="Frec. card."
+                                        class="p-inputtext-sm  inputfield w-full">
+                                </div>
+                                <span class="font-italic text-sm mt-3">x min.</span>
+                            </div>
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>F.R:</label>
+                            <div class="grid">
+                                <div class="col-8">
+                                    <input type="number" pInputText formControlName='fr' placeholder="Frec. resp."
+                                        class="p-inputtext-sm  inputfield w-full">
+                                </div>
+                                <span class="font-italic text-sm mt-3">x min.</span>
+                            </div>
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>Peso:</label>
+                            <div class="grid">
+                                <div class="col-8">
+                                    <input type="number" pInputText formControlName='peso' placeholder="Peso"
+                                        class="p-inputtext-sm  inputfield w-full">
+                                </div>
+                                <span class="font-italic text-left text-sm mt-3">kg.</span>
+                            </div>
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>Talla:</label>
+                            <div class="grid">
+                                <div class="col-8">
+                                    <input type="number" pInputText formControlName='talla' placeholder="Talla"
+                                        class="p-inputtext-sm  inputfield w-full">
+                                </div>
+                                <span class="font-italic text-left text-sm mt-3">m.</span>
+                            </div>
+                        </div>
+                        <div class="col-6 md:col-4">
+                            <label>IMC:</label>
+                            <div class="grid">
+                                <div class="col-8">
+                                    <input type="number" pInputText formControlName='imc' placeholder="IMC"
+                                        class="p-inputtext-sm  inputfield w-full">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid ">
+            <div class="col-12 md:col-6">
+                <p-table [value]="datosResultadosExamAux" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
+                    [autoLayout]="true" class="m-3"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    [showCurrentPageReport]="true" responsiveLayout="scroll">
+                    <ng-template pTemplate="caption">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h3>Resultados Exámenes Auxiliares</h3>
+                            </div>
+                            <div class="col-2">
+                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                    class="p-button-raised mt-3" (click)="openDialogExamAux()"></button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="text-align: center">Nro</th>
+                            <th style="text-align: center">Resultado</th>
+                            <th style="text-align: center">Acción</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr style="text-align: center">
+                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.resultado }}</td>
+                            <td style="text-align: center">
+                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-text"
+                                    (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger p-button-text"
+                                    (click)="eliminarDiagnostico(rowIndex)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="col-12 md:col-6 ">
+                <p-table [value]="datosExamenFisico" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
+                    [autoLayout]="true" class="m-3"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    [showCurrentPageReport]="true" responsiveLayout="scroll">
+                    <ng-template pTemplate="caption">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h3>Examen Físico</h3>
+                            </div>
+                            <div class="col-2">
+                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                    class="p-button-raised mt-3" (click)="openDialogPhysicExamn()"></button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="text-align: center">Nro</th>
+                            <th style="text-align: center">Resultado</th>
+                            <th style="text-align: center">Acción</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr style="text-align: center">
+                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.resultado }}</td>
+                            <td style="text-align: center">
+                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-text"
+                                    (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger p-button-text"
+                                    (click)="eliminarDiagnostico(rowIndex)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- DIALOG ADD RESULTADOS EXAMENES AUXILIARES -->
+<p-dialog class="dialogo m-4" [(visible)]="dialogResultExamensAux" [style]="{width: '30%'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>RESULTADOS EXAMENES AUXILIARES</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formExamAux'>
+            <div class="grid">
+                <div class="col-12">
+                    <label>Resultado:</label>
+                    <input formControlName="resultado" type="text" class="p-inputtext-sm " pInputText />
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="updateExamResultAux" pButton type="button" label="Guardar"
+            (click)="guardarEdicionDiagnostico()"></button>
+        <button *ngIf="!updateExamResultAux" pButton type="button" label="Guardar"
+            (click)="guardarNuevoDiagnostico()"></button>
+        <button pButton type=" button" label="Cerrar" class="p-button-danger"
+            (click)="closeDialogDiagnostico()"></button>
+    </ng-template>
+</p-dialog>
+<!-- DIALOG ADD EXAMEN FISICO -->
+<p-dialog class="dialogo m-4" [(visible)]="dialogExamFisico" [style]="{width: '30%'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>EXAMEN FÍSICO</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formExamAux'>
+            <div class="grid">
+                <div class="col-12">
+                    <label>Observaciones:</label>
+                    <input formControlName="observacionesExamFisico" type="text" class="p-inputtext-sm " pInputText />
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="updateExamFisico" pButton type="button" label="Guardar"
+            (click)="guardarEdicionDiagnostico()"></button>
+        <button *ngIf="!updateExamFisico" pButton type="button" label="Guardar"
+            (click)="guardarNuevoDiagnostico()"></button>
+        <button pButton type=" button" label="Cerrar" class="p-button-danger"
+            (click)="closeDialogDiagnostico()"></button>
+    </ng-template>
+</p-dialog>

@@ -617,7 +617,10 @@ export class DialogConsultaUniversalComponent implements OnInit {
                 motivo: this.form.value.motivoReferencia,
                 codRENAES: this.form.value.codRENAESReferencia
             },
-            proxCita: this.datePipe.transform(this.form.value.proxCita, 'yyyy-MM-dd HH:mm:ss'),
+            proxCita: {
+                fecha: this.datePipe.transform(this.form.value.proxCita, 'yyyy-MM-dd HH:mm:ss'),
+                estado: 'tentativo'
+            },
             encargado: {
                 tipoDoc: 'DNI',
                 nroDoc: '10101010'
@@ -630,10 +633,11 @@ export class DialogConsultaUniversalComponent implements OnInit {
         this.recuperarDatos();
         this.consultaObstetricaService.postConsultaNoControl(this.dataConsulta).subscribe((res: any) => {
             this.messageService.add({
-                severity: "warn",
-                summary: "Alerta",
-                detail: 'Faltan datos para calcular el imc (peso o talla)'
+                severity: "success",
+                summary: "Exito",
+                detail: res.mensaje
             });
+            this.ref.close();
         });
     }
 }

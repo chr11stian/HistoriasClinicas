@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, Form } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators, Form, FormControl } from "@angular/forms";
 import Swal from "sweetalert2";
 import { TipoSeguroService } from '../../services/tipo-seguro/tipo-seguro.service';
 
@@ -11,10 +11,12 @@ import { TipoSeguroService } from '../../services/tipo-seguro/tipo-seguro.servic
 export class TipoSeguroComponent implements OnInit {
   // Creacion del formulario
   form: FormGroup;
+  formTipoSeguro: FormGroup;
 
   data: any[] = [];
   isUpdate: boolean = false;
   idUpdate: string = "";
+  dialogTipoSeguro: boolean = false;
   constructor(
     private tipoSeguroservice: TipoSeguroService,
     private formBuilder: FormBuilder
@@ -26,6 +28,10 @@ export class TipoSeguroComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       nombre: ['', [Validators.required]],
+    })
+
+    this.formTipoSeguro =  this.formBuilder.group({
+      nombre: new FormControl(""),
     })
   }
 
@@ -41,7 +47,7 @@ export class TipoSeguroComponent implements OnInit {
     const req = {
       nombre: this.form.value.nombre,
     }
-    if ( req.nombre.trim() !== "") {
+    if (req.nombre.trim() !== "") {
       this.tipoSeguroservice.createTipoSeguro(req).subscribe(
         result => {
           Swal.fire({
@@ -120,6 +126,20 @@ export class TipoSeguroComponent implements OnInit {
       }
     })
   }
+
+  openDialogTipoSeguro() {
+    this.dialogTipoSeguro = true;
+  }
+
+  guardarDatosTipos(){
+    let data = {
+      nombre: this.formTipoSeguro.value.nombre,
+    }
+    this.tipoSeguroservice.createTipoSeguro(data).subscribe((res:any)=>{
+      console.log("gg");
+    })
+  }
+  
   ngOnInit(): void {
   }
 

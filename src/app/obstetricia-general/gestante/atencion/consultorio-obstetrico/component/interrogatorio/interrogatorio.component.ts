@@ -213,9 +213,6 @@ export class InterrogatorioComponent implements OnInit {
 
   guardarDatos() {
     this.recuperarDatos();
-    console.log('last consult ', this.ultimaConsulta);
-    console.log('data to save', this.interrogatorioData);
-    console.log('length ', this.interrogatorioData.examenesFetos.length);
     let auxNroFetos = this.interrogatorioData.examenesFetos.length;
     this.consultaObstetricaService.updateConsultas(auxNroFetos, this.interrogatorioData).subscribe((res: any) => {
       this.messageService.add({
