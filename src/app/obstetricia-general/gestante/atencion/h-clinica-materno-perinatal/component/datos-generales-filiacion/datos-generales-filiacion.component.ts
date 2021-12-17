@@ -99,7 +99,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         this.obternerFechaActual();
         this.buildForm();
 
-        if (this.idRecuperado == null) {
+        if (this.idRecuperado == '') {
             this.getpacienteByNroDoc();
         } else this.getpacienteFiiacionByID();
 
@@ -126,9 +126,10 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
 
     agrgarFiliacionDatoPersonales() {
-        if (this.dataIDfiliacion.nroHcl = "") {
-            this.dataIDfiliacion
-        }
+        // if (this.dataIDfiliacion.nroHcl == "" || this.dataPacientes.nroHcl == "") {
+        //     this.dataIDfiliacion;
+        //     this.dataPacientes;
+        // }
         const req = {
             nroHcl: this.formDatos_Generales.value.HCL,
             nroGestante: 0,
@@ -170,7 +171,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         };
         console.log("data", req);
 
-        if (this.idRecuperado == null) {
+        if (this.idRecuperado == '') {
             this.filiancionService.addPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
                 result => {
                     Swal.fire({

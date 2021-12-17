@@ -1,1 +1,68 @@
-<p>diagnostico-consulta-adolescente works!</p>
+<div class="col-12">
+    <form [formGroup]='form'>
+        <div class="grid">
+            <div class="col-12 md:col-8 mt-2">
+                <div class="margen border-300">
+                    <p-table [value]="datosDiagnosticos" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
+                        [autoLayout]="true" class="m-3"
+                        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                        [showCurrentPageReport]="true" responsiveLayout="scroll">
+                        <ng-template pTemplate="caption">
+                            <div class="grid">
+                                <div class="col-9">
+                                    <h3>Diagnóstico:</h3>
+                                </div>
+                                <div class="col-2">
+                                    <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                        class="p-button-raised mt-3" (click)="openDialogExamAux()"></button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="text-align: center">Nro</th>
+                                <th style="text-align: center">Diagnostico</th>
+                                <th style="text-align: center">CIE 10</th>
+                                <th style="text-align: center">Acción</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                            <tr style="text-align: center">
+                                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                <td style="text-align: center">{{ rowData.resultado }}</td>
+                                <td style="text-align: center">{{ rowData.cie }}</td>
+                                <td style="text-align: center">
+                                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                                        class="p-button-rounded p-button-text"
+                                        (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                    <button pButton pRipple type="button" icon="pi pi-trash"
+                                        class="p-button-rounded p-button-danger p-button-text"
+                                        (click)="eliminarDiagnostico(rowIndex)"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+            <div class="col-12 md:col-4 mt-2">
+                <div class="margen border-300">
+                    <div class="col-12 md:col-12">
+                        <label>Diagnostico de Habilidades Sociales:</label>
+                        <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                            formControlName="habilidadesSociales" pInputTextarea placeholder="Describa la medicación"></textarea>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label>Diagnostico Nutricional:</label>
+                        <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                            formControlName="nutricional" pInputTextarea placeholder="Describa la medicación"></textarea>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <label>Recomendaciones:</label>
+                        <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                            formControlName="recomendaciones" pInputTextarea placeholder="Describa la medicación"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
