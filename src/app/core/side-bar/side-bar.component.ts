@@ -222,6 +222,11 @@ export class SideBarComponent implements OnInit {
                     },
                     {
                         icon: "pi pi-pw pi-file",
+                        label: "Etapa de vida",
+                        routerLink: "mantenimientos/condicion-paciente",
+                    },
+                    {
+                        icon: "pi pi-pw pi-file",
                         label: "Documentos de Identidad",
                         routerLink: "mantenimientos/documento-identidad",
                     },
@@ -240,11 +245,7 @@ export class SideBarComponent implements OnInit {
                         label: "Red de Servicios de Salud",
                         routerLink: "mantenimientos/red-servicios-salud",
                     },
-                    {
-                        icon: "pi pi-pw pi-file",
-                        label: "Condicion Paciente",
-                        routerLink: "mantenimientos/condicion-paciente",
-                    },
+
                     {
                         icon: "pi pi-pw pi-file",
                         label: "Nombre Comercial UPS",

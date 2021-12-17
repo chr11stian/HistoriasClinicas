@@ -96,6 +96,7 @@ export class NombreComercialUPSComponent implements OnInit {
             tipoServicio: this.form.value.tipoServicio,
             iconPath: this.form.value.iconPath,
         }
+        
         let id = this.idUpdate;
         console.log("aaaa", id, req);
         this.nombreComercialUPSService.editNombreComercial_UPS(id, req).subscribe(
