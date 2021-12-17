@@ -1,1 +1,199 @@
-<p>lista-problemas-adolescente works!</p>
+<div class="grid">
+    <div class="col-6">
+        <p-table [value]="listaProblemas"
+                 #dt
+                 styleClass="p-datatable-gridlines   "
+                 [paginator]="true"
+                 [rows]="10"
+                 [rowsPerPageOptions]=[5,10,15]
+                 [paginator]="true"
+                 [autoLayout]="true"
+                 currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+        >
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-between">
+                    <div>
+                        Problemas Crónicos
+                    </div>
+                    <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-mr-2"
+                            style="background-color:#689F38 "
+                            (click)="isUpdate=false; cronicoAgudo='cronico';agregar()"></button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" class="mt-5">
+                <tr>
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Problema</th>
+                    <th>Controlado</th>
+                    <th>Observaciones</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-i=rowIndex>
+                <tr>
+                    <td class="text-center">{{i + 1}}</td>
+                    <td class="text-center">{{rowData.fecha}}</td>
+                    <td class="text-center">{{rowData.nombreProblema}}</td>
+                    <td class="text-center">
+                        <div *ngIf="rowData.controlado=='si';else noEs">
+                            <p-tag
+                                    value="Si"
+                                    severity="success"
+                                    styleClass="text-sm"
+
+                            ></p-tag>
+                        </div>
+                        <ng-template #noEs>
+                            <p-tag
+                                    value="No"
+
+                                    severity="danger"
+                                    styleClass="text-sm"
+                            ></p-tag>
+                        </ng-template>
+                    </td>
+                    <td>{{rowData.observacion}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="col-6">
+        <p-table [value]="listaProblemasAgudo"
+                 #dt
+                 styleClass="p-datatable-gridlines   "
+                 [paginator]="true"
+                 [rows]="10"
+                 [rowsPerPageOptions]=[5,10,15]
+                 [paginator]="true"
+                 [autoLayout]="true"
+                 currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+        >
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-between">
+                    <div>
+                        Problemas Agudos
+                    </div>
+                    <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-mr-2"
+                            style="background-color:#689F38 "
+                            (click)="isUpdate=false;cronicoAgudo='agudo'; agregar()"></button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" class="mt-5">
+                <tr>
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Problema</th>
+                    <th>Atendido</th>
+                    <th>Observaciones</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-i=rowIndex>
+                <tr>
+                    <td class="text-center">{{i + 1}}</td>
+                    <td class="text-center">{{rowData.fecha}}</td>
+                    <td class="text-center">{{rowData.nombreProblema}}</td>
+                    <td class="text-center">
+                        <div *ngIf="rowData.controlado=='si';else noEs">
+                            <p-tag
+                                    value="Si"
+                                    severity="success"
+                                    styleClass="text-sm"
+
+                            ></p-tag>
+                        </div>
+                        <ng-template #noEs>
+                            <p-tag
+                                    value="No"
+
+                                    severity="danger"
+                                    styleClass="text-sm"
+                            ></p-tag>
+                        </ng-template>
+                    </td>
+                    <td>{{rowData.observacion}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<!--dialogo-->
+<p-dialog [(visible)]="display"
+          [modal]="true"
+          [style]="{width: '30%'}">
+    <ng-template pTemplate="header">
+        <div style="font-weight: bold" *ngIf="cronicoAgudo=='cronico';else agudo">
+        PROBLEMA CRÓNICO
+        </div>
+        <ng-template #agudo>
+            <div style="font-weight: bold">
+            PROBLEMA AGUDO
+            </div>
+        </ng-template>
+    </ng-template>
+    <form [formGroup]="problemasFG">
+    <div class="grid">
+        <div class="col-6">
+            <div>Fecha:</div>
+            <div class="grid">
+
+            <div class=" col-8 p-fluid">
+                <p-calendar
+                        class="colorIconCalendar"
+                        [showIcon]="true"
+                        dateFormat="dd/mm/yy"
+                        inputId="icon"
+                        formControlName="fecha"
+                ></p-calendar>
+            </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div>Controlado:</div>
+            <div class="grid">
+            <div class="col-6 p-fluid" >
+                <p-selectButton
+                        [options]="twoOptions"
+                        optionLabel="label"
+                        optionValue="value"
+                        formControlName="controlado"
+                ></p-selectButton>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div *ngIf="cronicoAgudo=='cronico'; else agudo"  class="my-3">Problema Crónico:</div>
+        <ng-template #agudo>
+            <div>
+                Problema Agudo:
+            </div>
+        </ng-template>
+        <div>
+            <textarea *ngIf="cronicoAgudo=='cronico'; else agudo1" rows="4" cols="65" pInputTextarea style="border-radius: 10px"
+            placeholder="Describa el problema crónico"
+            formControlName="problemaCronico"></textarea>
+            <ng-template #agudo1>
+                <textarea rows="4" cols="65" pInputTextarea style="border-radius: 10px"
+                          placeholder="Describa el problema agudo"
+                          formControlName="problemaCronico"></textarea>
+            </ng-template>
+        </div>
+    </div>
+    <div class="">
+        <div  class="my-3">Observaciones:</div>
+        <div>
+            <textarea rows="4" cols="65" pInputTextarea style="border-radius: 10px"
+            placeholder="Ingrese observaciones"
+            formControlName="observaciones"></textarea>
+        </div>
+    </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <button class="button-agregar" icon="pi pi-save" pButton type="button"
+                label="Guardar" (click)="save()" [disabled]="problemasFG.invalid"></button>
+        <button pButton type="button" label="Cancelar" style="background-color: red"
+                icon="pi pi-times" (click)="cancel()"></button>
+    </ng-template>
+</p-dialog>
+<p-toast key="myKey1" position="top-right"></p-toast>
+

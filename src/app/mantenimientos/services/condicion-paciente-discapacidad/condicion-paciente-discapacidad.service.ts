@@ -30,9 +30,9 @@ export class CondicionPacienteDiscapacidadService {
       CPD
     );
   }
-  updateCPD(id: string, CPD: any) {
+  updateCPD(CPD: any) {
     return this.http.put(
-      `${this.base_url}/${this.bd}/condicionpacientediscapacidad/${id}`,
+      `${this.base_url}/${this.bd}/condicionpacientediscapacidad`,
       CPD
     );
   }

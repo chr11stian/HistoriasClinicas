@@ -33,11 +33,11 @@ export class TipoUpsComponent implements OnInit {
   }
   agregarActualizar(index?: any) {
     let id: string = "";
-    let header: string = "Agregar tipo turno";
+    let header: string = "Agregar tipo UPS";
     if (this.isUpdate) {
       id = this.data[index].id;
       console.log(id);
-      header = "Actualizar tipo turno";
+      header = "Actualizar tipo UPS";
     }
     const ref = this.dialogService.open(TipoUpsModalComponent, {
       data: { id: id },
@@ -64,7 +64,7 @@ export class TipoUpsComponent implements OnInit {
         this.messageService.add({
           severity: "success",
           summary: "Informacion",
-          detail: "Ya existe un regitro con el mismo nombre ,ingrese otro",
+          detail: "Ya existe un registro con el mismo Nombre",
         });
       }
     });
