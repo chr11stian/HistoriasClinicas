@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-diagnostico-consulta-adolescente',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
 
-  constructor() { }
+  datosDiagnosticos: any;
+  form: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+  ) {
+    this.inicializarForm();
+  }
 
   ngOnInit(): void {
+  }
+
+  inicializarForm(){
+    this.form = this.fb.group({
+      habilidadesSociales: new FormControl(""),
+      nutricional: new FormControl(""),
+      recomendaciones: new FormControl(""),
+      
+    });
   }
 
 }

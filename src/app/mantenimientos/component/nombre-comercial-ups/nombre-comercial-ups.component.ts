@@ -92,7 +92,7 @@ export class NombreComercialUPSComponent implements OnInit {
     editarDatos() {
         const req = {
             nombre: this.form.value.nombre,
-            abreivatura: this.form.value.abreviatura,
+            abreviatura: this.form.value.abreviatura,
             tipoServicio: this.form.value.tipoServicio,
             iconPath: this.form.value.iconPath,
         }

@@ -53,13 +53,12 @@ export class ConsultasNoControlComponent implements OnInit {
 
   recuperarConsultas() {
     let data = {
-      "nroHcl": this.obstetriciaGeneralService.nroHcl,
-      "nroEmbarazo": this.obstetriciaGeneralService.nroEmbarazo
+      // "nroHcl": this.obstetriciaGeneralService.nroHcl
+      nroHcl: "10101013"
     }
-    this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
-      console.log('trajo datos exito ', res)
+    this.consultaObstetriciaService.getListarConsultasNoControl(data).subscribe((res: any) => {
       this.consultas = res.object ? res.object : [];
-    })
+    });
   }
 
   openDialogConsultaNuevo() {
@@ -69,6 +68,7 @@ export class ConsultasNoControlComponent implements OnInit {
     })
     this.ref.onClose.subscribe((data: any) => {
       console.log('data ', data);
+      this.recuperarConsultas();
     })
   }
 }

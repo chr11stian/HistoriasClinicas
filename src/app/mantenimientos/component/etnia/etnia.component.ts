@@ -24,12 +24,12 @@ export class EtniaComponent implements OnInit {
   ) {
     this.buildForm();
     this.getEtnia();
-    this.etniaList = [{ label: 'Mestizo', value: '1' }, 
-                      { label: 'Afro descendiente', value: '2' }, 
-                      { label: 'Andino', value: '3' },
-                      { label: 'Indígena amazónico', value: '4' },
-                      { label: 'Asiático descendiente', value: '5' },
-                      { label: 'Otro', value: '6' }];
+    this.etniaList = [{ label: 'MESTIZO', value: '1' }, 
+                      { label: 'AFRO DESCENDIENTE', value: '2' }, 
+                      { label: 'ANDINO', value: '3' },
+                      { label: 'INDÍGENA AMAZÓNICO', value: '4' },
+                      { label: 'ASIÁTICO DESCENDIENTE', value: '5' },
+                      { label: 'OTRO', value: '6' }];
    }
 
    buildForm() {
