@@ -394,7 +394,7 @@ export class PacienteComponent implements OnInit {
   pacienteByNroDoc() {
     let auxNroDoc = {
       tipoDoc: "DNI",
-      nroDoc: "24015415"
+      nroDoc: "10101013"
     }
     this.pacienteService.getPacienteByNroDoc(auxNroDoc).subscribe((res: any) => {
       console.log('paciente por doc ', res.object)
