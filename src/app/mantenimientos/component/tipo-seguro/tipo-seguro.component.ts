@@ -30,8 +30,8 @@ export class TipoSeguroComponent implements OnInit {
       nombre: ['', [Validators.required]],
     })
 
-    this.formTipoSeguro =  this.formBuilder.group({
-      nombre: new FormControl(""),
+    this.formTipoSeguro = this.formBuilder.group({
+      nombreTipo: new FormControl(""),
     })
   }
 
@@ -131,15 +131,26 @@ export class TipoSeguroComponent implements OnInit {
     this.dialogTipoSeguro = true;
   }
 
-  guardarDatosTipos(){
+  guardarDatosTipos() {
     let data = {
-      nombre: this.formTipoSeguro.value.nombre,
+      nombre: this.formTipoSeguro.value.nombreTipo,
     }
-    this.tipoSeguroservice.createTipoSeguro(data).subscribe((res:any)=>{
+    console.log('data ', data)
+    this.tipoSeguroservice.createTipoSeguro(data).subscribe((res: any) => {
       console.log("gg");
+      this.getTipoSeguro();
+      Swal.fire({
+        icon: 'success',
+        title: 'Se guardo correctamente',
+        text: '',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      this.dialogTipoSeguro = false;
     })
+
   }
-  
+
   ngOnInit(): void {
   }
 
