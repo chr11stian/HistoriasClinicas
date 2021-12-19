@@ -6,12 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./antecedentes-adulto-mayor.component.css']
 })
 export class AntecedentesAdultoMayorComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
   sino = [
     { label: 'SI', value: 'SI' },
     { label: 'NO', value: 'NO' }
@@ -24,7 +18,13 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
     {nombrefamiliar: 'Abuelo'},
     {nombrefamiliar: 'Otros'},
   ];
-    medicamentoFrecuentes: any;
+  medicamentoFrecuentes: any;
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+
 
   openDialogEditarTratamientosfrec(rowData: any, rowIndex: any) {
 
