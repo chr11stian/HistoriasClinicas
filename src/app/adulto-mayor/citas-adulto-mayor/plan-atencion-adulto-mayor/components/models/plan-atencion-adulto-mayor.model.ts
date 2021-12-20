@@ -15,3 +15,9 @@ export interface TratamientosFrecuentes{
     dosis?:number,
     observaciones?:string
 }
+export interface ValoracionFuncional{
+    nombreItem?:string,
+    respuesta?:string,
+    puntaje?:number
+
+}
