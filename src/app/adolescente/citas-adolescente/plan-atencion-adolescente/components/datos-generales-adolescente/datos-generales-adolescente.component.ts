@@ -8,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class DatosGeneralesAdolescenteComponent implements OnInit {
 
   constructor() { }
-
+  sexo = [
+    {name: 'M', code: 'M'},
+    {name: 'F', code: 'F'},
+  ];
   ngOnInit(): void {
   }
 

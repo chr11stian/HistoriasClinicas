@@ -42,7 +42,7 @@ export class CondicionPacienteDiscapacidadModalComponent implements OnInit {
       nombre: this.getFC("nombre").value,
     };
     if (this.idCPD != "") {
-      cpdInput[""] = this.idCPD;
+      cpdInput["id"] = this.idCPD;
       this.actualizar(cpdInput);
     } else {
       this.agregar(cpdInput);
@@ -50,7 +50,7 @@ export class CondicionPacienteDiscapacidadModalComponent implements OnInit {
   }
   actualizar(cpdInput) {
     this.condicionPacienteDiscapacidadService
-      .updateCPD(this.idCPD, cpdInput)
+      .updateCPD(cpdInput)
       .subscribe((resp) => {
         this.ref.close("actualizado");
       });

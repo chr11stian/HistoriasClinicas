@@ -76,7 +76,7 @@ export class TipoUpsModalComponent implements OnInit {
         this.ref.close("agregado");
       },
       (error) => {
-        console.log(error);
+        this.ref.close("duplicado");
       }
     );
   }

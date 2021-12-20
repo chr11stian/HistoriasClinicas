@@ -1,0 +1,6 @@
+:host ::ng-deep p-tag>>>.p-tag {
+    border-radius: 5px;
+}
+:host ::ng-deep p-tag>>>.green .p-tag{
+    background-color: #689F38;
+}
