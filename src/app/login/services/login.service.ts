@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import {LoginInterface} from '../../../login/model/login.interface'
+import {LoginInterface} from "../model/login.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -46,7 +46,7 @@ export class LoginService {
         return this.http.get<any>('assets/login.json')
             .toPromise()
             .then(data => {
-                console.log('credenciales',credenciales)
+                console.log(credenciales)
                 if (credenciales.usuario === 'geresa' && credenciales.password === 'geresa') {
                     const token = {
                         usuario: credenciales.usuario,
@@ -59,7 +59,7 @@ export class LoginService {
                     return data.login_exitoso
                 }
                 if (credenciales.usuario === 'red' && credenciales.password === 'red') {
-                    let token = {
+                    const token = {
                         usuario: credenciales.usuario,
                         respuesta: data.login_exitoso.respuesta,
                         estado: data.login_exitoso.estado,
@@ -69,9 +69,8 @@ export class LoginService {
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
                 }
-
                 if (credenciales.usuario === 'microred' && credenciales.password === 'microred') {
-                    let token = {
+                    const token = {
                         usuario: credenciales.usuario,
                         respuesta: data.login_exitoso.respuesta,
                         estado: data.login_exitoso.estado,
@@ -81,9 +80,8 @@ export class LoginService {
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
                 }
-
                 if (credenciales.usuario === 'ipress' && credenciales.password === 'ipress') {
-                    let token = {
+                    const token = {
                         usuario: credenciales.usuario,
                         respuesta: data.login_exitoso.respuesta,
                         estado: data.login_exitoso.estado,
@@ -92,7 +90,8 @@ export class LoginService {
                     this.currentUserSubject.next(token)
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
-                } else if (credenciales.usuario !== 'geresa' || credenciales.password !== 'geresa'
+                }
+                else if (credenciales.usuario !== 'geresa' || credenciales.password !== 'geresa'
                     || credenciales.usuario !== 'red' || credenciales.password !== 'red'
                     || credenciales.usuario !== 'microred' || credenciales.password !== 'microred'
                     || credenciales.usuario !== 'ipress' || credenciales.password !== 'ipress'

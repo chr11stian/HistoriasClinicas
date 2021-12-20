@@ -1,0 +1,10 @@
+{
+  "login_exitoso":{
+    "respuesta":"logueado exitosamente",
+    "estado":1
+  },
+  "login_fallido":{
+    "respuesta":"usuario no logueado",
+    "estado":2
+  }
+}
