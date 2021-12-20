@@ -10,14 +10,14 @@
             <p class="titulo_principal" style="color: #4d4d4d">Iniciar Seción</p>
 
             <div class="grid" style="align-items: center;justify-content: center;">
-                <div class="col-12 md:col-6 lg:col-12 p-field">
-                    <input type="text" pInputText placeholder="Usuario">
+                <div class="col-12 md:col-6 lg:col-8 p-field">
+                    <input type="text" name="usuario" class="w-full" pInputText placeholder="Usuario" [(ngModel)]="usuario">
                 </div>
             </div>
 
             <div class="grid" style="align-items: center;justify-content: center;">
-                <div class="col-12 md:col-6 lg:col-12 p-field">
-                    <input type="password" pInputText placeholder="password" id="myInput">
+                <div class="col-12 md:col-6 lg:col-8 p-field">
+                    <p-password weakLabel="Debil" class="w-full" mediumLabel="Medio" strongLabel="Fuerte" promptLabel= "Ingrese una Contraseña" [toggleMask]="true" name="password" placeholder="Contraseña" [(ngModel)]="password"></p-password>
                 </div>
                 <div class="col-12 md:col-6 lg:col-12 p-field">
                     <input type="checkbox">Mostrar contraseña

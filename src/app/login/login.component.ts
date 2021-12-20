@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
 
         this.loginService.login_quemado(credenciales)
             .then(login => {
+                console.log('l',credenciales)
                 if (login.estado === 1) {
+                    this.router.navigate(['/'])
                     this.router.navigate(['dashboard']);
                     console.log('login *', login)
                     let token = localStorage.getItem('token');
