@@ -17,7 +17,7 @@ export class ProblemasAdultoMayorComponent implements OnInit {
   problemasCronicos1:any[]=[];
   formProblemasCronicos: FormGroup;
 
-  constructor(private dialogo:DialogService,
+  constructor(
               private messageService: MessageService
   ) { }
 
