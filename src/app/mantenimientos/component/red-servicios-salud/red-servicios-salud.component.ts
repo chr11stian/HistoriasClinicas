@@ -302,11 +302,13 @@ export class RedServiciosSaludComponent implements OnInit {
         this.formRedServicio.patchValue({ disa: row.disa });
         this.formRedServicio.patchValue({ nombreRed: row.nombreRed });
         this.agregarRedServicio = true;
+        
     }
 
     editarRed() {
         this.recuperarDatosRed();
         this.redServiciosSaludService.putRed(this.dataRed).subscribe((res: any) => {
+            this.getRedServiciosSalud();
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -323,6 +325,7 @@ export class RedServiciosSaludComponent implements OnInit {
     }
 
     openEditarMicroRed(row) {
+        console.log('data Micro red ', row);
         this.update = true;
         this.formMicroRed.patchValue({ idMicroRed: row.idMicroRed });
         this.formMicroRed.patchValue({ nombreMicroRed: row.nombreMicroRed });
@@ -332,6 +335,7 @@ export class RedServiciosSaludComponent implements OnInit {
     editarMicroRed() {
         this.recuperarDatosMicroRed();
         this.redServiciosSaludService.putMicroRed(this.dataMicroRed).subscribe((res: any) => {
+            this.getRedServiciosSalud();
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -397,4 +401,5 @@ export class RedServiciosSaludComponent implements OnInit {
     eliminarEESS(row) {
 
     }
+
 }
