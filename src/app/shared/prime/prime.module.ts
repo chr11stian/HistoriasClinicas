@@ -37,6 +37,8 @@ import { DividerModule } from 'primeng/divider';
 import { SplitterModule } from 'primeng/splitter';
 import {MessagesModule} from 'primeng/messages';
 import {MessageModule} from 'primeng/message';
+import {InputMaskModule} from 'primeng/inputmask';
+
 
 const importsApi = [
   MessagesModule,
@@ -88,7 +90,8 @@ const importsApi = [
   AccordionModule,
   DynamicDialogModule,
   DividerModule,
-  SplitterModule
+  SplitterModule,
+  InputMaskModule
 ];
 
 @NgModule({

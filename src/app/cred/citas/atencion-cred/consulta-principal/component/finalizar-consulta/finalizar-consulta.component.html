@@ -69,7 +69,7 @@
                     <th style="text-align: center" class="font-2">NRO</th>
                     <th style="text-align: center" class="font-2">LUGAR EXAMEN</th>
                     <th style="text-align: center" class="font-2">EXAMEN</th>
-                    <th style="text-align: center" class="font-2">FECHA</th>
+                    <!--<th style="text-align: center" class="font-2">FECHA</th>-->
                     <th style="text-align: center" class="font-2">ACCIONES</th>
                 </tr>
             </ng-template>
@@ -80,8 +80,8 @@
                     <td style="text-align: center">{{ rowData.examen }}</td>
                     <!--<td style="text-align: center">{{ rowData.fecha }}</td>-->
                     <td style="text-align: center">
-                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                (click)="editarExamen(rowData,rowIndex)" pTooltip="Editar"></button>
+                        <!--<button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                (click)="editarExamen(rowData,rowIndex)" pTooltip="Editar"></button>-->
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
                                 (click)="eliminarExamen(rowIndex)" pTooltip="Eliminar">
                         </button>
@@ -215,6 +215,47 @@
                 icon="pi pi-times" (click)="cancelAcuerdo()"></button>
         <button class="button-agregar" icon="pi pi-save" pButton type="button"
                 label="Guardar" (click)="saveAcuerdo()"></button>
+
+    </ng-template>
+</p-dialog>
+
+<!-- Dialog Acuerdo --->
+<p-dialog header="EXAMEN" [(visible)]="dialogExamenes" [modal]="true" [style]="{width: '30%'}"
+          [draggable]="false" [resizable]="false">
+
+    <form [formGroup]='formExamen'>
+        <div class="p-grid p-fluid">
+            <div class="p-col-6 p-md-4 p-lg-3">
+                <label>Especialidad</label>
+                <div class="p-field">
+                    <p-dropdown inputId="dropdown" [options]="nombreEspecialidad" formControlName="nombreEspecialidad"
+                                placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                defaultLabel="Seleccione:">
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-col-6 p-md-4 p-lg-3">
+                <label>Examen</label>
+                <div class="p-field">
+                    <p-dropdown inputId="dropdown" [options]="examen" formControlName="examen"
+                                placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                defaultLabel="Seleccione:">
+                    </p-dropdown>
+                </div>
+            </div>
+            <!--<div class="p-col-6 p-md-4 p-lg-3">
+                <label>Fecha Vencimiento:</label><br>
+                <p-calendar type="Date" showIcon="true" formControlName='fecha' dateFormat="yy-mm-dd"
+                            inputId="time" required>
+                </p-calendar>
+            </div>-->
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="button-cancelar"
+                icon="pi pi-times" (click)="cancelExamen()"></button>
+        <button class="button-agregar" icon="pi pi-save" pButton type="button"
+                label="Guardar" (click)="saveExamen()"></button>
 
     </ng-template>
 </p-dialog>

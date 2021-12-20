@@ -31,12 +31,48 @@ export class FinalizarConsultaComponent implements OnInit {
     isUpdate4: boolean = false;
     bool4: boolean = false;
     index4: number
+    nombreEspecialidad: any[]
+    examen: any[]
 
     constructor(private tratamientoService: TratamientoConsultaService,
                 private cieService: CieService,
                 private formBuilder: FormBuilder) {
         this.buildFG();
+
+        this.nombreEspecialidad =
+            [
+                {label: 'ENDOVENOSA', value: 'ENDOVENOSA'},
+                {label: 'INHALADORA', value: 'INHALADORA'},
+                {label: 'INTRADERMICO', value: 'INTRADERMICO'},
+                {label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR'},
+                {label: 'NASAL', value: 'NASAL'},
+                {label: 'OFTALMICO', value: 'OFTALMICO'},
+                {label: 'ORAL', value: 'ORAL'},
+                {label: 'OPTICO', value: 'OPTICO'},
+                {label: 'RECTAL', value: 'RECTAL'},
+                {label: 'SUBCUTANEO', value: 'SUBCUTANEO'},
+                {label: 'SUBLINGUAL', value: 'SUBLINGUAL'},
+                {label: 'TOPICO', value: 'TOPICO'},
+                {label: 'VAGINAL', value: 'VAGINAL'},
+            ];
+        this.examen =
+            [
+                {label: 'ENDOVENOSA', value: 'ENDOVENOSA'},
+                {label: 'INHALADORA', value: 'INHALADORA'},
+                {label: 'INTRADERMICO', value: 'INTRADERMICO'},
+                {label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR'},
+                {label: 'NASAL', value: 'NASAL'},
+                {label: 'OFTALMICO', value: 'OFTALMICO'},
+                {label: 'ORAL', value: 'ORAL'},
+                {label: 'OPTICO', value: 'OPTICO'},
+                {label: 'RECTAL', value: 'RECTAL'},
+                {label: 'SUBCUTANEO', value: 'SUBCUTANEO'},
+                {label: 'SUBLINGUAL', value: 'SUBLINGUAL'},
+                {label: 'TOPICO', value: 'TOPICO'},
+                {label: 'VAGINAL', value: 'VAGINAL'},
+            ];
     }
+
 
     buildFG(): void {
         this.acuerdosFG = new FormGroup({
@@ -53,6 +89,7 @@ export class FinalizarConsultaComponent implements OnInit {
         this.formExamen = this.formBuilder.group({
             nombreEspecialidad: new FormControl("", []),
             examen: new FormControl("", []),
+            fecha: new FormControl("", []),
         });
     }
 
@@ -146,7 +183,7 @@ export class FinalizarConsultaComponent implements OnInit {
                 nombreEspecialidad: this.formExamen.value.nombreEspecialidad,
                 examen: this.formExamen.value.examen,
                 resultado: 'string'
-            }
+            }//fecha: this.formExamen.value.fecha,
             this.examenesAux.push(a);
         } else {
             this.examenesAux[this.index4].nombreEspecialidad = this.formExamen.value.nombreEspecialidad
@@ -188,7 +225,8 @@ interface examenesAuxInteface {
     idSIS: string,
     nombreEspecialidad: string,
     examen: string,
-    resultado: string
+    resultado: string,
+    //fecha: string
 }
 
 interface acuerdosComprimisosInterface {
