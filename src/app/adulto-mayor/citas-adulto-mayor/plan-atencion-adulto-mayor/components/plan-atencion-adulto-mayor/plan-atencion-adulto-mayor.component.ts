@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PlanEvaluacionAdulto} from "./interfaces/PlanEvaluacionAdulto";
+import {PlanEvaluacionAdulto} from "../models/PlanEvaluacionAdulto";
 
 @Component({
   selector: 'app-plan-atencion-adulto-mayor',
