@@ -54,7 +54,7 @@ export class LoginService {
                         estado: data.login_exitoso.estado,
                         roles: 'GERESA'
                     }
-                    this.currentUserSubject.next(token)
+                    //this.currentUserSubject.next(token)
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
                 }
@@ -65,7 +65,7 @@ export class LoginService {
                         estado: data.login_exitoso.estado,
                         roles: 'RED'
                     }
-                    this.currentUserSubject.next(token)
+                    //this.currentUserSubject.next(token)
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
                 }
@@ -77,7 +77,7 @@ export class LoginService {
                         estado: data.login_exitoso.estado,
                         roles: 'MICRORED'
                     }
-                    this.currentUserSubject.next(token)
+                    //this.currentUserSubject.next(token)
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
                 }
@@ -89,7 +89,7 @@ export class LoginService {
                         estado: data.login_exitoso.estado,
                         roles: 'IPRESS'
                     }
-                    this.currentUserSubject.next(token)
+                    //this.currentUserSubject.next(token)
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
                 } else if (credenciales.usuario !== 'geresa' || credenciales.password !== 'geresa'

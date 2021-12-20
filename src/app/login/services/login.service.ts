@@ -18,7 +18,7 @@ export class LoginService {
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    base_uri = "http://167.172.226.220:8080/miacc/login";
+    base_uri = "http://192.168.5.3:3012/api/hce/login/user";
 
 
     public get currentUserValue(): LoginInterface {
@@ -33,10 +33,14 @@ export class LoginService {
             })
         })
             .pipe(map(user => {
-                if (user && user.token) {
-                    localStorage.setItem('usuario', JSON.stringify(user.usuario));
-                    localStorage.setItem('token', user.token);
-                    this.currentUserSubject.next(user);
+                if (user) {
+                    const token = {
+                        usuario: user.object.nroDoc,
+                        roles: user.object.estado,
+                    }
+                    this.currentUserSubject.next(token)
+                    localStorage.setItem('token', JSON.stringify(token))
+                    localStorage.setItem('usuario',JSON.stringify(user.object))
                 }
                 return user;
             }))
@@ -54,7 +58,7 @@ export class LoginService {
                         estado: data.login_exitoso.estado,
                         roles: 'GERESA'
                     }
-                    this.currentUserSubject.next(token)
+                    //this.currentUserSubject.next(token)
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
                 }
@@ -65,7 +69,7 @@ export class LoginService {
                         estado: data.login_exitoso.estado,
                         roles: 'RED'
                     }
-                    this.currentUserSubject.next(token)
+                    //this.currentUserSubject.next(token)
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
                 }
@@ -76,7 +80,7 @@ export class LoginService {
                         estado: data.login_exitoso.estado,
                         roles: 'MICRORED'
                     }
-                    this.currentUserSubject.next(token)
+                    //this.currentUserSubject.next(token)
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
                 }
@@ -87,7 +91,7 @@ export class LoginService {
                         estado: data.login_exitoso.estado,
                         roles: 'IPRESS'
                     }
-                    this.currentUserSubject.next(token)
+                    //this.currentUserSubject.next(token)
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
                 }
