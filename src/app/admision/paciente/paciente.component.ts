@@ -171,7 +171,7 @@ export class PacienteComponent implements OnInit {
       sexo: this.formPaciente.value.sexo,
       nacimiento: {
         // fechaNacimiento: this.formPaciente.value.fechaNacimiento
-        fechaNacimiento: auxDay[2] + '-' + auxDay[1] + '-' + auxDay[0] + ' 00:00:00'
+        fechaNacimiento: this.formPaciente.value.fechaNacimiento + ' 00:00:00',
       },
       celular: this.formPaciente.value.celular,
       tipoSeguro: this.formPaciente.value.tipoSeguro,
@@ -184,8 +184,8 @@ export class PacienteComponent implements OnInit {
         etnia: aux.descripcion
       },
       gradoInstruccion: this.formPaciente.value.gradoInstruccion,
-      fechaInscripcion: auxInsc[2] + '-' + auxInsc[1] + '-' + auxInsc[0] + ' 00:00:00',
-      fechaEmision: auxEmsion[2] + '-' + auxEmsion[1] + '-' + auxEmsion[0] + ' 00:00:00',
+      fechaInscripcion: this.formPaciente.value.fechaInscripcion + ' 00:00:00',
+      fechaEmision: this.formPaciente.value.fechaEmision + ' 00:00:00',
       restricion: this.formPaciente.value.restriccion,
       domicilio: {
         departamento: this.dpto.departamento,
@@ -232,14 +232,13 @@ export class PacienteComponent implements OnInit {
     console.log('data paciente ', this.dataPaciente);
     this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
       this.formPaciente.reset();
-      this.cargarPacientes();
       this.closeDialogPaciente();
+      this.cargarPacientes();
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
   }
 
   openEditarPaciente(row) {
-    console.log('row to edit ', row, 'tipo ', typeof(row.fechaEmision));
     this.cargarDocumentos();
     this.dpto = {};
     this.prov = {};
@@ -263,9 +262,15 @@ export class PacienteComponent implements OnInit {
     this.formPaciente.patchValue({ etnia: row.etnia });
     this.formPaciente.patchValue({ gradoInstruccion: row.gradoInstruccion });
     this.formPaciente.patchValue({ sexo: row.sexo });
-    this.formPaciente.patchValue({ fechaNacimiento: row.nacimiento.fechaNacimiento });
-    this.formPaciente.patchValue({ fechaInscripcion: row.fechaInscripcion });
-    this.formPaciente.patchValue({ fechaEmision: row.fechaEmision });
+    let auxFechaNacimiento = row.nacimiento.fechaNacimiento;
+    auxFechaNacimiento = auxFechaNacimiento.split(" ", 1);
+    let auxFechaInscrip = row.fechaInscripcion;
+    auxFechaInscrip = auxFechaInscrip.split(" ", 1);
+    let auxFechaEmision = row.fechaEmision;
+    auxFechaEmision = auxFechaEmision.split(" ", 1);
+    this.formPaciente.patchValue({ fechaNacimiento: auxFechaNacimiento[0] });
+    this.formPaciente.patchValue({ fechaInscripcion: auxFechaInscrip[0] });
+    this.formPaciente.patchValue({ fechaEmision: auxFechaEmision[0] });
     this.formPaciente.patchValue({ restriccion: row.restriccion });
     this.formPaciente.patchValue({ discapacidad: row.discapacidad });
     this.formPaciente.patchValue({ direccion: row.domicilio.direccion });
@@ -378,23 +383,23 @@ export class PacienteComponent implements OnInit {
     this.recuperarDatos();
     this.dataPaciente.id = this.id;
     console.log(this.formPaciente.value.fechaNacimiento, 'data to edit ', this.dataPaciente);
-    // this.pacienteService.putPaciente(this.dataPaciente).subscribe((res: any) => {
-    //   this.cargarPacientes();
-    //   this.closeDialogPaciente();
-    //   console.log('se actualizo correctamente ', res)
-    //   this.messageService.add({
-    //     severity: "success",
-    //     summary: "Exito",
-    //     detail: res.mensaje
-    //   });
-    // })
+    this.pacienteService.putPaciente(this.dataPaciente).subscribe((res: any) => {
+      this.cargarPacientes();
+      this.closeDialogPaciente();
+      console.log('se actualizo correctamente ', res)
+      this.messageService.add({
+        severity: "success",
+        summary: "Exito",
+        detail: res.mensaje
+      });
+    })
     console.log('aceptar editar paciente')
   }
 
   pacienteByNroDoc() {
     let auxNroDoc = {
       tipoDoc: "DNI",
-      nroDoc: "10101013"
+      nroDoc: "24015415"
     }
     this.pacienteService.getPacienteByNroDoc(auxNroDoc).subscribe((res: any) => {
       console.log('paciente por doc ', res.object)
