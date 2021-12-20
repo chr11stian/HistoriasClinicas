@@ -19,23 +19,18 @@ export class ConsultasService {
     addConsultas(nroFetos, data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultorio/${nroFetos}`, data)
     }
-
     updateConsultas(nroFetos, data) {
         return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio/${nroFetos}`, data);
     }
-
     getConsultaPrenatalByEmbarazo(data) {
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar`, data);
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar/`, data);
     }
-
     getInterrogatorioByEmbarazo(data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarInterrogatorio`, data);
     }
-
     getUltimaConsultaById(idConsulta) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsultaxid`, idConsulta)
     }
-
     getLastConsulById(idConsulta) {
         const promise = this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsultaxid`, idConsulta).toPromise();
         promise.then((data) => {
@@ -43,7 +38,6 @@ export class ConsultasService {
         }).catch((error) => {
             console.log("Promise rejected with " + JSON.stringify(error));
         })
-
         return promise;
     }
 

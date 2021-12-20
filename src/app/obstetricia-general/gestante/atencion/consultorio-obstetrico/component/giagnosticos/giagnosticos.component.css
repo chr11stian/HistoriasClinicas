@@ -13,38 +13,21 @@ p-calendar >>> .p-button.p-button-icon-only {
     background-color: #003c71;
 
 }
-p-dialog{
-    display: block;
-    position: absolute;
-}
 p-calendar{
     position: absolute;
 }
 p-autoComplete{
     position: absolute;
 }
-p-dropdown{
+p-dialog >>> .p-dropdown{
     position: absolute;
 }
-
-
-
-/*.form-register{*/
-/*    width: 95%;*/
-
-/*    maring: auto;*/
-/*    background: white;*/
-/*    border-radius: 7px;*/
-/*    height: 90%;*/
-/*    font-size: small;*/
-/*}*/
-p {
-    margin: 0;
+p-dialog>>> .p-autocomplete{
+    width:305px;
 }
 .table-over{
     overflow-x: auto;
 }
-
 .confirmation-content {
     display: flex;
     align-items: center;
@@ -73,6 +56,8 @@ p-panel>>>.p-panel .p-panel-content{
 
 }
 /*estilo para responsive formulario*/
+<<<<<<< HEAD
+=======
 .resp{
     max-width:1200px;
     margin: 0 auto;
@@ -81,9 +66,9 @@ p-panel>>>.p-panel .p-panel-content{
     padding: 2px;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
+>>>>>>> 5d3488cfa3215d003552b1bfeb945d39abacb22b
 
 @media (min-width: 300px){
-
 }
 
 @media (min-width: 500px){
