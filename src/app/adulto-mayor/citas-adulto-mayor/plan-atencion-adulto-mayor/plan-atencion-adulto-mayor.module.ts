@@ -14,7 +14,6 @@ import { StepValoracionAdultoMayorComponent } from './components/valoracion-adul
 import { ValoracionMentalAdultoMayorComponent } from './components/valoracion-adulto-mayor/valoracion-mental-adulto-mayor/valoracion-mental-adulto-mayor.component';
 import { ValoracionSocioFamiliarAdultoMayorComponent } from './components/valoracion-adulto-mayor/valoracion-socio-familiar-adulto-mayor/valoracion-socio-familiar-adulto-mayor.component';
 import { ValoracionFuncionalAdultoMayorComponent } from './components/valoracion-adulto-mayor/valoracion-funcional-adulto-mayor/valoracion-funcional-adulto-mayor.component';
-import { ModalProblemasAdultoMayorComponent } from './components/problemas-adulto-mayor/modal-problemas-adulto-mayor/modal-problemas-adulto-mayor.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +26,7 @@ import { ModalProblemasAdultoMayorComponent } from './components/problemas-adult
         ValoracionMentalAdultoMayorComponent,
         ValoracionSocioFamiliarAdultoMayorComponent,
         ValoracionFuncionalAdultoMayorComponent,
-        ModalProblemasAdultoMayorComponent,
+
     ],
     imports: [
         CommonModule,

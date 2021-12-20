@@ -89,8 +89,9 @@ export class GiagnosticosComponent implements OnInit {
         console.log("NroDocRecuparado", this.nroDocRecuperado);
         console.log("Nro de embarazo", this.nroEmbarazo);
         console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
-        this.recuperarDatosGuardados();
         this.recuperarNroFetos();
+        this.recuperarDatosGuardados();
+
     }
     recuperarNroFetos(){
         let idData = {
@@ -128,6 +129,10 @@ export class GiagnosticosComponent implements OnInit {
         let bandera:boolean = false;
         let dx = this.form.value.diagnostico.descripcionItem;
         let cie = this.form.value.diagnostico.codigoItem;
+        if (dx==" " || dx==null || dx==undefined)
+        {
+            this.messageService.add({severity:'info', summary:'Recuperado', detail:'Diagnostico no válido vuelva a ingresar.'});
+        }else{
         /***verificar si ya ingreso este dx************/
         for(let i=0;i<this.diagnosticos.length;i++)
         {
@@ -144,7 +149,7 @@ export class GiagnosticosComponent implements OnInit {
                cie10: cie,
                tipo: this.form.value.tipo
            }
-           )}
+           )}}
         this.diagnosticoDialog = false;
     }
     /******ABRIR DIALOGS DX****/
@@ -215,7 +220,7 @@ export class GiagnosticosComponent implements OnInit {
             motivo: this.formOtrosDatos.value.motivo,
             codRENAES: this.formOtrosDatos.value.codRENAES
         },
-            this.proxCita = this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd HH:mm:ss')
+        this.proxCita = {fecha:this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd'),estado:"PENDIENTE"}
         this.visitaDomiciliaria = {
             estado: this.formOtrosDatos.value.visita,
             fecha:  this.datePipe.transform(this.formOtrosDatos.value.fechaVisita, 'yyyy-MM-dd HH:mm:ss')
@@ -240,7 +245,7 @@ export class GiagnosticosComponent implements OnInit {
 
         }
 
-        this.DxService.updateConsultas(1,req).subscribe(
+        this.DxService.updateConsultas(this.nroFetos,req).subscribe(
             (resp) => {
                 console.log(resp);
                 console.log(req);
@@ -279,31 +284,31 @@ export class GiagnosticosComponent implements OnInit {
                     this.formOtrosDatos.patchValue({'consultorio': this.dataAux.referencia.consultorio});
                     this.formOtrosDatos.patchValue({'motivo': this.dataAux.referencia.motivo});
                     this.formOtrosDatos.patchValue({'codRENAES': this.dataAux.referencia.codRENAES});
-                    this.formOtrosDatos.patchValue({'proxCita': this.dataAux.proxCita});
+                    this.formOtrosDatos.patchValue({'proxCita': this.dataAux.proxCita.fecha});
                     this.formOtrosDatos.patchValue({'visita': this.dataAux.visitaDomiciliaria.estado});
                     this.formOtrosDatos.patchValue({'fechaVisita': this.dataAux.visitaDomiciliaria.fecha});
                     this.formOtrosDatos.patchValue({'planPartoReenfocada': this.dataAux.planPartoReenfocada});
                     /**********************RECUPERAR DATOS DE ORIENTACIONES********/
 
-                        let i: number = 0;
+                        let y: number = 0;
                         console.log(this.dataAux.orientaciones);
                         // this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de orientaciones recuperado satisfactoriamente'});
-                        while (i < this.dataAux.orientaciones.length) {
-                            console.log("orientaciones consta de: ", this.dataAux.orientaciones[i]);
-                            if (this.dataAux.orientaciones[i].valor === true) {
-                                this.orientaciones.push(this.dataAux.orientaciones[i]);
+                        while (y < this.dataAux.orientaciones.length) {
+                            console.log("orientaciones consta de: ", this.dataAux.orientaciones[y]);
+                            if (this.dataAux.orientaciones[y].valor === true) {
+                                this.orientaciones.push(this.dataAux.orientaciones[y]);
                             }
-                            i++;
+                            y++;
                         }
 
                     /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
                         let x: number = 0;
 
-                        while (i < this.dataAux.diagnosticos.length) {
+                        while (x < this.dataAux.diagnosticos.length) {
 
                             console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[x]);
                             this.diagnosticos.push(this.dataAux.diagnosticos[x]);
-                            i++;}
+                            x++;}
 
 }
 

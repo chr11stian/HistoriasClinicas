@@ -17,7 +17,7 @@
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
-                    class="guardar mr-2" style="background-color: #689F38"></button>
+                    class="guardar mr-2" style="background-color: #689F38" (click)="openNewCronico()"></button>
                 </ng-template>
             </p-toolbar>
             <p-table class="table-over" [value]="problemasCronicos" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
@@ -67,7 +67,7 @@
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
-                            class="guardar mr-2" style="background-color: #689F38"></button>
+                            class="guardar mr-2" style="background-color: #689F38" (click)="openNewAgudo()"></button>
                 </ng-template>
             </p-toolbar>
             <p-table class="table-over" [value]="problemasAgudos" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
@@ -111,7 +111,87 @@
             </p-table>
         </div>
     </div>
-
-
-
 </div>
+<p-dialog  [(visible)]="dialogProblemaCronico"
+           [modal]="true"
+           [style]="{width: '30%'}">
+    <ng-template pTemplate="header">
+        <h3>PROBLEMAS CRONICOS</h3>
+    </ng-template>
+
+    <form [formGroup]='formProblemasCronicos'>
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-8 lg:col-8 p-field">
+                <label>Fecha:</label>
+                <input type="date"  pInputText formControlName='fechaProblemasCronicos' placeholder="Examenes Auxiliares"
+                       required/>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <label>Fecha:</label>
+                <p-selectButton [options]="sino"  optionValue="value"
+                                optionLabel="label" formControlName="controladoCronico"></p-selectButton>
+
+            </div>
+            <br>
+            <br>
+            <div class="col-12">
+                <span class="p-float-label">
+                    <textarea style="border-radius: 10px" id="problemaCronico" rows="5" cols="30" pInputTextarea formControlName="problemaCronico"> </textarea>
+                    <label for="problemaCronico">Problemas Crónicos:</label>
+                 </span>
+            </div>
+            <div class="col-12">
+                <span class="p-float-label">
+                    <textarea style="border-radius: 10px" id="observaciones" rows="5" cols="30" pInputTextarea formControlName="observaciones"> </textarea>
+                    <label for="observaciones">Observaciones:</label>
+                 </span>
+            </div>
+
+        </div>
+    </form>
+    <div class="footer">
+        <button pButton type="button" label="Guardar" (click)="save()" class="p-button-danger mt-4"></button>
+        <button pButton type="button" label="Cancelar" (click)="canceled()"  class="p-button-danger mt-4"></button>
+    </div>
+</p-dialog>
+<p-dialog  [(visible)]="dialogProblemaAgudo"
+           [modal]="true"
+           [style]="{width: '30%'}">
+    <ng-template pTemplate="header">
+        <h3>PROBLEMAS AGUDOS</h3>
+    </ng-template>
+    <form [formGroup]='formProblemasAgudos'>
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-8 lg:col-8 p-field">
+                <label>Fecha:</label>
+                <input type="date"  pInputText formControlName='fechaProblemasAgudos' placeholder="Examenes Auxiliares"
+                       required/>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <label>Fecha:</label>
+                <p-selectButton [options]="sino"  optionValue="value"
+                                optionLabel="label" formControlName="controladoAgudo"></p-selectButton>
+
+            </div>
+            <br>
+            <div class="col-12">
+                 <span class="p-float-label">
+                    <textarea style="border-radius: 10px" id="ProblemasAgudos" rows="5" cols="30" pInputTextarea formControlName="problemaAgudo"> </textarea>
+                    <label for="ProblemasAgudos">Problemas Agudos:</label>
+                 </span>
+            </div>
+            <br>
+            <div class="col-12">
+                 <span class="p-float-label">
+                    <textarea style="border-radius: 10px" id="observacionesAgudo" rows="5" cols="30" pInputTextarea formControlName="observacionesAgudo"> </textarea>
+                    <label for="observacionesAgudo">Observaciones:</label>
+                 </span>
+            </div>
+
+        </div>
+    </form>
+    <div class="footer">
+        <button pButton type="button" label="Guardar" (click)="save()" class="p-button-danger mt-4"></button>
+        <button pButton type="button" label="Cancelar" (click)="canceled()"  class="p-button-danger mt-4"></button>
+    </div>
+</p-dialog>

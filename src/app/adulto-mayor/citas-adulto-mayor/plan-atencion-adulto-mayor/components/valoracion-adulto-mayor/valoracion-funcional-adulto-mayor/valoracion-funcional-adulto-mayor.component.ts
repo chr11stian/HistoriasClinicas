@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-valoracion-funcional-adulto-mayor',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./valoracion-funcional-adulto-mayor.component.css']
 })
 export class ValoracionFuncionalAdultoMayorComponent implements OnInit {
+  idRecuperado = "61b23fa6308deb1ddd0b3704";
+  formValoracionClinica:FormGroup;
   sino = [
     { label: 'SI', value: 'SI' },
     { label: 'NO', value: 'NO' }
@@ -16,5 +19,7 @@ export class ValoracionFuncionalAdultoMayorComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  recuperarValoracionFuncional(){
 
+  }
 }

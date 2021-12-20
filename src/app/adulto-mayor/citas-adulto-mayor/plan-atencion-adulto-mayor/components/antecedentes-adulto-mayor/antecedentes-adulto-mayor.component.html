@@ -157,7 +157,7 @@
                 <!--1 fila-->
                 <div class="grid">
                     <div class="col-4 p-field">
-                        <label class="">Hipertensión Art.:</label>
+                        <label class="">Tuberculosis:</label>
                     </div>
                     <div class="col-4 p-field">
                         <p-selectButton [options]="sino"  optionValue="value"
@@ -173,10 +173,10 @@
                         </p-dropdown>
                     </div>
                 </div>
-                <!--2 fila-->
+                <!-- 2 fila-->
                 <div class="grid">
                     <div class="col-4 p-field">
-                        <label class="">Diabetes:</label>
+                        <label class="">Hipertensión Art.:</label>
                     </div>
                     <div class="col-4 p-field">
                         <p-selectButton [options]="sino"  optionValue="value"
@@ -195,7 +195,7 @@
                 <!--3 fila-->
                 <div class="grid">
                     <div class="col-4 p-field">
-                        <label class="">Infarto de Miocardio:</label>
+                        <label class="">Diabetes:</label>
                     </div>
                     <div class="col-4 p-field">
                         <p-selectButton [options]="sino"  optionValue="value"
@@ -214,7 +214,7 @@
                 <!--4 fila-->
                 <div class="grid">
                     <div class="col-4 p-field">
-                        <label class="">Demencia:</label>
+                        <label class="">Infarto de Miocardio:</label>
                     </div>
                     <div class="col-4 p-field">
                         <p-selectButton [options]="sino"  optionValue="value"
@@ -233,7 +233,7 @@
                 <!--5 fila-->
                 <div class="grid">
                     <div class="col-4 p-field">
-                        <label class="">Cáncer(mama,estómago,colon):</label>
+                        <label class="">Demencia:</label>
                     </div>
                     <div class="col-4 p-field">
                         <p-selectButton [options]="sino"  optionValue="value"
@@ -249,10 +249,10 @@
                         </p-dropdown>
                     </div>
                 </div>
-                <!--6 fila-->
+                <!-- 6 FILA-->
                 <div class="grid">
                     <div class="col-4 p-field">
-                        <label class="">Tuberculosis:</label>
+                        <label class="">Cáncer (mama, estómago, colon):</label>
                     </div>
                     <div class="col-4 p-field">
                         <p-selectButton [options]="sino"  optionValue="value"
@@ -288,7 +288,7 @@
             </ng-template>
             <ng-template pTemplate="right" class="button">
                 <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
-                        class="guardar mr-2" style="background-color: #689F38" ></button>
+                        class="guardar mr-2" style="background-color: #689F38" (click)="openNew()"></button>
             </ng-template>
         </p-toolbar>
         <p-table class="table-over" [value]="medicamentoFrecuentes" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
@@ -337,3 +337,36 @@
         </div>
     </div>
 </div>
+<!--- DIALOGO TRATAMIENTO FRECUENTE---->
+<p-dialog  [(visible)]="dialogTratamientoFrecuente"
+           [modal]="true"
+           [style]="{width: '30%'}">
+    <ng-template pTemplate="header">
+        <h3>PROBLEMAS CRONICOS</h3>
+    </ng-template>
+
+    <form [formGroup]='formTratamientoFrecuente'>
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-9 lg:col-9 p-field">
+                <label>Nombre:</label>
+                <input type="text"  pInputText formControlName='nombre' placeholder="Nombre" required/>
+            </div>
+            <div class="col-12 md:col-3 lg:col-3 p-field">
+                <label>Dosis:</label>
+                <input type="number"  pInputText formControlName='dosis' placeholder="Dosis" required/>
+            </div>
+            <br>
+            <div class="col-12">
+                <span class="p-float-label">
+                    <textarea style="border-radius: 10px" id="observaciones" rows="5" cols="30" pInputTextarea formControlName="observaciones"> </textarea>
+                    <label for="observaciones">Observaciones:</label>
+                 </span>
+            </div>
+
+        </div>
+    </form>
+    <div class="footer">
+        <button pButton type="button" label="Guardar" (click)="saveTratamientos()" class="p-button-danger mt-4"></button>
+        <button pButton type="button" label="Cancelar" (click)="canceled()"  class="p-button-danger mt-4"></button>
+    </div>
+</p-dialog>
