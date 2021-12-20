@@ -12,6 +12,12 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
     {name: 'M', code: 'M'},
     {name: 'F', code: 'F'},
   ];
+  opciones=[{name:'name1',code:'code1'},
+    {name:'name2',code:'code2'},
+    {name:'name3',code:'code3'},
+    {name:'name4',code:'code4'},
+    {name:'name5',code:'code5'},
+    {name:'name6',code:'code6'}]
   ngOnInit(): void {
   }
 

@@ -59,3 +59,59 @@
         </div>
     </div>
 </div>
+<div class="grid">
+    <div class="col-3">
+        <label>Provincia:</label>
+        <div class="p-fluid">
+            <p-dropdown [options]="opciones" optionLabel="name"></p-dropdown>
+
+        </div>
+    </div>
+    <div class="col-3">
+        <label>Distrito:</label>
+        <div class="p-fluid">
+            <p-dropdown [options]="opciones" optionLabel="name"></p-dropdown>
+
+        </div>
+    </div>
+    <div class="col-3">
+        <label>Departamento:</label>
+        <div class="p-fluid">
+            <p-dropdown [options]="opciones" optionLabel="name"></p-dropdown>
+
+        </div>
+    </div>
+    <div class="col-2">
+        <label>GrupoSanguineo:</label>
+        <div class="p-fluid">
+            <input type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-1">
+        <label>Rh:</label>
+        <div class="p-fluid">
+            <p-selectButton [options]="sexo" optionLabel="name"></p-selectButton>
+        </div>
+    </div>
+</div>
+<!--    tercera fila-->
+<div class="grid">
+    <div class="col-4">
+        <label>Procedencia:</label>
+        <div>
+            <input type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-2">
+        <label>Idioma:</label>
+        <div>
+            <p-dropdown [options]="opciones" optionLabel="name"></p-dropdown>
+        </div>
+    </div>
+    <div class="col-6">
+        <label>Domicilio/Direcciones</label>
+        <div>
+            <input type="text" pInputText />
+        </div>
+    </div>
+</div>
