@@ -62,7 +62,7 @@
     </form>
 </div>
 <!-- DIALOG ADD TRATAMIENTO -->
-<p-dialog class="dialogo m-4" [(visible)]="dialogTratamiento" [style]="{width: '30%'}" [modal]="true"
+<!-- <p-dialog class="dialogo m-4" [(visible)]="dialogTratamiento" [style]="{width: '30%'}" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h3>TRATAMIENTO</h3>
@@ -72,7 +72,7 @@
             <div class="grid">
                 <div class="col-12">
                     <label>Tratamiento:</label>
-                    <input formControlName="tratamiento" type="text" class="p-inputtext-sm " pInputText />
+                    <input formControlName="tratamiento" type="text" class="p-inputtext" pInputText />
                 </div>
             </div>
         </form>
@@ -84,5 +84,65 @@
             (click)="guardarNuevoDiagnostico()"></button>
         <button pButton type=" button" label="Cerrar" class="p-button-danger"
             (click)="closeDialogDiagnostico()"></button>
+    </ng-template>
+</p-dialog> -->
+
+
+<p-dialog class="dialogo m-3" [(visible)]="dialogTratamiento" [style]="{width: '30%'}" [modal]="true">
+    <ng-template pTemplate="header">
+        <h3>NUEVO TRATAMIENTO</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formTratamiento'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Descripcion:</label>
+                    <input type="text" pInputText formControlName='descripcion' placeholder="Descripcion"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Numero:</label>
+                    <input type="number" pInputText formControlName='numero' placeholder="Numero"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Dosis:</label>
+                    <input type="text" pInputText formControlName='dosis' placeholder="Dosis"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-6">
+                    <label>Via de Administracion:</label>
+                    <p-dropdown [options]="listaViaAdministracion" formControlName="viaAdministracion" appendTo="body"
+                        placeholder="Via Administracion" optionLabel="name" optionValue="name" [virtualScroll]="true"
+                        class="inputfield p-fluid w-full">
+                    </p-dropdown>
+                </div>
+                <div class="col-6">
+                    <label>Intervalo:</label>
+                    <p-dropdown [options]="listaIntervalos" formControlName="intervalo" appendTo="body"
+                        optionLabel="name" optionValue="name" class="inputfield p-fluid w-full" placeholder="Intervalo">
+                    </p-dropdown>
+                </div>
+                <div class="col-6">
+                    <label>Duracion:</label>
+                    <input type="text" pInputText formControlName='duracion' placeholder="Duracion"
+                        class="p-inputtext inputfield w-full">
+                </div>
+                <div class="col-6">
+                    <label>Observaciones:</label>
+                    <input type="text" pInputText formControlName='observaciones' placeholder="Observaciones"
+                        class="p-inputtext inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarTratamientos" pButton type="button" label="Guardar"
+            (click)="guardarEdicionTratamiento()"></button>
+        <button *ngIf="!estadoEditarTratamientos" pButton type="button" label="Guardar"
+            (click)="aceptarDialogTratamiento()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="closeDialogTratamiento()"></button>
     </ng-template>
 </p-dialog>
