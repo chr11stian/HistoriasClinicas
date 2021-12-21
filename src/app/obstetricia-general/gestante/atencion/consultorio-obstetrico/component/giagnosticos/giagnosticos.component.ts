@@ -20,7 +20,6 @@ export class GiagnosticosComponent implements OnInit {
     idConsultoriObstetrico: string;
     form: FormGroup
     /*****PROPIEDADES del diagnositico**********/
-    data: any[] = []; // data dx
     diagnosticoDialog: boolean;
     diagnosticos: any[]=[];
     /******** PROPIEDADES de orientaciones******/
@@ -50,6 +49,9 @@ export class GiagnosticosComponent implements OnInit {
     private nroHclRecuperado:any;
     /********Lista tipo Dx*****/
     tipoList:any[]= [];
+    eleccion: any;
+    private nroFetos = 0;
+    private idConsulta:any;
 
     constructor(private formBuilder: FormBuilder,
                 private obstetriciaService: ObstetriciaGeneralService,
@@ -62,12 +64,13 @@ export class GiagnosticosComponent implements OnInit {
         this.nroDocRecuperado = this.obstetriciaService.nroDoc;
         this.nroEmbarazo = this.obstetriciaService.nroEmbarazo;
         this.idConsultoriObstetrico = this.obstetriciaService.idConsultoriObstetrico;
+        this.idConsulta = this.obstetriciaService.idGestacion;
         this.nroHclRecuperado = this.obstetriciaService.nroHcl;
         /***************DATOS DE LOS DROPDOWNS*******************/
         /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
-        this.tipoList = [{label: 'D', value: 'D'},
-            {label: 'P', value: 'P'},
-            {label: 'R', value: 'R'},
+        this.tipoList = [{label: 'DEFINITIVO', value: 'D'},
+            {label: 'PRESUNTIVO', value: 'P'},
+            {label: 'REPETITIVO', value: 'R'},
 
         ];
         this.planPartoList = [{label: 'CONTROL', value: 'CONTROL'},
@@ -82,16 +85,26 @@ export class GiagnosticosComponent implements OnInit {
         ];
     }
     ngOnInit() {
-        this.recuperarDatosGuardados();
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
         console.log("Nro de embarazo", this.nroEmbarazo);
         console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
+        this.recuperarNroFetos();
+        this.recuperarDatosGuardados();
+
+    }
+    recuperarNroFetos(){
+        let idData = {
+            id: this.idConsulta
+        }
+        this.DxService.getUltimaConsultaById(idData).subscribe((res: any) => {
+            this.nroFetos = res.object.nroFetos;
+            console.log("nroFetos:",this.nroFetos)
+        })
     }
     showModalDialog() {
         this.displayModal = true;
     }
-
     buildForm() {
         this.form = this.formBuilder.group({
             diagnostico: ['', [Validators.required]],
@@ -111,21 +124,33 @@ export class GiagnosticosComponent implements OnInit {
             })
     }
     /*guardar datos de diagnosticos*/
-
     save1(form: any) {
         this.isUpdate = false;
-        this.data.push(form.value);
-        console.log("esta data es: " + this.data[0]['diagnostico']['descripcionItem']);
-
-        this.diagnosticos.push({
-            diagnostico: this.data[0]['diagnostico']['descripcionItem'],
-            cie10:this.data[0]['diagnostico']['codigoItem'],
-            tipo:this.form.value.tipo}),
-
+        let bandera:boolean = false;
+        let dx = this.form.value.diagnostico.descripcionItem;
+        let cie = this.form.value.diagnostico.codigoItem;
+        if (dx==" " || dx==null || dx==undefined)
+        {
+            this.messageService.add({severity:'info', summary:'Recuperado', detail:'Diagnostico no válido vuelva a ingresar.'});
+        }else{
+        /***verificar si ya ingreso este dx************/
+        for(let i=0;i<this.diagnosticos.length;i++)
+        {
+            if (this.diagnosticos[i].cie10===cie){bandera = true;
+            console.log(bandera)}
+        }
+        /***si el dx es repetido -> mensaje si no ingresar al sistema***/
+        if(bandera===true){
+            this.messageService.add({severity:'info', summary:'Recuperado', detail:'Diagnostico ya ingresado, ingrese otro porfavor.'});
+        }
+       else{
+           this.diagnosticos.push({
+               diagnostico: dx,
+               cie10: cie,
+               tipo: this.form.value.tipo
+           }
+           )}}
         this.diagnosticoDialog = false;
-        // console.log(this.data[0]['diagnostico']['descripcionItem']);
-        // console.log(this.data[0]['diagnostico']['codigoItem']);
-
     }
     /******ABRIR DIALOGS DX****/
     openDiagnostico() {
@@ -150,7 +175,7 @@ export class GiagnosticosComponent implements OnInit {
         console.log('event ', event.query);
         this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
             this.Cie10 = res.object;
-            console.log('seleccion de autocomplete ', this.Cie10)
+            // console.log('seleccion de autocomplete ', this.Cie10)
 
         })
     }
@@ -166,8 +191,28 @@ export class GiagnosticosComponent implements OnInit {
         console.log("modificando" + rowData)
     }
     /*ELIMINAR DATOS DE LAS TABLAS*/
+
     eliminarDx(index) {
-        this.diagnosticos.splice(index, 1)
+        Swal.fire({
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            icon: 'warning',
+            title: 'Estas seguro de eliminar este registro?',
+            text: '',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.diagnosticos.splice(index, 1)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Eliminado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+
     }
     enviarDatosRefProxCita() {
         this.referencia = {
@@ -175,7 +220,7 @@ export class GiagnosticosComponent implements OnInit {
             motivo: this.formOtrosDatos.value.motivo,
             codRENAES: this.formOtrosDatos.value.codRENAES
         },
-            this.proxCita = this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd HH:mm:ss')
+        this.proxCita = {fecha:this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd'),estado:"PENDIENTE"}
         this.visitaDomiciliaria = {
             estado: this.formOtrosDatos.value.visita,
             fecha:  this.datePipe.transform(this.formOtrosDatos.value.fechaVisita, 'yyyy-MM-dd HH:mm:ss')
@@ -199,7 +244,8 @@ export class GiagnosticosComponent implements OnInit {
             diagnosticos:this.diagnosticos
 
         }
-        this.DxService.updateConsultas(req,1).subscribe(
+
+        this.DxService.updateConsultas(this.nroFetos,req).subscribe(
             (resp) => {
                 console.log(resp);
                 console.log(req);
@@ -223,45 +269,51 @@ export class GiagnosticosComponent implements OnInit {
         }
         this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
             this.dataAux = res.object;
-            console.log(this.dataAux);
-            /************************RECUPERAR DATOS EXTRA**************************/
-            this.formOtrosDatos.patchValue({'consultorio':this.dataAux.referencia.consultorio});
-            this.formOtrosDatos.patchValue({'motivo':this.dataAux.referencia.motivo});
-            this.formOtrosDatos.patchValue({'codRENAES':this.dataAux.referencia.codRENAES});
-            this.formOtrosDatos.patchValue({'proxCita':this.dataAux.proxCita});
-            this.formOtrosDatos.patchValue({'visita':this.dataAux.visitaDomiciliaria.estado});
-            this.formOtrosDatos.patchValue({'fechaVisita':this.dataAux.visitaDomiciliaria.fecha});
-            this.formOtrosDatos.patchValue({'planPartoReenfocada':this.dataAux.planPartoReenfocada});
-            /**********************RECUPERAR DATOS DE ORIENTACIONES********/
-            if(this.dataAux.orientaciones.length === null || this.dataAux.orientaciones.length === 0 ){
-                this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe ninguna orientación ingresada'});
-            }
-            else{
-                let i: number = 0;
-                console.log(this.dataAux.orientaciones);
-                // this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de orientaciones recuperado satisfactoriamente'});
-                while(i<this.dataAux.orientaciones.length){
-                    console.log("orientaciones consta de: ", this.dataAux.orientaciones[i]);
-                    if(this.dataAux.orientaciones[i].valor === true) {
-                        this.orientaciones.push(this.dataAux.orientaciones[i]);
-                    }
-                    i++;
-                }
-            }
-            /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
-            if(this.dataAux.diagnosticos.length === null || this.dataAux.diagnosticos.length === 0 ){
-                console.log("NO INGRESO NINGUN DIAGNOSTICO AUN, POR FAVOR INGRESE AL MENOS UNO");
-                this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe ninguna diagnostico ingresado'});
-            }
-            else{
-                let i: number = 0;
-                this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de diagnosstico recuperado satisfactoriamente'});
-                while(i<this.dataAux.diagnosticos.length){
+            console.log("data consulta:" +this.dataAux);
 
-                    console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[i]);
-                    this.diagnosticos.push(this.dataAux.diagnosticos[i]);
-                    i++;
-                }
+            if(res['cod']='2401') {
+                if(this.dataAux!=null){
+                    console.log(this.dataAux);
+                        this.messageService.add({
+                            severity: 'info',
+                            summary: 'Recuperado',
+                            detail: 'Registro recuperado satisfactoriamente'
+                        });
+
+                    /************************RECUPERAR DATOS EXTRA**************************/
+                    this.formOtrosDatos.patchValue({'consultorio': this.dataAux.referencia.consultorio});
+                    this.formOtrosDatos.patchValue({'motivo': this.dataAux.referencia.motivo});
+                    this.formOtrosDatos.patchValue({'codRENAES': this.dataAux.referencia.codRENAES});
+                    this.formOtrosDatos.patchValue({'proxCita': this.dataAux.proxCita.fecha});
+                    this.formOtrosDatos.patchValue({'visita': this.dataAux.visitaDomiciliaria.estado});
+                    this.formOtrosDatos.patchValue({'fechaVisita': this.dataAux.visitaDomiciliaria.fecha});
+                    this.formOtrosDatos.patchValue({'planPartoReenfocada': this.dataAux.planPartoReenfocada});
+                    /**********************RECUPERAR DATOS DE ORIENTACIONES********/
+
+                        let y: number = 0;
+                        console.log(this.dataAux.orientaciones);
+                        // this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de orientaciones recuperado satisfactoriamente'});
+                        while (y < this.dataAux.orientaciones.length) {
+                            console.log("orientaciones consta de: ", this.dataAux.orientaciones[y]);
+                            if (this.dataAux.orientaciones[y].valor === true) {
+                                this.orientaciones.push(this.dataAux.orientaciones[y]);
+                            }
+                            y++;
+                        }
+
+                    /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
+                        let x: number = 0;
+
+                        while (x < this.dataAux.diagnosticos.length) {
+
+                            console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[x]);
+                            this.diagnosticos.push(this.dataAux.diagnosticos[x]);
+                            x++;}
+
+}
+
+                else{this.messageService.add({severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía'});}
+
             }
         });
     }

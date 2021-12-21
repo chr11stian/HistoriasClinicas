@@ -15,7 +15,7 @@ export class TopMenuComponent implements OnInit {
     items: MenuItem[];
     @Output() hiddenMenu1 = new EventEmitter<boolean>();
     @Output() style1 = new EventEmitter<number>();
-
+    NombreUsuario: string = '';
 
     constructor(
         private confirmationService: ConfirmationService,
@@ -37,12 +37,11 @@ export class TopMenuComponent implements OnInit {
         this.hiddenMenu1.emit(!this.hiddenMenu)
     }
 
-    NombreUsuario: string = '';
+
 
     ngOnInit(): void {
-        // let nombre = JSON.parse(localStorage.getItem('usuario'));
-        // console.log('nombre',nombre)
-        // this.NombreUsuario = "Bienvenido "+nombre.nombres;
+        let user = JSON.parse(localStorage.getItem('usuario'));
+        this.NombreUsuario = user.email+" "+user.estado;
         this.items = [
             {
                 label: 'Mi Perfil',
