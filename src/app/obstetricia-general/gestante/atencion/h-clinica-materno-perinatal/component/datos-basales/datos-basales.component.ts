@@ -61,132 +61,133 @@ export class DatosBasalesComponent implements OnInit {
 
     inicalizarForm() {
         this.form = this.fb.group({
-            imc: new FormControl(''),
-            pesoHabitual: new FormControl(''),
-            talla: new FormControl(''),
-            nroDosisPrevias: new FormControl(''),
+            imc: new FormControl(""),
+            pesoActual: new FormControl(""),
+            pesoHabitual: new FormControl(""),
+            talla: new FormControl(""),
+            nroDosisPrevias: new FormControl(""),
             primeraDosis: new FormControl(null),
-            segundaDosis: new FormControl(''),
-            firstDosis: new FormControl(''),
-            secondDosis: new FormControl(''),
-            drogas: new FormControl(''),
-            aplica: new FormControl(''),
-            sinDosis: new FormControl(''),
-            dosisNoAplica: new FormControl(''),
-            cigarrillosDia: new FormControl(''),
-            tipoSangreGrupo: new FormControl(''),
-            rh: new FormControl(''),
-            duda: new FormControl(''),
-            hospitalizacion: new FormControl(''),
-            diagnosticoHosp: new FormControl(''),
-            diagnosticoEmergenci: new FormControl(''),
-            hospitalizacionCIE: new FormControl(''),
-            emergenciaCIE: new FormControl(''),
-            rubeola: new FormControl(''),
-            hepatitisB: new FormControl(''),
-            papiloma: new FormControl(''),
-            influenza: new FormControl(''),
-            tamizaje: new FormControl(''),
-            violencia: new FormControl(''),
-            clinico: new FormControl(''),
-            mamas: new FormControl(''),
-            cuelloUter: new FormControl(''),
-            pelvis: new FormControl(''),
-            odont1: new FormControl(''),
-            odont2: new FormControl(''),
-            hg1: new FormControl(''),
-            conFactor1: new FormControl(''),
-            hemo1: new FormControl(''),
-            hg2: new FormControl(''),
-            conFactor2: new FormControl(''),
-            hemo2: new FormControl(''),
-            hg3: new FormControl(''),
-            conFactor3: new FormControl(''),
-            hemo3: new FormControl(''),
-            hg4: new FormControl(''),
-            conFactor4: new FormControl(''),
-            hemo4: new FormControl(''),
-            vdrl1: new FormControl(''),
-            vdrl2: new FormControl(''),
-            tpha: new FormControl(''),
-            dateVdrl2: new FormControl(''),
-            dateVih2: new FormControl(''),
-            vih1: new FormControl(''),
-            vih2: new FormControl(''),
-            hepatitis: new FormControl(''),
-            elisa1: new FormControl(''),
-            elisa2: new FormControl(''),
-            glicemia1: new FormControl(''),
-            glicemia2: new FormControl(''),
-            glucosa: new FormControl(''),
-            orina1: new FormControl(''),
-            orina2: new FormControl(''),
-            orina3: new FormControl(''),
-            bacteriuria: new FormControl(''),
-            nitritos: new FormControl(''),
-            urocultivo: new FormControl(''),
-            esputo: new FormControl(''),
-            western: new FormControl(''),
-            thlv1: new FormControl(''),
-            torch: new FormControl(''),
-            gotaGruesa: new FormControl(''),
-            proteinuriaCuanti: new FormControl(''),
-            proteinuriaCuali: new FormControl(''),
-            secrecionVag: new FormControl(''),
-            pap: new FormControl(''),
-            ivaa: new FormControl(''),
-            patologiasMaternas1: new FormControl(''),
-            patologiasMaternas2: new FormControl(''),
-            patologiasMaternas3: new FormControl(''),
-            patologiasMaternas4: new FormControl(''),
-            dateFUM: new FormControl(''),
-            dateProbableParto: new FormControl(''),
-            ecografia1: new FormControl(''),
-            dateEco1: new FormControl(''),
-            ecografia2: new FormControl(''),
-            dateEco2: new FormControl(''),
-            ecografia3: new FormControl(''),
-            dateEco3: new FormControl(''),
-            dateHospitalizacion: new FormControl(''),
-            dateEmergencia: new FormControl(''),
-            dateViolencia: new FormControl(''),
-            datevdrl1: new FormControl(''),
-            dateTpha: new FormControl(''),
-            dateVih1: new FormControl(''),
-            dateHepatitis: new FormControl(''),
-            dateElisa1: new FormControl(''),
-            dateElisa2: new FormControl(''),
-            dateGlicemia1: new FormControl(''),
-            dateGlicemia2: new FormControl(''),
-            dateGlucosa: new FormControl(''),
-            dateOrina1: new FormControl(''),
-            dateOrina2: new FormControl(''),
-            dateOrina3: new FormControl(''),
-            dateBacteriuria: new FormControl(''),
-            dateNitritos: new FormControl(''),
-            dateUrocultivo: new FormControl(''),
-            dateEsputo: new FormControl(''),
-            dateWestern: new FormControl(''),
-            dateThlv1: new FormControl(''),
-            dateTorch: new FormControl(''),
-            dateGotaGruesa: new FormControl(''),
-            dateProteinuriaCuanti: new FormControl(''),
-            dateProteinuriaCuali: new FormControl(''),
-            dateSecrecionVag: new FormControl(''),
-            datePap: new FormControl(''),
-            dateIvaa: new FormControl(''),
-            datePatolog1: new FormControl(''),
-            datePatolog2: new FormControl(''),
-            datePatolog3: new FormControl(''),
-            datePatolog4: new FormControl(''),
-            autocompleteHosp: new FormControl(''),
-            autocompleteEmerg: new FormControl(''),
+            segundaDosis: new FormControl(""),
+            firstDosis: new FormControl(""),
+            secondDosis: new FormControl(""),
+            drogas: new FormControl(""),
+            aplica: new FormControl(""),
+            sinDosis: new FormControl(""),
+            dosisNoAplica: new FormControl(""),
+            cigarrillosDia: new FormControl(""),
+            tipoSangreGrupo: new FormControl(""),
+            rh: new FormControl(""),
+            duda: new FormControl(""),
+            hospitalizacion: new FormControl(""),
+            diagnosticoHosp: new FormControl(""),
+            diagnosticoEmergenci: new FormControl(""),
+            hospitalizacionCIE: new FormControl(""),
+            emergenciaCIE: new FormControl(""),
+            rubeola: new FormControl(""),
+            hepatitisB: new FormControl(""),
+            papiloma: new FormControl(""),
+            influenza: new FormControl(""),
+            tamizaje: new FormControl(""),
+            violencia: new FormControl(""),
+            clinico: new FormControl(""),
+            mamas: new FormControl(""),
+            cuelloUter: new FormControl(""),
+            pelvis: new FormControl(""),
+            odont1: new FormControl(""),
+            odont2: new FormControl(""),
+            hg1: new FormControl(""),
+            conFactor1: new FormControl(""),
+            hemo1: new FormControl(""),
+            hg2: new FormControl(""),
+            conFactor2: new FormControl(""),
+            hemo2: new FormControl(""),
+            hg3: new FormControl(""),
+            conFactor3: new FormControl(""),
+            hemo3: new FormControl(""),
+            hg4: new FormControl(""),
+            conFactor4: new FormControl(""),
+            hemo4: new FormControl(""),
+            vdrl1: new FormControl(""),
+            vdrl2: new FormControl(""),
+            tpha: new FormControl(""),
+            dateVdrl2: new FormControl(""),
+            dateVih2: new FormControl(""),
+            vih1: new FormControl(""),
+            vih2: new FormControl(""),
+            hepatitis: new FormControl(""),
+            elisa1: new FormControl(""),
+            elisa2: new FormControl(""),
+            glicemia1: new FormControl(""),
+            glicemia2: new FormControl(""),
+            glucosa: new FormControl(""),
+            orina1: new FormControl(""),
+            orina2: new FormControl(""),
+            orina3: new FormControl(""),
+            bacteriuria: new FormControl(""),
+            nitritos: new FormControl(""),
+            urocultivo: new FormControl(""),
+            esputo: new FormControl(""),
+            western: new FormControl(""),
+            thlv1: new FormControl(""),
+            torch: new FormControl(""),
+            gotaGruesa: new FormControl(""),
+            proteinuriaCuanti: new FormControl(""),
+            proteinuriaCuali: new FormControl(""),
+            secrecionVag: new FormControl(""),
+            pap: new FormControl(""),
+            ivaa: new FormControl(""),
+            patologiasMaternas1: new FormControl(""),
+            patologiasMaternas2: new FormControl(""),
+            patologiasMaternas3: new FormControl(""),
+            patologiasMaternas4: new FormControl(""),
+            dateFUM: new FormControl(""),
+            dateProbableParto: new FormControl(""),
+            ecografia1: new FormControl(""),
+            dateEco1: new FormControl(""),
+            ecografia2: new FormControl(""),
+            dateEco2: new FormControl(""),
+            ecografia3: new FormControl(""),
+            dateEco3: new FormControl(""),
+            dateHospitalizacion: new FormControl(""),
+            dateEmergencia: new FormControl(""),
+            dateViolencia: new FormControl(""),
+            datevdrl1: new FormControl(""),
+            dateTpha: new FormControl(""),
+            dateVih1: new FormControl(""),
+            dateHepatitis: new FormControl(""),
+            dateElisa1: new FormControl(""),
+            dateElisa2: new FormControl(""),
+            dateGlicemia1: new FormControl(""),
+            dateGlicemia2: new FormControl(""),
+            dateGlucosa: new FormControl(""),
+            dateOrina1: new FormControl(""),
+            dateOrina2: new FormControl(""),
+            dateOrina3: new FormControl(""),
+            dateBacteriuria: new FormControl(""),
+            dateNitritos: new FormControl(""),
+            dateUrocultivo: new FormControl(""),
+            dateEsputo: new FormControl(""),
+            dateWestern: new FormControl(""),
+            dateThlv1: new FormControl(""),
+            dateTorch: new FormControl(""),
+            dateGotaGruesa: new FormControl(""),
+            dateProteinuriaCuanti: new FormControl(""),
+            dateProteinuriaCuali: new FormControl(""),
+            dateSecrecionVag: new FormControl(""),
+            datePap: new FormControl(""),
+            dateIvaa: new FormControl(""),
+            datePatolog1: new FormControl(""),
+            datePatolog2: new FormControl(""),
+            datePatolog3: new FormControl(""),
+            datePatolog4: new FormControl(""),
+            autocompleteHosp: new FormControl(""),
+            autocompleteEmerg: new FormControl(""),
         });
 
         this.formHemoglobina = this.fb.group({
-            hg: new FormControl(''),
-            factorCorrec: new FormControl(''),
-            fechaHemo: new FormControl(''),
+            hg: new FormControl(""),
+            factorCorrec: new FormControl(""),
+            fechaHemo: new FormControl(""),
         });
     }
 
@@ -253,12 +254,12 @@ export class DatosBasalesComponent implements OnInit {
                 hospitalizacion: this.form.value.hospitalizacion,
                 fecha: this.form.value.dateHospitalizacion,
                 diagnostico: this.form.value.diagnosticoHosp,
-                cie10: this.form.value.hospitalizacionCIE == '' ? '' : this.form.value.hospitalizacionCIE.codigoItem,
+                cie10: this.form.value.hospitalizacionCIE == "" ? "" : this.form.value.hospitalizacionCIE.codigoItem,
             }],
             emergencia: {
                 fecha: this.form.value.dateEmergencia,
                 diagnostico: this.form.value.diagnosticoEmergenci,
-                cie10: this.form.value.emergenciaCIE == '' ? '' : this.form.value.emergenciaCIE.codigoItem
+                cie10: this.form.value.emergenciaCIE == "" ? "" : this.form.value.emergenciaCIE.codigoItem
             },
             vacunasPrevias: vacPrev,
             violenciaGenero: {
@@ -484,12 +485,12 @@ export class DatosBasalesComponent implements OnInit {
             if (this.rptaDatosBasales.antitetanica.dosis[0].dosis) {
                 this.form.patchValue({ 'primeraDosis': this.rptaDatosBasales.antitetanica.dosis[0].dosis });
             } else {
-                this.form.patchValue({ 'primeraDosis': '' });
+                this.form.patchValue({ 'primeraDosis': "" });
             }
             if (this.rptaDatosBasales.antitetanica.dosis[1].dosis) {
                 this.form.patchValue({ 'segundaDosis': this.rptaDatosBasales.antitetanica.dosis[1].dosis });
             } else {
-                this.form.patchValue({ 'segundaDosis': '' });
+                this.form.patchValue({ 'segundaDosis': "" });
             }
 
             this.form.patchValue({ 'firstDosis': this.rptaDatosBasales.antitetanica.dosis[0].detalle });
@@ -501,13 +502,13 @@ export class DatosBasalesComponent implements OnInit {
             if (this.rptaDatosBasales.fechaUltimaMestruacion.fum != null) {
                 this.form.patchValue({ 'dateFUM': this.rptaDatosBasales.fechaUltimaMestruacion.fum });
             } else {
-                this.form.patchValue({ 'dateFUM': '' });
+                this.form.patchValue({ 'dateFUM': "" });
             }
             this.form.patchValue({ 'duda': this.rptaDatosBasales.fechaUltimaMestruacion.duda });
             if (this.rptaDatosBasales.fechaUltimaMestruacion.fechaProbableParto) {
                 this.form.patchValue({ 'dateProbableParto': this.rptaDatosBasales.fechaUltimaMestruacion.fechaProbableParto });
             } else {
-                this.form.patchValue({ 'dateProbableParto': '' });
+                this.form.patchValue({ 'dateProbableParto': "" });
             }
             this.form.patchValue({ 'ecografia1': this.rptaDatosBasales.fechaUltimaMestruacion.primeraEcografia });
             this.form.patchValue({ 'dateEco1': this.rptaDatosBasales.fechaUltimaMestruacion.fechaPrimeraEcografia });
@@ -635,19 +636,20 @@ export class DatosBasalesComponent implements OnInit {
         console.log('lista de cie ', this.listaDeCIE);
         if (cieType == 0) {
             this.form.patchValue({ diagnosticoHosp: event.descripcionItem });
-            this.form.patchValue({ autocompleteHosp: '' });
+            this.form.patchValue({ autocompleteHosp: "" });
             this.form.patchValue({ hospitalizacionCIE: event }, { emitEvent: false });
         }
         if (cieType == 1) {
             this.form.patchValue({ diagnosticoEmergenci: event.descripcionItem });
-            this.form.patchValue({ autocompleteEmerg: '' });
+            this.form.patchValue({ autocompleteEmerg: "" });
             this.form.patchValue({ emergenciaCIE: event }, { emitEvent: false });
         }
     }
 
-    calcularEdadGestacional() {
+    calcularIMC() {
         // let auxFUM: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd')   + (3600000 * 5)
-        let pesoActual = this.form.value.pesoHabitual;
+        let aturaMetros = (this.form.value.talla) / 100;
+        // let pesoActual = this.form.value.pesoHabitual;
         let altura = this.form.value.talla;
 
         let today = new Date().getTime();
@@ -662,13 +664,37 @@ export class DatosBasalesComponent implements OnInit {
                 summary: "Alerta",
                 detail: 'La fecha de FUM es incorrecta'
             });
-            this.form.patchValue({ dateFUM: '' });
+            this.form.patchValue({ dateFUM: "" });
             return;
         }
 
         this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
         let semanasGetacional = Math.trunc(this.edadGestacional / 7);
         let diasGestacional = Math.trunc(this.edadGestacional % 7);
+        let rptaClasific: any;
+        let pesoActual = this.form.value.pesoActual;
+
+        this.imcService.getClasificacionEstadoNutricionalByTalla(aturaMetros).subscribe((res: any) => {
+            rptaClasific = res;
+            rptaClasific = rptaClasific.object.clasificaionEstadoNutricionalIMCPG[0]
+            console.log('clasificacion nutricional ', rptaClasific);
+            if (pesoActual < rptaClasific.bajoPeso) {
+                console.log('bajo peso');
+            }
+            if (pesoActual > rptaClasific.normal25 && pesoActual < rptaClasific) {
+                
+            }
+            if (pesoActual > rptaClasific.normal25) {
+                
+            }
+            if (pesoActual > rptaClasific.normal25) {
+                
+            }
+
+
+        });
+
+
         console.log('semanas gestacional ', this.edadGestacional, 'dias gest ', diasGestacional, 'semanas ', semanasGetacional);
         this.imcService.getGananciaPesoRegular(semanasGetacional).subscribe((res: any) => {
             this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
@@ -704,5 +730,10 @@ export class DatosBasalesComponent implements OnInit {
             this.otrosExamHemo = data;
             console.log('data de dialog hemoglobina ', data)
         });
+    }
+
+    convertirPeso() {
+        let peso = (this.form.value.talla) / 100;
+        console.log('peso ', peso);
     }
 }

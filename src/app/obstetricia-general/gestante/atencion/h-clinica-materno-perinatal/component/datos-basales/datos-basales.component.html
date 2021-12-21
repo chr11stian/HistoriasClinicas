@@ -16,12 +16,25 @@
                 <p-fieldset legend="Peso y Talla">
                     <div class="grid">
                         <div class="col-5 text-right">
-                            <label class="text-sm">IMC: </label>
+                            <label class="text-sm">Talla: </label>
                         </div>
                         <div class="col-5">
-                            <input type="number" pInputText formControlName='imc' placeholder=""
+                            <input type="number" pInputText formControlName='talla' placeholder=""
+                                class="inputfield w-full p-inputtext-sm" (blur)="convertirPeso()">
+                        </div>
+                        <div class="col-2">
+                            <span class="text-sm font-italic">cm</span>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-5 text-right">
+                            <label class="text-sm">Peso Actual: </label>
+                        </div>
+                        <div class="col-5">
+                            <input type="number" pInputText formControlName='pesoActual' placeholder=""
                                 class="inputfield w-full p-inputtext-sm">
                         </div>
+                        <div class="col-1 text-sm font-italic">Kg</div>
                     </div>
                     <div class="grid">
                         <div class="col-5 text-right">
@@ -31,18 +44,15 @@
                             <input type="number" pInputText formControlName='pesoHabitual' placeholder=""
                                 class="inputfield w-full p-inputtext-sm">
                         </div>
-                        <div class="col-1">Kg</div>
+                        <div class="col-1 text-sm font-italic">Kg</div>
                     </div>
                     <div class="grid">
                         <div class="col-5 text-right">
-                            <label class="text-sm">Talla: </label>
+                            <label class="text-sm">IMC: </label>
                         </div>
                         <div class="col-5">
-                            <input type="number" pInputText formControlName='talla' placeholder=""
+                            <input type="number" pInputText formControlName='imc' placeholder=""
                                 class="inputfield w-full p-inputtext-sm">
-                        </div>
-                        <div class="col-2">
-                            <span>cm</span>
                         </div>
                     </div>
                 </p-fieldset>
@@ -174,7 +184,7 @@
                             <label class="mr-1">FUM: </label>
                             <!-- <p-calendar formControlName="dateFUM" [showIcon]="true" inputId="icon"></p-calendar> -->
                             <input type="date" pInputText formControlName='dateFUM' placeholder=""
-                                class="inputfield w-full" (blur)="calcularEdadGestacional()">
+                                class="inputfield w-full" (blur)="calcularIMC()">
                         </div>
                         <div class="col-4">
                             <div class="grid">
