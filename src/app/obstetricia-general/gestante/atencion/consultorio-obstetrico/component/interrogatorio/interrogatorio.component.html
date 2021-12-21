@@ -341,8 +341,7 @@
 </p-dialog>
 
 <!-- Dialog de examenes  fetales -->
-<p-dialog [(visible)]="fetalesExamDialog" [style]="{width: '70%'}" [modal]="true" styleClass="p-fluid" autoZIndex
-    class="dialogo">
+<p-dialog [(visible)]="fetalesExamDialog" [style]="{width: '60%'}" [modal]="true" styleClass="p-fluid" autoZIndex class="dialogo" header="AGREGAR NUEVOS FETOS">
     <div class="grid">
         <div class="col-12">
             <form [formGroup]='formExamenFetal'>
@@ -350,21 +349,21 @@
                     <div class="col-4">
                         <label>Situación Fetal</label>
                         <p-dropdown [options]="listaSituacion" formControlName="selectSituacion" optionLabel="name"
-                            optionValue="code" class="inputfield p-fluid w-full examenObst"
+                            appendTo="body" optionValue="code" class="inputfield p-fluid w-full "
                             placeholder="Seleccione una opción">
                         </p-dropdown>
                     </div>
                     <div class="col-4">
                         <label>Presentación Fetal</label>
                         <p-dropdown [options]="listaPresentacion" formControlName="selectPresentacion"
-                            optionLabel="name" optionValue="code" class="inputfield p-fluid w-full examenObst"
+                            optionLabel="name" appendTo="body" optionValue="code" class="inputfield p-fluid w-full"
                             placeholder="Seleccione una opción">
                         </p-dropdown>
                     </div>
                     <div class="col-4">
                         <label>Posición Fetal</label>
                         <p-dropdown [options]="listaPosicion" formControlName="selectPosicion" optionLabel="name"
-                            optionValue="code" class="inputfield p-fluid w-full examenObst" [showClear]="true"
+                            appendTo="body" optionValue="code" class="inputfield p-fluid w-full " [showClear]="true"
                             placeholder="Seleccione una opción">
                         </p-dropdown>
                     </div>
@@ -377,7 +376,7 @@
                     </div>
                     <div class="col-4 mt-4">
                         <div class="grid">
-                            <div class="col-6">
+                            <div class="col-6 text-right">
                                 <label class="">Latidos Cardíacos Fetales:</label>
                             </div>
                             <div class="col-4">
@@ -385,7 +384,7 @@
                                     class="funcionesBiologicas inputfield w-full">
                             </div>
                             <div class="col-2 text-sm font-italic">
-                                <span>X minuto</span>
+                                <span>X min</span>
                             </div>
                         </div>
                     </div>
