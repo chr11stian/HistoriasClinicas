@@ -13,7 +13,7 @@ export class ImcService {
   constructor(private http: HttpClient) { }
 
   getGananciaSobrePeso(semanas) {
-    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaSobrePeso/${semanas}`)
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomencacionGananciaSobrePeso/${semanas}`)
   }
   getGananciaObesa(semanas) {
     return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaObesa/${semanas}`)
@@ -22,9 +22,12 @@ export class ImcService {
     return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaPesoRegular/${semanas}`)
   }
   getGananciaBajoPeso(semanas) {
-    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGananciaBajoPeso/${semanas}`)
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/recomendacionGestanteBajoPeso/${semanas}`)
   }
   getClasificacionEstadoNutricionalByTalla(talla) {
     return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/clasificaionEstadoNutricionalIMCPG/${talla}`)
+  }
+  getClasificacionEstadoNutricionalByTallaSemanas(semanas, talla) {
+    return this.http.get(`${this.base_url}/${this.bd}/obstetricia/imc/edadGestacionalP10P90/${semanas}/${talla}`)
   }
 }

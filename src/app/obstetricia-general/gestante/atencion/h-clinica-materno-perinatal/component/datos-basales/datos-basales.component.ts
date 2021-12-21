@@ -39,6 +39,7 @@ export class DatosBasalesComponent implements OnInit {
     hemoglobinaDialog: boolean = false;
     ref: DynamicDialogRef;
     otrosExamHemo: any[] = [];
+    tipoGananciaPeso: string;
 
     constructor(private filiancionService: FiliancionService,
         private fb: FormBuilder,
@@ -648,16 +649,14 @@ export class DatosBasalesComponent implements OnInit {
 
     calcularIMC() {
         // let auxFUM: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd')   + (3600000 * 5)
-        let aturaMetros = (this.form.value.talla) / 100;
-        // let pesoActual = this.form.value.pesoHabitual;
-        let altura = this.form.value.talla;
+
 
         let today = new Date().getTime();
         let auxFUM = new Date(this.form.value.dateFUM).getTime();
         auxFUM = auxFUM + 0;
-        console.log('auxFUM ', auxFUM, 'today ', today);
+        // console.log('auxFUM ', auxFUM, 'today ', today);
         let auxWeek = today - auxFUM;
-        console.log('fecha actual ', auxWeek);
+        // console.log('fecha actual ', auxWeek);
         if (auxWeek < 0) {
             this.messageService.add({
                 severity: "warn",
@@ -669,47 +668,169 @@ export class DatosBasalesComponent implements OnInit {
         }
 
         this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
-        let semanasGetacional = Math.trunc(this.edadGestacional / 7);
+        let semanasGestacional = Math.trunc(this.edadGestacional / 7);
+        let alturaMetros = (this.form.value.talla) / 100;
         let diasGestacional = Math.trunc(this.edadGestacional % 7);
         let rptaClasific: any;
         let pesoActual = this.form.value.pesoActual;
+        let rptaRecomendaciones: any;
+        let pesoHabitual;
+        let imcAux;
 
-        this.imcService.getClasificacionEstadoNutricionalByTalla(aturaMetros).subscribe((res: any) => {
-            rptaClasific = res;
-            rptaClasific = rptaClasific.object.clasificaionEstadoNutricionalIMCPG[0]
-            console.log('clasificacion nutricional ', rptaClasific);
-            if (pesoActual < rptaClasific.bajoPeso) {
-                console.log('bajo peso');
-            }
-            if (pesoActual > rptaClasific.normal25 && pesoActual < rptaClasific) {
-                
-            }
-            if (pesoActual > rptaClasific.normal25) {
-                
-            }
-            if (pesoActual > rptaClasific.normal25) {
-                
-            }
+        if (semanasGestacional < 13) {
+
+            this.imcService.getClasificacionEstadoNutricionalByTalla(alturaMetros).subscribe((res: any) => {
+                // rptaClasific = res;
+                rptaClasific = res.object.clasificaionEstadoNutricionalIMCPG[0];
+                if (pesoActual <= rptaClasific.bajoPeso) {
+                    this.imcService.getGananciaBajoPeso(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGestanteBajoPeso[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        console.log('peso Habitual ', pesoHabitual);
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'bajoPeso';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                    });
+                }
+                if (pesoActual >= rptaClasific.normal18 && pesoActual <= rptaClasific.normal25) {
+                    this.imcService.getGananciaPesoRegular(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGananciaPesoRegular[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'normal';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                    });
+
+                    console.log('peso normal ');
+                }
+                if (pesoActual >= rptaClasific.sobrePeso25 && pesoActual <= rptaClasific.sobrePeso30) {
+                    this.imcService.getGananciaSobrePeso(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomencacionGananciaSobrePeso[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'sobrePeso';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                        console.log('sobrepeso');
+                    });
+                }
+                if (pesoActual >= rptaClasific.obesidad) {
+                    this.imcService.getGananciaObesa(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGananciaObesa[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'obesidad';
+                        console.log('imc ', imcAux);
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                    });
+                }
+            });
+        } else {
+            console.log('es mayor a 13 semanas ', semanasGestacional);
+            this.imcService.getClasificacionEstadoNutricionalByTallaSemanas(semanasGestacional, alturaMetros * 100).subscribe((res: any) => {
+                rptaClasific = res.object.edadGestacionalP10P90[0];
+                console.log('rpta clas ', rptaClasific);
+                if (pesoActual < rptaClasific.p10) {
+
+                    this.imcService.getGananciaBajoPeso(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGestanteBajoPeso[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        console.log('peso Habitual ', pesoHabitual);
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'bajoPeso';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                    });
 
 
-        });
+                    this.tipoGananciaPeso = 'bajoPeso';
+                    console.log(this.tipoGananciaPeso);
+                }
+                if (pesoActual >= rptaClasific.p10 && pesoActual <= rptaClasific.p90) {
+                    this.imcService.getGananciaPesoRegular(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGananciaPesoRegular[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'normal';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                    });
+                }
+                if (pesoActual > rptaClasific.p90) {
+                    this.imcService.getGananciaSobrePeso(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomencacionGananciaSobrePeso[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'sobrePeso';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                        console.log('sobrepeso');
+                    });
+                }
+                if (pesoActual > rptaClasific.p90 + 10) {
+                    this.imcService.getGananciaObesa(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGananciaObesa[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'obesidad';
+                        console.log('imc ', imcAux);
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                    });
+                }
+            });
+        }
 
 
-        console.log('semanas gestacional ', this.edadGestacional, 'dias gest ', diasGestacional, 'semanas ', semanasGetacional);
-        this.imcService.getGananciaPesoRegular(semanasGetacional).subscribe((res: any) => {
-            this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
-            console.log('peso ', pesoActual, 'talle ', altura);
-            let imcAux = ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2);
-            this.form.patchValue({ imc: imcAux });
-            if (imcAux == '-Infinity') {
-                this.form.patchValue({ dateFUM: null });
-                this.messageService.add({
-                    severity: "warn",
-                    summary: "Alerta",
-                    detail: 'Faltan datos para calcular el imc (peso o talla)'
-                });
-            }
-        });
+
+        // console.log('semanas gestacional ', this.edadGestacional, 'dias gest ', diasGestacional, 'semanas ', semanasGestacional);
+        // this.imcService.getGananciaPesoRegular(semanasGestacional).subscribe((res: any) => {
+        //     this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
+        //     console.log('peso ', pesoActual, 'talle ', altura);
+        //     let imcAux = ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2);
+        //     this.form.patchValue({ imc: imcAux });
+        //     if (imcAux == '-Infinity') {
+        //         this.form.patchValue({ dateFUM: null });
+        //         this.messageService.add({
+        //             severity: "warn",
+        //             summary: "Alerta",
+        //             detail: 'Faltan datos para calcular el imc (peso o talla)'
+        //         });
+        //     }
+        // });
     }
 
     openDialogHemoglobina() {

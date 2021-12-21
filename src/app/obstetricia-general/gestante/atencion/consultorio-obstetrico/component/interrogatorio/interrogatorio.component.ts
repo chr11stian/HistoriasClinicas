@@ -61,6 +61,7 @@ export class InterrogatorioComponent implements OnInit {
   ) {
     this.inicializarForm();
     this.idConsulta = this.obstetriciaService.idGestacion;
+    console.log('ide de consulta ', this.idConsulta);
     this.getUltimaConsulta();
     // if (this.idConsulta == '') {
     //   this.router.navigate(['dashboard/obstetricia-general/citas'])
@@ -75,8 +76,11 @@ export class InterrogatorioComponent implements OnInit {
     let idData = {
       id: this.idConsulta
     }
+
+    console.log('object data ', idData);
     const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
     this.ultimaConsulta = response.object;
+    console.log('ultima consulta', this.ultimaConsulta);
     this.form.get("imc").setValue(this.ultimaConsulta.imc);
   }
 
@@ -165,7 +169,7 @@ export class InterrogatorioComponent implements OnInit {
       nroHcl: this.ultimaConsulta.nroHcl,
       nroAtencion: 1,
       nroControlSis: this.ultimaConsulta.nroMayorControlSis,
-      nroEmbarazo: this.ultimaConsulta.nroEmbarazo,
+      nroEmbarazo: 2, // corregir el nro de embarazo
       tipoDoc: this.ultimaConsulta.tipoDoc,
       nroDoc: this.ultimaConsulta.nroDoc,
       funcionesVitales: {
@@ -275,6 +279,9 @@ export class InterrogatorioComponent implements OnInit {
     let Rpta;
     this.consultaObstetricaService.getInterrogatorioById(auxData).subscribe((res: any) => {
       Rpta = res.object[0];
+      if (Rpta.funcionesVitales == null) {
+        return
+      }
       this.form.patchValue({ temperatura: Rpta.funcionesVitales.t });
       this.form.patchValue({ presionSisto: Rpta.funcionesVitales.presionSistolica });
       this.form.patchValue({ presionDisto: Rpta.funcionesVitales.presionDiastolica });
