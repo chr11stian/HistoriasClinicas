@@ -28,8 +28,8 @@ export class PacienteService {
     return this.http.delete(`${this.base_url}/${this.bd}/paciente/${idPaciente}`);
   }
 
-  getPacienteByNroDoc(nroDoc) {
-    return this.http.post(`${this.base_url}/${this.bd}/paciente/docId`, nroDoc)
+  getPacienteByNroDoc(data) {
+    return this.http.post(`${this.base_url}/${this.bd}/paciente/docId`, data)
   }
 
 }

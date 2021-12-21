@@ -13,8 +13,8 @@ export class CitasService {
 
     }
 
-    getProximaCitas(data) {
-        return this.http.get(`${this.base_url}/${this.bd}/obstetricia/consulta/listarPendientes?pagina=1`, data)
+    getProximaCitasGestacion(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listarPendientes`, data)
     }
 
     addCitas(data) {
