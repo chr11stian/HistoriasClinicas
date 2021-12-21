@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {PrimeNGConfig} from "primeng/api";
 import {LoginService} from './services/login.service';
 
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
     constructor(
         private primengConfig: PrimeNGConfig,
         private loginService: LoginService,
-        private router: Router,
+        private router: Router
     ) {
     }
 
@@ -28,20 +29,14 @@ export class LoginComponent implements OnInit {
             usuario: this.usuario,
             password: this.password
         }
+        this.loginService.user_login(credenciales).subscribe(resp => {
+            if (resp.error) {
+                console.log("error")
+            }
+            if (resp.object.estado === 'GERESA' || resp.object.estado === 'RED' || resp.object.estado === 'MICRORED' || resp.object.estado === 'IPRESS') {
+                this.router.navigate(['dashboard']);
+            }
 
-        this.loginService.login_quemado(credenciales)
-            .then(login => {
-                console.log('l',credenciales)
-                if (login.estado === 1) {
-                    this.router.navigate(['/'])
-                    this.router.navigate(['dashboard']);
-                    console.log('login *', login)
-                    let token = localStorage.getItem('token');
-                    console.log('token *', token)
-                } else if (login.estado === 2) {
-                    console.log('error al loguearte')
-                    console.log('login', login)
-                }
-            })
+        })
     }
 }

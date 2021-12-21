@@ -20,7 +20,6 @@
                  [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
                  [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                  currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
             <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro </th>
@@ -28,7 +27,6 @@
                     <th style="text-align: center" class="font-2">DIAGNOSTICOS</th>
                     <th style="text-align: center" class="font-2">TIPO</th>
                     <th style="text-align: center" class="font-2">ACCIÓN</th>
-
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -41,21 +39,16 @@
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
                                 (click)="eliminarDx(rowIndex)" pTooltip="Eliminar">
                         </button>
-
                     </td>
                 </tr>
             </ng-template>
-
         </p-table>
         <p-toolbar>
-
             <ng-template pTemplate="right" class="button">
-
                 <button pButton pRipple label="Agregar Diagnóstico" icon="pi pi-plus"
                         pButton type="button" class="button-agregar"
                         (click)="openDiagnostico()"></button>
             </ng-template>
-
         </p-toolbar>
     </div>
     <br>
@@ -68,7 +61,7 @@
                     </ng-template>
                 </p-toolbar>
                 <p-table class="table-over" [value]="orientaciones" #dt styleClass="p-datatable-gridlines"
-                         [rows]="6" [rowsPerPageOptions]="[10, 25, 50]"
+                         [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
                          [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                          currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
                     <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
@@ -85,9 +78,7 @@
                             <td style="text-align: center">{{ rowData.consejeria }}</td>
                         </tr>
                     </ng-template>
-
                 </p-table>
-
             </div>
         </div>
         <div class="col-12 xs:col-12 md:col-12 lg:col-6 xl:col-6">
@@ -95,74 +86,69 @@
                 <form [formGroup]='formOtrosDatos'>
                     <br>
                     <p-fieldset legend="REFERENCIA">
-                        <div class="grid p-field p-fluid">
-                            <div class="col:12 lg:col-4 md:col-4 xs:col-12">
+                        <div class="grid p-fluid">
+                            <div class="col:12 lg:col-4 md:col-4 xs:col-12 p-field">
                                 <label>Consultorio:</label>
-                                <input type="text" pInputText style="border-radius: 10px" formControlName="consultorio" class="mt-3" />
+                                <input type="text" pInputText formControlName="consultorio" />
                             </div>
-                            <div class="col:12 lg:col-4 md:col-4 xs:col-12">
+                            <div class="col:12 lg:col-4 md:col-4 xs:col-12 p-field">
                                 <label>Motivo:</label>
-                                <input type="text" pInputText style="border-radius: 10px" formControlName="motivo" class="mt-3"   />
+                                <input type="text" pInputText  formControlName="motivo"  />
                             </div>
-                            <div class="col:12 lg:col-4 md:col-4 xs:col-12">
+                            <div class="col:12 lg:col-4 md:col-4 xs:col-12p p-field">
                                 <label>Cod. Renaes:</label>
-                                <input type="text" pInputText style="border-radius: 10px" formControlName="codRENAES" class="mt-3" />
+                                <input type="text" pInputText  formControlName="codRENAES"  />
                             </div>
                         </div>
                     </p-fieldset>
                     <br>
                     <p-fieldset legend="PROXIMA CITA">
-                        <div class="p-fluid">
-                            <div class="p-field p-fluid">
+                        <div class="p-grid p-fluid">
+                            <div class="col-12">
                                 <p-calendar [showIcon]="true" dateFormat="yy-mm-dd" formControlName="proxCita"
-                                            inputId="icon" [showTime]="true" [showSeconds]="true"
-                                            inputId="time" required></p-calendar>
+                                            inputId="icon">
+                                </p-calendar>
                             </div>
                         </div>
-
+                        <br>
                     </p-fieldset>
                     <br>
                     <p-fieldset legend="DATOS ADICIONALES">
                         <div class="grid p-fluid">
-                            <div class="col-12">
+                            <div class="col-12 p-field">
                                 <label>Plan de Parto/Reenfocada:</label>
                                 <div class="p-field">
-                                    <p-dropdown  inputId="dropdown" [options]="planPartoList" formControlName="planPartoReenfocada"
+                                    <p-dropdown  inputId="dropdown" [options]="planPartoList"  formControlName="planPartoReenfocada"
                                                  placeholder="seleccionar" optionLabel="label" optionValue="value"
                                                  defaultLabel="Seleccione:" >
                                     </p-dropdown>
                                 </div>
                             </div>
-                            <div class="col-5">
+                            <div class="col-12 p-fluid p-field">
                                 <label>Visita Domiciliaria:</label>
-                                <div class="p-field">
-                                    <p-dropdown  inputId="dropdown" [options]="visitaDomiciliariaList" formControlName="visita"
+                                <div class="col-12 p-field">
+                                    <p-dropdown  inputId="dropdown" [options]="visitaDomiciliariaList" [(ngModel)]="eleccion" formControlName="visita"
                                                  placeholder="seleccionar" optionLabel="label" optionValue="value"
                                                  defaultLabel="Seleccione:" >
                                     </p-dropdown>
                                 </div>
                             </div>
-                            <div class="col-7">
-                                <label>Fecha-Visita Domiciliaria:</label>
-                                <div class="p-field">
-                                    <p-calendar [showIcon]="true" dateFormat="yy-mm-dd" formControlName="fechaVisita"
-                                                inputId="icon" [showTime]="true" [showSeconds]="true"
-                                                inputId="time" required></p-calendar>
-                                </div>
+                            <div class="col-12 p-fluid p-field">
+                                <label *ngIf="eleccion=='SI'">Fecha Visita:</label><br>
+                                    <p-calendar *ngIf="eleccion=='SI'" type="Date"  showIcon="true"  formControlName='fechaVisita'  dateFormat="yy-mm-dd" [showTime]="true" [showSeconds]="true" inputId="time" >
+                                    </p-calendar>
                             </div>
+
                         </div>
+                        <br>
                     </p-fieldset>
                 </form>
             </div>
         </div>
     </div>
-
-
 </div>
-
-
-<!-------------INICIO DIALOG INGRESAR DIAGNOSTICO--->
-<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog"  [modal]="true"
+<!--*************************DIALOGO AGREGAR DX***********************************-->
+<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog" [modal]="true"
           [draggable]="false" [resizable]="false">
     <div class="grid p-fluid">
         <div class="col-6">
@@ -184,24 +170,23 @@
     <form   [formGroup]='form' (ngSubmit)="save1(formTemplate)" #formTemplate ="ngForm" >
         <label *ngIf="opcionBusqueda=='porDescripcion'">Diagnóstico:</label>
         <label  *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>
-        <div class="grid p-fluid">
-            <div class="col-8">
+        <div class="grid">
+            <div class="col-12">
                 <p-autoComplete *ngIf="opcionBusqueda=='porDescripcion'" formControlName="diagnostico"
                                 [suggestions]="Cie10" (completeMethod)="filterDiagnostico($event)"
                                 field="descripcionItem" [minLength]="1" placeholder="Descripcion" class="areaText">
                 </p-autoComplete>
+            </div>
+            <div class="col-12">
                 <p-autoComplete  *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico"
-                                 [suggestions]="Cie10" disabled
+                                 [suggestions]="Cie10"
                                  (completeMethod)="filterDiagnostico($event)" field="codigoItem"
                                  [minLength]="1" placeholder="CIE 10">
                 </p-autoComplete>
             </div>
-
         </div>
-        <br>
-        <br>
-        <div class="col-3">
-
+        <br><br>
+        <div class="col-12 p-fluid">
             <div class="p-field">
                 <label>Tipo:</label>
                 <p-dropdown  inputId="dropdown" [options]="tipoList" formControlName="tipo"
@@ -210,8 +195,8 @@
                 </p-dropdown>
             </div>
         </div>
-
     </form>
+    <br>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="button-cancelar"
                 icon="pi pi-times"(click)="canceled1()"></button>
@@ -219,4 +204,5 @@
                  label="Guardar" (click)="save1(formTemplate)" ></button>
 
     </ng-template>
+
 </p-dialog>
