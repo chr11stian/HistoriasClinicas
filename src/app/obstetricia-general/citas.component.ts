@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ObstetriciaGeneralService} from './services/obstetricia-general.service';
 import {Router} from '@angular/router'
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {DialogCitasComponent} from "./dialog-citas/dialog-citas.component";
+import {CitasService} from "./services/citas.service";
 
 @Component({
     selector: 'app-citas',
@@ -20,8 +20,9 @@ export class CitasComponent implements OnInit {
 
     ref: DynamicDialogRef
 
-    constructor(public dialogService1: DialogService,
-                private obstetriciaService: ObstetriciaGeneralService,
+    constructor(
+        private obstetriciaService: ObstetriciaGeneralService,
+        private citasService: CitasService,
     ) {
         this.options = [
             {name: "DNI", code: 1},
@@ -74,12 +75,15 @@ export class CitasComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    openReprogramar() {
-        let title = 'Reprogramar Cita'
-        this.ref = this.dialogService1.open(DialogCitasComponent, {
-            header: title,
-            width: '75%',
-        })
+    getCitas(data) {
+        this.citasService.getProximaCitas(data).subscribe((res: any) => {
+            // this.dataLifiado = res.object
+            // console.log('paciente por doc ', this.dataLifiado)
+            // this.tipoDoc = this.dataLifiado.tipoDoc
+            // this.nroDoc = this.dataLifiado.nroDoc;
+            // this.apellidosNombres = this.dataLifiado.apePaterno + ', ' + this.dataLifiado.apeMaterno + ', ' + this.dataLifiado.primerNombre + ' ' + this.dataLifiado.otrosNombres;
+
+        });
     }
 
 
