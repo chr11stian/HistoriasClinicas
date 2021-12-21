@@ -272,7 +272,7 @@
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
                                     label="Editar" class="p-button-rounded p-button-info"
-                                    (click)="editarIdentificacionColeraIrritabilidadAgresion()"></button>
+                                    (click)="editarIdentificacionColeraIrritabilidadAgresion(row)"></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -566,8 +566,8 @@
                             <td class="text-center">{{row.conductaSexualRiesgo}}</td>
                             <td class="text-center">{{row.dosMasParejas}}</td>
                             <td class="text-center">{{row.sexoSinProteccion}}</td>
-                            <td class="text-center">{{row.RSConPersonasDelMismoSexo}}</td>
-                            <td class="text-center">{{row.RSConPersonasDelOtroSexo}}</td>
+                            <td class="text-center">{{row.rsconPersonasDelMismoSexo}}</td>
+                            <td class="text-center">{{row.rsconPersonasDelOtroSexo}}</td>
                             <td class="text-center">{{row.usoMetodoAnticonceptivo}}</td>
                             <td class="text-center">{{row.conocimientoPrevenirEmbarazoNoDeseado}}</td>
                             <td class="text-center">{{row.conocimientoPrevenirTransmisionITSVIH}}</td>
@@ -594,7 +594,9 @@
             <div class="grid">
                 <div class="col-4">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateEvaluacionCrecimientoFisico" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionCrecimientoFisico"type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-4"></div>
@@ -642,7 +644,9 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateEvaluacionesAgudezaVisualAuditiva" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesAgudezaVisualAuditiva" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-6"></div>
@@ -689,7 +693,9 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateEvaluacionesFisicoPostural" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesFisicoPostural" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-12">
@@ -731,7 +737,9 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateEvaluacionesDesarrolloSexual" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesDesarrolloSexual" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-12">
@@ -773,7 +781,9 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateEvaluacionesHabilidadesSociales" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesHabilidadesSociales" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-12">
@@ -825,7 +835,9 @@
             <div class="grid">
                 <div class="col-8">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateIdentificacionesColeraIrritabilidadAgresion" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateIdentificacionesColeraIrritabilidadAgresion" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-12">
@@ -872,7 +884,9 @@
             <div class="grid">
                 <div class="col-8">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateTamizajesViolencia" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateTamizajesViolencia" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-12">
@@ -914,7 +928,9 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateIdentificacionFactoresRiesgo" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateIdentificacionFactoresRiesgo" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-12">
@@ -932,9 +948,9 @@
     </ng-template>
 
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="isUpdateEvaluacionCrecimientoFisico" pButton type="button" label="Guardar"
+        <button *ngIf="isUpdateIdentificacionFactoresRiesgo" pButton type="button" label="Guardar"
             (click)="editarDatosIdentificacionFactoresRiesgo()"></button>
-        <button *ngIf="!isUpdateEvaluacionCrecimientoFisico" pButton type="button" label="Guardar"
+        <button *ngIf="!isUpdateEvaluacionCrecimientoFisicoIdentificacionFactoresRiesgo" pButton type="button" label="Guardar"
             (click)="saveFormIdentificacionFactoresRiesgo()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"
             (click)="cancelButton()"></button>
@@ -951,7 +967,9 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateDescartesEnfermedadesNoTransmisibles" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateDescartesEnfermedadesNoTransmisibles" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-6">
@@ -998,7 +1016,9 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateEscolaridades" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEscolaridades" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-12">
@@ -1040,7 +1060,9 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateHabitos" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateHabitos" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-6">
@@ -1097,7 +1119,9 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                    <input *ngIf="isUpdateSaludSexualReproductiva" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
+                        placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateSaludSexualReproductiva" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
                         placeholder="Fecha">
                 </div>
                 <div class="col-6">
@@ -1122,12 +1146,12 @@
                 </div>
                 <div class="col-6">
                     <label>Relaciones sexuales con personas del mismo sexo:</label>
-                    <input type="text" pInputText formControlName='RSConPersonasDelMismoSexo'
+                    <input type="text" pInputText formControlName='rsconPersonasDelMismoSexo'
                         class="p-inputtext inputfield w-full" placeholder="RS con personas del mismo sexo">
                 </div>
                 <div class="col-6">
                     <label>Relaciones sexuales con personas del otro sexo:</label>
-                    <input type="text" pInputText formControlName='RSConPersonasDelOtroSexo'
+                    <input type="text" pInputText formControlName='rsconPersonasDelOtroSexo'
                         class="p-inputtext inputfield w-full" placeholder="RS con personas de otro sexo">
                 </div>
                 <div class="col-6">

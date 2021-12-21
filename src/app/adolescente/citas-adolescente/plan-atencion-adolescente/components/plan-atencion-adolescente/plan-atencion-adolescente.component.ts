@@ -162,8 +162,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
       conductaSexualRiesgo: new FormControl(""),
       dosMasParejas: new FormControl(""),
       sexoSinProteccion: new FormControl(""),
-      RSConPersonasDelMismoSexo: new FormControl(""),
-      RSConPersonasDelOtroSexo: new FormControl(""),
+      rsconPersonasDelMismoSexo: new FormControl(""),
+      rsconPersonasDelOtroSexo: new FormControl(""),
       usoMetodoAnticonceptivo: new FormControl(""),
       conocimientoPrevenirEmbarazoNoDeseado: new FormControl(""),
       conocimientoPrevenirTransmisionITSVIH: new FormControl("")
@@ -663,11 +663,11 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   }
   editarIdentificacionColeraIrritabilidadAgresion(rowData) {
     this.isUpdateIdentificacionesColeraIrritabilidadAgresion = true;
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('fecha').setValue(rowData.fecha?"":rowData.fecha)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('colera').setValue(rowData.colera?"":rowData.colera)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('irritabilidad').setValue(rowData.irritabilidad?"":rowData.irritabilidad)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('agresion').setValue(rowData.agresion?"":rowData.agresion)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('calificacionTotal').setValue(rowData.calificacionTotal?"":rowData.calificacionTotal)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('fecha').setValue(rowData.fecha)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('colera').setValue(rowData.colera)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('irritabilidad').setValue(rowData.irritabilidad)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('agresion').setValue(rowData.agresion)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('calificacionTotal').setValue(rowData.calificacionTotal)
     this.identificacionesColeraIrritabilidadAgresionDialog = true;
 
   }
@@ -1124,8 +1124,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     this.formSaludSexualReproductiva.get('conductaSexualRiesgo').setValue("");
     this.formSaludSexualReproductiva.get('dosMasParejas').setValue("");
     this.formSaludSexualReproductiva.get('sexoSinProteccion').setValue("");
-    this.formSaludSexualReproductiva.get('RSConPersonasDelMismoSexo').setValue("");
-    this.formSaludSexualReproductiva.get('RSConPersonasDelOtroSexo').setValue("");
+    this.formSaludSexualReproductiva.get('rsconPersonasDelMismoSexo').setValue("");
+    this.formSaludSexualReproductiva.get('rsconPersonasDelOtroSexo').setValue("");
     this.formSaludSexualReproductiva.get('usoMetodoAnticonceptivo').setValue("");
     this.formSaludSexualReproductiva.get('conocimientoPrevenirEmbarazoNoDeseado').setValue("");
     this.formSaludSexualReproductiva.get('conocimientoPrevenirTransmisionITSVIH').setValue("");
@@ -1140,8 +1140,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
       conductaSexualRiesgo: this.formSaludSexualReproductiva.value.conductaSexualRiesgo,
       dosMasParejas: this.formSaludSexualReproductiva.value.dosMasParejas,
       sexoSinProteccion: this.formSaludSexualReproductiva.value.sexoSinProteccion,
-      RSConPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelMismoSexo,
-      RSConPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelOtroSexo,
+      rsconPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelMismoSexo,
+      rsconPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelOtroSexo,
       usoMetodoAnticonceptivo: this.formSaludSexualReproductiva.value.usoMetodoAnticonceptivo,
       conocimientoPrevenirEmbarazoNoDeseado: this.formSaludSexualReproductiva.value.conocimientoPrevenirEmbarazoNoDeseado,
       conocimientoPrevenirTransmisionITSVIH: this.formSaludSexualReproductiva.value.conocimientoPrevenirTransmisionITSVIH,
@@ -1175,8 +1175,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     this.formSaludSexualReproductiva.get('conductaSexualRiesgo').setValue(rowData.conductaSexualRiesgo)
     this.formSaludSexualReproductiva.get('dosMasParejas').setValue(rowData.dosMasParejas)
     this.formSaludSexualReproductiva.get('sexoSinProteccion').setValue(rowData.sexoSinProteccion)
-    this.formSaludSexualReproductiva.get('RSConPersonasDelMismoSexo').setValue(rowData.RSConPersonasDelMismoSexo)
-    this.formSaludSexualReproductiva.get('RSConPersonasDelOtroSexo').setValue(rowData.RSConPersonasDelOtroSexo)
+    this.formSaludSexualReproductiva.get('rsconPersonasDelMismoSexo').setValue(rowData.rsconPersonasDelMismoSexo)
+    this.formSaludSexualReproductiva.get('rsconPersonasDelOtroSexo').setValue(rowData.rsconPersonasDelOtroSexo)
     this.formSaludSexualReproductiva.get('usoMetodoAnticonceptivo').setValue(rowData.usoMetodoAnticonceptivo)
     this.formSaludSexualReproductiva.get('conocimientoPrevenirEmbarazoNoDeseado').setValue(rowData.conocimientoPrevenirEmbarazoNoDeseado)
     this.formSaludSexualReproductiva.get('conocimientoPrevenirTransmisionITSVIH').setValue(rowData.conocimientoPrevenirTransmisionITSVIH)
@@ -1191,8 +1191,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
       conductaSexualRiesgo: this.formSaludSexualReproductiva.value.conductaSexualRiesgo,
       dosMasParejas: this.formSaludSexualReproductiva.value.dosMasParejas,
       sexoSinProteccion: this.formSaludSexualReproductiva.value.sexoSinProteccion,
-      RSConPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelMismoSexo,
-      RSConPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelOtroSexo,
+      rsconPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelMismoSexo,
+      rsconPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelOtroSexo,
       usoMetodoAnticonceptivo: this.formSaludSexualReproductiva.value.usoMetodoAnticonceptivo,
       conocimientoPrevenirEmbarazoNoDeseado: this.formSaludSexualReproductiva.value.conocimientoPrevenirEmbarazoNoDeseado,
       conocimientoPrevenirTransmisionITSVIH: this.formSaludSexualReproductiva.value.conocimientoPrevenirTransmisionITSVIH,
