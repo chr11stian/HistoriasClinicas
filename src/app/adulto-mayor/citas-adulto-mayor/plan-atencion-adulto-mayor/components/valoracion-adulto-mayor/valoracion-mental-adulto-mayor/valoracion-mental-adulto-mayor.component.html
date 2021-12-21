@@ -1,0 +1,217 @@
+<div class="p-card">
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <h3 class="mt-2">II. Valoración Mental</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                    class="guardar-boton" ></button>
+        </ng-template>
+    </p-toolbar>
+    <br>
+    <div class="grid">
+        <div class="col-12 md:col-7 lg:col-7">
+            <p-fieldset legend="Estado Cognitivo (Pfeiffer)" [toggleable]="true">
+                <div class="grid">
+                    <div class="col-8">
+
+                    </div>
+                    <div class="col-4">
+                        <label>¿Correcto?</label>
+                    </div>
+                </div>
+                <!--primera fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Cuál es la fecha de hoy? </label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!--2 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Qué día de la semana es? </label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!--3 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿En qué lugar estamos?(Vale cualquier descripción correcta del lugar) </label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!--4 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Cuál es su número de teléfono? Si no tiene</label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!--5 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Cuál es su dirección completa? </label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!--6 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Cuántos años tiene?</label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!-- 7 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Dónde nació?</label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!-- 8 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Cuál es el nombre del presidente del Perú?</label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-5 lg:col-5">
+            <p-fieldset legend="Valoración Cognitiva" [toggleable]="true">
+                <!--primera fila-->
+                <div class="grid">
+                    <div class="col-12">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="normal" [(ngModel)]="city"  inputId="independiente"></p-radioButton>
+                            <label class=""> Normal </label>
+                        </div>
+                    </div>
+                    <br>
+                <!--2 fila-->
+                    <div class="col-12">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="leve" [(ngModel)]="city"  inputId="dependienteParcial"></p-radioButton>
+                            <label class=""> DC Leve </label>
+                        </div>
+                    </div>
+                    <!--3 fila-->
+                    <br>
+                    <div class="col-12">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="moderado" [(ngModel)]="city"  inputId="dependienteTotal"></p-radioButton>
+                            <label class=""> DC Moderado </label>
+                        </div>
+                    </div>
+                    <!--4 fila-->
+                    <br>
+                    <div class="col-12">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="severo" [(ngModel)]="city"  inputId="dependienteTotal"></p-radioButton>
+                            <label class=""> DC Severo </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-12">
+                        <p align="center">DC: Deterioro Cognitivo</p>
+                        <p align="justify">Nota: Colocar un punto por cada error, Nivel educativo bajo: se admite un error más, Nivel educativo alto: se admite error menos.</p>
+                                <p>-No Deterioro Cognitivo       :<=2E</p>
+                                <p>-Deterioro Cognitivo Leve     :3 a 4E</p>
+                                <p>-Deterioro Cognitivo Moderado :5 a 7E</p>
+                                <p>-Deterioro Cognitivo Severo   :8 a 10E</p>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-12 md:col-7 lg:col-7">
+            <p-fieldset legend="Estado Afectivo (Escala abreviatura de Yesavage)" [toggleable]="true">
+                <!--primera fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Esta satisfecho de la vida? </label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!--2 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Se siente importante o indefenso? </label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!--3 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Tiene problemas de memoria? </label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!--4 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Siente desgano o se siente imposibilitado respecto a actividades e intereses?</label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-5 lg:col-5">
+            <p-fieldset legend="Manifestaciones Depresivas" [toggleable]="true">
+                <!--primera fila-->
+                <div class="grid">
+                    <div class="p-field-radiobutton">
+                        <p-radioButton name="city" value="normal" [(ngModel)]="city2"  inputId="conmanifestaciones"></p-radioButton>
+                        <label> Sin Manifestaciones Depresivas (0-1 positivas) </label>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="p-field-radiobutton">
+                        <p-radioButton name="city" value="leve" [(ngModel)]="city2"  inputId="sinmanifestaciones"></p-radioButton>
+                        <label> Con Manifestaciones Depresivas (2 o más positivas)</label>
+                   </div>
+                </div>
+            </p-fieldset>
+        </div>
+    </div>
+</div>
+

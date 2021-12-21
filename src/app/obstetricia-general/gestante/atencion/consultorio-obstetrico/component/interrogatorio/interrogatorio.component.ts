@@ -75,7 +75,6 @@ export class InterrogatorioComponent implements OnInit {
     let idData = {
       id: this.idConsulta
     }
-
     const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
     this.ultimaConsulta = response.object;
     this.form.get("imc").setValue(this.ultimaConsulta.imc);
