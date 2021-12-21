@@ -12,6 +12,7 @@ import { HistoriaConsultasModule } from "./historia-consultas/historia-consultas
 import { DialogConsultaComponent } from './gestante/consulta/dialog-consulta/dialog-consulta.component';
 import { ConsultasNoControlComponent } from './consultas-no-control/consultas-no-control.component';
 import { DialogConsultaUniversalComponent } from './consultas-no-control/dialog-consulta-universal/dialog-consulta-universal.component';
+import { DialogCitasComponent } from './dialog-citas/dialog-citas.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { DialogConsultaUniversalComponent } from './consultas-no-control/dialog-
         CitasComponent,
         DialogConsultaComponent,
         ConsultasNoControlComponent,
-        DialogConsultaUniversalComponent
+        DialogConsultaUniversalComponent,
+        DialogCitasComponent
 
     ],
     exports: [],

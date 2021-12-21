@@ -105,7 +105,7 @@
                         <td style="text-align: center">{{ rowData.fecha }}</td>
                         <td style="text-align: center">
               <span class="p-buttonset">
-                <button pButton pRipple class="boton-azul" label="Reprogramar" icon="pi pi-undo"></button>
+                <button pButton pRipple class="boton-azul" (click)="openReprogramar()" label="Reprogramar" icon="pi pi-undo"></button>
                 <button pButton pRipple class="boton-morado" label="Cancelar" icon="pi pi-times"></button>
                 <button pButton pRipple class="boton-red" label="Eliminar" icon="pi pi-trash"></button>
               </span>

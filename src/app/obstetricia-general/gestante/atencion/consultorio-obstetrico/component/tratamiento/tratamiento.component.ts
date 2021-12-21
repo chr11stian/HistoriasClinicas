@@ -571,85 +571,95 @@ export class TratamientoComponent implements OnInit {
            this.pesoActual = parseFloat(this.dataConsulta.funcionesVitales.peso)
            this.guardarEvaluacionNutricional();
            /*recuperar tratamientos comunes*/
-           let i: number = 0;
-           while (i < this.dataConsulta.tratamientos.length) {
-             this.tratamientosComunes.push(this.dataConsulta.tratamientos[i]);
-             i++;
+           if(this.dataConsulta.tratamientos!=null){
+             let i: number = 0;
+             while (i < this.dataConsulta.tratamientos.length) {
+               this.tratamientosComunes.push(this.dataConsulta.tratamientos[i]);
+               i++;
+             }
            }
-           /*recuperar inmunizaciones*/
-           let a: number = 0;
-           while (a < this.dataConsulta.inmunizaciones.length) {
-             this.tratamientoInmunizaciones.push(this.dataConsulta.inmunizaciones[a]);
-             a++;
+           if(this.dataConsulta.inmunizaciones!=null){
+             let a: number = 0;
+             while (a < this.dataConsulta.inmunizaciones.length) {
+               this.tratamientoInmunizaciones.push(this.dataConsulta.inmunizaciones[a]);
+               a++;
+             }
            }
-           /*reuperar datos: tratamientos suplementarios - evaluacion suplmentaria - exam auxiliares*/
-           /* recuperar suplementario acido folico*/
-           this.formRIEP.patchValue({'descripciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.descripcion});
-           this.formRIEP.patchValue({'numeroa': this.dataConsulta.tratamientosSuplementos.acidoFolico.numero});
-           this.formRIEP.patchValue({'dosisa': this.dataConsulta.tratamientosSuplementos.acidoFolico.dosis});
-           this.formRIEP.patchValue({'viaAdministraciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.viaAdministracion});
-           this.formRIEP.patchValue({'intervaloa': this.dataConsulta.tratamientosSuplementos.acidoFolico.intervalo});
-           this.formRIEP.patchValue({'duraciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.duracion});
-           this.formRIEP.patchValue({'observacionesa': this.dataConsulta.tratamientosSuplementos.acidoFolico.observaciones});
-           /* recuperar suplementario hierroYAcidoFolico*/
-           /*descripcion*/
-           this.formRIEP.patchValue({'descripcionf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.descripcion});
-           this.formRIEP.patchValue({'numerof': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.numero});
-           this.formRIEP.patchValue({'dosisf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.dosis});
-           this.formRIEP.patchValue({'viaAdministracionf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.viaAdministracion});
-           this.formRIEP.patchValue({'intervalof': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.intervalo});
-           this.formRIEP.patchValue({'duracionf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.duracion});
-           this.formRIEP.patchValue({'observacionesf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.observaciones});
-           /* recuperar suplementario calcio*/
-           /*descripcion*/
-           this.formRIEP.patchValue({'descripcionc': this.dataConsulta.tratamientosSuplementos.calcio.descripcion});
-           this.formRIEP.patchValue({'numeroc': this.dataConsulta.tratamientosSuplementos.calcio.numero});
-           this.formRIEP.patchValue({'dosisc': this.dataConsulta.tratamientosSuplementos.calcio.dosis});
-           this.formRIEP.patchValue({'viaAdministracionc': this.dataConsulta.tratamientosSuplementos.calcio.viaAdministracion});
-           this.formRIEP.patchValue({'intervaloc': this.dataConsulta.tratamientosSuplementos.calcio.intervalo});
-           this.formRIEP.patchValue({'duracionc': this.dataConsulta.tratamientosSuplementos.calcio.duracion});
-           this.formRIEP.patchValue({'observacionesc': this.dataConsulta.tratamientosSuplementos.calcio.observaciones});
-           /*recuperar examenes auxiliares*/
-           this.formRIEP.patchValue({'examenesAuxiliares': this.dataConsulta.examenesAuxiliares});
+           if(this.dataConsulta.tratamientosSuplementos!=null){
+             /*reuperar datos: tratamientos suplementarios - evaluacion suplmentaria - exam auxiliares*/
+             /* recuperar suplementario acido folico*/
+             this.formRIEP.patchValue({'descripciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.descripcion});
+             this.formRIEP.patchValue({'numeroa': this.dataConsulta.tratamientosSuplementos.acidoFolico.numero});
+             this.formRIEP.patchValue({'dosisa': this.dataConsulta.tratamientosSuplementos.acidoFolico.dosis});
+             this.formRIEP.patchValue({'viaAdministraciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.viaAdministracion});
+             this.formRIEP.patchValue({'intervaloa': this.dataConsulta.tratamientosSuplementos.acidoFolico.intervalo});
+             this.formRIEP.patchValue({'duraciona': this.dataConsulta.tratamientosSuplementos.acidoFolico.duracion});
+             this.formRIEP.patchValue({'observacionesa': this.dataConsulta.tratamientosSuplementos.acidoFolico.observaciones});
+             /* recuperar suplementario hierroYAcidoFolico*/
+             /*descripcion*/
+             this.formRIEP.patchValue({'descripcionf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.descripcion});
+             this.formRIEP.patchValue({'numerof': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.numero});
+             this.formRIEP.patchValue({'dosisf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.dosis});
+             this.formRIEP.patchValue({'viaAdministracionf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.viaAdministracion});
+             this.formRIEP.patchValue({'intervalof': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.intervalo});
+             this.formRIEP.patchValue({'duracionf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.duracion});
+             this.formRIEP.patchValue({'observacionesf': this.dataConsulta.tratamientosSuplementos.hierroYAcidoFolico.observaciones});
+             /* recuperar suplementario calcio*/
+             /*descripcion*/
+             this.formRIEP.patchValue({'descripcionc': this.dataConsulta.tratamientosSuplementos.calcio.descripcion});
+             this.formRIEP.patchValue({'numeroc': this.dataConsulta.tratamientosSuplementos.calcio.numero});
+             this.formRIEP.patchValue({'dosisc': this.dataConsulta.tratamientosSuplementos.calcio.dosis});
+             this.formRIEP.patchValue({'viaAdministracionc': this.dataConsulta.tratamientosSuplementos.calcio.viaAdministracion});
+             this.formRIEP.patchValue({'intervaloc': this.dataConsulta.tratamientosSuplementos.calcio.intervalo});
+             this.formRIEP.patchValue({'duracionc': this.dataConsulta.tratamientosSuplementos.calcio.duracion});
+             this.formRIEP.patchValue({'observacionesc': this.dataConsulta.tratamientosSuplementos.calcio.observaciones});
+           }
+          if(this.dataConsulta.examenesAuxiliares!=null){
+            /*recuperar examenes auxiliares*/
+            this.formRIEP.patchValue({'examenesAuxiliares': this.dataConsulta.examenesAuxiliares});
+
+          }
            /*recuperar evaluacion Nutricional*/
            // this.formRIEP.patchValue({ 'valor': this.dataConsulta.funcionesVitales.peso - this.pesoHabitual });
-           console.log("peso actual " + this.pesoActual);
-           console.log("peso habituañ " + this.pesoHabitual);
+           if(this.dataConsulta.encargado!=null){
+             /**Recuperar responsable de la atencion**/
+             this.formRIEP.patchValue({'encargado': this.dataConsulta.encargado.tipoDoc + " " + this.dataConsulta.encargado.nroDoc});
+           }
+
+         /* recuperar interconsultas*/
            this.formRIEP.patchValue({'valor': parseFloat(this.dataConsulta.funcionesVitales.peso) - this.pesoHabitual});
            //  this.formRIEP.patchValue({'valor': parseFloat(this.dataConsulta.evaluacionNutricional.valor)});
            this.formRIEP.patchValue({'indicador': this.dataConsulta.evaluacionNutricional.indicador});
-           /**Recuperar responsable de la atencion**/
-           this.formRIEP.patchValue({'encargado': this.dataConsulta.encargado.tipoDoc + " " + this.dataConsulta.encargado.nroDoc});
-           /* recuperar interconsultas*/
-           console.log(this.dataConsulta.interconsultas)
-
-           let y: number = 0;
-           while (y < this.dataConsulta.interconsultas.length) {
-             // console.log("interconsultas nro: " ,i);
-             // console.log("interconsultas consta de: ", this.dataConsulta.interconsultas[i]);
-             this.interconsultas.push(this.dataConsulta.interconsultas[y]);
-             y++;
-           }
-
-           /* recuperar recomendaciones*/
-           let w: number = 0;
-           while (w < this.dataConsulta.recomendaciones.length) {
-             // console.log("interconsultas nro: " ,i);
-             // console.log("interconsultas consta de: ", this.dataConsulta.recomendaciones[i]);
-             this.recomendaciones.push(this.dataConsulta.recomendaciones[w]);
-             w++;
-           }
-           /* recuperar EXAMENES AUXILIARES*/
-           let z: number = 0;
-           while (z < this.dataConsulta.examenesAuxiliares.length) {
-             // console.log("interconsultas nro: " ,i);
-             // console.log("interconsultas consta de: ", this.dataConsulta.examenesAuxiliares[i]);
-             this.examenesAuxiliares.push(this.dataConsulta.examenesAuxiliares[z]);
-             z++;
-
-           }
+          if(this.dataConsulta.interconsultas!=null){
+            let y: number = 0;
+            while (y < this.dataConsulta.interconsultas.length) {
+              // console.log("interconsultas nro: " ,i);
+              // console.log("interconsultas consta de: ", this.dataConsulta.interconsultas[i]);
+              this.interconsultas.push(this.dataConsulta.interconsultas[y]);
+              y++;
+            }
+          }
+          if(this.dataConsulta.recomendaciones!=null){
+            /* recuperar recomendaciones*/
+            let w: number = 0;
+            while (w < this.dataConsulta.recomendaciones.length) {
+              // console.log("interconsultas nro: " ,i);
+              // console.log("interconsultas consta de: ", this.dataConsulta.recomendaciones[i]);
+              this.recomendaciones.push(this.dataConsulta.recomendaciones[w]);
+              w++;
+            }
+          }
+          if(this.dataConsulta.examenesAuxiliares!=null){
+            /* recuperar EXAMENES AUXILIARES*/
+            let z: number = 0;
+            while (z < this.dataConsulta.examenesAuxiliares.length) {
+              // console.log("interconsultas nro: " ,i);
+              // console.log("interconsultas consta de: ", this.dataConsulta.examenesAuxiliares[i]);
+              this.examenesAuxiliares.push(this.dataConsulta.examenesAuxiliares[z]);
+              z++;
+            }
+          }
          }else{this.messageService.add({severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía'});}
-
       }
     });
   }
