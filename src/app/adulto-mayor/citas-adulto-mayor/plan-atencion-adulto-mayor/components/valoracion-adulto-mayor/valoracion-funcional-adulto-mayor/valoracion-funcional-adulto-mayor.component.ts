@@ -49,11 +49,12 @@ export class ValoracionFuncionalAdultoMayorComponent implements OnInit {
     if (lavarse) {
       let aux = {nombreItem: 'LAVARSE', respuesta: 'DEPENDIENTE', puntaje: 1}
       valoracionFItem.push(aux);
+      console.log("aux1",aux);
     }else{
       let aux = {nombreItem: 'LAVARSE', respuesta: 'INDEPENDIENTE', puntaje: 0}
       valoracionFItem.push(aux);
+      console.log("aux1",aux);
     }
-
     if (usoservicioH==true) {
       let aux = {nombreItem: 'USO DE SERVICIO HIGIENICO', respuesta: 'DEPENDIENTE', puntaje: 1}
       valoracionFItem.push(aux);

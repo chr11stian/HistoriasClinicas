@@ -91,7 +91,7 @@ export class ModalAtencionesComponent implements OnInit {
     this.formAtenciones.get("planPartoReenfocada").setValue(configuracion.planPartoReenfocada);
     if(configuracion.visitaDomiciliaria.estado ==="NO"){ this.formAtenciones.get("visitaDomiciliaria").setValue(configuracion.visitaDomiciliaria.estado);}
     else{    this.formAtenciones.get("visitaDomiciliaria").setValue(configuracion.visitaDomiciliaria.estado +"-" + configuracion.visitaDomiciliaria.fecha);}
-    this.formAtenciones.get("proxCita").setValue(configuracion.proxCita);
+    this.formAtenciones.get("proxCita").setValue(configuracion.proxCita.fecha);
     this.formAtenciones.get("encargado").setValue(configuracion.encargado.tipoDoc + "-" + configuracion.encargado.nroDoc);
     this.formAtenciones.get("establecimiento").setValue(configuracion.establecimiento);
     this.formAtenciones.get("nroAtencion").setValue(configuracion.nroAtencion);

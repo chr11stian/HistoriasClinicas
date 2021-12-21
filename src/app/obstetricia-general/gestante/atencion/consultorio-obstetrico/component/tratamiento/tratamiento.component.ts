@@ -111,6 +111,7 @@ export class TratamientoComponent implements OnInit {
       {label: 'TOPICO', value: 'TOPICO'},
       {label: 'VAGINAL', value: 'VAGINAL'},
     ];
+
     this.recuperarDatos();
 
   }
@@ -376,8 +377,11 @@ export class TratamientoComponent implements OnInit {
     this.recuperarDatosEvaluacion();
     console.log("peso hab:" + this.pesoHabitual);
     console.log("peso actual" + this.pesoActual);
-    let aux = this.pesoActual-this.pesoHabitual;
-    console.log(this.evaluacionNutricional.valor);
+    let aux=0;
+    if(this.pesoActual!=null && this.pesoHabitual!=null){
+       aux = this.pesoActual-this.pesoHabitual;
+      console.log(this.evaluacionNutricional.valor);}
+
     const req = {
       id: this.idConsultoriObstetrico,
       nroHcl: this.nroHclRecuperado,
@@ -397,10 +401,6 @@ export class TratamientoComponent implements OnInit {
 
   guardarTodosDatos(){
     this.recuperarDatoSuplementarios();
-    // this.recuperarDatosEvaluacion();
-    console.log(this.evaluacionNutricional.valor);
-    console.log(this.examenesAuxiliares);
-    this.recuperarDatoSuplementarios();
     const req={
       id:this.idConsultoriObstetrico,
       nroHcl:this.nroHclRecuperado,
@@ -414,7 +414,6 @@ export class TratamientoComponent implements OnInit {
       tratamientosSuplementos:this.suplementarios,
       interconsultas:this.interconsultas,
       examenesAuxiliares:this.examenesAuxiliares,
-      // evaluacionNutricional:this.evaluacionNutricional,
       recomendaciones:this.recomendaciones,
     }
     this.tratamientoService.updateConsultas(this.nroFetos,req).subscribe(
@@ -543,7 +542,6 @@ export class TratamientoComponent implements OnInit {
       }
     })
   }
-
   recuperarDatos(){
     this.recuperarNroFetos();
     let aux ={
@@ -568,8 +566,17 @@ export class TratamientoComponent implements OnInit {
              detail: 'Registro recuperado satisfactoriamente'
            });
            /*recuperar peso actual*/
-           this.pesoActual = parseFloat(this.dataConsulta.funcionesVitales.peso)
-           this.guardarEvaluacionNutricional();
+           if(this.dataConsulta.funcionesVitales != null)
+           {
+              this.pesoActual = parseFloat(this.dataConsulta.funcionesVitales.peso)
+              this.guardarEvaluacionNutricional();
+           }
+           if(this.dataConsulta.evaluacionNutricional!=null){
+             //    this.formRIEP.patchValue({'valor': parseFloat(this.dataConsulta.funcionesVitales.peso) - this.pesoHabitual});
+             this.formRIEP.patchValue({'valor': this.dataConsulta.evaluacionNutricional.valor});
+             this.formRIEP.patchValue({'indicador': this.dataConsulta.evaluacionNutricional.indicador});
+           }
+
            /*recuperar tratamientos comunes*/
            if(this.dataConsulta.tratamientos!=null){
              let i: number = 0;
@@ -627,9 +634,7 @@ export class TratamientoComponent implements OnInit {
            }
 
          /* recuperar interconsultas*/
-           this.formRIEP.patchValue({'valor': parseFloat(this.dataConsulta.funcionesVitales.peso) - this.pesoHabitual});
-           //  this.formRIEP.patchValue({'valor': parseFloat(this.dataConsulta.evaluacionNutricional.valor)});
-           this.formRIEP.patchValue({'indicador': this.dataConsulta.evaluacionNutricional.indicador});
+
           if(this.dataConsulta.interconsultas!=null){
             let y: number = 0;
             while (y < this.dataConsulta.interconsultas.length) {
