@@ -83,13 +83,14 @@ export class ModalAtencionesComponent implements OnInit {
     this.formAtenciones.get("proteinuria").setValue(configuracion.proteinuria);
     this.formAtenciones.get("edema").setValue(configuracion.edema);
     this.formAtenciones.get("reflejoOsteotendinoso").setValue(configuracion.reflejoOsteotendinoso);
-    this.formAtenciones.get("ecografia").setValue(configuracion.ecografia);
+    this.formAtenciones.get("ecografia").setValue(configuracion.ecografia.fecha + " (" + configuracion.ecografia.semanas + " "+ configuracion.ecografia.dias + "/7)");
     // this.formAtenciones.get("consejeriaIntegral").setValue(configuracion.consejeriaIntegral);
     this.formAtenciones.get("acidoFolico").setValue(configuracion.acidoFolico.numero + "(" + configuracion.acidoFolico.dosis + ")");
     this.formAtenciones.get("hierroYAcidoFolico").setValue(configuracion.hierroYAcidoFolico.numero +"(" + configuracion.acidoFolico.dosis + ")");
     this.formAtenciones.get("calcio").setValue(configuracion.calcio.numero + "(" + configuracion.calcio.dosis + ")");
     this.formAtenciones.get("planPartoReenfocada").setValue(configuracion.planPartoReenfocada);
-    this.formAtenciones.get("visitaDomiciliaria").setValue(configuracion.visitaDomiciliaria.estado +"-" + configuracion.visitaDomiciliaria.fecha);
+    if(configuracion.visitaDomiciliaria.estado ==="NO"){ this.formAtenciones.get("visitaDomiciliaria").setValue(configuracion.visitaDomiciliaria.estado);}
+    else{    this.formAtenciones.get("visitaDomiciliaria").setValue(configuracion.visitaDomiciliaria.estado +"-" + configuracion.visitaDomiciliaria.fecha);}
     this.formAtenciones.get("proxCita").setValue(configuracion.proxCita);
     this.formAtenciones.get("encargado").setValue(configuracion.encargado.tipoDoc + "-" + configuracion.encargado.nroDoc);
     this.formAtenciones.get("establecimiento").setValue(configuracion.establecimiento);

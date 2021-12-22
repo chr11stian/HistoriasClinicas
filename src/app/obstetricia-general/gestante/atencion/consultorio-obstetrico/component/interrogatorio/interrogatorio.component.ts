@@ -75,7 +75,6 @@ export class InterrogatorioComponent implements OnInit {
     let idData = {
       id: this.idConsulta
     }
-
     const response: any = await this.consultaObstetricaService.getLastConsulById(idData);
     this.ultimaConsulta = response.object;
     this.form.get("imc").setValue(this.ultimaConsulta.imc);
@@ -164,7 +163,7 @@ export class InterrogatorioComponent implements OnInit {
 
     this.interrogatorioData = {
       nroHcl: this.ultimaConsulta.nroHcl,
-      nroAtencion: this.ultimaConsulta.nroUltimaAtencion,
+      nroAtencion: 1,
       nroControlSis: this.ultimaConsulta.nroMayorControlSis,
       nroEmbarazo: this.ultimaConsulta.nroEmbarazo,
       tipoDoc: this.ultimaConsulta.tipoDoc,

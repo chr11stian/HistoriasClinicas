@@ -184,17 +184,19 @@
         <div class="grid mt-1">
             <div class="p-field col-3">
                 <label>Fecha de Nacimiento:</label>
-                <p-inputMask class="maskInput" mask="99/99/9999" formControlName="fechaNacimiento" slotChar="dd/mm/yyyy"
-                    dateFormat="dd/mm/yy"></p-inputMask>
+                <input type="date" pInputText formControlName='fechaNacimiento' placeholder=""
+                    class="inputfield w-full">
             </div>
             <div class="p-field col-3">
                 <label>Fecha de Inscripción:</label>
-                <p-inputMask mask="99/99/9999" formControlName="fechaInscripcion" slotChar="dd/mm/yyyy"></p-inputMask>
+                <input type="date" pInputText formControlName='fechaInscripcion' placeholder=""
+                    class="inputfield w-full">
                 <!-- <p-calendar formControlName="fechaInscripcion"></p-calendar> -->
             </div>
             <div class="p-field col-3">
                 <label>Fecha Emisión:</label>
-                <p-inputMask mask="99/99/9999" formControlName="fechaEmision" slotChar="dd/mm/yyyy"></p-inputMask>
+                <input type="date" pInputText formControlName='fechaEmision' placeholder=""
+                    class="inputfield w-full">
                 <!-- <p-calendar formControlName="fechaEmision"></p-calendar> -->
             </div>
             <div class="p-field col-3">
@@ -213,23 +215,6 @@
                 <p-chips formControlName="discapacidad" separator="," ngDefaultControl></p-chips>
             </div>
         </div>
-        <!-- <div class="grid mt-1">
-            <div class="p-field col-4">
-                <label>Nombre Padre:</label>
-                <input type="text" pInputText formControlName="nombrePadre" class="inputTest" />
-            </div>
-            <div class="p-field col-4">
-                <label>Nombre Madre:</label>
-                <input type="text" pInputText formControlName="nombreMadre" class="inputTest" />
-            </div>
-
-            <div class="p-field col-3">
-                <label>Ipress</label>
-                <p-dropdown [options]="listaIpress" formControlName="ipress" placeholder="Seleccione una Ipress"
-                    optionLabel="nombreEESS" [showClear]="false">
-                </p-dropdown>
-            </div>
-        </div> -->
     </form>
     <ng-template pTemplate=footer class="mt-2">
         <button pButton type="button" label="cancelar" class="p-button-danger" (click)="closeDialogPaciente()"></button>

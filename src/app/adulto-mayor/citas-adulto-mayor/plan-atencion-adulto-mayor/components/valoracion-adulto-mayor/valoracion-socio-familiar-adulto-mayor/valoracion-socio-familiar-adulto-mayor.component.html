@@ -1,0 +1,383 @@
+<div class="p-card">
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <h3 class="mt-2">III. Valoración Socio-Familiar</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                    class="guardar-boton" ></button>
+        </ng-template>
+    </p-toolbar>
+    <br>
+    <div class="grid">
+        <div class="col-12 md:col-7 lg:col-7">
+            <p-fieldset legend="Situación Familiar" [toggleable]="true">
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="city" value="normal" [(ngModel)]="city"  inputId="independiente"></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label> Vive con familia, sin conflicto familiar </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="leve" [(ngModel)]="city"  inputId="dependienteParcial"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Vive con familia , presenta algún grado de dependencia física/psiquica </label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="moderado" [(ngModel)]="city"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Vive con cónyuge de similar edad </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="severo" [(ngModel)]="city"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Vive solo y tiene hijos con vivienda próxima </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(4)</label>
+                    </div>
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="severo" [(ngModel)]="city"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Vive solo y carece de hijos o viven lejos (interior del país o extranjero) </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(5)</label>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-5 lg:col-5">
+            <p-fieldset legend="Situación Económica" [toggleable]="true">
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="city" value="normal" [(ngModel)]="city2"  inputId="independiente"></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label> Dos veces el salario mínimo vital.</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="leve" [(ngModel)]="city2"  inputId="dependienteParcial"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Menos de 2, pero más de 1 salario mínimo vital. </label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="moderado" [(ngModel)]="city2"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Un salario mínimo vital</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="severo" [(ngModel)]="city2"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Ingreso irregular (menos del mínimo vital)</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(4)</label>
+                    </div>
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="severo" [(ngModel)]="city2"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Sin pensión, sin otros ingresos </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(5)</label>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-12 md:col-7 lg:col-7">
+            <p-fieldset legend="Vivienda" [toggleable]="true">
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="city" value="normal" [(ngModel)]="city3"  inputId="independiente"></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label> Adecuada a las necesidades</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="leve" [(ngModel)]="city3"  inputId="dependienteParcial"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Barreras arquitectónicas en la vivienda(pisos irregulares, gradas, puertas estrechas) </label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="moderado" [(ngModel)]="city3"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Mala conservación, humedad, mala higiene, equipamiento inadecuado (baño incompleto)</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="severo" [(ngModel)]="city3"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Vivienda semi construida o de material rústico</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(4)</label>
+                    </div>
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="severo" [(ngModel)]="city3"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Asentamiento humano(invasión) o sin vivienda </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(5)</label>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-5 lg:col-5">
+            <p-fieldset legend="Relaciones Sociales" [toggleable]="true">
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="city" value="normal" [(ngModel)]="city4"  inputId="independiente"></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label>Mantiene relaciones sociales en la comunidad</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="leve" [(ngModel)]="city4"  inputId="dependienteParcial"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Relación social sólo con la familia y vecinos </label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="moderado" [(ngModel)]="city4"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Relación socil sólo con la familia</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="severo" [(ngModel)]="city4"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">No sale del domicilio pero recibe visitas de familia</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(4)</label>
+                    </div>
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="severo" [(ngModel)]="city4"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">No sale del domicilio y no recibe visitas</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(5)</label>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-12 md:col-7 lg:col-7">
+            <p-fieldset legend="Apoyo de la Red Social Municipio, clubes, ONG,Seguro Social, Vivienda" [toggleable]="true">
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="city" value="normal" [(ngModel)]="city5"  inputId="independiente"></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label>No necesita apoyo</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="leve" [(ngModel)]="city5"  inputId="dependienteParcial"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Requiere apoyo familiar o vecinal</label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="moderado" [(ngModel)]="city5"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Tiene seguro pero necesita mayor apoyo de éste o voluntario social</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="severo" [(ngModel)]="city5"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">No cuenta con seguro social</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(4)</label>
+                    </div>
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="severo" [(ngModel)]="city5"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Situación de abandono familiar</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(5)</label>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-5 lg:col-5">
+            <p-fieldset legend="Valoración Socio-Familiar" [toggleable]="true">
+                <p align="center">VALORACIÓN SOCIO FAMILIAR</p>
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="city" value="normal" [(ngModel)]="city6"  inputId="independiente"></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label> Buena/aceptable situación social</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="leve" [(ngModel)]="city6"  inputId="dependienteParcial"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Existe riesgo social </label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="city" value="moderado" [(ngModel)]="city6"  inputId="dependienteTotal"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Existe problema social</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                </div>
+                <div class="grid">
+                    <div class="col-12">
+                        <p>-Buena/aceptable situacion social  :<=2E</p>
+                        <p>-Existe riesgo social              :3 a 4E</p>
+                        <p>-Existe problema social            :5 a 7E</p>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+    </div>
+</div>
+

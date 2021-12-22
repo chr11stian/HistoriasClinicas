@@ -5,6 +5,7 @@ import {PuerperioInmediatoService} from "../../services/puerperio-inmediato/puer
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 import {ConfirmationService, ConfirmEventType,MessageService} from 'primeng/api';
+import Swal from "sweetalert2";
 @Component({
     selector: 'app-puerperio',
     templateUrl: './puerperio.component.html',
@@ -91,7 +92,26 @@ export class PuerperioComponent implements OnInit {
         })
     }
     eliminarPuerperio(index){
-            this.puerperios.splice(index, 1)
+        Swal.fire({
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            icon: 'warning',
+            title: 'Estas seguro de eliminar este registro?',
+            text: '',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.puerperios.splice(index, 1)
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Eliminado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+
     }
     guardarPuerperios() {
         const req = {

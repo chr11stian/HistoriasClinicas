@@ -3,7 +3,7 @@
         <div class="grid">
             <div class="col-12 md:col-8 mt-2">
                 <div class="margen border-300">
-                    <p-table [value]="datosDiagnosticos" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
+                    <p-table [value]="listaDiagnosticos" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
                         [autoLayout]="true" class="m-3"
                         currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
                         [showCurrentPageReport]="true" responsiveLayout="scroll">
@@ -14,7 +14,7 @@
                                 </div>
                                 <div class="col-2">
                                     <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
-                                        class="p-button-raised mt-3" (click)="openDialogExamAux()"></button>
+                                        class="p-button-raised mt-3" (click)="openDialogDiagnostico()"></button>
                                 </div>
                             </div>
                         </ng-template>
@@ -29,9 +29,9 @@
                         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                             <tr style="text-align: center">
                                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                <td style="text-align: center">{{ rowData.resultado }}</td>
-                                <td style="text-align: center">{{ rowData.cie }}</td>
-                                <td style="text-align: center">
+                                <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                                <td style="text-align: center">{{ rowData.cie10.codigoItem }}</td>
+                                <td style="text-align: center; display: flex;">
                                     <button pButton pRipple type="button" icon="pi pi-pencil"
                                         class="p-button-rounded p-button-text"
                                         (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
@@ -49,20 +49,53 @@
                     <div class="col-12 md:col-12">
                         <label>Diagnostico de Habilidades Sociales:</label>
                         <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                            formControlName="habilidadesSociales" pInputTextarea placeholder="Describa la medicación"></textarea>
+                            formControlName="habilidadesSociales" pInputTextarea
+                            placeholder="Describa la medicación"></textarea>
                     </div>
                     <div class="col-12 md:col-12">
                         <label>Diagnostico Nutricional:</label>
                         <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                            formControlName="nutricional" pInputTextarea placeholder="Describa la medicación"></textarea>
+                            formControlName="nutricional" pInputTextarea
+                            placeholder="Describa la medicación"></textarea>
                     </div>
                     <div class="col-12 md:col-12">
                         <label>Recomendaciones:</label>
                         <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                            formControlName="recomendaciones" pInputTextarea placeholder="Describa la medicación"></textarea>
+                            formControlName="recomendaciones" pInputTextarea
+                            placeholder="Describa la medicación"></textarea>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
+<!-- DIALOG DE PARA CIE -->
+<p-dialog class="dialogo m-4" [(visible)]="dialogDiagnostic" [style]="{width: '40%'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>Diagnostico</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formDiagnostico'>
+            <div class="grid flex flex-column mt-1">
+                <label class=" mr-1">CIE 10: </label>
+                <p-autoComplete formControlName="diagnosticoCIE" [suggestions]="listaDeCIE"
+                    (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                    (onSelect)="selectedOption($event)" class="" [forceSelection]="true" dataKey="codigoItem">
+                </p-autoComplete>
+                <label class="mt-2">Diagnóstico: </label>
+                <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)" appendTo="body"
+                    field="descripcionItem" [minLength]="1" class="areaText " formControlName="autocompleDiag"
+                    (onSelect)="selectedOptionNameCIE($event)">
+                </p-autoComplete>
+                <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoText" pInputTextarea
+                    disabled></textarea>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer" class="text-right">
+        <button pButton type="button" label="Guardar" (click)="aceptarNuevoDiagnostico()"></button>
+        <button pButton type=" button" label="Cerrar" class="p-button-danger"
+            (click)="closeDialogDiagnostico()"></button>
+    </ng-template>
+</p-dialog>

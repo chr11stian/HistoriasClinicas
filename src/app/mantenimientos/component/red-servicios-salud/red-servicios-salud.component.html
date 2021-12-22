@@ -42,7 +42,6 @@
             </p-table>
         </p-tabPanel>
 
-
         <p-tabPanel header="Micro Red de Servicios de Salud">
             <p-toolbar class="p-mb-4">
                 <ng-template pTemplate="left">
@@ -160,8 +159,7 @@
     </p-tabView>
 </div>
 
-<!--            INICIO DE DIALOG ADD RED SERVICIO SALUD              -->
-
+<!-- INICIO DE DIALOG ADD RED SERVICIO SALUD -->
 <p-dialog [(visible)]="agregarRedServicio" [style]="{width: '500px'}" header="Registrar Red de Servicios de Salud"
     [modal]="true" styleClass="p-fluid" autoZIndex>
     <form [formGroup]='formRedServicio'>
@@ -189,10 +187,8 @@
         <button *ngIf="update" pButton type="button" label="Editar" (click)="editarRed()"></button>
         <button *ngIf="!update" pButton type="button" label="Aceptar" (click)="aceptarDialogRedServicio()"></button>
     </ng-template>
-</p-dialog>
-<!--            FIN DIALOG DE ADD RED SERVICIO SALUD             -->
-
-<!--            INICIO DIALOG ADD MICRO RED SERVICIO SALUD       -->
+</p-dialog> 
+<!-- INICIO DIALOG ADD MICRO RED SERVICIO SALUD -->
 <p-dialog [(visible)]="agregarMicroRedServicio" [style]="{width: '700px'}" header="Registrar Red de Servicios de Salud"
     [modal]="true" styleClass="p-fluid" autoZIndex>
     <form [formGroup]='formMicroRed'>
@@ -210,11 +206,11 @@
                     <label>Id Micro Red</label>
                     <input type="text" pInputText formControlName="idMicroRed" />
                 </div>
-                <button *ngIf="update" pButton type="button" label="Editar" (click)="editarRed()"></button>
                 <div class="col-12">
                     <label>Nombre Micro Red</label>
                     <input type="text" pInputText formControlName="nombreMicroRed" />
                 </div>
+                <button *ngIf="update" pButton type="button" label="Editar" (click)="editarRed()"></button>
             </div>
         </div>
     </form>
@@ -224,9 +220,8 @@
         <button *ngIf="!update" pButton type="button" label="Aceptar" (click)="aceptarDialogMicroRed()"></button>
     </ng-template>
 </p-dialog>
-<!--            FIN DIALOG ADD MICRO RED SERVICIO SALUD          -->
 
-<!--                    INICIO DIALOG EESS                       -->
+<!-- INICIO DIALOG EESS -->
 <p-dialog [(visible)]="agregarEESS" [style]="{width: '800px'}" header="Registrar Establecimiento de Salud"
     [modal]="true" styleClass="p-fluid" autoZIndex>
     <form [formGroup]='formEESS'>
@@ -284,4 +279,3 @@
         <button pButton type="button" label="Aceptar" (click)="aceptarDialogEESS()"></button>
     </ng-template>
 </p-dialog>
-<!--                    FIN DIALOG EESS                          -->
