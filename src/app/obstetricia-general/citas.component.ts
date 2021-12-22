@@ -12,8 +12,7 @@ import {MessageService} from "primeng/api";
     selector: 'app-citas',
     templateUrl: './citas.component.html',
     styleUrls: ['./citas.component.css'],
-    providers: [DialogService]
-
+    providers: [DialogService],
 })
 export class CitasComponent implements OnInit {
 
@@ -91,19 +90,21 @@ export class CitasComponent implements OnInit {
         }
         this.pacienteService.getPacienteByNroDoc(data).subscribe((res: any) => {
             this.dataPaciente = res.object;
-            let nombre = this.dataPaciente.primerNombre;
-            let apellidoPaterno = this.dataPaciente.apePaterno;
-            let apellidoMaterno = this.dataPaciente.apeMaterno;
-            let nroDoc = this.dataPaciente.nroDoc;
-            let telefono = this.dataPaciente.celular;
-            let tipoDoc = this.dataPaciente.tipoDoc;
-            this.dataPaciente2 = [{apellidoPaterno, apellidoMaterno, nombre, nroDoc, telefono, tipoDoc}]
+            if (this.dataPaciente == null) {
+                this.showInfo();
+            } else {
+                this.showSuccess();
+                let nombre = this.dataPaciente.primerNombre;
+                let apellidoPaterno = this.dataPaciente.apePaterno;
+                let apellidoMaterno = this.dataPaciente.apeMaterno;
+                let nroDoc = this.dataPaciente.nroDoc;
+                let telefono = this.dataPaciente.celular;
+                let tipoDoc = this.dataPaciente.tipoDoc;
+                this.dataPaciente2 = [{apellidoPaterno, apellidoMaterno, nombre, nroDoc, telefono, tipoDoc}]
+            }
+
             console.log('paciente por doc ', this.dataPaciente2);
-            this.messageService.add(
-                {
-                    key: 'c', sticky: true, severity: 'warn',
-                    summary: 'Are you sure?', detail: 'Confirm to proceed'
-                });
+
 
         });
 
@@ -140,9 +141,21 @@ export class CitasComponent implements OnInit {
         this.obstetriciaGeneralService.nroDoc = event.nroDoc;
     }
 
-    showConfirm() {
+    showSuccess() {
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Paciente',
+            detail: 'Recuperado con exito'
+        });
     }
 
+    showInfo() {
+        this.messageService.add({
+            severity: 'info',
+            summary: 'Paciente',
+            detail: 'No existe en la Base de Datos'
+        });
+    }
 }
 
 interface data {

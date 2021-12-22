@@ -19,6 +19,7 @@ p-dropdown >>> * {
     background: #9c0116;
     border-color: #af0017;
 }
+
 .p-button {
     color: #ffffff;
     border: 1px solid #ffffff;
@@ -34,24 +35,33 @@ p-dropdown >>> * {
     box-shadow: 0.2rem 0.2rem 0.2rem 0.2rem #ffffff;
 }
 
-.boton-azul{
-    background:rgb(76, 168, 221);
+.boton-azul {
+    background: rgb(76, 168, 221);
 }
-.boton-azul:hover{
-    background:rgb(68, 148, 194);
+
+.boton-azul:hover {
+    background: rgb(68, 148, 194);
 }
-.boton-mostaza{
-    background:rgb(228, 181, 54);
+
+.boton-mostaza {
+    background: rgb(228, 181, 54);
 }
-.boton-mostaza:hover{
-    background:rgb(207, 166, 52);
+
+.boton-mostaza:hover {
+    background: rgb(207, 166, 52);
 }
-.boton-morado{
-    background:rgb(138, 42, 194);
+
+.boton-morado {
+    background: rgb(138, 42, 194);
 }
-.boton-morado:hover{
-    background:rgb(125, 40, 158);
+
+.boton-morado:hover {
+    background: rgb(125, 40, 158);
 }
-.p-buttonset{
+
+.p-buttonset {
     border-color: #ffffff;
 }
+
+
+
