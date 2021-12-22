@@ -347,16 +347,13 @@
                         <tr>
                             <th class="text-center">NRO</th>
                             <th class="text-center">FECHA</th>
-                            <th class="text-center">FACTOR DE RIESGO</th>
-                            <th class="text-center">VALOR</th>
                             <th class="text-center">ACCIONES</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-row let-i="rowIndex">
                         <tr>
                             <td class="text-center">{{i+1}}</td>
-                            <td class="text-center">{{row.nombre}}</td>
-                            <td class="text-center">{{row.valor}}</td>
+                            <td class="text-center">{{row.fecha}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
                                     label="Editar" class="p-button-rounded p-button-info"
@@ -392,6 +389,7 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th class="text-center">NRO</th>
+                            <th class="text-center">FECHA</th>
                             <th class="text-center">HEMATOCRITO</th>
                             <th class="text-center">COLESTEROLEMIA TOTAL</th>
                             <th class="text-center">GLICEMIA</th>
@@ -594,10 +592,10 @@
             <div class="grid">
                 <div class="col-4">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateEvaluacionCrecimientoFisico" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateEvaluacionCrecimientoFisico"type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEvaluacionCrecimientoFisico" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionCrecimientoFisico" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-4"></div>
                 <div class="col-4"></div>
@@ -644,10 +642,10 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateEvaluacionesAgudezaVisualAuditiva" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateEvaluacionesAgudezaVisualAuditiva" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEvaluacionesAgudezaVisualAuditiva" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesAgudezaVisualAuditiva" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-6"></div>
                 <div class="col-6">
@@ -693,10 +691,10 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateEvaluacionesFisicoPostural" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateEvaluacionesFisicoPostural" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEvaluacionesFisicoPostural" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesFisicoPostural" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Columna:</label>
@@ -722,8 +720,7 @@
             (click)="editarDatosEvaluacionFisicoPostural()"></button>
         <button *ngIf="!isUpdateEvaluacionesFisicoPostural" pButton type="button" label="Guardar"
             (click)="saveFormEvaluacionFisicoPostural()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -737,10 +734,10 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateEvaluacionesDesarrolloSexual" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateEvaluacionesDesarrolloSexual" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEvaluacionesDesarrolloSexual" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesDesarrolloSexual" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Desarrollo mama:</label>
@@ -766,8 +763,7 @@
             (click)="editarDatosEvaluacionDesarrolloSexual()"></button>
         <button *ngIf="!isUpdateEvaluacionesDesarrolloSexual" pButton type="button" label="Guardar"
             (click)="saveFormEvaluacionDesarrolloSexual()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -781,10 +777,10 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateEvaluacionesHabilidadesSociales" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateEvaluacionesHabilidadesSociales" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEvaluacionesHabilidadesSociales" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesHabilidadesSociales" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Autoestima:</label>
@@ -808,8 +804,8 @@
                 </div>
                 <div class="col-12">
                     <label>Calificacion total:</label>
-                    <input type="text" pInputText formControlName='calificacionTotal' class="p-inputtext inputfield w-full"
-                        placeholder="Calificacion total">
+                    <input type="text" pInputText formControlName='calificacionTotal'
+                        class="p-inputtext inputfield w-full" placeholder="Calificacion total">
                 </div>
             </div>
         </form>
@@ -835,10 +831,10 @@
             <div class="grid">
                 <div class="col-8">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateIdentificacionesColeraIrritabilidadAgresion" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateIdentificacionesColeraIrritabilidadAgresion" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateIdentificacionesColeraIrritabilidadAgresion" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateIdentificacionesColeraIrritabilidadAgresion" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Colera:</label>
@@ -869,8 +865,7 @@
             (click)="editarDatosIdentificacionColeraIrritabilidadAgresion()"></button>
         <button *ngIf="!isUpdateIdentificacionesColeraIrritabilidadAgresion" pButton type="button" label="Guardar"
             (click)="saveFormIdentificacionColeraIrritabilidadAgresion()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -884,10 +879,10 @@
             <div class="grid">
                 <div class="col-8">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateTamizajesViolencia" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateTamizajesViolencia" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateTamizajesViolencia" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateTamizajesViolencia" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Familiar:</label>
@@ -913,12 +908,11 @@
             (click)="editarDatosTamizajeViolencia()"></button>
         <button *ngIf="!isUpdateTamizajesViolencia" pButton type="button" label="Guardar"
             (click)="saveFormTamizajeViolencia()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
-<p-dialog class="dialogo m-4" [(visible)]="identificacionesFactoresRiesgoDialog" [style]="{width: '400px'}"
+<p-dialog class="dialogo m-4" [(visible)]="identificacionesFactoresRiesgoDialog" [style]="{width: '600px'}"
     [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h3>IDENTIFICACION DE FACTORES DE RIESGO</h3>
@@ -928,11 +922,71 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateIdentificacionFactoresRiesgo" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateIdentificacionFactoresRiesgo" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateIdentificacionFactoresRiesgo" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateIdentificacionFactoresRiesgo" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
+                <div class="col-12">
+                    <p-table [value]="factoresRiesgo" responsiveLayout="scroll" styleClass="p-datatable-gridlines"
+                        [rows]="5" [paginator]="true" [autoLayout]="true"
+                        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                        [showCurrentPageReport]="true">
+                        <ng-template pTemplate="caption">
+                            <div class="grid">
+                                <div class="col-8 text-left">
+                                    <h3>Factores de Riesgo</h3>
+                                </div>
+                                <div class="col-3 text-right">
+                                    <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                        class="p-button-raised mt-3"></button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-center">NRO</th>
+                                <th class="text-center">NOMBRE</th>
+                                <th class="text-center">VALOR</th>
+                                <th class="text-center">ACCIONES</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-row let-i="rowIndex">
+                            <tr>
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">{{row.nombre}}</td>
+                                <td class="text-center">{{row.valor}}</td>
+                                <td class="text-center">
+                                    <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
+                                        label="Editar" class="p-button-rounded p-button-info"
+                                        (click)="editarTamizajeViolencia(row)"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+                
+
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="isUpdateIdentificacionFactoresRiesgo" pButton type="button" label="Guardar"
+            (click)="editarDatosIdentificacionFactoresRiesgo()"></button>
+        <button *ngIf="!isUpdateIdentificacionesFactoresRiesgo" pButton type="button"
+            label="Guardar" (click)="saveFormIdentificacionFactoresRiesgo()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="factoresRiesgoDialog" [style]="{width: '400px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>Factores de riesgo</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formFactoresRiesgo'>
+            <div class="grid">
                 <div class="col-12">
                     <label>Nombre de riesgo:</label>
                     <input type="text" pInputText formControlName='nombre' class="p-inputtext inputfield w-full"
@@ -948,15 +1002,11 @@
     </ng-template>
 
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="isUpdateIdentificacionFactoresRiesgo" pButton type="button" label="Guardar"
-            (click)="editarDatosIdentificacionFactoresRiesgo()"></button>
-        <button *ngIf="!isUpdateEvaluacionCrecimientoFisicoIdentificacionFactoresRiesgo" pButton type="button" label="Guardar"
-            (click)="saveFormIdentificacionFactoresRiesgo()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button *ngIf="isUpdateFactoresRiesgo" pButton type="button" label="Guardar" (click)="editarDatosHabito()"></button>
+        <button *ngIf="!isUpdateFactoresRiesgo" pButton type="button" label="Guardar" (click)="saveFormHabito()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
-
 <p-dialog class="dialogo m-4" [(visible)]="descartesEnfermedadesNoTransmisiblesDialog" [style]="{width: '400px'}"
     [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="header">
@@ -967,10 +1017,10 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateDescartesEnfermedadesNoTransmisibles" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateDescartesEnfermedadesNoTransmisibles" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateDescartesEnfermedadesNoTransmisibles" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateDescartesEnfermedadesNoTransmisibles" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-6">
                     <label>Hematocrito:</label>
@@ -1001,8 +1051,7 @@
             (click)="editarDatosDescarteEnfermedadesNoTransmisibles()"></button>
         <button *ngIf="!isUpdateDescartesEnfermedadesNoTransmisibles" pButton type="button" label="Guardar"
             (click)="saveFormDescarteEnfermedadesNoTransmisibles()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -1016,10 +1065,10 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateEscolaridades" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateEscolaridades" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEscolaridades" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEscolaridades" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Asistencia Escuela/Colegio:</label>
@@ -1045,8 +1094,7 @@
             (click)="editarDatosEscolaridad()"></button>
         <button *ngIf="!isUpdateEscolaridades" pButton type="button" label="Guardar"
             (click)="saveFormEscolaridad()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -1060,10 +1108,10 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateHabitos" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateHabitos" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateHabitos" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateHabitos" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-6">
                     <label>Uso de tiempo libre:</label>
@@ -1100,12 +1148,9 @@
     </ng-template>
 
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="isUpdateHabitos" pButton type="button" label="Guardar"
-            (click)="editarDatosHabito()"></button>
-        <button *ngIf="!isUpdateHabitos" pButton type="button" label="Guardar"
-            (click)="saveFormHabito()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button *ngIf="isUpdateHabitos" pButton type="button" label="Guardar" (click)="editarDatosHabito()"></button>
+        <button *ngIf="!isUpdateHabitos" pButton type="button" label="Guardar" (click)="saveFormHabito()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -1119,15 +1164,20 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input *ngIf="isUpdateSaludSexualReproductiva" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateSaludSexualReproductiva" type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateSaludSexualReproductiva" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateSaludSexualReproductiva" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-6">
                     <label>Pareja o enamorado:</label>
                     <input type="text" pInputText formControlName='parejaEnamorado'
                         class="p-inputtext inputfield w-full" placeholder="Pareja o enamorado">
+                </div>
+                <div class="col-6">
+                    <label>Relaciones sexuales:</label>
+                    <input type="text" pInputText formControlName='relacionesSexuales'
+                        class="p-inputtext inputfield w-full" placeholder="Relaciones sexuales">
                 </div>
                 <div class="col-6">
                     <label>Conducta sexual de riesgo:</label>
@@ -1180,7 +1230,6 @@
             (click)="editarDatosSaludSexualReproductiva()"></button>
         <button *ngIf="!isUpdateSaludSexualReproductiva" pButton type="button" label="Guardar"
             (click)="saveFormSaludSexualReproductiva()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
