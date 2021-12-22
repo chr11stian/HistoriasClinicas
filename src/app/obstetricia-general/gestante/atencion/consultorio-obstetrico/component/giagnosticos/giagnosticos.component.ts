@@ -218,7 +218,7 @@ export class GiagnosticosComponent implements OnInit {
             motivo: this.formOtrosDatos.value.motivo,
             codRENAES: this.formOtrosDatos.value.codRENAES
         },
-        this.proxCita = {fecha:this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd'),estado:"PENDIENTE"}
+        this.proxCita = {fecha:this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd')}
         this.visitaDomiciliaria = {
             estado: this.formOtrosDatos.value.visita,
             fecha:  this.datePipe.transform(this.formOtrosDatos.value.fechaVisita, 'yyyy-MM-dd HH:mm:ss')
@@ -278,16 +278,8 @@ export class GiagnosticosComponent implements OnInit {
                             detail: 'Registro recuperado satisfactoriamente'
                         });
 
-                    /************************RECUPERAR DATOS EXTRA**************************/
-                    this.formOtrosDatos.patchValue({'consultorio': this.dataAux.referencia.consultorio});
-                    this.formOtrosDatos.patchValue({'motivo': this.dataAux.referencia.motivo});
-                    this.formOtrosDatos.patchValue({'codRENAES': this.dataAux.referencia.codRENAES});
-                    this.formOtrosDatos.patchValue({'proxCita': this.dataAux.proxCita.fecha});
-                    this.formOtrosDatos.patchValue({'visita': this.dataAux.visitaDomiciliaria.estado});
-                    this.formOtrosDatos.patchValue({'fechaVisita': this.dataAux.visitaDomiciliaria.fecha});
-                    this.formOtrosDatos.patchValue({'planPartoReenfocada': this.dataAux.planPartoReenfocada});
                     /**********************RECUPERAR DATOS DE ORIENTACIONES********/
-
+                    if(this.dataAux.orientaciones!=null) {
                         let y: number = 0;
                         console.log(this.dataAux.orientaciones);
                         // this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de orientaciones recuperado satisfactoriamente'});
@@ -298,19 +290,36 @@ export class GiagnosticosComponent implements OnInit {
                             }
                             y++;
                         }
-
+                    }
                     /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
+                    if(this.dataAux.diagnosticos!=null) {
                         let x: number = 0;
-
                         while (x < this.dataAux.diagnosticos.length) {
 
                             console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[x]);
                             this.diagnosticos.push(this.dataAux.diagnosticos[x]);
-                            x++;}
+                            x++;
+                        }
+                    }
+                    if(this.dataAux.referencia != null){
+                            this.formOtrosDatos.patchValue({'consultorio': this.dataAux.referencia.consultorio});
+                            this.formOtrosDatos.patchValue({'motivo': this.dataAux.referencia.motivo});
+                            this.formOtrosDatos.patchValue({'codRENAES': this.dataAux.referencia.codRENAES});
+                        }
+                        /************************RECUPERAR DATOS EXTRA**************************/
+                    if (this.dataAux.proxCita!=null){
+                        this.formOtrosDatos.patchValue({'proxCita': this.dataAux.proxCita.fecha});
+                    }
+                    if(this.dataAux.visitaDomiciliaria!=null){
+                        this.formOtrosDatos.patchValue({'visita': this.dataAux.visitaDomiciliaria.estado});
+                        this.formOtrosDatos.patchValue({'fechaVisita': this.dataAux.visitaDomiciliaria.fecha});
+                    }
+                    if(this.dataAux.planPartoReenfocada){
+                        this.formOtrosDatos.patchValue({'planPartoReenfocada': this.dataAux.planPartoReenfocada});
 
-}
+                    }
 
-                else{this.messageService.add({severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía'});}
+            } else{this.messageService.add({severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía'});}
 
             }
         });

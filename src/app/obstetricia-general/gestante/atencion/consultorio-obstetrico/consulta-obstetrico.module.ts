@@ -17,7 +17,6 @@ import { ModalInterconsultaComponent } from './component/tratamiento/modal-inter
 import { ModalRecomendacionesComponent } from './component/tratamiento/modal-recomendaciones/modal-recomendaciones.component';
 import { ModalExamenesAuxiliaresComponent } from './component/tratamiento/modal-examenes-auxiliares/modal-examenes-auxiliares.component';
 
-
 @NgModule({
     declarations: [
         ModalTratamientoComponent,
