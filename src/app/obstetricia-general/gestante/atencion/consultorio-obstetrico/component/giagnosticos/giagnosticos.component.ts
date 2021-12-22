@@ -218,7 +218,7 @@ export class GiagnosticosComponent implements OnInit {
             motivo: this.formOtrosDatos.value.motivo,
             codRENAES: this.formOtrosDatos.value.codRENAES
         },
-        this.proxCita = {fecha:this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd'),estado:"PENDIENTE"}
+        this.proxCita = {fecha:this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd')}
         this.visitaDomiciliaria = {
             estado: this.formOtrosDatos.value.visita,
             fecha:  this.datePipe.transform(this.formOtrosDatos.value.fechaVisita, 'yyyy-MM-dd HH:mm:ss')

@@ -25,3 +25,13 @@ export interface valoracionFuncional{
     items?:item[],
     diagnostico?:string
 }
+export interface valoracionMental{
+    itemsEstadoAfectivo?:item[],
+    itemsEstadoCognitivo?:item[],
+    diagnosticoAfectivo?:string,
+    diagnosticoCognitivo?:string
+}
+export interface valoracionSocioFamiliar{
+    items?:item[],
+    diagnostico?:string
+}

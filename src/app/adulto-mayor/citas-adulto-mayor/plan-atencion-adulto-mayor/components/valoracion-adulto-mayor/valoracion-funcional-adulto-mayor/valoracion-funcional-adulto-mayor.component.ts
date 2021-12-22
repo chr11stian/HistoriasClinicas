@@ -22,8 +22,8 @@ export class ValoracionFuncionalAdultoMayorComponent implements OnInit {
     { label: 'SI', value: true },
     { label: 'NO', value: false }
   ];
-  diagnostico:any;
-  city: any;
+  diagnostico:string;
+
 
   constructor(private formBuilder: FormBuilder,
               private valoracionService: AdultoMayorService,
@@ -140,6 +140,7 @@ export class ValoracionFuncionalAdultoMayorComponent implements OnInit {
         fecha: "2021-12-10 15:00:00",
         valoracionFuncional:this.valoracionesFuncional
       }
+      this.formValoracionClinicaFuncional.patchValue({ 'diagnostico': this.valoracionesFuncional.diagnostico });
       console.log('valoracion funcional a guardar:', cadena);
       this.valoracionService.postValoracionClinica(this.idRecuperado, cadena).subscribe((res: any) => {
         console.log('se guardo correctamente ', res.object);
@@ -168,6 +169,7 @@ export class ValoracionFuncionalAdultoMayorComponent implements OnInit {
       fecha: "2021-12-10 15:00:00",
       valoracionFuncional: this.valoracionesFuncional
     }
+    this.formValoracionClinicaFuncional.patchValue({ 'diagnostico': this.valoracionesFuncional.diagnostico });
     console.log('valoracion funcional a guardar:',cadena);
     this.valoracionService.updateValoracionClinica(this.idRecuperado,cadena).subscribe((res: any) => {
       console.log('se actualizo correctamente ', res.object);
