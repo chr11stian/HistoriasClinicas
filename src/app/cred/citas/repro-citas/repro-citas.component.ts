@@ -55,7 +55,7 @@ export interface Nacimiento {
 @Component({
     selector: 'app-repro-citas',
     templateUrl: './repro-citas.component.html',
-    styleUrls: ['./repro-citas.component.css']
+    styleUrls: ['./repro-citas.component.css'],
 })
 
 export class ReproCitasComponent implements OnInit {

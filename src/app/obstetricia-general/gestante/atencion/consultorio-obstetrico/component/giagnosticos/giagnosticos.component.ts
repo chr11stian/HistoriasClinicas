@@ -6,8 +6,6 @@ import {CieService} from "../../../../../services/cie.service";
 import {ConsultasService} from "../../services/consultas.service";
 import {DatePipe} from "@angular/common";
 import {MessageService} from "primeng/api";
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-
 @Component({
     selector: 'app-giagnosticos',
     templateUrl: './giagnosticos.component.html',
