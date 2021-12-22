@@ -54,8 +54,8 @@ export class DialogPatologiasMaternasComponent implements OnInit {
 
   aceptarPatologias() {
     let dataPatologias = {
-      diagnostico: this.formDiagnostico.value.diagnostico,
-      cie: this.formDiagnostico.value.cie10.codigoItem,
+      nombre: this.formDiagnostico.value.diagnostico,
+      cie10: this.formDiagnostico.value.cie10.codigoItem,
       fecha: this.formDiagnostico.value.datePatologia
     }
     this.ref.close(dataPatologias);

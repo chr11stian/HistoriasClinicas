@@ -220,24 +220,25 @@ export class DatosBasalesComponent implements OnInit {
         let aux2: boolean = this.form.value.hepatitisB;
         let aux3: boolean = this.form.value.papiloma;
         let aux4: boolean = this.form.value.influenza;
+        let aux5: boolean = this.form.value.covid;
 
-        if (aux1) {
+        if (aux1)
             vacPrev.push('rubeola');
-        }
-        if (aux2) {
+        if (aux2)
             vacPrev.push('hepatitis B')
-        }
-        if (aux3) {
+        if (aux3)
             vacPrev.push('papiloma')
-        }
-        if (aux4) {
+        if (aux4)
             vacPrev.push('influenza')
-        }
+        if (aux5)
+            vacPrev.push('covid')
+
         this.datosBasales = {
             pesoTalla: {
                 imc: this.form.value.imc,
                 pesoHabitual: this.form.value.pesoHabitual,
-                talla: this.form.value.talla
+                talla: this.form.value.talla,
+                pesoActual: this.form.value.pesoActual
             },
             antitetanica: {
                 nroDosisPrevia: this.form.value.nroDosisPrevias,
@@ -291,24 +292,7 @@ export class DatosBasalesComponent implements OnInit {
                 hemoglobina: this.hemoglobina,
                 otrosExamenes: this.otrosExamenes
             },
-            patologiaMaternoDiagnosticado: [
-                {
-                    nombre: this.form.value.patologiasMaternas1,
-                    fecha: this.form.value.datePatolog1
-                },
-                {
-                    nombre: this.form.value.patologiasMaternas2,
-                    fecha: this.form.value.datePatolog2
-                },
-                {
-                    nombre: this.form.value.patologiasMaternas3,
-                    fecha: this.form.value.datePatolog3
-                },
-                {
-                    nombre: this.form.value.patologiasMaternas4,
-                    fecha: this.form.value.datePatolog4
-                }
-            ],
+            patologiaMaternoDiagnosticado: this.listaPatologiasMaternas,
             proceso: 'datosBasales'
         }
     }
@@ -549,7 +533,6 @@ export class DatosBasalesComponent implements OnInit {
             this.CieService.getCIEByCod(this.rptaDatosBasales.emergencia.cie10).subscribe((resCIE: any) => {
                 this.form.patchValue({ 'emergenciaCIE': resCIE.object });
             });
-
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
             this.form.patchValue({ 'rubeola': auxVac == undefined ? false : true });
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "hepatitis B")
@@ -558,6 +541,8 @@ export class DatosBasalesComponent implements OnInit {
             this.form.patchValue({ 'papiloma': auxVac == undefined ? false : true });
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "influenza")
             this.form.patchValue({ 'influenza': auxVac == undefined ? false : true });
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "covid")
+            this.form.patchValue({ 'covid': auxVac == undefined ? false : true });
             this.form.patchValue({ 'tamizaje': this.rptaDatosBasales.violenciaGenero.fichaTamizaje });
             this.form.patchValue({ 'violencia': this.rptaDatosBasales.violenciaGenero.violencia });
             this.form.patchValue({ 'dateViolencia': this.rptaDatosBasales.violenciaGenero.fecha });
@@ -624,15 +609,7 @@ export class DatosBasalesComponent implements OnInit {
             this.form.patchValue({ 'datePap': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[25].fecha });
             this.form.patchValue({ 'ivaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].valor });
             this.form.patchValue({ 'dateIvaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].fecha });
-            this.form.patchValue({ 'patologiasMaternas1': this.rptaDatosBasales.patologiaMaternoDiagnosticado[0].nombre });
-            this.form.patchValue({ 'datePatolog1': this.rptaDatosBasales.patologiaMaternoDiagnosticado[0].fecha });
-            this.form.patchValue({ 'patologiasMaternas2': this.rptaDatosBasales.patologiaMaternoDiagnosticado[1].nombre });
-            this.form.patchValue({ 'datePatolog2': this.rptaDatosBasales.patologiaMaternoDiagnosticado[1].fecha });
-            this.form.patchValue({ 'patologiasMaternas3': this.rptaDatosBasales.patologiaMaternoDiagnosticado[2].nombre });
-            this.form.patchValue({ 'datePatolog3': this.rptaDatosBasales.patologiaMaternoDiagnosticado[2].fecha });
-            this.form.patchValue({ 'patologiasMaternas4': this.rptaDatosBasales.patologiaMaternoDiagnosticado[3].nombre });
-            this.form.patchValue({ 'datePatolog4': this.rptaDatosBasales.patologiaMaternoDiagnosticado[3].fecha });
-            ;
+            this.listaPatologiasMaternas = this.rptaDatosBasales.patologiaMaternoDiagnosticado;
         });
     }
 
@@ -837,7 +814,7 @@ export class DatosBasalesComponent implements OnInit {
 
         let birthDate = new DatePipe('en-CO').transform(fum, 'yyyy-MM-dd');
         console.log('fecha ultima menstruacion ', birthDate);
-        this.form.patchValue({ dateProbableParto: birthDate })
+        this.form.patchValue({ dateProbableParto: birthDate });
         // let fechaParto =
         // console.log('semanas gestacional ', this.edadGestacional, 'dias gest ', diasGestacional, 'semanas ', semanasGestacional);
         // this.imcService.getGananciaPesoRegular(semanasGestacional).subscribe((res: any) => {
@@ -889,7 +866,14 @@ export class DatosBasalesComponent implements OnInit {
             }
         });
         this.ref.onClose.subscribe((data: any) => {
-            this.listaPatologiasMaternas.push(data);
+            console.log('data de dialog ', data);
+            if (data.nombre != '') {
+                this.listaPatologiasMaternas.push(data);
+            }
         })
+    }
+
+    eliminarPatologia(index) {
+        this.listaPatologiasMaternas.splice(index, 1);
     }
 }
