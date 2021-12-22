@@ -904,7 +904,7 @@
     <button pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
 </div>
 
-<!-- DIALOG DE CONSULTAS -->
+<!-- DIALOG DE DIAGNOSTICOS -->
 <p-dialog class="dialogo m-4" [(visible)]="diagnosticoDialog" [style]="{width: '700px'}" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="header">
@@ -948,8 +948,6 @@
             (click)="closeDialogDiagnostico()"></button>
     </ng-template>
 </p-dialog>
-<!-- FIN DIALOG DE DIAGNOSTICOS -->
-
 <!-- DIALOG  DE TRATAMIENTO -->
 <p-dialog class="dialogo m-4" [(visible)]="tratamientoDialog" [style]="{width: '400px'}" [modal]="true"
     styleClass="p-fluid">
@@ -1010,7 +1008,6 @@
             (click)="closeDialogTratamiento()"></button>
     </ng-template>
 </p-dialog>
-<!-- FIN DIALOG  DE TRATAMIENTO -->
 <!-- DIALOG INTERCONSULTAS -->
 <p-dialog class="dialogo m-4" [(visible)]="interconsultaDialog" [style]="{width: '400px'}" [modal]="true"
     styleClass="p-fluid">
@@ -1048,7 +1045,6 @@
             (click)="canceledInterconsulta()"></button>
     </ng-template>
 </p-dialog>
-<!-- FIN DIALOG INTERCONSULTA -->
 <!-- DIALOG INMUNIZACIONES -->
 <p-dialog class="dialogo m-4" [(visible)]="inmunizacionDialog" [style]="{width: '800px'}" [modal]="true"
     styleClass="p-fluid">
@@ -1134,4 +1130,3 @@
         <button pButton type=" button" label="Cancelar" class="p-button-danger"></button>
     </ng-template>
 </p-dialog>
-<!-- FIN DIALOG RECOMENDACIONES -->

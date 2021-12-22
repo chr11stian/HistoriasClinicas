@@ -20,7 +20,7 @@
                         </div>
                         <div class="col-5">
                             <input type="number" pInputText formControlName='talla' placeholder=""
-                                class="inputfield w-full p-inputtext-sm" (blur)="convertirPeso()">
+                                class="inputfield w-full p-inputtext-sm">
                         </div>
                         <div class="col-2">
                             <span class="text-sm font-italic">cm</span>
@@ -279,8 +279,6 @@
                         </div>
                         <div class="grid mt-3">
                             <label>Fecha: </label>
-                            <!-- <p-calendar formControlName="dateHospitalizacion" [showIcon]="true" inputId="icon">
-                            </p-calendar> -->
                             <input type="date" pInputText formControlName='dateHospitalizacion' placeholder=""
                                 class="inputfield w-full">
                         </div>
@@ -379,6 +377,15 @@
                         </div>
                         <div class="col-6">
                             <p-selectButton [options]="sino" formControlName="influenza" optionValue="value"
+                                optionLabel="label"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-6 text-right">
+                            <label class=" mr-1 ">Covid 19: </label>
+                        </div>
+                        <div class="col-6">
+                            <p-selectButton [options]="sino" formControlName="covid" optionValue="value"
                                 optionLabel="label"></p-selectButton>
                         </div>
                     </div>
@@ -1431,70 +1438,42 @@
             <div class="col-12">
                 <p-fieldset legend="Patologias Maternas Diagnosticadas">
                     <div class="grid">
-                        <div class="col-6">
-                            <div class="grid">
-                                <div class="col-1">
-                                    <label>1. </label>
-                                </div>
-                                <div class="col-7">
-                                    <input type="text" pInputText formControlName='patologiasMaternas1'
-                                        class="inputfield w-full" placeholder="">
-                                </div>
-                                <div class="col-4">
-                                    <!-- <p-calendar formControlName="datePatolog1" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='datePatolog1' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-1">
-                                    <label>2. </label>
-                                </div>
-                                <div class="col-7">
-                                    <input type="text" pInputText formControlName='patologiasMaternas2'
-                                        class="inputfield w-full" placeholder="">
-                                </div>
-                                <div class="col-4">
-                                    <!-- <p-calendar formControlName="datePatolog2" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='datePatolog2' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
+                        <div class="col-12">
+                            <button pButton pRipple icon="pi pi-plus" type="button" label="Patologias"
+                                class="p-button-raised mt-3" (click)="openDialogPatologias()"></button>
                         </div>
-                        <div class="col-6">
-                            <div class="grid">
-                                <div class="col-1">
-                                    <label>3. </label>
+                        <p-table [value]="listaPatologiasMaternas" [showCurrentPageReport]="true" [filterDelay]="0">
+                            <ng-template pTemplate="caption">
+                                <div class="flex justify-content-between">
+                                    <div class="table-header mt-2">
+                                        Lista de Patologias Maternas Diagnosticadas
+                                    </div>
                                 </div>
-                                <div class="col-7">
-                                    <input type="text" pInputText formControlName='patologiasMaternas3'
-                                        class="inputfield w-full" placeholder="">
-                                </div>
-                                <div class="col-4">
-                                    <!-- <p-calendar formControlName="datePatolog3" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='datePatolog3' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-1">
-                                    <label>4. </label>
-                                </div>
-                                <div class="col-7">
-                                    <input type="text" pInputText formControlName='patologiasMaternas4'
-                                        class="inputfield w-full" placeholder="">
-                                </div>
-                                <div class="col-4">
-                                    <!-- <p-calendar formControlName="datePatolog4" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='datePatolog4' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                        </div>
+                            </ng-template>
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Nro</th>
+                                    <th>CIE10</th>
+                                    <th>Diagnóstico</th>
+                                    <th style="text-align: center; width:4rem">Acción</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-patologias let-i="rowIndex">
+                                <tr>
+                                    <td>{{ i + 1}}</td>
+                                    <td>{{patologias.cie}}</td>
+                                    <td>{{patologias.diagnostico}}</td>
+                                    <td style="display: flex;">
+                                        <button pButton pRipple type="button" icon="pi pi-pencil"
+                                            (click)="openDialogEditarRecomendacion(patologias, i)"
+                                            class="p-button-rounded p-button-text"></button>
+                                        <button pButton pRipple type="button" icon="pi pi-trash"
+                                            (click)="eliminarRecomendacion(i)"
+                                            class="p-button-rounded p-button-danger p-button-text"></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
                     </div>
                 </p-fieldset>
             </div>

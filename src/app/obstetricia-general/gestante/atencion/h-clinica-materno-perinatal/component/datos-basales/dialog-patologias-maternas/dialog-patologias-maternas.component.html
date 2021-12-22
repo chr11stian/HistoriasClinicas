@@ -1,0 +1,63 @@
+<div class="col-12">
+    <!-- <ng-template pTemplate="body"> -->
+    <form [formGroup]='formDiagnostico'>
+        <div class="grid">
+            <div class="col-6">
+                <div class="grid">
+                    <div class="col-3 text-right">
+                        <label>CIE10</label>
+                    </div>
+                    <div class="col-9">
+                        <p-autoComplete formControlName="cie10" [suggestions]="listaDeCIE" appendTo="body"
+                            (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                            (onSelect)="selectedOption($event)" class="" [forceSelection]="true" dataKey="codigoItem">
+                        </p-autoComplete>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="grid">
+                    <div class="col-4 text-right">
+                        <label>Fecha: </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="date" pInputText formControlName='datePatologia' placeholder=""
+                            class="inputfield w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-2 text-right">
+                <label>Diagnostico</label>
+            </div>
+            <div class="col-9">
+                <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                    field="descripcionItem" [minLength]="1" class="areaText " appendTo="body"
+                    formControlName="autocompleteDiagnostico" (onSelect)="selectedOptionNameCIE($event)">
+                </p-autoComplete>
+            </div>
+        </div>
+        <div class="grid">
+            <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnostico" pInputTextarea
+                disabled></textarea>
+        </div>
+        <div class="col-12 mt-3 text-right">
+            <!-- <div class="col-4 text-right"> -->
+            <button *ngIf="!update" class="mr-2" pButton type="button" label="Guardar"
+                (click)="aceptarPatologias()"></button>
+            <!-- </div>
+            <div class="col-4 text-right"> -->
+            <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="closeDialog()"></button>
+            <!-- </div> -->
+        </div>
+    </form>
+    <!-- </ng-template> -->
+
+    <!-- <ng-template pTemplate="footer" class="text-right"> -->
+    <!-- <button *ngIf="update" pButton type="button" label="Guardar"
+            (click)="guardarEdicionDiagnostico()"></button> -->
+
+
+    <!-- </ng-template> -->
+</div>

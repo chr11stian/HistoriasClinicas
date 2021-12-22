@@ -10,6 +10,8 @@ import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { HemoglobinaDialogComponent } from './hemoglobina-dialog/hemoglobina-dialog.component';
 import { ImcService } from 'src/app/obstetricia-general/services/imc.service';
+import { DatePipe } from '@angular/common';
+import { DialogPatologiasMaternasComponent } from './dialog-patologias-maternas/dialog-patologias-maternas.component';
 
 @Component({
     selector: 'app-datos-basales',
@@ -40,6 +42,7 @@ export class DatosBasalesComponent implements OnInit {
     ref: DynamicDialogRef;
     otrosExamHemo: any[] = [];
     tipoGananciaPeso: string;
+    listaPatologiasMaternas: any[] = [];
 
     constructor(private filiancionService: FiliancionService,
         private fb: FormBuilder,
@@ -62,40 +65,66 @@ export class DatosBasalesComponent implements OnInit {
 
     inicalizarForm() {
         this.form = this.fb.group({
+            //peso y talla
             imc: new FormControl(""),
             pesoActual: new FormControl(""),
             pesoHabitual: new FormControl(""),
             talla: new FormControl(""),
+            //antitetanica
             nroDosisPrevias: new FormControl(""),
             primeraDosis: new FormControl(null),
             segundaDosis: new FormControl(""),
             firstDosis: new FormControl(""),
             secondDosis: new FormControl(""),
-            drogas: new FormControl(""),
             aplica: new FormControl(""),
             sinDosis: new FormControl(""),
-            dosisNoAplica: new FormControl(""),
+            //drogas
+            drogas: new FormControl(""),
+            //cigarros
             cigarrillosDia: new FormControl(""),
+            //tipo de sangre
             tipoSangreGrupo: new FormControl(""),
             rh: new FormControl(""),
+            //fecha ultima menstruacion
             duda: new FormControl(""),
+            dateFUM: new FormControl(""),
+            dateProbableParto: new FormControl(""),
+            ecografia1: new FormControl(""),
+            dateEco1: new FormControl(""),
+            ecografia2: new FormControl(""),
+            dateEco2: new FormControl(""),
+            ecografia3: new FormControl(""),
+            dateEco3: new FormControl(""),
+            //hospitalizacion  y emergencia
             hospitalizacion: new FormControl(""),
+            dateHospitalizacion: new FormControl(""),
             diagnosticoHosp: new FormControl(""),
-            diagnosticoEmergenci: new FormControl(""),
             hospitalizacionCIE: new FormControl(""),
+            dateEmergencia: new FormControl(""),
+            diagnosticoEmergenci: new FormControl(""),
             emergenciaCIE: new FormControl(""),
+            autocompleteHosp: new FormControl(""),
+            autocompleteEmerg: new FormControl(""),
+            //vacunas previas
             rubeola: new FormControl(""),
             hepatitisB: new FormControl(""),
             papiloma: new FormControl(""),
+
             influenza: new FormControl(""),
+            covid: new FormControl(""),
+            //violencia/genero
             tamizaje: new FormControl(""),
             violencia: new FormControl(""),
+            dateViolencia: new FormControl(""),
+
+            //examen fisico
             clinico: new FormControl(""),
             mamas: new FormControl(""),
             cuelloUter: new FormControl(""),
             pelvis: new FormControl(""),
             odont1: new FormControl(""),
             odont2: new FormControl(""),
+            //examen laboratorio
             hg1: new FormControl(""),
             conFactor1: new FormControl(""),
             hemo1: new FormControl(""),
@@ -137,21 +166,7 @@ export class DatosBasalesComponent implements OnInit {
             secrecionVag: new FormControl(""),
             pap: new FormControl(""),
             ivaa: new FormControl(""),
-            patologiasMaternas1: new FormControl(""),
-            patologiasMaternas2: new FormControl(""),
-            patologiasMaternas3: new FormControl(""),
-            patologiasMaternas4: new FormControl(""),
-            dateFUM: new FormControl(""),
-            dateProbableParto: new FormControl(""),
-            ecografia1: new FormControl(""),
-            dateEco1: new FormControl(""),
-            ecografia2: new FormControl(""),
-            dateEco2: new FormControl(""),
-            ecografia3: new FormControl(""),
-            dateEco3: new FormControl(""),
-            dateHospitalizacion: new FormControl(""),
-            dateEmergencia: new FormControl(""),
-            dateViolencia: new FormControl(""),
+
             datevdrl1: new FormControl(""),
             dateTpha: new FormControl(""),
             dateVih1: new FormControl(""),
@@ -177,12 +192,15 @@ export class DatosBasalesComponent implements OnInit {
             dateSecrecionVag: new FormControl(""),
             datePap: new FormControl(""),
             dateIvaa: new FormControl(""),
+            patologiasMaternas1: new FormControl(""),
+            patologiasMaternas2: new FormControl(""),
+            patologiasMaternas3: new FormControl(""),
+            patologiasMaternas4: new FormControl(""),
             datePatolog1: new FormControl(""),
             datePatolog2: new FormControl(""),
             datePatolog3: new FormControl(""),
             datePatolog4: new FormControl(""),
-            autocompleteHosp: new FormControl(""),
-            autocompleteEmerg: new FormControl(""),
+
         });
 
         this.formHemoglobina = this.fb.group({
@@ -654,7 +672,7 @@ export class DatosBasalesComponent implements OnInit {
         let today = new Date().getTime();
         let auxFUM = new Date(this.form.value.dateFUM).getTime();
         auxFUM = auxFUM + 0;
-        // console.log('auxFUM ', auxFUM, 'today ', today);
+        console.log('auxFUM ', auxFUM, 'today ', today);
         let auxWeek = today - auxFUM;
         // console.log('fecha actual ', auxWeek);
         if (auxWeek < 0) {
@@ -678,7 +696,6 @@ export class DatosBasalesComponent implements OnInit {
         let imcAux;
 
         if (semanasGestacional < 13) {
-
             this.imcService.getClasificacionEstadoNutricionalByTalla(alturaMetros).subscribe((res: any) => {
                 // rptaClasific = res;
                 rptaClasific = res.object.clasificaionEstadoNutricionalIMCPG[0];
@@ -747,7 +764,6 @@ export class DatosBasalesComponent implements OnInit {
             console.log('es mayor a 13 semanas ', semanasGestacional);
             this.imcService.getClasificacionEstadoNutricionalByTallaSemanas(semanasGestacional, alturaMetros * 100).subscribe((res: any) => {
                 rptaClasific = res.object.edadGestacionalP10P90[0];
-                console.log('rpta clas ', rptaClasific);
                 if (pesoActual < rptaClasific.p10) {
 
                     this.imcService.getGananciaBajoPeso(semanasGestacional).subscribe((res: any) => {
@@ -814,8 +830,15 @@ export class DatosBasalesComponent implements OnInit {
             });
         }
 
+        let fum: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd');
+        fum = new Date(fum);
+        fum.setMonth(fum.getMonth() + 9);
+        fum.setDate(fum.getDate() + 7);
 
-
+        let birthDate = new DatePipe('en-CO').transform(fum, 'yyyy-MM-dd');
+        console.log('fecha ultima menstruacion ', birthDate);
+        this.form.patchValue({ dateProbableParto: birthDate })
+        // let fechaParto =
         // console.log('semanas gestacional ', this.edadGestacional, 'dias gest ', diasGestacional, 'semanas ', semanasGestacional);
         // this.imcService.getGananciaPesoRegular(semanasGestacional).subscribe((res: any) => {
         //     this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
@@ -853,8 +876,20 @@ export class DatosBasalesComponent implements OnInit {
         });
     }
 
-    convertirPeso() {
-        let peso = (this.form.value.talla) / 100;
-        console.log('peso ', peso);
+    openDialogPatologias() {
+        this.ref = this.dialog.open(DialogPatologiasMaternasComponent, {
+            header: "PATOLOGIAS MATERNAS DIAGNOSTICADAS",
+            width: "40%",
+            height: "auto",
+            contentStyle: {
+                "max-height": "500px",
+            },
+            data: {
+                texto: 'datossss'
+            }
+        });
+        this.ref.onClose.subscribe((data: any) => {
+            this.listaPatologiasMaternas.push(data);
+        })
     }
 }
