@@ -20,13 +20,14 @@
                         <label>¿Correcto?</label>
                     </div>
                 </div>
+                <form [formGroup]="formValoracionMental" >
                 <!--primera fila-->
                 <div class="grid">
                     <div class="col-8 p-field">
                         <label class="">¿Cuál es la fecha de hoy? </label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeFecha"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
@@ -36,7 +37,7 @@
                         <label class="">¿Qué día de la semana es? </label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeSemana"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
@@ -46,7 +47,7 @@
                         <label class="">¿En qué lugar estamos?(Vale cualquier descripción correcta del lugar) </label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeLugar"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
@@ -56,7 +57,7 @@
                         <label class="">¿Cuál es su número de teléfono? Si no tiene</label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeTelefono"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
@@ -66,7 +67,7 @@
                         <label class="">¿Cuál es su dirección completa? </label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeDireccion"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
@@ -76,7 +77,7 @@
                         <label class="">¿Cuántos años tiene?</label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeEdad"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
@@ -86,7 +87,7 @@
                         <label class="">¿Dónde nació?</label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeLugarNac"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
@@ -96,14 +97,36 @@
                         <label class="">¿Cuál es el nombre del presidente del Perú?</label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabePresidente"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
+                    <!-- 9 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">Digame el primer apellido de su madre</label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeApeMadre"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!--10 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">Restar de 3 en 3 desde 30 (cualquier error hace errónea la respuesta)</label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeResta"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                </form>
             </p-fieldset>
         </div>
         <div class="col-12 md:col-5 lg:col-5">
             <p-fieldset legend="Valoración Cognitiva" [toggleable]="true">
+
                 <!--primera fila-->
                 <div class="grid">
                     <div class="col-12">
@@ -147,19 +170,21 @@
                                 <p>-Deterioro Cognitivo Severo   :8 a 10E</p>
                     </div>
                 </div>
+
             </p-fieldset>
         </div>
     </div>
     <div class="grid">
         <div class="col-12 md:col-7 lg:col-7">
             <p-fieldset legend="Estado Afectivo (Escala abreviatura de Yesavage)" [toggleable]="true">
+                <form [formGroup]="formValoracionMental" >
                 <!--primera fila-->
                 <div class="grid">
                     <div class="col-8 p-field">
                         <label class="">¿Esta satisfecho de la vida? </label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="satisfecho"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
@@ -169,7 +194,7 @@
                         <label class="">¿Se siente importante o indefenso? </label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="importante"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
@@ -179,7 +204,7 @@
                         <label class="">¿Tiene problemas de memoria? </label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="probMemoria"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
@@ -189,14 +214,16 @@
                         <label class="">¿Siente desgano o se siente imposibilitado respecto a actividades e intereses?</label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="desganado"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
+                </form>
             </p-fieldset>
         </div>
         <div class="col-12 md:col-5 lg:col-5">
             <p-fieldset legend="Manifestaciones Depresivas" [toggleable]="true">
+
                 <!--primera fila-->
                 <div class="grid">
                     <div class="p-field-radiobutton">
@@ -210,6 +237,7 @@
                         <label> Con Manifestaciones Depresivas (2 o más positivas)</label>
                    </div>
                 </div>
+
             </p-fieldset>
         </div>
     </div>

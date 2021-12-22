@@ -15,9 +15,23 @@ export interface TratamientosFrecuentes{
     dosis?:number,
     observaciones?:string
 }
-export interface ValoracionFuncional{
+export interface item{
     nombreItem?:string,
     respuesta?:string,
     puntaje?:number
 
+}
+export interface valoracionFuncional{
+    items?:item[],
+    diagnostico?:string
+}
+export interface valoracionMental{
+    itemsEstadoAfectivo?:item[],
+    itemsEstadoCognitivo?:item[],
+    diagnosticoAfectivo?:string,
+    diagnosticoCognitivo?:string
+}
+export interface valoracionSocioFamiliar{
+    items?:item[],
+    diagnostico?:string
 }
