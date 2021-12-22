@@ -51,6 +51,11 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   formIdentificacionesFactoresRiesgo: FormGroup;
   isUpdateIdentificacionesFactoresRiesgo: boolean = false;
 
+  factoresRiesgo: any[] = [];
+  factoresRiesgoDialog: boolean = false;
+  formFactoresRiesgo: FormGroup;
+  isUpdateFactoresRiesgo: boolean = false;
+
   descartesEnfermedadesNoTransmisibles: any[] = [];
   descartesEnfermedadesNoTransmisiblesDialog: boolean = false;
   formDescartesEnfermedadesNoTransmisibles: FormGroup;
@@ -130,6 +135,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     })
     this.formIdentificacionesFactoresRiesgo = this.fb.group({
       fecha: new FormControl(""),
+    })
+    this.formFactoresRiesgo = this.fb.group({
       nombre: new FormControl(""),
       valor: new FormControl("")
     })
@@ -162,13 +169,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
       conductaSexualRiesgo: new FormControl(""),
       dosMasParejas: new FormControl(""),
       sexoSinProteccion: new FormControl(""),
-      RSConPersonasDelMismoSexo: new FormControl(""),
-      RSConPersonasDelOtroSexo: new FormControl(""),
+      rsconPersonasDelMismoSexo: new FormControl(""),
+      rsconPersonasDelOtroSexo: new FormControl(""),
       usoMetodoAnticonceptivo: new FormControl(""),
       conocimientoPrevenirEmbarazoNoDeseado: new FormControl(""),
       conocimientoPrevenirTransmisionITSVIH: new FormControl("")
     })
-
   }
 
   getTodasLasEvaluaciones() {
@@ -663,11 +669,11 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   }
   editarIdentificacionColeraIrritabilidadAgresion(rowData) {
     this.isUpdateIdentificacionesColeraIrritabilidadAgresion = true;
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('fecha').setValue(rowData.fecha?"":rowData.fecha)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('colera').setValue(rowData.colera?"":rowData.colera)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('irritabilidad').setValue(rowData.irritabilidad?"":rowData.irritabilidad)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('agresion').setValue(rowData.agresion?"":rowData.agresion)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('calificacionTotal').setValue(rowData.calificacionTotal?"":rowData.calificacionTotal)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('fecha').setValue(rowData.fecha)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('colera').setValue(rowData.colera)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('irritabilidad').setValue(rowData.irritabilidad)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('agresion').setValue(rowData.agresion)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('calificacionTotal').setValue(rowData.calificacionTotal)
     this.identificacionesColeraIrritabilidadAgresionDialog = true;
 
   }
@@ -787,8 +793,6 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     this.isUpdateIdentificacionesFactoresRiesgo = false;
     this.formIdentificacionesFactoresRiesgo.reset();
     this.formIdentificacionesFactoresRiesgo.get('fecha').setValue("");
-    this.formIdentificacionesFactoresRiesgo.get('nombre').setValue("");
-    this.formIdentificacionesFactoresRiesgo.get('valor').setValue("");
     this.identificacionesFactoresRiesgoDialog = true;
   }
   saveFormIdentificacionFactoresRiesgo() {
@@ -854,6 +858,94 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
       }
     )
   }
+  //mini tabla
+  enviarEgresosRecienNacido() {
+    var factoresRiesgoUnaFecha = {
+        nombre: this.formFactoresRiesgo.value.nombre,
+        riesgo: this.formFactoresRiesgo.value.valor,
+    }
+    console.log(factoresRiesgoUnaFecha);
+    this.factoresRiesgo.push(factoresRiesgoUnaFecha);
+    this.factoresRiesgoDialog = false;
+}
+
+// canceledEgreso() {
+//     Swal.fire({
+//         icon: 'warning',
+//         title: 'Cancelado...',
+//         text: '',
+//         showConfirmButton: false,
+//         timer: 1000
+//     })
+//     this.egresoRNDialog = false;
+//     this.estadoEditarRN = false;
+// }
+
+
+// openDialogEditarRN(rowData, rowIndex) {
+//     this.estadoEditarRN = true;
+//     this.indexRNEditado = rowIndex;
+//     this.formEgresoRN.reset();
+//     this.formEgresoRN.get('reingreso').setValue(rowData.reingreso);
+//     this.formEgresoRN.get('fechaRN').setValue(this.datePipe.transform(new Date(rowData.fecha), 'yyyy-MM-ddTHH:mm'));
+//     this.formEgresoRN.get('diagnostico').setValue(rowData.diagnostico);
+//     this.formEgresoRN.get('fechaIngreso').setValue(this.datePipe.transform(new Date(rowData.fechaIngreso), 'yyyy-MM-ddTHH:mm'));
+//     this.formEgresoRN.get('egresoRN').setValue(rowData.egreso);
+//     this.formEgresoRN.get('dxfNoAplica').setValue(rowData.dxfNoAplica ? ["true"] : []);
+//     this.formEgresoRN.get('dxFallecimiento').setValue(rowData.dxFallecimiento);
+//     this.formEgresoRN.get('dxtNoAplica').setValue(rowData.dxtNoAplica ? ["true"] : []);
+//     this.formEgresoRN.get('dxTraslado').setValue(rowData.dxTraslado);
+//     this.formEgresoRN.get('estaNoAplica').setValue(rowData.estaNoAplica ? ["true"] : []);
+//     this.formEgresoRN.get('establecimientoTras').setValue(rowData.establecimientoTraslado);
+//     this.formEgresoRN.get('fechaContro').setValue(this.datePipe.transform(new Date(rowData.fechaContro), 'yyyy-MM-ddTHH:mm'));
+//     this.formEgresoRN.get('controlRecienNacido').setValue(rowData.controlRecienNacido);
+//     this.egresoRNDialog = true;
+// }
+
+// guardarEdicionEgresoRN() {
+//     var recienNacidoEgreso = {
+//         reingreso: this.formEgresoRN.value.reingreso,
+//         fecha: this.datePipe.transform(this.formEgresoRN.value.fechaRN, 'yyyy-MM-dd HH:mm:ss'),
+//         diagnostico: this.formEgresoRN.value.diagnostico,
+//         fechaIngreso: this.datePipe.transform(this.formEgresoRN.value.fechaIngreso, 'yyyy-MM-dd HH:mm:ss'),
+//         egreso: this.formEgresoRN.value.egresoRN,
+//         dxfNoAplica: this.formEgresoRN.value.dxfNoAplica ? true : false,
+//         dxFallecimiento: this.formEgresoRN.value.dxFallecimiento,
+//         dxtNoAplica: this.formEgresoRN.value.dxtNoAplica ? true : false,
+//         dxTraslado: this.formEgresoRN.value.dxTraslado,
+//         estaNoAplica: this.formEgresoRN.value.estaNoAplica ? true : false,
+//         establecimientoTraslado: this.formEgresoRN.value.establecimientoTras,
+//         fechaContro: this.datePipe.transform(this.formEgresoRN.value.fechaContro, 'yyyy-MM-dd HH:mm:ss'),
+//         controlRecienNacido: this.formEgresoRN.value.controlRecienNacido
+//     }
+//     console.log(recienNacidoEgreso);
+//     this.todosEgresosDelRN.splice(this.indexRNEditado, 1, recienNacidoEgreso);
+//     this.egresoRNDialog = false;
+//     this.estadoEditarRN = false;
+// }
+
+// eliminarEgresoRN(rowIndex) {
+//     this.estadoEditarRN = false;
+//     Swal.fire({
+//         showCancelButton: true,
+//         confirmButtonText: 'Eliminar',
+//         icon: 'warning',
+//         title: 'Estas seguro de eliminar egreso del RN',
+//         text: '',
+//         showConfirmButton: true,
+//     }).then((result) => {
+//         if (result.isConfirmed) {
+//             this.todosEgresosDelRN.splice(rowIndex, 1);
+//             Swal.fire({
+//                 icon: 'success',
+//                 title: 'Eliminado correctamente',
+//                 text: '',
+//                 showConfirmButton: false,
+//                 timer: 1500
+//             })
+//         }
+//     })
+// }
   //descarte enfermedades no transmisibles
   getDescarteEnfermedadesNoTransmisibles(){
     this.planAtencionIntegralTablasService.getDescarteEnfermedadesNoTransmisibles(this.nroDoc)
@@ -1039,7 +1131,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   saveFormHabito() {
     this.isUpdateHabitos = false;
     const req = {
-      fecha: this.formEvaluacionCrecimientoFisico.value.fecha,
+      fecha: this.formHabitos.value.fecha,
       usoTiempoLibre: this.formHabitos.value.usoTiempoLibre,
       sedentarismo: this.formHabitos.value.sedentarismo,
       usoAlcohol: this.formHabitos.value.usoAlcohol,
@@ -1082,7 +1174,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   }
   editarDatosHabito() {
     const req = {
-      fecha: this.formEvaluacionCrecimientoFisico.value.fecha,
+      fecha: this.formHabitos.value.fecha,
       usoTiempoLibre: this.formHabitos.value.usoTiempoLibre,
       sedentarismo: this.formHabitos.value.sedentarismo,
       usoAlcohol: this.formHabitos.value.usoAlcohol,
@@ -1124,8 +1216,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     this.formSaludSexualReproductiva.get('conductaSexualRiesgo').setValue("");
     this.formSaludSexualReproductiva.get('dosMasParejas').setValue("");
     this.formSaludSexualReproductiva.get('sexoSinProteccion').setValue("");
-    this.formSaludSexualReproductiva.get('RSConPersonasDelMismoSexo').setValue("");
-    this.formSaludSexualReproductiva.get('RSConPersonasDelOtroSexo').setValue("");
+    this.formSaludSexualReproductiva.get('rsconPersonasDelMismoSexo').setValue("");
+    this.formSaludSexualReproductiva.get('rsconPersonasDelOtroSexo').setValue("");
     this.formSaludSexualReproductiva.get('usoMetodoAnticonceptivo').setValue("");
     this.formSaludSexualReproductiva.get('conocimientoPrevenirEmbarazoNoDeseado').setValue("");
     this.formSaludSexualReproductiva.get('conocimientoPrevenirTransmisionITSVIH').setValue("");
@@ -1140,8 +1232,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
       conductaSexualRiesgo: this.formSaludSexualReproductiva.value.conductaSexualRiesgo,
       dosMasParejas: this.formSaludSexualReproductiva.value.dosMasParejas,
       sexoSinProteccion: this.formSaludSexualReproductiva.value.sexoSinProteccion,
-      RSConPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelMismoSexo,
-      RSConPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelOtroSexo,
+      rsconPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelMismoSexo,
+      rsconPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelOtroSexo,
       usoMetodoAnticonceptivo: this.formSaludSexualReproductiva.value.usoMetodoAnticonceptivo,
       conocimientoPrevenirEmbarazoNoDeseado: this.formSaludSexualReproductiva.value.conocimientoPrevenirEmbarazoNoDeseado,
       conocimientoPrevenirTransmisionITSVIH: this.formSaludSexualReproductiva.value.conocimientoPrevenirTransmisionITSVIH,
@@ -1175,8 +1267,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     this.formSaludSexualReproductiva.get('conductaSexualRiesgo').setValue(rowData.conductaSexualRiesgo)
     this.formSaludSexualReproductiva.get('dosMasParejas').setValue(rowData.dosMasParejas)
     this.formSaludSexualReproductiva.get('sexoSinProteccion').setValue(rowData.sexoSinProteccion)
-    this.formSaludSexualReproductiva.get('RSConPersonasDelMismoSexo').setValue(rowData.RSConPersonasDelMismoSexo)
-    this.formSaludSexualReproductiva.get('RSConPersonasDelOtroSexo').setValue(rowData.RSConPersonasDelOtroSexo)
+    this.formSaludSexualReproductiva.get('rsconPersonasDelMismoSexo').setValue(rowData.rsconPersonasDelMismoSexo)
+    this.formSaludSexualReproductiva.get('rsconPersonasDelOtroSexo').setValue(rowData.rsconPersonasDelOtroSexo)
     this.formSaludSexualReproductiva.get('usoMetodoAnticonceptivo').setValue(rowData.usoMetodoAnticonceptivo)
     this.formSaludSexualReproductiva.get('conocimientoPrevenirEmbarazoNoDeseado').setValue(rowData.conocimientoPrevenirEmbarazoNoDeseado)
     this.formSaludSexualReproductiva.get('conocimientoPrevenirTransmisionITSVIH').setValue(rowData.conocimientoPrevenirTransmisionITSVIH)
@@ -1191,8 +1283,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
       conductaSexualRiesgo: this.formSaludSexualReproductiva.value.conductaSexualRiesgo,
       dosMasParejas: this.formSaludSexualReproductiva.value.dosMasParejas,
       sexoSinProteccion: this.formSaludSexualReproductiva.value.sexoSinProteccion,
-      RSConPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelMismoSexo,
-      RSConPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelOtroSexo,
+      rsconPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelMismoSexo,
+      rsconPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelOtroSexo,
       usoMetodoAnticonceptivo: this.formSaludSexualReproductiva.value.usoMetodoAnticonceptivo,
       conocimientoPrevenirEmbarazoNoDeseado: this.formSaludSexualReproductiva.value.conocimientoPrevenirEmbarazoNoDeseado,
       conocimientoPrevenirTransmisionITSVIH: this.formSaludSexualReproductiva.value.conocimientoPrevenirTransmisionITSVIH,
