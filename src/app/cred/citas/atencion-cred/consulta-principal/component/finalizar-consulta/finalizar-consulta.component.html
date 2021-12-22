@@ -5,7 +5,7 @@
     <ng-template pTemplate="right" class="button">
         <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
         <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                class="guardar mr-2" style="background-color: #0c3866"></button>
+                class="guardar mr-2" (click)="guardar()" style="background-color: #0c3866"></button>
     </ng-template>
 </p-toolbar>
 <br>
@@ -21,7 +21,7 @@
             </ng-template>
         </p-toolbar>
 
-        <p-table class="table-over" [value]="acuerdosCompromisos" #dt styleClass="p-datatable-gridlines" [rows]="10"
+        <p-table class="table-over" [value]="acuerdosComprimisos" #dt styleClass="p-datatable-gridlines" [rows]="10"
                  [rowsPerPageOptions]="[10, 25, 50]"
                  [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                  currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -94,34 +94,37 @@
 
         <p-toolbar>
             <ng-template pTemplate="left">
-                <span class="p-m-0">Acuerdos y compromisos negociados con la madre y/o cuidador del niño</span>
+                <span class="p-m-0">Referencia</span>
             </ng-template>
             <ng-template pTemplate="right" class="button">
-                <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"
-                        class="guardar mr-2" style="background-color: #0c3866" (click)="openAcuerdo()"></button>
+                <button pButton pRipple label="Referencia" iconPos="right" icon="pi pi-plus-circle"
+                        class="guardar mr-2" style="background-color: #0c3866" (click)="openReferencia()"></button>
             </ng-template>
         </p-toolbar>
 
-        <p-table class="table-over" [value]="acuerdosCompromisos" #dt styleClass="p-datatable-gridlines" [rows]="10"
+        <p-table class="table-over" [value]="referencia" #dt styleClass="p-datatable-gridlines" [rows]="10"
                  [rowsPerPageOptions]="[10, 25, 50]"
                  [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                  currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
             <ng-template pTemplate="header">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro</th>
-                    <th style="text-align: center" class="font-2">ACUERDO</th>
-                    <th style="text-align: center" class="font-2">ACCIÓN</th>
+                    <th style="text-align: center" class="font-2">CONSULTORIO</th>
+                    <th style="text-align: center" class="font-2">MOTIVO</th>
+                    <th style="text-align: center" class="font-2">codRENAES</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr>
                     <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.descripcion }}</td>
+                    <td style="text-align: center">{{ rowData.consultorio }}</td>
+                    <td style="text-align: center">{{ rowData.motivo }}</td>
+                    <td style="text-align: center">{{ rowData.codRENAES }}</td>
                     <td style="text-align: center">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                (click)="editarAcuerdo(rowData,rowIndex)" pTooltip="Editar"></button>
+                                (click)="editarReferencia(rowData,rowIndex)" pTooltip="Editar"></button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                (click)="eliminarAcuerdo(rowIndex)" pTooltip="Eliminar">
+                                (click)="eliminarReferencia(rowIndex)" pTooltip="Eliminar">
                         </button>
                     </td>
                 </tr>
@@ -133,13 +136,13 @@
             styleClass="mb-2"
             [toggleable]="true">
     <form [formGroup]="acuerdosFG">
-        <div class="col-12 md:col-12 mt-12">
+        <!--<div class="col-12 md:col-12 mt-12">
             Acuerdos y compromisos negociados con la madre y/o cuidador del niño :
         </div>
         <textarea class="inputfield w-full mb-2"
                   formControlName="detailAcuerdoFC"
                   pInputTextarea>
-        </textarea>
+        </textarea>-->
         <div class="grid">
             <div class="col-12 md:col-1 mt-2">
                 Próxima cita :
@@ -171,12 +174,12 @@
             </div>
 
             <div class="col-12 md:col-12 mt-12 text-left">
-                <button pButton pRipple label="Examenes Auxiliares" iconPos="right" icon="pi pi-plus-circle"
+                <!--<button pButton pRipple label="Examenes Auxiliares" iconPos="right" icon="pi pi-plus-circle"
                         class="guardar mr-2"
                         style="background-color: #0c3866"></button>
                 <button pButton pRipple label="Referencia" iconPos="right" icon="pi pi-plus-circle"
                         class="guardar mr-2"
-                        style="background-color: #0c3866"></button>
+                        style="background-color: #0c3866"></button>-->
                 <button pButton pRipple label="Plan de Atención Integral" iconPos="right"
                         icon="pi pi-plus-circle"
                         routerLink="../plan-control-consulta" class="guardar mr-2"
@@ -204,9 +207,8 @@
     <form [formGroup]='formAcuerdos'>
         <div class="grid">
             <div class="col-12 justify-content-center">
-                    <textarea style="border-radius: 10px" id="indAdicionala" rows="5" cols="90" pInputTextarea
-                              formControlName="descripcionAcuerdo"> </textarea>
-
+                <textarea style="border-radius: 10px" rows="5" cols="90" pInputTextarea
+                          formControlName="descripcionAcuerdo"> </textarea>
             </div>
         </div>
     </form>
@@ -219,43 +221,70 @@
     </ng-template>
 </p-dialog>
 
-<!-- Dialog Acuerdo --->
-<p-dialog header="EXAMEN" [(visible)]="dialogExamenes" [modal]="true" [style]="{width: '30%'}"
+<!-- Dialog Referencia --->
+<p-dialog header="REFERENCIA" [(visible)]="dialogReferencia" [modal]="true" [style]="{width: '30%'}"
           [draggable]="false" [resizable]="false">
 
-    <form [formGroup]='formExamen'>
+    <form [formGroup]='formReferencia'>
         <div class="p-grid p-fluid">
             <div class="p-col-6 p-md-4 p-lg-3">
-                <label>Especialidad</label>
-                <div class="p-field">
-                    <p-dropdown inputId="dropdown" [options]="nombreEspecialidad" formControlName="nombreEspecialidad"
-                                placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                defaultLabel="Seleccione:">
-                    </p-dropdown>
+                <label>consultorio</label>
+                <div class="grid col-12 p-fluid" style="margin-top:10px;">
+                    <input type="text"
+                           pInputText
+                           formControlName="consultorio"
+                           class="inputfield w-full"
+                           placeholder="Detalle"/>
                 </div>
             </div>
             <div class="p-col-6 p-md-4 p-lg-3">
-                <label>Examen</label>
-                <div class="p-field">
-                    <p-dropdown inputId="dropdown" [options]="examen" formControlName="examen"
-                                placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                defaultLabel="Seleccione:">
-                    </p-dropdown>
+                <label>motivo</label>
+                <div class="grid col-12 p-fluid" style="margin-top:10px;">
+                    <input type="text"
+                           pInputText
+                           formControlName="motivo"
+                           class="inputfield w-full"
+                           placeholder="Detalle"/>
                 </div>
             </div>
-            <!--<div class="p-col-6 p-md-4 p-lg-3">
-                <label>Fecha Vencimiento:</label><br>
-                <p-calendar type="Date" showIcon="true" formControlName='fecha' dateFormat="yy-mm-dd"
-                            inputId="time" required>
-                </p-calendar>
-            </div>-->
+            <div class="p-col-6 p-md-4 p-lg-3">
+                <label>codRENAES</label>
+                <div class="grid col-12 p-fluid" style="margin-top:10px;">
+                    <input type="text"
+                           pInputText
+                           formControlName="codRENAES"
+                           class="inputfield w-full"
+                           placeholder="Detalle"/>
+                </div>
+            </div>
         </div>
     </form>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="button-cancelar"
-                icon="pi pi-times" (click)="cancelExamen()"></button>
+                icon="pi pi-times" (click)="cancelReferencia()"></button>
         <button class="button-agregar" icon="pi pi-save" pButton type="button"
-                label="Guardar" (click)="saveExamen()"></button>
+                label="Guardar" (click)="saveReferencia()"></button>
+
+    </ng-template>
+</p-dialog>
+
+<!-- Dialog Acuerdo --->
+<p-dialog header="ACUERDO" [(visible)]="dialogAcuerdos" [modal]="true" [style]="{width: '40%'}"
+          [draggable]="false" [resizable]="false">
+
+    <form [formGroup]='formAcuerdos'>
+        <div class="grid">
+            <div class="col-12 justify-content-center">
+                <textarea style="border-radius: 10px" id="indAdicionala" rows="5" cols="90" pInputTextarea
+                          formControlName="descripcionAcuerdo"> </textarea>
+            </div>
+        </div>
+    </form>
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="button-cancelar"
+                icon="pi pi-times" (click)="cancelAcuerdo()"></button>
+        <button class="button-agregar" icon="pi pi-save" pButton type="button"
+                label="Guardar" (click)="saveAcuerdo()"></button>
 
     </ng-template>
 </p-dialog>

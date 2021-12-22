@@ -69,7 +69,7 @@ export class TratamientoConsultaComponent implements OnInit {
             }
             //-- recupera informacion de diagnostico
             this.tratamiento = r.object;
-            console.log('tratamiento', this.tratamiento)
+            console.log('tratamiento', r)
             this.tratamientos = (this.tratamiento.tratamientos === null) ? [] : this.tratamiento.tratamientos
             this.acuerdos = (this.tratamiento.acuerdos === null) ? [] : this.tratamiento.acuerdos
             this.evalOjosVision = this.tratamiento.evalOjosVision === null ? aux : this.tratamiento.evalOjosVision

@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import Swal from "sweetalert2";
 import {TratamientoConsultaService} from "../../services/tratamiento-consulta.service";
 import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
+import {FinalizarConsultaService} from "../../services/finalizar-consulta.service";
 
 @Component({
     selector: 'app-finalizar-consulta',
@@ -11,18 +12,21 @@ import {CieService} from "../../../../../../obstetricia-general/services/cie.ser
 })
 export class FinalizarConsultaComponent implements OnInit {
     acuerdosFG: FormGroup
-
-    acuerdosCompromisos: acuerdosComprimisosInterface[] = [];
+    finalizar: finalizarAtencionInterface;
+    acuerdosComprimisos: acuerdosComprimisosInterface[] = [];
     examenesAux: examenesAuxInteface[] = [];
+    referencia: referenciaInterface[] = [];
 
     id: string;
     attributeLocalS = 'idConsulta'
     formExamen: FormGroup;
-    formAcuerdos: FormGroup
+    formAcuerdos: FormGroup;
+    formReferencia: FormGroup;
     form: FormGroup
     dialogTratamiento: boolean;
     dialogAcuerdos: boolean;
     dialogExamenes: boolean;
+    dialogReferencia: boolean;
 
     isUpdate3: boolean = false;
     bool3: boolean = false;
@@ -34,7 +38,11 @@ export class FinalizarConsultaComponent implements OnInit {
     nombreEspecialidad: any[]
     examen: any[]
 
-    constructor(private tratamientoService: TratamientoConsultaService,
+    isUpdate5: boolean = false;
+    bool5: boolean = false;
+    index5: number
+
+    constructor(private finalizarService: FinalizarConsultaService,
                 private cieService: CieService,
                 private formBuilder: FormBuilder) {
         this.buildFG();
@@ -75,6 +83,7 @@ export class FinalizarConsultaComponent implements OnInit {
 
 
     buildFG(): void {
+        this.id = localStorage.getItem(this.attributeLocalS);
         this.acuerdosFG = new FormGroup({
             detailAcuerdoFC: new FormControl({value: '', disabled: false}, []),
             proximaCitaFC: new FormControl({value: null, disabled: false}, []),
@@ -91,9 +100,16 @@ export class FinalizarConsultaComponent implements OnInit {
             examen: new FormControl("", []),
             fecha: new FormControl("", []),
         });
+
+        this.formReferencia = this.formBuilder.group({
+            consultorio: new FormControl("", []),
+            motivo: new FormControl("", []),
+            codRENAES: new FormControl("", []),
+        });
     }
 
     ngOnInit(): void {
+        this.recuperarFinalizar()
     }
 
     /* funciones tabla acuerdo*/
@@ -124,12 +140,12 @@ export class FinalizarConsultaComponent implements OnInit {
                 codigoAcuerdo: "string",
                 descripcionAcuerdo: this.formAcuerdos.value.descripcionAcuerdo
             }
-            this.acuerdosCompromisos.push(a);
+            this.acuerdosComprimisos.push(a);
         } else {
-            this.acuerdosCompromisos[this.index3].descripcionAcuerdo = this.formAcuerdos.value.descripcionAcuerdo
+            this.acuerdosComprimisos[this.index3].descripcionAcuerdo = this.formAcuerdos.value.descripcionAcuerdo
             this.bool3 = false;
         }
-        console.log("acuerdos", this.acuerdosCompromisos)
+        console.log("acuerdos", this.acuerdosComprimisos)
         Swal.fire({
             icon: 'success',
             title: aux !== true ? 'Agregado correctamente' : 'Actualizado correctamente',
@@ -141,7 +157,7 @@ export class FinalizarConsultaComponent implements OnInit {
     }
 
     eliminarAcuerdo(index) {
-        this.acuerdosCompromisos.splice(index, 1)
+        this.acuerdosComprimisos.splice(index, 1)
     }
 
     editarAcuerdo(row, index) {
@@ -214,11 +230,132 @@ export class FinalizarConsultaComponent implements OnInit {
         this.formExamen.get('examen').setValue(row.examen);
         this.dialogExamenes = true;
     }
+
+    /* funciones tabla referencia */
+    openReferencia() {
+        this.isUpdate5 = false;
+        this.formReferencia.reset();
+        this.formReferencia.get('consultorio').setValue("");
+        this.formReferencia.get('motivo').setValue("");
+        this.formReferencia.get('codRENAES').setValue("");
+        this.dialogReferencia = true;
+    }
+
+    cancelReferencia() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cancelado...',
+            text: '',
+            showConfirmButton: false,
+            timer: 1000
+        })
+        this.dialogReferencia = false;
+    }
+
+    saveReferencia() {
+        let aux = true
+        if (this.bool5 === false) {
+            aux = false;
+            this.isUpdate5 = false;
+            let a: referenciaInterface = {
+                consultorio: this.formReferencia.value.consultorio,
+                motivo: this.formReferencia.value.motivo,
+                codRENAES: this.formReferencia.value.codRENAES,
+            }
+            this.referencia.push(a);
+        } else {
+            this.referencia[this.index5].consultorio = this.formReferencia.value.consultorio
+            this.referencia[this.index5].motivo = this.formReferencia.value.motivo
+            this.referencia[this.index5].codRENAES = this.formReferencia.value.codRENAES
+            this.bool5 = false;
+        }
+        console.log("referencia", this.referencia)
+        Swal.fire({
+            icon: 'success',
+            title: aux !== true ? 'Agregado correctamente' : 'Actualizado correctamente',
+            text: '',
+            showConfirmButton: false,
+            timer: 1500,
+        })
+        this.dialogReferencia = false;
+    }
+
+    editarReferencia(row, index) {
+        this.isUpdate5 = false;
+        this.bool5 = true;
+        this.index5 = index
+        this.formReferencia.reset();
+        this.formReferencia.get('consultorio').setValue(row.consultorio);
+        this.formReferencia.get('motivo').setValue(row.motivo);
+        this.formReferencia.get('codRENAES').setValue(row.codRENAES);
+        this.dialogReferencia = true;
+    }
+
+    eliminarReferencia(index) {
+        this.referencia.splice(index, 1)
+    }
+
+    /*  objeto finalizar */
+    recuperarFinalizar() {
+        this.finalizarService.getFinalizar(this.id).subscribe((r: any) => {
+            //-- recupera informacion de finalizar
+            this.finalizar = r.object;
+            console.log('finalizar', r)
+            this.acuerdosComprimisos = (this.finalizar.acuerdosComprimisos === null) ? [] : this.finalizar.acuerdosComprimisos
+            this.examenesAux = (this.finalizar.examenesAux === null) ? [] : this.finalizar.examenesAux
+            let re: referenciaInterface = {
+                consultorio: this.finalizar.referencia.consultorio,
+                motivo: this.finalizar.referencia.motivo,
+                codRENAES: this.finalizar.referencia.codRENAES
+            }
+            this.referencia.push(re);
+            this.acuerdosFG.get('proximaCitaFC').setValue(this.finalizar.proximaCita);
+            this.acuerdosFG.get('atendidoFC').setValue(this.finalizar.atendidoPor);
+            this.acuerdosFG.get('dniFC').setValue(this.finalizar.dniPersonal);
+            this.acuerdosFG.get('observacionFC').setValue(this.finalizar.observacion);
+        })
+    }
+
+    guardar() {
+        let r: referenciaInterface = {
+            consultorio: this.referencia[0].consultorio,
+            motivo: this.referencia[0].motivo,
+            codRENAES: this.referencia[0].codRENAES
+        }
+        const req = {
+            acuerdosComprimisos: this.acuerdosComprimisos,
+            examenesAux: this.examenesAux,
+            referencia: r,
+            proximaCita: this.acuerdosFG.value.proximaCitaFC,
+            atendidoPor: this.acuerdosFG.value.atendidoFC,
+            dniPersonal: this.acuerdosFG.value.dniFC,
+            observacion: this.acuerdosFG.value.observacionFC,
+        }
+        console.log('req', req)
+        if (this.finalizar) {
+            this.finalizarService.updateFinalizar(this.id, req).subscribe(
+                (resp) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizado correctamente',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+            )
+        }
+    }
 }
 
-interface finalizarInterface {
+interface finalizarAtencionInterface {
     acuerdosComprimisos: acuerdosComprimisosInterface[],
-    examenesAux: examenesAuxInteface[]
+    examenesAux: examenesAuxInteface[],
+    referencia: referenciaInterface,
+    proximaCita: string,
+    atendidoPor: string,
+    dniPersonal: string,
+    observacion: string
 }
 
 interface examenesAuxInteface {
@@ -232,4 +369,10 @@ interface examenesAuxInteface {
 interface acuerdosComprimisosInterface {
     codigoAcuerdo: string,
     descripcionAcuerdo: string
+}
+
+interface referenciaInterface {
+    consultorio: string,
+    motivo: string,
+    codRENAES: string
 }
