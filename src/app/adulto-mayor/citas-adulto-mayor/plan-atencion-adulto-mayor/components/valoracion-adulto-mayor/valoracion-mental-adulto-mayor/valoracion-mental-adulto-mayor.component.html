@@ -5,7 +5,7 @@
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                    class="guardar-boton" ></button>
+                    class="guardar-boton" (click)="agregarActualizar()" ></button>
         </ng-template>
     </p-toolbar>
     <br>
@@ -55,19 +55,10 @@
                 <div class="grid">
                     <div class="col-8 p-field">
                         <label class="">¿Cuál es su número de teléfono? Si no tiene</label>
-                    </div>
-                    <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeTelefono"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                </div>
-                <!--5 fila-->
-                <div class="grid">
-                    <div class="col-8 p-field">
                         <label class="">¿Cuál es su dirección completa? </label>
                     </div>
                     <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeDireccion"
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeTelefonoDireccion"
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
@@ -101,7 +92,17 @@
                                         optionLabel="label"></p-selectButton>
                     </div>
                 </div>
-                    <!-- 9 fila-->
+                <!-- 8 fila-->
+                <div class="grid">
+                    <div class="col-8 p-field">
+                        <label class="">¿Cuál es el nombre del anterior presidente del Perú?</label>
+                    </div>
+                    <div class="col-4 p-field">
+                        <p-selectButton [options]="sino"  optionValue="value" formControlName="sabeAnteriorPresidente"
+                                        optionLabel="label"></p-selectButton>
+                    </div>
+                </div>
+                <!-- 9 fila-->
                 <div class="grid">
                     <div class="col-8 p-field">
                         <label class="">Digame el primer apellido de su madre</label>
@@ -126,12 +127,12 @@
         </div>
         <div class="col-12 md:col-5 lg:col-5">
             <p-fieldset legend="Valoración Cognitiva" [toggleable]="true">
-
+                <form [formGroup]="formValoracionMental" >
                 <!--primera fila-->
                 <div class="grid">
                     <div class="col-12">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="normal" [(ngModel)]="city"  inputId="independiente"></p-radioButton>
+                            <p-radioButton name="diagnosticoCognitivo" formControlName="diagnosticoCognitivo" value="NO DETERIORO COGNITIVO"  ></p-radioButton>
                             <label class=""> Normal </label>
                         </div>
                     </div>
@@ -139,7 +140,7 @@
                 <!--2 fila-->
                     <div class="col-12">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="leve" [(ngModel)]="city"  inputId="dependienteParcial"></p-radioButton>
+                            <p-radioButton name="diagnosticoCognitivo" formControlName="diagnosticoCognitivo" value="DETERIORO COGNITIVO LEVE" ></p-radioButton>
                             <label class=""> DC Leve </label>
                         </div>
                     </div>
@@ -147,7 +148,7 @@
                     <br>
                     <div class="col-12">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="moderado" [(ngModel)]="city"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="diagnosticoCognitivo" formControlName="diagnosticoCognitivo" value="DETERIORO COGNITIVO MODERADO" ></p-radioButton>
                             <label class=""> DC Moderado </label>
                         </div>
                     </div>
@@ -155,7 +156,7 @@
                     <br>
                     <div class="col-12">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="severo" [(ngModel)]="city"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="diagnosticoCognitivo" value="DETERIORO COGNITIVO SEVERO"  formControlName="diagnosticoCognitivo"></p-radioButton>
                             <label class=""> DC Severo </label>
                         </div>
                     </div>
@@ -170,7 +171,7 @@
                                 <p>-Deterioro Cognitivo Severo   :8 a 10E</p>
                     </div>
                 </div>
-
+                </form>
             </p-fieldset>
         </div>
     </div>
@@ -223,21 +224,21 @@
         </div>
         <div class="col-12 md:col-5 lg:col-5">
             <p-fieldset legend="Manifestaciones Depresivas" [toggleable]="true">
-
+                <form [formGroup]="formValoracionMental" >
                 <!--primera fila-->
                 <div class="grid">
                     <div class="p-field-radiobutton">
-                        <p-radioButton name="city" value="normal" [(ngModel)]="city2"  inputId="conmanifestaciones"></p-radioButton>
+                        <p-radioButton name="diagnosticoAfectivo" value="SIN MANIFESTACIONES DEPRESIVAS" formControlName="diagnosticoAfectivo" ></p-radioButton>
                         <label> Sin Manifestaciones Depresivas (0-1 positivas) </label>
                     </div>
                     <br>
                     <br>
                     <div class="p-field-radiobutton">
-                        <p-radioButton name="city" value="leve" [(ngModel)]="city2"  inputId="sinmanifestaciones"></p-radioButton>
+                        <p-radioButton name="diagnosticoAfectivo" value="CON MANIFESTACIONES DEPRESIVAS" formControlName="diagnosticoAfectivo" ></p-radioButton>
                         <label> Con Manifestaciones Depresivas (2 o más positivas)</label>
                    </div>
                 </div>
-
+                </form>
             </p-fieldset>
         </div>
     </div>

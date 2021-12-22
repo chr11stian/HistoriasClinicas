@@ -35,3 +35,27 @@ export interface valoracionSocioFamiliar{
     items?:item[],
     diagnostico?:string
 }
+export interface datosGeneralesAdultoMayor{
+    fecha?:Date,
+    nroHcl?:string,
+    nroAtendido?:number,
+    primerNombre?:string,
+    otrosNombres?:string,
+    apePaterno?:string,
+    apeMaterno?:string,
+    sexo?:string,
+    edad?:number,
+    fechaNacimiento?:Date,
+    lugarNacimiento?:string,
+    procedencia?:string,
+    gradoInstruccion?:string,
+    estadoCivil?:string,
+    grupoSanguinio?:string,
+    rh?:string,
+    ocupacion?:string,
+    domicilio?:string,
+    telefono?:string,
+    familiarCuidadorResponsable?:string,
+    edadFamiliarCuidador?:number,
+    dniFamiliarCuidador?:string
+}

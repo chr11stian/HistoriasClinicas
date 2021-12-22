@@ -1215,6 +1215,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    
   }
 
 }
