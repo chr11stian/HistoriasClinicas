@@ -6,6 +6,7 @@ import {CitasService} from "./services/citas.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {PacienteService} from "../core/services/paciente/paciente.service";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-citas',
@@ -37,6 +38,7 @@ export class CitasComponent implements OnInit {
                 private citasService: CitasService,
                 private fb: FormBuilder,
                 private pacienteService: PacienteService,
+                private messageService: MessageService,
     ) {
         this.options = [
             {name: "DNI", code: 1},
@@ -95,11 +97,16 @@ export class CitasComponent implements OnInit {
             let nroDoc = this.dataPaciente.nroDoc;
             let telefono = this.dataPaciente.celular;
             let tipoDoc = this.dataPaciente.tipoDoc;
-
             this.dataPaciente2 = [{apellidoPaterno, apellidoMaterno, nombre, nroDoc, telefono, tipoDoc}]
-
             console.log('paciente por doc ', this.dataPaciente2);
+            this.messageService.add(
+                {
+                    key: 'c', sticky: true, severity: 'warn',
+                    summary: 'Are you sure?', detail: 'Confirm to proceed'
+                });
+
         });
+
     }
 
     /**Modulo para hacer cosultas no gestantes**/
@@ -131,6 +138,9 @@ export class CitasComponent implements OnInit {
         // this.obstetriciaGeneralService.observable$.emit(event.id);
         this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = event.nroDoc;
+    }
+
+    showConfirm() {
     }
 
 }
