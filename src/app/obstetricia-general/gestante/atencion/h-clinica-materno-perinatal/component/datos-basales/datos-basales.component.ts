@@ -10,6 +10,8 @@ import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { HemoglobinaDialogComponent } from './hemoglobina-dialog/hemoglobina-dialog.component';
 import { ImcService } from 'src/app/obstetricia-general/services/imc.service';
+import { DatePipe } from '@angular/common';
+import { DialogPatologiasMaternasComponent } from './dialog-patologias-maternas/dialog-patologias-maternas.component';
 
 @Component({
     selector: 'app-datos-basales',
@@ -39,6 +41,8 @@ export class DatosBasalesComponent implements OnInit {
     hemoglobinaDialog: boolean = false;
     ref: DynamicDialogRef;
     otrosExamHemo: any[] = [];
+    tipoGananciaPeso: string;
+    listaPatologiasMaternas: any[] = [];
 
     constructor(private filiancionService: FiliancionService,
         private fb: FormBuilder,
@@ -61,132 +65,148 @@ export class DatosBasalesComponent implements OnInit {
 
     inicalizarForm() {
         this.form = this.fb.group({
-            imc: new FormControl(''),
-            pesoHabitual: new FormControl(''),
-            talla: new FormControl(''),
-            nroDosisPrevias: new FormControl(''),
+            //peso y talla
+            imc: new FormControl(""),
+            pesoActual: new FormControl(""),
+            pesoHabitual: new FormControl(""),
+            talla: new FormControl(""),
+            //antitetanica
+            nroDosisPrevias: new FormControl(""),
             primeraDosis: new FormControl(null),
-            segundaDosis: new FormControl(''),
-            firstDosis: new FormControl(''),
-            secondDosis: new FormControl(''),
-            drogas: new FormControl(''),
-            aplica: new FormControl(''),
-            sinDosis: new FormControl(''),
-            dosisNoAplica: new FormControl(''),
-            cigarrillosDia: new FormControl(''),
-            tipoSangreGrupo: new FormControl(''),
-            rh: new FormControl(''),
-            duda: new FormControl(''),
-            hospitalizacion: new FormControl(''),
-            diagnosticoHosp: new FormControl(''),
-            diagnosticoEmergenci: new FormControl(''),
-            hospitalizacionCIE: new FormControl(''),
-            emergenciaCIE: new FormControl(''),
-            rubeola: new FormControl(''),
-            hepatitisB: new FormControl(''),
-            papiloma: new FormControl(''),
-            influenza: new FormControl(''),
-            tamizaje: new FormControl(''),
-            violencia: new FormControl(''),
-            clinico: new FormControl(''),
-            mamas: new FormControl(''),
-            cuelloUter: new FormControl(''),
-            pelvis: new FormControl(''),
-            odont1: new FormControl(''),
-            odont2: new FormControl(''),
-            hg1: new FormControl(''),
-            conFactor1: new FormControl(''),
-            hemo1: new FormControl(''),
-            hg2: new FormControl(''),
-            conFactor2: new FormControl(''),
-            hemo2: new FormControl(''),
-            hg3: new FormControl(''),
-            conFactor3: new FormControl(''),
-            hemo3: new FormControl(''),
-            hg4: new FormControl(''),
-            conFactor4: new FormControl(''),
-            hemo4: new FormControl(''),
-            vdrl1: new FormControl(''),
-            vdrl2: new FormControl(''),
-            tpha: new FormControl(''),
-            dateVdrl2: new FormControl(''),
-            dateVih2: new FormControl(''),
-            vih1: new FormControl(''),
-            vih2: new FormControl(''),
-            hepatitis: new FormControl(''),
-            elisa1: new FormControl(''),
-            elisa2: new FormControl(''),
-            glicemia1: new FormControl(''),
-            glicemia2: new FormControl(''),
-            glucosa: new FormControl(''),
-            orina1: new FormControl(''),
-            orina2: new FormControl(''),
-            orina3: new FormControl(''),
-            bacteriuria: new FormControl(''),
-            nitritos: new FormControl(''),
-            urocultivo: new FormControl(''),
-            esputo: new FormControl(''),
-            western: new FormControl(''),
-            thlv1: new FormControl(''),
-            torch: new FormControl(''),
-            gotaGruesa: new FormControl(''),
-            proteinuriaCuanti: new FormControl(''),
-            proteinuriaCuali: new FormControl(''),
-            secrecionVag: new FormControl(''),
-            pap: new FormControl(''),
-            ivaa: new FormControl(''),
-            patologiasMaternas1: new FormControl(''),
-            patologiasMaternas2: new FormControl(''),
-            patologiasMaternas3: new FormControl(''),
-            patologiasMaternas4: new FormControl(''),
-            dateFUM: new FormControl(''),
-            dateProbableParto: new FormControl(''),
-            ecografia1: new FormControl(''),
-            dateEco1: new FormControl(''),
-            ecografia2: new FormControl(''),
-            dateEco2: new FormControl(''),
-            ecografia3: new FormControl(''),
-            dateEco3: new FormControl(''),
-            dateHospitalizacion: new FormControl(''),
-            dateEmergencia: new FormControl(''),
-            dateViolencia: new FormControl(''),
-            datevdrl1: new FormControl(''),
-            dateTpha: new FormControl(''),
-            dateVih1: new FormControl(''),
-            dateHepatitis: new FormControl(''),
-            dateElisa1: new FormControl(''),
-            dateElisa2: new FormControl(''),
-            dateGlicemia1: new FormControl(''),
-            dateGlicemia2: new FormControl(''),
-            dateGlucosa: new FormControl(''),
-            dateOrina1: new FormControl(''),
-            dateOrina2: new FormControl(''),
-            dateOrina3: new FormControl(''),
-            dateBacteriuria: new FormControl(''),
-            dateNitritos: new FormControl(''),
-            dateUrocultivo: new FormControl(''),
-            dateEsputo: new FormControl(''),
-            dateWestern: new FormControl(''),
-            dateThlv1: new FormControl(''),
-            dateTorch: new FormControl(''),
-            dateGotaGruesa: new FormControl(''),
-            dateProteinuriaCuanti: new FormControl(''),
-            dateProteinuriaCuali: new FormControl(''),
-            dateSecrecionVag: new FormControl(''),
-            datePap: new FormControl(''),
-            dateIvaa: new FormControl(''),
-            datePatolog1: new FormControl(''),
-            datePatolog2: new FormControl(''),
-            datePatolog3: new FormControl(''),
-            datePatolog4: new FormControl(''),
-            autocompleteHosp: new FormControl(''),
-            autocompleteEmerg: new FormControl(''),
+            segundaDosis: new FormControl(""),
+            firstDosis: new FormControl(""),
+            secondDosis: new FormControl(""),
+            aplica: new FormControl(""),
+            sinDosis: new FormControl(""),
+            //drogas
+            drogas: new FormControl(""),
+            //cigarros
+            cigarrillosDia: new FormControl(""),
+            //tipo de sangre
+            tipoSangreGrupo: new FormControl(""),
+            rh: new FormControl(""),
+            //fecha ultima menstruacion
+            duda: new FormControl(""),
+            dateFUM: new FormControl(""),
+            dateProbableParto: new FormControl(""),
+            ecografia1: new FormControl(""),
+            dateEco1: new FormControl(""),
+            ecografia2: new FormControl(""),
+            dateEco2: new FormControl(""),
+            ecografia3: new FormControl(""),
+            dateEco3: new FormControl(""),
+            //hospitalizacion  y emergencia
+            hospitalizacion: new FormControl(""),
+            dateHospitalizacion: new FormControl(""),
+            diagnosticoHosp: new FormControl(""),
+            hospitalizacionCIE: new FormControl(""),
+            dateEmergencia: new FormControl(""),
+            diagnosticoEmergenci: new FormControl(""),
+            emergenciaCIE: new FormControl(""),
+            autocompleteHosp: new FormControl(""),
+            autocompleteEmerg: new FormControl(""),
+            //vacunas previas
+            rubeola: new FormControl(""),
+            hepatitisB: new FormControl(""),
+            papiloma: new FormControl(""),
+
+            influenza: new FormControl(""),
+            covid: new FormControl(""),
+            //violencia/genero
+            tamizaje: new FormControl(""),
+            violencia: new FormControl(""),
+            dateViolencia: new FormControl(""),
+
+            //examen fisico
+            clinico: new FormControl(""),
+            mamas: new FormControl(""),
+            cuelloUter: new FormControl(""),
+            pelvis: new FormControl(""),
+            odont1: new FormControl(""),
+            odont2: new FormControl(""),
+            //examen laboratorio
+            hg1: new FormControl(""),
+            conFactor1: new FormControl(""),
+            hemo1: new FormControl(""),
+            hg2: new FormControl(""),
+            conFactor2: new FormControl(""),
+            hemo2: new FormControl(""),
+            hg3: new FormControl(""),
+            conFactor3: new FormControl(""),
+            hemo3: new FormControl(""),
+            hg4: new FormControl(""),
+            conFactor4: new FormControl(""),
+            hemo4: new FormControl(""),
+            vdrl1: new FormControl(""),
+            vdrl2: new FormControl(""),
+            tpha: new FormControl(""),
+            dateVdrl2: new FormControl(""),
+            dateVih2: new FormControl(""),
+            vih1: new FormControl(""),
+            vih2: new FormControl(""),
+            hepatitis: new FormControl(""),
+            elisa1: new FormControl(""),
+            elisa2: new FormControl(""),
+            glicemia1: new FormControl(""),
+            glicemia2: new FormControl(""),
+            glucosa: new FormControl(""),
+            orina1: new FormControl(""),
+            orina2: new FormControl(""),
+            orina3: new FormControl(""),
+            bacteriuria: new FormControl(""),
+            nitritos: new FormControl(""),
+            urocultivo: new FormControl(""),
+            esputo: new FormControl(""),
+            western: new FormControl(""),
+            thlv1: new FormControl(""),
+            torch: new FormControl(""),
+            gotaGruesa: new FormControl(""),
+            proteinuriaCuanti: new FormControl(""),
+            proteinuriaCuali: new FormControl(""),
+            secrecionVag: new FormControl(""),
+            pap: new FormControl(""),
+            ivaa: new FormControl(""),
+
+            datevdrl1: new FormControl(""),
+            dateTpha: new FormControl(""),
+            dateVih1: new FormControl(""),
+            dateHepatitis: new FormControl(""),
+            dateElisa1: new FormControl(""),
+            dateElisa2: new FormControl(""),
+            dateGlicemia1: new FormControl(""),
+            dateGlicemia2: new FormControl(""),
+            dateGlucosa: new FormControl(""),
+            dateOrina1: new FormControl(""),
+            dateOrina2: new FormControl(""),
+            dateOrina3: new FormControl(""),
+            dateBacteriuria: new FormControl(""),
+            dateNitritos: new FormControl(""),
+            dateUrocultivo: new FormControl(""),
+            dateEsputo: new FormControl(""),
+            dateWestern: new FormControl(""),
+            dateThlv1: new FormControl(""),
+            dateTorch: new FormControl(""),
+            dateGotaGruesa: new FormControl(""),
+            dateProteinuriaCuanti: new FormControl(""),
+            dateProteinuriaCuali: new FormControl(""),
+            dateSecrecionVag: new FormControl(""),
+            datePap: new FormControl(""),
+            dateIvaa: new FormControl(""),
+            patologiasMaternas1: new FormControl(""),
+            patologiasMaternas2: new FormControl(""),
+            patologiasMaternas3: new FormControl(""),
+            patologiasMaternas4: new FormControl(""),
+            datePatolog1: new FormControl(""),
+            datePatolog2: new FormControl(""),
+            datePatolog3: new FormControl(""),
+            datePatolog4: new FormControl(""),
+
         });
 
         this.formHemoglobina = this.fb.group({
-            hg: new FormControl(''),
-            factorCorrec: new FormControl(''),
-            fechaHemo: new FormControl(''),
+            hg: new FormControl(""),
+            factorCorrec: new FormControl(""),
+            fechaHemo: new FormControl(""),
         });
     }
 
@@ -200,24 +220,25 @@ export class DatosBasalesComponent implements OnInit {
         let aux2: boolean = this.form.value.hepatitisB;
         let aux3: boolean = this.form.value.papiloma;
         let aux4: boolean = this.form.value.influenza;
+        let aux5: boolean = this.form.value.covid;
 
-        if (aux1) {
+        if (aux1)
             vacPrev.push('rubeola');
-        }
-        if (aux2) {
+        if (aux2)
             vacPrev.push('hepatitis B')
-        }
-        if (aux3) {
+        if (aux3)
             vacPrev.push('papiloma')
-        }
-        if (aux4) {
+        if (aux4)
             vacPrev.push('influenza')
-        }
+        if (aux5)
+            vacPrev.push('covid')
+
         this.datosBasales = {
             pesoTalla: {
                 imc: this.form.value.imc,
                 pesoHabitual: this.form.value.pesoHabitual,
-                talla: this.form.value.talla
+                talla: this.form.value.talla,
+                pesoActual: this.form.value.pesoActual
             },
             antitetanica: {
                 nroDosisPrevia: this.form.value.nroDosisPrevias,
@@ -253,12 +274,12 @@ export class DatosBasalesComponent implements OnInit {
                 hospitalizacion: this.form.value.hospitalizacion,
                 fecha: this.form.value.dateHospitalizacion,
                 diagnostico: this.form.value.diagnosticoHosp,
-                cie10: this.form.value.hospitalizacionCIE == '' ? '' : this.form.value.hospitalizacionCIE.codigoItem,
+                cie10: this.form.value.hospitalizacionCIE == "" ? "" : this.form.value.hospitalizacionCIE.codigoItem,
             }],
             emergencia: {
                 fecha: this.form.value.dateEmergencia,
                 diagnostico: this.form.value.diagnosticoEmergenci,
-                cie10: this.form.value.emergenciaCIE == '' ? '' : this.form.value.emergenciaCIE.codigoItem
+                cie10: this.form.value.emergenciaCIE == "" ? "" : this.form.value.emergenciaCIE.codigoItem
             },
             vacunasPrevias: vacPrev,
             violenciaGenero: {
@@ -271,24 +292,7 @@ export class DatosBasalesComponent implements OnInit {
                 hemoglobina: this.hemoglobina,
                 otrosExamenes: this.otrosExamenes
             },
-            patologiaMaternoDiagnosticado: [
-                {
-                    nombre: this.form.value.patologiasMaternas1,
-                    fecha: this.form.value.datePatolog1
-                },
-                {
-                    nombre: this.form.value.patologiasMaternas2,
-                    fecha: this.form.value.datePatolog2
-                },
-                {
-                    nombre: this.form.value.patologiasMaternas3,
-                    fecha: this.form.value.datePatolog3
-                },
-                {
-                    nombre: this.form.value.patologiasMaternas4,
-                    fecha: this.form.value.datePatolog4
-                }
-            ],
+            patologiaMaternoDiagnosticado: this.listaPatologiasMaternas,
             proceso: 'datosBasales'
         }
     }
@@ -484,12 +488,12 @@ export class DatosBasalesComponent implements OnInit {
             if (this.rptaDatosBasales.antitetanica.dosis[0].dosis) {
                 this.form.patchValue({ 'primeraDosis': this.rptaDatosBasales.antitetanica.dosis[0].dosis });
             } else {
-                this.form.patchValue({ 'primeraDosis': '' });
+                this.form.patchValue({ 'primeraDosis': "" });
             }
             if (this.rptaDatosBasales.antitetanica.dosis[1].dosis) {
                 this.form.patchValue({ 'segundaDosis': this.rptaDatosBasales.antitetanica.dosis[1].dosis });
             } else {
-                this.form.patchValue({ 'segundaDosis': '' });
+                this.form.patchValue({ 'segundaDosis': "" });
             }
 
             this.form.patchValue({ 'firstDosis': this.rptaDatosBasales.antitetanica.dosis[0].detalle });
@@ -501,13 +505,13 @@ export class DatosBasalesComponent implements OnInit {
             if (this.rptaDatosBasales.fechaUltimaMestruacion.fum != null) {
                 this.form.patchValue({ 'dateFUM': this.rptaDatosBasales.fechaUltimaMestruacion.fum });
             } else {
-                this.form.patchValue({ 'dateFUM': '' });
+                this.form.patchValue({ 'dateFUM': "" });
             }
             this.form.patchValue({ 'duda': this.rptaDatosBasales.fechaUltimaMestruacion.duda });
             if (this.rptaDatosBasales.fechaUltimaMestruacion.fechaProbableParto) {
                 this.form.patchValue({ 'dateProbableParto': this.rptaDatosBasales.fechaUltimaMestruacion.fechaProbableParto });
             } else {
-                this.form.patchValue({ 'dateProbableParto': '' });
+                this.form.patchValue({ 'dateProbableParto': "" });
             }
             this.form.patchValue({ 'ecografia1': this.rptaDatosBasales.fechaUltimaMestruacion.primeraEcografia });
             this.form.patchValue({ 'dateEco1': this.rptaDatosBasales.fechaUltimaMestruacion.fechaPrimeraEcografia });
@@ -529,7 +533,6 @@ export class DatosBasalesComponent implements OnInit {
             this.CieService.getCIEByCod(this.rptaDatosBasales.emergencia.cie10).subscribe((resCIE: any) => {
                 this.form.patchValue({ 'emergenciaCIE': resCIE.object });
             });
-
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
             this.form.patchValue({ 'rubeola': auxVac == undefined ? false : true });
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "hepatitis B")
@@ -538,6 +541,8 @@ export class DatosBasalesComponent implements OnInit {
             this.form.patchValue({ 'papiloma': auxVac == undefined ? false : true });
             auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "influenza")
             this.form.patchValue({ 'influenza': auxVac == undefined ? false : true });
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "covid")
+            this.form.patchValue({ 'covid': auxVac == undefined ? false : true });
             this.form.patchValue({ 'tamizaje': this.rptaDatosBasales.violenciaGenero.fichaTamizaje });
             this.form.patchValue({ 'violencia': this.rptaDatosBasales.violenciaGenero.violencia });
             this.form.patchValue({ 'dateViolencia': this.rptaDatosBasales.violenciaGenero.fecha });
@@ -604,15 +609,7 @@ export class DatosBasalesComponent implements OnInit {
             this.form.patchValue({ 'datePap': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[25].fecha });
             this.form.patchValue({ 'ivaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].valor });
             this.form.patchValue({ 'dateIvaa': this.rptaDatosBasales.examenLaboratorio.otrosExamenes[26].fecha });
-            this.form.patchValue({ 'patologiasMaternas1': this.rptaDatosBasales.patologiaMaternoDiagnosticado[0].nombre });
-            this.form.patchValue({ 'datePatolog1': this.rptaDatosBasales.patologiaMaternoDiagnosticado[0].fecha });
-            this.form.patchValue({ 'patologiasMaternas2': this.rptaDatosBasales.patologiaMaternoDiagnosticado[1].nombre });
-            this.form.patchValue({ 'datePatolog2': this.rptaDatosBasales.patologiaMaternoDiagnosticado[1].fecha });
-            this.form.patchValue({ 'patologiasMaternas3': this.rptaDatosBasales.patologiaMaternoDiagnosticado[2].nombre });
-            this.form.patchValue({ 'datePatolog3': this.rptaDatosBasales.patologiaMaternoDiagnosticado[2].fecha });
-            this.form.patchValue({ 'patologiasMaternas4': this.rptaDatosBasales.patologiaMaternoDiagnosticado[3].nombre });
-            this.form.patchValue({ 'datePatolog4': this.rptaDatosBasales.patologiaMaternoDiagnosticado[3].fecha });
-            ;
+            this.listaPatologiasMaternas = this.rptaDatosBasales.patologiaMaternoDiagnosticado;
         });
     }
 
@@ -635,55 +632,205 @@ export class DatosBasalesComponent implements OnInit {
         console.log('lista de cie ', this.listaDeCIE);
         if (cieType == 0) {
             this.form.patchValue({ diagnosticoHosp: event.descripcionItem });
-            this.form.patchValue({ autocompleteHosp: '' });
+            this.form.patchValue({ autocompleteHosp: "" });
             this.form.patchValue({ hospitalizacionCIE: event }, { emitEvent: false });
         }
         if (cieType == 1) {
             this.form.patchValue({ diagnosticoEmergenci: event.descripcionItem });
-            this.form.patchValue({ autocompleteEmerg: '' });
+            this.form.patchValue({ autocompleteEmerg: "" });
             this.form.patchValue({ emergenciaCIE: event }, { emitEvent: false });
         }
     }
 
-    calcularEdadGestacional() {
+    calcularIMC() {
         // let auxFUM: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd')   + (3600000 * 5)
-        let pesoActual = this.form.value.pesoHabitual;
-        let altura = this.form.value.talla;
+
 
         let today = new Date().getTime();
         let auxFUM = new Date(this.form.value.dateFUM).getTime();
         auxFUM = auxFUM + 0;
         console.log('auxFUM ', auxFUM, 'today ', today);
         let auxWeek = today - auxFUM;
-        console.log('fecha actual ', auxWeek);
+        // console.log('fecha actual ', auxWeek);
         if (auxWeek < 0) {
             this.messageService.add({
                 severity: "warn",
                 summary: "Alerta",
                 detail: 'La fecha de FUM es incorrecta'
             });
-            this.form.patchValue({ dateFUM: '' });
+            this.form.patchValue({ dateFUM: "" });
             return;
         }
 
         this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
-        let semanasGetacional = Math.trunc(this.edadGestacional / 7);
+        let semanasGestacional = Math.trunc(this.edadGestacional / 7);
+        let alturaMetros = (this.form.value.talla) / 100;
         let diasGestacional = Math.trunc(this.edadGestacional % 7);
-        console.log('semanas gestacional ', this.edadGestacional, 'dias gest ', diasGestacional, 'semanas ', semanasGetacional);
-        this.imcService.getGananciaPesoRegular(semanasGetacional).subscribe((res: any) => {
-            this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
-            console.log('peso ', pesoActual, 'talle ', altura);
-            let imcAux = ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2);
-            this.form.patchValue({ imc: imcAux });
-            if (imcAux == '-Infinity') {
-                this.form.patchValue({ dateFUM: null });
-                this.messageService.add({
-                    severity: "warn",
-                    summary: "Alerta",
-                    detail: 'Faltan datos para calcular el imc (peso o talla)'
-                });
-            }
-        });
+        let rptaClasific: any;
+        let pesoActual = this.form.value.pesoActual;
+        let rptaRecomendaciones: any;
+        let pesoHabitual;
+        let imcAux;
+
+        if (semanasGestacional < 13) {
+            this.imcService.getClasificacionEstadoNutricionalByTalla(alturaMetros).subscribe((res: any) => {
+                // rptaClasific = res;
+                rptaClasific = res.object.clasificaionEstadoNutricionalIMCPG[0];
+                if (pesoActual <= rptaClasific.bajoPeso) {
+                    this.imcService.getGananciaBajoPeso(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGestanteBajoPeso[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        console.log('peso Habitual ', pesoHabitual);
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'bajoPeso';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                    });
+                }
+                if (pesoActual >= rptaClasific.normal18 && pesoActual <= rptaClasific.normal25) {
+                    this.imcService.getGananciaPesoRegular(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGananciaPesoRegular[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'normal';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                    });
+
+                    console.log('peso normal ');
+                }
+                if (pesoActual >= rptaClasific.sobrePeso25 && pesoActual <= rptaClasific.sobrePeso30) {
+                    this.imcService.getGananciaSobrePeso(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomencacionGananciaSobrePeso[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'sobrePeso';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                        console.log('sobrepeso');
+                    });
+                }
+                if (pesoActual >= rptaClasific.obesidad) {
+                    this.imcService.getGananciaObesa(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGananciaObesa[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'obesidad';
+                        console.log('imc ', imcAux);
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                    });
+                }
+            });
+        } else {
+            console.log('es mayor a 13 semanas ', semanasGestacional);
+            this.imcService.getClasificacionEstadoNutricionalByTallaSemanas(semanasGestacional, alturaMetros * 100).subscribe((res: any) => {
+                rptaClasific = res.object.edadGestacionalP10P90[0];
+                if (pesoActual < rptaClasific.p10) {
+
+                    this.imcService.getGananciaBajoPeso(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGestanteBajoPeso[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        console.log('peso Habitual ', pesoHabitual);
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'bajoPeso';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                    });
+
+
+                    this.tipoGananciaPeso = 'bajoPeso';
+                    console.log(this.tipoGananciaPeso);
+                }
+                if (pesoActual >= rptaClasific.p10 && pesoActual <= rptaClasific.p90) {
+                    this.imcService.getGananciaPesoRegular(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGananciaPesoRegular[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'normal';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                    });
+                }
+                if (pesoActual > rptaClasific.p90) {
+                    this.imcService.getGananciaSobrePeso(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomencacionGananciaSobrePeso[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'sobrePeso';
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                        console.log('imc ', imcAux);
+                        console.log('sobrepeso');
+                    });
+                }
+                if (pesoActual > rptaClasific.p90 + 10) {
+                    this.imcService.getGananciaObesa(semanasGestacional).subscribe((res: any) => {
+                        rptaRecomendaciones = res.object.recomendacionGananciaObesa[0];
+                        if (alturaMetros < 1.57)
+                            pesoHabitual = pesoActual - rptaRecomendaciones.min
+                        else
+                            pesoHabitual = pesoActual - rptaRecomendaciones.med
+                        imcAux = pesoHabitual / Math.pow(alturaMetros, 2);
+                        this.tipoGananciaPeso = 'obesidad';
+                        console.log('imc ', imcAux);
+                        this.form.patchValue({ imc: imcAux.toFixed(2) });
+                        this.form.patchValue({ pesoHabitual: pesoHabitual });
+                    });
+                }
+            });
+        }
+
+        let fum: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd');
+        fum = new Date(fum);
+        fum.setMonth(fum.getMonth() + 9);
+        fum.setDate(fum.getDate() + 7);
+
+        let birthDate = new DatePipe('en-CO').transform(fum, 'yyyy-MM-dd');
+        console.log('fecha ultima menstruacion ', birthDate);
+        this.form.patchValue({ dateProbableParto: birthDate });
+        // let fechaParto =
+        // console.log('semanas gestacional ', this.edadGestacional, 'dias gest ', diasGestacional, 'semanas ', semanasGestacional);
+        // this.imcService.getGananciaPesoRegular(semanasGestacional).subscribe((res: any) => {
+        //     this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
+        //     console.log('peso ', pesoActual, 'talle ', altura);
+        //     let imcAux = ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2);
+        //     this.form.patchValue({ imc: imcAux });
+        //     if (imcAux == '-Infinity') {
+        //         this.form.patchValue({ dateFUM: null });
+        //         this.messageService.add({
+        //             severity: "warn",
+        //             summary: "Alerta",
+        //             detail: 'Faltan datos para calcular el imc (peso o talla)'
+        //         });
+        //     }
+        // });
     }
 
     openDialogHemoglobina() {
@@ -704,5 +851,29 @@ export class DatosBasalesComponent implements OnInit {
             this.otrosExamHemo = data;
             console.log('data de dialog hemoglobina ', data)
         });
+    }
+
+    openDialogPatologias() {
+        this.ref = this.dialog.open(DialogPatologiasMaternasComponent, {
+            header: "PATOLOGIAS MATERNAS DIAGNOSTICADAS",
+            width: "40%",
+            height: "auto",
+            contentStyle: {
+                "max-height": "500px",
+            },
+            data: {
+                texto: 'datossss'
+            }
+        });
+        this.ref.onClose.subscribe((data: any) => {
+            console.log('data de dialog ', data);
+            if (data.nombre != '') {
+                this.listaPatologiasMaternas.push(data);
+            }
+        })
+    }
+
+    eliminarPatologia(index) {
+        this.listaPatologiasMaternas.splice(index, 1);
     }
 }

@@ -17,6 +17,7 @@ import {PartosModalComponent} from './component/partos-modal/partos-modal.compon
 import {HClinicaMaternoPerinatalRoutingModule} from "./h-clinica-materno-perinatal-routing.module";
 import { HemoglobinaDialogComponent } from './component/datos-basales/hemoglobina-dialog/hemoglobina-dialog.component';
 import { ModalAtencionesComponent } from './component/atenciones/modal-atenciones/modal-atenciones.component';
+import { DialogPatologiasMaternasComponent } from './component/datos-basales/dialog-patologias-maternas/dialog-patologias-maternas.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ModalAtencionesComponent } from './component/atenciones/modal-atencione
         PartosModalComponent,
         HemoglobinaDialogComponent,
         ModalAtencionesComponent,
+        DialogPatologiasMaternasComponent,
 
     ],
     imports: [
