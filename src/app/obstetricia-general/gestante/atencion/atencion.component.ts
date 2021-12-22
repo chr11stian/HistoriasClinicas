@@ -59,7 +59,7 @@ export class AtencionComponent implements OnInit {
             console.log('Data Consultorio Obstetrico', this.dataConsultorioObstetrico)
 
             this.obstetriciaGeneralService.idConsultoriObstetrico = this.dataConsultorioObstetrico.id;
-
+            console.log('Data consultorio id', this.obstetriciaGeneralService.idConsultoriObstetrico);
         });
 
     }
