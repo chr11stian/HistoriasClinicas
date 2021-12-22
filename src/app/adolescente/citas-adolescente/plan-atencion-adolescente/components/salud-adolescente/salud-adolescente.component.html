@@ -1,1 +1,159 @@
-<p>salud-adolescente works!</p>
+<p-divider align="left">
+    <div class="p-d-inline-flex p-ai-center">
+        <i class="pi pi-angle-double-right p-mr-2"></i>
+        <b>Salud sexual y reproductiva</b>
+    </div>
+</p-divider>
+<div class="grid borde">
+    <div class="col-7">
+        <div class="borde">
+            <div class="grid">
+                <div class="col-3">
+                    <label for="">Menarquia/Espermarquia</label>
+                </div>
+                <div class="col-3">
+                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                </div>
+                <div class="col-3">
+                    <label for="">Edad en años:</label>
+                </div>
+                <div class="col-3 p-fluid">
+                    <input type="text" pInputText />
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-3">
+                    <label for="">Inicio relacion Sexual:</label>
+                </div>
+                <div class="col-3">
+                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                </div>
+                <div class="col-3">
+                    <label for="">Edad en años:</label>
+                </div>
+                <div class="col-3 p-fluid" >
+                    <input type="text" pInputText />
+                </div>
+            </div>
+
+        </div>
+        <div class="borde">
+            <div class="grid">
+                <div class="col-3">
+                    <label for="">Abuso sexual:</label>
+                </div>
+                <div class="col-3">
+                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                </div>
+                <div class="col-3">
+                    <label for="">Nro:</label>
+                </div>
+                <div class="col-3 p-fluid">
+                    <input type="text" pInputText />
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-3">
+                    <label for="">Embarazo:</label>
+                </div>
+                <div class="col-3">
+                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                </div>
+                <div class="col-3">
+                    <label for="">Nro:</label>
+                </div>
+                <div class="col-3 p-fluid" >
+                    <input type="text" pInputText />
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-3">
+                    <label for="">Hijos:</label>
+                </div>
+                <div class="col-3">
+                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                </div>
+                <div class="col-3">
+                    <label for="">Nro:</label>
+                </div>
+                <div class="col-3 p-fluid" >
+                    <input type="text" pInputText />
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-3">
+                    <label for="">Aborto:</label>
+                </div>
+                <div class="col-3">
+                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                </div>
+                <div class="col-3">
+                    <label for="">Nro:</label>
+                </div>
+                <div class="col-3 p-fluid" >
+                    <input type="text" pInputText />
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-5">
+        <div class="borde">
+
+        <div class="text-center">
+        <label  >Observaciones</label>
+        </div>
+
+        <label for="">Ingrese observaciones:</label>
+        <div>
+            <textarea [rows]="5" [cols]="60" pInputTextarea autoResize="autoResize"></textarea>
+        </div>
+        </div>
+    </div>
+
+</div>
+<div class="grid borde">
+    <div class="col-8
+">
+        <div class="grid">
+            <div class="col-7">
+                <label for="">¿Usa algún método anticonceptivo?
+                </label>
+            </div>
+            <div class="col-5   ">
+                <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-7">
+                <label for="">¿Sabe cómo prevenir un embarazo no deseado?
+                </label>
+            </div>
+            <div class="col-5   ">
+                <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-7">
+                <label for="">¿Sabes como prevenir la transmision de la ITS y le VIH/SIDA?
+                </label>
+            </div>
+            <div class="col-5   ">
+                <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-4">
+        <div class="grid">
+            <div class="col-5">
+                <label for="">Especifique:
+                </label>
+            </div>
+            <div class="col-7 p-fluid">
+                <input type="text" pInputText />
+            </div>
+        </div>
+    </div>
+</div>

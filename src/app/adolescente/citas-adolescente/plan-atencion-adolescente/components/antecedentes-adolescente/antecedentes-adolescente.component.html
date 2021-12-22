@@ -1,1 +1,830 @@
-<p>antecedentes-adolescente works!</p>
+<p-tabView styleClass="tabview-custom" class="text-center">
+    <p-tabPanel >
+        <ng-template pTemplate="header">
+            <i class="pi pi-users mx-8"></i>
+            <span class="tabs mx-3" >Antecedentes Personales</span>
+        </ng-template>
+        <div>
+            <p-divider align="left">
+                <div class="p-d-inline-flex p-ai-center">
+                    <i class="pi pi-angle-double-right p-mr-2"></i>
+                    <b>Antecendentes Personales</b>
+                </div>
+            </p-divider>
+            <div class="grid">
+                <div class="col-4">
+                    <div class="borde">
+                        <div class="grid">
+                            <label class="col-6 text-left">Perinatales:</label>
+                            <div class="col-6 " >
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label class="col-6 text-left">Crecimiento:</label>
+                            <div class="col-6 " >
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label class="col-6 text-left">Desarrollo:</label>
+                            <div class="col-6 " >
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="borde">
+                        <div class="grid">
+                            <label class="col-6 text-left">Tiene alguna discapacidad:</label>
+                            <div class="col-6 ">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div>
+                            <div for="" style="text-align: left;font-weight: bold">Especifique:</div>
+                            <div class="p-fluid">
+                                <input type="text" pInputText>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8" >
+                    <div class="borde">
+                        <div class="grid">
+                            <div class="col-6">
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left">Tuberculosis:</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left">Soba/Asma:</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left">Transfusiones sanguíneas:</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left">Uso de medicinas:</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left">Consumo de drogas:</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left">Intervenciones quirúrgicas</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left" >Alergias:</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left">Accidentes:</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left">Transtornos psicológicos:</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left">Enfermedades Metaxénicas,ITS,Anorexia y bulimia:</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left">Violencia Intrafamiliar:</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <label for="" class="col-6 text-left">Hospitalizacion:</label>
+                                    <div class="col-6">
+                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+<!--            nueva fila-->
+            <label for="">Vacunas</label>
+            <div class="grid">
+                <div class="col-6">
+                    <table class="vacunas">
+                        <tbody>
+                        <tr>
+                            <th>Vacunas</th>
+                            <th>1ra Dosis/Fecha</th>
+                            <th>2da Dosis/Fecha</th>
+                            <th>3ra Dosis/Fecha</th>
+                        </tr>
+                        <tr>
+                            <th>DT</th>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                    </div>
+                                    <div class="col-10">
+                                        <p-calendar [showIcon]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                    </div>
+                                    <div class="col-10">
+                                        <p-calendar [showIcon]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                    </div>
+                                    <div class="col-10">
+                                        <p-calendar [showIcon]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <th>SR</th>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                    </div>
+                                    <div class="col-10">
+                                        <p-calendar [showIcon]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                    </div>
+                                    <div class="col-10">
+                                        <p-calendar [showIcon]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="grid">
+                                <div class="col-2 align-self-center">
+                                    <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                </div>
+                                <div class="col-10">
+                                    <p-calendar [showIcon]="true"></p-calendar>
+                                </div>
+                            </div></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="vacunas">
+                        <tbody>
+                        <tr>
+                            <th>Vacunas</th>
+                            <th>1ra Dosis/Fecha</th>
+                            <th>2da Dosis/Fecha</th>
+                            <th>3ra Dosis/Fecha</th>
+                        </tr>
+                        <tr>
+                            <th>HVB</th>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                    </div>
+                                    <div class="col-10">
+                                        <p-calendar [showIcon]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                    </div>
+                                    <div class="col-10">
+                                        <p-calendar [showIcon]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                    </div>
+                                    <div class="col-10">
+                                        <p-calendar [showIcon]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <th>FA</th>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                    </div>
+                                    <div class="col-10">
+                                        <p-calendar [showIcon]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                    </div>
+                                    <div class="col-10">
+                                        <p-calendar [showIcon]="true"></p-calendar>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="grid">
+                                <div class="col-2 align-self-center">
+                                    <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                </div>
+                                <div class="col-10">
+                                    <p-calendar [showIcon]="true"></p-calendar>
+                                </div>
+                            </div></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </p-tabPanel>
+    <p-tabPanel>
+        <ng-template pTemplate="header">
+            <i class="pi pi-users mx-8"></i>
+            <span class="tabs">Antecedentes Familiares</span>
+        </ng-template>
+        <form [formGroup]="antecendentesFamiliaresFG">
+        <div class="grid">
+            <div class="col-4">
+                <div class="borde">
+
+                    <label for="">Vive con:</label>
+                    <div class="grid">
+                        <label for="" class="col-6 text-left" >Madre:</label>
+                        <div class="col-6">
+                            <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <label for="" class="col-6 text-left" >Padre:</label>
+                        <div class="col-6">
+                            <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <label for="" class="col-6 text-left" >Hermanos:</label>
+                        <div class="col-6">
+                            <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <label for="" class="col-6 text-left" >Hijos:</label>
+                        <div class="col-6">
+                            <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <label for="" class="col-6 text-left" >Parejas:</label>
+                        <div class="col-6">
+                            <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <label for="" class="col-6 text-left" >Otros:</label>
+                        <div class="col-6">
+                            <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="text-left">
+                        <label for="">Referente Adulto:</label>
+                    </div>
+                    <div class="p-fluid">
+                    <input type="text" pInputText>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-8">
+                <div class=" grid borde">
+                    <div class="col-6">
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Tuberculosis:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Obesidad:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >VIH/SIDA:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Hipertención arterial:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Diabetes:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Hiperlipidemia:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Infarto:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Transtorno psicolólogico:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Drogas:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Violencia intrafamiliar:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Madre adolescente:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Maltratos:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <label for="" class="col-6 text-left" >Otros:</label>
+                            <div class="col-6">
+                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="borde" >
+                    <table class="gradoInstruccion ">
+                        <caption style="font-weight: bold">Instrucción de padres y apoderados</caption>
+                        <tbody>
+                        <tr>
+                            <th>Madre</th>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="madre" value="analfabeta" formControlName="madre"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Analfabeta</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="madre" value="primaria" formControlName="madre"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Primaria</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="madre" value="secundaria" formControlName="madre"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Secundaria</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="madre" value="superior" formControlName="madre"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Superior</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Padre</th>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="padre" value="analfabeta" formControlName="padre"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Analfabeta</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="padre" value="primaria" formControlName="padre"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Primaria</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="padre" value="secundaria" formControlName="padre"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Secundaria</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="padre" value="superior" formControlName="padre"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Superior</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Otro</th>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="otro" value="analfabeta" formControlName="otro"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Analfabeta</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="otro" value="primaria" formControlName="otro"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Primaria</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="otro" value="secundaria" formControlName="otro"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Secundaria</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="grid">
+                                    <div class="col-2 align-self-center">
+                                        <p-radioButton name="otro" value="superior" formControlName="otro"></p-radioButton>
+                                    </div>
+                                    <label for="" class="col-10">Superior</label>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+            </div>
+
+        </div>
+        </form>
+    </p-tabPanel>
+    <p-tabPanel >
+        <ng-template pTemplate="header">
+            <i class="pi pi-users mx-8"></i>
+            <span class="tabs">Antecedentes Psicologicos</span>
+        </ng-template>
+        <div class="grid">
+            <div class="col-6">
+                <div class="borde">
+                    <label for="" class="mb-5">Educativos</label>
+                    <div class="grid">
+                        <div class="col-3 text-left" >
+                            <label for="" >¿Estudia?</label>
+                        </div>
+                        <div class="col-3">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <div class="col-3 text-left">
+                            <label for="" >¿De acuerdo a la edad?</label>
+                        </div>
+                        <div class="col-3">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-3 text-left" >
+                            <label for="" >Nivel:</label>
+                        </div>
+                        <div class="col-3 p-fluid">
+                            <p-dropdown [options]="nivelEducacion" optionLabel="name"></p-dropdown>
+                        </div>
+                        <div class="col-3 text-left">
+                            <label for="" >Bajo rendimiento:</label>
+                        </div>
+                        <div class="col-3 " >
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-3 text-left">
+                            <label for="" >Deserción:</label>
+                        </div>
+                        <div class="col-3 ">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <div class="col-3 text-left">
+                            <label for="" >Repitencia:</label>
+                        </div>
+                        <div class="col-3">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="grid">
+                    <div class="col-6">
+                        <div class="borde">
+                            <label for="">Laborales</label>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">¿Trabajas?</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">Remunerado:</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">Estable:</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">Tiempo completo:</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">Edad inicio trabajo:</label>
+                                <div class="col-6 p-fluid">
+                                    <input type="text" pInputText>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">Tiempo de trabajo:</label>
+                                <div class="col-6 p-fluid">
+                                    <input type="text" pInputText>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">Tipo de trabajo:</label>
+                                <div class="col-6 p-fluid">
+                                    <input type="text" pInputText>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="borde">
+                        <label for="">Vida Social</label>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">¿Eres aceptado?</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">¿Eres ignorado?</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">¿Tienes amigos?</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">¿Tienes Pareja?</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">¿Haces deportes?</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">Organizaciones juveniles</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">Parroquias</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                            <div class="grid ">
+                                <label for="" class="col-6 text-left">Otros</label>
+                                <div class="col-6 p-fluid">
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="borde">
+                    <label for="">Habitos</label>
+                    <div class="grid ">
+                        <label for="" class="col-2 text-left">Ejercicios:</label>
+                        <div class="col-3 p-fluid">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <label for="" class="col-2">Frecuencia:</label>
+                        <div class="col-5">
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="grid ">
+                        <label for="" class="col-2 text-left">Tabaco:</label>
+                        <div class="col-3 p-fluid">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <label for="" class="col-2">Frecuencia:</label>
+                        <div class="col-5">
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="grid ">
+                        <label for="" class="col-2 text-left">Alcohol:</label>
+                        <div class="col-3 p-fluid">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <label for="" class="col-2">Frecuencia:</label>
+                        <div class="col-5">
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="grid ">
+                        <label for="" class="col-2 text-left">Drogas:</label>
+                        <div class="col-3 p-fluid">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <label for="" class="col-2">Frecuencia:</label>
+                        <div class="col-5">
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="grid ">
+                        <label for="" class="col-2 text-left">Conduce vehiculos:</label>
+                        <div class="col-3 p-fluid">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <label for="" class="col-2">Frecuencia:</label>
+                        <div class="col-5">
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="grid ">
+                        <label for="" class="col-2 text-left">Televisión<br>(Horas/Día):</label>
+                        <div class="col-3 p-fluid">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <label for="" class="col-2">Frecuencia:</label>
+                        <div class="col-5">
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="grid ">
+                        <label for="" class="col-2 text-left">Video Juegos<br>(Horas/Dia):</label>
+                        <div class="col-3 p-fluid">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <label for="" class="col-2">Frecuencia:</label>
+                        <div class="col-5">
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="grid ">
+                        <label for="" class="col-2 text-left">Internet<br>(Horas/Dia):</label>
+                        <div class="col-3 p-fluid">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <label for="" class="col-2">Frecuencia:</label>
+                        <div class="col-5">
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="grid ">
+                        <label for="" class="col-2 text-left">Higiene:</label>
+                        <div class="col-3 p-fluid">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <label for="" class="col-2">Frecuencia:</label>
+                        <div class="col-5">
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                    <div class="grid ">
+                        <label for="" class="col-2 text-left">Alimentos</label>
+                        <div class="col-3 p-fluid">
+                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                        </div>
+                        <label for="" class="col-2">Frecuencia:</label>
+                        <div class="col-5">
+                            <input type="text" pInputText>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </p-tabPanel>
+</p-tabView>

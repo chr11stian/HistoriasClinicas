@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./salud-adolescente.component.css']
 })
 export class SaludAdolescenteComponent implements OnInit {
-
+  siNo=[{name:'Si',code:'si'},
+    {name:'No',code:'no'}]
   constructor() { }
 
   ngOnInit(): void {
