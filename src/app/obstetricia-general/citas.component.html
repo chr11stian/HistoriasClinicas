@@ -74,8 +74,8 @@
 <div>
     <p-accordion>
         <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
-            <p-table [value]="dataCitas" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                     [rowsPerPageOptions]="[10, 25, 50]"
+            <p-table [value]="dataCitas" #dt styleClass="p-datatable-gridlines" [rows]="4"
+                     [rowsPerPageOptions]="[5, 10, 15]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
@@ -113,8 +113,8 @@
             </p-table>
         </p-accordionTab>
         <p-accordionTab header="LISTA DE GESTANTES CON CITAS NO ATENDIDAS">
-            <p-table [value]="citas" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                     [rowsPerPageOptions]="[10, 25, 50]"
+            <p-table [value]="citas" #dt styleClass="p-datatable-gridlines" [rows]="5"
+                     [rowsPerPageOptions]="[5, 10, 50]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 

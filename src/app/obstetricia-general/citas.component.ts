@@ -62,12 +62,11 @@ export class CitasComponent implements OnInit {
     ngOnInit(): void {
         this.buildForm();
         this.formCitas.get('fechaFinal').setValue(this.fechaActual);
-        let FechaAtrazada = this.fechaActual.getFullYear() + '-' + this.fechaActual.getMonth() + '-' + this.fechaActual.getDate();
-        this.formCitas.get('fechaInicio').setValue(FechaAtrazada);
+        this.formCitas.get('fechaInicio').setValue(this.fechaActual);
 
         const data = {
-            fechaInicio: FechaAtrazada,
-            fechaFin: this.datePipe.transform(this.formCitas.value.fechaFinal, 'yyyy-MM-dd')
+            fechaInicio: this.datePipe.transform(this.formCitas.value.fechaFinal, 'yyyy-MM-dd'),
+            fechaFin: this.datePipe.transform(this.formCitas.value.fechaFinal, 'yyyy-MM-dd'),
         }
         this.citasService.getProximaCitasGestacion(data).subscribe((res: any) => {
             this.dataCitas = res.object;
@@ -135,6 +134,8 @@ export class CitasComponent implements OnInit {
     }
 
     enviarData(event) {
+        this.obstetriciaGeneralService.tipoDoc = null;
+        this.obstetriciaGeneralService.nroDoc = null;
         console.log("EVENTO", event);
         // this.obstetriciaGeneralService.observable$.emit(event.id);
         this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
