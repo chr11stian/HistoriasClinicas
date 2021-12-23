@@ -51,6 +51,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   formIdentificacionesFactoresRiesgo: FormGroup;
   isUpdateIdentificacionesFactoresRiesgo: boolean = false;
 
+  factoresRiesgo: any[] = [];
+  factoresRiesgoDialog: boolean = false;
+  formFactoresRiesgo: FormGroup;
+  isUpdateFactoresRiesgo: boolean = false;
+  indexUpdateFactorRiesgo: number;
+
   descartesEnfermedadesNoTransmisibles: any[] = [];
   descartesEnfermedadesNoTransmisiblesDialog: boolean = false;
   formDescartesEnfermedadesNoTransmisibles: FormGroup;
@@ -130,6 +136,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     })
     this.formIdentificacionesFactoresRiesgo = this.fb.group({
       fecha: new FormControl(""),
+    })
+    this.formFactoresRiesgo = this.fb.group({
       nombre: new FormControl(""),
       valor: new FormControl("")
     })
@@ -162,13 +170,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
       conductaSexualRiesgo: new FormControl(""),
       dosMasParejas: new FormControl(""),
       sexoSinProteccion: new FormControl(""),
-      RSConPersonasDelMismoSexo: new FormControl(""),
-      RSConPersonasDelOtroSexo: new FormControl(""),
+      rsconPersonasDelMismoSexo: new FormControl(""),
+      rsconPersonasDelOtroSexo: new FormControl(""),
       usoMetodoAnticonceptivo: new FormControl(""),
       conocimientoPrevenirEmbarazoNoDeseado: new FormControl(""),
       conocimientoPrevenirTransmisionITSVIH: new FormControl("")
     })
-
   }
 
   getTodasLasEvaluaciones() {
@@ -189,7 +196,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
         this.saludSexualReproductiva = data.saludSexualReproductiva;
       });
   }
-  cancelButton(){
+  cancelButton() {
     this.evaluacionCrecimientoFisicoDialog = false;
     this.evaluacionCrecimientoFisicoDialog = false;
     this.evaluacionesAgudezaVisualAuditivaDialog = false;
@@ -285,13 +292,13 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     )
   }
 
- // eval agudeza visual y auditiva
-  getEvaluacionAgudezaVisualAuditiva(){
+  // eval agudeza visual y auditiva
+  getEvaluacionAgudezaVisualAuditiva() {
     this.planAtencionIntegralTablasService.getEvaluacionAgudezaVisualAuditiva(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.evaluacionesAgudezaVisualAuditiva=data;
-    });
+        this.evaluacionesAgudezaVisualAuditiva = data;
+      });
   }
   openNewEvaluacionAgudezaVisualAuditiva() {
     this.isUpdateEvaluacionesAgudezaVisualAuditiva = false;
@@ -361,19 +368,19 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
           timer: 1000
         })
         this.getEvaluacionAgudezaVisualAuditiva();
-          this.guardarNuevoEvaluacionAgudezaVisualAuditiva();
-          this.evaluacionesAgudezaVisualAuditivaDialog = false;
+        this.guardarNuevoEvaluacionAgudezaVisualAuditiva();
+        this.evaluacionesAgudezaVisualAuditivaDialog = false;
       }
     )
   }
 
   //eval fisico postural
-  getEvaluacionFisicoPostural(){
+  getEvaluacionFisicoPostural() {
     this.planAtencionIntegralTablasService.getEvaluacionFisicaPostural(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.evaluacionesFisicoPostural=data;
-    });
+        this.evaluacionesFisicoPostural = data;
+      });
   }
   openNewEvaluacionFisicoPostural() {
     this.isUpdateEvaluacionesFisicoPostural = false;
@@ -448,12 +455,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   }
 
   //eval desarrollo sexual
-  getEvaluacionDesarrolloSexual(){
+  getEvaluacionDesarrolloSexual() {
     this.planAtencionIntegralTablasService.getEvaluacionDesarrolloSexual(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.evaluacionesDesarrolloSexual=data;
-    });
+        this.evaluacionesDesarrolloSexual = data;
+      });
   }
   openNewEvaluacionDesarrolloSexual() {
     this.isUpdateEvaluacionesDesarrolloSexual = false;
@@ -527,12 +534,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //eval habilidades sociales
-  getEvaluacionHabilidadesSociales(){
+  getEvaluacionHabilidadesSociales() {
     this.planAtencionIntegralTablasService.getEvaluacionHabilidadesSociales(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.evaluacionesHabilidadesSociales=data;
-    });
+        this.evaluacionesHabilidadesSociales = data;
+      });
   }
   openNewEvaluacionHabilidadesSociales() {
     this.isUpdateEvaluacionesHabilidadesSociales = false;
@@ -614,12 +621,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //identificacion irritabilidad y agresion
-  getIdentificacionColeraIrritabilidadAgresion(){
+  getIdentificacionColeraIrritabilidadAgresion() {
     this.planAtencionIntegralTablasService.getIdentificacionColeraIrritabilidadAgresion(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.identificacionesColeraIrritabilidadAgresion=data;
-    });
+        this.identificacionesColeraIrritabilidadAgresion = data;
+      });
   }
   openNewIdentificacionColeraIrritabilidadAgresion() {
     this.isUpdateIdentificacionesColeraIrritabilidadAgresion = false;
@@ -663,11 +670,11 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   }
   editarIdentificacionColeraIrritabilidadAgresion(rowData) {
     this.isUpdateIdentificacionesColeraIrritabilidadAgresion = true;
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('fecha').setValue(rowData.fecha?"":rowData.fecha)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('colera').setValue(rowData.colera?"":rowData.colera)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('irritabilidad').setValue(rowData.irritabilidad?"":rowData.irritabilidad)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('agresion').setValue(rowData.agresion?"":rowData.agresion)
-    this.formIdentificacionesColeraIrritabilidadAgresion.get('calificacionTotal').setValue(rowData.calificacionTotal?"":rowData.calificacionTotal)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('fecha').setValue(rowData.fecha)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('colera').setValue(rowData.colera)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('irritabilidad').setValue(rowData.irritabilidad)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('agresion').setValue(rowData.agresion)
+    this.formIdentificacionesColeraIrritabilidadAgresion.get('calificacionTotal').setValue(rowData.calificacionTotal)
     this.identificacionesColeraIrritabilidadAgresionDialog = true;
 
   }
@@ -697,12 +704,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //tamizaje violencia
-  getTamizajeViolencia(){
+  getTamizajeViolencia() {
     this.planAtencionIntegralTablasService.getTamizajeViolencia(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.tamizajesViolencia=data;
-    });
+        this.tamizajesViolencia = data;
+      });
   }
   openNewTamizajeViolencia() {
     this.isUpdateTamizajesViolencia = false;
@@ -776,91 +783,136 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   // identificacion factores riesgo
-  getIdentificacionFactoresRiesgo(){
+  getIdentificacionFactoresRiesgo() {
     this.planAtencionIntegralTablasService.getIdentificacionFactoresRiesgo(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.identificacionesFactoresRiesgo=data;
-    });
+        this.identificacionesFactoresRiesgo = data;
+      });
   }
   openNewIdentificacionFactoresRiesgo() {
     this.isUpdateIdentificacionesFactoresRiesgo = false;
     this.formIdentificacionesFactoresRiesgo.reset();
     this.formIdentificacionesFactoresRiesgo.get('fecha').setValue("");
-    this.formIdentificacionesFactoresRiesgo.get('nombre').setValue("");
-    this.formIdentificacionesFactoresRiesgo.get('valor').setValue("");
     this.identificacionesFactoresRiesgoDialog = true;
+    this.factoresRiesgo = [];
   }
   saveFormIdentificacionFactoresRiesgo() {
-    this.isUpdateEvaluacionCrecimientoFisico = false;
+    this.isUpdateIdentificacionesFactoresRiesgo = false;
     const req = {
-      fecha: this.formEvaluacionCrecimientoFisico.value.fecha,
-      imc: this.formEvaluacionCrecimientoFisico.value.imc,
-      talla: this.formEvaluacionCrecimientoFisico.value.talla,
-      edad: this.formEvaluacionCrecimientoFisico.value.edad,
-      alimentacion: this.formEvaluacionCrecimientoFisico.value.alimentacion,
+      fecha: this.formIdentificacionesFactoresRiesgo.value.fecha,
+      items: this.factoresRiesgo,
     }
     if (req.fecha.trim() !== "") {
-      this.planAtencionIntegralTablasService.agregarEvaluacionCrecimientoFisicoEstadoNutricional(this.nroDoc, req).subscribe(
+      this.planAtencionIntegralTablasService.agregarIdentificacionFactoresRiesgo(this.nroDoc, req).subscribe(
         result => {
           Swal.fire({
             icon: 'success',
             title: 'Agregado correctamente',
-            text: 'Evaluacion crecimiento fisico y estado nutricional',
+            text: 'Identificacion factores riesgo',
             showConfirmButton: false,
             timer: 1000
           })
-          this.getEvaluacionCrecimientoFisico();
-          this.guardarNuevoEvaluacionCrecimientoFisico();
-          this.evaluacionCrecimientoFisicoDialog = false;
+          this.getIdentificacionFactoresRiesgo();
+          this.guardarNuevoIdentificacionFactoresRiesgo();
+          this.identificacionesFactoresRiesgoDialog = false;
         }
       )
     }
   }
   guardarNuevoIdentificacionFactoresRiesgo() {
-    this.isUpdateEvaluacionCrecimientoFisico = false;
-    this.formEvaluacionCrecimientoFisico.reset();
+    this.isUpdateIdentificacionesFactoresRiesgo = false;
+    this.formIdentificacionesFactoresRiesgo.reset();
+    this.factoresRiesgo = [];
   }
   editarIdentificacionFactoresRiesgo(rowData) {
-    this.isUpdateEvaluacionCrecimientoFisico = true;
-    this.formEvaluacionCrecimientoFisico.get('fecha').setValue(rowData.fecha)
-    this.formEvaluacionCrecimientoFisico.get('imc').setValue(rowData.imc)
-    this.formEvaluacionCrecimientoFisico.get('talla').setValue(rowData.talla)
-    this.formEvaluacionCrecimientoFisico.get('edad').setValue(rowData.edad)
-    this.formEvaluacionCrecimientoFisico.get('alimentacion').setValue(rowData.alimentacion)
-    this.evaluacionCrecimientoFisicoDialog = true;
-
+    this.isUpdateIdentificacionesFactoresRiesgo = true;
+    this.formIdentificacionesFactoresRiesgo.get('fecha').setValue(rowData.fecha);
+    this.factoresRiesgo = rowData.items;
+    this.identificacionesFactoresRiesgoDialog = true;
   }
   editarDatosIdentificacionFactoresRiesgo() {
     const req = {
-      fecha: this.formEvaluacionCrecimientoFisico.value.fecha,
-      imc: this.formEvaluacionCrecimientoFisico.value.imc,
-      talla: this.formEvaluacionCrecimientoFisico.value.talla,
-      edad: this.formEvaluacionCrecimientoFisico.value.edad,
-      alimentacion: this.formEvaluacionCrecimientoFisico.value.alimentacion,
+      fecha: this.formIdentificacionesFactoresRiesgo.value.fecha,
+      items: this.factoresRiesgo,
     }
-    this.planAtencionIntegralTablasService.editarEvaluacionCrecimientoFisicoEstadoNutricional(this.nroDoc, req).subscribe(
+    this.planAtencionIntegralTablasService.editarIdentificacionFactoresRiesgo(this.nroDoc, req).subscribe(
       result => {
         Swal.fire({
           icon: 'success',
           title: 'Editado correctamente',
-          text: 'Evaluacion crecimiento fisico y estado nutricional',
+          text: 'Identificacion factores riesgo',
           showConfirmButton: false,
           timer: 1000
         })
-        this.getEvaluacionCrecimientoFisico();
-        this.guardarNuevoEvaluacionCrecimientoFisico();
-        this.evaluacionCrecimientoFisicoDialog = false;
+        this.getIdentificacionFactoresRiesgo();
+        this.guardarNuevoIdentificacionFactoresRiesgo();
+        this.identificacionesFactoresRiesgoDialog = false;
       }
     )
   }
+  //mini tabla
+  openNewFactorRiesgo() {
+    this.isUpdateFactoresRiesgo = false;
+    this.formFactoresRiesgo.reset();
+    this.formFactoresRiesgo.get('nombre').setValue("");
+    this.formFactoresRiesgo.get('valor').setValue("");
+    this.factoresRiesgoDialog = true;
+  }
+  enviarFactoresRiesgo() {
+    var factoresRiesgoUnaFecha = {
+      nombre: this.formFactoresRiesgo.value.nombre,
+      valor: this.formFactoresRiesgo.value.valor,
+    }
+    console.log(factoresRiesgoUnaFecha);
+    this.factoresRiesgo.push(factoresRiesgoUnaFecha);
+    this.factoresRiesgoDialog = false;
+  }
+
+  canceledFactoresRiesgo() {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Cancelado...',
+      text: '',
+      showConfirmButton: false,
+      timer: 1000
+    })
+    this.factoresRiesgoDialog = false;
+    this.isUpdateFactoresRiesgo = false;
+  }
+
+
+  openDialogEditarFactorRiesgo(rowData, rowIndex) {
+    this.isUpdateFactoresRiesgo = true;
+    this.indexUpdateFactorRiesgo = rowIndex;
+    this.formFactoresRiesgo.reset();
+    this.formFactoresRiesgo.get('nombre').setValue(rowData.nombre);
+    this.formFactoresRiesgo.get('valor').setValue(rowData.valor);
+    this.factoresRiesgoDialog = true;
+  }
+
+  guardarEdicionFactorRiesgo() {
+    var factoresRiesgoUnaFecha = {
+      nombre: this.formFactoresRiesgo.value.nombre,
+      valor: this.formFactoresRiesgo.value.valor,
+    }
+    console.log(factoresRiesgoUnaFecha);
+    this.factoresRiesgo.splice(this.indexUpdateFactorRiesgo, 1, factoresRiesgoUnaFecha);
+    this.factoresRiesgoDialog = false;
+    this.isUpdateFactoresRiesgo = false;
+  }
+
+  eliminarFactorRiesgo(rowIndex) {
+    this.isUpdateFactoresRiesgo = false;
+    this.factoresRiesgo.splice(rowIndex, 1);
+  }
   //descarte enfermedades no transmisibles
-  getDescarteEnfermedadesNoTransmisibles(){
+  getDescarteEnfermedadesNoTransmisibles() {
     this.planAtencionIntegralTablasService.getDescarteEnfermedadesNoTransmisibles(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.descartesEnfermedadesNoTransmisibles=data;
-    });
+        this.descartesEnfermedadesNoTransmisibles = data;
+      });
   }
   openNewDescarteEnfermedadesNoTransmisibles() {
     this.isUpdateDescartesEnfermedadesNoTransmisibles = false;
@@ -938,12 +990,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //escolaridad
-  getEscolaridad(){
+  getEscolaridad() {
     this.planAtencionIntegralTablasService.getEscolaridad(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.escolaridades=data;
-    });
+        this.escolaridades = data;
+      });
   }
   openNewEscolaridad() {
     this.isUpdateEscolaridades = false;
@@ -1017,12 +1069,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //habitos
-  getHabito(){
+  getHabito() {
     this.planAtencionIntegralTablasService.getHabitos(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.habitos=data;
-    });
+        this.habitos = data;
+      });
   }
   openNewHabito() {
     this.isUpdateHabitos = false;
@@ -1039,7 +1091,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   saveFormHabito() {
     this.isUpdateHabitos = false;
     const req = {
-      fecha: this.formEvaluacionCrecimientoFisico.value.fecha,
+      fecha: this.formHabitos.value.fecha,
       usoTiempoLibre: this.formHabitos.value.usoTiempoLibre,
       sedentarismo: this.formHabitos.value.sedentarismo,
       usoAlcohol: this.formHabitos.value.usoAlcohol,
@@ -1082,7 +1134,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   }
   editarDatosHabito() {
     const req = {
-      fecha: this.formEvaluacionCrecimientoFisico.value.fecha,
+      fecha: this.formHabitos.value.fecha,
       usoTiempoLibre: this.formHabitos.value.usoTiempoLibre,
       sedentarismo: this.formHabitos.value.sedentarismo,
       usoAlcohol: this.formHabitos.value.usoAlcohol,
@@ -1108,12 +1160,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //salud sexual reproductiva
-  getSaludSexualReproductiva(){
+  getSaludSexualReproductiva() {
     this.planAtencionIntegralTablasService.getSaludSexualReproductiva(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.saludSexualReproductiva=data;
-    });
+        this.saludSexualReproductiva = data;
+      });
   }
   openNewSaludSexualReproductiva() {
     this.isUpdateSaludSexualReproductiva = false;
@@ -1124,8 +1176,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     this.formSaludSexualReproductiva.get('conductaSexualRiesgo').setValue("");
     this.formSaludSexualReproductiva.get('dosMasParejas').setValue("");
     this.formSaludSexualReproductiva.get('sexoSinProteccion').setValue("");
-    this.formSaludSexualReproductiva.get('RSConPersonasDelMismoSexo').setValue("");
-    this.formSaludSexualReproductiva.get('RSConPersonasDelOtroSexo').setValue("");
+    this.formSaludSexualReproductiva.get('rsconPersonasDelMismoSexo').setValue("");
+    this.formSaludSexualReproductiva.get('rsconPersonasDelOtroSexo').setValue("");
     this.formSaludSexualReproductiva.get('usoMetodoAnticonceptivo').setValue("");
     this.formSaludSexualReproductiva.get('conocimientoPrevenirEmbarazoNoDeseado').setValue("");
     this.formSaludSexualReproductiva.get('conocimientoPrevenirTransmisionITSVIH').setValue("");
@@ -1140,8 +1192,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
       conductaSexualRiesgo: this.formSaludSexualReproductiva.value.conductaSexualRiesgo,
       dosMasParejas: this.formSaludSexualReproductiva.value.dosMasParejas,
       sexoSinProteccion: this.formSaludSexualReproductiva.value.sexoSinProteccion,
-      RSConPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelMismoSexo,
-      RSConPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelOtroSexo,
+      rsconPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelMismoSexo,
+      rsconPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelOtroSexo,
       usoMetodoAnticonceptivo: this.formSaludSexualReproductiva.value.usoMetodoAnticonceptivo,
       conocimientoPrevenirEmbarazoNoDeseado: this.formSaludSexualReproductiva.value.conocimientoPrevenirEmbarazoNoDeseado,
       conocimientoPrevenirTransmisionITSVIH: this.formSaludSexualReproductiva.value.conocimientoPrevenirTransmisionITSVIH,
@@ -1175,8 +1227,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     this.formSaludSexualReproductiva.get('conductaSexualRiesgo').setValue(rowData.conductaSexualRiesgo)
     this.formSaludSexualReproductiva.get('dosMasParejas').setValue(rowData.dosMasParejas)
     this.formSaludSexualReproductiva.get('sexoSinProteccion').setValue(rowData.sexoSinProteccion)
-    this.formSaludSexualReproductiva.get('RSConPersonasDelMismoSexo').setValue(rowData.RSConPersonasDelMismoSexo)
-    this.formSaludSexualReproductiva.get('RSConPersonasDelOtroSexo').setValue(rowData.RSConPersonasDelOtroSexo)
+    this.formSaludSexualReproductiva.get('rsconPersonasDelMismoSexo').setValue(rowData.rsconPersonasDelMismoSexo)
+    this.formSaludSexualReproductiva.get('rsconPersonasDelOtroSexo').setValue(rowData.rsconPersonasDelOtroSexo)
     this.formSaludSexualReproductiva.get('usoMetodoAnticonceptivo').setValue(rowData.usoMetodoAnticonceptivo)
     this.formSaludSexualReproductiva.get('conocimientoPrevenirEmbarazoNoDeseado').setValue(rowData.conocimientoPrevenirEmbarazoNoDeseado)
     this.formSaludSexualReproductiva.get('conocimientoPrevenirTransmisionITSVIH').setValue(rowData.conocimientoPrevenirTransmisionITSVIH)
@@ -1191,8 +1243,8 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
       conductaSexualRiesgo: this.formSaludSexualReproductiva.value.conductaSexualRiesgo,
       dosMasParejas: this.formSaludSexualReproductiva.value.dosMasParejas,
       sexoSinProteccion: this.formSaludSexualReproductiva.value.sexoSinProteccion,
-      RSConPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelMismoSexo,
-      RSConPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.RSConPersonasDelOtroSexo,
+      rsconPersonasDelMismoSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelMismoSexo,
+      rsconPersonasDelOtroSexo: this.formSaludSexualReproductiva.value.rsconPersonasDelOtroSexo,
       usoMetodoAnticonceptivo: this.formSaludSexualReproductiva.value.usoMetodoAnticonceptivo,
       conocimientoPrevenirEmbarazoNoDeseado: this.formSaludSexualReproductiva.value.conocimientoPrevenirEmbarazoNoDeseado,
       conocimientoPrevenirTransmisionITSVIH: this.formSaludSexualReproductiva.value.conocimientoPrevenirTransmisionITSVIH,
@@ -1215,6 +1267,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   ngOnInit(): void {
+    
   }
 
 }
