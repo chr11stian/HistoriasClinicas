@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {
-  item,
-  valoracionFuncional,
+import { item,  valoracionFuncional,
 } from "../../models/plan-atencion-adulto-mayor.model";
 import {AdultoMayorService} from "../../../services/adulto-mayor.service";
 import {MessageService} from "primeng/api";
@@ -109,12 +107,12 @@ export class ValoracionFuncionalAdultoMayorComponent implements OnInit {
       suma+=items[i].puntaje;
     }
 
-    if(suma==0){diagnosticos="independiente"}
+    if(suma==0){diagnosticos="INDEPENDIENTE"}
     else{
       if(suma==6){
-        diagnosticos="dependiente";}
+        diagnosticos="DEPENDIENTE";}
       else{
-            diagnosticos="dependienteParcial";
+            diagnosticos="DEPENDIENTE PARCIAL";
       }
     }
     this.valoracionesFuncional = {

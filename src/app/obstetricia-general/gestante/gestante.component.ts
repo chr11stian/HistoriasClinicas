@@ -66,7 +66,6 @@ export class GestanteComponent implements OnInit {
         let tipoDoc = this.tipoDocRecuperado;
         let nroDoc = this.nroDocRecuperado;
 
-
         this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.dataLifiado = res.object
             console.log('paciente por doc ', this.dataLifiado)
@@ -79,8 +78,11 @@ export class GestanteComponent implements OnInit {
     }
 
     newEmbarazo() {
+        this.obstetriciaGeneralService.idGestacion = null;
         this.obstetriciaGeneralService.tipoDoc = this.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = this.nroDoc;
     }
+
+
 
 }

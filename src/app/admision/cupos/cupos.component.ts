@@ -23,7 +23,7 @@ import {RolGuardiaService} from "../../core/services/rol-guardia/rol-guardia.ser
     styleUrls: ['./cupos.component.css']
 })
 export class CuposComponent implements OnInit {
-    idIpressZarzuela = "616de45e0273042236434b51";
+    idIpressLapostaMedica = "616de45e0273042236434b51";
     listaUps: any;
     dataCupos_por_fechas_servicio: any;
     personalSelected2: any;
@@ -94,6 +94,7 @@ export class CuposComponent implements OnInit {
         // this.fechaParaReservaCupos = this.datafecha.getFullYear() + '-' + (this.datafecha.getMonth() + 1) + '-' + this.datafecha.getDate();
         // console.log("FECHAS", this.fechaParaReservaCupos);
         console.log("HORARIO", this.selectedHorario);
+        this.selectCupos();
     }
 
 
@@ -122,7 +123,7 @@ export class CuposComponent implements OnInit {
     /**lista los Servicios por IPRESS**/
     getListaUps() {
         this.rolGuardiaService
-            .getServiciosPorIpress(this.idIpressZarzuela)
+            .getServiciosPorIpress(this.idIpressLapostaMedica)
             .subscribe((resp) => {
                 this.ups = resp["object"];
                 // this.loading = false;
@@ -150,6 +151,7 @@ export class CuposComponent implements OnInit {
 
     buildForm() {
         this.formCuposOferta = this.fb.group({
+            fechaBusqueda: new FormControl(''),
             fechaAtencion: new FormControl(''),
             oferta_id: new FormControl(''),
             descripcion: new FormControl(''),
@@ -244,7 +246,7 @@ export class CuposComponent implements OnInit {
             }
         )
 
-        this.actualizarOfertaEstado();
+        // this.actualizarOfertaEstado();
 
     }
 
@@ -335,15 +337,15 @@ export class CuposComponent implements OnInit {
     }
 
 
-    selectCupos(event) {
+    selectCupos() {
         console.log("servicio", event);
         let data = {
             servicio: "ACUPUNTURA Y AFINES",
-            fecha: "01-12-2021",
+            fecha: "2021-12-22",
         }
-        this.cuposService.listaCuposConfirmados(this.idIpressZarzuela, data).subscribe((res: any) => {
+        this.cuposService.listaCuposConfirmados(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.dataCupos_por_fechas_servicio = res.object;
-            console.log('Listasssss ', this.dataCupos_por_fechas_servicio);
+            console.log('LISTA DE CUPOS POR SERVICIO ', this.dataCupos_por_fechas_servicio);
         })
 
         if (this.dataCupos_por_fechas_servicio != null) {
