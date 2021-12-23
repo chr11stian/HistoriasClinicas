@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AntecedentePersonalesService {
 
-  base_url = environment.baseUrlPublic;
+  base_url = environment.baseUrl;
   bd = environment.bd;
 
   constructor(private http: HttpClient) { }
