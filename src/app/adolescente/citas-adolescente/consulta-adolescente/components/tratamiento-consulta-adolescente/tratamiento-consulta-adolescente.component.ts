@@ -13,6 +13,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   datosDiagnosticos: any;
   updateTratamiento: boolean = false;
   dialogTratamiento: boolean = false;
+  listaTratamientos: tratamiento[] = [];
 
   listaIntervalos = [
     { name: 'CADA 1 HORA', code: '1' },
@@ -77,17 +78,35 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   }
 
   aceptarDialogTratamiento() {
-    let tratamiento = {
-
+    let tratamiento: tratamiento = {
+      descripcion: this.formTratamiento.value.descripcion,
+      numero: this.formTratamiento.value.numero,
+      dosis: this.formTratamiento.value.dosis,
+      viaAdministracion: this.formTratamiento.value.viaAdministracion,
+      intervalo: this.formTratamiento.value.intervalo,
+      observaciones: this.formTratamiento.value.observaciones
     }
+    this.listaTratamientos.push(tratamiento);
+    this.dialogTratamiento = false;
+    console.log('data to save inter ', tratamiento);
   }
 
-  guardarEdicionTratamiento(){
-    
-  }
-
-  closeDialogTratamiento(){
+  guardarEdicionTratamiento() {
 
   }
 
+  closeDialogTratamiento() {
+
+  }
+
+}
+
+export interface tratamiento {
+  descripcion?: string,
+  numero?: number,
+  dosis?: string,
+  viaAdministracion?: string,
+  intervalo?: string,
+  duracion?: string,
+  observaciones?: string
 }
