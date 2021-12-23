@@ -99,7 +99,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         this.obternerFechaActual();
         this.buildForm();
 
-        if (this.idRecuperado == '') {
+        if (this.idRecuperado == null) {
             this.getpacienteByNroDoc();
         } else this.getpacienteFiiacionByID();
 
@@ -171,7 +171,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         };
         console.log("data", req);
 
-        if (this.idRecuperado == '') {
+        if (this.idRecuperado == null) {
             this.filiancionService.addPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
                 result => {
                     Swal.fire({
