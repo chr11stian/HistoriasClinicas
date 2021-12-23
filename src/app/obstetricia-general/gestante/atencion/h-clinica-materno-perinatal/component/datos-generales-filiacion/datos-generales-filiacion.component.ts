@@ -174,6 +174,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
         if (this.idRecuperado == null) {
             this.filiancionService.addPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
                 result => {
+                    console.log("RESPUESTA", result)
                     Swal.fire({
                         icon: 'success',
                         title: 'Guardo con exito',
