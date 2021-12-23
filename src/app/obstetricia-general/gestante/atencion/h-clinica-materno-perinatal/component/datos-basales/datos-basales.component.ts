@@ -166,7 +166,6 @@ export class DatosBasalesComponent implements OnInit {
             secrecionVag: new FormControl(""),
             pap: new FormControl(""),
             ivaa: new FormControl(""),
-
             datevdrl1: new FormControl(""),
             dateTpha: new FormControl(""),
             dateVih1: new FormControl(""),
@@ -200,7 +199,6 @@ export class DatosBasalesComponent implements OnInit {
             datePatolog2: new FormControl(""),
             datePatolog3: new FormControl(""),
             datePatolog4: new FormControl(""),
-
         });
 
         this.formHemoglobina = this.fb.group({
@@ -215,7 +213,6 @@ export class DatosBasalesComponent implements OnInit {
         this.recuperarHemoglobina();
         this.recuperarOtrosExamenes();
         let vacPrev: string[] = [];
-
         let aux1: boolean = this.form.value.rubeola;
         let aux2: boolean = this.form.value.hepatitisB;
         let aux3: boolean = this.form.value.papiloma;
@@ -807,14 +804,52 @@ export class DatosBasalesComponent implements OnInit {
             });
         }
 
-        let fum: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd');
+        let fum: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd').split("/");
+        console.log('split date ', fum);
+        let newDay: any = parseInt(fum[2]) + 7;
+        let newMonth: any = parseInt(fum[1]) - 3;
+        let newYear: any = parseInt(fum[0]);
+
+        console.log('enfrio ', newDay);
+        if (newMonth == 2) {
+            if (newDay > 28 && newDay <= 30) {
+                newDay = newDay - 28;
+                newMonth = newMonth + 1;
+            }
+        }
+        if (parseInt(fum[1]) <= 3) {
+            newMonth = 12 + newMonth;
+        }
+        else {
+            newYear = (newYear) + 1;
+        }
+        console.log('enfrio 2 ', newDay);
+        if (newDay > 30) {
+            console.log('actual day ', newDay);
+            newDay = newDay - 30;
+            newMonth = newMonth + 1
+        }
+        if (newMonth > 12) {
+            newMonth = newMonth - 12
+            newYear = newYear + 1
+        }
+        if (newDay < 10) {
+            newDay = '0' + newDay
+        }
+        if (newMonth < 10) {
+            newMonth = '0' + newMonth
+        }
+
+        let auxBirth = newYear + '-' + newMonth + '-' + newDay;
+        console.log(' posible fecha ', auxBirth);
         fum = new Date(fum);
         fum.setMonth(fum.getMonth() + 9);
         fum.setDate(fum.getDate() + 7);
+        this.form.patchValue({ dateProbableParto: auxBirth });
 
-        let birthDate = new DatePipe('en-CO').transform(fum, 'yyyy-MM-dd');
-        console.log('fecha ultima menstruacion ', birthDate);
-        this.form.patchValue({ dateProbableParto: birthDate });
+        // let birthDate = new DatePipe('en-CO').transform(fum, 'yyyy-MM-dd');
+        // console.log('fecha ultima menstruacion ', birthDate);
+        // this.form.patchValue({ dateProbableParto: birthDate });
         // let fechaParto =
         // console.log('semanas gestacional ', this.edadGestacional, 'dias gest ', diasGestacional, 'semanas ', semanasGestacional);
         // this.imcService.getGananciaPesoRegular(semanasGestacional).subscribe((res: any) => {

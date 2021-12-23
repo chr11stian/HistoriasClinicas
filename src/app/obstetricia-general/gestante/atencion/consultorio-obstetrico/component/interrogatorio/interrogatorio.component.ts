@@ -169,7 +169,7 @@ export class InterrogatorioComponent implements OnInit {
       nroHcl: this.ultimaConsulta.nroHcl,
       nroAtencion: 1,
       nroControlSis: this.ultimaConsulta.nroMayorControlSis,
-      nroEmbarazo: 2, // corregir el nro de embarazo
+      nroEmbarazo: this.ultimaConsulta.nroEmbarazo, // corregir el nro de embarazo
       tipoDoc: this.ultimaConsulta.tipoDoc,
       nroDoc: this.ultimaConsulta.nroDoc,
       funcionesVitales: {
