@@ -478,6 +478,8 @@ export class DatosBasalesComponent implements OnInit {
         this.datosBasalesService.getDatosBasalesById(this.idGestante).subscribe((res: any) => {
             this.rptaDatosBasales = res.object;
             console.log('datos de embarazo', this.rptaDatosBasales)
+            if (this.rptaDatosBasales == null)
+                return
             this.form.patchValue({ 'imc': this.rptaDatosBasales.pesoTalla.imc });
             this.form.patchValue({ 'pesoHabitual': this.rptaDatosBasales.pesoTalla.pesoHabitual });
             this.form.patchValue({ 'talla': this.rptaDatosBasales.pesoTalla.talla });
@@ -640,9 +642,6 @@ export class DatosBasalesComponent implements OnInit {
     }
 
     calcularIMC() {
-        // let auxFUM: any = new DatePipe('en-CO').transform(this.form.value.dateFUM, 'yyyy/MM/dd')   + (3600000 * 5)
-
-
         let today = new Date().getTime();
         let auxFUM = new Date(this.form.value.dateFUM).getTime();
         auxFUM = auxFUM + 0;
