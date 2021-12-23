@@ -14,8 +14,11 @@ export class AdultoMayorService {
     getDatosGeneralesAdultoMayor(tipoDoc,nroDoc){
         return this.http.get(`${this.base_url}/${this.bd}/adultomayor/buscardatosgenerales/${tipoDoc}/${nroDoc}`);
     }
-    postDatosGeneralesAdultoMayor(tipoDoc,nroDoc,data){
-        return this.http.post(`${this.base_url}/${this.bd}/adultomayor/buscardatosgenerales/${tipoDoc}/${nroDoc}`,data);
+    postDatosGeneralesAdultoMayorByDoc(tipoDoc,nroDoc,data){
+        return this.http.post(`${this.base_url}/${this.bd}/adultomayor/guardardatosgenerales/${tipoDoc}/${nroDoc}`,data);
+    }
+    postDatosGeneralesAdultoMayorById(idFiliacion,data){
+        return this.http.post(`${this.base_url}/${this.bd}/adultomayor/guardardatosgenerales/${idFiliacion}`,data);
     }
     /*******************ANTECEDENTES ADULTO MAYOR****************/
     getAntecedentesAdultoMayorByDoc(tipoDoc,nroDoc){

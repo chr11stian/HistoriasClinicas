@@ -50,7 +50,7 @@ export interface datosGeneralesAdultoMayor{
     procedencia?:string,
     gradoInstruccion?:string,
     estadoCivil?:string,
-    grupoSanguinio?:string,
+    grupoSanguineo?:string,
     rh?:string,
     ocupacion?:string,
     domicilio?:string,
