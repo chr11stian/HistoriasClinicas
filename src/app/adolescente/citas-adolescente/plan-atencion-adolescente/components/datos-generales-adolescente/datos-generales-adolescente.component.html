@@ -5,7 +5,7 @@
             fecha
         </label>
         <div>
-            <p-calendar formControlName="fecha" [showIcon]="true" inputId="icon"></p-calendar>
+            <p-calendar formControlName="fecha" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
         </div>
     </div>
     <div class="col-3">
@@ -25,12 +25,20 @@
     </div>
 </p-divider>
 <div class="grid">
-    <div class="col-4 ">
+    <div class="col-2 ">
         <label for="">
-            Apellidos:
+            Apellido Paterno:
         </label>
         <div class="p-fluid">
-            <input formControlName="apellidos" type="text" pInputText />
+            <input formControlName="apellidoPaterno" type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-2 ">
+        <label for="">
+            Apellidos Materno:
+        </label>
+        <div class="p-fluid">
+            <input formControlName="apellidoMaterno" type="text" pInputText />
         </div>
     </div>
     <div class="col-3">
@@ -44,7 +52,7 @@
     <div class="col-1">
         <label for="">Sexo:</label>
         <div>
-            <p-selectButton formControlName="sexo" [options]="sexo" optionLabel="name"></p-selectButton>
+            <p-selectButton formControlName="sexo" [options]="sexo" optionLabel="name" optionValue="code"></p-selectButton>
         </div>
     </div>
     <div class="col-1">
@@ -57,7 +65,7 @@
     <div class="col-3">
         <label for="">Fecha de nacimiento</label>
         <div>
-            <p-calendar formControlName="fechaNacimiento" [showIcon]="true" inputId="icon"></p-calendar>
+            <p-calendar formControlName="fechaNacimiento" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
         </div>
     </div>
 </div>
@@ -85,13 +93,13 @@
     <div class="col-2">
         <label>GrupoSanguineo:</label>
         <div class="p-fluid">
-            <p-dropdown formControlName="grupoSanguineo" [options]="grupoSanguineo"  optionLabel="name"></p-dropdown>
+            <p-dropdown formControlName="grupoSanguineo" [options]="grupoSanguineo"  optionLabel="name" optionValue="code"></p-dropdown>
         </div>
     </div>
     <div class="col-1">
         <label>Rh:</label>
         <div class="p-fluid">
-            <p-selectButton formControlName="rh" [options]="rh" optionLabel="name"></p-selectButton>
+            <p-selectButton formControlName="rh" [options]="rh" optionLabel="name" optionValue="name"></p-selectButton>
         </div>
     </div>
 </div>
@@ -106,7 +114,7 @@
     <div class="col-2">
         <label>Idioma:</label>
         <div class="p-fluid">
-            <p-dropdown  formControlName="idioma" [options]="idioma" optionLabel="name"></p-dropdown>
+            <p-dropdown  formControlName="idioma" [options]="idioma" optionLabel="name" optionValue="code"></p-dropdown>
         </div>
     </div>
     <div class="col-6">
@@ -180,3 +188,4 @@
 </div>
     <button pButton type="button" label="Click" (click)="save()"></button>
 </form>
+

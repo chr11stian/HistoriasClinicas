@@ -48,34 +48,34 @@ export class ResultadosComponent implements OnInit {
     nroEmbarazo:string
     idConsultoriObstetrico:string;
     examenes = [
-        {name: 'grupoSanguineo',code:1,tipoInput:1,codeDrop:this.ABO},
-        {name: 'factorRH',code:2,tipoInput:1,codeDrop:this.PN},
-        {name: 'hemograma',code:3,tipoInput:3},
-        {name: 'hemoglobina',code:4,tipoInput:2},
-        {name: 'factorCorreccion',code:5,tipoInput:2},
-        {name: 'hto',code:6,tipoInput:3},
-        {name: 'glucosa',code:7,tipoInput:2},
-        {name: 'toleranciaGlucosa',code:8,tipoInput:1,codeDrop:this.normalAnormal},
-        {name: 'exaOrina',code:9,tipoInput:1,codeDrop:this.positivoNegativo},
-        {name: 'rpr',code:10,tipoInput:1,codeDrop: this.reactivoNoReactivo},
-        {name: 'rprReactivo',code:11,tipoInput:1,codeDrop: this.reactivoNoReactivo},
-        {name: 'exSecV',code:12,tipoInput:1,codeDrop: this.normalAnormal},
-        {name: 'proteinuriaCuantitativa',code:13,tipoInput:1,codeDrop: this.normalAnormal},
-        {name: 'proteinuriaCualitativa',code:14,tipoInput:1,codeDrop: this.normalAnormal},
-        {name: 'pruebaVIH',code:15,tipoInput:1,codeDrop: this.reactivoNoReactivo},
-        {name: 'prHepatitis',code:16,tipoInput:1,codeDrop: this.reactivoNoReactivo},
-        {name: 'elisa',code:17,tipoInput:1,codeDrop: this.reactivoNoReactivo},
-        {name: 'glicemia',code:18,tipoInput:1,codeDrop: this.normalAnormal},
-        {name: 'bacteriuria',code:19,tipoInput:1,codeDrop: this.positivoNegativo},
-        {name: 'nitritos',code:20,tipoInput:1,codeDrop: this.positivoNegativo},
-        {name: 'urocultivo',code:21,tipoInput:1,codeDrop: this.positivoNegativo},
-        {name: 'bkEsputo',code:22,tipoInput:1,codeDrop: this.positivoNegativo},
-        {name: 'wsternBlotlfi',code:23,tipoInput:1,codeDrop: this.positivoNegativo},
-        {name: 'thlv1',code:24,tipoInput:1,codeDrop: this.positivoNegativo},
-        {name: 'torch',code:25,tipoInput:1,codeDrop: this.positivoNegativo},
-        {name: 'gotaGruesa',code:26,tipoInput:3},
-        {name: 'pap',code:27,tipoInput:1,codeDrop: this.normalAnormal},
-        {name: 'ivaa',code:28,tipoInput:1,codeDrop: this.normalAnormal}
+        { display:"Grupo Sanguineo",name: 'grupoSanguineo',code:1,tipoInput:1,codeDrop:this.ABO},
+        { display:"Factor RH",name: 'factorRH',code:2,tipoInput:1,codeDrop:this.PN},
+        { display:"Hemograma",name: 'hemograma',code:3,tipoInput:3},
+        { display:"Hemoglobina",name: 'hemoglobina',code:4,tipoInput:2},
+        { display:"Factor de Correccion",name: 'factorCorreccion',code:5,tipoInput:2},
+        { display:"HTO",name: 'hto',code:6,tipoInput:3},
+        { display:"Glucosa",name: 'glucosa',code:7,tipoInput:2},
+        { display:"Tolerancia Glucosa",name: 'toleranciaGlucosa',code:8,tipoInput:1,codeDrop:this.normalAnormal},
+        { display:"Examen de Orina",name: 'exaOrina',code:9,tipoInput:1,codeDrop:this.positivoNegativo},
+        { display:"RPR",name: 'rpr',code:10,tipoInput:1,codeDrop: this.reactivoNoReactivo},
+        { display:"RPR Reactivo",name: 'rprReactivo',code:11,tipoInput:1,codeDrop: this.reactivoNoReactivo},
+        { display:"Examen Sec V",name: 'exSecV',code:12,tipoInput:1,codeDrop: this.normalAnormal},
+        { display:"Protenuaria Cuantitativa",name: 'proteinuriaCuantitativa',code:13,tipoInput:1,codeDrop: this.normalAnormal},
+        { display:"Protenuaria Cualitativa",name: 'proteinuriaCualitativa',code:14,tipoInput:1,codeDrop: this.normalAnormal},
+        { display:"Prueva VIH",name: 'pruebaVIH',code:15,tipoInput:1,codeDrop: this.reactivoNoReactivo},
+        { display:"Prueba Hepatitis",name: 'prHepatitis',code:16,tipoInput:1,codeDrop: this.reactivoNoReactivo},
+        { display:"Elisa",name: 'elisa',code:17,tipoInput:1,codeDrop: this.reactivoNoReactivo},
+        { display:"Glicemia",name: 'glicemia',code:18,tipoInput:1,codeDrop: this.normalAnormal},
+        { display:"Bacteriuria",name: 'bacteriuria',code:19,tipoInput:1,codeDrop: this.positivoNegativo},
+        { display:"Nitritos",name: 'nitritos',code:20,tipoInput:1,codeDrop: this.positivoNegativo},
+        { display:"Urocultivo",name: 'urocultivo',code:21,tipoInput:1,codeDrop: this.positivoNegativo},
+        { display:"BK Esputo",name: 'bkEsputo',code:22,tipoInput:1,codeDrop: this.positivoNegativo},
+        { display:"WS Term Blotkfi",name: 'wsternBlotlfi',code:23,tipoInput:1,codeDrop: this.positivoNegativo},
+        { display:"TH lv1",name: 'thlv1',code:24,tipoInput:1,codeDrop: this.positivoNegativo},
+        { display:"Toch",name: 'torch',code:25,tipoInput:1,codeDrop: this.positivoNegativo},
+        { display:"Gota Gruesa",name: 'gotaGruesa',code:26,tipoInput:3},
+        { display:"PAP",name: 'pap',code:27,tipoInput:1,codeDrop: this.normalAnormal},
+        { display:"IVAA",name: 'ivaa',code:28,tipoInput:1,codeDrop: this.normalAnormal}
     ]
     examenSeleccionado='otros';
     opcionesInput=[]
@@ -87,7 +87,7 @@ export class ResultadosComponent implements OnInit {
         console.log(this.examenFG.value)
         this.tipoInput1=itemSelected.value.tipoInput;
         // this.examenSeleccionado=itemSelected.value.code
-        this.tituloInput=itemSelected.value.name;
+        this.tituloInput=itemSelected.value.tituloInput;
         if(this.tipoInput1==1){
             this.opcionesInput=itemSelected.value.codeDrop;
         }
@@ -111,8 +111,8 @@ export class ResultadosComponent implements OnInit {
         this.resultadoEcografiaFG = new FormGroup({
             fechaEcografia1: new FormControl('', [Validators.required]),
             resultado1: new FormControl('', [Validators.required]),
-            semana1: new FormControl('', [Validators.required]),
-            dia1: new FormControl('', [Validators.required]),
+            semana1: new FormControl('', [Validators.required,,Validators.min(1),Validators.max(40)]),
+            dia1: new FormControl('', [Validators.required,Validators.min(1),Validators.max(7)]),
         })
     }
     ngOnInit(): void {
@@ -174,7 +174,9 @@ export class ResultadosComponent implements OnInit {
                     this.isUpdate = true;
                     const resultado = resp['object'][0]
                     this.recuperarData(resultado['laboratorios']);
+                    if(resultado.ecografia.fecha!=null){
                     this.getFC('fechaEcografia1').setValue(new Date(resultado.ecografia.fecha));
+                    }
                     this.getFC('resultado1').setValue(resultado.ecografia.descripcion);
                     this.getFC('semana1').setValue(resultado.ecografia.semanas);
                     this.getFC('dia1').setValue(resultado.ecografia.dias);
@@ -233,10 +235,13 @@ export class ResultadosComponent implements OnInit {
                 descripcion: this.getFC('resultado1').value,
                 semanas: this.getFC('semana1').value,
                 dias: this.getFC('dia1').value
+                // dias: '7'
             },
         }
         this.resultadosService.addresultado(input).subscribe((resp) => {
-            console.log('--->',resp)
+
+            // console.log('--->',resp)
+                this.messageService.add({severity:'success', summary:'Exito', detail:'Resultados agregados satisfactoriamente'});
             },
             (error)=>{
                 console.log('->>>',error)

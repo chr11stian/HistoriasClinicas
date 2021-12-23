@@ -4,21 +4,23 @@
         <b>Salud sexual y reproductiva</b>
     </div>
 </p-divider>
+<form action="" [formGroup]="saludFG">
 <div class="grid borde">
     <div class="col-7">
         <div class="borde">
             <div class="grid">
                 <div class="col-3">
-                    <label for="">Menarquia/Espermarquia</label>
+                    <label for="">Menarquia/<br>Espermarquia </label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="menarquiaEspermarquia"></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Edad en años:</label>
                 </div>
                 <div class="col-3 p-fluid">
-                    <input type="text" pInputText />
+                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="menarquiaEspermarquiaEdad">
+                    </p-inputNumber>
                 </div>
             </div>
             <div class="grid">
@@ -26,13 +28,14 @@
                     <label for="">Inicio relacion Sexual:</label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="inicioRelacionSexual"></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Edad en años:</label>
                 </div>
                 <div class="col-3 p-fluid" >
-                    <input type="text" pInputText />
+                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="inicioRelacionSexualEdad">
+                    </p-inputNumber>
                 </div>
             </div>
 
@@ -43,13 +46,14 @@
                     <label for="">Abuso sexual:</label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="abusoSexual"></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Nro:</label>
                 </div>
                 <div class="col-3 p-fluid">
-                    <input type="text" pInputText />
+                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="abusoSexualNro">
+                    </p-inputNumber>
                 </div>
             </div>
             <div class="grid">
@@ -57,13 +61,14 @@
                     <label for="">Embarazo:</label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="enbarazo"></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Nro:</label>
                 </div>
                 <div class="col-3 p-fluid" >
-                    <input type="text" pInputText />
+                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="enbarazoNro">
+                    </p-inputNumber>
                 </div>
             </div>
             <div class="grid">
@@ -71,13 +76,14 @@
                     <label for="">Hijos:</label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="hijos"></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Nro:</label>
                 </div>
                 <div class="col-3 p-fluid" >
-                    <input type="text" pInputText />
+                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="hijosNro">
+                    </p-inputNumber>
                 </div>
             </div>
             <div class="grid">
@@ -85,13 +91,14 @@
                     <label for="">Aborto:</label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="aborto"></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Nro:</label>
                 </div>
                 <div class="col-3 p-fluid" >
-                    <input type="text" pInputText />
+                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="abortoNro">
+                    </p-inputNumber>
                 </div>
             </div>
 
@@ -100,29 +107,28 @@
     </div>
     <div class="col-5">
         <div class="borde">
-
-        <div class="text-center">
-        <label  >Observaciones</label>
-        </div>
-
-        <label for="">Ingrese observaciones:</label>
-        <div>
-            <textarea [rows]="5" [cols]="60" pInputTextarea autoResize="autoResize"></textarea>
-        </div>
+            <div class="text-center my-3">
+                <label >Observaciones</label>
+            </div>
+            <div class="my-3">
+                <label class=my-3 for="">Ingrese observaciones:</label>
+            </div>
+            <div class="text-center">
+                <textarea [rows]="10" [cols]="60" pInputTextarea autoResize="autoResize" formControlName="observaciones"></textarea>
+            </div>
         </div>
     </div>
 
 </div>
 <div class="grid borde">
-    <div class="col-8
-">
+    <div class="col-6">
         <div class="grid">
             <div class="col-7">
                 <label for="">¿Usa algún método anticonceptivo?
                 </label>
             </div>
             <div class="col-5   ">
-                <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                <p-selectButton [options]="siNo" optionLabel="name" formControlName="usaMetodoAnticonceptivo"></p-selectButton>
             </div>
         </div>
         <div class="grid">
@@ -131,7 +137,7 @@
                 </label>
             </div>
             <div class="col-5   ">
-                <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                <p-selectButton [options]="siNo" optionLabel="name" formControlName="sabePrevenirEmbarazoNoDeseado"></p-selectButton>
             </div>
         </div>
         <div class="grid">
@@ -140,20 +146,22 @@
                 </label>
             </div>
             <div class="col-5   ">
-                <p-selectButton [options]="siNo" optionLabel="name" ></p-selectButton>
+                <p-selectButton [options]="siNo" optionLabel="name" formControlName="sabePrevenirITSVIH"></p-selectButton>
             </div>
         </div>
 
     </div>
-    <div class="col-4">
+    <div class="col-6">
         <div class="grid">
-            <div class="col-5">
+            <div class="col-3 text-right">
                 <label for="">Especifique:
                 </label>
             </div>
-            <div class="col-7 p-fluid">
-                <input type="text" pInputText />
+            <div class="col-9 p-fluid">
+                <input type="text" pInputText  formControlName="especifique"/>
             </div>
         </div>
     </div>
 </div>
+    <button pButton type="button" label="Click" (click)="save()"></button>
+</form>
