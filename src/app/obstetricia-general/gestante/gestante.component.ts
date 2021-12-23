@@ -78,8 +78,11 @@ export class GestanteComponent implements OnInit {
     }
 
     newEmbarazo() {
+        this.obstetriciaGeneralService.idGestacion = null;
         this.obstetriciaGeneralService.tipoDoc = this.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = this.nroDoc;
     }
+
+
 
 }

@@ -6,13 +6,13 @@ import {CitasService} from "./services/citas.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {PacienteService} from "../core/services/paciente/paciente.service";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-citas',
     templateUrl: './citas.component.html',
     styleUrls: ['./citas.component.css'],
-    providers: [DialogService]
-
+    providers: [DialogService],
 })
 export class CitasComponent implements OnInit {
 
@@ -37,6 +37,7 @@ export class CitasComponent implements OnInit {
                 private citasService: CitasService,
                 private fb: FormBuilder,
                 private pacienteService: PacienteService,
+                private messageService: MessageService,
     ) {
         this.options = [
             {name: "DNI", code: 1},
@@ -61,12 +62,11 @@ export class CitasComponent implements OnInit {
     ngOnInit(): void {
         this.buildForm();
         this.formCitas.get('fechaFinal').setValue(this.fechaActual);
-        let FechaAtrazada = this.fechaActual.getFullYear() + '-' + this.fechaActual.getMonth() + '-' + this.fechaActual.getDate();
-        this.formCitas.get('fechaInicio').setValue(FechaAtrazada);
+        this.formCitas.get('fechaInicio').setValue(this.fechaActual);
 
         const data = {
-            fechaInicio: FechaAtrazada,
-            fechaFin: this.datePipe.transform(this.formCitas.value.fechaFinal, 'yyyy-MM-dd')
+            fechaInicio: this.datePipe.transform(this.formCitas.value.fechaFinal, 'yyyy-MM-dd'),
+            fechaFin: this.datePipe.transform(this.formCitas.value.fechaFinal, 'yyyy-MM-dd'),
         }
         this.citasService.getProximaCitasGestacion(data).subscribe((res: any) => {
             this.dataCitas = res.object;
@@ -89,17 +89,24 @@ export class CitasComponent implements OnInit {
         }
         this.pacienteService.getPacienteByNroDoc(data).subscribe((res: any) => {
             this.dataPaciente = res.object;
-            let nombre = this.dataPaciente.primerNombre;
-            let apellidoPaterno = this.dataPaciente.apePaterno;
-            let apellidoMaterno = this.dataPaciente.apeMaterno;
-            let nroDoc = this.dataPaciente.nroDoc;
-            let telefono = this.dataPaciente.celular;
-            let tipoDoc = this.dataPaciente.tipoDoc;
-
-            this.dataPaciente2 = [{apellidoPaterno, apellidoMaterno, nombre, nroDoc, telefono, tipoDoc}]
+            if (this.dataPaciente == null) {
+                this.showInfo();
+            } else {
+                this.showSuccess();
+                let nombre = this.dataPaciente.primerNombre;
+                let apellidoPaterno = this.dataPaciente.apePaterno;
+                let apellidoMaterno = this.dataPaciente.apeMaterno;
+                let nroDoc = this.dataPaciente.nroDoc;
+                let telefono = this.dataPaciente.celular;
+                let tipoDoc = this.dataPaciente.tipoDoc;
+                this.dataPaciente2 = [{apellidoPaterno, apellidoMaterno, nombre, nroDoc, telefono, tipoDoc}]
+            }
 
             console.log('paciente por doc ', this.dataPaciente2);
+
+
         });
+
     }
 
     /**Modulo para hacer cosultas no gestantes**/
@@ -127,12 +134,29 @@ export class CitasComponent implements OnInit {
     }
 
     enviarData(event) {
+        this.obstetriciaGeneralService.tipoDoc = null;
+        this.obstetriciaGeneralService.nroDoc = null;
         console.log("EVENTO", event);
         // this.obstetriciaGeneralService.observable$.emit(event.id);
         this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = event.nroDoc;
     }
 
+    showSuccess() {
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Paciente',
+            detail: 'Recuperado con exito'
+        });
+    }
+
+    showInfo() {
+        this.messageService.add({
+            severity: 'info',
+            summary: 'Paciente',
+            detail: 'No existe en la Base de Datos'
+        });
+    }
 }
 
 interface data {

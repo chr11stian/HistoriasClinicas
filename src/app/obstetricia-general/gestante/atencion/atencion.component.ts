@@ -57,9 +57,8 @@ export class AtencionComponent implements OnInit {
         this.obstetriciaGeneralService.getConsultorioObstetrico(data).subscribe((res: any) => {
             this.dataConsultorioObstetrico = res.object
             console.log('Data Consultorio Obstetrico', this.dataConsultorioObstetrico)
-
             this.obstetriciaGeneralService.idConsultoriObstetrico = this.dataConsultorioObstetrico.id;
-            console.log('Data consultorio id', this.obstetriciaGeneralService.idConsultoriObstetrico);
+            // console.log('Data consultorio id', this.obstetriciaGeneralService.idConsultoriObstetrico);
         });
 
     }

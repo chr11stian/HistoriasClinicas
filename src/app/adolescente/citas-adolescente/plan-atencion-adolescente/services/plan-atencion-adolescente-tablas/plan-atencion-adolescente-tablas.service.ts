@@ -116,7 +116,7 @@ export class PlanAtencionAdolescenteTablasService {
     return this.http.put(`${this.base_url}/${this.bd}/cuidadoPreventivo/editar/habitos/${nroDoc}`, body)
   }
   getSaludSexualReproductiva(nroDoc) {
-    return this.http.get(`${this.base_url}/${this.bd}/cuidadoPreventivo/listar/salud/sexual/reproductiva/${nroDoc}`);
+    return this.http.get(`${this.base_url}/${this.bd}/cuidadoPreventivo/lista/salud/sexual/reproductiva/${nroDoc}`);
   }
   agregarSaludSexualReproductiva(nroDoc,body){
     return this.http.post(`${this.base_url}/${this.bd}/cuidadoPreventivo/agregar/salud/sexual/reproductiva/${nroDoc}`, body)
