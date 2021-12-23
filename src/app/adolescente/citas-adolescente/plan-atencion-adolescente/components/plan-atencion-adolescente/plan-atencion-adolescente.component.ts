@@ -55,6 +55,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   factoresRiesgoDialog: boolean = false;
   formFactoresRiesgo: FormGroup;
   isUpdateFactoresRiesgo: boolean = false;
+  indexUpdateFactorRiesgo: number;
 
   descartesEnfermedadesNoTransmisibles: any[] = [];
   descartesEnfermedadesNoTransmisiblesDialog: boolean = false;
@@ -195,7 +196,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
         this.saludSexualReproductiva = data.saludSexualReproductiva;
       });
   }
-  cancelButton(){
+  cancelButton() {
     this.evaluacionCrecimientoFisicoDialog = false;
     this.evaluacionCrecimientoFisicoDialog = false;
     this.evaluacionesAgudezaVisualAuditivaDialog = false;
@@ -291,13 +292,13 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     )
   }
 
- // eval agudeza visual y auditiva
-  getEvaluacionAgudezaVisualAuditiva(){
+  // eval agudeza visual y auditiva
+  getEvaluacionAgudezaVisualAuditiva() {
     this.planAtencionIntegralTablasService.getEvaluacionAgudezaVisualAuditiva(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.evaluacionesAgudezaVisualAuditiva=data;
-    });
+        this.evaluacionesAgudezaVisualAuditiva = data;
+      });
   }
   openNewEvaluacionAgudezaVisualAuditiva() {
     this.isUpdateEvaluacionesAgudezaVisualAuditiva = false;
@@ -367,19 +368,19 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
           timer: 1000
         })
         this.getEvaluacionAgudezaVisualAuditiva();
-          this.guardarNuevoEvaluacionAgudezaVisualAuditiva();
-          this.evaluacionesAgudezaVisualAuditivaDialog = false;
+        this.guardarNuevoEvaluacionAgudezaVisualAuditiva();
+        this.evaluacionesAgudezaVisualAuditivaDialog = false;
       }
     )
   }
 
   //eval fisico postural
-  getEvaluacionFisicoPostural(){
+  getEvaluacionFisicoPostural() {
     this.planAtencionIntegralTablasService.getEvaluacionFisicaPostural(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.evaluacionesFisicoPostural=data;
-    });
+        this.evaluacionesFisicoPostural = data;
+      });
   }
   openNewEvaluacionFisicoPostural() {
     this.isUpdateEvaluacionesFisicoPostural = false;
@@ -454,12 +455,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
   }
 
   //eval desarrollo sexual
-  getEvaluacionDesarrolloSexual(){
+  getEvaluacionDesarrolloSexual() {
     this.planAtencionIntegralTablasService.getEvaluacionDesarrolloSexual(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.evaluacionesDesarrolloSexual=data;
-    });
+        this.evaluacionesDesarrolloSexual = data;
+      });
   }
   openNewEvaluacionDesarrolloSexual() {
     this.isUpdateEvaluacionesDesarrolloSexual = false;
@@ -533,12 +534,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //eval habilidades sociales
-  getEvaluacionHabilidadesSociales(){
+  getEvaluacionHabilidadesSociales() {
     this.planAtencionIntegralTablasService.getEvaluacionHabilidadesSociales(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.evaluacionesHabilidadesSociales=data;
-    });
+        this.evaluacionesHabilidadesSociales = data;
+      });
   }
   openNewEvaluacionHabilidadesSociales() {
     this.isUpdateEvaluacionesHabilidadesSociales = false;
@@ -620,12 +621,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //identificacion irritabilidad y agresion
-  getIdentificacionColeraIrritabilidadAgresion(){
+  getIdentificacionColeraIrritabilidadAgresion() {
     this.planAtencionIntegralTablasService.getIdentificacionColeraIrritabilidadAgresion(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.identificacionesColeraIrritabilidadAgresion=data;
-    });
+        this.identificacionesColeraIrritabilidadAgresion = data;
+      });
   }
   openNewIdentificacionColeraIrritabilidadAgresion() {
     this.isUpdateIdentificacionesColeraIrritabilidadAgresion = false;
@@ -703,12 +704,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //tamizaje violencia
-  getTamizajeViolencia(){
+  getTamizajeViolencia() {
     this.planAtencionIntegralTablasService.getTamizajeViolencia(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.tamizajesViolencia=data;
-    });
+        this.tamizajesViolencia = data;
+      });
   }
   openNewTamizajeViolencia() {
     this.isUpdateTamizajesViolencia = false;
@@ -782,177 +783,136 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   // identificacion factores riesgo
-  getIdentificacionFactoresRiesgo(){
+  getIdentificacionFactoresRiesgo() {
     this.planAtencionIntegralTablasService.getIdentificacionFactoresRiesgo(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.identificacionesFactoresRiesgo=data;
-    });
+        this.identificacionesFactoresRiesgo = data;
+      });
   }
   openNewIdentificacionFactoresRiesgo() {
     this.isUpdateIdentificacionesFactoresRiesgo = false;
     this.formIdentificacionesFactoresRiesgo.reset();
     this.formIdentificacionesFactoresRiesgo.get('fecha').setValue("");
     this.identificacionesFactoresRiesgoDialog = true;
+    this.factoresRiesgo = [];
   }
   saveFormIdentificacionFactoresRiesgo() {
-    this.isUpdateEvaluacionCrecimientoFisico = false;
+    this.isUpdateIdentificacionesFactoresRiesgo = false;
     const req = {
-      fecha: this.formEvaluacionCrecimientoFisico.value.fecha,
-      imc: this.formEvaluacionCrecimientoFisico.value.imc,
-      talla: this.formEvaluacionCrecimientoFisico.value.talla,
-      edad: this.formEvaluacionCrecimientoFisico.value.edad,
-      alimentacion: this.formEvaluacionCrecimientoFisico.value.alimentacion,
+      fecha: this.formIdentificacionesFactoresRiesgo.value.fecha,
+      items: this.factoresRiesgo,
     }
     if (req.fecha.trim() !== "") {
-      this.planAtencionIntegralTablasService.agregarEvaluacionCrecimientoFisicoEstadoNutricional(this.nroDoc, req).subscribe(
+      this.planAtencionIntegralTablasService.agregarIdentificacionFactoresRiesgo(this.nroDoc, req).subscribe(
         result => {
           Swal.fire({
             icon: 'success',
             title: 'Agregado correctamente',
-            text: 'Evaluacion crecimiento fisico y estado nutricional',
+            text: 'Identificacion factores riesgo',
             showConfirmButton: false,
             timer: 1000
           })
-          this.getEvaluacionCrecimientoFisico();
-          this.guardarNuevoEvaluacionCrecimientoFisico();
-          this.evaluacionCrecimientoFisicoDialog = false;
+          this.getIdentificacionFactoresRiesgo();
+          this.guardarNuevoIdentificacionFactoresRiesgo();
+          this.identificacionesFactoresRiesgoDialog = false;
         }
       )
     }
   }
   guardarNuevoIdentificacionFactoresRiesgo() {
-    this.isUpdateEvaluacionCrecimientoFisico = false;
-    this.formEvaluacionCrecimientoFisico.reset();
+    this.isUpdateIdentificacionesFactoresRiesgo = false;
+    this.formIdentificacionesFactoresRiesgo.reset();
+    this.factoresRiesgo = [];
   }
   editarIdentificacionFactoresRiesgo(rowData) {
-    this.isUpdateEvaluacionCrecimientoFisico = true;
-    this.formEvaluacionCrecimientoFisico.get('fecha').setValue(rowData.fecha)
-    this.formEvaluacionCrecimientoFisico.get('imc').setValue(rowData.imc)
-    this.formEvaluacionCrecimientoFisico.get('talla').setValue(rowData.talla)
-    this.formEvaluacionCrecimientoFisico.get('edad').setValue(rowData.edad)
-    this.formEvaluacionCrecimientoFisico.get('alimentacion').setValue(rowData.alimentacion)
-    this.evaluacionCrecimientoFisicoDialog = true;
-
+    this.isUpdateIdentificacionesFactoresRiesgo = true;
+    this.formIdentificacionesFactoresRiesgo.get('fecha').setValue(rowData.fecha);
+    this.factoresRiesgo = rowData.items;
+    this.identificacionesFactoresRiesgoDialog = true;
   }
   editarDatosIdentificacionFactoresRiesgo() {
     const req = {
-      fecha: this.formEvaluacionCrecimientoFisico.value.fecha,
-      imc: this.formEvaluacionCrecimientoFisico.value.imc,
-      talla: this.formEvaluacionCrecimientoFisico.value.talla,
-      edad: this.formEvaluacionCrecimientoFisico.value.edad,
-      alimentacion: this.formEvaluacionCrecimientoFisico.value.alimentacion,
+      fecha: this.formIdentificacionesFactoresRiesgo.value.fecha,
+      items: this.factoresRiesgo,
     }
-    this.planAtencionIntegralTablasService.editarEvaluacionCrecimientoFisicoEstadoNutricional(this.nroDoc, req).subscribe(
+    this.planAtencionIntegralTablasService.editarIdentificacionFactoresRiesgo(this.nroDoc, req).subscribe(
       result => {
         Swal.fire({
           icon: 'success',
           title: 'Editado correctamente',
-          text: 'Evaluacion crecimiento fisico y estado nutricional',
+          text: 'Identificacion factores riesgo',
           showConfirmButton: false,
           timer: 1000
         })
-        this.getEvaluacionCrecimientoFisico();
-        this.guardarNuevoEvaluacionCrecimientoFisico();
-        this.evaluacionCrecimientoFisicoDialog = false;
+        this.getIdentificacionFactoresRiesgo();
+        this.guardarNuevoIdentificacionFactoresRiesgo();
+        this.identificacionesFactoresRiesgoDialog = false;
       }
     )
   }
   //mini tabla
-  enviarEgresosRecienNacido() {
+  openNewFactorRiesgo() {
+    this.isUpdateFactoresRiesgo = false;
+    this.formFactoresRiesgo.reset();
+    this.formFactoresRiesgo.get('nombre').setValue("");
+    this.formFactoresRiesgo.get('valor').setValue("");
+    this.factoresRiesgoDialog = true;
+  }
+  enviarFactoresRiesgo() {
     var factoresRiesgoUnaFecha = {
-        nombre: this.formFactoresRiesgo.value.nombre,
-        riesgo: this.formFactoresRiesgo.value.valor,
+      nombre: this.formFactoresRiesgo.value.nombre,
+      valor: this.formFactoresRiesgo.value.valor,
     }
     console.log(factoresRiesgoUnaFecha);
     this.factoresRiesgo.push(factoresRiesgoUnaFecha);
     this.factoresRiesgoDialog = false;
-}
+  }
 
-// canceledEgreso() {
-//     Swal.fire({
-//         icon: 'warning',
-//         title: 'Cancelado...',
-//         text: '',
-//         showConfirmButton: false,
-//         timer: 1000
-//     })
-//     this.egresoRNDialog = false;
-//     this.estadoEditarRN = false;
-// }
+  canceledFactoresRiesgo() {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Cancelado...',
+      text: '',
+      showConfirmButton: false,
+      timer: 1000
+    })
+    this.factoresRiesgoDialog = false;
+    this.isUpdateFactoresRiesgo = false;
+  }
 
 
-// openDialogEditarRN(rowData, rowIndex) {
-//     this.estadoEditarRN = true;
-//     this.indexRNEditado = rowIndex;
-//     this.formEgresoRN.reset();
-//     this.formEgresoRN.get('reingreso').setValue(rowData.reingreso);
-//     this.formEgresoRN.get('fechaRN').setValue(this.datePipe.transform(new Date(rowData.fecha), 'yyyy-MM-ddTHH:mm'));
-//     this.formEgresoRN.get('diagnostico').setValue(rowData.diagnostico);
-//     this.formEgresoRN.get('fechaIngreso').setValue(this.datePipe.transform(new Date(rowData.fechaIngreso), 'yyyy-MM-ddTHH:mm'));
-//     this.formEgresoRN.get('egresoRN').setValue(rowData.egreso);
-//     this.formEgresoRN.get('dxfNoAplica').setValue(rowData.dxfNoAplica ? ["true"] : []);
-//     this.formEgresoRN.get('dxFallecimiento').setValue(rowData.dxFallecimiento);
-//     this.formEgresoRN.get('dxtNoAplica').setValue(rowData.dxtNoAplica ? ["true"] : []);
-//     this.formEgresoRN.get('dxTraslado').setValue(rowData.dxTraslado);
-//     this.formEgresoRN.get('estaNoAplica').setValue(rowData.estaNoAplica ? ["true"] : []);
-//     this.formEgresoRN.get('establecimientoTras').setValue(rowData.establecimientoTraslado);
-//     this.formEgresoRN.get('fechaContro').setValue(this.datePipe.transform(new Date(rowData.fechaContro), 'yyyy-MM-ddTHH:mm'));
-//     this.formEgresoRN.get('controlRecienNacido').setValue(rowData.controlRecienNacido);
-//     this.egresoRNDialog = true;
-// }
+  openDialogEditarFactorRiesgo(rowData, rowIndex) {
+    this.isUpdateFactoresRiesgo = true;
+    this.indexUpdateFactorRiesgo = rowIndex;
+    this.formFactoresRiesgo.reset();
+    this.formFactoresRiesgo.get('nombre').setValue(rowData.nombre);
+    this.formFactoresRiesgo.get('valor').setValue(rowData.valor);
+    this.factoresRiesgoDialog = true;
+  }
 
-// guardarEdicionEgresoRN() {
-//     var recienNacidoEgreso = {
-//         reingreso: this.formEgresoRN.value.reingreso,
-//         fecha: this.datePipe.transform(this.formEgresoRN.value.fechaRN, 'yyyy-MM-dd HH:mm:ss'),
-//         diagnostico: this.formEgresoRN.value.diagnostico,
-//         fechaIngreso: this.datePipe.transform(this.formEgresoRN.value.fechaIngreso, 'yyyy-MM-dd HH:mm:ss'),
-//         egreso: this.formEgresoRN.value.egresoRN,
-//         dxfNoAplica: this.formEgresoRN.value.dxfNoAplica ? true : false,
-//         dxFallecimiento: this.formEgresoRN.value.dxFallecimiento,
-//         dxtNoAplica: this.formEgresoRN.value.dxtNoAplica ? true : false,
-//         dxTraslado: this.formEgresoRN.value.dxTraslado,
-//         estaNoAplica: this.formEgresoRN.value.estaNoAplica ? true : false,
-//         establecimientoTraslado: this.formEgresoRN.value.establecimientoTras,
-//         fechaContro: this.datePipe.transform(this.formEgresoRN.value.fechaContro, 'yyyy-MM-dd HH:mm:ss'),
-//         controlRecienNacido: this.formEgresoRN.value.controlRecienNacido
-//     }
-//     console.log(recienNacidoEgreso);
-//     this.todosEgresosDelRN.splice(this.indexRNEditado, 1, recienNacidoEgreso);
-//     this.egresoRNDialog = false;
-//     this.estadoEditarRN = false;
-// }
+  guardarEdicionFactorRiesgo() {
+    var factoresRiesgoUnaFecha = {
+      nombre: this.formFactoresRiesgo.value.nombre,
+      valor: this.formFactoresRiesgo.value.valor,
+    }
+    console.log(factoresRiesgoUnaFecha);
+    this.factoresRiesgo.splice(this.indexUpdateFactorRiesgo, 1, factoresRiesgoUnaFecha);
+    this.factoresRiesgoDialog = false;
+    this.isUpdateFactoresRiesgo = false;
+  }
 
-// eliminarEgresoRN(rowIndex) {
-//     this.estadoEditarRN = false;
-//     Swal.fire({
-//         showCancelButton: true,
-//         confirmButtonText: 'Eliminar',
-//         icon: 'warning',
-//         title: 'Estas seguro de eliminar egreso del RN',
-//         text: '',
-//         showConfirmButton: true,
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             this.todosEgresosDelRN.splice(rowIndex, 1);
-//             Swal.fire({
-//                 icon: 'success',
-//                 title: 'Eliminado correctamente',
-//                 text: '',
-//                 showConfirmButton: false,
-//                 timer: 1500
-//             })
-//         }
-//     })
-// }
+  eliminarFactorRiesgo(rowIndex) {
+    this.isUpdateFactoresRiesgo = false;
+    this.factoresRiesgo.splice(rowIndex, 1);
+  }
   //descarte enfermedades no transmisibles
-  getDescarteEnfermedadesNoTransmisibles(){
+  getDescarteEnfermedadesNoTransmisibles() {
     this.planAtencionIntegralTablasService.getDescarteEnfermedadesNoTransmisibles(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.descartesEnfermedadesNoTransmisibles=data;
-    });
+        this.descartesEnfermedadesNoTransmisibles = data;
+      });
   }
   openNewDescarteEnfermedadesNoTransmisibles() {
     this.isUpdateDescartesEnfermedadesNoTransmisibles = false;
@@ -1030,12 +990,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //escolaridad
-  getEscolaridad(){
+  getEscolaridad() {
     this.planAtencionIntegralTablasService.getEscolaridad(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.escolaridades=data;
-    });
+        this.escolaridades = data;
+      });
   }
   openNewEscolaridad() {
     this.isUpdateEscolaridades = false;
@@ -1109,12 +1069,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //habitos
-  getHabito(){
+  getHabito() {
     this.planAtencionIntegralTablasService.getHabitos(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.habitos=data;
-    });
+        this.habitos = data;
+      });
   }
   openNewHabito() {
     this.isUpdateHabitos = false;
@@ -1200,12 +1160,12 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
   }
   //salud sexual reproductiva
-  getSaludSexualReproductiva(){
+  getSaludSexualReproductiva() {
     this.planAtencionIntegralTablasService.getSaludSexualReproductiva(this.nroDoc)
-    .subscribe((res: any) => {
+      .subscribe((res: any) => {
         let data = res.object;
-        this.saludSexualReproductiva=data;
-    });
+        this.saludSexualReproductiva = data;
+      });
   }
   openNewSaludSexualReproductiva() {
     this.isUpdateSaludSexualReproductiva = false;
