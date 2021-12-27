@@ -79,6 +79,7 @@ export class CuposComponent implements OnInit {
         ];
 
     }
+
     ngOnInit(): void {
         this.buildForm();
         this.formCuposOferta.get('fechaBusqueda').setValue(this.datafecha);
@@ -113,7 +114,6 @@ export class CuposComponent implements OnInit {
         });
     }
 
-
     /**lista los Servicios por IPRESS**/
     getListaUps() {
         this.rolGuardiaService
@@ -123,7 +123,6 @@ export class CuposComponent implements OnInit {
                 // this.loading = false;
             });
     }
-
 
     /**Lista los tipos de documentos de Identidad de un paciente**/
     getDocumentosIdentidad() {
@@ -140,7 +139,6 @@ export class CuposComponent implements OnInit {
             console.log("OFERTAS HORARIOS", this.dataOfertasCupos);
         });
     }
-
 
     buildForm() {
         this.formCuposOferta = this.fb.group({
@@ -179,7 +177,6 @@ export class CuposComponent implements OnInit {
             estado: new FormControl(''),
         })
     }
-
 
     separar_Fechas() {
         let fecha = this.personalSelected2.fechaOferta;
@@ -228,18 +225,29 @@ export class CuposComponent implements OnInit {
         console.log("guardar", req);
 
         this.cuposService.saveCupos(req).subscribe(
-            result => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Agregado correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
+            (result: any) => {
+                console.log("RESPUESTA", result.mensaje)
+                if (result.object != null) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cupo',
+                        text: 'Reservado',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                    this.actualizarOfertaEstado();
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cupo',
+                        text: result.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
             }
         )
 
-        // this.actualizarOfertaEstado();
 
     }
 
