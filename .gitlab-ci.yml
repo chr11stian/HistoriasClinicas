@@ -7,7 +7,7 @@ stages:
 update:master:     
   stage: update
   script:
-    - cd /server/frontend/historiaclinica
+    - cd /server/frontend/historia_clinica_electronica
     - echo "Actualizacion"
     - echo "$CI_COMMIT_BRANCH"
     - git status 
@@ -22,7 +22,7 @@ update:release:
   script:
     - echo "Actualizacion del realease para pruebas"
     - echo "$CI_COMMIT_BRANCH"
-    - cd /server/frontend/historiaclinica
+    - cd /server/frontend/historia_clinica_electronica
     - git branch
     - git checkout $CI_COMMIT_BRANCH
     - git pull origin $CI_COMMIT_BRANCH
@@ -33,7 +33,7 @@ build-job:
   stage: build
   script:
     - echo "Compiling the code..."
-    - cd /server/frontend/historiaclinica
+    - cd /server/frontend/historia_clinica_electronica
     - git branch
     - npm install
     - npm run build
@@ -45,7 +45,7 @@ clean-area:master:   # This job also runs in the test stage.
   stage: build-docker    # It can run at the same time as unit-test-job (in parallel).
   script:
     - echo "limpiando contenedores master"
-    - cd /server/frontend/historiaclinica
+    - cd /server/frontend/historia_clinica_electronica
     - echo $USER
     - git branch
     - docker rm -f web-historia
@@ -58,7 +58,7 @@ clean-area:realease:   # This job also runs in the test stage.
   stage: build-docker    # It can run at the same time as unit-test-job (in parallel).
   script:
     - echo "limpiando contenedores ramas prueba"
-    - cd /server/frontend/historiaclinica
+    - cd /server/frontend/historia_clinica_electronica
     - echo $USER
     - git branch
     - docker rm -f web-historia_prueba
@@ -71,7 +71,7 @@ build-area:master:   # This job also runs in the test stage.
   stage: build-docker    # It can run at the same time as unit-test-job (in parallel).
   script:
     - echo "creando contenedores master/produccion"
-    - cd /server/frontend/historiaclinica
+    - cd /server/frontend/historia_clinica_electronica
     - git branch
     - docker build -t hce-img .
   only:
@@ -81,7 +81,7 @@ build-area:realease:
   stage: build-docker   
   script:
     - echo "creando contenedores/prueba !NO ES PRODUCCION!"
-    - cd /server/frontend/historiaclinica
+    - cd /server/frontend/historia_clinica_electronica
     - git branch
     - docker build -t hce-img_prueba .
   only:
