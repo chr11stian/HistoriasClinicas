@@ -72,47 +72,71 @@ export class ModalAtencionesComponent implements OnInit {
   llenarCamposTratamientoInmunizaciones() {
     let configuracion = this.config.data.row;
     this.examenesFetos = configuracion.examenesFetos;
-    this.formAtenciones.get("fechaAtencion").setValue(configuracion.fechaAtencion);
-    this.formAtenciones.get("edadGestacionalSemanas").setValue(configuracion.edadGestacionalSemanas + " " +  configuracion.edadGestacionalDias + "/7");
-    this.formAtenciones.get("peso").setValue(configuracion.peso);
-    this.formAtenciones.get("evaluacionNutricional").setValue(configuracion.evaluacionNutricional.valor +" "+ configuracion.evaluacionNutricional.indicador);
-    this.formAtenciones.get("temperatura").setValue(configuracion.t);
-    this.formAtenciones.get("presionArterial").setValue(configuracion.presionSistolica + "/" + configuracion.presionDiastolica);
-    this.formAtenciones.get("pulso").setValue(configuracion.fc);
-    this.formAtenciones.get("alturaUterina").setValue(configuracion.alturaUterina);
-    this.formAtenciones.get("proteinuria").setValue(configuracion.proteinuria);
-    this.formAtenciones.get("edema").setValue(configuracion.edema);
-    this.formAtenciones.get("reflejoOsteotendinoso").setValue(configuracion.reflejoOsteotendinoso);
-    this.formAtenciones.get("ecografia").setValue(configuracion.ecografia);
+    if(configuracion.fechaAtencion!=null){ this.formAtenciones.get("fechaAtencion").setValue(configuracion.fechaAtencion);}
+    if(configuracion.edadGestacionalSemanas != null || configuracion.edadGestacionalDias!=null){
+      this.formAtenciones.get("edadGestacionalSemanas").setValue(configuracion.edadGestacionalSemanas + " " +  configuracion.edadGestacionalDias + "/7")
+    }
+    if(configuracion.peso !=null){this.formAtenciones.get("peso").setValue(configuracion.peso);}
+    if(configuracion.evaluacionNutricional!=null) {
+      this.formAtenciones.get("evaluacionNutricional").setValue(configuracion.evaluacionNutricional.valor + " " + configuracion.evaluacionNutricional.indicador);
+    }
+    if(configuracion.temperatura!=null){this.formAtenciones.get("temperatura").setValue(configuracion.t);}
+    if(configuracion.presionDiastolica!=null || configuracion.presionSistolica!=null){
+      this.formAtenciones.get("presionArterial").setValue(configuracion.presionSistolica + "/" + configuracion.presionDiastolica);
+    }
+    if(configuracion.pulso){this.formAtenciones.get("pulso").setValue(configuracion.fc);}
+    if(configuracion.alturaUterina){this.formAtenciones.get("alturaUterina").setValue(configuracion.alturaUterina);}
+    if(configuracion.proteinuria){this.formAtenciones.get("proteinuria").setValue(configuracion.proteinuria);}
+    if(configuracion.edema){this.formAtenciones.get("edema").setValue(configuracion.edema);}
+    if(configuracion.reflejoOsteotendinoso){this.formAtenciones.get("reflejoOsteotendinoso").setValue(configuracion.reflejoOsteotendinoso);}
+    if(configuracion.ecografia!=null){
+      this.formAtenciones.get("ecografia").setValue(configuracion.ecografia.fecha + " (" + configuracion.ecografia.semanas + " "+ configuracion.ecografia.dias + "/7)");
+    }
     // this.formAtenciones.get("consejeriaIntegral").setValue(configuracion.consejeriaIntegral);
-    this.formAtenciones.get("acidoFolico").setValue(configuracion.acidoFolico.numero + "(" + configuracion.acidoFolico.dosis + ")");
-    this.formAtenciones.get("hierroYAcidoFolico").setValue(configuracion.hierroYAcidoFolico.numero +"(" + configuracion.acidoFolico.dosis + ")");
-    this.formAtenciones.get("calcio").setValue(configuracion.calcio.numero + "(" + configuracion.calcio.dosis + ")");
-    this.formAtenciones.get("planPartoReenfocada").setValue(configuracion.planPartoReenfocada);
-    this.formAtenciones.get("visitaDomiciliaria").setValue(configuracion.visitaDomiciliaria.estado +"-" + configuracion.visitaDomiciliaria.fecha);
-    this.formAtenciones.get("proxCita").setValue(configuracion.proxCita);
+    if(configuracion.acidoFolico!=null){
+      this.formAtenciones.get("acidoFolico").setValue(configuracion.acidoFolico.numero + "(" + configuracion.acidoFolico.dosis + ")");
+    }
+    if(configuracion.hierroYAcidoFolico){
+      this.formAtenciones.get("hierroYAcidoFolico").setValue(configuracion.hierroYAcidoFolico.numero +"(" + configuracion.acidoFolico.dosis + ")");
+    }
+    if(configuracion.calcio!=null){
+      this.formAtenciones.get("calcio").setValue(configuracion.calcio.numero + "(" + configuracion.calcio.dosis + ")");
+    }
+    if(configuracion.planPartoReenfocada!=null){
+      this.formAtenciones.get("planPartoReenfocada").setValue(configuracion.planPartoReenfocada);
+    }
+    if(configuracion.visitaDomiciliaria.estado ==="NO" || configuracion.visitaDomiciliaria.estado === "NO APLICA"){ this.formAtenciones.get("visitaDomiciliaria").setValue(configuracion.visitaDomiciliaria.estado);}
+    else{ this.formAtenciones.get("visitaDomiciliaria").setValue(configuracion.visitaDomiciliaria.estado +"-" + configuracion.visitaDomiciliaria.fecha);}
+    console.log(configuracion.proxCita.fecha);
+    this.formAtenciones.get("proxCita").setValue(configuracion.proxCita.fecha);
     this.formAtenciones.get("encargado").setValue(configuracion.encargado.tipoDoc + "-" + configuracion.encargado.nroDoc);
     this.formAtenciones.get("establecimiento").setValue(configuracion.establecimiento);
     this.formAtenciones.get("nroAtencion").setValue(configuracion.nroAtencion);
 
     /**********Recorriendo todos los datos del array ORIENTACIONES************************************/
-    let arrayOrientaciones:any[]=[];
-    for(let i = 1;i<configuracion.orientaciones.length;i++){
-      arrayOrientaciones.push(configuracion.orientaciones[i].consejeria);
+    if(configuracion.orientaciones!=null || configuracion.orientaciones!=undefined){
+      let arrayOrientaciones:any[]=[];
+      for(let i = 1;i<configuracion.orientaciones.length;i++){
+        arrayOrientaciones.push(configuracion.orientaciones[i].consejeria);
+      }
+      console.log(arrayOrientaciones);
+      let cadenaOrientaciones = arrayOrientaciones.join("/");
+      this.formAtenciones.get("orientaciones").setValue(cadenaOrientaciones);
+
     }
-    console.log(arrayOrientaciones);
-    let cadenaOrientaciones = arrayOrientaciones.join("/");
-    this.formAtenciones.get("orientaciones").setValue(cadenaOrientaciones);
-    /**********Recorriendo todos los datos del array INTERCONSULTAS**************************************/
-    let arrayConsultorio:any[] = [];
-    for(let i=0;i<configuracion.interconsultas.length;i++){
+   if(configuracion.interconsultas!=null || configuracion.interconsultas!= undefined){
+     let arrayConsultorio:any[] = [];
+     for(let i=0;i<configuracion.interconsultas.length;i++){
        arrayConsultorio.push(configuracion.interconsultas[i].consultorio);
-    }
-    console.log(arrayConsultorio);
-    let cad = arrayConsultorio.join(" / ");
-    this.formAtenciones.get("interconsultas").setValue(cad);
-    /************Fin recorrido interconsultas************/
+     }
+     console.log(arrayConsultorio);
+     let cad = arrayConsultorio.join(" / ");
+     this.formAtenciones.get("interconsultas").setValue(cad);
+     /************Fin recorrido interconsultas************/
    }
+   }
+    /**********Recorriendo todos los datos del array INTERCONSULTAS**************************************/
+
 
   closeDialog() {
     this.ref.close();

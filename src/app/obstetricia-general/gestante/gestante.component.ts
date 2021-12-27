@@ -18,7 +18,8 @@ export class GestanteComponent implements OnInit {
     nroDoc: any;
     apellidosNombres: any;
 
-    id: string;
+    tipoDocRecuperado: string;
+    nroDocRecuperado: string;
 
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -26,8 +27,12 @@ export class GestanteComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc
+        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc
+        console.log("NRO DOC RECUPERADO", this.nroDocRecuperado)
         // this.buildForm();
         this.pacienteByNroDoc();
+
     }
 
     getpacientesFiliados(tipoDoc, nroDoc) {
@@ -58,13 +63,8 @@ export class GestanteComponent implements OnInit {
     }
 
     pacienteByNroDoc() {
-        let tipoDoc = "DNI";
-        let nroDoc = "10101013";
-
-        // nroDoc: "24015415"
-        // nroDoc: "10101011"
-        // nroDoc: "10101013"
-
+        let tipoDoc = this.tipoDocRecuperado;
+        let nroDoc = this.nroDocRecuperado;
 
         this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.dataLifiado = res.object
@@ -78,8 +78,11 @@ export class GestanteComponent implements OnInit {
     }
 
     newEmbarazo() {
+        this.obstetriciaGeneralService.idGestacion = null;
         this.obstetriciaGeneralService.tipoDoc = this.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = this.nroDoc;
     }
+
+
 
 }

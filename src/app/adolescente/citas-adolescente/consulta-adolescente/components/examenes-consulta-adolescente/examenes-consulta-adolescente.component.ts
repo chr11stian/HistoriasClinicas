@@ -63,4 +63,9 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
     this.dialogExamFisico = true;
   }
 
+  modalDeNosequemrdHago(){
+    console.log('no se que dato poner ');
+    console.log("todo los campos ");
+  }
+
 }

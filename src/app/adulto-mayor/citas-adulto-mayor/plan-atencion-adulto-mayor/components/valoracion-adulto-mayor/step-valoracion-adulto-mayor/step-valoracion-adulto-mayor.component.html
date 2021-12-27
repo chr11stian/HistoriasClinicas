@@ -1,0 +1,23 @@
+
+<p-steps [model]="items" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo"
+         (activeIndexChange)="ChangeStep($event)">
+</p-steps>
+<div class="stepsdemo-content" *ngIf="stepName === 'funcional'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-valoracion-funcional-adulto-mayor></app-valoracion-funcional-adulto-mayor>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'mental'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-valoracion-mental-adulto-mayor></app-valoracion-mental-adulto-mayor>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'sociofamiliar'">
+    <p-card>
+        <app-valoracion-socio-familiar-adulto-mayor></app-valoracion-socio-familiar-adulto-mayor>
+    </p-card>
+</div>

@@ -27,8 +27,6 @@ export class PartosComponent implements OnInit {
     twoOptions: any[];
     TFOptions:any[];
     myGroup: FormGroup;
-
-    medicacionList=[]
     medicamentoList=[]
     constructor(public fb: FormBuilder,
                 private partoAbortoService:PartoAbortoService,
@@ -37,7 +35,7 @@ export class PartosComponent implements OnInit {
                 public dialogService: DialogService
     ) {
         this.idPaciente=obstetriciaGeneralService.idGestacion;
-        console.log('hola:',this.idPaciente);
+        console.log('id paciente parto:',this.idPaciente);
         this.twoOptions = [
             { label: "Si", value: "si" },
             { label: "No", value: "no" },
@@ -212,10 +210,8 @@ export class PartosComponent implements OnInit {
                 cesaria:this.getFC("cesaria").value,
                 aborto:this.getFC("aborto").value
             },
-            procedimientoParto:{
-                medicacion:this.medicacionList,
-                medicamentos:this.medicamentoList
-            },
+            medicacion:this.medicamentoList,
+
             indicacionPrincipalParto:this.getFC("indicacionPrincipalPartoOperatorio").value,
             hubo:this.getFC("indicacionPrincipalHubo").value,
             terminacion:{
@@ -243,14 +239,18 @@ export class PartosComponent implements OnInit {
         }
 
         this.partoAbortoService.addUpdatePartoAborto(this.idPaciente,partoAbortoInput).subscribe((resp)=>{
-            // console.log(resp)
-            if(this.isUpdate){
-                this.messageService.add({severity:'info', summary:'Actualizado', detail:'Parto o aborto fue Actualizado satisfactoriamente'});
+            if(resp['cod']=='2007'){
+                this.messageService.add({severity:'error', summary:'error', detail:'Estado del paciente finalizado'});
             }
             else{
-                this.messageService.add({severity:'info', summary:'Agregado', detail:'Parto o aborto fue agregado satisfactoriamente'});
-
+                if(this.isUpdate){
+                    this.messageService.add({severity:'warn', summary:'Actualizado', detail:'Parto o aborto fue Actualizado satisfactoriamente'});
+                }
+                else{
+                    this.messageService.add({severity:'success', summary:'Agregado', detail:'Parto o aborto fue agregado satisfactoriamente'});
+                }
             }
+
         })
         // }
         // else {
@@ -323,8 +323,9 @@ export class PartosComponent implements OnInit {
                 this.getFC('cesaria').setValue(respuesta.tipoProcedimiento.cesaria);
                 this.getFC('aborto').setValue(respuesta.tipoProcedimiento.aborto);
                 //la lista
-                this.medicacionList=respuesta.procedimientoParto.medicacion;
-                this.medicamentoList=respuesta.procedimientoParto.medicamentos;
+                if(respuesta.medicacion!=null){
+                    this.medicamentoList=respuesta.medicacion;
+                }
 
                 if (respuesta.terminacion.fecha) {
                     this.getFC('terminacionFecha').setValue(new Date(respuesta.terminacion.fecha));
@@ -364,53 +365,30 @@ export class PartosComponent implements OnInit {
 
     ref: DynamicDialogRef;
     isUpdate2:boolean=false;
-    isUpdate3:boolean=false
     medi:string='';
     agregarActualizar(index?:number) {
-        let mandado='';
-        // let header: string = "Agregar Medicacion";
-        if (this.isUpdate2 && this.medi=='medicacion') {
-            mandado = this.medicacionList[index];
-        }
-        if(this.isUpdate3 && this.medi=='medicamento'){
-            mandado=this.medicamentoList[index]
+        let mandado={};
+        if (this.isUpdate2) {
+            mandado = this.medicamentoList[index];
         }
         this.ref = this.dialogService.open(PartosModalComponent, {
             data:  mandado ,
-            width: "50%",
+            width: "25%",
         });
-        this.ref.onClose.subscribe((mensaje?: string) => {
-            // let detail: string = "Elemento agregado satisfactoriomente";
-            // let summary: string = "Agregado";
-
-            if(mensaje!=null ){
-                if(this.medi=='medicacion'){
+        this.ref.onClose.subscribe((input?: any) => {
+            console.log('restornado',input)
+            if(input!=null ){
                     if(this.isUpdate2){
-
-                        this.medicacionList.splice(index,1,mensaje)
+                        this.medicamentoList.splice(index,1,input)
                     }
                     else{
-                        this.medicacionList.push(mensaje)
+                        this.medicamentoList.push(input)
                     }
-                }
-                if(this.medi=='medicamento'){
-                    if(this.isUpdate3){
-
-                        this.medicamentoList.splice(index,1,mensaje)
-                    }
-                    else{
-                        this.medicamentoList.push(mensaje)
-                    }
-                }
             }
         });
     }
     delete(index){
-        if(this.medi=='medicacion'){
-            this.medicacionList.splice(index,1)
-        }
-        if(this.medi=='medicamento'){
-            this.medicamentoList.splice(index,1)
-        }
+        this.medicamentoList.splice(index,1)
     }
+
 }

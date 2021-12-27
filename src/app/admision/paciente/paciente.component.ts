@@ -157,7 +157,8 @@ export class PacienteComponent implements OnInit {
     let auxFechaNac = this.formPaciente.value.fechaNacimiento;
     let auxFechaInscripcion = this.formPaciente.value.fechaInscripcion;
     let auxDay = auxFechaNac.split("/", 3);
-    let auxInsc = auxFechaInscripcion.split("/",3)
+    let auxInsc = auxFechaInscripcion.split("/", 3);
+    let auxEmsion = this.formPaciente.value.fechaInscripcion.split("/", 3);
 
     this.dataPaciente = {
       nroHcl: auxNroHcl,
@@ -170,11 +171,11 @@ export class PacienteComponent implements OnInit {
       sexo: this.formPaciente.value.sexo,
       nacimiento: {
         // fechaNacimiento: this.formPaciente.value.fechaNacimiento
-        fechaNacimiento: auxDay[2] + '-' + auxDay[1] + '-' + auxDay[0] + ' 00:00:00'
+        fechaNacimiento: this.formPaciente.value.fechaNacimiento + ' 00:00:00',
       },
       celular: this.formPaciente.value.celular,
       tipoSeguro: this.formPaciente.value.tipoSeguro,
-      discapacidad: this.formPaciente.value.discapacidad,
+      discapacidad: this.formPaciente.value.discapacidad == '' ? [] : this.formPaciente.value.discapacidad,
       nacionalidad: this.formPaciente.value.nacionalidad,
       estadoCivil: this.formPaciente.value.estadoCivil,
       procedencia: this.formPaciente.value.procedencia,
@@ -183,8 +184,8 @@ export class PacienteComponent implements OnInit {
         etnia: aux.descripcion
       },
       gradoInstruccion: this.formPaciente.value.gradoInstruccion,
-      fechaInscripcion: auxInsc[2] + '-' + auxInsc[1] + '-' + auxInsc[0] + ' 00:00:00',
-      fechaEmision: this.formPaciente.value.fechaEmision,
+      fechaInscripcion: this.formPaciente.value.fechaInscripcion + ' 00:00:00',
+      fechaEmision: this.formPaciente.value.fechaEmision + ' 00:00:00',
       restricion: this.formPaciente.value.restriccion,
       domicilio: {
         departamento: this.dpto.departamento,
@@ -231,13 +232,14 @@ export class PacienteComponent implements OnInit {
     console.log('data paciente ', this.dataPaciente);
     this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
       this.formPaciente.reset();
-      this.cargarPacientes();
       this.closeDialogPaciente();
+      this.cargarPacientes();
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
   }
 
   openEditarPaciente(row) {
+    this.cargarDocumentos();
     this.dpto = {};
     this.prov = {};
     this.dist = {};
@@ -246,14 +248,7 @@ export class PacienteComponent implements OnInit {
     this.update = true;
     this.formPaciente.reset();
     this.dialogPaciente = true;
-    this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
-      this.listaDocumentos = res.object;
-      let auxTipoDoc = this.listaDocumentos.filter(item => item.abreviatura == row.tipoDoc)
-      this.formPaciente.patchValue({ tipoDoc: auxTipoDoc[0] })
-    })
-    // 
-    console.log('edit etnia ', row.etnia)
-    // this.formPaciente.patchValue({ tipoDoc: row.tipoDoc });
+    this.formPaciente.patchValue({ tipoDoc: row.tipoDoc });
     this.formPaciente.patchValue({ nroDoc: row.nroDoc });
     this.formPaciente.patchValue({ primerNombre: row.primerNombre });
     this.formPaciente.patchValue({ otrosNombres: row.otrosNombres });
@@ -267,9 +262,15 @@ export class PacienteComponent implements OnInit {
     this.formPaciente.patchValue({ etnia: row.etnia });
     this.formPaciente.patchValue({ gradoInstruccion: row.gradoInstruccion });
     this.formPaciente.patchValue({ sexo: row.sexo });
-    this.formPaciente.patchValue({ fechaNacimiento: row.nacimiento.fechaNacimiento });
-    this.formPaciente.patchValue({ fechaInscripcion: row.fechaInscripcion });
-    this.formPaciente.patchValue({ fechaEmision: row.fechaEmision });
+    let auxFechaNacimiento = row.nacimiento.fechaNacimiento;
+    auxFechaNacimiento = auxFechaNacimiento.split(" ", 1);
+    let auxFechaInscrip = row.fechaInscripcion;
+    auxFechaInscrip = auxFechaInscrip.split(" ", 1);
+    let auxFechaEmision = row.fechaEmision;
+    auxFechaEmision = auxFechaEmision.split(" ", 1);
+    this.formPaciente.patchValue({ fechaNacimiento: auxFechaNacimiento[0] });
+    this.formPaciente.patchValue({ fechaInscripcion: auxFechaInscrip[0] });
+    this.formPaciente.patchValue({ fechaEmision: auxFechaEmision[0] });
     this.formPaciente.patchValue({ restriccion: row.restriccion });
     this.formPaciente.patchValue({ discapacidad: row.discapacidad });
     this.formPaciente.patchValue({ direccion: row.domicilio.direccion });
@@ -345,17 +346,6 @@ export class PacienteComponent implements OnInit {
         });
       }
     });
-    // this.pacienteService.deletePaciente(row.id).subscribe((res: any) => {
-    //   console.log('res delete ', res)
-    //   this.cargarPacientes();
-    //   Swal.fire({
-    //     position: 'center',
-    //     icon: 'success',
-    //     title: 'Se Elimino exitosamente el Registro ',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   });
-    // });
   }
 
   selectedDepartamento() {
@@ -392,20 +382,18 @@ export class PacienteComponent implements OnInit {
   aceptarEditarPaciente() {
     this.recuperarDatos();
     this.dataPaciente.id = this.id;
-    console.log('control name ', this.formPaciente.value.etnia);
-    console.log('actualizar ', this.formPaciente.value.etnia);
-
-    // this.pacienteService.putPaciente(this.dataPaciente).subscribe((res: any) => {
-    //   this.cargarPacientes();
-    //   this.closeDialogPaciente();
-    //   console.log('se actualizo correctamente ', res)
-    //   this.messageService.add({
-    //     severity: "success",
-    //     summary: "Exito",
-    //     detail: res.mensaje
-    //   });
-    // })
-    // console.log('aceptar editar paciente')
+    console.log(this.formPaciente.value.fechaNacimiento, 'data to edit ', this.dataPaciente);
+    this.pacienteService.putPaciente(this.dataPaciente).subscribe((res: any) => {
+      this.cargarPacientes();
+      this.closeDialogPaciente();
+      console.log('se actualizo correctamente ', res)
+      this.messageService.add({
+        severity: "success",
+        summary: "Exito",
+        detail: res.mensaje
+      });
+    })
+    console.log('aceptar editar paciente')
   }
 
   pacienteByNroDoc() {

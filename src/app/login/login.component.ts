@@ -1,50 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoginInterface } from './login.interface';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {PrimeNGConfig} from "primeng/api";
+import {LoginService} from './services/login.service';
+
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
-  usuario = '';
-  password = '';
+    usuario = '';
+    password = '';
 
-  constructor(
-    private router: Router,
-  ) {
-
-  }
-
-  ngOnInit(): void {
-    
-  }
-
-  Ingresar(){
-    let credenciales = {
-      dni : this.usuario,
-      password : this.password
-    }
-    
-    let cr = JSON.parse(JSON.stringify(credenciales));
-    this.router.navigate(['dashboard']);
-    
-    /*this.loginService.user_login(cr).subscribe(resp => {
-      
-      this.router.navigate(['page']);
-    })*/
-  }
-
-    mostrarClave() {
-        // var x = document.getElementById("myInput");
-        // if (x.type === "password") {
-        //     x.type = "text";
-        // } else {
-        //     x.type = "password";
-        // }
+    constructor(
+        private primengConfig: PrimeNGConfig,
+        private loginService: LoginService,
+        private router: Router
+    ) {
     }
 
+    ngOnInit(): void {
+    }
+
+    Ingresar() {
+        let credenciales = {
+            usuario: this.usuario,
+            password: this.password
+        }
+        this.loginService.user_login(credenciales).subscribe(resp => {
+            if (resp.error) {
+                console.log("error")
+            }
+            if (resp.object.estado === 'GERESA' || resp.object.estado === 'RED' || resp.object.estado === 'MICRORED' || resp.object.estado === 'IPRESS') {
+                this.router.navigate(['dashboard']);
+            }
+
+        })
+    }
 }

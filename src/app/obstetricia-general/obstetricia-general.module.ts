@@ -21,7 +21,7 @@ import { DialogConsultaUniversalComponent } from './consultas-no-control/dialog-
         CitasComponent,
         DialogConsultaComponent,
         ConsultasNoControlComponent,
-        DialogConsultaUniversalComponent
+        DialogConsultaUniversalComponent,
 
     ],
     exports: [],

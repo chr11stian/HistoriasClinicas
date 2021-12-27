@@ -10,7 +10,7 @@ export class StepGeneralAdultoMayorComponent implements OnInit {
 
   items: MenuItem[]
   indiceActivo: number = 0
-  stepName = "datos"
+  stepName = "problema"
 
   constructor() {
   }

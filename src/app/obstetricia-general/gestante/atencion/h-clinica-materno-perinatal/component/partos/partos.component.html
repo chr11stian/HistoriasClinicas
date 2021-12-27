@@ -473,7 +473,7 @@
                         <div class="md:col-12">
                             <div class="flex justify-content-end">
                                 <div class="col-8 text-right" style="font-weight: bold">
-                                    FECHA DE RUPTURA:
+                                    FECHA Y HORA DE RUPTURA:
                                 </div>
                                 <p-calendar
                                         class="fechaRuptura"
@@ -594,82 +594,7 @@
                     </div>
                 </p-fieldset>
             </div>
-            <div>
-                <p-fieldset legend="Tipo Procedimiento">
-                    <div class="grid">
-                        <div class="col-6">
-                            <div class="">
-                                <div class="text-center" style="font-weight: bold">CESÁRIA:</div>
-                                <div class="grid">
-                                    <div class="col-9 text-right">Corporal:</div>
-                                    <div class="col-3">
-                                        <p-radioButton
-                                                class="white"
-                                                value="Corporal"
-                                                formControlName="cesaria"
-                                        ></p-radioButton>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="col-9 text-right">Segmentaria:</div>
-                                    <div class="col-3">
-                                        <p-radioButton
-                                                class="white"
-                                                value="Segementaria"
-                                                formControlName="cesaria"
-                                        ></p-radioButton>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="col-9 text-right">No aplica:</div>
-                                    <div class="col-3">
-                                        <p-radioButton
-                                                class="white"
-                                                value="No Aplica"
-                                                formControlName="cesaria"
-                                        ></p-radioButton>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="">
-                                <div class="text-center" style="font-weight: bold">ABORTO:</div>
-                                <div class="grid">
-                                    <div class="col-9 text-right">Ameu:</div>
-                                    <div class="col-3">
-                                        <p-radioButton
-                                                class="white"
-                                                value="Ameu"
-                                                formControlName="aborto"
-                                        ></p-radioButton>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="col-9 text-right">Legrado:</div>
-                                    <div class="col-3">
-                                        <p-radioButton
-                                                class="white"
-                                                value="Legrado"
-                                                formControlName="aborto"
-                                        ></p-radioButton>
-                                    </div>
-                                </div>
-                                <div class="grid">
-                                    <div class="col-9 text-right">No aplica:</div>
-                                    <div class="col-3">
-                                        <p-radioButton
-                                                class="white"
-                                                value="No Aplica"
-                                                formControlName="aborto"
-                                        ></p-radioButton>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </p-fieldset>
-            </div>
+
         </div>
         <div class="md:col-8">
             <div class="grid">
@@ -726,7 +651,7 @@
                             </div>
                             <div class="col-4">
                                 <div class="flex" style="padding: 3px">
-                                    <div class="col-6 text-right">SEM. INICION:</div>
+                                    <div class="col-6 text-right">SEM. INICIO:</div>
                                     <div class="col-5 p-fluid">
                                         <p-inputNumber
                                                 mode="decimal"
@@ -742,121 +667,165 @@
             </div>
             <div class="grid">
                 <div class="col-12">
-                    <p-fieldset legend="Procedimiento en parto (Ver anexo)">
-
+                    <p-fieldset legend="Tipo Procedimiento">
                         <div class="grid">
-                            <div class="col-6 align-self-start">
-                                <p-table
-
-                                        [value]="medicacionList"
-                                        [scrollable]="true" scrollHeight="200px"
-                                        [style]="{width:'95%'}"
-                                >
-                                    <ng-template pTemplate="caption">
-                                        <div class="flex justify-content-between">
-                                            <button pButton pRipple label="Nueva medicacion" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                                                    (click)="isUpdate2=false; medi='medicacion'; agregarActualizar();"></button>
+                            <div class="col-6">
+                                <div class="">
+                                    <div class="text-center" style="font-weight: bold">CESÁRIA:</div>
+                                    <div class="grid">
+                                        <div class="col-7 text-right">Corporal:</div>
+                                        <div class="col-5">
+                                            <p-radioButton
+                                                    class="white"
+                                                    value="Corporal"
+                                                    formControlName="cesaria"
+                                            ></p-radioButton>
                                         </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="header" >
-                                        <tr>
-                                            <th style="display: flex;flex:10%">Nro</th>
-                                            <th style="display: flex;flex:70%">Medicacion</th>
-                                            <th style="display: flex;flex:20%">Accion</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-product let-index="rowIndex">
-                                        <tr>
-                                            <td style="display:flex; flex:10%" >{{index+1}}</td>
-                                            <td style="display:flex; flex:70%">{{product}}</td>
-                                            <td class="flex justify-content-around " style="padding:0.5rem;display: flex;flex:20%">
-                                                <span class="p-column-title">Acciones</span>
-                                                <button
-                                                        style=""
-                                                        pButton
-                                                        pRipple
-                                                        type="button"
-                                                        icon="pi pi-pencil"
-                                                        (click)="isUpdate2 = true; medi='medicacion'; agregarActualizar(index)"
-                                                        pTooltip="Editar medicacion"
-                                                        tooltipPosition="botton"
-                                                        class="p-button-raised p-button-info p-button-rounded "
-
-                                                ></button>
-                                                <button
-                                                        pButton
-                                                        pRipple
-                                                        type="button"
-                                                        (click)=" medi='medicacion';delete(index)"
-                                                        icon="pi pi-trash"
-                                                        pTooltip="Eliminar tipo turno"
-                                                        tooltipPosition="bottom"
-                                                        class="p-button-raised p-button-danger p-button-rounded"
-                                                ></button>
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-
-                                </p-table>
-                            </div>
-                            <div class="col-6 align-self-start">
-                                <p-table [value]="medicamentoList"
-                                         [scrollable]="true"
-                                         scrollHeight="200px"
-                                         [style]="{width:'95%'}">
-                                    <ng-template pTemplate="caption">
-                                        <div class="flex justify-content-between">
-                                            <button pButton pRipple label="Nueva medicamento" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                                                    (click)="isUpdate3=false; medi='medicamento';agregarActualizar();"></button>
-                                            <div>
-                                            </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-7 text-right">Segmentaria:</div>
+                                        <div class="col-5">
+                                            <p-radioButton
+                                                    class="white"
+                                                    value="Segementaria"
+                                                    formControlName="cesaria"
+                                            ></p-radioButton>
                                         </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th style="display:flex; flex:10%">Nro</th>
-                                            <th style="display:flex; flex:70%">Medicamento</th>
-                                            <th style="display:flex; flex:20%">Accion</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-product let-index="rowIndex">
-                                        <tr>
-                                            <td style="display:flex; flex:10%">{{index+1}}</td>
-                                            <td style="display:flex; flex:70%">{{product}}</td>
-                                            <td class="flex justify-content-around" style="padding:0.5rem;display:flex; flex:20%">
-                                                <span class="p-column-title">Acciones</span>
-                                                <button
-                                                        pButton
-                                                        pRipple
-                                                        type="button"
-                                                        icon="pi pi-pencil"
-                                                        (click)="isUpdate3 = true;medi='medicamento'; agregarActualizar(index)"
-                                                        pTooltip="Editar tipo turno"
-                                                        tooltipPosition="bottom"
-                                                        class="p-button-raised p-button-info p-button-rounded"
-                                                ></button>
-                                                <button
-                                                        pButton
-                                                        pRipple
-                                                        type="button"
-                                                        (click)=" medi='medicamento';delete(index)"
-                                                        icon="pi pi-trash"
-                                                        pTooltip="Eliminar tipo turno"
-                                                        tooltipPosition="bottom"
-                                                        class="p-button-raised p-button-danger p-button-rounded"
-                                                ></button>
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-
-                                </p-table>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-7 text-right">No aplica:</div>
+                                        <div class="col-5">
+                                            <p-radioButton
+                                                    class="white"
+                                                    value="No Aplica"
+                                                    formControlName="cesaria"
+                                            ></p-radioButton>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
+                            <div class="col-6">
+                                <div class="">
+                                    <div class="text-center" style="font-weight: bold">ABORTO:</div>
+                                    <div class="grid">
+                                        <div class="col-7 text-right">Ameu:</div>
+                                        <div class="col-5">
+                                            <p-radioButton
+                                                    class="white"
+                                                    value="Ameu"
+                                                    formControlName="aborto"
+                                            ></p-radioButton>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-7 text-right">Legrado:</div>
+                                        <div class="col-5">
+                                            <p-radioButton
+                                                    class="white"
+                                                    value="Legrado"
+                                                    formControlName="aborto"
+                                            ></p-radioButton>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-7 text-right">No aplica:</div>
+                                        <div class="col-5">
+                                            <p-radioButton
+                                                    class="white"
+                                                    value="No Aplica"
+                                                    formControlName="aborto"
+                                            ></p-radioButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+
                     </p-fieldset>
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+        <p-fieldset legend="Procedimiento en parto (Ver anexo)">
+            <div class="grid">
+                <div class="col-12">
+                    <p-table
+                            [value]="medicamentoList"
+                            #dt
+                            styleClass="p-datatable-gridlines   "
+                            [rows]="5"
+                            [rowsPerPageOptions]="[5, 10, 15]"
+                            [paginator]="true"
+                            [autoLayout]="true"
+                            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+                    >
+                        <ng-template pTemplate="caption">
+                            <div class="flex justify-content-between">
+                                <button pButton pRipple label="Nueva medicacion" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                                        (click)="isUpdate2=false; agregarActualizar();"></button>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" >
+                            <tr>
+                                <th>Nro</th>
+                                <th>Medicamento</th>
+                                <th>Cantidad</th>
+                                <th>Dosis</th>
+                                <th>Intervalo</th>
+                                <th>Via Administracion</th>
+                                <th>Duracion</th>
+                                <th>Indicacion Adicional</th>
+                                <th>Accion</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-product let-index="rowIndex">
+                            <tr>
+                                <td >{{index+1}}</td>
+                                <td >{{product.medicamento}}</td>
+                                <td >{{product.cantidad}}</td>
+                                <td >{{product.dosis}}</td>
+                                <td >{{product.intervalo}}</td>
+                                <td >{{product.viaAdministracion}}</td>
+                                <td >{{product.duracion}}</td>
+                                <td >{{product.indicacionAdicional}}</td>
+                                <td class="flex justify-content-around " style="padding: 1.5rem">
+                                    <span class="p-column-title">Acciones</span>
+                                    <button
+                                            style=""
+                                            pButton
+                                            pRipple
+                                            type="button"
+                                            icon="pi pi-pencil"
+                                            (click)="isUpdate2 = true; agregarActualizar(index)"
+                                            pTooltip="Editar medicacion"
+                                            tooltipPosition="botton"
+                                            class="p-button-raised p-button-info p-button-rounded "
+
+                                    ></button>
+                                    <button
+                                            pButton
+                                            pRipple
+                                            type="button"
+                                            (click)=" delete(index)"
+                                            icon="pi pi-trash"
+                                            pTooltip="Eliminar tipo turno"
+                                            tooltipPosition="bottom"
+                                            class="p-button-raised p-button-danger p-button-rounded"
+                                    ></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+                </div>
+            </div>
+
+
+
+
+        </p-fieldset>
     </div>
     <!-- Cuarta fila -->
     <div class="grid">
@@ -865,7 +834,7 @@
                 <ng-template pTemplate="header">
                     <div class="grid">
                         <div class="col-3">
-                            Terminación
+                            TERMINACIÓN:
                         </div>
                         <div class="col-9 grid">
                             <div class="col-4" style="text-align: right">Fecha :</div>
@@ -886,7 +855,7 @@
                     <div class="col-3" style="align-self: start">
                         <div>
                             <div class="text-center" style="font-weight: bold">
-                                Terminación
+                                TERMINACIÓN
                             </div>
                             <div class="flex" style="">
                                 <div class="col-8 text-right">Aborto:</div>
@@ -939,7 +908,7 @@
                                 </div>
                             </div>
                             <div class="flex" style="padding: 0px">
-                                <div class="col-8 text-right">Cesaria elmerg:</div>
+                                <div class="col-8 text-right">Cesaria emerg:</div>
                                 <div class="col-5">
                                     <p-radioButton
                                             class="white"
@@ -950,7 +919,7 @@
                             </div>
                         </div>
                         <div>
-                            <div class="text-center" style="font-weight: bold">Desgarros</div>
+                            <div class="text-center" style="font-weight: bold">DESGARROS:</div>
                             <div class="flex" style="padding: 3px">
                                 <div class="col-8 text-right">No Hubo</div>
                                 <div class="col-5">
@@ -1040,7 +1009,7 @@
                             </div>
                         </div>
                         <div>
-                            <div class="text-center" style="font-weight: bold">Duracion</div>
+                            <div class="text-center" style="font-weight: bold">DURACION:</div>
                             <div class="flex" style="padding: 3px">
                                 <div class="col-8 text-right">Normal</div>
                                 <div class="col-5">
@@ -1084,7 +1053,7 @@
                         </div>
                         <div>
                             <div class="text-center" style="font-weight: bold">
-                                ALUMBRAMIENTO
+                                ALUMBRAMIENTO:
                             </div>
                             <div class="flex" style="padding: 3px">
                                 <div class="col-8 text-right">Activo</div>
@@ -1121,7 +1090,7 @@
                     <div class="col-3" style="align-self: start">
                         <div>
                             <div class="text-center" style="font-weight: bold">
-                                PARTO GRAMA
+                                PARTO GRAMA:
                             </div>
                             <div class="flex" style="">
                                 <div class="col-8 text-right">Si:</div>
@@ -1261,7 +1230,7 @@
                         </div>
                         <div>
                             <div class="text-center" style="font-weight: bold">
-                                episiotomía
+                                EPISIOTOMÍA:
                             </div>
                             <div class="flex" style="padding: 3px">
                                 <div class="col-8 text-right">Si</div>
@@ -1296,7 +1265,7 @@
                         </div>
                         <div>
                             <div class="text-center" style="font-weight: bold">
-                                LIGADURA CORDÓN
+                                LIGADURA CORDÓN:
                             </div>
                             <div class="flex" style="padding: 3px">
                                 <div class="col-8 text-right">Precoz</div>
@@ -1430,7 +1399,7 @@
                                 <div class="col-6" style="font-weight: bold">
                                     PARTO O LEGRADO:
                                 </div>
-                                <div class="col-4" style="font-weight: bold">NEONATO</div>
+                                <div class="col-4 text-left" style="font-weight: bold">NEONATO:</div>
                             </div>
                             <div class="grid">
                                 <div class="col-6 text-right">Médico</div>
@@ -1608,11 +1577,14 @@
                         <div class="col-3" style="align-self: start">
                             <div>
                                 <h5>Responsable de la Atención del Parto:</h5>
-                                <textarea rows="5" cols="25" pInputTextarea formControlName="responsableAtencionParto"></textarea>
+                                <input type="text" pInputText formControlName="responsableAtencionParto">
+<!--                                <textarea rows="5" cols="25" pInputTextarea formControlName="responsableAtencionParto"></textarea>-->
                             </div>
                             <div>
-                                <h5>Responsable de la atencion del Neonato</h5>
-                                <textarea rows="5" cols="25" pInputTextarea formControlName="responsableAtencionNeonato"></textarea>
+                                <h5>Responsable de la atencion del Neonato:</h5>
+                                <input type="text" pInputText formControlName="responsableAtencionNeonato">
+
+<!--                                <textarea rows="5" cols="25" pInputTextarea formControlName="responsableAtencionNeonato"></textarea>-->
                             </div>
                         </div>
                     </div>

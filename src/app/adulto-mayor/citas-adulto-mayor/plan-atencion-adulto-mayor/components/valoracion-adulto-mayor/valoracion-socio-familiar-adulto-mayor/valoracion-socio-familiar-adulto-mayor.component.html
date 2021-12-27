@@ -1,0 +1,399 @@
+<div class="p-card">
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <h3 class="mt-2">III. Valoración Socio-Familiar</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                    class="guardar-boton" (click)='agregarActualizar()' ></button>
+        </ng-template>
+    </p-toolbar>
+    <br>
+    <div class="grid">
+
+        <div class="col-12 md:col-7 lg:col-7">
+            <p-fieldset legend="Situación Familiar" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="situacionFamiliar" value="Vive con familia, sin conflicto familiar" formControlName="situacionFamiliar"  ></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label> Vive con familia, sin conflicto familiar </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionFamiliar" value="Vive con familia , presenta algún grado de dependencia física/psiquica" formControlName="situacionFamiliar"  ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Vive con familia , presenta algún grado de dependencia física/psiquica </label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionFamiliar" value="Vive con cónyuge de similar edad" formControlName="situacionFamiliar"  ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Vive con cónyuge de similar edad </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionFamiliar" value="Vive solo y tiene hijos con vivienda próxima" formControlName="situacionFamiliar"  ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Vive solo y tiene hijos con vivienda próxima </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(4)</label>
+                    </div>
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionFamiliar" value="Vive solo y carece de hijos o viven lejos (interior del país o extranjero)" formControlName="situacionFamiliar"   ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Vive solo y carece de hijos o viven lejos (interior del país o extranjero) </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(5)</label>
+                    </div>
+                </div>
+                </form>
+            </p-fieldset>
+        </div>
+
+        <div class="col-12 md:col-5 lg:col-5">
+            <p-fieldset legend="Situación Económica" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="situacionEconomica" value="Dos veces el salario mínimo vital" formControlName="situacionEconomica"   ></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label> Dos veces el salario mínimo vital.</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionEconomica" value="Menos de 2, pero más de 1 salario mínimo vital" formControlName="situacionEconomica"  ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Menos de 2, pero más de 1 salario mínimo vital. </label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionEconomica" value="Un salario mínimo vital" formControlName="situacionEconomica"  ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Un salario mínimo vital</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionEconomica" value="Ingreso irregular (menos del mínimo vital)" formControlName="situacionEconomica"  ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Ingreso irregular (menos del mínimo vital)</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(4)</label>
+                    </div>
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionEconomica" value="Sin pensión, sin otros ingresos" formControlName="situacionEconomica"   ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class=""> Sin pensión, sin otros ingresos </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(5)</label>
+                    </div>
+                </div>
+                </form>
+            </p-fieldset>
+        </div>
+
+    </div>
+    <div class="grid">
+        <div class="col-12 md:col-7 lg:col-7">
+            <p-fieldset legend="Vivienda" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="situacionVivienda" value="Adecuada a las necesidades" formControlName="situacionVivienda" ></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label> Adecuada a las necesidades</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionVivienda" value="Barreras arquitectónicas en la vivienda(pisos irregulares, gradas, puertas estrechas)" formControlName="situacionVivienda"  ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Barreras arquitectónicas en la vivienda(pisos irregulares, gradas, puertas estrechas) </label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionVivienda" value="Mala conservación, humedad, mala higiene, equipamiento inadecuado (baño incompleto)" formControlName="situacionVivienda" ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Mala conservación, humedad, mala higiene, equipamiento inadecuado (baño incompleto)</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionVivienda" value="Vivienda semi construida o de material rústico" formControlName="situacionVivienda"  ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Vivienda semi construida o de material rústico</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(4)</label>
+                    </div>
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionVivienda" value="Asentamiento humano(invasión) o sin vivienda" formControlName="situacionVivienda"  ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Asentamiento humano(invasión) o sin vivienda </label>
+                    </div>
+                    <div class="col-2">
+                        <label>(5)</label>
+                    </div>
+                </div>
+                </form>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-5 lg:col-5">
+            <p-fieldset legend="Relaciones Sociales" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="situacionSocial" value="Mantiene relaciones sociales en la comunidad" formControlName="situacionSocial"></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label>Mantiene relaciones sociales en la comunidad</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionSocial" value="Relación social sólo con la familia y vecinos" formControlName="situacionSocial" ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Relación social sólo con la familia y vecinos </label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionSocial" value="Relación socil sólo con la familia" formControlName="situacionSocial" ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Relación socil sólo con la familia</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionSocial" value="No sale del domicilio pero recibe visitas de familia" formControlName="situacionSocial"  ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">No sale del domicilio pero recibe visitas de familia</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(4)</label>
+                    </div>
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionSocial" value="No sale del domicilio y no recibe visitas" formControlName="situacionSocial" ></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">No sale del domicilio y no recibe visitas</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(5)</label>
+                    </div>
+                </div>
+                </form>
+            </p-fieldset>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-12 md:col-7 lg:col-7">
+
+            <p-fieldset legend="Apoyo de la Red Social Municipio, clubes, ONG,Seguro Social, Vivienda" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="situacionApoyo" value="No necesita apoyo"  formControlName="situacionApoyo"></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label>No necesita apoyo</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionApoyo" value="Requiere apoyo familiar o vecinal" formControlName="situacionApoyo"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Requiere apoyo familiar o vecinal</label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionApoyo" value="Tiene seguro pero necesita mayor apoyo de éste o voluntario social"  formControlName="situacionApoyo"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Tiene seguro pero necesita mayor apoyo de éste o voluntario social</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionApoyo" value="No cuenta con seguro social" formControlName="situacionApoyo"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">No cuenta con seguro social</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(4)</label>
+                    </div>
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="situacionApoyo" value="Situación de abandono familiar" formControlName="situacionApoyo"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Situación de abandono familiar</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(5)</label>
+                    </div>
+                </div>
+                </form>
+            </p-fieldset>
+        </div>
+        <div class="col-12 md:col-5 lg:col-5">
+            <p-fieldset legend="Valoración Socio-Familiar" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
+                <p align="center">VALORACIÓN SOCIO FAMILIAR</p>
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton">
+                        <p-radioButton name="diagnostico" value="BUENA/ACEPTABLE SITUACION SOCIAL" formControlName="diagnostico"></p-radioButton>
+                    </div>
+                    <div class="col-9">
+                        <label> Buena/aceptable situación social</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(1)</label>
+                    </div>
+                    <!--2 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="diagnostico" value="EXISTE RIESGO SOCIAL" formControlName="diagnostico"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Existe riesgo social </label>
+
+                    </div>
+                    <div class="col-2">
+                        <label>(2)</label>
+                    </div>
+                    <!--3 fila-->
+                    <div class="col-1">
+                        <div class="p-field-radiobutton">
+                            <p-radioButton name="diagnostico" value="EXISTE PROBLEMA SOCIAL" formControlName="diagnostico"></p-radioButton>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <label class="">Existe problema social</label>
+                    </div>
+                    <div class="col-2">
+                        <label>(3)</label>
+                    </div>
+                    <!--4 fila-->
+                </div>
+                <div class="grid">
+                    <div class="col-12">
+                        <p>-Buena/aceptable situacion social  :<=9 pts</p>
+                        <p>-Existe riesgo social              :10 a 14pts</p>
+                        <p>-Existe problema social            :>15pts</p>
+                    </div>
+                </div>
+                </form>
+            </p-fieldset>
+        </div>
+    </div>
+</div>
+
