@@ -37,9 +37,7 @@ export class ModalTratamientoComponent implements OnInit {
       this.llenarCamposTratamientoComun();
     }
     /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR EL TRATAMIENTO*/
-    this.intervaloList = [{label: 'CADA 1 HORA', value: '1'},
-      {label: 'CADA 2 HORAS', value: 'CADA 2 HORAS'},
-      {label: 'CADA 3 HORAS', value: 'CADA 3 HORAS'},
+    this.intervaloList = [
       {label: 'CADA 4 HORAS', value: 'CADA 4 HORAS'},
       {label: 'CADA 5 HORAS', value: 'CADA 5 HORAS'},
       {label: 'CADA 6 HORAS', value: 'CADA 6 HORAS'},
