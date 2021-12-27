@@ -88,6 +88,7 @@ export class CuposComponent implements OnInit {
 
     ngOnInit(): void {
         this.buildForm();
+        this.formCuposOferta.get('fechaBusqueda').setValue(this.datafecha);
         // this.getDataUPS();
         this.getListaUps();
         this.getDocumentosIdentidad();
@@ -341,7 +342,7 @@ export class CuposComponent implements OnInit {
         console.log("servicio", event);
         let data = {
             servicio: "ACUPUNTURA Y AFINES",
-            fecha: "2021-12-22",
+            fecha: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         this.cuposService.listaCuposConfirmados(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.dataCupos_por_fechas_servicio = res.object;

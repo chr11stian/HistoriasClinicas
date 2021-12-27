@@ -473,7 +473,7 @@
                         <div class="md:col-12">
                             <div class="flex justify-content-end">
                                 <div class="col-8 text-right" style="font-weight: bold">
-                                    FECHA DE RUPTURA:
+                                    FECHA Y HORA DE RUPTURA:
                                 </div>
                                 <p-calendar
                                         class="fechaRuptura"
@@ -745,31 +745,42 @@
                     <p-fieldset legend="Procedimiento en parto (Ver anexo)">
 
                         <div class="grid">
-                            <div class="col-6 align-self-start">
+                            <div class="col-12">
                                 <p-table
-
-                                        [value]="medicacionList"
+                                        [value]="medicamentoList"
                                         [scrollable]="true" scrollHeight="200px"
-                                        [style]="{width:'95%'}"
+                                        [style]="{width:'100%'}"
                                 >
                                     <ng-template pTemplate="caption">
                                         <div class="flex justify-content-between">
                                             <button pButton pRipple label="Nueva medicacion" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                                                    (click)="isUpdate2=false; medi='medicacion'; agregarActualizar();"></button>
+                                                    (click)="isUpdate2=false; agregarActualizar();"></button>
                                         </div>
                                     </ng-template>
                                     <ng-template pTemplate="header" >
                                         <tr>
-                                            <th style="display: flex;flex:10%">Nro</th>
-                                            <th style="display: flex;flex:70%">Medicacion</th>
-                                            <th style="display: flex;flex:20%">Accion</th>
+                                            <th>Nro</th>
+                                            <th>Medicamento</th>
+                                            <th>Cantidad</th>
+                                            <th>Dosis</th>
+                                            <th>Intervalo</th>
+                                            <th>Via Administracion</th>
+                                            <th>Duracion</th>
+                                            <th>Indicacion Adicional</th>
+                                            <th>Accion</th>
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="body" let-product let-index="rowIndex">
                                         <tr>
-                                            <td style="display:flex; flex:10%" >{{index+1}}</td>
-                                            <td style="display:flex; flex:70%">{{product}}</td>
-                                            <td class="flex justify-content-around " style="padding:0.5rem;display: flex;flex:20%">
+                                            <td >{{index+1}}</td>
+                                            <td >{{product.medicamento}}</td>
+                                            <td >{{product.cantidad}}</td>
+                                            <td >{{product.dosis}}</td>
+                                            <td >{{product.intervalo}}</td>
+                                            <td >{{product.viaAdministracion}}</td>
+                                            <td >{{product.duracion}}</td>
+                                            <td >{{product.indicacionAdicional}}</td>
+                                            <td class="flex justify-content-around " >
                                                 <span class="p-column-title">Acciones</span>
                                                 <button
                                                         style=""
@@ -777,7 +788,7 @@
                                                         pRipple
                                                         type="button"
                                                         icon="pi pi-pencil"
-                                                        (click)="isUpdate2 = true; medi='medicacion'; agregarActualizar(index)"
+                                                        (click)="isUpdate2 = true; agregarActualizar(index)"
                                                         pTooltip="Editar medicacion"
                                                         tooltipPosition="botton"
                                                         class="p-button-raised p-button-info p-button-rounded "
@@ -787,7 +798,7 @@
                                                         pButton
                                                         pRipple
                                                         type="button"
-                                                        (click)=" medi='medicacion';delete(index)"
+                                                        (click)=" delete(index)"
                                                         icon="pi pi-trash"
                                                         pTooltip="Eliminar tipo turno"
                                                         tooltipPosition="bottom"
@@ -799,59 +810,6 @@
 
                                 </p-table>
                             </div>
-                            <div class="col-6 align-self-start">
-                                <p-table [value]="medicamentoList"
-                                         [scrollable]="true"
-                                         scrollHeight="200px"
-                                         [style]="{width:'95%'}">
-                                    <ng-template pTemplate="caption">
-                                        <div class="flex justify-content-between">
-                                            <button pButton pRipple label="Nueva medicamento" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                                                    (click)="isUpdate3=false; medi='medicamento';agregarActualizar();"></button>
-                                            <div>
-                                            </div>
-                                        </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th style="display:flex; flex:10%">Nro</th>
-                                            <th style="display:flex; flex:70%">Medicamento</th>
-                                            <th style="display:flex; flex:20%">Accion</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-product let-index="rowIndex">
-                                        <tr>
-                                            <td style="display:flex; flex:10%">{{index+1}}</td>
-                                            <td style="display:flex; flex:70%">{{product}}</td>
-                                            <td class="flex justify-content-around" style="padding:0.5rem;display:flex; flex:20%">
-                                                <span class="p-column-title">Acciones</span>
-                                                <button
-                                                        pButton
-                                                        pRipple
-                                                        type="button"
-                                                        icon="pi pi-pencil"
-                                                        (click)="isUpdate3 = true;medi='medicamento'; agregarActualizar(index)"
-                                                        pTooltip="Editar tipo turno"
-                                                        tooltipPosition="bottom"
-                                                        class="p-button-raised p-button-info p-button-rounded"
-                                                ></button>
-                                                <button
-                                                        pButton
-                                                        pRipple
-                                                        type="button"
-                                                        (click)=" medi='medicamento';delete(index)"
-                                                        icon="pi pi-trash"
-                                                        pTooltip="Eliminar tipo turno"
-                                                        tooltipPosition="bottom"
-                                                        class="p-button-raised p-button-danger p-button-rounded"
-                                                ></button>
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-
-                                </p-table>
-                            </div>
-
                         </div>
                     </p-fieldset>
                 </div>
@@ -1608,11 +1566,14 @@
                         <div class="col-3" style="align-self: start">
                             <div>
                                 <h5>Responsable de la Atención del Parto:</h5>
-                                <textarea rows="5" cols="25" pInputTextarea formControlName="responsableAtencionParto"></textarea>
+                                <input type="text" pInputText formControlName="responsableAtencionParto">
+<!--                                <textarea rows="5" cols="25" pInputTextarea formControlName="responsableAtencionParto"></textarea>-->
                             </div>
                             <div>
-                                <h5>Responsable de la atencion del Neonato</h5>
-                                <textarea rows="5" cols="25" pInputTextarea formControlName="responsableAtencionNeonato"></textarea>
+                                <h5>Responsable de la atencion del Neonato:</h5>
+                                <input type="text" pInputText formControlName="responsableAtencionNeonato">
+
+<!--                                <textarea rows="5" cols="25" pInputTextarea formControlName="responsableAtencionNeonato"></textarea>-->
                             </div>
                         </div>
                     </div>
