@@ -47,10 +47,8 @@ export class CuposComponent implements OnInit {
     dataOfertasCupos: any;
     ups: [] = [];
     datePipe = new DatePipe('en-US');
-    selectedCupo: any;
     cuposDialog: boolean;
     usuarioDialog: boolean;
-    subscription: Subscription;
     selectedServicio: any;
 
     personalSelected: string = '';
@@ -80,12 +78,7 @@ export class CuposComponent implements OnInit {
             {icon: "pi pi-align-justify", justify: "Justify"}
         ];
 
-        this.stateOptions = [
-            {label: "Off", value: "off"},
-            {label: "On", value: "on"}
-        ];
     }
-
     ngOnInit(): void {
         this.buildForm();
         this.formCuposOferta.get('fechaBusqueda').setValue(this.datafecha);
@@ -139,7 +132,6 @@ export class CuposComponent implements OnInit {
             console.log('docs ', this.listaDocumentosIdentidad);
         })
     }
-
 
     /**Lista las ofertas **/
     getOfertascuposListar(data) {
