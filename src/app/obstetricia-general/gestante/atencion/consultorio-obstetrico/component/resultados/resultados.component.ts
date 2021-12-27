@@ -77,17 +77,18 @@ export class ResultadosComponent implements OnInit {
         { display:"PAP",name: 'pap',code:27,tipoInput:1,codeDrop: this.normalAnormal},
         { display:"IVAA",name: 'ivaa',code:28,tipoInput:1,codeDrop: this.normalAnormal}
     ]
-    examenSeleccionado='otros';
+    displaySeleccionado='otros';
+    pruebaSeleccionada=''
     opcionesInput=[]
-    tituloInput=''
     tipoInput1=0;
     seleccionar(itemSelected){
         this.tipoInput1=0;
         this.examenFG.setValue({resultado: '', fechaExamen: ''});
         console.log(this.examenFG.value)
         this.tipoInput1=itemSelected.value.tipoInput;
-        // this.examenSeleccionado=itemSelected.value.code
-        this.tituloInput=itemSelected.value.tituloInput;
+        this.pruebaSeleccionada=itemSelected.value.name
+        this.displaySeleccionado=itemSelected.value.display;
+        console.log(this.displaySeleccionado,this.pruebaSeleccionada)
         if(this.tipoInput1==1){
             this.opcionesInput=itemSelected.value.codeDrop;
         }
@@ -156,7 +157,8 @@ export class ResultadosComponent implements OnInit {
         let examen
         for (const key in data) {
             if(data[key]!=null && data[key]['valor']!="" && data[key]['valor']!=null && data[key]['fecha']!=null){
-            this.resultadosList.push({prueba:key,valor:data[key]['valor'],fecha:data[key]['fecha']})
+            const found = this.examenes.find(element => element.name  == key);
+            this.resultadosList.push({display:found.display,prueba:key,valor:data[key]['valor'],fecha:data[key]['fecha']})
             }
         }
         // console.log('lista:',this.resultadosList)
@@ -196,7 +198,8 @@ export class ResultadosComponent implements OnInit {
     updateIndex=0;
      guardarExamen(){
         let input={
-            prueba:this.tituloInput,
+            display:this.displaySeleccionado,
+            prueba:this.pruebaSeleccionada,
             valor:this.examenFG.get('resultado').value,
             fecha:this.getFecha(this.examenFG.get('fechaExamen').value)
         }
@@ -240,7 +243,7 @@ export class ResultadosComponent implements OnInit {
         }
         this.resultadosService.addresultado(input).subscribe((resp) => {
 
-            // console.log('--->',resp)
+            console.log('--->',resp)
                 this.messageService.add({severity:'success', summary:'Exito', detail:'Resultados agregados satisfactoriamente'});
             },
             (error)=>{
@@ -262,8 +265,8 @@ export class ResultadosComponent implements OnInit {
         this.examenFG.get('resultado').reset();
         this.examenFG.get('fechaExamen').reset();
         console.log('estadofg',this.examenFG)
-        this.examenSeleccionado=found.name
-        this.tituloInput=found.name;
+        this.pruebaSeleccionada=found.name
+        this.displaySeleccionado=found.display;
         this.tipoInput1=found.tipoInput;
         this.examenFG.get('fechaExamen').setValue(new Date(rowData['fecha']));
         if(this.tipoInput1==1){
