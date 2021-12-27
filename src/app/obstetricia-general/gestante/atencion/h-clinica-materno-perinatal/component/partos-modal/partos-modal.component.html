@@ -1,31 +1,68 @@
-<div class="grid" [formGroup]="medicacionFG">
-    <!--    <div class="p-field col-12 md:col-12">-->
-    <!--        <label >Nombre de la medicacion</label>-->
-    <!--        <input-->
-    <!--                id="float-input-lastname"-->
-    <!--                formControlName="medicacion"-->
-    <!--                type="text"-->
-    <!--                pInputText-->
-    <!--        />-->
-    <!--    </div>-->
-    <div class="col-12 p-fluid" style="font-weight: bold">
-        Nombre:
+
+<!-------------INICIO DIALOG TRATAMIENTO COMUN--->
+<form [formGroup]='medicamentoFG'>
+
+    <div class="p-grid p-fluid">
+        <div class="p-col-6 p-md-4 p-lg-3">
+            <label>Medicamento:</label>
+            <input type="text" style="border-radius: 10px" pInputText formControlName='medicamento' placeholder="medicamentos"
+            />
+        </div>
+        <div class="p-col-6 p-md-4 p-lg-3">
+            <label>Cantidad:</label>
+            <input type="number"  style="border-radius: 10px" pInputText formControlName='cantidad' placeholder="cantidad"
+            />
+        </div>
+        <div class="p-col-6 p-md-4 p-lg-3">
+            <label>Dosis:</label>
+            <input type="number" style="border-radius: 10px" pInputText formControlName='dosis' placeholder="dosis"
+                   required />
+        </div>
+        <div class="p-col-6 p-md-4 p-lg-3">
+            <label>Intervalo</label>
+            <div class="p-field">
+                <p-dropdown  inputId="dropdown" [options]="intervaloList" formControlName="intervalo"
+                             placeholder="seleccionar" optionLabel="name" optionValue="code"
+                             defaultLabel="Seleccione:" >
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-6 p-md-4 p-lg-3">
+            <label>Via Admin.</label>
+            <div class="p-field">
+                <p-dropdown  inputId="dropdown" [options]="viaAdministracionList" formControlName="viaAdministracion"
+                             placeholder="seleccionar" optionLabel="name" optionValue="code"
+                             defaultLabel="Seleccione:" >
+                </p-dropdown>
+            </div>
+        </div>
+        <div class="p-col-6 p-md-4 p-lg-3">
+            <label>Duración:</label>
+            <input type="text" style="border-radius: 10px" pInputText formControlName='duracion' placeholder="duración"
+                   required />
+        </div>
+        <br>
+        <div class="p-col-6 p-md-4 p-lg-3">
+                 <span class="p-float-label">
+<!--                 <label>Ind. Adicional:</label>-->
+                <textarea style="border-radius: 10px" id="indAdicional" rows="5" cols="30" pInputTextarea formControlName="indicacionAdicional"> </textarea>
+                <label for="indAdicional">Ind. Adicional:</label>
+                </span>
+        </div>
     </div>
-    <div class="col-12 p-fluid">
-        <input
-                placeholder="Ingrese medicacion..."
-                formControlName="medicacion"
-                type="text"
-                pInputText/>
-    </div>
-</div>
+</form>
 <div class="flex justify-content-end">
-    <p-button
-            icon="pi pi-save"
-            label="Guardar"
-            (onClick)="agregarActualizar()"
-            styleClass="p-button-info p-button-sm"
-            [disabled]="medicacionFG.invalid"
-    >
-    </p-button>
+    <button pButton type="button" label="Cancelar" (click)="close()"  class="p-button-danger mt-4 "></button>
+    <button pButton type="button" label="Guardar" (click)="agregarActualizar()" class="p-button-info mt-4 ml-3 "></button>
 </div>
+
+<!--<div class="flex justify-content-end">-->
+<!--    <p-button-->
+<!--            icon="pi pi-save"-->
+<!--            label="Guardar"-->
+<!--            (onClick)="agregarActualizar()"-->
+<!--            styleClass="p-button-info p-button-sm"-->
+<!--            [disabled]="medicacionFG.invalid"-->
+<!--    >-->
+<!--    </p-button>-->
+<!--</div>-->

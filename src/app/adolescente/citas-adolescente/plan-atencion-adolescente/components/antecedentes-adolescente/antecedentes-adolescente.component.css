@@ -1,0 +1,37 @@
+.borde {
+    border: 1px solid #D4D4D4;
+    border-radius: 10px;
+    margin:1rem;
+    padding: 1rem;
+}
+.vacunas{
+    border-collapse: collapse;
+}
+.vacunas th{
+    background-color: #ECECEC;
+    border: 1px solid #D4D4D4;
+    padding:1rem;
+    margin:1rem;
+}
+.vacunas td{
+    border: 1px solid #D4D4D4;
+    padding: 0.4rem;
+}
+
+.gradoInstruccion{
+    width: 600px;
+    border-collapse: collapse;
+    margin:10px auto;
+}
+.gradoInstruccion th{
+    margin:0.3rem;
+    padding: 0.5rem;
+    /*border: 1px solid #D4D4D4;*/
+}
+.gradoInstruccion td{
+    margin:0.3rem;
+    padding: 0.5rem;
+    /*border: 1px solid #D4D4D4;*/
+
+}
+
