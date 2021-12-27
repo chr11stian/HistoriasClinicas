@@ -109,9 +109,6 @@ export class DialogConsultaComponent implements OnInit {
         { name: 'NO SE HIZO', code: "3" }
     ];
     listaIntervalos = [
-        { name: 'CADA 1 HORA', code: '1' },
-        { name: 'CADA 2 HORAS', code: '2' },
-        { name: 'CADA 3 HORAS', code: '3' },
         { name: 'CADA 4 HORAS', code: '4' },
         { name: 'CADA 5 HORAS', code: '5' },
         { name: 'CADA 6 HORAS', code: '6' },
