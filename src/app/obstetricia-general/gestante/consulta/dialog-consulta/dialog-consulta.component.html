@@ -6,12 +6,12 @@
                     <div class="col-12  mt-4">
                         <div class="margen border-300">
                             <div class="grid ">
-                                <div class="col-3 md:col-3 text-center">
+                                <div class="col-6 md:col-2 text-center">
                                     <div class="grid">
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <label>Fecha de atención:</label>
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-8">
                                             <input formControlName="fecha" type="datetime-local" class="p-inputtext-sm"
                                                 pInputText />
                                         </div>
@@ -184,8 +184,8 @@
                                             <label>PESO HAB:</label>
                                         </div>
                                         <div class="col-5">
-                                            <input type="number" pInputText formControlName='pesoHabitual' placeholder="Peso Hab."
-                                                class="p-inputtext-sm  inputfield w-full">
+                                            <input type="number" pInputText formControlName='pesoHabitual'
+                                                placeholder="Peso Hab." class="p-inputtext-sm  inputfield w-full">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">kg.</span>
@@ -194,8 +194,8 @@
                                 </div>
                                 <div class="col-2 md:col-4 text-center">
                                     <button pButton pRipple icon="pi pi-check-circle" type="button"
-                                    label="Calcular ganancia peso" class="p-button-raised mt-3"
-                                    (click)="calcularGanancia()"></button>
+                                        label="Calcular ganancia peso" class="p-button-raised mt-3"
+                                        (click)="calcularGanancia()"></button>
                                 </div>
                                 <div class="col-10 md:col-8 text-center">
                                     <label class="text-sm">EVALUACION NUTRICIONAL</label>
@@ -203,7 +203,8 @@
                                         <div class="col-5">
                                             <div class="grid">
                                                 <div class="col-9">
-                                                    <input type="number" pInputText formControlName='evalNutricionalValor' placeholder="Peso Ganado"
+                                                    <input type="number" pInputText
+                                                        formControlName='evalNutricionalValor' placeholder="Peso Ganado"
                                                         class="p-inputtext-sm  inputfield w-full">
                                                 </div>
                                                 <div class="mt-2 col-3 text-left">
@@ -225,71 +226,35 @@
                     <div class="col-12 md:col-6">
                         <p-fieldset legend="Estado Actual: Funciones Biológicas">
                             <div class="grid ">
-                                <div class="col-6 md:col-6 text-center">
-                                    <div class="grid">
-                                        <div class="col-4">
-                                            <label>Apetito:</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input formControlName="apetito" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText placeholder="Apetito" />
-                                        </div>
-                                    </div>
+                                <div class="col-6 md:col-6">
+                                    <label>Apetito:</label>
+                                    <input formControlName="apetito" class="p-fluid w-full" type="text"
+                                        class="p-inputtext-sm " pInputText placeholder="Apetito" />
                                 </div>
-                                <div class="col-6 md:col-6 text-center">
-                                    <div class="grid">
-                                        <div class="col-4">
-                                            <label>Sed:</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input formControlName="sed" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText placeholder="Sed" />
-                                        </div>
-                                    </div>
+                                <div class="col-6 md:col-6">
+                                    <label>Sed:</label>
+                                    <input formControlName="sed" class="p-fluid w-full" type="text"
+                                        class="p-inputtext-sm " pInputText placeholder="Sed" />
                                 </div>
-                                <div class="col-6 md:col-6 text-center">
-                                    <div class="grid">
-                                        <div class="col-4">
-                                            <label>Sueño:</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input formControlName="sueño" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText placeholder="Sueño" />
-                                        </div>
-                                    </div>
+                                <div class="col-6 md:col-6">
+                                    <label>Sueño:</label>
+                                    <input formControlName="sueño" class="p-fluid w-full" type="text"
+                                        class="p-inputtext-sm " pInputText placeholder="Sueño" />
                                 </div>
-                                <div class="col-6 md:col-6 text-center">
-                                    <div class="grid">
-                                        <div class="col-4">
-                                            <label>Estado de animo:</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input formControlName="estadoAnimo" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText placeholder="Estado Anim." />
-                                        </div>
-                                    </div>
+                                <div class="col-6 md:col-6">
+                                    <label>Estado de animo:</label>
+                                    <input formControlName="estadoAnimo" class="p-fluid w-full" type="text"
+                                        class="p-inputtext-sm " pInputText placeholder="Estado Anim." />
                                 </div>
-                                <div class="col-6 md:col-6 text-center">
-                                    <div class="grid">
-                                        <div class="col-4">
-                                            <label>Orina:</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input formControlName="orina" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText placeholder="Orina" />
-                                        </div>
-                                    </div>
+                                <div class="col-6 md:col-6">
+                                    <label>Orina:</label>
+                                    <input formControlName="orina" class="p-fluid w-full" type="text"
+                                        class="p-inputtext-sm " pInputText placeholder="Orina" />
                                 </div>
-                                <div class="col-6 md:col-6 text-center">
-                                    <div class="grid">
-                                        <div class="col-4">
-                                            <label>Deposiciones:</label>
-                                        </div>
-                                        <div class="col-8">
-                                            <input formControlName="deposiciones" class="p-fluid w-full" type="text"
-                                                class="p-inputtext-sm " pInputText placeholder="Deposiciones" />
-                                        </div>
-                                    </div>
+                                <div class="col-6 md:col-6">
+                                    <label>Deposiciones:</label>
+                                    <input formControlName="deposiciones" class="p-fluid w-full" type="text"
+                                        class="p-inputtext-sm " pInputText placeholder="Deposiciones" />
                                 </div>
                             </div>
                         </p-fieldset>
@@ -2289,7 +2254,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-12">
-                                                <label class="text-sm ">Descripción:</label>
+                                                <label class="text-sm ">Observaciones:</label>
                                                 <input formControlName="descripcionEcografia" type="text"
                                                     class="p-inputtext-sm " pInputText />
                                             </div>
@@ -2304,21 +2269,27 @@
                                 <div class="col-4">
                                     <label class="text-sm">Visita Domiciliaria:</label>
                                     <p-dropdown [options]="listaVisitaDomiciliaria" placeholder="Visita Domiciliaria"
-                                        formControlName="visitaDomiciliariaEstado" optionLabel="name" optionValue="name"
+                                        [(ngModel)]="eleccion" formControlName="visitaDomiciliariaEstado"
+                                        optionLabel="name" optionValue="name" class="inputfield p-fluid w-full">
+                                    </p-dropdown>
+                                </div>
+                                <div class="col-4">
+                                    <label *ngIf="eleccion=='SI'" class="text-sm">Visita Dom. Fecha:</label>
+                                    <input *ngIf="eleccion=='SI'" formControlName="visitaDomiciliariaFecha"
+                                        type="datetime-local" class="p-inputtext-sm " pInputText />
+                                </div>
+                                <div class="col-4">
+                                    <label class="text-sm ">Plan Parto:</label>
+                                    <p-dropdown [options]="listaPlanParto" placeholder="Plan Parto"
+                                        formControlName="planParto" optionLabel="name" optionValue="name"
                                         class="inputfield p-fluid w-full">
                                     </p-dropdown>
-
                                 </div>
                                 <div class="col-4">
-                                    <label class="text-sm">Visita Dom. Fecha:</label>
-                                    <input formControlName="visitaDomiciliariaFecha" type="datetime-local"
-                                        class="p-inputtext-sm " pInputText />
-                                </div>
-                                <div class="col-4">
-                                    <label class="text-sm ">Plan Parto/Reenfocada:</label>
-                                    <p-dropdown placeholder="" [options]="listaPlanPartoReenfocada"
-                                        placeholder="Plan Parto/reenfocada" formControlName="planPartoReenfocada"
-                                        optionLabel="name" optionValue="name" class="inputfield p-fluid w-full">
+                                    <label class="text-sm ">Reenfocada:</label>
+                                    <p-dropdown [options]="listaReenfocada" placeholder="Reenfocada"
+                                        formControlName="reenfocada" optionLabel="name" optionValue="code"
+                                        class="inputfield p-fluid w-full">
                                     </p-dropdown>
                                 </div>
                             </div>
@@ -2392,23 +2363,35 @@
     <ng-template pTemplate="body">
         <form [formGroup]='formExamenFetal'>
             <div class="grid">
-                <div class="col-4">
+                <div class="col-3">
                     <label>Situación</label>
                     <p-dropdown [options]="listaSituacion" formControlName="selectSituacion" optionLabel="name"
                         optionValue="name" class="inputfield p-fluid w-full" placeholder="Situacion Fetal">
                     </p-dropdown>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <label>Presentación</label>
                     <p-dropdown [options]="listaPresentacion" formControlName="selectPresentacion" optionLabel="name"
                         optionValue="name" class="inputfield p-fluid w-full" placeholder="Presentacion Fetal">
                     </p-dropdown>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     <label>Posición</label>
                     <p-dropdown [options]="listaPosicion" formControlName="selectPosicion" optionLabel="name"
                         optionValue="name" class="inputfield p-fluid w-full" placeholder="Posicion Fetal">
                     </p-dropdown>
+                </div>
+                <div class="col-3">
+                    <label>Latidos Cardíacos Fetales:</label>
+                    <div class="grid">
+                        <div class="col-8">
+                            <input type="number" pInputText formControlName='latidosCardiacosFetales'
+                                class="p-inputtext-sm inputfield w-full" placeholder="Latidos Cardiacos">
+                        </div>
+                        <div class="col-4 mt-2 text-left">
+                            <span class="font-italic">X min.</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-12">
                     <label>Movimientos Fetales:</label>
@@ -2416,11 +2399,7 @@
                         class="p-inputtext-sm inputfield w-full" placeholder="Movimientos Fetales">
                 </div>
 
-                <div class="col-12">
-                    <label>Latidos Cardíacos Fetales::</label>
-                    <input type="text" pInputText formControlName='latidosCardiacosFetales' placeholder=""
-                        class="p-inputtext-sm inputfield w-full" placeholder="Latidos Cardiacos">
-                </div>
+
             </div>
         </form>
     </ng-template>

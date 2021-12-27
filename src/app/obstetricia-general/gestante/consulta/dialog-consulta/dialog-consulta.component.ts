@@ -32,6 +32,8 @@ export class DialogConsultaComponent implements OnInit {
     prueba: any[];
     isUpdate: boolean = false;
 
+    estadoVisitaDomiciMostrar: boolean;
+
     examenFetalDialog: boolean;
     diagnosticoDialog: boolean;
     tratamientoDialog: boolean;
@@ -103,7 +105,11 @@ export class DialogConsultaComponent implements OnInit {
         { name: 'NO', code: "2" },
         { name: 'NO APLICA', code: "3" }
     ];
-    listaPlanPartoReenfocada = [
+    listaReenfocada = [
+        { name: 'SI', code: true },
+        { name: 'NO', code: false }
+    ];
+    listaPlanParto = [
         { name: 'CONTROL', code: "1" },
         { name: 'VISITA', code: "2" },
         { name: 'NO SE HIZO', code: "3" }
@@ -147,10 +153,12 @@ export class DialogConsultaComponent implements OnInit {
     indexRecomendacionEditado: number;
     indexInmunizacionEditado: number;
 
-    estadoEdicion: boolean;
+    estadoEdicion: boolean = false;
     datePipe = new DatePipe('en-US');
     listaDeCIE: any;
 
+    eleccion: any;
+    
     constructor(
         private fb: FormBuilder,
         private ref: DynamicDialogRef,
@@ -161,7 +169,6 @@ export class DialogConsultaComponent implements OnInit {
         private CieService: CieService,
     ) {
         this.nroHcl = this.obstetriciaGeneralService.nroHcl;
-        this.estadoEdicion = false;
         this.inicializarForm();
         this.consultaObstetriciaService.traerDatosParaConsultaNueva({ nroHcl: this.nroHcl }).subscribe((res: any) => {
             console.log('datos ', res.object);
@@ -179,6 +186,7 @@ export class DialogConsultaComponent implements OnInit {
             if (config.data) {
                 this.llenarCamposEdicionConsulta();
                 this.estadoEdicion = true;
+                console.log("estadoEdicion",this.estadoEdicion);
             }
         });
 
@@ -197,6 +205,9 @@ export class DialogConsultaComponent implements OnInit {
             this.form.get("ecografiaEdadDias").setValue(edadGestacional % 7);
             console.log('edad gestacional ', edadGestacional);
         }
+    }
+    onChangeEstadoVisita(){
+        this.estadoVisitaDomiciMostrar=this.form.value.visitaDomiciliariaEstado==="SI"?true:false;
     }
     ngOnInit(): void { }
 
@@ -333,7 +344,8 @@ export class DialogConsultaComponent implements OnInit {
             //visita domiciliaria
             visitaDomiciliariaEstado: new FormControl(""),
             visitaDomiciliariaFecha: new FormControl(""),
-            planPartoReenfocada: new FormControl(""),
+            planParto: new FormControl(""),
+            reenfocada: new FormControl(""),
 
             //laboratorios
             grupoSanguineo: new FormControl(""),
@@ -1273,7 +1285,10 @@ export class DialogConsultaComponent implements OnInit {
                 codRENAES: this.form.value.codRENAESReferencia
             },
             interconsultas: this.datosInterconsultas,
-            proxCita: this.datePipe.transform(this.form.value.proxCita, 'yyyy-MM-dd HH:mm:ss'),
+            proxCita: {
+                fecha: this.datePipe.transform(this.form.value.proxCita, 'yyyy-MM-dd HH:mm:ss'),
+                estado: "tentativo"
+            },
             tratamientos: this.datosTratamientos,
             tratamientosSuplementos: {
                 acidoFolico: {
@@ -1453,18 +1468,19 @@ export class DialogConsultaComponent implements OnInit {
             },
             ecografia: {
                 fecha: this.datePipe.transform(this.form.value.ecografiaFecha, 'yyyy-MM-dd HH:mm:ss'),
-                descripcion: this.form.value.descripcionEcografia,
+                observaciones: this.form.value.descripcionEcografia,
                 semanas: parseInt(this.form.value.ecografiaEdadSemanas),
                 dias: parseInt(this.form.value.ecografiaEdadDias),
             },
             codRENAES: "123123",
-            planPartoReenfocada: this.form.value.planPartoReenfocada,
+            planParto: this.form.value.planParto,
+            reenfocada: this.form.value.reenfocada
         }
         for (let i = 0; i < this.datosOtrosPruebasFisicas.length; i++) {
             consulta.examenesFisicos.push(this.datosOtrosPruebasFisicas[i])
         }
         console.log('data to save ', consulta);
-
+        console.log("estadoEdicion",this.estadoEdicion);
         if (!this.estadoEdicion) {
             this.consultaObstetriciaService.postDatoConsultaObstetrica(consulta, this.form.value.nroFetos).subscribe((res: any) => {
                 console.log('rpta ', res.object);
@@ -1484,6 +1500,7 @@ export class DialogConsultaComponent implements OnInit {
         this.estadoEdicion = false;
     }
     llenarCamposEdicionConsulta() {
+        this.estadoEdicion = true;
         let configuracion = this.config.data.row;
         console.log("Imprimiento objeto del dialog", configuracion);
         this.form.get('fecha').setValue(configuracion.fecha ?
@@ -1581,8 +1598,8 @@ export class DialogConsultaComponent implements OnInit {
         this.form.get('consultorioReferencia').setValue(configuracion.referencia.consultorio);
         this.form.get('motivoReferencia').setValue(configuracion.referencia.motivo);
         this.form.get('codRENAESReferencia').setValue(configuracion.referencia.codRENAES);
-        this.form.get('proxCita').setValue(configuracion.proxCita ?
-            this.datePipe.transform(new Date(configuracion.proxCita), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('proxCita').setValue(configuracion.proxCita.fecha ?
+            this.datePipe.transform(new Date(configuracion.proxCita.fecha), 'yyyy-MM-ddTHH:mm') : "");
         //suplementos
         this.form.get('acidoFolicoSuplemento').setValue(
             configuracion.tratamientosSuplementos.acidoFolico.descripcion !== "" ?
@@ -1630,7 +1647,8 @@ export class DialogConsultaComponent implements OnInit {
         this.form.get('visitaDomiciliariaEstado').setValue(configuracion.visitaDomiciliaria.estado);
         this.form.get('visitaDomiciliariaFecha').setValue(configuracion.visitaDomiciliaria.fecha ?
             this.datePipe.transform(new Date(configuracion.visitaDomiciliaria.fecha), 'yyyy-MM-ddTHH:mm') : "");
-        this.form.get('planPartoReenfocada').setValue(configuracion.planPartoReenfocada);
+        this.form.get('planParto').setValue(configuracion.planParto);
+        this.form.get('reenfocada').setValue(configuracion.reenfocada);
         //laboratorio
         this.form.get('grupoSanguineo').setValue(configuracion.laboratorios.grupoSanguineo.valor);
         this.form.get('grupoSanguineoFecha').setValue(configuracion.laboratorios.grupoSanguineo.fecha ?
@@ -1719,7 +1737,7 @@ export class DialogConsultaComponent implements OnInit {
 
         this.form.get('ecografiaEdadSemanas').setValue(configuracion.ecografia.semanas);
         this.form.get('ecografiaEdadDias').setValue(configuracion.ecografia.dias);
-        this.form.get('descripcionEcografia').setValue(configuracion.ecografia.descripcion);
+        this.form.get('descripcionEcografia').setValue(configuracion.ecografia.observaciones);
         this.form.get('ecografiaFecha').setValue(configuracion.ecografia.fecha ?
             this.datePipe.transform(new Date(configuracion.ecografia.fecha), 'yyyy-MM-ddTHH:mm') : "");
 
