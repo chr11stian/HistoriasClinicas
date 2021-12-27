@@ -764,6 +764,10 @@ export class PersonalSaludComponent implements OnInit {
     this.personalEspecialidadDialog = false;
     this.guardarNuevoEspecialidad();
   }
+  closeRol() {
+    this.personalRolDialogX = false;
+    // this.guardarNuevoEspecialidad();
+  }
   titulo() {
     if (this.isUpdate) return "Edite Personal de Salud";
     else return "Ingrese Nuevo Personal de Salud";
@@ -794,7 +798,9 @@ export class PersonalSaludComponent implements OnInit {
     this.personalEspecialidadDialog = true;
   }
   newRolX(rowData) {
-    this.rolesX = rowData.roles;
+    if(rowData.roles!=null){
+      this.rolesX = rowData.roles;
+    }
     console.log(this.rolesX);
     this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
     this.idRolX = rowData.id;
@@ -932,9 +938,10 @@ export class PersonalSaludComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500,
         });
-        this.rolesX.push(req);
+        console.log(result,this.rolesX)
         // this.getPersonalIdEspecialidad();
-        // this.getPersonal();
+        this.rolesX.push(req);
+        this.getPersonal();
         this.guardarNuevoRol();
       });
   }
