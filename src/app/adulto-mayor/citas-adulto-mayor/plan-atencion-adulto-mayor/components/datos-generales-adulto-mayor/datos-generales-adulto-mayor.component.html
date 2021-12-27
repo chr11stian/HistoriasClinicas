@@ -4,7 +4,7 @@
     </ng-template>
     <ng-template pTemplate="right" class="button">
         <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                class="guardar-boton"></button>
+                class="guardar-boton" (click)="agregarFiliacionDatosGenerales()"></button>
     </ng-template>
 </p-toolbar>
 
@@ -100,7 +100,7 @@
                 <label class="">Grupo Sanguineo:</label>
                 <div class="grid">
                     <div class="col-12 md:col-6 lg:col-6 p-field">
-                        <input type="text" pInputText class="inputfield w-full" placeholder="Grupo" formControlName="grupoSangre">
+                        <input type="text" pInputText class="inputfield w-full" placeholder="Grupo" formControlName="grupoSanguineo">
                     </div>
                     <div class="col-12 md:col-6 lg:col-6 p-field">
                         <input type="text" pInputText class="inputfield w-full" placeholder="Rh" formControlName="rh">
