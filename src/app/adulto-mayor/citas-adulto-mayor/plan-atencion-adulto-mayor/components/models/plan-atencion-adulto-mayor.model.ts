@@ -59,3 +59,12 @@ export interface datosGeneralesAdultoMayor{
     edadFamiliarCuidador?:number,
     dniFamiliarCuidador?:string
 }
+export interface AntecedentesPersonales{
+    nombre?:string,
+    valor?:boolean
+}
+export interface AntecedentesFamiliares{
+    nombre?:string,
+    valor?:boolean,
+    familiar?:string
+}

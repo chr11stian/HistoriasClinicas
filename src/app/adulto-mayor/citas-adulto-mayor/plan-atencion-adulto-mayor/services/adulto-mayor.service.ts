@@ -22,16 +22,16 @@ export class AdultoMayorService {
     }
     /*******************ANTECEDENTES ADULTO MAYOR****************/
     getAntecedentesAdultoMayorByDoc(tipoDoc,nroDoc){
-        return this.http.get(`${this.base_url}/${this.bd}/adultomayor/buscarantecedentes/${tipoDoc}/${nroDoc}`)
+        return this.http.get(`${this.base_url}/${this.bd}/adultomayor/buscarantecedentes/${tipoDoc}/${nroDoc}`);
     }
     getAntecedentesAdultoMayorById(idFiliacion){
-        return this.http.get(`${this.base_url}/${this.bd}/adultomayor/buscarantecedentes/${idFiliacion}`)
+        return this.http.get(`${this.base_url}/${this.bd}/adultomayor/buscarantecedentes/${idFiliacion}`);
     }
-    postAntecedentesAdultoMayorByDoc(tipoDoc,nroDoc){
-        return this.http.get(`${this.base_url}/${this.bd}/adultomayor/guardarantecedentes/${tipoDoc}/${nroDoc}`)
+    postAntecedentesAdultoMayorByDoc(tipoDoc,nroDoc,data){
+        return this.http.post(`${this.base_url}/${this.bd}/adultomayor/guardarantecedentes/${tipoDoc}/${nroDoc}`,data);
     }
-    postAntecedentesAdultoMayorById(idFiliacion){
-        return this.http.get(`${this.base_url}/${this.bd}/adultomayor/guardarantecedentes/${idFiliacion}`)
+    postAntecedentesAdultoMayorById(idFiliacion,data){
+        return this.http.post(`${this.base_url}/${this.bd}/adultomayor/guardarantecedentes/${idFiliacion}`,data);
     }
 
     /*****************VALORACION CLINICA*********************/
