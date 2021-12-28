@@ -336,6 +336,11 @@ const menu_ipress = [
                                 icon: "pi pi-pw pi-file",
                                 routerLink: "adulto-mayor/citas",
                             },
+                            {
+                                label: "Consultas",
+                                icon: "pi pi-pw pi-file",
+                                routerLink: "adulto-mayor/citas/consulta",
+                            },
                         ]
                     },
                 ],
