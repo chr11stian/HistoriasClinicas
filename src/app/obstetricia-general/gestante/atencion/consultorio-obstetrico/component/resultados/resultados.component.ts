@@ -133,10 +133,14 @@ export class ResultadosComponent implements OnInit {
     getFecha(date: Date) {
         if (date.toString() !== '') {
             let hora = date.toLocaleTimeString();
+            let aux='';
             let dd = date.getDate();
+            if(dd<10) {
+                aux=''+dd
+            }
             let mm = date.getMonth() + 1; //January is 0!
             let yyyy = date.getFullYear();
-            return yyyy + '-' + mm + '-' + dd;
+            return yyyy + '-' + mm + '-' + aux;
         } else {
             return '';
         }
@@ -144,10 +148,14 @@ export class ResultadosComponent implements OnInit {
     getFechaHora(date: Date) {
         if (date.toString() !== '') {
             let hora = date.toLocaleTimeString();
+            let aux='';
             let dd = date.getDate();
-            let mm = date.getMonth() + 1; //January is 0!
+            if(dd<10) {
+                aux=''+dd
+            }
+            let mm = date.getMonth() + 1;
             let yyyy = date.getFullYear();
-            return yyyy + '-' + mm + '-' + dd + ' ' + hora
+            return yyyy + '-' + mm + '-' + aux + ' ' + hora
         } else {
             return '';
         }
@@ -179,7 +187,7 @@ export class ResultadosComponent implements OnInit {
                     if(resultado.ecografia.fecha!=null){
                     this.getFC('fechaEcografia1').setValue(new Date(resultado.ecografia.fecha));
                     }
-                    this.getFC('resultado1').setValue(resultado.ecografia.descripcion);
+                    this.getFC('resultado1').setValue(resultado.ecografia.observaciones);
                     this.getFC('semana1').setValue(resultado.ecografia.semanas);
                     this.getFC('dia1').setValue(resultado.ecografia.dias);
                     this.messageService.add({
@@ -235,10 +243,10 @@ export class ResultadosComponent implements OnInit {
             laboratorios:JSON.parse(this.generarCadena()),
             ecografia: {
                 fecha: this.getFechaHora(this.getFC("fechaEcografia1").value),
-                descripcion: this.getFC('resultado1').value,
+                // descripcion: this.getFC('resultado1').value,
+                observaciones: this.getFC('resultado1').value,
                 semanas: this.getFC('semana1').value,
                 dias: this.getFC('dia1').value
-                // dias: '7'
             },
         }
         this.resultadosService.addresultado(input).subscribe((resp) => {
