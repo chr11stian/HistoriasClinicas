@@ -134,23 +134,26 @@ p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
 /*    !*overflow: visible;*!*/
 /*}*/
 :host ::ng-deep p-table >>> .p-datatable .p-datatable-thead > tr > th {
+
+
     text-align: center;
     font-size: 1rem;
     word-wrap: break-word;
-    padding: 1rem;
-    /*border: 1px solid #b6b6b6;*/
+    /*padding: 1rem;*/
+
 }
 p-table >>> .p-datatable .p-datatable-tbody > tr > td {
 
-    /*width: 80px;*/
+
     text-align: center;
     font-size: 1rem;
     word-break: break-all;
-    padding: 1rem;
-    /*border: 1px solid #b6b6b6;*/
-    /*background-color: red;*/
+    /*padding: 1rem;*/
+
 }
 p-table >>> .p-datatable{
     border:1px solid #dee2e6;
+    /*width: auto;*/
+
 }
 

@@ -2,7 +2,7 @@
     <p-tabView styleClass="tabview-custom" class="text-center">
         <p-tabPanel>
             <ng-template pTemplate="header">
-                <i class="pi pi-calendar mx-3"></i>
+                <i class="pi pi-user mx-3"></i>
                 <span class="tabs">Evaluaciones fisicas</span>
             </ng-template>
             <div>
@@ -43,7 +43,7 @@
                             <td class="text-center">{{row.alimentacion}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
+                                    label="Editar" class="p-button-rounded p-button-help"
                                     (click)="editarEvaluacionCrecimientoFisico(row)"></button>
                             </td>
                         </tr>
@@ -88,7 +88,7 @@
                             <td class="text-center">{{row.auditivaOI}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
+                                    label="Editar" class="p-button-rounded p-button-help"
                                     (click)="editarEvaluacionAgudezaVisualAuditiva(row)"></button>
                             </td>
                         </tr>
@@ -130,7 +130,7 @@
                             <td class="text-center">{{row.pie}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
+                                    label="Editar" class="p-button-rounded p-button-help"
                                     (click)="editarEvaluacionFisicoPostural(row)"></button>
                             </td>
                         </tr>
@@ -172,7 +172,7 @@
                             <td class="text-center">{{row.desarrolloVelloPubiano}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
+                                    label="Editar" class="p-button-rounded p-button-help"
                                     (click)="editarEvaluacionDesarrolloSexual(row)"></button>
                             </td>
                         </tr>
@@ -182,7 +182,7 @@
         </p-tabPanel>
         <p-tabPanel header="Evaluaciones sociales">
             <ng-template pTemplate="header">
-                <i class="pi pi-user mx-3"></i>
+                <i class="pi pi-comments mx-3"></i>
                 <span class="tabs">Evaluaciones sociales</span>
             </ng-template>
             <div>
@@ -225,14 +225,13 @@
                             <td class="text-center">{{row.calificacionTotal}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
+                                    label="Editar" class="p-button-rounded p-button-help"
                                     (click)="editarEvaluacionHabilidadesSociales(row)"></button>
                             </td>
                         </tr>
                     </ng-template>
                 </p-table>
             </div>
-
             <div>
                 <p-table [value]="identificacionesColeraIrritabilidadAgresion" responsiveLayout="scroll"
                     styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true" [autoLayout]="true"
@@ -271,8 +270,8 @@
                             <td class="text-center">{{row.calificacionTotal}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
-                                    (click)="editarIdentificacionColeraIrritabilidadAgresion()"></button>
+                                    label="Editar" class="p-button-rounded p-button-help"
+                                    (click)="editarIdentificacionColeraIrritabilidadAgresion(row)"></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -313,7 +312,7 @@
                             <td class="text-center">{{row.politica}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
+                                    label="Editar" class="p-button-rounded p-button-help"
                                     (click)="editarTamizajeViolencia(row)"></button>
                             </td>
                         </tr>
@@ -323,7 +322,7 @@
         </p-tabPanel>
         <p-tabPanel header="Identificacion de factores de riesgo">
             <ng-template pTemplate="header">
-                <i class="pi pi-bell mx-3"></i>
+                <i class="pi pi-exclamation-triangle mx-3"></i>
                 <span class="tabs">Identificacion de factores de riesgo</span>
             </ng-template>
             <div>
@@ -347,19 +346,16 @@
                         <tr>
                             <th class="text-center">NRO</th>
                             <th class="text-center">FECHA</th>
-                            <th class="text-center">FACTOR DE RIESGO</th>
-                            <th class="text-center">VALOR</th>
                             <th class="text-center">ACCIONES</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-row let-i="rowIndex">
                         <tr>
                             <td class="text-center">{{i+1}}</td>
-                            <td class="text-center">{{row.nombre}}</td>
-                            <td class="text-center">{{row.valor}}</td>
+                            <td class="text-center">{{row.fecha}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
+                                    label="Editar" class="p-button-rounded p-button-help"
                                     (click)="editarIdentificacionFactoresRiesgo(row)"></button>
                             </td>
                         </tr>
@@ -369,7 +365,7 @@
         </p-tabPanel>
         <p-tabPanel header="Descarte de enfermedades no transmisibles">
             <ng-template pTemplate="header">
-                <i class="pi pi-bell mx-3"></i>
+                <i class="pi pi-chart-bar mx-3"></i>
                 <span class="tabs">Descarte de enfermedades no transmisibles</span>
             </ng-template>
             <div>
@@ -392,6 +388,7 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th class="text-center">NRO</th>
+                            <th class="text-center">FECHA</th>
                             <th class="text-center">HEMATOCRITO</th>
                             <th class="text-center">COLESTEROLEMIA TOTAL</th>
                             <th class="text-center">GLICEMIA</th>
@@ -409,7 +406,7 @@
                             <td class="text-center">{{row.examenOrina}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
+                                    label="Editar" class="p-button-rounded p-button-help"
                                     (click)="editarDescarteEnfermedadesNoTransmisibles(row)"></button>
                             </td>
                         </tr>
@@ -419,7 +416,7 @@
         </p-tabPanel>
         <p-tabPanel header="Escolaridad">
             <ng-template pTemplate="header">
-                <i class="pi pi-search mx-3"></i>
+                <i class="pi pi-book mx-3"></i>
                 <span class="tabs">Escolaridad</span>
             </ng-template>
             <div>
@@ -457,7 +454,7 @@
                             <td class="text-center">{{row.desercionEscolar}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
+                                    label="Editar" class="p-button-rounded p-button-help"
                                     (click)="editarEscolaridad(row)"></button>
                             </td>
                         </tr>
@@ -467,7 +464,7 @@
         </p-tabPanel>
         <p-tabPanel header="Habitos">
             <ng-template pTemplate="header" class="habitos">
-                <i class="pi pi-search mx-3"></i>
+                <i class="pi pi-clock mx-3"></i>
                 <span class="tabs">Habitos</span>
             </ng-template>
             <div>
@@ -511,7 +508,7 @@
                             <td class="text-center">{{row.pertenenciaPandillas}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
+                                    label="Editar" class="p-button-rounded p-button-help"
                                     (click)="editarHabito(row)"></button>
                             </td>
                         </tr>
@@ -521,7 +518,7 @@
         </p-tabPanel>
         <p-tabPanel header="Salud sexual y reproductiva">
             <ng-template pTemplate="header">
-                <i class="pi pi-search mx-3"></i>
+                <i class="pi pi-check-circle mx-3"></i>
                 <span class="tabs">Salud sexual y reproductiva</span>
             </ng-template>
             <div>
@@ -566,14 +563,14 @@
                             <td class="text-center">{{row.conductaSexualRiesgo}}</td>
                             <td class="text-center">{{row.dosMasParejas}}</td>
                             <td class="text-center">{{row.sexoSinProteccion}}</td>
-                            <td class="text-center">{{row.RSConPersonasDelMismoSexo}}</td>
-                            <td class="text-center">{{row.RSConPersonasDelOtroSexo}}</td>
+                            <td class="text-center">{{row.rsconPersonasDelMismoSexo}}</td>
+                            <td class="text-center">{{row.rsconPersonasDelOtroSexo}}</td>
                             <td class="text-center">{{row.usoMetodoAnticonceptivo}}</td>
                             <td class="text-center">{{row.conocimientoPrevenirEmbarazoNoDeseado}}</td>
                             <td class="text-center">{{row.conocimientoPrevenirTransmisionITSVIH}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
+                                    label="Editar" class="p-button-rounded p-button-help"
                                     (click)="editarSaludSexualReproductiva(row)"></button>
                             </td>
                         </tr>
@@ -594,8 +591,10 @@
             <div class="grid">
                 <div class="col-4">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEvaluacionCrecimientoFisico" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionCrecimientoFisico" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-4"></div>
                 <div class="col-4"></div>
@@ -622,7 +621,6 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdateEvaluacionCrecimientoFisico" pButton type="button" label="Guardar"
             (click)="editarDatosEvaluacionCrecimientoFisico()"></button>
@@ -642,8 +640,10 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEvaluacionesAgudezaVisualAuditiva" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesAgudezaVisualAuditiva" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-6"></div>
                 <div class="col-6">
@@ -669,7 +669,6 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdateEvaluacionesAgudezaVisualAuditiva" pButton type="button" label="Guardar"
             (click)="editarDatosEvaluacionAgudezaVisualAuditiva()"></button>
@@ -689,8 +688,10 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEvaluacionesFisicoPostural" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesFisicoPostural" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Columna:</label>
@@ -710,14 +711,12 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdateEvaluacionesFisicoPostural" pButton type="button" label="Guardar"
             (click)="editarDatosEvaluacionFisicoPostural()"></button>
         <button *ngIf="!isUpdateEvaluacionesFisicoPostural" pButton type="button" label="Guardar"
             (click)="saveFormEvaluacionFisicoPostural()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -731,8 +730,10 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEvaluacionesDesarrolloSexual" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesDesarrolloSexual" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Desarrollo mama:</label>
@@ -752,14 +753,12 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdateEvaluacionesDesarrolloSexual" pButton type="button" label="Guardar"
             (click)="editarDatosEvaluacionDesarrolloSexual()"></button>
         <button *ngIf="!isUpdateEvaluacionesDesarrolloSexual" pButton type="button" label="Guardar"
             (click)="saveFormEvaluacionDesarrolloSexual()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -773,8 +772,10 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEvaluacionesHabilidadesSociales" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEvaluacionesHabilidadesSociales" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Autoestima:</label>
@@ -798,13 +799,12 @@
                 </div>
                 <div class="col-12">
                     <label>Calificacion total:</label>
-                    <input type="text" pInputText formControlName='calificacionTotal' class="p-inputtext inputfield w-full"
-                        placeholder="Calificacion total">
+                    <input type="text" pInputText formControlName='calificacionTotal'
+                        class="p-inputtext inputfield w-full" placeholder="Calificacion total">
                 </div>
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdateEvaluacionesHabilidadesSociales" pButton type="button" label="Guardar"
             (click)="editarDatosEvaluacionHabilidadesSociales()"></button>
@@ -825,8 +825,10 @@
             <div class="grid">
                 <div class="col-8">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateIdentificacionesColeraIrritabilidadAgresion" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateIdentificacionesColeraIrritabilidadAgresion" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Colera:</label>
@@ -851,14 +853,12 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdateIdentificacionesColeraIrritabilidadAgresion" pButton type="button" label="Guardar"
             (click)="editarDatosIdentificacionColeraIrritabilidadAgresion()"></button>
         <button *ngIf="!isUpdateIdentificacionesColeraIrritabilidadAgresion" pButton type="button" label="Guardar"
             (click)="saveFormIdentificacionColeraIrritabilidadAgresion()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -872,8 +872,10 @@
             <div class="grid">
                 <div class="col-8">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateTamizajesViolencia" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateTamizajesViolencia" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Familiar:</label>
@@ -893,18 +895,16 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdateTamizajesViolencia" pButton type="button" label="Guardar"
             (click)="editarDatosTamizajeViolencia()"></button>
         <button *ngIf="!isUpdateTamizajesViolencia" pButton type="button" label="Guardar"
             (click)="saveFormTamizajeViolencia()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
-<p-dialog class="dialogo m-4" [(visible)]="identificacionesFactoresRiesgoDialog" [style]="{width: '400px'}"
+<p-dialog class="dialogo m-4" [(visible)]="identificacionesFactoresRiesgoDialog" [style]="{width: '600px'}"
     [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h3>IDENTIFICACION DE FACTORES DE RIESGO</h3>
@@ -914,9 +914,71 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateIdentificacionesFactoresRiesgo" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateIdentificacionesFactoresRiesgo" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
+                <div class="col-12">
+                    <p-table [value]="factoresRiesgo" responsiveLayout="scroll" styleClass="p-datatable-gridlines"
+                        [rows]="5" [paginator]="true" [autoLayout]="true"
+                        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                        [showCurrentPageReport]="true">
+                        <ng-template pTemplate="caption">
+                            <div class="grid">
+                                <div class="col-8 text-left">
+                                    <h3>Factores de Riesgo</h3>
+                                </div>
+                                <div class="col-3 text-right">
+                                    <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                        class="p-button-raised mt-3" (click)="openNewFactorRiesgo()"></button>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-center">NRO</th>
+                                <th class="text-center">NOMBRE RIESGO</th>
+                                <th class="text-center">VALOR RIESGO</th>
+                                <th class="text-center">ACCIONES</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-row let-i="rowIndex">
+                            <tr>
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">{{row.nombre}}</td>
+                                <td class="text-center">{{row.valor}}</td>
+                                <td class="text-center">
+                                    <button pButton pRipple type="button" icon="pi pi-pencil" 
+                                    (click)="openDialogEditarFactorRiesgo(row, i)"
+                                    class="p-button-rounded p-button-help"></button>
+                                    <button pButton pRipple type="button" icon="pi pi-trash" 
+                                    (click)="eliminarFactorRiesgo(row)"
+                                    class="p-button-rounded p-button-danger"></button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="isUpdateIdentificacionesFactoresRiesgo" pButton type="button" label="Guardar"
+            (click)="editarDatosIdentificacionFactoresRiesgo()"></button>
+        <button *ngIf="!isUpdateIdentificacionesFactoresRiesgo" pButton type="button"
+            label="Guardar" (click)="saveFormIdentificacionFactoresRiesgo()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="factoresRiesgoDialog" [style]="{width: '400px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>Factores de riesgo</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formFactoresRiesgo'>
+            <div class="grid">
                 <div class="col-12">
                     <label>Nombre de riesgo:</label>
                     <input type="text" pInputText formControlName='nombre' class="p-inputtext inputfield w-full"
@@ -930,17 +992,12 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="isUpdateEvaluacionCrecimientoFisico" pButton type="button" label="Guardar"
-            (click)="editarDatosIdentificacionFactoresRiesgo()"></button>
-        <button *ngIf="!isUpdateEvaluacionCrecimientoFisico" pButton type="button" label="Guardar"
-            (click)="saveFormIdentificacionFactoresRiesgo()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button *ngIf="isUpdateFactoresRiesgo" pButton type="button" label="Guardar" (click)="guardarEdicionFactorRiesgo()"></button>
+        <button *ngIf="!isUpdateFactoresRiesgo" pButton type="button" label="Guardar" (click)="enviarFactoresRiesgo()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="canceledFactoresRiesgo()"></button>
     </ng-template>
 </p-dialog>
-
 <p-dialog class="dialogo m-4" [(visible)]="descartesEnfermedadesNoTransmisiblesDialog" [style]="{width: '400px'}"
     [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="header">
@@ -951,8 +1008,10 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateDescartesEnfermedadesNoTransmisibles" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateDescartesEnfermedadesNoTransmisibles" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-6">
                     <label>Hematocrito:</label>
@@ -977,14 +1036,12 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdateDescartesEnfermedadesNoTransmisibles" pButton type="button" label="Guardar"
             (click)="editarDatosDescarteEnfermedadesNoTransmisibles()"></button>
         <button *ngIf="!isUpdateDescartesEnfermedadesNoTransmisibles" pButton type="button" label="Guardar"
             (click)="saveFormDescarteEnfermedadesNoTransmisibles()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -998,8 +1055,10 @@
             <div class="grid">
                 <div class="col-6">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateEscolaridades" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateEscolaridades" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <label>Asistencia Escuela/Colegio:</label>
@@ -1019,14 +1078,12 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdateEscolaridades" pButton type="button" label="Guardar"
             (click)="editarDatosEscolaridad()"></button>
         <button *ngIf="!isUpdateEscolaridades" pButton type="button" label="Guardar"
             (click)="saveFormEscolaridad()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -1040,8 +1097,10 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateHabitos" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateHabitos" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-6">
                     <label>Uso de tiempo libre:</label>
@@ -1076,14 +1135,10 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="isUpdateHabitos" pButton type="button" label="Guardar"
-            (click)="editarDatosHabito()"></button>
-        <button *ngIf="!isUpdateHabitos" pButton type="button" label="Guardar"
-            (click)="saveFormHabito()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button *ngIf="isUpdateHabitos" pButton type="button" label="Guardar" (click)="editarDatosHabito()"></button>
+        <button *ngIf="!isUpdateHabitos" pButton type="button" label="Guardar" (click)="saveFormHabito()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
 
@@ -1097,13 +1152,20 @@
             <div class="grid">
                 <div class="col-7">
                     <label>Fecha:</label>
-                    <input type="date" pInputText formControlName='fecha' class="p-inputtext inputfield w-full"
-                        placeholder="Fecha">
+                    <input *ngIf="isUpdateSaludSexualReproductiva" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
+                    <input *ngIf="!isUpdateSaludSexualReproductiva" type="date" pInputText formControlName='fecha'
+                        class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-6">
                     <label>Pareja o enamorado:</label>
                     <input type="text" pInputText formControlName='parejaEnamorado'
                         class="p-inputtext inputfield w-full" placeholder="Pareja o enamorado">
+                </div>
+                <div class="col-6">
+                    <label>Relaciones sexuales:</label>
+                    <input type="text" pInputText formControlName='relacionesSexuales'
+                        class="p-inputtext inputfield w-full" placeholder="Relaciones sexuales">
                 </div>
                 <div class="col-6">
                     <label>Conducta sexual de riesgo:</label>
@@ -1122,12 +1184,12 @@
                 </div>
                 <div class="col-6">
                     <label>Relaciones sexuales con personas del mismo sexo:</label>
-                    <input type="text" pInputText formControlName='RSConPersonasDelMismoSexo'
+                    <input type="text" pInputText formControlName='rsconPersonasDelMismoSexo'
                         class="p-inputtext inputfield w-full" placeholder="RS con personas del mismo sexo">
                 </div>
                 <div class="col-6">
                     <label>Relaciones sexuales con personas del otro sexo:</label>
-                    <input type="text" pInputText formControlName='RSConPersonasDelOtroSexo'
+                    <input type="text" pInputText formControlName='rsconPersonasDelOtroSexo'
                         class="p-inputtext inputfield w-full" placeholder="RS con personas de otro sexo">
                 </div>
                 <div class="col-6">
@@ -1150,13 +1212,11 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdateSaludSexualReproductiva" pButton type="button" label="Guardar"
             (click)="editarDatosSaludSexualReproductiva()"></button>
         <button *ngIf="!isUpdateSaludSexualReproductiva" pButton type="button" label="Guardar"
             (click)="saveFormSaludSexualReproductiva()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="cancelButton()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>

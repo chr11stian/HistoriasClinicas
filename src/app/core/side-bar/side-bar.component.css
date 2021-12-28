@@ -1,7 +1,7 @@
 
 p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header > a {
     background-color: #ffffff !important;
-    border: 0px 5px 0px 0px;
+    /*border: 0px 5px 0px 0px;*/
     border-top: none !important;
     border-left: 5px solid #e7e7e7;
     border-bottom: none !important;
@@ -52,7 +52,7 @@ p-autocomplete >>> .p-autocomplete {
 
 p-autocomplete >>> .p-inputtext {
     /* border: none; */
-    background-color: none;
+    /*background-color: none;*/
     width: 90% !important;
 }
 

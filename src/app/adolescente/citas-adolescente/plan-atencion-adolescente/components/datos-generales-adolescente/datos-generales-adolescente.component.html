@@ -1,10 +1,11 @@
+<form [formGroup]="datosGeneralesFG">
 <div class="grid">
     <div class="col-2">
         <label for="">
             fecha
         </label>
         <div>
-            <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+            <p-calendar formControlName="fecha" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
         </div>
     </div>
     <div class="col-3">
@@ -12,7 +13,7 @@
             N° seguro:
         </label>
         <div>
-            <p-inputMask mask="99999999"  placeholder="99999999"></p-inputMask>
+            <p-inputMask formControlName="nroSeguro" mask="99999999"  placeholder="99999999"></p-inputMask>
         </div>
     </div>
 
@@ -24,12 +25,20 @@
     </div>
 </p-divider>
 <div class="grid">
-    <div class="col-4 ">
+    <div class="col-2 ">
         <label for="">
-            Apellidos:
+            Apellido Paterno:
         </label>
         <div class="p-fluid">
-            <input type="text" pInputText />
+            <input formControlName="apellidoPaterno" type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-2 ">
+        <label for="">
+            Apellidos Materno:
+        </label>
+        <div class="p-fluid">
+            <input formControlName="apellidoMaterno" type="text" pInputText />
         </div>
     </div>
     <div class="col-3">
@@ -37,25 +46,146 @@
             Nombres:
         </label>
         <div class="p-fluid">
-            <input type="text" pInputText />
+            <input formControlName="nombres" type="text" pInputText />
         </div>
     </div>
     <div class="col-1">
         <label for="">Sexo:</label>
         <div>
-            <p-selectButton [options]="sexo" optionLabel="name"></p-selectButton>
+            <p-selectButton formControlName="sexo" [options]="sexo" optionLabel="name" optionValue="code"></p-selectButton>
         </div>
     </div>
     <div class="col-1">
         <label for="">Edad:</label>
         <div class="p-fluid">
-            <input type="text" pInputText />
+            <p-inputNumber formControlName="edad" mode="decimal" inputId="withoutgrouping" [useGrouping]="false">
+            </p-inputNumber>
         </div>
     </div>
     <div class="col-3">
         <label for="">Fecha de nacimiento</label>
         <div>
-            <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+            <p-calendar formControlName="fechaNacimiento" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
         </div>
     </div>
 </div>
+<div class="grid">
+    <div class="col-3">
+        <label>Departamento:</label>
+        <div class="p-fluid">
+            <p-dropdown formControlName="departamento" [options]="departamento" optionLabel="departamento" (onChange)="cambiarDepartamento($event)" placeholder="Seleccione departamento"></p-dropdown>
+        </div>
+    </div>
+    <div class="col-3">
+        <label>Provincia:</label>
+        <div class="p-fluid">
+            <p-dropdown formControlName="provincia" [options]="provincia" optionLabel="provincia" (onChange)="cambiarProvincia($event)" placeholder="Seleccione provincia"></p-dropdown>
+
+        </div>
+    </div>
+    <div class="col-3">
+        <label>Distrito:</label>
+        <div class="p-fluid">
+            <p-dropdown formControlName="distrito" [options]="distrito" optionLabel="distrito" placeholder="Seleccione distrito"></p-dropdown>
+
+        </div>
+    </div>
+    <div class="col-2">
+        <label>GrupoSanguineo:</label>
+        <div class="p-fluid">
+            <p-dropdown formControlName="grupoSanguineo" [options]="grupoSanguineo"  optionLabel="name" optionValue="code"></p-dropdown>
+        </div>
+    </div>
+    <div class="col-1">
+        <label>Rh:</label>
+        <div class="p-fluid">
+            <p-selectButton formControlName="rh" [options]="rh" optionLabel="name" optionValue="name"></p-selectButton>
+        </div>
+    </div>
+</div>
+<!--    tercera fila-->
+<div class="grid">
+    <div class="col-4">
+        <label>Procedencia:</label>
+        <div class="p-fluid">
+            <input formControlName="procedencia" type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-2">
+        <label>Idioma:</label>
+        <div class="p-fluid">
+            <p-dropdown  formControlName="idioma" [options]="idioma" optionLabel="name" optionValue="code"></p-dropdown>
+        </div>
+    </div>
+    <div class="col-6">
+        <label>Domicilio/Direcciones</label>
+        <div class="p-fluid">
+            <input formControlName="domicilioDireccion" type="text" pInputText />
+        </div>
+    </div>
+</div>
+<div class="grid">
+    <div class="col-3">
+        <label>
+            Grado de Instrucción:
+        </label>
+        <div class="p-fluid">
+            <input formControlName="gradoInstruccion" type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-2">
+        <label >Centro Educativo</label>
+        <div class="p-fluid">
+            <input formControlName="centroEducativo" type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-2">
+        <label for="">Estado Civil</label>
+        <div class="p-fluid">
+            <input formControlName="estadoCivil" type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-2">
+        <label for="">Religion</label>
+        <div class="p-fluid">
+            <input formControlName="religion" type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-3">
+        <label for="">Ocupación:</label>
+        <div class="p-fluid">
+            <input formControlName="ocupacion" type="text" pInputText />
+        </div>
+    </div>
+</div>
+<p-divider align="left">
+    <div class="p-d-inline-flex p-ai-center">
+        <i class="pi pi-angle-double-right p-mr-2"></i>
+        <b>Aconpañante</b>
+    </div>
+</p-divider>
+<div class="grid">
+    <div class="col-4">
+        <label for="">Apellidos y Nombres del Acompañante:</label>
+        <div class="p-fluid">
+            <input formControlName="aconpananteApellidosNombres" type="text" pInputText />
+        </div>
+    </div>
+    <div class="col-3">
+        <label for="">Parentesco:</label>
+        <div class="p-fluid">
+            <input formControlName="aconpananteParentesco" type="text" pInputText />
+
+        </div>
+    </div>
+    <div class="col-5">
+        <label for="">Domicilio/Direccion:</label>
+        <div class="p-fluid">
+            <input formControlName="aconpananteDomicilioDireccion" type="text" pInputText />
+
+        </div>
+    </div>
+</div>
+    <button pButton type="button" label="Click" (click)="save()"></button>
+</form>
+
