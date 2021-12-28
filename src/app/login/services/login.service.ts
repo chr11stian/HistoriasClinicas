@@ -4,11 +4,13 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {LoginInterface} from "../model/login.interface";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService {
+    base_uri = environment.base_uri;
 
     private currentUserSubject: BehaviorSubject<LoginInterface>;
     public currentUser: Observable<LoginInterface>;
@@ -17,10 +19,6 @@ export class LoginService {
         this.currentUserSubject = new BehaviorSubject<LoginInterface>(JSON.parse(localStorage.getItem('token')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
-
-    // base_uri = "http://192.168.5.3:3012/api/hce/login/user";
-    base_uri = "http://190.108.93.145:3012/api/hce/login/user";
-
 
 
     public get currentUserValue(): LoginInterface {
