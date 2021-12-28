@@ -247,8 +247,6 @@ export class CuposComponent implements OnInit {
                 }
             }
         )
-
-
     }
 
     /****Actualiza el estado de las ofertas despues de guardar un cupo LIBRE / OCUPADO**/

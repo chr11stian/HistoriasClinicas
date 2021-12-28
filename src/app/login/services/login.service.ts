@@ -18,7 +18,9 @@ export class LoginService {
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    base_uri = "http://192.168.5.3:3012/api/hce/login/user";
+    // base_uri = "http://192.168.5.3:3012/api/hce/login/user";
+    base_uri = "http://190.108.93.145:3012/api/hce/login/user";
+
 
 
     public get currentUserValue(): LoginInterface {
