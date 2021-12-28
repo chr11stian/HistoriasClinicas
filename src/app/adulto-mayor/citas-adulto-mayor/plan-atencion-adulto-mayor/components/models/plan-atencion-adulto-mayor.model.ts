@@ -50,7 +50,7 @@ export interface datosGeneralesAdultoMayor{
     procedencia?:string,
     gradoInstruccion?:string,
     estadoCivil?:string,
-    grupoSanguinio?:string,
+    grupoSanguineo?:string,
     rh?:string,
     ocupacion?:string,
     domicilio?:string,
@@ -58,4 +58,13 @@ export interface datosGeneralesAdultoMayor{
     familiarCuidadorResponsable?:string,
     edadFamiliarCuidador?:number,
     dniFamiliarCuidador?:string
+}
+export interface AntecedentesPersonales{
+    nombre?:string,
+    valor?:boolean
+}
+export interface AntecedentesFamiliares{
+    nombre?:string,
+    valor?:boolean,
+    familiar?:string
 }

@@ -35,11 +35,16 @@ export class GiagnosticosComponent implements OnInit {
     referencia: any;
     proxCita: any;
     orientaciones: any[]=[];
+    orientaciones2: any[]=[];
+
     /*******DATA AUX PARA RECUPERAR DE LA BD*******/
     dataAux: any;
+    dataAux2: any;
+
     datePipe = new DatePipe('en-US');
     visitaDomiciliaria: any;
     /****** Data recuperada********/
+    private edadGestacional:any;
     private planPartoReenfocada: any;
     private tipoDocRecuperado: any;
     private nroDocRecuperado: any;
@@ -50,6 +55,7 @@ export class GiagnosticosComponent implements OnInit {
     eleccion: any;
     private nroFetos = 0;
     private idConsulta:any;
+    private encontradoDxTuberculosis:boolean=false;
 
     constructor(private formBuilder: FormBuilder,
                 private obstetriciaService: ObstetriciaGeneralService,
@@ -89,6 +95,7 @@ export class GiagnosticosComponent implements OnInit {
         console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
+
 
     }
     recuperarNroFetos(){
@@ -180,7 +187,7 @@ export class GiagnosticosComponent implements OnInit {
     selectedOption(event) {
         console.log('seleccion de autocomplete ', this.Cie10)
     }
-    /*FIN PARA BUSQUEDA SEGUN FILTRO*/
+    /*****FIN PARA BUSQUEDA SEGUN FILTRO*******/
     titulo() {
         if (this.isUpdate) return "EDITE DIAGNOSTICO";
         else return "INGRESAR UN DIAGNOSTICO";
@@ -189,7 +196,6 @@ export class GiagnosticosComponent implements OnInit {
         console.log("modificando" + rowData)
     }
     /*ELIMINAR DATOS DE LAS TABLAS*/
-
     eliminarDx(index) {
         Swal.fire({
             showCancelButton: true,
@@ -224,6 +230,61 @@ export class GiagnosticosComponent implements OnInit {
             fecha:  this.datePipe.transform(this.formOtrosDatos.value.fechaVisita, 'yyyy-MM-dd HH:mm:ss')
         }
         this.planPartoReenfocada = this.formOtrosDatos.value.planPartoReenfocada
+    }
+    guardarDiagnosticosEmbarazo(){
+        let diagnosticosPorConsejeria: any[]=[];
+        let encontradoDxTuberculosis:boolean = false;
+        let buscado = '2232';
+        for(let i = 0 ; i<= this.orientaciones.length;i++){
+            if(this.orientaciones[i] !=undefined || this.orientaciones[i] !=null) {
+                console.log(this.orientaciones[i]);
+                console.log(this.orientaciones[i].cie10);
+                console.log('buscado:' ,buscado);
+                if (this.orientaciones[i].cie10==="2232") {
+                    encontradoDxTuberculosis = true;
+                    console.log('bandera es ', this.encontradoDxTuberculosis);
+                }
+
+            }
+        }
+        console.log('bandera es ', this.encontradoDxTuberculosis);
+        console.log(this.edadGestacional);
+        let dx:any;
+        let cie10:any;
+        if(this.edadGestacional<=50){dx="GESTANTE CON FACTOR DE RIESGO CONTROL 3ER. TRIMESTRE (36 SEMANAS)", cie10="Z3593"}
+        if(this.edadGestacional<=27){dx="GESTANTE CON FACTOR DE RIESGO CONTROL 2DO. TRIMESTRE (24 SEMANAS)", cie10="Z3592"}
+        if(this.edadGestacional<=13){dx="GESTANTE CON FACTOR DE RIESGO CONTROL 1ER. TRIMESTRE (12 SEMANAS)",cie10="Z3591"}
+        diagnosticosPorConsejeria.push({
+                diagnostico: dx,
+                cie10: cie10,
+                tipo: 'D'
+
+        })
+        console.log(encontradoDxTuberculosis);
+        if(encontradoDxTuberculosis)
+        {
+            diagnosticosPorConsejeria.push({
+            diagnostico: 'TBC PULMONAR BK (+)',
+            cie10: 'A150',
+            tipo: 'P'
+            })
+        }
+
+        const req={
+            id:this.idConsultoriObstetrico,
+            nroHcl:this.nroHclRecuperado,
+            nroEmbarazo:this.nroEmbarazo,
+            nroAtencion:1,
+            // nroControlSis: 1,
+            tipoDoc: this.tipoDocRecuperado,
+            nroDoc: this.nroDocRecuperado,
+            diagnosticos:diagnosticosPorConsejeria
+        }
+        this.DxService.updateConsultas(this.nroFetos,req).subscribe(
+            (resp) => {
+                console.log(resp);
+                console.log(req);
+            })
     }
     guardarTodosDatos() {
         this.enviarDatosRefProxCita();
@@ -291,21 +352,21 @@ export class GiagnosticosComponent implements OnInit {
                             y++;
                         }
                     }
-                    /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
-                    if(this.dataAux.diagnosticos!=null) {
-                        let x: number = 0;
-                        while (x < this.dataAux.diagnosticos.length) {
-
-                            console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[x]);
-                            this.diagnosticos.push(this.dataAux.diagnosticos[x]);
-                            x++;
-                        }
-                    }
                     if(this.dataAux.referencia != null){
                             this.formOtrosDatos.patchValue({'consultorio': this.dataAux.referencia.consultorio});
                             this.formOtrosDatos.patchValue({'motivo': this.dataAux.referencia.motivo});
                             this.formOtrosDatos.patchValue({'codRENAES': this.dataAux.referencia.codRENAES});
                         }
+                    /****************RECUPERAR EDAD GESTACIONAL********************/
+                    console.log("edad gestacional:" , this.dataAux.edadGestacionalSemanas);
+                    if(this.dataAux.edadGestacionalSemanas===null || this.dataAux.edadGestacionalSemanas === undefined)
+                    {
+                        this.edadGestacional=0;
+                    }else{
+                        this.edadGestacional = this.dataAux.edadGestacionalSemanas;
+                    }
+                    console.log(this.edadGestacional);
+                    this.guardarDiagnosticosEmbarazo();
                         /************************RECUPERAR DATOS EXTRA**************************/
                     if (this.dataAux.proxCita!=null){
                         this.formOtrosDatos.patchValue({'proxCita': this.dataAux.proxCita.fecha});
@@ -318,9 +379,19 @@ export class GiagnosticosComponent implements OnInit {
                         this.formOtrosDatos.patchValue({'planPartoReenfocada': this.dataAux.planPartoReenfocada});
 
                     }
+                    /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
+                    if(this.dataAux.diagnosticos!=null) {
+                        let x: number = 0;
+                        while (x < this.dataAux.diagnosticos.length) {
+
+                            console.log("diagnosticos consta de: ", this.dataAux.diagnosticos[x]);
+                            this.diagnosticos.push(this.dataAux.diagnosticos[x]);
+                            x++;
+                        }
+                    }
+
 
             } else{this.messageService.add({severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía'});}
-
             }
         });
     }
