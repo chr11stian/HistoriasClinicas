@@ -41,7 +41,7 @@ export class AtencionesComponent implements OnInit {
     ) {
 
         this.idObstetricia = this.obstetriciaService.idGestacion;
-        this.cols = [{field: this.atenciones, header: 'Atencion'}];
+
     }
 
     buildForm() {
@@ -173,7 +173,6 @@ export class AtencionesComponent implements OnInit {
         this.recuperarDatosAtenciones();
         this.recuperarDatosGraficoAlturaUterina();
         // this.recuperarDatosGraficoPesoMadre();
-
     }
 
     openNew() {
