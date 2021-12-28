@@ -50,7 +50,7 @@
                     <form [formGroup]="examenFG">
                         <div *ngIf="tipoInput1!=0">
                             <div class="grid">
-                                <div class="col-4 text-right">{{tituloInput}}:</div>
+                                <div class="col-4 text-right">Resultado:</div>
                                 <!--                                dropdown-->
                                 <div class="col-8 p-fluid" *ngIf="tipoInput1==1">
                                     <p-dropdown
@@ -130,7 +130,7 @@
                         <ng-template pTemplate="body" let-pru let-i=rowIndex>
                             <tr>
                                 <td>{{i + 1}}</td>
-                                <td>{{pru.prueba}}</td>
+                                <td>{{pru.display}}</td>
                                 <td>{{pru.valor}}</td>
                                 <td>{{pru.fecha}}</td>
                                 <td>
