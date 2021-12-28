@@ -309,7 +309,9 @@ export class FinalizarConsultaComponent implements OnInit {
                 codRENAES: this.finalizar.referencia.codRENAES
             }
             this.referencia.push(re);
-            this.acuerdosFG.get('proximaCitaFC').setValue(this.finalizar.proximaCita);
+            const date = new Date(this.finalizar.proximaCita);
+            console.log('date', date, ' fe', this.finalizar.proximaCita)
+            this.acuerdosFG.get('proximaCitaFC').setValue(date);
             this.acuerdosFG.get('atendidoFC').setValue(this.finalizar.atendidoPor);
             this.acuerdosFG.get('dniFC').setValue(this.finalizar.dniPersonal);
             this.acuerdosFG.get('observacionFC').setValue(this.finalizar.observacion);

@@ -27,6 +27,7 @@
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'diagnostico'">
     <p-card>
+        <ng-template pTemplate="header"></ng-template>
         <ng-template pTemplate="content">
             <app-diagnostico-consulta></app-diagnostico-consulta>
         </ng-template>
@@ -34,6 +35,7 @@
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'tratamiento'">
     <p-card>
+        <ng-template pTemplate="header"></ng-template>
         <ng-template pTemplate="content">
             <app-tratamiento-consulta></app-tratamiento-consulta>
         </ng-template>
@@ -41,6 +43,7 @@
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'finalizar'">
     <p-card>
+        <ng-template pTemplate="header"></ng-template>
         <ng-template pTemplate="content">
             <app-finalizar-consulta></app-finalizar-consulta>
         </ng-template>

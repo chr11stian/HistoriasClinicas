@@ -90,6 +90,7 @@ export class StepGeneralComponent implements OnInit {
 
     //--cambia los nombres de los steps según el indice
     name() {
+        console.log(this.indiceActivo)
         switch (this.indiceActivo) {
             case 4:
                 this.stepName = 'finalizar'
