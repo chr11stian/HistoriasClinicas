@@ -32,4 +32,7 @@ export class PacienteService {
     return this.http.post(`${this.base_url}/${this.bd}/paciente/docId`, data)
   }
 
+  getNroHclByDocYTipoDocumento(datosPaciente) {
+    return this.http.post(`${this.base_url}/${this.bd}/paciente/buscarNroHcl`, datosPaciente)
+  }
 }

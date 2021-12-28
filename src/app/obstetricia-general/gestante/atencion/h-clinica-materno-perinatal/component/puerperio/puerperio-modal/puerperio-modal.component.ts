@@ -18,8 +18,16 @@ export class PuerperioModalComponent implements OnInit {
     idObstetricia : string;
     isUpdate:boolean=false;
     idUpdate: string="";
-    indicePuerperio:number=0;
+    // indicePuerperio:number=0;
     datePipe = new DatePipe('en-US');
+    caracteristicasList = [{name: 'SANGRADO LEVE', code: 'SANGRADO LEVE'},
+        {name: 'SANGRADO MODERADO',code: 'SANGRADO MODERADO'},
+        {name: 'SANGRADO SEVERO',code: 'SANGRADO SEVERO'},
+
+    ];
+    heridaOperacionList = [{name: 'ABDOMINAL', code: 'ABDOMINAL'},
+        {name: 'PERINE',code: 'PERINE'},
+    ];
     constructor(private form: FormBuilder,
                 private ref: DynamicDialogRef,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,

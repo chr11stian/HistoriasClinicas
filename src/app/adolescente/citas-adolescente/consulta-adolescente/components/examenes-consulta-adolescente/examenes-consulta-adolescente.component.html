@@ -1,4 +1,13 @@
 <div class="col-12">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">EXÁMENES</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Siguiente" icon="pi pi-save" class="p-button-primary"
+                (click)="guardarExamenes()"></button>
+        </ng-template>
+    </p-toolbar>
     <form [formGroup]='form'>
         <div class="grid">
             <div class="col-12 md:col-6 mt-2">
@@ -24,7 +33,7 @@
                         </div>
                         <div class="col-6 md:col-4">
                             <label>Sueño:</label>
-                            <input formControlName="sueño" class="p-fluid w-full" type="text" class="p-inputtext-sm "
+                            <input formControlName="sueno" class="p-fluid w-full" type="text" class="p-inputtext-sm "
                                 pInputText placeholder="Sueño" />
                         </div>
                         <div class="col-6 md:col-4">
@@ -52,7 +61,7 @@
                             <p-divider align="left">
                                 <div class="p-d-inline-flex p-ai-center">
                                     <i class="pi pi-angle-double-right p-mr-2"></i>
-                                    <b>Examen Físico</b>
+                                    <b>Funciones Vitales</b>
                                 </div>
                             </p-divider>
                         </div>
@@ -60,7 +69,7 @@
                             <label>T:</label>
                             <div class="grid">
                                 <div class="col-8">
-                                    <input type="text" pInputText formControlName='temperatura' placeholder="Temp."
+                                    <input type="number" pInputText formControlName='temperatura' placeholder="Temp."
                                         class="p-inputtext-sm inputfield w-full">
                                 </div>
                                 <span class="font-italic text-sm mt-3">°C</span>
@@ -70,7 +79,7 @@
                             <label>PA(S):</label>
                             <div class="grid">
                                 <div class="col-8">
-                                    <input type="text" pInputText formControlName='presionSis' placeholder="Sistolica"
+                                    <input type="number" pInputText formControlName='presionSis' placeholder="Sistolica"
                                         class="p-inputtext-sm  inputfield w-full">
                                 </div>
                                 <span class="font-italic text-sm mt-3">mm.</span>
@@ -80,8 +89,8 @@
                             <label>PA(D):</label>
                             <div class="grid">
                                 <div class="col-8">
-                                    <input type="text" pInputText formControlName='presionDias'
-                                        placeholder="Diastolica" class="p-inputtext-sm  inputfield w-full">
+                                    <input type="text" pInputText formControlName='presionDias' placeholder="Diastolica"
+                                        class="p-inputtext-sm  inputfield w-full">
                                 </div>
                                 <span class="font-italic text-sm mt-3">Hg.</span>
                             </div>
@@ -166,7 +175,7 @@
                     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                         <tr style="text-align: center">
                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData.resultado }}</td>
+                            <td style="text-align: center">{{ rowData }}</td>
                             <td style="text-align: center">
                                 <button pButton pRipple type="button" icon="pi pi-pencil"
                                     class="p-button-rounded p-button-text"
@@ -187,7 +196,7 @@
                     <ng-template pTemplate="caption">
                         <div class="grid">
                             <div class="col-9">
-                                <h3>Otros Examenes Físico</h3>
+                                <h3>Exámenes Físico</h3>
                             </div>
                             <div class="col-2">
                                 <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
@@ -198,6 +207,7 @@
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="text-align: center">Nro</th>
+                            <th style="text-align: center">Examen</th>
                             <th style="text-align: center">Resultado</th>
                             <th style="text-align: center">Acción</th>
                         </tr>
@@ -205,7 +215,8 @@
                     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                         <tr style="text-align: center">
                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData.resultado }}</td>
+                            <td style="text-align: center">{{ rowData.funcion }}</td>
+                            <td style="text-align: center">{{ rowData.valor }}</td>
                             <td style="text-align: center">
                                 <button pButton pRipple type="button" icon="pi pi-pencil"
                                     class="p-button-rounded p-button-text"
@@ -240,8 +251,7 @@
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="updateExamResultAux" pButton type="button" label="Guardar"
             (click)="guardarEdicionDiagnostico()"></button>
-        <button *ngIf="!updateExamResultAux" pButton type="button" label="Guardar"
-            (click)="guardarNuevoDiagnostico()"></button>
+        <button *ngIf="!updateExamResultAux" pButton type="button" label="Guardar" (click)="aceptarAuxExam()"></button>
         <button pButton type=" button" label="Cerrar" class="p-button-danger"
             (click)="closeDialogDiagnostico()"></button>
     </ng-template>
@@ -250,14 +260,18 @@
 <p-dialog class="dialogo m-4" [(visible)]="dialogExamFisico" [style]="{width: '30%'}" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="header">
-        <h3>EXAMEN FÍSICO</h3>
+        <h3>NUEVO EXAMEN FÍSICO</h3>
     </ng-template>
     <ng-template pTemplate="body">
-        <form [formGroup]='formExamAux'>
+        <form [formGroup]='formExamFisico'>
             <div class="grid">
-                <div class="col-12">
-                    <label>Observaciones:</label>
-                    <input formControlName="observacionesExamFisico" type="text" class="p-inputtext-sm " pInputText />
+                <div class="col-12 md:col-6">
+                    <label>Examen:</label>
+                    <input formControlName="nombreExamen" type="text" class="p-inputtext-sm " pInputText />
+                </div>
+                <div class="col-12 md:col-6">
+                    <label>Resultado:</label>
+                    <input formControlName="resultadoExam" type="text" class="p-inputtext-sm " pInputText />
                 </div>
             </div>
         </form>
@@ -266,7 +280,7 @@
         <button *ngIf="updateExamFisico" pButton type="button" label="Guardar"
             (click)="guardarEdicionDiagnostico()"></button>
         <button *ngIf="!updateExamFisico" pButton type="button" label="Guardar"
-            (click)="guardarNuevoDiagnostico()"></button>
+            (click)="aceptarOtrosExamenes()"></button>
         <button pButton type=" button" label="Cerrar" class="p-button-danger"
             (click)="closeDialogDiagnostico()"></button>
     </ng-template>

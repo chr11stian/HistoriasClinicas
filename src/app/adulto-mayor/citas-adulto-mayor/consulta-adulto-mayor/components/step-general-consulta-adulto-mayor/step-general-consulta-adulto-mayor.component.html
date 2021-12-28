@@ -1,0 +1,32 @@
+<div class="card">
+    <p-card>
+        <div class="grid">
+            <div class="col-9" style="margin: 0 0 0 20px;">
+                <span style="font-size: 2em;">ADULTO MAYOR>CONSULTA  </span>
+            </div>
+        </div>
+    </p-card>
+</div>
+<p-steps [model]="items" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo"
+         (activeIndexChange)="ChangeStep($event)">
+</p-steps>
+<div class="stepsdemo-content" *ngIf="stepName === 'enfermedad'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-enfermedad-actual-adulto-mayor></app-enfermedad-actual-adulto-mayor>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'diagnostico'">
+    <p-card>
+        <ng-template pTemplate="content">
+            <app-diagnostico-adulto-mayor></app-diagnostico-adulto-mayor>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'categoria'">
+    <p-card>
+        <app-categorias-adulto-mayor></app-categorias-adulto-mayor>
+    </p-card>
+</div>
+
