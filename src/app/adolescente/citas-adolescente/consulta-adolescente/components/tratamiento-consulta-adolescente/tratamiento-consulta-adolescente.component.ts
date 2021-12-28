@@ -13,7 +13,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   datosDiagnosticos: any;
   updateTratamiento: boolean = false;
   dialogTratamiento: boolean = false;
-  listaTratamientos: tratamiento[] = [];
+  listaTratamientos: Tratamiento[] = [];
 
   listaIntervalos = [
     { name: 'CADA 1 HORA', code: '1' },
@@ -78,7 +78,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   }
 
   aceptarDialogTratamiento() {
-    let tratamiento: tratamiento = {
+    let tratamiento: Tratamiento = {
       descripcion: this.formTratamiento.value.descripcion,
       numero: this.formTratamiento.value.numero,
       dosis: this.formTratamiento.value.dosis,
@@ -101,7 +101,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
 
 }
 
-export interface tratamiento {
+export interface Tratamiento {
   descripcion?: string,
   numero?: number,
   dosis?: string,
