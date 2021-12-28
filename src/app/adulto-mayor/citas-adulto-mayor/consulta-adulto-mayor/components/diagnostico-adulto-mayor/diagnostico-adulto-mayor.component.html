@@ -1,0 +1,148 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">CONSULTA>Diagnósticos Resumen</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                class="guardar-boton" ></button>
+    </ng-template>
+</p-toolbar>
+<br>
+<div class="grid">
+    <div class="col-12 md:col-6 lg:col-6">
+        <p-fieldset legend="Diagnósticos Funcional" [toggleable]="true">
+            <form [formGroup]="formDiagnostico">
+                <!--primera fila-->
+                <div class="grid">
+                    <br>
+                    <div class="col-1 p-field-radiobutton p-field">
+                        <p-radioButton name="diagnosticoFuncional" formControlName="diagnosticoFuncional"  value="INDEPENDIENTE"></p-radioButton>
+                    </div>
+                    <div class="col-5 p-field">
+                        <label class="font-medium">INDEPENDIENTE</label>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton p-field">
+                        <p-radioButton name="diagnosticoFuncional" formControlName="diagnosticoFuncional"  value="DEPENDIENTE PARCIAL"></p-radioButton>
+                    </div>
+                    <div class="col-5 p-field">
+                        <label class="font-medium">DEPENDIENTE PARCIAL</label>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton p-field">
+                        <p-radioButton name="diagnosticoFuncional" formControlName="diagnosticoFuncional"  value="DEPENDIENTE TOTAL"></p-radioButton>
+                    </div>
+                    <div class="col-5 p-field">
+                        <label class="font-medium">DEPENDIENTE TOTAL</label>
+                    </div>
+                </div>
+
+            </form>
+        </p-fieldset>
+    </div>
+    <div class="col-12 md:col-6 lg:col-6">
+        <p-fieldset legend="Diagnósticos Mental" [toggleable]="true">
+            <form [formGroup]="formDiagnostico">
+              <div class="grid">
+                  <div class="col-12 md:col-6 lg:col-6">
+                      <h3>Estado Cognitivo</h3>
+                      <div class="grid">
+                          <div class="col-3 p-field-radiobutton p-field">
+                              <p-radioButton name="diagnosticoCognitivo" formControlName="diagnosticoCognitivo"  value="NO DETERIORO COGNITIVO"></p-radioButton>
+                          </div>
+                          <div class="col-9 p-field">
+                              <label class="font-medium">NORMAL</label>
+                          </div>
+                      </div>
+                      <div class="grid">
+                          <div class="col-3 p-field-radiobutton p-field">
+                              <p-radioButton name="diagnosticoCognitivo" formControlName="diagnosticoCognitivo"  value="DETERIORO COGNITIVO LEVE"></p-radioButton>
+                          </div>
+                          <div class="col-9 p-field">
+                              <label class="font-medium">DC LEVE</label>
+                          </div>
+                      </div>
+                      <div class="grid">
+                          <div class="col-3 p-field-radiobutton p-field">
+                              <p-radioButton name="diagnosticoCognitivo" formControlName="diagnosticoCognitivo"  value="DETERIORO COGNITIVO MODERADO"></p-radioButton>
+                          </div>
+                          <div class="col-9 p-field">
+                              <label class="font-medium">DC MODERADO</label>
+                          </div>
+                      </div>
+                      <div class="grid">
+                          <div class="col-3 p-field-radiobutton p-field">
+                              <p-radioButton name="diagnosticoCognitivo" formControlName="diagnosticoCognitivo"  value="DETERIORO COGNITIVO SEVERO"></p-radioButton>
+                          </div>
+                          <div class="col-9 p-field">
+                              <label class="font-medium">DC SEVERO</label>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-12 md:col-6 lg:col-6">
+                      <h3>Estado Afectivo</h3>
+                      <div class="grid">
+                          <div class="col-3 p-field-radiobutton p-field">
+                              <p-radioButton name="diagnosticoAfectivo" formControlName="diagnosticoAfectivo"  value="SIN MANIFESTACIONES DEPRESIVAS"></p-radioButton>
+                          </div>
+                          <div class="col-9 p-field">
+                              <label class="font-medium">SIN MANIFESTACIONES DEPRESIVAS</label>
+                          </div>
+                      </div>
+                      <div class="grid">
+                          <div class="col-3 p-field-radiobutton p-field">
+                              <p-radioButton name="diagnosticoAfectivo" formControlName="diagnosticoAfectivo"  value="CON MANIFESTACIONES DEPRESIVAS"></p-radioButton>
+                          </div>
+                          <div class="col-9 p-field">
+                              <label class="font-medium">CON MANIFESTACIONES DEPRESIVAS</label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+            </form>
+        </p-fieldset>
+    </div>
+    <div class="col-12 md:col-6 lg:col-6">
+        <p-fieldset legend="Diagnósticos Socio-Familiar" [toggleable]="true">
+            <form [formGroup]="formDiagnostico">
+                <!--primera fila-->
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton p-field">
+                        <p-radioButton name="diagnosticoSocioFamiliar" formControlName="diagnosticoSocioFamiliar"  value="BUENA/ACEPTABLE SITUACION SOCIAL"></p-radioButton>
+                    </div>
+                    <div class="col-4 p-field">
+                        <label class="font-medium">BUENA</label>
+                    </div>
+                </div>
+                <!--2 fila-->
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton p-field">
+                        <p-radioButton name="diagnosticoSocioFamiliar"  formControlName="diagnosticoSocioFamiliar"  value="EXISTE RIESGO SOCIAL"></p-radioButton>
+                    </div>
+                    <div class="col-4 p-field">
+                        <label class="font-medium">RIESGO SOCIAL </label>
+                    </div>
+                </div>
+                <!--3 fila-->
+                <div class="grid">
+                    <div class="col-1 p-field-radiobutton p-field">
+                        <p-radioButton name="diagnosticoSocioFamiliar"  formControlName="diagnosticoSocioFamiliar"  value="EXISTE PROBLEMA SOCIAL"></p-radioButton>
+                    </div>
+                    <div class="col-4 p-field">
+                        <label class="font-medium">PROBLEMA SOCIAL </label>
+                    </div>
+                </div>
+
+            </form>
+        </p-fieldset>
+    </div>
+    <div class="col-12 md:col-6 lg:col-6">
+        <p-fieldset legend="Diagnósticos Físicos" [toggleable]="true">
+
+        </p-fieldset>
+    </div>
+</div>
+<br>
