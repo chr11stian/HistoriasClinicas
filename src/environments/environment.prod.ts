@@ -7,4 +7,7 @@ export const environment = {
     bd: "hce",
     // baseUrl: "http://192.168.5.3:3012/api", //privada
     baseUrl: "http://190.108.93.145:3012", //publica
-  };
+
+    base_uri: "http://190.108.93.145:3012/api/hce/login/user",
+
+};
