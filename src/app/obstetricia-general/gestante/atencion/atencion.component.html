@@ -1,52 +1,71 @@
-<div class="container">
+<div class="">
     <p-panel>
         <ng-template pTemplate="header">
             <h3 class="m-1">GESTANTES</h3>
         </ng-template>
-        <div class="col-12 md:col-6 lg:col-8">
-            <div class="grid">
-                <div class="col-4">
-                    <div class=" d-flex">
-                        <div class="imagen"></div>
+
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-9  p-field">
+                <div class="grid">
+                    <div class="col-3">
+                        <div class=" d-flex">
+                            <div class="imagen"></div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <h2 class="font1">{{titleBienvenida}}</h2>
+                        <p class="font2">{{contentBienvenida}}</p>
                     </div>
                 </div>
-                <div class="col-6">
-                    <h1 class="font1">{{titleBienvenida}}</h1>
-                    <p class="font2"> {{contentBienvenida}}
-                    </p>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3  p-field">
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-12" p-field>
+                        <button pButton pRipple type="button" routerLink="plan-atencion"
+                                icon="pi pi-plus-circle" label="PLAN DE ATENCIÓN INTEGRAL"
+                                class="p-button-raised p-button-secondary"></button>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-12" p-field>
+                        <button pButton pRipple type="button" routerLink="consultorio-obstetrico"
+                                label="CONSULTORIO OBSTETRICO" icon="pi pi-plus-circle"
+                                class="p-button-raised p-button-secondary"></button>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-12" p-field>
+                        <button pButton pRipple type="button" routerLink="plan-de-parto"
+                                label="PLAN DE PARTO" icon="pi pi-plus-circle"
+                                class="p-button-raised p-button-secondary"></button>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-12" p-field>
+                        <button pButton type="button" pRipple routerLink="examenes"
+                                label="OTROS EXAMENES" icon="pi pi-plus-circle"
+                                class="p-button-raised p-button-secondary"></button>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-12" p-field>
+                        <button pButton type="button" pRipple routerLink="tamisaje"
+                                label="VIOLENCIA CONTRA LA MUJER" icon="pi pi-plus-circle"
+                                class="p-button-raised p-button-secondary"></button>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-12" p-field>
+                        <button pButton type="button" pRipple routerLink="fua"
+                                label="FUA" icon="pi pi-plus-circle"
+                                class="p-button-raised p-button-secondary"></button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 md:col-6 lg:col-4">
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-3" p-field>
-                    <button pButton pRipple type="button" routerLink="plan-atencion"
-                            icon="pi pi-plus-circle" label="PLAN DE ATENCIÓN INTEGRAL"
-                            class="p-button-raised p-button-secondary"></button>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-3" p-field>
-                    <button pButton pRipple type="button" routerLink="consultorio-obstetrico"
-                            label="CONSULTORIO OBSTETRICO" icon="pi pi-plus-circle"
-                            class="p-button-raised p-button-secondary"></button>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-3" p-field>
-                    <button pButton pRipple type="button" routerLink="plan-de-parto"
-                            label="PLAN DE PARTO" icon="pi pi-plus-circle"
-                            class="p-button-raised p-button-secondary"></button>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-3" p-field>
-                    <button pButton type="button" pRipple routerLink="examenes"
-                            label="OTROS EXAMENES" icon="pi pi-plus-circle"
-                            class="p-button-raised p-button-secondary"></button>
-                </div>
-            </div>
-        </div>
+
     </p-panel>
 </div>
 
