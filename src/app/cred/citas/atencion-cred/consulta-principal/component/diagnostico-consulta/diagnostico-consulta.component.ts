@@ -194,7 +194,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
         })
     }
 
-    guardarDiagnostico() {
+    save() {
         this.guardarcondicionDesarrolloPsicomotor()
         let riesgoNutricional = {
             p_e: this.formG.value.ganancia.value === 'val1' ? 'Ganancia' : 'Desnutricion',
