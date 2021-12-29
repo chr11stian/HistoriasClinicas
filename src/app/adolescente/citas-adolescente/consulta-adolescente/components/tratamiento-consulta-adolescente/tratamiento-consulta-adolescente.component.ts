@@ -10,10 +10,16 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
 
   form: FormGroup;
   formTratamiento: FormGroup;
-  datosDiagnosticos: any;
+  formExamAux: FormGroup;
+  formInterconsulta: FormGroup;
+  dataTratamiento: Tratamiento;
   updateTratamiento: boolean = false;
   dialogTratamiento: boolean = false;
-  listaTratamientos: Tratamiento[] = [];
+  dialogAuxExam: boolean = false;
+  dialogInterconsulta: boolean = false;
+  listaTratamientos: DescripcionTratamiento[] = [];
+  listaSolicitudExamAux: string[] = [];
+  listaInterconsultas: Interconsultas[] = [];
 
   listaIntervalos = [
     { name: 'CADA 1 HORA', code: '1' },
@@ -58,9 +64,9 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
     this.form = this.fb.group({
       solicitudExam: new FormControl(""),
       compromisosObs: new FormControl(""),
-    });
-    this.formTratamiento = this.fb.group({
-      tratamiento: new FormControl(""),
+      consultorio: new FormControl(""),
+      motivo: new FormControl(""),
+      fechaInterconsulta: new FormControl(""),
     });
     this.formTratamiento = this.fb.group({
       descripcion: new FormControl(""),
@@ -71,14 +77,23 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
       duracion: new FormControl(""),
       observaciones: new FormControl(""),
     });
+    this.formExamAux = this.fb.group({
+      examAux: new FormControl(""),
+    })
+    this.formInterconsulta = this.fb.group({
+      consultorio: new FormControl(""),
+      motivo: new FormControl(""),
+      fechaInterconsulta: new FormControl("")
+    })
   }
 
   openDialogTratamiento() {
+    this.formTratamiento.reset();
     this.dialogTratamiento = true;
   }
 
   aceptarDialogTratamiento() {
-    let tratamiento: Tratamiento = {
+    let tratamiento: DescripcionTratamiento = {
       descripcion: this.formTratamiento.value.descripcion,
       numero: this.formTratamiento.value.numero,
       dosis: this.formTratamiento.value.dosis,
@@ -90,7 +105,31 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
     this.dialogTratamiento = false;
     console.log('data to save inter ', tratamiento);
   }
-
+  openDialogExamAux() {
+    this.formExamAux.reset();
+    this.dialogAuxExam = true;
+  }
+  aceptarSolicitudExamenAux() {
+    this.listaSolicitudExamAux.push(this.formExamAux.value.examAux);
+    this.dialogAuxExam = false;
+  }
+  openDialogInterconsulta() {
+    this.formInterconsulta.reset();
+    this.dialogInterconsulta = true;
+  }
+  aceptarInterconsulta() {
+    let auxInterconsulta: Interconsultas = {
+      consultorio: this.formInterconsulta.value.consultorio,
+      fecha: this.formInterconsulta.value.fechaInterconsulta,
+      motivo: this.formInterconsulta.value.motivo
+    }
+    this.listaInterconsultas.push(auxInterconsulta);
+    this.dialogInterconsulta = false;
+    console.log('data interconsulta ', this.listaInterconsultas);
+  }
+  cancelar(){
+    
+  }
   guardarEdicionTratamiento() {
 
   }
@@ -98,10 +137,15 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   closeDialogTratamiento() {
 
   }
+  recuperarDatos() {
+
+  }
+  guardarTratamiento() {
+
+  }
 
 }
-
-export interface Tratamiento {
+export interface DescripcionTratamiento {
   descripcion?: string,
   numero?: number,
   dosis?: string,
@@ -109,4 +153,25 @@ export interface Tratamiento {
   intervalo?: string,
   duracion?: string,
   observaciones?: string
+}
+export interface Tratamiento {
+  tratamientos: DescripcionTratamiento[],
+  solicitudExamenesAuxiliares: string[],
+  compromisosObservaciones: string,
+  referencia?: Referencia,
+  interconsultas?: Interconsultas,
+  proxCita: {
+    fecha: string,
+    estado: string
+  }
+}
+export interface Referencia {
+  consultorio: string,
+  motivo: string,
+  codRENAES: string
+}
+export interface Interconsultas {
+  consultorio: string,
+  motivo: string,
+  fecha: string
 }

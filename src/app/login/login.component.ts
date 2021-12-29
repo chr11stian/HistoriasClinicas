@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {PrimeNGConfig} from "primeng/api";
-import {LoginService} from './services/login.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { PrimeNGConfig } from "primeng/api";
+import { LoginService } from './services/login.service';
 
 
 @Component({
@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
             password: this.password
         }
         this.loginService.user_login(credenciales).subscribe(resp => {
+            console.log('data login ', resp);
             if (resp.error) {
                 console.log("error")
             }

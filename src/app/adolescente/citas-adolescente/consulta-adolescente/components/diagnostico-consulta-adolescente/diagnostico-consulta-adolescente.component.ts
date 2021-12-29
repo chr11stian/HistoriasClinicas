@@ -10,11 +10,12 @@ import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 })
 export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
 
-  listaDiagnosticos: any[] = [];
+  listaDiagnosticos: DiagCIE[] = [];
   form: FormGroup;
   formDiagnostico: FormGroup;
   dialogDiagnostic: boolean = false;
-  listaDeCIE: any;
+  listaDeCIE: cie10[] = [];
+  dataDiagnostico: Diagnostico;
 
   constructor(
     private fb: FormBuilder,
@@ -61,7 +62,7 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   }
 
   aceptarNuevoDiagnostico() {
-    let diagnostico: diagnostico = {
+    let diagnostico: DiagCIE = {
       diagnostico: this.formDiagnostico.value.diagnosticoText,
       cie10: this.formDiagnostico.value.diagnosticoCIE
     }
@@ -78,10 +79,16 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   }
 
   recuperarDiagnosticos() {
-
+    this.dataDiagnostico = {
+      diagnosticos: this.listaDiagnosticos,
+      diagHabilidadesSociales: this.form.value.habilidadesSociales,
+      diagNutricional: this.form.value.nutricional,
+      recomendaciones: this.form.value.recomendaciones
+    }
   }
   guardarDiagnostico() {
-
+    this.recuperarDiagnosticos();
+    console.log('data diagnostico to save ', this.dataDiagnostico);
   }
 }
 
@@ -92,8 +99,13 @@ export interface cie10 {
   descripcionTipoItem: string,
   tipoItem: string,
 }
-
-export interface diagnostico {
+export interface DiagCIE {
   diagnostico: string,
   cie10: cie10
+}
+export interface Diagnostico {
+  diagnosticos: DiagCIE[],
+  diagHabilidadesSociales: string,
+  diagNutricional: string,
+  recomendaciones: string[]
 }
