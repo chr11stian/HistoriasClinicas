@@ -128,7 +128,6 @@ export class CitasComponent implements OnInit {
 
             this.ProximaCita = this.dataCitas.proxCita;
             this.Pacientes = this.dataCitas.datosPacientes;
-
             console.log('Lista de Citas: ', this.dataCitas);
         });
     }

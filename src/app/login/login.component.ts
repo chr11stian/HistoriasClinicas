@@ -26,14 +26,15 @@ export class LoginComponent implements OnInit {
 
     Ingresar() {
         let credenciales = {
-            usuario: this.usuario,
+            username: this.usuario,
             password: this.password
         }
         this.loginService.user_login(credenciales).subscribe(resp => {
             if (resp.error) {
                 console.log("error")
             }
-            if (resp.object.estado === 'GERESA' || resp.object.estado === 'RED' || resp.object.estado === 'MICRORED' || resp.object.estado === 'IPRESS') {
+            if (resp.token) {
+                console.log('entro')
                 this.router.navigate(['dashboard']);
             }
 

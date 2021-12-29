@@ -11,7 +11,7 @@ export class StepFuaComponent implements OnInit {
     selectedOption: data
     items: MenuItem[]
     indiceActivo: number = 0
-    stepName = "datos"
+    stepName = "ipress"
 
     constructor() {
         this.options = [

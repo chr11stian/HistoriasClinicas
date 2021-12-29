@@ -47,10 +47,8 @@ export class CuposComponent implements OnInit {
     dataOfertasCupos: any;
     ups: [] = [];
     datePipe = new DatePipe('en-US');
-    selectedCupo: any;
     cuposDialog: boolean;
     usuarioDialog: boolean;
-    subscription: Subscription;
     selectedServicio: any;
 
     personalSelected: string = '';
@@ -80,10 +78,6 @@ export class CuposComponent implements OnInit {
             {icon: "pi pi-align-justify", justify: "Justify"}
         ];
 
-        this.stateOptions = [
-            {label: "Off", value: "off"},
-            {label: "On", value: "on"}
-        ];
     }
 
     ngOnInit(): void {
@@ -120,7 +114,6 @@ export class CuposComponent implements OnInit {
         });
     }
 
-
     /**lista los Servicios por IPRESS**/
     getListaUps() {
         this.rolGuardiaService
@@ -131,7 +124,6 @@ export class CuposComponent implements OnInit {
             });
     }
 
-
     /**Lista los tipos de documentos de Identidad de un paciente**/
     getDocumentosIdentidad() {
         this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
@@ -140,7 +132,6 @@ export class CuposComponent implements OnInit {
         })
     }
 
-
     /**Lista las ofertas **/
     getOfertascuposListar(data) {
         this.cuposService.getOfertasListar(data).subscribe((resp: any) => {
@@ -148,7 +139,6 @@ export class CuposComponent implements OnInit {
             console.log("OFERTAS HORARIOS", this.dataOfertasCupos);
         });
     }
-
 
     buildForm() {
         this.formCuposOferta = this.fb.group({
@@ -187,7 +177,6 @@ export class CuposComponent implements OnInit {
             estado: new FormControl(''),
         })
     }
-
 
     separar_Fechas() {
         let fecha = this.personalSelected2.fechaOferta;
@@ -236,19 +225,28 @@ export class CuposComponent implements OnInit {
         console.log("guardar", req);
 
         this.cuposService.saveCupos(req).subscribe(
-            result => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Agregado correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
+            (result: any) => {
+                console.log("RESPUESTA", result.mensaje)
+                if (result.object != null) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cupo',
+                        text: 'Reservado',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                    this.actualizarOfertaEstado();
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Cupo',
+                        text: result.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
             }
         )
-
-        // this.actualizarOfertaEstado();
-
     }
 
     /****Actualiza el estado de las ofertas despues de guardar un cupo LIBRE / OCUPADO**/

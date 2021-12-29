@@ -4,11 +4,13 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {LoginInterface} from "../model/login.interface";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class LoginService {
+    base_uri = environment.base_uri;
 
     private currentUserSubject: BehaviorSubject<LoginInterface>;
     public currentUser: Observable<LoginInterface>;
@@ -18,14 +20,13 @@ export class LoginService {
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    base_uri = "http://192.168.5.3:3012/api/hce/login/user";
-
 
     public get currentUserValue(): LoginInterface {
         return this.currentUserSubject.value;
     }
 
     user_login(body) {
+        console.log(body)
         return this.http.post<any>(`${this.base_uri}`, body, {
             headers: new HttpHeaders({
                 'Access-Control-Allow-Origin': '*',
@@ -34,13 +35,16 @@ export class LoginService {
         })
             .pipe(map(user => {
                 if (user) {
+                    console.log('user ', user)
                     const token = {
-                        usuario: user.object.nroDoc,
-                        roles: user.object.estado,
+                        usuario: 'user',
+                        roles: user.usuario.rol,
+                        token: user.token
                     }
                     this.currentUserSubject.next(token)
-                    localStorage.setItem('token', JSON.stringify(token))
-                    localStorage.setItem('usuario',JSON.stringify(user.object))
+                    localStorage.setItem('user', JSON.stringify(token))
+                    localStorage.setItem('usuario', JSON.stringify(user.usuario))
+                    localStorage.setItem('token', JSON.stringify(user.token))
                 }
                 return user;
             }))
@@ -94,8 +98,7 @@ export class LoginService {
                     //this.currentUserSubject.next(token)
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
-                }
-                else if (credenciales.usuario !== 'geresa' || credenciales.password !== 'geresa'
+                } else if (credenciales.usuario !== 'geresa' || credenciales.password !== 'geresa'
                     || credenciales.usuario !== 'red' || credenciales.password !== 'red'
                     || credenciales.usuario !== 'microred' || credenciales.password !== 'microred'
                     || credenciales.usuario !== 'ipress' || credenciales.password !== 'ipress'
