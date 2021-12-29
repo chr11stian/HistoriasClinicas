@@ -71,43 +71,43 @@
             </p-table>
         </p-accordionTab>
         <p-accordionTab header="LISTA DE PACIENTES CON CITAS" [selected]="true">
-            <!--            <p-table [value]="dataCupos_por_fechas_servicio" #dt styleClass="p-datatable-gridlines" [rows]="10"-->
-            <!--                     [rowsPerPageOptions]="[10, 25, 50]"-->
-            <!--                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"-->
-            <!--                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">-->
+            <p-table [value]="dataCitas" #dt styleClass="p-datatable-gridlines" [rows]="4"
+                     [rowsPerPageOptions]="[5, 10, 15]"
+                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
-            <!--                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">-->
-            <!--                    <tr>-->
-            <!--                        <th style="text-align: center">Nro</th>-->
-            <!--                        <th style="text-align: center">DNI</th>-->
-            <!--                        <th style="text-align: center">APELLIDOS</th>-->
-            <!--                        <th style="text-align: center">NOMBRES</th>-->
-            <!--                        <th style="text-align: center">FECHA</th>-->
-            <!--                        <th style="text-align: center">TELEFONO</th>-->
-            <!--                        <th style="text-align: center">ACCIONES</th>-->
-            <!--                    </tr>-->
-            <!--                </ng-template>-->
-            <!--                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
-            <!--                    <tr>-->
-            <!--                        <td style="text-align: center">{{ rowIndex + 1 }}</td>-->
-            <!--                        <td style="text-align: center">{{ rowData.nroDoc }}</td>-->
-            <!--                        <td style="text-align: center">{{ rowData.datosPaciente.apeMaterno }}{{' '}}{{ rowData.datosPaciente.apePaterno }}</td>-->
-            <!--                        <td style="text-align: center">{{ rowData.datosPaciente.primerNombre }}</td>-->
-            <!--                        <td style="text-align: center">{{ rowData.proxCita.fecha }}</td>-->
-            <!--                        <td style="text-align: center">{{ rowData.datosPaciente.celular }}</td>-->
-            <!--                        <td style="text-align: center">-->
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center">Nro</th>
+                        <th style="text-align: center">DNI</th>
+                        <th style="text-align: center">APELLIDOS</th>
+                        <th style="text-align: center">NOMBRES</th>
+                        <th style="text-align: center">FECHA</th>
+                        <th style="text-align: center">TELEFONO</th>
+                        <th style="text-align: center">ACCIONES</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.nroDoc }}</td>
+                        <td style="text-align: center">{{ rowData.datosPaciente.apeMaterno }}{{' '}}{{ rowData.datosPaciente.apePaterno }}</td>
+                        <td style="text-align: center">{{ rowData.datosPaciente.primerNombre }}</td>
+                        <td style="text-align: center">{{ rowData.proxCita.fecha }}</td>
+                        <td style="text-align: center">{{ rowData.datosPaciente.celular }}</td>
+                        <td style="text-align: center">
 
-            <!--                            <button pButton pRipple routerLink="gestante" (click)="enviarData(rowData)"-->
-            <!--                                    class="boton-azul" label="Gestante"-->
-            <!--                                    icon="pi pi-check"></button>-->
-            <!--                            <button pButton pRipple routerLink="noControl" class="boton-mostaza" label="No Control"-->
-            <!--                                    icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>-->
-            <!--                            <button pButton pRipple class="boton-red" label="Cancelar" icon="pi pi-times"></button>-->
+                            <button pButton pRipple routerLink="gestante" (click)="enviarData(rowData)"
+                                    class="boton-azul" label="Gestante"
+                                    icon="pi pi-check"></button>
+                            <button pButton pRipple routerLink="noControl" class="boton-mostaza" label="No Control"
+                                    icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>
+                            <button pButton pRipple class="boton-red" label="Cancelar" icon="pi pi-times"></button>
 
-            <!--                        </td>-->
-            <!--                    </tr>-->
-            <!--                </ng-template>-->
-            <!--            </p-table>-->
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </p-accordionTab>
     </p-accordion>
 </div>
