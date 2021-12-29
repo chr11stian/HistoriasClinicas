@@ -20,13 +20,11 @@ export class LoginService {
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-
     public get currentUserValue(): LoginInterface {
         return this.currentUserSubject.value;
     }
 
     user_login(body) {
-        console.log(body)
         return this.http.post<any>(`${this.base_uri}`, body, {
             headers: new HttpHeaders({
                 'Access-Control-Allow-Origin': '*',
@@ -34,17 +32,16 @@ export class LoginService {
             })
         })
             .pipe(map(user => {
+                console.log('user',user)
                 if (user) {
-                    console.log('user ', user)
                     const token = {
                         usuario: 'user',
-                        roles: user.usuario.rol,
-                        token: user.token
+                        roles: user.usuario.estado,
                     }
                     this.currentUserSubject.next(token)
-                    localStorage.setItem('user', JSON.stringify(token))
-                    localStorage.setItem('usuario', JSON.stringify(user.usuario))
-                    localStorage.setItem('token', JSON.stringify(user.token))
+                    localStorage.setItem('token', JSON.stringify(token))
+                    localStorage.setItem('usuario',JSON.stringify(user.usuario))
+                    localStorage.setItem('token1',user.token)
                 }
                 return user;
             }))
