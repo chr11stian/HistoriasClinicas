@@ -86,39 +86,39 @@ export class IntervaloDialogoComponent implements OnInit {
       },
       {
         nombre: "si tienes vomitos frecuentes",
-        valor: this.form.value.vomitosFrecuentes
+        valor: this.form.value.vomitosFrecuentes[0]==="true"?true:false
       },
       {
         nombre: "si hay palidez de la cara y cansancio",
-        valor: this.form.value.palidez
+        valor: this.form.value.palidez[0]==="true"?true:false
       },
       {
         nombre: "si tienes calentura",
-        valor: this.form.value.calentura
+        valor: this.form.value.calentura[0]==="true"?true:false
       },
       {
         nombre: "si tienes dolor de cabeza",
-        valor: this.form.value.dolorCabeza
+        valor: this.form.value.dolorCabeza[0]==="true"?true:false
       },
       {
         nombre: "si tienes hinchazon de pies, manos o cara",
-        valor: this.form.value.hinchazon
+        valor: this.form.value.hinchazon[0]==="true"?true:false
       },
       {
         nombre: "si tienes dolores antes de la fecha de parto y endurecimiento de vientre",
-        valor: this.form.value.dolores
+        valor: this.form.value.dolores[0]==="true"?true:false
       },
       {
         nombre: "si tienes poco o falta de movimiento del bebe",
-        valor: this.form.value.movimientoBebe
+        valor: this.form.value.movimientoBebe[0]==="true"?true:false
       },
       {
         nombre: "si el bebe esta mal acomodado",
-        valor: this.form.value.malAcomodado
+        valor: this.form.value.malAcomodado[0]==="true"?true:false
       },
       {
         nombre: "si tienes perdida de sangre, liquidos o infecciones",
-        valor: this.form.value.perdidaLiquidos
+        valor: this.form.value.perdidaLiquidos[0]==="true"?true:false
       },
       {
         nombre: "otras infecciones",
@@ -168,15 +168,15 @@ export class IntervaloDialogoComponent implements OnInit {
     this.form.get('posicionParto').setValue(configuracion.items[3].valor);
     this.form.get('transporteParto').setValue(configuracion.items[4].valor);
     this.form.get('quienAcompaniaraEess').setValue(configuracion.items[5].valor);
-    this.form.get('vomitosFrecuentes').setValue(configuracion.items[6].valor);
-    this.form.get('palidez').setValue(configuracion.items[7].valor);
-    this.form.get('calentura').setValue(configuracion.items[8].valor);
-    this.form.get('dolorCabeza').setValue(configuracion.items[9].valor);
-    this.form.get('hinchazon').setValue(configuracion.items[10].valor);
-    this.form.get('dolores').setValue(configuracion.items[11].valor);
-    this.form.get('movimientoBebe').setValue(configuracion.items[12].valor);
-    this.form.get('malAcomodado').setValue(configuracion.items[13].valor);
-    this.form.get('perdidaLiquidos').setValue(configuracion.items[14].valor);
+    this.form.get('vomitosFrecuentes').setValue(configuracion.items[6].valor?["true"]:[]);
+    this.form.get('palidez').setValue(configuracion.items[7].valor?["true"]:[]);
+    this.form.get('calentura').setValue(configuracion.items[8].valor?["true"]:[]);
+    this.form.get('dolorCabeza').setValue(configuracion.items[9].valor?["true"]:[]);
+    this.form.get('hinchazon').setValue(configuracion.items[10].valor?["true"]:[]);
+    this.form.get('dolores').setValue(configuracion.items[11].valor?["true"]:[]);
+    this.form.get('movimientoBebe').setValue(configuracion.items[12].valor?["true"]:[]);
+    this.form.get('malAcomodado').setValue(configuracion.items[13].valor?["true"]:[]);
+    this.form.get('perdidaLiquidos').setValue(configuracion.items[14].valor?["true"]:[]);
     this.form.get('otras').setValue(configuracion.items[15].valor);
     this.form.get('quienCuidaraHijos').setValue(configuracion.items[16].valor);
     this.form.get('aceptariaCasaMaterna').setValue(configuracion.items[17].valor);

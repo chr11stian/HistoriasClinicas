@@ -28,6 +28,7 @@ export class DialogConsultaComponent implements OnInit {
     formInmunizacion: FormGroup;
     formInterconsulta: FormGroup;
     formOtrosPruebas: FormGroup;
+    formExamenAuxiliar: FormGroup;
 
     prueba: any[];
     isUpdate: boolean = false;
@@ -41,6 +42,7 @@ export class DialogConsultaComponent implements OnInit {
     inmunizacionDialog: boolean;
     interconsultaDialog: boolean;
     otrosPruebasDialog: boolean;
+    examenAuxiliarDialog: boolean;
 
     listaSituacion = [
         { name: "LONGITUDINAL", code: "1" },
@@ -136,6 +138,7 @@ export class DialogConsultaComponent implements OnInit {
     datosInterconsultas: any[] = [];
     datosRecomendaciones: any[] = [];
     datosInmunizaciones: any[] = [];
+    datosExamenesAuxiliares: any[] = [];
 
     //estados de edicion
     estadoEditarExamenFetal: boolean = false;
@@ -144,6 +147,7 @@ export class DialogConsultaComponent implements OnInit {
     estadoEditarInterconsultas: boolean = false;
     estadoEditarRecomendaciones: boolean = false;
     estadoEditarInmunizaciones: boolean = false;
+    estadoEditarExamenesAuxiliares: boolean = false;
 
     //index de la edicion
     indexExamenFetalEditado: number;
@@ -152,6 +156,7 @@ export class DialogConsultaComponent implements OnInit {
     indexInterconsultaEditado: number;
     indexRecomendacionEditado: number;
     indexInmunizacionEditado: number;
+    indexExamenAuxiliarEditado: number;
 
     estadoEdicion: boolean = false;
     datePipe = new DatePipe('en-US');
@@ -293,27 +298,31 @@ export class DialogConsultaComponent implements OnInit {
             consejeria1: new FormControl(""),
             cie10_1: new FormControl("99401"),
             consejeria2: new FormControl(""),
-            cie10_2: new FormControl(""),
+            cie10_2: new FormControl("99403"),
             consejeria3: new FormControl(""),
-            cie10_3: new FormControl(""),
+            cie10_3: new FormControl("99204.08"),
             consejeria4: new FormControl(""),
-            cie10_4: new FormControl("9940205"),
+            cie10_4: new FormControl(""),
             consejeria5: new FormControl(""),
-            cie10_5: new FormControl("99403"),
+            cie10_5: new FormControl("U140"),
             consejeria6: new FormControl(""),
-            cie10_6: new FormControl("99402"),
+            cie10_6: new FormControl("U1692"),
             consejeria7: new FormControl(""),
-            cie10_7: new FormControl("U138 "),
+            cie10_7: new FormControl(""),
             consejeria8: new FormControl(""),
-            cie10_8: new FormControl("86703"),
+            cie10_8: new FormControl(""),
             consejeria9: new FormControl(""),
             cie10_9: new FormControl(""),
             consejeria10: new FormControl(""),
             cie10_10: new FormControl(""),
             consejeria11: new FormControl(""),
-            cie10_11: new FormControl("U121"),
+            cie10_11: new FormControl("9940133"),
             consejeria12: new FormControl(""),
-            cie10_12: new FormControl("111692"),
+            cie10_12: new FormControl("9940134"),
+            consejeria13: new FormControl(""),
+            cie10_13: new FormControl(""),
+            consejeria14: new FormControl(""),
+            cie10_14: new FormControl(""),
 
             //referencia
             consultorioReferencia: new FormControl(""),
@@ -892,6 +901,74 @@ export class DialogConsultaComponent implements OnInit {
             }
         })
     }
+    openNewExamenAuxiliar() {
+        //this.isUpdate = false;
+        this.formExamenAuxiliar.reset();
+        this.examenAuxiliarDialog = true;
+    }
+    guardarNuevoExamenAuxiliar() {
+        var examen = //{
+            //tipo: this.formTratamiento.value.tipo,
+            /*examen:*/ this.formExamenAuxiliar.value.examen;
+            //codigo: this.formTratamiento.value.codigo,
+        //}
+        console.log(examen);
+        this.datosExamenesAuxiliares.push(examen);
+        this.examenAuxiliarDialog = false;
+    }
+    canceledExamenAuxiliar() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cancelado...',
+            text: '',
+            showConfirmButton: false,
+            timer: 1000
+        })
+        this.examenAuxiliarDialog = false;
+        this.estadoEditarExamenesAuxiliares = false;
+    }
+    openDialogEditarExamenAuxiliar(rowData, rowIndex) {
+        this.estadoEditarExamenesAuxiliares = true;
+        this.indexExamenAuxiliarEditado = rowIndex;
+        this.formExamenAuxiliar.reset();
+        //this.formExamenAuxiliar.get('tipo').setValue(rowData.tipo);
+        this.formExamenAuxiliar.get('examen').setValue(rowData.examen);
+        //this.formExamenAuxiliar.get('codigo').setValue(rowData.codigo);
+        this.examenAuxiliarDialog = true;
+    }
+    guardarEdicionExamenAuxiliar() {
+        var examen = //{
+            //tipo: this.formTratamiento.value.tipo,
+            /*examen:*/ this.formExamenAuxiliar.value.examen;
+            //codigo: this.formTratamiento.value.codigo,
+        //}
+        console.log(examen);
+        this.datosExamenesAuxiliares.splice(this.indexExamenAuxiliarEditado, 1, examen);
+        this.examenAuxiliarDialog = false;
+        this.estadoEditarExamenesAuxiliares = false;
+    }
+    eliminarExamenAuxiliar(rowIndex) {
+        this.estadoEditarExamenesAuxiliares = false;
+        Swal.fire({
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            icon: 'warning',
+            title: 'Estas seguro de eliminar este registro?',
+            text: '',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.datosExamenesAuxiliares.splice(rowIndex, 1);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Eliminado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+    }
     openNewInterconsulta() {
         //this.isUpdate = false;
         this.formInterconsulta.reset();
@@ -1176,59 +1253,69 @@ export class DialogConsultaComponent implements OnInit {
                     cie10: this.form.value.cie10_1
                 },
                 {
-                    consejeria: "CONSEJERIA EN ENFERMEDADES COMUNES",
+                    consejeria: "ORIENTACIÓN NUTRICIONAL",
                     valor: this.form.value.consejeria2 === "true" ? true : false,
                     cie10: this.form.value.cie10_2
                 },
                 {
-                    consejeria: "SOSPECHA DE TUBERCULOSIS",
+                    consejeria: "ORIENTACIÓN EN PLANIFICACIÓN FAMILIAR",
                     valor: this.form.value.consejeria3 === "true" ? true : false,
                     cie10: this.form.value.cie10_3
                 },
                 {
-                    consejeria: "INFECCIONES DE TRANSMISION SEXUAL",
+                    consejeria: "ORIENTACIÓN EN PREVENCION DE CÁNCER GINECOLÓGICO",
                     valor: this.form.value.consejeria4 === "true" ? true : false,
                     cie10: this.form.value.cie10_4
                 },
                 {
-                    consejeria: "ORIENTACIÓN NUTRICIONAL",
+                    consejeria: "VIOLENCIA INTRAFAMILIAR",
                     valor: this.form.value.consejeria5 === "true" ? true : false,
                     cie10: this.form.value.cie10_5
                 },
                 {
-                    consejeria: "ORIENTACIÓN EN PLANIFICACIÓN FAMILIAR",
+                    consejeria: "PLAN DE PARTO",
                     valor: this.form.value.consejeria6 === "true" ? true : false,
                     cie10: this.form.value.cie10_6
                 },
                 {
-                    consejeria: "ORIENTACIÓN EN PREVENCION DE CÁNCER GINECOLÓGICO",
+                    consejeria: "CONSEJERIA LACTANCIA MATERNA",
                     valor: this.form.value.consejeria7 === "true" ? true : false,
                     cie10: this.form.value.cie10_7
                 },
                 {
-                    consejeria: "ORIENTACIÓN Y CONSEJERIA PRETEST. VIH",
+                    consejeria: "CONSEJERIA EN ENFERMEDADES COMUNES",
                     valor: this.form.value.consejeria8 === "true" ? true : false,
                     cie10: this.form.value.cie10_8
                 },
                 {
-                    consejeria: "CONSEJERIA EN ESTILOS DE VIDA SALUDABLE",
+                    consejeria: "SOSPECHA DE TUBERCULOSIS",
                     valor: this.form.value.consejeria9 === "true" ? true : false,
                     cie10: this.form.value.cie10_9
                 },
                 {
-                    consejeria: "ORIENTACIÓN AL ACOMPAÑANTE",
+                    consejeria: "INFECCIONES DE TRANSMISION SEXUAL",
                     valor: this.form.value.consejeria10 === "true" ? true : false,
                     cie10: this.form.value.cie10_10
                 },
                 {
-                    consejeria: "VIOLENCIA INTRAFAMILIAR",
+                    consejeria: "ORIENTACIÓN Y CONSEJERIA PRETEST. VIH",
                     valor: this.form.value.consejeria11 === "true" ? true : false,
                     cie10: this.form.value.cie10_11
                 },
                 {
-                    consejeria: "PLAN DE PARTO",
+                    consejeria: "ORIENTACIÓN Y CONSEJERIA POSTTEST. VIH",
                     valor: this.form.value.consejeria12 === "true" ? true : false,
                     cie10: this.form.value.cie10_12
+                },
+                {
+                    consejeria: "CONSEJERIA EN ESTILOS DE VIDA SALUDABLE",
+                    valor: this.form.value.consejeria13 === "true" ? true : false,
+                    cie10: this.form.value.cie10_13
+                },
+                {
+                    consejeria: "ORIENTACIÓN AL ACOMPAÑANTE",
+                    valor: this.form.value.consejeria14 === "true" ? true : false,
+                    cie10: this.form.value.cie10_14
                 }
             ],
             funcionesVitales: {
@@ -1594,6 +1681,10 @@ export class DialogConsultaComponent implements OnInit {
         this.form.get('cie10_11').setValue(configuracion.orientaciones[10].cie10);
         this.form.get('consejeria12').setValue(configuracion.orientaciones[11].valor ? "true" : "false");
         this.form.get('cie10_12').setValue(configuracion.orientaciones[11].cie10);
+        this.form.get('consejeria13').setValue(configuracion.orientaciones[12].valor ? "true" : "false");
+        this.form.get('cie10_13').setValue(configuracion.orientaciones[12].cie10);
+        this.form.get('consejeria14').setValue(configuracion.orientaciones[13].valor ? "true" : "false");
+        this.form.get('cie10_14').setValue(configuracion.orientaciones[13].cie10);
         //atencion
         this.form.get('consultorioReferencia').setValue(configuracion.referencia.consultorio);
         this.form.get('motivoReferencia').setValue(configuracion.referencia.motivo);

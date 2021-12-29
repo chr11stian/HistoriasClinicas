@@ -861,12 +861,12 @@
                                             </div>
                                         </p-fieldset>
                                     </div>
-                                    <div class="col-8">
-                                        <p-fieldset legend="ATENCIÓN INTEGRAL">
+                                    <div class="col-4">
+                                        <p-fieldset legend="Plan de atención">
                                             <div class="grid">
-                                                <div class="col-6">
+                                                <div class="col-12">
                                                     <div class="grid text-center">
-                                                        <div class="col-6"></div>
+                                                        <div class="col-7"></div>
                                                         <div class="col-1">
                                                             <span class="texto">Si</span>
                                                         </div>
@@ -878,7 +878,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="grid">
-                                                        <div class="col-6 text-right">
+                                                        <div class="col-7 text-right">
                                                             <span class="text-xs">Orientación y
                                                                 Consejería - Signos de alarma:</span>
                                                         </div>
@@ -894,13 +894,14 @@
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_1'
-                                                                class="p-inputtext-sm inputfield w-full" />
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
+
                                                     <div class="grid">
-                                                        <div class="col-6 text-right">
-                                                            <span class="text-xs">Consejería en
-                                                                enfermedades comunes:</span>
+                                                        <div class="col-7 text-right">
+                                                            <span class="text-xs">Orientación
+                                                                Nutricional:</span>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria2"
@@ -914,13 +915,13 @@
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_2'
-                                                                class="p-inputtext-sm inputfield w-full" />
+                                                             disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
                                                     <div class="grid">
-                                                        <div class="col-6 text-right">
-                                                            <span class="text-xs">Sospechas de
-                                                                Tuberculosis:</span>
+                                                        <div class="col-7 text-right">
+                                                            <span class="text-xs">Orientación en
+                                                                planificación familiar:</span>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria3"
@@ -930,18 +931,17 @@
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria3"
                                                                 formControlName="consejeria3" value=false
-                                                                class="default">
-                                                            </p-radioButton>
+                                                                class="default"></p-radioButton>
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_3'
-                                                                class="p-inputtext-sm inputfield w-full" />
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
                                                     <div class="grid">
-                                                        <div class="col-6 text-right">
-                                                            <span class="text-xs">Infecciones de
-                                                                transmisión sexual:</span>
+                                                        <div class="col-7 text-right">
+                                                            <span class="text-xs">Orientación en
+                                                                prevención de Cáncer ginecológico:</span>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria4"
@@ -953,15 +953,15 @@
                                                                 formControlName="consejeria4" value=false
                                                                 class="default"></p-radioButton>
                                                         </div>
-                                                        <div class="col-3">
+                                                        <!-- <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_4'
-                                                                class="p-inputtext-sm inputfield w-full" />
-                                                        </div>
+                                                                disabled class="p-inputtext-sm inputfield w-full" />
+                                                        </div> -->
                                                     </div>
                                                     <div class="grid">
-                                                        <div class="col-6 text-right">
-                                                            <span class="text-xs">Orientación
-                                                                Nutricional:</span>
+                                                        <div class="col-7 text-right">
+                                                            <span class="text-xs">Violencia
+                                                                familiar:</span>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria5"
@@ -971,17 +971,17 @@
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria5"
                                                                 formControlName="consejeria5" value=false
-                                                                class="default"></p-radioButton>
+                                                                disabled class="default"></p-radioButton>
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_5'
-                                                                class="p-inputtext-sm inputfield w-full" />
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
                                                     <div class="grid">
-                                                        <div class="col-6 text-right">
-                                                            <span class="text-xs">Orientación en
-                                                                planificación familiar:</span>
+                                                        <div class="col-7 text-right">
+                                                            <span class="text-xs">Plan de
+                                                                parto:</span>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria6"
@@ -995,12 +995,37 @@
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_6'
-                                                                class="p-inputtext-sm inputfield w-full" />
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
-
+                                                    <div class="grid">
+                                                        <div class="col-7 text-right">
+                                                            <span class="text-xs">
+                                                                Consejeria lactancia materna:</span>
+                                                        </div>
+                                                        <div class="col-1 text-center">
+                                                            <p-radioButton name="consejeria7"
+                                                                formControlName="consejeria7" value=true
+                                                                class="default"></p-radioButton>
+                                                        </div>
+                                                        <div class="col-1 text-center">
+                                                            <p-radioButton name="consejeria7"
+                                                                formControlName="consejeria7" value=false
+                                                                class="default"></p-radioButton>
+                                                        </div>
+                                                        <!-- <div class="col-3">
+                                                            <input type="text" pInputText formControlName='cie10_7'
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                        </div> -->
+                                                    </div>
                                                 </div>
-                                                <div class="col-6">
+                                            </div>
+                                        </p-fieldset>
+                                    </div>
+                                    <div class="col-4">
+                                        <p-fieldset legend="Consejerias">
+                                            <div class="grid">
+                                                <div class="col-12">
                                                     <div class="grid text-center">
                                                         <div class="col-7"></div>
                                                         <div class="col-1">
@@ -1015,28 +1040,7 @@
                                                     </div>
                                                     <div class="grid">
                                                         <div class="col-7 text-right">
-                                                            <span class="text-xs">Orientación en
-                                                                prevención de Cancer ginecológico:</span>
-                                                        </div>
-                                                        <div class="col-1 text-center">
-                                                            <p-radioButton name="consejeria7"
-                                                                formControlName="consejeria7" value=true
-                                                                class="default"></p-radioButton>
-                                                        </div>
-                                                        <div class="col-1 text-center">
-                                                            <p-radioButton name="consejeria7"
-                                                                formControlName="consejeria7" value=false
-                                                                class="default"></p-radioButton>
-                                                        </div>
-                                                        <div class="col-3">
-                                                            <input type="text" pInputText formControlName='cie10_7'
-                                                                class="p-inputtext-sm inputfield w-full" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="grid">
-                                                        <div class="col-7 text-right">
-                                                            <span class="text-xs">Orientación y
-                                                                consej. Pretest. VIH:</span>
+                                                            <span class="text-xs">Consejería en enfermedades comunes:</span>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria8"
@@ -1048,15 +1052,15 @@
                                                                 formControlName="consejeria8" value=false
                                                                 class="default"></p-radioButton>
                                                         </div>
-                                                        <div class="col-3">
+                                                        <!-- <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_8'
-                                                                class="p-inputtext-sm inputfield w-full" />
-                                                        </div>
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                        </div> -->
                                                     </div>
                                                     <div class="grid">
                                                         <div class="col-7 text-right">
-                                                            <span class="text-xs">Orientación en
-                                                                estilos de vida saludable:</span>
+                                                            <span class="text-xs">Sospechas de
+                                                                Tuberculosis:</span>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria9"
@@ -1066,17 +1070,18 @@
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria9"
                                                                 formControlName="consejeria9" value=false
-                                                                class="default"></p-radioButton>
+                                                                class="default">
+                                                            </p-radioButton>
                                                         </div>
-                                                        <div class="col-3">
+                                                        <!-- <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_9'
-                                                                class="p-inputtext-sm inputfield w-full" />
-                                                        </div>
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                        </div> -->
                                                     </div>
                                                     <div class="grid">
                                                         <div class="col-7 text-right">
-                                                            <span class="text-xs">Orientación al
-                                                                acompañante:</span>
+                                                            <span class="text-xs">Infecciones de
+                                                                transmisión sexual:</span>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria10"
@@ -1088,15 +1093,16 @@
                                                                 formControlName="consejeria10" value=false
                                                                 class="default"></p-radioButton>
                                                         </div>
-                                                        <div class="col-3">
+                                                        <!-- <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_10'
-                                                                class="p-inputtext-sm inputfield w-full" />
-                                                        </div>
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                        </div> -->
                                                     </div>
+
                                                     <div class="grid">
                                                         <div class="col-7 text-right">
-                                                            <span class="text-xs">Violencia
-                                                                familiar:</span>
+                                                            <span class="text-xs">Orientación y
+                                                                consej. Pretest. VIH:</span>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria11"
@@ -1110,13 +1116,13 @@
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_11'
-                                                                class="p-inputtext-sm inputfield w-full" />
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
                                                     <div class="grid">
                                                         <div class="col-7 text-right">
-                                                            <span class="text-xs">Plan de
-                                                                parto:</span>
+                                                            <span class="text-xs">Orientación y
+                                                                consej. Post test. VIH:</span>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria12"
@@ -1130,8 +1136,48 @@
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_12'
-                                                                class="p-inputtext-sm inputfield w-full" />
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
+                                                    </div>
+                                                    <div class="grid">
+                                                        <div class="col-7 text-right">
+                                                            <span class="text-xs">Orientación en
+                                                                estilos de vida saludable:</span>
+                                                        </div>
+                                                        <div class="col-1 text-center">
+                                                            <p-radioButton name="consejeria13"
+                                                                formControlName="consejeria13" value=true
+                                                                class="default"></p-radioButton>
+                                                        </div>
+                                                        <div class="col-1 text-center">
+                                                            <p-radioButton name="consejeria13"
+                                                                formControlName="consejeria13" value=false
+                                                                class="default"></p-radioButton>
+                                                        </div>
+                                                        <!-- <div class="col-3">
+                                                            <input type="text" pInputText formControlName='cie10_13'
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                        </div> -->
+                                                    </div>
+                                                    <div class="grid">
+                                                        <div class="col-7 text-right">
+                                                            <span class="text-xs">Orientación al
+                                                                acompañante:</span>
+                                                        </div>
+                                                        <div class="col-1 text-center">
+                                                            <p-radioButton name="consejeria14"
+                                                                formControlName="consejeria14" value=true
+                                                                class="default"></p-radioButton>
+                                                        </div>
+                                                        <div class="col-1 text-center">
+                                                            <p-radioButton name="consejeria14"
+                                                                formControlName="consejeria14" value=false
+                                                                class="default"></p-radioButton>
+                                                        </div>
+                                                        <!-- <div class="col-3">
+                                                            <input type="text" pInputText formControlName='cie10_14'
+                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                        </div> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -1407,6 +1453,51 @@
                                                 <button pButton pRipple type="button" icon="pi pi-trash"
                                                     (click)="eliminarInmunizacion(rowIndex)"
                                                     class="p-button-rounded p-button-danger p-button-text"></button>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </p-tabPanel>
+                            <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-exclamation-circle"
+                                header="SOLICITUD EXAMENES AUXILIARES">
+                                <p-table [value]="datosExamenesAuxiliares" #dt [rows]="3" styleClass="p-datatable-sm"
+                                    [paginator]="true" [autoLayout]="true" class="m-3"
+                                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                    [showCurrentPageReport]="true" responsiveLayout="scroll">
+                                    <ng-template pTemplate="caption">
+                                        <div class="grid">
+                                            <div class="col-10">
+                                                <h3>SOLICITUD EXAMENES AUXILIARES</h3>
+                                            </div>
+                                            <div class="col-2">
+                                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                    class="p-button-raised mt-3"
+                                                    (click)="openNewExamenAuxiliar()"></button>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th style="text-align: center">Nro</th>
+                                            <th style="text-align: center">Tipo</th>
+                                            <th style="text-align: center">Examen</th>
+                                            <th style="text-align: center">Codigo</th>
+                                            <th style="text-align: center">Acción</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                        <tr style="text-align: center">
+                                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                            <td style="text-align: center">{{ rowData.tipo}}</td>
+                                            <td style="text-align: center">{{ rowData.examen }}</td>
+                                            <td style="text-align: center">{{ rowData.codigo }}</td>
+                                            <td style="text-align: center">
+                                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                    class="p-button-rounded p-button-text"
+                                                    (click)="openDialogEditarExamenAuxiliar(rowData, rowIndex)"></button>
+                                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                                    class="p-button-rounded p-button-danger p-button-text"
+                                                    (click)="eliminarExamenAuxiliar(rowIndex)"></button>
                                             </td>
                                         </tr>
                                     </ng-template>
@@ -2515,6 +2606,43 @@
             (click)="guardarNuevoTratamiento()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"
             (click)="canceledTratamiento()"></button>
+    </ng-template>
+</p-dialog>
+<!-- Solicitud examen auxiliar -->
+<p-dialog class="dialogo m-4" [(visible)]="examenAuxiliarDialog" [style]="{width: '400px'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>SOLICITUD EXAMEN AUXILIAR</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formExamenAuxiliar'>
+            <div class="grid">
+                <div class="col-4">
+                    <label>Tipo:</label>
+                    <input type="text" pInputText formControlName='tipo' placeholder="Tipo"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Examen:</label>
+                    <input type="text" pInputText formControlName='examen' placeholder="Examen"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+                <div class="col-4">
+                    <label>Codigo:</label>
+                    <input type="text" pInputText formControlName='codigo' placeholder="Codigo"
+                        class="p-inputtext-sm inputfield w-full">
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="estadoEditarExamenesAuxiliares" pButton type="button" label="Guardar"
+            (click)="guardarEdicionExamenAuxiliar()"></button>
+        <button *ngIf="!estadoEditarExamenesAuxiliares" pButton type="button" label="Guardar"
+            (click)="guardarExamenAuxiliar()"></button>
+        <button pButton type="button" label="Cancelar" class="p-button-danger"
+            (click)="canceledExamenAuxiliar()"></button>
     </ng-template>
 </p-dialog>
 <!-- DIALOG INTERCONSULTAS -->
