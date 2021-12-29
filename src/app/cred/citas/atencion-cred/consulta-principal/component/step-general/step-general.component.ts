@@ -1,15 +1,20 @@
-import {Component, OnInit} from '@angular/core'
+import {Component, OnInit, ViewChild, DoCheck} from '@angular/core'
 import {MenuItem} from 'primeng/api'
 import {ConsultaGeneralService} from '../../services/consulta-general.service'
 import {ApiConsulta} from '../../models/consultaGeneral'
 import {ActivatedRoute, Router} from '@angular/router'
+import {DatosGeneralesConsultaComponent} from '../datos-generales-consulta/datos-generales-consulta.component'
+import {MotivoConsultaComponent} from '../motivo-consulta/motivo-consulta.component'
+import {DiagnosticoConsultaComponent} from "../diagnostico-consulta/diagnostico-consulta.component";
+import {TratamientoConsultaComponent} from "../tratamiento-consulta/tratamiento-consulta.component";
+import {FinalizarConsultaComponent} from "../finalizar-consulta/finalizar-consulta.component";
 
 @Component({
     selector: 'app-step-general',
     templateUrl: './step-general.component.html',
     styleUrls: ['./step-general.component.css']
 })
-export class StepGeneralComponent implements OnInit {
+export class StepGeneralComponent implements OnInit, DoCheck {
     /* lo que reciben del paso anterior */
     tipoDoc: string = ''
     nroDoc: string = ''
@@ -20,9 +25,16 @@ export class StepGeneralComponent implements OnInit {
     options: data[]
     selectedOption: data
     items: MenuItem[]
+    j: number = 100
     indiceActivo: number = 0
     stepName = 'datos'
     consulta: ApiConsulta
+
+    @ViewChild(DatosGeneralesConsultaComponent) datosGeneralesConsulta: DatosGeneralesConsultaComponent;
+    @ViewChild(MotivoConsultaComponent) motivoConsulta: MotivoConsultaComponent
+    @ViewChild(DiagnosticoConsultaComponent) diagnosticoConsulta: DiagnosticoConsultaComponent
+    @ViewChild(TratamientoConsultaComponent) tratamientoConsulta: TratamientoConsultaComponent
+    @ViewChild(FinalizarConsultaComponent) finalizarConsulta: FinalizarConsultaComponent
 
     constructor(private consultaGeneralService: ConsultaGeneralService,
                 private route: ActivatedRoute,
@@ -35,6 +47,9 @@ export class StepGeneralComponent implements OnInit {
         ]
     }
 
+    ngDoCheck() {
+        this.saveStep()
+    }
 
     ngOnInit(): void {
         this.items = [
@@ -109,11 +124,86 @@ export class StepGeneralComponent implements OnInit {
         }
     }
 
-
     //--cambia step
     ChangeStep(event: number) {
         this.indiceActivo = event
         this.name()
+    }
+
+    // pasamos al siguiente step
+    nextPage() {
+        switch (this.stepName) {
+            case 'datos':
+                this.datosGeneralesConsulta.save()
+                this.stepName = 'motivo';
+                this.indiceActivo = 1;
+                break;
+            case 'motivo':
+                this.motivoConsulta.save()
+                this.stepName = 'diagnostico';
+                this.indiceActivo = 2;
+                break;
+            case 'diagnostico':
+                this.diagnosticoConsulta.save()
+                this.stepName = 'tratamiento';
+                this.indiceActivo = 3;
+                break;
+            case 'tratamiento':
+                this.tratamientoConsulta.save()
+                this.stepName = 'finalizar';
+                this.indiceActivo = 4;
+                break;
+            case 'finalizar':
+                this.finalizarConsulta.save()
+                break;
+        }
+    }
+
+    // regresamos al anterior step
+    prevPage() {
+        switch (this.stepName) {
+            case 'finalizar':
+                console.log('fi ',this.stepName)
+                this.stepName = 'tratamiento';
+                this.indiceActivo = 3;
+                break;
+            case 'tratamiento':
+                this.stepName = 'diagnostico';
+                this.indiceActivo = 2;
+                break;
+            case 'diagnostico':
+                this.stepName = 'motivo';
+                this.indiceActivo = 1;
+                break;
+            case 'motivo':
+                this.stepName = 'datos';
+                this.indiceActivo = 0;
+                break;
+        }
+    }
+
+    saveStep() {
+        if (this.indiceActivo !== this.j) {
+            console.log('j ', this.indiceActivo, this.j)
+            switch (this.j) {
+                case 4:
+                    this.finalizarConsulta.save()
+                    break
+                case 3:
+                    this.tratamientoConsulta.save()
+                    break
+                case 2:
+                    this.diagnosticoConsulta.save()
+                    break
+                case 1:
+                    this.motivoConsulta.save()
+                    break
+                case 0:
+                    this.datosGeneralesConsulta.save()
+                    break
+            }
+            this.j = this.indiceActivo
+        }
     }
 }
 

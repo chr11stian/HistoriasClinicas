@@ -3,7 +3,7 @@
         <div class="grid">
             <div class="col-12 md:col-8 mt-2">
                 <div class="margen border-300">
-                    <p-table [value]="datosDiagnosticos" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
+                    <p-table [value]="listaTratamientos" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
                         [autoLayout]="true" class="m-3"
                         currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
                         [showCurrentPageReport]="true" responsiveLayout="scroll">
@@ -20,15 +20,25 @@
                         </ng-template>
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="text-align: center">Nro</th>
-                                <th style="text-align: center">Tratamiento</th>
-                                <th style="text-align: center">Acción</th>
+                                <th style="text-align: center;font-size: 0.85em;">Nro</th>
+                                <th style="text-align: center;font-size: 0.85em;">Descripción</th>
+                                <th style="text-align: center;font-size: 0.85em;">Número</th>
+                                <th style="text-align: center;font-size: 0.85em;">Dosis</th>
+                                <th style="text-align: center;font-size: 0.85em;">Via Administración</th>
+                                <th style="text-align: center;font-size: 0.85em;">Intervalo</th>
+                                <th style="text-align: center;font-size: 0.85em;">Observaciones</th>
+                                <th style="text-align: center;font-size: 0.85em;">Acción</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                             <tr style="text-align: center">
                                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                <td style="text-align: center">{{ rowData.resultado }}</td>
+                                <td style="text-align: center">{{ rowData.descripcion }}</td>
+                                <td style="text-align: center">{{ rowData.numero }}</td>
+                                <td style="text-align: center">{{ rowData.dosis }}</td>
+                                <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
+                                <td style="text-align: center">{{ rowData.intervalo }}</td>
+                                <td style="text-align: center">{{ rowData.observaciones }}</td>
                                 <td style="text-align: center">
                                     <button pButton pRipple type="button" icon="pi pi-pencil"
                                         class="p-button-rounded p-button-text"

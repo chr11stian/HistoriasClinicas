@@ -34,6 +34,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
     {nombrefamiliar: 'Hermano'},
     {nombrefamiliar: 'Hermana'},
     {nombrefamiliar: 'Abuelo'},
+    {nombrefamiliar: 'Abuela'},
     {nombrefamiliar: 'Otros'},
   ];
   constructor(private messageService: MessageService,
@@ -274,14 +275,22 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
 
     /************** Antecedents familiares *******************/
     let antecedentesFamiliares:AntecedentesFamiliares[]=[];
+
     let tuberculosisAntFamiliar:boolean = this.formAntecedentes.value.tuberculosisAntFamiliar;
     let tuberculosisFamiliar:string = this.formAntecedentes.value.familiarTuberculosis;
+
     let hipertensionAntFamiliar:boolean = this.formAntecedentes.value.hipertensionAntFamiliar;
     let hipertensionFamiliar:string = this.formAntecedentes.value.familiarHipertension;
+
     let diabetesAntFamiliar:boolean = this.formAntecedentes.value.diabetesAntFamiliar;
     let diabetesFamiliar:string = this.formAntecedentes.value.familiarDiabetes;
+
+    let infartoAntFamiliar:boolean = this.formAntecedentes.value.infartoAntFamiliar;
+    let familiarInfarto:string = this.formAntecedentes.value.familiarInfarto;
+
     let demenciaAntFamiliar:boolean = this.formAntecedentes.value.demenciaAntFamiliar;
     let demenciaFamiliar:string = this.formAntecedentes.value.familiarDemencia;
+
     let cancerMamaAntFamiliar:boolean = this.formAntecedentes.value.cancerMamaAntFamiliar;
     let cancerMamaFamiliar:string = this.formAntecedentes.value.familiarCancerMama;
 
@@ -328,6 +337,16 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesFamiliares.push(aux);
     }
     /****5****/
+    if(infartoAntFamiliar)
+    {
+      let aux = {nombre:'INFARTO',valor:true, familiar:familiarInfarto}
+      antecedentesFamiliares.push(aux);
+
+    }else{
+      let aux = {nombre:'INFARTO', value:false,familiar:''}
+      antecedentesFamiliares.push(aux);
+    }
+    /****6****/
     if(cancerMamaAntFamiliar)
     {
       let aux = {nombre:'CANCER DE MAMA',valor:true, familiar:cancerMamaFamiliar}
@@ -343,12 +362,11 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
     /******** Reaccion adversa ***********/
     let reaccion: boolean = this.formAntecedentes.value.reaccionAdversa;
     this.antecedentesFamiliares = antecedentesFamiliares;
+    console.log("antecedentes Familiares",antecedentesFamiliares);
     this.antecedentesPersonales = antecedentesPersonales;
     this.descripcionOtrosAntecedentes = descripcion;
   }
   agregarAntecedentes(){
-
-    if(this.antecedentesPersonales!=null && this.antecedentesFamiliares!= null && this.descripcionOtrosAntecedentes!=null){
       this.recuperarAntecedentes();
       let fecha=new Date().toLocaleDateString();
       console.log(fecha);
@@ -360,13 +378,14 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       }
       this.antecedentesService.postAntecedentesAdultoMayorByDoc(this.tipoDoc,this.nroDoc,cadena).subscribe((res: any) => {
         console.log('se guardo correctamente ', res.object);
+        console.log('se guardo correctamente cade ', cadena);
         this.messageService.add({
           severity: "success",
           summary: "Exito",
           detail: res.mensaje
         });
       });
-    }
+
   }
   saveTratamientos(){
 
@@ -381,20 +400,171 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
   recuperarDataAntecedentesBD(){
     this.antecedentesService.getAntecedentesAdultoMayorByDoc(this.tipoDoc,this.nroDoc).subscribe((res: any) => {
       console.log('se recupero datos satisfactoriamente', res.object);
-      // console.log(res.object.antecedentesFamiliares[0]);
+      this.antecedentesFamiliares=res.object.antecedentesFamiliares;
+      this.antecedentesPersonales=res.object.antecedentesPersonales;
+      this.descripcionOtrosAntecedentes=res.object.descripcionOtrosAntecedentes;
 
-      // if(res.object.antecedentesFamiliares[0]!= null) {
-      //     this.antecedentesFamiliares = res.object.antecedentesFamiliares[0];
-      //   }
-      //   if(res.object.antecedentesPersonales[0]!=null){
-      //     this.antecedentesPersonales = res.object.antecedentesPersonales[0];
-      //   }
-      //   if(res.object.descripcionOtrosAntecedentes!=null){
-      //     this.descripcionOtrosAntecedentes = res.object.descripcionOtrosAntecedentes;
-      //   }
-      //   console.log(this.antecedentesPersonales);
-      //   console.log(this.antecedentesFamiliares);
-      //   console.log(this.descripcionOtrosAntecedentes);
+        console.log(this.antecedentesPersonales);
+        console.log(this.antecedentesFamiliares);
+        console.log(this.descripcionOtrosAntecedentes);
+        /*************LLENAR CAMPOS RECUPERADOS DE LA BD**************/
+        /*************ANTECEDENTES PERSONALES*************************/
+        let aux1=this.antecedentesPersonales[0].valor;
+        console.log(aux1);
+        let aux2=this.antecedentesPersonales[1].valor;
+        console.log(aux2);
+        let aux3=this.antecedentesPersonales[2].valor;
+        console.log(aux3);
+        let aux4=this.antecedentesPersonales[3].valor;
+        console.log(aux4);
+        let aux5=this.antecedentesPersonales[4].valor;
+        console.log(aux5);
+        let aux6=this.antecedentesPersonales[5].valor;
+        console.log(aux6);
+        let aux7=this.antecedentesPersonales[6].valor;
+        console.log(aux7);
+        let aux8=this.antecedentesPersonales[7].valor;
+        console.log(aux8);
+        let aux9=this.antecedentesPersonales[8].valor;
+        console.log(aux9);
+        let aux10=this.antecedentesPersonales[9].valor;
+        console.log(aux10);
+        let aux11=this.antecedentesPersonales[10].valor;
+        console.log(aux11);
+        let aux12=this.antecedentesPersonales[11].valor;
+        console.log(aux12);
+        let aux13=this.antecedentesPersonales[12].valor;
+        console.log(aux13);
+        let aux14=this.antecedentesPersonales[13].valor;
+        console.log(aux14);
+        let aux15=this.antecedentesPersonales[14].valor;
+        console.log(aux15);
+        if(aux1==true)
+          this.formAntecedentes.get('hipertension').setValue(true);
+        else{
+          this.formAntecedentes.get('hipertension').setValue(false);
+        }
+        if(aux2==true)
+          this.formAntecedentes.get('hepatitis').setValue(true);
+        else{
+          this.formAntecedentes.get('hepatitis').setValue(false);
+        }
+        if(aux3==true)
+          this.formAntecedentes.get('diabetes').setValue(true);
+        else{
+          this.formAntecedentes.get('diabetes').setValue(false);
+        }
+        if(aux4==true)
+          this.formAntecedentes.get('tuberculosis').setValue(true);
+        else{
+          this.formAntecedentes.get('tuberculosis').setValue(false);
+        }
+        if(aux5==true)
+          this.formAntecedentes.get('dislipidemias').setValue(true);
+        else{
+          this.formAntecedentes.get('dislipidemias').setValue(false);
+        }
+        if(aux6==true)
+          this.formAntecedentes.get('hospitalizado').setValue(true);
+        else{
+          this.formAntecedentes.get('hospitalizado').setValue(false);
+        }
+        if(aux7==true)
+          this.formAntecedentes.get('osteoartritis').setValue(true);
+        else{
+          this.formAntecedentes.get('osteoartritis').setValue(false);
+        }
+        if(aux8==true)
+          this.formAntecedentes.get('transfuciones').setValue(true);
+        else{
+          this.formAntecedentes.get('transfuciones').setValue(false);
+        }
+        if(aux9==true)
+          this.formAntecedentes.get('derrame').setValue(true);
+        else{
+          this.formAntecedentes.get('derrame').setValue(false);
+        }
+        if(aux10==true)
+          this.formAntecedentes.get('intervencion').setValue(true);
+        else{
+          this.formAntecedentes.get('intervencion').setValue(false);
+        }
+        if(aux11==true)
+          this.formAntecedentes.get('enfermedadCardio').setValue(true);
+        else{
+          this.formAntecedentes.get('enfermedadCardio').setValue(false);
+        }
+        if(aux12==true)
+          this.formAntecedentes.get('accidentes').setValue(true);
+        else{
+          this.formAntecedentes.get('accidentes').setValue(false);
+        }
+        if(aux13==true)
+          this.formAntecedentes.get('cancer').setValue(true);
+        else{
+          this.formAntecedentes.get('cancer').setValue(false);
+        }
+        if(aux14==true)
+          this.formAntecedentes.get('cancerMama').setValue(true);
+        else{
+          this.formAntecedentes.get('cancerMama').setValue(false);
+        }
+        if(aux15==true)
+          this.formAntecedentes.get('cancerProstata').setValue(true);
+        else{
+          this.formAntecedentes.get('cancerProstata').setValue(false);
+        }
+       /*************ANTECEDENTES FAMILIARES*************************/
+       let aux01=this.antecedentesFamiliares[0].valor;
+        console.log(aux01);
+        let aux02=this.antecedentesFamiliares[1].valor;
+        console.log(aux02);
+        let aux03=this.antecedentesFamiliares[2].valor;
+        console.log(aux03);
+        let aux04=this.antecedentesFamiliares[3].valor;
+        console.log(aux04);
+        let aux05=this.antecedentesFamiliares[4].valor;
+        console.log(aux05);
+        let aux06=this.antecedentesFamiliares[5].valor;
+        console.log(aux06);
+
+        if(aux01==true) {
+          this.formAntecedentes.get('tuberculosisAntFamiliar').setValue(true);
+          this.formAntecedentes.get('familiarTuberculosis').setValue(this.antecedentesFamiliares[0].familiar);
+        }else{
+          this.formAntecedentes.get('tuberculosisAntFamiliar').setValue(false);
+        }
+        if(aux02==true) {
+          this.formAntecedentes.get('hipertensionAntFamiliar').setValue(true);
+          this.formAntecedentes.get('familiarHipertension').setValue(this.antecedentesFamiliares[1].familiar);
+        }else{
+          this.formAntecedentes.get('hipertensionAntFamiliar').setValue(false);
+        }
+        if(aux03==true) {
+          this.formAntecedentes.get('diabetesAntFamiliar').setValue(true);
+          this.formAntecedentes.get('familiarDiabetes').setValue(this.antecedentesFamiliares[2].familiar);
+        }else{
+          this.formAntecedentes.get('diabetesAntFamiliar').setValue(false);
+        }
+        if(aux04==true) {
+          this.formAntecedentes.get('infartoAntFamiliar').setValue(true);
+          this.formAntecedentes.get('familiarInfarto').setValue(this.antecedentesFamiliares[3].familiar);
+        }else{
+          this.formAntecedentes.get('infartoAntFamiliar').setValue(false);
+        }
+        if(aux05==true) {
+          this.formAntecedentes.get('demenciaAntFamiliar').setValue(true);
+          this.formAntecedentes.get('familiarDemencia').setValue(this.antecedentesFamiliares[4].familiar);
+        }else{
+          this.formAntecedentes.get('demenciaAntFamiliar').setValue(false);
+        }
+        if(aux06==true) {
+          this.formAntecedentes.get('cancerMamaAntFamiliar').setValue(true);
+          this.formAntecedentes.get('familiarCancerMama').setValue(this.antecedentesFamiliares[5].familiar);
+        }else{
+          this.formAntecedentes.get('cancerMamaAntFamiliar').setValue(false);
+        }
+
         this.messageService.add({
           severity: "success",
           summary: "Exito",

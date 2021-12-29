@@ -30,6 +30,8 @@ export class AtencionesComponent implements OnInit {
     /**Datos a recuperar de la coleccion filiacion**/
     idObstetricia = "";
 
+    cols:any[];
+
     constructor(
         private formBuilder: FormBuilder,
         private dialogService: DialogService,
@@ -38,8 +40,10 @@ export class AtencionesComponent implements OnInit {
         private atencionesService: AtencionesService
     ) {
 
-        this.idObstetricia = this.obstetriciaService.idGestacion
+        this.idObstetricia = this.obstetriciaService.idGestacion;
+
     }
+
     buildForm() {
         this.form = this.formBuilder.group({
 
@@ -169,7 +173,6 @@ export class AtencionesComponent implements OnInit {
         this.recuperarDatosAtenciones();
         this.recuperarDatosGraficoAlturaUterina();
         // this.recuperarDatosGraficoPesoMadre();
-
     }
 
     openNew() {
