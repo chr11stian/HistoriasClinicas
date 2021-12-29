@@ -5,16 +5,18 @@
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                    class="guardar-boton" ></button>
+                    class="guardar-boton" (click)='agregarActualizar()' ></button>
         </ng-template>
     </p-toolbar>
     <br>
     <div class="grid">
+
         <div class="col-12 md:col-7 lg:col-7">
             <p-fieldset legend="Situación Familiar" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
                 <div class="grid">
                     <div class="col-1 p-field-radiobutton">
-                        <p-radioButton name="city" value="normal" [(ngModel)]="city"  inputId="independiente"></p-radioButton>
+                        <p-radioButton name="situacionFamiliar" value="Vive con familia, sin conflicto familiar" formControlName="situacionFamiliar"  ></p-radioButton>
                     </div>
                     <div class="col-9">
                         <label> Vive con familia, sin conflicto familiar </label>
@@ -25,7 +27,7 @@
                     <!--2 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="leve" [(ngModel)]="city"  inputId="dependienteParcial"></p-radioButton>
+                            <p-radioButton name="situacionFamiliar" value="Vive con familia , presenta algún grado de dependencia física/psiquica" formControlName="situacionFamiliar"  ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -38,7 +40,7 @@
                     <!--3 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="moderado" [(ngModel)]="city"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionFamiliar" value="Vive con cónyuge de similar edad" formControlName="situacionFamiliar"  ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -50,7 +52,7 @@
                     <!--4 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="severo" [(ngModel)]="city"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionFamiliar" value="Vive solo y tiene hijos con vivienda próxima" formControlName="situacionFamiliar"  ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -61,7 +63,7 @@
                     </div>
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="severo" [(ngModel)]="city"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionFamiliar" value="Vive solo y carece de hijos o viven lejos (interior del país o extranjero)" formControlName="situacionFamiliar"   ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -71,13 +73,16 @@
                         <label>(5)</label>
                     </div>
                 </div>
+                </form>
             </p-fieldset>
         </div>
+
         <div class="col-12 md:col-5 lg:col-5">
             <p-fieldset legend="Situación Económica" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
                 <div class="grid">
                     <div class="col-1 p-field-radiobutton">
-                        <p-radioButton name="city" value="normal" [(ngModel)]="city2"  inputId="independiente"></p-radioButton>
+                        <p-radioButton name="situacionEconomica" value="Dos veces el salario mínimo vital" formControlName="situacionEconomica"   ></p-radioButton>
                     </div>
                     <div class="col-9">
                         <label> Dos veces el salario mínimo vital.</label>
@@ -88,7 +93,7 @@
                     <!--2 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="leve" [(ngModel)]="city2"  inputId="dependienteParcial"></p-radioButton>
+                            <p-radioButton name="situacionEconomica" value="Menos de 2, pero más de 1 salario mínimo vital" formControlName="situacionEconomica"  ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -101,7 +106,7 @@
                     <!--3 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="moderado" [(ngModel)]="city2"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionEconomica" value="Un salario mínimo vital" formControlName="situacionEconomica"  ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -113,7 +118,7 @@
                     <!--4 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="severo" [(ngModel)]="city2"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionEconomica" value="Ingreso irregular (menos del mínimo vital)" formControlName="situacionEconomica"  ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -124,7 +129,7 @@
                     </div>
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="severo" [(ngModel)]="city2"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionEconomica" value="Sin pensión, sin otros ingresos" formControlName="situacionEconomica"   ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -134,15 +139,18 @@
                         <label>(5)</label>
                     </div>
                 </div>
+                </form>
             </p-fieldset>
         </div>
+
     </div>
     <div class="grid">
         <div class="col-12 md:col-7 lg:col-7">
             <p-fieldset legend="Vivienda" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
                 <div class="grid">
                     <div class="col-1 p-field-radiobutton">
-                        <p-radioButton name="city" value="normal" [(ngModel)]="city3"  inputId="independiente"></p-radioButton>
+                        <p-radioButton name="situacionVivienda" value="Adecuada a las necesidades" formControlName="situacionVivienda" ></p-radioButton>
                     </div>
                     <div class="col-9">
                         <label> Adecuada a las necesidades</label>
@@ -153,7 +161,7 @@
                     <!--2 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="leve" [(ngModel)]="city3"  inputId="dependienteParcial"></p-radioButton>
+                            <p-radioButton name="situacionVivienda" value="Barreras arquitectónicas en la vivienda(pisos irregulares, gradas, puertas estrechas)" formControlName="situacionVivienda"  ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -166,7 +174,7 @@
                     <!--3 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="moderado" [(ngModel)]="city3"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionVivienda" value="Mala conservación, humedad, mala higiene, equipamiento inadecuado (baño incompleto)" formControlName="situacionVivienda" ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -178,7 +186,7 @@
                     <!--4 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="severo" [(ngModel)]="city3"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionVivienda" value="Vivienda semi construida o de material rústico" formControlName="situacionVivienda"  ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -189,7 +197,7 @@
                     </div>
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="severo" [(ngModel)]="city3"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionVivienda" value="Asentamiento humano(invasión) o sin vivienda" formControlName="situacionVivienda"  ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -199,13 +207,15 @@
                         <label>(5)</label>
                     </div>
                 </div>
+                </form>
             </p-fieldset>
         </div>
         <div class="col-12 md:col-5 lg:col-5">
             <p-fieldset legend="Relaciones Sociales" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
                 <div class="grid">
                     <div class="col-1 p-field-radiobutton">
-                        <p-radioButton name="city" value="normal" [(ngModel)]="city4"  inputId="independiente"></p-radioButton>
+                        <p-radioButton name="situacionSocial" value="Mantiene relaciones sociales en la comunidad" formControlName="situacionSocial"></p-radioButton>
                     </div>
                     <div class="col-9">
                         <label>Mantiene relaciones sociales en la comunidad</label>
@@ -216,7 +226,7 @@
                     <!--2 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="leve" [(ngModel)]="city4"  inputId="dependienteParcial"></p-radioButton>
+                            <p-radioButton name="situacionSocial" value="Relación social sólo con la familia y vecinos" formControlName="situacionSocial" ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -229,7 +239,7 @@
                     <!--3 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="moderado" [(ngModel)]="city4"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionSocial" value="Relación socil sólo con la familia" formControlName="situacionSocial" ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -241,7 +251,7 @@
                     <!--4 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="severo" [(ngModel)]="city4"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionSocial" value="No sale del domicilio pero recibe visitas de familia" formControlName="situacionSocial"  ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -252,7 +262,7 @@
                     </div>
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="severo" [(ngModel)]="city4"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionSocial" value="No sale del domicilio y no recibe visitas" formControlName="situacionSocial" ></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -262,15 +272,18 @@
                         <label>(5)</label>
                     </div>
                 </div>
+                </form>
             </p-fieldset>
         </div>
     </div>
     <div class="grid">
         <div class="col-12 md:col-7 lg:col-7">
+
             <p-fieldset legend="Apoyo de la Red Social Municipio, clubes, ONG,Seguro Social, Vivienda" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
                 <div class="grid">
                     <div class="col-1 p-field-radiobutton">
-                        <p-radioButton name="city" value="normal" [(ngModel)]="city5"  inputId="independiente"></p-radioButton>
+                        <p-radioButton name="situacionApoyo" value="No necesita apoyo"  formControlName="situacionApoyo"></p-radioButton>
                     </div>
                     <div class="col-9">
                         <label>No necesita apoyo</label>
@@ -281,7 +294,7 @@
                     <!--2 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="leve" [(ngModel)]="city5"  inputId="dependienteParcial"></p-radioButton>
+                            <p-radioButton name="situacionApoyo" value="Requiere apoyo familiar o vecinal" formControlName="situacionApoyo"></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -294,7 +307,7 @@
                     <!--3 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="moderado" [(ngModel)]="city5"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionApoyo" value="Tiene seguro pero necesita mayor apoyo de éste o voluntario social"  formControlName="situacionApoyo"></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -306,7 +319,7 @@
                     <!--4 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="severo" [(ngModel)]="city5"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionApoyo" value="No cuenta con seguro social" formControlName="situacionApoyo"></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -317,7 +330,7 @@
                     </div>
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="severo" [(ngModel)]="city5"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="situacionApoyo" value="Situación de abandono familiar" formControlName="situacionApoyo"></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -327,14 +340,16 @@
                         <label>(5)</label>
                     </div>
                 </div>
+                </form>
             </p-fieldset>
         </div>
         <div class="col-12 md:col-5 lg:col-5">
             <p-fieldset legend="Valoración Socio-Familiar" [toggleable]="true">
+                <form [formGroup]="formValoracionFamiliar">
                 <p align="center">VALORACIÓN SOCIO FAMILIAR</p>
                 <div class="grid">
                     <div class="col-1 p-field-radiobutton">
-                        <p-radioButton name="city" value="normal" [(ngModel)]="city6"  inputId="independiente"></p-radioButton>
+                        <p-radioButton name="diagnostico" value="BUENA/ACEPTABLE SITUACION SOCIAL" formControlName="diagnostico"></p-radioButton>
                     </div>
                     <div class="col-9">
                         <label> Buena/aceptable situación social</label>
@@ -345,7 +360,7 @@
                     <!--2 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="leve" [(ngModel)]="city6"  inputId="dependienteParcial"></p-radioButton>
+                            <p-radioButton name="diagnostico" value="EXISTE RIESGO SOCIAL" formControlName="diagnostico"></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -358,7 +373,7 @@
                     <!--3 fila-->
                     <div class="col-1">
                         <div class="p-field-radiobutton">
-                            <p-radioButton name="city" value="moderado" [(ngModel)]="city6"  inputId="dependienteTotal"></p-radioButton>
+                            <p-radioButton name="diagnostico" value="EXISTE PROBLEMA SOCIAL" formControlName="diagnostico"></p-radioButton>
                         </div>
                     </div>
                     <div class="col-9">
@@ -371,11 +386,12 @@
                 </div>
                 <div class="grid">
                     <div class="col-12">
-                        <p>-Buena/aceptable situacion social  :<=2E</p>
-                        <p>-Existe riesgo social              :3 a 4E</p>
-                        <p>-Existe problema social            :5 a 7E</p>
+                        <p>-Buena/aceptable situacion social  :<=9 pts</p>
+                        <p>-Existe riesgo social              :10 a 14pts</p>
+                        <p>-Existe problema social            :>15pts</p>
                     </div>
                 </div>
+                </form>
             </p-fieldset>
         </div>
     </div>

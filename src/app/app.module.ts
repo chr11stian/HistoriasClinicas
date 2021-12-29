@@ -1,9 +1,8 @@
-// No puedieron vivir con su fracaso, a donde los llevó eso?... De vuelta a mí xD
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ConfirmationService} from 'primeng/api';
 import {AppRoutingModule} from './app-routing.module';
 import {NgxEchartsModule} from 'ngx-echarts';
@@ -16,6 +15,7 @@ import {PrimeModule} from './shared/prime/prime.module'
 import {ChartModule} from 'primeng/chart';
 import {DividerModule} from "primeng/divider";
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import {InterceptorService} from "../interceptors/interceptor.service";
 
 
 @NgModule({
@@ -36,13 +36,20 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
         ReactiveFormsModule,
         DividerModule,
         ToggleButtonModule,
-        
+
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts'),
         }),
 
     ],
-    providers: [ConfirmationService],
+    providers: [
+        ConfirmationService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: InterceptorService,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

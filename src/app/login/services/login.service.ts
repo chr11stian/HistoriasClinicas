@@ -26,6 +26,7 @@ export class LoginService {
     }
 
     user_login(body) {
+        console.log(body)
         return this.http.post<any>(`${this.base_uri}`, body, {
             headers: new HttpHeaders({
                 'Access-Control-Allow-Origin': '*',
@@ -34,13 +35,16 @@ export class LoginService {
         })
             .pipe(map(user => {
                 if (user) {
+                    console.log('user ', user)
                     const token = {
-                        usuario: user.object.nroDoc,
-                        roles: user.object.estado,
+                        usuario: 'user',
+                        roles: user.usuario.rol,
+                        token: user.token
                     }
                     this.currentUserSubject.next(token)
-                    localStorage.setItem('token', JSON.stringify(token))
-                    localStorage.setItem('usuario',JSON.stringify(user.object))
+                    localStorage.setItem('user', JSON.stringify(token))
+                    localStorage.setItem('usuario', JSON.stringify(user.usuario))
+                    localStorage.setItem('token', JSON.stringify(user.token))
                 }
                 return user;
             }))
@@ -94,8 +98,7 @@ export class LoginService {
                     //this.currentUserSubject.next(token)
                     localStorage.setItem('token', JSON.stringify(token))
                     return data.login_exitoso
-                }
-                else if (credenciales.usuario !== 'geresa' || credenciales.password !== 'geresa'
+                } else if (credenciales.usuario !== 'geresa' || credenciales.password !== 'geresa'
                     || credenciales.usuario !== 'red' || credenciales.password !== 'red'
                     || credenciales.usuario !== 'microred' || credenciales.password !== 'microred'
                     || credenciales.usuario !== 'ipress' || credenciales.password !== 'ipress'

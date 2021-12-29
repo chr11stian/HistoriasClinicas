@@ -76,6 +76,13 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   selectedOption(event) {
     this.formDiagnostico.patchValue({ diagnosticoText: event.descripcionItem });
   }
+
+  recuperarDiagnosticos() {
+
+  }
+  guardarDiagnostico() {
+
+  }
 }
 
 export interface cie10 {

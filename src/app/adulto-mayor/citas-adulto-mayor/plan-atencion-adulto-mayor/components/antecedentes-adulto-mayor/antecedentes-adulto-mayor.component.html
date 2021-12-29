@@ -6,281 +6,283 @@
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                    class="guardar-boton" ></button>
+                    class="guardar-boton" (click)="agregarAntecedentes()" ></button>
         </ng-template>
     </p-toolbar>
     <br>
-    <div class="grid">
-        <div class="col-12 md:col-8 lg:col-8">
-            <p-fieldset legend="Antecedentes Personales">
-                <!--primera fila-->
-                <div class="grid">
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Hipertensión Art.: </label>
+    <form [formGroup]='formAntecedentes'>
+        <div class="grid">
+            <div class="col-12 md:col-8 lg:col-8">
+                <p-fieldset legend="Antecedentes Personales">
+                    <!--primera fila-->
+                    <div class="grid">
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Hipertensión Art.: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="hipertension"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Hepatitis: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="hepatitis"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
                     </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
+                    <!--2 fila-->
+                    <div class="grid">
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Diabetes: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="diabetes"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Tuberculosis: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="tuberculosis"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
                     </div>
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Hepatitis: </label>
+                    <!--3 fila-->
+                    <div class="grid">
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Dislipidemias (Colesterol Alto): </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="dislipidemias"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Hospitalizado último año: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="hospitalizado"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
                     </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
+                    <!--4 fila-->
+                    <div class="grid">
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Osteoartritis: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="osteoartritis"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Transfuciones: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="transfuciones"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
                     </div>
-                </div>
-                <!--2 fila-->
-                <div class="grid">
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Diabetes: </label>
+                    <!--5 fila-->
+                    <div class="grid">
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">ACV Derrame Cerebral: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="derrame"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Intervención Quirúrgica: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="intervencion"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
                     </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
+                    <!--6 fila-->
+                    <div class="grid">
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Enfermedad Cardiovascular (infarto, arritmia,ICC): </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="enfermedadCardio"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Accidentes: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="accidentes"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
                     </div>
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Tuberculosis: </label>
+                    <!--6 fila-->
+                    <div class="grid">
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Cancér: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="cancer"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Cáncer de cervix/mama: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="cancerMama"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
                     </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
+                    <!--7 fila-->
+                    <div class="grid">
+                        <div class="col-6 md:col-4 lg:col-4 p-field">
+                            <label class="">Cancér de próstata: </label>
+                        </div>
+                        <div class="col-6 md:col-2 lg:col-2 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="cancerProstata"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
                     </div>
-                </div>
-                <!--3 fila-->
-                <div class="grid">
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Dislipidemias (Colesterol Alto): </label>
-                    </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Hospitalizado último año: </label>
-                    </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                </div>
-                <!--4 fila-->
-                <div class="grid">
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Osteoartritis: </label>
-                    </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Transfuciones: </label>
-                    </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                </div>
-                <!--5 fila-->
-                <div class="grid">
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">ACV Derrame Cerebral: </label>
-                    </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Intervención Quirúrgica: </label>
-                    </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                </div>
-                <!--6 fila-->
-                <div class="grid">
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Enfermedad Cardiovascular (infarto, arritmia,ICC): </label>
-                    </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Accidentes: </label>
-                    </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                </div>
-                <!--6 fila-->
-                <div class="grid">
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Cancér: </label>
-                    </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Cáncer de cervix/mama: </label>
-                    </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                </div>
-                <!--7 fila-->
-                <div class="grid">
-                    <div class="col-6 md:col-4 lg:col-4 p-field">
-                        <label class="">Cancér de próstata: </label>
-                    </div>
-                    <div class="col-6 md:col-2 lg:col-2 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                </div>
 
-            </p-fieldset>
-        </div>
-        <div class="col-12 md:col-4 lg:col-4">
-            <p-fieldset legend="Antecedentes Familiares">
-                <div class="grid">
-                    <div class="col-8">
+                </p-fieldset>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4">
+                <p-fieldset legend="Antecedentes Familiares">
+                    <div class="grid">
+                        <div class="col-8">
+                        </div>
+                        <div class="col-4">
+                            <h4>Quién?</h4>
+                        </div>
                     </div>
-                    <div class="col-4">
-                        <h4>Quién?</h4>
+                    <!--1 fila-->
+                    <div class="grid">
+                        <div class="col-4 p-field">
+                            <label class="">Tuberculosis:</label>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="tuberculosisAntFamiliar"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-dropdown
+                                    [options]="familiares"
+                                    optionLabel="nombrefamiliar" formControlName="familiarTuberculosis"
+                                    optionValue="nombrefamiliar"
+                                    placeholder="Selec"
+                                    [showClear]="false">
+                            </p-dropdown>
+                        </div>
                     </div>
-                </div>
-                <!--1 fila-->
-                <div class="grid">
-                    <div class="col-4 p-field">
-                        <label class="">Tuberculosis:</label>
+                    <!-- 2 fila-->
+                    <div class="grid">
+                        <div class="col-4 p-field">
+                            <label class="">Hipertensión Art.:</label>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="hipertensionAntFamiliar"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-dropdown
+                                    [options]="familiares"
+                                    optionLabel="nombrefamiliar" formControlName="familiarHipertension"
+                                    optionValue="nombrefamiliar"
+                                    placeholder="Selec"
+                                    [showClear]="false">
+                            </p-dropdown>
+                        </div>
                     </div>
-                    <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
+                    <!--3 fila-->
+                    <div class="grid">
+                        <div class="col-4 p-field">
+                            <label class="">Diabetes:</label>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="diabetesAntFamiliar"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-dropdown
+                                    [options]="familiares"
+                                    optionLabel="nombrefamiliar" formControlName="familiarDiabetes"
+                                    optionValue="nombrefamiliar"
+                                    placeholder="Selec"
+                                    [showClear]="false">
+                            </p-dropdown>
+                        </div>
                     </div>
-                    <div class="col-4 p-field">
-                        <p-dropdown
-                                [options]="familiares"
-                                optionLabel="nombrefamiliar"
-                                optionValue="nombrefamiliar"
-                                placeholder="Selec"
-                                [showClear]="false">
-                        </p-dropdown>
+                    <!--4 fila-->
+                    <div class="grid">
+                        <div class="col-4 p-field">
+                            <label class="">Infarto de Miocardio:</label>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="infartoAntFamiliar"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-dropdown
+                                    [options]="familiares"
+                                    optionLabel="nombrefamiliar" formControlName="familiarInfarto"
+                                    optionValue="nombrefamiliar"
+                                    placeholder="Selec"
+                                    [showClear]="false">
+                            </p-dropdown>
+                        </div>
                     </div>
-                </div>
-                <!-- 2 fila-->
-                <div class="grid">
-                    <div class="col-4 p-field">
-                        <label class="">Hipertensión Art.:</label>
+                    <!--5 fila-->
+                    <div class="grid">
+                        <div class="col-4 p-field">
+                            <label class="">Demencia:</label>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="demenciaAntFamiliar"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-dropdown
+                                    [options]="familiares"
+                                    optionLabel="nombrefamiliar" formControlName="familiarDemencia"
+                                    optionValue="nombrefamiliar"
+                                    placeholder="Selec"
+                                    [showClear]="false">
+                            </p-dropdown>
+                        </div>
                     </div>
-                    <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
+                    <!-- 6 FILA-->
+                    <div class="grid">
+                        <div class="col-4 p-field">
+                            <label class="">Cáncer (mama, estómago, colon):</label>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-selectButton [options]="sino"  optionValue="value" formControlName="cancerMamaAntFamiliar"
+                                            optionLabel="label"></p-selectButton>
+                        </div>
+                        <div class="col-4 p-field">
+                            <p-dropdown
+                                    [options]="familiares"
+                                    optionLabel="nombrefamiliar" formControlName="familiarCancerMama"
+                                    optionValue="nombrefamiliar"
+                                    placeholder="Selec"
+                                    [showClear]="false">
+                            </p-dropdown>
+                        </div>
                     </div>
-                    <div class="col-4 p-field">
-                        <p-dropdown
-                                [options]="familiares"
-                                optionLabel="nombrefamiliar"
-                                optionValue="nombrefamiliar"
-                                placeholder="Selec"
-                                [showClear]="false">
-                        </p-dropdown>
-                    </div>
-                </div>
-                <!--3 fila-->
-                <div class="grid">
-                    <div class="col-4 p-field">
-                        <label class="">Diabetes:</label>
-                    </div>
-                    <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                    <div class="col-4 p-field">
-                        <p-dropdown
-                                [options]="familiares"
-                                optionLabel="nombrefamiliar"
-                                optionValue="nombrefamiliar"
-                                placeholder="Selec"
-                                [showClear]="false">
-                        </p-dropdown>
-                    </div>
-                </div>
-                <!--4 fila-->
-                <div class="grid">
-                    <div class="col-4 p-field">
-                        <label class="">Infarto de Miocardio:</label>
-                    </div>
-                    <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                    <div class="col-4 p-field">
-                        <p-dropdown
-                                [options]="familiares"
-                                optionLabel="nombrefamiliar"
-                                optionValue="nombrefamiliar"
-                                placeholder="Selec"
-                                [showClear]="false">
-                        </p-dropdown>
-                    </div>
-                </div>
-                <!--5 fila-->
-                <div class="grid">
-                    <div class="col-4 p-field">
-                        <label class="">Demencia:</label>
-                    </div>
-                    <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                    <div class="col-4 p-field">
-                        <p-dropdown
-                                [options]="familiares"
-                                optionLabel="nombrefamiliar"
-                                optionValue="nombrefamiliar"
-                                placeholder="Selec"
-                                [showClear]="false">
-                        </p-dropdown>
-                    </div>
-                </div>
-                <!-- 6 FILA-->
-                <div class="grid">
-                    <div class="col-4 p-field">
-                        <label class="">Cáncer (mama, estómago, colon):</label>
-                    </div>
-                    <div class="col-4 p-field">
-                        <p-selectButton [options]="sino"  optionValue="value"
-                                        optionLabel="label"></p-selectButton>
-                    </div>
-                    <div class="col-4 p-field">
-                        <p-dropdown
-                                [options]="familiares"
-                                optionLabel="nombrefamiliar"
-                                optionValue="nombrefamiliar"
-                                placeholder="Selec"
-                                [showClear]="false">
-                        </p-dropdown>
-                    </div>
-                </div>
 
-            </p-fieldset>
+                </p-fieldset>
+            </div>
         </div>
-    </div>
-    <div class="grid">
-        <div class="col-12 p-fluid">
-            <h4>Descripción de Antecedentes y otros:</h4>
+        <div class="grid">
+            <div class="col-12 p-fluid">
+                <h4>Descripción de Antecedentes y otros:</h4>
+            </div>
+            <div class="col-12 p-fluid">
+                <textarea pInputTextarea autoResize="autoResize" placeholder="Descripcion" formControlName="antecedentesOtros" p-field></textarea>
+            </div>
         </div>
-        <div class="col-12 p-fluid">
-            <textarea pInputTextarea autoResize="autoResize" placeholder="Descripcion" p-field></textarea>
-        </div>
-    </div>
-    <br>
+        <br>
+    </form>
     <div class="">
         <p-toolbar>
             <ng-template pTemplate="left">
@@ -328,13 +330,15 @@
         </p-table>
     </div>
     <div class="">
-        <h4>Reacción Adversa a Medicamentos</h4>
-        <div class="grid">
-            <div class="col-12 p-field">
-                <p-selectButton [options]="sino"  optionValue="value"
-                                optionLabel="label"></p-selectButton>
+        <form [formGroup]='formAntecedentes'>
+            <h4>Reacción Adversa a Medicamentos</h4>
+            <div class="grid">
+                <div class="col-12 p-field">
+                    <p-selectButton [options]="sino"  optionValue="value" formControlName="reaccionAdversa"
+                                    optionLabel="label"></p-selectButton>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 <!--- DIALOGO TRATAMIENTO FRECUENTE---->

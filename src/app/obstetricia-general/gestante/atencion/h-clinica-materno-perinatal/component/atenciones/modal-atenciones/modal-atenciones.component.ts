@@ -77,18 +77,18 @@ export class ModalAtencionesComponent implements OnInit {
       this.formAtenciones.get("edadGestacionalSemanas").setValue(configuracion.edadGestacionalSemanas + " " +  configuracion.edadGestacionalDias + "/7")
     }
     if(configuracion.peso !=null){this.formAtenciones.get("peso").setValue(configuracion.peso);}
-    if(configuracion.evaluacionNutricional!=null){
-      this.formAtenciones.get("evaluacionNutricional").setValue(configuracion.evaluacionNutricional.valor +" "+ configuracion.evaluacionNutricional.indicador);
+    if(configuracion.evaluacionNutricional!=null) {
+      this.formAtenciones.get("evaluacionNutricional").setValue(configuracion.evaluacionNutricional.valor + " " + configuracion.evaluacionNutricional.indicador);
     }
     if(configuracion.temperatura!=null){this.formAtenciones.get("temperatura").setValue(configuracion.t);}
     if(configuracion.presionDiastolica!=null || configuracion.presionSistolica!=null){
       this.formAtenciones.get("presionArterial").setValue(configuracion.presionSistolica + "/" + configuracion.presionDiastolica);
     }
-    if(configuracion.pulso){this.formAtenciones.get("pulso").setValue(configuracion.fc);}
-    if(configuracion.alturaUterina){this.formAtenciones.get("alturaUterina").setValue(configuracion.alturaUterina);}
-    if(configuracion.proteinuria){this.formAtenciones.get("proteinuria").setValue(configuracion.proteinuria);}
-    if(configuracion.edema){this.formAtenciones.get("edema").setValue(configuracion.edema);}
-    if(configuracion.reflejoOsteotendinoso){this.formAtenciones.get("reflejoOsteotendinoso").setValue(configuracion.reflejoOsteotendinoso);}
+    if(configuracion.pulso!=null){this.formAtenciones.get("pulso").setValue(configuracion.fc);}
+    if(configuracion.alturaUterina!=null){this.formAtenciones.get("alturaUterina").setValue(configuracion.alturaUterina);}
+    if(configuracion.proteinuria!=null){this.formAtenciones.get("proteinuria").setValue(configuracion.proteinuria);}
+    if(configuracion.edema!=null){this.formAtenciones.get("edema").setValue(configuracion.edema);}
+    if(configuracion.reflejoOsteotendinoso!=null){this.formAtenciones.get("reflejoOsteotendinoso").setValue(configuracion.reflejoOsteotendinoso);}
     if(configuracion.ecografia!=null){
       this.formAtenciones.get("ecografia").setValue(configuracion.ecografia.fecha + " (" + configuracion.ecografia.semanas + " "+ configuracion.ecografia.dias + "/7)");
     }
@@ -96,7 +96,7 @@ export class ModalAtencionesComponent implements OnInit {
     if(configuracion.acidoFolico!=null){
       this.formAtenciones.get("acidoFolico").setValue(configuracion.acidoFolico.numero + "(" + configuracion.acidoFolico.dosis + ")");
     }
-    if(configuracion.hierroYAcidoFolico){
+    if(configuracion.hierroYAcidoFolico!=null){
       this.formAtenciones.get("hierroYAcidoFolico").setValue(configuracion.hierroYAcidoFolico.numero +"(" + configuracion.acidoFolico.dosis + ")");
     }
     if(configuracion.calcio!=null){
@@ -107,9 +107,10 @@ export class ModalAtencionesComponent implements OnInit {
     }
     if(configuracion.visitaDomiciliaria.estado ==="NO" || configuracion.visitaDomiciliaria.estado === "NO APLICA"){ this.formAtenciones.get("visitaDomiciliaria").setValue(configuracion.visitaDomiciliaria.estado);}
     else{ this.formAtenciones.get("visitaDomiciliaria").setValue(configuracion.visitaDomiciliaria.estado +"-" + configuracion.visitaDomiciliaria.fecha);}
-    console.log(configuracion.proxCita.fecha);
-    this.formAtenciones.get("proxCita").setValue(configuracion.proxCita.fecha);
-    this.formAtenciones.get("encargado").setValue(configuracion.encargado.tipoDoc + "-" + configuracion.encargado.nroDoc);
+    if(configuracion.proxCita!=null)
+    { this.formAtenciones.get("proxCita").setValue(configuracion.proxCita);}
+    if(configuracion.encargado!=null)
+    {this.formAtenciones.get("encargado").setValue(configuracion.encargado.tipoDoc + "-" + configuracion.encargado.nroDoc);}
     this.formAtenciones.get("establecimiento").setValue(configuracion.establecimiento);
     this.formAtenciones.get("nroAtencion").setValue(configuracion.nroAtencion);
 

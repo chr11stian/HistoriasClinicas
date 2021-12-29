@@ -94,8 +94,8 @@ export class RolGuardiaComponent implements OnInit {
       for (let j = 0; j < this.nroDiasMes; j++) {
         let turnoDefecto = {
           dia: j + 1,
-          nombre: "Libre",
-          abreviatura: "L",
+          nombre: "Sin valor",
+          abreviatura: "sin valor",
           nroHoras: 0,
         };
         filaAux.push(turnoDefecto);

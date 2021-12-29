@@ -62,7 +62,7 @@ export class TipoUpsComponent implements OnInit {
       }
       if (mensaje === "duplicado") {
         this.messageService.add({
-          severity: "success",
+          severity: "warn",
           summary: "Informacion",
           detail: "Ya existe un registro con el mismo Nombre",
         });

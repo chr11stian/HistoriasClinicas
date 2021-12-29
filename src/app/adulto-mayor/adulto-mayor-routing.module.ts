@@ -15,6 +15,10 @@ const routes: Routes = [
     path: "citas",
     loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/plan-atencion-adulto-mayor/plan-atencion-adulto-mayor.module').then(n => n.PlanAtencionAdultoMayorModule),
   },
+  {
+    path: "citas",
+    loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/consulta-adulto-mayor/consulta-adulto-mayor.module').then(n => n.ConsultaAdultoMayorModule),
+  },
 ];
 
 @NgModule({
