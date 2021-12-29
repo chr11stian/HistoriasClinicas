@@ -12,6 +12,19 @@
 </p-steps>
 <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
     <p-card>
+        <br>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">DATOS GENERALES</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                </ng-template>
+            </p-toolbar>
+            <br>
+        </ng-template>
         <ng-template pTemplate="content">
             <app-datos-generales-consulta [consulta]="consulta">
             </app-datos-generales-consulta>
@@ -20,6 +33,21 @@
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'motivo'">
     <p-card>
+        <br>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">MOTIVO DE CONSULTA</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Atras" icon="pi pi-angle-left"
+                            class="p-button-secondary mr-2" (click)="prevPage()"></button>
+                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                </ng-template>
+            </p-toolbar>
+            <br>
+        </ng-template>
         <ng-template pTemplate="content">
             <app-motivo-consulta></app-motivo-consulta>
         </ng-template>
@@ -27,7 +55,20 @@
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'diagnostico'">
     <p-card>
-        <ng-template pTemplate="header"></ng-template>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">DIAGNÓSTICO</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
+                            (click)="prevPage()"></button>
+                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                            class="guardar mr-2"
+                            style="background-color: #0c3866" (click)="nextPage()"></button>
+                </ng-template>
+            </p-toolbar>
+        </ng-template>
         <ng-template pTemplate="content">
             <app-diagnostico-consulta></app-diagnostico-consulta>
         </ng-template>
@@ -35,7 +76,19 @@
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'tratamiento'">
     <p-card>
-        <ng-template pTemplate="header"></ng-template>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">TRATAMIENTO</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Atras" (click)="prevPage()" icon="pi pi-angle-left"
+                            class="p-button-secondary mr-2"></button>
+                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                            class="guardar mr-2" style="background-color: #0c3866" (click)="nextPage()"></button>
+                </ng-template>
+            </p-toolbar>
+        </ng-template>
         <ng-template pTemplate="content">
             <app-tratamiento-consulta></app-tratamiento-consulta>
         </ng-template>
@@ -43,7 +96,19 @@
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'finalizar'">
     <p-card>
-        <ng-template pTemplate="header"></ng-template>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">FINALIZACIÓN DE LA CONSULTA</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Atras" (click)="prevPage()" icon="pi pi-angle-left"
+                            class="p-button-secondary mr-2"></button>
+                    <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                </ng-template>
+            </p-toolbar>
+        </ng-template>
         <ng-template pTemplate="content">
             <app-finalizar-consulta></app-finalizar-consulta>
         </ng-template>

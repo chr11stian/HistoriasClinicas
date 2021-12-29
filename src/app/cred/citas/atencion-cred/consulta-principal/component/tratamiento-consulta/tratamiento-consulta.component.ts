@@ -84,7 +84,7 @@ export class TratamientoConsultaComponent implements OnInit {
         this.form.get('textoForm').setValue(this.tamizajeSaludMental);
     }
 
-    guardar() {
+    save() {
         let aux: evalOjosVisionInterface = {
             ojoDerecho: parseFloat(this.form.value.OD),
             ojoIzquierdo: parseFloat(this.form.value.OI)

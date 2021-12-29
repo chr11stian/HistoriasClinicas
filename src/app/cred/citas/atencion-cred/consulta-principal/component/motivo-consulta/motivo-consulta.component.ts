@@ -81,7 +81,7 @@ export class MotivoConsultaComponent implements OnInit {
         })
     }
 
-    guardar() {
+    save() {
         let signosVitales: signosVitalesInterface = {
             t: this.examFG.value.TFC,
             pa: this.examFG.value.PAFC,

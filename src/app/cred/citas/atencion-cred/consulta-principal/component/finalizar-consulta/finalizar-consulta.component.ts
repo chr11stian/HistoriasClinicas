@@ -318,11 +318,11 @@ export class FinalizarConsultaComponent implements OnInit {
         })
     }
 
-    guardar() {
+    save() {
         let r: referenciaInterface = {
-            consultorio: this.referencia[0].consultorio,
-            motivo: this.referencia[0].motivo,
-            codRENAES: this.referencia[0].codRENAES
+            consultorio: this.referencia[0].consultorio === null ? 'consultorio' : this.referencia[0].consultorio,
+            motivo: this.referencia[0].motivo === null ? 'motivo' : this.referencia[0].motivo,
+            codRENAES: this.referencia[0].codRENAES === null ? 'codRENAES' : this.referencia[0].codRENAES
         }
         const req = {
             acuerdosComprimisos: this.acuerdosComprimisos,
