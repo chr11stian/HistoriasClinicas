@@ -1,3 +1,13 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">DATOS GENERALES</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button (click)="save()"
+                pButton pRipple label="Guardar" iconPos="right" icon="pi pi-angle-right"
+                class="guardar mr-2"></button>
+    </ng-template>
+</p-toolbar>
 <form [formGroup]="datosGeneralesFG">
 <div class="grid">
     <div class="col-2">
@@ -86,14 +96,14 @@
     <div class="col-3">
         <label>Distrito:</label>
         <div class="p-fluid">
-            <p-dropdown formControlName="distrito" [options]="distrito" optionLabel="distrito" placeholder="Seleccione distrito"></p-dropdown>
+            <p-dropdown formControlName="distrito" [options]="distrito" optionLabel="distrito"  placeholder="Seleccione distrito"></p-dropdown>
 
         </div>
     </div>
     <div class="col-2">
         <label>GrupoSanguineo:</label>
         <div class="p-fluid">
-            <p-dropdown formControlName="grupoSanguineo" [options]="grupoSanguineo"  optionLabel="name" optionValue="code"></p-dropdown>
+            <p-dropdown formControlName="grupoSanguineo" [options]="grupoSanguineo"  optionLabel="name" optionValue="code" placeholder="ingrese"></p-dropdown>
         </div>
     </div>
     <div class="col-1">
@@ -114,6 +124,8 @@
     <div class="col-2">
         <label>Idioma:</label>
         <div class="p-fluid">
+
+
             <p-dropdown  formControlName="idioma" [options]="idioma" optionLabel="name" optionValue="code"></p-dropdown>
         </div>
     </div>
@@ -186,6 +198,5 @@
         </div>
     </div>
 </div>
-    <button pButton type="button" label="Click" (click)="save()"></button>
 </form>
 

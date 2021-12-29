@@ -34,9 +34,9 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
     {name:'name5',code:'code5'},
     {name:'name6',code:'code6'}]
   idioma=[
-    {name:"español",code:"Español"},
-    {name:"quechua",code:"Quechua"},
-    {name:"aymara",code:"Aymara"},
+    {name:"español",code:"espaniol"},
+    {name:"quechua",code:"quechua"},
+    {name:"aymara",code:"ayamara"},
   ]
   departamento=[];
   provincia=[];
@@ -93,7 +93,8 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
     console.log(valor)
     this.getFC('provincia').setValue(null);
     this.getFC('distrito').setValue(null);
-    const departamento=valor.value;
+    const departamento=this.getFC('departamento').value;
+    console.log(departamento)
     this.getProvincia(departamento);
   }
   cambiarProvincia(valor){
@@ -126,7 +127,7 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
   }
   getDatosGenerales(){
     this.tipoDNI='DNI'
-    this.nroDNI='10101010'
+    this.nroDNI='10101013'
       this.datosGeneralesService.getAdolescente(this.tipoDNI,this.nroDNI).subscribe((resp)=>{
         if(resp['cod']=="2005"){
           const data=resp['object']
@@ -138,7 +139,25 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
           this.getFC('sexo').setValue(data.sexo);
           this.getFC('edad').setValue(data.edad);
           this.getFC('fechaNacimiento').setValue(new Date('2021-12-06 00:05:00'))
-          this.getFC('departamento').setValue({iddd:'03',departamento:'APURIMAC'});
+          // this.getFC('departamento').setValue({iddd:'03',departamento:'APURIMAC'});
+          // this.getFC('provincia').setValue({iddd:'03',departamento:'APURIMAC'});
+          // this.getFC('distrito').setValue({iddd:'03',departamento:'APURIMAC'});
+          this.getFC('grupoSanguineo').setValue(data.grupoSanguineo);
+          this.getFC('rh').setValue(data.rh);
+          this.getFC('procedencia').setValue(data.procedencia);
+          this.getFC('idioma').setValue(data.idioma);
+          this.getFC('domicilioDireccion').setValue(data.direccion);
+          this.getFC('gradoInstruccion').setValue(data.gradoInstruccion);
+          this.getFC('centroEducativo').setValue(data.centroEducativo);
+          this.getFC('estadoCivil').setValue(data.estadoCivil);
+          this.getFC('religion').setValue(data.religion);
+          this.getFC('ocupacion').setValue(data.ocupacion);
+          this.getFC('aconpananteApellidosNombres').setValue(data.acompaniante);
+          this.getFC('aconpananteParentesco').setValue(data.parentesco);
+          this.getFC('aconpananteDomicilioDireccion').setValue(data.direccionAcompaniante);
+
+
+
 
 
 
@@ -155,27 +174,28 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
 
 
   save(){
+    console.log('estamos en el save')
     this.tipoDNI='DNI'
-    this.nroDNI='10101010'
+    this.nroDNI='10101013'
     const requestInput={
       fecha:this.getFechaCeroHora(this.getFC('fecha').value),
       nroSeguro:this.getFC('nroSeguro').value,
       nroHcl:this.getFC('nroSeguro').value,
       primerNombre:this.getFC('nombres').value,
-      otrosNombres:"otros nombres",
-      apePaterno:this.getFC('apellidos').value,
-      apeMaterno:"materno",
+      otrosNombres:this.getFC('nombres').value,
+      apePaterno:this.getFC('apellidoPaterno').value,
+      apeMaterno:this.getFC('apellidoMaterno').value,
       sexo:this.getFC('sexo').value,
       grupoSanguineo:this.getFC('grupoSanguineo').value,
       rh:this.getFC('rh').value,
       fechaNacimiento:this.getFechaCeroHora(this.getFC('fechaNacimiento').value),
-      edad:29,
-      provinciaNacimiento:this.getFC('provincia').value,
-      distritoNacimiento:this.getFC('distrito').value,
-      departamentoNacimiento:this.getFC('departamento').value,
+      edad:this.getFC('edad').value,
+      provinciaNacimiento:'CUSCO',
+      distritoNacimiento:'CUSCO',
+      departamentoNacimiento:'CUSCO',
       procedencia:this.getFC('procedencia').value,
       idioma:this.getFC('idioma').value,
-      direccion:this.getFC('domiciolioDireccion').value,
+      direccion:this.getFC('domicilioDireccion').value,
       gradoInstruccion:this.getFC('gradoInstruccion').value,
       centroEducativo:this.getFC('centroEducativo').value,
       estadoCivil:this.getFC('estadoCivil').value,

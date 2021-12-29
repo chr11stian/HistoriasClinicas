@@ -1,3 +1,13 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">DATOS GENERALES</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button (click)="save()"
+                pButton pRipple label="Guardar" iconPos="right" icon="pi pi-angle-right"
+                class="guardar mr-2"></button>
+    </ng-template>
+</p-toolbar>
 <p-divider align="left">
     <div class="p-d-inline-flex p-ai-center">
         <i class="pi pi-angle-double-right p-mr-2"></i>
@@ -13,7 +23,7 @@
                     <label for="">Menarquia/<br>Espermarquia </label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="menarquiaEspermarquia"></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="menarquiaEspermarquia" optionValue="code"></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Edad en años:</label>
@@ -28,7 +38,7 @@
                     <label for="">Inicio relacion Sexual:</label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="inicioRelacionSexual"></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="inicioRelacionSexual" optionValue="code"></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Edad en años:</label>
@@ -46,7 +56,7 @@
                     <label for="">Abuso sexual:</label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="abusoSexual"></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" optionValue="code" formControlName="abusoSexual" ></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Nro:</label>
@@ -61,7 +71,7 @@
                     <label for="">Embarazo:</label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="enbarazo"></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" optionValue="code" formControlName="enbarazo"></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Nro:</label>
@@ -76,7 +86,7 @@
                     <label for="">Hijos:</label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="hijos"></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" optionValue="code" formControlName="hijos"></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Nro:</label>
@@ -91,7 +101,7 @@
                     <label for="">Aborto:</label>
                 </div>
                 <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="aborto"></p-selectButton>
+                    <p-selectButton [options]="siNo" optionLabel="name" optionValue="code" formControlName="aborto"></p-selectButton>
                 </div>
                 <div class="col-3">
                     <label for="">Nro:</label>
@@ -128,7 +138,7 @@
                 </label>
             </div>
             <div class="col-5   ">
-                <p-selectButton [options]="siNo" optionLabel="name" formControlName="usaMetodoAnticonceptivo"></p-selectButton>
+                <p-selectButton [options]="siNo" optionLabel="name" optionValue="code" formControlName="usaMetodoAnticonceptivo"></p-selectButton>
             </div>
         </div>
         <div class="grid">
@@ -137,7 +147,7 @@
                 </label>
             </div>
             <div class="col-5   ">
-                <p-selectButton [options]="siNo" optionLabel="name" formControlName="sabePrevenirEmbarazoNoDeseado"></p-selectButton>
+                <p-selectButton [options]="siNo" optionLabel="name" optionValue="code" formControlName="sabePrevenirEmbarazoNoDeseado"></p-selectButton>
             </div>
         </div>
         <div class="grid">
@@ -146,7 +156,7 @@
                 </label>
             </div>
             <div class="col-5   ">
-                <p-selectButton [options]="siNo" optionLabel="name" formControlName="sabePrevenirITSVIH"></p-selectButton>
+                <p-selectButton [options]="siNo" optionLabel="name" optionValue="code" formControlName="sabePrevenirITSVIH"></p-selectButton>
             </div>
         </div>
 
@@ -163,5 +173,4 @@
         </div>
     </div>
 </div>
-    <button pButton type="button" label="Click" (click)="save()"></button>
 </form>
