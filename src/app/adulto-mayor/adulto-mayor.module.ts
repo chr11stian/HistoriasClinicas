@@ -13,7 +13,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
-        CitasAdultoMayorComponent
+        CitasAdultoMayorComponent,
+
     ],
     imports: [
         CommonModule,

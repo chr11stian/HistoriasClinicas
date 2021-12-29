@@ -10,6 +10,7 @@ const routes: Routes = [
     {
         path: "consulta",
         loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/consulta-adulto-mayor/consulta-adulto-mayor.module').then(n => n.ConsultaAdultoMayorModule),
+
     },
 ];
 

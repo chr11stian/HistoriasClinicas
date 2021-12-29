@@ -71,9 +71,18 @@ export class CitasAdultoMayorComponent implements OnInit {
     })
   }
 
-  atender(row: userCita): void {
+  atenderPlan(row: userCita): void {
     /** redirigir a atencion de usuario */
     this.router.navigate(['/dashboard/adulto-mayor/citas/plan'], {
+      queryParams: {
+        'tipoDoc': 'DNI',
+        'nroDoc': row.nroDoc,
+      }
+    })
+  }
+  atenderConsulta(row: userCita): void {
+    /** redirigir a consulta de usuario */
+    this.router.navigate(['/dashboard/adulto-mayor/citas/consulta'], {
       queryParams: {
         'tipoDoc': 'DNI',
         'nroDoc': row.nroDoc,

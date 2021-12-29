@@ -10,6 +10,7 @@ import { DiagnosticoAdultoMayorComponent } from './components/diagnostico-adulto
 import { EnfermedadActualAdultoMayorComponent } from './components/enfermedad-actual-adulto-mayor/enfermedad-actual-adulto-mayor.component';
 import { StepGeneralConsultaAdultoMayorComponent } from './components/step-general-consulta-adulto-mayor/step-general-consulta-adulto-mayor.component';
 import {ConsultaAdultoMayorRoutingModule} from "./consulta-adulto-mayor-routing.module";
+import { TratamientoModalComponent } from './components/categorias-adulto-mayor/tratamiento-modal/tratamiento-modal.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {ConsultaAdultoMayorRoutingModule} from "./consulta-adulto-mayor-routing.
     CategoriasAdultoMayorComponent,
     DiagnosticoAdultoMayorComponent,
     EnfermedadActualAdultoMayorComponent,
-    StepGeneralConsultaAdultoMayorComponent
+    StepGeneralConsultaAdultoMayorComponent,
+    TratamientoModalComponent
   ],
   imports: [
     SharedModule,
