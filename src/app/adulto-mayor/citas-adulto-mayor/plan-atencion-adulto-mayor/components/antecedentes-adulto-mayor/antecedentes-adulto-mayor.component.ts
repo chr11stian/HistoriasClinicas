@@ -12,7 +12,7 @@ import {AdultoMayorService} from "../../services/adulto-mayor.service";
 @Component({
   selector: 'app-antecedentes-adulto-mayor',
   templateUrl: './antecedentes-adulto-mayor.component.html',
-  styleUrls: ['./antecedentes-adulto-mayor.component.css']
+  styleUrls: ['./antecedentes-adulto-mayor.component.css'],
 })
 export class AntecedentesAdultoMayorComponent implements OnInit {
   dialogTratamientoFrecuente:boolean=false;
@@ -200,22 +200,18 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
     {
       let aux = {nombre:'ACV DERRAME CEREBRAL',valor:true}
       antecedentesPersonales.push(aux);
-
     }else{
       let aux = {nombre:'ACV DERRAME CEREBRAL', value:false}
       antecedentesPersonales.push(aux);
-
     }
     /**10**/
     if(intervencionPersonal)
     {
       let aux = {nombre:'INTERVENCION QUIRURGICAS',valor:true}
       antecedentesPersonales.push(aux);
-
     }else{
       let aux = {nombre:'INTERVENCION QUIRURGICAS', value:false}
       antecedentesPersonales.push(aux);
-
     }
     /**11**/
     if(enfermedadCardiovascular)
@@ -226,29 +222,24 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
     }else{
       let aux = {nombre:'ENFERMEDAD CARDIOVASCULAR (INFARTO, ARRITMIA, ICC)', value:false}
       antecedentesPersonales.push(aux);
-
     }
     /**12**/
     if(accidentes)
     {
       let aux = {nombre:'ACCIDENTES',valor:true}
       antecedentesPersonales.push(aux);
-
     }else{
       let aux = {nombre:'ACCIDENTES', value:false}
       antecedentesPersonales.push(aux);
-
     }
     /**13**/
     if(cancer)
     {
       let aux = {nombre:'CANCER',valor:true}
       antecedentesPersonales.push(aux);
-
     }else{
       let aux = {nombre:'CANCER', value:false}
       antecedentesPersonales.push(aux);
-
     }
     /**14**/
     if(cancerMama)
@@ -259,18 +250,15 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
     }else{
       let aux = {nombre:'CANCER DE CERVIX/MAMA', value:false}
       antecedentesPersonales.push(aux);
-
     }
     /**15**/
     if(cancerProstata)
     {
       let aux = {nombre:'CANCER PROSTATA',valor:true}
       antecedentesPersonales.push(aux);
-
     }else{
       let aux = {nombre:'CANCER PROSTATA', value:false}
       antecedentesPersonales.push(aux);
-
     }
 
     /************** Antecedents familiares *******************/

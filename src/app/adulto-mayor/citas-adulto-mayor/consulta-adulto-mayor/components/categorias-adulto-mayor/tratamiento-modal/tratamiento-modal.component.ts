@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ObstetriciaGeneralService} from "../../../../../../obstetricia-general/services/obstetricia-general.service";
 import Swal from "sweetalert2";
+import {listas, Tratamientos} from "../../models/consulta-adulto-mayor.model";
 
 @Component({
   selector: 'app-tratamiento-modal',
@@ -11,10 +12,10 @@ import Swal from "sweetalert2";
 })
 export class TratamientoModalComponent implements OnInit {
   formTratamientoComun: FormGroup;
-  dataTratamientosComunes:any[]=[];
+  dataTratamientosComunes:Tratamientos[];
   dialogTratamiento = false;
-  intervaloList: any[];
-  viaadministracionList: any[];
+  intervaloList: listas[];
+  viaadministracionList: listas[];
   constructor(private form: FormBuilder,
               private ref: DynamicDialogRef,
               private config: DynamicDialogConfig) {

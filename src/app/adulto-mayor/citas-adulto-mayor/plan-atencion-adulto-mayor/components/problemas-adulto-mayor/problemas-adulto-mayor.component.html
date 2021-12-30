@@ -17,10 +17,10 @@
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
-                    class="guardar mr-2" style="background-color: #689F38" (click)="openNewCronico()"></button>
+                    class="agregar-boton"  (click)="openNewCronico()"></button>
                 </ng-template>
             </p-toolbar>
-            <p-table class="table-over" [value]="problemasCronicos" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+            <p-table class="table-over" [value]="dataProblemasCronicos" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
@@ -38,9 +38,26 @@
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
                         <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.fecha }}</td>
-                        <td style="text-align: center">{{ rowData.problemas }}</td>
-                        <td style="text-align: center">{{ rowData.controlado }}</td>
+                        <td style="text-align: center">{{ rowData.fechaProblemasCronicos }}</td>
+                        <td style="text-align: center">{{ rowData.problemaCronico }}</td>
+                        <td class="text-center">
+                            <div *ngIf="rowData.controladoCronico=='SI';else noEs">
+                                <p-tag
+                                        value="Si"
+                                        severity="success"
+                                        styleClass="text-sm"
+
+                                ></p-tag>
+                            </div>
+                            <ng-template #noEs>
+                                <p-tag
+                                        value="No"
+
+                                        severity="danger"
+                                        styleClass="text-sm"
+                                ></p-tag>
+                            </ng-template>
+                        </td>
                         <td style="text-align: center">{{ rowData.observaciones }}</td>
 
                         <td style="text-align: center">
@@ -50,10 +67,6 @@
                             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
                                     (click)="eliminarProblemaCronico(rowIndex)" pTooltip="Eliminar">
                             </button>
-                            <button pButton (click)="openDialogEditarProblemasCronicos(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
-                                    icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
-                            </button>
-
                         </td>
                     </tr>
                 </ng-template>
@@ -67,19 +80,20 @@
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
-                            class="guardar mr-2" style="background-color: #689F38" (click)="openNewAgudo()"></button>
+                            class="agregar-boton"  (click)="openNewAgudo()"></button>
                 </ng-template>
             </p-toolbar>
-            <p-table class="table-over" [value]="problemasAgudos" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+            <p-table class="table-over" [value]="dataProblemasAgudos" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center" class="font-2">Nro </th>
-                        <th style="text-align: center" class="font-1">Fecha</th>
+                        <th style="text-align: center" class="font-1">Fecha 1</th>
+                        <th style="text-align: center" class="font-1">Fecha 2</th>
+                        <th style="text-align: center" class="font-1">Fecha 3</th>
                         <th style="text-align: center" class="font-2">Problema</th>
-                        <th style="text-align: center" class="font-2">Controlado</th>
                         <th style="text-align: center" class="font-2">Observaciones</th>
                         <th style="text-align: center" class="font-2">Acciones</th>
 
@@ -88,20 +102,18 @@
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
                         <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.fecha }}</td>
-                        <td style="text-align: center">{{ rowData.problemas }}</td>
-                        <td style="text-align: center">{{ rowData.controlado }}</td>
-                        <td style="text-align: center">{{ rowData.observaciones }}</td>
+                        <td style="text-align: center">{{ rowData.fecha1ProblemasAgudos }}</td>
+                        <td style="text-align: center">{{ rowData.fecha2ProblemasAgudos }}</td>
+                        <td style="text-align: center">{{ rowData.fecha3ProblemasAgudos }}</td>
+                        <td style="text-align: center">{{ rowData.problemaAgudo }}</td>
+                        <td style="text-align: center">{{ rowData.observacionesAgudo }}</td>
 
                         <td style="text-align: center">
                             <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                    (click)="openDialogEditarProblemasCronicos(rowData,rowIndex)" pTooltip="Editar">
+                                    (click)="openDialogEditarProblemasAgudos(rowData,rowIndex)" pTooltip="Editar">
                             </button>
                             <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                    (click)="eliminarProblemaCronico(rowIndex)" pTooltip="Eliminar">
-                            </button>
-                            <button pButton (click)="openDialogEditarProblemasCronicos(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
-                                    icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                                    (click)="eliminarProblemaAgudo(rowIndex)" pTooltip="Eliminar">
                             </button>
 
                         </td>
@@ -127,7 +139,7 @@
                        required/>
             </div>
             <div class="col-12 md:col-4 lg:col-4 p-field">
-                <label>Fecha:</label>
+                <label>Controlado?:</label>
                 <p-selectButton [options]="sino"  optionValue="value"
                                 optionLabel="label" formControlName="controladoCronico"></p-selectButton>
 
@@ -150,7 +162,7 @@
         </div>
     </form>
     <div class="footer">
-        <button pButton type="button" label="Guardar" (click)="save()" class="p-button-danger mt-4"></button>
+        <button pButton type="button" label="Guardar" (click)="saveCronico()" class="p-button-danger mt-4"></button>
         <button pButton type="button" label="Cancelar" (click)="canceled()"  class="p-button-danger mt-4"></button>
     </div>
 </p-dialog>
@@ -163,16 +175,39 @@
     <form [formGroup]='formProblemasAgudos'>
         <div class="grid p-fluid">
             <div class="col-12 md:col-8 lg:col-8 p-field">
-                <label>Fecha:</label>
-                <input type="date"  pInputText formControlName='fechaProblemasAgudos' placeholder="Examenes Auxiliares"
-                       required/>
+                <label>Fecha 1:</label>
+                <input type="date"  pInputText formControlName='fecha1ProblemasAgudos'
+                       >
             </div>
             <div class="col-12 md:col-4 lg:col-4 p-field">
-                <label>Fecha:</label>
+                <label>Atendido?:</label>
                 <p-selectButton [options]="sino"  optionValue="value"
-                                optionLabel="label" formControlName="controladoAgudo"></p-selectButton>
+                                optionLabel="label" formControlName="controladoAgudo1"></p-selectButton>
 
             </div>
+            <div class="col-12 md:col-8 lg:col-8 p-field">
+                <label>Fecha 2 :</label>
+                <input type="date"  pInputText formControlName='fecha2ProblemasAgudos'
+                       >
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <label>Atendido?:</label>
+                <p-selectButton [options]="sino"  optionValue="value"
+                                optionLabel="label" formControlName="controladoAgudo2"></p-selectButton>
+
+            </div>
+            <div class="col-12 md:col-8 lg:col-8 p-field">
+                <label>Fecha 3:</label>
+                <input type="date"  pInputText formControlName='fecha3ProblemasAgudos'
+                       >
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <label>Atendido?:</label>
+                <p-selectButton [options]="sino"  optionValue="value"
+                                optionLabel="label" formControlName="controladoAgudo3"></p-selectButton>
+
+            </div>
+
             <br>
             <div class="col-12">
                  <span class="p-float-label">
@@ -191,7 +226,7 @@
         </div>
     </form>
     <div class="footer">
-        <button pButton type="button" label="Guardar" (click)="save()" class="p-button-danger mt-4"></button>
+        <button pButton type="button" label="Guardar" (click)="saveAgudo()" class="p-button-danger mt-4"></button>
         <button pButton type="button" label="Cancelar" (click)="canceled()"  class="p-button-danger mt-4"></button>
     </div>
 </p-dialog>

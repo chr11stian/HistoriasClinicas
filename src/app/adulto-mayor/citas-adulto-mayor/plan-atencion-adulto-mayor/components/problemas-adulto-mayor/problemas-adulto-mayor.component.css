@@ -2,6 +2,10 @@
     background-color: #C50009;
     border-color: #C50009;
 }
+.agregar-boton{
+    background-color: #689F38;
+    border-color: #689F38;
+}
 p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
     background-color: #0c3866;
 }

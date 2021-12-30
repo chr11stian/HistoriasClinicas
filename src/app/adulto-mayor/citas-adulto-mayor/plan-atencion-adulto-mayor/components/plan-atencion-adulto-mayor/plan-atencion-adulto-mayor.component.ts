@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PlanEvaluacionAdulto} from "../models/PlanEvaluacionAdulto";
+import {PlanEvaluacionAdulto} from "../models/plan-atencion-adulto-mayor.model";
 
 @Component({
   selector: 'app-plan-atencion-adulto-mayor',
@@ -7,7 +7,17 @@ import {PlanEvaluacionAdulto} from "../models/PlanEvaluacionAdulto";
   styleUrls: ['./plan-atencion-adulto-mayor.component.css']
 })
 export class PlanAtencionAdultoMayorComponent implements OnInit {
-    planAtencion: PlanEvaluacionAdulto[];
+    evaluacionGeneral: PlanEvaluacionAdulto[];              /****item 1*****/
+    inmunizaciones: PlanEvaluacionAdulto[];                 /****item 2*****/
+    evalucionBucal: PlanEvaluacionAdulto[];                 /****item 3*****/
+    intervencionesPreventivas: PlanEvaluacionAdulto[];      /****item 4*****/
+    administracionMicronutrientes: PlanEvaluacionAdulto[];  /****item 5*****/
+    consejeriaIntegral: PlanEvaluacionAdulto[];             /****item 6*****/
+    visitaDomiciliaria: PlanEvaluacionAdulto[];             /****item 7*****/
+    temasEducativos: PlanEvaluacionAdulto[];                /****item 8*****/
+    atencionPrioridades: PlanEvaluacionAdulto[];            /****item 9*****/
+
+
   constructor() { }
 
   ngOnInit(): void {

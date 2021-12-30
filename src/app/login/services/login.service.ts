@@ -38,13 +38,14 @@ export class LoginService {
                     console.log('user ', user)
                     const token = {
                         usuario: 'user',
-                        roles: user.usuario.rol,
+                        roles: user.usuario.estado,
                         token: user.token
                     }
+                    console.log("token", token)
                     this.currentUserSubject.next(token)
                     localStorage.setItem('user', JSON.stringify(token))
                     localStorage.setItem('usuario', JSON.stringify(user.usuario))
-                    localStorage.setItem('token', JSON.stringify(user.token))
+                    localStorage.setItem('token', JSON.stringify(token))
                 }
                 return user;
             }))

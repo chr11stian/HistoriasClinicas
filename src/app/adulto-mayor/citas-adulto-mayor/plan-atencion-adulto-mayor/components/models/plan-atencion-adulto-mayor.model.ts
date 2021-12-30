@@ -5,10 +5,21 @@ export interface ProblemasCronicos {
     observaciones?: string
 }
 export interface ProblemasAgudos {
-    fechaProblemasAgudos?: Date,
-    controladoAgudo?: boolean,
+    fecha1ProblemasAgudos?: Date,
+    controladoAgudo1?: boolean,
+    fecha2ProblemasAgudos?: Date,
+    controladoAgudo2?: boolean,
+    fecha3ProblemasAgudos?: Date,
+    controladoAgudo3?: boolean,
     problemaAgudo?: string,
-    observaciones?: string
+    observacionesAgudo?: string
+}
+export interface PlanEvaluacionAdulto{
+    descripcion?: Date;
+    primeraFecha?: Date;
+    segundaFecha?: Date;
+    terceraFecha?: Date;
+    lugar?: string;
 }
 export interface TratamientosFrecuentes{
     nombre?:string,

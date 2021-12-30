@@ -70,7 +70,6 @@ export class CitasAdultoMayorComponent implements OnInit {
       width: '75%',
     })
   }
-
   atenderPlan(row: userCita): void {
     /** redirigir a atencion de usuario */
     this.router.navigate(['/dashboard/adulto-mayor/citas/plan'], {

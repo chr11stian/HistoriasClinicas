@@ -9,36 +9,375 @@
         </ng-template>
     </p-toolbar>
     <br>
-             <p-table class="table-over" [value]="planAtencion" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+    <p-accordion>
+        <p-accordionTab [selected]="true" >
+            <ng-template pTemplate="header">
+                1. Evaluación general, funcional, mental, social y físico
+                <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
+                        class="agregar-boton" >
+                </button>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-table class="table-over" [value]="evaluacionGeneral" #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro </th>
+                            <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">1° Fecha</th>
+                            <th style="text-align: center" class="font-2">2° Fecha</th>
+                            <th style="text-align: center" class="font-2">3° Fecha</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Acciones</th>
 
-                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                    <tr>
-                        <th style="text-align: center" class="font-2">Nro </th>
-                        <th style="text-align: center" class="font-1">Evaluación</th>
-                        <th style="text-align: center" class="font-2">Descripción</th>
-                        <th style="text-align: center" class="font-2">Fecha</th>
-                        <th style="text-align: center" class="font-2">Lugar</th>
-                        <th style="text-align: center" class="font-2">Acciones</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center">{{ rowData.primeraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.segundaFecha }}</td>
+                            <td style="text-align: center">{{ rowData.terceraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.lugar }}</td>
 
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                    <tr>
-                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.fecha }}</td>
-                        <td style="text-align: center">{{ rowData.problemas }}</td>
-                        <td style="text-align: center">{{ rowData.controlado }}</td>
-                        <td style="text-align: center">{{ rowData.observaciones }}</td>
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                        (click)="openDialogEditarPlan(rowData,rowIndex)" pTooltip="Editar">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
 
-                        <td style="text-align: center">
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                    (click)="openDialogEditarPlan(rowData,rowIndex)" pTooltip="Editar">
-                            </button>
-                        </td>
-                    </tr>
-                </ng-template>
+                </p-table>
+            </ng-template>
+        </p-accordionTab>
+        <p-accordionTab >
+            <ng-template pTemplate="header">
+                2. Inmunizaciones
+                <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
+                        class="agregar-boton" >
+                </button>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-table class="table-over" [value]="inmunizaciones" #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro </th>
+                            <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">1° Fecha</th>
+                            <th style="text-align: center" class="font-2">2° Fecha</th>
+                            <th style="text-align: center" class="font-2">3° Fecha</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Acciones</th>
 
-            </p-table>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center">{{ rowData.primeraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.segundaFecha }}</td>
+                            <td style="text-align: center">{{ rowData.terceraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.lugar }}</td>
+
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                        (click)="openDialogEditarPlan(rowData,rowIndex)" pTooltip="Editar">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </ng-template>
+        </p-accordionTab>
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                3. Evaluacióon bucal
+                <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
+                        class="agregar-boton" >
+                </button>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-table class="table-over" [value]="evalucionBucal" #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro </th>
+                            <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">1° Fecha</th>
+                            <th style="text-align: center" class="font-2">2° Fecha</th>
+                            <th style="text-align: center" class="font-2">3° Fecha</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Acciones</th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center">{{ rowData.primeraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.segundaFecha }}</td>
+                            <td style="text-align: center">{{ rowData.terceraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.lugar }}</td>
+
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                        (click)="openDialogEditarPlan(rowData,rowIndex)" pTooltip="Editar">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </ng-template>
+        </p-accordionTab>
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                4. Intervenciones preventivas
+                <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
+                        class="agregar-boton" >
+                </button>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-table class="table-over" [value]="intervencionesPreventivas" #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro </th>
+                            <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">1° Fecha</th>
+                            <th style="text-align: center" class="font-2">2° Fecha</th>
+                            <th style="text-align: center" class="font-2">3° Fecha</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Acciones</th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center">{{ rowData.primeraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.segundaFecha }}</td>
+                            <td style="text-align: center">{{ rowData.terceraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.lugar }}</td>
+
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                        (click)="openDialogEditarPlan(rowData,rowIndex)" pTooltip="Editar">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </ng-template>
+        </p-accordionTab>
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                5. Administración de macronutrientes
+                <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
+                        class="agregar-boton" >
+                </button>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-table class="table-over" [value]="administracionMicronutrientes" #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro </th>
+                            <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">1° Fecha</th>
+                            <th style="text-align: center" class="font-2">2° Fecha</th>
+                            <th style="text-align: center" class="font-2">3° Fecha</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Acciones</th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center">{{ rowData.primeraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.segundaFecha }}</td>
+                            <td style="text-align: center">{{ rowData.terceraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.lugar }}</td>
+
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                        (click)="openDialogEditarPlan(rowData,rowIndex)" pTooltip="Editar">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </ng-template>
+        </p-accordionTab>
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                6. Consejería integral
+                <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
+                        class="agregar-boton" >
+                </button>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-table class="table-over" [value]="consejeriaIntegral" #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro </th>
+                            <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">1° Fecha</th>
+                            <th style="text-align: center" class="font-2">2° Fecha</th>
+                            <th style="text-align: center" class="font-2">3° Fecha</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Acciones</th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center">{{ rowData.primeraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.segundaFecha }}</td>
+                            <td style="text-align: center">{{ rowData.terceraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.lugar }}</td>
+
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                        (click)="openDialogEditarPlan(rowData,rowIndex)" pTooltip="Editar">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </ng-template>
+        </p-accordionTab>
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                7. Visita Domiciliaria
+                <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
+                        class="agregar-boton" >
+                </button>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-table class="table-over" [value]="visitaDomiciliaria" #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro </th>
+                            <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">1° Fecha</th>
+                            <th style="text-align: center" class="font-2">2° Fecha</th>
+                            <th style="text-align: center" class="font-2">3° Fecha</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Acciones</th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center">{{ rowData.primeraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.segundaFecha }}</td>
+                            <td style="text-align: center">{{ rowData.terceraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.lugar }}</td>
+
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                        (click)="openDialogEditarPlan(rowData,rowIndex)" pTooltip="Editar">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </ng-template>
+        </p-accordionTab>
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                8. Temas educativos
+                <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
+                        class="agregar-boton" >
+                </button>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-table class="table-over" [value]="temasEducativos" #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro </th>
+                            <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">1° Fecha</th>
+                            <th style="text-align: center" class="font-2">2° Fecha</th>
+                            <th style="text-align: center" class="font-2">3° Fecha</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Acciones</th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center">{{ rowData.primeraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.segundaFecha }}</td>
+                            <td style="text-align: center">{{ rowData.terceraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.lugar }}</td>
+
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                        (click)="openDialogEditarPlan(rowData,rowIndex)" pTooltip="Editar">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </ng-template>
+        </p-accordionTab>
+        <p-accordionTab>
+            <ng-template pTemplate="header">
+                9. Atención de prioridades sanitarias
+                <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
+                        class="agregar-boton" >
+                </button>
+            </ng-template>
+            <ng-template pTemplate="content">
+                <p-table class="table-over" [value]="atencionPrioridades" #dt styleClass="p-datatable-gridlines">
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center" class="font-2">Nro </th>
+                            <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">1° Fecha</th>
+                            <th style="text-align: center" class="font-2">2° Fecha</th>
+                            <th style="text-align: center" class="font-2">3° Fecha</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Acciones</th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center">{{ rowData.primeraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.segundaFecha }}</td>
+                            <td style="text-align: center">{{ rowData.terceraFecha }}</td>
+                            <td style="text-align: center">{{ rowData.lugar }}</td>
+
+                            <td style="text-align: center">
+                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                        (click)="openDialogEditarPlan(rowData,rowIndex)" pTooltip="Editar">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </ng-template>
+        </p-accordionTab>
+    </p-accordion>
 </div>

@@ -26,6 +26,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         RippleModule,
         FormsModule,
         ReactiveFormsModule,
+
     ]
 })
 export class AdultoMayorModule {

@@ -67,7 +67,6 @@ export class ListaProblemasAdolescenteComponent implements OnInit {
     this.display=true;
     this.problemasFG.reset();
   }
-
   save(){
     // console.log(this.problemasFG.value)
     const requestInput={
@@ -78,6 +77,7 @@ export class ListaProblemasAdolescenteComponent implements OnInit {
       observacion:this.getFC('observaciones').value,
     }
     // console.log(requestInput)
+
     if(this.cronicoAgudo=="cronico"){
       this.adolecenteService.addProblema('10101010',requestInput).subscribe((resp)=>{
             if(resp['cod']=='2003') {
