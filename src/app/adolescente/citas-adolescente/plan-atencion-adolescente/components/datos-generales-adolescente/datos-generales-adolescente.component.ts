@@ -155,14 +155,6 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
           this.getFC('aconpananteApellidosNombres').setValue(data.acompaniante);
           this.getFC('aconpananteParentesco').setValue(data.parentesco);
           this.getFC('aconpananteDomicilioDireccion').setValue(data.direccionAcompaniante);
-
-
-
-
-
-
-
-
         }
         else{
           console.log('no existe resgistor del adolescente')
@@ -205,9 +197,13 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
       parentesco:this.getFC('aconpananteParentesco').value,
       direccionAcompaniante:this.getFC('aconpananteDomicilioDireccion').value
     }
-    this.datosGeneralesService.addAdolescente(this.tipoDNI,this.nroDNI,requestInput).subscribe((resp)=>{
-      console.log(resp)
-    })
+    // console.log(requestInput)
+  //   this.datosGeneralesService.addAdolescente(this.tipoDNI,this.nroDNI,requestInput).subscribe((resp)=>{
+  //     console.log(resp)
+  //   },
+  //       (error)=>{
+  //         console.log(error)
+  //       })
   }
 
 }
