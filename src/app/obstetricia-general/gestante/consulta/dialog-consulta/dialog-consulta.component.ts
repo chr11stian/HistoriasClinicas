@@ -127,6 +127,54 @@ export class DialogConsultaComponent implements OnInit {
         { name: 'DOSIS UNICA', code: '11' },
         { name: 'CADA 48 HORAS', code: '12' }
     ];
+    listaExamenesAuxiliaresExistentes = [
+        { tipo: 'HEMATOLOGIA', examen:'HEMOGLOBINA'},
+        { tipo: 'HEMATOLOGIA', examen:'HEMATOCRITO'},
+        { tipo: 'HEMATOLOGIA', examen:'HEMOGRAMA COMPLETO'},
+        { tipo: 'HEMATOLOGIA', examen:'TIEMPO DE COAGULACION'},
+        { tipo: 'HEMATOLOGIA', examen:'TIEMPO DE SANGRIA'},
+        { tipo: 'HEMATOLOGIA', examen:'V.S.G.'},
+        { tipo: 'HEMATOLOGIA', examen:'RECUENTO DE PLAQUETAS'},
+        { tipo: 'HEMATOLOGIA', examen:'RECUENTO DE GLÓBULOS ROJOS'},
+        { tipo: 'HEMATOLOGIA', examen:'RECUENTO DE GLÓBULOS BLANCOS'},
+        { tipo: 'HEMATOLOGIA', examen:'CONSTANTES CORPUSCULARES'},
+        { tipo: 'HEMATOLOGIA', examen:'COMPATIBILIDAD SANGUINEA'},
+        { tipo: 'BIOQUIMICA', examen:'GLUCOSA'},
+        { tipo: 'BIOQUIMICA', examen:'COLESTEROL TOTAL'},
+        { tipo: 'BIOQUIMICA', examen:'TRIGLICERIDOS'},
+        { tipo: 'BIOQUIMICA', examen:'UREA'},
+        { tipo: 'BIOQUIMICA', examen:'CREATININA'},
+        { tipo: 'BIOQUIMICA', examen:'T.G.O.'},
+        { tipo: 'BIOQUIMICA', examen:'T.G.P.'},
+        { tipo: 'BIOQUIMICA', examen:'BILIRRUBINAS TOTAL Y FRACC.'},
+        { tipo: 'BIOQUIMICA', examen:'PROTEINAS TOTALES Y FRACC.'},
+        { tipo: 'BIOQUIMICA', examen:'ALBÚMINA'},
+        { tipo: 'BIOQUIMICA', examen:'FOSFATASA ALCALINA'},
+        { tipo: 'MICROBIOLOGIA', examen:'EXAMEN DIR. DE SECRECIÓN VAG.'},
+        { tipo: 'MICROBIOLOGIA', examen:'GRAM'},
+        { tipo: 'INMUNOLOGIA', examen:'GRUPO SANGUINEO Y FACTOR RH'},
+        { tipo: 'INMUNOLOGIA', examen:'PROTEINA C REACTIVA'},
+        { tipo: 'INMUNOLOGIA', examen:'REACCION DE WIDAL'},
+        { tipo: 'INMUNOLOGIA', examen:'FACTOR REUMATOIDEO'},
+        { tipo: 'INMUNOLOGIA', examen:'R.P.R. Y/O PRUEBA RÁPIDA DE SÍFILIS'},
+        { tipo: 'INMUNOLOGIA', examen:'V.I.H. (PRUEBA RÁPIDA)'},
+        { tipo: 'INMUNOLOGIA', examen:'ANTÍGENO DE SUPERFICIE HEPATITIS B'},
+        { tipo: 'INMUNOLOGIA', examen:'BHCG (TEST DE EMBARAZO)'},
+        { tipo: 'INMUNOLOGIA', examen:'ANTIESTREPTOLISINAS (ASO)'},
+        { tipo: 'INMUNOLOGIA', examen:'ANTIGENO FEBRIL PARA BRUCELA'},
+        { tipo: 'UROANÁLISIS', examen:'EXAMEN COMPLETO DE ORINA'},
+        { tipo: 'UROANÁLISIS', examen:'SEDIMENTO URINARIO'},
+        { tipo: 'UROANÁLISIS', examen:'PROTEINURIA CUANTITATIVA/CUALITATIVA'},
+        { tipo: 'UROANÁLISIS', examen:'TEST DE ÁCIDO SULFOSALICÍLICO'},
+        { tipo: 'PARASITOLOGÍA', examen:'EX. PARASITOLÓGICO DIRECTO DE HECES'},
+        { tipo: 'PARASITOLOGÍA', examen:'EX. PARASITOLÓGICO SERIADO DE HECES'},
+        { tipo: 'PARASITOLOGÍA', examen:'TEST DE GRAHAM'},
+        { tipo: 'PARASITOLOGÍA', examen:'COPROFUNCIONAL'},
+        { tipo: 'PARASITOLOGÍA', examen:'THEVENON EN HECES'},
+        { tipo: 'PARASITOLOGÍA', examen:'REACCIÓN INFLAMATORIA/MOCO FECAL'},
+        { tipo: 'OTROS EXÁMENES', examen:'BATERÍA DE LABORATORIO GESTANTE'},
+        { tipo: 'OTROS EXÁMENES', examen:'TEST DE HELECHO'},
+    ];
     datosOtrosPruebasFisicas: any[] = [];
     indexEditarOtrosPruebasFisicasEditado: number = 0;
     estadoEditarOtrosPruebasFisicas: boolean = false;
@@ -467,6 +515,11 @@ export class DialogConsultaComponent implements OnInit {
         this.formOtrosPruebas = this.fb.group({
             nombre: new FormControl(""),
             resultado: new FormControl(""),
+        });
+        this.formExamenAuxiliar = this.fb.group({
+            tipo: new FormControl(""),
+            examen: new FormControl(""),
+            codigo: new FormControl(""),
         });
     }
     calcularGanancia() {
@@ -932,7 +985,7 @@ export class DialogConsultaComponent implements OnInit {
         this.indexExamenAuxiliarEditado = rowIndex;
         this.formExamenAuxiliar.reset();
         //this.formExamenAuxiliar.get('tipo').setValue(rowData.tipo);
-        this.formExamenAuxiliar.get('examen').setValue(rowData.examen);
+        this.formExamenAuxiliar.get('examen').setValue(rowData);
         //this.formExamenAuxiliar.get('codigo').setValue(rowData.codigo);
         this.examenAuxiliarDialog = true;
     }
@@ -1372,6 +1425,7 @@ export class DialogConsultaComponent implements OnInit {
                 codRENAES: this.form.value.codRENAESReferencia
             },
             interconsultas: this.datosInterconsultas,
+            examenesAuxiliares: this.datosExamenesAuxiliares,
             proxCita: {
                 fecha: this.datePipe.transform(this.form.value.proxCita, 'yyyy-MM-dd HH:mm:ss'),
                 estado: "tentativo"
@@ -1429,7 +1483,6 @@ export class DialogConsultaComponent implements OnInit {
             },
             inmunizaciones: this.datosInmunizaciones,
             recomendaciones: this.datosRecomendaciones,
-            examenesAuxiliares: null,
             evaluacionNutricional: {
                 valor: this.form.value.evalNutricionalValor,
                 indicador: this.form.value.evalNutricionalIndicador
@@ -1836,6 +1889,7 @@ export class DialogConsultaComponent implements OnInit {
         this.datosDiagnosticos = configuracion.diagnosticos;
         this.datosTratamientos = configuracion.tratamientos;
         this.datosInterconsultas = configuracion.interconsultas;
+        this.datosExamenesAuxiliares = configuracion.examenesAuxiliares;
         this.datosRecomendaciones = configuracion.recomendaciones;
         this.datosInmunizaciones = configuracion.inmunizaciones;
 

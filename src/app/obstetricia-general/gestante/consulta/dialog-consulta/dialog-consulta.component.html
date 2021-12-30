@@ -266,9 +266,7 @@
                                     <div class="grid">
                                         <div class="col-6">
                                             <label>Motivo de Consulta:</label>
-                                            <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                                                formControlName="motivoConsulta" pInputTextarea
-                                                placeholder="Describa motivo de consulta"></textarea>
+                                            ==="true"
                                         </div>
                                         <div class="col-6">
                                             <label>Tiempo de la Enfermedad:</label>
@@ -628,7 +626,7 @@
                     <div class="col-12">
                         <p-tabView>
                             <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-chart-line"
-                                header="SIG. ALARMA Y ORIENTACIONES">
+                                header="SIG. ALARMA CONSEJERIAS">
                                 <div class="grid">
                                     <div class="col-4">
                                         <p-fieldset legend="DESCARTAR SIGNOS DE ALARMA">
@@ -894,7 +892,7 @@
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_1'
-                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                                disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
 
@@ -915,7 +913,7 @@
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_2'
-                                                             disabled class="p-inputtext-sm inputfield w-full" />
+                                                                disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
                                                     <div class="grid">
@@ -935,7 +933,7 @@
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_3'
-                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                                disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
                                                     <div class="grid">
@@ -970,12 +968,12 @@
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria5"
-                                                                formControlName="consejeria5" value=false
-                                                                disabled class="default"></p-radioButton>
+                                                                formControlName="consejeria5" value=false disabled
+                                                                class="default"></p-radioButton>
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_5'
-                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                                disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
                                                     <div class="grid">
@@ -995,7 +993,7 @@
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_6'
-                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                                disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
                                                     <div class="grid">
@@ -1040,7 +1038,8 @@
                                                     </div>
                                                     <div class="grid">
                                                         <div class="col-7 text-right">
-                                                            <span class="text-xs">Consejería en enfermedades comunes:</span>
+                                                            <span class="text-xs">Consejería en enfermedades
+                                                                comunes:</span>
                                                         </div>
                                                         <div class="col-1 text-center">
                                                             <p-radioButton name="consejeria8"
@@ -1116,7 +1115,7 @@
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_11'
-                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                                disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
                                                     <div class="grid">
@@ -1136,7 +1135,7 @@
                                                         </div>
                                                         <div class="col-3">
                                                             <input type="text" pInputText formControlName='cie10_12'
-                                                            disabled class="p-inputtext-sm inputfield w-full" />
+                                                                disabled class="p-inputtext-sm inputfield w-full" />
                                                         </div>
                                                     </div>
                                                     <div class="grid">
@@ -1459,7 +1458,7 @@
                                 </p-table>
                             </p-tabPanel>
                             <p-tabPanel headerStyleClass="w-2 text-center" leftIcon="pi pi-exclamation-circle"
-                                header="SOLICITUD EXAMENES AUXILIARES">
+                                header="SOL. EXAMENES AUX.">
                                 <p-table [value]="datosExamenesAuxiliares" #dt [rows]="3" styleClass="p-datatable-sm"
                                     [paginator]="true" [autoLayout]="true" class="m-3"
                                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
@@ -1479,18 +1478,18 @@
                                     <ng-template pTemplate="header">
                                         <tr>
                                             <th style="text-align: center">Nro</th>
-                                            <th style="text-align: center">Tipo</th>
+                                            <!-- <th style="text-align: center">Tipo</th> -->
                                             <th style="text-align: center">Examen</th>
-                                            <th style="text-align: center">Codigo</th>
+                                            <!-- <th style="text-align: center">Codigo</th> -->
                                             <th style="text-align: center">Acción</th>
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                                         <tr style="text-align: center">
                                             <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                            <td style="text-align: center">{{ rowData.tipo}}</td>
-                                            <td style="text-align: center">{{ rowData.examen }}</td>
-                                            <td style="text-align: center">{{ rowData.codigo }}</td>
+                                            <!-- <td style="text-align: center">{{ rowData.tipo}}</td> -->
+                                            <td style="text-align: center">{{ rowData }}</td>
+                                            <!-- <td style="text-align: center">{{ rowData.codigo }}</td> -->
                                             <td style="text-align: center">
                                                 <button pButton pRipple type="button" icon="pi pi-pencil"
                                                     class="p-button-rounded p-button-text"
@@ -2549,7 +2548,7 @@
     </ng-template>
 </p-dialog>
 <!-- DIALOG TRATAMIENTOS -->
-<p-dialog class="dialogo m-4" [(visible)]="tratamientoDialog" [style]="{width: '400px'}" [modal]="true"
+<p-dialog class="dialogo m-4" [(visible)]="tratamientoDialog" [style]="{width: '350px'}" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h3>NUEVO TRATAMIENTO</h3>
@@ -2557,43 +2556,44 @@
     <ng-template pTemplate="body">
         <form [formGroup]='formTratamiento'>
             <div class="grid">
-                <div class="col-4">
+                <div class="col-12">
                     <label>Descripcion:</label>
                     <input type="text" pInputText formControlName='descripcion' placeholder="Descripcion"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <label>Numero:</label>
                     <input type="number" pInputText formControlName='numero' placeholder="Numero"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <label>Dosis:</label>
                     <input type="text" pInputText formControlName='dosis' placeholder="Dosis"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-6">
+                <div class="col-12">
                     <label>Via de Administracion:</label>
                     <p-dropdown [options]="listaViaAdministracion" formControlName="viaAdministracion"
                         placeholder="Via Administracion" optionLabel="name" optionValue="name"
                         class="inputfield p-fluid w-full">
                     </p-dropdown>
                 </div>
-                <div class="col-6">
+                <div class="col-12">
                     <label>Intervalo:</label>
                     <p-dropdown [options]="listaIntervalos" formControlName="intervalo" optionLabel="name"
                         optionValue="name" class="inputfield p-fluid w-full" placeholder="Intervalo">
                     </p-dropdown>
                 </div>
-                <div class="col-6">
+                <div class="col-12">
                     <label>Duracion:</label>
                     <input type="text" pInputText formControlName='duracion' placeholder="Duracion"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-6">
+                <div class="col-12">
                     <label>Observaciones:</label>
-                    <input type="text" pInputText formControlName='observaciones' placeholder="Observaciones"
-                        class="p-inputtext-sm inputfield w-full">
+                    <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                        formControlName="observaciones" pInputTextarea
+                        placeholder="Ingrese observaciones del tratamiento"></textarea>
                 </div>
             </div>
         </form>
@@ -2617,17 +2617,19 @@
     <ng-template pTemplate="body">
         <form [formGroup]='formExamenAuxiliar'>
             <div class="grid">
-                <div class="col-4">
+                <div class="col-12">
                     <label>Tipo:</label>
                     <input type="text" pInputText formControlName='tipo' placeholder="Tipo"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-4">
+                <div class="col-12">
                     <label>Examen:</label>
-                    <input type="text" pInputText formControlName='examen' placeholder="Examen"
-                        class="p-inputtext-sm inputfield w-full">
+                    <p-dropdown [options]="listaExamenesAuxiliaresExistentes" formControlName="examen"
+                        optionLabel="examen" optionValue="examen" class="inputfield p-fluid w-full" placeholder="Examen"
+                        scrollHeight="90px">
+                    </p-dropdown>
                 </div>
-                <div class="col-4">
+                <div class="col-12">
                     <label>Codigo:</label>
                     <input type="text" pInputText formControlName='codigo' placeholder="Codigo"
                         class="p-inputtext-sm inputfield w-full">
@@ -2640,7 +2642,7 @@
         <button *ngIf="estadoEditarExamenesAuxiliares" pButton type="button" label="Guardar"
             (click)="guardarEdicionExamenAuxiliar()"></button>
         <button *ngIf="!estadoEditarExamenesAuxiliares" pButton type="button" label="Guardar"
-            (click)="guardarExamenAuxiliar()"></button>
+            (click)="guardarNuevoExamenAuxiliar()"></button>
         <button pButton type="button" label="Cancelar" class="p-button-danger"
             (click)="canceledExamenAuxiliar()"></button>
     </ng-template>
@@ -2654,17 +2656,17 @@
     <ng-template pTemplate="body">
         <form [formGroup]='formInterconsulta'>
             <div class="grid">
-                <div class="col-4">
+                <div class="col-12">
                     <label>Consultorio</label>
                     <input type="text" pInputText formControlName='consultorio' placeholder="Consultorio"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-4">
+                <div class="col-12">
                     <label>Motivo</label>
                     <input type="text" pInputText formControlName='motivo' placeholder="Motivo"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-4">
+                <div class="col-12">
                     <label>Fecha</label>
                     <input type="datetime-local" pInputText formControlName='fecha'
                         class="p-inputtext-sm inputfield w-full">
@@ -2709,7 +2711,7 @@
     </ng-template>
 </p-dialog>
 <!-- DIALOG INMUNIZACIONES -->
-<p-dialog class="dialogo m-4" [(visible)]="inmunizacionDialog" [style]="{width: '800px'}" [modal]="true"
+<p-dialog class="dialogo m-4" [(visible)]="inmunizacionDialog" [style]="{width: '350px'}" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h3>INMUNIZACION</h3>
@@ -2717,39 +2719,39 @@
     <ng-template pTemplate="body">
         <form [formGroup]='formInmunizacion'>
             <div class="grid">
-                <div class="col-4">
+                <div class="col-12">
                     <label>Codigo:</label>
                     <input type="text" pInputText formControlName='codigo' placeholder="Codigo"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-4">
+                <div class="col-12">
                     <label>Descripción:</label>
                     <input type="text" pInputText formControlName='descripcion' placeholder="Descripcion"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <label>Numero:</label>
                     <input type="number" pInputText formControlName='numero' placeholder="Numero"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <label>Dosis:</label>
                     <input type="text" pInputText formControlName='dosis' placeholder="Dosis"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-4">
+                <div class="col-12">
                     <label>Via de Administracion:</label>
                     <p-dropdown [options]="listaViaAdministracion" formControlName="viaAdministracion"
                         placeholder="Via de administracion" optionLabel="name" optionValue="name"
                         class="inputfield p-fluid w-full">
                     </p-dropdown>
                 </div>
-                <div class="col-4">
+                <div class="col-12">
                     <label>Lote:</label>
                     <input type="text" pInputText formControlName='lote' placeholder="Lote"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-4">
+                <div class="col-12">
                     <label>Fecha Vencimiento:</label>
                     <input type="datetime-local" pInputText formControlName='fechaVenc'
                         class="p-inputtext-sm inputfield w-full">
@@ -2767,7 +2769,7 @@
             (click)="canceledInmunizacion()"></button>
     </ng-template>
 </p-dialog>
-<p-dialog class="dialogo m-4" [(visible)]="otrosPruebasDialog" [style]="{width: '800px'}" [modal]="true"
+<p-dialog class="dialogo m-4" [(visible)]="otrosPruebasDialog" [style]="{width: '400px'}" [modal]="true"
     styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h3>OTRAS PRUEBAS FISICAS</h3>
@@ -2775,12 +2777,12 @@
     <ng-template pTemplate="body">
         <form [formGroup]='formOtrosPruebas'>
             <div class="grid">
-                <div class="col-6">
+                <div class="col-12">
                     <label>Nombre:</label>
                     <input type="text" pInputText formControlName='nombre' placeholder="Nombre"
                         class="p-inputtext-sm inputfield w-full">
                 </div>
-                <div class="col-6">
+                <div class="col-12">
                     <label>Resultado:</label>
                     <input type="text" pInputText formControlName='resultado' placeholder="Resultado"
                         class="p-inputtext-sm inputfield w-full">
