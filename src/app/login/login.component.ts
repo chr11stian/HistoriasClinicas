@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
             password: this.password
         }
         this.loginService.user_login(credenciales).subscribe(resp => {
-            console.log('data login ', resp);
+            console.log(resp)
             if (resp.error) {
                 console.log("error")
             }
@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
                 console.log('entro')
                 this.router.navigate(['dashboard']);
             }
+
 
         })
     }
