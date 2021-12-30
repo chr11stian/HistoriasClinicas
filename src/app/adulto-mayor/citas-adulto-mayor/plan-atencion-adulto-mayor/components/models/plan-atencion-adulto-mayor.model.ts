@@ -15,10 +15,13 @@ export interface ProblemasAgudos {
     observacionesAgudo?: string
 }
 export interface PlanEvaluacionAdulto{
-    descripcion?: Date;
+    descripcion?: string;
     primeraFecha?: Date;
+    atendido1?:boolean;
     segundaFecha?: Date;
+    atendido2?:boolean;
     terceraFecha?: Date;
+    atendido3?:boolean;
     lugar?: string;
 }
 export interface TratamientosFrecuentes{
