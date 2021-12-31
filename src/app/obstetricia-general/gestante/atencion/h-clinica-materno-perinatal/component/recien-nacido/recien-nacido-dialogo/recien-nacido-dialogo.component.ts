@@ -114,6 +114,14 @@ export class RecienNacidoDialogoComponent implements OnInit {
             anticonceptivos: [''],
             grupo: [''],
             rh: [''],
+            cie10dxMf: [''],
+            autocompletedxMf: [''],
+            cie10dxMt: [''],
+            autocompletedxMt: [''],
+            cie10dxf: [''],
+            autocompletedxf: [''],
+            cie10dxt: [''],
+            autocompletedxt: [''],
         })
         this.formEgresoRN = this.formBuilder.group({
             fechaRN: [''],
@@ -488,6 +496,18 @@ export class RecienNacidoDialogoComponent implements OnInit {
         if (cieType == 0) {
             this.formPatologias.patchValue({ patologia: event.descripcionItem });
         }
+        if (cieType == 1) {
+            this.form.patchValue({ dxFallecimiento: event.descripcionItem });
+        }
+        if (cieType == 2) {
+            this.form.patchValue({ dxTraslado: event.descripcionItem });
+        }
+        if (cieType == 3) {
+            this.form.patchValue({ dxMaternoFallecimiento: event.descripcionItem });
+        }
+        if (cieType == 4) {
+            this.form.patchValue({ dxMaternoTraslado: event.descripcionItem });
+        }
     }
 
     selectedOptionNameCIE(event, cieType) {
@@ -496,6 +516,26 @@ export class RecienNacidoDialogoComponent implements OnInit {
             this.formPatologias.get("patologia").setValue(event.descripcionItem);
             this.formPatologias.get("autocomplete").setValue("");
             this.formPatologias.patchValue({ cie10: event }, { emitEvent: false });
+        }
+        if (cieType == 1) {
+            this.form.get("dxFallecimiento").setValue(event.descripcionItem);
+            this.form.get("autocompletedxf").setValue("");
+            this.form.patchValue({ cie10dxf: event }, { emitEvent: false });
+        }
+        if (cieType == 2) {
+            this.form.get("dxTraslado").setValue(event.descripcionItem);
+            this.form.get("autocompletedxt").setValue("");
+            this.form.patchValue({ cie10dxt: event }, { emitEvent: false });
+        }
+        if (cieType == 3) {
+            this.form.get("dxMaternoFallecimiento").setValue(event.descripcionItem);
+            this.form.get("autocompletedxMf").setValue("");
+            this.form.patchValue({ cie10dxMf: event }, { emitEvent: false });
+        }
+        if (cieType == 4) {
+            this.form.get("dxMaternoTraslado").setValue(event.descripcionItem);
+            this.form.get("autocompletedxMt").setValue("");
+            this.form.patchValue({ cie10dxMt: event }, { emitEvent: false });
         }
     }
 
