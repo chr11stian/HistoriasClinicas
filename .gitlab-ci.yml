@@ -1,0 +1,104 @@
+stages:    
+  - update      
+  - build
+  - build-docker
+  - deploy
+
+update:master:     
+  stage: update
+  script:
+    - cd /server/frontend/historia_clinica_electronica
+    - echo "Actualizacion"
+    - echo "$CI_COMMIT_BRANCH"
+    - git status 
+    - git branch
+    - git checkout master
+    - git pull origin $CI_COMMIT_BRANCH
+  only: 
+    - master
+
+update:release:     
+  stage: update
+  script:
+    - echo "Actualizacion del realease para pruebas"
+    - echo "$CI_COMMIT_BRANCH"
+    - cd /server/frontend/historia_clinica_electronica
+    - git branch
+    - git checkout $CI_COMMIT_BRANCH
+    - git pull origin $CI_COMMIT_BRANCH
+  only: 
+    - /^release.*$/    
+
+build-job:     
+  stage: build
+  script:
+    - echo "Compiling the code..."
+    - cd /server/frontend/historia_clinica_electronica
+    - git branch
+    - npm install
+    - npm run build
+  only:
+    - /^release.*$/ 
+    - master
+
+clean-area:master:   # This job also runs in the test stage.
+  stage: build-docker    # It can run at the same time as unit-test-job (in parallel).
+  script:
+    - echo "limpiando contenedores master"
+    - cd /server/frontend/historia_clinica_electronica
+    - echo $USER
+    - git branch
+    - docker rm -f web-historia
+    - docker image rm hce-img
+  only:
+    - master
+  allow_failure: true
+
+clean-area:realease:   # This job also runs in the test stage.
+  stage: build-docker    # It can run at the same time as unit-test-job (in parallel).
+  script:
+    - echo "limpiando contenedores ramas prueba"
+    - cd /server/frontend/historia_clinica_electronica
+    - echo $USER
+    - git branch
+    - docker rm -f web-historia_prueba
+    - docker image rm hce-img_prueba
+  only:
+    - /^release.*$/
+  allow_failure: true
+
+build-area:master:   # This job also runs in the test stage.
+  stage: build-docker    # It can run at the same time as unit-test-job (in parallel).
+  script:
+    - echo "creando contenedores master/produccion"
+    - cd /server/frontend/historia_clinica_electronica
+    - git branch
+    - docker build -t hce-img .
+  only:
+    - master
+
+build-area:realease:   
+  stage: build-docker   
+  script:
+    - echo "creando contenedores/prueba !NO ES PRODUCCION!"
+    - cd /server/frontend/historia_clinica_electronica
+    - git branch
+    - docker build -t hce-img_prueba .
+  only:
+    - /^release.*$/ 
+
+deploy-job:master:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  script:
+    - echo "Deploying application..."
+    - docker run --name web-historia --restart always -d -p 4002:80 hce-img
+  only: 
+    - master
+
+deploy-job:release:      # This job runs in the deploy stage.
+  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+  script:
+    - echo "Deploying application..."
+    - docker run --name web-historia_prueba --restart always -d -p 4012:80 hce-img_prueba
+  only: 
+    - /^release.*$/ 
