@@ -150,16 +150,43 @@
                                 </ng-template>
                             </p-table>
                         </div>
-
-
-
-
                     </p-tabPanel>
                 </p-tabView>
             </div>
-
-
-
+        </div>
+        <div class="grid">
+            <div class="col-12 md:col-6">
+                <label>Compromisos y observaciones:</label>
+                <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
+                    formControlName="compromisosObs" pInputTextarea
+                    placeholder="Describa la medicación"></textarea>
+            </div>
+            <div class="col-12 md:col-6">
+                <label>Proxima Cita:</label>
+                <input formControlName="proximaCita" type="date" class="inputfield w-full" pInputText />
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-11">
+                <label class="text-sm">REFERENCIA</label>
+            </div>
+            <div class="grid">
+                <div class="col-4">
+                    <label class="text-sm">Consultorio:</label>
+                    <input formControlName="consultorioReferencia" type="text"
+                        class="p-inputtext-sm " pInputText />
+                </div>
+                <div class="col-4">
+                    <label class="text-sm">Motivo:</label>
+                    <input formControlName="motivoReferencia" type="text"
+                        class="p-inputtext-sm " pInputText />
+                </div>
+                <div class="col-4">
+                    <label class="text-sm">IPRESS:</label>
+                    <input formControlName="codRENAESReferencia" type="text"
+                        class="p-inputtext-sm " pInputText />
+                </div>
+            </div>
         </div>
     </form>
 </div>

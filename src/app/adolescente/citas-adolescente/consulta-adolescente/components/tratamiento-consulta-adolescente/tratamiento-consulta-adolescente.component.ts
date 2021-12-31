@@ -1,5 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ConsultaAdolescenteService } from '../../services/consulta-adolescente.service';
 
 @Component({
   selector: 'app-tratamiento-consulta-adolescente',
@@ -20,6 +22,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   listaTratamientos: DescripcionTratamiento[] = [];
   listaSolicitudExamAux: string[] = [];
   listaInterconsultas: Interconsultas[] = [];
+  datePipe = new DatePipe('en-US');
 
   listaIntervalos = [
     { name: 'CADA 1 HORA', code: '1' },
@@ -53,6 +56,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private consultaAdolescenteService: ConsultaAdolescenteService,
   ) {
     this.inicializarForm();
   }
@@ -67,6 +71,10 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
       consultorio: new FormControl(""),
       motivo: new FormControl(""),
       fechaInterconsulta: new FormControl(""),
+      proximaCita: new FormControl(""),
+      consultorioReferencia: new FormControl(""),
+      motivoReferencia: new FormControl(""),
+      codRENAESReferencia: new FormControl("")
     });
     this.formTratamiento = this.fb.group({
       descripcion: new FormControl(""),
@@ -99,11 +107,11 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
       dosis: this.formTratamiento.value.dosis,
       viaAdministracion: this.formTratamiento.value.viaAdministracion,
       intervalo: this.formTratamiento.value.intervalo,
-      observaciones: this.formTratamiento.value.observaciones
+      observaciones: this.formTratamiento.value.observaciones,
+      duracion: this.formTratamiento.value.duracion
     }
     this.listaTratamientos.push(tratamiento);
     this.dialogTratamiento = false;
-    console.log('data to save inter ', tratamiento);
   }
   openDialogExamAux() {
     this.formExamAux.reset();
@@ -120,30 +128,43 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   aceptarInterconsulta() {
     let auxInterconsulta: Interconsultas = {
       consultorio: this.formInterconsulta.value.consultorio,
-      fecha: this.formInterconsulta.value.fechaInterconsulta,
+      fecha: this.datePipe.transform(this.formInterconsulta.value.fechaInterconsulta, 'yyyy-MM-dd'),
       motivo: this.formInterconsulta.value.motivo
     }
     this.listaInterconsultas.push(auxInterconsulta);
     this.dialogInterconsulta = false;
     console.log('data interconsulta ', this.listaInterconsultas);
   }
-  cancelar(){
-    
-  }
-  guardarEdicionTratamiento() {
-
-  }
-
-  closeDialogTratamiento() {
-
-  }
   recuperarDatos() {
-
+    this.dataTratamiento = {
+      tratamientos: this.listaTratamientos,
+      solicitudExamenesAuxiliares: this.listaSolicitudExamAux,
+      compromisosObservaciones: this.form.value.compromisosObs,
+      referencia: {
+        consultorio: this.form.value.consultorioReferencia,
+        motivo: this.form.value.motivoReferencia,
+        codRENAES: this.form.value.codRENAESReferencia
+      },
+      interconsultas: this.listaInterconsultas,
+      proxCita: {
+        fecha: this.datePipe.transform(this.form.value.proximaCita, 'yyyy-MM-dd'),
+        estado: 'TENTATIVO'
+      }
+    }
   }
   guardarTratamiento() {
+    this.recuperarDatos();
+    console.log('data to save ', this.dataTratamiento);
+    this.consultaAdolescenteService.putActualizarTratamiento("61ce1cf02aed74731bb3fb3a", this.dataTratamiento).subscribe((res: any) => {
 
+    });
   }
-
+  guardarEdicionTratamiento() {
+    
+  }
+  closeDialogTratamiento() {
+    this.dialogTratamiento = false;
+  }
 }
 export interface DescripcionTratamiento {
   descripcion?: string,
@@ -159,7 +180,7 @@ export interface Tratamiento {
   solicitudExamenesAuxiliares: string[],
   compromisosObservaciones: string,
   referencia?: Referencia,
-  interconsultas?: Interconsultas,
+  interconsultas?: Interconsultas[],
   proxCita: {
     fecha: string,
     estado: string

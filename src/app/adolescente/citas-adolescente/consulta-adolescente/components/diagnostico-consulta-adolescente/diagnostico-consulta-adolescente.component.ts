@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
+import { ConsultaAdolescenteService } from '../../services/consulta-adolescente.service';
 
 @Component({
   selector: 'app-diagnostico-consulta-adolescente',
@@ -16,10 +17,14 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   dialogDiagnostic: boolean = false;
   listaDeCIE: cie10[] = [];
   dataDiagnostico: Diagnostico;
+  listaTiposCie: string[] = [
+    "DEFINITIVO", "PRESUNTIVO", "REPETITIVO"
+  ];
 
   constructor(
     private fb: FormBuilder,
     private CieService: CieService,
+    private consultaAdolescenteService: ConsultaAdolescenteService
   ) {
     this.inicializarForm();
   }
@@ -37,6 +42,7 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
 
     });
     this.formDiagnostico = this.fb.group({
+      tipoCie: new FormControl(""),
       autocompleDiag: new FormControl(""),
       diagnosticoText: new FormControl(""),
       diagnosticoCIE: new FormControl(""),
@@ -64,7 +70,7 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   aceptarNuevoDiagnostico() {
     let diagnostico: DiagCIE = {
       diagnostico: this.formDiagnostico.value.diagnosticoText,
-      cie10: this.formDiagnostico.value.diagnosticoCIE
+      cie10: this.formDiagnostico.value.diagnosticoCIE.codigoItem
     }
     console.log('diagnostico ', diagnostico);
     this.listaDiagnosticos.push(diagnostico);
@@ -83,11 +89,14 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
       diagnosticos: this.listaDiagnosticos,
       diagHabilidadesSociales: this.form.value.habilidadesSociales,
       diagNutricional: this.form.value.nutricional,
-      recomendaciones: this.form.value.recomendaciones
+      recomendaciones: [this.form.value.recomendaciones]
     }
   }
   guardarDiagnostico() {
     this.recuperarDiagnosticos();
+    this.consultaAdolescenteService.putActualizarDiagnostico("61ce1cf02aed74731bb3fb3a", this.dataDiagnostico).subscribe((res: any) => {
+
+    });
     console.log('data diagnostico to save ', this.dataDiagnostico);
   }
 }

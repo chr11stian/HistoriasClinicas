@@ -55,6 +55,7 @@
             </div>
             <div class="col-12 md:col-4 mt-2">
                 <div class="margen border-300">
+                    
                     <div class="col-12 md:col-12">
                         <label>Diagnostico de Habilidades Sociales:</label>
                         <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
@@ -86,6 +87,11 @@
     </ng-template>
     <ng-template pTemplate="body">
         <form [formGroup]='formDiagnostico'>
+            <div class="col-12 md:col-12">
+                <label>Tipo Diagnostico</label>
+                <p-dropdown [options]="listaTiposCie" formControlName="tipoCie" class="inputfield p-fluid w-full" placeholder="Tipo de diagnostico">
+                </p-dropdown>
+            </div>
             <div class="grid flex flex-column mt-1">
                 <label class=" mr-1">CIE 10: </label>
                 <p-autoComplete formControlName="diagnosticoCIE" [suggestions]="listaDeCIE"
