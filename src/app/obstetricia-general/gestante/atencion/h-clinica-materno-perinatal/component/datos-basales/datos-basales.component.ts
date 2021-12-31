@@ -647,17 +647,6 @@ export class DatosBasalesComponent implements OnInit {
         auxFUM = auxFUM + 0;
         console.log('auxFUM ', auxFUM, 'today ', today);
         let auxWeek = today - auxFUM;
-        // console.log('fecha actual ', auxWeek);
-        if (auxWeek < 0) {
-            this.messageService.add({
-                severity: "warn",
-                summary: "Alerta",
-                detail: 'La fecha de FUM es incorrecta'
-            });
-            this.form.patchValue({ dateFUM: "" });
-            return;
-        }
-
         this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
         let semanasGestacional = Math.trunc(this.edadGestacional / 7);
         let alturaMetros = (this.form.value.talla) / 100;
