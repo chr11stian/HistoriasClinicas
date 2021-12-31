@@ -51,6 +51,7 @@ export class GestanteComponent implements OnInit {
         this.obstetriciaGeneralService.nroDoc = event.nroDoc;
         this.obstetriciaGeneralService.nroEmbarazo = event.nroEmbarazo;
         this.obstetriciaGeneralService.nroHcl = event.nroHcl;
+        this.obstetriciaGeneralService.estadoEmbarazo = event.estado;
 
     }
 
