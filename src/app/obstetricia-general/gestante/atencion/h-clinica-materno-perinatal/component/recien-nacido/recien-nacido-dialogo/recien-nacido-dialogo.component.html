@@ -182,7 +182,8 @@
                                     <div class="flex justify-content-between">
                                         <h3>Patologias</h3>
                                         <button pButton pRipple label="Nuevo" icon="pi pi-plus"
-                                            class="p-button-danger p-mr-2" (click)="openNewPatologia()"></button>
+                                            class="p-button-danger h-3rem  p-mr-2"
+                                            (click)="openNewPatologia()"></button>
                                     </div>
                                 </ng-template>
                                 <ng-template pTemplate="header">
@@ -660,7 +661,8 @@
                                         </div>
                                         <div class="col-4">
                                             <p-radioButton name="slueticaVdrlRpr" formControlName="slueticaVdrlRpr"
-                                                value="negativo" inputId="slueticaVdrlRpr" class="azul pb-0"></p-radioButton>
+                                                value="negativo" inputId="slueticaVdrlRpr" class="azul pb-0">
+                                            </p-radioButton>
                                         </div>
                                     </div>
                                     <div class="grid">
@@ -962,40 +964,65 @@
                     </div>
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-3">
+                            <div class="col-6">
+                                <label>Dx. Fallecimimiento</label>
+                                <br />
+                                <span class="text-xs">No aplica</span>
+                                <br />
+                                <p-checkbox name="dxFallecimientoNoAplica" formControlName="dxFallecimientoNoAplica"
+                                    value=true class="azul"></p-checkbox>
+                                <br />
+                                <label>CIE10</label>
+                                <br />
+                                <p-autoComplete formControlName="cie10dxf" [suggestions]="listaDeCIE"
+                                    (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                                    (onSelect)="selectedOption($event,1)" class="" [forceSelection]="true"
+                                    dataKey="codigoItem">
+                                </p-autoComplete>
+                                <br />
+                                <label>Diagnostico</label>
+                                <br />
+                                <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                                    field="descripcionItem" [minLength]="1" class="areaText "
+                                    formControlName="autocompletedxf" (onSelect)="selectedOptionNameCIE($event,1)">
+                                </p-autoComplete>
+                                <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="dxFallecimiento"
+                                    pInputTextarea disabled></textarea>
                             </div>
-                            <div class="col-7">
-                            </div>
-                            <div class="col-2">
-                                <span class="text-xs text-center">No aplica</span>
-                            </div>
-                        </div>
-                        <div class="grid">
-                            <div class="col-3">
-                                <span>Dx. Fallecim.:</span>
-                            </div>
-                            <div class="col-7">
-                                <input type="text" formControlName="dxFallecimiento" class="p-inputtext-sm "
-                                    pInputText />
-                            </div>
-                            <div class="col-2">
-                                <p-checkbox name="dxfNoAplica" formControlName="dxFallecimientoNoAplica" value=true
-                                    inputId="dxFallecimiento" class="azul pb-0"></p-checkbox>
+                            <div class="col-6">
+                                <label>Dx. Traslado.</label>
+                                <br />
+                                <span class="text-xs">No aplica</span>
+                                <br />
+                                <p-checkbox name="dxTrasladoNoAplica" formControlName="dxTrasladoNoAplica" value=true
+                                    class="azul"></p-checkbox>
+                                <br />
+                                <label>CIE10</label>
+                                <br />
+                                <p-autoComplete formControlName="cie10dxt" [suggestions]="listaDeCIE"
+                                    (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                                    (onSelect)="selectedOption($event,2)" class="" [forceSelection]="true"
+                                    dataKey="codigoItem">
+                                </p-autoComplete>
+                                <br />
+                                <label>Diagnostico</label>
+                                <br />
+                                <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                                    field="descripcionItem" [minLength]="1" class="areaText "
+                                    formControlName="autocompletedxt" (onSelect)="selectedOptionNameCIE($event,2)">
+                                </p-autoComplete>
+                                <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="dxTraslado"
+                                    pInputTextarea disabled></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 text-center">
-                        <div class="grid">
-                            <div class="col-3">
-                                <span>Dx. Traslado.:</span>
-                            </div>
-                            <div class="col-7">
-                                <input type="text" formControlName="dxTraslado" class="p-inputtext-sm " pInputText />
-                            </div>
-                            <div class="col-2">
-                                <p-checkbox name="dxtNoAplica" formControlName="dxTrasladoNoAplica" value=true
-                                    class="azul pb-0"></p-checkbox>
-                            </div>
+                    <div class="grid">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-7">
+                        </div>
+                        <div class="col-2">
+                            <span class="text-xs">No aplica</span>
                         </div>
                     </div>
                     <div class="col-12 text-center">
@@ -1004,7 +1031,7 @@
                                 <span>Estable. Tras.:</span>
                             </div>
                             <div class="col-7">
-                                <input type="text" formControlName="establecimientoTras" class="p-inputtext-sm "
+                                <input type="text" class="p-inputtext-sm" formControlName="establecimientoTras"
                                     pInputText />
                             </div>
                             <div class="col-2">
@@ -1023,8 +1050,8 @@
                                     <span class="text-xs">Lactancia exclusiva</span>
                                 </div>
                                 <div class="col-4">
-                                    <p-radioButton name="alimentoAlta" formControlName="alimentoAlta" value="lactancia exclusiva"
-                                        inputId="alimentoAlta" class="azul pb-0">
+                                    <p-radioButton name="alimentoAlta" formControlName="alimentoAlta"
+                                        value="lactancia exclusiva" inputId="alimentoAlta" class="azul pb-0">
                                     </p-radioButton>
                                 </div>
                             </div>
@@ -1173,42 +1200,62 @@
 
                     <div class="col-12 text-center">
                         <div class="grid">
-                            <div class="col-3">
-                            </div>
-                            <div class="col-7">
-                            </div>
-                            <div class="col-2">
+                            <div class="col-6">
+                                <label>Dx. Fallecimimiento</label>
+                                <br />
                                 <span class="text-xs">No aplica</span>
-                            </div>
-                        </div>
-                        <div class="grid">
-                            <div class="col-3">
-                                <span>Dx. Fallecim.:</span>
-                            </div>
-                            <div class="col-7">
-                                <input type="text" formControlName="dxMaternoFallecimiento" class="p-inputtext-sm "
-                                    pInputText />
-                            </div>
-                            <div class="col-2">
-                                <p-checkbox name="dxMfNoAplica" formControlName="dxMfNoAplica" value=true
-                                    class="azul pb-0">
+                                <br />
+                                <p-checkbox name="dxMfNoAplica" formControlName="dxMfNoAplica" value=true class="azul">
                                 </p-checkbox>
+                                <br />
+                                <label>CIE10</label>
+                                <br />
+                                <p-autoComplete formControlName="cie10dxMf" [suggestions]="listaDeCIE"
+                                    (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                                    (onSelect)="selectedOption($event,3)" class="" [forceSelection]="true"
+                                    dataKey="codigoItem">
+                                </p-autoComplete>
+                                <label>Diagnostico</label>
+                                <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                                    field="descripcionItem" [minLength]="1" class="areaText "
+                                    formControlName="autocompletedxMf" (onSelect)="selectedOptionNameCIE($event,3)">
+                                </p-autoComplete>
+                                <textarea [rows]="3" class="inputfield w-full mt-2"
+                                    formControlName="dxMaternoFallecimiento" pInputTextarea disabled></textarea>
+                            </div>
+                            <div class="col-6">
+                                <label>Dx. Traslado.</label>
+                                <br />
+                                <span class="text-xs">No aplica</span>
+                                <br />
+                                <p-checkbox name="dxMtNoAplica" formControlName="dxMtNoAplica" value=true class="azul">
+                                </p-checkbox>
+                                <br />
+                                <label>CIE10</label>
+                                <br />
+                                <p-autoComplete formControlName="cie10dxMt" [suggestions]="listaDeCIE"
+                                    (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                                    (onSelect)="selectedOption($event,4)" class="" [forceSelection]="true"
+                                    dataKey="codigoItem">
+                                </p-autoComplete>
+                                <label>Diagnostico</label>
+                                <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                                    field="descripcionItem" [minLength]="1" class="areaText "
+                                    formControlName="autocompletedxMt" (onSelect)="selectedOptionNameCIE($event,4)">
+                                </p-autoComplete>
+                                <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="dxMaternoTraslado"
+                                    pInputTextarea disabled></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 text-center">
-                        <div class="grid">
-                            <div class="col-3">
-                                <span>Dx. Traslado.:</span>
-                            </div>
-                            <div class="col-7">
-                                <input type="text" formControlName="dxMaternoTraslado" class="p-inputtext-sm "
-                                    pInputText />
-                            </div>
-                            <div class="col-2">
-                                <p-checkbox name="dxMtNoAplica" formControlName="dxMtNoAplica" value=true
-                                    class="azul pb-0"></p-checkbox>
-                            </div>
+
+                    <div class="grid">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-7">
+                        </div>
+                        <div class="col-2">
+                            <span class="text-xs">No aplica</span>
                         </div>
                     </div>
                     <div class="col-12 text-center">
@@ -1226,6 +1273,7 @@
                             </div>
                         </div>
                     </div>
+                    <br />
                     <div class="grid">
                         <div class="col-4">
                             <div class="col-12 text-center">
@@ -1476,8 +1524,8 @@
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
                             <h3>Egresos del Recien Nacido</h3>
-                            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
-                                (click)="openNew()"></button>
+                            <button pButton pRipple label="Nuevo" icon="pi pi-plus"
+                                class="p-button-danger h-3rem p-mr-2" (click)="openNew()"></button>
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -1540,8 +1588,8 @@
                 <div class="col-12">
                     <label>Diagnostico</label>
                     <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
-                        field="descripcionItem" [minLength]="1" class="areaText "
-                        formControlName="autocomplete" (onSelect)="selectedOptionNameCIE($event,0)">
+                        field="descripcionItem" [minLength]="1" class="areaText " formControlName="autocomplete"
+                        (onSelect)="selectedOptionNameCIE($event,0)">
                     </p-autoComplete>
                     <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="patologia" pInputTextarea
                         disabled></textarea>
@@ -1550,13 +1598,12 @@
         </form>
     </ng-template>
 
-    <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="estadoEditarPatologia" pButton type="button" label="Guardar"
+    <ng-template pTemplate="footer">
+        <button *ngIf="estadoEditarPatologia" pButton type="button" label="Guardar" class="text-right"
             (click)="guardarEdicionPatologiaRN()"></button>
-        <button *ngIf="!estadoEditarPatologia" pButton type="button" label="Guardar"
+        <button *ngIf="!estadoEditarPatologia" pButton type="button" label="Guardar" class="text-right"
             (click)="enviarPatologias()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="canceledPatologia()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="canceledPatologia()"></button>
     </ng-template>
 </p-dialog>
 <!-- dialogo para egresos de recien nacidos -->
@@ -1749,10 +1796,10 @@
         </form>
     </ng-template>
 
-    <ng-template pTemplate="footer" class="text-right">
-        <button pButton *ngIf="estadoEditarRN" type="button" label="Guardar E"
+    <ng-template pTemplate="footer">
+        <button pButton *ngIf="estadoEditarRN" type="button" label="Guardar" class="text-right"
             (click)="guardarEdicionEgresoRN()"></button>
-        <button pButton *ngIf="!estadoEditarRN" type="button" label="Guardar N"
+        <button pButton *ngIf="!estadoEditarRN" type="button" label="Guardar" class="text-right"
             (click)="enviarEgresosRecienNacido()"></button>
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceledEgreso()"></button>
     </ng-template>
