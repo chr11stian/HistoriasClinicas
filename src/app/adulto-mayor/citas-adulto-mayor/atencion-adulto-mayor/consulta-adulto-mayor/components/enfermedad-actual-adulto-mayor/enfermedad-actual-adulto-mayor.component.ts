@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {AdultoMayorService} from "../../../plan-atencion-adulto-mayor/services/adulto-mayor.service";
+import {AdultoMayorService} from "../../../atencion-adulto-mayor/plan-atencion-adulto-mayor/services/adulto-mayor.service";
 import {MessageService} from "primeng/api";
 
 @Component({

@@ -9,7 +9,7 @@ const routes: Routes = [
     },
     {
         path: "cuidados",
-        loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/cuidados-adulto-mayor/cuidados-component/cuidados-component.component').then(n => n.CuidadosComponentComponent),
+        loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/atencion-adulto-mayor/cuidados-adulto-mayor/cuidados-component/cuidados-component.component').then(n => n.CuidadosComponentComponent),
 
     },
 ];

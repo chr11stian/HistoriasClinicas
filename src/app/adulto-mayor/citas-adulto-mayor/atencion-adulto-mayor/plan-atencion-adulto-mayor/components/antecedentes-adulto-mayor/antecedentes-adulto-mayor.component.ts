@@ -7,7 +7,7 @@ import {
 } from "../models/plan-atencion-adulto-mayor.model";
 import {MessageService} from "primeng/api";
 import Swal from "sweetalert2";
-import {AdultoMayorService} from "../../services/adulto-mayor.service";
+import {AdultoMayorService} from "../../../atencion-adulto-mayor/plan-atencion-adulto-mayor/services/adulto-mayor.service";
 
 @Component({
   selector: 'app-antecedentes-adulto-mayor',
