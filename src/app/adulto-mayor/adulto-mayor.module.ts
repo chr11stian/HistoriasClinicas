@@ -13,7 +13,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
-        CitasAdultoMayorComponent
+        CitasAdultoMayorComponent,
     ],
     imports: [
         CommonModule,
@@ -25,6 +25,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         RippleModule,
         FormsModule,
         ReactiveFormsModule,
+
     ]
 })
 export class AdultoMayorModule {

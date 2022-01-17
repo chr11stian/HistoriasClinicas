@@ -132,8 +132,7 @@ export class CuposComponent implements OnInit {
 
     /**lista los Servicios por IPRESS**/
     getListaUps() {
-        this.rolGuardiaService
-            .getServiciosPorIpress(this.idIpressLapostaMedica)
+        this.rolGuardiaService.getServiciosPorIpress(this.idIpressLapostaMedica)
             .subscribe((resp) => {
                 this.ups = resp["object"];
                 // this.loading = false;

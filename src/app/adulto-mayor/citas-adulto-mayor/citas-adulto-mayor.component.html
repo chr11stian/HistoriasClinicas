@@ -43,7 +43,7 @@
 <div>
     <p-accordion>
         <p-accordionTab
-                header="LISTA DE NIÑOS/NIÑAS CON CITAS EL DIA DE HOY"
+                header="LISTA DE ADULTOS MAYORES CON CITAS EL DIA DE HOY"
                 [selected]="true"
         >
             <div class="tableScroll" style="width: 100%">
@@ -87,15 +87,15 @@
                                     <button
                                             pButton
                                             pRipple
-                                            (click)="atender(rowData)"
                                             class="boton-azul"
+                                            (click)="atenderPlan(rowData)"
                                             label="Atender"
                                             icon="pi pi-check"
                                     ></button>
                                     <button
                                             pButton
                                             pRipple
-                                            routerLink="consulta"
+                                            (click)="atenderConsulta(rowData)"
                                             class="boton-mostaza"
                                             label="Consulta"
                                             icon="pi pi-book"
@@ -114,7 +114,7 @@
                 </p-table>
             </div>
         </p-accordionTab>
-        <p-accordionTab header="LISTA DE NIÑOS/NIÑAS CON CITAS NO ATENDIDAS">
+        <p-accordionTab header="LISTA DE ADULTOS MAYORES CON CITAS NO ATENDIDAS">
             <p-table
                     responsiveLayout="scroll"
                     [resizableColumns]="true"
@@ -182,7 +182,7 @@
                 </ng-template>
             </p-table>
         </p-accordionTab>
-        <p-accordionTab header="LISTA DE NIÑOS/NIÑAS CON CITAS CANCELADAS">
+        <p-accordionTab header="LISTA DE ADULTOS MAYORES CON CITAS CANCELADAS">
             <p-table
                     responsiveLayout="scroll"
                     [resizableColumns]="true"
