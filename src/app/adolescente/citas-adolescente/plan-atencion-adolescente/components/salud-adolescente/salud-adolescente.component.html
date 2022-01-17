@@ -1,167 +1,313 @@
-<p-divider align="left">
-    <div class="p-d-inline-flex p-ai-center">
-        <i class="pi pi-angle-double-right p-mr-2"></i>
-        <b>Salud sexual y reproductiva</b>
-    </div>
+<p-toolbar>
+  <ng-template
+          pTemplate="left">
+    <h3 class="mt-2">
+      DATOS
+      GENERALES</h3>
+  </ng-template>
+  <ng-template
+          pTemplate="right"
+          class="button">
+    <button (click)="save()"
+            pButton
+            pRipple
+            label="Guardar"
+            iconPos="right"
+            icon="pi pi-angle-right"
+            class="guardar mr-2"></button>
+  </ng-template>
+</p-toolbar>
+<p-divider
+        align="left">
+  <div class="p-d-inline-flex p-ai-center">
+    <i class="pi pi-angle-double-right p-mr-2"></i>
+    <b>Salud
+      sexual
+      y
+      reproductiva</b>
+  </div>
 </p-divider>
-<form action="" [formGroup]="saludFG">
-<div class="grid borde">
+<form action=""
+      [formGroup]="saludFG">
+  <div class="grid borde">
     <div class="col-7">
-        <div class="borde">
-            <div class="grid">
-                <div class="col-3">
-                    <label for="">Menarquia/<br>Espermarquia </label>
-                </div>
-                <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="menarquiaEspermarquia"></p-selectButton>
-                </div>
-                <div class="col-3">
-                    <label for="">Edad en años:</label>
-                </div>
-                <div class="col-3 p-fluid">
-                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="menarquiaEspermarquiaEdad">
-                    </p-inputNumber>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col-3">
-                    <label for="">Inicio relacion Sexual:</label>
-                </div>
-                <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="inicioRelacionSexual"></p-selectButton>
-                </div>
-                <div class="col-3">
-                    <label for="">Edad en años:</label>
-                </div>
-                <div class="col-3 p-fluid" >
-                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="inicioRelacionSexualEdad">
-                    </p-inputNumber>
-                </div>
-            </div>
-
+      <div class="borde">
+        <div class="grid">
+          <div class="col-3">
+            <label for="">Menarquia/<br>Espermarquia
+            </label>
+          </div>
+          <div class="col-3">
+            <p-selectButton
+                    disabled="true"                   [options]="siNo"
+                    optionLabel="name"
+                    formControlName="menarquiaEspermarquia"
+                    optionValue="code"></p-selectButton>
+          </div>
+          <div class="col-3">
+            <label for="">Edad
+              en
+              años:</label>
+          </div>
+          <div class="col-3 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    inputId="withoutgrouping"
+                    [useGrouping]="false"
+                    formControlName="menarquiaEspermarquiaEdad">
+            </p-inputNumber>
+          </div>
         </div>
-        <div class="borde">
-            <div class="grid">
-                <div class="col-3">
-                    <label for="">Abuso sexual:</label>
-                </div>
-                <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="abusoSexual"></p-selectButton>
-                </div>
-                <div class="col-3">
-                    <label for="">Nro:</label>
-                </div>
-                <div class="col-3 p-fluid">
-                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="abusoSexualNro">
-                    </p-inputNumber>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col-3">
-                    <label for="">Embarazo:</label>
-                </div>
-                <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="enbarazo"></p-selectButton>
-                </div>
-                <div class="col-3">
-                    <label for="">Nro:</label>
-                </div>
-                <div class="col-3 p-fluid" >
-                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="enbarazoNro">
-                    </p-inputNumber>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col-3">
-                    <label for="">Hijos:</label>
-                </div>
-                <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="hijos"></p-selectButton>
-                </div>
-                <div class="col-3">
-                    <label for="">Nro:</label>
-                </div>
-                <div class="col-3 p-fluid" >
-                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="hijosNro">
-                    </p-inputNumber>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="col-3">
-                    <label for="">Aborto:</label>
-                </div>
-                <div class="col-3">
-                    <p-selectButton [options]="siNo" optionLabel="name" formControlName="aborto"></p-selectButton>
-                </div>
-                <div class="col-3">
-                    <label for="">Nro:</label>
-                </div>
-                <div class="col-3 p-fluid" >
-                    <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false" formControlName="abortoNro">
-                    </p-inputNumber>
-                </div>
-            </div>
-
+        <div class="grid">
+          <div class="col-3">
+            <label for="">Inicio
+              relacion
+              Sexual:</label>
+          </div>
+          <div class="col-3">
+            <p-selectButton
+                    [options]="siNo"
+                    optionLabel="name"
+                    formControlName="inicioRelacionSexual"
+                    optionValue="code"></p-selectButton>
+          </div>
+          <div class="col-3">
+            <label for="">Edad
+              en
+              años:</label>
+          </div>
+          <div class="col-3 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    inputId="withoutgrouping"
+                    [useGrouping]="false"
+                    formControlName="inicioRelacionSexualEdad">
+            </p-inputNumber>
+          </div>
         </div>
+
+      </div>
+      <div class="borde">
+        <div class="grid">
+          <div class="col-3">
+            <label for="">Abuso
+              sexual:</label>
+          </div>
+          <div class="col-3">
+            <p-selectButton
+                    [options]="siNo"
+                    optionLabel="name"
+                    optionValue="code"
+                    formControlName="abusoSexual"></p-selectButton>
+          </div>
+          <div class="col-3">
+            <label for="">Nro:</label>
+          </div>
+          <div class="col-3 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    inputId="withoutgrouping"
+                    [useGrouping]="false"
+                    formControlName="abusoSexualNro">
+            </p-inputNumber>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="col-3">
+            <label for="">Embarazo:</label>
+          </div>
+          <div class="col-3">
+            <p-selectButton
+                    [options]="siNo"
+                    optionLabel="name"
+                    optionValue="code"
+                    formControlName="enbarazo"></p-selectButton>
+          </div>
+          <div class="col-3">
+            <label for="">Nro:</label>
+          </div>
+          <div class="col-3 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    inputId="withoutgrouping"
+                    [useGrouping]="false"
+                    formControlName="enbarazoNro">
+            </p-inputNumber>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="col-3">
+            <label for="">Hijos:</label>
+          </div>
+          <div class="col-3">
+            <p-selectButton
+                    [options]="siNo"
+                    optionLabel="name"
+                    optionValue="code"
+                    formControlName="hijos"></p-selectButton>
+          </div>
+          <div class="col-3">
+            <label for="">Nro:</label>
+          </div>
+          <div class="col-3 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    inputId="withoutgrouping"
+                    [useGrouping]="false"
+                    formControlName="hijosNro">
+            </p-inputNumber>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="col-3">
+            <label for="">Aborto:</label>
+          </div>
+          <div class="col-3">
+            <p-selectButton
+                    [options]="siNo"
+                    optionLabel="name"
+                    optionValue="code"
+                    formControlName="aborto"></p-selectButton>
+          </div>
+          <div class="col-3">
+            <label for="">Nro:</label>
+          </div>
+          <div class="col-3 p-fluid">
+            <p-inputNumber
+                    mode="decimal"
+                    inputId="withoutgrouping"
+                    [useGrouping]="false"
+                    formControlName="abortoNro">
+            </p-inputNumber>
+          </div>
+        </div>
+
+      </div>
 
     </div>
     <div class="col-5">
-        <div class="borde">
-            <div class="text-center my-3">
-                <label >Observaciones</label>
-            </div>
-            <div class="my-3">
-                <label class=my-3 for="">Ingrese observaciones:</label>
-            </div>
-            <div class="text-center">
-                <textarea [rows]="10" [cols]="60" pInputTextarea autoResize="autoResize" formControlName="observaciones"></textarea>
-            </div>
+      <div class="borde">
+        <div class="text-center my-3">
+          <label>Observaciones</label>
         </div>
+        <div class="my-3">
+          <label class=my-3
+                 for="">Ingrese
+            observaciones:</label>
+        </div>
+        <div class="text-center">
+                    <textarea
+                            [rows]="10"
+                            [cols]="60"
+                            pInputTextarea
+                            autoResize="autoResize"
+                            formControlName="observaciones"></textarea>
+        </div>
+      </div>
     </div>
 
-</div>
-<div class="grid borde">
-    <div class="col-6">
-        <div class="grid">
-            <div class="col-7">
-                <label for="">¿Usa algún método anticonceptivo?
-                </label>
-            </div>
-            <div class="col-5   ">
-                <p-selectButton [options]="siNo" optionLabel="name" formControlName="usaMetodoAnticonceptivo"></p-selectButton>
-            </div>
+  </div>
+  <div class="grid borde">
+    <div class="col-12">
+      <div class="grid">
+        <div class="col-4">
+          <label for="">¿Usa
+            algún
+            método
+            anticonceptivo?
+          </label>
         </div>
-        <div class="grid">
-            <div class="col-7">
-                <label for="">¿Sabe cómo prevenir un embarazo no deseado?
-                </label>
-            </div>
-            <div class="col-5   ">
-                <p-selectButton [options]="siNo" optionLabel="name" formControlName="sabePrevenirEmbarazoNoDeseado"></p-selectButton>
-            </div>
+        <div class="col-2   ">
+          <p-selectButton
+                  [options]="siNo"
+                  optionLabel="name"
+                  optionValue="code"
+                  formControlName="usaMetodoAnticonceptivo"></p-selectButton>
         </div>
-        <div class="grid">
-            <div class="col-7">
-                <label for="">¿Sabes como prevenir la transmision de la ITS y le VIH/SIDA?
-                </label>
-            </div>
-            <div class="col-5   ">
-                <p-selectButton [options]="siNo" optionLabel="name" formControlName="sabePrevenirITSVIH"></p-selectButton>
-            </div>
+        <div class="col-6 grid">
+          <label class="col-2 text-left"
+                 for="">Especifique:</label>
+          <div class="col-10 p-fluid">
+            <input type="text"
+                   pInputText
+                   formControlName="usaMetodoAnticonceptivoEspecifique"/>
+          </div>
         </div>
 
-    </div>
-    <div class="col-6">
-        <div class="grid">
-            <div class="col-3 text-right">
-                <label for="">Especifique:
-                </label>
-            </div>
-            <div class="col-9 p-fluid">
-                <input type="text" pInputText  formControlName="especifique"/>
-            </div>
+      </div>
+      <div class="grid">
+        <div class="col-4">
+          <label for="">¿Sabe
+            cómo
+            prevenir
+            un
+            embarazo
+            no
+            deseado?
+          </label>
         </div>
+        <div class="col-2   ">
+          <p-selectButton
+                  [options]="siNo"
+                  optionLabel="name"
+                  optionValue="code"
+                  formControlName="sabePrevenirEmbarazoNoDeseado"></p-selectButton>
+        </div>
+        <div class="col-6 grid">
+          <label class="col-2 text-left"
+                 for=""></label>
+          <div class="col-10 p-fluid">
+            <input type="text"
+                   pInputText
+                   formControlName="sabePrevenirEmbarazoNoDeseadoEspecifique"/>
+          </div>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="col-4">
+          <label for="">¿Sabes
+            como
+            prevenir
+            la
+            transmision
+            de
+            la
+            ITS
+            y
+            le
+            VIH/SIDA?
+          </label>
+        </div>
+        <div class="col-2   ">
+          <p-selectButton
+                  [options]="siNo"
+                  optionLabel="name"
+                  optionValue="code"
+                  formControlName="sabePrevenirITSVIH"></p-selectButton>
+        </div>
+        <div class="col-6 grid">
+          <label class="col-2 text-left"
+                 for=""></label>
+          <div class="col-10 p-fluid">
+            <input type="text"
+                   pInputText
+                   formControlName="sabePrevenirITSVIHEspecifique"/>
+          </div>
+        </div>
+
+      </div>
+
     </div>
-</div>
-    <button pButton type="button" label="Click" (click)="save()"></button>
+    <!--    <div class="col-6">-->
+    <!--        <div class="grid">-->
+    <!--            <div class="col-3 text-right">-->
+    <!--                <label for="">Especifique:-->
+    <!--                </label>-->
+    <!--            </div>-->
+    <!--            <div class="col-9 p-fluid">-->
+    <!--                <input type="text" pInputText  formControlName="especifique"/>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+  </div>
 </form>

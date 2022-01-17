@@ -67,9 +67,9 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   recuperarDatos() {
     this.datosGrales = {
       servicio: "MEDICINA GENERAL",
-      nroHcl: "10101010",
+      nroHcl: "10101011",
       tipoDoc: "DNI",
-      nroDoc: "10101010",
+      nroDoc: "10101011",
       fecha: this.datePipe.transform(this.form.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
       // fecha: this.form.value.fecha,
       edad: this.form.value.edad,

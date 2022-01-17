@@ -80,4 +80,17 @@ p-calendar >>> .p-calendar .p-component {
     color: white;
     bottom: 0;
     z-index: 50;
-  }
+}
+p-checkbox >>> .p-checkbox .p-checkbox-box .p-checkbox-icon{
+    font-size: 70px;
+    width: 70px;
+    height: 70px;
+} 
+p-checkbox >>> .p-checkbox .p-checkbox-box{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 70px;
+    height: 70px;
+}

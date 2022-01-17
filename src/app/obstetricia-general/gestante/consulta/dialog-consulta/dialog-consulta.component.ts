@@ -28,9 +28,12 @@ export class DialogConsultaComponent implements OnInit {
     formInmunizacion: FormGroup;
     formInterconsulta: FormGroup;
     formOtrosPruebas: FormGroup;
+    formExamenAuxiliar: FormGroup;
 
     prueba: any[];
     isUpdate: boolean = false;
+
+    estadoVisitaDomiciMostrar: boolean;
 
     examenFetalDialog: boolean;
     diagnosticoDialog: boolean;
@@ -39,6 +42,7 @@ export class DialogConsultaComponent implements OnInit {
     inmunizacionDialog: boolean;
     interconsultaDialog: boolean;
     otrosPruebasDialog: boolean;
+    examenAuxiliarDialog: boolean;
 
     listaSituacion = [
         { name: "LONGITUDINAL", code: "1" },
@@ -103,15 +107,16 @@ export class DialogConsultaComponent implements OnInit {
         { name: 'NO', code: "2" },
         { name: 'NO APLICA', code: "3" }
     ];
-    listaPlanPartoReenfocada = [
+    listaReenfocada = [
+        { name: 'SI', code: true },
+        { name: 'NO', code: false }
+    ];
+    listaPlanParto = [
         { name: 'CONTROL', code: "1" },
         { name: 'VISITA', code: "2" },
         { name: 'NO SE HIZO', code: "3" }
     ];
     listaIntervalos = [
-        { name: 'CADA 1 HORA', code: '1' },
-        { name: 'CADA 2 HORAS', code: '2' },
-        { name: 'CADA 3 HORAS', code: '3' },
         { name: 'CADA 4 HORAS', code: '4' },
         { name: 'CADA 5 HORAS', code: '5' },
         { name: 'CADA 6 HORAS', code: '6' },
@@ -121,6 +126,54 @@ export class DialogConsultaComponent implements OnInit {
         { name: 'CONDICIONAL A FIEBRE', code: '10' },
         { name: 'DOSIS UNICA', code: '11' },
         { name: 'CADA 48 HORAS', code: '12' }
+    ];
+    listaExamenesAuxiliaresExistentes = [
+        { tipo: 'HEMATOLOGIA', examen:'HEMOGLOBINA'},
+        { tipo: 'HEMATOLOGIA', examen:'HEMATOCRITO'},
+        { tipo: 'HEMATOLOGIA', examen:'HEMOGRAMA COMPLETO'},
+        { tipo: 'HEMATOLOGIA', examen:'TIEMPO DE COAGULACION'},
+        { tipo: 'HEMATOLOGIA', examen:'TIEMPO DE SANGRIA'},
+        { tipo: 'HEMATOLOGIA', examen:'V.S.G.'},
+        { tipo: 'HEMATOLOGIA', examen:'RECUENTO DE PLAQUETAS'},
+        { tipo: 'HEMATOLOGIA', examen:'RECUENTO DE GLÓBULOS ROJOS'},
+        { tipo: 'HEMATOLOGIA', examen:'RECUENTO DE GLÓBULOS BLANCOS'},
+        { tipo: 'HEMATOLOGIA', examen:'CONSTANTES CORPUSCULARES'},
+        { tipo: 'HEMATOLOGIA', examen:'COMPATIBILIDAD SANGUINEA'},
+        { tipo: 'BIOQUIMICA', examen:'GLUCOSA'},
+        { tipo: 'BIOQUIMICA', examen:'COLESTEROL TOTAL'},
+        { tipo: 'BIOQUIMICA', examen:'TRIGLICERIDOS'},
+        { tipo: 'BIOQUIMICA', examen:'UREA'},
+        { tipo: 'BIOQUIMICA', examen:'CREATININA'},
+        { tipo: 'BIOQUIMICA', examen:'T.G.O.'},
+        { tipo: 'BIOQUIMICA', examen:'T.G.P.'},
+        { tipo: 'BIOQUIMICA', examen:'BILIRRUBINAS TOTAL Y FRACC.'},
+        { tipo: 'BIOQUIMICA', examen:'PROTEINAS TOTALES Y FRACC.'},
+        { tipo: 'BIOQUIMICA', examen:'ALBÚMINA'},
+        { tipo: 'BIOQUIMICA', examen:'FOSFATASA ALCALINA'},
+        { tipo: 'MICROBIOLOGIA', examen:'EXAMEN DIR. DE SECRECIÓN VAG.'},
+        { tipo: 'MICROBIOLOGIA', examen:'GRAM'},
+        { tipo: 'INMUNOLOGIA', examen:'GRUPO SANGUINEO Y FACTOR RH'},
+        { tipo: 'INMUNOLOGIA', examen:'PROTEINA C REACTIVA'},
+        { tipo: 'INMUNOLOGIA', examen:'REACCION DE WIDAL'},
+        { tipo: 'INMUNOLOGIA', examen:'FACTOR REUMATOIDEO'},
+        { tipo: 'INMUNOLOGIA', examen:'R.P.R. Y/O PRUEBA RÁPIDA DE SÍFILIS'},
+        { tipo: 'INMUNOLOGIA', examen:'V.I.H. (PRUEBA RÁPIDA)'},
+        { tipo: 'INMUNOLOGIA', examen:'ANTÍGENO DE SUPERFICIE HEPATITIS B'},
+        { tipo: 'INMUNOLOGIA', examen:'BHCG (TEST DE EMBARAZO)'},
+        { tipo: 'INMUNOLOGIA', examen:'ANTIESTREPTOLISINAS (ASO)'},
+        { tipo: 'INMUNOLOGIA', examen:'ANTIGENO FEBRIL PARA BRUCELA'},
+        { tipo: 'UROANÁLISIS', examen:'EXAMEN COMPLETO DE ORINA'},
+        { tipo: 'UROANÁLISIS', examen:'SEDIMENTO URINARIO'},
+        { tipo: 'UROANÁLISIS', examen:'PROTEINURIA CUANTITATIVA/CUALITATIVA'},
+        { tipo: 'UROANÁLISIS', examen:'TEST DE ÁCIDO SULFOSALICÍLICO'},
+        { tipo: 'PARASITOLOGÍA', examen:'EX. PARASITOLÓGICO DIRECTO DE HECES'},
+        { tipo: 'PARASITOLOGÍA', examen:'EX. PARASITOLÓGICO SERIADO DE HECES'},
+        { tipo: 'PARASITOLOGÍA', examen:'TEST DE GRAHAM'},
+        { tipo: 'PARASITOLOGÍA', examen:'COPROFUNCIONAL'},
+        { tipo: 'PARASITOLOGÍA', examen:'THEVENON EN HECES'},
+        { tipo: 'PARASITOLOGÍA', examen:'REACCIÓN INFLAMATORIA/MOCO FECAL'},
+        { tipo: 'OTROS EXÁMENES', examen:'BATERÍA DE LABORATORIO GESTANTE'},
+        { tipo: 'OTROS EXÁMENES', examen:'TEST DE HELECHO'},
     ];
     datosOtrosPruebasFisicas: any[] = [];
     indexEditarOtrosPruebasFisicasEditado: number = 0;
@@ -133,6 +186,7 @@ export class DialogConsultaComponent implements OnInit {
     datosInterconsultas: any[] = [];
     datosRecomendaciones: any[] = [];
     datosInmunizaciones: any[] = [];
+    datosExamenesAuxiliares: any[] = [];
 
     //estados de edicion
     estadoEditarExamenFetal: boolean = false;
@@ -141,6 +195,7 @@ export class DialogConsultaComponent implements OnInit {
     estadoEditarInterconsultas: boolean = false;
     estadoEditarRecomendaciones: boolean = false;
     estadoEditarInmunizaciones: boolean = false;
+    estadoEditarExamenesAuxiliares: boolean = false;
 
     //index de la edicion
     indexExamenFetalEditado: number;
@@ -149,11 +204,14 @@ export class DialogConsultaComponent implements OnInit {
     indexInterconsultaEditado: number;
     indexRecomendacionEditado: number;
     indexInmunizacionEditado: number;
+    indexExamenAuxiliarEditado: number;
 
-    estadoEdicion: boolean;
+    estadoEdicion: boolean = false;
     datePipe = new DatePipe('en-US');
     listaDeCIE: any;
 
+    eleccion: any;
+    
     constructor(
         private fb: FormBuilder,
         private ref: DynamicDialogRef,
@@ -164,7 +222,6 @@ export class DialogConsultaComponent implements OnInit {
         private CieService: CieService,
     ) {
         this.nroHcl = this.obstetriciaGeneralService.nroHcl;
-        this.estadoEdicion = false;
         this.inicializarForm();
         this.consultaObstetriciaService.traerDatosParaConsultaNueva({ nroHcl: this.nroHcl }).subscribe((res: any) => {
             console.log('datos ', res.object);
@@ -182,6 +239,7 @@ export class DialogConsultaComponent implements OnInit {
             if (config.data) {
                 this.llenarCamposEdicionConsulta();
                 this.estadoEdicion = true;
+                console.log("estadoEdicion",this.estadoEdicion);
             }
         });
 
@@ -200,6 +258,9 @@ export class DialogConsultaComponent implements OnInit {
             this.form.get("ecografiaEdadDias").setValue(edadGestacional % 7);
             console.log('edad gestacional ', edadGestacional);
         }
+    }
+    onChangeEstadoVisita(){
+        this.estadoVisitaDomiciMostrar=this.form.value.visitaDomiciliariaEstado==="SI"?true:false;
     }
     ngOnInit(): void { }
 
@@ -285,27 +346,31 @@ export class DialogConsultaComponent implements OnInit {
             consejeria1: new FormControl(""),
             cie10_1: new FormControl("99401"),
             consejeria2: new FormControl(""),
-            cie10_2: new FormControl(""),
+            cie10_2: new FormControl("99403"),
             consejeria3: new FormControl(""),
-            cie10_3: new FormControl(""),
+            cie10_3: new FormControl("99204.08"),
             consejeria4: new FormControl(""),
-            cie10_4: new FormControl("9940205"),
+            cie10_4: new FormControl(""),
             consejeria5: new FormControl(""),
-            cie10_5: new FormControl("99403"),
+            cie10_5: new FormControl("U140"),
             consejeria6: new FormControl(""),
-            cie10_6: new FormControl("99402"),
+            cie10_6: new FormControl("U1692"),
             consejeria7: new FormControl(""),
-            cie10_7: new FormControl("U138 "),
+            cie10_7: new FormControl(""),
             consejeria8: new FormControl(""),
-            cie10_8: new FormControl("86703"),
+            cie10_8: new FormControl(""),
             consejeria9: new FormControl(""),
             cie10_9: new FormControl(""),
             consejeria10: new FormControl(""),
             cie10_10: new FormControl(""),
             consejeria11: new FormControl(""),
-            cie10_11: new FormControl("U121"),
+            cie10_11: new FormControl("9940133"),
             consejeria12: new FormControl(""),
-            cie10_12: new FormControl("111692"),
+            cie10_12: new FormControl("9940134"),
+            consejeria13: new FormControl(""),
+            cie10_13: new FormControl(""),
+            consejeria14: new FormControl(""),
+            cie10_14: new FormControl(""),
 
             //referencia
             consultorioReferencia: new FormControl(""),
@@ -336,7 +401,8 @@ export class DialogConsultaComponent implements OnInit {
             //visita domiciliaria
             visitaDomiciliariaEstado: new FormControl(""),
             visitaDomiciliariaFecha: new FormControl(""),
-            planPartoReenfocada: new FormControl(""),
+            planParto: new FormControl(""),
+            reenfocada: new FormControl(""),
 
             //laboratorios
             grupoSanguineo: new FormControl(""),
@@ -449,6 +515,11 @@ export class DialogConsultaComponent implements OnInit {
         this.formOtrosPruebas = this.fb.group({
             nombre: new FormControl(""),
             resultado: new FormControl(""),
+        });
+        this.formExamenAuxiliar = this.fb.group({
+            tipo: new FormControl(""),
+            examen: new FormControl(""),
+            codigo: new FormControl(""),
         });
     }
     calcularGanancia() {
@@ -883,6 +954,74 @@ export class DialogConsultaComponent implements OnInit {
             }
         })
     }
+    openNewExamenAuxiliar() {
+        //this.isUpdate = false;
+        this.formExamenAuxiliar.reset();
+        this.examenAuxiliarDialog = true;
+    }
+    guardarNuevoExamenAuxiliar() {
+        var examen = //{
+            //tipo: this.formTratamiento.value.tipo,
+            /*examen:*/ this.formExamenAuxiliar.value.examen;
+            //codigo: this.formTratamiento.value.codigo,
+        //}
+        console.log(examen);
+        this.datosExamenesAuxiliares.push(examen);
+        this.examenAuxiliarDialog = false;
+    }
+    canceledExamenAuxiliar() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cancelado...',
+            text: '',
+            showConfirmButton: false,
+            timer: 1000
+        })
+        this.examenAuxiliarDialog = false;
+        this.estadoEditarExamenesAuxiliares = false;
+    }
+    openDialogEditarExamenAuxiliar(rowData, rowIndex) {
+        this.estadoEditarExamenesAuxiliares = true;
+        this.indexExamenAuxiliarEditado = rowIndex;
+        this.formExamenAuxiliar.reset();
+        //this.formExamenAuxiliar.get('tipo').setValue(rowData.tipo);
+        this.formExamenAuxiliar.get('examen').setValue(rowData);
+        //this.formExamenAuxiliar.get('codigo').setValue(rowData.codigo);
+        this.examenAuxiliarDialog = true;
+    }
+    guardarEdicionExamenAuxiliar() {
+        var examen = //{
+            //tipo: this.formTratamiento.value.tipo,
+            /*examen:*/ this.formExamenAuxiliar.value.examen;
+            //codigo: this.formTratamiento.value.codigo,
+        //}
+        console.log(examen);
+        this.datosExamenesAuxiliares.splice(this.indexExamenAuxiliarEditado, 1, examen);
+        this.examenAuxiliarDialog = false;
+        this.estadoEditarExamenesAuxiliares = false;
+    }
+    eliminarExamenAuxiliar(rowIndex) {
+        this.estadoEditarExamenesAuxiliares = false;
+        Swal.fire({
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+            icon: 'warning',
+            title: 'Estas seguro de eliminar este registro?',
+            text: '',
+            showConfirmButton: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.datosExamenesAuxiliares.splice(rowIndex, 1);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Eliminado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+    }
     openNewInterconsulta() {
         //this.isUpdate = false;
         this.formInterconsulta.reset();
@@ -1167,59 +1306,69 @@ export class DialogConsultaComponent implements OnInit {
                     cie10: this.form.value.cie10_1
                 },
                 {
-                    consejeria: "CONSEJERIA EN ENFERMEDADES COMUNES",
+                    consejeria: "ORIENTACIÓN NUTRICIONAL",
                     valor: this.form.value.consejeria2 === "true" ? true : false,
                     cie10: this.form.value.cie10_2
                 },
                 {
-                    consejeria: "SOSPECHA DE TUBERCULOSIS",
+                    consejeria: "ORIENTACIÓN EN PLANIFICACIÓN FAMILIAR",
                     valor: this.form.value.consejeria3 === "true" ? true : false,
                     cie10: this.form.value.cie10_3
                 },
                 {
-                    consejeria: "INFECCIONES DE TRANSMISION SEXUAL",
+                    consejeria: "ORIENTACIÓN EN PREVENCION DE CÁNCER GINECOLÓGICO",
                     valor: this.form.value.consejeria4 === "true" ? true : false,
                     cie10: this.form.value.cie10_4
                 },
                 {
-                    consejeria: "ORIENTACIÓN NUTRICIONAL",
+                    consejeria: "VIOLENCIA INTRAFAMILIAR",
                     valor: this.form.value.consejeria5 === "true" ? true : false,
                     cie10: this.form.value.cie10_5
                 },
                 {
-                    consejeria: "ORIENTACIÓN EN PLANIFICACIÓN FAMILIAR",
+                    consejeria: "PLAN DE PARTO",
                     valor: this.form.value.consejeria6 === "true" ? true : false,
                     cie10: this.form.value.cie10_6
                 },
                 {
-                    consejeria: "ORIENTACIÓN EN PREVENCION DE CÁNCER GINECOLÓGICO",
+                    consejeria: "CONSEJERIA LACTANCIA MATERNA",
                     valor: this.form.value.consejeria7 === "true" ? true : false,
                     cie10: this.form.value.cie10_7
                 },
                 {
-                    consejeria: "ORIENTACIÓN Y CONSEJERIA PRETEST. VIH",
+                    consejeria: "CONSEJERIA EN ENFERMEDADES COMUNES",
                     valor: this.form.value.consejeria8 === "true" ? true : false,
                     cie10: this.form.value.cie10_8
                 },
                 {
-                    consejeria: "CONSEJERIA EN ESTILOS DE VIDA SALUDABLE",
+                    consejeria: "SOSPECHA DE TUBERCULOSIS",
                     valor: this.form.value.consejeria9 === "true" ? true : false,
                     cie10: this.form.value.cie10_9
                 },
                 {
-                    consejeria: "ORIENTACIÓN AL ACOMPAÑANTE",
+                    consejeria: "INFECCIONES DE TRANSMISION SEXUAL",
                     valor: this.form.value.consejeria10 === "true" ? true : false,
                     cie10: this.form.value.cie10_10
                 },
                 {
-                    consejeria: "VIOLENCIA INTRAFAMILIAR",
+                    consejeria: "ORIENTACIÓN Y CONSEJERIA PRETEST. VIH",
                     valor: this.form.value.consejeria11 === "true" ? true : false,
                     cie10: this.form.value.cie10_11
                 },
                 {
-                    consejeria: "PLAN DE PARTO",
+                    consejeria: "ORIENTACIÓN Y CONSEJERIA POSTTEST. VIH",
                     valor: this.form.value.consejeria12 === "true" ? true : false,
                     cie10: this.form.value.cie10_12
+                },
+                {
+                    consejeria: "CONSEJERIA EN ESTILOS DE VIDA SALUDABLE",
+                    valor: this.form.value.consejeria13 === "true" ? true : false,
+                    cie10: this.form.value.cie10_13
+                },
+                {
+                    consejeria: "ORIENTACIÓN AL ACOMPAÑANTE",
+                    valor: this.form.value.consejeria14 === "true" ? true : false,
+                    cie10: this.form.value.cie10_14
                 }
             ],
             funcionesVitales: {
@@ -1276,7 +1425,11 @@ export class DialogConsultaComponent implements OnInit {
                 codRENAES: this.form.value.codRENAESReferencia
             },
             interconsultas: this.datosInterconsultas,
-            proxCita: this.datePipe.transform(this.form.value.proxCita, 'yyyy-MM-dd HH:mm:ss'),
+            examenesAuxiliares: this.datosExamenesAuxiliares,
+            proxCita: {
+                fecha: this.datePipe.transform(this.form.value.proxCita, 'yyyy-MM-dd HH:mm:ss'),
+                estado: "tentativo"
+            },
             tratamientos: this.datosTratamientos,
             tratamientosSuplementos: {
                 acidoFolico: {
@@ -1330,7 +1483,6 @@ export class DialogConsultaComponent implements OnInit {
             },
             inmunizaciones: this.datosInmunizaciones,
             recomendaciones: this.datosRecomendaciones,
-            examenesAuxiliares: null,
             evaluacionNutricional: {
                 valor: this.form.value.evalNutricionalValor,
                 indicador: this.form.value.evalNutricionalIndicador
@@ -1456,18 +1608,19 @@ export class DialogConsultaComponent implements OnInit {
             },
             ecografia: {
                 fecha: this.datePipe.transform(this.form.value.ecografiaFecha, 'yyyy-MM-dd HH:mm:ss'),
-                descripcion: this.form.value.descripcionEcografia,
+                observaciones: this.form.value.descripcionEcografia,
                 semanas: parseInt(this.form.value.ecografiaEdadSemanas),
                 dias: parseInt(this.form.value.ecografiaEdadDias),
             },
             codRENAES: "123123",
-            planPartoReenfocada: this.form.value.planPartoReenfocada,
+            planParto: this.form.value.planParto,
+            reenfocada: this.form.value.reenfocada
         }
         for (let i = 0; i < this.datosOtrosPruebasFisicas.length; i++) {
             consulta.examenesFisicos.push(this.datosOtrosPruebasFisicas[i])
         }
         console.log('data to save ', consulta);
-
+        console.log("estadoEdicion",this.estadoEdicion);
         if (!this.estadoEdicion) {
             this.consultaObstetriciaService.postDatoConsultaObstetrica(consulta, this.form.value.nroFetos).subscribe((res: any) => {
                 console.log('rpta ', res.object);
@@ -1487,6 +1640,7 @@ export class DialogConsultaComponent implements OnInit {
         this.estadoEdicion = false;
     }
     llenarCamposEdicionConsulta() {
+        this.estadoEdicion = true;
         let configuracion = this.config.data.row;
         console.log("Imprimiento objeto del dialog", configuracion);
         this.form.get('fecha').setValue(configuracion.fecha ?
@@ -1580,12 +1734,16 @@ export class DialogConsultaComponent implements OnInit {
         this.form.get('cie10_11').setValue(configuracion.orientaciones[10].cie10);
         this.form.get('consejeria12').setValue(configuracion.orientaciones[11].valor ? "true" : "false");
         this.form.get('cie10_12').setValue(configuracion.orientaciones[11].cie10);
+        this.form.get('consejeria13').setValue(configuracion.orientaciones[12].valor ? "true" : "false");
+        this.form.get('cie10_13').setValue(configuracion.orientaciones[12].cie10);
+        this.form.get('consejeria14').setValue(configuracion.orientaciones[13].valor ? "true" : "false");
+        this.form.get('cie10_14').setValue(configuracion.orientaciones[13].cie10);
         //atencion
         this.form.get('consultorioReferencia').setValue(configuracion.referencia.consultorio);
         this.form.get('motivoReferencia').setValue(configuracion.referencia.motivo);
         this.form.get('codRENAESReferencia').setValue(configuracion.referencia.codRENAES);
-        this.form.get('proxCita').setValue(configuracion.proxCita ?
-            this.datePipe.transform(new Date(configuracion.proxCita), 'yyyy-MM-ddTHH:mm') : "");
+        this.form.get('proxCita').setValue(configuracion.proxCita.fecha ?
+            this.datePipe.transform(new Date(configuracion.proxCita.fecha), 'yyyy-MM-ddTHH:mm') : "");
         //suplementos
         this.form.get('acidoFolicoSuplemento').setValue(
             configuracion.tratamientosSuplementos.acidoFolico.descripcion !== "" ?
@@ -1633,7 +1791,8 @@ export class DialogConsultaComponent implements OnInit {
         this.form.get('visitaDomiciliariaEstado').setValue(configuracion.visitaDomiciliaria.estado);
         this.form.get('visitaDomiciliariaFecha').setValue(configuracion.visitaDomiciliaria.fecha ?
             this.datePipe.transform(new Date(configuracion.visitaDomiciliaria.fecha), 'yyyy-MM-ddTHH:mm') : "");
-        this.form.get('planPartoReenfocada').setValue(configuracion.planPartoReenfocada);
+        this.form.get('planParto').setValue(configuracion.planParto);
+        this.form.get('reenfocada').setValue(configuracion.reenfocada);
         //laboratorio
         this.form.get('grupoSanguineo').setValue(configuracion.laboratorios.grupoSanguineo.valor);
         this.form.get('grupoSanguineoFecha').setValue(configuracion.laboratorios.grupoSanguineo.fecha ?
@@ -1722,7 +1881,7 @@ export class DialogConsultaComponent implements OnInit {
 
         this.form.get('ecografiaEdadSemanas').setValue(configuracion.ecografia.semanas);
         this.form.get('ecografiaEdadDias').setValue(configuracion.ecografia.dias);
-        this.form.get('descripcionEcografia').setValue(configuracion.ecografia.descripcion);
+        this.form.get('descripcionEcografia').setValue(configuracion.ecografia.observaciones);
         this.form.get('ecografiaFecha').setValue(configuracion.ecografia.fecha ?
             this.datePipe.transform(new Date(configuracion.ecografia.fecha), 'yyyy-MM-ddTHH:mm') : "");
 
@@ -1730,6 +1889,7 @@ export class DialogConsultaComponent implements OnInit {
         this.datosDiagnosticos = configuracion.diagnosticos;
         this.datosTratamientos = configuracion.tratamientos;
         this.datosInterconsultas = configuracion.interconsultas;
+        this.datosExamenesAuxiliares = configuracion.examenesAuxiliares;
         this.datosRecomendaciones = configuracion.recomendaciones;
         this.datosInmunizaciones = configuracion.inmunizaciones;
 
