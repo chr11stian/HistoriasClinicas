@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 
-import {SharedModule} from "../../../shared/shared.module";
-import {PrimeModule} from "../../../shared/prime/prime.module";
+import {SharedModule} from "../../../../shared/shared.module";
+import {PrimeModule} from "../../../../shared/prime/prime.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CategoriasAdultoMayorComponent } from './components/categorias-adulto-mayor/categorias-adulto-mayor.component';
 import { DiagnosticoAdultoMayorComponent } from './components/diagnostico-adulto-mayor/diagnostico-adulto-mayor.component';

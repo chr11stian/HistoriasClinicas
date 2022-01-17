@@ -10,7 +10,7 @@ export class StepGeneralAdultoMayorComponent implements OnInit {
 
   items: MenuItem[]
   indiceActivo: number = 0
-  stepName = "problema"
+  stepName = "dato"
 
   constructor() {
   }
@@ -18,8 +18,8 @@ export class StepGeneralAdultoMayorComponent implements OnInit {
 
   ngOnInit(): void {
     this.items = [
-      { label: "Lista de Problemas", styleClass: 'icon'},
       { label: "Datos Generales", styleClass: 'icon1'},
+      { label: "Lista de Problemas", styleClass: 'icon'},
       { label: "Plan de Atención Integral", styleClass: 'icon2'},
       { label: "Antecedentes", styleClass: 'icon3'},
       { label: "Valoracion Clinica", styleClass: 'icon3'},
@@ -38,10 +38,10 @@ export class StepGeneralAdultoMayorComponent implements OnInit {
         this.stepName = "plan"
         break
       case 1:
-        this.stepName = "dato"
+        this.stepName = "problema"
         break
       case 0:
-        this.stepName = "problema"
+        this.stepName = "dato"
         break
     }
   }

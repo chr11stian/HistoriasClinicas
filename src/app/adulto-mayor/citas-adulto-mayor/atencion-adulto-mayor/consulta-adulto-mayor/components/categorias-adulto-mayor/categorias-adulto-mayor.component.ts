@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {AdultoMayorService} from "../../../atencion-adulto-mayor/plan-atencion-adulto-mayor/services/adulto-mayor.service";
+import {AdultoMayorService} from "../../../plan-atencion-adulto-mayor/services/adulto-mayor.service";
 import {MessageService} from "primeng/api";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {ModalTratamientoComponent} from "../../../../../obstetricia-general/gestante/atencion/consultorio-obstetrico/component/tratamiento/modal-tratamiento/modal-tratamiento.component";
+import {ModalTratamientoComponent} from "../../../../../../obstetricia-general/gestante/atencion/consultorio-obstetrico/component/tratamiento/modal-tratamiento/modal-tratamiento.component";
 import Swal from "sweetalert2";
 
 @Component({

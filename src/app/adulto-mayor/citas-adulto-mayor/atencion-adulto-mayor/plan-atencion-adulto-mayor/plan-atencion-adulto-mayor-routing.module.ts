@@ -7,10 +7,7 @@ const routes: Routes = [
     path: "plan",
     component: StepGeneralAdultoMayorComponent
   },
-  {
-    path: "plan",
-    loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/plan-atencion-adulto-mayor/plan-atencion-adulto-mayor.module').then(n => n.PlanAtencionAdultoMayorModule),
-  },
+
 ];
 
 @NgModule({

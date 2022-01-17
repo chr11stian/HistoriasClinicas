@@ -3,10 +3,7 @@
         <ng-template pTemplate="left">
             <h3 class="mt-2">LISTA DE PROBLEMAS</h3>
         </ng-template>
-        <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                    class="guardar-boton" ></button>
-        </ng-template>
+
     </p-toolbar>
     <br>
     <div class="grid p p-fluid">
@@ -17,7 +14,7 @@
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
-                    class="agregar-boton"  (click)="openNewCronico()"></button>
+                    class="agregar-boton"  (click)="cronicoAgudo='cronico';openNewAgudo()"></button>
                 </ng-template>
             </p-toolbar>
             <p-table class="table-over" [value]="dataProblemasCronicos" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
@@ -27,9 +24,11 @@
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center" class="font-2">Nro </th>
-                        <th style="text-align: center" class="font-1">Fecha</th>
                         <th style="text-align: center" class="font-2">Problema</th>
-                        <th style="text-align: center" class="font-2">Controlado</th>
+<!--                        <th style="text-align: center" class="font-2">Controlado</th>-->
+                        <th style="text-align: center" class="font-1">Fecha 1</th>
+                        <th style="text-align: center" class="font-1">Fecha 2</th>
+                        <th style="text-align: center" class="font-1">Fecha 3</th>
                         <th style="text-align: center" class="font-2">Observaciones</th>
                         <th style="text-align: center" class="font-2">Acciones</th>
 
@@ -38,34 +37,53 @@
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
                         <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.fechaProblemasCronicos }}</td>
-                        <td style="text-align: center">{{ rowData.problemaCronico }}</td>
-                        <td class="text-center">
-                            <div *ngIf="rowData.controladoCronico=='SI';else noEs">
-                                <p-tag
-                                        value="Si"
-                                        severity="success"
-                                        styleClass="text-sm"
-
-                                ></p-tag>
+                        <td style="text-align: center">{{ rowData.nombreProblema }}</td>
+                        <td>
+                            <div style="text-align: center" *ngIf="rowData.fecha1;else noEs">
+                                {{ rowData.fecha1 }}
                             </div>
                             <ng-template #noEs>
                                 <p-tag
-                                        value="No"
+                                        value="No Atendido"
 
-                                        severity="danger"
+                                        severity="warning"
                                         styleClass="text-sm"
                                 ></p-tag>
                             </ng-template>
                         </td>
-                        <td style="text-align: center">{{ rowData.observaciones }}</td>
+                        <td>
+                            <div style="text-align: center" *ngIf="rowData.fecha2;else noEs">
+                                {{ rowData.fecha2 }}
+                            </div>
+                            <ng-template #noEs>
+                                <p-tag
+                                        value="No Atendido"
 
+                                        severity="warning"
+                                        styleClass="text-sm"
+                                ></p-tag>
+                            </ng-template>
+                        </td>
+                        <td>
+                            <div style="text-align: center" *ngIf="rowData.fecha3;else noEs">
+                                {{ rowData.fecha3 }}
+                            </div>
+                            <ng-template #noEs>
+                                <p-tag
+                                        value="No Atendido"
+
+                                        severity="warning"
+                                        styleClass="text-sm"
+                                ></p-tag>
+                            </ng-template>
+                        </td>
+                        <td style="text-align: center"><div *ngIf="rowData.observacion1!=null || undefined">{{ "Obs. 1:" + rowData.observacion1}}</div>
+                            <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
+                            <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
+                        </td>
                         <td style="text-align: center">
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                    (click)="openDialogEditarProblemasCronicos(rowData,rowIndex)" pTooltip="Editar">
-                            </button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                    (click)="eliminarProblemaCronico(rowIndex)" pTooltip="Eliminar">
+                            <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                    pTooltip="Agregar" (click)="cronicoAgudo='cronico';openAgregarAtenciones(rowData,rowIndex)">
                             </button>
                         </td>
                     </tr>
@@ -80,42 +98,75 @@
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
-                            class="agregar-boton"  (click)="openNewAgudo()"></button>
+                            class="agregar-boton"  (click)="cronicoAgudo='agudo';openNewAgudo()"></button>
                 </ng-template>
             </p-toolbar>
             <p-table class="table-over" [value]="dataProblemasAgudos" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas" >
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center" class="font-2">Nro </th>
+                        <th style="text-align: center" class="font-2">Problema</th>
                         <th style="text-align: center" class="font-1">Fecha 1</th>
                         <th style="text-align: center" class="font-1">Fecha 2</th>
                         <th style="text-align: center" class="font-1">Fecha 3</th>
-                        <th style="text-align: center" class="font-2">Problema</th>
                         <th style="text-align: center" class="font-2">Observaciones</th>
                         <th style="text-align: center" class="font-2">Acciones</th>
-
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
                         <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.fecha1ProblemasAgudos }}</td>
-                        <td style="text-align: center">{{ rowData.fecha2ProblemasAgudos }}</td>
-                        <td style="text-align: center">{{ rowData.fecha3ProblemasAgudos }}</td>
-                        <td style="text-align: center">{{ rowData.problemaAgudo }}</td>
-                        <td style="text-align: center">{{ rowData.observacionesAgudo }}</td>
+                        <td style="text-align: center">{{ rowData.nombreProblema }}</td>
+                        <td>
+                            <div style="text-align: center" *ngIf="rowData.fecha1;else noEs">
+                                {{ rowData.fecha1 }}
+                            </div>
+                            <ng-template #noEs>
+                                <p-tag
+                                        value="No Atendido"
+
+                                        severity="warning"
+                                        styleClass="text-sm"
+                                ></p-tag>
+                            </ng-template>
+                        </td>
+                        <td>
+                            <div style="text-align: center" *ngIf="rowData.fecha2;else noEs">
+                                {{ rowData.fecha2 }}
+                            </div>
+                            <ng-template #noEs>
+                                <p-tag
+                                        value="No Atendido"
+
+                                        severity="warning"
+                                        styleClass="text-sm"
+                                ></p-tag>
+                            </ng-template>
+                        </td>
+                        <td>
+                        <div style="text-align: center" *ngIf="rowData.fecha3;else noEs">
+                                    {{ rowData.fecha3 }}
+                        </div>
+                        <ng-template #noEs>
+                            <p-tag
+                                    value="No Atendido"
+
+                                    severity="warning"
+                                    styleClass="text-sm"
+                            ></p-tag>
+                        </ng-template>
+                        </td>
+                        <td style="text-align: center"><div *ngIf="rowData.observacion1!=null || undefined">{{ "Obs. 1:" + rowData.observacion1}}</div>
+                            <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
+                            <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
+                        </td>
 
                         <td style="text-align: center">
-                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                    (click)="openDialogEditarProblemasAgudos(rowData,rowIndex)" pTooltip="Editar">
+                            <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                     pTooltip="Agregar" (click)="cronicoAgudo='agudo';openAgregarAtenciones(rowData,rowIndex)">
                             </button>
-                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                    (click)="eliminarProblemaAgudo(rowIndex)" pTooltip="Eliminar">
-                            </button>
-
                         </td>
                     </tr>
                 </ng-template>
@@ -124,45 +175,37 @@
         </div>
     </div>
 </div>
-<p-dialog  [(visible)]="dialogProblemaCronico"
+
+<p-dialog  [(visible)]="dialogAtencion"
            [modal]="true"
            [style]="{width: '30%'}">
     <ng-template pTemplate="header">
-        <h3>PROBLEMAS CRONICOS</h3>
+        <div style="font-weight: bold" *ngIf="cronicoAgudo=='cronico';else agudo">
+            PROBLEMA CRÓNICO
+        </div>
+        <ng-template #agudo>
+            <div style="font-weight: bold">
+                PROBLEMA AGUDO
+            </div>
+        </ng-template>
     </ng-template>
-
-    <form [formGroup]='formProblemasCronicos'>
+    <form [formGroup]='formAtencion'>
         <div class="grid p-fluid">
+            <br>
             <div class="col-12 md:col-8 lg:col-8 p-field">
                 <label>Fecha:</label>
-                <input type="date"  pInputText formControlName='fechaProblemasCronicos' placeholder="Examenes Auxiliares"
-                       required/>
-            </div>
-            <div class="col-12 md:col-4 lg:col-4 p-field">
-                <label>Controlado?:</label>
-                <p-selectButton [options]="sino"  optionValue="value"
-                                optionLabel="label" formControlName="controladoCronico"></p-selectButton>
-
-            </div>
-            <br>
-            <br>
-            <div class="col-12">
-                <span class="p-float-label">
-                    <textarea style="border-radius: 10px" id="problemaCronico" rows="5" cols="30" pInputTextarea formControlName="problemaCronico"> </textarea>
-                    <label for="problemaCronico">Problemas Crónicos:</label>
-                 </span>
+                <input type="date" pInputText formControlName='fechaA'>
             </div>
             <div class="col-12">
-                <span class="p-float-label">
-                    <textarea style="border-radius: 10px" id="observaciones" rows="5" cols="30" pInputTextarea formControlName="observaciones"> </textarea>
-                    <label for="observaciones">Observaciones:</label>
+                 <span class="p-float-label">
+                    <textarea style="border-radius: 10px" id="observacionesA" rows="5" cols="30" pInputTextarea formControlName="observacionesA"> </textarea>
+                    <label for="observacionesA">Observaciones:</label>
                  </span>
             </div>
-
         </div>
     </form>
     <div class="footer">
-        <button pButton type="button" label="Guardar" (click)="saveCronico()" class="p-button-danger mt-4"></button>
+        <button pButton type="button" label="Guardar" (click)="saveAtencion()" class="p-button-danger mt-4"></button>
         <button pButton type="button" label="Cancelar" (click)="canceled()"  class="p-button-danger mt-4"></button>
     </div>
 </p-dialog>
@@ -170,59 +213,36 @@
            [modal]="true"
            [style]="{width: '30%'}">
     <ng-template pTemplate="header">
-        <h3>PROBLEMAS AGUDOS</h3>
+        <div style="font-weight: bold" *ngIf="cronicoAgudo=='cronico';else agudo">
+            PROBLEMA CRÓNICO
+        </div>
+        <ng-template #agudo>
+            <div style="font-weight: bold">
+                PROBLEMA AGUDO
+            </div>
+        </ng-template>
     </ng-template>
     <form [formGroup]='formProblemasAgudos'>
         <div class="grid p-fluid">
+            <br>
+            <div class="col-12">
+                <br>
+                <span class="p-float-label">
+                    <textarea style="border-radius: 10px" id="ProblemasAgudos" rows="5" cols="30" pInputTextarea formControlName="nombreProblema"> </textarea>
+                    <label for="ProblemasAgudos">Nombre Problema:</label>
+                 </span>
+            </div>
+            <br>
             <div class="col-12 md:col-8 lg:col-8 p-field">
                 <label>Fecha 1:</label>
-                <input type="date"  pInputText formControlName='fecha1ProblemasAgudos'
-                       >
+                <input type="date" pInputText formControlName='fecha'>
             </div>
-            <div class="col-12 md:col-4 lg:col-4 p-field">
-                <label>Atendido?:</label>
-                <p-selectButton [options]="sino"  optionValue="value"
-                                optionLabel="label" formControlName="controladoAgudo1"></p-selectButton>
-
-            </div>
-            <div class="col-12 md:col-8 lg:col-8 p-field">
-                <label>Fecha 2 :</label>
-                <input type="date"  pInputText formControlName='fecha2ProblemasAgudos'
-                       >
-            </div>
-            <div class="col-12 md:col-4 lg:col-4 p-field">
-                <label>Atendido?:</label>
-                <p-selectButton [options]="sino"  optionValue="value"
-                                optionLabel="label" formControlName="controladoAgudo2"></p-selectButton>
-
-            </div>
-            <div class="col-12 md:col-8 lg:col-8 p-field">
-                <label>Fecha 3:</label>
-                <input type="date"  pInputText formControlName='fecha3ProblemasAgudos'
-                       >
-            </div>
-            <div class="col-12 md:col-4 lg:col-4 p-field">
-                <label>Atendido?:</label>
-                <p-selectButton [options]="sino"  optionValue="value"
-                                optionLabel="label" formControlName="controladoAgudo3"></p-selectButton>
-
-            </div>
-
-            <br>
             <div class="col-12">
                  <span class="p-float-label">
-                    <textarea style="border-radius: 10px" id="ProblemasAgudos" rows="5" cols="30" pInputTextarea formControlName="problemaAgudo"> </textarea>
-                    <label for="ProblemasAgudos">Problemas Agudos:</label>
+                    <textarea style="border-radius: 10px" id="observaciones" rows="5" cols="30" pInputTextarea formControlName="observaciones"> </textarea>
+                    <label for="observaciones">Observaciones:</label>
                  </span>
             </div>
-            <br>
-            <div class="col-12">
-                 <span class="p-float-label">
-                    <textarea style="border-radius: 10px" id="observacionesAgudo" rows="5" cols="30" pInputTextarea formControlName="observacionesAgudo"> </textarea>
-                    <label for="observacionesAgudo">Observaciones:</label>
-                 </span>
-            </div>
-
         </div>
     </form>
     <div class="footer">

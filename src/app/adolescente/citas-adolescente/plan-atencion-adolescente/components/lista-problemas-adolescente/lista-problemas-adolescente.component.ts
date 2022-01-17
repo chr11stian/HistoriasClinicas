@@ -46,7 +46,6 @@ export class ListaProblemasAdolescenteComponent implements OnInit {
   }
   getFechaHora(date:Date){
     if(date.toString()!==''){
-
       let hora=date.toLocaleTimeString();
       // return fecha+' '+hora;
       let dd = date.getDate();

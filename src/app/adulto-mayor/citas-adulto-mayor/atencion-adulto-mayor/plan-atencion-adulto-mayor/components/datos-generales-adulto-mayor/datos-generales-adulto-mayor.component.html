@@ -100,10 +100,10 @@
                 <label class="">Grupo Sanguineo:</label>
                 <div class="grid">
                     <div class="col-12 md:col-6 lg:col-6 p-field">
-                        <input type="text" pInputText class="inputfield w-full" placeholder="Grupo" formControlName="grupoSanguineo">
+                        <p-dropdown formControlName="grupoSanguineo" class="inputfield w-full" [options]="grupoSanguineo"  optionLabel="name" optionValue="code"></p-dropdown>
                     </div>
                     <div class="col-12 md:col-6 lg:col-6 p-field">
-                        <input type="text" pInputText class="inputfield w-full" placeholder="Rh" formControlName="rh">
+                        <p-dropdown formControlName="rh" [options]="rh" class="inputfield w-full"  optionLabel="name" optionValue="code"></p-dropdown>
                     </div>
                 </div>
             </div>

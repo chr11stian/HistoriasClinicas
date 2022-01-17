@@ -1,18 +1,27 @@
 export interface ProblemasCronicos {
-    fechaProblemasCronicos?: Date,
+    fechaProblemasCronicos1?: Date,
+    fechaProblemasCronicos2?: Date,
+    fechaProblemasCronicos3?: Date,
+    observaciones1?: string,
+    observaciones2?: string,
+    observaciones3?: string,
     controladoCronico?: boolean,
-    problemaCronico?: string,
-    observaciones?: string
+    problemaCronico?: string
+
 }
 export interface ProblemasAgudos {
     fecha1ProblemasAgudos?: Date,
-    controladoAgudo1?: boolean,
+    observacionesAgudo1?: string,
     fecha2ProblemasAgudos?: Date,
-    controladoAgudo2?: boolean,
+    observacionesAgudo2?: string,
     fecha3ProblemasAgudos?: Date,
-    controladoAgudo3?: boolean,
-    problemaAgudo?: string,
-    observacionesAgudo?: string
+    observacionesAgudo3?: string,
+    problemaAgudo?: string
+}
+export interface problema{
+    nombreProblema?:string,
+    fecha?:Date,
+    observacion?:string,
 }
 export interface PlanEvaluacionAdulto{
     descripcion?: string;
@@ -24,6 +33,7 @@ export interface PlanEvaluacionAdulto{
     atendido3?:boolean;
     lugar?: string;
 }
+
 export interface TratamientosFrecuentes{
     nombre?:string,
     dosis?:number,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
-import {ObstetriciaGeneralService} from "../../../../../../obstetricia-general/services/obstetricia-general.service";
+import {ObstetriciaGeneralService} from "../../../../../../../obstetricia-general/services/obstetricia-general.service";
 import Swal from "sweetalert2";
 import {listas, Tratamientos} from "../../models/consulta-adulto-mayor.model";
 

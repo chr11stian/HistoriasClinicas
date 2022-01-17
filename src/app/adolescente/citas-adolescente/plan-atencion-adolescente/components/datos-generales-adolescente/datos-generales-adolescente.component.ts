@@ -139,11 +139,6 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
           this.getFC('edad').setValue(data.edad);
           this.getFC('fechaNacimiento').setValue(new Date('2021-12-06 00:05:00'))
           this.getFC('departamento').setValue({iddd:'03',departamento:'APURIMAC'});
-
-
-
-
-
         }
         else{
           console.log('no existe resgistor del adolescente')
@@ -152,8 +147,6 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
 
 
     }
-
-
   save(){
     this.tipoDNI='DNI'
     this.nroDNI='10101010'

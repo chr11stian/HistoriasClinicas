@@ -3,10 +3,10 @@ import {MenuItem} from "primeng/api";
 
 @Component({
   selector: 'app-step-valoracion-adulto-mayor',
-  templateUrl: './step-valoracion-adulto-mayor.component.html',
-  styleUrls: ['./step-valoracion-adulto-mayor.component.css']
+  templateUrl: './Step-adultoMayor.html',
+  styleUrls: ['./Step-adultoMayor.css']
 })
-export class StepValoracionAdultoMayorComponent implements OnInit {
+export class StepAdultoMayor implements OnInit {
   items: MenuItem[]
   constructor() { }
   indiceActivo: number = 0

@@ -1,1 +1,342 @@
-<p>cuidados-component works!</p>
+<div class="card">
+    <p-card>
+        <div class="grid">
+            <div class="col-9" style="margin: 0 0 0 20px;">
+                <span style="font-size: 2em;">ADULTO MAYOR> CUIDADOS PREVENTIVOS  </span>
+            </div>
+        </div>
+    </p-card>
+    <hr>
+    <p-card>
+        <p-toolbar>
+            <ng-template pTemplate="left">
+                <h4 class="mt-2">Cuidados Preventivos-Seguimiento de Riesgo</h4>
+            </ng-template>
+            <ng-template pTemplate="right" class="button">
+                <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                        class="guardar-boton"></button>
+            </ng-template>
+        </p-toolbar>
+        <br>
+        <div class="grid">
+            <form [formGroup]="formCuidados">
+            <div class="col-12 md:col-6 lg:col-6">
+                <label>Fecha:</label>
+                <input type="date" pInputText class="inputfield w-full" formControlName="fecha" >
+            </div>
+            <div class="col-12 md:col-6 lg:col-6">
+                <label>Nro. H.Cl.</label>
+                <input type="number" pInputText class="inputfield w-full" placeholder="Número de Histotia Clínica" formControlName="hcl">
+            </div>
+            </form>
+        </div>
+        <br>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-6">
+                <p-fieldset legend="Vacunas" toggleable="true">
+                    <form [formGroup]="formCuidados">
+                       <div class="grid">
+                           <br>
+                           <div class="col-12 xs:col-5 md:col-5 lg:col-5 p-field">
+                               <label class="">Antitetánica (3 dosis):</label>
+                           </div>
+                           <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                               <input type="text" pInputText class="inputfield w-full"  placeholder="Vac. Antitetánica" formControlName="antitetanica">
+                           </div>
+                           <div class="col-12 xs:col-5 md:col-5 lg:col-5 p-field">
+                               <label class="">Antiamarílica (zona de riesgo):</label>
+                           </div>
+                           <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                               <input type="text" pInputText class="inputfield w-full"  placeholder="Vac. Antiamarilica" formControlName="antiamarilica">
+                           </div>
+                           <div class="col-12 xs:col-5 md:col-5 lg:col-5 p-field">
+                               <label class="">AntiHepatitis B (3 dosis):</label>
+                           </div>
+                           <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                               <input type="text" pInputText class="inputfield w-full"  placeholder="Vac. AntiHepatitis" formControlName="antihepatitis">
+                           </div>
+                           <div class="col-12 xs:col-5 md:col-5 lg:col-5 p-field">
+                               <label class="">Antinfluenza anual (anual):</label>
+                           </div>
+                           <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                               <input type="text" pInputText class="inputfield w-full"  placeholder="Vac. Antinfluenza" formControlName="antinfluenza">
+                           </div>
+                           <div class="col-12 xs:col-5 md:col-5 lg:col-5 p-field">
+                               <label class="">AntiNeumococo (cada 5 años):</label>
+                           </div>
+                           <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                               <input type="text" pInputText class="inputfield w-full"  placeholder="Vac. AntiNeumococo" formControlName="antineumococo">
+                           </div>
+
+                       </div>
+                    </form>
+                </p-fieldset>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6">
+                <p-fieldset legend="Hábitos y estilos de vida" toggleable="true">
+                    <form [formGroup]="formCuidados">
+                        <div class="grid">
+                            <div class="col-6 p-field">
+                                <label class="">Consumo de alcohol:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="consumoAlcohol"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Consumo de tabaco:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="consumoTabaco"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Actividad Física:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="actividadFisica"></p-selectButton>
+                            </div>
+                        </div>
+                    </form>
+                </p-fieldset>
+                <br>
+                <p-fieldset legend="Salud Bucal" toggleable="true">
+                    <form [formGroup]="formCuidados">
+                        <div class="grid">
+                            <div class="col-6 p-field">
+                                <label class="">Control de salud Bucal en el último año:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="controlBucal"></p-selectButton>
+                            </div>
+                        </div>
+                    </form>
+                </p-fieldset>
+        </div>
+        </div>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-6">
+                <p-fieldset legend="Otros Exámenes" toggleable="true">
+                    <form [formGroup]="formCuidados">
+                        <div class="grid">
+                            <div class="col-1 p-field-radiobutton">
+                                <p-radioButton name="mamas" value="MAMAS" formControlName="mamas"></p-radioButton>
+                            </div>
+                            <div class="col-11">
+                                <label> Mamas </label>
+                            </div>
+                            <div class="col-1 p-field-radiobutton">
+                                <p-radioButton name="pelvicoPAP" value="PELVICO Y PAP" formControlName="pelvicoPAP" ></p-radioButton>
+                            </div>
+                            <div class="col-11">
+                                <label> Pélvico y PAP (C/año, C/3años) </label>
+                            </div>
+                            <div class="col-1 p-field-radiobutton">
+                                <p-radioButton name="mamografia" value="MAMOGRAFIA" formControlName="mamografia"></p-radioButton>
+                            </div>
+                            <div class="col-11">
+                                <label> Mamografía (C/2 años) </label>
+                            </div>
+                            <div class="col-1 p-field-radiobutton">
+                                <p-radioButton name="evaluacionProstata" value="EVALUACION PROSTATA" formControlName="evaluacionProstata" ></p-radioButton>
+                            </div>
+                            <div class="col-11">
+                                <label> Evaluación Próstata(tacto rectal y/o PSA)  </label>
+                            </div>
+                            <div class="col-1 p-field-radiobutton">
+                                <p-radioButton name="densitometria" value="DENSITOMETRIA" formControlName="densitometria" ></p-radioButton>
+                            </div>
+                            <div class="col-11">
+                                <label> Densitometría </label>
+                            </div>
+                        </div>
+                    </form>
+                </p-fieldset>
+                <br>
+                <p-fieldset legend="Laboratorio Básico" toggleable="true">
+                    <form [formGroup]="formCuidados">
+                        <div class="grid">
+                        <div class="col-12 xs:col-4 md:col-4 lg:col-4 p-field">
+                            <label class="">Hemograma Completo:</label>
+                        </div>
+                        <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                            <input type="text" pInputText class="inputfield w-full"  placeholder="Hemograma" formControlName="hemograma">
+                        </div>
+                        <div class="col-12 xs:col-4 md:col-4 lg:col-4 p-field">
+                            <label class="">Glucosa:</label>
+                        </div>
+                        <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                            <input type="text" pInputText class="inputfield w-full"  placeholder="Glucosa" formControlName="glucosa">
+                        </div>
+                        <div class="col-12 xs:col-4 md:col-4 lg:col-4 p-field">
+                            <label class="">Urea:</label>
+                        </div>
+                        <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                            <input type="text" pInputText class="inputfield w-full"  placeholder="Urea" formControlName="urea">
+                        </div>
+                        <div class="col-12 xs:col-4 md:col-4 lg:col-4 p-field">
+                            <label class="">Creatinina:</label>
+                        </div>
+                        <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                            <input type="text" pInputText class="inputfield w-full"  placeholder="Creatinina" formControlName="creatinina">
+                        </div>
+                        <div class="col-12 xs:col-4 md:col-4 lg:col-4 p-field">
+                            <label class="">Colesterol:</label>
+                        </div>
+                        <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                            <input type="text" pInputText class="inputfield w-full"  placeholder="Colesterol" formControlName="colesterol">
+                        </div>
+                        <div class="col-12 xs:col-4 md:col-4 lg:col-4 p-field">
+                            <label class="">Trigliceridos:</label>
+                        </div>
+                        <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                            <input type="text" pInputText class="inputfield w-full"  placeholder="Trigliceridos" formControlName="trigliceridos">
+                        </div>
+                        <div class="col-12 xs:col-4 md:col-4 lg:col-4 p-field">
+                            <label class="">Examén Completo de Orina:</label>
+                        </div>
+                        <div class="col-12 xs: col-7 md:col-7 lg:col-7 p-field">
+                            <input type="text" pInputText class="inputfield w-full"  placeholder="Examen de Orina" formControlName="examenOrina">
+                        </div>
+
+                    </div>
+                    </form>
+                </p-fieldset>
+                <br>
+                <p-fieldset legend="Comentarios" toggleable="true">
+                    <form [formGroup]="formCuidados">
+                        <div class="grid">
+                            <div class="col-12 p-field">
+                                <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Comentarios" formControlName="comentarios"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </p-fieldset>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6">
+                <p-fieldset legend="Síndromes y Problemas Geriáticos" toggleable="true">
+                    <form [formGroup]="formCuidados">
+                        <div class="grid">
+                            <div class="col-6 p-field">
+                                <label class="">Vértigo-mareo:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="vertigo"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Delirio:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="delirio"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Sincope:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="sincope"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Dolor crónico:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="dolorCronico"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Deprivación auditiva:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="deprivacionAuditiva"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Deprivación visual:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="deprivacionVisual"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Insomnio:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="insomnio"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Incontinencia urinaria:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="incontinencia"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Prostatismo (Síntomas prostáticos):</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="prostatismo"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Estreñimiento:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="estrenimiento"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Úlceras de presión:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="ulceras"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Inmovilización:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="inmovilizacion"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Caídas:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="caidas"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Caídas en el último año:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="caidasUltimo"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Caídas (número de caídas):</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="nroCaidas"></p-selectButton>
+                            </div>
+                            <div class="col-6 p-field">
+                                <label class="">Fracturas:</label>
+                            </div>
+                            <div class="col-6 p-field">
+                                <p-selectButton [options]="sino"  optionValue="value"
+                                                optionLabel="label" formControlName="fracturas"></p-selectButton>
+                            </div>
+                        </div>
+                    </form>
+            </p-fieldset>
+            </div>
+        </div>
+    </p-card>
+</div>
+
+

@@ -5,6 +5,7 @@ import {PrimeModule} from "../../../../shared/prime/prime.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CuidadosAdultoMayorRoutingModule} from "./cuidados-adulto-mayor-routing.module";
 import { CuidadosComponentComponent } from './cuidados-component/cuidados-component.component';
+import {RippleModule} from "primeng/ripple";
 
 
 
@@ -18,7 +19,8 @@ import { CuidadosComponentComponent } from './cuidados-component/cuidados-compon
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    CuidadosAdultoMayorRoutingModule
+    CuidadosAdultoMayorRoutingModule,
+    RippleModule
   ]
 })
 export class CuidadosAdultoMayorModule { }

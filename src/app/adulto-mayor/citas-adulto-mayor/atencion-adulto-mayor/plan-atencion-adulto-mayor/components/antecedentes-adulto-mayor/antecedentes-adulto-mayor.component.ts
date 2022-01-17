@@ -7,7 +7,8 @@ import {
 } from "../models/plan-atencion-adulto-mayor.model";
 import {MessageService} from "primeng/api";
 import Swal from "sweetalert2";
-import {AdultoMayorService} from "../../../atencion-adulto-mayor/plan-atencion-adulto-mayor/services/adulto-mayor.service";
+import {AdultoMayorService} from "../../services/adulto-mayor.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-antecedentes-adulto-mayor',
@@ -22,8 +23,8 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
   antecedentesFamiliares:AntecedentesFamiliares[]=[];
   antecedentesPersonales:AntecedentesPersonales[]=[];
   descripcionOtrosAntecedentes:string="";
-  nroDoc='10101013';
-  tipoDoc='DNI';
+  nroDoc='';
+  tipoDoc='';
   sino = [
     { label: 'SI', value: true },
     { label: 'NO', value: false }
@@ -39,11 +40,23 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
   ];
   constructor(private messageService: MessageService,
               private antecedentesService:AdultoMayorService,
-              private form:FormBuilder) {
+              private form:FormBuilder,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.builForm();
   }
 
   ngOnInit(): void {
+    this.route.queryParams
+        .subscribe(params => {
+          console.log('params', params)
+          if (params['nroDoc']) {
+            this.tipoDoc = params['tipoDoc']
+            this.nroDoc = params['nroDoc']
+          } else {
+            this.router.navigate(['/dashboard/adulto-mayor/citas'])
+          }
+        })
     this.recuperarDataAntecedentesBD();
   }
 

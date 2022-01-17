@@ -1,62 +1,75 @@
 import { Component, OnInit } from '@angular/core';
-// import {ModalProblemasAdultoMayorComponent} from "./modal-problemas-adulto-mayor/modal-problemas-adulto-mayor.component";
 import {MessageService} from "primeng/api";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ProblemasAgudos, ProblemasCronicos} from "../models/plan-atencion-adulto-mayor.model";
+import { ProblemasAgudos, ProblemasCronicos, problema} from "../models/plan-atencion-adulto-mayor.model";
 import Swal from "sweetalert2";
+import {ActivatedRoute, Router} from "@angular/router";
+import {AdultoMayorService} from "../../services/adulto-mayor.service";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 
 @Component({
   selector: 'app-problemas-adulto-mayor',
   templateUrl: './problemas-adulto-mayor.component.html',
-  styleUrls: ['./problemas-adulto-mayor.component.css']
+  styleUrls: ['./problemas-adulto-mayor.component.css'],
+  providers:[DialogService]
 })
 export class ProblemasAdultoMayorComponent implements OnInit {
-  formProblemasCronicos:FormGroup;
-  formProblemasAgudos:FormGroup;
-  dialogProblemaCronico:boolean=false;
+  formProblemasAgudos: FormGroup;
+  formAtencion: FormGroup;
+  dialogAtencion: boolean=false;
   dialogProblemaAgudo:boolean=false;
-  dataProblemasCronicos:ProblemasCronicos[]=[];
-  dataProblemasAgudos:ProblemasAgudos[]=[];
+  dataProblemasCronicos:any[]=[];
+  dataProblemasAgudos:any[]=[];
+  cronicoAgudo="";
+  nombreProblemaAux:string;
+  ref: DynamicDialogRef;
   isUpdate:boolean=false;
+  tipoDoc: string = ''
+  nroDoc:string=''
   sino = [
-    { label: 'SI', value: 'SI' },
-    { label: 'NO', value: 'NO' }
+    { label: 'SI', value: true },
+    { label: 'NO', value: false }
   ];
+
 
   constructor(private messageService: MessageService,
               private form:FormBuilder,
-  ) {
+              private route: ActivatedRoute,
+              private router: Router,
+              private dialog:DialogService,
+              private problemasService: AdultoMayorService) {
     this.builForm();
+
   }
 
   ngOnInit(): void {
+    this.route.queryParams
+        .subscribe(params => {
+          console.log('params', params)
+          if (params['nroDoc']) {
+            this.tipoDoc = params['tipoDoc']
+            this.nroDoc = params['nroDoc']
+          } else {
+            this.router.navigate(['/dashboard/adulto-mayor/citas'])
+          }
+        })
+    this.recuperarProblemasAgudos();
+    this.recuperarProblemasCronicos();
   }
+
   builForm() {
-    this.formProblemasCronicos = this.form.group({
-      fechaProblemasCronicos:new FormControl("",[Validators.required]),
-      controladoCronico:new FormControl("",[Validators.required]),
-      problemaCronico:new FormControl("",[Validators.required]),
-      observaciones:new FormControl("",[Validators.required])
-
-    }),
     this.formProblemasAgudos = this.form.group({
-      fecha1ProblemasAgudos:new FormControl("",[Validators.required]),
-      controladoAgudo1:new FormControl("",[Validators.required]),
-      fecha2ProblemasAgudos:new FormControl("",[Validators.required]),
-      controladoAgudo2:new FormControl("",[Validators.required]),
-      fecha3ProblemasAgudos:new FormControl("",[Validators.required]),
-      controladoAgudo3:new FormControl("",[Validators.required]),
-      problemaAgudo:new FormControl("",[Validators.required]),
-      observacionesAgudo:new FormControl("",[Validators.required])
-
+      fecha:new FormControl("",[Validators.required]),
+      nombreProblema:new FormControl("",[Validators.required]),
+      observaciones:new FormControl("",[Validators.required])
+    }),
+    this.formAtencion=this.form.group({
+      fechaA:new FormControl("",[Validators.required]),
+      observacionesA:new FormControl("",[Validators.required])
     })
   }
-  openNewCronico(){
-    this.isUpdate = false;
-    this.formProblemasCronicos.reset();
-    this.dialogProblemaCronico = true;
-  }
   openNewAgudo(){
+    this.isUpdate = false;
     this.formProblemasAgudos.reset();
     this.dialogProblemaAgudo = true;
   }
@@ -68,101 +81,197 @@ export class ProblemasAdultoMayorComponent implements OnInit {
       showConfirmButton: false,
       timer: 1000
     })
-    this.dialogProblemaCronico = false;
     this.dialogProblemaAgudo = false;
-
-  }
-  save(){}
-  saveCronico(){
-    this.isUpdate = false;
-    let problemaCronico:ProblemasCronicos = {
-      fechaProblemasCronicos:this.formProblemasCronicos.value.fechaProblemasCronicos,
-      controladoCronico:this.formProblemasCronicos.value.controladoCronico,
-      problemaCronico:this.formProblemasCronicos.value.problemaCronico,
-      observaciones:this.formProblemasCronicos.value.observaciones
-    }
-    this.dataProblemasCronicos.push(problemaCronico);
-    this.dialogProblemaCronico = false;
-
-
+    this.dialogAtencion = false;
   }
   saveAgudo(){
-    this.isUpdate == false
-    let problemaAgudo:ProblemasAgudos = {
-      fecha1ProblemasAgudos:this.formProblemasAgudos.value.fecha1ProblemasAgudos,
-      controladoAgudo1:this.formProblemasAgudos.value.controladoAgudo1,
-      fecha2ProblemasAgudos:this.formProblemasAgudos.value.fecha2ProblemasAgudos,
-      controladoAgudo2:this.formProblemasAgudos.value.controladoAgudo2,
-      fecha3ProblemasAgudos:this.formProblemasAgudos.value.fecha3ProblemasAgudos,
-      controladoAgudo3:this.formProblemasAgudos.value.controladoAgudo3,
-      problemaAgudo:this.formProblemasAgudos.value.problemaAgudo,
-      observacionesAgudo:this.formProblemasAgudos.value.observacionesAgudo
+    this.isUpdate = false;
+    let problemaAgudo:problema = {
+      nombreProblema:this.formProblemasAgudos.value.nombreProblema,
+      observacion:this.formProblemasAgudos.value.observaciones,
+      fecha:this.formProblemasAgudos.value.fecha
+
     }
-    this.dataProblemasAgudos.push(problemaAgudo);
+    if(this.cronicoAgudo=="agudo"){
+    if(problemaAgudo!=null){
+      this.problemasService.addProblemasAgudos(this.nroDoc, problemaAgudo).subscribe((res: any) => {
+        console.log('se guardo correctamente ', res.object);
+        this.messageService.add({
+          severity: "success",
+          summary: "Exito",
+          detail: res.mensaje
+        });
+      });}
+    }
+    else{
+      if(problemaAgudo!=null){
+        this.problemasService.addProblemasCronicos(this.nroDoc, problemaAgudo).subscribe((res: any) => {
+          console.log('se guardo correctamente ', res.object);
+          this.messageService.add({
+            severity: "success",
+            summary: "Exito",
+            detail: res.mensaje
+          });
+        });}
+    }
+
+    /*****hacer refresh  a la pagina sin que se actualice*/
     this.dialogProblemaAgudo = false;
-    // this.formProblemasAgudos.reset();
+    location.reload();
+
   }
-  openDialogEditarProblemasCronicos(rowData,index) {
-    this.isUpdate = true;
-    this.formProblemasCronicos.get('fechaProblemasCronicos').setValue(rowData.fechaProblemasCronicos);
-    this.formProblemasCronicos.get('controladoCronico').setValue(rowData.controladoCronico);
-    this.formProblemasCronicos.get('problemaCronico').setValue(rowData.problemaCronico);
-    this.formProblemasCronicos.get('observaciones').setValue(rowData.observaciones)
-    this.dataProblemasCronicos.splice(index,1,rowData);
-    this.dialogProblemaCronico = true;
-  }
-  eliminarProblemaCronico(index) {
-    Swal.fire({
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      icon: 'warning',
-      title: 'Estas seguro de eliminar este registro?',
-      text: '',
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.dataProblemasCronicos.splice(index,1)
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500
-        })
+  recuperarProblemasCronicos(){
+    this.problemasService.getProblemasCronicos(this.nroDoc).subscribe((res: any) => {
+      console.log(res.object);
+      let aux:any;
+      for(let i=0;i<res.object.length;i++){
+        aux= {
+          nombreProblema: res.object[i].id,
+          fecha: res.object[i].atencion[0].fecha,
+          observacion: res.object[i].atencion[0].observacion
+        }
+        if(res.object[i].atencion.length>=3){
+          console.log("atencion mayor a 1");
+          aux= {
+            nombreProblema: res.object[i].id,
+            fecha1: res.object[i].atencion[0].fecha,
+            observacion1: res.object[i].atencion[0].observacion,
+            fecha2: res.object[i].atencion[1].fecha,
+            observacion2: res.object[i].atencion[1].observacion,
+            fecha3: res.object[i].atencion[2].fecha,
+            observacion3: res.object[i].atencion[2].observacion
+          }
+        }
+        if(res.object[i].atencion.length==2){
+          console.log("atencion igual a 2");
+          aux= {
+            nombreProblema: res.object[i].id,
+            fecha1: res.object[i].atencion[0].fecha,
+            observacion1: res.object[i].atencion[0].observacion,
+            fecha2: res.object[i].atencion[1].fecha,
+            observacion2: res.object[i].atencion[1].observacion,
+          }
+        }
+        if(res.object[i].atencion.length==1){
+          console.log("atencion igual a 1");
+          aux= {
+            nombreProblema: res.object[i].id,
+            fecha1: res.object[i].atencion[0].fecha,
+            observacion1: res.object[i].atencion[0].observacion
+          }
+        }
+
+        this.dataProblemasCronicos.push(aux);
       }
+      this.messageService.add({
+        severity: "success",
+        summary: "Exito",
+        detail: res.mensaje
+      });
     })
   }
-  openDialogEditarProblemasAgudos(rowData, index) {
-    this.formProblemasAgudos.get('fecha1ProblemasAgudos').setValue(rowData.fecha1ProblemasAgudos);
-    this.formProblemasAgudos.get('controladoAgudo1').setValue(rowData.controladoAgudo1);
-    this.formProblemasAgudos.get('fecha2ProblemasAgudos').setValue(rowData.fecha2ProblemasAgudos);
-    this.formProblemasAgudos.get('controladoAgudo2').setValue(rowData.controladoAgudo2);
-    this.formProblemasAgudos.get('fecha3ProblemasAgudos').setValue(rowData.fecha3ProblemasAgudos);
-    this.formProblemasAgudos.get('controladoAgudo3').setValue(rowData.controladoAgudo3);
-    this.formProblemasAgudos.get('problemaAgudo').setValue(rowData.problemaAgudo);
-    this.formProblemasAgudos.get('observacionesAgudo').setValue(rowData.observacionesAgudo)
-    this.dataProblemasAgudos.splice(index,1,rowData);
-    this.dialogProblemaAgudo = true;
-  }
-  eliminarProblemaAgudo(index) {
-    Swal.fire({
-      showCancelButton: true,
-      confirmButtonText: 'Eliminar',
-      icon: 'warning',
-      title: 'Estas seguro de eliminar este registro?',
-      text: '',
-      showConfirmButton: true,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.dataProblemasAgudos.splice(index,1)
-        Swal.fire({
-          icon: 'success',
-          title: 'Eliminado correctamente',
-          text: '',
-          showConfirmButton: false,
-          timer: 1500
-        })
+  recuperarProblemasAgudos(){
+    this.problemasService.getProblemasAgudos(this.nroDoc).subscribe((res: any) => {
+      console.log(res.object);
+      let aux:any;
+      for(let i=0;i<res.object.length;i++){
+        aux= {
+          nombreProblema: res.object[i].id,
+          fecha: res.object[i].atencion[0].fecha,
+          observacion: res.object[i].atencion[0].observacion
+        }
+        if(res.object[i].atencion.length>=3){
+          console.log("atencion mayor a 1");
+          aux= {
+            nombreProblema: res.object[i].id,
+            fecha1: res.object[i].atencion[0].fecha,
+            observacion1: res.object[i].atencion[0].observacion,
+            fecha2: res.object[i].atencion[1].fecha,
+            observacion2: res.object[i].atencion[1].observacion,
+            fecha3: res.object[i].atencion[2].fecha,
+            observacion3: res.object[i].atencion[2].observacion
+          }
+        }
+        if(res.object[i].atencion.length==2){
+          console.log("atencion igual a 2");
+          aux= {
+            nombreProblema: res.object[i].id,
+            fecha1: res.object[i].atencion[0].fecha,
+            observacion1: res.object[i].atencion[0].observacion,
+            fecha2: res.object[i].atencion[1].fecha,
+            observacion2: res.object[i].atencion[1].observacion,
+          }
+        }
+        if(res.object[i].atencion.length==1){
+          console.log("atencion igual a 1");
+          aux= {
+            nombreProblema: res.object[i].id,
+            fecha1: res.object[i].atencion[0].fecha,
+            observacion1: res.object[i].atencion[0].observacion
+          }
+        }
+
+        this.dataProblemasAgudos.push(aux);
       }
+      this.messageService.add({
+        severity: "success",
+        summary: "Exito",
+        detail: res.mensaje
+      });
     })
+  }
+  openAgregarAtenciones(row,index){
+      let aux={index:index, row:row}
+      console.log(aux);
+      console.log(aux.row.nombreProblema);
+      if(aux.row.fecha3==undefined) {
+        this.isUpdate = false;
+        this.formAtencion.reset();
+        this.dialogAtencion = true;
+        this.nombreProblemaAux = aux.row.nombreProblema;
+      }
+      else{
+        this.messageService.add({severity:'warn', summary:'error', detail:'No se puede agregar más atenciones'});
+      }
+  }
+  saveAtencion() {
+    let data = {};
+    if(this.formAtencion.value.fechaA!=null){
+      data = {
+        nombreProblema:this.nombreProblemaAux,
+        fecha:this.formAtencion.value.fechaA,
+        observacion:this.formAtencion.value.observacionesA
+      }
+
+      if(this.dataProblemasAgudos!=null) {
+        if (this.cronicoAgudo == "agudo") {
+          this.problemasService.putProblemasAgudosItems(this.nroDoc, data).subscribe((res: any) => {
+            console.log('se guardo correctamente ', res.object);
+            this.messageService.add({
+              severity: "success",
+              summary: "Exito",
+              detail: res.mensaje
+            });
+          });
+        }
+        else{
+            this.problemasService.putProblemasCronicosItems(this.nroDoc, data).subscribe((res: any) => {
+              console.log('se guardo correctamente ', res.object);
+              this.messageService.add({
+                severity: "success",
+                summary: "Exito",
+                detail: res.mensaje
+              });
+            });
+        }
+      }
+    }
+    else{
+        this.messageService.add({severity:'warn', summary:'error', detail:'Datos ingresados incorrectos, vuelva a ingresar'});
+    }
+
+    this.dialogAtencion=false;
+    window.location.reload();
+
   }
 }

@@ -7,11 +7,11 @@ const routes: Routes = [
         path: "consulta",
         component: StepGeneralConsultaAdultoMayorComponent
     },
-    {
-        path: "consulta",
-        loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/consulta-adulto-mayor/consulta-adulto-mayor.module').then(n => n.ConsultaAdultoMayorModule),
-
-    },
+    // {
+    //     path: "consulta",
+    //     loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/atencion-adulto-mayor/consulta-adulto-mayor/consulta-adulto-mayor.module').then(n => n.ConsultaAdultoMayorModule),
+    //
+    // },
 ];
 
 @NgModule({

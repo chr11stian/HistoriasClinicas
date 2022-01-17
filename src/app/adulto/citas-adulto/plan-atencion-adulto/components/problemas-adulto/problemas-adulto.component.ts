@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   ProblemasAgudos,
   ProblemasCronicos
-} from "../../../../../adulto-mayor/citas-adulto-mayor/plan-atencion-adulto-mayor/components/models/plan-atencion-adulto-mayor.model";
+} from "../../../../../adulto-mayor/citas-adulto-mayor/atencion-adulto-mayor/plan-atencion-adulto-mayor/components/models/plan-atencion-adulto-mayor.model";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MessageService} from "primeng/api";
 import Swal from "sweetalert2";

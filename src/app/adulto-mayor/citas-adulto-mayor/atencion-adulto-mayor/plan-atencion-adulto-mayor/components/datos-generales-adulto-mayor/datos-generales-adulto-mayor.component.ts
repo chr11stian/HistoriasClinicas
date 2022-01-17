@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {AdultoMayorService} from "../../../atencion-adulto-mayor/plan-atencion-adulto-mayor/services/adulto-mayor.service";
+import {AdultoMayorService} from "../../services/adulto-mayor.service";
 import {MessageService} from "primeng/api";
 import {datosGeneralesAdultoMayor} from "../models/plan-atencion-adulto-mayor.model";
 import Swal from "sweetalert2";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-datos-generales-adulto-mayor',
@@ -12,30 +13,51 @@ import Swal from "sweetalert2";
 })
 export class DatosGeneralesAdultoMayorComponent implements OnInit {
   formDatosGeneralAdultoMayor: FormGroup;
-  docRecuperado="10101013";
-  tipoDocRecuperado="DNI";
+  docRecuperado="";
+  tipoDocRecuperado="";
   datosGeneralesAdultoMayor:datosGeneralesAdultoMayor;
   sino = [
     { label: 'F', value: 'FEMENINO' },
     { label: 'M', value: 'MASCULINO' }
   ];
+  grupoSanguineo=[
+    {name:"A",code:"A"},
+    {name:"B",code:"B"},
+    {name:"AB",code:"AB"},
+    {name:"O",code:"O"},
+  ];
+  rh=[{name:"+",code:"+"},
+    {name:"-",code:"-"}
+  ]
   constructor(private formBuilder: FormBuilder,
               private filiacionService: AdultoMayorService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.builForm();
   }
 
   ngOnInit(): void {
+      this.route.queryParams
+          .subscribe(params => {
+              console.log('params', params)
+              if (params['nroDoc']) {
+                  this.tipoDocRecuperado = params['tipoDoc']
+                  this.docRecuperado = params['nroDoc']
+              } else {
+                  this.router.navigate(['/dashboard/adulto-mayor/citas'])
+              }
+          })
     this.getPacienteByNroDoc();
   }
   builForm(){
     this.formDatosGeneralAdultoMayor = this.formBuilder.group({
       fecha:new FormControl(''),
       nroAtendido:new FormControl(''),
-      apePaterno:new FormControl(''),
-      apeMaterno:new FormControl(''),
-      nombres:new FormControl(''),
-      sexo:new FormControl(''),
+      apePaterno:new FormControl({value: '', disabled: true}),
+      apeMaterno:new FormControl({value: '', disabled: true}),
+      nombres:new FormControl({value: '', disabled: true}),
+      sexo:new FormControl({value: '', disabled: true}),
       edad:new FormControl(''),
       lugarNacimiento:new FormControl(''),
       procedencia:new FormControl(''),
@@ -52,31 +74,69 @@ export class DatosGeneralesAdultoMayorComponent implements OnInit {
       familiarCuidadorResponsable:new FormControl('')
     })
   }
+
+  recuperarDatosPacientes(){
+      this.filiacionService.getPacienteNroDoc(this.tipoDocRecuperado, this.docRecuperado).subscribe((res: any) => {
+          let datosPaciente:any = res.object
+
+          console.log('paciente recuperado de la data', datosPaciente)
+          this.formDatosGeneralAdultoMayor.get('apePaterno').setValue(datosPaciente.apePaterno);
+          this.formDatosGeneralAdultoMayor.get('apeMaterno').setValue(datosPaciente.apeMaterno);
+          this.formDatosGeneralAdultoMayor.get('nombres').setValue(datosPaciente.primerNombre +" " +datosPaciente.otrosNombres);
+          this.formDatosGeneralAdultoMayor.get('sexo').setValue(datosPaciente.sexo);
+          /**calcular edad***/
+          // this.formDatosGeneralAdultoMayor.get('edad').setValue(this.datosGeneralesAdultoMayor.edad);
+          if(datosPaciente.nacimiento.departamento!=null && datosPaciente.nacimiento.provincia!=null && datosPaciente.nacimiento.distrito!=null)
+          {this.formDatosGeneralAdultoMayor.get('lugarNacimiento').setValue(datosPaciente.nacimiento.departamento +"-"+ datosPaciente.nacimiento.provincia +"-"+ datosPaciente.nacimiento.distrito);}
+          this.formDatosGeneralAdultoMayor.get('procedencia').setValue(datosPaciente.procedencia);
+          this.formDatosGeneralAdultoMayor.get('fechaNacimiento').setValue(datosPaciente.nacimiento.fechaNacimiento);
+          this.formDatosGeneralAdultoMayor.get('gradoInstruccion').setValue(datosPaciente.gradoInstruccion);
+
+          this.formDatosGeneralAdultoMayor.get('estadoCivil').setValue(datosPaciente.estadoCivil);
+          // this.formDatosGeneralAdultoMayor.get('grupoSanguineo').setValue(this.datosGeneralesAdultoMayor.grupoSanguineo);
+          // this.formDatosGeneralAdultoMayor.get('rh').setValue(this.datosGeneralesAdultoMayor.rh);
+          // this.formDatosGeneralAdultoMayor.get('ocupacion').setValue(this.datosGeneralesAdultoMayor.ocupacion);
+          this.formDatosGeneralAdultoMayor.get('domicilio').setValue(datosPaciente.domicilio.direccion);
+          this.formDatosGeneralAdultoMayor.get('telefono').setValue(datosPaciente.celular);
+          this.formDatosGeneralAdultoMayor.get('edadFamiliarCuidador').setValue(datosPaciente.edadFamiliarCuidador);
+          // this.formDatosGeneralAdultoMayor.get('dniFamiliarCuidador').setValue(datosPaciente.dniFamiliarCuidador);
+          // this.formDatosGeneralAdultoMayor.get('familiarCuidadorResponsable').setValue(datosPaciente.familiarCuidadorResponsable);
+      });
+  }
+  recuperarId(){
+
+  }
   getPacienteByNroDoc(){
     this.filiacionService.getDatosGeneralesAdultoMayor(this.tipoDocRecuperado, this.docRecuperado).subscribe((res: any) => {
-      this.datosGeneralesAdultoMayor = res.object
-      console.log('paciente por doc ', this.datosGeneralesAdultoMayor)
-      this.formDatosGeneralAdultoMayor.get('fecha').setValue(this.datosGeneralesAdultoMayor.fecha);
-      this.formDatosGeneralAdultoMayor.get('nroAtendido').setValue(this.datosGeneralesAdultoMayor.nroAtendido);
-      this.formDatosGeneralAdultoMayor.get('apePaterno').setValue(this.datosGeneralesAdultoMayor.apePaterno);
-      this.formDatosGeneralAdultoMayor.get('apeMaterno').setValue(this.datosGeneralesAdultoMayor.apeMaterno);
-      this.formDatosGeneralAdultoMayor.get('nombres').setValue(this.datosGeneralesAdultoMayor.primerNombre + this.datosGeneralesAdultoMayor.otrosNombres);
-      this.formDatosGeneralAdultoMayor.get('sexo').setValue(this.datosGeneralesAdultoMayor.sexo);
-      this.formDatosGeneralAdultoMayor.get('edad').setValue(this.datosGeneralesAdultoMayor.edad);
-      this.formDatosGeneralAdultoMayor.get('lugarNacimiento').setValue(this.datosGeneralesAdultoMayor.lugarNacimiento);
-      this.formDatosGeneralAdultoMayor.get('procedencia').setValue(this.datosGeneralesAdultoMayor.procedencia);
-      this.formDatosGeneralAdultoMayor.get('fechaNacimiento').setValue(this.datosGeneralesAdultoMayor.fechaNacimiento);
-      this.formDatosGeneralAdultoMayor.get('gradoInstruccion').setValue(this.datosGeneralesAdultoMayor.gradoInstruccion);
-
-      this.formDatosGeneralAdultoMayor.get('estadoCivil').setValue(this.datosGeneralesAdultoMayor.estadoCivil);
-      this.formDatosGeneralAdultoMayor.get('grupoSanguineo').setValue(this.datosGeneralesAdultoMayor.grupoSanguineo);
-      this.formDatosGeneralAdultoMayor.get('rh').setValue(this.datosGeneralesAdultoMayor.rh);
-      this.formDatosGeneralAdultoMayor.get('ocupacion').setValue(this.datosGeneralesAdultoMayor.ocupacion);
-      this.formDatosGeneralAdultoMayor.get('domicilio').setValue(this.datosGeneralesAdultoMayor.domicilio);
-      this.formDatosGeneralAdultoMayor.get('telefono').setValue(this.datosGeneralesAdultoMayor.telefono);
-      this.formDatosGeneralAdultoMayor.get('edadFamiliarCuidador').setValue(this.datosGeneralesAdultoMayor.edadFamiliarCuidador);
-      this.formDatosGeneralAdultoMayor.get('dniFamiliarCuidador').setValue(this.datosGeneralesAdultoMayor.dniFamiliarCuidador);
-      this.formDatosGeneralAdultoMayor.get('familiarCuidadorResponsable').setValue(this.datosGeneralesAdultoMayor.familiarCuidadorResponsable);
+        console.log(res.object);
+        if(res.object==null){
+            this.recuperarDatosPacientes();
+        }
+        else {
+            this.recuperarId();
+            this.datosGeneralesAdultoMayor = res.object
+            console.log('paciente por doc ', this.datosGeneralesAdultoMayor)
+            this.formDatosGeneralAdultoMayor.get('fecha').setValue(this.datosGeneralesAdultoMayor.fecha);
+            this.formDatosGeneralAdultoMayor.get('nroAtendido').setValue(this.datosGeneralesAdultoMayor.nroAtendido);
+            this.formDatosGeneralAdultoMayor.get('apePaterno').setValue(this.datosGeneralesAdultoMayor.apePaterno);
+            this.formDatosGeneralAdultoMayor.get('apeMaterno').setValue(this.datosGeneralesAdultoMayor.apeMaterno);
+            this.formDatosGeneralAdultoMayor.get('nombres').setValue(this.datosGeneralesAdultoMayor.primerNombre +" "+ this.datosGeneralesAdultoMayor.otrosNombres);
+            this.formDatosGeneralAdultoMayor.get('sexo').setValue(this.datosGeneralesAdultoMayor.sexo);
+            this.formDatosGeneralAdultoMayor.get('edad').setValue(this.datosGeneralesAdultoMayor.edad);
+            this.formDatosGeneralAdultoMayor.get('lugarNacimiento').setValue(this.datosGeneralesAdultoMayor.lugarNacimiento);
+            this.formDatosGeneralAdultoMayor.get('procedencia').setValue(this.datosGeneralesAdultoMayor.procedencia);
+            this.formDatosGeneralAdultoMayor.get('fechaNacimiento').setValue(this.datosGeneralesAdultoMayor.fechaNacimiento);
+            this.formDatosGeneralAdultoMayor.get('gradoInstruccion').setValue(this.datosGeneralesAdultoMayor.gradoInstruccion);
+            this.formDatosGeneralAdultoMayor.get('estadoCivil').setValue(this.datosGeneralesAdultoMayor.estadoCivil);
+            this.formDatosGeneralAdultoMayor.get('grupoSanguineo').setValue(this.datosGeneralesAdultoMayor.grupoSanguineo);
+            this.formDatosGeneralAdultoMayor.get('rh').setValue(this.datosGeneralesAdultoMayor.rh);
+            this.formDatosGeneralAdultoMayor.get('ocupacion').setValue(this.datosGeneralesAdultoMayor.ocupacion);
+            this.formDatosGeneralAdultoMayor.get('domicilio').setValue(this.datosGeneralesAdultoMayor.domicilio);
+            this.formDatosGeneralAdultoMayor.get('telefono').setValue(this.datosGeneralesAdultoMayor.telefono);
+            this.formDatosGeneralAdultoMayor.get('edadFamiliarCuidador').setValue(this.datosGeneralesAdultoMayor.edadFamiliarCuidador);
+            this.formDatosGeneralAdultoMayor.get('dniFamiliarCuidador').setValue(this.datosGeneralesAdultoMayor.dniFamiliarCuidador);
+            this.formDatosGeneralAdultoMayor.get('familiarCuidadorResponsable').setValue(this.datosGeneralesAdultoMayor.familiarCuidadorResponsable);
+        }
     });
  }
  agregarFiliacionDatosGenerales(){
