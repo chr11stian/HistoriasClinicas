@@ -81,6 +81,7 @@ export class ResultadosComponent implements OnInit {
     pruebaSeleccionada=''
     opcionesInput=[]
     tipoInput1=0;
+    visible=false;
     seleccionar(itemSelected){
         this.tipoInput1=0;
         this.examenFG.setValue({resultado: '', fechaExamen: ''});
@@ -122,6 +123,7 @@ export class ResultadosComponent implements OnInit {
         this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
         this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
         this.idConsultoriObstetrico = this.obstetriciaGeneralService.idConsultoriObstetrico;
+        // console.log(`NroDoc:${this.nroDocRecuperado},nroEmbarazo:${this.nroEmbarazo}`)
         this.getResultados();
     }
 
@@ -133,14 +135,15 @@ export class ResultadosComponent implements OnInit {
     getFecha(date: Date) {
         if (date.toString() !== '') {
             let hora = date.toLocaleTimeString();
-            let aux='';
             let dd = date.getDate();
-            if(dd<10) {
-                aux=''+dd
+            let dd1;
+            if(dd<10){
+                dd1='0'+dd;
+                dd=dd1
             }
             let mm = date.getMonth() + 1; //January is 0!
             let yyyy = date.getFullYear();
-            return yyyy + '-' + mm + '-' + aux;
+            return yyyy + '-' + mm + '-' + dd;
         } else {
             return '';
         }
@@ -148,14 +151,15 @@ export class ResultadosComponent implements OnInit {
     getFechaHora(date: Date) {
         if (date.toString() !== '') {
             let hora = date.toLocaleTimeString();
-            let aux='';
             let dd = date.getDate();
-            if(dd<10) {
-                aux=''+dd
+            let dd1;
+            if(dd<10){
+                dd1='0'+dd;
+                dd=dd1
             }
             let mm = date.getMonth() + 1;
             let yyyy = date.getFullYear();
-            return yyyy + '-' + mm + '-' + aux + ' ' + hora
+            return yyyy + '-' + mm + '-' + dd + ' ' + hora
         } else {
             return '';
         }
@@ -175,7 +179,7 @@ export class ResultadosComponent implements OnInit {
     getResultados() {
         const input = {
             "nroHcl": this.nroDocRecuperado,
-            "nroEmbarazo": 1,
+            "nroEmbarazo": this.nroEmbarazo,
             "nroAtencion": 1
         }
         this.resultadosService.getResultado(input).subscribe((resp) => {
@@ -287,4 +291,7 @@ export class ResultadosComponent implements OnInit {
             this.examenFG.get('resultado').setValue(rowData['valor'])
         }
     }
+    // openDialog(){
+    //     this.visible=true;
+    // }
 }

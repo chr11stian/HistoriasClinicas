@@ -27,5 +27,10 @@ export class ConsultaAdolescenteService {
   putActualizarExamenes(idConsulta, data) {
     return this.http.put(`${this.base_url}/${this.bd}/adolescentes/consulta/actualizarExamenes/${idConsulta}/`, data);
   }
-  
+  putActualizarDiagnostico(idConsultaAdolescente, data) {
+    return this.http.put(`${this.base_url}/${this.bd}/adolescentes/consulta/actualizarDiagnostico/${idConsultaAdolescente}/`, data);
+  }
+  putActualizarTratamiento(idConsultaAdolescente,data){
+    return this.http.put(`${this.base_url}/${this.bd}/adolescentes/consulta/actualizarTratamiento/${idConsultaAdolescente}/`, data);
+  }
 }
