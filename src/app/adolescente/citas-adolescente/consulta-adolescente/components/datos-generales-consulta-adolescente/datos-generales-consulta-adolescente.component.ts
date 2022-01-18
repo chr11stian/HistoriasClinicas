@@ -131,6 +131,7 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   aceptarSignosAlarma() {
     let sign = this.formSignosAlarma.value.signoAlarma
     this.listaSignosAlarma.push(sign);
+    this.listaSignosAlarma = [...this.listaSignosAlarma];
     this.dialogSignosAlarma = false;
   }
   closeDialog() {
@@ -144,6 +145,7 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   aceptarDialogMedicacion() {
     let med = this.formMedicacion.value.medicacionFrec
     this.listaMedicacionUsoFrecuente.push(med);
+    this.listaMedicacionUsoFrecuente = [...this.listaMedicacionUsoFrecuente];
     this.dialogMedicacion = false;
   }
 }

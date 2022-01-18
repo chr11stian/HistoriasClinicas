@@ -10,7 +10,7 @@
         </ng-template>
     </p-toolbar>
     <p-table #dt [value]="listaPacientes" [rows]="10" [paginator]="true" [rowHover]="true" datakey="id"
-        responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+        responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
         styleClass="p-datatable-gridlines">
         <ng-template pTemplate="header" style="text-align: center;">
             <tr>

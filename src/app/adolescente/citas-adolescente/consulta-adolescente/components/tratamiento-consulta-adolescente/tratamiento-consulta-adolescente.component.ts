@@ -111,6 +111,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
       duracion: this.formTratamiento.value.duracion
     }
     this.listaTratamientos.push(tratamiento);
+    this.listaTratamientos = [...this.listaTratamientos]
     this.dialogTratamiento = false;
   }
   openDialogExamAux() {
@@ -119,6 +120,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   }
   aceptarSolicitudExamenAux() {
     this.listaSolicitudExamAux.push(this.formExamAux.value.examAux);
+    this.listaSolicitudExamAux = [...this.listaSolicitudExamAux];
     this.dialogAuxExam = false;
   }
   openDialogInterconsulta() {
@@ -132,7 +134,9 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
       motivo: this.formInterconsulta.value.motivo
     }
     this.listaInterconsultas.push(auxInterconsulta);
+    this.listaInterconsultas = [...this.listaInterconsultas]
     this.dialogInterconsulta = false;
+
     console.log('data interconsulta ', this.listaInterconsultas);
   }
   recuperarDatos() {
@@ -160,7 +164,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
     });
   }
   guardarEdicionTratamiento() {
-    
+
   }
   closeDialogTratamiento() {
     this.dialogTratamiento = false;

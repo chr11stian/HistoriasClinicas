@@ -79,6 +79,7 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
     }
     console.log('diagnostico ', diagnostico);
     this.listaDiagnosticos.push(diagnostico);
+    this.listaDiagnosticos = [...this.listaDiagnosticos];
     this.dialogDiagnostic = false;
   }
 

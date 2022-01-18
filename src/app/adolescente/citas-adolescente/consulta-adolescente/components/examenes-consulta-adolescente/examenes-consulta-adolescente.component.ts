@@ -67,6 +67,7 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
   }
   aceptarAuxExam() {
     this.datosResultadosExamAux.push(this.formExamAux.value.resultado);
+    this.datosResultadosExamAux = [...this.datosResultadosExamAux];
     this.dialogResultExamensAux = false;
   }
   openDialogPhysicExamn() {
@@ -80,12 +81,8 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
       valor: this.formExamFisico.value.resultadoExam
     }
     this.datosExamenFisico.push(otroExamen);
+    this.datosExamenFisico = [...this.datosExamenFisico];
     this.dialogExamFisico = false;
-  }
-
-  modalDeNosequemrdHago() {
-    console.log('no se que dato poner ');
-    console.log("todo los campos ");
   }
 
   recuperarDatos() {
