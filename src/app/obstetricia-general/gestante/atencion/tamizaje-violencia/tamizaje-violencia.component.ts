@@ -208,6 +208,7 @@ export class TamizajeViolenciaComponent implements OnInit {
     limpiarFormulario() {
         this.Recupera_un_Tamizaje = null;
         this.formDatos_Tamisaje.reset();
+        this.formDatos_Tamisaje.get('Fecha').setValue(this.datafecha);
         this.getpacienteByNroDoc();
     }
 

@@ -27,8 +27,10 @@ export class CuposComponent implements OnInit {
     idIpressLapostaMedica = "616de45e0273042236434b51";
     listaUps: any;
     dataCupos_por_fechas_servicio: any;
+    DataCupos: any;
     personalSelected2: any;
     isUpdate: boolean = false;
+    fecha: string;
 
     dataSelectAmbiente: any;
     dataSelectHoras: any;
@@ -89,14 +91,29 @@ export class CuposComponent implements OnInit {
         // this.getDataUPS();
         this.getListaUps();
         this.getDocumentosIdentidad();
-        // this.fechaParaReservaCupos = this.datafecha.getFullYear() + '-' + (this.datafecha.getMonth() + 1) + '-' + this.datafecha.getDate();
-        // console.log("FECHAS", this.fechaParaReservaCupos);
+        this.fecha = this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
         console.log("HORARIO", this.selectedHorario);
-        this.selectCupos();
+
+        this.getCuposXservicio();
+        // this.selectCupos();
 
 
     }
 
+    /**Lista de Cupos reservados por servicio**/
+    getCuposXservicio() {
+        let data = {
+            servicio: "ACUPUNTURA Y AFINES",
+            // fecha: this.fecha,
+            fecha: "2022-01-31"
+        }
+        console.log('DATA ', data);
+
+        this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
+            this.DataCupos = res.object;
+            console.log('LISTA DE CUPOS POR SERVICIO ', this.DataCupos);
+        })
+    }
 
     ListarPacientesCitasObstetricas() {
         const data = {
@@ -351,15 +368,21 @@ export class CuposComponent implements OnInit {
     }
 
 
+    // selectFecha() {
+    //     this.fecha = this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
+    //     // this.getCuposXservicio();
+    //     console.log("FECHASSSSS", this.fecha)
+    // }
+
     selectCupos() {
-        console.log("servicio", event);
         let data = {
+            // servicio: "OBSTETRICIA",
             servicio: "ACUPUNTURA Y AFINES",
             fecha: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         this.cuposService.listaCuposConfirmados(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.dataCupos_por_fechas_servicio = res.object;
-            console.log('LISTA DE CUPOS POR SERVICIO ', this.dataCupos_por_fechas_servicio);
+            console.log('LISTA DE CITAS CONFIRMADOS POR SERVICIO ', this.dataCupos_por_fechas_servicio);
         })
 
         if (this.dataCupos_por_fechas_servicio != null) {
