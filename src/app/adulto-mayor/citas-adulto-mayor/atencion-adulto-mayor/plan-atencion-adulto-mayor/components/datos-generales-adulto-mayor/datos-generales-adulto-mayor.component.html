@@ -1,0 +1,155 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">DATOS GENERALES</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                class="guardar-boton" (click)="agregarFiliacionDatosGenerales()"></button>
+    </ng-template>
+</p-toolbar>
+
+<br>
+<p-fieldset legend="INFORMACION PERSONAL" [toggleable]="true">
+    <form [formGroup]="formDatosGeneralAdultoMayor">
+        <!---1ra fila-->
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <div class="">
+                    <label class="">Fecha: </label>
+                    <input type="date" pInputText class="inputfield w-full" formControlName="fecha">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <div class="">
+                    <label class="">Nro: </label>
+                    <input type="number" pInputText class="inputfield w-full" placeholder="Número de Atención" formControlName="nroAtendido">
+                </div>
+            </div>
+        </div>
+        <!---2da fila-->
+        <div class="grid">
+            <div class="col-12 md:col-4 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Apellido Paterno: </label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Apellido Paterno"  formControlName="apePaterno">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Apellido Materno: </label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Apellido Materno"  formControlName="apeMaterno">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Nombre(s):</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Nombres" formControlName="nombres">
+                </div>
+            </div>
+            <div class="col-12 md:col-5 lg:col-2 p-field">
+                <div class="">
+                    <label class="">Sexo: </label>
+                    <p-selectButton [options]="sino"  optionValue="value" formControlName="sexo"
+                                    optionLabel="label"></p-selectButton>
+                </div>
+            </div>
+            <div class="col-12 md:col-7 lg:col-1 p-field">
+                <div class="">
+                    <label class="">Edad: </label>
+                    <input type="number" pInputText class="inputfield w-full" placeholder="0" formControlName="edad">
+                </div>
+            </div>
+        </div>
+        <!---3ra fila-->
+        <div class="grid">
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">Lugar de Nacimiento: </label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Lugar de Nacimiento" formControlName="lugarNacimiento">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">Procedencia:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Procedencia" formControlName="procedencia">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">Fecha de Nac.: </label>
+                    <input type="date" pInputText class="inputfield w-full"  formControlName="fechaNacimiento">
+                </div>
+
+            </div>
+        </div>
+        <!---4ta fila-->
+        <div class="grid">
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">Grado de Instrucción: </label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Grado de Instrucción" formControlName="gradoInstruccion">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">Estado Civil:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Estado Civil" formControlName="estadoCivil">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <label class="">Grupo Sanguineo:</label>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-6 p-field">
+                        <p-dropdown formControlName="grupoSanguineo" class="inputfield w-full" [options]="grupoSanguineo"  optionLabel="name" optionValue="code"></p-dropdown>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-6 p-field">
+                        <p-dropdown formControlName="rh" [options]="rh" class="inputfield w-full"  optionLabel="name" optionValue="code"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!---5ta fila-->
+        <div class="grid">
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">Ocupación: </label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Ocupación" formControlName="ocupacion">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">Domicilio:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Domicilio" formControlName="domicilio">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <label class="">Teléfono:</label>
+                <input type="text" pInputText class="inputfield w-full" placeholder="telefono" formControlName="telefono">
+            </div>
+        </div>
+        <!---6ta fila-->
+
+        <h2>Familiar o Cuidador responsable</h2>
+        <div class="grid">
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">Edad: </label>
+                    <input type="number" pInputText class="inputfield w-full" placeholder="Edad" formControlName="edadFamiliarCuidador">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">Identificación DNI:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Identificación" formControlName="dniFamiliarCuidador">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">Afinidad:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Afinidad" formControlName="familiarCuidadorResponsable">
+                </div>
+            </div>
+        </div>
+    </form>
+</p-fieldset>
+<br>
