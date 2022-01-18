@@ -144,6 +144,7 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
           this.isUpdate=true;
           this.messageService.add({severity:'info', summary:'Registor recuperado', detail:'Registro recuperado satifatoriamente'});
           const data=resp['object']
+          this.getFC('fecha').setValue(new Date('2021-12-06 00:05:00'))
           this.getFC('fecha').setValue(new Date(data.fecha))
           this.getFC('nroSeguro').setValue(data.nroSeguro);
           this.getFC('apellidoPaterno').setValue(data.apePaterno);
@@ -151,23 +152,13 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
           this.getFC('nombres').setValue(data.primerNombre);
           this.getFC('sexo').setValue(data.sexo);
           this.getFC('edad').setValue(data.edad);
+          this.getFC('fechaNacimiento').setValue(new Date('2021-12-06 00:05:00'))
           this.getFC('fechaNacimiento').setValue(new Date((data.fechaNacimiento)))
           // this.getFC('departamento').setValue({iddd:'03',departamento:'APURIMAC'});
           // this.getFC('provincia').setValue({iddd:'03',departamento:'APURIMAC'});
           // this.getFC('distrito').setValue({iddd:'03',departamento:'APURIMAC'});
-          this.getFC('grupoSanguineo').setValue(data.grupoSanguineo);
-          this.getFC('rh').setValue(data.rh);
-          this.getFC('procedencia').setValue(data.procedencia);
-          this.getFC('idioma').setValue(data.idioma);
-          this.getFC('domicilioDireccion').setValue(data.direccion);
-          this.getFC('gradoInstruccion').setValue(data.gradoInstruccion);
-          this.getFC('centroEducativo').setValue(data.centroEducativo);
-          this.getFC('estadoCivil').setValue(data.estadoCivil);
-          this.getFC('religion').setValue(data.religion);
-          this.getFC('ocupacion').setValue(data.ocupacion);
-          this.getFC('aconpananteApellidosNombres').setValue(data.acompaniante);
-          this.getFC('aconpananteParentesco').setValue(data.parentesco);
           this.getFC('aconpananteDomicilioDireccion').setValue(data.direccionAcompaniante);
+
         }
         else{
           this.messageService.add({severity:'info', summary:'nuevo registro', detail:'Ingrese nuevo registro'});
@@ -177,8 +168,6 @@ export class DatosGeneralesAdolescenteComponent implements OnInit {
 
 
     }
-
-
   save(){
     console.log('estamos en el save')
     // this.tipoDNI='DNI'

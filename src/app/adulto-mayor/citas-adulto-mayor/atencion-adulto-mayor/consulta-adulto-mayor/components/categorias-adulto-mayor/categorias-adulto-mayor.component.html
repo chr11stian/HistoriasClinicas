@@ -1,0 +1,147 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">CONSULTA>Categorías </h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                class="guardar-boton" ></button>
+    </ng-template>
+</p-toolbar>
+<br>
+<p-fieldset legend="Categorías del Adulto Mayor(Al final de la primera consulta)" [toggleable]="true">
+        <div class="grid">
+            <div class="col-12 md:col-4 lg:col-4">
+                <p-fieldset legend="Categorías" [toggleable]="true">
+                    <form [formGroup]="formCategorias">
+                        <div class="col-12">
+                            <div class="grid">
+                                <div class="col-3 p-field-radiobutton p-field">
+                                    <p-radioButton name="categoria" formControlName="categoria"  value="SALUDABLE"></p-radioButton>
+                                </div>
+                                <div class="col-9 p-field">
+                                    <label class="font-medium">SALUDABLE</label>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-3 p-field-radiobutton p-field">
+                                    <p-radioButton name="categoria"  formControlName="categoria" value="ENFERMO"></p-radioButton>
+                                </div>
+                                <div class="col-9 p-field">
+                                    <label class="font-medium">ENFERMO</label>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-3 p-field-radiobutton p-field">
+                                    <p-radioButton name="categoria"  formControlName="categoria" value="FRÁGIL"></p-radioButton>
+                                </div>
+                                <div class="col-9 p-field">
+                                    <label class="font-medium">FRÁGIL</label>
+                                </div>
+                            </div>
+                            <div class="grid">
+                                <div class="col-3 p-field-radiobutton p-field">
+                                    <p-radioButton name="categoria"  formControlName="categoria" value="GERIÁTICO"></p-radioButton>
+                                </div>
+                                <div class="col-9 p-field">
+                                    <label class="font-medium">GERIÁTICO</label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </p-fieldset>
+            </div>
+            <div class="col-12 md:col-8 lg:col-8">
+                <form [formGroup]="formCategorias">
+                    <div class="col-12  p-field">
+                        <label class="">Exámenes Auxiliares: </label>
+                    </div>
+                    <div class="col-12 p-field">
+                        <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Exámenes Auxiliares" formControlName="examenAuxiliar"></textarea>
+                    </div>
+                    <div class="col-12  p-field">
+                        <label class="">Referencia(Lugar y motivo): </label>
+                    </div>
+                    <div class="col-12 p-field">
+                        <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Referencia" formControlName="referencia"></textarea>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="grid">
+           <div class="col-12 md:col-6 lg:col-6 ">
+           <!---------- Tratamientos---------------->
+               <p-toolbar>
+                   <ng-template pTemplate="left">
+                       <h4>TRATAMIENTO INTEGRAL</h4>
+                   </ng-template>
+                   <ng-template pTemplate="right" class="button">
+                       <button pButton pRipple label=Agregar Tratamientos iconPos="right" icon="pi pi-plus"
+                               class="guardar mr-2" (click)="openDialogTratamientoComun()"></button>
+                   </ng-template>
+               </p-toolbar>
+               <p-table class="table-over" [value]="tratamientosComunes" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+                        [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                   <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                       <tr>
+                           <th style="text-align: center" class="font-1">Nro </th>
+                           <th style="text-align: center" class="font-1">Descripción</th>
+                           <th style="text-align: center" class="font-2">Cantidad</th>
+                           <th style="text-align: center" class="font-2">Dosis</th>
+                           <th style="text-align: center" class="font-2">Intérvalo</th>
+                           <th style="text-align: center" class="font-2">Via Adm.</th>
+                           <th style="text-align: center" class="font-2">Duración</th>
+                           <th style="text-align: center" class="font-2">Ind. Adicional</th>
+                           <th style="text-align: center" class="font-2">Acciones</th>
+                       </tr>
+                   </ng-template>
+                   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                       <tr>
+                           <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                           <td style="text-align: center">{{ rowData.descripcion }}</td>
+                           <td style="text-align: center">{{ rowData.numero }}</td>
+                           <td style="text-align: center">{{ rowData.dosis }}</td>
+                           <td style="text-align: center">{{ rowData.intervalo }}</td>
+                           <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
+                           <td style="text-align: center">{{ rowData.duracion }}</td>
+                           <td style="text-align: center">{{ rowData.observaciones }}</td>
+                           <td style="text-align: center">
+                               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                       (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Editar">
+                               </button>
+                               <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                       (click)="eliminarTratamientoComun(rowIndex)" pTooltip="Eliminar">
+                               </button>
+                           </td>
+                       </tr>
+                   </ng-template>
+
+               </p-table>
+           <!---------- Fin Tratamientos------------>
+           </div>
+           <div class="col-12 md:col-6 lg:col-6">
+               <form [formGroup]="formCategorias">
+                    <div class="grid">
+                        <div class="col-12">
+                            <label class="">Próxima Cita: </label>
+                            <input type="datetime-local" pInputText class="inputfield w-full" formControlName="proxCita">
+                        </div>
+                        <div class="col-12  p-field">
+                            <label class="">Observaciones: </label>
+                        </div>
+                        <div class="col-12 p-field">
+                            <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Observaciones" formControlName="observaciones"></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label class="">Atendido por: </label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="encargado">
+                        </div>
+                        <div class="col-12">
+                            <label class="">Firma y Sello-Colegio Profesional </label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="colegioProf">
+                        </div>
+                    </div>
+               </form>
+           </div>
+        </div>
+</p-fieldset>

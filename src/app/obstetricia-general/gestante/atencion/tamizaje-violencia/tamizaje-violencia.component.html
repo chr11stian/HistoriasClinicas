@@ -12,14 +12,18 @@
             <form [formGroup]='formDatos_Tamisaje'>
                 <div class="">
                     <label class="">Fecha:</label>
-                    <input style="color: #0c3866" type="text" pInputText class="inputfield w-full"
-                           formControlName="Fecha" placeholder="Fecha atención">
+                    <p-calendar formControlName="Fecha" dateFormat="yy-mm-dd"></p-calendar>
                 </div>
+
             </form>
         </ng-template>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple type="button" label="Guardar"
-                    (click)="saveTamizaje()" class="p-button-danger"></button>
+            <button pButton pRipple type="button" icon="pi pi-list" label="Lista tamizaje"
+                    (click)="openModal()" class="p-button-danger">
+            </button>
+            <button pButton pRipple type="button" icon="pi pi-save" label="Guardar"
+                    (click)="save()" class="p-button-danger">
+            </button>
         </ng-template>
     </p-toolbar>
     <br>
@@ -271,13 +275,13 @@
         </p-fieldset>
 
         <br>
-        <p-fieldset  class="infor3" legend="DIAGNOSTICO Y RESPONSABLE" [toggleable]="true">
+        <p-fieldset class="infor3" legend="DIAGNOSTICO Y RESPONSABLE" [toggleable]="true">
             <div class="grid">
                 <div class="col-12 md:col-6 lg:col-3 p-field">
                     <div class="">
                         <label class="">Diagnostico del paciente: </label>
                         <p-selectButton [options]="diagnostico" optionLabel="name"
-                                        optionValue="boleano" formControlName="giagnostico">
+                                        optionValue="boleano" formControlName="diagnostico">
                         </p-selectButton>
                     </div>
                 </div>
@@ -311,3 +315,61 @@
 
     </form>
 </div>
+
+
+<p-dialog [(visible)]="ListaTamizajeDialog" [style]="{width: '1200px', height: '600px'}" [modal]="true"
+          styleClass="p-fluid" autoZIndex class="dialogOfertas">
+
+    <div class="p-card">
+        <p-card>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+                    <span style="font-size: 20px;">LISTA DE TAMIZAJES DE VIOLENCIA DE UN PACIENTE</span>
+                </div>
+            </div>
+            <br>
+        </p-card>
+
+
+        <p-accordion>
+            <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
+                <p-table [value]="ListaTamizajes" #dt [rows]="4"
+                         [rowsPerPageOptions]="[5, 10, 15]"
+                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center">Nro</th>
+                            <th style="text-align: center">APELLIDOS</th>
+                            <th style="text-align: center">NOMBRES</th>
+                            <th style="text-align: center">FECHA</th>
+                            <th style="text-align: center">NRO HCL</th>
+                            <th style="text-align: center">RESPONSABLE</th>
+                            <th style="text-align: center">DIAGNOSTICO</th>
+                            <th style="text-align: center">ACCION</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.apePaterno + ' ' + rowData.apeMaterno }}</td>
+                            <td style="text-align: center">{{ rowData.nombres }}</td>
+                            <td style="text-align: center">{{ rowData.fecha }}</td>
+                            <td style="text-align: center">{{ rowData.nroHcl }}</td>
+                            <td style="text-align: center">{{ rowData.nombreResponsableAtencion }}</td>
+                            <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                            <td style="text-align: center">
+                                <button pButton pRipple type="button" label="Actualizar" (click)="recuperarData(rowData)"
+                                        class="p-button-danger" icon="pi pi-pencil"></button>
+
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+
+</p-dialog>
+

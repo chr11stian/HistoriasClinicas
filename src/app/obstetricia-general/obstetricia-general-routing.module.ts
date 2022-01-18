@@ -25,12 +25,10 @@ const routes: Routes = [
         path: "noControl",
         component: ConsultasNoControlComponent
     },
-
     {
         path: "citas",
         loadChildren: () => import('src/app/obstetricia-general/obstetricia-general.module').then(n => n.ObstetriciaGeneralModule),
     },
-
     {
         path: "citas",
         loadChildren: () => import('src/app/obstetricia-general/gestante/atencion/atencion.module').then(n => n.AtencionModule),

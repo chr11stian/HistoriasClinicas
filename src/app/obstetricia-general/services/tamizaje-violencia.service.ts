@@ -16,4 +16,16 @@ export class TamizajeViolenciaService {
     addTamizajeViolencia(data) {
         return this.http.post(`${this.base_url}/${this.bd}/fichaTamizajeVBG/agregar`, data)
     }
+
+    UpdateTamizajeViolencia(data) {
+        return this.http.put(`${this.base_url}/${this.bd}/fichaTamizajeVBG/actualizar`, data)
+    }
+
+    GetTamizajeViolenciaNroDoc(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/fichaTamizajeVBG/buscar`, data)
+    }
+
+    GetTamizajeViolenciaNroHcl(nroHcl) {
+        return this.http.get(`${this.base_url}/${this.bd}/fichaTamizajeVBG/buscarHcl/${nroHcl}`)
+    }
 }
