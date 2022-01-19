@@ -33,7 +33,6 @@ export class DatosGeneralesAdultoMayorComponent implements OnInit {
     {name:"SECUNDARIA INCOMPLETA",code:"SECUNDARIA INCOMPLETA"},
     {name:"SECUNDARIA COMPLETA",code:"SECUNDARIA COMPLETA"},
     {name:"SUPERIOR",code:"SUPERIOR"},
-
  ];
   rh=[{name:"+",code:"+"},
     {name:"-",code:"-"}
