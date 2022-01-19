@@ -1,0 +1,21 @@
+.margen {
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+.footer {
+  text-align: right;
+  /* display: flexbox; */
+  /* text-align: center; */
+  background: white;
+  position: absolute;
+  /* margin-top: 2.5; */
+  bottom: 0;
+  width: 95%;
+  height: 5em;
+  color: white;
+  bottom: 0;
+  z-index: 200;
+}
