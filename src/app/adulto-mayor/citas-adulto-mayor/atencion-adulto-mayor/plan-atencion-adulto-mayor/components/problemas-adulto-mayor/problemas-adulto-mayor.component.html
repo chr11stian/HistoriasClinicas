@@ -20,72 +20,38 @@
             <p-table class="table-over" [value]="dataProblemasCronicos" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center" class="font-2">Nro </th>
                         <th style="text-align: center" class="font-2">Problema</th>
-<!--                        <th style="text-align: center" class="font-2">Controlado</th>-->
-                        <th style="text-align: center" class="font-1">Fecha 1</th>
-                        <th style="text-align: center" class="font-1">Fecha 2</th>
-                        <th style="text-align: center" class="font-1">Fecha 3</th>
+                        <th style="text-align: center" class="font-2">Controlado</th>
+                        <th style="text-align: center" class="font-1">Fecha</th>
                         <th style="text-align: center" class="font-2">Observaciones</th>
-                        <th style="text-align: center" class="font-2">Acciones</th>
-
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
                         <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                         <td style="text-align: center">{{ rowData.nombreProblema }}</td>
-                        <td>
-                            <div style="text-align: center" *ngIf="rowData.fecha1;else noEs">
-                                {{ rowData.fecha1 }}
-                            </div>
-                            <ng-template #noEs>
-                                <p-tag
-                                        value="No Atendido"
-
-                                        severity="warning"
-                                        styleClass="text-sm"
-                                ></p-tag>
-                            </ng-template>
-                        </td>
-                        <td>
-                            <div style="text-align: center" *ngIf="rowData.fecha2;else noEs">
-                                {{ rowData.fecha2 }}
-                            </div>
-                            <ng-template #noEs>
-                                <p-tag
-                                        value="No Atendido"
-
-                                        severity="warning"
-                                        styleClass="text-sm"
-                                ></p-tag>
-                            </ng-template>
-                        </td>
-                        <td>
-                            <div style="text-align: center" *ngIf="rowData.fecha3;else noEs">
-                                {{ rowData.fecha3 }}
-                            </div>
-                            <ng-template #noEs>
-                                <p-tag
-                                        value="No Atendido"
-
-                                        severity="warning"
-                                        styleClass="text-sm"
-                                ></p-tag>
-                            </ng-template>
-                        </td>
-                        <td style="text-align: center"><div *ngIf="rowData.observacion1!=null || undefined">{{ "Obs. 1:" + rowData.observacion1}}</div>
-                            <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
-                            <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
-                        </td>
                         <td style="text-align: center">
-                            <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
-                                    pTooltip="Agregar" (click)="cronicoAgudo='cronico';openAgregarAtenciones(rowData,rowIndex)">
-                            </button>
+                            <div *ngIf="rowData.controlado=='SI';else noEs">
+                                <p-tag
+                                        value="Si"
+                                        severity="success"
+                                        styleClass="text-sm"
+
+                                ></p-tag>
+                            </div>
+                            <ng-template #noEs>
+                                <p-tag
+                                        value="No"
+                                        severity="danger"
+                                        styleClass="text-sm"
+                                ></p-tag>
+                            </ng-template>
                         </td>
+                        <td>{{ rowData.fecha }}</td>
+                        <td>{{ rowData.observacion}}</td>
                     </tr>
                 </ng-template>
 
@@ -236,6 +202,14 @@
             <div class="col-12 md:col-8 lg:col-8 p-field">
                 <label>Fecha 1:</label>
                 <input type="date" pInputText formControlName='fecha'>
+            </div>
+            <div class="col-12 md:col-8 lg:col-8 p-field" *ngIf="cronicoAgudo=='cronico'">
+                <div class="">
+                    <label class="">Controlado?: </label>
+
+                    <p-selectButton [options]="sino"  optionValue="value" formControlName="controlado"
+                                    optionLabel="label"></p-selectButton>
+                </div>
             </div>
             <div class="col-12">
                  <span class="p-float-label">
