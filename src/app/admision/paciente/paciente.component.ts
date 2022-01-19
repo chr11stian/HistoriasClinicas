@@ -9,7 +9,7 @@ import { PacienteService } from 'src/app/core/services/paciente/paciente.service
 import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
 import { EtniaService } from 'src/app/mantenimientos/services/etnia/etnia.service';
 import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
-import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-paciente',
@@ -39,20 +39,20 @@ export class PacienteComponent implements OnInit {
   peruvian: boolean = true;
   auxipress: string = "615b30b37194ce03d782561c";
   listaEstadoCivil = [
-    'Soltero',
-    'Casado',
-    'Conviviente',
-    'Separado',
-    'Divorciado',
-    'Viudo'
+    'SOLTERO',
+    'CASADO',
+    'CONVIVIENTE',
+    'SEPARADO',
+    'DIVORCIADO',
+    'VIUDO'
   ]
   listaNacionalidades = [
-    'Peruano',
-    'Extranjero'
+    'PERUANO',
+    'EXTRANJERO'
   ]
   listaSexo = [
-    'Masculino',
-    'Femenino'
+    'MASCULINO',
+    'FEMENINO'
   ]
   listaTipoSeguro = [
     'SIS',
@@ -66,6 +66,14 @@ export class PacienteComponent implements OnInit {
     'PRIVADOS',
     'SIS SEMISUBSIDIADO',
     'OTROS'
+  ]
+  listaGradoInstruccion = [
+    'ANALFABETO',
+    'PRIMARIA INCOMPLETA',
+    'PRIMARIA COMPLETOA',
+    'SECUNDARIA INCOMPLETA',
+    'SECUNDARIA CAOMPLETA',
+    'SUPERIOR'
   ]
 
   constructor(

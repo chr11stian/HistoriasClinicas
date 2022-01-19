@@ -25,6 +25,10 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   datePipe = new DatePipe("en-US");
   isUpdate: boolean = false;
   idConsulta: string;
+  updateMedicacionFrec: boolean = false;
+  indexMedicacion: number;
+  updateAlarmSign: boolean = false;
+  indexAlarmSign: number;
 
   constructor(
     private fb: FormBuilder,
@@ -147,6 +151,38 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
     this.listaMedicacionUsoFrecuente.push(med);
     this.listaMedicacionUsoFrecuente = [...this.listaMedicacionUsoFrecuente];
     this.dialogMedicacion = false;
+  }
+
+  openDialogEditarMedicacionFrecuente(data, index) {
+    this.updateMedicacionFrec = true;
+    this.dialogMedicacion = true;
+    this.indexMedicacion = index;
+    this.formMedicacion.patchValue({ medicacionFrec: data });
+  }
+  aceptarDialogEditMedicacion() {
+    console.log('index to edit ', this, this.indexMedicacion)
+    this.listaMedicacionUsoFrecuente.splice(this.indexMedicacion, 1, this.formMedicacion.value.medicacionFrec);
+    this.updateMedicacionFrec = false;
+    this.dialogMedicacion = false;
+  }
+  eliminarMedicacionFrec(index) {
+    this.listaMedicacionUsoFrecuente.splice(index, 1)
+    this.listaMedicacionUsoFrecuente = [...this.listaMedicacionUsoFrecuente];
+  }
+  openDialogEditSignosAlarma(data, index) {
+    this.updateAlarmSign = true;
+    this.dialogSignosAlarma = true;
+    this.indexAlarmSign = index;
+    this.formSignosAlarma.patchValue({ signoAlarma: data });
+  }
+  aceptarDialogEditSignosAlarma() {
+    this.listaSignosAlarma.splice(this.indexAlarmSign, 1, this.formSignosAlarma.value.signoAlarma);
+    this.updateAlarmSign = false;
+    this.dialogSignosAlarma = false;
+  }
+  eliminarSignoAlarma(index) {
+    this.listaSignosAlarma.splice(index, 1)
+    this.listaSignosAlarma = [...this.listaSignosAlarma];
   }
 }
 

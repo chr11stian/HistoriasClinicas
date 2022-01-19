@@ -18,6 +18,8 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   dialogDiagnostic: boolean = false;
   listaDeCIE: cie10[] = [];
   dataDiagnostico: Diagnostico;
+  updateDiagnostico: boolean = false;
+  indexDiagnostico: number;
   listaTiposCie: KeyValue[] = [
     { name: "DEFINITIVO", value: "D" },
     { name: "PRESUNTIVO", value: "P" },
@@ -56,6 +58,7 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   openDialogDiagnostico() {
     this.formDiagnostico.reset();
     this.dialogDiagnostic = true;
+    this.updateDiagnostico = false;
   }
 
   filterCIE10(value) {
@@ -77,7 +80,6 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
       cie10: this.formDiagnostico.value.diagnosticoCIE.codigoItem,
       tipo: this.formDiagnostico.value.tipoCie
     }
-    console.log('diagnostico ', diagnostico);
     this.listaDiagnosticos.push(diagnostico);
     this.listaDiagnosticos = [...this.listaDiagnosticos];
     this.dialogDiagnostic = false;
@@ -104,6 +106,30 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
     console.log('data diagnostico to save ', this.dataDiagnostico);
+  }
+  openDialogEditDiagnostico(data, index) {
+    console.log('index ', index)
+    this.dialogDiagnostic = true;
+    this.updateDiagnostico = true;
+    this.indexDiagnostico = index;
+    this.CieService.getCIEByCod(data.cie10).subscribe((res: any) => {
+      this.formDiagnostico.patchValue({ tipoCie: data.tipo });
+      this.formDiagnostico.patchValue({ diagnosticoCIE: res.object });
+      this.formDiagnostico.patchValue({ diagnosticoText: data.diagnostico });
+    });
+  }
+  aceptarDialogEditDiagnostico() {
+    let diagnosticoAux: DiagCIE = {
+      diagnostico: this.formDiagnostico.value.diagnosticoText,
+      cie10: this.formDiagnostico.value.diagnosticoCIE.codigoItem,
+      tipo: this.formDiagnostico.value.tipoCie
+    }
+    this.listaDiagnosticos.splice(this.indexDiagnostico, 1, diagnosticoAux);
+    this.dialogDiagnostic = false;
+  }
+  eliminarDiagnostico(index) {
+    this.listaDiagnosticos.splice(index, 1);
+    this.listaDiagnosticos = [...this.listaDiagnosticos];
   }
 }
 

@@ -10,7 +10,8 @@
         </ng-template>
     </p-toolbar>
     <p-table #dt [value]="listaPacientes" [rows]="10" [paginator]="true" [rowHover]="true" datakey="id"
-        responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+        responsiveLayout="scroll" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]"
+        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
         styleClass="p-datatable-gridlines">
         <ng-template pTemplate="header" style="text-align: center;">
             <tr>
@@ -59,7 +60,7 @@
             </div>
             <div class="p-field col-3">
                 <label>Número Doc:</label>
-                <input type="text" pInputText placeholder="Ingrese el número de doc" formControlName="nroDoc"
+                <input type="text" pInputText placeholder="Ingrese el número de doc" formControlName="nroDoc" 
                     class="inputTest" />
             </div>
             <div class="p-field col-3" *ngIf="!peruvian">
@@ -71,19 +72,19 @@
         <div class="grid mt-1">
             <div class="p-field col-3">
                 <label>Primer Nombre:</label>
-                <input type="text" pInputText formControlName="primerNombre" class="inputTest" />
+                <input type="text" pInputText formControlName="primerNombre" class="inputTest" oninput="this.value=this.value.toUpperCase()"/>
             </div>
             <div class="p-field col-3">
                 <label>Otros Nombres:</label>
-                <input type="text" pInputText formControlName="otrosNombres" />
+                <input type="text" pInputText formControlName="otrosNombres" oninput="this.value=this.value.toUpperCase()"/>
             </div>
             <div class="p-field col-3">
                 <label>Apellido Paterno:</label>
-                <input type="text" pInputText formControlName="apPaterno" class="inputTest" />
+                <input type="text" pInputText formControlName="apPaterno" class="inputTest" oninput="this.value=this.value.toUpperCase()"/>
             </div>
             <div class="p-field col-3">
                 <label>Apellido Materno:</label>
-                <input type="text" pInputText formControlName="apMaterno" class="inputTest" />
+                <input type="text" pInputText formControlName="apMaterno" class="inputTest" oninput="this.value=this.value.toUpperCase()"/>
             </div>
         </div>
         <div class="grid mt-1">
@@ -109,7 +110,7 @@
             </div>
             <div class="p-field col-3">
                 <label>Procedencia:</label>
-                <input type="text" pInputText formControlName="procedencia" class="inputTest" />
+                <input type="text" pInputText formControlName="procedencia" class="inputTest" oninput="this.value=this.value.toUpperCase()"/>
             </div>
         </div>
     </form>
@@ -172,7 +173,9 @@
             </div>
             <div class="p-field col-3">
                 <label>Grado Instrucción:</label>
-                <input type="text" pInputText formControlName="gradoInstruccion" class="inputTest" />
+                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="listaGradoInstruccion"
+                    formControlName="gradoInstruccion" defaultLabel="Seleccione un elemento" [showClear]="false">
+                </p-dropdown>
             </div>
             <div class="p-field col-3">
                 <label>Sexo:</label>
@@ -195,19 +198,18 @@
             </div>
             <div class="p-field col-3">
                 <label>Fecha Emisión:</label>
-                <input type="date" pInputText formControlName='fechaEmision' placeholder=""
-                    class="inputfield w-full">
+                <input type="date" pInputText formControlName='fechaEmision' placeholder="" class="inputfield w-full">
                 <!-- <p-calendar formControlName="fechaEmision"></p-calendar> -->
             </div>
             <div class="p-field col-3">
                 <label>Restricción:</label>
-                <input type="text" pInputText formControlName="restriccion" class="inputTest" />
+                <input type="text" pInputText formControlName="restriccion" class="inputTest" oninput="this.value=this.value.toUpperCase()"/>
             </div>
         </div>
         <div class="grid mt-1">
             <div class="p-field col-6">
                 <label>Direccion:</label>
-                <input type="text" pInputText formControlName="direccion" class="inputTest" />
+                <input type="text" pInputText formControlName="direccion" class="inputTest" oninput="this.value=this.value.toUpperCase()"/>
             </div>
             <div class="p-field col-6">
                 <label>Discapacidad:</label>

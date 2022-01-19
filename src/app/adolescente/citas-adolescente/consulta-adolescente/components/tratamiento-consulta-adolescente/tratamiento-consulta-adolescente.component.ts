@@ -16,6 +16,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   formInterconsulta: FormGroup;
   dataTratamiento: Tratamiento;
   updateTratamiento: boolean = false;
+  indexTratamiento: number;
   dialogTratamiento: boolean = false;
   dialogAuxExam: boolean = false;
   dialogInterconsulta: boolean = false;
@@ -23,6 +24,10 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   listaSolicitudExamAux: string[] = [];
   listaInterconsultas: Interconsultas[] = [];
   datePipe = new DatePipe('en-US');
+  updateAuxExam: boolean = false;
+  indexAuxExam: number;
+  updateInterconsultas: boolean = false;
+  indexInterconsultas: number;
 
   listaIntervalos = [
     { name: 'CADA 1 HORA', code: '1' },
@@ -98,6 +103,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   openDialogTratamiento() {
     this.formTratamiento.reset();
     this.dialogTratamiento = true;
+    this.updateTratamiento = false;
   }
 
   aceptarDialogTratamiento() {
@@ -115,6 +121,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
     this.dialogTratamiento = false;
   }
   openDialogExamAux() {
+    this.updateAuxExam = false;
     this.formExamAux.reset();
     this.dialogAuxExam = true;
   }
@@ -124,6 +131,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
     this.dialogAuxExam = false;
   }
   openDialogInterconsulta() {
+    this.updateInterconsultas = false;
     this.formInterconsulta.reset();
     this.dialogInterconsulta = true;
   }
@@ -163,11 +171,68 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
 
     });
   }
-  guardarEdicionTratamiento() {
-
-  }
   closeDialogTratamiento() {
     this.dialogTratamiento = false;
+  }
+  openDialogEditTratamiento(data, index) {
+    this.updateTratamiento = true;
+    this.dialogTratamiento = true;
+    this.indexTratamiento = index;
+    this.formTratamiento.patchValue({ descripcion: data.descripcion });
+    this.formTratamiento.patchValue({ numero: data.numero });
+    this.formTratamiento.patchValue({ dosis: data.dosis });
+    this.formTratamiento.patchValue({ viaAdministracion: data.viaAdministracion });
+    this.formTratamiento.patchValue({ intervalo: data.intervalo });
+    this.formTratamiento.patchValue({ duracion: data.duracion });
+    this.formTratamiento.patchValue({ observaciones: data.observaciones });
+  }
+  aceptarDialogEditTratamiento() {
+    let tratamiento: DescripcionTratamiento = {
+      descripcion: this.formTratamiento.value.descripcion,
+      numero: this.formTratamiento.value.numero,
+      dosis: this.formTratamiento.value.dosis,
+      viaAdministracion: this.formTratamiento.value.viaAdministracion,
+      intervalo: this.formTratamiento.value.intervalo,
+      observaciones: this.formTratamiento.value.observaciones,
+      duracion: this.formTratamiento.value.duracion
+    }
+    this.dialogTratamiento = false;
+    this.listaTratamientos.splice(this.indexTratamiento, 1, tratamiento)
+  }
+  eliminarTratamiento(index) {
+    this.listaTratamientos.splice(index, 1);
+    this.listaTratamientos = [...this.listaTratamientos];
+  }
+  openDialogAuxExam(data, index) {
+    console.log('data ', data);
+    this.updateAuxExam = true;
+    this.dialogAuxExam = true;
+    this.indexAuxExam = index;
+    this.formExamAux.patchValue({ examAux: data });
+  }
+  aceptarDialogEditarAuxExam() {
+    this.listaSolicitudExamAux.splice(this.indexAuxExam, 1, this.formExamAux.value.examAux);
+    this.dialogAuxExam = false;
+  }
+  eliminarAuxExam(index) {
+    this.listaSolicitudExamAux.splice(index, 1);
+    this.listaSolicitudExamAux = [...this.listaSolicitudExamAux];
+  }
+  openDialogEditInterconsulta(data, index) {
+    this.dialogInterconsulta = true;
+    this.updateInterconsultas = true;
+    this.indexInterconsultas = index;
+    this.formInterconsulta.patchValue({ consultorio: data.consultorio });
+    this.formInterconsulta.patchValue({ fechaInterconsulta: data.fecha });
+    this.formInterconsulta.patchValue({ motivo: data.motivo });
+  }
+  aceptarDialogEditInterConsul() {
+    this.listaSolicitudExamAux.splice(this.indexAuxExam, 1, this.formExamAux.value.examAux);
+    this.dialogAuxExam = false;
+  }
+  eliminarInterconsulta(index) {
+    this.listaSolicitudExamAux.splice(index, 1);
+    this.listaSolicitudExamAux = [...this.listaSolicitudExamAux];
   }
 }
 export interface DescripcionTratamiento {
