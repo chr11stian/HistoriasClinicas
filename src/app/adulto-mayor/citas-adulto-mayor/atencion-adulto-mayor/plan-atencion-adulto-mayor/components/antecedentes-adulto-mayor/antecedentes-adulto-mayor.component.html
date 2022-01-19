@@ -331,11 +331,15 @@
     </div>
     <div class="">
         <form [formGroup]='formAntecedentes'>
-            <h4>Reacción Adversa a Medicamentos</h4>
             <div class="grid">
-                <div class="col-12 p-field">
+                <div class="col-3 p-field p-fluid">
+                    <h4>¿Hace reacción adversa a medicamentos?</h4>
                     <p-selectButton [options]="sino"  optionValue="value" formControlName="reaccionAdversa"
                                     optionLabel="label"></p-selectButton>
+                </div>
+                <div class="col-9 p-field p-fluid">
+                        <h4>Medicamento que reacciona:</h4>
+                        <textarea pInputTextarea autoResize="autoResize" placeholder="Medicamentos que genera Reacción" formControlName="reaccionMedicamento" p-field></textarea>
                 </div>
             </div>
         </form>

@@ -26,6 +26,15 @@ export class DatosGeneralesAdultoMayorComponent implements OnInit {
     {name:"AB",code:"AB"},
     {name:"O",code:"O"},
   ];
+ gradoInstruccion=[
+    {name:"ANALFABETO",code:"ANALFABETO"},
+    {name:"PRIMARIA INCOMPLETA",code:"PRIMARIA INCOMPLETA"},
+    {name:"PRIMARIA COMPLETA",code:"PRIMARIA COMPLETA"},
+    {name:"SECUNDARIA INCOMPLETA",code:"SECUNDARIA INCOMPLETA"},
+    {name:"SECUNDARIA COMPLETA",code:"SECUNDARIA COMPLETA"},
+    {name:"SUPERIOR",code:"SUPERIOR"},
+
+ ];
   rh=[{name:"+",code:"+"},
     {name:"-",code:"-"}
   ]
@@ -54,10 +63,10 @@ export class DatosGeneralesAdultoMayorComponent implements OnInit {
     this.formDatosGeneralAdultoMayor = this.formBuilder.group({
       fecha:new FormControl(''),
       nroAtendido:new FormControl(''),
-      apePaterno:new FormControl({value: '', disabled: true}),
-      apeMaterno:new FormControl({value: '', disabled: true}),
-      nombres:new FormControl({value: '', disabled: true}),
-      sexo:new FormControl({value: '', disabled: true}),
+      apePaterno:new FormControl(''),
+      apeMaterno:new FormControl(''),
+      nombres:new FormControl(''),
+      sexo:new FormControl(''),
       edad:new FormControl(''),
       lugarNacimiento:new FormControl(''),
       procedencia:new FormControl(''),
@@ -77,8 +86,7 @@ export class DatosGeneralesAdultoMayorComponent implements OnInit {
 
   recuperarDatosPacientes(){
       this.filiacionService.getPacienteNroDoc(this.tipoDocRecuperado, this.docRecuperado).subscribe((res: any) => {
-          let datosPaciente:any = res.object
-
+          let datosPaciente = res.object
           console.log('paciente recuperado de la data', datosPaciente)
           this.formDatosGeneralAdultoMayor.get('apePaterno').setValue(datosPaciente.apePaterno);
           this.formDatosGeneralAdultoMayor.get('apeMaterno').setValue(datosPaciente.apeMaterno);
@@ -91,7 +99,6 @@ export class DatosGeneralesAdultoMayorComponent implements OnInit {
           this.formDatosGeneralAdultoMayor.get('procedencia').setValue(datosPaciente.procedencia);
           this.formDatosGeneralAdultoMayor.get('fechaNacimiento').setValue(datosPaciente.nacimiento.fechaNacimiento);
           this.formDatosGeneralAdultoMayor.get('gradoInstruccion').setValue(datosPaciente.gradoInstruccion);
-
           this.formDatosGeneralAdultoMayor.get('estadoCivil').setValue(datosPaciente.estadoCivil);
           // this.formDatosGeneralAdultoMayor.get('grupoSanguineo').setValue(this.datosGeneralesAdultoMayor.grupoSanguineo);
           // this.formDatosGeneralAdultoMayor.get('rh').setValue(this.datosGeneralesAdultoMayor.rh);
@@ -113,7 +120,6 @@ export class DatosGeneralesAdultoMayorComponent implements OnInit {
             this.recuperarDatosPacientes();
         }
         else {
-            this.recuperarId();
             this.datosGeneralesAdultoMayor = res.object
             console.log('paciente por doc ', this.datosGeneralesAdultoMayor)
             this.formDatosGeneralAdultoMayor.get('fecha').setValue(this.datosGeneralesAdultoMayor.fecha);
@@ -140,14 +146,7 @@ export class DatosGeneralesAdultoMayorComponent implements OnInit {
     });
  }
  agregarFiliacionDatosGenerales(){
-   function obtenerfecha(fecha) {
-    if(fecha!=null){
-      let fechaApta = fecha.replace('T',' ');
-      return fechaApta;
-    }
-   }
-
-   const req = {
+     const req = {
       nroHcl:this.docRecuperado,
       fecha:this.formDatosGeneralAdultoMayor.value.fecha,
       nroAtendido:this.formDatosGeneralAdultoMayor.value.nroAtendido,
@@ -173,6 +172,7 @@ export class DatosGeneralesAdultoMayorComponent implements OnInit {
     console.log("data filiacion adulto mayor:" , req);
     this.filiacionService.postDatosGeneralesAdultoMayorByDoc(this.tipoDocRecuperado, this.docRecuperado, req).subscribe(
        result => {
+           console.log(req)
          Swal.fire({
            icon: 'success',
            title: 'Guardo con exito',

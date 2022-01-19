@@ -40,14 +40,15 @@
                         <tr>
                             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.descripcion }}</td>
-                            <td style="text-align: center"><div *ngIf="rowData.observacion!=null || undefined">{{ "Obs. 1:" + rowData.observacion}}</div>
-                                <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
-                                <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
-                            </td>
                             <td style="text-align: center"><div *ngIf="rowData.lugar!=null || undefined">{{ "Obs. 1:" + rowData.lugar}}</div>
                                 <hr> <div *ngIf="rowData.lugar2!=null || undefined">{{ "Obs. 2:"+rowData.lugar2}}</div>
                                 <hr> <div *ngIf="rowData.lugar3!=null || undefined">{{ "Obs. 3:" +rowData.lugar3 }}</div>
                             </td>
+                            <td style="text-align: center"><div *ngIf="rowData.observacion!=null || undefined">{{ "Obs. 1:" + rowData.observacion}}</div>
+                                <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
+                                <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
+                            </td>
+
                             <td style="text-align: center">
                                 <div style="text-align: center" *ngIf="rowData.fecha;else noEs">
                                     {{ rowData.fecha }}
@@ -118,7 +119,7 @@
                 </div>
                 <div class="col-5" style="text-align: right">
                     <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
-                            class="agregar-boton" (click)="openDialogPlanInmunizaciones()">
+                            class="agregar-boton" (click)="openDialogInmunizaciones()">
                     </button>
                 </div>
             </ng-template>
@@ -128,20 +129,33 @@
                         <tr>
                             <th style="text-align: center" class="font-2">Nro </th>
                             <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Observaciones</th>
                             <th style="text-align: center" class="font-2">1° Fecha</th>
                             <th style="text-align: center" class="font-2">2° Fecha</th>
                             <th style="text-align: center" class="font-2">3° Fecha</th>
-                            <th style="text-align: center" class="font-2">Lugar</th>
-                            <th style="text-align: center" class="font-2">Acciones</th>
+
+
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                         <tr>
                             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center"><div *ngIf="rowData.lugar!=null || undefined">{{ "Obs. 1:" + rowData.lugar}}</div>
+                                <hr> <div *ngIf="rowData.lugar2!=null || undefined">{{ "Obs. 2:"+rowData.lugar2}}</div>
+                                <hr> <div *ngIf="rowData.lugar3!=null || undefined">{{ "Obs. 3:" +rowData.lugar3 }}</div>
+                            </td>
+                            <td style="text-align: center"><div *ngIf="rowData.observacion!=null || undefined">{{ "Obs. 1:" + rowData.observacion}}</div>
+                                <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
+                                <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
+                            </td>
                             <td style="text-align: center">
-                                <div *ngIf="rowData.atendido1==true;else noEs">
-                                    {{ rowData.primeraFecha }}
+                                <div style="text-align: center" *ngIf="rowData.fecha;else noEs">
+                                    {{ rowData.fecha }}
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarPlanInmunizaciones(rowData,rowIndex,1)" pTooltip="Editar">
+                                    </button>
                                 </div>
                                 <ng-template #noEs>
                                     <p-tag
@@ -149,42 +163,50 @@
                                             severity="warning"
                                             styleClass="text-sm"
                                     ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarInmunizaciones(rowData,rowIndex,1)" pTooltip="Agregar">
+                                    </button>
                                 </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido2==true;else noEs">
-                                    {{ rowData.segundaFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido3==true;else noEs">
-                                    {{ rowData.terceraFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">{{ rowData.lugar }}</td>
 
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                        (click)="openDialogEditarPlanInmunizaciones(rowData,rowIndex)" pTooltip="Editar">
-                                </button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarPlanInmunizaciones(rowIndex)" pTooltip="Eliminar">
-                                </button>
                             </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha2;else noEs">
+                                    {{ rowData.fecha2 }}
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarPlanInmunizaciones(rowData,rowIndex,2)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple  icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarInmunizaciones(rowData,rowIndex,2)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha3;else noEs">
+                                    {{ rowData.fecha3 }}
+
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarPlanInmunizaciones(rowData,rowIndex,3)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarInmunizaciones(rowData,rowIndex,3)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+
                         </tr>
                     </ng-template>
 
@@ -194,7 +216,7 @@
         <p-accordionTab>
             <ng-template pTemplate="header">
                 <div class="col-6">
-                    3. Evaluacióon bucal
+                    3. Evaluación bucal
                 </div>
                 <div class="col-5" style="text-align: right">
                     <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus"
@@ -208,11 +230,12 @@
                         <tr>
                             <th style="text-align: center" class="font-2">Nro </th>
                             <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Observaciones</th>
                             <th style="text-align: center" class="font-2">1° Fecha</th>
                             <th style="text-align: center" class="font-2">2° Fecha</th>
                             <th style="text-align: center" class="font-2">3° Fecha</th>
-                            <th style="text-align: center" class="font-2">Lugar</th>
-                            <th style="text-align: center" class="font-2">Acciones</th>
+
 
                         </tr>
                     </ng-template>
@@ -220,9 +243,20 @@
                         <tr>
                             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center"><div *ngIf="rowData.lugar!=null || undefined">{{ "Obs. 1:" + rowData.lugar}}</div>
+                                <hr> <div *ngIf="rowData.lugar2!=null || undefined">{{ "Obs. 2:"+rowData.lugar2}}</div>
+                                <hr> <div *ngIf="rowData.lugar3!=null || undefined">{{ "Obs. 3:" +rowData.lugar3 }}</div>
+                            </td>
+                            <td style="text-align: center"><div *ngIf="rowData.observacion!=null || undefined">{{ "Obs. 1:" + rowData.observacion}}</div>
+                                <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
+                                <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
+                            </td>
                             <td style="text-align: center">
-                                <div *ngIf="rowData.atendido1==true;else noEs">
-                                    {{ rowData.primeraFecha }}
+                                <div style="text-align: center" *ngIf="rowData.fecha;else noEs">
+                                    {{ rowData.fecha }}
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarPlanEvaluacionBucal(rowData,rowIndex,1)" pTooltip="Editar">
+                                    </button>
                                 </div>
                                 <ng-template #noEs>
                                     <p-tag
@@ -230,42 +264,50 @@
                                             severity="warning"
                                             styleClass="text-sm"
                                     ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarPlanEvaluacionBucal(rowData,rowIndex,1)" pTooltip="Agregar">
+                                    </button>
                                 </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido2==true;else noEs">
-                                    {{ rowData.segundaFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido3==true;else noEs">
-                                    {{ rowData.terceraFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">{{ rowData.lugar }}</td>
 
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                        (click)="openDialogEditarPlanEvaluacionBucal(rowData,rowIndex)" pTooltip="Editar">
-                                </button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarPlanEvaluacionBucal(rowIndex)" pTooltip="Eliminar">
-                                </button>
                             </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha2;else noEs">
+                                    {{ rowData.fecha2 }}
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarPlanEvaluacionBucal(rowData,rowIndex,2)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple  icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarPlanEvaluacionBucal(rowData,rowIndex,2)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha3;else noEs">
+                                    {{ rowData.fecha3 }}
+
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarPlanEvaluacionBucal(rowData,rowIndex,3)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarPlanEvaluacionBucal(rowData,rowIndex,3)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+
                         </tr>
                     </ng-template>
 
@@ -289,11 +331,12 @@
                         <tr>
                             <th style="text-align: center" class="font-2">Nro </th>
                             <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Observaciones</th>
                             <th style="text-align: center" class="font-2">1° Fecha</th>
                             <th style="text-align: center" class="font-2">2° Fecha</th>
                             <th style="text-align: center" class="font-2">3° Fecha</th>
-                            <th style="text-align: center" class="font-2">Lugar</th>
-                            <th style="text-align: center" class="font-2">Acciones</th>
+
 
                         </tr>
                     </ng-template>
@@ -301,9 +344,20 @@
                         <tr>
                             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center"><div *ngIf="rowData.lugar!=null || undefined">{{ "Obs. 1:" + rowData.lugar}}</div>
+                                <hr> <div *ngIf="rowData.lugar2!=null || undefined">{{ "Obs. 2:"+rowData.lugar2}}</div>
+                                <hr> <div *ngIf="rowData.lugar3!=null || undefined">{{ "Obs. 3:" +rowData.lugar3 }}</div>
+                            </td>
+                            <td style="text-align: center"><div *ngIf="rowData.observacion!=null || undefined">{{ "Obs. 1:" + rowData.observacion}}</div>
+                                <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
+                                <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
+                            </td>
                             <td style="text-align: center">
-                                <div *ngIf="rowData.atendido1==true;else noEs">
-                                    {{ rowData.primeraFecha }}
+                                <div style="text-align: center" *ngIf="rowData.fecha;else noEs">
+                                    {{ rowData.fecha }}
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarPlanIntervenciones(rowData,rowIndex,1)" pTooltip="Editar">
+                                    </button>
                                 </div>
                                 <ng-template #noEs>
                                     <p-tag
@@ -311,42 +365,50 @@
                                             severity="warning"
                                             styleClass="text-sm"
                                     ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarPlanIntervenciones(rowData,rowIndex,1)" pTooltip="Agregar">
+                                    </button>
                                 </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido2==true;else noEs">
-                                    {{ rowData.segundaFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido3==true;else noEs">
-                                    {{ rowData.terceraFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">{{ rowData.lugar }}</td>
 
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                        (click)="openDialogEditarPlanIntervenciones(rowData,rowIndex)" pTooltip="Editar">
-                                </button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarPlanIntervenciones(rowIndex)" pTooltip="Eliminar">
-                                </button>
                             </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha2;else noEs">
+                                    {{ rowData.fecha2 }}
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarPlanIntervenciones(rowData,rowIndex,2)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple  icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarPlanIntervenciones(rowData,rowIndex,2)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha3;else noEs">
+                                    {{ rowData.fecha3 }}
+
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarPlanIntervenciones(rowData,rowIndex,3)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarPlanIntervenciones(rowData,rowIndex,3)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+
                         </tr>
                     </ng-template>
 
@@ -370,11 +432,12 @@
                         <tr>
                             <th style="text-align: center" class="font-2">Nro </th>
                             <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Observaciones</th>
                             <th style="text-align: center" class="font-2">1° Fecha</th>
                             <th style="text-align: center" class="font-2">2° Fecha</th>
                             <th style="text-align: center" class="font-2">3° Fecha</th>
-                            <th style="text-align: center" class="font-2">Lugar</th>
-                            <th style="text-align: center" class="font-2">Acciones</th>
+
 
                         </tr>
                     </ng-template>
@@ -382,9 +445,20 @@
                         <tr>
                             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center"><div *ngIf="rowData.lugar!=null || undefined">{{ "Obs. 1:" + rowData.lugar}}</div>
+                                <hr> <div *ngIf="rowData.lugar2!=null || undefined">{{ "Obs. 2:"+rowData.lugar2}}</div>
+                                <hr> <div *ngIf="rowData.lugar3!=null || undefined">{{ "Obs. 3:" +rowData.lugar3 }}</div>
+                            </td>
+                            <td style="text-align: center"><div *ngIf="rowData.observacion!=null || undefined">{{ "Obs. 1:" + rowData.observacion}}</div>
+                                <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
+                                <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
+                            </td>
                             <td style="text-align: center">
-                                <div *ngIf="rowData.atendido1==true;else noEs">
-                                    {{ rowData.primeraFecha }}
+                                <div style="text-align: center" *ngIf="rowData.fecha;else noEs">
+                                    {{ rowData.fecha }}
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsAdministracionMacronutrientes(rowData,rowIndex,1)" pTooltip="Editar">
+                                    </button>
                                 </div>
                                 <ng-template #noEs>
                                     <p-tag
@@ -392,42 +466,50 @@
                                             severity="warning"
                                             styleClass="text-sm"
                                     ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregaItemsAdministracionMacronutrientes(rowData,rowIndex,1)" pTooltip="Agregar">
+                                    </button>
                                 </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido2==true;else noEs">
-                                    {{ rowData.segundaFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido3==true;else noEs">
-                                    {{ rowData.terceraFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">{{ rowData.lugar }}</td>
 
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                        (click)="openDialogEditarPlanMicronutrientes(rowData,rowIndex)" pTooltip="Editar">
-                                </button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarPlanMicronutrientes(rowIndex)" pTooltip="Eliminar">
-                                </button>
                             </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha2;else noEs">
+                                    {{ rowData.fecha2 }}
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsAdministracionMacronutrientes(rowData,rowIndex,2)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple  icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregaItemsAdministracionMacronutrientes(rowData,rowIndex,2)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha3;else noEs">
+                                    {{ rowData.fecha3 }}
+
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsAdministracionMacronutrientes(rowData,rowIndex,3)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregaItemsAdministracionMacronutrientes(rowData,rowIndex,3)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+
                         </tr>
                     </ng-template>
 
@@ -451,11 +533,12 @@
                         <tr>
                             <th style="text-align: center" class="font-2">Nro </th>
                             <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Observaciones</th>
                             <th style="text-align: center" class="font-2">1° Fecha</th>
                             <th style="text-align: center" class="font-2">2° Fecha</th>
                             <th style="text-align: center" class="font-2">3° Fecha</th>
-                            <th style="text-align: center" class="font-2">Lugar</th>
-                            <th style="text-align: center" class="font-2">Acciones</th>
+
 
                         </tr>
                     </ng-template>
@@ -463,9 +546,20 @@
                         <tr>
                             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center"><div *ngIf="rowData.lugar!=null || undefined">{{ "Obs. 1:" + rowData.lugar}}</div>
+                                <hr> <div *ngIf="rowData.lugar2!=null || undefined">{{ "Obs. 2:"+rowData.lugar2}}</div>
+                                <hr> <div *ngIf="rowData.lugar3!=null || undefined">{{ "Obs. 3:" +rowData.lugar3 }}</div>
+                            </td>
+                            <td style="text-align: center"><div *ngIf="rowData.observacion!=null || undefined">{{ "Obs. 1:" + rowData.observacion}}</div>
+                                <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
+                                <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
+                            </td>
                             <td style="text-align: center">
-                                <div *ngIf="rowData.atendido1==true;else noEs">
-                                    {{ rowData.primeraFecha }}
+                                <div style="text-align: center" *ngIf="rowData.fecha;else noEs">
+                                    {{ rowData.fecha }}
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsConsejeriaIntegral(rowData,rowIndex,1)" pTooltip="Editar">
+                                    </button>
                                 </div>
                                 <ng-template #noEs>
                                     <p-tag
@@ -473,42 +567,50 @@
                                             severity="warning"
                                             styleClass="text-sm"
                                     ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsConsejeriaIntegral(rowData,rowIndex,1)" pTooltip="Agregar">
+                                    </button>
                                 </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido2==true;else noEs">
-                                    {{ rowData.segundaFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido3==true;else noEs">
-                                    {{ rowData.terceraFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">{{ rowData.lugar }}</td>
 
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                        (click)="openDialogEditarPlanConsejeria(rowData,rowIndex)" pTooltip="Editar">
-                                </button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarPlanConsejeria(rowIndex)" pTooltip="Eliminar">
-                                </button>
                             </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha2;else noEs">
+                                    {{ rowData.fecha2 }}
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsConsejeriaIntegral(rowData,rowIndex,2)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple  icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsConsejeriaIntegral(rowData,rowIndex,2)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha3;else noEs">
+                                    {{ rowData.fecha3 }}
+
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsConsejeriaIntegral(rowData,rowIndex,3)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsConsejeriaIntegral(rowData,rowIndex,3)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+
                         </tr>
                     </ng-template>
 
@@ -532,11 +634,12 @@
                         <tr>
                             <th style="text-align: center" class="font-2">Nro </th>
                             <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Observaciones</th>
                             <th style="text-align: center" class="font-2">1° Fecha</th>
                             <th style="text-align: center" class="font-2">2° Fecha</th>
                             <th style="text-align: center" class="font-2">3° Fecha</th>
-                            <th style="text-align: center" class="font-2">Lugar</th>
-                            <th style="text-align: center" class="font-2">Acciones</th>
+
 
                         </tr>
                     </ng-template>
@@ -544,9 +647,20 @@
                         <tr>
                             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center"><div *ngIf="rowData.lugar!=null || undefined">{{ "Obs. 1:" + rowData.lugar}}</div>
+                                <hr> <div *ngIf="rowData.lugar2!=null || undefined">{{ "Obs. 2:"+rowData.lugar2}}</div>
+                                <hr> <div *ngIf="rowData.lugar3!=null || undefined">{{ "Obs. 3:" +rowData.lugar3 }}</div>
+                            </td>
+                            <td style="text-align: center"><div *ngIf="rowData.observacion!=null || undefined">{{ "Obs. 1:" + rowData.observacion}}</div>
+                                <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
+                                <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
+                            </td>
                             <td style="text-align: center">
-                                <div *ngIf="rowData.atendido1==true;else noEs">
-                                    {{ rowData.primeraFecha }}
+                                <div style="text-align: center" *ngIf="rowData.fecha;else noEs">
+                                    {{ rowData.fecha }}
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsVisitaDomiciliaria(rowData,rowIndex,1)" pTooltip="Editar">
+                                    </button>
                                 </div>
                                 <ng-template #noEs>
                                     <p-tag
@@ -554,42 +668,50 @@
                                             severity="warning"
                                             styleClass="text-sm"
                                     ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsVisitaDomiciliaria(rowData,rowIndex,1)" pTooltip="Agregar">
+                                    </button>
                                 </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido2==true;else noEs">
-                                    {{ rowData.segundaFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido3==true;else noEs">
-                                    {{ rowData.terceraFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">{{ rowData.lugar }}</td>
 
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                        (click)="openDialogEditarPlanVisita(rowData,rowIndex)" pTooltip="Editar">
-                                </button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarPlanVisita(rowIndex)" pTooltip="Eliminar">
-                                </button>
                             </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha2;else noEs">
+                                    {{ rowData.fecha2 }}
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsVisitaDomiciliaria(rowData,rowIndex,2)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple  icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsVisitaDomiciliaria(rowData,rowIndex,2)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha3;else noEs">
+                                    {{ rowData.fecha3 }}
+
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsVisitaDomiciliaria(rowData,rowIndex,3)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsVisitaDomiciliaria(rowData,rowIndex,3)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+
                         </tr>
                     </ng-template>
 
@@ -613,11 +735,12 @@
                         <tr>
                             <th style="text-align: center" class="font-2">Nro </th>
                             <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Observaciones</th>
                             <th style="text-align: center" class="font-2">1° Fecha</th>
                             <th style="text-align: center" class="font-2">2° Fecha</th>
                             <th style="text-align: center" class="font-2">3° Fecha</th>
-                            <th style="text-align: center" class="font-2">Lugar</th>
-                            <th style="text-align: center" class="font-2">Acciones</th>
+
 
                         </tr>
                     </ng-template>
@@ -625,9 +748,20 @@
                         <tr>
                             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center"><div *ngIf="rowData.lugar!=null || undefined">{{ "Obs. 1:" + rowData.lugar}}</div>
+                                <hr> <div *ngIf="rowData.lugar2!=null || undefined">{{ "Obs. 2:"+rowData.lugar2}}</div>
+                                <hr> <div *ngIf="rowData.lugar3!=null || undefined">{{ "Obs. 3:" +rowData.lugar3 }}</div>
+                            </td>
+                            <td style="text-align: center"><div *ngIf="rowData.observacion!=null || undefined">{{ "Obs. 1:" + rowData.observacion}}</div>
+                                <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
+                                <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
+                            </td>
                             <td style="text-align: center">
-                                <div *ngIf="rowData.atendido1==true;else noEs">
-                                    {{ rowData.primeraFecha }}
+                                <div style="text-align: center" *ngIf="rowData.fecha;else noEs">
+                                    {{ rowData.fecha }}
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsPrioridades(rowData,rowIndex,1)" pTooltip="Editar">
+                                    </button>
                                 </div>
                                 <ng-template #noEs>
                                     <p-tag
@@ -635,42 +769,50 @@
                                             severity="warning"
                                             styleClass="text-sm"
                                     ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsTemasEducativos(rowData,rowIndex,1)" pTooltip="Agregar">
+                                    </button>
                                 </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido2==true;else noEs">
-                                    {{ rowData.segundaFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido3==true;else noEs">
-                                    {{ rowData.terceraFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">{{ rowData.lugar }}</td>
 
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                        (click)="openDialogEditarPlanEducativos(rowData,rowIndex)" pTooltip="Editar">
-                                </button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarPlanEducativos(rowIndex)" pTooltip="Eliminar">
-                                </button>
                             </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha2;else noEs">
+                                    {{ rowData.fecha2 }}
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsPrioridades(rowData,rowIndex,2)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple  icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsTemasEducativos(rowData,rowIndex,2)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha3;else noEs">
+                                    {{ rowData.fecha3 }}
+
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsPrioridades(rowData,rowIndex,3)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsTemasEducativos(rowData,rowIndex,3)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+
                         </tr>
                     </ng-template>
 
@@ -694,11 +836,12 @@
                         <tr>
                             <th style="text-align: center" class="font-2">Nro </th>
                             <th style="text-align: center" class="font-1">Descripcion</th>
+                            <th style="text-align: center" class="font-2">Lugar</th>
+                            <th style="text-align: center" class="font-2">Observaciones</th>
                             <th style="text-align: center" class="font-2">1° Fecha</th>
                             <th style="text-align: center" class="font-2">2° Fecha</th>
                             <th style="text-align: center" class="font-2">3° Fecha</th>
-                            <th style="text-align: center" class="font-2">Lugar</th>
-                            <th style="text-align: center" class="font-2">Acciones</th>
+
 
                         </tr>
                     </ng-template>
@@ -706,9 +849,20 @@
                         <tr>
                             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
                             <td style="text-align: center">{{ rowData.descripcion }}</td>
+                            <td style="text-align: center"><div *ngIf="rowData.lugar!=null || undefined">{{ "Obs. 1:" + rowData.lugar}}</div>
+                                <hr> <div *ngIf="rowData.lugar2!=null || undefined">{{ "Obs. 2:"+rowData.lugar2}}</div>
+                                <hr> <div *ngIf="rowData.lugar3!=null || undefined">{{ "Obs. 3:" +rowData.lugar3 }}</div>
+                            </td>
+                            <td style="text-align: center"><div *ngIf="rowData.observacion!=null || undefined">{{ "Obs. 1:" + rowData.observacion}}</div>
+                                <hr> <div *ngIf="rowData.observacion2!=null || undefined">{{ "Obs. 2:"+rowData.observacion2}}</div>
+                                <hr> <div *ngIf="rowData.observacion3!=null || undefined">{{ "Obs. 3:" +rowData.observacion3 }}</div>
+                            </td>
                             <td style="text-align: center">
-                                <div *ngIf="rowData.atendido1==true;else noEs">
-                                    {{ rowData.primeraFecha }}
+                                <div style="text-align: center" *ngIf="rowData.fecha;else noEs">
+                                    {{ rowData.fecha }}
+                                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsPrioridades(rowData,rowIndex,1)" pTooltip="Editar">
+                                    </button>
                                 </div>
                                 <ng-template #noEs>
                                     <p-tag
@@ -716,42 +870,50 @@
                                             severity="warning"
                                             styleClass="text-sm"
                                     ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsPrioridades(rowData,rowIndex,1)" pTooltip="Agregar">
+                                    </button>
                                 </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido2==true;else noEs">
-                                    {{ rowData.segundaFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">
-                                <div *ngIf="rowData.atendido3==true;else noEs">
-                                    {{ rowData.terceraFecha }}
-                                </div>
-                                <ng-template #noEs>
-                                    <p-tag
-                                            value="No Atendido"
-                                            severity="warning"
-                                            styleClass="text-sm"
-                                    ></p-tag>
-                                </ng-template>
-                            </td>
-                            <td style="text-align: center">{{ rowData.lugar }}</td>
 
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                        (click)="openDialogEditarPlanPrioridades(rowData,rowIndex)" pTooltip="Editar">
-                                </button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarPlanPrioridades(rowIndex)" pTooltip="Eliminar">
-                                </button>
                             </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha2;else noEs">
+                                    {{ rowData.fecha2 }}
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsPrioridades(rowData,rowIndex,2)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple  icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsPrioridades(rowData,rowIndex,2)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+                            <td style="text-align: center">
+                                <div style="text-align: center" *ngIf="rowData.fecha3;else noEs">
+                                    {{ rowData.fecha3 }}
+
+                                    <button pButton pRipple  icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogEditarItemsPrioridades(rowData,rowIndex,3)" pTooltip="Editar">
+                                    </button>
+                                </div>
+                                <ng-template #noEs>
+                                    <p-tag
+                                            value="No Atendido"
+                                            severity="warning"
+                                            styleClass="text-sm"
+                                    ></p-tag>
+                                    <button pButton pRipple icon="pi pi-plus" class="p-button-rounded p-button-primary m-1"
+                                            (click)="openDialogAgregarItemsPrioridades(rowData,rowIndex,3)" pTooltip="Agregar">
+                                    </button>
+                                </ng-template>
+                            </td>
+
                         </tr>
                     </ng-template>
 

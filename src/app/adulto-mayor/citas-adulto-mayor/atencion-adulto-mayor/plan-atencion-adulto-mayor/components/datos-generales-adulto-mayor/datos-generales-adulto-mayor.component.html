@@ -46,14 +46,14 @@
                     <input type="text" pInputText class="inputfield w-full" placeholder="Nombres" formControlName="nombres">
                 </div>
             </div>
-            <div class="col-12 md:col-5 lg:col-2 p-field">
+            <div class="col-12 md:col-5 lg:col-2 p-field p-fluid">
                 <div class="">
                     <label class="">Sexo: </label>
                     <p-selectButton [options]="sino"  optionValue="value" formControlName="sexo"
                                     optionLabel="label"></p-selectButton>
                 </div>
             </div>
-            <div class="col-12 md:col-7 lg:col-1 p-field">
+            <div class="col-12 md:col-7 lg:col-1 p-field p-fluid">
                 <div class="">
                     <label class="">Edad: </label>
                     <input type="number" pInputText class="inputfield w-full" placeholder="0" formControlName="edad">
@@ -84,10 +84,11 @@
         </div>
         <!---4ta fila-->
         <div class="grid">
-            <div class="col-12 md:col-4 lg:col-4 p-field">
+            <div class="col-12 md:col-4 lg:col-4 p-field p-fluid">
                 <div class="">
                     <label class="">Grado de Instrucción: </label>
-                    <input type="text" pInputText class="inputfield w-full" placeholder="Grado de Instrucción" formControlName="gradoInstruccion">
+                    <p-dropdown formControlName="gradoInstruccion" placeholder="Seleccione:" class="inputfield w-full" [options]="gradoInstruccion"  optionLabel="name" optionValue="code"></p-dropdown>
+<!--                    <input type="text" pInputText class="inputfield w-full" placeholder="Grado de Instrucción" formControlName="gradoInstruccion">-->
                 </div>
             </div>
             <div class="col-12 md:col-4 lg:col-4 p-field">
@@ -99,10 +100,10 @@
             <div class="col-12 md:col-4 lg:col-4 p-field">
                 <label class="">Grupo Sanguineo:</label>
                 <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-6 p-field">
+                    <div class="col-12 md:col-6 lg:col-6 p-field p-fluid">
                         <p-dropdown formControlName="grupoSanguineo" class="inputfield w-full" [options]="grupoSanguineo"  optionLabel="name" optionValue="code"></p-dropdown>
                     </div>
-                    <div class="col-12 md:col-6 lg:col-6 p-field">
+                    <div class="col-12 md:col-6 lg:col-6 p-field p-fluid">
                         <p-dropdown formControlName="rh" [options]="rh" class="inputfield w-full"  optionLabel="name" optionValue="code"></p-dropdown>
                     </div>
                 </div>
