@@ -301,6 +301,9 @@ export class CuposComponent implements OnInit {
                 }
             }
         )
+        this.formCuposOferta.reset();
+        this.usuarioDialog=false;
+        this.cuposDialog=false;
     }
 
     /****Actualiza el estado de las ofertas despues de guardar un cupo LIBRE / OCUPADO**/
@@ -345,6 +348,17 @@ export class CuposComponent implements OnInit {
     closeDialogCupos() {
         /***cambios madai*/
         this.cuposDialog = false;
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Se cancelo la reserva de cupo',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+    closeDialogCupos2() {
+        /***cambios madai*/
+        this.usuarioDialog = false;
         Swal.fire({
             position: 'center',
             icon: 'error',
