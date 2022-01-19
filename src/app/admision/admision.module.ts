@@ -20,6 +20,8 @@ import {CheckboxModule} from "primeng/checkbox";
 import {PanelModule} from "primeng/panel";
 import {IpressComponent} from './ipress/ipress.component';
 import {PacienteComponent} from './paciente/paciente.component';
+import { ListarCuposComponent } from './triaje/listar-cupos/listar-cupos.component';
+import { RegistrarTriajeComponent } from './triaje/registrar-triaje/registrar-triaje.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +29,9 @@ import {PacienteComponent} from './paciente/paciente.component';
         UsuariosComponent,
         CuposComponent,
         IpressComponent,
-        PacienteComponent
+        PacienteComponent,
+        ListarCuposComponent,
+        RegistrarTriajeComponent
     ],
     exports: [
         PersonalSaludComponent,
