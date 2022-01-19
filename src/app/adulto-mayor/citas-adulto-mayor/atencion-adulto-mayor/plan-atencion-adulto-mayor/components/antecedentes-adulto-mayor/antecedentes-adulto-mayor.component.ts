@@ -433,13 +433,16 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
        this.antecedentesPersonales=res.object.antecedentesPersonales;
        this.descripcionOtrosAntecedentes=res.object.descripcionAntecedentesOtros;
        this.reaccionAdversa=res.object.reaccionAdversa;
-       this.medicamentoReaccion=res.object.reaccionMedicamento;
+       this.medicamentoReaccion=res.object.medicamentoReaccion;
        // this.medicamentoFrecuentes = res.object.medicamentoFrecuentes;
        console.log(this.antecedentesPersonales);
        console.log(this.antecedentesFamiliares);
        console.log(this.descripcionOtrosAntecedentes);
+       console.log(this.reaccionAdversa);
+       console.log(this.medicamentoReaccion);
        /*************LLENAR CAMPOS RECUPERADOS DE LA BD**************/
        /*************DESCRIPCION OTROS ANTECEDENTES******************/
+
        this.formAntecedentes.get('antecedentesOtros').setValue(this.descripcionOtrosAntecedentes);
        /**************RECUPERAR TRATAMIENTO FRECUENTE*****************/
        console.log(res.object.medicamentosFrecuentes);
@@ -602,6 +605,8 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
        }else{
          this.formAntecedentes.get('cancerMamaAntFamiliar').setValue(false);
        }
+       this.formAntecedentes.get('reaccionMedicamento').setValue(this.medicamentoReaccion);
+       this.formAntecedentes.get('reaccionAdversa').setValue(this.reaccionAdversa);
        this.messageService.add({
          severity: "success",
          summary: "Exito",

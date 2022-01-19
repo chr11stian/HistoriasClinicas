@@ -23,7 +23,6 @@ export class ValoracionFuncionalComponent implements OnInit {
   diagnostico:string;
   docRecuperado="";
   tipoDocRecuperado="";
-
   constructor(private formBuilder: FormBuilder,
               private valoracionService: AdultoMayorService,
               private messageService: MessageService,
@@ -31,7 +30,6 @@ export class ValoracionFuncionalComponent implements OnInit {
               private router: Router) {
     this.buildForm();
   }
-
   ngOnInit(): void {
     this.route.queryParams
         .subscribe(params => {

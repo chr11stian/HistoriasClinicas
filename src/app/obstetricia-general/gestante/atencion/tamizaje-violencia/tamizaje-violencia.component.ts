@@ -106,8 +106,6 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.formDatos_Tamisaje.get('nroDodResponsable').setValue(this.Recupera_un_Tamizaje.nroDocResponsable);
         this.formDatos_Tamisaje.get('ApellidosResponsable').setValue(this.Recupera_un_Tamizaje.nombreResponsableAtencion);
         this.formDatos_Tamisaje.get('nombresResponsable').setValue(this.Recupera_un_Tamizaje.nombreResponsableAtencion);
-
-
         this.ListaTamizajeDialog = false;
     }
 
@@ -122,7 +120,6 @@ export class TamizajeViolenciaComponent implements OnInit {
             console.log('LISTA TAMIZAJES ', this.ListaTamizajes);
         })
     }
-
     /**Abre el dialog para listar el tamizaje del paciente**/
     openModal() {
         // this.selectedHorario = null;

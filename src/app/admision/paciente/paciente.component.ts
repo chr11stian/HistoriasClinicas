@@ -70,9 +70,9 @@ export class PacienteComponent implements OnInit {
   listaGradoInstruccion = [
     'ANALFABETO',
     'PRIMARIA INCOMPLETA',
-    'PRIMARIA COMPLETOA',
+    'PRIMARIA COMPLETA',
     'SECUNDARIA INCOMPLETA',
-    'SECUNDARIA CAOMPLETA',
+    'SECUNDARIA COMPLETA',
     'SUPERIOR'
   ]
 
