@@ -39,10 +39,14 @@
           </div>
           <div class="col-3">
             <p-selectButton
-                    disabled="true"                   [options]="siNo"
+                    [options]="siNo"
                     optionLabel="name"
                     formControlName="menarquiaEspermarquia"
-                    optionValue="code"></p-selectButton>
+                    optionValue="code"
+                    (onChange)="$event.value=='si'?menarquiaEspermarquia=false:menarquiaEspermarquia=true;this.getFC('menarquiaEspermarquiaEdad').setValue(null);"
+            >
+
+            </p-selectButton>
           </div>
           <div class="col-3">
             <label for="">Edad
@@ -54,7 +58,9 @@
                     mode="decimal"
                     inputId="withoutgrouping"
                     [useGrouping]="false"
-                    formControlName="menarquiaEspermarquiaEdad">
+                    formControlName="menarquiaEspermarquiaEdad"
+                    [disabled]="menarquiaEspermarquia"
+            >
             </p-inputNumber>
           </div>
         </div>
@@ -69,7 +75,9 @@
                     [options]="siNo"
                     optionLabel="name"
                     formControlName="inicioRelacionSexual"
-                    optionValue="code"></p-selectButton>
+                    optionValue="code"
+                    (onChange)="$event.value=='si'?inicioRelacionSexual=false:inicioRelacionSexual=true;this.getFC('inicioRelacionSexualEdad').setValue(null);"
+            ></p-selectButton>
           </div>
           <div class="col-3">
             <label for="">Edad
@@ -81,7 +89,8 @@
                     mode="decimal"
                     inputId="withoutgrouping"
                     [useGrouping]="false"
-                    formControlName="inicioRelacionSexualEdad">
+                    formControlName="inicioRelacionSexualEdad"
+                    [disabled]="inicioRelacionSexual" >
             </p-inputNumber>
           </div>
         </div>
@@ -90,7 +99,7 @@
       <div class="borde">
         <div class="grid">
           <div class="col-3">
-            <label for="">Abuso
+            <label for="">
               sexual:</label>
           </div>
           <div class="col-3">
@@ -98,7 +107,10 @@
                     [options]="siNo"
                     optionLabel="name"
                     optionValue="code"
-                    formControlName="abusoSexual"></p-selectButton>
+                    formControlName="abusoSexual"
+                    (onChange)="$event.value=='si'?abuso=false:abuso=true;this.getFC('abusoSexualNro').setValue(null);"
+            >
+            </p-selectButton>
           </div>
           <div class="col-3">
             <label for="">Nro:</label>
@@ -108,7 +120,8 @@
                     mode="decimal"
                     inputId="withoutgrouping"
                     [useGrouping]="false"
-                    formControlName="abusoSexualNro">
+                    formControlName="abusoSexualNro"
+                    [disabled]="abuso">
             </p-inputNumber>
           </div>
         </div>
@@ -121,7 +134,10 @@
                     [options]="siNo"
                     optionLabel="name"
                     optionValue="code"
-                    formControlName="enbarazo"></p-selectButton>
+                    formControlName="embarazo"
+                    (onChange)="$event.value=='si'?embarazo=false:embarazo=true;this.getFC('embarazoNro').setValue(null);">
+
+            </p-selectButton>
           </div>
           <div class="col-3">
             <label for="">Nro:</label>
@@ -131,7 +147,8 @@
                     mode="decimal"
                     inputId="withoutgrouping"
                     [useGrouping]="false"
-                    formControlName="enbarazoNro">
+                    formControlName="embarazoNro"
+                    [disabled]="embarazo">
             </p-inputNumber>
           </div>
         </div>
@@ -144,7 +161,10 @@
                     [options]="siNo"
                     optionLabel="name"
                     optionValue="code"
-                    formControlName="hijos"></p-selectButton>
+                    formControlName="hijos"
+                    (onChange)="$event.value=='si'?hijos=false:hijos=true;this.getFC('hijosNro').setValue(null);">
+
+            </p-selectButton>
           </div>
           <div class="col-3">
             <label for="">Nro:</label>
@@ -154,7 +174,8 @@
                     mode="decimal"
                     inputId="withoutgrouping"
                     [useGrouping]="false"
-                    formControlName="hijosNro">
+                    formControlName="hijosNro"
+                    [disabled]="hijos">
             </p-inputNumber>
           </div>
         </div>
@@ -167,7 +188,10 @@
                     [options]="siNo"
                     optionLabel="name"
                     optionValue="code"
-                    formControlName="aborto"></p-selectButton>
+                    formControlName="aborto"
+                    (onChange)="$event.value=='si'?aborto=false:aborto=true;this.getFC('abortoNro').setValue(null);">
+
+            </p-selectButton>
           </div>
           <div class="col-3">
             <label for="">Nro:</label>
@@ -177,7 +201,8 @@
                     mode="decimal"
                     inputId="withoutgrouping"
                     [useGrouping]="false"
-                    formControlName="abortoNro">
+                    formControlName="abortoNro"
+                    [disabled]="aborto">
             </p-inputNumber>
           </div>
         </div>
@@ -198,7 +223,7 @@
         <div class="text-center">
                     <textarea
                             [rows]="10"
-                            [cols]="60"
+                            [cols]="50"
                             pInputTextarea
                             autoResize="autoResize"
                             formControlName="observaciones"></textarea>

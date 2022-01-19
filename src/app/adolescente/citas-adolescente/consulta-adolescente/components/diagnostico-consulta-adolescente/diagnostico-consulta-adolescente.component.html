@@ -43,7 +43,7 @@
                                 <td style="text-align: center; display: flex;">
                                     <button pButton pRipple type="button" icon="pi pi-pencil"
                                         class="p-button-rounded p-button-text"
-                                        (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                        (click)="openDialogEditDiagnostico(rowData, rowIndex)"></button>
                                     <button pButton pRipple type="button" icon="pi pi-trash"
                                         class="p-button-rounded p-button-danger p-button-text"
                                         (click)="eliminarDiagnostico(rowIndex)"></button>
@@ -110,8 +110,9 @@
         </form>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
-        <button pButton type="button" label="Guardar" (click)="aceptarNuevoDiagnostico()"></button>
+        <button *ngIf="!updateDiagnostico" pButton type="button" label="Guardar" (click)="aceptarNuevoDiagnostico()"></button>
+        <button *ngIf="updateDiagnostico" pButton type="button" label="Editar" (click)="aceptarDialogEditDiagnostico()"></button>
         <button pButton type=" button" label="Cerrar" class="p-button-danger"
-            (click)="closeDialogDiagnostico()"></button>
+            (click)="aceptarDialogEditDiagnostico()"></button>
     </ng-template>
 </p-dialog>

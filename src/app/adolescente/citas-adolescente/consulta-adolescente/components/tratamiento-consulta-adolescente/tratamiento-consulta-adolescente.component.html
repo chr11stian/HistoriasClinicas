@@ -54,10 +54,10 @@
                                         <td style="text-align: center">
                                             <button pButton pRipple type="button" icon="pi pi-pencil"
                                                 class="p-button-rounded p-button-text"
-                                                (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                                (click)="openDialogEditTratamiento(rowData, rowIndex)"></button>
                                             <button pButton pRipple type="button" icon="pi pi-trash"
                                                 class="p-button-rounded p-button-danger p-button-text"
-                                                (click)="eliminarDiagnostico(rowIndex)"></button>
+                                                (click)="eliminarTratamiento(rowIndex)"></button>
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -77,7 +77,7 @@
                                         </div>
                                         <div class="col-2">
                                             <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
-                                                class="p-button-raised m    t-3" (click)="openDialogExamAux()"></button>
+                                                class="p-button-raised m t-3" (click)="openDialogExamAux()"></button>
                                         </div>
                                     </div>
                                 </ng-template>
@@ -95,10 +95,10 @@
                                         <td style="text-align: center">
                                             <button pButton pRipple type="button" icon="pi pi-pencil"
                                                 class="p-button-rounded p-button-text"
-                                                (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                                (click)="openDialogAuxExam(rowData, rowIndex)"></button>
                                             <button pButton pRipple type="button" icon="pi pi-trash"
                                                 class="p-button-rounded p-button-danger p-button-text"
-                                                (click)="eliminarDiagnostico(rowIndex)"></button>
+                                                (click)="eliminarAuxExam(rowIndex)"></button>
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -141,10 +141,10 @@
                                         <td style="text-align: center">
                                             <button pButton pRipple type="button" icon="pi pi-pencil"
                                                 class="p-button-rounded p-button-text"
-                                                (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                                (click)="openDialogEditInterconsulta(rowData, rowIndex)"></button>
                                             <button pButton pRipple type="button" icon="pi pi-trash"
                                                 class="p-button-rounded p-button-danger p-button-text"
-                                                (click)="eliminarDiagnostico(rowIndex)"></button>
+                                                (click)="eliminarInterconsulta(rowIndex)"></button>
                                         </td>
                                     </tr>
                                 </ng-template>
@@ -157,9 +157,8 @@
         <div class="grid">
             <div class="col-12 md:col-6">
                 <label>Compromisos y observaciones:</label>
-                <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                    formControlName="compromisosObs" pInputTextarea
-                    placeholder="Describa la medicación"></textarea>
+                <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize" formControlName="compromisosObs"
+                    pInputTextarea placeholder="Describa la medicación"></textarea>
             </div>
             <div class="col-12 md:col-6">
                 <label>Proxima Cita:</label>
@@ -173,18 +172,15 @@
             <div class="grid">
                 <div class="col-4">
                     <label class="text-sm">Consultorio:</label>
-                    <input formControlName="consultorioReferencia" type="text"
-                        class="p-inputtext-sm " pInputText />
+                    <input formControlName="consultorioReferencia" type="text" class="p-inputtext-sm " pInputText />
                 </div>
                 <div class="col-4">
                     <label class="text-sm">Motivo:</label>
-                    <input formControlName="motivoReferencia" type="text"
-                        class="p-inputtext-sm " pInputText />
+                    <input formControlName="motivoReferencia" type="text" class="p-inputtext-sm " pInputText />
                 </div>
                 <div class="col-4">
                     <label class="text-sm">IPRESS:</label>
-                    <input formControlName="codRENAESReferencia" type="text"
-                        class="p-inputtext-sm " pInputText />
+                    <input formControlName="codRENAESReferencia" type="text" class="p-inputtext-sm " pInputText />
                 </div>
             </div>
         </div>
@@ -240,9 +236,9 @@
         </form>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="estadoEditarTratamientos" pButton type="button" label="Guardar"
-            (click)="guardarEdicionTratamiento()"></button>
-        <button *ngIf="!estadoEditarTratamientos" pButton type="button" label="Guardar"
+        <button *ngIf="updateTratamiento" pButton type="button" label="Guardar"
+            (click)="aceptarDialogEditTratamiento()"></button>
+        <button *ngIf="!updateTratamiento" pButton type="button" label="Guardar"
             (click)="aceptarDialogTratamiento()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"
             (click)="closeDialogTratamiento()"></button>
@@ -259,15 +255,15 @@
                 <div class="col-12">
                     <label>Examen Auxiliar:</label>
                     <input type="text" pInputText formControlName='examAux' placeholder="Examen Auxiliar"
-                        class="inputfield w-full">
+                        class="inputfield w-full" autofocus>
                 </div>
             </div>
         </form>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="estadoEditarTratamientos" pButton type="button" label="Guardar"
-            (click)="guardarEdicionTratamiento()"></button>
-        <button *ngIf="!estadoEditarTratamientos" pButton type="button" label="Guardar"
+        <button *ngIf="updateAuxExam" pButton type="button" label="Guardar"
+            (click)="aceptarDialogEditarAuxExam()"></button>
+        <button *ngIf="!updateAuxExam" pButton type="button" label="Guardar"
             (click)="aceptarSolicitudExamenAux()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"
             (click)="closeDialogTratamiento()"></button>
@@ -297,9 +293,9 @@
         </form>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="estadoEditarTratamientos" pButton type="button" label="Guardar"
-            (click)="guardarEdicionTratamiento()"></button>
-        <button *ngIf="!estadoEditarTratamientos" pButton type="button" label="Guardar"
+        <button *ngIf="updateInterconsultas" pButton type="button" label="Guardar"
+            (click)="aceptarDialogEditInterConsul()"></button>
+        <button *ngIf="!updateInterconsultas" pButton type="button" label="Guardar"
             (click)="aceptarInterconsulta()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"
             (click)="closeDialogTratamiento()"></button>
