@@ -157,6 +157,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
             this.generalInfoFG.get('hour').setValue(fecha)
             //--actualizar datos generales
             this.twoMonthsFG.get('1').setValue(false)
+
             //this.twoMonthsFG.patchValue({'1': this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[0].valor})
             //this.twoMonthsFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[0].valor as boolean)
             //this.twoMonthsFG.get('1')
