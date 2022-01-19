@@ -777,31 +777,33 @@
                     <input *ngIf="!isUpdateEvaluacionesHabilidadesSociales" type="date" pInputText
                         formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                     <label>Autoestima:</label>
-                    <input type="text" pInputText formControlName='autoestima' class="p-inputtext inputfield w-full"
+                    <input type="number" pInputText formControlName='autoestima' class="p-inputtext inputfield w-full"
                         placeholder="Autoestima">
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                     <label>Comunicacion:</label>
-                    <input type="text" pInputText formControlName='comunicacion' class="p-inputtext inputfield w-full"
+                    <input type="number" pInputText formControlName='comunicacion' class="p-inputtext inputfield w-full"
                         placeholder="Comunicacion">
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                     <label>Asertividad:</label>
-                    <input type="text" pInputText formControlName='asertividad' class="p-inputtext inputfield w-full"
+                    <input type="number" pInputText formControlName='asertividad' class="p-inputtext inputfield w-full"
                         placeholder="Asertividad">
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                     <label>Toma de decisiones:</label>
-                    <input type="text" pInputText formControlName='tomaDecisiones' class="p-inputtext inputfield w-full"
+                    <input type="number" pInputText formControlName='tomaDecisiones' class="p-inputtext inputfield w-full"
                         placeholder="Toma de decisiones">
                 </div>
-                <div class="col-12">
+                <div class="col-3"></div>
+                <div class="col-6">
                     <label>Calificacion total:</label>
-                    <input type="text" pInputText formControlName='calificacionTotal'
+                    <input type="number" pInputText formControlName='calificacionTotal'
                         class="p-inputtext inputfield w-full" placeholder="Calificacion total">
                 </div>
+                <div class="col-3"></div>
             </div>
         </form>
     </ng-template>
@@ -830,24 +832,25 @@
                     <input *ngIf="!isUpdateIdentificacionesColeraIrritabilidadAgresion" type="date" pInputText
                         formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
-                <div class="col-12">
+                <div class="col-4"></div>
+                <div class="col-6">
                     <label>Colera:</label>
-                    <input type="text" pInputText formControlName='colera' class="p-inputtext inputfield w-full"
+                    <input type="number" pInputText formControlName='colera' class="p-inputtext inputfield w-full"
                         placeholder="Colera">
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                     <label>Irritabilidad:</label>
-                    <input type="text" pInputText formControlName='irritabilidad' class="p-inputtext inputfield w-full"
+                    <input type="number" pInputText formControlName='irritabilidad' class="p-inputtext inputfield w-full"
                         placeholder="Irritabilidad">
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                     <label>Agresion:</label>
-                    <input type="text" pInputText formControlName='agresion' class="p-inputtext inputfield w-full"
+                    <input type="number" pInputText formControlName='agresion' class="p-inputtext inputfield w-full"
                         placeholder="Agresion">
                 </div>
-                <div class="col-12">
+                <div class="col-6">
                     <label>Calificacion total:</label>
-                    <input type="text" pInputText formControlName='calificacionTotal'
+                    <input type="number" pInputText formControlName='calificacionTotal'
                         class="p-inputtext inputfield w-full" placeholder="Calificacion total">
                 </div>
             </div>
@@ -916,8 +919,8 @@
                     <label>Fecha:</label>
                     <input *ngIf="isUpdateIdentificacionesFactoresRiesgo" type="date" pInputText formControlName='fecha'
                         class="p-inputtext inputfield w-full" placeholder="Fecha" disabled>
-                    <input *ngIf="!isUpdateIdentificacionesFactoresRiesgo" type="date" pInputText formControlName='fecha'
-                        class="p-inputtext inputfield w-full" placeholder="Fecha">
+                    <input *ngIf="!isUpdateIdentificacionesFactoresRiesgo" type="date" pInputText
+                        formControlName='fecha' class="p-inputtext inputfield w-full" placeholder="Fecha">
                 </div>
                 <div class="col-12">
                     <p-table [value]="factoresRiesgo" responsiveLayout="scroll" styleClass="p-datatable-gridlines"
@@ -949,12 +952,12 @@
                                 <td class="text-center">{{row.nombre}}</td>
                                 <td class="text-center">{{row.valor}}</td>
                                 <td class="text-center">
-                                    <button pButton pRipple type="button" icon="pi pi-pencil" 
-                                    (click)="openDialogEditarFactorRiesgo(row, i)"
-                                    class="p-button-rounded p-button-help"></button>
-                                    <button pButton pRipple type="button" icon="pi pi-trash" 
-                                    (click)="eliminarFactorRiesgo(row)"
-                                    class="p-button-rounded p-button-danger"></button>
+                                    <button pButton pRipple type="button" icon="pi pi-pencil"
+                                        (click)="openDialogEditarFactorRiesgo(row, i)"
+                                        class="p-button-rounded p-button-help"></button>
+                                    <button pButton pRipple type="button" icon="pi pi-trash"
+                                        (click)="eliminarFactorRiesgo(row)"
+                                        class="p-button-rounded p-button-danger"></button>
                                 </td>
                             </tr>
                         </ng-template>
@@ -966,8 +969,8 @@
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdateIdentificacionesFactoresRiesgo" pButton type="button" label="Guardar"
             (click)="editarDatosIdentificacionFactoresRiesgo()"></button>
-        <button *ngIf="!isUpdateIdentificacionesFactoresRiesgo" pButton type="button"
-            label="Guardar" (click)="saveFormIdentificacionFactoresRiesgo()"></button>
+        <button *ngIf="!isUpdateIdentificacionesFactoresRiesgo" pButton type="button" label="Guardar"
+            (click)="saveFormIdentificacionFactoresRiesgo()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="cancelButton()"></button>
     </ng-template>
 </p-dialog>
@@ -993,9 +996,12 @@
         </form>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="isUpdateFactoresRiesgo" pButton type="button" label="Guardar" (click)="guardarEdicionFactorRiesgo()"></button>
-        <button *ngIf="!isUpdateFactoresRiesgo" pButton type="button" label="Guardar" (click)="enviarFactoresRiesgo()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="canceledFactoresRiesgo()"></button>
+        <button *ngIf="isUpdateFactoresRiesgo" pButton type="button" label="Guardar"
+            (click)="guardarEdicionFactorRiesgo()"></button>
+        <button *ngIf="!isUpdateFactoresRiesgo" pButton type="button" label="Guardar"
+            (click)="enviarFactoresRiesgo()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="canceledFactoresRiesgo()"></button>
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="descartesEnfermedadesNoTransmisiblesDialog" [style]="{width: '400px'}"
@@ -1052,7 +1058,7 @@
     </ng-template>
     <ng-template pTemplate="body">
         <form [formGroup]='formEscolaridades'>
-            <div class="grid">
+            <div class="grid pb-8">
                 <div class="col-6">
                     <label>Fecha:</label>
                     <input *ngIf="isUpdateEscolaridades" type="date" pInputText formControlName='fecha'
@@ -1062,18 +1068,21 @@
                 </div>
                 <div class="col-12">
                     <label>Asistencia Escuela/Colegio:</label>
-                    <input type="text" pInputText formControlName='asistenciaEscuelaColegio'
-                        class="p-inputtext inputfield w-full" placeholder="Asistencia Escuela/Colegio">
+                    <p-dropdown [options]="opcionesFrecuencia" placeholder="Asistencia Escuela/Colegio"
+                        formControlName="asistenciaEscuelaColegio" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-12">
                     <label>Rendimiento escolar:</label>
-                    <input type="text" pInputText formControlName='rendimientoEscolar'
-                        class="p-inputtext inputfield w-full" placeholder="Rendimiento escolar">
+                    <p-dropdown [options]="opcionesGrados" placeholder="Rendimiento escolar"
+                        formControlName="rendimientoEscolar" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-12">
                     <label>Desercion escolar:</label>
-                    <input type="text" pInputText formControlName='desercionEscolar'
-                        class="p-inputtext inputfield w-full" placeholder="Desercion Escolar">
+                    <p-dropdown [options]="opcionesDesercion" placeholder="Desercion escolar"
+                        formControlName="desercionEscolar" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
             </div>
         </form>
@@ -1094,7 +1103,7 @@
     </ng-template>
     <ng-template pTemplate="body">
         <form [formGroup]='formHabitos'>
-            <div class="grid">
+            <div class="grid pb-8">
                 <div class="col-7">
                     <label>Fecha:</label>
                     <input *ngIf="isUpdateHabitos" type="date" pInputText formControlName='fecha'
@@ -1109,28 +1118,33 @@
                 </div>
                 <div class="col-6">
                     <label>Sedentarismo:</label>
-                    <input type="text" pInputText formControlName='sedentarismo' class="p-inputtext inputfield w-full"
-                        placeholder="Sedentarismo">
+                    <p-dropdown [options]="opcionesFrecuencia" placeholder="Sedentarismo" formControlName="sedentarismo"
+                        class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Uso de alcohol:</label>
-                    <input type="text" pInputText formControlName='usoAlcohol' class="p-inputtext inputfield w-full"
-                        placeholder="Uso de alcohol">
+                    <p-dropdown [options]="opcionesFrecuencia" placeholder="Uso de alcohol" formControlName="usoAlcohol"
+                        class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Uso de tabaco:</label>
-                    <input type="text" pInputText formControlName='usoTabaco' class="p-inputtext inputfield w-full"
-                        placeholder="Uso de tabaco">
+                    <p-dropdown [options]="opcionesFrecuencia" placeholder="Uso de tabaco" formControlName="usoTabaco"
+                        class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Uso de drogas:</label>
-                    <input type="text" pInputText formControlName='usoDrogas' class="p-inputtext inputfield w-full"
-                        placeholder="Uso de drogas">
+                    <p-dropdown [options]="opcionesFrecuencia" placeholder="Uso de drogas" formControlName="usoDrogas"
+                        class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Pertenencia a pandillas:</label>
-                    <input type="text" pInputText formControlName='pertenenciaPandillas'
-                        class="p-inputtext inputfield w-full" placeholder="Pertenencia a pandillas">
+                    <p-dropdown [options]="opcionesFrecuencia" placeholder="Pertenencia a pandillas"
+                        formControlName="pertenenciaPandillas" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
             </div>
         </form>
@@ -1149,7 +1163,7 @@
     </ng-template>
     <ng-template pTemplate="body">
         <form [formGroup]='formSaludSexualReproductiva'>
-            <div class="grid">
+            <div class="grid pb-8">
                 <div class="col-7">
                     <label>Fecha:</label>
                     <input *ngIf="isUpdateSaludSexualReproductiva" type="date" pInputText formControlName='fecha'
@@ -1159,55 +1173,67 @@
                 </div>
                 <div class="col-6">
                     <label>Pareja o enamorado:</label>
-                    <input type="text" pInputText formControlName='parejaEnamorado'
-                        class="p-inputtext inputfield w-full" placeholder="Pareja o enamorado">
+                    <p-dropdown [options]="opcionesSaludSexual" placeholder="Pareja o enamorado"
+                        formControlName="parejaEnamorado" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Relaciones sexuales:</label>
-                    <input type="text" pInputText formControlName='relacionesSexuales'
-                        class="p-inputtext inputfield w-full" placeholder="Relaciones sexuales">
+                    <p-dropdown [options]="opcionesSaludSexual" placeholder="Relaciones sexuales"
+                        formControlName="relacionesSexuales" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Conducta sexual de riesgo:</label>
-                    <input type="text" pInputText formControlName='conductaSexualRiesgo'
-                        class="p-inputtext inputfield w-full" placeholder="Conducta sexual de riego">
+                    <p-dropdown [options]="opcionesSaludSexual" placeholder="Conducta sexual de riego"
+                        formControlName="conductaSexualRiesgo" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Dos o más parejas:</label>
-                    <input type="text" pInputText formControlName='dosMasParejas' class="p-inputtext inputfield w-full"
-                        placeholder="Dos o mas parejas">
+                    <p-dropdown [options]="opcionesSaludSexual" placeholder="Dos o mas parejas"
+                        formControlName="dosMasParejas" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Sexo sin proteccion:</label>
-                    <input type="text" pInputText formControlName='sexoSinProteccion'
-                        class="p-inputtext inputfield w-full" placeholder="Sexo sin protección">
+                    <p-dropdown [options]="opcionesSaludSexual" placeholder="Sexo sin protección"
+                        formControlName="sexoSinProteccion" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Relaciones sexuales con personas del mismo sexo:</label>
-                    <input type="text" pInputText formControlName='rsconPersonasDelMismoSexo'
-                        class="p-inputtext inputfield w-full" placeholder="RS con personas del mismo sexo">
+                    <p-dropdown [options]="opcionesSaludSexual" placeholder="RS con personas del mismo sexo"
+                        formControlName="rsconPersonasDelMismoSexo" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Relaciones sexuales con personas del otro sexo:</label>
-                    <input type="text" pInputText formControlName='rsconPersonasDelOtroSexo'
-                        class="p-inputtext inputfield w-full" placeholder="RS con personas de otro sexo">
+                    <p-dropdown [options]="opcionesSaludSexual" placeholder="RS con personas de otro sexo"
+                        formControlName="rsconPersonasDelOtroSexo" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Uso de método anticonceptivo:</label>
-                    <input type="text" pInputText formControlName='usoMetodoAnticonceptivo'
-                        class="p-inputtext inputfield w-full" placeholder="Uso de método anticonceptivo">
+                    <p-dropdown [options]="opcionesMetodosAnticonceptivos" placeholder="Uso de método anticonceptivo"
+                        formControlName="usoMetodoAnticonceptivo" class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Conocimiento para prevenir embarazo no deseado:</label>
-                    <input type="text" pInputText formControlName='conocimientoPrevenirEmbarazoNoDeseado'
-                        class="p-inputtext inputfield w-full"
-                        placeholder="Conocimiento para prevenir embarazo no deseado">
+                    <p-dropdown [options]="opcionesSaludSexual"
+                        placeholder="Conocimiento para prevenir embarazo no deseado"
+                        formControlName="conocimientoPrevenirEmbarazoNoDeseado"
+                        class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
                 <div class="col-6">
                     <label>Conocimiento para prevenir la transmision de ITS VIH:</label>
-                    <input type="text" pInputText formControlName='conocimientoPrevenirTransmisionITSVIH'
-                        class="p-inputtext inputfield w-full"
-                        placeholder="Conocimiento para prevenir la transmision de ITS VIH">
+                    <p-dropdown [options]="opcionesSaludSexual"
+                        placeholder="Conocimiento para prevenir la transmision de ITS VIH"
+                        formControlName="conocimientoPrevenirTransmisionITSVIH"
+                        class="inputfield p-fluid w-full text-left">
+                    </p-dropdown>
                 </div>
             </div>
         </form>
