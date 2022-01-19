@@ -35,9 +35,9 @@ export class InterceptorService implements HttpInterceptor {
                 console.log('response', response)
                 if (response instanceof HttpErrorResponse) {
                     if ([400, 401, 403].indexOf(response.status) !== -1) {
-                        this.loginService.user_logout()
-                        window.location.reload();
-                        return throwError(' Su sesion ha expirado')
+                        // this.loginService.user_logout()
+                        // window.location.reload();
+                        // return throwError(' Su sesion ha expirado')
                     } else if (response.status === 0) {
                         return throwError('Error del CORS interceptor');
                     }

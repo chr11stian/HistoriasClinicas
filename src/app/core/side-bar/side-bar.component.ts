@@ -336,11 +336,11 @@ const menu_ipress = [
                                 icon: "pi pi-pw pi-file",
                                 routerLink: "adulto-mayor/citas",
                             },
-                            {
-                                label: "Consultas",
-                                icon: "pi pi-pw pi-file",
-                                routerLink: "adulto-mayor/citas/consulta",
-                            },
+                            // {
+                            //     label: "Consultas",
+                            //     icon: "pi pi-pw pi-file",
+                            //     routerLink: "adulto-mayor/citas/consulta",
+                            // },
                         ]
                     },
                 ],
@@ -436,7 +436,7 @@ export class SideBarComponent implements OnInit {
     ngOnInit(): void {
         let token = JSON.parse(localStorage.getItem('token'));
         console.log('token en side bar', token)
-
+        // this.items = menu_ipress;
         switch (token.roles) {
             case "GERESA":
                 this.items = menu_geresa;

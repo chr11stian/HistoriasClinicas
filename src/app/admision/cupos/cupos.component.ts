@@ -14,6 +14,7 @@ import {DocumentoIdentidadService} from "../../mantenimientos/services/documento
 import {UpsService} from "../../mantenimientos/services/ups/ups.service";
 import {PacienteService} from "../../core/services/paciente/paciente.service";
 import {RolGuardiaService} from "../../core/services/rol-guardia/rol-guardia.service";
+import {CitasService} from "../../obstetricia-general/services/citas.service";
 
 
 @Component({
@@ -55,6 +56,7 @@ export class CuposComponent implements OnInit {
     justifyOptions: any[];
     stateOptions: any[];
     formCuposOferta: FormGroup;
+    dataCitas: any;
 
 
     iprees: string = "la posta medica";
@@ -69,7 +71,8 @@ export class CuposComponent implements OnInit {
         private upsService: UpsService,
         private documentoIdentidadService: DocumentoIdentidadService,
         private pacienteService: PacienteService,
-        private rolGuardiaService: RolGuardiaService
+        private rolGuardiaService: RolGuardiaService,
+        private citasService: CitasService,
     ) {
         this.justifyOptions = [
             {icon: "pi pi-align-left", justify: "Left"},
@@ -90,8 +93,21 @@ export class CuposComponent implements OnInit {
         // console.log("FECHAS", this.fechaParaReservaCupos);
         console.log("HORARIO", this.selectedHorario);
         this.selectCupos();
+
+
     }
 
+
+    ListarPacientesCitasObstetricas() {
+        const data = {
+            fechaInicio: this.datePipe.transform(this.datafecha, 'yyyy-MM-dd'),
+            fechaFin: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd'),
+        }
+        this.citasService.getProximaCitasGestacion(data).subscribe((res: any) => {
+            this.dataCitas = res.object;
+            console.log('Lista de Citas: ', this.dataCitas);
+        });
+    }
 
     /**Busca los pacientes por su Numero de Documento**/
     pacienteByNroDoc() {
@@ -116,8 +132,7 @@ export class CuposComponent implements OnInit {
 
     /**lista los Servicios por IPRESS**/
     getListaUps() {
-        this.rolGuardiaService
-            .getServiciosPorIpress(this.idIpressLapostaMedica)
+        this.rolGuardiaService.getServiciosPorIpress(this.idIpressLapostaMedica)
             .subscribe((resp) => {
                 this.ups = resp["object"];
                 // this.loading = false;

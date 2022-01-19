@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CitasAdultoMayorComponent } from './citas-adulto-mayor/citas-adulto-mayor.component';
+import {AtencionAdultoMayorModule} from "./citas-adulto-mayor/atencion-adulto-mayor/atencion-adulto-mayor.module";
 
 const routes: Routes = [
   {
@@ -13,11 +14,11 @@ const routes: Routes = [
   },
   {
     path: "citas",
-    loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/plan-atencion-adulto-mayor/plan-atencion-adulto-mayor.module').then(n => n.PlanAtencionAdultoMayorModule),
+    loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/atencion-adulto-mayor/consulta-adulto-mayor/consulta-adulto-mayor.module').then(n => n.ConsultaAdultoMayorModule),
   },
   {
     path: "citas",
-    loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/consulta-adulto-mayor/consulta-adulto-mayor.module').then(n => n.ConsultaAdultoMayorModule),
+    loadChildren: () => import('src/app/adulto-mayor/citas-adulto-mayor/atencion-adulto-mayor/atencion-adulto-mayor.module').then(n => n.AtencionAdultoMayorModule),
   },
 ];
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AdolecenteService} from "../../services/adolecente.service";
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MessageService} from "primeng/api";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-lista-problemas-adolescente',
@@ -16,7 +17,10 @@ export class ListaProblemasAdolescenteComponent implements OnInit {
   display=false;
   problemasFG:FormGroup;
   cronicoAgudo='';
-  constructor(private adolecenteService:AdolecenteService,private messageService: MessageService) { }
+  nroDNI:string
+  constructor(private adolecenteService:AdolecenteService
+              ,private messageService: MessageService,
+              private rutaActiva: ActivatedRoute) { }
   buildFG(){
     this.problemasFG=new FormGroup({
       fecha:new FormControl('',Validators.required),
@@ -27,16 +31,17 @@ export class ListaProblemasAdolescenteComponent implements OnInit {
   }
 
   getProblemas(){
-    this.adolecenteService.getProblemas('10101010').subscribe((resp)=>{
+    this.adolecenteService.getProblemas(this.nroDNI).subscribe((resp)=>{
         this.listaProblemas=resp['object'];
     });
   }
   getProblemasAgudos(){
-    this.adolecenteService.getProblemasAgudo('10101010').subscribe((resp)=>{
+    this.adolecenteService.getProblemasAgudo(this.nroDNI).subscribe((resp)=>{
       this.listaProblemasAgudo=resp['object']
     })
   }
   ngOnInit(): void {
+    this.nroDNI=this.rutaActiva.snapshot.queryParams.nroDoc
     this.buildFG()
     this.getProblemas();
     this.getProblemasAgudos();
@@ -46,7 +51,6 @@ export class ListaProblemasAdolescenteComponent implements OnInit {
   }
   getFechaHora(date:Date){
     if(date.toString()!==''){
-
       let hora=date.toLocaleTimeString();
       // return fecha+' '+hora;
       let dd = date.getDate();
@@ -67,7 +71,6 @@ export class ListaProblemasAdolescenteComponent implements OnInit {
     this.display=true;
     this.problemasFG.reset();
   }
-
   save(){
     // console.log(this.problemasFG.value)
     const requestInput={
@@ -78,8 +81,9 @@ export class ListaProblemasAdolescenteComponent implements OnInit {
       observacion:this.getFC('observaciones').value,
     }
     // console.log(requestInput)
+
     if(this.cronicoAgudo=="cronico"){
-      this.adolecenteService.addProblema('10101010',requestInput).subscribe((resp)=>{
+      this.adolecenteService.addProblema(this.nroDNI,requestInput).subscribe((resp)=>{
             if(resp['cod']=='2003') {
               this.display=false
               this.getProblemas();
@@ -93,7 +97,7 @@ export class ListaProblemasAdolescenteComponent implements OnInit {
       )
     }
     else{
-      this.adolecenteService.addProblemaAgudo('10101010',requestInput).subscribe((resp)=>{
+      this.adolecenteService.addProblemaAgudo(this.nroDNI,requestInput).subscribe((resp)=>{
             if(resp['cod']=='2003') {
               this.display=false
               this.getProblemasAgudos();

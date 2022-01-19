@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
 import { ConsultaAdolescenteService } from '../../services/consulta-adolescente.service';
 
@@ -22,12 +23,18 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   listaMedicacionUsoFrecuente: string[] = [];
   data: any;
   datePipe = new DatePipe("en-US");
+  isUpdate: boolean = false;
+  idConsulta: string;
+  updateMedicacionFrec: boolean = false;
+  indexMedicacion: number;
+  updateAlarmSign: boolean = false;
+  indexAlarmSign: number;
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private consultaAdolescenteService: ConsultaAdolescenteService,
     private pacienteService: PacienteService,
+    private messageService: MessageService
   ) {
     let nroDoc = this.consultaAdolescenteService.nroDoc;
     let tipoDoc = this.consultaAdolescenteService.tipoDoc;
@@ -67,9 +74,9 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   recuperarDatos() {
     this.datosGrales = {
       servicio: "MEDICINA GENERAL",
-      nroHcl: "10101010",
+      nroHcl: "10101011",
       tipoDoc: "DNI",
-      nroDoc: "10101010",
+      nroDoc: "10101011",
       fecha: this.datePipe.transform(this.form.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
       // fecha: this.form.value.fecha,
       edad: this.form.value.edad,
@@ -103,8 +110,23 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
     this.recuperarDatos();
     this.consultaAdolescenteService.postAgregarConsultaAdolescente(this.datosGrales).subscribe((res: any) => {
       console.log('exito al guardar ', res);
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
     // console.log('data to save ', this.datosGrales);
+  }
+
+  editarDatosGrles() {
+    this.recuperarDatos();
+    this.consultaAdolescenteService.putActualizarDatosGrles(this.idConsulta, this.datosGrales).subscribe((res: any) => {
+
+    })
+  }
+
+  btnSiguiente() {
+    if (this.isUpdate)
+      console.log('data to edit')
+    else
+      this.guardarDatosGenerales();
   }
   openDialogSignosAlarma() {
     this.formSignosAlarma.reset();
@@ -113,6 +135,7 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   aceptarSignosAlarma() {
     let sign = this.formSignosAlarma.value.signoAlarma
     this.listaSignosAlarma.push(sign);
+    this.listaSignosAlarma = [...this.listaSignosAlarma];
     this.dialogSignosAlarma = false;
   }
   closeDialog() {
@@ -126,7 +149,40 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   aceptarDialogMedicacion() {
     let med = this.formMedicacion.value.medicacionFrec
     this.listaMedicacionUsoFrecuente.push(med);
+    this.listaMedicacionUsoFrecuente = [...this.listaMedicacionUsoFrecuente];
     this.dialogMedicacion = false;
+  }
+
+  openDialogEditarMedicacionFrecuente(data, index) {
+    this.updateMedicacionFrec = true;
+    this.dialogMedicacion = true;
+    this.indexMedicacion = index;
+    this.formMedicacion.patchValue({ medicacionFrec: data });
+  }
+  aceptarDialogEditMedicacion() {
+    console.log('index to edit ', this, this.indexMedicacion)
+    this.listaMedicacionUsoFrecuente.splice(this.indexMedicacion, 1, this.formMedicacion.value.medicacionFrec);
+    this.updateMedicacionFrec = false;
+    this.dialogMedicacion = false;
+  }
+  eliminarMedicacionFrec(index) {
+    this.listaMedicacionUsoFrecuente.splice(index, 1)
+    this.listaMedicacionUsoFrecuente = [...this.listaMedicacionUsoFrecuente];
+  }
+  openDialogEditSignosAlarma(data, index) {
+    this.updateAlarmSign = true;
+    this.dialogSignosAlarma = true;
+    this.indexAlarmSign = index;
+    this.formSignosAlarma.patchValue({ signoAlarma: data });
+  }
+  aceptarDialogEditSignosAlarma() {
+    this.listaSignosAlarma.splice(this.indexAlarmSign, 1, this.formSignosAlarma.value.signoAlarma);
+    this.updateAlarmSign = false;
+    this.dialogSignosAlarma = false;
+  }
+  eliminarSignoAlarma(index) {
+    this.listaSignosAlarma.splice(index, 1)
+    this.listaSignosAlarma = [...this.listaSignosAlarma];
   }
 }
 

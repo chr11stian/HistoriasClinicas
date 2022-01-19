@@ -96,4 +96,11 @@ export class PersonalService {
             reqRol
         );
     }
+
+    //traer sexo
+    getSexos(){
+        return this.http.get<any>(
+            `${this.base_url}/${this.bd}/tools/genero`
+        );
+    }
 }
