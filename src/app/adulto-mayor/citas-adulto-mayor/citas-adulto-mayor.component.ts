@@ -24,10 +24,7 @@ export class CitasAdultoMayorComponent implements OnInit {
   options: data[]
   selectedOption: data
   citas: userCita[]
-
-
   ref: DynamicDialogRef
-
   constructor(public dialogService: DialogService,
               private router: Router) {
   }

@@ -439,7 +439,7 @@
 
 
     <ng-template pTemplate=footer>
-        <button pButton type="button" label="Cancelar" class="p-button-danger"></button>
+        <button pButton type="button" label="Cancelar" (click)="closeDialogCupos2()" class="p-button-danger"></button>
         <button pButton type="button" label="Guardar" (click)="saveForm()"></button>
     </ng-template>
 </p-dialog>
