@@ -6,6 +6,7 @@ import {UsuariosComponent} from "./usuarios/usuarios.component";
 import {UbicacionComponent} from "../mantenimientos/component/ubicacion/ubicacion.component";
 import {IpressComponent} from './ipress/ipress.component';
 import {PacienteComponent} from './paciente/paciente.component';
+import { ListarCuposComponent } from './triaje/listar-cupos/listar-cupos.component';
 
 const routes: Routes = [
     {
@@ -37,6 +38,10 @@ const routes: Routes = [
     {
         path: "paciente",
         component: PacienteComponent
+    },
+    {
+        path: "triaje",
+        component: ListarCuposComponent
     },
 
 

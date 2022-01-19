@@ -677,6 +677,7 @@ export class DialogConsultaComponent implements OnInit {
         }
         console.log(prueba);
         this.datosOtrosPruebasFisicas.push(prueba);
+        this.datosOtrosPruebasFisicas = [...this.datosOtrosPruebasFisicas];
         this.otrosPruebasDialog = false;
     }
     canceledOtrosPruebasFisicas() {
@@ -745,6 +746,7 @@ export class DialogConsultaComponent implements OnInit {
         }
         console.log(examenFetal);
         this.datosExamenesFetales.push(examenFetal);
+        this.datosExamenesFetales = [...this.datosExamenesFetales];
         this.examenFetalDialog = false;
     }
     canceledExamenFetal() {
@@ -817,6 +819,7 @@ export class DialogConsultaComponent implements OnInit {
         }
         console.log(diagnostico);
         this.datosDiagnosticos.push(diagnostico);
+        this.datosDiagnosticos = [...this.datosDiagnosticos];
         this.diagnosticoDialog = false;
     }
     canceledDiagnostico() {
@@ -891,6 +894,7 @@ export class DialogConsultaComponent implements OnInit {
         }
         console.log(tratamiento);
         this.datosTratamientos.push(tratamiento);
+        this.datosTratamientos = [...this.datosTratamientos];
         this.tratamientoDialog = false;
     }
     canceledTratamiento() {
@@ -967,6 +971,7 @@ export class DialogConsultaComponent implements OnInit {
         //}
         console.log(examen);
         this.datosExamenesAuxiliares.push(examen);
+        this.datosExamenesAuxiliares = [...this.datosExamenesAuxiliares];
         this.examenAuxiliarDialog = false;
     }
     canceledExamenAuxiliar() {
@@ -1035,6 +1040,7 @@ export class DialogConsultaComponent implements OnInit {
         }
         console.log(interconsulta);
         this.datosInterconsultas.push(interconsulta);
+        this.datosInterconsultas = [...this.datosInterconsultas];
         this.interconsultaDialog = false;
     }
     canceledInterconsulta() {
@@ -1098,6 +1104,7 @@ export class DialogConsultaComponent implements OnInit {
     guardarNuevoRecomendacion() {
         console.log(this.formRecomendacion.value.recomendacion);
         this.datosRecomendaciones.push(this.formRecomendacion.value.recomendacion);
+        this.datosRecomendaciones = [...this.datosRecomendaciones];
         this.recomendacionDialog = false;
     }
     canceledRecomendacion() {
@@ -1163,6 +1170,7 @@ export class DialogConsultaComponent implements OnInit {
         }
         console.log(inmunizacion);
         this.datosInmunizaciones.push(inmunizacion);
+        this.datosInmunizaciones = [...this.datosInmunizaciones];
         this.inmunizacionDialog = false;
     }
     canceledInmunizacion() {

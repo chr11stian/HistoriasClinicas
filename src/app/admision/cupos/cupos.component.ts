@@ -62,6 +62,7 @@ export class CuposComponent implements OnInit {
 
 
     iprees: string = "la posta medica";
+    ServicoSelect: string = "OBSTETRICIA";
 
     constructor(
         private config: DynamicDialogConfig,
@@ -83,10 +84,14 @@ export class CuposComponent implements OnInit {
             {icon: "pi pi-align-justify", justify: "Justify"}
         ];
 
+
     }
 
     ngOnInit(): void {
         this.buildForm();
+        this.formCuposOferta.get('SelectUPS').setValue(this.ServicoSelect);
+
+
         this.formCuposOferta.get('fechaBusqueda').setValue(this.datafecha);
         // this.getDataUPS();
         this.getListaUps();
@@ -95,7 +100,7 @@ export class CuposComponent implements OnInit {
         console.log("HORARIO", this.selectedHorario);
 
         this.getCuposXservicio();
-        // this.selectCupos();
+        this. getListaCuposConfirmados();
 
     }
 
@@ -206,6 +211,8 @@ export class CuposComponent implements OnInit {
             dias: new FormControl(''),
             etapadeVida: new FormControl(''),
             estado: new FormControl(''),
+
+            SelectUPS: new FormControl(''),
         })
     }
 
@@ -367,17 +374,14 @@ export class CuposComponent implements OnInit {
     }
 
 
-    // selectFecha() {
-    //     this.fecha = this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
-    //     // this.getCuposXservicio();
-    //     console.log("FECHASSSSS", this.fecha)
-    // }
-
     getListaCuposConfirmados() {
         let data = {
-            servicio: "OBSTETRICIA",
+            servicio: this.formCuposOferta.value.SelectUPS,
             fecha: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
         }
+
+        console.log('DATA', data);
+
         this.cuposService.listaCuposConfirmados(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.dataCupos_por_fechas_servicio = res.object;
             console.log('LISTA DE CITAS CONFIRMADOS POR SERVICIO ', this.dataCupos_por_fechas_servicio);

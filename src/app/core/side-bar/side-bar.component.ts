@@ -259,6 +259,11 @@ const menu_ipress = [
                 label: "Paciente",
                 routerLink: "admision/paciente",
             },
+            {
+                icon: "pi pi-file",
+                label: "Triaje",
+                routerLink: "admision/triaje",
+            },
         ],
     },
 
