@@ -17,10 +17,12 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
   datosExamenFisico: KeyValue[] = [];
   dialogResultExamensAux: boolean = false;
   dialogExamFisico: boolean = false;
-  updateExamResultAux: boolean = false;
-  updateExamFisico: boolean = false;
   dataExamenesConsulta: ExamenConsulta;
   listExamenAux: string[] = [];
+  updateAuxExam: boolean = false;
+  indexAuxExam: number;
+  updatePhysicalExam: boolean = false;
+  indexPhysicalExam: number;
 
   constructor(
     private fb: FormBuilder,
@@ -64,14 +66,17 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
   openDialogExamAux() {
     this.formExamAux.reset();
     this.dialogResultExamensAux = true;
+    this.updateAuxExam = false;
   }
   aceptarAuxExam() {
     this.datosResultadosExamAux.push(this.formExamAux.value.resultado);
+    this.datosResultadosExamAux = [...this.datosResultadosExamAux];
     this.dialogResultExamensAux = false;
   }
   openDialogPhysicExamn() {
     this.formExamFisico.reset();
     this.dialogExamFisico = true;
+    this.updatePhysicalExam = false;
   }
 
   aceptarOtrosExamenes() {
@@ -80,12 +85,8 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
       valor: this.formExamFisico.value.resultadoExam
     }
     this.datosExamenFisico.push(otroExamen);
+    this.datosExamenFisico = [...this.datosExamenFisico];
     this.dialogExamFisico = false;
-  }
-
-  modalDeNosequemrdHago() {
-    console.log('no se que dato poner ');
-    console.log("todo los campos ");
   }
 
   recuperarDatos() {
@@ -131,6 +132,45 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
       console.log('respuesta ', res);
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
+  }
+  openDialogEditAuxExam(data, index) {
+    this.updateAuxExam = true;
+    this.dialogResultExamensAux = true;
+    this.indexAuxExam = index;
+    this.formExamAux.patchValue({ resultado: data });
+  }
+  aceptarDialogEditAuxExam() {
+    this.listExamenAux.splice(this.indexAuxExam, 1, this.formExamAux.value.resultado);
+    this.updateAuxExam = false;
+    this.dialogResultExamensAux = false;
+  }
+  eliminarAuxExam(index) {
+    this.listExamenAux.splice(index, 1);
+    this.listExamenAux = [...this.listExamenAux];
+  }
+  openDialogEditPhysicalExam(data, index) {
+    this.updatePhysicalExam = true;
+    this.dialogExamFisico = true;
+    this.indexPhysicalExam = index;
+    this.formExamFisico.patchValue({ nombreExamen: data.funcion });
+    this.formExamFisico.patchValue({ resultadoExam: data.valor });
+  }
+  aceptarDialogEditPhysicalExam() {
+    let auxExam: KeyValue = {
+      funcion: this.formExamFisico.value.nombreExamen,
+      valor: this.formExamFisico.value.resultadoExam
+    }
+    this.datosExamenFisico.splice(this.indexPhysicalExam, 1, auxExam);
+    this.updatePhysicalExam = false;
+    this.dialogExamFisico = false;
+  }
+  eliminarPhysicalExam(index) {
+    this.datosExamenFisico.splice(index, 1);
+    this.datosExamenFisico = [...this.datosExamenFisico];
+  }
+  closeDialog(){
+    this.dialogExamFisico = false;
+    this.dialogResultExamensAux = false;
   }
 }
 
