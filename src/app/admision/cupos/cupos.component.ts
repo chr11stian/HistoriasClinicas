@@ -365,7 +365,7 @@ export class CuposComponent implements OnInit {
         console.log('event',);
         this.dataSelectAmbiente = event.data.ambiente;
         this.dataSelectServicio = event.data.ipress.servicio;
-        this.personalSelected = event.data.personal.nombre;
+        this.personalSelected = event.data.personal.nombre;//Personal
         this.dataSelectHoras = event.data.horaLaboral;
         console.log('HORAS....', this.dataSelectHoras);
         /** personalSelected2 almacena todo los datos del event al seleccionar un personal**/
@@ -387,7 +387,7 @@ export class CuposComponent implements OnInit {
         console.log("FECHA OFERTA", data)
     }
 
-
+    /** Selecciona  un servicio y fecha y lista las ofertas para reservar un cupo **/
     getListaCuposConfirmados() {
         let data = {
             servicio: this.formCuposOferta.value.SelectUPS,
