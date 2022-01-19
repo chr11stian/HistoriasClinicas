@@ -97,15 +97,14 @@ export class CuposComponent implements OnInit {
         this.getCuposXservicio();
         // this.selectCupos();
 
-
     }
 
-    /**Lista de Cupos reservados por servicio**/
+    /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
     getCuposXservicio() {
         let data = {
-            servicio: "ACUPUNTURA Y AFINES",
+            servicio: "OBSTETRICIA",
             // fecha: this.fecha,
-            fecha: "2022-01-31"
+            fecha: "2022-01-19"
         }
         console.log('DATA ', data);
 
@@ -374,10 +373,9 @@ export class CuposComponent implements OnInit {
     //     console.log("FECHASSSSS", this.fecha)
     // }
 
-    selectCupos() {
+    getListaCuposConfirmados() {
         let data = {
-            // servicio: "OBSTETRICIA",
-            servicio: "ACUPUNTURA Y AFINES",
+            servicio: "OBSTETRICIA",
             fecha: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         this.cuposService.listaCuposConfirmados(this.idIpressLapostaMedica, data).subscribe((res: any) => {

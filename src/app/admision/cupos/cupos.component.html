@@ -16,7 +16,7 @@
                                 <p-calendar dateFormat="yy-mm-dd" placeholder="Button" [yearNavigator]="true"
                                             monthNavigator=true yearRange="1900:2050" formControlName="fechaBusqueda"
                                             [readonlyInput]="true"
-                                            (click)="selectCupos()">
+                                            (click)="getListaCuposConfirmados()">
                                 </p-calendar>
                             </div>
                         </form>
@@ -24,7 +24,7 @@
 
                     <div class="col-12 md:col-6 lg:col-8 p-field">
                         <label class="">SERVICIO</label>
-                        <div class="p-inputgroup">
+                        <div class="">
                             <p-dropdown [options]="ups"
                                         [(ngModel)]="selectedServicio"
                                         placeholder="Seleccione un servicio"
