@@ -8,18 +8,33 @@
         <br>
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-9 p-field">
-                <form [formGroup]="formCuposOferta">
-                    <div class="col-12 md:col-6 lg:col-6 p-field">
-                        <label class="">BUSCAR POR FECHA</label>
-                        <div class="p-inputgroup">
-                            <p-calendar dateFormat="yy-mm-dd" placeholder="Button" [yearNavigator]="true"
-                                        monthNavigator=true yearRange="1900:2050" formControlName="fechaBusqueda"
-                                        [readonlyInput]="true"
-                                        (click)="selectCupos()">
-                            </p-calendar>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <form [formGroup]="formCuposOferta">
+                            <label class="">BUSCAR POR FECHA</label>
+                            <div class="p-inputgroup">
+                                <p-calendar dateFormat="yy-mm-dd" placeholder="Button" [yearNavigator]="true"
+                                            monthNavigator=true yearRange="1900:2050" formControlName="fechaBusqueda"
+                                            [readonlyInput]="true"
+                                            (click)="getListaCuposConfirmados()">
+                                </p-calendar>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-12 md:col-6 lg:col-8 p-field">
+                        <label class="">SERVICIO</label>
+                        <div class="">
+                            <p-dropdown [options]="ups"
+                                        [(ngModel)]="selectedServicio"
+                                        placeholder="Seleccione un servicio"
+                                        optionLabel="nombreUPS"
+                                        [showClear]="false"
+                                        (ngModelChange)="changeServicioSelected($event)">
+                            </p-dropdown>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
 
             <div class="col-12 md:col-6 lg:col-3 p-field" style="text-align:center;">
@@ -347,34 +362,37 @@
                         <br>
                         <div class="datosExtra">
                             <div class="grid m-2">
-                                <div class="p-field col-2">
+                                <div class="p-field col-2 md:col-4 lg:col-4">
                                     <label class="ml-2 font-bold">TIPO SEGURO</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="tipoSeguro"/>
                                 </div>
-
-                                <div class="p-field col-2">
+                                <div class="p-field col-2 md:col-4 lg:col-4">
                                     <label class="ml-2 font-bold">TRANSEUNTE</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="transeunte"/>
                                 </div>
-                                <div class="p-field col-2">
-                                    <label class="ml-2 font-bold">EDAD</label>
+                                <div class="p-field col-2 md:col-4 lg:col-4">
+                                    <label class="ml-2 font-bold">EDAD(años)</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="edad"/>
+                                           formControlName="edadAños"/>
                                 </div>
-
-                                <div class="p-field col-2">
-                                    <label class="ml-2 font-bold">DIAS</label>
+                                <div class="p-field col-2 md:col-4 lg:col-4">
+                                    <label class="ml-2 font-bold">EDAD(meses)</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="dias"/>
+                                           formControlName="edadMeses"/>
                                 </div>
-
-                                <div class="p-field col-4">
+                                <div class="p-field col-1 md:col-4 lg:col-4">
+                                    <label class="ml-2 font-bold">EDAD(dias)</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="edadDias"/>
+                                </div>
+                                <div class="p-field col-3 md:col-4 lg:col-4">
                                     <label class="ml-2 font-bold">ETAPA DE VIDA</label>
                                     <input type="text"
                                            pInputText

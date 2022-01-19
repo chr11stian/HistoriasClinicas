@@ -138,7 +138,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       let aux = {nombre:'HIPERTENSION',valor:true}
       antecedentesPersonales.push(aux);
     }else{
-      let aux = {nombre:'HIPERTENSION', value:false}
+      let aux = {nombre:'HIPERTENSION', valor:false}
       antecedentesPersonales.push(aux);
 
     }
@@ -149,7 +149,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesPersonales.push(aux);
 
     }else{
-      let aux = {nombre:'HEPATITIS', value:false}
+      let aux = {nombre:'HEPATITIS', valor:false}
       antecedentesPersonales.push(aux);
 
     }
@@ -160,7 +160,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesPersonales.push(aux);
 
     }else{
-      let aux = {nombre:'DIABETES', value:false}
+      let aux = {nombre:'DIABETES', valor:false}
       antecedentesPersonales.push(aux);
 
     }
@@ -171,7 +171,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesPersonales.push(aux);
 
     }else{
-      let aux = {nombre:'TUBERCULOSIS', value:false}
+      let aux = {nombre:'TUBERCULOSIS', valor:false}
       antecedentesPersonales.push(aux);
 
     }
@@ -182,7 +182,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesPersonales.push(aux);
 
     }else{
-      let aux = {nombre:'DISLIPIDEMIA (COLESTEROL ALTO)', value:false}
+      let aux = {nombre:'DISLIPIDEMIA (COLESTEROL ALTO)', valor:false}
       antecedentesPersonales.push(aux);
     }
     /**6**/
@@ -192,7 +192,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesPersonales.push(aux);
 
     }else{
-      let aux = {nombre:'HOSPITALIZADO ULTIMO AÑO', value:false}
+      let aux = {nombre:'HOSPITALIZADO ULTIMO AÑO', valor:false}
       antecedentesPersonales.push(aux);
 
     }
@@ -202,7 +202,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       let aux = {nombre:'OSTEOARTRITIS',valor:true}
       antecedentesPersonales.push(aux);
     }else{
-      let aux = {nombre:'OSTEOARTRITIS', value:false}
+      let aux = {nombre:'OSTEOARTRITIS', valor:false}
       antecedentesPersonales.push(aux);
     }
     /**8**/
@@ -211,7 +211,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       let aux = {nombre:'TRANSFUCIONES',valor:true}
       antecedentesPersonales.push(aux);
     }else{
-      let aux = {nombre:'TRANSFUCIONES', value:false}
+      let aux = {nombre:'TRANSFUCIONES', valor:false}
       antecedentesPersonales.push(aux);
     }
     /**9**/
@@ -220,7 +220,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       let aux = {nombre:'ACV DERRAME CEREBRAL',valor:true}
       antecedentesPersonales.push(aux);
     }else{
-      let aux = {nombre:'ACV DERRAME CEREBRAL', value:false}
+      let aux = {nombre:'ACV DERRAME CEREBRAL', valor:false}
       antecedentesPersonales.push(aux);
     }
     /**10**/
@@ -229,7 +229,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       let aux = {nombre:'INTERVENCION QUIRURGICAS',valor:true}
       antecedentesPersonales.push(aux);
     }else{
-      let aux = {nombre:'INTERVENCION QUIRURGICAS', value:false}
+      let aux = {nombre:'INTERVENCION QUIRURGICAS', valor:false}
       antecedentesPersonales.push(aux);
     }
     /**11**/
@@ -239,7 +239,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesPersonales.push(aux);
 
     }else{
-      let aux = {nombre:'ENFERMEDAD CARDIOVASCULAR (INFARTO, ARRITMIA, ICC)', value:false}
+      let aux = {nombre:'ENFERMEDAD CARDIOVASCULAR (INFARTO, ARRITMIA, ICC)', valor:false}
       antecedentesPersonales.push(aux);
     }
     /**12**/
@@ -248,7 +248,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       let aux = {nombre:'ACCIDENTES',valor:true}
       antecedentesPersonales.push(aux);
     }else{
-      let aux = {nombre:'ACCIDENTES', value:false}
+      let aux = {nombre:'ACCIDENTES', valor:false}
       antecedentesPersonales.push(aux);
     }
     /**13**/
@@ -257,7 +257,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       let aux = {nombre:'CANCER',valor:true}
       antecedentesPersonales.push(aux);
     }else{
-      let aux = {nombre:'CANCER', value:false}
+      let aux = {nombre:'CANCER', valor:false}
       antecedentesPersonales.push(aux);
     }
     /**14**/
@@ -267,7 +267,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesPersonales.push(aux);
 
     }else{
-      let aux = {nombre:'CANCER DE CERVIX/MAMA', value:false}
+      let aux = {nombre:'CANCER DE CERVIX/MAMA', valor:false}
       antecedentesPersonales.push(aux);
     }
     /**15**/
@@ -276,7 +276,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       let aux = {nombre:'CANCER PROSTATA',valor:true}
       antecedentesPersonales.push(aux);
     }else{
-      let aux = {nombre:'CANCER PROSTATA', value:false}
+      let aux = {nombre:'CANCER PROSTATA', valor:false}
       antecedentesPersonales.push(aux);
     }
 
@@ -307,7 +307,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       let aux = {nombre:'TUBERCULOSIS',valor:true, familiar:tuberculosisFamiliar}
       antecedentesFamiliares.push(aux);
     }else{
-      let aux = {nombre:'TUBERCULOSIS', value:false, familiar:''}
+      let aux = {nombre:'TUBERCULOSIS', valor:false, familiar:''}
       antecedentesFamiliares.push(aux);
 
     }
@@ -318,7 +318,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesFamiliares.push(aux);
 
     }else{
-      let aux = {nombre:'HIPERTENSION ARTERIAL', value:false, familiar:''}
+      let aux = {nombre:'HIPERTENSION ARTERIAL', valor:false, familiar:''}
       antecedentesFamiliares.push(aux);
 
     }
@@ -329,7 +329,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesFamiliares.push(aux);
 
     }else{
-      let aux = {nombre:'DIABETES', value:false, familiar:''}
+      let aux = {nombre:'DIABETES', valor:false, familiar:''}
       antecedentesFamiliares.push(aux);
 
     }
@@ -340,7 +340,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesFamiliares.push(aux);
 
     }else{
-      let aux = {nombre:'DEMENCIA', value:false,familiar:''}
+      let aux = {nombre:'DEMENCIA', valor:false,familiar:''}
       antecedentesFamiliares.push(aux);
     }
     /****5****/
@@ -350,7 +350,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesFamiliares.push(aux);
 
     }else{
-      let aux = {nombre:'INFARTO', value:false,familiar:''}
+      let aux = {nombre:'INFARTO', valor:false,familiar:''}
       antecedentesFamiliares.push(aux);
     }
     /****6****/
@@ -360,7 +360,7 @@ export class AntecedentesAdultoMayorComponent implements OnInit {
       antecedentesFamiliares.push(aux);
 
     }else{
-      let aux = {nombre:'CANCER DE MAMA', value:false, familiar:''}
+      let aux = {nombre:'CANCER DE MAMA', valor:false, familiar:''}
       antecedentesFamiliares.push(aux);
 
     }

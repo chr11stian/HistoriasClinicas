@@ -227,12 +227,17 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
     this.formInterconsulta.patchValue({ motivo: data.motivo });
   }
   aceptarDialogEditInterConsul() {
-    this.listaSolicitudExamAux.splice(this.indexAuxExam, 1, this.formExamAux.value.examAux);
-    this.dialogAuxExam = false;
+    let auxInterconsulta: Interconsultas = {
+      consultorio: this.formInterconsulta.value.consultorio,
+      fecha: this.datePipe.transform(this.formInterconsulta.value.fechaInterconsulta, 'yyyy-MM-dd'),
+      motivo: this.formInterconsulta.value.motivo
+    }
+    this.listaInterconsultas.splice(this.indexInterconsultas, 1, auxInterconsulta);
+    this.dialogInterconsulta = false;
   }
   eliminarInterconsulta(index) {
-    this.listaSolicitudExamAux.splice(index, 1);
-    this.listaSolicitudExamAux = [...this.listaSolicitudExamAux];
+    this.listaInterconsultas.splice(index, 1);
+    this.listaInterconsultas = [...this.listaInterconsultas];
   }
 }
 export interface DescripcionTratamiento {
