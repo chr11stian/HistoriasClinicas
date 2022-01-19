@@ -31,7 +31,7 @@ import { RegistrarTriajeComponent } from './triaje/registrar-triaje/registrar-tr
         IpressComponent,
         PacienteComponent,
         ListarCuposComponent,
-        RegistrarTriajeComponent
+        RegistrarTriajeComponent,
     ],
     exports: [
         PersonalSaludComponent,
