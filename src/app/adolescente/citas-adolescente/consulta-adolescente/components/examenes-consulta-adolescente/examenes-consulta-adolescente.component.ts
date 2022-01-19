@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { ConsultaAdolescenteService } from '../../services/consulta-adolescente.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private consultaAdolescenteService: ConsultaAdolescenteService,
+    private messageService: MessageService,
   ) {
     this.inicializarForm();
   }
@@ -127,6 +129,7 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
     this.recuperarDatos();
     this.consultaAdolescenteService.putActualizarExamenes("61ce1cf02aed74731bb3fb3a", this.dataExamenesConsulta).subscribe((res: any) => {
       console.log('respuesta ', res);
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
   }
 }

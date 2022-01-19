@@ -970,7 +970,7 @@
                                 <span class="text-xs">No aplica</span>
                                 <br />
                                 <p-checkbox name="dxFallecimientoNoAplica" formControlName="dxFallecimientoNoAplica"
-                                    value=true class="azul"></p-checkbox>
+                                    value=true class="azul" (onChange)="selectNoAplicaDFallecimiento(0)"></p-checkbox>
                                 <br />
                                 <label>CIE10</label>
                                 <br />
@@ -995,7 +995,7 @@
                                 <span class="text-xs">No aplica</span>
                                 <br />
                                 <p-checkbox name="dxTrasladoNoAplica" formControlName="dxTrasladoNoAplica" value=true
-                                    class="azul"></p-checkbox>
+                                    class="azul" (onChange)="selectNoAplicaTraslado(0)"></p-checkbox>
                                 <br />
                                 <label>CIE10</label>
                                 <br />
@@ -1205,7 +1205,8 @@
                                 <br />
                                 <span class="text-xs">No aplica</span>
                                 <br />
-                                <p-checkbox name="dxMfNoAplica" formControlName="dxMfNoAplica" value=true class="azul">
+                                <p-checkbox name="dxMfNoAplica" formControlName="dxMfNoAplica" value=true class="azul"
+                                (onChange)="selectNoAplicaDFallecimiento(1)">
                                 </p-checkbox>
                                 <br />
                                 <label>CIE10</label>
@@ -1228,7 +1229,7 @@
                                 <br />
                                 <span class="text-xs">No aplica</span>
                                 <br />
-                                <p-checkbox name="dxMtNoAplica" formControlName="dxMtNoAplica" value=true class="azul">
+                                <p-checkbox name="dxMtNoAplica" formControlName="dxMtNoAplica" value=true class="azul" (onChange)="selectNoAplicaTraslado(1)">
                                 </p-checkbox>
                                 <br />
                                 <label>CIE10</label>

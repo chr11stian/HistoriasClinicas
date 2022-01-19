@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 import { ConsultaAdolescenteService } from '../../services/consulta-adolescente.service';
@@ -17,21 +18,24 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   dialogDiagnostic: boolean = false;
   listaDeCIE: cie10[] = [];
   dataDiagnostico: Diagnostico;
-  listaTiposCie: string[] = [
-    "DEFINITIVO", "PRESUNTIVO", "REPETITIVO"
+  listaTiposCie: KeyValue[] = [
+    { name: "DEFINITIVO", value: "D" },
+    { name: "PRESUNTIVO", value: "P" },
+    { name: "REPETITIVO", value: "R" }
   ];
 
   constructor(
     private fb: FormBuilder,
     private CieService: CieService,
-    private consultaAdolescenteService: ConsultaAdolescenteService
+    private consultaAdolescenteService: ConsultaAdolescenteService,
+    private messageService: MessageService,
   ) {
     this.inicializarForm();
   }
 
   ngOnInit(): void {
-    this.form.patchValue({ diagnosticoText: 'gg' });
-    this.formDiagnostico.get("diagnosticoText").setValue("otro valor nuevo");
+    // this.formDiagnostico.get("diagnosticoText").setValue("otro valor nuevo");
+
   }
 
   inicializarForm() {
@@ -70,7 +74,8 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   aceptarNuevoDiagnostico() {
     let diagnostico: DiagCIE = {
       diagnostico: this.formDiagnostico.value.diagnosticoText,
-      cie10: this.formDiagnostico.value.diagnosticoCIE.codigoItem
+      cie10: this.formDiagnostico.value.diagnosticoCIE.codigoItem,
+      tipo: this.formDiagnostico.value.tipoCie
     }
     console.log('diagnostico ', diagnostico);
     this.listaDiagnosticos.push(diagnostico);
@@ -95,7 +100,7 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   guardarDiagnostico() {
     this.recuperarDiagnosticos();
     this.consultaAdolescenteService.putActualizarDiagnostico("61ce1cf02aed74731bb3fb3a", this.dataDiagnostico).subscribe((res: any) => {
-
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
     console.log('data diagnostico to save ', this.dataDiagnostico);
   }
@@ -110,11 +115,16 @@ export interface cie10 {
 }
 export interface DiagCIE {
   diagnostico: string,
-  cie10: cie10
+  cie10: cie10,
+  tipo: string
 }
 export interface Diagnostico {
   diagnosticos: DiagCIE[],
   diagHabilidadesSociales: string,
   diagNutricional: string,
   recomendaciones: string[]
+}
+export interface KeyValue {
+  name: string,
+  value: string
 }

@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
 import { ConsultaAdolescenteService } from '../../services/consulta-adolescente.service';
 
@@ -22,12 +23,14 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   listaMedicacionUsoFrecuente: string[] = [];
   data: any;
   datePipe = new DatePipe("en-US");
+  isUpdate: boolean = false;
+  idConsulta: string;
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private consultaAdolescenteService: ConsultaAdolescenteService,
     private pacienteService: PacienteService,
+    private messageService: MessageService
   ) {
     let nroDoc = this.consultaAdolescenteService.nroDoc;
     let tipoDoc = this.consultaAdolescenteService.tipoDoc;
@@ -103,8 +106,23 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
     this.recuperarDatos();
     this.consultaAdolescenteService.postAgregarConsultaAdolescente(this.datosGrales).subscribe((res: any) => {
       console.log('exito al guardar ', res);
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
     // console.log('data to save ', this.datosGrales);
+  }
+
+  editarDatosGrles() {
+    this.recuperarDatos();
+    this.consultaAdolescenteService.putActualizarDatosGrles(this.idConsulta, this.datosGrales).subscribe((res: any) => {
+
+    })
+  }
+
+  btnSiguiente() {
+    if (this.isUpdate)
+      console.log('data to edit')
+    else
+      this.guardarDatosGenerales();
   }
   openDialogSignosAlarma() {
     this.formSignosAlarma.reset();
