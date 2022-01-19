@@ -1,93 +1,96 @@
 
 p-dropdown >>> * {
     width: 150px;
-  }
-  p-card >>> .p-card-body {
-    padding: 2px;
+}
+
+p-card >>> .p-card-body {
     font-size: small;
-    margin-bottom: 10px;
-    margin-top: 20px;
-  }
-  p-card >>> .p-card-content {
-    padding: 2px;
-  }
-  p-tabview >>> .p-tabview-title {
+}
+
+p-tabview >>> .p-tabview-title {
     font-size: small;
-  }
-  p-tabview >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+}
+
+p-tabview >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
     background: #af0017;
     border-color: #af0017;
     color: #ffffff;
-  }
-  p-tabview
-    >>> .p-tabview
-    .p-tabview-nav
-    li
-    .p-tabview-nav-link:not(.p-disabled):focus {
+}
+
+p-tabview >>> .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
     outline: 0 none;
     outline-offset: 0;
     box-shadow: 0 0 0 0.2rem #dcb4b4;
-  }
-  p-tabview >>> .p-tabview .p-tabview-panels {
+}
+
+p-tabview >>> .p-tabview .p-tabview-panels {
     height: 650px;
-  }
-  
-  .p-button {
-    color: #ffffff;
-    background: #af0017;
-    border: 1px solid #af0017;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s,
-      box-shadow 0.2s;
-    border-radius: 3px;
-  }
-  .p-button:hover {
-    outline: 0 none;
-    outline-offset: 0;
-    background: #af0017;
-    border-color: #af0017;
-    box-shadow: 0 0 0 0.2rem #dcb4b4;
-  }
-  :host >>> .p-steps-item{
-    cursor:pointer;
-  }
-  :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
-    border-radius: 0px;
+}
+
+:host >>> .p-steps-item {
+    cursor: pointer;
+}
+
+:host >>> .p-steps {
+    margin-bottom: 20px;
+}
+
+:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
+    border-radius: 0;
     width: 170px;
     height: 50px;
     color: transparent;
     background: white;
     border: 1px solid green;
-  }
-  :host
-    >>> .p-steps
-    .p-steps-item.p-steps-current
-    .p-menuitem-link
-    .p-steps-number {
+}
+
+:host >>> .p-steps .p-steps-item.p-steps-current .p-menuitem-link .p-steps-number {
     border: 1px solid rgb(10, 79, 163);
-  }
-  :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
+}
+
+:host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
     margin-top: -35px;
     z-index: 2;
     margin-bottom: 19px;
     color: green;
-  }
-  :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
+}
+
+:host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
     color: rgb(10, 79, 163);
-  }
-  :host >>> .p-steps .p-steps-item:before {
+}
+
+:host >>> .p-steps .p-steps-item:before {
     margin-top: -4px;
-  }
-  
-  /* :host::ng-deep .p-steps.step-custom .p-steps-item .p-steps-number {
-    background-color: #0081c2;
-    color: #FFFFFF;
-    display: inline-block;
-    width: 36px;
-    border-radius: 50%;
-    margin-top: -14px;
-    margin-bottom: 10px;
-    
-  } */
-  
+}
+
+/* :host::ng-deep .p-steps.step-custom .p-steps-item .p-steps-number {
+  background-color: #0081c2;
+  color: #FFFFFF;
+  display: inline-block;
+  width: 36px;
+  border-radius: 50%;
+  margin-top: -14px;
+  margin-bottom: 10px;
+
+} */
+
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background: #0c3866;
+    border-color: #0c3866;
+}
+
+p-calendar >>> .p-button {
+    background: #0c3866;
+    border: 1px solid #0c3866;
+    align-self: center;
+}
+
+.guardar {
+    background: #0c3866;
+    border-color: #0c3866;
+    align-items: center;
+}
+
+p-toolbar >>> * {
+    align-self: center;
+}

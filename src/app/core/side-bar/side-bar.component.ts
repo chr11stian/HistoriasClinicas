@@ -267,7 +267,7 @@ const menu_ipress = [
         items: [
             {
                 icon: "pi pi-file",
-                label: "obstetricia",
+                label: "Obstetricia",
                 items: [
                     {
                         label: "Citas",
@@ -281,7 +281,7 @@ const menu_ipress = [
             },
             {
                 icon: "pi pi-file",
-                label: "cred",
+                label: "Niño/Niña",
                 items: [
                     {
                         label: "Citas",

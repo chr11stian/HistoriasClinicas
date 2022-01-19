@@ -21,9 +21,9 @@ export class InterceptorService implements HttpInterceptor {
         if (idToken) {
             console.log('entro token')
             //cloned = req.clone({
-                //setHeaders: {
-                    //authorization: idToken
-                //}
+            //setHeaders: {
+            //authorization: idToken
+            //}
             //});
             cloned = req.clone({
                 headers: req.headers.set("Authorization", "Bearer " + idToken)

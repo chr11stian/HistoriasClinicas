@@ -2,6 +2,7 @@ import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {ConsultaGeneralService} from '../../services/consulta-general.service'
 import {ActivatedRoute} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-datos-generales-consulta',
@@ -15,6 +16,9 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     generalInfoFG: FormGroup
     signoPeligroFG: FormGroup
     factorRiesgoFG: FormGroup
+    twoMonthsFG: FormGroup
+    twoMonthsMoreFG: FormGroup
+    allYearFG: FormGroup
     tipoDoc: string
     nroDoc: string
     anio: number = 0
@@ -24,37 +28,49 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     id: string;
     attributeLocalS = 'idConsulta'
     anamnesisFC = new FormControl({value: '', disabled: false})
-
+    auxDatosGeneralesConsulta: datosGeneralesConsulta
+    sino = [
+        { label: 'Si', value: true },
+        { label: 'No', value: false }
+    ];
     twoMonths: formControlInterface[] = [
         {
+            index: '1',
             label: 'No quiere mamar ni succiona',
             nameFC: 'noMama',
         },
         {
+            index: '2',
             label: 'Convulsiones',
             nameFC: 'convulsion',
         },
         {
+            index: '3',
             label: 'Fontanela abombada',
             nameFC: 'abombada'
         },
         {
+            index: '4',
             label: 'Enrojecimiento del ombligo se extiende a la piel',
             nameFC: 'enrojemiento'
         },
         {
+            index: '5',
             label: 'Fiebre o temperatura baja',
             nameFC: 'temperatura'
         },
         {
+            index: '6',
             label: 'Rigidez de nuca',
             nameFC: 'rigidezNuca'
         },
         {
+            index: '7',
             label: 'Pústulas muchas y extensas',
             nameFC: 'pustulas'
         },
         {
+            index: '8',
             label: 'Letárgico o comatoso',
             nameFC: 'letargico'
         }
@@ -62,22 +78,27 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
 
     twoMonthsMore: formControlInterface[] = [
         {
+            index: '1',
             label: 'No puede beber o tomar el pecho',
             nameFC: 'noTomaPecho'
         },
         {
+            index: '2',
             label: 'Convulsiones',
             nameFC: 'convulsionesMore'
         },
         {
+            index: '3',
             label: 'Letárgico o comaloso',
             nameFC: 'letargicoMore'
         },
         {
+            index: '4',
             label: 'Vomita todo',
             nameFC: 'vomitaTodo'
         },
         {
+            index: '5',
             label: 'Estridor en reposo / tiraje subcostal',
             nameFC: 'tirajeSubcostal'
         }
@@ -85,22 +106,27 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
 
     allYear: formControlInterface[] = [
         {
+            index: '1',
             label: 'Emaciación visible grave',
             nameFC: 'emaciacionVisibleAll'
         },
         {
+            index: '2',
             label: 'Piel vuelve muy lentamente',
             nameFC: 'pielvuelveAll'
         },
         {
+            index: '3',
             label: 'Traumatismo / Quemaduras',
             nameFC: 'traumatismoQuemaduraAll'
         },
         {
+            index: '4',
             label: 'Envenenamiento',
             nameFC: 'envenenamientoAll'
         },
         {
+            index: '5',
             label: 'Palidez palmar intensa',
             nameFC: 'palidezAll'
         }
@@ -120,7 +146,8 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
 
     recuperarData() {
         this.consultaGeneralService.getGenerales(this.id).subscribe((r: any) => {
-            console.log('objecto', r.object)
+            this.auxDatosGeneralesConsulta = r.object
+            console.log('datosGeneralesConsulta', this.auxDatosGeneralesConsulta)
             this.generalInfoFG.get('name').setValue(r.object.datosGeneralesConsulta.nombresApellidos)
             this.calcularEdad(r.object.datosGeneralesConsulta.fechaNacimiento)
             const edad = this.anio + ' años ' + this.mes + ' meses ' + this.dia + ' dias'
@@ -128,6 +155,19 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
             const fecha = new Date(r.object.datosGeneralesConsulta.fechaAtencionConsulta)
             this.generalInfoFG.get('dateAttention').setValue(fecha)
             this.generalInfoFG.get('hour').setValue(fecha)
+            //--actualizar datos generales
+            this.twoMonthsFG.get('1').setValue(false)
+            //this.twoMonthsFG.patchValue({'1': this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[0].valor})
+            //this.twoMonthsFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[0].valor as boolean)
+            //this.twoMonthsFG.get('1')
+            //this.twoMonthsFG.get('1').setValue(false)
+            this.twoMonthsFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[1].valor as boolean)
+            this.twoMonthsFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[2].valor as boolean)
+            this.twoMonthsFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[3].valor as boolean)
+            this.twoMonthsFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[4].valor as boolean)
+            this.twoMonthsFG.get('6').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[5].valor as boolean)
+            this.twoMonthsFG.get('7').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[6].valor as boolean)
+            this.twoMonthsFG.get('8').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[7].valor as boolean)
         })
     }
 
@@ -145,7 +185,6 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         this.twoMonths.forEach((v) => {
             this.signoPeligroFG.addControl(v.nameFC, selectFC)
         })
-
         this.twoMonthsMore.forEach((v) => {
             this.signoPeligroFG.addControl(v.nameFC, selectFC)
         })
@@ -154,6 +193,30 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
             this.signoPeligroFG.addControl(v.nameFC, selectFC)
         })
 
+        this.twoMonthsFG = new FormGroup({
+            1: new FormControl(""),
+            2: new FormControl(""),
+            3: new FormControl(""),
+            4: new FormControl(""),
+            5: new FormControl(""),
+            6: new FormControl(""),
+            7: new FormControl(""),
+            8: new FormControl(""),
+        })
+        this.twoMonthsMoreFG = new FormGroup({
+            1: new FormControl({value: null, disabled: false}, [Validators.required]),
+            2: new FormControl({value: null, disabled: false}, [Validators.required]),
+            3: new FormControl({value: null, disabled: false}, [Validators.required]),
+            4: new FormControl({value: null, disabled: false}, [Validators.required]),
+            5: new FormControl({value: null, disabled: false}, [Validators.required]),
+        })
+        this.allYearFG = new FormGroup({
+            1: new FormControl({value: null, disabled: false}, [Validators.required]),
+            2: new FormControl({value: null, disabled: false}, [Validators.required]),
+            3: new FormControl({value: null, disabled: false}, [Validators.required]),
+            4: new FormControl({value: null, disabled: false}, [Validators.required]),
+            5: new FormControl({value: null, disabled: false}, [Validators.required]),
+        })
         /** form para factor de riesgo */
         this.factorRiesgoFG = new FormGroup({
             /** quien cuida al ninio */
@@ -199,37 +262,56 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
 
     save(): void {
         // const consultaInput: ConsultaInputType = {
-        const consultaInput: any = {
+        const edad: edadInterface = {
+            anio: this.anio,
+            mes: this.mes,
+            dia: this.dia
+        }
+        this.auxDatosGeneralesConsulta.datosGeneralesConsulta.edad = edad
+        const req: datosGeneralesConsulta = {
+            datosGeneralesConsulta: this.auxDatosGeneralesConsulta.datosGeneralesConsulta,
             anamnesis: this.anamnesisFC.value,
-
             descarteSignosPeligro: {
                 factorRiesgo: this.factorRiesgoFG.value,
+
                 menor2M: this.twoMonths.map((element, index) => {
                     return {
                         codigo: (index + 1) + '',
                         descripcion: element.label,
-                        valor: this.signoPeligroFG.get(element.nameFC).value as boolean
+                        valor: this.twoMonthsFG.get(element.index).value as boolean
                     }
                 }),
                 menor2Ma4A: this.twoMonthsMore.map((element, index) => {
                     return {
                         codigo: (index + 1) + '',
                         descripcion: element.label,
-                        valor: this.signoPeligroFG.get(element.nameFC).value as boolean
+                        valor: this.twoMonthsMoreFG.get(element.index).value as boolean
                     }
                 }),
                 todasLasEdades: this.allYear.map((element, index) => {
                     return {
                         codigo: (index + 1) + '',
                         descripcion: element.label,
-                        valor: this.signoPeligroFG.get(element.nameFC).value as boolean
+                        valor: this.allYearFG.get(element.index).value as boolean
                     }
                 }),
                 noPresentaSigno: this.signoPeligroFG.get('presentSigns').value
-            }
+            },
         }
-        console.log('guardar ')
-        console.log(consultaInput)
+        console.log('req', req)
+        if (req) {
+            this.consultaGeneralService.updateGenerales(this.id, req).subscribe(
+                (resp) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizado correctamente',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+            )
+        }
     }
 
     calcularEdad(fecha: string) {
@@ -286,7 +368,47 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     }
 }
 
+interface datosGeneralesConsulta {
+    anamnesis: string,
+    descarteSignosPeligro: descarteSignosPeligroInterface,
+    datosGeneralesConsulta: datosGeneralesConsultaInterface
+}
+
+interface datosGeneralesConsultaInterface {
+    tipoDocPaciente: string,
+    nroDocPaciente: string,
+    nroHistoria: string,
+    nombresApellidos: string,
+    fechaAtencionConsulta: string,
+    hora: string,
+    fechaNacimiento: string,
+    fechaActual: string,
+    edad: edadInterface
+}
+
+interface descarteSignosPeligroInterface {
+    menor2M: menor2MInterface[],
+    menor2Ma4A: menor2MInterface[],
+    todasLasEdades: menor2MInterface[],
+    noPresentaSigno: boolean,
+    factorRiesgo: factorRiesgoInterface
+}
+
+interface factorRiesgoInterface {
+    cuidaNinio: string,
+    participaPadre: string,
+    recibeAfecto: string,
+    especificacion: string
+}
+
+interface menor2MInterface {
+    codigo: string,
+    valor: boolean,
+    descripcion: string,
+}
+
 interface formControlInterface {
+    index: string,
     label: string,
     nameFC: string
 }
@@ -296,7 +418,7 @@ interface data {
     nroDoc: string
 }
 
-interface edad {
+interface edadInterface {
     anio: number,
     mes: number,
     dia: number

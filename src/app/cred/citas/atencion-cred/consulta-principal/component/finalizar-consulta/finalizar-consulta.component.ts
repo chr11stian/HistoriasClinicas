@@ -171,6 +171,7 @@ export class FinalizarConsultaComponent implements OnInit {
 
     /* funciones tabla examen */
     openExamen() {
+        console.log('entro')
         this.isUpdate4 = false;
         this.formExamen.reset();
         this.formExamen.get('nombreEspecialidad').setValue("");
