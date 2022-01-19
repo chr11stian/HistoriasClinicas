@@ -1,0 +1,20 @@
+<form [formGroup]='formAtencion'>
+    <div class="grid p-fluid">
+        <div class="col-8 md:col-4 lg:col-4 p-field">
+            <label> Fecha :</label>
+            <input type="date"  pInputText formControlName='fecha'>
+        </div>
+        <div class="col-12 md:col-6 lg:col-6 p-field">
+            <label>Lugar</label>
+            <input type="text"  pInputText formControlName='lugar'>
+        </div>
+        <div class="col-12 md:col-6 lg:col-6 p-field">
+            <label>Observaciones</label>
+            <input type="text"  pInputText formControlName='observacion'>
+        </div>
+    </div>
+</form>
+<div class="footer">
+    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-danger mt-4"></button>
+    <button pButton type="button" label="Cancelar" (click)="canceled()"  class="p-button-danger mt-4"></button>
+</div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { ConsultaAdolescenteService } from '../../services/consulta-adolescente.service';
 
 @Component({
   selector: 'app-examenes-consulta-adolescente',
@@ -22,6 +24,8 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private consultaAdolescenteService: ConsultaAdolescenteService,
+    private messageService: MessageService,
   ) {
     this.inicializarForm();
   }
@@ -96,7 +100,7 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
         }, {
           funcion: 'sueño',
           valor: this.form.value.sueno
-        }, , {
+        }, {
           funcion: "orina",
           valor: this.form.value.orina
         }, {
@@ -108,7 +112,7 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
         }
       ],
       funcionesVitales: {
-        t: this.form.value.temp,
+        t: this.form.value.temperatura,
         presionDiastolica: this.form.value.presionDias,
         presionSistolica: this.form.value.presionSis,
         fc: this.form.value.fc,
@@ -123,7 +127,10 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
   }
   guardarExamenes() {
     this.recuperarDatos();
-    console.log('data to save ', this.dataExamenesConsulta);
+    this.consultaAdolescenteService.putActualizarExamenes("61ce1cf02aed74731bb3fb3a", this.dataExamenesConsulta).subscribe((res: any) => {
+      console.log('respuesta ', res);
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
+    });
   }
 }
 

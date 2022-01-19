@@ -37,11 +37,16 @@ export class LoginService {
                     const token = {
                         usuario: 'user',
                         roles: user.usuario.estado,
+                        token: user.token
                     }
+                    console.log("token", token)
                     this.currentUserSubject.next(token)
+
+                    localStorage.setItem('user', JSON.stringify(token))
+                    localStorage.setItem('usuario', JSON.stringify(user.usuario))
                     localStorage.setItem('token', JSON.stringify(token))
-                    localStorage.setItem('usuario',JSON.stringify(user.usuario))
-                    localStorage.setItem('token1',user.token)
+
+
                 }
                 return user;
             }))

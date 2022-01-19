@@ -39,7 +39,7 @@
                             <tr style="text-align: center">
                                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
                                 <td style="text-align: center">{{ rowData.diagnostico }}</td>
-                                <td style="text-align: center">{{ rowData.cie10.codigoItem }}</td>
+                                <td style="text-align: center">{{ rowData.cie10 }}</td>
                                 <td style="text-align: center; display: flex;">
                                     <button pButton pRipple type="button" icon="pi pi-pencil"
                                         class="p-button-rounded p-button-text"
@@ -55,6 +55,7 @@
             </div>
             <div class="col-12 md:col-4 mt-2">
                 <div class="margen border-300">
+
                     <div class="col-12 md:col-12">
                         <label>Diagnostico de Habilidades Sociales:</label>
                         <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
@@ -86,7 +87,13 @@
     </ng-template>
     <ng-template pTemplate="body">
         <form [formGroup]='formDiagnostico'>
-            <div class="grid flex flex-column mt-1">
+            <div class="col-12 md:col-12">
+                <label>Tipo Diagnostico</label>
+                <p-dropdown [options]="listaTiposCie" optionLabel="name" optionValue="value" formControlName="tipoCie"
+                    class="inputfield p-fluid w-full" placeholder="Tipo de diagnostico">
+                </p-dropdown>
+            </div>
+            <div class="col-12 md:col-12 mt-1">
                 <label class=" mr-1">CIE 10: </label>
                 <p-autoComplete formControlName="diagnosticoCIE" [suggestions]="listaDeCIE"
                     (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"

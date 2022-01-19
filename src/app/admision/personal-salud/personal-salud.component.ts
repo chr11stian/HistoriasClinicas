@@ -16,7 +16,6 @@ import { ColegioProfesionalService } from "src/app/mantenimientos/services/coleg
 import { DatePipe } from "@angular/common";
 import { TipoContratoService } from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
 import { IpressService } from "src/app/core/services/ipress/ipress.service";
-import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
 
 @Component({
@@ -41,6 +40,7 @@ export class PersonalSaludComponent implements OnInit {
   especialidadesList: Especialidad[];
   rolesXList: any[];
   colegiosList: ColegioProfesional[];
+  sexoList: any[];
   tiposContratoList: any[];
   domicilioList: any[];
   stateOptions: any[];
@@ -67,7 +67,7 @@ export class PersonalSaludComponent implements OnInit {
     private tipoContratoservice: TipoContratoService,
     private ipressservice: IpressService,
     private formBuilder: FormBuilder,
-    private rolGuardiaService: RolGuardiaService
+    private rolGuardiaService: RolGuardiaService,
   ) {
     this.buildForm();
     this.getPersonal();
@@ -78,6 +78,7 @@ export class PersonalSaludComponent implements OnInit {
     this.getTipoContratos();
     this.getIpress();
     this.getListaUps();
+    this.getSexos();
 
     this.stateOptions = [
       { label: "Activo", value: true },
@@ -85,367 +86,22 @@ export class PersonalSaludComponent implements OnInit {
     ];
     this.domicilioList = [
       {
-        apePaterno: "Olazabal",
-        apeMaterno: "Caller",
-        nombres: "Leticia Giuliana",
-        sexo: "Femenino",
+        apePaterno: "OLAZABAL",
+        apeMaterno: "CALLER",
+        nombres: "LETICIA GIULIANA",
+        sexo: "FEMENINO",
         fechaNacimiento: "2000-05-06",
-        estadoCivil: "Soltero",
-        domicilioActual: "Urb. Tupac Amaru",
-        nacionalidad: "Peruana",
-        departamento: "Cusco",
-        provincia: "Cusco",
-        distrito: "San Sebastian",
+        estadoCivil: "SOLTERA",
+        domicilioActual: "URB. TUPAC AMARU",
+        nacionalidad: "PERUANA",
+        departamento: "CUSCO",
+        provincia: "CUSCO",
+        distrito: "SAN SEBASTIAN",
       },
     ];
-    this.datosPersonales = [
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100007",
-      //   apePaterno: "Garcia",
-      //   apeMaterno: "Perez",
-      //   primerNombre: "Marco",
-      //   otrosNombres: "Avelino",
-      //   fechaNacimiento: "1998-08-10",
-      //   sexo: "Masculino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "12121212",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100007",
-      //   apePaterno: "Merino",
-      //   apeMaterno: "Sagasti",
-      //   primerNombre: "Andre",
-      //   otrosNombres: "Antauro",
-      //   fechaNacimiento: "1998-09-10",
-      //   sexo: "Masculino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "12121212",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100006",
-      //   apePaterno: "Gomez",
-      //   apeMaterno: "Arias",
-      //   primerNombre: "Maria",
-      //   otrosNombres: "Aurelia",
-      //   fechaNacimiento: "1999-08-10",
-      //   sexo: "Femenino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "1233312",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100005",
-      //   apePaterno: "Orue",
-      //   apeMaterno: "Ttito",
-      //   primerNombre: "Ana",
-      //   otrosNombres: "Eliana",
-      //   fechaNacimiento: "1990-08-10",
-      //   sexo: "Femenino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "1909091212",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100001",
-      //   apePaterno: "Alvarez",
-      //   apeMaterno: "Callasaca",
-      //   primerNombre: "Fernando",
-      //   otrosNombres: "Daniel",
-      //   fechaNacimiento: "1970-08-20",
-      //   sexo: "Masculino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "12151617",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100002",
-      //   apePaterno: "Alvarez",
-      //   apeMaterno: "Callasaca",
-      //   primerNombre: "Fernando",
-      //   otrosNombres: "Daniel",
-      //   fechaNacimiento: "1970-08-20",
-      //   sexo: "Masculino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "12151617",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100003",
-      //   apePaterno: "Alvarez",
-      //   apeMaterno: "Callasaca",
-      //   primerNombre: "Fernando",
-      //   otrosNombres: "Daniel",
-      //   fechaNacimiento: "1970-08-20",
-      //   sexo: "Masculino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "12151617",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100004",
-      //   apePaterno: "Alvarez",
-      //   apeMaterno: "Callasaca",
-      //   primerNombre: "Fernando",
-      //   otrosNombres: "Daniel",
-      //   fechaNacimiento: "1970-08-20",
-      //   sexo: "Masculino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "12151617",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100008",
-      //   apePaterno: "Garcia",
-      //   apeMaterno: "Perez",
-      //   primerNombre: "Marco",
-      //   otrosNombres: "Avelino",
-      //   fechaNacimiento: "1998-08-10",
-      //   sexo: "Masculino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "12121212",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100009",
-      //   apePaterno: "Garcia",
-      //   apeMaterno: "Perez",
-      //   primerNombre: "Marco",
-      //   otrosNombres: "Avelino",
-      //   fechaNacimiento: "1998-08-10",
-      //   sexo: "Masculino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "12121212",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100010",
-      //   apePaterno: "Garcia",
-      //   apeMaterno: "Perez",
-      //   primerNombre: "Marco",
-      //   otrosNombres: "Avelino",
-      //   fechaNacimiento: "1998-08-10",
-      //   sexo: "Masculino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "12121212",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-      // {
-      //   tipoDoc: "DNI",
-      //   nroDoc: "73100010",
-      //   apePaterno: "Garcia",
-      //   apeMaterno: "Perez",
-      //   primerNombre: "Marco",
-      //   otrosNombres: "Avelino",
-      //   fechaNacimiento: "1998-08-10",
-      //   sexo: "Masculino",
-      //   contratoAbreviatura: "CAS",
-      //   colegiatura: "12121212",
-      //   estado: true,
-      //   colegioProfesional: [
-      //     { codigo: "005", nombre: "COLEGIO DE PSICOLOGOS" },
-      //   ],
-      //   especialidad: [
-      //     {
-      //       nombre: "MEDICINA GENERAL",
-      //       nroEspecialidad: "121212",
-      //       estado: true,
-      //     },
-      //   ],
-      //   tipoPersonal: {
-      //     nombre: "psicologia",
-      //     esProfesional: true,
-      //     abreviatura: "sin",
-      //   },
-      // },
-    ];
-    // this.insertarVariosDatos(this.datosPersonales);
+    this.datosPersonales = [];
   }
 
-  insertarVariosDatos(datos) {
-    for (var i = 0; i < datos.length; i++) {
-      this.personalservice.createPersonal(datos[i]).subscribe((result) => {
-        console.log("agregado ", i);
-      });
-    }
-  }
   getDocumentos() {
     this.documentoservice.getDocumentosIdentidad().subscribe((res: any) => {
       this.docList = res.object;
@@ -489,6 +145,12 @@ export class PersonalSaludComponent implements OnInit {
   getIpress() {
     this.ipressservice.getIpress().subscribe((res: any) => {
       this.ipressList = res.object;
+    });
+  }
+  getSexos(){
+    this.personalservice.getSexos().subscribe((res: any) => {
+      this.sexoList = res.sexo;
+      console.log(this.sexoList);
     });
   }
   buildForm() {
@@ -539,7 +201,7 @@ export class PersonalSaludComponent implements OnInit {
   }
   saveForm() {
     this.isUpdate = false;
-    let otrosNombres = this.form.value.nombres.split("/", 2);
+    let otrosNombres = this.form.value.nombres.split(" ", 2);
     let otros = otrosNombres.shift();
     otrosNombres = otrosNombres.join(" ");
     let primerNombre = this.form.value.nombres.split(" ")[0];
