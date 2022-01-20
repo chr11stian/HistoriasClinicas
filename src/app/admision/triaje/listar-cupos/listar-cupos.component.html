@@ -50,7 +50,7 @@
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
                 <td style="text-align: center"></td>
-                <td style="text-align: center">{{ rowData.nroDoc }}</td>
+                <td style="text-align: center">{{ rowData.paciente.nombre }}</td>
                 <td style="text-align: center">{{ rowData.apellidoPaterno }}</td>
                 <td style="text-align: center">{{ rowData.apellidoMaterno }}</td>
                 <td style="text-align: center">{{ rowData.nombre }}</td>
@@ -78,19 +78,21 @@
                         <th style="text-align: center">APELLIDOS</th>
                         <th style="text-align: center">NOMBRES</th>
                         <th style="text-align: center">FECHA</th>
-                        <th style="text-align: center">TELEFONO</th>
+                        <th style="text-align: center">HORA</th>
                         <th style="text-align: center">ACCIONES</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                     <tr>
                         <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                        <td style="text-align: center">{{ rowData.nroDoc }}</td>
-                        <td style="text-align: center">{{ rowData.datosPaciente.apeMaterno }}{{' '}}{{
-                            rowData.datosPaciente.apePaterno }}</td>
-                        <td style="text-align: center">{{ rowData.datosPaciente.primerNombre }}</td>
+                        <td style="text-align: center">{{ rowData.paciente.nroDoc }}</td>
+                        <td style="text-align: center">{{ rowData.paciente.apellidos}}
+                        </td>
+                        <td style="text-align: center"> {{ rowData.paciente.nombre}}</td>
+                        <td style="text-align: center"> {{ rowData.horaAtencion}}</td>
+                        <!-- <td style="text-align: center">{{ rowData.datosPaciente.primerNombre }}</td>
                         <td style="text-align: center">{{ rowData.proxCita.fecha }}</td>
-                        <td style="text-align: center">{{ rowData.datosPaciente.celular }}</td>
+                        <td style="text-align: center">{{ rowData.datosPaciente.celular }}</td> -->
                         <td style="text-align: center">
                             <button pButton pRipple class="boton-azul" label="Triar" icon="pi pi-check"
                                 (click)="openDialogTriaje(rowData)"></button>
