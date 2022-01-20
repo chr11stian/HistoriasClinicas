@@ -15,6 +15,10 @@ export class ServicesService {
     }
 
     getListaPendientesDePago(idIpres, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/cupo/caja/${idIpres}`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/caja/${idIpres}`, data);
+    }
+
+    UpdateCupoCAja(idCupo) {
+        return this.http.get(`${this.base_url}/${this.bd}/cupo/actualizar/caja/${idCupo}`)
     }
 }

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {CitasService} from "../../obstetricia-general/services/citas.service";
 import {ServicesService} from "../services/services.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-pagos',
@@ -16,7 +16,8 @@ export class PagosComponent implements OnInit {
     formCaja: FormGroup;
     datePipe = new DatePipe('en-US');
     datafecha: Date = new Date();
-
+    Dialogpagos: boolean;
+    idPagoCaja: any;
 
     constructor(private servicesService: ServicesService,
                 private fb: FormBuilder,) {
@@ -31,6 +32,12 @@ export class PagosComponent implements OnInit {
     buildForm() {
         this.formCaja = this.fb.group({
             fechaBusqueda: new FormControl(''),
+            nroDoc: new FormControl(''),
+            apePaterno: new FormControl(''),
+            nombres: new FormControl(''),
+            estado: new FormControl(''),
+            servico: new FormControl(''),
+            nroCupo: new FormControl(''),
         })
     }
 
@@ -45,5 +52,37 @@ export class PagosComponent implements OnInit {
             this.DataPendientesPago = res.object;
             console.log('LISTA DE CUPOS PENDIENTES', this.DataPendientesPago);
         })
+    }
+
+    pagar() {
+        this.servicesService.UpdateCupoCAja(this.idPagoCaja).subscribe((res: any) => {
+        });
+        Swal.fire({
+            icon: 'success',
+            title: 'Registro',
+            text: "exitosa",
+            showConfirmButton: false,
+            timer: 1500,
+        })
+        this.Dialogpagos = false;
+        this.getListaCuposConfirmados();
+    }
+
+    openModal(event) {
+        this.Dialogpagos = true;
+        this.idPagoCaja = event.id;
+        console.log("ID PAGO", this.idPagoCaja);
+
+        this.formCaja.get('nroDoc').setValue(event.paciente.nroDoc);
+        this.formCaja.get('apePaterno').setValue(event.paciente.apellidos);
+        this.formCaja.get('nombres').setValue(event.paciente.nombre);
+        this.formCaja.get('estado').setValue(event.detallePago);
+        this.formCaja.get('servico').setValue(event.ipress.servicio);
+        this.formCaja.get('nroCupo').setValue(event.nroCupo);
+    }
+
+    close(){
+        this.Dialogpagos = false;
+        this.getListaCuposConfirmados();
     }
 }

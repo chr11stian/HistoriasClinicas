@@ -25,8 +25,6 @@
             </div>
 
             <div class="col-12 md:col-6 lg:col-3 p-field" style="text-align:center;">
-                <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
-                ></button>
                 <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
             </div>
         </div>
@@ -34,17 +32,17 @@
 
     <p-accordion>
         <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA LA FECHA" [selected]="true">
-            <p-table [value]="DataPendientesPago" #dt styleClass="p-datatable-gridlines" [rows]="10"
-                     [rowsPerPageOptions]="[10, 25, 50]"
-                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
-                     [globalFilterFields]="['nroDoc','representative.name','status']">
+            <p-table #dt [value]="DataPendientesPago" [rows]="10" [paginator]="true"
+                     [globalFilterFields]="['DNI']"
+                     [rowHover]="true" dataKey="id"
+                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                     [showCurrentPageReport]="true">
                 <ng-template pTemplate="caption">
-                    <div class="flex">
-                        <span class="p-input-icon-left ml-auto">
-                             <i class="pi pi-search"></i>
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                                   placeholder="Filtrar por DNI"/>
+                                   placeholder="Filtrar por dni"/>
                         </span>
                     </div>
                 </ng-template>
@@ -52,7 +50,7 @@
                 <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                     <tr>
                         <th style="text-align: center">Nro</th>
-                        <th style="text-align: center">DNI</th>
+                        <th pSortableColumn="DNI">DNI</th>
                         <th style="text-align: center">APELLIDOS</th>
                         <th style="text-align: center">NOMBRES</th>
                         <th style="text-align: center">HORA ATENCION</th>
@@ -75,7 +73,7 @@
                         <td style="text-align: center">{{ rowData.detallePago}}</td>
                         <td style="text-align: center">
                             <button pButton pRipple type="button" label="Pagar"
-                                    class="p-button-raised p-button-success"></button>
+                                    class="p-button-raised p-button-success" (click)="openModal(rowData)"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -83,3 +81,68 @@
         </p-accordionTab>
     </p-accordion>
 </div>
+
+
+<p-dialog [(visible)]="Dialogpagos" [style]="{width: '700px'}" [modal]="true"
+          styleClass="p-fluid" autoZIndex>
+    <p-panel>
+        <ng-template pTemplate="header">
+            <h3 class="m-2">PAGAR SERVICO</h3>
+        </ng-template>
+        <ng-template pTemplate>
+            <form [formGroup]='formCaja'>
+
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Documento de identidad: </label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="nroDoc">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Apellidos:</label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="apePaterno">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Nombres: </label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="nombres">
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Numero de cupo: </label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="nroCupo">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">ESTADO: </label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="estado">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-8 p-field">
+                        <div class="">
+                            <label class="">SERVICO:</label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="servico">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </ng-template>
+    </p-panel>
+
+
+    <ng-template pTemplate=footer>
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="close()"></button>
+        <button pButton type="button" label="Guardar" (click)="pagar()"></button>
+    </ng-template>
+</p-dialog>
