@@ -422,7 +422,6 @@ export class PacienteComponent implements OnInit {
   cargarDatosReniec(){
     let nroDoc = this.formPaciente.value.nroDoc;
     console.log(nroDoc);
-
     this.pacienteService.getDataReniecPaciente(nroDoc).subscribe((res: any) => {
       console.log(res.resultado);
       console.log(res.nombres);
