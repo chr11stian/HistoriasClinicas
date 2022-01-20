@@ -1,59 +1,148 @@
 <div class="p-card">
-    <p-toolbar styleClass="p-mb-4">
+    <p-card>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+                <span style="font-size: 20px;">CAJA</span>
+            </div>
+        </div>
+        <br>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-9 p-field">
+                <form [formGroup]="formCaja">
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <label class="">BUSCAR POR FECHA</label>
+                            <div class="p-inputgroup">
+                                <p-calendar dateFormat="yy-mm-dd" placeholder="Fecha"
+                                            formControlName="fechaBusqueda"
+                                            [readonlyInput]="true"
+                                            (onSelect)="getListaCuposConfirmados()">
+                                </p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
-        <ng-template pTemplate="left">
-            <h3 class="p-m-0">CAJA</h3>
-        </ng-template>
+            <div class="col-12 md:col-6 lg:col-3 p-field" style="text-align:center;">
+                <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+            </div>
+        </div>
+    </p-card>
 
-        <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"></button>
+    <p-accordion>
+        <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA LA FECHA" [selected]="true">
+            <p-table #dt [value]="DataPendientesPago" [rows]="10" [paginator]="true"
+                     [globalFilterFields]="['DNI']"
+                     [rowHover]="true" dataKey="id"
+                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                     [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                   placeholder="Filtrar por dni"/>
+                        </span>
+                    </div>
+                </ng-template>
 
-            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
-        </ng-template>
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center">Nro</th>
+                        <th pSortableColumn="DNI">DNI</th>
+                        <th style="text-align: center">APELLIDOS</th>
+                        <th style="text-align: center">NOMBRES</th>
+                        <th style="text-align: center">HORA ATENCION</th>
+                        <th style="text-align: center">FECHA ATENCION</th>
+                        <th style="text-align: center">SERVICIO</th>
+                        <th style="text-align: center">ESTADO</th>
+                        <th style="text-align: center">ACCION</th>
 
-    </p-toolbar>
-
-    <p-table>
-
-    </p-table>
-
-    <!--    <p-table #dt [value]="dt" [rows]="10" [paginator]="true" [globalFilterFields]="['dni']"-->
-    <!--             [(selection)]="" [rowHover]="true" datakey="id"-->
-    <!--             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"-->
-    <!--             responsiveLayout="scroll"-->
-    <!--             [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">-->
-    <!--        <ng-template pTemplate="caption">-->
-    <!--            <div class="p-d-flex p-ai-center p-jc-between">-->
-    <!--                    <span class="p-input-icon-left">-->
-    <!--                        <i class="pi pi-search"></i>-->
-    <!--&lt;!&ndash;                        <input type="text" pInputText (input)="dt.filterGlobal($event.tarjet.value,'contains')"&ndash;&gt;-->
-    <!--                               placeholder="DNI...">-->
-    <!--                    </span>-->
-    <!--            </div>-->
-    <!--        </ng-template>-->
-
-    <!--        <ng-template class="ng-template" pTemplate="header">-->
-    <!--            <tr>-->
-    <!--                &lt;!&ndash; <th style="text-align: center">#</th> &ndash;&gt;-->
-    <!--                <th style="text-align: center">DNI</th>-->
-    <!--                <th style="text-align: center">APELLIDOS</th>-->
-    <!--                <th style="text-align: center">NOMBRES</th>-->
-    <!--                <th style="text-align: center">SERVICIO(UPS)</th>-->
-    <!--                <th style="text-align: center">HORARIO A.</th>-->
-    <!--                <th style="text-align: center">FECHA A.</th>-->
-    <!--            </tr>-->
-    <!--        </ng-template>-->
-
-    <!--&lt;!&ndash;        <ng-template pTemplate="body" let-cupo style="text-align: center;">&ndash;&gt;-->
-    <!--&lt;!&ndash;&lt;!&ndash;            <tr style="text-align: center">&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;&lt;!&ndash;                <td style="text-align: center">{{ cupo.dni }}</td>&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;&lt;!&ndash;                <td style="text-align: center">{{ cupo.apellidos }}</td>&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;&lt;!&ndash;                <td style="text-align: center">{{ cupo.nombres }}</td>&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;&lt;!&ndash;                <td style="text-align: center">{{ cupo.servicio }}</td>&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;&lt;!&ndash;                <td style="text-align: center">{{ cupo.horarioAtencion }}</td>&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;&lt;!&ndash;                <td style="text-align: center">{{ cupo.fechaAtencion }}</td>&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;&lt;!&ndash;            </tr>&ndash;&gt;&ndash;&gt;-->
-    <!--&lt;!&ndash;        </ng-template>&ndash;&gt;-->
-    <!--    </p-table>-->
-
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.paciente.nroDoc }}</td>
+                        <td style="text-align: center">{{ rowData.paciente.apellidos }}</td>
+                        <td style="text-align: center">{{ rowData.paciente.nombre}}</td>
+                        <td style="text-align: center">{{ rowData.horaAtencion}}</td>
+                        <td style="text-align: center">{{ rowData.fechaAtencion}}</td>
+                        <td style="text-align: center">{{ rowData.ipress.servicio}}</td>
+                        <td style="text-align: center">{{ rowData.detallePago}}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple type="button" label="Pagar"
+                                    class="p-button-raised p-button-success" (click)="openModal(rowData)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-accordionTab>
+    </p-accordion>
 </div>
+
+
+<p-dialog [(visible)]="Dialogpagos" [style]="{width: '700px'}" [modal]="true"
+          styleClass="p-fluid" autoZIndex>
+    <p-panel>
+        <ng-template pTemplate="header">
+            <h3 class="m-2">PAGAR SERVICO</h3>
+        </ng-template>
+        <ng-template pTemplate>
+            <form [formGroup]='formCaja'>
+
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Documento de identidad: </label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="nroDoc">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Apellidos:</label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="apePaterno">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Nombres: </label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="nombres">
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">Numero de cupo: </label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="nroCupo">
+                        </div>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <div class="">
+                            <label class="">ESTADO: </label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="estado">
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-8 p-field">
+                        <div class="">
+                            <label class="">SERVICO:</label>
+                            <input type="text" pInputText class="inputfield w-full" formControlName="servico">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </ng-template>
+    </p-panel>
+
+
+    <ng-template pTemplate=footer>
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="close()"></button>
+        <button pButton type="button" label="Guardar" (click)="pagar()"></button>
+    </ng-template>
+</p-dialog>
