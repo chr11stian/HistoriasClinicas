@@ -5,7 +5,7 @@ import {MessageService, PrimeNGConfig} from 'primeng/api';
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
 import {Cupo} from '../../core/models/cupo.models';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {CuposService} from "../../core/services/cupos.service";
 import {DocumentoIdentidadService} from "../../mantenimientos/services/documento-identidad/documento-identidad.service";
 import {UpsService} from "../../mantenimientos/services/ups/ups.service";
@@ -341,17 +341,8 @@ export class CuposComponent implements OnInit {
 
         this.cuposService.saveCupos(req).subscribe(
             (result: any) => {
-                console.log("RESPUESTA", result.mensaje)
-                if (result.object != null) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Cupo',
-                        text: 'Reservado',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                    this.actualizarOfertaEstado();
-                } else {
+                console.log(result.object);
+                if (result.object == null || result.object == undefined) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Cupo',
@@ -359,9 +350,19 @@ export class CuposComponent implements OnInit {
                         showConfirmButton: false,
                         timer: 1500,
                     })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Cupo',
+                        text: result.mensaje,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                    this.actualizarOfertaEstado();
+
                 }
             }
-        )
+        );
         this.formCuposOferta.reset();
         this.dataOfertasCupos = null;
         this.usuarioDialog = false;
@@ -378,6 +379,7 @@ export class CuposComponent implements OnInit {
         }
 
         console.log("DATA ACTUALIZAR OFERTA", data);
+
         this.cuposService.updateEstadoOferta(data).subscribe(resp => {
             Swal.fire({
                 icon: 'success',
@@ -479,7 +481,6 @@ export class CuposComponent implements OnInit {
             this.dataCupos_por_fechas_servicio = res.object;
             console.log('LISTA DE CITAS CONFIRMADOS POR SERVICIO ', this.dataCupos_por_fechas_servicio);
         })
-
         if (this.dataCupos_por_fechas_servicio != null) {
             this.dataCupos_por_fechas_servicio = null;
         }
