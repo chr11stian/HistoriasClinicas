@@ -439,18 +439,14 @@ export class CuposComponent implements OnInit {
             servicio: this.formCuposOferta.value.SelectUPS,
             fecha: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
         }
-
         console.log('DATA', data);
-
         this.cuposService.listaCuposConfirmados(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.dataCupos_por_fechas_servicio = res.object;
             console.log('LISTA DE CITAS CONFIRMADOS POR SERVICIO ', this.dataCupos_por_fechas_servicio);
         })
-
         if (this.dataCupos_por_fechas_servicio != null) {
             this.dataCupos_por_fechas_servicio = null;
         }
-
         this.ListarPacientesCitasObstetricas();
     }
 
