@@ -53,5 +53,8 @@ export class CuposService {
     listaCuposConfirmados(idIpres, data) {
         return this.http.post(`${this.base_url}/${this.bd}/cupo/lista/confirmado/${idIpres}`, data)
     }
+    buscarCupoPorDniFechaIpress(nroDoc,id,data){
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/${nroDoc}/${id}`, data)
+    }
 
 }
