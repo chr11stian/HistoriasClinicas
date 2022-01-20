@@ -62,6 +62,7 @@ export class CuposComponent implements OnInit {
 
 
     iprees: string = "la posta medica";
+    ServicoSelect: string = "OBSTETRICIA";
 
     constructor(
         private config: DynamicDialogConfig,
@@ -83,10 +84,14 @@ export class CuposComponent implements OnInit {
             {icon: "pi pi-align-justify", justify: "Justify"}
         ];
 
+
     }
 
     ngOnInit(): void {
         this.buildForm();
+        this.formCuposOferta.get('SelectUPS').setValue(this.ServicoSelect);
+
+
         this.formCuposOferta.get('fechaBusqueda').setValue(this.datafecha);
         // this.getDataUPS();
         this.getListaUps();
@@ -95,7 +100,7 @@ export class CuposComponent implements OnInit {
         console.log("HORARIO", this.selectedHorario);
 
         this.getCuposXservicio();
-        // this.selectCupos();
+        this.getListaCuposConfirmados();
 
     }
 
@@ -125,6 +130,15 @@ export class CuposComponent implements OnInit {
         });
     }
 
+    obtenerFecha(fecha: Date): string {
+        let arr = fecha.toString().split('-');
+        const Year: string = arr[0];
+        const Months: string = arr[1];
+        const Day: string = arr[1];
+        console.log(Year + '-' + Months + '-' + Day);
+        return Year + '-' + Months + '-' + Day;
+    }
+
     /**Busca los pacientes por su Numero de Documento**/
     pacienteByNroDoc() {
         let auxNroDoc = {
@@ -139,10 +153,18 @@ export class CuposComponent implements OnInit {
             this.formCuposOferta.get('primerNombre').setValue(this.dataPacientes.primerNombre);
             this.formCuposOferta.get('otrosNombres').setValue(this.dataPacientes.otrosNombres);
             this.formCuposOferta.get('sexo').setValue(this.dataPacientes.sexo);
-            this.formCuposOferta.get('fechaNacimiento').setValue(this.dataPacientes.nacimiento.fechaNacimiento);
+            this.formCuposOferta.get('fechaNacimiento').setValue(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
             this.formCuposOferta.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
             this.formCuposOferta.get('celular').setValue(this.dataPacientes.celular);
+            this.formCuposOferta.get('nacionalidad').setValue(this.dataPacientes.nacionalidad);
             this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
+            this.formCuposOferta.get('departamento').setValue(this.dataPacientes.domicilio.departamento);
+            this.formCuposOferta.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
+            this.formCuposOferta.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
+            this.formCuposOferta.get('centroPoblado').setValue(this.dataPacientes.domicilio.ccpp);
+            this.formCuposOferta.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
+            this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
+            // this.formCuposOferta.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
         });
     }
 
@@ -202,10 +224,13 @@ export class CuposComponent implements OnInit {
 
             tipoSeguro: new FormControl(''),
             transeunte: new FormControl(''),
-            edad: new FormControl(''),
-            dias: new FormControl(''),
+            edadAños: new FormControl(''),
+            edadMeses: new FormControl(''),
+            edadDias: new FormControl(''),
             etapadeVida: new FormControl(''),
             estado: new FormControl(''),
+
+            SelectUPS: new FormControl(''),
         })
     }
 
@@ -278,6 +303,10 @@ export class CuposComponent implements OnInit {
                 }
             }
         )
+        this.formCuposOferta.reset();
+        this.dataOfertasCupos = null;
+        this.usuarioDialog = false;
+        this.cuposDialog = false;
     }
 
     /****Actualiza el estado de las ofertas despues de guardar un cupo LIBRE / OCUPADO**/
@@ -320,10 +349,8 @@ export class CuposComponent implements OnInit {
     }
 
     closeDialogCupos() {
-        this.dataSelectHoras = null;
-        this.dataOfertasCupos = null;
+        /***cambios madai*/
         this.cuposDialog = false;
-        this.selectedHorario = {};
         Swal.fire({
             position: 'center',
             icon: 'error',
@@ -331,6 +358,21 @@ export class CuposComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
         })
+    }
+
+    closeDialogCupos2() {
+        /***cambios madai*/
+        this.usuarioDialog = false;
+
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Se cancelo la reserva de cupo',
+            showConfirmButton: false,
+            timer: 1500
+        })
+        this.dataOfertasCupos = [];
+
     }
 
 
@@ -344,7 +386,7 @@ export class CuposComponent implements OnInit {
         console.log('event',);
         this.dataSelectAmbiente = event.data.ambiente;
         this.dataSelectServicio = event.data.ipress.servicio;
-        this.personalSelected = event.data.personal.nombre;
+        this.personalSelected = event.data.personal.nombre;//Personal
         this.dataSelectHoras = event.data.horaLaboral;
         console.log('HORAS....', this.dataSelectHoras);
         /** personalSelected2 almacena todo los datos del event al seleccionar un personal**/
@@ -366,18 +408,15 @@ export class CuposComponent implements OnInit {
         console.log("FECHA OFERTA", data)
     }
 
-
-    // selectFecha() {
-    //     this.fecha = this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
-    //     // this.getCuposXservicio();
-    //     console.log("FECHASSSSS", this.fecha)
-    // }
-
+    /** Selecciona  un servicio y fecha y lista las ofertas para reservar un cupo **/
     getListaCuposConfirmados() {
         let data = {
-            servicio: "OBSTETRICIA",
+            servicio: this.formCuposOferta.value.SelectUPS,
             fecha: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
         }
+
+        console.log('DATA', data);
+
         this.cuposService.listaCuposConfirmados(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.dataCupos_por_fechas_servicio = res.object;
             console.log('LISTA DE CITAS CONFIRMADOS POR SERVICIO ', this.dataCupos_por_fechas_servicio);
