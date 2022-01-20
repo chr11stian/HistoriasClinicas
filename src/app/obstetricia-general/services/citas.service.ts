@@ -17,6 +17,11 @@ export class CitasService {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/listarPendientes`, data)
     }
 
+    UpdateCitas(data) {
+        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarProxCitaHcl`, data)
+    }
+
+
     addCitas(data) {
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/cupo/agregar/citaTentativa`, data)
     }

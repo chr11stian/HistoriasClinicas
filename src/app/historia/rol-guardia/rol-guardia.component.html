@@ -38,7 +38,7 @@
                             optionLabel="nombreUPS"
                             placeholder="Seleccionar"
                             styleClass="my-2 py-1"
-                            (onChange)="changeUps($event, dd)"
+                            (onChange)="changeUps1($event, dd)"
                             [(ngModel)]="upsSeleccionada"
                     ></p-dropdown>
                 </div>
@@ -114,11 +114,14 @@
             <td style="min-width: 3rem">
                 {{ i + 1 }}
             </td>
-            <td class="">
-                {{ rowData.apePaterno }} {{ rowData.apeMaterno }}
-            </td>
-            <td class="" >
-                {{ rowData.nombre }}
+<!--            <td class="">-->
+<!--                {{ rowData.apePaterno }} {{ rowData.apeMaterno }}-->
+<!--            </td>-->
+<!--            <td class="" >-->
+<!--                {{ rowData.nombre }}-->
+<!--            </td>-->
+            <td colspan="2">
+                {{rowData.nombreCompleto}}
             </td>
             <td *ngFor="let dia of cabeceraMes; let j = index" class="" >
                 <!-- {{ i }} -{{ j }} -->

@@ -15,7 +15,8 @@
                         <div class="col-12 md:col-6 lg:col-6 p-field">
                             <label class="">Documento de identidad: </label>
                             <div class="p-inputgroup">
-                                <input type="text" pInputText formControlName="nroDoc" (blur)="getPacientesXnroDocumento()">
+                                <input type="text" pInputText formControlName="nroDoc"
+                                       (blur)="getPacientesXnroDocumento()">
                                 <p-button icon="pi pi-search" (click)="getPacientesXnroDocumento()"></p-button>
                             </div>
                         </div>
@@ -26,15 +27,14 @@
                         <div class="col-12 md:col-6 lg:col-6 p-field">
                             <label class="">Fecha de Inicio</label>
                             <div class="p-inputgroup">
-                                <p-calendar dateFormat="yy-mm-dd" formControlName="fechaInicio"
-                                            (click)="getCitasGestantes()"></p-calendar>
+                                <p-calendar dateFormat="yy-mm-dd" formControlName="fechaInicio"></p-calendar>
                             </div>
                         </div>
 
                         <div class="col-12 md:col-6 lg:col-6 p-field">
                             <label class="">Fecha actual</label>
                             <div class="p-inputgroup">
-                                <p-calendar dateFormat="yy-mm-dd" (click)="getCitasGestantes()"
+                                <p-calendar dateFormat="yy-mm-dd"
                                             formControlName="fechaFinal"></p-calendar>
                             </div>
                         </div>
