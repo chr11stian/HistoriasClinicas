@@ -583,8 +583,9 @@ export class PersonalSaludComponent implements OnInit {
       });
   }
   saveRol() {
-    const posibleRepetido = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups);
-    if(!posibleRepetido){
+    // const posibleRepetido = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups);
+    // comentario de prueba
+    if(true){
       const req = {
         nombreFuncion: this.formRol.value.nombreFuncion,
         codUPS: this.formRol.value.ups,
