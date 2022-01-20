@@ -80,6 +80,10 @@ export class CitasAdolescenteComponent implements OnInit {
             }
         })
     }
+
+    irConsulta(row){
+        this.router.navigate(['/dashboard/adolescente/citas/consulta'], row)
+    }
 }
 
 interface data {

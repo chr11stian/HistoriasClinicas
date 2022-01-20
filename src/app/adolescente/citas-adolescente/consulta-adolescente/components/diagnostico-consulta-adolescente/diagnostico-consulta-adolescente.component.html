@@ -1,4 +1,13 @@
 <div class="col-12">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">DIAGNÓSTICO</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Siguiente" icon="pi pi-save" class="p-button-primary"
+                (click)="guardarDiagnostico()"></button>
+        </ng-template>
+    </p-toolbar>
     <form [formGroup]='form'>
         <div class="grid">
             <div class="col-12 md:col-8 mt-2">
@@ -30,11 +39,11 @@
                             <tr style="text-align: center">
                                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
                                 <td style="text-align: center">{{ rowData.diagnostico }}</td>
-                                <td style="text-align: center">{{ rowData.cie10.codigoItem }}</td>
+                                <td style="text-align: center">{{ rowData.cie10 }}</td>
                                 <td style="text-align: center; display: flex;">
                                     <button pButton pRipple type="button" icon="pi pi-pencil"
                                         class="p-button-rounded p-button-text"
-                                        (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                        (click)="openDialogEditDiagnostico(rowData, rowIndex)"></button>
                                     <button pButton pRipple type="button" icon="pi pi-trash"
                                         class="p-button-rounded p-button-danger p-button-text"
                                         (click)="eliminarDiagnostico(rowIndex)"></button>
@@ -46,6 +55,7 @@
             </div>
             <div class="col-12 md:col-4 mt-2">
                 <div class="margen border-300">
+
                     <div class="col-12 md:col-12">
                         <label>Diagnostico de Habilidades Sociales:</label>
                         <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
@@ -77,7 +87,13 @@
     </ng-template>
     <ng-template pTemplate="body">
         <form [formGroup]='formDiagnostico'>
-            <div class="grid flex flex-column mt-1">
+            <div class="col-12 md:col-12">
+                <label>Tipo Diagnostico</label>
+                <p-dropdown [options]="listaTiposCie" optionLabel="name" optionValue="value" formControlName="tipoCie"
+                    class="inputfield p-fluid w-full" placeholder="Tipo de diagnostico">
+                </p-dropdown>
+            </div>
+            <div class="col-12 md:col-12 mt-1">
                 <label class=" mr-1">CIE 10: </label>
                 <p-autoComplete formControlName="diagnosticoCIE" [suggestions]="listaDeCIE"
                     (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
@@ -94,8 +110,9 @@
         </form>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
-        <button pButton type="button" label="Guardar" (click)="aceptarNuevoDiagnostico()"></button>
+        <button *ngIf="!updateDiagnostico" pButton type="button" label="Guardar" (click)="aceptarNuevoDiagnostico()"></button>
+        <button *ngIf="updateDiagnostico" pButton type="button" label="Editar" (click)="aceptarDialogEditDiagnostico()"></button>
         <button pButton type=" button" label="Cerrar" class="p-button-danger"
-            (click)="closeDialogDiagnostico()"></button>
+            (click)="aceptarDialogEditDiagnostico()"></button>
     </ng-template>
 </p-dialog>

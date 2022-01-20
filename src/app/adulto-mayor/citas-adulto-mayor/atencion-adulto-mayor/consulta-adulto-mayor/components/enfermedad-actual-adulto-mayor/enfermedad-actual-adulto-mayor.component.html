@@ -1,0 +1,283 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2">CONSULTA - Datos Generales</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+        <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                class="guardar-boton" ></button>
+    </ng-template>
+</p-toolbar>
+
+<br>
+<p-fieldset legend="Enfermedad Actual" [toggleable]="true">
+    <form [formGroup]="formEnfermedadActualAdultoMayor">
+        <!---1ra fila-->
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <div class="">
+                    <label class="">Fecha: </label>
+                    <input type="date" pInputText class="inputfield w-full" formControlName="fecha">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <div class="">
+                    <label class="">Edad </label>
+                    <input type="number" pInputText class="inputfield w-full" placeholder="edad" formControlName="edad">
+                </div>
+            </div>
+        </div>
+        <!---2da fila-->
+        <div class="grid">
+            <div class="col-12 p-field">
+                <div class="">
+                    <label class="">Motivo de Consulta: </label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Motivo"  formControlName="motivoConsulta">
+                </div>
+            </div>
+        </div>
+        <!---3ra fila-->
+        <div class="grid">
+            <div class="col-4 md:col-4 lg:col-2 p-field">
+                <div class="">
+                    <label class="">Apetito: </label>
+                    <p-selectButton [options]="sino"  optionValue="value" formControlName="apetito"
+                                    optionLabel="label"></p-selectButton>
+                </div>
+            </div>
+            <div class="col-4 md:col-4 lg:col-2 p-field">
+                <div class="">
+                    <label class="">Sed: </label>
+                    <p-selectButton [options]="sino"  optionValue="value" formControlName="sed"
+                                    optionLabel="label"></p-selectButton>
+                </div>
+            </div>
+            <div class="col-4 md:col-4 lg:col-2 p-field">
+                <div class="">
+                    <label class="">Sueño: </label>
+                    <p-selectButton [options]="sino"  optionValue="value" formControlName="suenio"
+                                    optionLabel="label"></p-selectButton>
+                </div>
+            </div>
+            <div class="col-12 md:col-12 lg:col-6 p-field">
+                <div class="">
+                    <label class="">Estado de Ánimo: </label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Estado de Ánimo" formControlName="estadoAnimo">
+                </div>
+            </div>
+        </div>
+        <!---4ta fila-->
+        <div class="grid">
+            <div class="col-12 md:col-3 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Orina: </label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Orina" formControlName="orina">
+                </div>
+            </div>
+            <div class="col-12 md:col-3 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Deposiciones:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Deposisciones" formControlName="deposiciones">
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <div class="">
+                    <label class="">Pérdida de Peso: </label>
+                    <input type="text" pInputText class="inputfield w-full"  placeholder="Peso perdido" formControlName="pesoPerdido">
+                </div>
+
+            </div>
+        </div>
+        <!---5ta fila-->
+        <div class="grid">
+            <div class="col-3 md:col-1 lg:col-1 p-field">
+                <div class="">
+                    <label class="">T°: </label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="°C" formControlName="temperatura">
+                </div>
+            </div>
+            <div class="col-3 md:col-1 lg:col-1 p-field">
+                <div class="">
+                    <label class="">P.A:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="P.A." formControlName="presionArterial">
+                </div>
+            </div>
+            <div class="col-3 md:col-2 lg:col-1 p-field">
+                <div class="">
+                    <label class="">F.C:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="F.R." formControlName="frecuenciaC">
+                </div>
+            </div>
+            <div class="col-3 md:col-2 lg:col-1 p-field">
+                <div class="">
+                    <label class="">F.R:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="F.R" formControlName="frecuenciaR">
+                </div>
+            </div>
+            <div class="col-4 md:col-2 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Peso:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="peso" formControlName="peso">
+                </div>
+            </div>
+            <div class="col-4 md:col-2 lg:col-3 p-field">
+                <div class="">
+                    <label class="">Talla:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="talla" formControlName="talla">
+                </div>
+            </div>
+            <div class="col-4 md:col-2 lg:col-2 p-field">
+                <div class="">
+                    <label class="">IMC:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="IMC" formControlName="imc">
+                </div>
+            </div>
+        </div>
+        <!---6ta fila-->
+        <div class="grid">
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">Piel: </label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="Piel" formControlName="piel">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <div class="">
+                    <label class="">TCSC:Edemas:</label>
+                    <input type="text" pInputText class="inputfield w-full" placeholder="TCSC: Edemas" formControlName="edemas">
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4 p-field">
+                <label class="">Estado de los pies:</label>
+                <input type="text" pInputText class="inputfield w-full" placeholder="pulsos pedios" formControlName="estadoPies">
+            </div>
+        </div>
+        <!---7ta fila-->
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <label class="">Cabeza y Cuello: </label>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <label class="">Cavidad Oral: </label>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Cabeza y Cuello" formControlName="cabezaCuello"></textarea>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Cavidad Oral" formControlName="cavidadOral"></textarea>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <label class="">Tórax y pulmones: </label>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <label class="">Aparato Cardiovascular: </label>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Tórax y pulmones" formControlName="toraxPulmones"></textarea>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Cardiovascular" formControlName="cardiovascular"></textarea>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <label class="">Abdomen: </label>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <label class="">Aparato Génitourinario: </label>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Abdomen" formControlName="abdomen"></textarea>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Genitourinario" formControlName="genitoUrinario"></textarea>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <label class="">Tacto Rectal: </label>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <label class="">Sistema Nervioso:</label>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Tacto Rectal" formControlName="tactoRectal"></textarea>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="S. Nervioso" formControlName="nervioso"></textarea>
+            </div>
+            <div class="col-12 md:col-12 lg:col-12 p-field">
+                <div class="">
+                    <label class="">Aparato Locomotor:</label>
+                </div>
+            </div>
+            <div class="col-12 md:col-12 lg:col-12 p-field">
+                <div class="">
+                    <textarea  pInputTextarea autoResize="autoResize"  class="inputfield w-full" placeholder="Aparato Locomotor" formControlName="locomotor"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+</p-fieldset>
+<br>
+<p-fieldset legend="Estado Nutricional" [toggleable]="true">
+    <form [formGroup]="formEnfermedadActualAdultoMayor">
+    <!--primera fila-->
+    <div class="grid">
+        <div class="col-3 p-field-radiobutton p-field">
+            <label class="">ESTADO NUTRICIONAL</label>
+        </div>
+        <div class="col-8 p-field">
+            <label class="">INDICE DE MASA CORPORAL-IMC</label>
+
+        </div>
+    </div>
+    <!--primera fila-->
+    <div class="grid">
+        <div class="col-1 p-field-radiobutton p-field">
+            <p-radioButton name="estadoNutricional" formControlName="estadoNutricional"  value="ADELGAZADO"></p-radioButton>
+        </div>
+        <div class="col-2 p-field">
+            <label class="">ADELGAZADO</label>
+        </div>
+        <div class="col-8 p-field">
+            <label class="font-normal"><= DE 23</label>
+        </div>
+    </div>
+    <!--2 fila-->
+
+    <div class="grid">
+        <div class="col-1 p-field-radiobutton p-field">
+            <p-radioButton name="estadoNutricional"  formControlName="estadoNutricional"  value="NORMAL"></p-radioButton>
+        </div>
+        <div class="col-2 p-field">
+            <label class="">NORMAL </label>
+        </div>
+        <div class="col-8 p-field">
+            <label class="font-normal">23.1 a 27.9</label>
+        </div>
+    </div>
+    <!--3 fila-->
+
+    <div class="grid">
+        <div class="col-1 p-field-radiobutton p-field">
+            <p-radioButton name="estadoNutricional"  formControlName="estadoNutricional" value="SOBREPESO"></p-radioButton>
+        </div>
+        <div class="col-2 p-field">
+            <label class="">SOBREPESO </label>
+        </div>
+        <div class="col-8 p-field">
+            <label class="font-normal">28 a 31.9</label>
+        </div>
+    </div>
+    <!--4 fila-->
+
+    <div class="grid">
+        <div class="col-1 p-field-radiobutton p-field">
+            <p-radioButton name="estadoNutricional"  formControlName="estadoNutricional" value="OBESO"></p-radioButton>
+        </div>
+        <div class="col-2 p-field">
+            <label class="">OBESO</label>
+        </div>
+        <div class="col-8 p-field">
+            <label class="font-normal">32 o más</label>
+        </div>
+    </div>
+    </form>
+</p-fieldset>
+<br>

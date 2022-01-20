@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
+import { ConsultaAdolescenteService } from '../../services/consulta-adolescente.service';
 
 @Component({
   selector: 'app-diagnostico-consulta-adolescente',
@@ -10,22 +12,32 @@ import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 })
 export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
 
-  listaDiagnosticos: any[] = [];
+  listaDiagnosticos: DiagCIE[] = [];
   form: FormGroup;
   formDiagnostico: FormGroup;
   dialogDiagnostic: boolean = false;
-  listaDeCIE: any;
+  listaDeCIE: cie10[] = [];
+  dataDiagnostico: Diagnostico;
+  updateDiagnostico: boolean = false;
+  indexDiagnostico: number;
+  listaTiposCie: KeyValue[] = [
+    { name: "DEFINITIVO", value: "D" },
+    { name: "PRESUNTIVO", value: "P" },
+    { name: "REPETITIVO", value: "R" }
+  ];
 
   constructor(
     private fb: FormBuilder,
     private CieService: CieService,
+    private consultaAdolescenteService: ConsultaAdolescenteService,
+    private messageService: MessageService,
   ) {
     this.inicializarForm();
   }
 
   ngOnInit(): void {
-    this.form.patchValue({ diagnosticoText: 'gg' });
-    this.formDiagnostico.get("diagnosticoText").setValue("otro valor nuevo");
+    // this.formDiagnostico.get("diagnosticoText").setValue("otro valor nuevo");
+
   }
 
   inicializarForm() {
@@ -36,6 +48,7 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
 
     });
     this.formDiagnostico = this.fb.group({
+      tipoCie: new FormControl(""),
       autocompleDiag: new FormControl(""),
       diagnosticoText: new FormControl(""),
       diagnosticoCIE: new FormControl(""),
@@ -45,6 +58,7 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   openDialogDiagnostico() {
     this.formDiagnostico.reset();
     this.dialogDiagnostic = true;
+    this.updateDiagnostico = false;
   }
 
   filterCIE10(value) {
@@ -61,12 +75,13 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   }
 
   aceptarNuevoDiagnostico() {
-    let diagnostico: diagnostico = {
+    let diagnostico: DiagCIE = {
       diagnostico: this.formDiagnostico.value.diagnosticoText,
-      cie10: this.formDiagnostico.value.diagnosticoCIE
+      cie10: this.formDiagnostico.value.diagnosticoCIE.codigoItem,
+      tipo: this.formDiagnostico.value.tipoCie
     }
-    console.log('diagnostico ', diagnostico);
     this.listaDiagnosticos.push(diagnostico);
+    this.listaDiagnosticos = [...this.listaDiagnosticos];
     this.dialogDiagnostic = false;
   }
 
@@ -75,6 +90,46 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   }
   selectedOption(event) {
     this.formDiagnostico.patchValue({ diagnosticoText: event.descripcionItem });
+  }
+
+  recuperarDiagnosticos() {
+    this.dataDiagnostico = {
+      diagnosticos: this.listaDiagnosticos,
+      diagHabilidadesSociales: this.form.value.habilidadesSociales,
+      diagNutricional: this.form.value.nutricional,
+      recomendaciones: [this.form.value.recomendaciones]
+    }
+  }
+  guardarDiagnostico() {
+    this.recuperarDiagnosticos();
+    this.consultaAdolescenteService.putActualizarDiagnostico("61ce1cf02aed74731bb3fb3a", this.dataDiagnostico).subscribe((res: any) => {
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
+    });
+    console.log('data diagnostico to save ', this.dataDiagnostico);
+  }
+  openDialogEditDiagnostico(data, index) {
+    console.log('index ', index)
+    this.dialogDiagnostic = true;
+    this.updateDiagnostico = true;
+    this.indexDiagnostico = index;
+    this.CieService.getCIEByCod(data.cie10).subscribe((res: any) => {
+      this.formDiagnostico.patchValue({ tipoCie: data.tipo });
+      this.formDiagnostico.patchValue({ diagnosticoCIE: res.object });
+      this.formDiagnostico.patchValue({ diagnosticoText: data.diagnostico });
+    });
+  }
+  aceptarDialogEditDiagnostico() {
+    let diagnosticoAux: DiagCIE = {
+      diagnostico: this.formDiagnostico.value.diagnosticoText,
+      cie10: this.formDiagnostico.value.diagnosticoCIE.codigoItem,
+      tipo: this.formDiagnostico.value.tipoCie
+    }
+    this.listaDiagnosticos.splice(this.indexDiagnostico, 1, diagnosticoAux);
+    this.dialogDiagnostic = false;
+  }
+  eliminarDiagnostico(index) {
+    this.listaDiagnosticos.splice(index, 1);
+    this.listaDiagnosticos = [...this.listaDiagnosticos];
   }
 }
 
@@ -85,8 +140,18 @@ export interface cie10 {
   descripcionTipoItem: string,
   tipoItem: string,
 }
-
-export interface diagnostico {
+export interface DiagCIE {
   diagnostico: string,
-  cie10: cie10
+  cie10: cie10,
+  tipo: string
+}
+export interface Diagnostico {
+  diagnosticos: DiagCIE[],
+  diagHabilidadesSociales: string,
+  diagNutricional: string,
+  recomendaciones: string[]
+}
+export interface KeyValue {
+  name: string,
+  value: string
 }

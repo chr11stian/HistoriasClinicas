@@ -1,3 +1,6 @@
+<div #drop></div>
+<div #date></div>
+
 <p-toolbar>
     <ng-template pTemplate="left">
         <h3 class="mt-2">RESULTADOS DE LABORATORIO Y ECOGRAFIA</h3>
@@ -73,7 +76,7 @@
                                 <!--                                    texto-->
                                 <div class="col-8 p-fluid" *ngIf="tipoInput1==3">
                                     <input formControlName="resultado"
-                                           placeholder="no se que va"
+                                           placeholder="..."
                                            type="text" pInputText/>
                                 </div>
 
@@ -113,7 +116,7 @@
                             <div class="flex justify-content-between">
                                 <button pButton pRipple label="Nuevo examen" icon="pi pi-plus"
                                         class="p-button-danger p-mr-2"
-                                        (click)="isUpdate=false;desabilitado=false; examenFG.reset() "></button>
+                                        (click)="isUpdate=false;desabilitado=false; examenFG.reset()"></button>
                                 <div>
                                 </div>
                             </div>
@@ -235,3 +238,82 @@
         </form>
     </div>
 </div>
+<!--dormulario de laboratorio-->
+<!--<p-dialog header="Ingrese nuevo examen" [(visible)]="visible" [modal]="true"-->
+<!--          [draggable]="false" [resizable]="false" [style]="{width: '30%'}" >-->
+<!--    <div class="grid">-->
+<!--        <div class="col-4 text-right">Seleccione Examen:</div>-->
+<!--        <div class="col-8 p-fluid">-->
+<!--            <p-dropdown-->
+<!--                    [appendTo]="drop"-->
+<!--                    placeholder="Seleccione Examen"-->
+<!--                    [options]="examenes"-->
+<!--                    optionLabel="display"-->
+<!--                    (onChange)="seleccionar($event)"-->
+<!--                    [(ngModel)]="examenSelect"-->
+<!--                    [disabled]="desabilitado"-->
+<!--            ></p-dropdown>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    &lt;!&ndash;               formulario dinamico&ndash;&gt;-->
+<!--    <form [formGroup]="examenFG">-->
+<!--        <div *ngIf="tipoInput1!=0">-->
+<!--            <div class="grid">-->
+<!--                <div class="col-4 text-right">Resultado:</div>-->
+<!--                &lt;!&ndash;                                dropdown&ndash;&gt;-->
+<!--                <div class="col-8 p-fluid" *ngIf="tipoInput1==1">-->
+<!--                    <p-dropdown-->
+<!--                            placeholder="seleccione"-->
+<!--                            formControlName="resultado"-->
+<!--                            [options]="opcionesInput"-->
+<!--                            optionLabel="name"-->
+<!--                            optionValue="code"-->
+<!--                    >-->
+<!--                    </p-dropdown>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;                                number&ndash;&gt;-->
+<!--                <div class="col-8 p-fluid" *ngIf="tipoInput1==2">-->
+<!--                    <p-inputNumber-->
+<!--                            formControlName="resultado"-->
+<!--                            mode="decimal"-->
+<!--                            placeholder="15.5"-->
+<!--                    ></p-inputNumber>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;                                    texto&ndash;&gt;-->
+<!--                <div class="col-8 p-fluid" *ngIf="tipoInput1==3">-->
+<!--                    <input formControlName="resultado"-->
+<!--                           placeholder="..."-->
+<!--                           type="text" pInputText/>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--            <div class="grid">-->
+<!--                <div class="col-4 text-right">Fecha:</div>-->
+<!--                <div class="col-8 p-fluid">-->
+<!--                    <p-calendar-->
+<!--                            [appendTo]="date"-->
+<!--                            formControlName="fechaExamen"-->
+<!--                            [showIcon]="true"-->
+<!--                            inputId="icon"-->
+<!--                            dateFormat="dd/mm/yy"-->
+<!--                    ></p-calendar>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class=" mt-4 flex justify-content-right ">-->
+<!--                <button-->
+<!--                        pButton-->
+<!--                        pRipple-->
+<!--                        label="Guardar"-->
+<!--                        icon="pi pi-plus"-->
+<!--                        class="p-button-secondary mr-2"-->
+<!--                        (click)="guardarExamen()"-->
+<!--                        [disabled]="examenFG.invalid"-->
+<!--                ></button>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--        &lt;!&ndash;                        fin formulario&ndash;&gt;-->
+<!--    </form>-->
+
+
+<!--</p-dialog>-->

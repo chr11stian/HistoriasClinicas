@@ -69,7 +69,7 @@ export class TratamientoConsultaComponent implements OnInit {
             }
             //-- recupera informacion de diagnostico
             this.tratamiento = r.object;
-            console.log('tratamiento', this.tratamiento)
+            console.log('tratamiento', r)
             this.tratamientos = (this.tratamiento.tratamientos === null) ? [] : this.tratamiento.tratamientos
             this.acuerdos = (this.tratamiento.acuerdos === null) ? [] : this.tratamiento.acuerdos
             this.evalOjosVision = this.tratamiento.evalOjosVision === null ? aux : this.tratamiento.evalOjosVision
@@ -84,7 +84,7 @@ export class TratamientoConsultaComponent implements OnInit {
         this.form.get('textoForm').setValue(this.tamizajeSaludMental);
     }
 
-    guardar() {
+    save() {
         let aux: evalOjosVisionInterface = {
             ojoDerecho: parseFloat(this.form.value.OD),
             ojoIzquierdo: parseFloat(this.form.value.OI)

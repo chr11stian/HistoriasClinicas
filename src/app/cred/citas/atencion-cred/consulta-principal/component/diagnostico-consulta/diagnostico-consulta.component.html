@@ -1,15 +1,3 @@
-<p-toolbar>
-    <ng-template pTemplate="left">
-        <h3 class="mt-2">DIAGNÓSTICO</h3>
-    </ng-template>
-    <ng-template pTemplate="right" class="button">
-        <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
-                (click)="recuperarDiagnostico()"></button>
-        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right" class="guardar mr-2"
-                style="background-color: #0c3866" (click)="guardarDiagnostico()"></button>
-    </ng-template>
-</p-toolbar>
-<br>
 <div class="grid">
     <div class="lg:col-6 md:col-6 col-fixed">
         <p-table [value]="diagnosticoNosologico" [rowHover]="true"
@@ -188,22 +176,26 @@
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2"
                                   style="width:180px">Normal:</span>
-                            <p-checkbox class="mt-1" name="condicionNormal" value="val1" formControlName="condicionNormal"></p-checkbox>
+                            <p-checkbox class="mt-1" name="condicionNormal" value="val1"
+                                        formControlName="condicionNormal"></p-checkbox>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2"
                                   style="width:180px">Riesgo de desarrollo:</span>
-                            <p-checkbox class="mt-1" name="condicionRiesgo" value="val1" formControlName="condicionRiesgo"></p-checkbox>
+                            <p-checkbox class="mt-1" name="condicionRiesgo" value="val1"
+                                        formControlName="condicionRiesgo"></p-checkbox>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2"
                                   style="width:180px">Deficit del desarrollo según PB:</span>
-                            <p-checkbox class="mt-1" name="condicionDeficit" value="val1" formControlName="condicionDeficit"></p-checkbox>
+                            <p-checkbox class="mt-1" name="condicionDeficit" value="val1"
+                                        formControlName="condicionDeficit"></p-checkbox>
                         </div>
                         <div class="field grid">
                             <span class="col-fixed text-right mr-2"
                                   style="width:180px">Transtorno del desarrollo:</span>
-                            <p-checkbox class="mt-1" name="condicionTranstorno" value="val1" formControlName="condicionTranstorno"></p-checkbox>
+                            <p-checkbox class="mt-1" name="condicionTranstorno" value="val1"
+                                        formControlName="condicionTranstorno"></p-checkbox>
                         </div>
                     </p-card>
                 </div>
@@ -216,7 +208,7 @@
                         </ng-template>
                     </p-toolbar>
                     <div class="field col-12">
-                        <textarea formControlName="observacion"  rows="4" pInputTextarea
+                        <textarea formControlName="observacion" rows="4" pInputTextarea
                                   style="width: inherit;"
                                   placeholder="Ingrese sus observaciones..."></textarea>
 
@@ -296,8 +288,8 @@
     <form [formGroup]='formFactor'>
         <div class="grid">
             <div class="col-12 justify-content-center">
-                    <textarea style="border-radius: 10px" id="indAdicional" rows="5" cols="90" pInputTextarea
-                              formControlName="factorTexto"> </textarea>
+                <textarea style="border-radius: 10px" id="indAdicional" rows="5" cols="90" pInputTextarea
+                          formControlName="factorTexto"> </textarea>
 
             </div>
         </div>

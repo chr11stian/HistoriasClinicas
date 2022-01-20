@@ -1,21 +1,38 @@
 <div class="p-card">
-
-
     <p-card>
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
-                <span style="font-size: 20px;">LISTA DE PACIENTES CON RESERVAS</span>
+                <span style="font-size: 20px;">LISTA DE PACIENTES CON RESERVAS DE CUPOS Y CITAS</span>
             </div>
         </div>
         <br>
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-9 p-field">
                 <form [formGroup]="formCuposOferta">
-                    <div class="col-12 md:col-6 lg:col-6 p-field">
-                        <label class="">BUSCAR POR FECHA</label>
-                        <div class="p-inputgroup">
-                            <p-calendar dateFormat="yy-mm-dd" formControlName="fechaBusqueda"
-                                        (click)="selectCupos()"></p-calendar>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <label class="">BUSCAR POR FECHA</label>
+                            <div class="p-inputgroup">
+                                <p-calendar dateFormat="yy-mm-dd" placeholder="Button"
+                                            formControlName="fechaBusqueda"
+                                            [readonlyInput]="true"
+                                            (onSelect)="getListaCuposConfirmados()">
+                                </p-calendar>
+                            </div>
+                        </div>
+
+                        <div class="col-12 md:col-6 lg:col-8 p-field">
+                            <label class="">SERVICIO</label>
+                            <div class="">
+                                <p-dropdown [options]="ups"
+                                            formControlName="SelectUPS"
+                                            placeholder="Seleccione un servicio"
+                                            optionLabel="nombreUPS"
+                                            optionValue="nombreUPS"
+                                            [showClear]="false"
+                                            (onChange)="getListaCuposConfirmados()">
+                                </p-dropdown>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -32,7 +49,7 @@
 
 
     <p-accordion>
-        <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
+        <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA LA FECHA" [selected]="true">
             <p-table [value]="dataCupos_por_fechas_servicio" #dt styleClass="p-datatable-gridlines" [rows]="10"
                      [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
@@ -44,8 +61,8 @@
                         <th style="text-align: center">DNI</th>
                         <th style="text-align: center">APELLIDOS</th>
                         <th style="text-align: center">NOMBRES</th>
-                        <th style="text-align: center">HORA ATENSION</th>
-                        <th style="text-align: center">FECHA ATENSION</th>
+                        <th style="text-align: center">HORA ATENCION</th>
+                        <th style="text-align: center">FECHA ATENCION</th>
                         <th style="text-align: center">SERVICIO</th>
                         <th style="text-align: center">ACCIONES</th>
 
@@ -68,43 +85,43 @@
             </p-table>
         </p-accordionTab>
         <p-accordionTab header="LISTA DE PACIENTES CON CITAS" [selected]="true">
-            <!--            <p-table [value]="dataCupos_por_fechas_servicio" #dt styleClass="p-datatable-gridlines" [rows]="10"-->
-            <!--                     [rowsPerPageOptions]="[10, 25, 50]"-->
-            <!--                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"-->
-            <!--                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">-->
+            <p-table [value]="dataCitas" #dt styleClass="p-datatable-gridlines" [rows]="4"
+                     [rowsPerPageOptions]="[5, 10, 15]"
+                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
-            <!--                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">-->
-            <!--                    <tr>-->
-            <!--                        <th style="text-align: center">Nro</th>-->
-            <!--                        <th style="text-align: center">DNI</th>-->
-            <!--                        <th style="text-align: center">APELLIDOS</th>-->
-            <!--                        <th style="text-align: center">NOMBRES</th>-->
-            <!--                        <th style="text-align: center">FECHA</th>-->
-            <!--                        <th style="text-align: center">TELEFONO</th>-->
-            <!--                        <th style="text-align: center">ACCIONES</th>-->
-            <!--                    </tr>-->
-            <!--                </ng-template>-->
-            <!--                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
-            <!--                    <tr>-->
-            <!--                        <td style="text-align: center">{{ rowIndex + 1 }}</td>-->
-            <!--                        <td style="text-align: center">{{ rowData.nroDoc }}</td>-->
-            <!--                        <td style="text-align: center">{{ rowData.datosPaciente.apeMaterno }}{{' '}}{{ rowData.datosPaciente.apePaterno }}</td>-->
-            <!--                        <td style="text-align: center">{{ rowData.datosPaciente.primerNombre }}</td>-->
-            <!--                        <td style="text-align: center">{{ rowData.proxCita.fecha }}</td>-->
-            <!--                        <td style="text-align: center">{{ rowData.datosPaciente.celular }}</td>-->
-            <!--                        <td style="text-align: center">-->
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center">Nro</th>
+                        <th style="text-align: center">DNI</th>
+                        <th style="text-align: center">APELLIDOS</th>
+                        <th style="text-align: center">NOMBRES</th>
+                        <th style="text-align: center">FECHA</th>
+                        <th style="text-align: center">TELEFONO</th>
+                        <th style="text-align: center">ACCIONES</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.nroDoc }}</td>
+                        <td style="text-align: center">{{ rowData.datosPaciente.apeMaterno }}{{' '}}{{ rowData.datosPaciente.apePaterno }}</td>
+                        <td style="text-align: center">{{ rowData.datosPaciente.primerNombre }}</td>
+                        <td style="text-align: center">{{ rowData.proxCita.fecha }}</td>
+                        <td style="text-align: center">{{ rowData.datosPaciente.celular }}</td>
+                        <td style="text-align: center">
 
-            <!--                            <button pButton pRipple routerLink="gestante" (click)="enviarData(rowData)"-->
-            <!--                                    class="boton-azul" label="Gestante"-->
-            <!--                                    icon="pi pi-check"></button>-->
-            <!--                            <button pButton pRipple routerLink="noControl" class="boton-mostaza" label="No Control"-->
-            <!--                                    icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>-->
-            <!--                            <button pButton pRipple class="boton-red" label="Cancelar" icon="pi pi-times"></button>-->
+                            <button pButton pRipple routerLink="gestante" (click)="enviarData(rowData)"
+                                    class="boton-azul" label="Gestante"
+                                    icon="pi pi-check"></button>
+                            <button pButton pRipple routerLink="noControl" class="boton-mostaza" label="No Control"
+                                    icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>
+                            <button pButton pRipple class="boton-red" label="Cancelar" icon="pi pi-times"></button>
 
-            <!--                        </td>-->
-            <!--                    </tr>-->
-            <!--                </ng-template>-->
-            <!--            </p-table>-->
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </p-accordionTab>
     </p-accordion>
 </div>
@@ -346,34 +363,37 @@
                         <br>
                         <div class="datosExtra">
                             <div class="grid m-2">
-                                <div class="p-field col-2">
+                                <div class="p-field col-2 md:col-4 lg:col-4">
                                     <label class="ml-2 font-bold">TIPO SEGURO</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="tipoSeguro"/>
                                 </div>
-
-                                <div class="p-field col-2">
+                                <div class="p-field col-2 md:col-4 lg:col-4">
                                     <label class="ml-2 font-bold">TRANSEUNTE</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="transeunte"/>
                                 </div>
-                                <div class="p-field col-2">
-                                    <label class="ml-2 font-bold">EDAD</label>
+                                <div class="p-field col-2 md:col-4 lg:col-4">
+                                    <label class="ml-2 font-bold">EDAD(años)</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="edad"/>
+                                           formControlName="edadAños"/>
                                 </div>
-
-                                <div class="p-field col-2">
-                                    <label class="ml-2 font-bold">DIAS</label>
+                                <div class="p-field col-2 md:col-4 lg:col-4">
+                                    <label class="ml-2 font-bold">EDAD(meses)</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="dias"/>
+                                           formControlName="edadMeses"/>
                                 </div>
-
-                                <div class="p-field col-4">
+                                <div class="p-field col-1 md:col-4 lg:col-4">
+                                    <label class="ml-2 font-bold">EDAD(dias)</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="edadDias"/>
+                                </div>
+                                <div class="p-field col-3 md:col-4 lg:col-4">
                                     <label class="ml-2 font-bold">ETAPA DE VIDA</label>
                                     <input type="text"
                                            pInputText
@@ -420,7 +440,7 @@
 
 
     <ng-template pTemplate=footer>
-        <button pButton type="button" label="Cancelar" class="p-button-danger"></button>
+        <button pButton type="button" label="Cancelar" (click)="closeDialogCupos2()" class="p-button-danger"></button>
         <button pButton type="button" label="Guardar" (click)="saveForm()"></button>
     </ng-template>
 </p-dialog>

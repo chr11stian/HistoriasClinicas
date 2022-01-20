@@ -81,6 +81,7 @@ export class ResultadosComponent implements OnInit {
     pruebaSeleccionada=''
     opcionesInput=[]
     tipoInput1=0;
+    visible=false;
     seleccionar(itemSelected){
         this.tipoInput1=0;
         this.examenFG.setValue({resultado: '', fechaExamen: ''});
@@ -122,6 +123,7 @@ export class ResultadosComponent implements OnInit {
         this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
         this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
         this.idConsultoriObstetrico = this.obstetriciaGeneralService.idConsultoriObstetrico;
+        // console.log(`NroDoc:${this.nroDocRecuperado},nroEmbarazo:${this.nroEmbarazo}`)
         this.getResultados();
     }
 
@@ -134,6 +136,11 @@ export class ResultadosComponent implements OnInit {
         if (date.toString() !== '') {
             let hora = date.toLocaleTimeString();
             let dd = date.getDate();
+            let dd1;
+            if(dd<10){
+                dd1='0'+dd;
+                dd=dd1
+            }
             let mm = date.getMonth() + 1; //January is 0!
             let yyyy = date.getFullYear();
             return yyyy + '-' + mm + '-' + dd;
@@ -145,7 +152,12 @@ export class ResultadosComponent implements OnInit {
         if (date.toString() !== '') {
             let hora = date.toLocaleTimeString();
             let dd = date.getDate();
-            let mm = date.getMonth() + 1; //January is 0!
+            let dd1;
+            if(dd<10){
+                dd1='0'+dd;
+                dd=dd1
+            }
+            let mm = date.getMonth() + 1;
             let yyyy = date.getFullYear();
             return yyyy + '-' + mm + '-' + dd + ' ' + hora
         } else {
@@ -167,7 +179,7 @@ export class ResultadosComponent implements OnInit {
     getResultados() {
         const input = {
             "nroHcl": this.nroDocRecuperado,
-            "nroEmbarazo": 1,
+            "nroEmbarazo": this.nroEmbarazo,
             "nroAtencion": 1
         }
         this.resultadosService.getResultado(input).subscribe((resp) => {
@@ -179,7 +191,7 @@ export class ResultadosComponent implements OnInit {
                     if(resultado.ecografia.fecha!=null){
                     this.getFC('fechaEcografia1').setValue(new Date(resultado.ecografia.fecha));
                     }
-                    this.getFC('resultado1').setValue(resultado.ecografia.descripcion);
+                    this.getFC('resultado1').setValue(resultado.ecografia.observaciones);
                     this.getFC('semana1').setValue(resultado.ecografia.semanas);
                     this.getFC('dia1').setValue(resultado.ecografia.dias);
                     this.messageService.add({
@@ -235,10 +247,10 @@ export class ResultadosComponent implements OnInit {
             laboratorios:JSON.parse(this.generarCadena()),
             ecografia: {
                 fecha: this.getFechaHora(this.getFC("fechaEcografia1").value),
-                descripcion: this.getFC('resultado1').value,
+                // descripcion: this.getFC('resultado1').value,
+                observaciones: this.getFC('resultado1').value,
                 semanas: this.getFC('semana1').value,
                 dias: this.getFC('dia1').value
-                // dias: '7'
             },
         }
         this.resultadosService.addresultado(input).subscribe((resp) => {
@@ -279,4 +291,7 @@ export class ResultadosComponent implements OnInit {
             this.examenFG.get('resultado').setValue(rowData['valor'])
         }
     }
+    // openDialog(){
+    //     this.visible=true;
+    // }
 }

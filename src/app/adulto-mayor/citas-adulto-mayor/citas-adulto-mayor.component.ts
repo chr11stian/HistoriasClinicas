@@ -24,10 +24,7 @@ export class CitasAdultoMayorComponent implements OnInit {
   options: data[]
   selectedOption: data
   citas: userCita[]
-
-
   ref: DynamicDialogRef
-
   constructor(public dialogService: DialogService,
               private router: Router) {
   }
@@ -43,9 +40,9 @@ export class CitasAdultoMayorComponent implements OnInit {
       {
         dni: 'DNI', /** no debe haber */
         tipoDoc: 'DNI',
-        nroDoc: '89685519',
-        apellidos: 'RAMOS PERAEZ',
-        nombres: 'RAMON',
+        nroDoc: '10101044',
+        apellidos: 'ABARCA MELGAREJO',
+        nombres: 'KATHERIN',
         consultorio: 'OBS01',
         horario: '8:00AM',
         fecha: '16/11/2021'
@@ -53,11 +50,31 @@ export class CitasAdultoMayorComponent implements OnInit {
       {
         dni: 'DNI', /** no debe haber */
         tipoDoc: 'DNI',
-        nroDoc: '89685520',
-        apellidos: 'OLAZABAL CALLER',
-        nombres: 'LETICIA GIULIANA',
-        consultorio: 'OBS01',
-        horario: '8:00AM',
+        nroDoc: '10101013',
+        apellidos: 'ABARCA MELGAREJO',
+        nombres: 'KATHERIN',
+        consultorio: 'MEDGENERAL1',
+        horario: '8:30AM',
+        fecha: '16/11/2021'
+      },
+      {
+        dni: 'DNI', /** no debe haber */
+        tipoDoc: 'DNI',
+        nroDoc: '47825757',
+        apellidos: 'NITO DELGADO',
+        nombres: 'JUANA',
+        consultorio: 'MEDGENERAL2',
+        horario: '9:00AM',
+        fecha: '16/11/2021'
+      },
+      {
+        dni: 'DNI', /** no debe haber */
+        tipoDoc: 'DNI',
+        nroDoc: '12154521',
+        apellidos: 'MOROCCO LAYME',
+        nombres: 'JONATHAN',
+        consultorio: 'MEDGENERAL2',
+        horario: '9:00AM',
         fecha: '16/11/2021'
       },
     ]
@@ -70,10 +87,18 @@ export class CitasAdultoMayorComponent implements OnInit {
       width: '75%',
     })
   }
-
-  atender(row: userCita): void {
+  atenderPlan(row: userCita): void {
     /** redirigir a atencion de usuario */
-    this.router.navigate(['/dashboard/adulto-mayor/citas/plan'], {
+    this.router.navigate(['/dashboard/adulto-mayor/citas/atencion'], {
+      queryParams: {
+        'tipoDoc': 'DNI',
+        'nroDoc': row.nroDoc,
+      }
+    })
+  }
+  atenderConsulta(row: userCita): void {
+    /** redirigir a consulta de usuario */
+    this.router.navigate(['/dashboard/adulto-mayor/citas/consulta'], {
       queryParams: {
         'tipoDoc': 'DNI',
         'nroDoc': row.nroDoc,

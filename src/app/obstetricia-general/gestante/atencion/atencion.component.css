@@ -1,31 +1,105 @@
-.p-button{
-    width: 80%;
-    height: 150%;
-    text-align: center;
-    background: #5B5B5B;
-    border-radius: 10px;
-    display: flex;
-
+@media only screen and (max-width: 600px) {
+    .p-button {
+        font-size: 9px;
+        width: 80%;
+        height: 100%;
+        top: 0px;
+        left: 40px;
+        text-align: center;
+        background: #5B5B5B;
+        border-radius: 10px;
+        /*margin-bottom: 29px;*/
+        display: flex;
+    }
 }
-.container{
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 601px) {
+    .p-button {
+        font-size: 9px;
+        width: 80%;
+        height: 100%;
+        top: 0px;
+        left: 60px;
+        text-align: center;
+        background: #5B5B5B;
+        border-radius: 10px;
+        /*margin-bottom: 29px;*/
+        display: flex;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .p-button {
+        font-size: 11px;
+        width: 70%;
+        height: 90%;
+        top: 0px;
+        left: 80px;
+        text-align: center;
+        background: #5B5B5B;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        display: flex;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .p-button {
+        font-size: 11px;
+        width: 70%;
+        height: 90%;
+        top: 0px;
+        left: 60px;
+        text-align: center;
+        background: #5B5B5B;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        display: flex;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .p-button {
+        font-size: 12px;
+        width: 70%;
+        height: 90%;
+        top: 0px;
+        left: 60px;
+        text-align: center;
+        background: #5B5B5B;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        display: flex;
+    }
+}
+
+
+.container {
     width: 100%;
     max-height: 80%
 }
-.imagen{
+
+.imagen {
     content: url("src\assets\images\gestanteParto.svg");
-    margin:auto;
-    width: 150px;
-    max-width: 70%;
-    max-heigth: 50%;
+    margin: auto;
+    width: 160px;
+    max-width: 80%;
+    max-heigth: 70%;
 }
 
 @media only screen and (max-width: 600px) {
-    .font1{
+    .font1 {
         font-size: 22px;
-        color:#AF0017;
+        color: #AF0017;
         text-align: center;
     }
-    .font2{
+
+    .font2 {
         font-size: 18px;
         text-align: center;
     }
@@ -34,12 +108,13 @@
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 601px) {
-    .font1{
+    .font1 {
         font-size: 35px;
-        color:#AF0017;
+        color: #AF0017;
         text-align: center;
     }
-    .font2{
+
+    .font2 {
         font-size: 22px;
         text-align: center;
     }
@@ -47,12 +122,13 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    .font1{
+    .font1 {
         font-size: 40px;
-        color:#AF0017;
+        color: #AF0017;
         text-align: center;
     }
-    .font2{
+
+    .font2 {
         font-size: 28px;
         text-align: center;
     }
@@ -61,33 +137,36 @@
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    .font1{
+    .font1 {
         font-size: 48px;
-        color:#AF0017;
+        color: #AF0017;
         text-align: center;
     }
-    .font2{
+
+    .font2 {
         font-size: 28px;
         text-align: center;
     }
 
 
 }
+
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-    .font1{
+    .font1 {
         font-size: 80px;
-        color:#AF0017;
+        color: #AF0017;
         text-align: center;
     }
-    .font2{
+
+    .font2 {
         font-size: xx-large;
         text-align: center;
     }
 
-   .container{
-       max-height: 80%;
-   }
+    .container {
+        max-height: 80%;
+    }
 
 
 }

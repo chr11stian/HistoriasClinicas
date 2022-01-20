@@ -258,14 +258,21 @@
           />
         </div>
         <div class="p-field col-3">
-          <input
-            type="text"
-            class="inputRedondo"
-            placeholder="Sexo"
-            pInputText
-            formControlName="sexo"
-            required
-          />
+          <p-dropdown
+              *ngIf="!isUpdate"
+              [showTransitionOptions]="'300ms'"
+              [options]="sexoList"
+              formControlName="sexo"
+              placeholder="Sexo"
+            >
+            </p-dropdown>
+            <p-dropdown
+              *ngIf="isUpdate"
+              [showTransitionOptions]="'300ms'"
+              [options]="sexoList"
+              formControlName="sexo"
+            >
+            </p-dropdown>
         </div>
       </div>
 
@@ -890,7 +897,7 @@
       type="button"
       label="Salir"
       class="m-1 w-5rem"
-      (click)="close()"
+      (click)="closeRol()"
     ></button>
   </ng-template>
 </p-dialog>

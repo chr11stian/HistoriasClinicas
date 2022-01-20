@@ -3,7 +3,7 @@
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
             <label>Fecha de atencion:</label>
             <br>
-            <p-calendar type="date" showIcon="true" type dateFormat="yy-mm-dd" formControlName="fechaAtencion"></p-calendar>
+            <p-calendar type="date" showIcon="true" type dateFormat="yy-mm-dd"  formControlName="fechaAtencion" class="p-fluid"></p-calendar>
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
             <label>Horas/Dias PostParto:</label>
@@ -20,7 +20,11 @@
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
             <label>Herida operación:</label>
-            <input type="text" pInputText class="inputfield" formControlName="heridaOperacion">
+<!--            <input type="text" pInputText class="inputfield" formControlName="heridaOperacion">-->
+            <p-dropdown  inputId="dropdown" [options]="heridaOperacionList" formControlName="heridaOperacion"
+                         placeholder="seleccionar" optionLabel="name" optionValue="code"
+                         defaultLabel="Seleccione:" >
+            </p-dropdown>
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
             <label>Observaciones:</label>
@@ -37,7 +41,11 @@
         </div>
         <div class="col-12 sm:col-6 md:col-4 lg:col-4 xl:col-4 p-fluid">
             <label>Caract. Loquios:</label>
-            <input type="text" pInputText class="inputfield" formControlName="caracteristicasLoquios">
+            <p-dropdown  inputId="dropdown" [options]="caracteristicasList" formControlName="caracteristicasLoquios"
+                         placeholder="seleccionar" optionLabel="name" optionValue="code"
+                         defaultLabel="Seleccione:" >
+            </p-dropdown>
+<!--            <input type="text" pInputText class="inputfield" formControlName="caracteristicasLoquios">-->
         </div>
     </div>
 </form>

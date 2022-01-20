@@ -1,4 +1,13 @@
 <div class="col-12">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">DATOS GENERALES</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Siguiente" icon="pi pi-save" class="p-button-primary"
+                (click)="btnSiguiente()"></button>
+        </ng-template>
+    </p-toolbar>
     <form [formGroup]='form'>
         <div class="grid">
             <div class="col-12 md:col-4 mt-2">
@@ -6,18 +15,17 @@
                     <div class="grid ">
                         <div class="col-12 md:col-8">
                             <label>Fecha y hora de atención:</label>
-                            <input formControlName="fecha" type="datetime-local"
-                                class="p-inputtext-sm inputfield w-full" pInputText />
+                            <input formControlName="fecha" type="datetime-local" class="inputfield w-full" pInputText />
                         </div>
                         <div class="col-12 md:col-4">
                             <label>Edad :</label>
-                            <input formControlName="edad" type="text" class="p-inputtext-sm inputfield w-full"
-                                pInputText placeholder="Edad" />
+                            <input formControlName="edad" type="text" class="inputfield w-full" pInputText
+                                placeholder="Edad" />
                         </div>
                         <div class="col-12 md:col-8">
                             <label>FUMN:</label>
-                            <input formControlName="fumn" type="text" class="p-inputtext-sm inputfield w-full"
-                                pInputText placeholder="Nro control" />
+                            <input formControlName="fumn" type="date" class="inputfield w-full" pInputText
+                                placeholder="Nro control" />
                         </div>
                         <div class="col-12 md:col-12">
                             <p-divider align="left">
@@ -29,46 +37,40 @@
                         </div>
                         <div class="col-12 md:col-12">
                             <label>Apellidos y Nombres del Acompañante:</label>
-                            <input formControlName="nombresCompletos" type="text"
-                                class="p-inputtext-sm inputfield w-full" pInputText placeholder="Nro control" />
+                            <input formControlName="nombreAcompaniante" type="text" class="inputfield w-full" pInputText
+                                placeholder="Nro control" />
                         </div>
-                        <div class="col-12 md:col-12">
+                        <!-- <div class="col-12 md:col-12">
                             <p-divider align="left">
                                 <div class="p-d-inline-flex p-ai-center">
                                     <i class="pi pi-angle-double-right p-mr-2"></i>
-                                    <b>Medicación</b>
+                                    <b>Medicación de uso Frecuente</b>
                                 </div>
                             </p-divider>
-                        </div>
-                        <div class="col-12 md:col-12">
-                            <label>Ingrese la medicación recibida</label>
-                            <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                                formControlName="medicacion" pInputTextarea
-                                placeholder="Describa la medicación"></textarea>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
             <div class="col-12 md:col-8 mt-2">
                 <div class="margen border-300">
                     <div class="grid ">
-                        <div class="col-12 md:col-12 text-center">
+                        <!-- <div class="col-12 md:col-12 text-center">
                             <label>Signos de alarma</label>
-                        </div>
+                        </div> -->
                         <div class="col-12 md:col-12">
                             <label>Motivo de Consulta:</label>
-                            <input formControlName="motivoConsulta" type="text"
-                                class="p-inputtext-sm inputfield w-full" pInputText placeholder="Nro control" />
+                            <input formControlName="motivoConsulta" type="text" class="inputfield w-full" pInputText
+                                placeholder="Motivo de Consulta" />
                         </div>
                         <div class="col-12 md:col-6">
                             <label>Forma de inicio:</label>
-                            <input formControlName="formaInicio" type="text" class="p-inputtext-sm inputfield w-full"
-                                pInputText placeholder="Nro control" />
+                            <input formControlName="formaInicio" type="text" class="inputfield w-full" pInputText
+                                placeholder="Nro control" />
                         </div>
                         <div class="col-12 md:col-6">
                             <label>Tiempo de enfermedad:</label>
-                            <input formControlName="tiempoEnfermedad" type="text"
-                                class="p-inputtext-sm inputfield w-full" pInputText placeholder="Nro control" />
+                            <input formControlName="tiempoEnfermedad" type="text" class="inputfield w-full" pInputText
+                                placeholder="Nro control" />
                         </div>
                         <div class="col-12 md:col-12">
                             <label>Observaciones:</label>
@@ -80,5 +82,127 @@
                 </div>
             </div>
         </div>
+        <div class="grid">
+            <div class="col-12 md:col-5 mt-2">
+                <p-table #dt [value]="listaMedicacionUsoFrecuente" [rows]="3" [paginator]="true" [rowHover]="true"
+                    styleClass="p-datatable-sm" dataKey="id"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} Entradas"
+                    [showCurrentPageReport]="true">
+                    <ng-template pTemplate="caption">
+                        <div class="grid">
+                            <div class="col-8">
+                                <h4>Medicación de uso Frecuente</h4>
+                            </div>
+                            <div class="col-4">
+                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                    class="p-button-raised mt-3" (click)="openDialogMedicacion()"></button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="text-align: center">Nro</th>
+                            <th style="text-align: center">Medicación</th>
+                            <th style="text-align: center">Acción</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr style="text-align: center">
+                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData }}</td>
+                            <td style="text-align: center">
+                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                    (click)="openDialogEditarMedicacionFrecuente(rowData, rowIndex)"
+                                    class="p-button-rounded p-button-text"></button>
+                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                    (click)="eliminarMedicacionFrec(rowIndex)"
+                                    class="p-button-rounded p-button-danger p-button-text"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="col-12 md:col-7 mt-2">
+                <p-table [value]="listaSignosAlarma" #dt [rows]="3" [paginator]="true" [autoLayout]="true" class="m-3"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                    pageLinkSize="3" alwaysShow [showCurrentPageReport]="true" responsiveLayout="scroll">
+                    <ng-template pTemplate="caption">
+                        <div class="grid">
+                            <div class="col-9">
+                                <h4>Signos de Alarma</h4>
+                            </div>
+                            <div class="col-3">
+                                <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                    class="p-button-raised mt-3" (click)="openDialogSignosAlarma()"></button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="text-align: center">Nro</th>
+                            <th style="text-align: center">Signo Alarma</th>
+                            <th style="text-align: center">Acción</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr style="text-align: center">
+                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData }}</td>
+                            <td style="text-align: center">
+                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                    (click)="openDialogEditSignosAlarma(rowData, rowIndex)"
+                                    class="p-button-rounded p-button-text"></button>
+                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                    (click)="eliminarSignoAlarma(rowIndex)"
+                                    class="p-button-rounded p-button-danger p-button-text"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
     </form>
 </div>
+<!-- DIALOG DE SIGNOS DE ALARMA -->
+<p-dialog class="dialogo" [(visible)]="dialogSignosAlarma" [style]="{width: '30%'}" [modal]="true">
+    <ng-template pTemplate="header">
+        <h4>Añadir Signos de Alarma</h4>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formSignosAlarma'>
+            <div class="col-12">
+                <label>Signo de Alarma:</label>
+                <input type="text" pInputText formControlName='signoAlarma' placeholder="Descripcion" autofocus
+                    class="inputfield w-full">
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="!updateAlarmSign" pButton type="button" label="Aceptar" (click)="aceptarSignosAlarma()"></button>
+        <button *ngIf="updateAlarmSign" pButton type="button" label="Aceptar"
+            (click)="aceptarDialogEditSignosAlarma()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="closeDialog()"></button>
+    </ng-template>
+</p-dialog>
+<!-- DIALOG DE MEDICACIÓN -->
+<p-dialog class="dialogo" [(visible)]="dialogMedicacion" [style]="{width: '30%'}" [modal]="true">
+    <ng-template pTemplate="header">
+        <h4>Añadir Medicación</h4>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formMedicacion'>
+            <div class="col-12">
+                <label>Medicación:</label>
+                <input type="text" pInputText formControlName='medicacionFrec' placeholder="Medicación" autofocus
+                    class="inputfield w-full">
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="!updateMedicacionFrec" pButton type="button" label="Aceptar"
+            (click)="aceptarDialogMedicacion()"></button>
+        <button *ngIf="updateMedicacionFrec" pButton type="button" label="Aceptar"
+            (click)="aceptarDialogEditMedicacion()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="closeDialog()"></button>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,372 @@
+<div>
+    <p-card>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+                <span style="font-size: 18px;">PREGUNTAS PARA LA DETECCIÓN DE VIOLENCIA CONTRA LA MUJER OCACIONADA POR LA PAREJA O EXPAREJA</span>
+            </div>
+        </div>
+    </p-card>
+    <br>
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <form [formGroup]='formDatos_Tamisaje'>
+                <div class="">
+                    <label class="">Fecha:</label>
+                    <p-calendar formControlName="Fecha" dateFormat="yy-mm-dd"></p-calendar>
+                </div>
+
+            </form>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple type="button" icon="pi pi-list" label="Lista tamizaje"
+                    (click)="openModal()" class="p-button-danger">
+            </button>
+            <button pButton pRipple type="button" icon="pi pi-broom" label="Nuevo"
+                    (click)="limpiarFormulario()" class="p-button-danger">
+            </button>
+            <button pButton pRipple type="button" icon="pi pi-save" label="Guardar"
+                    (click)="save()" class="p-button-danger">
+            </button>
+        </ng-template>
+    </p-toolbar>
+    <br>
+
+    <form [formGroup]='formDatos_Tamisaje'>
+        <p-fieldset class="infor1" legend="INFORMACION PERSONAL" [toggleable]="true">
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="">
+                        <label class="">Documento de identidad: </label>
+                        <input type="text" pInputText class="inputfield w-full"
+                               formControlName="nroDoc" placeholder="Nro documento">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="">
+                        <label class="">Número de historia Clinica: </label>
+                        <input type="text" pInputText class="inputfield w-full"
+                               formControlName="nroHcl" placeholder="Nro historia clínica">
+                    </div>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="">
+                        <label class="">Apellido Paterno:</label>
+                        <input type="text" pInputText class="inputfield w-full"
+                               formControlName="apePaterno" placeholder="Apellido Paterno">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="">
+                        <label class="">Apellido Materno: </label>
+                        <input type="text" pInputText class="inputfield w-full"
+                               formControlName="apeMaterno" placeholder="Apellido Materno">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="">
+                        <label class="">Nombres: </label>
+                        <input type="text" pInputText class="inputfield w-full"
+                               formControlName="nombres" placeholder="Nombres">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="">
+                        <label class="">Edad: </label>
+                        <input type="text" pInputText class="inputfield w-full"
+                               formControlName="Edad" placeholder="Edad">
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6 p-field">
+                    <div class="">
+                        <label class="">Dirección:</label>
+                        <input type="text" pInputText class="inputfield w-full"
+                               formControlName="Direccion"
+                               placeholder="Direccion / Departamento / Provincia / Distrito">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="">
+                        <label class="">Telefono:</label>
+                        <input type="text" pInputText class="inputfield w-full"
+                               formControlName="Telefono" placeholder="Telefono">
+                    </div>
+                </div>
+            </div>
+
+        </p-fieldset>
+        <br>
+        <p-fieldset class="infor2" legend="PREGUNTAS AL PACIENTE" [toggleable]="true" collapsed="">
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-12 p-field">
+                    <p-panel header="Preguntas para relacionar el motivo de consulta con un posible maltrato">
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-6" style="text-align: right">¿Cómo se siente usted misma?:</span>
+                                    <input type="text" formControlName="Respuesta1" pInputText placeholder="Respuesta">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                <span class="col-6" style="text-align: right">
+                                    ¿Mantiene su apetito, sueño y deseos de realizar sus actividades como de costumbre?:
+                                </span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                                    optionValue="name" formControlName="Respuesta2">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-6" style="text-align: right">¿Toma algo (medicación u otra que le hayan recomendado)?:</span>
+                                    <input type="text" pInputText placeholder="Respuesta" formControlName="Respuesta3">
+                                </div>
+                            </div>
+                        </div>
+                    </p-panel>
+                </div>
+            </div>
+            <br>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-12 p-field">
+                    <p-panel header="Para preguntar a las usuarias sobre sus relaciones de pareja o expareja">
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                <span class="col-6" style="text-align: right">
+                                    ¿Cómo se siente en las relaciones cotidianas con su pareja o expareja?:</span>
+                                    <input type="text" pInputText placeholder="Respuesta" formControlName="Respuesta4">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                <span class="col-6" style="text-align: right">
+                                    ¿Cuáles son los desacuerdos más frecuentes que se dan con su pareja o expareja?:
+                                </span>
+                                    <input type="text" pInputText placeholder="Respuesta" formControlName="Respuesta5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-6" style="text-align: right">¿Cómo manejan estos desacuerdos? ¿Llegan a las discuciones?:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                                    optionValue="name" formControlName="Respuesta6">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-6" style="text-align: right">Generalmente ¿Cómo terminan las discuciones con su pareja o expareja?:</span>
+                                    <input type="text" pInputText placeholder="Respuesta" formControlName="Respuesta7">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-6" style="text-align: right">¿Su pareja o expareja se enoja con facilidad o tiene arranques inesperados de cólera?:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                                    optionValue="name" formControlName="Respuesta8">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                    </p-panel>
+                </div>
+            </div>
+            <br>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-12 p-field">
+                    <p-panel header="Para preguntarle directamente a las usuarias sobre un posible maltrato (el profesional de salud
+                debe realizar estas preguntas a continuación de las preguntas anteriores)">
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                <span class="col-6" style="text-align: right">
+                                    ¿Con que frecuencia su pareja o expareja le dice cosas que a usted le hacen sentir mal?:</span>
+                                    <input type="text" pInputText placeholder="Respuesta" formControlName="Respuesta9">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                <span class="col-6" style="text-align: right">
+                                    ¿Alguna vez su pareja o expareja le ha amenazado o insultado?:
+                                </span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                                    optionValue="name" formControlName="Respuesta10">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                <span class="col-6"
+                                      style="text-align: right">¿Tiene miedo a su pareja o expareja?:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                                    optionValue="name" formControlName="Respuesta11">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-6" style="text-align: right">¿Alguna vez a recibido golpes, empujones, bofetadas o cualquier otra agresión?:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                                    optionValue="name" formControlName="Respuesta12">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-6" style="text-align: right">Su pareja o expareja, ¿La obliga a mantener relaciones sexuales contra su voluntad?:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                                    optionValue="name" formControlName="Respuesta13">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-6" style="text-align: right">¿Ha realiado alguna denuncia contra su pareja o expareja por algún tipo de maltrato o violencia?:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                                    optionValue="name" formControlName="Respuesta14">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid">
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <div class="p-inputgroup">
+                                    <span class="col-6" style="text-align: right">Alguna vez, ¿Ha pensado en abandonar a su pareja o expareja por su mala forma de tratar?:</span>
+                                    <p-selectButton [options]="opciones" optionLabel="name"
+                                                    optionValue="name" formControlName="Respuesta15">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                        </div>
+                    </p-panel>
+                </div>
+            </div>
+
+        </p-fieldset>
+
+        <br>
+        <p-fieldset class="infor3" legend="DIAGNOSTICO Y RESPONSABLE" [toggleable]="true">
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-3 p-field">
+                    <div class="">
+                        <label class="">Diagnostico del paciente: </label>
+                        <p-selectButton [options]="diagnostico" optionLabel="name"
+                                        optionValue="boleano" formControlName="diagnostico">
+                        </p-selectButton>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-4 p-field">
+                    <div class="">
+                        <label class="">Documento de identidad:</label>
+                        <input type="text" pInputText class="inputfield w-full"
+                               formControlName="nroDodResponsable" placeholder="Nro documento">
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6 p-field">
+                    <div class="">
+                        <label class="">Apellidos y Nombres: </label>
+                        <input type="text" pInputText class="inputfield w-full"
+                               formControlName="ApellidosResponsable" placeholder="Apellidos y nombres">
+                    </div>
+                </div>
+            </div>
+
+        </p-fieldset>
+
+    </form>
+</div>
+
+
+<p-dialog [(visible)]="ListaTamizajeDialog" [style]="{width: '1200px', height: '600px'}" [modal]="true"
+          styleClass="p-fluid" autoZIndex class="dialogOfertas">
+
+    <div class="p-card">
+        <p-card>
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+                    <span style="font-size: 20px;">LISTA DE TAMIZAJES DE VIOLENCIA DE UN PACIENTE</span>
+                </div>
+            </div>
+            <br>
+        </p-card>
+
+
+        <p-accordion>
+            <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
+                <p-table [value]="ListaTamizajes" #dt [rows]="5"
+                         [rowsPerPageOptions]="[5, 10, 15]"
+                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+
+                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                        <tr>
+                            <th style="text-align: center">Nro</th>
+                            <th style="text-align: center">APELLIDOS</th>
+                            <th style="text-align: center">NOMBRES</th>
+                            <th style="text-align: center">FECHA</th>
+                            <th style="text-align: center">NRO HCL</th>
+                            <th style="text-align: center">RESPONSABLE</th>
+                            <th style="text-align: center">DIAGNOSTICO</th>
+                            <th style="text-align: center">ACCION</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                        <tr>
+                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                            <td style="text-align: center">{{ rowData.apePaterno + ' ' + rowData.apeMaterno }}</td>
+                            <td style="text-align: center">{{ rowData.nombres }}</td>
+                            <td style="text-align: center">{{ rowData.fecha }}</td>
+                            <td style="text-align: center">{{ rowData.nroHcl }}</td>
+                            <td style="text-align: center">{{ rowData.nombreResponsableAtencion }}</td>
+                            <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                            <td style="text-align: center">
+                                <button pButton pRipple type="button" label="Actualizar"
+                                        (click)="recuperarData(rowData)"
+                                        class="p-button-danger" icon="pi pi-pencil"></button>
+
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+
+</p-dialog>
+
