@@ -27,4 +27,5 @@ export class DocumentoIdentidadService {
     deleteDocumentoIdentidadById(id){
         return this.http.delete(`${this.base_url}/${this.bd}/documentoidentidad/${id}`)
     }
+
 }
