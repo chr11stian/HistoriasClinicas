@@ -3,7 +3,15 @@
         <form [formGroup]='formTriaje'>
             <div class="col-12 md:col-12">
                 <div class="grid mb-3">
-                    <label>Nombre: {{datosPersonales.datosPaciente.primerNombre}}</label>
+                    <div class="col-4">
+                        <label>Nro Doc:</label>
+                        <span class="font-italic font-bold">{{' ' +datosPersonales.nroDoc}}</span>
+                    </div>
+                    <div class="col-8">
+                        <label>Nombre:</label>
+                        <span class="font-italic font-bold">{{' ' + datosPersonales.datosPaciente.primerNombre+ ' ' +
+                            datosPersonales.datosPaciente.apePaterno}}</span>
+                    </div>
                 </div>
                 <p-fieldset legend="Funciones Vitales">
                     <div class="grid ">

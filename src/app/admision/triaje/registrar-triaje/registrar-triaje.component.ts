@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConsultasService } from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/services/consultas.service';
 import { ConsultaObstetriciaService } from 'src/app/obstetricia-general/gestante/consulta/services/consulta-obstetricia/consulta-obstetricia.service';
@@ -11,7 +12,6 @@ import { ConsultaObstetriciaService } from 'src/app/obstetricia-general/gestante
 })
 export class RegistrarTriajeComponent implements OnInit {
   formTriaje: FormGroup;
-  ref: DynamicDialogRef
   triaje: Triaje;
   datosPersonales: any;
 
@@ -19,7 +19,9 @@ export class RegistrarTriajeComponent implements OnInit {
     private fb: FormBuilder,
     private dialog: DialogService,
     private triajeService: ConsultaObstetriciaService,
-    private config: DynamicDialogConfig
+    private config: DynamicDialogConfig,
+    private ref: DynamicDialogRef,
+    private messageService: MessageService,
   ) {
     this.inicializarForm();
     console.log('data of listar ', config.data);
@@ -61,16 +63,18 @@ export class RegistrarTriajeComponent implements OnInit {
   guardarTriaje() {
     this.recuperarDatos();
     console.log('data to show ', this.triaje);
-    this.triajeService.postConsultaNoControl(this.triaje).subscribe((res: any) => {
-      console.log('se guardo ', res);
+    // this.triajeService.postConsultaNoControl(this.triaje).subscribe((res: any) => {
+    //   console.log('se guardo ', res);
 
-    });
+    // });
+    this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Se guardo correctamente' });
+    this.ref.close(this.triaje);
   }
   closeDialog() {
 
   }
 }
-export interface Triaje {
+interface Triaje {
   tipoDoc: string,
   nroDoc: string,
   fecha: string,
