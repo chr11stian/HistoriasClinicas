@@ -71,7 +71,17 @@ export class RegistrarTriajeComponent implements OnInit {
     this.ref.close(this.triaje);
   }
   closeDialog() {
+    this.ref.close();
+  }
 
+  loadData() {
+    this.formTriaje.patchValue({ temperatura: '' });
+    this.formTriaje.patchValue({ presionSis: '' });
+    this.formTriaje.patchValue({ presionDias: '' });
+    this.formTriaje.patchValue({ fc: '' });
+    this.formTriaje.patchValue({ fr: '' });
+    this.formTriaje.patchValue({ peso: '' });
+    this.formTriaje.patchValue({ talla: '' });
   }
 }
 interface Triaje {
