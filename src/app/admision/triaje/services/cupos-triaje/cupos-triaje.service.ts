@@ -17,4 +17,7 @@ export class CuposTriajeService {
   getListarCuposTriados(idIpress, fecha) {
     return this.http.post(`${this.base_url}/${this.bd}/cupo/pasados/por/triaje/${idIpress}`, fecha);
   }
+  postTriaje(idIpress, triaje) {
+    return this.http.post(`${this.base_url}/${this.bd}/cupo/pasados/por/triaje/${idIpress}`, triaje);
+  }
 }
