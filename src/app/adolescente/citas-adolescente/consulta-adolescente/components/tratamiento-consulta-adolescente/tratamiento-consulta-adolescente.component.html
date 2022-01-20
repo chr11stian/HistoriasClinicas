@@ -1,103 +1,192 @@
 <div class="col-12">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">TRATAMIENTO</h3>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Siguiente" icon="pi pi-save" class="p-button-primary"
+                (click)="guardarTratamiento()"></button>
+        </ng-template>
+    </p-toolbar>
     <form [formGroup]='form'>
         <div class="grid">
-            <div class="col-12 md:col-8 mt-2">
-                <div class="margen border-300">
-                    <p-table [value]="listaTratamientos" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
-                        [autoLayout]="true" class="m-3"
-                        currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                        [showCurrentPageReport]="true" responsiveLayout="scroll">
-                        <ng-template pTemplate="caption">
-                            <div class="grid">
-                                <div class="col-9">
-                                    <h3>Diagnóstico:</h3>
-                                </div>
-                                <div class="col-2">
-                                    <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
-                                        class="p-button-raised mt-3" (click)="openDialogTratamiento()"></button>
-                                </div>
-                            </div>
-                        </ng-template>
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th style="text-align: center;font-size: 0.85em;">Nro</th>
-                                <th style="text-align: center;font-size: 0.85em;">Descripción</th>
-                                <th style="text-align: center;font-size: 0.85em;">Número</th>
-                                <th style="text-align: center;font-size: 0.85em;">Dosis</th>
-                                <th style="text-align: center;font-size: 0.85em;">Via Administración</th>
-                                <th style="text-align: center;font-size: 0.85em;">Intervalo</th>
-                                <th style="text-align: center;font-size: 0.85em;">Observaciones</th>
-                                <th style="text-align: center;font-size: 0.85em;">Acción</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                            <tr style="text-align: center">
-                                <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                                <td style="text-align: center">{{ rowData.descripcion }}</td>
-                                <td style="text-align: center">{{ rowData.numero }}</td>
-                                <td style="text-align: center">{{ rowData.dosis }}</td>
-                                <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
-                                <td style="text-align: center">{{ rowData.intervalo }}</td>
-                                <td style="text-align: center">{{ rowData.observaciones }}</td>
-                                <td style="text-align: center">
-                                    <button pButton pRipple type="button" icon="pi pi-pencil"
-                                        class="p-button-rounded p-button-text"
-                                        (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
-                                    <button pButton pRipple type="button" icon="pi pi-trash"
-                                        class="p-button-rounded p-button-danger p-button-text"
-                                        (click)="eliminarDiagnostico(rowIndex)"></button>
-                                </td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
+            <div class="col-12">
+                <p-tabView>
+                    <p-tabPanel header="TRATAMIENTO" headerStyleClass="w-2 text-center" leftIcon="pi pi-chart-line">
+                        <div class="col-12 md:col-12 mt-2">
+                            <p-table [value]="listaTratamientos" #dt [rows]="3" styleClass="p-datatable-sm"
+                                [paginator]="true" [autoLayout]="true" class="m-3"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true" responsiveLayout="scroll">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-10">
+                                            <h3>Tratamientos:</h3>
+                                        </div>
+                                        <div class="col-2">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised m    t-3"
+                                                (click)="openDialogTratamiento()"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="text-align: center;">Nro</th>
+                                        <th style="text-align: center;">Descripción</th>
+                                        <th style="text-align: center;">Número</th>
+                                        <th style="text-align: center;">Dosis</th>
+                                        <th style="text-align: center;">Via Administración</th>
+                                        <th style="text-align: center;">Intervalo</th>
+                                        <th style="text-align: center;">Observaciones</th>
+                                        <th style="text-align: center;">Acción</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                    <tr style="text-align: center">
+                                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                        <td style="text-align: center">{{ rowData.descripcion }}</td>
+                                        <td style="text-align: center">{{ rowData.numero }}</td>
+                                        <td style="text-align: center">{{ rowData.dosis }}</td>
+                                        <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
+                                        <td style="text-align: center">{{ rowData.intervalo }}</td>
+                                        <td style="text-align: center">{{ rowData.observaciones }}</td>
+                                        <td style="text-align: center">
+                                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                class="p-button-rounded p-button-text"
+                                                (click)="openDialogEditTratamiento(rowData, rowIndex)"></button>
+                                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                                class="p-button-rounded p-button-danger p-button-text"
+                                                (click)="eliminarTratamiento(rowIndex)"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="EXÁMENES AUX" headerStyleClass="w-2 text-center" leftIcon="pi pi-chart-line">
+                        <div class="col-12 md:col-10 mt-2 pl-8">
+                            <p-table [value]="listaSolicitudExamAux" #dt [rows]="3" styleClass="p-datatable-sm"
+                                [paginator]="true" [autoLayout]="true" class="m-3"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true" responsiveLayout="scroll">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-10">
+                                            <h3>Exámenes Aux.:</h3>
+                                        </div>
+                                        <div class="col-2">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised m t-3" (click)="openDialogExamAux()"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="text-align: center;">Nro</th>
+                                        <th style="text-align: center;">Examen</th>
+                                        <th style="text-align: center;">Acción</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                    <tr style="text-align: center">
+                                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                        <td style="text-align: center">{{ rowData }}</td>
+                                        <td style="text-align: center">
+                                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                class="p-button-rounded p-button-text"
+                                                (click)="openDialogAuxExam(rowData, rowIndex)"></button>
+                                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                                class="p-button-rounded p-button-danger p-button-text"
+                                                (click)="eliminarAuxExam(rowIndex)"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="INTERCONSULTAS" headerStyleClass="w-2 text-center" leftIcon="pi pi-chart-line">
+                        <div class="col-12 md:col-10 mt-2 pl-8">
+                            <p-table [value]="listaInterconsultas" #dt [rows]="3" styleClass="p-datatable-sm"
+                                [paginator]="true" [autoLayout]="true" class="m-3"
+                                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                                [showCurrentPageReport]="true" responsiveLayout="scroll">
+                                <ng-template pTemplate="caption">
+                                    <div class="grid">
+                                        <div class="col-10">
+                                            <h3>Interconsultas:</h3>
+                                        </div>
+                                        <div class="col-2">
+                                            <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                                                class="p-button-raised mt-3"
+                                                (click)="openDialogInterconsulta()"></button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="text-align: center;">Nro</th>
+                                        <th style="text-align: center;">Consultorio</th>
+                                        <th style="text-align: center;">Motivo</th>
+                                        <th style="text-align: center;">Fecha</th>
+                                        <th style="text-align: center;">Acción</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                                    <tr style="text-align: center">
+                                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                                        <td style="text-align: center">{{ rowData.consultorio }}</td>
+                                        <td style="text-align: center">{{ rowData.motivo }}</td>
+                                        <td style="text-align: center">{{ rowData.fecha }}</td>
+                                        <td style="text-align: center">
+                                            <button pButton pRipple type="button" icon="pi pi-pencil"
+                                                class="p-button-rounded p-button-text"
+                                                (click)="openDialogEditInterconsulta(rowData, rowIndex)"></button>
+                                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                                class="p-button-rounded p-button-danger p-button-text"
+                                                (click)="eliminarInterconsulta(rowIndex)"></button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </p-tabPanel>
+                </p-tabView>
             </div>
-            <div class="col-12 md:col-4 mt-2">
-                <div class="margen border-300">
-                    <div class="col-12 md:col-12">
-                        <label>Solicitud de exámenes auxiliares:</label>
-                        <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                            formControlName="solicitudExam" pInputTextarea
-                            placeholder="Describa la medicación"></textarea>
-                    </div>
-                    <div class="col-12 md:col-12">
-                        <label>Compromisos y Observaciones:</label>
-                        <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
-                            formControlName="compromisosObs" pInputTextarea
-                            placeholder="Describa la medicación"></textarea>
-                    </div>
+        </div>
+        <div class="grid">
+            <div class="col-12 md:col-6">
+                <label>Compromisos y observaciones:</label>
+                <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize" formControlName="compromisosObs"
+                    pInputTextarea placeholder="Describa la medicación"></textarea>
+            </div>
+            <div class="col-12 md:col-6">
+                <label>Proxima Cita:</label>
+                <input formControlName="proximaCita" type="date" class="inputfield w-full" pInputText />
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-11">
+                <label class="text-sm">REFERENCIA</label>
+            </div>
+            <div class="grid">
+                <div class="col-4">
+                    <label class="text-sm">Consultorio:</label>
+                    <input formControlName="consultorioReferencia" type="text" class="p-inputtext-sm " pInputText />
+                </div>
+                <div class="col-4">
+                    <label class="text-sm">Motivo:</label>
+                    <input formControlName="motivoReferencia" type="text" class="p-inputtext-sm " pInputText />
+                </div>
+                <div class="col-4">
+                    <label class="text-sm">IPRESS:</label>
+                    <input formControlName="codRENAESReferencia" type="text" class="p-inputtext-sm " pInputText />
                 </div>
             </div>
         </div>
     </form>
 </div>
 <!-- DIALOG ADD TRATAMIENTO -->
-<!-- <p-dialog class="dialogo m-4" [(visible)]="dialogTratamiento" [style]="{width: '30%'}" [modal]="true"
-    styleClass="p-fluid">
-    <ng-template pTemplate="header">
-        <h3>TRATAMIENTO</h3>
-    </ng-template>
-    <ng-template pTemplate="body">
-        <form [formGroup]='formTratamiento'>
-            <div class="grid">
-                <div class="col-12">
-                    <label>Tratamiento:</label>
-                    <input formControlName="tratamiento" type="text" class="p-inputtext" pInputText />
-                </div>
-            </div>
-        </form>
-    </ng-template>
-    <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="updateTratamiento" pButton type="button" label="Guardar"
-            (click)="guardarEdicionDiagnostico()"></button>
-        <button *ngIf="!updateTratamiento" pButton type="button" label="Guardar"
-            (click)="guardarNuevoDiagnostico()"></button>
-        <button pButton type=" button" label="Cerrar" class="p-button-danger"
-            (click)="closeDialogDiagnostico()"></button>
-    </ng-template>
-</p-dialog> -->
-
-
 <p-dialog class="dialogo m-3" [(visible)]="dialogTratamiento" [style]="{width: '30%'}" [modal]="true">
     <ng-template pTemplate="header">
         <h3>NUEVO TRATAMIENTO</h3>
@@ -146,12 +235,68 @@
             </div>
         </form>
     </ng-template>
-
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="estadoEditarTratamientos" pButton type="button" label="Guardar"
-            (click)="guardarEdicionTratamiento()"></button>
-        <button *ngIf="!estadoEditarTratamientos" pButton type="button" label="Guardar"
+        <button *ngIf="updateTratamiento" pButton type="button" label="Guardar"
+            (click)="aceptarDialogEditTratamiento()"></button>
+        <button *ngIf="!updateTratamiento" pButton type="button" label="Guardar"
             (click)="aceptarDialogTratamiento()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="closeDialogTratamiento()"></button>
+    </ng-template>
+</p-dialog>
+<!-- DIALOG ADD EXAMEN  AUX -->
+<p-dialog class="dialogo m-3" [(visible)]="dialogAuxExam" [style]="{width: '30%'}" [modal]="true">
+    <ng-template pTemplate="header">
+        <h3>SOLICITUD EXAMEM AUXILIAR</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formExamAux'>
+            <div class="grid">
+                <div class="col-12">
+                    <label>Examen Auxiliar:</label>
+                    <input type="text" pInputText formControlName='examAux' placeholder="Examen Auxiliar"
+                        class="inputfield w-full" autofocus>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="updateAuxExam" pButton type="button" label="Guardar"
+            (click)="aceptarDialogEditarAuxExam()"></button>
+        <button *ngIf="!updateAuxExam" pButton type="button" label="Guardar"
+            (click)="aceptarSolicitudExamenAux()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="closeDialogTratamiento()"></button>
+    </ng-template>
+</p-dialog>
+<!-- DIALOG ADD INTERCONSULTAS -->
+<p-dialog class="dialogo m-3" [(visible)]="dialogInterconsulta" [style]="{width: '30%'}" [modal]="true">
+    <ng-template pTemplate="header">
+        <h3>Interconsulta</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formInterconsulta'>
+            <div class="grid">
+                <div class="col-12 md:col-6">
+                    <label>Consultorio:</label>
+                    <input formControlName="consultorio" type="text" class="inputfield w-full" pInputText />
+                </div>
+                <div class="col-12 md:col-6">
+                    <label>Fecha:</label>
+                    <input formControlName="fechaInterconsulta" type="date" class="inputfield w-full" pInputText />
+                </div>
+                <div class="col-12 md:col-12">
+                    <label>Motivo:</label>
+                    <input formControlName="motivo" type="text" class="inputfield w-full" pInputText />
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="updateInterconsultas" pButton type="button" label="Guardar"
+            (click)="aceptarDialogEditInterConsul()"></button>
+        <button *ngIf="!updateInterconsultas" pButton type="button" label="Guardar"
+            (click)="aceptarInterconsulta()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger"
             (click)="closeDialogTratamiento()"></button>
     </ng-template>

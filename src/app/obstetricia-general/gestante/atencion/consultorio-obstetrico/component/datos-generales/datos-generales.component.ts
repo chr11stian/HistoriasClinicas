@@ -213,6 +213,16 @@ export class DatosGeneralesComponent implements OnInit {
         console.log("FECHAS ACTUAL", this.fechaConvertido);
     }
 
+    /***Calcular el año desde la fecha de nacimiento**/
+    ageCalculator() {
+        if (this.fechaConvertido) {
+            const convertAge = new Date(this.fechaConvertido);
+            const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+            this.edad = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+            console.log("edad", this.edad);
+        }
+    }
+
 
     /**Calcula las gestas del paciente con los primeros digitos**/
     calcularGestas() {
@@ -227,15 +237,7 @@ export class DatosGeneralesComponent implements OnInit {
         console.log("GESTAS", this.sumagestas);
     }
 
-    /***Calcular el año desde la fecha de nacimiento**/
-    ageCalculator() {
-        if (this.fechaConvertido) {
-            const convertAge = new Date(this.fechaConvertido);
-            const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-            this.edad = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-            console.log("edad", this.edad);
-        }
-    }
+
 
     //Recuperar datos de un paciendo por su documento de identidad
     getpacienteByNroDoc() {

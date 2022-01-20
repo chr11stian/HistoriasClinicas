@@ -247,6 +247,7 @@ export class DialogConsultaUniversalComponent implements OnInit {
         }
         console.log(diagnostico);
         this.datosDiagnosticos.push(diagnostico);
+        this.datosDiagnosticos = [...this.datosDiagnosticos];
         this.diagnosticoDialog = false;
     }
 
@@ -299,6 +300,7 @@ export class DialogConsultaUniversalComponent implements OnInit {
         }
         console.log(tratamiento);
         this.datosTratamientos.push(tratamiento);
+        this.datosTratamientos = [...this.datosTratamientos]
         this.tratamientoDialog = false;
     }
 
@@ -345,6 +347,7 @@ export class DialogConsultaUniversalComponent implements OnInit {
         }
         console.log(interconsulta);
         this.datosInterconsultas.push(interconsulta);
+        this.datosInterconsultas = [...this.datosInterconsultas];
         this.interconsultaDialog = false;
     }
     canceledInterconsulta() {
@@ -411,6 +414,7 @@ export class DialogConsultaUniversalComponent implements OnInit {
         }
         console.log(inmunizacion);
         this.datosInmunizaciones.push(inmunizacion);
+        this.datosInmunizaciones = [...this.datosInmunizaciones];
         this.inmunizacionDialog = false;
     }
     canceledInmunizacion() {
@@ -457,6 +461,7 @@ export class DialogConsultaUniversalComponent implements OnInit {
     guardarNuevoRecomendacion() {
         console.log(this.formRecomendacion.value.recomendacion);
         this.datosRecomendaciones.push(this.formRecomendacion.value.recomendacion);
+        this.datosRecomendaciones = [...this.datosRecomendaciones];
         this.recomendacionDialog = false;
     }
     canceledRecomendacion() {

@@ -4,32 +4,49 @@
             <i class="pi pi-users mx-8"></i>
             <span class="tabs mx-3" >Antecedentes Personales</span>
         </ng-template>
-        <div>
-            <p-divider align="left">
-                <div class="p-d-inline-flex p-ai-center">
-                    <i class="pi pi-angle-double-right p-mr-2"></i>
-                    <b>Antecendentes Personales</b>
-                </div>
-            </p-divider>
+        <p-toolbar>
+            <ng-template
+                    pTemplate="left">
+                <h3 class="mt-2">Antecendentes Personales</h3>
+            </ng-template>
+            <ng-template
+                    pTemplate="right"
+                    class="button">
+                <button (click)="saveAntecedentePersonal()"
+                        pButton
+                        pRipple
+                        label="Guardar"
+                        iconPos="left"
+                        icon="pi pi-plus"
+                        class="guardar mr-2"></button>
+            </ng-template>
+        </p-toolbar>
+        <form [formGroup]="antecendentesPersonalesFG">
+<!--            <p-divider align="left">-->
+<!--                <div class="p-d-inline-flex p-ai-center">-->
+<!--                    <i class="pi pi-angle-double-right p-mr-2"></i>-->
+<!--                    <b>Antecendentes Personales</b>-->
+<!--                </div>-->
+<!--            </p-divider>-->
             <div class="grid">
                 <div class="col-4">
                     <div class="borde">
                         <div class="grid">
                             <label class="col-6 text-left">Perinatales:</label>
                             <div class="col-6 " >
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="perinatales"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label class="col-6 text-left">Crecimiento:</label>
                             <div class="col-6 " >
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="crecimiento"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label class="col-6 text-left">Desarrollo:</label>
                             <div class="col-6 " >
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="desarrollo"></p-selectButton>
                             </div>
                         </div>
                     </div>
@@ -37,13 +54,13 @@
                         <div class="grid">
                             <label class="col-6 text-left">Tiene alguna discapacidad:</label>
                             <div class="col-6 ">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="algunaDiscapacidad"></p-selectButton>
                             </div>
                         </div>
                         <div>
                             <div for="" style="text-align: left;font-weight: bold">Especifique:</div>
                             <div class="p-fluid">
-                                <input type="text" pInputText>
+                                <input type="text" pInputText formControlName="especifique">
                             </div>
                         </div>
                     </div>
@@ -55,37 +72,37 @@
                                 <div class="grid">
                                     <label for="" class="col-6 text-left">Tuberculosis:</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="tuberculosis"></p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <label for="" class="col-6 text-left">Soba/Asma:</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="sobaAsma"></p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <label for="" class="col-6 text-left">Transfusiones sanguíneas:</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="transfusionesSanguineas"></p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <label for="" class="col-6 text-left">Uso de medicinas:</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="usoMedicinas"></p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <label for="" class="col-6 text-left">Consumo de drogas:</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="consumoDrogas"></p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <label for="" class="col-6 text-left">Intervenciones quirúrgicas</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="intervencionesQuirurgicas"></p-selectButton>
                                     </div>
                                 </div>
                             </div>
@@ -93,37 +110,37 @@
                                 <div class="grid">
                                     <label for="" class="col-6 text-left" >Alergias:</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="alergias"></p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <label for="" class="col-6 text-left">Accidentes:</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="accidentes"></p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <label for="" class="col-6 text-left">Transtornos psicológicos:</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="trastornosPsicologicos"></p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <label for="" class="col-6 text-left">Enfermedades Metaxénicas,ITS,Anorexia y bulimia:</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="enfermedadesAnorexiaBulimia"></p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <label for="" class="col-6 text-left">Violencia Intrafamiliar:</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="violenciaIntrafamiliar"></p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <label for="" class="col-6 text-left">Hospitalizacion:</label>
                                     <div class="col-6">
-                                        <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                        <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="hospitalizacion"></p-selectButton>
                                     </div>
                                 </div>
 
@@ -152,30 +169,29 @@
                             <td>
                                 <div class="grid">
                                     <div class="col-2 align-self-center">
-                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                        <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[0]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[0]?vacunasFechaDisabled[0]=false:vacunasFechaDisabled[0]=true;getFC('dt1DosisFecha').setValue('');"></p-checkbox>
                                     </div>
                                     <div class="col-10">
-                                        <p-calendar [showIcon]="true"></p-calendar>
+                                        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="dt1DosisFecha" [disabled]="vacunasFechaDisabled[0]"></p-calendar>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="grid">
                                     <div class="col-2 align-self-center">
-                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
-                                    </div>
+                                        <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[1]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[1]?vacunasFechaDisabled[1]=false:vacunasFechaDisabled[1]=true;getFC('dt2DosisFecha').setValue('');"></p-checkbox>                                    </div>
                                     <div class="col-10">
-                                        <p-calendar [showIcon]="true"></p-calendar>
+                                        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="dt2DosisFecha" [disabled]="vacunasFechaDisabled[1]"></p-calendar>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="grid">
                                     <div class="col-2 align-self-center">
-                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                        <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[2]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[2]?vacunasFechaDisabled[2]=false:vacunasFechaDisabled[2]=true;getFC('dt3DosisFecha').setValue('');" ></p-checkbox>
                                     </div>
                                     <div class="col-10">
-                                        <p-calendar [showIcon]="true"></p-calendar>
+                                        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="dt3DosisFecha" [disabled]="vacunasFechaDisabled[2]"></p-calendar>
                                     </div>
                                 </div>
                             </td>
@@ -187,29 +203,28 @@
                             <td>
                                 <div class="grid">
                                     <div class="col-2 align-self-center">
-                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                        <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[3]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[2]?vacunasFechaDisabled[3]=false:vacunasFechaDisabled[3]=true;getFC('sr1DosisFecha').setValue('');" ></p-checkbox>
                                     </div>
                                     <div class="col-10">
-                                        <p-calendar [showIcon]="true"></p-calendar>
+                                        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="sr1DosisFecha" [disabled]="vacunasFechaDisabled[3]"></p-calendar>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="grid">
                                     <div class="col-2 align-self-center">
-                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                        <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[4]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[4]?vacunasFechaDisabled[4]=false:vacunasFechaDisabled[4]=true;getFC('sr2DosisFecha').setValue('');"></p-checkbox>
                                     </div>
                                     <div class="col-10">
-                                        <p-calendar [showIcon]="true"></p-calendar>
+                                        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="sr2DosisFecha" [disabled]="vacunasFechaDisabled[4]"></p-calendar>
                                     </div>
                                 </div>
                             </td>
                             <td><div class="grid">
                                 <div class="col-2 align-self-center">
-                                    <p-checkbox name="groupname" value="val1"></p-checkbox>
-                                </div>
+                                    <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[5]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[5]?vacunasFechaDisabled[5]=false:vacunasFechaDisabled[5]=true;getFC('sr3DosisFecha').setValue('');"></p-checkbox>                                </div>
                                 <div class="col-10">
-                                    <p-calendar [showIcon]="true"></p-calendar>
+                                    <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="sr3DosisFecha" [disabled]="vacunasFechaDisabled[5]"></p-calendar>
                                 </div>
                             </div></td>
                         </tr>
@@ -230,30 +245,29 @@
                             <td>
                                 <div class="grid">
                                     <div class="col-2 align-self-center">
-                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
-                                    </div>
+                                        <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[6]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[6]?vacunasFechaDisabled[6]=false:vacunasFechaDisabled[6]=true;getFC('hvb1DosisFecha').setValue('');"></p-checkbox>                                  </div>
                                     <div class="col-10">
-                                        <p-calendar [showIcon]="true"></p-calendar>
+                                        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="hvb1DosisFecha" [disabled]="vacunasFechaDisabled[6]"></p-calendar>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="grid">
                                     <div class="col-2 align-self-center">
-                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                        <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[7]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[7]?vacunasFechaDisabled[7]=false:vacunasFechaDisabled[7]=true;getFC('hvb2DosisFecha').setValue('');"></p-checkbox>
                                     </div>
                                     <div class="col-10">
-                                        <p-calendar [showIcon]="true"></p-calendar>
+                                        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="hvb2DosisFecha" [disabled]="vacunasFechaDisabled[7]"></p-calendar>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="grid">
                                     <div class="col-2 align-self-center">
-                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                        <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[8]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[8]?vacunasFechaDisabled[8]=false:vacunasFechaDisabled[8]=true;getFC('hvb3DosisFecha').setValue('');"></p-checkbox>
                                     </div>
                                     <div class="col-10">
-                                        <p-calendar [showIcon]="true"></p-calendar>
+                                        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="hvb3DosisFecha" [disabled]="vacunasFechaDisabled[8]"></p-calendar>
                                     </div>
                                 </div>
                             </td>
@@ -265,29 +279,28 @@
                             <td>
                                 <div class="grid">
                                     <div class="col-2 align-self-center">
-                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
-                                    </div>
+                                        <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[9]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[9]?vacunasFechaDisabled[9]=false:vacunasFechaDisabled[9]=true;getFC('fa1DosisFecha').setValue('');"></p-checkbox>                                       </div>
                                     <div class="col-10">
-                                        <p-calendar [showIcon]="true"></p-calendar>
+                                        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="fa1DosisFecha" [disabled]="vacunasFechaDisabled[9]"></p-calendar>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="grid">
                                     <div class="col-2 align-self-center">
-                                        <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                        <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[10]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[10]?vacunasFechaDisabled[10]=false:vacunasFechaDisabled[10]=true;getFC('fa2DosisFecha').setValue('');"></p-checkbox>
                                     </div>
                                     <div class="col-10">
-                                        <p-calendar [showIcon]="true"></p-calendar>
+                                        <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="fa2DosisFecha" [disabled]="vacunasFechaDisabled[10]"></p-calendar>
                                     </div>
                                 </div>
                             </td>
                             <td><div class="grid">
                                 <div class="col-2 align-self-center">
-                                    <p-checkbox name="groupname" value="val1"></p-checkbox>
+                                    <p-checkbox name="groupname" value="val1" [(ngModel)]="vacunasCheckModel[11]" [binary]="true" [ngModelOptions]="{standalone: true}" (onChange)="vacunasCheckModel[11]?vacunasFechaDisabled[11]=false:vacunasFechaDisabled[11]=true;getFC('fa3DosisFecha').setValue('');"></p-checkbox>
                                 </div>
                                 <div class="col-10">
-                                    <p-calendar [showIcon]="true"></p-calendar>
+                                    <p-calendar dateFormat="dd/mm/yy" [showIcon]="true" formControlName="fa3DosisFecha" [disabled]="vacunasFechaDisabled[11]"></p-calendar>
                                 </div>
                             </div></td>
                         </tr>
@@ -296,7 +309,7 @@
                 </div>
             </div>
 
-        </div>
+        </form>
     </p-tabPanel>
     <p-tabPanel>
         <ng-template pTemplate="header">
@@ -360,43 +373,43 @@
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Tuberculosis:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="tuberculosis"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Obesidad:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="obesidad"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label for="" class="col-6 text-left" >VIH/SIDA:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="vihSIDA"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Hipertención arterial:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="hipertencionArterial"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Diabetes:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="diabetes"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Hiperlipidemia:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="hiperlipidemia"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Infarto:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="infarto"></p-selectButton>
                             </div>
                         </div>
 
@@ -405,37 +418,37 @@
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Transtorno psicolólogico:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="transtornoPsicologico"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Drogas:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="drogas"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Violencia intrafamiliar:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name"optionValue="code" formControlName="violenciaFamiliar"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Madre adolescente:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="madreAdolescente"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Maltratos:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="maltratos"></p-selectButton>
                             </div>
                         </div>
                         <div class="grid">
                             <label for="" class="col-6 text-left" >Otros:</label>
                             <div class="col-6">
-                                <p-selectButton [options]="threeOptions" optionLabel="name"></p-selectButton>
+                                <p-selectButton [options]="threeOptions" optionLabel="name" optionValue="code" formControlName="otrosEnfermedades"></p-selectButton>
                             </div>
                         </div>
                     </div>
@@ -565,6 +578,7 @@
             <i class="pi pi-users mx-8"></i>
             <span class="tabs">Antecedentes Psicologicos</span>
         </ng-template>
+        <form [formGroup]="antecendentesPsicosocialesFG" >
         <div class="grid">
             <div class="col-6">
                 <div class="borde">
@@ -574,13 +588,13 @@
                             <label for="" >¿Estudia?</label>
                         </div>
                         <div class="col-3">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="estudia"></p-selectButton>
                         </div>
                         <div class="col-3 text-left">
                             <label for="" >¿De acuerdo a la edad?</label>
                         </div>
                         <div class="col-3">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="acuerdoEdad"></p-selectButton>
                         </div>
                     </div>
                     <div class="grid">
@@ -588,13 +602,13 @@
                             <label for="" >Nivel:</label>
                         </div>
                         <div class="col-3 p-fluid">
-                            <p-dropdown [options]="nivelEducacion" optionLabel="name"></p-dropdown>
+                            <p-dropdown [options]="nivelEducacion" optionLabel="name" optionValue="code" formControlName="nivel"></p-dropdown>
                         </div>
                         <div class="col-3 text-left">
                             <label for="" >Bajo rendimiento:</label>
                         </div>
                         <div class="col-3 " >
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="bajoRendimiento"></p-selectButton>
                         </div>
                     </div>
                     <div class="grid">
@@ -602,13 +616,13 @@
                             <label for="" >Deserción:</label>
                         </div>
                         <div class="col-3 ">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="desercion"></p-selectButton>
                         </div>
                         <div class="col-3 text-left">
                             <label for="" >Repitencia:</label>
                         </div>
                         <div class="col-3">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="repitencia"></p-selectButton>
                         </div>
                     </div>
 
@@ -621,43 +635,43 @@
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">¿Trabajas?</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="trabajas"></p-selectButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">Remunerado:</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="remunerado"></p-selectButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">Estable:</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="estable"></p-selectButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">Tiempo completo:</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="tiempoCompleto"></p-selectButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">Edad inicio trabajo:</label>
                                 <div class="col-6 p-fluid">
-                                    <input type="text" pInputText>
+                                    <input type="text" pInputText formControlName="edadInicio">
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">Tiempo de trabajo:</label>
                                 <div class="col-6 p-fluid">
-                                    <input type="text" pInputText>
+                                    <input type="text" pInputText formControlName="tiempoTrabajo">
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">Tipo de trabajo:</label>
                                 <div class="col-6 p-fluid">
-                                    <input type="text" pInputText>
+                                    <input type="text" pInputText formControlName="tipoTrabajo">
                                 </div>
                             </div>
 
@@ -670,49 +684,49 @@
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">¿Eres aceptado?</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="eresAceptado"></p-selectButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">¿Eres ignorado?</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="eresIgnorado"></p-selectButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">¿Tienes amigos?</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="tienesAmigos"></p-selectButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">¿Tienes Pareja?</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="tienesPareja"></p-selectButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">¿Haces deportes?</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="hacesDeporte"></p-selectButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">Organizaciones juveniles</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="organizacionesJuveniles"></p-selectButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">Parroquias</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="parroquias"></p-selectButton>
                                 </div>
                             </div>
                             <div class="grid ">
                                 <label for="" class="col-6 text-left">Otros</label>
                                 <div class="col-6 p-fluid">
-                                    <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                                    <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="otrosVidaSocial"></p-selectButton>
                                 </div>
                             </div>
                         </div>
@@ -725,106 +739,107 @@
                     <div class="grid ">
                         <label for="" class="col-2 text-left">Ejercicios:</label>
                         <div class="col-3 p-fluid">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="ejercicios"></p-selectButton>
                         </div>
                         <label for="" class="col-2">Frecuencia:</label>
                         <div class="col-5">
-                            <input type="text" pInputText>
+                            <input type="text" pInputText formControlName="ejerciciosFrecuencias">
                         </div>
                     </div>
                     <div class="grid ">
                         <label for="" class="col-2 text-left">Tabaco:</label>
                         <div class="col-3 p-fluid">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="tabaco"></p-selectButton>
                         </div>
                         <label for="" class="col-2">Frecuencia:</label>
                         <div class="col-5">
-                            <input type="text" pInputText>
+                            <input type="text" pInputText formControlName="tabacoFrecuencia">
                         </div>
                     </div>
                     <div class="grid ">
                         <label for="" class="col-2 text-left">Alcohol:</label>
                         <div class="col-3 p-fluid">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="alcohol"></p-selectButton>
                         </div>
                         <label for="" class="col-2">Frecuencia:</label>
                         <div class="col-5">
-                            <input type="text" pInputText>
+                            <input type="text" pInputText formControlName="alcoholFrecuencia">
                         </div>
                     </div>
                     <div class="grid ">
                         <label for="" class="col-2 text-left">Drogas:</label>
                         <div class="col-3 p-fluid">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="drogas"></p-selectButton>
                         </div>
                         <label for="" class="col-2">Frecuencia:</label>
                         <div class="col-5">
-                            <input type="text" pInputText>
+                            <input type="text" pInputText formControlName="drogasFrecuencia">
                         </div>
                     </div>
                     <div class="grid ">
                         <label for="" class="col-2 text-left">Conduce vehiculos:</label>
                         <div class="col-3 p-fluid">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="conduceVehiculos"></p-selectButton>
                         </div>
                         <label for="" class="col-2">Frecuencia:</label>
                         <div class="col-5">
-                            <input type="text" pInputText>
+                            <input type="text" pInputText formControlName="conduceVehiculoFrecuencia">
                         </div>
                     </div>
                     <div class="grid ">
                         <label for="" class="col-2 text-left">Televisión<br>(Horas/Día):</label>
                         <div class="col-3 p-fluid">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="television"></p-selectButton>
                         </div>
                         <label for="" class="col-2">Frecuencia:</label>
                         <div class="col-5">
-                            <input type="text" pInputText>
+                            <input type="text" pInputText formControlName="televisionFrecuencia">
                         </div>
                     </div>
                     <div class="grid ">
                         <label for="" class="col-2 text-left">Video Juegos<br>(Horas/Dia):</label>
                         <div class="col-3 p-fluid">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="videoJuegos"></p-selectButton>
                         </div>
                         <label for="" class="col-2">Frecuencia:</label>
                         <div class="col-5">
-                            <input type="text" pInputText>
+                            <input type="text" pInputText formControlName="videoJuegosFrecuencia">
                         </div>
                     </div>
                     <div class="grid ">
                         <label for="" class="col-2 text-left">Internet<br>(Horas/Dia):</label>
                         <div class="col-3 p-fluid">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="internet"></p-selectButton>
                         </div>
                         <label for="" class="col-2">Frecuencia:</label>
                         <div class="col-5">
-                            <input type="text" pInputText>
+                            <input type="text" pInputText formControlName="internetFrecuencia">
                         </div>
                     </div>
                     <div class="grid ">
                         <label for="" class="col-2 text-left">Higiene:</label>
                         <div class="col-3 p-fluid">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="higiene"></p-selectButton>
                         </div>
                         <label for="" class="col-2">Frecuencia:</label>
                         <div class="col-5">
-                            <input type="text" pInputText>
+                            <input type="text" pInputText formControlName="higieneFrecuencia">
                         </div>
                     </div>
                     <div class="grid ">
                         <label for="" class="col-2 text-left">Alimentos</label>
                         <div class="col-3 p-fluid">
-                            <p-selectButton [options]="thwoOptions" optionLabel="name"></p-selectButton>
+                            <p-selectButton [options]="thwoOptions" optionLabel="name" optionValue="code" formControlName="alimentos"></p-selectButton>
                         </div>
                         <label for="" class="col-2">Frecuencia:</label>
                         <div class="col-5">
-                            <input type="text" pInputText>
+                            <input type="text" pInputText formControlName="alimentosFrecuencia">
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
+        </form>
     </p-tabPanel>
 </p-tabView>

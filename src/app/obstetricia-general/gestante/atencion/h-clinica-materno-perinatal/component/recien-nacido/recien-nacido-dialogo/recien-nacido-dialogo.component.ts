@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators, FormGroup} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
-import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
-import {DatePipe} from '@angular/common';
-import {ObstetriciaGeneralService} from 'src/app/obstetricia-general/services/obstetricia-general.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DatePipe } from '@angular/common';
+import { ObstetriciaGeneralService } from 'src/app/obstetricia-general/services/obstetricia-general.service';
 import { CieService } from 'src/app/obstetricia-general/services/cie.service';
 
 @Component({
@@ -37,13 +37,13 @@ export class RecienNacidoDialogoComponent implements OnInit {
         public config: DynamicDialogConfig,
         private CieService: CieService,
     ) {
-        this.stateOptions = [{label: 'Si', value: true}, {label: 'No', value: false}];
+        this.stateOptions = [{ label: 'Si', value: true }, { label: 'No', value: false }];
         this.buildForm();
         this.idObstetricia = this.obstetriciaGeneralService.idGestacion;
         console.log(config.data);
         if (config.data) {
             this.llenarCamposEdicionRN();
-        }   
+        }
     }
 
     buildForm() {
@@ -114,6 +114,14 @@ export class RecienNacidoDialogoComponent implements OnInit {
             anticonceptivos: [''],
             grupo: [''],
             rh: [''],
+            cie10dxMf: [''],
+            autocompletedxMf: [''],
+            cie10dxMt: [''],
+            autocompletedxMt: [''],
+            cie10dxf: [''],
+            autocompletedxf: [''],
+            cie10dxt: [''],
+            autocompletedxt: [''],
         })
         this.formEgresoRN = this.formBuilder.group({
             fechaRN: [''],
@@ -152,9 +160,9 @@ export class RecienNacidoDialogoComponent implements OnInit {
         this.enviarRecienNacidos();
         this.ref.close(
             this.config.data ? {
-                    index: this.config.data.index,
-                    row: this.datosRecienNacido[0]
-                } :
+                index: this.config.data.index,
+                row: this.datosRecienNacido[0]
+            } :
                 this.datosRecienNacido[0]);
     }
 
@@ -169,11 +177,11 @@ export class RecienNacidoDialogoComponent implements OnInit {
             diagnostico: this.formEgresoRN.value.diagnostico,
             fechaIngreso: this.datePipe.transform(this.formEgresoRN.value.fechaIngreso, 'yyyy-MM-dd HH:mm:ss'),
             egreso: this.formEgresoRN.value.egresoRN,
-            dxfNoAplica: this.formEgresoRN.value.dxfNoAplica ? true : false,
+            dxfNoAplica: this.formEgresoRN.value.dxfNoAplica[0] ? true : false,
             dxFallecimiento: this.formEgresoRN.value.dxFallecimiento,
-            dxtNoAplica: this.formEgresoRN.value.dxtNoAplica ? true : false,
+            dxtNoAplica: this.formEgresoRN.value.dxtNoAplica[0] ? true : false,
             dxTraslado: this.formEgresoRN.value.dxTraslado,
-            estaNoAplica: this.formEgresoRN.value.estaNoAplica ? true : false,
+            estaNoAplica: this.formEgresoRN.value.estaNoAplica[0] ? true : false,
             establecimientoTraslado: this.formEgresoRN.value.establecimientoTras,
             fechaContro: this.datePipe.transform(this.formEgresoRN.value.fechaContro, 'yyyy-MM-dd HH:mm:ss'),
             controlRecienNacido: this.formEgresoRN.value.controlRecienNacido
@@ -235,11 +243,11 @@ export class RecienNacidoDialogoComponent implements OnInit {
                 fecha: this.datePipe.transform(this.form.value.fechaRN, 'yyyy-MM-dd HH:mm:ss'),
                 egreso: this.form.value.egresoRN,
                 dxFallecimiento: this.form.value.dxFallecimiento,
-                dxfNoAplica: this.form.value.dxFallecimientoNoAplica ? true : false,
+                dxfNoAplica: this.form.value.dxFallecimientoNoAplica[0] ? true : false,
                 dxTraslado: this.form.value.dxTraslado,
-                dxtNoAplica: this.form.value.dxTrasladoNoAplica ? true : false,
+                dxtNoAplica: this.form.value.dxTrasladoNoAplica[0] ? true : false,
                 establecimientoTras: this.form.value.establecimientoTras,
-                estaNoAplica: this.form.value.estaNoAplica ? true : false,
+                estaNoAplica: this.form.value.estaNoAplica[0] ? true : false,
                 alimentoAlta: this.form.value.alimentoAlta,
                 tsh: this.form.value.tsh,
                 peso: parseFloat(this.form.value.pesoEgreso)
@@ -249,11 +257,11 @@ export class RecienNacidoDialogoComponent implements OnInit {
                 reIngreso: this.form.value.reIngreso ? true : false,
                 egreso: this.form.value.egresoMaterno,
                 dxFallecimiento: this.form.value.dxMaternoFallecimiento,
-                dxfNoAplica: this.form.value.dxMfNoAplica ? true : false,
+                dxfNoAplica: this.form.value.dxMfNoAplica[0] ? true : false,
                 dxTraslado: this.form.value.dxMaternoTraslado,
-                dxtNoAplica: this.form.value.dxMtNoAplica ? true : false,
+                dxtNoAplica: this.form.value.dxMtNoAplica[0] ? true : false,
                 establecimientoTras: this.form.value.MaternoEstablecimientoTras,
-                estaNoAplica: this.form.value.MaternoEstaNoAplica ? true : false,
+                estaNoAplica: this.form.value.MaternoEstaNoAplica[0] ? true : false,
                 anticonceptivos: this.form.value.anticonceptivos
             },
             egresoRecienNacido2: this.todosEgresosDelRN,
@@ -288,8 +296,8 @@ export class RecienNacidoDialogoComponent implements OnInit {
         this.form.get('talla').setValue(configuracion.talla);
         this.form.get('recienNacidoHcl').setValue(configuracion.recienNacidoHcl);
         this.form.get('nombreRecienNacido').setValue(configuracion.nombreRecienNacido);
-        this.form.get('sinPatologias').setValue(configuracion.patologiaRecienNacido.length=== 0 ? ["Sin patologias"] : []);
-        this.patologiasRN= configuracion.patologiaRecienNacido;
+        this.form.get('sinPatologias').setValue(configuracion.patologiaRecienNacido.length === 0 ? ["Sin patologias"] : []);
+        this.patologiasRN = configuracion.patologiaRecienNacido;
         this.form.get('edadPorExamenFisico').setValue(configuracion.edadPorExamenFisico);
         this.form.get('semanasRN').setValue(configuracion.sem);
         this.form.get('apgar1').setValue(configuracion.apgar1);
@@ -319,7 +327,7 @@ export class RecienNacidoDialogoComponent implements OnInit {
         this.form.get('dxFallecimiento').setValue(configuracion.egresoRecienNacido.dxFallecimiento);
         this.form.get('dxFallecimientoNoAplica').setValue(configuracion.egresoRecienNacido.dxfNoAplica ? ["true"] : []);
         this.form.get('dxTraslado').setValue(configuracion.egresoRecienNacido.dxTraslado);
-        this.form.get('dxTrasladoNoAplica').setValue(configuracion.egresoRecienNacido.dxtNoAplica ? ["true"] : []);
+        this.form.get('dxTrasladoNoAplica').setValue(configuracion.egresoRecienNacido.dxtNoAplica? ["true"] : []);
         this.form.get('establecimientoTras').setValue(configuracion.egresoRecienNacido.establecimientoTras);
         this.form.get('estaNoAplica').setValue(configuracion.egresoRecienNacido.estaNoAplica ? ["true"] : []);
         this.form.get('alimentoAlta').setValue(configuracion.egresoRecienNacido.alimentoAlta);
@@ -367,11 +375,11 @@ export class RecienNacidoDialogoComponent implements OnInit {
             diagnostico: this.formEgresoRN.value.diagnostico,
             fechaIngreso: this.datePipe.transform(this.formEgresoRN.value.fechaIngreso, 'yyyy-MM-dd HH:mm:ss'),
             egreso: this.formEgresoRN.value.egresoRN,
-            dxfNoAplica: this.formEgresoRN.value.dxfNoAplica ? true : false,
+            dxfNoAplica: this.formEgresoRN.value.dxfNoAplica[0] ? true : false,
             dxFallecimiento: this.formEgresoRN.value.dxFallecimiento,
-            dxtNoAplica: this.formEgresoRN.value.dxtNoAplica ? true : false,
+            dxtNoAplica: this.formEgresoRN.value.dxtNoAplica[0] ? true : false,
             dxTraslado: this.formEgresoRN.value.dxTraslado,
-            estaNoAplica: this.formEgresoRN.value.estaNoAplica ? true : false,
+            estaNoAplica: this.formEgresoRN.value.estaNoAplica[0] ? true : false,
             establecimientoTraslado: this.formEgresoRN.value.establecimientoTras,
             fechaContro: this.datePipe.transform(this.formEgresoRN.value.fechaContro, 'yyyy-MM-dd HH:mm:ss'),
             controlRecienNacido: this.formEgresoRN.value.controlRecienNacido
@@ -414,7 +422,7 @@ export class RecienNacidoDialogoComponent implements OnInit {
         var patologia = {
             fecha: this.datePipe.transform(this.formPatologias.value.fecha, 'yyyy-MM-dd'),
             patologia: this.formPatologias.value.patologia,
-            cie10: this.formPatologias.value.cie10=== '' ? '' : this.formPatologias.value.cie10.codigoItem,
+            cie10: this.formPatologias.value.cie10 === '' ? '' : this.formPatologias.value.cie10.codigoItem,
         }
         console.log(patologia);
         this.patologiasRN.push(patologia);
@@ -429,14 +437,14 @@ export class RecienNacidoDialogoComponent implements OnInit {
         this.CieService.getCIEByCod(rowData.cie10).subscribe((resCIE: any) => {
             this.formPatologias.get('cie10').setValue(resCIE.object);
         })
-        
+
         this.patologiaDialog = true;
     }
     guardarEdicionPatologiaRN() {
         var patologia = {
             fecha: this.datePipe.transform(this.formPatologias.value.fecha, 'yyyy-MM-dd'),
             patologia: this.formPatologias.value.patologia,
-            cie10: this.formPatologias.value.cie10=== '' ? '' : this.formPatologias.value.cie10.codigoItem,
+            cie10: this.formPatologias.value.cie10 === '' ? '' : this.formPatologias.value.cie10.codigoItem,
         }
         console.log(patologia);
         this.patologiasRN.splice(this.indexPatologiaEditado, 1, patologia);
@@ -488,6 +496,18 @@ export class RecienNacidoDialogoComponent implements OnInit {
         if (cieType == 0) {
             this.formPatologias.patchValue({ patologia: event.descripcionItem });
         }
+        if (cieType == 1) {
+            this.form.patchValue({ dxFallecimiento: event.descripcionItem });
+        }
+        if (cieType == 2) {
+            this.form.patchValue({ dxTraslado: event.descripcionItem });
+        }
+        if (cieType == 3) {
+            this.form.patchValue({ dxMaternoFallecimiento: event.descripcionItem });
+        }
+        if (cieType == 4) {
+            this.form.patchValue({ dxMaternoTraslado: event.descripcionItem });
+        }
     }
 
     selectedOptionNameCIE(event, cieType) {
@@ -496,6 +516,100 @@ export class RecienNacidoDialogoComponent implements OnInit {
             this.formPatologias.get("patologia").setValue(event.descripcionItem);
             this.formPatologias.get("autocomplete").setValue("");
             this.formPatologias.patchValue({ cie10: event }, { emitEvent: false });
+        }
+        if (cieType == 1) {
+            this.form.get("dxFallecimiento").setValue(event.descripcionItem);
+            this.form.get("autocompletedxf").setValue("");
+            this.form.patchValue({ cie10dxf: event }, { emitEvent: false });
+        }
+        if (cieType == 2) {
+            this.form.get("dxTraslado").setValue(event.descripcionItem);
+            this.form.get("autocompletedxt").setValue("");
+            this.form.patchValue({ cie10dxt: event }, { emitEvent: false });
+        }
+        if (cieType == 3) {
+            this.form.get("dxMaternoFallecimiento").setValue(event.descripcionItem);
+            this.form.get("autocompletedxMf").setValue("");
+            this.form.patchValue({ cie10dxMf: event }, { emitEvent: false });
+        }
+        if (cieType == 4) {
+            this.form.get("dxMaternoTraslado").setValue(event.descripcionItem);
+            this.form.get("autocompletedxMt").setValue("");
+            this.form.patchValue({ cie10dxMt: event }, { emitEvent: false });
+        }
+    }
+    selectNoAplicaDFallecimiento(tipoEgreso) {
+        console.log(this.form.value.dxFallecimientoNoAplica);
+        console.log(this.form.value.dxMfNoAplica);
+        if (tipoEgreso == 0) {
+            if (this.form.value.dxFallecimientoNoAplica[0] == 'true') {
+                this.form.get("dxFallecimiento").setValue("");
+                this.form.get("autocompletedxf").setValue("");
+                this.form.get("autocompletedxf").disable();
+                this.form.patchValue({ cie10dxf: "" });
+                this.form.get("cie10dxf").disable();
+            }
+            else {
+                this.form.get("dxFallecimiento").setValue("");
+                this.form.get("autocompletedxf").setValue("");
+                this.form.get("cie10dxf").setValue("");
+                this.form.get("autocompletedxf").enable();
+                this.form.get("cie10dxf").enable();
+            }
+        }
+
+        if (tipoEgreso == 1) {
+            if (this.form.value.dxMfNoAplica[0] == 'true') {
+                this.form.get("dxMaternoFallecimiento").setValue("");
+                this.form.get("autocompletedxMf").setValue("");
+                this.form.get("autocompletedxMf").disable();
+                this.form.patchValue({ cie10dxMf: "" });
+                this.form.get("cie10dxMf").disable();
+            }
+            else{
+                this.form.get("dxMaternoFallecimiento").setValue("");
+                this.form.get("autocompletedxMf").setValue("");
+                this.form.get("cie10dxMf").setValue("");
+                this.form.get("autocompletedxMf").enable();
+                this.form.get("cie10dxMf").enable();
+            }
+        }
+    }
+    selectNoAplicaTraslado(tipoEgreso) {
+        console.log(this.form.value.dxTrasladoNoAplica);
+        console.log(this.form.value.dxMtNoAplica);
+        if (tipoEgreso == 0) {
+            if (this.form.value.dxTrasladoNoAplica[0] == 'true') {
+                this.form.get("dxTraslado").setValue("");
+                this.form.get("autocompletedxt").setValue("");
+                this.form.get("autocompletedxt").disable();
+                this.form.patchValue({ cie10dxt: "" });
+                this.form.get("cie10dxt").disable();
+            }
+            else {
+                this.form.get("dxTraslado").setValue("");
+                this.form.get("autocompletedxt").setValue("");
+                this.form.get("cie10dxt").setValue("");
+                this.form.get("autocompletedxt").enable();
+                this.form.get("cie10dxt").enable();
+            }
+        }
+
+        if (tipoEgreso == 1) {
+            if (this.form.value.dxMtNoAplica[0] == 'true') {
+                this.form.get("dxMaternoTraslado").setValue("");
+                this.form.get("autocompletedxMt").setValue("");
+                this.form.get("autocompletedxMt").disable();
+                this.form.patchValue({ cie10dxMt: "" });
+                this.form.get("cie10dxMt").disable();
+            }
+            else{
+                this.form.get("dxMaternoTraslado").setValue("");
+                this.form.get("autocompletedxMt").setValue("");
+                this.form.get("cie10dxMt").setValue("");
+                this.form.get("autocompletedxMt").enable();
+                this.form.get("cie10dxMt").enable();
+            }
         }
     }
 

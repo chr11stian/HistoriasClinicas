@@ -79,10 +79,54 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
 
   nroDoc: string = "10101010";
 
+  opcionesGrados: any[] = [];
+  opcionesDesercion: any[] = [];
+  opcionesFrecuencia: any[] = [];
+  opcionesSaludSexual: any[] = [];
+  opcionesMetodosAnticonceptivos: any[] = [];
+
   constructor(
     private fb: FormBuilder,
     private planAtencionIntegralTablasService: PlanAtencionAdolescenteTablasService
   ) {
+    this.opcionesGrados = [
+      "Bajo",
+      "Regular",
+      "Alto",
+      "No aplica",
+    ]
+    this.opcionesDesercion = [
+      "Si",
+      "No",
+      "En riesgo",
+    ]
+    this.opcionesFrecuencia = [
+      "Nunca",
+      "Casi nunca",
+      "Raramente",
+      "Normalmente",
+      "Casi siempre",
+      "Siempre",
+    ]
+    this.opcionesSaludSexual = [
+      "Si",
+      "No",
+      "No aplica"
+    ]
+    this.opcionesMetodosAnticonceptivos= [
+      "Abstinen. periodica",
+      "Condón",
+      "DIU",
+      "Ligadura tubaria",
+      "MELA",
+      "Progestag. Inyectables",
+      "Progestag. Orales",
+      "Anticonceptiva combinada",
+      "Solo orientaciones/ Consejerias",
+      "Implante subdermico",
+      "Ninguno",
+      "Otro"
+    ]
     this.inicializarForm();
     this.getTodasLasEvaluaciones();
   }
@@ -866,6 +910,7 @@ export class PlanAtencionAdolescenteComponent implements OnInit {
     }
     console.log(factoresRiesgoUnaFecha);
     this.factoresRiesgo.push(factoresRiesgoUnaFecha);
+    this.factoresRiesgo=[...this.factoresRiesgo];
     this.factoresRiesgoDialog = false;
   }
 
