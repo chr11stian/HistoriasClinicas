@@ -63,11 +63,11 @@ export class RegistrarTriajeComponent implements OnInit {
     this.recuperarDatos();
     console.log('data to show ', this.triaje);
     this.triajeService.postTriaje(this.idCupo, this.triaje).subscribe((res: any) => {
-      console.log('se guardo ', res);
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Se guardo correctamente' });
+      this.ref.close(this.triaje);
 
     });
-    this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Se guardo correctamente' });
-    this.ref.close(this.triaje);
+
   }
   closeDialog() {
     this.ref.close();
