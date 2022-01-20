@@ -84,7 +84,7 @@
                 </ng-template>
             </p-table>
         </p-accordionTab>
-        <p-accordionTab header="LISTA DE PACIENTES CON CITAS" [selected]="true">
+        <p-accordionTab header="LISTA DE PACIENTES CON CITAS PARA LA FECHA" [selected]="true">
             <p-table [value]="dataCitas" #dt styleClass="p-datatable-gridlines" [rows]="4"
                      [rowsPerPageOptions]="[5, 10, 15]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
@@ -110,14 +110,8 @@
                         <td style="text-align: center">{{ rowData.proxCita.fecha }}</td>
                         <td style="text-align: center">{{ rowData.datosPaciente.celular }}</td>
                         <td style="text-align: center">
-
-                            <button pButton pRipple routerLink="gestante" (click)="enviarData(rowData)"
-                                    class="boton-azul" label="Gestante"
-                                    icon="pi pi-check"></button>
-                            <button pButton pRipple routerLink="noControl" class="boton-mostaza" label="No Control"
-                                    icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>
-                            <button pButton pRipple class="boton-red" label="Cancelar" icon="pi pi-times"></button>
-
+                            <button pButton pRipple type="button" label="Reprogramar" class="p-button-raised p-button-success"></button>
+                            <button pButton pRipple type="button" label="Cancelar" class="p-button-raised p-button-danger"(click)="updateCitas(rowData)"></button>
                         </td>
                     </tr>
                 </ng-template>
