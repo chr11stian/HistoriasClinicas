@@ -1,7 +1,7 @@
 <div class="grid">
     <div class="col-12">
         <form [formGroup]='formTriaje'>
-            <div class="col-12 md:col-12">
+            <div class="col-12 md:col-12  pb-5">
                 <div class="grid mb-3 margen">
                     <div class="col-3">
                         <label>Nro Doc:</label>
@@ -17,108 +17,115 @@
                         <span class="font-italic font-bold">{{' ' +datosPersonales.ipress.servicio}}</span>
                     </div>
                 </div>
-                <p-fieldset legend="Funciones Vitales">
-                    <div class="grid ">
-                        <div class="col-6 md:col-4 text-center">
-                            <div class="grid">
-                                <div class="col-3 mt-2 text-right">
-                                    <label>T°:</label>
-                                </div>
-                                <div class="col-5">
-                                    <input type="number" pInputText formControlName='temperatura' placeholder="Temp."
-                                        class="nputfield w-full">
-                                </div>
-                                <div class="mt-2 col-4 text-left">
-                                    <span class="font-italic">C</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 md:col-4 text-center">
-                            <div class="grid">
-                                <div class="col-3 mt-2 text-right">
-                                    <label>PA(S):</label>
-                                </div>
-                                <div class="col-5">
-                                    <input type="number" pInputText formControlName='presionSis' placeholder="Sistolica"
-                                        class="inputfield w-full">
-                                </div>
-                                <div class="mt-2 col-4 text-left">
-                                    <span class="font-italic">mm.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 md:col-4 text-center">
-                            <div class="grid">
-                                <div class="col-3 mt-2 text-right">
-                                    <label>PA(D):</label>
-                                </div>
-                                <div class="col-5">
-                                    <input type="number" pInputText formControlName='presionDias'
-                                        placeholder="Diastolica" class="inputfield w-full">
-                                </div>
-                                <div class="mt-2 col-4 text-left">
-                                    <span class="font-italic">Hg.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 md:col-4 text-center">
-                            <div class="grid">
-                                <div class="col-3 mt-2 text-right">
-                                    <label>F.C:</label>
-                                </div>
-                                <div class="col-5">
-                                    <input type="number" pInputText formControlName='fc' placeholder="Frec. card."
-                                        class="inputfield w-full">
-                                </div>
-                                <div class="mt-2 col-4 text-left">
-                                    <span class="font-italic">por min.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 md:col-4 text-center">
-                            <div class="grid">
-                                <div class="col-3 mt-2 text-right">
-                                    <label>F.R:</label>
-                                </div>
-                                <div class="col-5">
-                                    <input type="number" pInputText formControlName='fr' placeholder="Frec. resp."
-                                        class="inputfield w-full">
-                                </div>
-                                <div class="mt-2 col-4 text-left">
-                                    <span class="font-italic">por min.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 md:col-4 text-center">
-                            <div class="grid">
-                                <div class="col-3 mt-2 text-right">
-                                    <label>Peso:</label>
-                                </div>
-                                <div class="col-5">
-                                    <input type="number" pInputText formControlName='peso' placeholder="Peso"
-                                        class="inputfield w-full">
-                                </div>
-                                <div class="mt-2 col-4 text-left">
-                                    <span class="font-italic">kg.</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 md:col-4 text-center">
-                            <div class="grid">
-                                <div class="col-3 mt-2 text-right">
-                                    <label>Talla:</label>
-                                </div>
-                                <div class="col-5">
-                                    <input type="number" pInputText formControlName='talla' placeholder="Talla"
-                                        class="inputfield w-full">
-                                </div>
-                                <div class="mt-2 col-4 text-left">
-                                    <span class="font-italic">m.</span>
-                                </div>
-                            </div>
-                        </div>
+                <div class="grid">
+                    <div class="col-12 md:col-2 lg:col-3 imagen">
                     </div>
-                </p-fieldset>
+                    <div class="col-12 md:col-10 lg:col-9">
+                        <p-fieldset legend="Funciones Vitales">
+                            <div class="grid ">
+                                <div class="col-6 md:col-4 text-center">
+                                    <div class="grid">
+                                        <div class="col-3 mt-2 text-right">
+                                            <label>T°:</label>
+                                        </div>
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='temperatura' placeholder="Temp."
+                                                class="nputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">C</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 md:col-4 text-center">
+                                    <div class="grid">
+                                        <div class="col-3 mt-2 text-right">
+                                            <label>PA(S):</label>
+                                        </div>
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='presionSis' placeholder="Sistolica"
+                                                class="inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">mm.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 md:col-4 text-center">
+                                    <div class="grid">
+                                        <div class="col-3 mt-2 text-right">
+                                            <label>PA(D):</label>
+                                        </div>
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='presionDias'
+                                                placeholder="Diastolica" class="inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">Hg.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 md:col-4 text-center">
+                                    <div class="grid">
+                                        <div class="col-3 mt-2 text-right">
+                                            <label>F.C:</label>
+                                        </div>
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='fc' placeholder="Frec. card."
+                                                class="inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">por min.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 md:col-4 text-center">
+                                    <div class="grid">
+                                        <div class="col-3 mt-2 text-right">
+                                            <label>F.R:</label>
+                                        </div>
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='fr' placeholder="Frec. resp."
+                                                class="inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">por min.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 md:col-4 text-center">
+                                    <div class="grid">
+                                        <div class="col-3 mt-2 text-right">
+                                            <label>Peso:</label>
+                                        </div>
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='peso' placeholder="Peso"
+                                                class="inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">kg.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 md:col-4 text-center">
+                                    <div class="grid">
+                                        <div class="col-3 mt-2 text-right">
+                                            <label>Talla:</label>
+                                        </div>
+                                        <div class="col-5">
+                                            <input type="number" pInputText formControlName='talla' placeholder="Talla"
+                                                class="inputfield w-full">
+                                        </div>
+                                        <div class="mt-2 col-4 text-left">
+                                            <span class="font-italic">m.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                </div>
+                
             </div>
         </form>
     </div>

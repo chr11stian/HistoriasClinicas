@@ -44,33 +44,6 @@ export class ListarCuposComponent implements OnInit {
       { name: "C EXTRANJERIA", code: 3 },
       { name: "OTROS", code: 4 },
     ]
-    // this.dataCupos = [
-    //   {
-    //     nroDoc: "10101013",
-    //     datosPaciente: {
-    //       apeMaterno: "ABARCA",
-    //       apePaterno: "MELGAREJO",
-    //       primerNombre: "KATHERIN",
-    //       celular: "9567834",
-    //     },
-    //     proxCita: {
-    //       fecha: "20/11/2021",
-    //     },
-    //   },
-    //   {
-    //     nroDoc: "10101014",
-    //     datosPaciente: {
-    //       apeMaterno: "CALLER",
-    //       apePaterno: "OLAZABAL",
-    //       primerNombre: "LETICIA GIULIANA",
-    //       celular: "990909067",
-    //     },
-    //     proxCita: {
-    //       fecha: "20/11/2021",
-    //     },
-    //   },
-    // ]
-
   }
 
 
@@ -103,7 +76,7 @@ export class ListarCuposComponent implements OnInit {
       this.dataCupos = res.object;
     });
   }
-  
+
   listCuposTriados() {
     let fechaAux = { fechaAtencion: this.datePipe.transform(new Date(), 'yyyy-MM-dd') }
     console.log(fechaAux);
