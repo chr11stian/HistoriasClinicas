@@ -1,37 +1,39 @@
-import { Component, OnInit } from "@angular/core";
-import { PersonalService } from "src/app/core/services/personal-services/personal.service";
-import { ConfirmationService, MessageService } from "primeng/api";
-import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
-import { DynamicDialogRef } from "primeng/dynamicdialog";
+import {Component, OnInit} from "@angular/core";
+import {PersonalService} from "src/app/core/services/personal-services/personal.service";
+import {ConfirmationService, MessageService} from "primeng/api";
+import {RolGuardiaService} from "src/app/core/services/rol-guardia/rol-guardia.service";
+import {DynamicDialogRef} from "primeng/dynamicdialog";
+
 @Component({
   selector: "app-rol-guardia",
   templateUrl: "./rol-guardia.component.html",
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
-  meses=[
-    {mesNro:1,mes:'ENERO'},
-    {mesNro:2,mes:'FEBRERO'},
-    {mesNro:3,mes:'MARZO'},
-    {mesNro:4,mes:'ABRIL'},
-    {mesNro:5,mes:'MAYO'},
-    {mesNro:6,mes:'JUNIO'},
-    {mesNro:7,mes:'JULIO'},
-    {mesNro:8,mes:'AGOSTO'},
-    {mesNro:9,mes:'SETIEMBRE'},
-    {mesNro:10,mes:'OCTUBRE'},
-    {mesNro:11,mes:'NOVIEMBRE'},
-    {mesNro:12,mes:'DICIEMBRE'}
+  meses = [
+    {mesNro: 1, mes: 'ENERO'},
+    {mesNro: 2, mes: 'FEBRERO'},
+    {mesNro: 3, mes: 'MARZO'},
+    {mesNro: 4, mes: 'ABRIL'},
+    {mesNro: 5, mes: 'MAYO'},
+    {mesNro: 6, mes: 'JUNIO'},
+    {mesNro: 7, mes: 'JULIO'},
+    {mesNro: 8, mes: 'AGOSTO'},
+    {mesNro: 9, mes: 'SETIEMBRE'},
+    {mesNro: 10, mes: 'OCTUBRE'},
+    {mesNro: 11, mes: 'NOVIEMBRE'},
+    {mesNro: 12, mes: 'DICIEMBRE'}
   ]
   // buscarSSAlarma(lista,nombre){
   //   const found = lista.find(element => element.nombre  == nombre);
   //   return found.valor;
   // }
-  mesLetras(){
-    const a=this.fecha.getMonth()+1;
-    const aux=this.meses.find(fila=>fila.mesNro===a)
+  mesLetras() {
+    const a = this.fecha.getMonth() + 1;
+    const aux = this.meses.find(fila => fila.mesNro === a)
     return aux.mes;
   }
+
   isMesPasado: boolean = false;
   idIpressZarzuela = "616de45e0273042236434b51";//la posta medica x defecto
   loading: boolean = true;
@@ -51,6 +53,7 @@ export class RolGuardiaComponent implements OnInit {
   nroDiasMes: number = 0;
   //personales seleccionados y mes actual seleccionado
   cabeceraMes: any[] = [];
+
   constructor(
     private rolGuardiaService: RolGuardiaService,
     private personalService: PersonalService,
@@ -66,7 +69,10 @@ export class RolGuardiaComponent implements OnInit {
     this.getListaUps();
     this.getListaTurno();
   }
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+  }
+
   getListaTurno() {
     this.rolGuardiaService
       .getTurnosPorIpress(this.idIpressZarzuela)
@@ -79,6 +85,7 @@ export class RolGuardiaComponent implements OnInit {
         this.loadingUps = false;
       });
   }
+
   getListaUps() {
     this.rolGuardiaService
       .getServiciosPorIpress(this.idIpressZarzuela)
@@ -87,6 +94,7 @@ export class RolGuardiaComponent implements OnInit {
         this.loading = false;
       });
   }
+
   crearMatriz() {
     this.matriz = [];
     for (let i = 0; i < this.listaPersonal.length; i++) {
@@ -105,6 +113,7 @@ export class RolGuardiaComponent implements OnInit {
 
     // this.recuperarMes();
   }
+
   numeroDiasMes() {
     //creamos un nuevo objeto dandole x defecto el ultimo dial del mes
     this.nroDiasMes = new Date(
@@ -113,6 +122,7 @@ export class RolGuardiaComponent implements OnInit {
       0
     ).getDate();
   }
+
   generarCabecera() {
     this.cabeceraMes = [];
     for (var i = 1; i <= this.nroDiasMes; i++) {
@@ -120,21 +130,22 @@ export class RolGuardiaComponent implements OnInit {
       let dia = fecha1.getDay();
 
       if (dia == 0)
-        this.cabeceraMes.push({ abreviatura: "D", label: "Domingo", dia: i });
+        this.cabeceraMes.push({abreviatura: "D", label: "Domingo", dia: i});
       else if (dia == 1)
-        this.cabeceraMes.push({ abreviatura: "L", label: "Lunes", dia: i });
+        this.cabeceraMes.push({abreviatura: "L", label: "Lunes", dia: i});
       else if (dia == 2)
-        this.cabeceraMes.push({ abreviatura: "M", label: "Martes", dia: i });
+        this.cabeceraMes.push({abreviatura: "M", label: "Martes", dia: i});
       else if (dia == 3)
-        this.cabeceraMes.push({ abreviatura: "M", label: "Miercoles", dia: i, });
+        this.cabeceraMes.push({abreviatura: "M", label: "Miercoles", dia: i,});
       else if (dia == 4)
-        this.cabeceraMes.push({ abreviatura: "J", label: "Jueves", dia: i });
+        this.cabeceraMes.push({abreviatura: "J", label: "Jueves", dia: i});
       else if (dia == 5)
-        this.cabeceraMes.push({ abreviatura: "V", label: "Viernes", dia: i });
+        this.cabeceraMes.push({abreviatura: "V", label: "Viernes", dia: i});
       else
-        this.cabeceraMes.push({ abreviatura: "S", label: "Sabado", dia: i });
+        this.cabeceraMes.push({abreviatura: "S", label: "Sabado", dia: i});
     }
   }
+
   colorearCabecera() {
     let colorR = "color:#BF0D21";
     let colorB = "color:#757476";
@@ -153,6 +164,7 @@ export class RolGuardiaComponent implements OnInit {
       }
     });
   }
+
   crearMatriz2() {
     this.matriz = [];
     for (let i = 0; i < this.listaPersonal.length; i++) {
@@ -211,11 +223,133 @@ export class RolGuardiaComponent implements OnInit {
     //this.IniciarHoras();
     // this.isModificable();
   }
+
   IniciarHoras() {
     this.listaHoras = [];
     for (let i = 0; i < this.listaPersonal.length; i++) {
       this.listaHoras.push(0);
     }
+  }
+
+  // changeUps1(codUps) {
+  //   let requestInput: any = {
+  //     anio: this.fecha.getFullYear(),
+  //     mes: this.fecha.getMonth() + 1,
+  //     idIpress: this.idIpressZarzuela,
+  //     servicio: this.upsSeleccionada["nombreUPS"],
+  //   };
+  //   let listaPersonalAR=[];
+  //   let listaPersonal=[]
+  //   this.rolGuardiaService.getRolGuardiaPorServicio(requestInput).subscribe((resp1: any) => {
+  //
+  //     if(resp1["cod"] === "2002") {
+  //       const listaAux=resp1['object']
+  //       listaAux.forEach((element) => {
+  //         let persona =element.personal
+  //         listaPersonalAR.push({
+  //           nroDoc:persona.nroDoc,
+  //           tipoDoc:persona.tipoDoc,
+  //           nombreCompleto:persona.nombre
+  //         });
+  //       });
+  //     }
+  //     let ipressUpsInput: any = {
+  //       codUps: codUps.value.id,
+  //       idIpress: this.idIpressZarzuela,
+  //     };
+  //     this.personalService.getPorIpressUps(ipressUpsInput).subscribe((resp: any) => {
+  //       console.log(resp)
+  //       if(resp["cod"] === "2401") {
+  //         const listaAux2=resp['object']
+  //         listaAux2.forEach((elemento)=>{
+  //           listaPersonal.push({
+  //             nroDoc:elemento.nroDoc,
+  //             tipoDoc:elemento.tipoDoc,
+  //             nombreCompleto:`${elemento.apePaterno} ${elemento.apeMaterno} ${elemento.primerNombre}`
+  //             })
+  //           });
+  //       }
+  //       });
+  //     //hacemos la intersepcion
+  //     // let arrayC = [...listaPersonalAR,...listaPersonal];
+  //     // console.log('listaARol------>',listaPersonalAR)
+  //     // console.log('listaPersonal------>',listaPersonal)
+  //     let arrayC=this.union(listaPersonalAR,listaPersonal);
+  //     console.log('UNi',arrayC)
+  //     }
+  //   );
+  // }
+  union(arr1, arr2) {
+    let arrRespuesta = arr1
+    console.log('arreglo respuesta parcial', arrRespuesta)
+    arr2.forEach((elemento) => {
+      const found = arr1.find(element => element.nroDoc == elemento.nroDoc);
+      if (!found) {
+        arrRespuesta.push(found)
+      }
+    });
+    return arrRespuesta
+  }
+
+  changeUps1(codUps) {
+    let ipressUpsInput: any = {
+      codUps: codUps.value.id,
+      idIpress: this.idIpressZarzuela,
+    };
+    this.listaPersonal = [];
+    this.listaHoras=[];
+    this.personalService.getPorIpressUps(ipressUpsInput).subscribe((resp: any) => {
+      let requestInput: any = {
+        anio: this.fecha.getFullYear(),
+        mes: this.fecha.getMonth() + 1,
+        idIpress: this.idIpressZarzuela,
+        servicio: this.upsSeleccionada["nombreUPS"],
+      };
+      this.rolGuardiaService.getRolGuardiaPorServicio(requestInput).subscribe((resp1) => {
+        if (resp["cod"] === "2401") {
+          const listaAux2 = resp['object']
+          listaAux2.forEach((elemento) => {
+            this.listaPersonal.push({
+              nroDoc: elemento.nroDoc,
+              tipoDoc: elemento.tipoDoc,
+              nombreCompleto: `${elemento.apePaterno} ${elemento.apeMaterno} ${elemento.primerNombre}`
+            })
+          });
+        }
+        let listaRol=[]
+        if (resp1["cod"] === "2002") {
+          const listaAux = resp1['object']
+          listaAux.forEach((element) => {
+            let rolNecesario = element.personal
+            listaRol.push({
+              nroDoc: rolNecesario.nroDoc,
+              tipoDoc: rolNecesario.tipoDoc,
+              nombreCompleto: rolNecesario.nombre,
+              rol:element.turnos
+            });
+          });
+        }
+        //toda la logica
+        this.crearMatriz()
+        //reescribimos lo necesario
+        this.listaPersonal.forEach((personal,index)=>{
+          // console.log(element)
+           listaRol.forEach((personalWithRol)=>{
+             if(personal.nroDoc==personalWithRol.nroDoc){
+               this.matriz[index]=personalWithRol['rol']
+             }
+           })
+        })
+        this.calcularNroHorasGeneral();
+        console.log('exito')
+        // console.log('todo1 el personal',this.listaPersonal)
+        // console.log('solo personal con rol',listaRol)
+        //toda la logica
+      });
+
+    });
+
+
   }
 
   changeUps(codUps) {
@@ -292,7 +426,9 @@ export class RolGuardiaComponent implements OnInit {
     //     console.log("error al recuperar personal", error);
     //   }
     // );
+
   }
+
   calcularNroHorasGeneral() {
     for (let i = 0; i < this.matriz.length; i++) {
       let contadorAuxiliar = 0;
@@ -302,6 +438,7 @@ export class RolGuardiaComponent implements OnInit {
       }
     }
   }
+
   recalcularxFila(nroFila: number) {
     let nroHoras = 0;
     for (let j = 0; j < this.matriz[0].length; j++) {
@@ -309,9 +446,11 @@ export class RolGuardiaComponent implements OnInit {
     }
     this.listaHoras[nroFila] = nroHoras;
   }
+
   changeTurno(i, j) {
     this.recalcularxFila(i);
   }
+
   construirFilaDelDia(fila) {
     let listaTurno = [];
     for (let j = 0; j < this.matriz[0].length; j++) {
@@ -325,62 +464,67 @@ export class RolGuardiaComponent implements OnInit {
   }
 
   designar() {
-    //validaciones
-    // if (this.validarHoras()) {
-    // } else {
-    //   this.messageService.add({
-    //     severity: "warn",
-    //     summary: "denegado",
-    //     detail: "los n no se agregaron ",
-    //   });
-    // }
-    let isLast = false;
-    for (let i = 0; i < this.matriz.length; i++) {
-      let mesInput: any = {
-        anio: this.fecha.getFullYear(),
-        mes: this.fecha.getMonth() +   1,
-        ambiente: "medicina01",
-        ipress: {
-          idIpress: "616de45e0273042236434b51",
-          nombre: "la posta medica",
-          servicio: this.upsSeleccionada["nombreUPS"],
-        },
-        personal: {
-          tipoDoc: this.listaPersonal[i]["tipoDoc"],
-          nroDoc: this.listaPersonal[i]["nroDoc"],
-        },
-        turnos: this.construirFilaDelDia(i),
-      };
-      //console.log(mesInput);
-      this.rolGuardiaService.AddRolGuardia(mesInput).subscribe(
-        (resp) => {
-          if (i + 1 == this.matriz.length) {
-            console.log(resp)
-            this.messageService.add({
-              severity: "success",
-              summary: "Modificar",
-              detail: "Se asigno rol para dicho mes",
-              key: "toast2",
-            });
+    // validaciones
+    console.log('-->',this.validarHoras(),this.listaHoras)
+    if (this.validarHoras()) {
+      let isLast = false;
+      for (let i = 0; i < this.matriz.length; i++) {
+        let mesInput: any = {
+          anio: this.fecha.getFullYear(),
+          mes: this.fecha.getMonth() + 1,
+          ambiente: "medicina01",
+          ipress: {
+            idIpress: "616de45e0273042236434b51",
+            nombre: "la posta medica",
+            servicio: this.upsSeleccionada["nombreUPS"],
+          },
+          personal: {
+            tipoDoc: this.listaPersonal[i]["tipoDoc"],
+            nroDoc: this.listaPersonal[i]["nroDoc"],
+          },
+          turnos: this.construirFilaDelDia(i),
+        };
+        //console.log(mesInput);
+        this.rolGuardiaService.AddRolGuardia(mesInput).subscribe(
+          (resp) => {
+            if (i + 1 == this.matriz.length) {
+              console.log(resp)
+              this.messageService.add({
+                severity: "success",
+                summary: "Modificar",
+                detail: "Se asigno rol para dicho mes",
+                key: "toast2",
+              });
+            }
+          },
+          (error) => {
+            console.log(error);
           }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+        );
+      }
+    } else {
+      this.messageService.add({
+        severity: "warn",
+        summary: "denegado",
+        detail: "El personal de salud no cumple con el minimo de las 252 horas",
+      });
     }
+
   }
+
   validarHoras() {
     let isValid = true;
     for (let i = 0; i < this.listaHoras.length; i++) {
-      if (this.listaHoras[i] != 252) {
+      if (this.listaHoras[i] <= 252) {
         isValid = false;
       }
     }
     return isValid;
   }
+
   close() {
     console.log(this.matriz);
     // this.ref.close("cerrado");
+    // this.changeUps1('300101')
   }
 }
