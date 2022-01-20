@@ -100,7 +100,7 @@ export class CuposComponent implements OnInit {
         console.log("HORARIO", this.selectedHorario);
 
         this.getCuposXservicio();
-        this. getListaCuposConfirmados();
+        this.getListaCuposConfirmados();
 
     }
 
@@ -129,14 +129,16 @@ export class CuposComponent implements OnInit {
             console.log('Lista de Citas: ', this.dataCitas);
         });
     }
-    obtenerFecha(fecha:Date):string{
+
+    obtenerFecha(fecha: Date): string {
         let arr = fecha.toString().split('-');
-        const Year : string = arr[0];
-        const Months : string = arr[1];
-        const Day : string = arr[1];
-        console.log(Year + '-' + Months + '-' + Day );
+        const Year: string = arr[0];
+        const Months: string = arr[1];
+        const Day: string = arr[1];
+        console.log(Year + '-' + Months + '-' + Day);
         return Year + '-' + Months + '-' + Day;
     }
+
     /**Busca los pacientes por su Numero de Documento**/
     pacienteByNroDoc() {
         let auxNroDoc = {
@@ -223,7 +225,7 @@ export class CuposComponent implements OnInit {
             tipoSeguro: new FormControl(''),
             transeunte: new FormControl(''),
             edadAños: new FormControl(''),
-            edadMeses:new FormControl(''),
+            edadMeses: new FormControl(''),
             edadDias: new FormControl(''),
             etapadeVida: new FormControl(''),
             estado: new FormControl(''),
@@ -302,8 +304,9 @@ export class CuposComponent implements OnInit {
             }
         )
         this.formCuposOferta.reset();
-        this.usuarioDialog=false;
-        this.cuposDialog=false;
+        this.dataOfertasCupos = null;
+        this.usuarioDialog = false;
+        this.cuposDialog = false;
     }
 
     /****Actualiza el estado de las ofertas despues de guardar un cupo LIBRE / OCUPADO**/
@@ -356,9 +359,11 @@ export class CuposComponent implements OnInit {
             timer: 1500
         })
     }
+
     closeDialogCupos2() {
         /***cambios madai*/
         this.usuarioDialog = false;
+
         Swal.fire({
             position: 'center',
             icon: 'error',
@@ -366,6 +371,8 @@ export class CuposComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
         })
+        this.dataOfertasCupos = [];
+
     }
 
 
