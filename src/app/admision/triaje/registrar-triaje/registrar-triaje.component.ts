@@ -16,6 +16,7 @@ export class RegistrarTriajeComponent implements OnInit {
   triaje: Triaje;
   datosPersonales: any;
   idCupo: string;
+  dataTriaje: any;
 
   constructor(
     private fb: FormBuilder,
@@ -26,9 +27,21 @@ export class RegistrarTriajeComponent implements OnInit {
     private messageService: MessageService,
   ) {
     this.inicializarForm();
-    console.log('data of listar ', config.data);
-    this.datosPersonales = config.data;
-    this.idCupo = config.data.id;
+    console.log('data of listar ', config.data.data);
+    this.datosPersonales = config.data.data;
+    this.idCupo = this.datosPersonales.id;
+    if (config.data.option == 2) {
+      this.triajeService.getVerTriajeByIdCupo(this.idCupo).subscribe((res: any) => {
+        this.dataTriaje = res.object;
+        this.formTriaje.patchValue({ temperatura: this.dataTriaje.funcionesVitales.t });
+        this.formTriaje.patchValue({ presionSis: this.dataTriaje.funcionesVitales.presionSistolica });
+        this.formTriaje.patchValue({ presionDias: this.dataTriaje.funcionesVitales.presionDiastolica });
+        this.formTriaje.patchValue({ fc: this.dataTriaje.funcionesVitales.fc });
+        this.formTriaje.patchValue({ fr: this.dataTriaje.funcionesVitales.fr });
+        this.formTriaje.patchValue({ peso: this.dataTriaje.funcionesVitales.peso });
+        this.formTriaje.patchValue({ talla: this.dataTriaje.funcionesVitales.talla });
+      })
+    }
   }
 
   ngOnInit(): void {
@@ -81,6 +94,10 @@ export class RegistrarTriajeComponent implements OnInit {
     this.formTriaje.patchValue({ fr: '' });
     this.formTriaje.patchValue({ peso: '' });
     this.formTriaje.patchValue({ talla: '' });
+  }
+
+  calcularIMC() {
+
   }
 }
 interface Triaje {

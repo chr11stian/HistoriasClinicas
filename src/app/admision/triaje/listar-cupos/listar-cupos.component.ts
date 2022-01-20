@@ -44,32 +44,6 @@ export class ListarCuposComponent implements OnInit {
       { name: "C EXTRANJERIA", code: 3 },
       { name: "OTROS", code: 4 },
     ]
-    // this.dataCupos = [
-    //   {
-    //     nroDoc: "10101013",
-    //     datosPaciente: {
-    //       apeMaterno: "ABARCA",
-    //       apePaterno: "MELGAREJO",
-    //       primerNombre: "KATHERIN",
-    //       celular: "9567834",
-    //     },
-    //     proxCita: {
-    //       fecha: "20/11/2021",
-    //     },
-    //   },
-    //   {
-    //     nroDoc: "10101014",
-    //     datosPaciente: {
-    //       apeMaterno: "CALLER",
-    //       apePaterno: "OLAZABAL",
-    //       primerNombre: "LETICIA GIULIANA",
-    //       celular: "990909067",
-    //     },
-    //     proxCita: {
-    //       fecha: "20/11/2021",
-    //     },
-    //   },
-    // ]
 
   }
 
@@ -120,14 +94,30 @@ export class ListarCuposComponent implements OnInit {
   }
 
   openDialogTriaje(data) {
+    let dataAux = {
+      data: data,
+      option: 1
+    }
     this.ref = this.dialog.open(RegistrarTriajeComponent, {
       header: " Registrar Triaje",
       width: '60%',
-      data: data
+      data: dataAux
     });
     this.ref.onClose.subscribe((data: any) => {
-      console.log('res data ', data);
+      this.listCupos();
+      this.listCuposTriados();
+    });
+  }
 
+  openDialogVerTriaje(data) {
+    let dataAux = {
+      data: data,
+      option: 2
+    }
+    this.ref = this.dialog.open(RegistrarTriajeComponent, {
+      header: " Registrar Triaje",
+      width: '60%',
+      data: dataAux
     });
   }
 }
