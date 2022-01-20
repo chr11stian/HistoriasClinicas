@@ -96,8 +96,10 @@ export class RegistrarTriajeComponent implements OnInit {
   }
 
   calcularIMC() {
-    let pesoAux = this.formTriaje.value.peso;
-    let tallaAux = this.formTriaje.value.talla;
+    let pesoAux: number = this.formTriaje.value.peso;
+    let tallaAux: number = this.formTriaje.value.talla;
+    let imc = pesoAux / (tallaAux * tallaAux)
+    console.log('imc ', imc);
   }
 }
 interface Triaje {
