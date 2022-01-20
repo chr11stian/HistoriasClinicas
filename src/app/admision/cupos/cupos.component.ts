@@ -97,6 +97,7 @@ export class CuposComponent implements OnInit {
         this.buildForm();
         this.formCuposOferta.get('SelectUPS').setValue(this.ServicoSelect);
         this.formCuposOferta.get('fechaBusqueda').setValue(this.datafecha);
+        this.detallePago = "PENDIENTE";
         // this.getDataUPS();
         this.getListaUps();
         this.getDocumentosIdentidad();
@@ -108,6 +109,7 @@ export class CuposComponent implements OnInit {
         this.ListarPacientesCitasObstetricas();
 
     }
+
 
     /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
     getCuposXservicio() {
@@ -165,7 +167,9 @@ export class CuposComponent implements OnInit {
         console.log(Year + '-' + Months + '-' + Day);
         return Year + '-' + Months + '-' + Day;
     }
-
+    // cambiarDetallePago(){
+    //     if(this.dataPacientes.tipoSeguro=="SIS"){this.detallePago="GRATUITO"}
+    // }
     /**Busca los pacientes por su Numero de Documento**/
     pacienteByNroDoc() {
         let auxNroDoc = {
@@ -192,7 +196,7 @@ export class CuposComponent implements OnInit {
                this.formCuposOferta.get('centroPoblado').setValue(this.dataPacientes.domicilio.ccpp);
                this.formCuposOferta.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
                this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
-               if(this.dataPacientes.tipoSeguro=="SIS"){this.detallePago="GRATUITO"}
+               if(this.dataPacientes.tipoSeguro=="SIS"){this.detallePago="GRATUITO"}else{this.detallePago="PENDIENTE"}
                this.formCuposOferta.get('edadAnio').setValue(this.ageCalculatorA(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento)));
                this.formCuposOferta.get('edadMes').setValue(this.ageCalculatorM(this.dataPacientes.nacimiento.fechaNacimiento));
                this.formCuposOferta.get('edadDia').setValue(this.ageCalculatorD(this.dataPacientes.nacimiento.fechaNacimiento));
@@ -221,35 +225,6 @@ export class CuposComponent implements OnInit {
 
             },
         })
-        // let auxNroDoc = {
-        //     tipoDoc: this.formCuposOferta.value.tipoDoc.abreviatura,
-        //     nroDoc: this.formCuposOferta.value.nroDoc,
-        // }
-        // this.pacienteService.getPacienteByNroDoc(auxNroDoc).subscribe((res: any) => {
-        //     this.dataPacientes = res.object
-        //     console.log('paciente por doc ', this.dataPacientes)
-        //     this.formCuposOferta.get('apePaterno').setValue(this.dataPacientes.apePaterno);
-        //     this.formCuposOferta.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
-        //     this.formCuposOferta.get('primerNombre').setValue(this.dataPacientes.primerNombre);
-        //     this.formCuposOferta.get('otrosNombres').setValue(this.dataPacientes.otrosNombres);
-        //     this.formCuposOferta.get('sexo').setValue(this.dataPacientes.sexo);
-        //     this.formCuposOferta.get('fechaNacimiento').setValue(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
-        //     this.formCuposOferta.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
-        //     this.formCuposOferta.get('celular').setValue(this.dataPacientes.celular);
-        //     this.formCuposOferta.get('nacionalidad').setValue(this.dataPacientes.nacionalidad);
-        //     this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
-        //     this.formCuposOferta.get('departamento').setValue(this.dataPacientes.domicilio.departamento);
-        //     this.formCuposOferta.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
-        //     this.formCuposOferta.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
-        //     this.formCuposOferta.get('centroPoblado').setValue(this.dataPacientes.domicilio.ccpp);
-        //     this.formCuposOferta.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
-        //     this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
-        //     if(this.dataPacientes.tipoSeguro=="SIS"){this.detallePago="GRATUITO"}
-        //     this.formCuposOferta.get('edadAnio').setValue(this.ageCalculatorA(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento)));
-        //     this.formCuposOferta.get('edadMes').setValue(this.ageCalculatorM(this.dataPacientes.nacimiento.fechaNacimiento));
-        //     this.formCuposOferta.get('edadDia').setValue(this.ageCalculatorD(this.dataPacientes.nacimiento.fechaNacimiento));
-        //     // this.formCuposOferta.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
-        // });
     }
     /**lista los Servicios por IPRESS**/
     getListaUps() {
