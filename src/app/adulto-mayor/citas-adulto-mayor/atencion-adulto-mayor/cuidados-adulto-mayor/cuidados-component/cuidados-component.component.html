@@ -18,18 +18,18 @@
             </ng-template>
         </p-toolbar>
         <br>
-        <div class="grid">
-            <form [formGroup]="formCuidados">
-            <div class="col-12 md:col-6 lg:col-6">
-                <label>Fecha:</label>
-                <input type="date" pInputText class="inputfield w-full" formControlName="fecha" >
+        <form [formGroup]="formCuidados">
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6 p-fluid">
+                    <label>Fecha:</label>
+                    <input type="date" pInputText class="inputfield w-full" formControlName="fecha" >
+                </div>
+                <div class="col-12 md:col-6 lg:col-6 p-flui">
+                    <label>Nro. H.Cl.</label>
+                    <input type="number" pInputText class="inputfield w-full" placeholder="Número de Histotia Clínica" formControlName="hcl">
+                </div>
             </div>
-            <div class="col-12 md:col-6 lg:col-6">
-                <label>Nro. H.Cl.</label>
-                <input type="number" pInputText class="inputfield w-full" placeholder="Número de Histotia Clínica" formControlName="hcl">
-            </div>
-            </form>
-        </div>
+        </form>
         <br>
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-6">

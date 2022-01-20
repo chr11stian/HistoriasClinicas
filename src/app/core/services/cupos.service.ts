@@ -42,8 +42,12 @@ export class CuposService {
         return this.http.post(`${this.base_url}/${this.bd}/oferta/crear-ofertas`, data)
     }
 
+    // getCuposServicioFecha(idipres, data) {
+    //     return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/servicio/${idipres}`, data)
+    // }
+
     getCuposServicioFecha(idipres, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/servicio/${idipres}`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/cupos/servicio/${idipres}`, data)
     }
 
     listaCuposConfirmados(idIpres, data) {

@@ -84,10 +84,10 @@
         </div>
         <div class="grid">
             <div class="col-12 md:col-5 mt-2">
-                <p-table #dt [value]="listaMedicacionUsoFrecuente"  responsiveLayout="scroll" styleClass="p-datatable-gridlines"
-                [rows]="5" [paginator]="true" [autoLayout]="true"
-                currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                [showCurrentPageReport]="true">
+                <p-table #dt [value]="listaMedicacionUsoFrecuente" [rows]="3" [paginator]="true" [rowHover]="true"
+                    styleClass="p-datatable-sm" dataKey="id"
+                    currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} Entradas"
+                    [showCurrentPageReport]="true">
                     <ng-template pTemplate="caption">
                         <div class="grid">
                             <div class="col-8">
@@ -112,10 +112,10 @@
                             <td style="text-align: center">{{ rowData }}</td>
                             <td style="text-align: center">
                                 <button pButton pRipple type="button" icon="pi pi-pencil"
-                                    (click)="openDialogEditarRecomendacion(rowData, rowIndex)"
+                                    (click)="openDialogEditarMedicacionFrecuente(rowData, rowIndex)"
                                     class="p-button-rounded p-button-text"></button>
                                 <button pButton pRipple type="button" icon="pi pi-trash"
-                                    (click)="eliminarRecomendacion(rowIndex)"
+                                    (click)="eliminarMedicacionFrec(rowIndex)"
                                     class="p-button-rounded p-button-danger p-button-text"></button>
                             </td>
                         </tr>
@@ -123,10 +123,9 @@
                 </p-table>
             </div>
             <div class="col-12 md:col-7 mt-2">
-                <p-table [value]="listaSignosAlarma" #dt [rows]="3" styleClass="p-datatable-sm" [paginator]="true"
-                    [autoLayout]="true" class="m-3"
+                <p-table [value]="listaSignosAlarma" #dt [rows]="3" [paginator]="true" [autoLayout]="true" class="m-3"
                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                    [showCurrentPageReport]="true" responsiveLayout="scroll">
+                    pageLinkSize="3" alwaysShow [showCurrentPageReport]="true" responsiveLayout="scroll">
                     <ng-template pTemplate="caption">
                         <div class="grid">
                             <div class="col-9">
@@ -151,10 +150,10 @@
                             <td style="text-align: center">{{ rowData }}</td>
                             <td style="text-align: center">
                                 <button pButton pRipple type="button" icon="pi pi-pencil"
-                                    (click)="openDialogEditarRecomendacion(rowData, rowIndex)"
+                                    (click)="openDialogEditSignosAlarma(rowData, rowIndex)"
                                     class="p-button-rounded p-button-text"></button>
                                 <button pButton pRipple type="button" icon="pi pi-trash"
-                                    (click)="eliminarRecomendacion(rowIndex)"
+                                    (click)="eliminarSignoAlarma(rowIndex)"
                                     class="p-button-rounded p-button-danger p-button-text"></button>
                             </td>
                         </tr>
@@ -173,13 +172,15 @@
         <form [formGroup]='formSignosAlarma'>
             <div class="col-12">
                 <label>Signo de Alarma:</label>
-                <input type="text" pInputText formControlName='signoAlarma' placeholder="Descripcion"
+                <input type="text" pInputText formControlName='signoAlarma' placeholder="Descripcion" autofocus
                     class="inputfield w-full">
             </div>
         </form>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
-        <button pButton type="button" label="Aceptar" (click)="aceptarSignosAlarma()"></button>
+        <button *ngIf="!updateAlarmSign" pButton type="button" label="Aceptar" (click)="aceptarSignosAlarma()"></button>
+        <button *ngIf="updateAlarmSign" pButton type="button" label="Aceptar"
+            (click)="aceptarDialogEditSignosAlarma()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="closeDialog()"></button>
     </ng-template>
 </p-dialog>
@@ -192,13 +193,16 @@
         <form [formGroup]='formMedicacion'>
             <div class="col-12">
                 <label>Medicación:</label>
-                <input type="text" pInputText formControlName='medicacionFrec' placeholder="Medicación"
+                <input type="text" pInputText formControlName='medicacionFrec' placeholder="Medicación" autofocus
                     class="inputfield w-full">
             </div>
         </form>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
-        <button pButton type="button" label="Aceptar" (click)="aceptarDialogMedicacion()"></button>
+        <button *ngIf="!updateMedicacionFrec" pButton type="button" label="Aceptar"
+            (click)="aceptarDialogMedicacion()"></button>
+        <button *ngIf="updateMedicacionFrec" pButton type="button" label="Aceptar"
+            (click)="aceptarDialogEditMedicacion()"></button>
         <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="closeDialog()"></button>
     </ng-template>
 </p-dialog>

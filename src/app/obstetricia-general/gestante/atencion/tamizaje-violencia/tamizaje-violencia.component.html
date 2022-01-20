@@ -21,6 +21,9 @@
             <button pButton pRipple type="button" icon="pi pi-list" label="Lista tamizaje"
                     (click)="openModal()" class="p-button-danger">
             </button>
+            <button pButton pRipple type="button" icon="pi pi-broom" label="Nuevo"
+                    (click)="limpiarFormulario()" class="p-button-danger">
+            </button>
             <button pButton pRipple type="button" icon="pi pi-save" label="Guardar"
                     (click)="save()" class="p-button-danger">
             </button>
@@ -280,8 +283,8 @@
                 <div class="col-12 md:col-6 lg:col-3 p-field">
                     <div class="">
                         <label class="">Diagnostico del paciente: </label>
-                        <p-selectButton [options]="diagnostico" optionLabel="name"
-                                        optionValue="boleano" formControlName="diagnostico">
+                        <p-selectButton [options]="diagnostico2" optionLabel="name"
+                                        optionValue="diagnostico" formControlName="diagnostico">
                         </p-selectButton>
                     </div>
                 </div>
@@ -295,18 +298,11 @@
                                formControlName="nroDodResponsable" placeholder="Nro documento">
                     </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-4 p-field">
+                <div class="col-12 md:col-6 lg:col-6 p-field">
                     <div class="">
-                        <label class="">Apellidos: </label>
+                        <label class="">Apellidos y Nombres: </label>
                         <input type="text" pInputText class="inputfield w-full"
                                formControlName="ApellidosResponsable" placeholder="Apellidos y nombres">
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4 p-field">
-                    <div class="">
-                        <label class="">Nombres: </label>
-                        <input type="text" pInputText class="inputfield w-full"
-                               formControlName="nombresResponsable" placeholder="Nombres">
                     </div>
                 </div>
             </div>
@@ -333,7 +329,7 @@
 
         <p-accordion>
             <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
-                <p-table [value]="ListaTamizajes" #dt [rows]="4"
+                <p-table [value]="ListaTamizajes" #dt [rows]="5"
                          [rowsPerPageOptions]="[5, 10, 15]"
                          [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                          currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
@@ -360,7 +356,8 @@
                             <td style="text-align: center">{{ rowData.nombreResponsableAtencion }}</td>
                             <td style="text-align: center">{{ rowData.diagnostico }}</td>
                             <td style="text-align: center">
-                                <button pButton pRipple type="button" label="Actualizar" (click)="recuperarData(rowData)"
+                                <button pButton pRipple type="button" label="Actualizar"
+                                        (click)="recuperarData(rowData)"
                                         class="p-button-danger" icon="pi pi-pencil"></button>
 
                             </td>

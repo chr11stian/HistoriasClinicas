@@ -179,10 +179,10 @@
                             <td style="text-align: center">
                                 <button pButton pRipple type="button" icon="pi pi-pencil"
                                     class="p-button-rounded p-button-text"
-                                    (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                    (click)="openDialogEditAuxExam(rowData, rowIndex)"></button>
                                 <button pButton pRipple type="button" icon="pi pi-trash"
                                     class="p-button-rounded p-button-danger p-button-text"
-                                    (click)="eliminarDiagnostico(rowIndex)"></button>
+                                    (click)="eliminarAuxExam(rowIndex)"></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -220,10 +220,10 @@
                             <td style="text-align: center">
                                 <button pButton pRipple type="button" icon="pi pi-pencil"
                                     class="p-button-rounded p-button-text"
-                                    (click)="openDialogEditarDiagnostico(rowData, rowIndex)"></button>
+                                    (click)="openDialogEditPhysicalExam(rowData, rowIndex)"></button>
                                 <button pButton pRipple type="button" icon="pi pi-trash"
                                     class="p-button-rounded p-button-danger p-button-text"
-                                    (click)="eliminarDiagnostico(rowIndex)"></button>
+                                    (click)="eliminarPhysicalExam(rowIndex)"></button>
                             </td>
                         </tr>
                     </ng-template>
@@ -243,17 +243,15 @@
             <div class="grid">
                 <div class="col-12">
                     <label>Resultado:</label>
-                    <input formControlName="resultado" type="text" class="p-inputtext-sm " pInputText />
+                    <input formControlName="resultado" type="text" class="p-inputtext-sm " pInputText autofocus />
                 </div>
             </div>
         </form>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="updateExamResultAux" pButton type="button" label="Guardar"
-            (click)="guardarEdicionDiagnostico()"></button>
-        <button *ngIf="!updateExamResultAux" pButton type="button" label="Guardar" (click)="aceptarAuxExam()"></button>
-        <button pButton type=" button" label="Cerrar" class="p-button-danger"
-            (click)="closeDialogDiagnostico()"></button>
+        <button *ngIf="!updateAuxExam" pButton type="button" label="Guardar" (click)="aceptarAuxExam()"></button>
+        <button *ngIf="updateAuxExam" pButton type="button" label="Edit" (click)="aceptarDialogEditAuxExam()"></button>
+        <button pButton type=" button" label="Cerrar" class="p-button-danger" (click)="closeDialog()"></button>
     </ng-template>
 </p-dialog>
 <!-- DIALOG ADD EXAMEN FISICO -->
@@ -267,7 +265,7 @@
             <div class="grid">
                 <div class="col-12 md:col-6">
                     <label>Examen:</label>
-                    <input formControlName="nombreExamen" type="text" class="p-inputtext-sm " pInputText />
+                    <input formControlName="nombreExamen" type="text" class="p-inputtext-sm " pInputText autofocus />
                 </div>
                 <div class="col-12 md:col-6">
                     <label>Resultado:</label>
@@ -277,11 +275,10 @@
         </form>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="updateExamFisico" pButton type="button" label="Guardar"
-            (click)="guardarEdicionDiagnostico()"></button>
-        <button *ngIf="!updateExamFisico" pButton type="button" label="Guardar"
+        <button *ngIf="updatePhysicalExam" pButton type="button" label="Guardar"
+            (click)="aceptarDialogEditPhysicalExam()"></button>
+        <button *ngIf="!updatePhysicalExam" pButton type="button" label="Guardar"
             (click)="aceptarOtrosExamenes()"></button>
-        <button pButton type=" button" label="Cerrar" class="p-button-danger"
-            (click)="closeDialogDiagnostico()"></button>
+        <button pButton type=" button" label="Cerrar" class="p-button-danger" (click)="closeDialog()"></button>
     </ng-template>
 </p-dialog>

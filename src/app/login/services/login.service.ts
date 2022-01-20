@@ -32,7 +32,7 @@ export class LoginService {
             })
         })
             .pipe(map(user => {
-                console.log('user',user)
+                console.log('user', user)
                 if (user) {
                     const token = {
                         usuario: 'user',

@@ -13,7 +13,7 @@ import {DatePipe} from "@angular/common";
 })
 export class TamizajeViolenciaComponent implements OnInit {
     opciones: any;
-    diagnostico: any;
+    diagnostico2: any;
     formDatos_Tamisaje: FormGroup;
     dataPacientes: any;
     fechaConvertido: string;//fecha convertido
@@ -42,16 +42,16 @@ export class TamizajeViolenciaComponent implements OnInit {
             {name: 'NO', boleano: false}
         ];
 
-        this.diagnostico = [
-            {name: 'POSITIVO (+)', boleano: true},
-            {name: 'NEGATIVO (-)', boleano: false}
+        this.diagnostico2 = [
+            {name: 'POSITIVO (+)', diagnostico: 'POSITIVO'},
+            {name: 'NEGATIVO (-)', diagnostico: 'NEGATIVO'}
         ];
 
-        // this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
-        // this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        // this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
-        this.tipoDocRecuperado = "DNI";
-        this.nroDocRecuperado = "10101099";
+        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
+        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
+        this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
+        // this.tipoDocRecuperado = "DNI";
+        // this.nroDocRecuperado = "10101099";
         this.estadoEmbarazo = this.obstetriciaGeneralService.estadoEmbarazo;
     }
 
@@ -65,8 +65,6 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.getpacienteByNroDoc();
         this.obternerFechaActual();
         this.getTamizajeNroDoc();
-
-
     }
 
     /**Recupera un solo tamizaje al hacer un clic en el event**/
@@ -105,8 +103,6 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.formDatos_Tamisaje.get('diagnostico').setValue(this.Recupera_un_Tamizaje.diagnostico);
         this.formDatos_Tamisaje.get('nroDodResponsable').setValue(this.Recupera_un_Tamizaje.nroDocResponsable);
         this.formDatos_Tamisaje.get('ApellidosResponsable').setValue(this.Recupera_un_Tamizaje.nombreResponsableAtencion);
-        this.formDatos_Tamisaje.get('nombresResponsable').setValue(this.Recupera_un_Tamizaje.nombreResponsableAtencion);
-
 
         this.ListaTamizajeDialog = false;
     }
@@ -180,8 +176,6 @@ export class TamizajeViolenciaComponent implements OnInit {
             Telefono: new FormControl(''),
             nroHcl: new FormControl(''),
             Edad: new FormControl(''),
-
-
             Fecha: new FormControl(''),//fecha atencion
 
             /**Preguntas respuestas**/
@@ -205,17 +199,22 @@ export class TamizajeViolenciaComponent implements OnInit {
             diagnostico: new FormControl(''),
             nroDodResponsable: new FormControl(''),
             ApellidosResponsable: new FormControl(''),
-            nombresResponsable: new FormControl(''),
         })
     }
 
+    limpiarFormulario() {
+        this.Recupera_un_Tamizaje = null;
+        this.formDatos_Tamisaje.reset();
+        this.formDatos_Tamisaje.get('Fecha').setValue(this.datafecha);
+        this.getpacienteByNroDoc();
+    }
+
     save() {
-        if (this.Recupera_un_Tamizaje !== null) {
+        if (this.Recupera_un_Tamizaje != null) {
             this.UpdateTamizaje();
         } else {
             this.saveTamizaje();
         }
-        this.getTamizajeNroDoc();
     }
 
     /**Registra datos, preguntas que se hace al paciente**/
@@ -223,15 +222,15 @@ export class TamizajeViolenciaComponent implements OnInit {
         if ((this.estadoEmbarazo != "FINALIZADO") && (this.estadoEmbarazo != "")) {
             this.gestante = true;
         } else {
-            this.gestante = false
+            this.gestante = false;
         }
         console.log("estado", this.gestante);
-
         const data = {
             tipoDoc: this.dataPacientes.tipoDoc,
             nroDoc: this.formDatos_Tamisaje.value.nroDoc,
             nroHcl: this.formDatos_Tamisaje.value.nroHcl,
             gestante: this.gestante,
+            nroEmbarazo: this.nroEmbarazo,
             nombres: this.formDatos_Tamisaje.value.nombres,
             apePaterno: this.formDatos_Tamisaje.value.apePaterno,
             apeMaterno: this.formDatos_Tamisaje.value.apeMaterno,
@@ -308,16 +307,18 @@ export class TamizajeViolenciaComponent implements OnInit {
 
 
             ],
+
             diagnostico: this.formDatos_Tamisaje.value.diagnostico,
             tipoDocResponsable: "DNI",
             nroDocResponsable: this.formDatos_Tamisaje.value.nroDodResponsable,
-            nombreResponsableAtencion: this.formDatos_Tamisaje.value.ApellidosResponsable + ' ' + this.formDatos_Tamisaje.value.nombresResponsable,
-
+            nombreResponsableAtencion: this.formDatos_Tamisaje.value.ApellidosResponsable,
         }
+
         console.log("DATA", data);
 
         this.tamizajeViolenciaService.addTamizajeViolencia(data).subscribe(result => {
                 console.log("DATA", result);
+                this.getTamizajeNroDoc();
                 Swal.fire({
                     icon: 'success',
                     title: 'Se guardo con exito',
@@ -415,13 +416,14 @@ export class TamizajeViolenciaComponent implements OnInit {
             diagnostico: this.formDatos_Tamisaje.value.diagnostico,
             tipoDocResponsable: "DNI",
             nroDocResponsable: this.formDatos_Tamisaje.value.nroDodResponsable,
-            nombreResponsableAtencion: this.formDatos_Tamisaje.value.ApellidosResponsable + ' ' + this.formDatos_Tamisaje.value.nombresResponsable,
+            nombreResponsableAtencion: this.formDatos_Tamisaje.value.ApellidosResponsable,
 
         }
         console.log("DATA UPDATE", data2);
 
         this.tamizajeViolenciaService.UpdateTamizajeViolencia(data2).subscribe(result => {
                 console.log("DATA UPDATE", result);
+                this.getTamizajeNroDoc();
                 Swal.fire({
                     icon: 'success',
                     title: 'Se Actualizo con exito',

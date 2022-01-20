@@ -9,14 +9,30 @@
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-9 p-field">
                 <form [formGroup]="formCuposOferta">
-                    <div class="col-12 md:col-6 lg:col-6 p-field">
-                        <label class="">BUSCAR POR FECHA</label>
-                        <div class="p-inputgroup">
-                            <p-calendar dateFormat="yy-mm-dd" placeholder="Button" [yearNavigator]="true"
-                                        monthNavigator=true yearRange="1900:2050" formControlName="fechaBusqueda"
-                                        [readonlyInput]="true"
-                                        (click)="selectCupos()">
-                            </p-calendar>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <label class="">BUSCAR POR FECHA</label>
+                            <div class="p-inputgroup">
+                                <p-calendar dateFormat="yy-mm-dd" placeholder="Button"
+                                            formControlName="fechaBusqueda"
+                                            [readonlyInput]="true"
+                                            (onSelect)="getListaCuposConfirmados()">
+                                </p-calendar>
+                            </div>
+                        </div>
+
+                        <div class="col-12 md:col-6 lg:col-8 p-field">
+                            <label class="">SERVICIO</label>
+                            <div class="">
+                                <p-dropdown [options]="ups"
+                                            formControlName="SelectUPS"
+                                            placeholder="Seleccione un servicio"
+                                            optionLabel="nombreUPS"
+                                            optionValue="nombreUPS"
+                                            [showClear]="false"
+                                            (onChange)="getListaCuposConfirmados()">
+                                </p-dropdown>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -33,7 +49,7 @@
 
 
     <p-accordion>
-        <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
+        <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA LA FECHA" [selected]="true">
             <p-table [value]="dataCupos_por_fechas_servicio" #dt styleClass="p-datatable-gridlines" [rows]="10"
                      [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
@@ -45,8 +61,8 @@
                         <th style="text-align: center">DNI</th>
                         <th style="text-align: center">APELLIDOS</th>
                         <th style="text-align: center">NOMBRES</th>
-                        <th style="text-align: center">HORA ATENSION</th>
-                        <th style="text-align: center">FECHA ATENSION</th>
+                        <th style="text-align: center">HORA ATENCION</th>
+                        <th style="text-align: center">FECHA ATENCION</th>
                         <th style="text-align: center">SERVICIO</th>
                         <th style="text-align: center">ACCIONES</th>
 
@@ -68,7 +84,7 @@
                 </ng-template>
             </p-table>
         </p-accordionTab>
-        <p-accordionTab header="LISTA DE PACIENTES CON CITAS" [selected]="true">
+        <p-accordionTab header="LISTA DE PACIENTES CON CITAS PARA LA FECHA" [selected]="true">
             <p-table [value]="dataCitas" #dt styleClass="p-datatable-gridlines" [rows]="4"
                      [rowsPerPageOptions]="[5, 10, 15]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
@@ -94,14 +110,8 @@
                         <td style="text-align: center">{{ rowData.proxCita.fecha }}</td>
                         <td style="text-align: center">{{ rowData.datosPaciente.celular }}</td>
                         <td style="text-align: center">
-
-                            <button pButton pRipple routerLink="gestante" (click)="enviarData(rowData)"
-                                    class="boton-azul" label="Gestante"
-                                    icon="pi pi-check"></button>
-                            <button pButton pRipple routerLink="noControl" class="boton-mostaza" label="No Control"
-                                    icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>
-                            <button pButton pRipple class="boton-red" label="Cancelar" icon="pi pi-times"></button>
-
+                            <button pButton pRipple type="button" label="Reprogramar" class="p-button-raised p-button-success"></button>
+                            <button pButton pRipple type="button" label="Cancelar" class="p-button-raised p-button-danger"(click)="updateCitas(rowData)"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -347,34 +357,37 @@
                         <br>
                         <div class="datosExtra">
                             <div class="grid m-2">
-                                <div class="p-field col-2">
+                                <div class="p-field col-2 md:col-4 lg:col-4">
                                     <label class="ml-2 font-bold">TIPO SEGURO</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="tipoSeguro"/>
                                 </div>
-
-                                <div class="p-field col-2">
+                                <div class="p-field col-2 md:col-4 lg:col-4">
                                     <label class="ml-2 font-bold">TRANSEUNTE</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="transeunte"/>
                                 </div>
-                                <div class="p-field col-2">
-                                    <label class="ml-2 font-bold">EDAD</label>
+                                <div class="p-field col-2 md:col-4 lg:col-4">
+                                    <label class="ml-2 font-bold">EDAD(años)</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="edad"/>
+                                           formControlName="edadAños"/>
                                 </div>
-
-                                <div class="p-field col-2">
-                                    <label class="ml-2 font-bold">DIAS</label>
+                                <div class="p-field col-2 md:col-4 lg:col-4">
+                                    <label class="ml-2 font-bold">EDAD(meses)</label>
                                     <input type="text"
                                            pInputText
-                                           formControlName="dias"/>
+                                           formControlName="edadMeses"/>
                                 </div>
-
-                                <div class="p-field col-4">
+                                <div class="p-field col-1 md:col-4 lg:col-4">
+                                    <label class="ml-2 font-bold">EDAD(dias)</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="edadDias"/>
+                                </div>
+                                <div class="p-field col-3 md:col-4 lg:col-4">
                                     <label class="ml-2 font-bold">ETAPA DE VIDA</label>
                                     <input type="text"
                                            pInputText
@@ -421,7 +434,7 @@
 
 
     <ng-template pTemplate=footer>
-        <button pButton type="button" label="Cancelar" class="p-button-danger"></button>
+        <button pButton type="button" label="Cancelar" (click)="closeDialogCupos2()" class="p-button-danger"></button>
         <button pButton type="button" label="Guardar" (click)="saveForm()"></button>
     </ng-template>
 </p-dialog>
