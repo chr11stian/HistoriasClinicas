@@ -68,7 +68,6 @@ export class RegistrarTriajeComponent implements OnInit {
       fr: parseInt(this.formTriaje.value.fr),
       peso: parseFloat(this.formTriaje.value.peso),
       talla: parseFloat(this.formTriaje.value.talla),
-
     }
   }
 
@@ -97,7 +96,8 @@ export class RegistrarTriajeComponent implements OnInit {
   }
 
   calcularIMC() {
-
+    let pesoAux = this.formTriaje.value.peso;
+    let tallaAux = this.formTriaje.value.talla;
   }
 }
 interface Triaje {
