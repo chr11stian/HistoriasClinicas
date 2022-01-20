@@ -251,6 +251,9 @@
                                 <div class="btn-buscar">
                                     <p-button label="" icon="pi pi-search" (click)="pacienteByNroDoc()"></p-button>
                                 </div>
+                                <div class="btn-buscar">
+                                    <p-button label="Nuevo Paciente" icon="pi pi-search" (click)="buscarNuevoPaciente()"></p-button>
+                                </div>
                             </div>
                         </div>
                         <br>
@@ -288,65 +291,77 @@
                                            pInputText
                                            formControlName="sexo"/>
                                 </div>
-
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">FECHA NACIMIENTO</label>
                                     <input type="date"
                                            pInputText
                                            formControlName="fechaNacimiento"/>
                                 </div>
-
+                                <div class="p-field col-1">
+                                    <label class="ml-2 font-bold">A</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="edadAnio"/>
+                                </div>
+                                <div class="p-field col-1">
+                                    <label class="ml-2 font-bold">M</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="edadMes"/>
+                                </div>
+                                <div class="p-field col-1">
+                                    <label class="ml-2 font-bold">D</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="edadDia"/>
+                                </div>
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">ESTADO CIVIL</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="estadoCivil"/>
                                 </div>
+                            </div>
+                            <div class="grid m-2">
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">TELEFONO / CELULAR</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="celular"/>
                                 </div>
-                            </div>
-                            <div class="grid m-2">
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">NACIONALIDAD</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="nacionalidad"/>
                                 </div>
-
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">DEPARTAMENTO</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="departamento"/>
                                 </div>
-
                                 <div class="p-field col-3">
                                     <label class="ml-2 font-bold">PROVINCIA</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="provincia"/>
                                 </div>
-
-                                <div class="p-field col-3">
+                            </div>
+                            <div class="grid m-2">
+                                <div class="p-field col-4">
                                     <label class="ml-2 font-bold">DISTRITO</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="distrito"/>
                                 </div>
-                            </div>
-                            <div class="grid m-2">
-                                <div class="p-field col-6">
+                                <div class="p-field col-4">
                                     <label class="ml-2 font-bold">CENTRO POBLADO</label>
                                     <input type="text"
                                            pInputText
                                            formControlName="centroPoblado"/>
                                 </div>
-
-                                <div class="p-field col-6">
+                                <div class="p-field col-4">
                                     <label class="ml-2 font-bold">DIRECCION</label>
                                     <input type="text"
                                            pInputText
@@ -369,30 +384,7 @@
                                            pInputText
                                            formControlName="transeunte"/>
                                 </div>
-                                <div class="p-field col-2 md:col-4 lg:col-4">
-                                    <label class="ml-2 font-bold">EDAD(años)</label>
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="edadAños"/>
-                                </div>
-                                <div class="p-field col-2 md:col-4 lg:col-4">
-                                    <label class="ml-2 font-bold">EDAD(meses)</label>
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="edadMeses"/>
-                                </div>
-                                <div class="p-field col-1 md:col-4 lg:col-4">
-                                    <label class="ml-2 font-bold">EDAD(dias)</label>
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="edadDias"/>
-                                </div>
-                                <div class="p-field col-3 md:col-4 lg:col-4">
-                                    <label class="ml-2 font-bold">ETAPA DE VIDA</label>
-                                    <input type="text"
-                                           pInputText
-                                           formControlName="etapadeVida"/>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -400,7 +392,7 @@
                     <div class="col-3 ">
                         <div class="datosServicio">
                             <div class="pfield col-12">
-                                <label class="font-bold">SERVICIO</label>
+                                <label class="font-bold">SERVICIO A ATENDERSE:</label>
                                 <p>{{dataSelectServicio}}</p>
                             </div>
                             <div class="p-field col-12">
@@ -411,19 +403,30 @@
                         <br>
                         <div class="datosServicio ">
                             <div class="p-field col-12">
-                                <label class="font-bold">PERSONAL</label>
+                                <label class="font-bold">PERSONAL RESPONSABLE DE ATENCION:</label>
                                 <p>{{personalSelected}}</p>
                             </div>
                         </div>
                         <br>
                         <div class="datosServicio">
                             <div class="p-field col-12">
-                                <label class="font-bold">HORA</label>
+                                <label class="font-bold">FECHA A ATENDERSE:</label>
+                                <p>{{selectedFecha}}</p>
+                            </div>
+                            <div class="p-field col-12">
+                                <label class="font-bold">HORA:</label>
                                 <tr *ngFor="let horas of selectedHorario" class="ml-2 font-bold">
                                     <p>
                                         {{horas.horaInicio}}-{{horas.horaFin}}
                                     </p>
                                 </tr>
+                            </div>
+                            <div class="p-field col-12">
+                                <label class="font-bold">ESTADO PAGO:</label>
+                                <p>
+                                        {{detallePago}}
+                                </p>
+
                             </div>
                         </div>
                     </div>
