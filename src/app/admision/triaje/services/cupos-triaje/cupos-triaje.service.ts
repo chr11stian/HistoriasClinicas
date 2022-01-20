@@ -18,6 +18,6 @@ export class CuposTriajeService {
     return this.http.post(`${this.base_url}/${this.bd}/cupo/pasados/por/triaje/${idIpress}`, fecha);
   }
   postTriaje(idIpress, triaje) {
-    return this.http.post(`${this.base_url}/${this.bd}/cupo/pasados/por/triaje/${idIpress}`, triaje);
+    return this.http.put(`${this.base_url}/${this.bd}/cupo/actualizar/triaje/${idIpress}`, triaje);
   }
 }
