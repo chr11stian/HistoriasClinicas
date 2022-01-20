@@ -29,8 +29,8 @@
                                             <label>T°:</label>
                                         </div>
                                         <div class="col-5">
-                                            <input type="number" pInputText formControlName='temperatura' placeholder="Temp."
-                                                class="nputfield w-full">
+                                            <input type="number" pInputText formControlName='temperatura'
+                                                placeholder="Temp." class="nputfield w-full">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">C</span>
@@ -43,8 +43,8 @@
                                             <label>PA(S):</label>
                                         </div>
                                         <div class="col-5">
-                                            <input type="number" pInputText formControlName='presionSis' placeholder="Sistolica"
-                                                class="inputfield w-full">
+                                            <input type="number" pInputText formControlName='presionSis'
+                                                placeholder="Sistolica" class="inputfield w-full">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">mm.</span>
@@ -71,8 +71,8 @@
                                             <label>F.C:</label>
                                         </div>
                                         <div class="col-5">
-                                            <input type="number" pInputText formControlName='fc' placeholder="Frec. card."
-                                                class="inputfield w-full">
+                                            <input type="number" pInputText formControlName='fc'
+                                                placeholder="Frec. card." class="inputfield w-full">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">por min.</span>
@@ -85,8 +85,8 @@
                                             <label>F.R:</label>
                                         </div>
                                         <div class="col-5">
-                                            <input type="number" pInputText formControlName='fr' placeholder="Frec. resp."
-                                                class="inputfield w-full">
+                                            <input type="number" pInputText formControlName='fr'
+                                                placeholder="Frec. resp." class="inputfield w-full">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">por min.</span>
@@ -114,18 +114,27 @@
                                         </div>
                                         <div class="col-5">
                                             <input type="number" pInputText formControlName='talla' placeholder="Talla"
-                                                class="inputfield w-full">
+                                                class="inputfield w-full" (blur)="calcularIMC()">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">m.</span>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-6 md:col-6 lg:col-4 text-center">
+                                    <p-message *ngIf="imcOption == 1" severity="error" text="Bajo peso"></p-message>
+                                    <p-message *ngIf="imcOption == 2" severity="success" text="Rango de peso normal">
+                                    </p-message>
+                                    <p-message *ngIf="imcOption == 3" severity="warn" text="Rango de sobrepeso">
+                                    </p-message>
+                                    <p-message *ngIf="imcOption == 4" severity="error" text="Rango de obesidad">
+                                    </p-message>
+                                </div>
                             </div>
                         </p-fieldset>
                     </div>
                 </div>
-                
+
             </div>
         </form>
     </div>
