@@ -365,7 +365,6 @@ export class PacienteComponent implements OnInit {
       this.dataProvincia = res.object;
     });
   }
-
   selectedProvincia() {
     let provincia = {
       iddd: this.dpto.iddd,
@@ -375,7 +374,6 @@ export class PacienteComponent implements OnInit {
       this.dataDistrito = res.object;
     });
   }
-
   selectedDistrito() {
     let distrito = {
       iddd: this.dpto.iddd,

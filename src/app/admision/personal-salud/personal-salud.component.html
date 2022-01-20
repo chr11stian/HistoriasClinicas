@@ -825,7 +825,7 @@
               type="button"
               label="Nuevo"
               icon="pi pi-plus"
-              (click)="guardarNuevoEspecialidad()"
+              (click)="guardarNuevoRol()"
               pTooltip="Agregar especialidad"
               tooltipPosition="right"
               class="p-button-danger m-1 w-9rem"
@@ -863,7 +863,10 @@
             <tr style="text-align: center">
               <td style="text-align: center">{{ rowIndex + 1 }}</td>
               <td style="text-align: center">{{ rowData.nombreFuncion }}</td>
-              <td style="text-align: center">{{ rowData.codUPS }}</td>
+              <td *ngIf="rowData.codUPS=='300101'" style="text-align: center">ANESTESIOLOGIA</td>
+              <td *ngIf="rowData.codUPS=='303203'" style="text-align: center">OBSTETRICIA</td>
+              <td *ngIf="rowData.codUPS=='302303'" style="text-align: center">MEDICINA GENERAL</td>
+
               <td>
                 <button
                   pButton
