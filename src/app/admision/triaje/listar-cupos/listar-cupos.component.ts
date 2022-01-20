@@ -22,6 +22,7 @@ export class ListarCuposComponent implements OnInit {
 
 
   dataCupos: any;
+  dataCuposTriados: any;
   formCupos: FormGroup;
   datePipe = new DatePipe('en-US');
   fechaActual = new Date();
@@ -76,6 +77,7 @@ export class ListarCuposComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
     this.listCupos();
+    this.listCuposTriados();
   }
 
   buildForm() {
@@ -94,10 +96,18 @@ export class ListarCuposComponent implements OnInit {
     });
   }
   listCupos() {
-    let fechaAux = { fechaAtencion: "2022-01-20" }
+    let fechaAux = { fechaAtencion: this.datePipe.transform(new Date(), 'yyyy-MM-dd') }
     this.cuposTriajeService.getListarCupos(this.idIpress, fechaAux).subscribe((res: any) => {
       console.log('data listar cupos ')
       this.dataCupos = res.object;
+    });
+  }
+  listCuposTriados() {
+    let fechaAux = { fechaAtencion: this.datePipe.transform(new Date(), 'yyyy-MM-dd') }
+    console.log(fechaAux);
+    this.cuposTriajeService.getListarCuposTriados(this.idIpress, fechaAux).subscribe((res: any) => {
+      console.log('data listar cupos ya triados')
+      this.dataCuposTriados = res.object;
     });
   }
 
