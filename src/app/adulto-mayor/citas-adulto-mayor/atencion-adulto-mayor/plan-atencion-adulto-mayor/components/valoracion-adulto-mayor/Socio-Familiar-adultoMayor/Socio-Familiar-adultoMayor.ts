@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {AdultoMayorService} from "../../../services/adulto-mayor.service";
 import {MessageService} from "primeng/api";
 import {item, valoracionFuncional} from "../../models/plan-atencion-adulto-mayor.model";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-valoracion-socio-familiar-adulto-mayor',
@@ -13,16 +14,28 @@ export class SocioFamiliarAdultoMayor implements OnInit {
   formValoracionFamiliar:FormGroup;
   valoracionSocioFamiliar:valoracionFuncional;
   isUpdate:boolean=false;
-  fechaActual:Date = new Date();
-  idRecuperado = "61b23fa6308deb1ddd0b3704";
+  idRecuperado = "";
+  docRecuperado="";
+  tipoDocRecuperado="";
   constructor(private formBuilder: FormBuilder,
               private valoracionService: AdultoMayorService,
-              private messageService: MessageService) {
+              private messageService: MessageService,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.builForm();
   }
 
   ngOnInit(): void {
-
+    this.route.queryParams
+        .subscribe(params => {
+          console.log('params', params)
+          if (params['nroDoc']) {
+            this.tipoDocRecuperado = params['tipoDoc']
+            this.docRecuperado = params['nroDoc']
+          } else {
+            this.router.navigate(['/dashboard/adulto-mayor/citas'])
+          }
+        })
     this.recuperarDataBDSocioFamiliar();
   }
   builForm(){
@@ -165,16 +178,38 @@ export class SocioFamiliarAdultoMayor implements OnInit {
       items:items
     }
   }
+  obtenerFecha():string{
+    const Dates = new Date();
+    //Año
+    const Year : number = Dates.getFullYear();
+    // El subíndice del mes es 0-11
+    const Months : any = ( Dates.getMonth() + 1 ) < 10  ?  '0' + (Dates.getMonth() + 1) : ( Dates.getMonth() + 1);
+    // Número específico de días
+    const Day : any = Dates.getDate() < 10 ? '0' + Dates.getDate() : Dates.getDate();
+    //Hora
+    const Hours = Dates.getHours() < 10 ? '0' + Dates.getHours() : Dates.getHours();
+    //Minuto
+    const Minutes = Dates.getMinutes() < 10 ? '0' + Dates.getMinutes() : Dates.getMinutes();
+    //segundo
+    const Seconds = Dates.getSeconds() < 10 ? '0' + Dates.getSeconds() : Dates.getSeconds();
+    // Devolver formato de datos,
+    console.log(Year + '-' + Months + '-' + Day + '-' + Hours + ':' + Minutes + ':' + Seconds);
+    return Year + '-' + Months + '-' + Day + ' ' + Hours + ':' + Minutes + ':' + Seconds;
+  }
   agregarValoracionFuncional(){
     console.log("entrando a guardar data");
       this.recuperarValoracionFamiliar();
       let cadena = {
-        fecha: "2021-12-10 15:00:00",
-        valoracionSocioFamiliar: this.valoracionSocioFamiliar
+        tipoDoc:this.tipoDocRecuperado,
+        nroDoc:this.docRecuperado,
+        valoracionClinica: {
+          fecha: this.obtenerFecha(),
+          valoracionSocioFamiliar: this.valoracionSocioFamiliar
+        }
       }
       this.formValoracionFamiliar.patchValue({ 'diagnostico': this.valoracionSocioFamiliar.diagnostico });
       console.log('valoracion familiar a guardar:', cadena);
-      this.valoracionService.postValoracionClinica(this.idRecuperado, cadena).subscribe((res: any) => {
+      this.valoracionService.postValoracionClinicaAgregarPorDoc(cadena).subscribe((res: any) => {
         console.log('se guardo correctamente ', res.object);
         this.messageService.add({
           severity: "success",
@@ -196,12 +231,16 @@ export class SocioFamiliarAdultoMayor implements OnInit {
   actualizarValoracionFuncional(){
     this.recuperarValoracionFamiliar();
     let cadena = {
-      fecha: "2021-12-10 15:00:00",
-      valoracionSocioFamiliar: this.valoracionSocioFamiliar
+      tipoDoc:this.tipoDocRecuperado,
+      nroDoc:this.docRecuperado,
+      valoracionClinica: {
+        fecha: this.obtenerFecha(),
+        valoracionSocioFamiliar: this.valoracionSocioFamiliar
+      }
     }
     this.formValoracionFamiliar.patchValue({ 'diagnostico': this.valoracionSocioFamiliar.diagnostico });
     console.log('valoracion funcional a guardar:',cadena);
-    this.valoracionService.updateValoracionClinica(this.idRecuperado,cadena).subscribe((res: any) => {
+    this.valoracionService.updateValoracionClinicaEditarPorDoc(cadena).subscribe((res: any) => {
       console.log('se actualizo correctamente ', res.object);
       this.messageService.add({
         severity: "success",
@@ -210,11 +249,16 @@ export class SocioFamiliarAdultoMayor implements OnInit {
       });
     });
   }
-  recuperarDataBDSocioFamiliar(){
-    this.valoracionService.getValoracionClinica(this.idRecuperado).subscribe((res: any) => {
+  recuperarDataBDSocioFamiliar() {
+    const data = {
+      tipoDoc: this.tipoDocRecuperado,
+      nroDoc: this.docRecuperado
+    }
+    this.valoracionService.postValoracionClinicaPorDoc(data).subscribe((res: any) => {
       console.log('se recupero datos satisfactoriamente', res.object);
-      this.valoracionSocioFamiliar=res.object.valoracionesClinicas[0].valoracionSocioFamiliar;
-      console.log(this.valoracionSocioFamiliar);
+      if (res.object.valoracionesClinicas[0].valoracionSocioFamiliar != null) {
+        this.valoracionSocioFamiliar = res.object.valoracionesClinicas[0].valoracionSocioFamiliar;
+        console.log(this.valoracionSocioFamiliar);
         this.messageService.add({
           severity: "success",
           summary: "Exito",
@@ -222,82 +266,88 @@ export class SocioFamiliarAdultoMayor implements OnInit {
         });
         /***********Llenar campos recuperados de la BD************/
         let dx = this.valoracionSocioFamiliar.diagnostico;
-        console.log("dx",dx);
-        let aux1=this.valoracionSocioFamiliar.items[0].puntaje;
+        console.log("dx", dx);
+        let aux1 = this.valoracionSocioFamiliar.items[0].puntaje;
         console.log(aux1);
-        let aux2=this.valoracionSocioFamiliar.items[1].puntaje;
+        let aux2 = this.valoracionSocioFamiliar.items[1].puntaje;
         console.log(aux2);
-        let aux3=this.valoracionSocioFamiliar.items[2].puntaje;
+        let aux3 = this.valoracionSocioFamiliar.items[2].puntaje;
         console.log(aux3);
-        let aux4=this.valoracionSocioFamiliar.items[3].puntaje;
+        let aux4 = this.valoracionSocioFamiliar.items[3].puntaje;
         console.log(aux4);
-        let aux5=this.valoracionSocioFamiliar.items[4].puntaje;
+        let aux5 = this.valoracionSocioFamiliar.items[4].puntaje;
         console.log(aux5);
-        let aux6=this.valoracionSocioFamiliar.diagnostico;
+        let aux6 = this.valoracionSocioFamiliar.diagnostico;
         console.log(aux6);
         /**************SITUACION FAMILIAR*****************/
-        if(aux1==1)
-            this.formValoracionFamiliar.get('situacionFamiliar').setValue('Vive con familia, sin conflicto familiar');
-        if(aux1==2)
-            this.formValoracionFamiliar.get('situacionFamiliar').setValue("Vive con familia , presenta algún grado de dependencia física/psiquica");
-        if(aux1==3)
-            this.formValoracionFamiliar.get('situacionFamiliar').setValue("Vive con cónyuge de similar edad");
-        if(aux1==4)
-            this.formValoracionFamiliar.get('situacionFamiliar').setValue("Vive solo y tiene hijos con vivienda próxima");
-        if(aux1==5)
-            this.formValoracionFamiliar.get('situacionFamiliar').setValue("Vive solo y carece de hijos o viven lejos (interior del país o extranjero)");
+        if (aux1 == 1)
+          this.formValoracionFamiliar.get('situacionFamiliar').setValue('Vive con familia, sin conflicto familiar');
+        if (aux1 == 2)
+          this.formValoracionFamiliar.get('situacionFamiliar').setValue("Vive con familia , presenta algún grado de dependencia física/psiquica");
+        if (aux1 == 3)
+          this.formValoracionFamiliar.get('situacionFamiliar').setValue("Vive con cónyuge de similar edad");
+        if (aux1 == 4)
+          this.formValoracionFamiliar.get('situacionFamiliar').setValue("Vive solo y tiene hijos con vivienda próxima");
+        if (aux1 == 5)
+          this.formValoracionFamiliar.get('situacionFamiliar').setValue("Vive solo y carece de hijos o viven lejos (interior del país o extranjero)");
         /**************SITUACION ECONOMICA*****************/
-        if(aux2==1)
-            this.formValoracionFamiliar.get('situacionEconomica').setValue("Dos veces el salario mínimo vital");
-        if(aux2==2)
-            this.formValoracionFamiliar.get('situacionEconomica').setValue("Menos de 2, pero más de 1 salario mínimo vital");
-        if(aux2==3)
-            this.formValoracionFamiliar.get('situacionEconomica').setValue("Un salario mínimo vital");
-        if(aux2==4)
-            this.formValoracionFamiliar.get('situacionEconomica').setValue("Ingreso irregular (menos del mínimo vital)");
-        if(aux2==5)
-            this.formValoracionFamiliar.get('situacionEconomica').setValue("Sin pensión, sin otros ingresos");
+        if (aux2 == 1)
+          this.formValoracionFamiliar.get('situacionEconomica').setValue("Dos veces el salario mínimo vital");
+        if (aux2 == 2)
+          this.formValoracionFamiliar.get('situacionEconomica').setValue("Menos de 2, pero más de 1 salario mínimo vital");
+        if (aux2 == 3)
+          this.formValoracionFamiliar.get('situacionEconomica').setValue("Un salario mínimo vital");
+        if (aux2 == 4)
+          this.formValoracionFamiliar.get('situacionEconomica').setValue("Ingreso irregular (menos del mínimo vital)");
+        if (aux2 == 5)
+          this.formValoracionFamiliar.get('situacionEconomica').setValue("Sin pensión, sin otros ingresos");
         /**************SITUACION FAMILIAR*****************/
-        if(aux3==1)
-            this.formValoracionFamiliar.get('situacionVivienda').setValue("Adecuada a las necesidades");
-        if(aux3==2)
-            this.formValoracionFamiliar.get('situacionVivienda').setValue("Barreras arquitectónicas en la vivienda(pisos irregulares, gradas, puertas estrechas)");
-        if(aux3==3)
-            this.formValoracionFamiliar.get('situacionVivienda').setValue("Mala conservación, humedad, mala higiene, equipamiento inadecuado (baño incompleto)");
-        if(aux3==4)
-            this.formValoracionFamiliar.get('situacionVivienda').setValue("Vivienda semi construida o de material rústico");
-        if(aux3==5)
-            this.formValoracionFamiliar.get('situacionVivienda').setValue("Asentamiento humano(invasión) o sin vivienda");
+        if (aux3 == 1)
+          this.formValoracionFamiliar.get('situacionVivienda').setValue("Adecuada a las necesidades");
+        if (aux3 == 2)
+          this.formValoracionFamiliar.get('situacionVivienda').setValue("Barreras arquitectónicas en la vivienda(pisos irregulares, gradas, puertas estrechas)");
+        if (aux3 == 3)
+          this.formValoracionFamiliar.get('situacionVivienda').setValue("Mala conservación, humedad, mala higiene, equipamiento inadecuado (baño incompleto)");
+        if (aux3 == 4)
+          this.formValoracionFamiliar.get('situacionVivienda').setValue("Vivienda semi construida o de material rústico");
+        if (aux3 == 5)
+          this.formValoracionFamiliar.get('situacionVivienda').setValue("Asentamiento humano(invasión) o sin vivienda");
         /**************SITUACION FAMILIAR*****************/
-        if(aux4==1)
-            this.formValoracionFamiliar.get('situacionSocial').setValue("Mantiene relaciones sociales en la comunidad");
-        if(aux4==2)
-            this.formValoracionFamiliar.get('situacionSocial').setValue("Relación social sólo con la familia y vecinos");
-        if(aux4==3)
-            this.formValoracionFamiliar.get('situacionSocial').setValue("Relación socil sólo con la familia");
-        if(aux4==4)
-            this.formValoracionFamiliar.get('situacionSocial').setValue("No sale del domicilio pero recibe visitas de familia");
-        if(aux4==5)
-            this.formValoracionFamiliar.get('situacionSocial').setValue("No sale del domicilio y no recibe visitas");
+        if (aux4 == 1)
+          this.formValoracionFamiliar.get('situacionSocial').setValue("Mantiene relaciones sociales en la comunidad");
+        if (aux4 == 2)
+          this.formValoracionFamiliar.get('situacionSocial').setValue("Relación social sólo con la familia y vecinos");
+        if (aux4 == 3)
+          this.formValoracionFamiliar.get('situacionSocial').setValue("Relación socil sólo con la familia");
+        if (aux4 == 4)
+          this.formValoracionFamiliar.get('situacionSocial').setValue("No sale del domicilio pero recibe visitas de familia");
+        if (aux4 == 5)
+          this.formValoracionFamiliar.get('situacionSocial').setValue("No sale del domicilio y no recibe visitas");
         /**************SITUACION FAMILIAR*****************/
-        if(aux5==1)
-            this.formValoracionFamiliar.get('situacionApoyo').setValue("No necesita apoyo");
-        if(aux5==2)
-            this.formValoracionFamiliar.get('situacionApoyo').setValue("Requiere apoyo familiar o vecinal");
-        if(aux5==3)
-            this.formValoracionFamiliar.get('situacionApoyo').setValue("Tiene seguro pero necesita mayor apoyo de éste o voluntario social");
-        if(aux5==4)
-            this.formValoracionFamiliar.get('situacionApoyo').setValue("No cuenta con seguro social");
-        if(aux5==5)
-            this.formValoracionFamiliar.get('situacionApoyo').setValue("Situación de abandono familiar");
+        if (aux5 == 1)
+          this.formValoracionFamiliar.get('situacionApoyo').setValue("No necesita apoyo");
+        if (aux5 == 2)
+          this.formValoracionFamiliar.get('situacionApoyo').setValue("Requiere apoyo familiar o vecinal");
+        if (aux5 == 3)
+          this.formValoracionFamiliar.get('situacionApoyo').setValue("Tiene seguro pero necesita mayor apoyo de éste o voluntario social");
+        if (aux5 == 4)
+          this.formValoracionFamiliar.get('situacionApoyo').setValue("No cuenta con seguro social");
+        if (aux5 == 5)
+          this.formValoracionFamiliar.get('situacionApoyo').setValue("Situación de abandono familiar");
         /**************DIAGNOSTICO*****************/
-        if(aux6=="BUENA/ACEPTABLE SITUACION SOCIAL")
-            this.formValoracionFamiliar.get('diagnostico').setValue("BUENA/ACEPTABLE SITUACION SOCIAL");
-        if(aux6=="EXISTE RIESGO SOCIAL")
-            this.formValoracionFamiliar.get('diagnostico').setValue("EXISTE RIESGO SOCIAL");
-        if(aux6=="EXISTE PROBLEMA SOCIAL")
-            this.formValoracionFamiliar.get('diagnostico').setValue("EXISTE PROBLEMA SOCIAL");
-
+        if (aux6 == "BUENA/ACEPTABLE SITUACION SOCIAL")
+          this.formValoracionFamiliar.get('diagnostico').setValue("BUENA/ACEPTABLE SITUACION SOCIAL");
+        if (aux6 == "EXISTE RIESGO SOCIAL")
+          this.formValoracionFamiliar.get('diagnostico').setValue("EXISTE RIESGO SOCIAL");
+        if (aux6 == "EXISTE PROBLEMA SOCIAL")
+          this.formValoracionFamiliar.get('diagnostico').setValue("EXISTE PROBLEMA SOCIAL");
+      } else {
+        this.messageService.add({
+          severity: "warn",
+          summary: "Error",
+          detail: "No hay datos en Valoración"
+        });
+      }
     });
   }
 

@@ -51,13 +51,22 @@ export class AdultoMayorService {
     getValoracionClinica(idFiliacion) {
         return this.http.get(`${this.base_url}/${this.bd}/adultomayor/valoracionclinica/listar/${idFiliacion}`);
     }
+    postValoracionClinicaPorDoc(data){
+        return this.http.post(`${this.base_url}/${this.bd}/adultomayor/valoracionclinica/listar/`,data)
+    }
 
     postValoracionClinica(idFiliacion, data) {
         return this.http.post(`${this.base_url}/${this.bd}/adultomayor/valoracionclinica/agregar/${idFiliacion}`, data);
     }
+    postValoracionClinicaAgregarPorDoc(data){
+        return this.http.post(`${this.base_url}/${this.bd}/adultomayor/valoracionclinica/agregar/`, data);
+    }
 
     updateValoracionClinica(idFiliacion, data) {
         return this.http.put(`${this.base_url}/${this.bd}/adultomayor/valoracionclinica/actualizar/${idFiliacion}`, data);
+    }
+    updateValoracionClinicaEditarPorDoc(data){
+        return this.http.put(`${this.base_url}/${this.bd}/adultomayor/valoracionclinica/actualizar`, data);
     }
 
     /***********************PROBLEMAS AGUDOS*****************/
@@ -152,7 +161,7 @@ export class AdultoMayorService {
     }
     /**************Administracion de micronutrientes*********/
     addMicronutrientes(nroDoc,data){
-        return this.http.post(`${this.base_url}/${this.bd}/adultoMayor/atencionIntegral/admistracion/micronutrientes/${nroDoc}`,data)
+        return this.http.post(`${this.base_url}/${this.bd}/adultoMayor/atencionIntegral/administracion/micronutrientes/${nroDoc}`,data)
     }
     getMicronutrientes(nroDoc){
         return this.http.get(`${this.base_url}/${this.bd}/adultoMayor/atencionIntegral/administracion/micronutrientes/listar/${nroDoc}`)

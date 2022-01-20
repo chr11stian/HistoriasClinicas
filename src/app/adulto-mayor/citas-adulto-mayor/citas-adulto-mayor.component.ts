@@ -24,10 +24,7 @@ export class CitasAdultoMayorComponent implements OnInit {
   options: data[]
   selectedOption: data
   citas: userCita[]
-
-
   ref: DynamicDialogRef
-
   constructor(public dialogService: DialogService,
               private router: Router) {
   }
@@ -66,6 +63,16 @@ export class CitasAdultoMayorComponent implements OnInit {
         nroDoc: '47825757',
         apellidos: 'NITO DELGADO',
         nombres: 'JUANA',
+        consultorio: 'MEDGENERAL2',
+        horario: '9:00AM',
+        fecha: '16/11/2021'
+      },
+      {
+        dni: 'DNI', /** no debe haber */
+        tipoDoc: 'DNI',
+        nroDoc: '12154521',
+        apellidos: 'MOROCCO LAYME',
+        nombres: 'JONATHAN',
         consultorio: 'MEDGENERAL2',
         horario: '9:00AM',
         fecha: '16/11/2021'
