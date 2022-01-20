@@ -17,6 +17,7 @@ export class RegistrarTriajeComponent implements OnInit {
   datosPersonales: any;
   idCupo: string;
   dataTriaje: any;
+  imcOption: number;
 
   constructor(
     private fb: FormBuilder,
@@ -100,6 +101,18 @@ export class RegistrarTriajeComponent implements OnInit {
     let tallaAux: number = this.formTriaje.value.talla;
     let imc = pesoAux / (tallaAux * tallaAux)
     console.log('imc ', imc);
+    if (imc < 18.5) {
+      this.imcOption = 1
+    }
+    if (imc >= 18.5 && imc <= 24.9) {
+      this.imcOption = 2
+    }
+    if (imc >= 25.0 && imc <= 29.9) {
+      this.imcOption = 3
+    }
+    if (imc > 30) {
+      this.imcOption = 4
+    }
   }
 }
 interface Triaje {
