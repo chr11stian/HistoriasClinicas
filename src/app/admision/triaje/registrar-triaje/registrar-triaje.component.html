@@ -2,15 +2,19 @@
     <div class="col-12">
         <form [formGroup]='formTriaje'>
             <div class="col-12 md:col-12">
-                <div class="grid mb-3">
-                    <div class="col-4">
+                <div class="grid mb-3 margen">
+                    <div class="col-3">
                         <label>Nro Doc:</label>
-                        <span class="font-italic font-bold">{{' ' +datosPersonales.nroDoc}}</span>
+                        <span class="font-italic font-bold">{{' ' +datosPersonales.paciente.nroDoc}}</span>
                     </div>
-                    <div class="col-8">
-                        <label>Nombre:</label>
-                        <span class="font-italic font-bold">{{' ' + datosPersonales.datosPaciente.primerNombre+ ' ' +
-                            datosPersonales.datosPaciente.apePaterno}}</span>
+                    <div class="col-6">
+                        <label>NOMBRES:</label>
+                        <span class="font-italic font-bold">{{' ' + datosPersonales.paciente.nombre+ ' ' +
+                            datosPersonales.paciente.apellidos}}</span>
+                    </div>
+                    <div class="col-3">
+                        <label>Servicio:</label>
+                        <span class="font-italic font-bold">{{' ' +datosPersonales.ipress.servicio}}</span>
                     </div>
                 </div>
                 <p-fieldset legend="Funciones Vitales">
