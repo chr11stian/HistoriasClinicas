@@ -95,6 +95,7 @@ export class ListarCuposComponent implements OnInit {
       detail: 'Recuperado con exito'
     });
   }
+
   listCupos() {
     let fechaAux = { fechaAtencion: this.datePipe.transform(new Date(), 'yyyy-MM-dd') }
     this.cuposTriajeService.getListarCupos(this.idIpress, fechaAux).subscribe((res: any) => {
@@ -102,6 +103,7 @@ export class ListarCuposComponent implements OnInit {
       this.dataCupos = res.object;
     });
   }
+  
   listCuposTriados() {
     let fechaAux = { fechaAtencion: this.datePipe.transform(new Date(), 'yyyy-MM-dd') }
     console.log(fechaAux);
