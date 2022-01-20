@@ -300,22 +300,24 @@ export class FinalizarConsultaComponent implements OnInit {
     recuperarFinalizar() {
         this.finalizarService.getFinalizar(this.id).subscribe((r: any) => {
             //-- recupera informacion de finalizar
-            this.finalizar = r.object;
-            console.log('finalizar', r)
-            this.acuerdosComprimisos = (this.finalizar.acuerdosComprimisos === null) ? [] : this.finalizar.acuerdosComprimisos
-            this.examenesAux = (this.finalizar.examenesAux === null) ? [] : this.finalizar.examenesAux
-            let re: referenciaInterface = {
-                consultorio: this.finalizar.referencia.consultorio,
-                motivo: this.finalizar.referencia.motivo,
-                codRENAES: this.finalizar.referencia.codRENAES
+            if (r.object) {
+                this.finalizar = r.object;
+                console.log('finalizar', r)
+                this.acuerdosComprimisos = (this.finalizar.acuerdosComprimisos === null) ? [] : this.finalizar.acuerdosComprimisos
+                this.examenesAux = (this.finalizar.examenesAux === null) ? [] : this.finalizar.examenesAux
+                let re: referenciaInterface = {
+                    consultorio: this.finalizar.referencia.consultorio === null ? '' : this.finalizar.referencia.consultorio,
+                    motivo: this.finalizar.referencia.motivo === null ? '' : this.finalizar.referencia.motivo,
+                    codRENAES: this.finalizar.referencia.codRENAES === null ? '' : this.finalizar.referencia.codRENAES
+                }
+                this.referencia.push(re);
+                const date = new Date(this.finalizar.proximaCita);
+                console.log('date', date, ' fe', this.finalizar.proximaCita)
+                this.acuerdosFG.get('proximaCitaFC').setValue(date);
+                this.acuerdosFG.get('atendidoFC').setValue(this.finalizar.atendidoPor);
+                this.acuerdosFG.get('dniFC').setValue(this.finalizar.dniPersonal);
+                this.acuerdosFG.get('observacionFC').setValue(this.finalizar.observacion);
             }
-            this.referencia.push(re);
-            const date = new Date(this.finalizar.proximaCita);
-            console.log('date', date, ' fe', this.finalizar.proximaCita)
-            this.acuerdosFG.get('proximaCitaFC').setValue(date);
-            this.acuerdosFG.get('atendidoFC').setValue(this.finalizar.atendidoPor);
-            this.acuerdosFG.get('dniFC').setValue(this.finalizar.dniPersonal);
-            this.acuerdosFG.get('observacionFC').setValue(this.finalizar.observacion);
         })
     }
 

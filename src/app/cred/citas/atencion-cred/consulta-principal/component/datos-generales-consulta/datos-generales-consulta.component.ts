@@ -30,8 +30,8 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     anamnesisFC = new FormControl({value: '', disabled: false})
     auxDatosGeneralesConsulta: datosGeneralesConsulta
     sino = [
-        { label: 'Si', value: true },
-        { label: 'No', value: false }
+        {label: 'Si', value: true},
+        {label: 'No', value: false}
     ];
     twoMonths: formControlInterface[] = [
         {
@@ -156,12 +156,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
             this.generalInfoFG.get('dateAttention').setValue(fecha)
             this.generalInfoFG.get('hour').setValue(fecha)
             //--actualizar datos generales
-            this.twoMonthsFG.get('1').setValue(false)
-
-            //this.twoMonthsFG.patchValue({'1': this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[0].valor})
-            //this.twoMonthsFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[0].valor as boolean)
-            //this.twoMonthsFG.get('1')
-            //this.twoMonthsFG.get('1').setValue(false)
+            this.twoMonthsFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[0].valor as boolean)
             this.twoMonthsFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[1].valor as boolean)
             this.twoMonthsFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[2].valor as boolean)
             this.twoMonthsFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[3].valor as boolean)
@@ -169,6 +164,26 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
             this.twoMonthsFG.get('6').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[5].valor as boolean)
             this.twoMonthsFG.get('7').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[6].valor as boolean)
             this.twoMonthsFG.get('8').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[7].valor as boolean)
+
+            this.twoMonthsMoreFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[0].valor as boolean)
+            this.twoMonthsMoreFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[1].valor as boolean)
+            this.twoMonthsMoreFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[2].valor as boolean)
+            this.twoMonthsMoreFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[3].valor as boolean)
+            this.twoMonthsMoreFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[4].valor as boolean)
+
+            this.allYearFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[0].valor as boolean)
+            this.allYearFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[1].valor as boolean)
+            this.allYearFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[2].valor as boolean)
+            this.allYearFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[3].valor as boolean)
+            this.allYearFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[4].valor as boolean)
+
+            this.signoPeligroFG.get('presentSigns').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.noPresentaSigno)
+            this.factorRiesgoFG.get('cuidaNinio').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.factorRiesgo.cuidaNinio)
+            this.factorRiesgoFG.get('participaPadre').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.factorRiesgo.participaPadre)
+            this.factorRiesgoFG.get('recibeAfecto').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.factorRiesgo.recibeAfecto)
+            this.factorRiesgoFG.get('especificacion').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.factorRiesgo.especificacion)
+
+            this.anamnesisFC.setValue(this.auxDatosGeneralesConsulta.anamnesis)
         })
     }
 
