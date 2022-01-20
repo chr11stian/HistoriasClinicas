@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ConsultasService } from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/services/consultas.service';
+import { ConsultaObstetriciaService } from 'src/app/obstetricia-general/gestante/consulta/services/consulta-obstetricia/consulta-obstetricia.service';
 
 @Component({
   selector: 'app-registrar-triaje',
@@ -12,13 +13,17 @@ export class RegistrarTriajeComponent implements OnInit {
   formTriaje: FormGroup;
   ref: DynamicDialogRef
   triaje: Triaje;
+  datosPersonales: any;
 
   constructor(
     private fb: FormBuilder,
     private dialog: DialogService,
-    private consultaService: ConsultasService
+    private triajeService: ConsultaObstetriciaService,
+    private config: DynamicDialogConfig
   ) {
     this.inicializarForm();
+    console.log('data of listar ', config.data);
+    this.datosPersonales = config.data;
   }
 
   ngOnInit(): void {
@@ -40,7 +45,7 @@ export class RegistrarTriajeComponent implements OnInit {
     this.triaje = {
       tipoDoc: 'DNI',
       nroDoc: '72745818',
-      fecha: '12/10/2021',
+      fecha: '2021-12-03 16:15:48',
       funcionesVitales: {
         t: parseFloat(this.formTriaje.value.temperatura),
         presionSistolica: parseInt(this.formTriaje.value.presionSis),
@@ -55,6 +60,14 @@ export class RegistrarTriajeComponent implements OnInit {
 
   guardarTriaje() {
     this.recuperarDatos();
+    console.log('data to show ', this.triaje);
+    this.triajeService.postConsultaNoControl(this.triaje).subscribe((res: any) => {
+      console.log('se guardo ', res);
+
+    });
+  }
+  closeDialog() {
+
   }
 }
 export interface Triaje {
