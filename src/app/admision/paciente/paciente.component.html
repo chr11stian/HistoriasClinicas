@@ -60,8 +60,8 @@
             </div>
             <div class="p-field col-3">
                 <label>Número Doc:</label>
-                <input type="text" pInputText placeholder="Ingrese el número de doc" formControlName="nroDoc" 
-                    class="inputTest" />
+                <input type="text" pInputText placeholder="Ingrese el número de doc" formControlName="nroDoc"
+                    (keyup)="cargarDatosReniec()" class="inputTest" />
             </div>
             <div class="p-field col-3" *ngIf="!peruvian">
                 <label>Nro. Historia Clinica:</label>
@@ -87,7 +87,7 @@
                 <input type="text" pInputText formControlName="apMaterno" class="inputTest" oninput="this.value=this.value.toUpperCase()"/>
             </div>
         </div>
-        <div class="grid mt-1">
+        <div class="grid mt-1"> 
             <div class="p-field col-3">
                 <label>Celular:</label>
                 <input type="text" pInputText formControlName="celular" class="inputTest" />

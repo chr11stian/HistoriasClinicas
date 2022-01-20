@@ -13,7 +13,7 @@ import {DatePipe} from "@angular/common";
 })
 export class TamizajeViolenciaComponent implements OnInit {
     opciones: any;
-    diagnostico: any;
+    diagnostico2: any;
     formDatos_Tamisaje: FormGroup;
     dataPacientes: any;
     fechaConvertido: string;//fecha convertido
@@ -42,9 +42,9 @@ export class TamizajeViolenciaComponent implements OnInit {
             {name: 'NO', boleano: false}
         ];
 
-        this.diagnostico = [
-            {name: 'POSITIVO (+)', boleano: true},
-            {name: 'NEGATIVO (-)', boleano: false}
+        this.diagnostico2 = [
+            {name: 'POSITIVO (+)', diagnostico: 'POSITIVO'},
+            {name: 'NEGATIVO (-)', diagnostico: 'NEGATIVO'}
         ];
 
         this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
@@ -65,8 +65,6 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.getpacienteByNroDoc();
         this.obternerFechaActual();
         this.getTamizajeNroDoc();
-
-
     }
 
     /**Recupera un solo tamizaje al hacer un clic en el event**/
@@ -105,7 +103,6 @@ export class TamizajeViolenciaComponent implements OnInit {
         this.formDatos_Tamisaje.get('diagnostico').setValue(this.Recupera_un_Tamizaje.diagnostico);
         this.formDatos_Tamisaje.get('nroDodResponsable').setValue(this.Recupera_un_Tamizaje.nroDocResponsable);
         this.formDatos_Tamisaje.get('ApellidosResponsable').setValue(this.Recupera_un_Tamizaje.nombreResponsableAtencion);
-
 
         this.ListaTamizajeDialog = false;
     }

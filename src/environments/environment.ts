@@ -10,8 +10,10 @@ export const environment = {
 
   /**ACCESO AL LOGIN**/
   base_uri: "http://192.168.5.3:3010/login/hce",
+  // base_uri: "http://190.108.93.145:3010/login/hce",
   // base_uri: "http://190.108.93.145:3012/api/hce/login/user",
 };
+
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

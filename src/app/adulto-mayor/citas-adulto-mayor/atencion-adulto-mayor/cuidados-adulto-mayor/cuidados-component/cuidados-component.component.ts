@@ -19,7 +19,6 @@ export class CuidadosComponentComponent implements OnInit {
               private messageService: MessageService) {
     this.buildForm();
   }
-
   ngOnInit(): void {
   }
   buildForm(){

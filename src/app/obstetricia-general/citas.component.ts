@@ -115,22 +115,7 @@ export class CitasComponent implements OnInit {
         this.obstetriciaService.data = row;
     }
 
-    /**Citas del paciente en gestacion**/
-    getCitasGestantes() {
-        const data = {
-            fechaInicio: this.datePipe.transform(this.formCitas.value.fechaInicio, 'yyyy-MM-dd'),
-            fechaFin: this.datePipe.transform(this.formCitas.value.fechaFinal, 'yyyy-MM-dd')
-        }
 
-        console.log("DATA FECHAS", data);
-        this.citasService.getProximaCitasGestacion(data).subscribe((res: any) => {
-            this.dataCitas = res.object;
-
-            this.ProximaCita = this.dataCitas.proxCita;
-            this.Pacientes = this.dataCitas.datosPacientes;
-            console.log('Lista de Citas: ', this.dataCitas);
-        });
-    }
 
     enviarData(event) {
         this.obstetriciaGeneralService.tipoDoc = null;

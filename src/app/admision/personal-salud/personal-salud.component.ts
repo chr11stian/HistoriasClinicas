@@ -188,7 +188,7 @@ export class PersonalSaludComponent implements OnInit {
   getPersonal() {
     this.personalservice.getPersonal().subscribe((res: any) => {
       this.data = res.object;
-      console.log(this.data)
+      // console.log(this.data)
     });
   }
   getListaUps() {
@@ -466,7 +466,7 @@ export class PersonalSaludComponent implements OnInit {
     console.log(this.rolesX);
     this.nombrePersonal = `${rowData.apePaterno} ${rowData.apeMaterno}, ${rowData.primerNombre}`;
     this.idRolX = rowData.id;
-    this.form.reset();
+    this.formRol.reset();
     this.personalRolDialogX = true;
   }
   guardarNuevoEspecialidad() {
@@ -583,41 +583,48 @@ export class PersonalSaludComponent implements OnInit {
       });
   }
   saveRol() {
-    // let est = this.rolesXList.find(
-    //     (rol) => rol.codUPS === this.formRol.value.ups
-    // );
-    const req = {
-      nombreFuncion: this.formRol.value.nombreFuncion,
-      codUPS: this.formRol.value.ups,
-    }
-    this.personalservice
-      .addRolesPersonal(this.idRolX, req)
-      .subscribe((result) => {
-        Swal.fire({
-          icon: "success",
-          title: "Agregado correctamente",
-          text: "",
-          showConfirmButton: false,
-          timer: 1500,
+    // const posibleRepetido = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups);
+    // comentario de prueba
+    if(true){
+      const req = {
+        nombreFuncion: this.formRol.value.nombreFuncion,
+        codUPS: this.formRol.value.ups,
+      }
+      this.personalservice
+        .addRolesPersonal(this.idRolX, req)
+        .subscribe((result) => {
+          Swal.fire({
+            icon: "success",
+            title: "Agregado correctamente",
+            text: "",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          this.rolesX.push(req);
+          this.getPersonal();
+          this.guardarNuevoRol();
         });
-        console.log(result,this.rolesX)
-        // this.getPersonalIdEspecialidad();
-        this.rolesX.push(req);
-        this.getPersonal();
-        this.guardarNuevoRol();
+    }
+    else{
+      Swal.fire({
+        icon: "warning",
+        title: "Ups repetida",
+        text: "",
+        showConfirmButton: false,
+        timer: 1500,
       });
+    }
   }
   saveEdicionEspecialidad() {
     let est = this.especialidadesList.find(
       (espe) => espe.nombre === this.formEspecialidad.value.nombre
     );
-    console.log(est);
     const req = {
       nombre: this.formEspecialidad.value.nombre,
       nroEspecialidad: this.formEspecialidad.value.nroEspecialidad,
       estado: this.estadoUpdateEspecialidad,
     };
-    console.log(req);
+
 
     this.personalservice
       .editPersonalEspecialidad(this.idEspecialidad, req)

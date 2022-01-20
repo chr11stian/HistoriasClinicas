@@ -1,9 +1,26 @@
 import { Injectable } from '@angular/core';
+import { environment } from "../../../../../environments/environment";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CuposTriajeService {
+  base_url = environment.baseUrl;
+  bd = environment.bd;
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getListarCupos(idIpress, fecha) {
+    return this.http.post(`${this.base_url}/${this.bd}/cupo/triaje/${idIpress}`, fecha);
+  }
+  getListarCuposTriados(idIpress, fecha) {
+    return this.http.post(`${this.base_url}/${this.bd}/cupo/pasados/por/triaje/${idIpress}`, fecha);
+  }
+  postTriaje(idIpress, triaje) {
+    return this.http.put(`${this.base_url}/${this.bd}/cupo/actualizar/triaje/${idIpress}`, triaje);
+  }
+  getVerTriajeByIdCupo(idCupo) {
+    return this.http.get(`${this.base_url}/${this.bd}/cupo/obtener/cupos/id/${idCupo}`);
+  }
 }

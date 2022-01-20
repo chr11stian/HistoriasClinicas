@@ -4,19 +4,25 @@ import { DatePipe } from "@angular/common";
 import { CitasService } from 'src/app/obstetricia-general/services/citas.service';
 import { MessageService } from 'primeng/api';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { RegistrarTriajeComponent } from '../registrar-triaje/registrar-triaje.component';
+import { CuposTriajeService } from '../services/cupos-triaje/cupos-triaje.service';
 @Component({
   selector: 'app-listar-cupos',
   templateUrl: './listar-cupos.component.html',
-  styleUrls: ['./listar-cupos.component.css']
+  styleUrls: ['./listar-cupos.component.css'],
+  providers: [DialogService],
 })
 export class ListarCuposComponent implements OnInit {
 
   options: data[]
   selectedOption: data
   cupos: any[]
+  ref: DynamicDialogRef
 
 
   dataCupos: any;
+  dataCuposTriados: any;
   formCupos: FormGroup;
   datePipe = new DatePipe('en-US');
   fechaActual = new Date();
@@ -24,10 +30,13 @@ export class ListarCuposComponent implements OnInit {
   Pacientes: any;
   ProximaCita: any;
   dataPaciente2: any;
+  idIpress: string = "616de45e0273042236434b51";
 
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
+    private dialog: DialogService,
+    private cuposTriajeService: CuposTriajeService
   ) {
     this.options = [
       { name: "DNI", code: 1 },
@@ -35,38 +44,14 @@ export class ListarCuposComponent implements OnInit {
       { name: "C EXTRANJERIA", code: 3 },
       { name: "OTROS", code: 4 },
     ]
-    this.dataCupos = [
-      {
-        nroDoc: "10101013",
-        datosPaciente: {
-          apeMaterno: "ABARCA",
-          apePaterno: "MELGAREJO",
-          primerNombre: "KATHERIN",
-          celular: "9567834",
-        },
-        proxCita: {
-          fecha: "20/11/2021",
-        },
-      },
-      {
-        nroDoc: "10101014",
-        datosPaciente: {
-          apeMaterno: "CALLER",
-          apePaterno: "OLAZABAL",
-          primerNombre: "LETICIA GIULIANA",
-          celular: "990909067",
-        },
-        proxCita: {
-          fecha: "20/11/2021",
-        },
-      },
-    ]
 
   }
 
 
   ngOnInit(): void {
     this.buildForm();
+    this.listCupos();
+    this.listCuposTriados();
   }
 
   buildForm() {
@@ -85,11 +70,56 @@ export class ListarCuposComponent implements OnInit {
     });
   }
 
+  listCupos() {
+    let fechaAux = { fechaAtencion: this.datePipe.transform(new Date(), 'yyyy-MM-dd') }
+    this.cuposTriajeService.getListarCupos(this.idIpress, fechaAux).subscribe((res: any) => {
+      console.log('data listar cupos ')
+      this.dataCupos = res.object;
+    });
+  }
+
+  listCuposTriados() {
+    let fechaAux = { fechaAtencion: this.datePipe.transform(new Date(), 'yyyy-MM-dd') }
+    console.log(fechaAux);
+    this.cuposTriajeService.getListarCuposTriados(this.idIpress, fechaAux).subscribe((res: any) => {
+      console.log('data listar cupos ya triados')
+      this.dataCuposTriados = res.object;
+    });
+  }
+
   showInfo() {
     this.messageService.add({
       severity: 'info',
       summary: 'Paciente',
       detail: 'No existe en la Base de Datos'
+    });
+  }
+
+  openDialogTriaje(data) {
+    let dataAux = {
+      data: data,
+      option: 1
+    }
+    this.ref = this.dialog.open(RegistrarTriajeComponent, {
+      header: " Registrar Triaje",
+      width: '60%',
+      data: dataAux
+    });
+    this.ref.onClose.subscribe((data: any) => {
+      this.listCupos();
+      this.listCuposTriados();
+    });
+  }
+
+  openDialogVerTriaje(data) {
+    let dataAux = {
+      data: data,
+      option: 2
+    }
+    this.ref = this.dialog.open(RegistrarTriajeComponent, {
+      header: " Registrar Triaje",
+      width: '60%',
+      data: dataAux
     });
   }
 }
