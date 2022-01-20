@@ -20,4 +20,7 @@ export class CuposTriajeService {
   postTriaje(idIpress, triaje) {
     return this.http.put(`${this.base_url}/${this.bd}/cupo/actualizar/triaje/${idIpress}`, triaje);
   }
+  getVerTriajeByIdCupo(idCupo) {
+    return this.http.get(`${this.base_url}/${this.bd}/cupo/obtener/cupos/id/${idCupo}`);
+  }
 }

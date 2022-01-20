@@ -42,3 +42,10 @@ input[type="number"] {
   padding-left: 0.5em;
   text-align: left;
 }
+
+.imagen{
+  content: url("src\assets\images\signos-vitales.svg");
+  width: 170px;
+  display:block;
+  margin:auto;
+}
