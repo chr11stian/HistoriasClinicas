@@ -63,6 +63,8 @@ export class CuposComponent implements OnInit {
 
     iprees: string = "la posta medica";
     ServicoSelect: string = "OBSTETRICIA";
+    Pacientes: any;
+    ProximaCita: any;
 
     constructor(
         private config: DynamicDialogConfig,
@@ -101,6 +103,7 @@ export class CuposComponent implements OnInit {
 
         this.getCuposXservicio();
         this.getListaCuposConfirmados();
+        this.ListarPacientesCitasObstetricas();
 
     }
 
@@ -122,12 +125,34 @@ export class CuposComponent implements OnInit {
     ListarPacientesCitasObstetricas() {
         const data = {
             fechaInicio: this.datePipe.transform(this.datafecha, 'yyyy-MM-dd'),
-            fechaFin: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd'),
+            fechaFin: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
         }
+
+        console.log("data fechas", data)
         this.citasService.getProximaCitasGestacion(data).subscribe((res: any) => {
             this.dataCitas = res.object;
             console.log('Lista de Citas: ', this.dataCitas);
         });
+    }
+
+
+    updateCitas(event) {
+        const data = {
+            id: event.id,
+            estado: "CANCELADO",
+        }
+        console.log("DATA EVENT", data)
+        this.citasService.UpdateCitas(data).subscribe(resp => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Cita Cancelado',
+                text: '',
+                showConfirmButton: false,
+                timer: 1500,
+            })
+        })
+
+
     }
 
     obtenerFecha(fecha: Date): string {
@@ -425,6 +450,8 @@ export class CuposComponent implements OnInit {
         if (this.dataCupos_por_fechas_servicio != null) {
             this.dataCupos_por_fechas_servicio = null;
         }
+
+        this.ListarPacientesCitasObstetricas();
     }
 
     onRowUnselect(event) {
