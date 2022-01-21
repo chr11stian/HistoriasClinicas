@@ -11,6 +11,7 @@ update:master:
     - echo "Actualizacion"
     - echo "$CI_COMMIT_BRANCH"
     - git status 
+    - whoiam
     - git branch
     - git checkout master
     - git pull origin $CI_COMMIT_BRANCH
@@ -24,6 +25,7 @@ update:release:
     - echo "Actualizacion del realease para pruebas"
     - echo "$CI_COMMIT_BRANCH"
     - cd /server/frontend/historia_clinica_electronica
+    - whoiam
     - git branch
     - git checkout $CI_COMMIT_BRANCH
     - git pull origin $CI_COMMIT_BRANCH
