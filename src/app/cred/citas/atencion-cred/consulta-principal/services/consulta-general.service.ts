@@ -11,7 +11,7 @@ import {map} from 'rxjs/operators'
 export class ConsultaGeneralService {
     urlServer = environment.baseUrl
     bd = environment.bd
-    base_url = `${this.urlServer}/${this.bd}/cred/consulta/`
+    base_url = `${this.urlServer}/${this.bd}/cred/consulta`
 
     constructor(private http: HttpClient) {
     }
@@ -23,7 +23,7 @@ export class ConsultaGeneralService {
         )
     }
     traerConsulta(idConsulta: string) {
-        const url = `${this.base_url}datosgenerales/${idConsulta}`
+        const url = `${this.base_url}/datosgenerales/${idConsulta}`
         return this.http.get<any>(url)
     }
     datosGenerales(data: any) {
