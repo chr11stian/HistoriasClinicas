@@ -14,6 +14,7 @@ update:master:
     - git branch
     - git checkout master
     - git pull origin $CI_COMMIT_BRANCH
+    - git status
   only: 
     - master
 
@@ -26,6 +27,7 @@ update:release:
     - git branch
     - git checkout $CI_COMMIT_BRANCH
     - git pull origin $CI_COMMIT_BRANCH
+    - git status
   only: 
     - /^release.*$/    
 
