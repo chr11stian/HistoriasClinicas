@@ -79,32 +79,33 @@ export class SaludAdolescenteComponent implements OnInit {
         //   detail: 'Registro recuperado'
         // });
         const data = resp['object']
-        this.getFC('menarquiaEspermarquia').setValue(data.menarquiaEspermarquia ? 'si' : 'no')
-        this.getFC('menarquiaEspermarquia').value=='si'?this.menarquiaEspermarquia=false:this.menarquiaEspermarquia=true;
-        this.getFC('menarquiaEspermarquiaEdad').setValue(data.menarquiaEspermarquia)
-        this.getFC('inicioRelacionSexual').setValue(data.edadInicioRelacionSexual ? 'si' : 'no')
-        this.getFC('inicioRelacionSexual').value=='si'?this.inicioRelacionSexual=false:this.inicioRelacionSexual  =true;
+        this.getFC('menarquiaEspermarquia').setValue(data.menarquiaEspermarquia )
+        // this.getFC('menarquiaEspermarquia').value=='si'?this.menarquiaEspermarquia=false:this.menarquiaEspermarquia=true;
+        this.getFC('menarquiaEspermarquiaEdad').setValue(data.menarquiaEspermarquiaEdad)
+        this.getFC('inicioRelacionSexual').setValue(data.inicioRelacionSexual)
+        // this.getFC('inicioRelacionSexual').value=='si'?this.inicioRelacionSexual=false:this.inicioRelacionSexual  =true;
         this.getFC('inicioRelacionSexualEdad').setValue(data.edadInicioRelacionSexual)
 
-        this.getFC('abusoSexual').setValue(data.antecedentes[0].nombre)
-        this.getFC('abusoSexual').value=='si'?this.abuso=false:this.abuso=true;
+        this.getFC('abusoSexual').setValue(data.antecedentes[0].valor)
+        // this.getFC('abusoSexual').value=='si'?this.abuso=false:this.abuso=true;
         this.getFC('abusoSexualNro').setValue(data.antecedentes[0].nro)
-        this.getFC('embarazo').setValue(data.antecedentes[1].nombre)
-        this.getFC('embarazo').value=='si'?this.embarazo=false:this.embarazo=true;
+        this.getFC('embarazo').setValue(data.antecedentes[1].valor)
+        // this.getFC('embarazo').value=='si'?this.embarazo=false:this.embarazo=true;
         this.getFC('embarazoNro').setValue(data.antecedentes[1].nro)
-        this.getFC('hijos').setValue(data.antecedentes[2].nombre)
-        this.getFC('hijos').value=='si'?this.hijos=false:this.hijos=true;
+        this.getFC('hijos').setValue(data.antecedentes[2].valor)
+        // this.getFC('hijos').value=='si'?this.hijos=false:this.hijos=true;
         this.getFC('hijosNro').setValue(data.antecedentes[2].nro)
-        this.getFC('aborto').setValue(data.antecedentes[3].nombre)
-        this.getFC('aborto').value=='si'?this.aborto=false:this.aborto=true;
+        this.getFC('aborto').setValue(data.antecedentes[3].valor)
+        // this.getFC('aborto').value=='si'?this.aborto=false:this.aborto=true;
         this.getFC('abortoNro').setValue(data.antecedentes[3].nro)
 
         this.getFC('observaciones').setValue(data.observaciones[0])
-        this.getFC('usaMetodoAnticonceptivo').setValue(data.prevencion[0].nombre)
+
+        this.getFC('usaMetodoAnticonceptivo').setValue(data.prevencion[0].valor)
         this.getFC('usaMetodoAnticonceptivoEspecifique').setValue(data.prevencion[0].especificar)
-        this.getFC('sabePrevenirEmbarazoNoDeseado').setValue(data.prevencion[1].nombre)
+        this.getFC('sabePrevenirEmbarazoNoDeseado').setValue(data.prevencion[1].valor)
         this.getFC('sabePrevenirEmbarazoNoDeseadoEspecifique').setValue(data.prevencion[1].especificar)
-        this.getFC('sabePrevenirITSVIH').setValue(data.prevencion[2].nombre)
+        this.getFC('sabePrevenirITSVIH').setValue(data.prevencion[2].valor)
         this.getFC('sabePrevenirITSVIHEspecifique').setValue(data.prevencion[2].especificar)
       }
       else{
@@ -120,36 +121,45 @@ export class SaludAdolescenteComponent implements OnInit {
 
   save() {
     const inputRequest = {
-      "menarquiaEspermarquia": this.getFC('menarquiaEspermarquiaEdad').value,
+      "menarquiaEspermarquia": this.getFC('menarquiaEspermarquia').value,
+      "menarquiaEspermarquiaEdad": this.getFC('menarquiaEspermarquiaEdad').value,
+      "inicioRelacionSexual": this.getFC('inicioRelacionSexual').value,
       "edadInicioRelacionSexual": this.getFC('inicioRelacionSexualEdad').value,
       "antecedentes": [
         {
-          "nombre": this.getFC('abusoSexual').value,
+          "nombre":"sexual",
+          "valor": this.getFC('abusoSexual').value,
           "nro":this.getFC('abusoSexualNro').value
         }, {
-          "nombre": this.getFC('embarazo').value,
+          "nombre":"embarazo",
+          "valor": this.getFC('embarazo').value,
           "nro":this.getFC('embarazoNro').value
         },
         {
-          "nombre": this.getFC('hijos').value,
+          "nombre":"hijos",
+          "valor": this.getFC('hijos').value,
           "nro":this.getFC('hijosNro').value
         },
         {
-          "nombre": this.getFC('aborto').value,
+          "nombre":"aborto",
+          "valor": this.getFC('aborto').value,
           "nro": this.getFC('abortoNro').value
         }
       ],
       "prevencion": [
         {
-          "nombre": this.getFC('usaMetodoAnticonceptivo').value,
+          "nombre":'usaMetodo',
+          "valor": this.getFC('usaMetodoAnticonceptivo').value,
           "especificar": this.getFC('usaMetodoAnticonceptivoEspecifique').value,
         },
         {
-          "nombre": this.getFC('sabePrevenirEmbarazoNoDeseado').value,
+          "nombre":'sabePrevenir',
+          "valor": this.getFC('sabePrevenirEmbarazoNoDeseado').value,
           "especificar": this.getFC('sabePrevenirEmbarazoNoDeseadoEspecifique').value,
         },
         {
-          "nombre": this.getFC('sabePrevenirITSVIH').value,
+          "nombre":'sabePrevenirITS',
+          "valor": this.getFC('sabePrevenirITSVIH').value,
           "especificar": this.getFC('sabePrevenirITSVIHEspecifique').value,
         }
       ],
