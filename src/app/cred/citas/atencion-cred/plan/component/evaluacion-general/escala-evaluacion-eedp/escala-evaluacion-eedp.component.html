@@ -72,7 +72,7 @@
                                         <input style="width:50px; text-align: center;" pInputText type="text" [(ngModel)]="datos.puntajeEEDP">
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        <input style="width:50px" pInputText type="text" [(ngModel)]="datos.puntajeEEDP" (blur)="calcularResultado()">
+                                        <input style="width:50px" pInputText type="text" [(ngModel)]="datos.puntajeEEDP" (blur)="calcularResultado()" onClick="this.select();">
                                     </ng-template>
                                 </p-cellEditor>
                             </td>

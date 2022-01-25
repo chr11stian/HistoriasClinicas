@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import Swal from 'sweetalert2';
 import { EscalaEEDP, DatosEEDP, datosEEDPTabla, escalaEval_EEDP_0_4_anios, tablaComparativa } from '../models/EscalaEEDP';
@@ -29,11 +30,14 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
   disabledUpdate = true;
   resultadoEvaluacion = "Resultado de la evalaucion";
   datePipe = new DatePipe('en-US');
+  nroDoc: any;
 
   constructor(
     private evalAlimenService: EvalAlimenService,
     private dialogData: DynamicDialogConfig,
     public ref: DynamicDialogRef,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -74,8 +78,7 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
 
     this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
     this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
-    this.arrayEdadEEDPSelected = [...this.arrayEdadEEDPSelected];
-    console.log('no async data ', this.arrayEdadEEDPSelected);
+    // this.arrayEdadEEDPSelected = [...this.arrayEdadEEDPSelected];
     //this.resultadoEvaluacion = this.escalaEEDP[this.indexSelected].condicion;
   }
 
@@ -104,12 +107,12 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
     else {
       this.examinador = this.examinador = this.evaluacionEEDP[this.indexSelected].examinador
       this.fechaEvaluacion = await this.transformDate(this.evaluacionEEDP[this.indexSelected].fecha);
-      console.log('eddp selec', this.evaluacionEEDP[this.indexSelected])
       this.resultadoEvaluacion = this.evaluacionEEDP[this.indexSelected].condicion;
       this.disabledUpdate = false
     }
     this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
-    this.puntaje = this.escalaEEDP[this.indexSelected][0].eedpkey;
+    this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
+    console.log('change points ', this.escalaEEDP[this.indexSelected][0]);
     let mes = this.edadNroSelected;
     await this.evalAlimenService.getTablaComparativaMes(mes).then(data => {
       this.tablaComparativa = data;
@@ -213,6 +216,7 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
           });
       }
     }
+    this.ref.close();
   }
 
   calcularResultado() {
@@ -274,7 +278,14 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
         console.log('uptdate exitoso', data)
       })
     }
+    this.ref.close();
+  }
 
+  getQueryParams(): void {
+    this.route.queryParams
+      .subscribe(params => {
+        this.nroDoc = params['nroDoc']
+      })
   }
 
   onClose() {
