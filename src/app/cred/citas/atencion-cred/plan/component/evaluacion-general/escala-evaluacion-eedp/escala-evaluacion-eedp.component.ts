@@ -56,7 +56,6 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
       this.evaluacionEEDP = this.dialogData.data.dataEEDP;
       this.indexSelected = this.dialogData.data.currentIndex;
       this.edadNroSelected = this.dialogData.data.currentIndex + 1;
-      console.log('entro a else ', this.evaluacionEEDP, 'index ', this.indexSelected, 'edad nro ', this.edadNroSelected);
       this.getDatos();
     }
   }
@@ -64,14 +63,12 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
   async getDatos() {
     await this.evalAlimenService.getEscalaEEDParray().then(data => {
       this.escalaEEDP = data;
-
       this.evaluacionEEDP.map((evaluacion, index) => {
         this.escalaEEDP[index] = evaluacion.item;
       });
       let mes = this.edadNroSelected;
       this.evalAlimenService.getTablaComparativaMes(mes).then(data => {
         this.tablaComparativa = data;
-        console.log('tabla com', this.tablaComparativa)
       });
     });
 
@@ -159,6 +156,7 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
         this.tablaComparativa.map(tabla => {
           if (tabla.em_ec === resultadoConsulta) {
             let resultadp_pe = parseFloat(tabla.pe) * 100;
+            console.log('resultado_pe', resultadp_pe);
             if (resultadp_pe >= 85) {
               evaluacion_ninio.condicion = "N";
               this.resultadoEvaluacion = "N (NORMAL)";
@@ -222,16 +220,15 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
     let arraySelected = [];
     let dias = this.edadNroSelected * 30;
     arraySelected = this.arrayEdadEEDPSelected;
-    console.log('array selected ', this.tablaComparativa);
     arraySelected.map((array) => {
       sumaPuntaje += parseInt(array.puntajeEEDP);
     })
     let resultadoConsulta = ((sumaPuntaje / dias).toFixed(2)).toString();
-    console.log('resultadoConsulta', resultadoConsulta);
-    console.log('tabla', this.tablaComparativa)
+    console.log('resultado ', resultadoConsulta);
     this.tablaComparativa.map(tabla => {
       if (tabla.em_ec === resultadoConsulta) {
         let resultadp_pe = parseFloat(tabla.pe) * 100;
+        console.log('cumple con la tabla', resultadp_pe);
         if (resultadp_pe >= 85) {
           this.resultadoEvaluacion = "N"
         } else if (69 < resultadp_pe && resultadp_pe < 85) this.resultadoEvaluacion = "R1"
