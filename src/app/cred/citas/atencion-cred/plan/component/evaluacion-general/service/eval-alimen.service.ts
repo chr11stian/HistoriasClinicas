@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product, FechaEvaluacionAlimentacion } from '../models/EvaluacionAlimentacion';
 import { datosEEDPTabla, EscalaEEDP, escalaEval_EEDP_0_4_anios, tablaComparativa } from '../models/EscalaEEDP';
-import { DatePipe } from '@angular/common';
-import {environment} from "../../../../../../../../environments/environment";
+import { environment } from 'src/environments/environment';
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class EvalAlimenService {
-  //url = 'http://192.168.5.3:3012/api/hce/cred/';
-  url = 'http://190.108.93.145:3012/api/hce/cred/'
+
   base_url = environment.baseUrl;
   bd = environment.bd;
+
+
   constructor(private http: HttpClient) { }
   /**cambios hechos por madai**/
   getEvaluacionAlimenticiaCred(nroDoc) {
@@ -41,7 +43,6 @@ export class EvalAlimenService {
         .then(data => { return data; });
   }
 
-
   getEscalaEEDP() {
     return this.http.get<any>('assets/data/escala-evaluacion-alimenticia.json')
         .toPromise()
@@ -64,7 +65,7 @@ export class EvalAlimenService {
   }
 
   getEscalaEvaluacion(dniConsulta) {
-    return this.http.get<any>(this.url + 'escala/evaluacion/listar/' + dniConsulta)
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/escala/evaluacion/listar/${dniConsulta}`)
         .toPromise()
         .then(res => <escalaEval_EEDP_0_4_anios[]>res.object)
         .then(data => { return data; })
@@ -72,7 +73,7 @@ export class EvalAlimenService {
   }
 
   getTablaComparativaMes(mes) {
-    return this.http.get<any>(this.url + 'tabla/eedp/'+ mes)
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/tabla/eedp/${mes}`)
         .toPromise()
         .then(res => <tablaComparativa[]>res.object)
         .then(data => { return data; })
@@ -80,18 +81,19 @@ export class EvalAlimenService {
   }
 
   // =================== GUARDAR EVALUACION NINIO POR MES =======================================
-  postEvaluacionEEDP(dni,evaluacion) {
-    return this.http.post<any>(this.url + 'escala/evaluacion/agregar/' + dni, evaluacion)
+  postEvaluacionEEDP(dni, evaluacion) {
+    return this.http.post<any>(`${this.base_url}/${this.bd}/cred/escala/evaluacion/agregar/${dni}`, evaluacion)
         .toPromise()
-        .then(data => {console.log('creacion exitosa', data)})
+        .then(data => { console.log('creacion exitosa', data) })
         .catch(error => { console.log('error en la creacion', error) })
   }
 
   // =================== ACTUALIZAR REGISTROS EEDP ==============================================
-  putEvaluacionEEDP(dni,evaluacion) {
-    return this.http.put<any>(this.url + 'escala/evaluacion/modificar/' + dni, evaluacion)
+  putEvaluacionEEDP(dni, evaluacion) {
+    return this.http.put<any>(`${this.base_url}/${this.bd}/cred/escala/evaluacion/modificar/${dni}`, evaluacion)
         .toPromise()
-        .then(data => {console.log('creacion exitosa', data)})
+        .then(data => { console.log('creacion exitosa', data) })
         .catch(error => { console.log('error en la creacion', error) })
   }
+
 }

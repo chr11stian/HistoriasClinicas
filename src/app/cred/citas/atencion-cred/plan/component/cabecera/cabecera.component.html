@@ -1,50 +1,27 @@
 <div class="card">
-    <p-card>
-        <div class="grid">
-            <div class="col-9" style="margin: 0px 0px 0px 20px;">
-                <span style="font-size: 2em;">CONTROL DE CRECIMIENTO Y DESARROLLO > </span>
-            </div>
-            <!--<div class="col-12 flex" style="margin: 0px 0px 0px 20px;">
-                <div class="col-2">
-                    <div class="field grid">
-                        <strong
-                        ><label class="line-height-4" for="username2"
-                        >*Tipo de documento:</label
-                        ></strong
-                        >
-                        <p-dropdown
-                                placeholder="Seleccionar"
-                                [options]="options"
-                                (ngModel)="(selectedOption)"
-                                optionLabel="name"
-                        >
-                        </p-dropdown>
-                    </div>
-                </div>
-                <div class="col-3 align-items-end">
-                    <div class="field grid">
-                        <strong>
-                            <label class="line-height-4" for="username2">
-                                *Ingrese valor del documento*
-                            </label>
-                        </strong>
-                        <input style="width: 450px" id="username2" pInputText/>
-                    </div>
-                </div>
-                <div class="col-1">
-                    <button pButton style="margin-top: 25px">
-                        <i class="pi pi-search" style="font-size: 1rem"></i> &nbsp;cargar
-                    </button>
-                </div>
-            </div>-->
+    <div class="grid" style="margin-top:20px; margin-bottom:20px">
+        <div class="col-9" style="margin: 0 0 0 20px;">
+            <span style="font-size: 2em;">CONTROL DE CRECIMIENTO Y DESARROLLO </span>
         </div>
-    </p-card>
+    </div>
 </div>
+
 <p-steps [model]="items" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo"
-        (activeIndexChange)="ChangeStep($event)">
+         (activeIndexChange)="ChangeStep($event)">
 </p-steps>
 <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
     <p-card>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">DATOS GENERALES NIÑO/NIÑA</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                </ng-template>
+            </p-toolbar>
+        </ng-template>
         <ng-template pTemplate="content">
             <app-datos-generales></app-datos-generales>
         </ng-template>
@@ -52,16 +29,59 @@
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'antecedentes'">
     <p-card>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">ANTECEDENTES PERSONALES</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Atras" icon="pi pi-angle-left"
+                            class="p-button-secondary mr-2" (click)="prevPage()"></button>
+                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                </ng-template>
+            </p-toolbar>
+        </ng-template>
         <ng-template pTemplate="content">
             <app-antecendentes></app-antecendentes>
         </ng-template>
     </p-card>
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'plan'">
-    <app-plan-atencion-integral></app-plan-atencion-integral>
+    <p-card>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">PLAN DE ATENCIÓN INTEGRAL</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Atras" icon="pi pi-angle-left"
+                            class="p-button-secondary mr-2" (click)="prevPage()"></button>
+                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                </ng-template>
+            </p-toolbar>
+        </ng-template>
+        <ng-template pTemplate="content">
+            <app-plan-atencion-integral></app-plan-atencion-integral>
+        </ng-template>
+    </p-card>
 </div>
 <div class="stepsdemo-content" *ngIf="stepName === 'evaluacion'">
     <p-card>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">TEST DE EVALUACIONES</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Atras" (click)="prevPage()" icon="pi pi-angle-left"
+                            class="p-button-secondary mr-2"></button>
+                    <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
+                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                </ng-template>
+            </p-toolbar>
+        </ng-template>
         <ng-template pTemplate="content">
             <app-evaluacion-general></app-evaluacion-general>
         </ng-template>

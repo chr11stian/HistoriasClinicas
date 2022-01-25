@@ -22,9 +22,10 @@ export class EEDPComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+
   }
 
-  async getData(){
+  async getData() {
     let dniConsulta = '00000000';
     await this.evalAlimenService.getEscalaEvaluacion(dniConsulta)
         .then(data => {
@@ -40,7 +41,7 @@ export class EEDPComponent implements OnInit {
         })
   }
 
-  DoArrayEEDP(){
+  DoArrayEEDP() {
     let arrayEscala = this.escalaEEDP;
     let arrayValoresS = [];
     let arrayValoresC = [];
@@ -167,15 +168,15 @@ export class EEDPComponent implements OnInit {
     this.datosNinio.push(ObjDefinitivoM);
   }
 
-  openEvaluacionEEDP(){
+  openEvaluacionEEDP() {
     const header = "Escala Evaluacion EEDP";
     let currentIndex = 0;
-    if (this.escalaEEDP){ currentIndex = this.escalaEEDP.length }
+    if (this.escalaEEDP) { currentIndex = this.escalaEEDP.length }
     const ref = this.dialogService.open(EscalaEvaluacionEEDPComponent, {
       header: header,
       height: "90%",
       width: "85%",
-      baseZIndex:100000,
+      baseZIndex: 100000,
       data: {
         dataEEDP: this.escalaEEDP,
         currentIndex: currentIndex
@@ -186,4 +187,6 @@ export class EEDPComponent implements OnInit {
       this.getData();
     })
   }
+
+
 }

@@ -35,6 +35,7 @@ export class SelectBtnComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.formC$ = this.selectFC.valueChanges.subscribe((v) => {
+            console.log('v ',v)
             this.onChange(v)
         })
     }

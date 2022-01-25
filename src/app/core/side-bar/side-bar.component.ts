@@ -272,7 +272,7 @@ const menu_ipress = [
         items: [
             {
                 icon: "pi pi-file",
-                label: "obstetricia",
+                label: "Obstetricia",
                 items: [
                     {
                         label: "Citas",
@@ -286,7 +286,7 @@ const menu_ipress = [
             },
             {
                 icon: "pi pi-file",
-                label: "cred",
+                label: "Niño/Niña",
                 items: [
                     {
                         label: "Citas",
@@ -411,6 +411,21 @@ const menu_ipress = [
                 label: "Ipress",
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/ipress",
+            },
+            {
+                label: "Ipress Turnos",
+                icon: "pi pi-pw pi-file",
+                routerLink: "admision/ipress-turnos",
+            },
+            {
+                label: "Ipress Ambientes",
+                icon: "pi pi-pw pi-file",
+                routerLink: "admision/ipress-ambientes",
+            },
+            {
+                label: "Ipress Roles",
+                icon: "pi pi-pw pi-file",
+                routerLink: "admision/ipress-roles",
             },
             {
                 icon: "pi pi-file",

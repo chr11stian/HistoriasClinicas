@@ -44,8 +44,8 @@ export class CitasComponent implements OnInit {
                 dni: 'DNI', /** no debe haber */
                 tipoDoc: 'DNI',
                 nroDoc: '10101099',
-                apellidos: 'RAMOS PERAEZ',
-                nombres: 'RAMON',
+                apellidos: 'OLAZABAL CALLER',
+                nombres: 'LETICIA GIULIANA',
                 consultorio: 'OBS01',
                 horario: '8:00AM',
                 fecha: '16/11/2021'
@@ -53,9 +53,9 @@ export class CitasComponent implements OnInit {
             {
                 dni: 'DNI', /** no debe haber */
                 tipoDoc: 'DNI',
-                nroDoc: '10101099',
-                apellidos: 'OLAZABAL CALLER',
-                nombres: 'LETICIA GIULIANA',
+                nroDoc: '46538000',
+                apellidos: 'PIMENTEL',
+                nombres: 'YIMMY',
                 consultorio: 'OBS01',
                 horario: '8:00AM',
                 fecha: '16/11/2021'

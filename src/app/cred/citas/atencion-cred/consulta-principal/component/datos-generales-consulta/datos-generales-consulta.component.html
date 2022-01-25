@@ -59,30 +59,39 @@
             </select-btn>
         </div>
     </div>
+
     <div class="grid">
         <div class="col-12 md:col-4">
-            <h4 class="text-center"> MENOR DE 2 MESES:</h4>
-            <div *ngFor="let formC of twoMonths">
-                <select-btn [field]="formC.label"
-                            [formControlName]="formC.nameFC">
-                </select-btn>
-            </div>
+            <form [formGroup]="twoMonthsFG">
+                <h4 class="text-center"> MENOR DE 2 MESES:</h4>
+                <div *ngFor="let formC of twoMonths">
+
+                    <select-btn [field]="formC.label"
+                                [formControlName]="formC.index">
+                    </select-btn>
+                </div>
+            </form>
         </div>
         <div class="col-12 md:col-4">
-            <h4 class="text-center"> DE 2 MESES a 4 AÑOS:</h4>
-            <div *ngFor="let formC of twoMonthsMore">
-                <select-btn [field]="formC.label"
-                            [formControlName]="formC.nameFC">
-                </select-btn>
-            </div>
+            <form [formGroup]="twoMonthsMoreFG">
+                <h4 class="text-center"> DE 2 MESES a 4 AÑOS:</h4>
+                <div *ngFor="let formC of twoMonthsMore">
+                    <select-btn [field]="formC.label"
+                                [formControlName]="formC.index">
+                    </select-btn>
+                </div>
+            </form>
         </div>
         <div class="col-12 md:col-4">
-            <h4 class="text-center"> PARA TODAS LAS EDADES:</h4>
-            <div *ngFor="let formC of allYear">
-                <select-btn [field]="formC.label"
-                            [formControlName]="formC.nameFC">
-                </select-btn>
-            </div>
+            <form [formGroup]="allYearFG">
+                <h4 class="text-center"> PARA TODAS LAS EDADES:</h4>
+                <div *ngFor="let formC of allYear">
+                    <select-btn
+                            [field]="formC.label"
+                            [formControlName]="formC.index">
+                    </select-btn>
+                </div>
+            </form>
         </div>
     </div>
     <p-divider></p-divider>

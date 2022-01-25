@@ -41,7 +41,7 @@ export class AtencionCredComponent implements OnInit {
                 }
             })
     }
-    getPlanAtencionIntegral(): void {
+    getPlanAtencionIntegralPrincipal(): void {
         this.router.navigate(['/dashboard/cred/citas/atencion/plan-atencion-integral'],
             {
                 queryParams: {

@@ -11,9 +11,11 @@ update:master:
     - echo "Actualizacion"
     - echo "$CI_COMMIT_BRANCH"
     - git status 
+    - whoiam
     - git branch
     - git checkout master
     - git pull origin $CI_COMMIT_BRANCH
+    - git status
   only: 
     - master
 
@@ -24,8 +26,10 @@ update:release:
     - echo "$CI_COMMIT_BRANCH"
     - cd /server/frontend/historia_clinica_electronica
     - git branch
+    - whoiam
     - git checkout $CI_COMMIT_BRANCH
     - git pull origin $CI_COMMIT_BRANCH
+    - git status
   only: 
     - /^release.*$/    
 
