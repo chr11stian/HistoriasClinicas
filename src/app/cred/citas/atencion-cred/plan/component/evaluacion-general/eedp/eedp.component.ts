@@ -21,35 +21,33 @@ export class EEDPComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.datosMeses = [
-      {
-        area: 'Coordinacion', mes_1: 1, mes_2: 1, mes_3: 1, mes_4: 1, mes_5: 1, mes_6: 1,
-        mes_7: 1, mes_8: 1, mes_9: 1, mes_10: 1, mes_12: 1, mes_15: 1, mes_18: 1, mes_21: 1, mes_24: 1,
-      },
-      {
-        area: 'Social', mes_1: 1, mes_2: 1, mes_3: 1, mes_4: 1, mes_5: 1, mes_6: 1,
-        mes_7: 1, mes_8: 1, mes_9: 1, mes_10: 1, mes_12: 1, mes_15: 1, mes_18: 1, mes_21: 1, mes_24: 1,
-      }
-    ]
     this.getData();
-    
+
   }
 
-  async getData(){
-    await this.evalAlimenService.getEEDPBack().then(data => {
-      this.escalaEEDP = data;
-      this.DoArrayEEDP();
-      console.log('data traida', this.escalaEEDP)
-    });
+  async getData() {
+    let dniConsulta = '00000000';
+    await this.evalAlimenService.getEscalaEvaluacion(dniConsulta)
+      .then(data => {
+        if (!data) {
+          console.log('no existe ninio')
+        } else {
+          this.escalaEEDP = data;
+          this.DoArrayEEDP();
+        }
+      })
+      .catch(error => {
+        console.log('entro error??', error);
+      })
   }
 
-  DoArrayEEDP(){
+  DoArrayEEDP() {
     let arrayEscala = this.escalaEEDP;
     let arrayValoresS = [];
     let arrayValoresC = [];
     let arrayValoresL = [];
     let arrayValoresM = [];
-    
+
     arrayEscala.map(mesNinio => {
       let item = mesNinio.item;
       let preguntaAreaS = [];
@@ -57,20 +55,29 @@ export class EEDPComponent implements OnInit {
       let preguntaAreaL = [];
       let preguntaAreaM = [];
       item.map((pregunta, index) => {
+
         let areEvaluacion = pregunta.areEvaluacion.split('_');
         areEvaluacion.map(areaEva => {
           if (areaEva === "S") {
-            let nroPregunta = pregunta.codigo.split('pregunta_')
-            preguntaAreaS.push(nroPregunta[1])
+            if (pregunta.puntajeEEDP === "6") {
+              let nroPregunta = pregunta.codigo.split('pregunta_')
+              preguntaAreaS.push(nroPregunta[1])
+            }
           } else if (areaEva === "C") {
-            let nroPregunta = pregunta.codigo.split('pregunta_')
-            preguntaAreaC.push(nroPregunta[1])
+            if (pregunta.puntajeEEDP === "6") {
+              let nroPregunta = pregunta.codigo.split('pregunta_')
+              preguntaAreaC.push(nroPregunta[1])
+            }
           } else if (areaEva === "L") {
-            let nroPregunta = pregunta.codigo.split('pregunta_')
-            preguntaAreaL.push(nroPregunta[1])
+            if (pregunta.puntajeEEDP === "6") {
+              let nroPregunta = pregunta.codigo.split('pregunta_')
+              preguntaAreaL.push(nroPregunta[1]);
+            }
           } else if (areaEva === "M") {
-            let nroPregunta = pregunta.codigo.split('pregunta_')
-            preguntaAreaM.push(nroPregunta[1])
+            if (pregunta.puntajeEEDP === "6") {
+              let nroPregunta = pregunta.codigo.split('pregunta_')
+              preguntaAreaM.push(nroPregunta[1]);
+            }
           }
         });
       });
@@ -159,17 +166,25 @@ export class EEDPComponent implements OnInit {
       mes_24: arrayValoresM[14]
     }
     this.datosNinio.push(ObjDefinitivoM);
-    console.log('datos para mostrar', this.datosNinio);
   }
 
-  openEvaluacionEEDP(){
-    console.log('clinck  en modal');
+  openEvaluacionEEDP() {
     const header = "Escala Evaluacion EEDP";
+    let currentIndex = 0;
+    if (this.escalaEEDP) { currentIndex = this.escalaEEDP.length }
     const ref = this.dialogService.open(EscalaEvaluacionEEDPComponent, {
       header: header,
       height: "90%",
       width: "85%",
-      baseZIndex: 10000
+      baseZIndex: 100000,
+      data: {
+        dataEEDP: this.escalaEEDP,
+        currentIndex: currentIndex
+      }
     });
+    ref.onClose.subscribe(() => {
+      this.datosNinio = [];
+      this.getData();
+    })
   }
 }
