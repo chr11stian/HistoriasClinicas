@@ -23,6 +23,8 @@ export class ValoracionFuncionalComponent implements OnInit {
   diagnostico:string;
   docRecuperado="";
   tipoDocRecuperado="";
+  ListaValoracionFuncional:any;
+  dialogValoracionFuncional:boolean=false;
   constructor(private formBuilder: FormBuilder,
               private valoracionService: AdultoMayorService,
               private messageService: MessageService,
@@ -277,7 +279,6 @@ export class ValoracionFuncionalComponent implements OnInit {
 
 
   }
-
   recuperarDataFuncionalBD(){
     this.valoracionService.getValoracionClinica(this.idRecuperado).subscribe((res: any) => {
       console.log('se recupero datos satisfactoriamente', res.object);
@@ -336,5 +337,9 @@ export class ValoracionFuncionalComponent implements OnInit {
       }
      this.formValoracionClinicaFuncional.patchValue({ 'diagnostico': this.valoracionesFuncional.diagnostico });
     });
+  }
+  listarValoraciones(){
+    this.dialogValoracionFuncional=true;
+
   }
 }

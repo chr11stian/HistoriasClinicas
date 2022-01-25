@@ -419,4 +419,23 @@ export class PacienteComponent implements OnInit {
       this.peruvian = false;
     }
   }
+  cargarDatosReniec(){
+    let nroDoc = this.formPaciente.value.nroDoc;
+    console.log(nroDoc);
+    this.pacienteService.getDataReniecPaciente(nroDoc).subscribe((res: any) => {
+      console.log(res.resultado);
+      console.log(res.nombres);
+      this.formPaciente.get("primerNombre").setValue(res.nombres);
+      this.formPaciente.get("apPaterno").setValue(res.apePaterno);
+      this.formPaciente.get("apMaterno").setValue(res.apeMaterno);
+      // if(res.genero="0"){ this.formPaciente.get("sexo").setValue("FEMENINO");}else{"MASCULINO"}
+      this.formPaciente.get("restriccion").setValue(res.restriccion);
+      this.formPaciente.get("estadoCivil").setValue(res.estadoCivil);
+      this.formPaciente.get("direccion").setValue(res.direccion);
+      if(res.tipoSeguro=="01"){ this.formPaciente.get("tipoSeguro").setValue("SIS");}
+      this.formPaciente.get("fechaInscripcion").setValue(res.fecAfiliacion);
+
+      // console.log('lista ipress ', this.listaIpress)
+    });
+  }
 }

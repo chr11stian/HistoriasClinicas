@@ -6,6 +6,37 @@ export interface DataQuery {
     nroDocProfesional: string
 }
 
+export interface DataQueryPlan {
+    tipoDoc: string
+    nroDoc: string
+}
+
+export interface ApiPlanAtencion {
+    cod: string;
+    mensaje: string;
+    cod_Http: string;
+    object: PlanAtencionRespuesta;
+}
+
+export interface PlanAtencionRespuesta {
+    created_at:                       Date;
+    created_by:                       string;
+    modified_at:                      Date;
+    modified_by:                      string;
+    deleted:                          boolean;
+    id:                               string;
+    tipoDocPaciente:                  string;
+    nroDocPaciente:                   string;
+    formatoFiliacion:                 any;
+    planAtencion:                     any;
+    evalAlimentacionNinio:            any;
+    escalaEval_EEDP_0_4_anios:        any;
+    evalDesarrollo_0_30_meses:        any;
+    evalDesarrollo_Psico_EEDP:        any;
+    fechaNacimiento:                  any;
+    protocoloTestPsicomotor_2_5Tepsi: any;
+}
+
 export interface ApiConsulta {
     cod: string;
     mensaje: string;

@@ -7,6 +7,9 @@ import {UbicacionComponent} from "../mantenimientos/component/ubicacion/ubicacio
 import {IpressComponent} from './ipress/ipress.component';
 import {PacienteComponent} from './paciente/paciente.component';
 import { ListarCuposComponent } from './triaje/listar-cupos/listar-cupos.component';
+import { IpressTurnosComponent } from './ipress-turnos/ipress-turnos.component';
+import { IpressAmbientesComponent } from './ipress-ambientes/ipress-ambientes.component';
+import { IpressRolesComponent } from './ipress-roles/ipress-roles.component';
 
 const routes: Routes = [
     {
@@ -43,7 +46,18 @@ const routes: Routes = [
         path: "triaje",
         component: ListarCuposComponent
     },
-
+    {
+        path: "ipress-turnos",
+        component: IpressTurnosComponent
+    },
+    {
+        path: "ipress-roles",
+        component: IpressRolesComponent
+    },
+    {
+        path: "ipress-ambientes",
+        component: IpressAmbientesComponent
+    },
 
 ];
 
