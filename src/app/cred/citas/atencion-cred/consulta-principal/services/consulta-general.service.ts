@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core'
 import {HttpClient} from '@angular/common/http'
-import {ApiConsulta, DataQuery} from '../models/consultaGeneral'
+import {ApiConsulta, ApiPlanAtencion, DataQuery, DataQueryPlan} from '../models/consultaGeneral'
 import {environment} from 'src/environments/environment'
 import {map} from 'rxjs/operators'
 
@@ -11,19 +11,30 @@ import {map} from 'rxjs/operators'
 export class ConsultaGeneralService {
     urlServer = environment.baseUrl
     bd = environment.bd
-    base_url = `${this.urlServer}/${this.bd}/cred/consulta`
+    base_url = `${this.urlServer}/${this.bd}/cred`
 
     constructor(private http: HttpClient) {
     }
 
-    crearConsulta(create: DataQuery) {
+    crearPlan(create: DataQueryPlan) {
         const url = `${this.base_url}/crear/`
+        return this.http.post<ApiPlanAtencion>(url,
+            create
+        )
+    }
+    traerPlan(dni: string) {
+        const url = `${this.base_url}/recuperardatos/${dni}`
+        return this.http.get<any>(url)
+    }
+
+    crearConsulta(create: DataQuery) {
+        const url = `${this.base_url}/consulta/crear/`
         return this.http.post<ApiConsulta>(url,
             create
         )
     }
     traerConsulta(idConsulta: string) {
-        const url = `${this.base_url}/datosgenerales/${idConsulta}`
+        const url = `${this.base_url}/consulta/datosgenerales/${idConsulta}`
         return this.http.get<any>(url)
     }
     datosGenerales(data: any) {

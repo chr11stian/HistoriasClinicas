@@ -15,7 +15,12 @@ export class DatosGeneralesService {
 
     constructor(private http: HttpClient) {
     }
+
     getDatosGenerales(nroDoc) {
         return this.http.get(`${this.base_url}/${this.bd}/cred/datos/generales/${nroDoc}`)
+    }
+
+    updateDataGeneral(nroDoc, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/cred/datos/generales/${nroDoc}`, data)
     }
 }
