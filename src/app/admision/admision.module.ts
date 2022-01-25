@@ -22,6 +22,9 @@ import {IpressComponent} from './ipress/ipress.component';
 import {PacienteComponent} from './paciente/paciente.component';
 import { ListarCuposComponent } from './triaje/listar-cupos/listar-cupos.component';
 import { RegistrarTriajeComponent } from './triaje/registrar-triaje/registrar-triaje.component';
+import { IpressRolesComponent } from './ipress-roles/ipress-roles.component';
+import { IpressTurnosComponent } from './ipress-turnos/ipress-turnos.component';
+import { IpressAmbientesComponent } from './ipress-ambientes/ipress-ambientes.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +35,9 @@ import { RegistrarTriajeComponent } from './triaje/registrar-triaje/registrar-tr
         PacienteComponent,
         ListarCuposComponent,
         RegistrarTriajeComponent,
+        IpressRolesComponent,
+        IpressTurnosComponent,
+        IpressAmbientesComponent,
     ],
     exports: [
         PersonalSaludComponent,
