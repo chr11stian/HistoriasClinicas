@@ -8,7 +8,7 @@ import { EscalaEvaluacionEEDPComponent } from '../escala-evaluacion-eedp/escala-
   selector: 'app-eedp',
   templateUrl: './eedp.component.html',
   styleUrls: ['./eedp.component.css'],
-  providers: [DialogService],
+  providers: [DialogService]
 })
 export class EEDPComponent implements OnInit {
 
@@ -16,8 +16,8 @@ export class EEDPComponent implements OnInit {
   escalaEEDP: escalaEval_EEDP_0_4_anios[];
   datosNinio = [];
   constructor(
-    private evalAlimenService: EvalAlimenService,
-    private dialogService: DialogService,
+      private evalAlimenService: EvalAlimenService,
+      private dialogService: DialogService,
   ) { }
 
   ngOnInit(): void {
@@ -28,17 +28,17 @@ export class EEDPComponent implements OnInit {
   async getData() {
     let dniConsulta = '00000000';
     await this.evalAlimenService.getEscalaEvaluacion(dniConsulta)
-      .then(data => {
-        if (!data) {
-          console.log('no existe ninio')
-        } else {
-          this.escalaEEDP = data;
-          this.DoArrayEEDP();
-        }
-      })
-      .catch(error => {
-        console.log('entro error??', error);
-      })
+        .then(data => {
+          if (!data) {
+            console.log('no existe ninio')
+          } else {
+            this.escalaEEDP = data;
+            this.DoArrayEEDP();
+          }
+        })
+        .catch(error => {
+          console.log('entro error??', error);
+        })
   }
 
   DoArrayEEDP() {
@@ -187,4 +187,6 @@ export class EEDPComponent implements OnInit {
       this.getData();
     })
   }
+
+
 }

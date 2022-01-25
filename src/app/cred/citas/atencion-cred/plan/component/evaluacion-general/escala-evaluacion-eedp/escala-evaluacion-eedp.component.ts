@@ -6,13 +6,14 @@ import Swal from 'sweetalert2';
 import { EscalaEEDP, DatosEEDP, datosEEDPTabla, escalaEval_EEDP_0_4_anios, tablaComparativa } from '../models/EscalaEEDP';
 import { EvalAlimenService } from '../service/eval-alimen.service';
 
+
 @Component({
   selector: 'app-escala-evaluacion-eedp',
   templateUrl: './escala-evaluacion-eedp.component.html',
-  styleUrls: ['./escala-evaluacion-eedp.component.css']
+  styleUrls: ['./escala-evaluacion-eedp.component.css'],
+
 })
 export class EscalaEvaluacionEEDPComponent implements OnInit {
-
   items: {}[];
   indexSelected: number = 0;
   edadNroSelected: number = 1;
@@ -182,9 +183,9 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
             timer: 1500,
           })
         })
-          .catch((error) => {
-            console.log('Error al guardar', error)
-          });
+            .catch((error) => {
+              console.log('Error al guardar', error)
+            });
       } else {
         let dias = 61;
         let sumaAnterior = parseFloat(this.evaluacionEEDP[this.indexSelected - 1].puntajeTotalEedp);
@@ -200,20 +201,20 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
           }
         })
         this.evalAlimenService.postEvaluacionEEDP(dni, evaluacion_ninio)
-          .then(result => {
-            Swal.fire({
-              icon: 'success',
-              title: 'Test guarado correctamente',
-              text: 'Mes' + this.edadNroSelected,
-              showConfirmButton: false,
-              timer: 1500,
+            .then(result => {
+              Swal.fire({
+                icon: 'success',
+                title: 'Test guarado correctamente',
+                text: 'Mes' + this.edadNroSelected,
+                showConfirmButton: false,
+                timer: 1500,
 
+              })
             })
-          })
-          .catch((error) => {
-            console.log('Error al guardar', error)
+            .catch((error) => {
+              console.log('Error al guardar', error)
 
-          });
+            });
       }
     }
     this.ref.close();
