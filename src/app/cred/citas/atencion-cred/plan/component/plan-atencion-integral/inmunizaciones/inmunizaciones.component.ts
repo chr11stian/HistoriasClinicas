@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core'
 import {InmunizacionesService} from '../services/inmunizaciones/inmunizaciones.service'
 import {Inmunizaciones} from '../models/plan-atencion-integral.model'
+import {MessageService} from 'primeng/api';
 
 
 @Component({
@@ -14,7 +15,8 @@ export class InmunizacionesComponent implements OnInit {
     lista1: Inmunizaciones[] = []
     lista2: Inmunizaciones[] = []
     lista3: Inmunizaciones[] = []
-    constructor(private servicio: InmunizacionesService) {
+    constructor(private servicio: InmunizacionesService,
+                private messageService: MessageService) {
     }
 
     ngOnInit() {
@@ -45,7 +47,7 @@ export class InmunizacionesComponent implements OnInit {
                 i.fechaTentativa=i.fechaTentativa.split(' ')[0];
             }
         }) 
-        // console.log("entro1");
+        // console.log('Inmunizaciones=>',this.listaInmunizaciones);
         this.separacion()
     }
     separacion() {
@@ -56,6 +58,52 @@ export class InmunizacionesComponent implements OnInit {
         this.lista2 = this.listaInmunizaciones.splice(0, 8)
         this.lista3 = this.listaInmunizaciones.splice(0, this.listaInmunizaciones.length)
         // console.log('lista', this.lista1)
+        // console.log('lista inmunizaciones',this.listaInmunizaciones)
+    }
+    getFecha(date: Date) {
+        if (date.toString() !== '') {
+            let hora = date.toLocaleTimeString();
+            let dd = date.getDate();
+            let dd1:string=dd.toString();
+            if(dd<10){
+                dd1='0'+dd;
+            }
+            let mm = date.getMonth() + 1;
+            let mm1:string=mm.toString();
+            if(mm<10){
+                mm1='0'+mm;
+            }
+            let yyyy = date.getFullYear();
+            return yyyy + '-' + mm1 + '-' + dd1+' '+hora
+        } else {
+            return '';
+        }
+    }
+    save(){
+        //armamos la "
+        let objeto:string='';
+        this.lista1.forEach(elemento=>{
+            objeto+=`{"descripcionEdad":"${elemento.descripcionEdad}","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${elemento.nroDosis}
+            ,"estado":${elemento.estado},"fecha":"${elemento.fecha?this.getFecha(new Date(elemento.fecha)):''}","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`
+        })
+        this.lista2.forEach(elemento=>{
+            objeto+=`{"descripcionEdad":"${elemento.descripcionEdad}","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${elemento.nroDosis}
+            ,"estado":${elemento.estado},"fecha":"${elemento.fecha?this.getFecha(new Date(elemento.fecha)):''}","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`
+        })
+        this.lista3.forEach(elemento=>{
+            objeto+=`{"descripcionEdad":"${elemento.descripcionEdad}","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${elemento.nroDosis}
+            ,"estado":${elemento.estado},"fecha":"${elemento.fecha?this.getFecha(new Date(elemento.fecha)):''}","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`
+        })
+        const nueva=objeto.slice(0,objeto.length-1);
+        const nueva1:string =`[${nueva}]`
+        const json1=JSON.parse(nueva1)
+        this.servicio.updateListaInmunizaciones('47825757',json1)
+          .toPromise().then((result) => {
+            this.messageService.add({severity:'success', summary:'Service Message', detail:'registro actualizado'});
+        }).catch((err) => {
+            console.log('E',err)
+        })
+
     }
 
 }

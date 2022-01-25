@@ -16,4 +16,7 @@ export class InmunizacionesService {
   getListaInmunizaciones(dni: string){
     return this.http.get<any>(`${this.base_url}/${this.bd}/cred/inmunizacion/${dni}`);
   }
+  updateListaInmunizaciones(dni: string,request){
+    return this.http.put<any>(`${this.base_url}/${this.bd}/cred/update_inmunizacion/${dni}`,request);
+  }
 }
