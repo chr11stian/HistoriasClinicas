@@ -11,9 +11,7 @@ export class EvalAlimenService {
 
   base_url = environment.baseUrl;
   bd = environment.bd;
-
-  url = 'http://192.168.5.3:3012/api/hce/cred/';
-  // url = 'http://190.108.93.145:3012/api/hce/cred/';
+  
   constructor(private http: HttpClient) { }
 
   getProductsSmall() {
