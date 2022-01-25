@@ -27,32 +27,26 @@
     </div>
 
     <div class="div_line_Separate_card"></div>
-
     <div>
         <p-fieldset legend="{{edadNroSelected + ' ' + edadSelected}}">
             <div class="container_input_datos">
                 <div>
-                    <label class="label">N</label >
-                    <input class="input" id="Nvalue" pInputText />
-                </div>
-                <div style="margin-left: 20px;">
-                    <label class="label">D</label >
-                    <input class="input" id="Dvalue" pInputText />
+                    <input class="input_Evaluacion" id="Nvalue" width="" [(ngModel)]="resultadoEvaluacion" pInputText/>
                 </div>
                 <div style="margin-left: 40px;">
                     <label class="label_fecha" style="margin-right: 8px;">Fecha</label >
-                    <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+                    <input type="date" [(ngModel)]="fechaEvaluacion" pInputText>
                 </div>
                 <div style="margin-left: 40px;">
                     <label class="label_fecha">Examinador</label >
-                    <input class="input_examinador" pInputText placeholder="Ingrese Examinador" />
+                    <input class="input_examinador" pInputText placeholder="Ingrese Examinador" [(ngModel)]='examinador' />
                 </div>
             </div>
             <div style="margin-top: 20px;">
                 <p-table
-                    dataKey="id"
-                    [value]="arrayEdadEEDPSelected"
-                    responsiveLayout="scroll"
+                        dataKey="id"
+                        [value]="arrayEdadEEDPSelected"
+                        responsiveLayout="scroll"
                 >
                     <ng-template pTemplate="header">
                         <tr>
@@ -60,7 +54,7 @@
                             <th colspan="2">{{'PUNTAJE ' + puntaje + ' C/U'}}</th>
                             <th colspan="4">PAUTA BREVE</th>
                         </tr>
-                        
+
                         <tr>
                             <th colspan="2">EEDP</th>
                             <th colspan="2">N</th>
@@ -69,35 +63,35 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-datos>
                         <tr>
-                            <td colspan="2">{{datos.codEvaluacion}}</td>
-                            <td colspan="6" pEditableColumn>{{datos.evaluacion}}</td>
+                            <td colspan="2">{{datos.areEvaluacion}}</td>
+                            <td colspan="6" pEditableColumn>{{datos.descripcion}}</td>
                             <td colspan="2">
-                                <p-cellEditor>
+                                <p-cellEditor (onChange)="calcularResultado()">
                                     <ng-template pTemplate="input">
-                                        <input style="width:50px; text-align: center;" pInputText type="number" [(ngModel)]="datos.eedpValue">
+                                        <input style="width:50px; text-align: center;" pInputText type="text" [(ngModel)]="datos.puntajeEEDP">
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        <input style="width:50px" pInputText type="number" [(ngModel)]="datos.eedpValue">
+                                        <input style="width:50px" pInputText type="text" [(ngModel)]="datos.puntajeEEDP" (blur)="calcularResultado()">
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
                             <td colspan="2">
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <p-checkbox [(ngModel)]="datos.pautaBreveN" binary="true" inputId="binary"></p-checkbox>
+                                        <p-checkbox [(ngModel)]="datos.puntajeBreveN" binary="true" inputId="binary"></p-checkbox>
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        <p-checkbox [(ngModel)]="datos.pautaBreveN" binary="true" inputId="binary"></p-checkbox>
+                                        <p-checkbox [(ngModel)]="datos.puntajeBreveN" binary="true" inputId="binary"></p-checkbox>
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
                             <td colspan="2">
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <p-checkbox [(ngModel)]="datos.pautaBreveD" binary="true" inputId="binary"></p-checkbox>
+                                        <p-checkbox [(ngModel)]="datos.puntajeBreveR" binary="true" inputId="binary"></p-checkbox>
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        <p-checkbox [(ngModel)]="datos.pautaBreveD" binary="true" inputId="binary"></p-checkbox>
+                                        <p-checkbox [(ngModel)]="datos.puntajeBreveR" binary="true" inputId="binary"></p-checkbox>
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
@@ -105,6 +99,8 @@
                     </ng-template>
                 </p-table>
             </div>
+            <p-button [disabled]="disabledUpdate" (click)="updateEscalaEEDP()">Actualizar</p-button>
+            <p-button [disabled]="disabled" (click)="saveTest()">Guardar</p-button>
         </p-fieldset>
     </div>
 </div>

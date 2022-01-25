@@ -5,3 +5,6 @@ p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
     background-color: #C50009;
     border-color: #C50009;
 }
+p-calendar{
+    position: absolute;
+}

@@ -29,7 +29,7 @@ import { ModalAtencionPlanComponent } from './components/plan-atencion-adulto-ma
         SocioFamiliarAdultoMayor,
         ValoracionFuncionalComponent,
         ModalPlanAtencionAdultoMayorComponent,
-        ModalAtencionPlanComponent
+        ModalAtencionPlanComponent,
 
     ],
     imports: [
