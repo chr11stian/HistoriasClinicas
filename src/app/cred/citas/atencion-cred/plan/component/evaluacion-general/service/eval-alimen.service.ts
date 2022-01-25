@@ -52,7 +52,7 @@ export class EvalAlimenService {
   }
 
   getEscalaEvaluacion(dniConsulta) {
-    return this.http.get<any>(`${this.base_url}/${this.bd}/escala/evaluacion/listar/${dniConsulta}`)
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/escala/evaluacion/listar/${dniConsulta}`)
       .toPromise()
       .then(res => <escalaEval_EEDP_0_4_anios[]>res.object)
       .then(data => { return data; })
@@ -60,7 +60,7 @@ export class EvalAlimenService {
   }
 
   getTablaComparativaMes(mes) {
-    return this.http.get<any>(`${this.base_url}/${this.bd}/tabla/eedp/${mes}`)
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/tabla/eedp/${mes}`)
       .toPromise()
       .then(res => <tablaComparativa[]>res.object)
       .then(data => { return data; })
@@ -69,7 +69,7 @@ export class EvalAlimenService {
 
   // =================== GUARDAR EVALUACION NINIO POR MES =======================================
   postEvaluacionEEDP(dni, evaluacion) {
-    return this.http.post<any>(`${this.base_url}/${this.bd}/escala/evaluacion/agregar/${dni}`, evaluacion)
+    return this.http.post<any>(`${this.base_url}/${this.bd}/cred/escala/evaluacion/agregar/${dni}`, evaluacion)
       .toPromise()
       .then(data => { console.log('creacion exitosa', data) })
       .catch(error => { console.log('error en la creacion', error) })
@@ -77,7 +77,7 @@ export class EvalAlimenService {
 
   // =================== ACTUALIZAR REGISTROS EEDP ==============================================
   putEvaluacionEEDP(dni, evaluacion) {
-    return this.http.put<any>(`${this.base_url}/${this.bd}/escala/evaluacion/modificar/${dni}`, evaluacion)
+    return this.http.put<any>(`${this.base_url}/${this.bd}/cred/escala/evaluacion/modificar/${dni}`, evaluacion)
       .toPromise()
       .then(data => { console.log('creacion exitosa', data) })
       .catch(error => { console.log('error en la creacion', error) })
