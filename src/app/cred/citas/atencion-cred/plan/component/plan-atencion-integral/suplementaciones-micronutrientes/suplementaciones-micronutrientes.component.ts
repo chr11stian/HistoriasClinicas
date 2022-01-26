@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SuplementacionesMicronutrientesService } from '../services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service'
 import { SuplementacionMicronutrientes } from 'src/app/cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model'
 import { DatePipe } from '@angular/common';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-suplementaciones-micronutrientes',
@@ -17,12 +18,13 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
   valueO: boolean = true;
   datePipe = new DatePipe('en-US');
 
-  constructor(private servicio: SuplementacionesMicronutrientesService) {
+  constructor(private servicio: SuplementacionesMicronutrientesService,
+    private messageService: MessageService,) {
     this.stateOptions = [
       { label: 'SI', optionValue: true },
       { label: 'NO', optionValue: false }
     ];
-
+    
   }
 
   ngOnInit(): void {
@@ -79,7 +81,7 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
     console.log('data to save ', dataArray);
     this.servicio.putSuplementacionMicronutrientes('47825757', dataArray).subscribe((res: any) => {
       console.log('se guardo');
-
+      this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
   }
 }
