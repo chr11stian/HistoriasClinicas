@@ -1,14 +1,5 @@
-p-tabView >>> .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    border: solid rgb(222 226 230);
-    border-width: 0 0 2px 0;
-    border-color: rgb(0 0 0 / 0%) rgb(0 0 0 / 0%) rgb(222 226 230) rgb(0 0 0 / 0%);
-    background: rgb(255 255 255);
-    color: rgb(108 117 125);
-    padding: 1.5rem;
-    font-weight: 550;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    border-top-right-radius: 3px;
-    border-top-left-radius: 3px;
-    transition: box-shadow 0.2s;
-    margin: 0px 0px -2px 0px;
+p-tabView >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: rgb(175 0 23); ;
+    border-color: rgb(251 192 45);
+    color: rgb(255 255 255);
 }

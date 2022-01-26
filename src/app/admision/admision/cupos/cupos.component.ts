@@ -12,6 +12,7 @@ import {RolGuardiaService} from "../../../core/services/rol-guardia/rol-guardia.
 import {CitasService} from "../../../obstetricia-general/services/citas.service";
 import Swal from "sweetalert2";
 import {PacienteComponent} from "../../paciente/paciente.component";
+import {ModalCuposComponent} from "./modal-cupos/modal-cupos.component";
 
 @Component({
     selector: 'app-cupos',
@@ -71,7 +72,6 @@ export class CuposComponent implements OnInit {
     ref: DynamicDialogRef;
 
     constructor(
-        private config: DynamicDialogConfig,
         private router: Router,
         private primeNGConfig: PrimeNGConfig,
         private messageService: MessageService,
@@ -588,6 +588,15 @@ export class CuposComponent implements OnInit {
         console.log(ahora_dia)
         return 11;
 
+    }
+
+
+    openDialogCuposNuevo() {
+        this.ref = this.dialog.open(ModalCuposComponent, {
+            width: '90%',
+            contentStyle: {"max-height": "500px", "overflow": "auto"},
+            baseZIndex: 10000
+        })
     }
 
 }
