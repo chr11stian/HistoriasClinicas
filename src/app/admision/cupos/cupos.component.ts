@@ -252,14 +252,14 @@ export class CuposComponent implements OnInit {
 
     buscarNuevoPaciente() {
         this.ref = this.dialog.open(PacienteComponent, {
-            header: "NUEVO PACIENTE",
-            style: {
-                width: "60%"
-            },
-            contentStyle: {
-                overflow: "auto",
-
-            },
+            // header: "NUEVO PACIENTE",
+            // style: {
+            //     width: "60%"
+            // },
+            // contentStyle: {
+            //     overflow: "auto",
+            //
+            // },
         })
     }
 
