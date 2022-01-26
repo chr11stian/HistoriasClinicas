@@ -72,6 +72,10 @@ export class ControlCrecimientoComponent implements OnInit {
               }
             }
         });
+        console.log('hola mundo')
+        console.log(this.mesesAltura)
+        console.log(this.mesesPeso)
+        console.log(this.mesesAlturaPeso)
     }
     transform(){
         //transformacion a un solo formato que se usará
@@ -140,49 +144,49 @@ export class ControlCrecimientoComponent implements OnInit {
         //armamos la "
         let objeto:string='';
         this.RN.forEach(item=>{
-            objeto+=`{"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
             ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
         })
-        // this.Menor_1A.forEach(item=>{
-        //     objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
-        //     ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
-        // })
-        // this.A1.forEach(item=>{
-        //     objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
-        //     ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
-        // })
-        // this.A2.forEach(item=>{
-        //     objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
-        //     ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
-        // })
-        // this.A3.forEach(item=>{
-        //     objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
-        //     ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
-        // })
-        // this.A4.forEach(item=>{
-        //     objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
-        //     ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
-        // })
-        // this.A5.forEach(item=>{
-        //     objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
-        //     ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
-        // })
-        // this.A6.forEach(item=>{
-        //     objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
-        //     ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
-        // })
-        // this.A7.forEach(item=>{
-        //     objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
-        //     ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
-        // })
-        // this.A8.forEach(item=>{
-        //     objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
-        //     ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
-        // })
-        // this.A9.forEach(item=>{
-        //     objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
-        //     ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
-        // })
+        this.Menor_1A.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A1.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A2.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A3.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A4.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A5.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A6.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A7.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A8.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A9.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
         const nueva=objeto.slice(0,objeto.length-1);
         const nueva1:string =`[${nueva}]`
         const json1=JSON.parse(nueva1)
