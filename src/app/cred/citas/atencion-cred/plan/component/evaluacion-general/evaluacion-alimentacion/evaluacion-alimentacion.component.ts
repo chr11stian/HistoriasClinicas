@@ -152,7 +152,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       ]
       this.ObtenerUltimaEvaluacion();
       this.recuperarDataEvaluacionAlimenticiaBD();
-
   }
   recuperarDataEvaluacionAlimenticiaBD(){
     this.evalAlimenService.getEvaluacionAlimenticiaCred(this.nroDocRecuperado).subscribe((res: any) => {
@@ -363,14 +362,12 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
    });
   }
-
   obtenerTitulo(indice):string{
       if(indice==0){return "valorRN"}
       else{
           return "valor" + indice + "M"
       }
   }
-
   guardarEvaluacion(indice){
     console.log('entro guardar', this.evaluacionAlimenticia);
     let prefijo = this.obtenerTitulo(indice);
@@ -617,15 +614,30 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     });
 
   }
-
   ObtenerUltimaEvaluacion(){
       console.log('entro editar', this.Evaluaciones);
       let prefijo = "";
       this.evalAlimenService.lastEvaluacionAlimenticiaCred(this.nroDocRecuperado).subscribe((res: any) => {
-              console.log('recupero ultimo elemento ', res.object);
-              this.edadEditable = res.object.edad;
-              prefijo = this.obtenerTitulo(this.edadEditable);
-              console.log(this.edadEditable);
+             if(res.object!=null || res.object!=undefined){
+                 console.log('recupero ultimo elemento ', res.object);
+                 this.edadEditable = res.object.edad;
+                 prefijo = this.obtenerTitulo(this.edadEditable);
+                 console.log(this.edadEditable);
+                 this.messageService.add({
+                     severity: "success",
+                     summary: "Exito",
+                     detail: "Se recupero la última atención"
+                 });
+             }
+             else{
+                 this.messageService.add({
+                     severity: "error",
+                     summary: "Error",
+                     detail: "No hay datos registrados"
+                 });
+             }
+
+
       });
 
   }
@@ -644,10 +656,5 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
 
   }
-
-  formatDate (date){
-
-  }
-
 }
 
