@@ -167,7 +167,7 @@ export class TratamientoConsultaAdolescenteComponent implements OnInit {
   guardarTratamiento() {
     this.recuperarDatos();
     console.log('data to save ', this.dataTratamiento);
-    this.consultaAdolescenteService.putActualizarTratamiento("61ce1cf02aed74731bb3fb3a", this.dataTratamiento).subscribe((res: any) => {
+    this.consultaAdolescenteService.putActualizarTratamiento("61f1195d58886c4342580d64", this.dataTratamiento).subscribe((res: any) => {
 
     });
   }

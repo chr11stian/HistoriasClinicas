@@ -1,7 +1,7 @@
 <div>
     <div class="container_steps">
         <div *ngFor="let item of items; index as indexItem">
-            <div *ngIf="indexItem === indexSelected" >
+            <div *ngIf="indexItem === indexSelected">
                 <div class="steps">
                     <div class="div-titulo-nro">
                         <label class="steps-titulo-edadNro">{{item.edadNro}}</label>
@@ -22,7 +22,7 @@
                         <label class="steps-titulo-edadMes">{{item.edad}}</label>
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
 
@@ -31,27 +31,22 @@
         <p-fieldset legend="{{edadNroSelected + ' ' + edadSelected}}">
             <div class="container_input_datos">
                 <div>
-                    <input class="input_Evaluacion" id="Nvalue" width="" [(ngModel)]="resultadoEvaluacion" pInputText/>
+                    <input class="input_Evaluacion" id="Nvalue" width="" [(ngModel)]="resultadoEvaluacion" pInputText />
                 </div>
                 <div style="margin-left: 40px;">
-                    <label class="label_fecha" style="margin-right: 8px;">Fecha</label >
-<<<<<<< HEAD
+                    <label class="label_fecha" style="margin-right: 8px;">Fecha</label>
                     <input type="date" [(ngModel)]="fechaEvaluacion" pInputText>
-=======
-                    <p-calendar [showIcon]="true" inputId="icon" [(ngModel)]="fechaEvaluacion" dateFormat="yy-mm-dd"></p-calendar>
->>>>>>> 3170b81e9877d2841ab61b555d0c1e7f29d234b6
+                    <p-calendar [showIcon]="true" inputId="icon" [(ngModel)]="fechaEvaluacion" dateFormat="yy-mm-dd">
+                    </p-calendar>
                 </div>
                 <div style="margin-left: 40px;">
-                    <label class="label_fecha">Examinador</label >
-                    <input class="input_examinador" pInputText placeholder="Ingrese Examinador" [(ngModel)]='examinador' />
+                    <label class="label_fecha">Examinador</label>
+                    <input class="input_examinador" pInputText placeholder="Ingrese Examinador"
+                        [(ngModel)]='examinador' />
                 </div>
             </div>
             <div style="margin-top: 20px;">
-                <p-table
-                        dataKey="id"
-                        [value]="arrayEdadEEDPSelected"
-                        responsiveLayout="scroll"
-                >
+                <p-table dataKey="id" [value]="arrayEdadEEDPSelected" responsiveLayout="scroll">
                     <ng-template pTemplate="header">
                         <tr>
                             <th rowspan="2" colspan="8">ITEM</th>
@@ -72,30 +67,36 @@
                             <td colspan="2">
                                 <p-cellEditor (onChange)="calcularResultado()">
                                     <ng-template pTemplate="input">
-                                        <input style="width:50px; text-align: center;" pInputText type="text" [(ngModel)]="datos.puntajeEEDP">
+                                        <input style="width:50px; text-align: center;" pInputText type="text"
+                                            [(ngModel)]="datos.puntajeEEDP">
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        <input style="width:50px" pInputText type="text" [(ngModel)]="datos.puntajeEEDP" (blur)="calcularResultado()">
+                                        <input style="width:50px" pInputText type="text" [(ngModel)]="datos.puntajeEEDP"
+                                            (blur)="calcularResultado()" onClick="this.select();">
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
                             <td colspan="2">
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <p-checkbox [(ngModel)]="datos.puntajeBreveN" binary="true" inputId="binary"></p-checkbox>
+                                        <p-checkbox [(ngModel)]="datos.puntajeBreveN" binary="true" inputId="binary">
+                                        </p-checkbox>
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        <p-checkbox [(ngModel)]="datos.puntajeBreveN" binary="true" inputId="binary"></p-checkbox>
+                                        <p-checkbox [(ngModel)]="datos.puntajeBreveN" binary="true" inputId="binary">
+                                        </p-checkbox>
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
                             <td colspan="2">
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <p-checkbox [(ngModel)]="datos.puntajeBreveR" binary="true" inputId="binary"></p-checkbox>
+                                        <p-checkbox [(ngModel)]="datos.puntajeBreveR" binary="true" inputId="binary">
+                                        </p-checkbox>
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        <p-checkbox [(ngModel)]="datos.puntajeBreveR" binary="true" inputId="binary"></p-checkbox>
+                                        <p-checkbox [(ngModel)]="datos.puntajeBreveR" binary="true" inputId="binary">
+                                        </p-checkbox>
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
