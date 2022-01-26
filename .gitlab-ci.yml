@@ -11,6 +11,8 @@ update:master:
     - echo "Actualizacion"
     - echo "$CI_COMMIT_BRANCH"
     - git status
+    - whoami
+    - whoiam
     - git branch
     - git checkout master
     - git pull origin $CI_COMMIT_BRANCH
@@ -45,7 +47,7 @@ build-job:
     - /^release.*$/
     - master
 
-clean-area:master: # This job also runs in the test stage.
+clean-area:master:   # This job also runs in the test stage.
   stage: build-docker    # It can run at the same time as unit-test-job (in parallel).
   script:
     - echo "limpiando contenedores master"
@@ -58,7 +60,7 @@ clean-area:master: # This job also runs in the test stage.
     - master
   allow_failure: true
 
-clean-area:realease: # This job also runs in the test stage.
+clean-area:realease:   # This job also runs in the test stage.
   stage: build-docker    # It can run at the same time as unit-test-job (in parallel).
   script:
     - echo "limpiando contenedores ramas prueba"
@@ -71,7 +73,7 @@ clean-area:realease: # This job also runs in the test stage.
     - /^release.*$/
   allow_failure: true
 
-build-area:master: # This job also runs in the test stage.
+build-area:master:   # This job also runs in the test stage.
   stage: build-docker    # It can run at the same time as unit-test-job (in parallel).
   script:
     - echo "creando contenedores master/produccion"
@@ -91,7 +93,7 @@ build-area:realease:
   only:
     - /^release.*$/
 
-deploy-job:master: # This job runs in the deploy stage.
+deploy-job:master:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   script:
     - echo "Deploying application..."
@@ -99,7 +101,7 @@ deploy-job:master: # This job runs in the deploy stage.
   only:
     - master
 
-deploy-job:release: # This job runs in the deploy stage.
+deploy-job:release:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   script:
     - echo "Deploying application..."
