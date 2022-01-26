@@ -128,7 +128,7 @@ export class ExamenesConsultaAdolescenteComponent implements OnInit {
   }
   guardarExamenes() {
     this.recuperarDatos();
-    this.consultaAdolescenteService.putActualizarExamenes("61ce1cf02aed74731bb3fb3a", this.dataExamenesConsulta).subscribe((res: any) => {
+    this.consultaAdolescenteService.putActualizarExamenes("61f1195d58886c4342580d64", this.dataExamenesConsulta).subscribe((res: any) => {
       console.log('respuesta ', res);
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });

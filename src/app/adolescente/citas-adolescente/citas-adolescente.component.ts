@@ -44,8 +44,8 @@ export class CitasAdolescenteComponent implements OnInit {
                 dni: 'DNI', /** no debe haber */
                 tipoDoc: 'DNI',
                 nroDoc: '89685519',
-                apellidos: 'RAMOS PERAEZ',
-                nombres: 'RAMON',
+                apellidos: 'RAMIREZ ALTAMIRANO',
+                nombres: 'JOSE',
                 consultorio: 'OBS01',
                 horario: '8:00AM',
                 fecha: '16/11/2021'
