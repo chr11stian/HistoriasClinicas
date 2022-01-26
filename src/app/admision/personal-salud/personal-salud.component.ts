@@ -17,6 +17,7 @@ import { DatePipe } from "@angular/common";
 import { TipoContratoService } from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
 import { IpressService } from "src/app/core/services/ipress/ipress.service";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
+import { image } from '../../../assets/images/image.const';
 
 @Component({
   selector: "app-personal-salud",
@@ -29,8 +30,10 @@ export class PersonalSaludComponent implements OnInit {
   formEspecialidad: FormGroup;
   formRol: FormGroup;
 
+  imagePath: string = image;
   //datos a usar
   data: Personal[] = [];
+  dataPIDE: any;
   isUpdate: boolean = false;
   isUpdateEspecialidad: boolean = false;
   isUpdateRolX: boolean = false;
@@ -168,12 +171,12 @@ export class PersonalSaludComponent implements OnInit {
       contratoAbreviatura: ["", [Validators.required]],
       sexo: ["", [Validators.required]],
       detalleIpress: ["", [Validators.required]],
-      estadoCivil: ["", [Validators.required]],
-      domicilioActual: ["", [Validators.required]],
-      nacionalidad: ["", [Validators.required]],
-      departamento: ["", [Validators.required]],
-      provincia: ["", [Validators.required]],
-      distrito: ["", [Validators.required]],
+      estadoCivil: [""],
+      domicilioActual: [""],
+      nacionalidad: [""],
+      departamento: [""],
+      provincia: [""],
+      distrito: [""],
       fechaInicio: ["", [Validators.required]],
     });
     this.formEspecialidad = this.formBuilder.group({
@@ -267,12 +270,24 @@ export class PersonalSaludComponent implements OnInit {
   openNew() {
     this.isUpdate = false;
     this.form.reset();
+    this.imagePath= image;
+    this.form.get("nroDoc").enable();
     this.form.get("nroDoc").setValue("");
     this.form.get("tipoDoc").setValue("DNI");
     this.form.get("apePaterno").setValue("");
     this.form.get("apeMaterno").setValue("");
     this.form.get("nombres").setValue("");
     this.form.get("fechaNacimiento").setValue("");
+    this.form.get("estadoCivil").setValue("");
+    this.form.get("estadoCivil").disable();
+    this.form.get("domicilioActual").setValue("");
+    this.form.get("domicilioActual").disable();
+    this.form.get("departamento").setValue("");
+    this.form.get("departamento").disable();
+    this.form.get("provincia").setValue("");
+    this.form.get("provincia").disable();
+    this.form.get("distrito").disable();
+    this.form.get("distrito").setValue("");
     this.form.get("tipoPersonal").setValue("");
     this.form.get("colegioProfesional").setValue("");
     this.form.get("colegiatura").setValue("");
@@ -286,41 +301,31 @@ export class PersonalSaludComponent implements OnInit {
   editar(rowData) {
     this.isUpdate = true;
     this.form.reset();
+    this.imagePath= image;
     this.form.get("nroDoc").setValue(rowData.nroDoc);
+    this.traerDataEditar();
+    this.form.get("nroDoc").disable();
     this.form.get("tipoDoc").setValue(rowData.tipoDoc);
+    this.form.get("tipoDoc").disable();
     this.form.get("apePaterno").setValue(rowData.apePaterno);
     this.form.get("apeMaterno").setValue(rowData.apeMaterno);
-    this.form
-      .get("nombres")
-      .setValue(rowData.primerNombre + " " + rowData.otrosNombres);
+    this.form.get("nombres").setValue(rowData.primerNombre + " " + rowData.otrosNombres);
     this.form.get("fechaNacimiento").setValue(rowData.fechaNacimiento);
-    this.form
-      .get("tipoPersonal")
-      .setValue(rowData.tipoPersonal ? rowData.tipoPersonal.nombre : "");
-    this.form
-      .get("colegioProfesional")
-      .setValue(
-        rowData.colegioProfesional ? rowData.colegioProfesional[0].codigo : ""
-      );
+    this.form.get("tipoPersonal").setValue(rowData.tipoPersonal ? rowData.tipoPersonal.nombre : "");
+    this.form.get("colegioProfesional").setValue(rowData.colegioProfesional ? rowData.colegioProfesional[0].codigo : "");
     this.form.get("colegiatura").setValue(rowData.colegiatura);
     this.form.get("estado").setValue(rowData.estado);
     this.form.get("contratoAbreviatura").setValue(rowData.contratoAbreviatura);
     this.form.get("sexo").setValue(rowData.sexo);
-    this.form
-      .get("detalleIpress")
-      .setValue(rowData.detalleIpress ? rowData.detalleIpress[0].idIpress : "");
-    this.form
-      .get("fechaInicio")
-      .setValue(
-        rowData.detalleIpress
-          ? this.datePipe.transform(
-            rowData.detalleIpress[0].fechaInicio,
-            "yyyy-MM-dd"
-          )
-          : ""
-      );
-    console.log(rowData.detalleIpress[0].fechaInicio);
+    this.form.get("detalleIpress").setValue(rowData.detalleIpress ? rowData.detalleIpress[0].idIpress : "");
+    this.form.get("fechaInicio").setValue(rowData.detalleIpress ? 
+      this.datePipe.transform(rowData.detalleIpress[0].fechaInicio,"yyyy-MM-dd"): "");
     this.idUpdate = rowData.id;
+    this.form.get("estadoCivil").disable();
+    this.form.get("distrito").disable();
+    this.form.get("provincia").disable();
+    this.form.get("departamento").disable();
+    this.form.get("domicilioActual").disable();
     this.personalDialog = true;
   }
   editarDatos(rowData) {
@@ -436,21 +441,34 @@ export class PersonalSaludComponent implements OnInit {
   }
 
   traerData() {
-    this.form.get("apePaterno").setValue(this.domicilioList[0].apePaterno);
-    this.form.get("apeMaterno").setValue(this.domicilioList[0].apeMaterno);
-    this.form.get("nombres").setValue(this.domicilioList[0].nombres);
-    this.form
-      .get("fechaNacimiento")
-      .setValue(this.domicilioList[0].fechaNacimiento);
-    this.form.get("sexo").setValue(this.domicilioList[0].sexo);
-    this.form
-      .get("domicilioActual")
-      .setValue(this.domicilioList[0].domicilioActual);
-    this.form.get("estadoCivil").setValue(this.domicilioList[0].estadoCivil);
-    this.form.get("nacionalidad").setValue(this.domicilioList[0].nacionalidad);
-    this.form.get("departamento").setValue(this.domicilioList[0].departamento);
-    this.form.get("provincia").setValue(this.domicilioList[0].provincia);
-    this.form.get("distrito").setValue(this.domicilioList[0].distrito);
+    this.personalservice.getDatosReniec(this.form.value.nroDoc).subscribe((res: any) => {
+      this.dataPIDE = res;
+      console.log(res);
+      this.imagePath= res.foto;
+      this.form.get("apePaterno").setValue(this.dataPIDE.apePaterno);
+      this.form.get("apeMaterno").setValue(this.dataPIDE.apeMaterno);
+      this.form.get("nombres").setValue(this.dataPIDE.nombres);
+      this.form.get("fechaNacimiento").setValue(this.dataPIDE.fecNacimiento==null?"":this.dataPIDE.fecNacimiento.split("T", 1));
+      this.form.get("sexo").setValue(this.dataPIDE.genero==""?"":(this.dataPIDE.genero=="0"?"FEMENINO":"MASCULINO"));
+      this.form.get("domicilioActual").setValue(this.dataPIDE.direccion);
+      this.form.get("estadoCivil").setValue(this.dataPIDE.estadoCivil);
+      let aux=this.dataPIDE.ubigeo.split("/", 3);
+      this.form.get("departamento").setValue(aux[0]);
+      this.form.get("provincia").setValue(aux[1]);
+      this.form.get("distrito").setValue(aux[2]);
+    });
+  }
+  traerDataEditar() {
+    this.personalservice.getDatosReniec(this.form.value.nroDoc).subscribe((res: any) => {
+      this.dataPIDE = res;
+      this.imagePath= res.foto;
+      this.form.get("domicilioActual").setValue(this.dataPIDE.direccion);
+      this.form.get("estadoCivil").setValue(this.dataPIDE.estadoCivil);
+      let aux=this.dataPIDE.ubigeo.split("/", 3);
+      this.form.get("departamento").setValue(aux[0]);
+      this.form.get("provincia").setValue(aux[1]);
+      this.form.get("distrito").setValue(aux[2]);
+    });
   }
   newEspecialidad(rowData) {
     this.especialidades = rowData.especialidad;

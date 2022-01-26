@@ -6,5 +6,12 @@ button {
     border-radius: 5px;
 }
 
+.image {
+    width: 150px; 
+    height: 195px;
+    margin:10px auto;
+	display:block;
+}
+
 
 
