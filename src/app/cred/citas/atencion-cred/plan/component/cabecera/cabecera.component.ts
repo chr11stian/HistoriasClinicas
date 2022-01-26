@@ -189,7 +189,6 @@ export class CabeceraComponent implements OnInit, DoCheck {
     }
 }
 
-
 interface data {
     name: string
     code: number
