@@ -1,12 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {CuposComponent} from './cupos/cupos.component';
+import {CuposComponent} from './admision/cupos/cupos.component';
 import {PersonalSaludComponent} from "./personal-salud/personal-salud.component";
 import {UsuariosComponent} from "./usuarios/usuarios.component";
 import {UbicacionComponent} from "../mantenimientos/component/ubicacion/ubicacion.component";
 import {IpressComponent} from './ipress/ipress.component';
 import {PacienteComponent} from './paciente/paciente.component';
-import { ListarCuposComponent } from './triaje/listar-cupos/listar-cupos.component';
+import {ListarCuposComponent} from './triaje/listar-cupos/listar-cupos.component';
+import {TabViewComponent} from "./admision/tab-view/tab-view.component";
 
 const routes: Routes = [
     {
@@ -27,10 +28,15 @@ const routes: Routes = [
         path: "usuarios",
         component: UsuariosComponent
     },
+    // {
+    //     path: "cupos1",
+    //     component: CuposComponent
+    // },
     {
-        path: "cupos",
-        component: CuposComponent
+        path: "atenciones",
+        component: TabViewComponent
     },
+
     {
         path: "ipress",
         component: IpressComponent

@@ -22,6 +22,7 @@ import {IpressComponent} from './ipress/ipress.component';
 import {PacienteComponent} from './paciente/paciente.component';
 import { ListarCuposComponent } from './triaje/listar-cupos/listar-cupos.component';
 import { RegistrarTriajeComponent } from './triaje/registrar-triaje/registrar-triaje.component';
+import {AtencionesModule} from "./admision/atenciones.module";
 
 @NgModule({
     declarations: [
@@ -37,10 +38,12 @@ import { RegistrarTriajeComponent } from './triaje/registrar-triaje/registrar-tr
         PersonalSaludComponent,
         UsuariosComponent,
         IpressComponent,
+
     ],
 
     imports: [
         CommonModule,
+        AtencionesModule,
         AdminsionRoutingModule,
         CoreModule,
         PrimeModule,

@@ -81,30 +81,30 @@ export class UsuariosComponent implements OnInit {
     }
 
     save() {
-        if (this.usuario.id == null) {
-            this.usuarioService.agregarUsuarios(this.usuario)
-                .subscribe(personal =>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Agregado',
-                        text: 'Usuario',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                );
-        } else {
-            this.usuarioService.actualizarUsuarios(this.usuario)
-                .subscribe(personal => Swal.fire({
-                        icon: 'success',
-                        title: 'Actualizado',
-                        text: 'Usuario',
-                        showConfirmButton: false,
-                        timer: 2000
-                    })
-                );
-        }
-        this.usuarios = [...this.usuarios];
-        this.usuarioDialog = false;
-        // this.usuario = {};
+        // if (this.usuario.id == null) {
+        //     this.usuarioService.agregarUsuarios(this.usuario)
+        //         .subscribe(personal =>
+        //             Swal.fire({
+        //                 icon: 'success',
+        //                 title: 'Agregado',
+        //                 text: 'Usuario',
+        //                 showConfirmButton: false,
+        //                 timer: 2000
+        //             })
+        //         );
+        // } else {
+        //     this.usuarioService.actualizarUsuarios(this.usuario)
+        //         .subscribe(personal => Swal.fire({
+        //                 icon: 'success',
+        //                 title: 'Actualizado',
+        //                 text: 'Usuario',
+        //                 showConfirmButton: false,
+        //                 timer: 2000
+        //             })
+        //         );
+        // }
+        // this.usuarios = [...this.usuarios];
+        // this.usuarioDialog = false;
+        // // this.usuario = {};
     }
 }
