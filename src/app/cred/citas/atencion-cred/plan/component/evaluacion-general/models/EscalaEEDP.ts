@@ -3,21 +3,38 @@ export interface ObjectEscalaEEDP {
 }
 
 export interface escalaEval_EEDP_0_4_anios {
-    edad: string,
+    edad: number,
     condicion:string,
     fecha: string,
     examinador: string,
+    puntajeTotalEedp: string
     item: datosEEDPTabla[],
-    deleted: boolean
+    deleted: boolean,
+    // created_at: string,
+    // created_by: string,
+    // modified_at: string,
+    // modified_by: string
 }
 
 export interface datosEEDPTabla {
     codigo: string,
     areEvaluacion: string,
     descripcion: string,
+    puntajeMaximo: string,
     puntajeEEDP: string,
     puntajeBreveN: boolean,
     puntajeBreveR: boolean
+}
+
+// export interface tablaComparativa {
+//     id: string,
+//     edad: string,
+//     tabla: datostabla[]
+// }
+
+export interface tablaComparativa {
+    em_ec: string,
+    pe: string
 }
 
 export interface EscalaEEDP {
@@ -41,10 +58,11 @@ export interface EscalaEEDP {
 }
 
 export interface DatosEEDP {
-    codEvaluacion: string,
-    evaluacion: string,
-    eedpkey: string,
-    eedpValue: boolean,
-    pautaBreveN: boolean,
-    pautaBreveD: boolean
+    codigo: string,
+    areEvaluacion: string,
+    descripcion: string,
+    puntajeMaximo: string,
+    puntajeEEDP: string,
+    puntajeBreveN: boolean,
+    puntajeBreveR: boolean
 }

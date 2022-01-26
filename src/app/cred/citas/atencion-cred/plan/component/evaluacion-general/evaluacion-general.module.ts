@@ -9,6 +9,8 @@ import { EvaluacionGeneralComponent } from './evaluacion-general.component';
 import { CabeceraEvaGnrlComponent } from './cabecera-eva-gnrl/cabecera-eva-gnrl.component';
 import { TestDesarrolloComponent } from './test-desarrollo/test-desarrollo.component';
 import { TestTepsiComponent } from './test-tepsi/test-tepsi.component';
+import {ToggleButtonModule} from "primeng/togglebutton";
+import {SpeedDialModule} from "primeng/speeddial";
 
 @NgModule({
     declarations: [
@@ -28,7 +30,9 @@ import { TestTepsiComponent } from './test-tepsi/test-tepsi.component';
         PrimeModule,
         CommonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ToggleButtonModule,
+        SpeedDialModule
     ]
 })
 export class EvaluacionGeneralModule { }

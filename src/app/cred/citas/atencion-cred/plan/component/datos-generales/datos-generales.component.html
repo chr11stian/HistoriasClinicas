@@ -1,17 +1,9 @@
-<p-toolbar>
-    <ng-template pTemplate="left">
-        <h3 class="mt-2">DATOS GENERALES NIÑO/NIÑA</h3>
-    </ng-template>
-    <ng-template pTemplate="right" class="button">
-        <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                class="guardar mr-2" style="background-color: #0c3866"></button>
-    </ng-template>
-</p-toolbar>
-<br>
-
 <p-fieldset legend="Información Básica" [toggleable]="true">
     <form [formGroup]="generalInfoFG">
         <div class="grid">
+            <div class="col-12 flex justify-content-center">
+                <span>Edad: {{this.edad}}</span>
+            </div>
             <div class="col-6 flex align-items-center">
                 <div class="col-3">
                     <span class="text-right">Nombre:</span>
@@ -100,8 +92,8 @@
                     />
                 </div>
             </div>
-            <div class="col-3 flex align-items-center">
-                <div class="col-2 mr-4">
+            <div class="col-2 flex align-items-center">
+                <div class="col-2 mr-6">
                     <span>CIU/DNI:</span>
                 </div>
                 <div class="col-8">
@@ -114,23 +106,59 @@
                     />
                 </div>
             </div>
-            <div class="col ml-2 align-items-center">
-                <p-selectButton
-                        [options]="stateOptions1"
-                        formControlName="GS"
-                        optionLabel="label"
-                        optionValue="value"
-                >
-                </p-selectButton>
+            <div class="col-2 flex align-items-center">
+                <div class="col-2 mr-4">
+                    <span>GS:</span>
+                </div>
+                <div class="col-8">
+                    <input
+                            formControlName="GS"
+                            type="text"
+                            class="inputfield w-full"
+                            pInputText
+                    />
+                </div>
             </div>
-            <div class="col align-items-center">
-                <p-selectButton
-                        [options]="stateOptions2"
-                        formControlName="RH"
-                        optionLabel="label"
-                        optionValue="value"
-                >
-                </p-selectButton>
+            <div class="col-2 flex align-items-center">
+                <div class="col-2 mr-4">
+                    <span>RH:</span>
+                </div>
+                <div class="col-8">
+                    <input
+                            formControlName="RH"
+                            type="text"
+                            class="inputfield w-full"
+                            pInputText
+                    />
+                </div>
+            </div>
+            <div class="col-6 flex align-items-center">
+                <div class="col-4">
+                    <label
+                    >Grado de instrucción:</label
+                    >
+                </div>
+                <div class="col-8">
+                    <p-dropdown
+                            placeholder="Seleccionar"
+                            [options]="options"
+                            formControlName="gradoInstruccion"
+                    >
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="col-6 flex align-items-center">
+                <div class="col-4">
+                    <span class="text-right">Centro Educativo:</span>
+                </div>
+                <div class="col-8">
+                    <input
+                            formControlName="centroEducativo"
+                            type="text"
+                            class="inputfield w-full"
+                            pInputText
+                    />
+                </div>
             </div>
         </div>
     </form>
@@ -141,7 +169,7 @@
         <div class="grid">
             <div class="col-5">
                 <div class="col-12 grid">
-                    <label class="line-height-4" for="username2"
+                    <label class="line-height-4"
                     >Grado de instrucción:</label
                     >
                 </div>
@@ -149,21 +177,20 @@
                     <p-dropdown
                             placeholder="Seleccionar"
                             [options]="options"
-                            optionLabel="name"
+                            formControlName="gradoInstruccionPadre"
                     >
                     </p-dropdown>
                 </div>
             </div>
             <div class="col-5 grid">
                 <div class="col-12 grid">
-                    <span>Centro educativo</span>
+                    <span>Estado</span>
                 </div>
                 <div class="col-12 grid">
                     <input
-                            id="centro"
-                            formControlName="centroPadre"
+                            formControlName="estadoPadre"
                             type="text"
-                            placeholder="centro educativo"
+                            placeholder="estado civil"
                             class="inputfield w-full"
                             pInputText
                     />
@@ -175,10 +202,9 @@
                 </div>
                 <div class="col-12 grid">
                     <input
-                            id="centro"
                             formControlName="telefonoPadre"
                             type="text"
-                            placeholder="centro educativo"
+                            placeholder="telefono"
                             class="inputfield w-full"
                             pInputText
                     />
@@ -192,7 +218,6 @@
                 </div>
                 <div class="col-12 grid">
                     <input
-                            id="centro"
                             formControlName="nombrePadre"
                             type="text"
                             placeholder="Apellidos y Nombres del Padre"
@@ -207,7 +232,6 @@
                 </div>
                 <div class="col-12 grid">
                     <input
-                            id="centro"
                             formControlName="edadPadre"
                             type="text"
                             placeholder="edad"
@@ -222,10 +246,9 @@
                 </div>
                 <div class="col-12 grid">
                     <input
-                            id="centro"
                             formControlName="dniPadre"
                             type="text"
-                            placeholder="edad"
+                            placeholder="# dni"
                             class="inputfield w-full"
                             pInputText
                     />
@@ -251,7 +274,6 @@
                 </div>
                 <div class="col-12 grid">
                     <input
-                            id="centro"
                             formControlName="codigoAfiliacionPadre"
                             type="text"
                             placeholder="codigo"
@@ -265,7 +287,7 @@
         <div class="grid">
             <div class="col-5">
                 <div class="col-12 grid">
-                    <label class="line-height-4" for="username2"
+                    <label class="line-height-4"
                     >Grado de instrucción:</label
                     >
                 </div>
@@ -273,21 +295,20 @@
                     <p-dropdown
                             placeholder="Seleccionar"
                             [options]="options"
-                            optionLabel="name"
+                            formControlName="gradoInstruccionMadre"
                     >
                     </p-dropdown>
                 </div>
             </div>
             <div class="col-5 grid">
                 <div class="col-12 grid">
-                    <span>Centro educativo</span>
+                    <span>Estado</span>
                 </div>
                 <div class="col-12 grid">
                     <input
-                            id="centro"
-                            formControlName="centroMadre"
+                            formControlName="estadoMadre"
                             type="text"
-                            placeholder="centro educativo"
+                            placeholder="estado civil"
                             class="inputfield w-full"
                             pInputText
                     />
@@ -299,10 +320,9 @@
                 </div>
                 <div class="col-12 grid">
                     <input
-                            id="centro"
                             formControlName="telefonoMadre"
                             type="text"
-                            placeholder="centro educativo"
+                            placeholder="telefono"
                             class="inputfield w-full"
                             pInputText
                     />
@@ -316,7 +336,6 @@
                 </div>
                 <div class="col-12 grid">
                     <input
-                            id="centro"
                             formControlName="nombreMadre"
                             type="text"
                             placeholder="Apellidos y Nombres del Madre"
@@ -331,7 +350,6 @@
                 </div>
                 <div class="col-12 grid">
                     <input
-                            id="centro"
                             formControlName="edadMadre"
                             type="text"
                             placeholder="edad"
@@ -349,7 +367,7 @@
                             id="centro"
                             formControlName="dniMadre"
                             type="text"
-                            placeholder="edad"
+                            placeholder="# dni"
                             class="inputfield w-full"
                             pInputText
                     />
@@ -375,7 +393,6 @@
                 </div>
                 <div class="col-12 grid">
                     <input
-                            id="centro"
                             formControlName="codigoAfiliacionMadre"
                             type="text"
                             placeholder="codigo"

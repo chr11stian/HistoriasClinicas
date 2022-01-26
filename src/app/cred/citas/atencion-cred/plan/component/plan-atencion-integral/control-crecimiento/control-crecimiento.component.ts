@@ -16,6 +16,7 @@ export class ControlCrecimientoComponent implements OnInit {
     expandir: boolean = true
     ref: DynamicDialogRef
     listaControles: ControlCrecimiento[] = []
+
     RN: ControlCrecimiento[] = []
     Menor_1A: ControlCrecimiento[] = []
     A1: ControlCrecimiento[] = []
@@ -28,6 +29,7 @@ export class ControlCrecimientoComponent implements OnInit {
     A8: ControlCrecimiento[] = []
     A9: ControlCrecimiento[] = []
     valor:number=0.9;
+    sexo:boolean;
 
     constructor(private fb: FormBuilder,
                 public dialogService: DialogService,
@@ -37,16 +39,43 @@ export class ControlCrecimientoComponent implements OnInit {
     ngOnInit(): void {
         // this.fetchControlCrecimiento()
         this.getLista()
+        this.getPaciente();
 
+    }
+    getPaciente(){
+        this.servicio.getPaciente('47825757')
+          .toPromise().then((result) => {
+            this.sexo=result.object.formatoFiliacion.datosGeneralesFiliacion.sexo
+        }).catch((err) => {
+            console.log(err)
+        })
     }
     getLista() {
         this.servicio.getListaControles('47825757')
             .toPromise().then((result) => {
             this.listaControles = result.object
+            this.paralosGraficos()
             this.transform()
         }).catch((err) => {
             console.log(err)
         })
+    }
+    paralosGraficos(){
+        this.listaControles.forEach((item,index)=>{
+            if(item.peso!==0.0){
+              if (item.edadMes<=33){
+                this.mesesAlturaPeso.push([item.talla,item.peso])
+              }
+              if(item.edadMes>=1 && item.edadMes<=57){
+                this.mesesAltura.push([item.edadMes,item.talla]);
+                this.mesesPeso.push([item.edadMes,item.peso])
+              }
+            }
+        });
+        console.log('hola mundo')
+        console.log(this.mesesAltura)
+        console.log(this.mesesPeso)
+        console.log(this.mesesAlturaPeso)
     }
     transform(){
         //transformacion a un solo formato que se usará
@@ -64,10 +93,11 @@ export class ControlCrecimientoComponent implements OnInit {
         }) 
         console.log("lista conversa",this.listaControles);
         this.separacion()
+        // this.determinaEdadPesoTalla();
     }
     separacion() {
         this.RN=this.listaControles.filter(item => item.descripcionEdad==='RN');
-        console.log('lista RN',this.RN);
+        // console.log('lista RN',this.RN);
         this.Menor_1A=this.listaControles.filter(item=> item.descripcionEdad==='Menor_1A')
         // console.log('lista Menor_1A',this.Menor_1A);
         this.A1=this.listaControles.filter(item=> item.descripcionEdad==='1A')
@@ -88,134 +118,102 @@ export class ControlCrecimientoComponent implements OnInit {
         // console.log('lista A8',this.A8);
         this.A9=this.listaControles.filter(item=> item.descripcionEdad==='9A')
         // console.log('lista A9',this.A9);
+        console.log('lista general',this.listaControles);
         
     }
+    getFecha(date: Date) {
+        if (date.toString() !== '') {
+            let hora = date.toLocaleTimeString();
+            let dd = date.getDate();
+            let dd1:string=dd.toString();
+            if(dd<10){
+                dd1='0'+dd;
+            }
+            let mm = date.getMonth() + 1;
+            let mm1:string=mm.toString();
+            if(mm<10){
+                mm1='0'+mm;
+            }
+            let yyyy = date.getFullYear();
+            return yyyy + '-' + mm1 + '-' + dd1+' '+hora
+        } else {
+            return '';
+        }
+    }
+    save(){
+        //armamos la "
+        let objeto:string='';
+        this.RN.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.Menor_1A.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A1.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A2.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A3.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A4.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A5.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A6.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A7.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A8.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        this.A9.forEach(item=>{
+            objeto+=`{"edadMes":${item.edadMes},"descripcionEdad":"${item.descripcionEdad}","genero":${item.genero},"nroControl":${item.nroControl}
+            ,"peso":${item.peso},"talla":${item.talla},"fecha":"${item.fecha?this.getFecha(new Date(item.fecha)):''}","fechaTentativa":"${item.fechaTentativa} 00:00:00"},`
+        })
+        const nueva=objeto.slice(0,objeto.length-1);
+        const nueva1:string =`[${nueva}]`
+        const json1=JSON.parse(nueva1)
+        // console.log(json1)
+        this.servicio.updateListaControlCrecimiento('47825757',json1)
+          .toPromise().then((result) => {
+            console.log("exito")
+            // this.messageService.add({severity:'success', summary:'Service Message', detail:'registro actualizado'});
+        }).catch((err) => {
+            console.log('E',err)
+        })
 
-    // fetchControlCrecimiento() {
-    //     this.controlCrecimientoFG = this.fb.group({
-    //         RN1peso: ['', Validators.required],
-    //         RN1talla: ['', Validators.required],
-    //         RN1fecha: ['', Validators.required],
-    //         RN2peso: ['', Validators.required],
-    //         RN2talla: ['', Validators.required],
-    //         RN2fecha: ['', Validators.required],
-    //         Menor1peso: ['', Validators.required],
-    //         Menor1talla: ['', Validators.required],
-    //         Menor1fecha: ['', Validators.required],
-    //         Menor2peso: ['', Validators.required],
-    //         Menor2talla: ['', Validators.required],
-    //         Menor2fecha: ['', Validators.required],
-    //         Menor3peso: ['', Validators.required],
-    //         Menor3talla: ['', Validators.required],
-    //         Menor3fecha: ['', Validators.required],
-    //         Menor4peso: ['', Validators.required],
-    //         Menor4talla: ['', Validators.required],
-    //         Menor4fecha: ['', Validators.required],
-    //         Menor5peso: ['', Validators.required],
-    //         Menor5talla: ['', Validators.required],
-    //         Menor5fecha: ['', Validators.required],
-    //         Menor6peso: ['', Validators.required],
-    //         Menor6talla: ['', Validators.required],
-    //         Menor6fecha: ['', Validators.required],
-    //         Menor7peso: ['', Validators.required],
-    //         Menor7talla: ['', Validators.required],
-    //         Menor7fecha: ['', Validators.required],
-    //         Menor8peso: ['', Validators.required],
-    //         Menor8talla: ['', Validators.required],
-    //         Menor8fecha: ['', Validators.required],
-    //         Menor9peso: ['', Validators.required],
-    //         Menor9talla: ['', Validators.required],
-    //         Menor9fecha: ['', Validators.required],
-    //         Menor10peso: ['', Validators.required],
-    //         Menor10talla: ['', Validators.required],
-    //         Menor10fecha: ['', Validators.required],
-    //         Menor11peso: ['', Validators.required],
-    //         Menor11talla: ['', Validators.required],
-    //         Menor11fecha: ['', Validators.required],
-    //         Anio_1peso: ['', Validators.required],
-    //         Anio_1talla: ['', Validators.required],
-    //         Anio_1fecha: ['', Validators.required],
-    //         Anio_2peso: ['', Validators.required],
-    //         Anio_2talla: ['', Validators.required],
-    //         Anio_2fecha: ['', Validators.required],
-    //         Anio_3peso: ['', Validators.required],
-    //         Anio_3talla: ['', Validators.required],
-    //         Anio_3fecha: ['', Validators.required],
-    //         Anio_4peso: ['', Validators.required],
-    //         Anio_4talla: ['', Validators.required],
-    //         Anio_4fecha: ['', Validators.required],
-    //         Anio_5peso: ['', Validators.required],
-    //         Anio_5talla: ['', Validators.required],
-    //         Anio_5fecha: ['', Validators.required],
-    //         Anio_6peso: ['', Validators.required],
-    //         Anio_6talla: ['', Validators.required],
-    //         Anio_6fecha: ['', Validators.required],
-    //         Anio2_1peso: ['', Validators.required],
-    //         Anio2_1talla: ['', Validators.required],
-    //         Anio2_1fecha: ['', Validators.required],
-    //         Anio2_2peso: ['', Validators.required],
-    //         Anio2_2talla: ['', Validators.required],
-    //         Anio2_2fecha: ['', Validators.required],
-    //         Anio2_3peso: ['', Validators.required],
-    //         Anio2_3talla: ['', Validators.required],
-    //         Anio2_3fecha: ['', Validators.required],
-    //         Anio2_4peso: ['', Validators.required],
-    //         Anio2_4talla: ['', Validators.required],
-    //         Anio2_4fecha: ['', Validators.required],
-    //         Anio3_1peso: ['', Validators.required],
-    //         Anio3_1talla: ['', Validators.required],
-    //         Anio3_1fecha: ['', Validators.required],
-    //         Anio3_2peso: ['', Validators.required],
-    //         Anio3_2talla: ['', Validators.required],
-    //         Anio3_2fecha: ['', Validators.required],
-    //         Anio3_3peso: ['', Validators.required],
-    //         Anio3_3talla: ['', Validators.required],
-    //         Anio3_3fecha: ['', Validators.required],
-    //         Anio3_4peso: ['', Validators.required],
-    //         Anio3_4talla: ['', Validators.required],
-    //         Anio3_4fecha: ['', Validators.required],
-    //         Anio4_1peso: ['', Validators.required],
-    //         Anio4_1talla: ['', Validators.required],
-    //         Anio4_1fecha: ['', Validators.required],
-    //         Anio4_2peso: ['', Validators.required],
-    //         Anio4_2talla: ['', Validators.required],
-    //         Anio4_2fecha: ['', Validators.required],
-    //         Anio4_3peso: ['', Validators.required],
-    //         Anio4_3talla: ['', Validators.required],
-    //         Anio4_3fecha: ['', Validators.required],
-    //         Anio4_4peso: ['', Validators.required],
-    //         Anio4_4talla: ['', Validators.required],
-    //         Anio4_4fecha: ['', Validators.required],
-    //         Anio5peso: ['', Validators.required],
-    //         Anio5talla: ['', Validators.required],
-    //         Anio5fecha: ['', Validators.required],
-    //         Anio6peso: ['', Validators.required],
-    //         Anio6talla: ['', Validators.required],
-    //         Anio6fecha: ['', Validators.required],
-    //         Anio7peso: ['', Validators.required],
-    //         Anio7talla: ['', Validators.required],
-    //         Anio7fecha: ['', Validators.required],
-    //         Anio8peso: ['', Validators.required],
-    //         Anio8talla: ['', Validators.required],
-    //         Anio8fecha: ['', Validators.required],
-    //         Anio9peso: ['', Validators.required],
-    //         Anio9talla: ['', Validators.required],
-    //         Anio9fecha: ['', Validators.required]
-    //     })
-    //     console.log('control crecimiento', this.controlCrecimientoFG)
-
-    // }
-
+    }
+    mesesPeso:any[]=[]
+    mesesAltura:any[]=[]
+    mesesAlturaPeso:any[]=[]
+    //
     onWeightChart(): void {
-        const isBoy = true
+        // this.determinaEdadPesoTalla();
+        const isBoy = this.sexo
         this.ref = this.dialogService.open(WeightChartComponent, {
             data: {
-                dataChild: [
-                    [1, 4.25], [2, 5.75]
-                ], /* debe ser dataChild:[[mes,peso],..] ejem: dataChild:[[1,4.5],..]  */
+                dataChild: this.mesesPeso,
+                /* debe ser dataChild:[[mes,peso],..] ejem: dataChild:[[1,4.5],..]  */
                 isBoy: isBoy
             },
-            header: isBoy ? 'GRÁFICA DE PESO DE UN NIÑO' : 'GRÁFICA DE PESO DE UN NIÑA',
+            header: isBoy ? 'GRÁFICA DE PESO DE UN NIÑO' : 'GRÁFICA DE PESO DE UNA NIÑA',
             // width: '90%',
             height: '90%',
             width: '70%',
@@ -227,12 +225,11 @@ export class ControlCrecimientoComponent implements OnInit {
     }
 
     onHeightChart(): void {
-        const isBoy = false
+        const isBoy = this.sexo
         this.ref = this.dialogService.open(HeightChartComponent, {
             data: {
-                dataChild: [
-                    [1, 50]
-                ], /* debe ser dataChild:[[mes,altura],..] ejem: dataChild:[[1,4.5],..]  */
+                dataChild: this.mesesAltura,
+                /* debe ser dataChild:[[mes,altura],..] ejem: dataChild:[[1,4.5],..]  */
                 isBoy: isBoy
             },
             header: isBoy ? 'LONGITUD/ESTATURA PARA LOS NIÑOS' : 'LONGITUD/ESTATURA PARA LOS NIÑAS',
@@ -247,10 +244,11 @@ export class ControlCrecimientoComponent implements OnInit {
     }
 
     onHeightWeightChart(): void {
-        const isBoy = false
+        const isBoy = this.sexo
         this.ref = this.dialogService.open(HeightWeightComponent, {
             data: {
-                dataChild: [], /* debe ser dataChild:[[altura,peso],..] ejem: dataChild:[[1,4.5],..]  */
+                dataChild: this.mesesAlturaPeso,
+                /* debe ser dataChild:[[altura,peso],..] ejem: dataChild:[[1,4.5],..]  */
                 isBoy: isBoy
             },
             header: isBoy ? 'PESO PARA LA LONGITUD NIÑOS' : 'PESO PARA LA LONGITUD NIÑAS',

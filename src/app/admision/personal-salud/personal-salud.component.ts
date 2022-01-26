@@ -13,7 +13,7 @@ import {
 import { TipoPersonalService } from "src/app/mantenimientos/services/tipo-personal/tipo-personal.service";
 import { EspecialidadService } from "src/app/mantenimientos/services/especialidad/especialidad.service";
 import { ColegioProfesionalService } from "src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service";
-import { DatePipe } from "@angular/common";
+import {DatePipe, getLocaleDateFormat} from "@angular/common";
 import { TipoContratoService } from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
 import { IpressService } from "src/app/core/services/ipress/ipress.service";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
@@ -601,36 +601,35 @@ export class PersonalSaludComponent implements OnInit {
       });
   }
   saveRol() {
-    // const posibleRepetido = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups);
-    // comentario de prueba
-    if(true){
+    const isRepeat = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups)?true:false;
+    if(!isRepeat){
       const req = {
-        nombreFuncion: this.formRol.value.nombreFuncion,
-        codUPS: this.formRol.value.ups,
-      }
-      this.personalservice
-        .addRolesPersonal(this.idRolX, req)
-        .subscribe((result) => {
-          Swal.fire({
-            icon: "success",
-            title: "Agregado correctamente",
+            nombreFuncion: this.formRol.value.nombreFuncion,
+            codUPS: this.formRol.value.ups,
+          }
+          this.personalservice
+            .addRolesPersonal(this.idRolX, req)
+            .subscribe((result) => {
+              Swal.fire({
+                icon: "success",
+                title: "Agregado correctamente",
+                text: "",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+              this.rolesX.push(req);
+              this.getPersonal();
+              this.guardarNuevoRol();
+            });
+    }
+    else{
+      Swal.fire({
+            icon: "warning",
+            title: "Ups repetida",
             text: "",
             showConfirmButton: false,
             timer: 1500,
           });
-          this.rolesX.push(req);
-          this.getPersonal();
-          this.guardarNuevoRol();
-        });
-    }
-    else{
-      Swal.fire({
-        icon: "warning",
-        title: "Ups repetida",
-        text: "",
-        showConfirmButton: false,
-        timer: 1500,
-      });
     }
   }
   saveEdicionEspecialidad() {
