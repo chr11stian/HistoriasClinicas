@@ -29,6 +29,7 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   indexMedicacion: number;
   updateAlarmSign: boolean = false;
   indexAlarmSign: number;
+  dataPaciente: Paciente
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +45,8 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
       nroDoc: nroDoc
     }
     this.pacienteService.getNroHclByDocYTipoDocumento(paciente).subscribe((res: any) => {
-      console.log('datos de paciente nrohcl', res.object);
+      this.dataPaciente = res.object;
+      console.log('datos de paciente nrohcl', this.dataPaciente);
     });
   }
 
@@ -74,9 +76,9 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   recuperarDatos() {
     this.datosGrales = {
       servicio: "MEDICINA GENERAL",
-      nroHcl: "10101011",
+      nroHcl: this.dataPaciente.nroHcl,
       tipoDoc: "DNI",
-      nroDoc: "10101011",
+      nroDoc: this.dataPaciente.nroDoc,
       fecha: this.datePipe.transform(this.form.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
       // fecha: this.form.value.fecha,
       edad: this.form.value.edad,
@@ -186,7 +188,7 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
   }
 }
 
-export interface DatosGenerales {
+interface DatosGenerales {
   nroHcl?: string,
   fecha?: String,
   edad?: number,
@@ -205,7 +207,15 @@ export interface DatosGenerales {
   codRENAES?: String,
   episodioClinico?: string,
 }
-export interface interrogatorio {
+interface interrogatorio {
   pregunta?: string,
   respuesta?: string
+}
+interface Paciente {
+  apeMaterno: string,
+  apePaterno: string,
+  nroDoc: string,
+  nroHcl: string,
+  otrosNombres: string,
+  primerNombre: string,
 }
