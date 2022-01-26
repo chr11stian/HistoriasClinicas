@@ -217,6 +217,7 @@ export class PersonalSaludComponent implements OnInit {
     let ipressSelected = this.ipressList.find(
       (ipress) => ipress.id === this.form.value.detalleIpress
     );
+    console.log(this.form.value.fechaNacimiento);
     const req = {
       tipoDoc: this.form.value.tipoDoc,
       nroDoc: this.form.value.nroDoc,
@@ -304,9 +305,7 @@ export class PersonalSaludComponent implements OnInit {
     this.imagePath= image;
     this.form.get("nroDoc").setValue(rowData.nroDoc);
     this.traerDataEditar();
-    this.form.get("nroDoc").disable();
     this.form.get("tipoDoc").setValue(rowData.tipoDoc);
-    this.form.get("tipoDoc").disable();
     this.form.get("apePaterno").setValue(rowData.apePaterno);
     this.form.get("apeMaterno").setValue(rowData.apeMaterno);
     this.form.get("nombres").setValue(rowData.primerNombre + " " + rowData.otrosNombres);
@@ -343,6 +342,7 @@ export class PersonalSaludComponent implements OnInit {
     let ipressSelected = this.ipressList.find(
       (ipress) => ipress.id === this.form.value.detalleIpress
     );
+    console.log(this.form.value.fechaNacimiento);
     const req = {
       id: this.idUpdate,
       tipoDoc: this.form.value.tipoDoc,
@@ -448,7 +448,7 @@ export class PersonalSaludComponent implements OnInit {
       this.form.get("apePaterno").setValue(this.dataPIDE.apePaterno);
       this.form.get("apeMaterno").setValue(this.dataPIDE.apeMaterno);
       this.form.get("nombres").setValue(this.dataPIDE.nombres);
-      this.form.get("fechaNacimiento").setValue(this.dataPIDE.fecNacimiento==null?"":this.dataPIDE.fecNacimiento.split("T", 1));
+      this.form.get("fechaNacimiento").setValue(this.dataPIDE.fecNacimiento==null?"":this.dataPIDE.fecNacimiento.split("T", 1)[0]);
       this.form.get("sexo").setValue(this.dataPIDE.genero==""?"":(this.dataPIDE.genero=="0"?"FEMENINO":"MASCULINO"));
       this.form.get("domicilioActual").setValue(this.dataPIDE.direccion);
       this.form.get("estadoCivil").setValue(this.dataPIDE.estadoCivil);
