@@ -470,7 +470,8 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       ];
     console.log("preguntas", preguntas);
     let cadena = {
-        fechaRegistro:this.datePipe.transform(this.evaluacionAlimenticia[0][prefijo],'yyyy-MM-dd HH:mm:ss'),
+        // fechaRegistro: new Date(this.datePipe.transform(this.evaluacionAlimenticia[0][prefijo],'yyyy-MM-dd HH:mm:ss')),
+        fechaRegistro: this.convertirFecha(this.evaluacionAlimenticia[0][prefijo]),
         edad:indice,
         listaPreguntas:lista,
     }
@@ -483,6 +484,11 @@ export class EvaluacionAlimentacionComponent implements OnInit {
             detail: "Se guardo correctamente el registro de Evaluacion de la edad: " + indice + "meses"
         });
     });
+
+  }
+  convertirFecha(fecha){
+      const fecha2 = fecha.replace("T"," ");
+      return fecha2+":00";
   }
   editarEvaluacion(){
      let prefijo = this.obtenerTitulo(this.edadEditable);
@@ -585,7 +591,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       ];
       console.log("preguntas", preguntas);
       let cadena:EvaluacionAlimenticia= {
-          fechaRegistro:this.datePipe.transform(this.evaluacionAlimenticia[0][prefijo],'yyyy-MM-dd HH:mm:ss'),
+          fechaRegistro:this.convertirFecha(this.evaluacionAlimenticia[0][prefijo]),
           edad:this.edadEditable,
           listaPreguntas:lista,
       }
@@ -606,9 +612,10 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         this.messageService.add({
             severity: "success",
             summary: "Exito",
-            detail: "Se edito correctamente el registro de Evaluacion "
+            detail: "Se edito correctamente el registro de Evaluacion del mes: " + this.edadEditable
         });
     });
+
   }
 
   ObtenerUltimaEvaluacion(){
