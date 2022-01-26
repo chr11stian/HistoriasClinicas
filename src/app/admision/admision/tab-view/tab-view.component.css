@@ -1,0 +1,5 @@
+p-tabView >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: rgb(175 0 23); ;
+    border-color: rgb(251 192 45);
+    color: rgb(255 255 255);
+}

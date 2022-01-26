@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {CuposComponent} from './cupos/cupos.component';
+import {CuposComponent} from './admision/cupos/cupos.component';
 import {PersonalSaludComponent} from "./personal-salud/personal-salud.component";
 import {UsuariosComponent} from "./usuarios/usuarios.component";
 import {UbicacionComponent} from "../mantenimientos/component/ubicacion/ubicacion.component";
@@ -10,6 +10,7 @@ import { ListarCuposComponent } from './triaje/listar-cupos/listar-cupos.compone
 import { IpressTurnosComponent } from './ipress-turnos/ipress-turnos.component';
 import { IpressAmbientesComponent } from './ipress-ambientes/ipress-ambientes.component';
 import { IpressRolesComponent } from './ipress-roles/ipress-roles.component';
+import { TabViewComponent } from "./admision/tab-view/tab-view.component";
 
 const routes: Routes = [
     {
@@ -30,10 +31,15 @@ const routes: Routes = [
         path: "usuarios",
         component: UsuariosComponent
     },
+    // {
+    //     path: "cupos1",
+    //     component: CuposComponent
+    // },
     {
-        path: "cupos",
-        component: CuposComponent
+        path: "atenciones",
+        component: TabViewComponent
     },
+
     {
         path: "ipress",
         component: IpressComponent
