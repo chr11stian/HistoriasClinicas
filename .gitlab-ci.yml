@@ -26,7 +26,6 @@ update:release:
     - cd /server/frontend/historia_clinica_electronica
     - whoami
     - git branch
-    - whoiam
     - git checkout $CI_COMMIT_BRANCH
     - git pull origin $CI_COMMIT_BRANCH
     - git status
