@@ -131,6 +131,15 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
     this.listaDiagnosticos.splice(index, 1);
     this.listaDiagnosticos = [...this.listaDiagnosticos];
   }
+  loadData(){
+    this.form.patchValue({habilidadesSociales:'data'})
+    this.form.patchValue({nutricional:'data'})
+    this.form.patchValue({recomendaciones:'data'})
+    this.formDiagnostico.patchValue({tipoCie:'data'})
+    this.formDiagnostico.patchValue({autocompleDiag:'data'})
+    this.formDiagnostico.patchValue({diagnosticoText:'data'})
+    this.formDiagnostico.patchValue({diagnosticoCIE:'data'})
+  }
 }
 
 export interface cie10 {

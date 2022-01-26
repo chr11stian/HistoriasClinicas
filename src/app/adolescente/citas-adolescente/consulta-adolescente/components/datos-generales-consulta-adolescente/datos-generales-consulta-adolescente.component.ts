@@ -186,6 +186,19 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
     this.listaSignosAlarma.splice(index, 1)
     this.listaSignosAlarma = [...this.listaSignosAlarma];
   }
+  loadData() {
+    this.form.patchValue({ fecha: 'data' })
+    this.form.patchValue({ edad: 'data' })
+    this.form.patchValue({ fumn: 'data' })
+    this.form.patchValue({ nombreAcompaniante: 'data' })
+    this.form.patchValue({ medicacion: 'data' })
+    this.form.patchValue({ motivoConsulta: 'data' })
+    this.form.patchValue({ formaInicio: 'data' })
+    this.form.patchValue({ tiempoEnfermedad: 'data' })
+    this.form.patchValue({ observacionesSignosAlarma: 'data' })
+    this.formSignosAlarma.patchValue({ signoAlarma: 'data' })
+    this.formSignosAlarma.patchValue({ medicacionFrec: 'data' })
+  }
 }
 
 interface DatosGenerales {

@@ -22,6 +22,7 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
       { label: 'SI', optionValue: true },
       { label: 'NO', optionValue: false }
     ];
+
   }
 
   ngOnInit(): void {
@@ -52,7 +53,7 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
       }
       else {
         i.fecha = i.fecha.split(' ')[0];
-        i.fechaTentativa = i.fechaTentativa.split(' ')[0];
+        i.fechaTentativa = this.datePipe.transform(i.fechaTentativa, 'yyyy-MM-dd HH:mm:ss');
       }
     })
     console.log("lista conversa", this.listaMicronutrientes);
@@ -66,17 +67,19 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
   }
 
   saveData() {
-
-    // this.getLista();
     console.log('info before ', this.SF, this.MMN)
     this.SF.forEach(i => {
-      i.fecha === null ? i.fecha = '' : i.fecha = this.datePipe.transform(i.fecha, 'yyyy-MM-dd HH:mm:ss')
+      i.fecha === null ? i.fecha = '' : i.fecha = this.datePipe.transform(i.fecha, 'yyyy-MM-dd HH:mm:ss');
 
     })
     this.MMN.forEach(i => {
-      i.fecha === null ? i.fecha = '' : i.fecha = this.datePipe.transform(i.fecha, 'yyyy-MM-dd HH:mm:ss')
+      i.fecha === null ? i.fecha = '' : i.fecha = this.datePipe.transform(i.fecha, 'yyyy-MM-dd HH:mm:ss');
     })
     let dataArray = this.SF.concat(this.MMN);
-    console.log('data to save ', dataArray)
+    console.log('data to save ', dataArray);
+    this.servicio.putSuplementacionMicronutrientes('47825757', dataArray).subscribe((res: any) => {
+      console.log('se guardo');
+
+    });
   }
 }
