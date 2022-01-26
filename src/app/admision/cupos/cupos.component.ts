@@ -168,6 +168,7 @@ export class CuposComponent implements OnInit {
         console.log(Year + '-' + Months + '-' + Day);
         return Year + '-' + Months + '-' + Day;
     }
+
     // cambiarDetallePago(){
     //     if(this.dataPacientes.tipoSeguro=="SIS"){this.detallePago="GRATUITO"}
     // }
@@ -213,40 +214,43 @@ export class CuposComponent implements OnInit {
                 })
                 this.buscarNuevoPaciente();
             }
-           if(res.object != null || res.object!= undefined){
-               this.dataPacientes = res.object
-               console.log('paciente por doc ', this.dataPacientes)
-               this.formCuposOferta.get('apePaterno').setValue(this.dataPacientes.apePaterno);
-               this.formCuposOferta.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
-               this.formCuposOferta.get('primerNombre').setValue(this.dataPacientes.primerNombre);
-               this.formCuposOferta.get('otrosNombres').setValue(this.dataPacientes.otrosNombres);
-               this.formCuposOferta.get('sexo').setValue(this.dataPacientes.sexo);
-               this.formCuposOferta.get('fechaNacimiento').setValue(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
-               this.formCuposOferta.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
-               this.formCuposOferta.get('celular').setValue(this.dataPacientes.celular);
-               this.formCuposOferta.get('nacionalidad').setValue(this.dataPacientes.nacionalidad);
-               this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
-               this.formCuposOferta.get('departamento').setValue(this.dataPacientes.domicilio.departamento);
-               this.formCuposOferta.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
-               this.formCuposOferta.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
-               this.formCuposOferta.get('centroPoblado').setValue(this.dataPacientes.domicilio.ccpp);
-               this.formCuposOferta.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
-               this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
-               if(this.dataPacientes.tipoSeguro=="SIS"){this.detallePago="GRATUITO"}else{this.detallePago="PENDIENTE"}
-               this.formCuposOferta.get('edadAnio').setValue(this.ageCalculatorA(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento)));
-               this.formCuposOferta.get('edadMes').setValue(this.ageCalculatorM(this.dataPacientes.nacimiento.fechaNacimiento));
-               this.formCuposOferta.get('edadDia').setValue(this.ageCalculatorD(this.dataPacientes.nacimiento.fechaNacimiento));
-           }
-           else{
-               Swal.fire({
-                   icon: 'warning',
-                   title: 'Cupo',
-                   text: 'Paciente no encontrado en la Base de Datos, debe ingresar todo sus datos para crearle Historia Clínica',
-                   showConfirmButton: false,
-                   timer: 1500,
-               })
-               this.buscarNuevoPaciente();
-           }
+            if (res.object != null || res.object != undefined) {
+                this.dataPacientes = res.object
+                console.log('paciente por doc ', this.dataPacientes)
+                this.formCuposOferta.get('apePaterno').setValue(this.dataPacientes.apePaterno);
+                this.formCuposOferta.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
+                this.formCuposOferta.get('primerNombre').setValue(this.dataPacientes.primerNombre);
+                this.formCuposOferta.get('otrosNombres').setValue(this.dataPacientes.otrosNombres);
+                this.formCuposOferta.get('sexo').setValue(this.dataPacientes.sexo);
+                this.formCuposOferta.get('fechaNacimiento').setValue(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
+                this.formCuposOferta.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
+                this.formCuposOferta.get('celular').setValue(this.dataPacientes.celular);
+                this.formCuposOferta.get('nacionalidad').setValue(this.dataPacientes.nacionalidad);
+                this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
+                this.formCuposOferta.get('departamento').setValue(this.dataPacientes.domicilio.departamento);
+                this.formCuposOferta.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
+                this.formCuposOferta.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
+                this.formCuposOferta.get('centroPoblado').setValue(this.dataPacientes.domicilio.ccpp);
+                this.formCuposOferta.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
+                this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
+                if (this.dataPacientes.tipoSeguro == "SIS") {
+                    this.detallePago = "GRATUITO"
+                } else {
+                    this.detallePago = "PENDIENTE"
+                }
+                this.formCuposOferta.get('edadAnio').setValue(this.ageCalculatorA(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento)));
+                this.formCuposOferta.get('edadMes').setValue(this.ageCalculatorM(this.dataPacientes.nacimiento.fechaNacimiento));
+                this.formCuposOferta.get('edadDia').setValue(this.ageCalculatorD(this.dataPacientes.nacimiento.fechaNacimiento));
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Cupo',
+                    text: 'Paciente no encontrado en la Base de Datos, debe ingresar todo sus datos para crearle Historia Clínica',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+                this.buscarNuevoPaciente();
+            }
         });
     }
 
@@ -486,7 +490,7 @@ export class CuposComponent implements OnInit {
         this.dataSelectAmbiente = event.data.ambiente;
         this.dataSelectServicio = event.data.ipress.servicio;
         this.personalSelected = event.data.personal.nombre;//Personal
-        this.dataSelectHoras = event.data.horaLaboral;
+        this.dataSelectHoras = event.data.horasCupo;
         console.log('HORAS....', this.dataSelectHoras);
         /** personalSelected2 almacena todo los datos del event al seleccionar un personal**/
         this.personalSelected2 = event.data;

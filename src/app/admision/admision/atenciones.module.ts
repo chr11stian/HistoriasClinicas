@@ -7,6 +7,7 @@ import {CitasComponent} from './citas/citas.component';
 import { TabViewComponent } from './tab-view/tab-view.component';
 import {PrimeModule} from "../../shared/prime/prime.module";
 import { ModalCuposComponent } from './cupos/modal-cupos/modal-cupos.component';
+import {PaginatorModule} from "primeng/paginator";
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ModalCuposComponent } from './cupos/modal-cupos/modal-cupos.component';
     imports: [
         CommonModule,
         PrimeModule,
+        PaginatorModule,
     ]
 })
 export class AtencionesModule {
