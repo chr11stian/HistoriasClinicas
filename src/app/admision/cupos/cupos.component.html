@@ -49,7 +49,7 @@
 
     <p-accordion>
         <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA LA FECHA" [selected]="true">
-            <p-table [value]="dataCupos_por_fechas_servicio" #dt styleClass="p-datatable-gridlines" [rows]="10"
+            <p-table [value]="DataCupos" #dt styleClass="p-datatable-gridlines" [rows]="10"
                      [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">

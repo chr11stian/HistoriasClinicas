@@ -1,10 +1,13 @@
 <div class="card">
-    <h5>Custom Headers</h5>
     <p-tabView styleClass="tabview-custom">
         <p-tabPanel>
             <ng-template pTemplate="header">
-                <span>CUPOS</span>
+                <span>REGISTRAR CUPOS</span>
             </ng-template>
+            <div>
+                <app-cupos></app-cupos>
+            </div>
+
         </p-tabPanel>
         <p-tabPanel header="Header II">
             <ng-template pTemplate="header">
@@ -13,7 +16,13 @@
         </p-tabPanel>
         <p-tabPanel header="Header III">
             <ng-template pTemplate="header">
-                <span>OFERTAS</span>
+                <span>MANTENIMIENTO DE OFERTAS</span>
+            </ng-template>
+        </p-tabPanel>
+
+        <p-tabPanel header="Header III">
+            <ng-template pTemplate="header">
+                <span>CITAS</span>
             </ng-template>
         </p-tabPanel>
     </p-tabView>
