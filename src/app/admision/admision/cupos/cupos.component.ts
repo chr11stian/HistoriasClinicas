@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DialogService, DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
@@ -21,7 +21,7 @@ import {ModalCuposComponent} from "./modal-cupos/modal-cupos.component";
     providers: [DialogService, DynamicDialogConfig],
 
 })
-export class CuposComponent implements OnInit {
+export class CuposComponent implements OnInit, OnDestroy {
 
     idIpressLapostaMedica = "616de45e0273042236434b51";
     listaUps: any;
@@ -590,13 +590,21 @@ export class CuposComponent implements OnInit {
 
     }
 
-
+    /**abre el dialog para cupos**/
     openDialogCuposNuevo() {
         this.ref = this.dialog.open(ModalCuposComponent, {
-            width: '90%',
-            contentStyle: {"max-height": "500px", "overflow": "auto"},
-            baseZIndex: 10000
+            width: '1200px',
+            modal: true,
+            height: '750px',
+            contentStyle: {"max-height": "500", "overflow": "p-fluid"},
+            baseZIndex: 0
         })
+    }
+
+    ngOnDestroy() {
+        if (this.ref) {
+            this.ref.close();
+        }
     }
 
 }
