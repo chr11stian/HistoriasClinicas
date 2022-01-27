@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core'
 import {InmunizacionesService} from '../services/inmunizaciones/inmunizaciones.service'
 import {Inmunizaciones} from '../models/plan-atencion-integral.model'
 import {MessageService} from 'primeng/api';
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -10,22 +11,27 @@ import {MessageService} from 'primeng/api';
     styleUrls: ['./inmunizaciones.component.css']
 })
 export class InmunizacionesComponent implements OnInit {
+    tipoDNI:string;
+    nroDNI:string
     stateOptions: any[]
     listaInmunizaciones: Inmunizaciones[] = []
     lista1: Inmunizaciones[] = []
     lista2: Inmunizaciones[] = []
     lista3: Inmunizaciones[] = []
     constructor(private servicio: InmunizacionesService,
-                private messageService: MessageService) {
+                private messageService: MessageService,
+                private rutaActiva: ActivatedRoute) {
     }
 
     ngOnInit() {
+        this.tipoDNI=this.rutaActiva.snapshot.queryParams.tipoDoc
+        this.nroDNI=this.rutaActiva.snapshot.queryParams.nroDoc
         this.getLista()
     }
 
     // async getLista(){
     getLista() {
-        this.servicio.getListaInmunizaciones('47825757')
+        this.servicio.getListaInmunizaciones(this.nroDNI)
             .toPromise().then((result) => {
             this.listaInmunizaciones = result.object
             this.transform()
@@ -46,19 +52,14 @@ export class InmunizacionesComponent implements OnInit {
                 i.fecha=i.fecha.split(' ')[0];
                 i.fechaTentativa=i.fechaTentativa.split(' ')[0];
             }
-        }) 
-        // console.log('Inmunizaciones=>',this.listaInmunizaciones);
+        })
         this.separacion()
     }
     separacion() {
-        // console.log("entro2");
-        
         // aqui la lista de inmunicaiones queda vacia
         this.lista1 = this.listaInmunizaciones.splice(0, 8)
         this.lista2 = this.listaInmunizaciones.splice(0, 8)
         this.lista3 = this.listaInmunizaciones.splice(0, this.listaInmunizaciones.length)
-        // console.log('lista', this.lista1)
-        // console.log('lista inmunizaciones',this.listaInmunizaciones)
     }
     getFecha(date: Date) {
         if (date.toString() !== '') {
@@ -99,7 +100,7 @@ export class InmunizacionesComponent implements OnInit {
         const json1=JSON.parse(nueva1)
         this.servicio.updateListaInmunizaciones('47825757',json1)
           .toPromise().then((result) => {
-            this.messageService.add({severity:'success', summary:'Service Message', detail:'registro actualizado'});
+            this.messageService.add({severity:'success', summary:'Exito', detail:'registro actualizado'});
         }).catch((err) => {
             console.log('E',err)
         })
