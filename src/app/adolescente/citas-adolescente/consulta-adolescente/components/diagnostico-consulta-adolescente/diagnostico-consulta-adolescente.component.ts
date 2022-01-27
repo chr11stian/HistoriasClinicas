@@ -102,7 +102,7 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   }
   guardarDiagnostico() {
     this.recuperarDiagnosticos();
-    this.consultaAdolescenteService.putActualizarDiagnostico("61ce1cf02aed74731bb3fb3a", this.dataDiagnostico).subscribe((res: any) => {
+    this.consultaAdolescenteService.putActualizarDiagnostico("61f1195d58886c4342580d64", this.dataDiagnostico).subscribe((res: any) => {
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
     console.log('data diagnostico to save ', this.dataDiagnostico);
@@ -130,6 +130,15 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   eliminarDiagnostico(index) {
     this.listaDiagnosticos.splice(index, 1);
     this.listaDiagnosticos = [...this.listaDiagnosticos];
+  }
+  loadData(){
+    this.form.patchValue({habilidadesSociales:'data'})
+    this.form.patchValue({nutricional:'data'})
+    this.form.patchValue({recomendaciones:'data'})
+    this.formDiagnostico.patchValue({tipoCie:'data'})
+    this.formDiagnostico.patchValue({autocompleDiag:'data'})
+    this.formDiagnostico.patchValue({diagnosticoText:'data'})
+    this.formDiagnostico.patchValue({diagnosticoCIE:'data'})
   }
 }
 

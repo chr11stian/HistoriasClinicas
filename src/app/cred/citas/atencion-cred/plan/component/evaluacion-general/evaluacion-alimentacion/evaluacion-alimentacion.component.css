@@ -1,0 +1,22 @@
+.p-calendar .p-datepicker {
+    position: initial;
+    top: 0px;
+    z-index: 1008;
+}
+
+.fecha {
+    top: 0px;
+    position: relative;
+}
+.clasejimmy {
+    z-index: 1001;
+    transform-origin: center bottom;
+    top: 0;
+    left: 0px;
+}
+p-cellEditor >> p-calendar >>> .p-calendar .p-datepicker{
+    z-index: 1010;
+    transform-origin: center bottom;
+    top: 0;
+    left: 0px;
+}
