@@ -1,5 +1,25 @@
 p-tabView >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background: rgb(175 0 23); ;
-    border-color: rgb(251 192 45);
+    background: #0c3866;
+    border-color: #3b99ff;
     color: rgb(255 255 255);
+}
+
+p-tabView >>> .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border: solid rgb(222 226 230);
+    border-width: 0 0 2px 0;
+    border-color: rgb(0 0 0 / 0%) rgb(0 0 0 / 0%) rgb(222 226 230) rgb(0 0 0 / 0%);
+    background: #d7d8d9;
+    color: #0c3866;
+    padding: 1rem;
+    font-weight: 600;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    transition: box-shadow 0.2s;
+    margin: 0 0 -2px 0;
+}
+
+p-tabView >>> .p-tabview .p-tabview-nav {
+    background: #d7d8d9;
+    border: 1px solid rgb(222 226 230);
+    border-width: 0 0 2px 0;
 }
