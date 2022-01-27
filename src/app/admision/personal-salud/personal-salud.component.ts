@@ -55,7 +55,7 @@ export class PersonalSaludComponent implements OnInit {
   datosPersonales: any[];
 
   especialidades: any[];
-  rolesX: any[];
+  rolesX: any[] = [];;
   listaUpsX: any[];
   personalDialog: boolean;
   personalEspecialidadDialog: boolean;
@@ -601,7 +601,9 @@ export class PersonalSaludComponent implements OnInit {
       });
   }
   saveRol() {
-    const isRepeat = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups)?true:false;
+    var isRepeat;
+    if (this.rolesX.length!==0)
+      isRepeat = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups)?true:false;
     if(!isRepeat){
       const req = {
             nombreFuncion: this.formRol.value.nombreFuncion,

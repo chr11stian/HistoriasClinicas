@@ -1,1 +1,78 @@
-<p>ofertas works!</p>
+<div>
+    <p class="text-blue-700 text-2xl text-center font-semibold">AGREGAR OFERTAS EXTRAS AL PERSONAL DE SALUD</p>
+    <div class="grid align-items-end">
+        <div class="col-3"></div>
+        <div class="col-6 recuadro">
+            <p class="text-blue-900 text-lg font-semibold text-center">PERSONAL QUE TIENE UNA LISTA DE OFERTAS</p>
+
+            <div class="grid m-1">
+                <div class="col-6">
+                    <span class="font-semibold">Ingrese número de documento:</span>
+                    <div class="">
+                        <input type="text" class="inputfield w-9" pInputText />
+                        <p-button icon="pi pi-search"></p-button>
+                    </div>
+                </div>
+                <div class="col-6"></div>
+                <div class="col-6">
+                    <span class="font-semibold">Apellidos:</span> <br />
+                    <input type="text" class="inputfield w-11" pInputText />
+                </div>
+                <div class="col-6">
+                    <span class="font-semibold">Nombres:</span><br />
+                    <input type="text" class="inputfield w-11" pInputText />
+                </div>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+<div class="p-card m-3">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Lista de ofertas por cada turno del personal</h3>
+        </ng-template>
+
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                (click)="openNew()"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+    </p-toolbar>
+    <p-table [value]="data" #dt [globalFilterFields]="['fecha']" styleClass="p-datatable-gridlines   " [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Fecha</th>
+                <th style="text-align: center">Turno</th>
+                <th style="text-align: center">Nro de ofertas</th>
+                <th style="text-align: center">Servicio</th>
+                <th style="text-align: center; width: 120px">Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.fecha }}</td>
+                <td style="text-align: center">{{ rowData.turno }}</td>
+                <td style="text-align: center">{{ rowData.nroOfertas }}</td>
+                <td style="text-align: center">{{ rowData.servicio }}</td>
+                <td style="text-align: center">
+                    <button pButton pRipple type="button" label="Agregar Ofertas"
+                        class="p-button-raised p-button-info"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
