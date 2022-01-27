@@ -152,7 +152,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       ]
       this.ObtenerUltimaEvaluacion();
       this.recuperarDataEvaluacionAlimenticiaBD();
-
   }
   recuperarDataEvaluacionAlimenticiaBD(){
     this.evalAlimenService.getEvaluacionAlimenticiaCred(this.nroDocRecuperado).subscribe((res: any) => {
@@ -363,14 +362,12 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
    });
   }
-
   obtenerTitulo(indice):string{
       if(indice==0){return "valorRN"}
       else{
           return "valor" + indice + "M"
       }
   }
-
   guardarEvaluacion(indice){
     console.log('entro guardar', this.evaluacionAlimenticia);
     let prefijo = this.obtenerTitulo(indice);
@@ -470,7 +467,8 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       ];
     console.log("preguntas", preguntas);
     let cadena = {
-        fechaRegistro:this.datePipe.transform(this.evaluacionAlimenticia[0][prefijo],'yyyy-MM-dd HH:mm:ss'),
+        // fechaRegistro: new Date(this.datePipe.transform(this.evaluacionAlimenticia[0][prefijo],'yyyy-MM-dd HH:mm:ss')),
+        fechaRegistro: this.convertirFecha(this.evaluacionAlimenticia[0][prefijo]),
         edad:indice,
         listaPreguntas:lista,
     }
@@ -483,6 +481,11 @@ export class EvaluacionAlimentacionComponent implements OnInit {
             detail: "Se guardo correctamente el registro de Evaluacion de la edad: " + indice + "meses"
         });
     });
+
+  }
+  convertirFecha(fecha){
+      const fecha2 = fecha.replace("T"," ");
+      return fecha2+":00";
   }
   editarEvaluacion(){
      let prefijo = this.obtenerTitulo(this.edadEditable);
@@ -585,7 +588,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       ];
       console.log("preguntas", preguntas);
       let cadena:EvaluacionAlimenticia= {
-          fechaRegistro:this.datePipe.transform(this.evaluacionAlimenticia[0][prefijo],'yyyy-MM-dd HH:mm:ss'),
+          fechaRegistro:this.convertirFecha(this.evaluacionAlimenticia[0][prefijo]),
           edad:this.edadEditable,
           listaPreguntas:lista,
       }
@@ -606,19 +609,35 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         this.messageService.add({
             severity: "success",
             summary: "Exito",
-            detail: "Se edito correctamente el registro de Evaluacion "
+            detail: "Se edito correctamente el registro de Evaluacion del mes: " + this.edadEditable
         });
     });
-  }
 
+  }
   ObtenerUltimaEvaluacion(){
       console.log('entro editar', this.Evaluaciones);
       let prefijo = "";
       this.evalAlimenService.lastEvaluacionAlimenticiaCred(this.nroDocRecuperado).subscribe((res: any) => {
-              console.log('recupero ultimo elemento ', res.object);
-              this.edadEditable = res.object.edad;
-              prefijo = this.obtenerTitulo(this.edadEditable);
-              console.log(this.edadEditable);
+             if(res.object!=null || res.object!=undefined){
+                 console.log('recupero ultimo elemento ', res.object);
+                 this.edadEditable = res.object.edad;
+                 prefijo = this.obtenerTitulo(this.edadEditable);
+                 console.log(this.edadEditable);
+                 this.messageService.add({
+                     severity: "success",
+                     summary: "Exito",
+                     detail: "Se recupero la última atención"
+                 });
+             }
+             else{
+                 this.messageService.add({
+                     severity: "error",
+                     summary: "Error",
+                     detail: "No hay datos registrados"
+                 });
+             }
+
+
       });
 
   }
@@ -637,10 +656,5 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
 
   }
-
-  formatDate (date){
-
-  }
-
 }
 
