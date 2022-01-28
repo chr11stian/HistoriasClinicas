@@ -11,9 +11,13 @@ import { OfertasService } from 'src/app/core/services/ofertas/ofertas.service';
 export class GenerarOfertasComponent implements OnInit {
 
   form: FormGroup;
+  formGenerar: FormGroup;
+
   data: any[];
   fecha: Date = new Date();
   datePipe = new DatePipe("en-US");
+  generarDialog: boolean = false;
+
   constructor(
     private ofertasService: OfertasService,
     private formBuilder: FormBuilder
@@ -28,6 +32,36 @@ export class GenerarOfertasComponent implements OnInit {
     this.form = this.formBuilder.group({
       fechaFiltro: [new Date()],
     })
+    this.formGenerar = this.formBuilder.group({
+      nroDoc: [""],
+      nombre: [""],
+      servicio: [""],
+      fecha: [""],
+      turno: [""],
+      ambiente: ['', [Validators.required]],
+      horaInicio: ['', [Validators.required]],
+      horaFin: ['', [Validators.required]],
+      tiempoPreparacion: ['', [Validators.required]],
+      tiempoAtencion: ['', [Validators.required]],
+    })
+  }
+  openGenerarDialog(data){
+    this.generarDialog=true;
+    this.formGenerar.get('nroDoc').setValue(data.personal.nroDoc);
+    this.formGenerar.get('nombre').setValue(data.personal.nombre);
+    this.formGenerar.get('servicio').setValue(data.ipress.servicio);
+    let aux= new Date();
+    aux.setDate(data.turno.dia);
+    aux.setMonth(data.mes-1);
+    aux.setFullYear(data.anio);
+    console.log(aux);
+    this.formGenerar.get('fecha').setValue(this.datePipe.transform(aux, 'dd/MM/yyyy'));
+    this.formGenerar.get('turno').setValue(data.turno.nombre);
+    this.formGenerar.get('ambiente').setValue(data.ambiente);
+    this.formGenerar.get('horaInicio').setValue(data.turno.horaInicio);
+    this.formGenerar.get('horaFin').setValue(data.turno.horaFin);
+    this.formGenerar.get('tiempoPreparacion').setValue(data.ipress.tiempoPreparacion);
+    this.formGenerar.get('tiempoAtencion').setValue(data.ipress.tiempoPromedioAtencion);
   }
   getRolGuardiasDisponibles() {
     let data = {
