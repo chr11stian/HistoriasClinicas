@@ -15,10 +15,11 @@ import {RippleModule} from 'primeng/ripple'
 import {SharedModule} from '../../../../shared/shared.module'
 import {DividerModule} from 'primeng/divider';
 import {PlanControlConsultaComponent} from './component/plan-control-consulta/plan-control-consulta.component';
-import {EvaluacionesConsultaComponent} from './component/evaluaciones-consulta/evaluaciones-consulta.component';
 import {PlanModule} from '../plan/plan.module';
 import {EvaluacionGeneralModule} from "../plan/component/evaluacion-general/evaluacion-general.module";
 import {PlanAtencionIntegralModule} from '../plan/component/plan-atencion-integral/plan-atencion-integral.module';
+import { EvaluacionesConsultaComponent } from './component/evaluaciones-consulta/evaluaciones-consulta.component';
+import { ExamenesAuxiliaresConsultaComponent } from './component/examenes-auxiliares-consulta/examenes-auxiliares-consulta.component';
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -29,6 +30,7 @@ import {PlanAtencionIntegralModule} from '../plan/component/plan-atencion-integr
         StepGeneralComponent,
         PlanControlConsultaComponent,
         EvaluacionesConsultaComponent,
+        ExamenesAuxiliaresConsultaComponent,
     ],
     imports: [
         EvaluacionGeneralModule,
