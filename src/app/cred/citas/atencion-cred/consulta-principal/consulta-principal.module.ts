@@ -1,25 +1,32 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {ConsultaPrincipalRoutingModule} from './consulta-principal-routing.module';
-import {DatosGeneralesConsultaComponent} from './component/datos-generales-consulta/datos-generales-consulta.component';
-import {MotivoConsultaComponent} from './component/motivo-consulta/motivo-consulta.component';
-import {DiagnosticoConsultaComponent} from './component/diagnostico-consulta/diagnostico-consulta.component';
-import {TratamientoConsultaComponent} from './component/tratamiento-consulta/tratamiento-consulta.component';
-import {FinalizarConsultaComponent} from './component/finalizar-consulta/finalizar-consulta.component';
+import { ConsultaPrincipalRoutingModule } from './consulta-principal-routing.module';
+import { DatosGeneralesConsultaComponent } from './component/datos-generales-consulta/datos-generales-consulta.component';
+import { MotivoConsultaComponent } from './component/motivo-consulta/motivo-consulta.component';
+import { DiagnosticoConsultaComponent } from './component/diagnostico-consulta/diagnostico-consulta.component';
+import { TratamientoConsultaComponent } from './component/tratamiento-consulta/tratamiento-consulta.component';
+import { FinalizarConsultaComponent } from './component/finalizar-consulta/finalizar-consulta.component';
 
-import {PrimeModule} from 'src/app/shared/prime/prime.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {StepGeneralComponent} from './component/step-general/step-general.component';
-import {RippleModule} from 'primeng/ripple'
-import {SharedModule} from '../../../../shared/shared.module'
-import {DividerModule} from 'primeng/divider';
-import {PlanControlConsultaComponent} from './component/plan-control-consulta/plan-control-consulta.component';
-import {PlanModule} from '../plan/plan.module';
-import {EvaluacionGeneralModule} from "../plan/component/evaluacion-general/evaluacion-general.module";
-import {PlanAtencionIntegralModule} from '../plan/component/plan-atencion-integral/plan-atencion-integral.module';
+import { PrimeModule } from 'src/app/shared/prime/prime.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StepGeneralComponent } from './component/step-general/step-general.component';
+import { RippleModule } from 'primeng/ripple'
+import { SharedModule } from '../../../../shared/shared.module'
+import { DividerModule } from 'primeng/divider';
+import { PlanControlConsultaComponent } from './component/plan-control-consulta/plan-control-consulta.component';
+import { PlanModule } from '../plan/plan.module';
+import { EvaluacionGeneralModule } from "../plan/component/evaluacion-general/evaluacion-general.module";
+import { PlanAtencionIntegralModule } from '../plan/component/plan-atencion-integral/plan-atencion-integral.module';
 import { EvaluacionesConsultaComponent } from './component/evaluaciones-consulta/evaluaciones-consulta.component';
 import { ExamenesAuxiliaresConsultaComponent } from './component/examenes-auxiliares-consulta/examenes-auxiliares-consulta.component';
+import { CrecimientoEstadoNutricionalComponent } from './component/evaluaciones-consulta/components/crecimiento-estado-nutricional/crecimiento-estado-nutricional.component';
+import { DesarrolloPsicomotorComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/desarrollo-psicomotor.component';
+import { TamizajesComponent } from './component/evaluaciones-consulta/components/tamizajes/tamizajes.component';
+import { InmunizacionesCredComponent } from './component/evaluaciones-consulta/components/inmunizaciones-cred/inmunizaciones-cred.component';
+import { TestPeruanoComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/test-peruano/test-peruano.component';
+import { EedpComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/eedp/eedp.component';
+import { TepsiComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/tepsi/tepsi.component';
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -31,6 +38,13 @@ import { ExamenesAuxiliaresConsultaComponent } from './component/examenes-auxili
         PlanControlConsultaComponent,
         EvaluacionesConsultaComponent,
         ExamenesAuxiliaresConsultaComponent,
+        CrecimientoEstadoNutricionalComponent,
+        DesarrolloPsicomotorComponent,
+        TamizajesComponent,
+        InmunizacionesCredComponent,
+        TestPeruanoComponent,
+        EedpComponent,
+        TepsiComponent,
     ],
     imports: [
         EvaluacionGeneralModule,
