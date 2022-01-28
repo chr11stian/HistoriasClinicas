@@ -227,10 +227,8 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                     this.diagnosticoConsulta.save()
                     break
                 case 3:
-
                     break
                 case 2:
-
                     break
                 case 1:
                     this.motivoConsulta.save()
