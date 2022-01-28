@@ -834,26 +834,6 @@ export class DatosBasalesComponent implements OnInit {
         fum.setMonth(fum.getMonth() + 9);
         fum.setDate(fum.getDate() + 7);
         this.form.patchValue({ dateProbableParto: auxBirth });
-
-        // let birthDate = new DatePipe('en-CO').transform(fum, 'yyyy-MM-dd');
-        // console.log('fecha ultima menstruacion ', birthDate);
-        // this.form.patchValue({ dateProbableParto: birthDate });
-        // let fechaParto =
-        // console.log('semanas gestacional ', this.edadGestacional, 'dias gest ', diasGestacional, 'semanas ', semanasGestacional);
-        // this.imcService.getGananciaPesoRegular(semanasGestacional).subscribe((res: any) => {
-        //     this.dataGananciaPeso = res.object.recomendacionGananciaPesoRegular[0];
-        //     console.log('peso ', pesoActual, 'talle ', altura);
-        //     let imcAux = ((pesoActual - this.dataGananciaPeso.med) / (altura * altura)).toFixed(2);
-        //     this.form.patchValue({ imc: imcAux });
-        //     if (imcAux == '-Infinity') {
-        //         this.form.patchValue({ dateFUM: null });
-        //         this.messageService.add({
-        //             severity: "warn",
-        //             summary: "Alerta",
-        //             detail: 'Faltan datos para calcular el imc (peso o talla)'
-        //         });
-        //     }
-        // });
     }
 
     openDialogHemoglobina() {

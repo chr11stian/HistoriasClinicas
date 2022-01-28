@@ -132,7 +132,7 @@ export class AntecedentesAdolescenteComponent implements OnInit {
           drogas:new FormControl('',Validators.required),
           drogasFrecuencia:new FormControl('',Validators.required),
           conduceVehiculos:new FormControl('',Validators.required),
-          conduceVehiculoFrecuencias:new FormControl('',Validators.required),
+          conduceVehiculoFrecuencia:new FormControl('',Validators.required),
           television:new FormControl('',Validators.required),
           televisionFrecuencia:new FormControl('',Validators.required),
           videoJuegos:new FormControl('',Validators.required),
@@ -178,53 +178,59 @@ export class AntecedentesAdolescenteComponent implements OnInit {
   }
   getAntecedentePersonal(){
       this.antecedentesService.getAntecedentes(this.tipoDNI,this.nroDNI).subscribe((resp)=>{
-          const data=resp['object']['antecedentePersonal'];
-          this.getFC('perinatales').setValue(data.perinatales)
-          this.getFC('crecimiento').setValue(data.crecimiento)
-          this.getFC('desarrollo').setValue(data.desarrollo)
-          this.getFC('tuberculosis').setValue(data.antecedentes[0].valor)
-          this.getFC('sobaAsma').setValue(data.antecedentes[1].valor)
-          this.getFC('transfusionesSanguineas').setValue(data.antecedentes[2].valor)
-          this.getFC('usoMedicinas').setValue(data.antecedentes[3].valor)
-          this.getFC('consumoDrogas').setValue(data.antecedentes[4].valor)
-          this.getFC('intervencionesQuirurgicas').setValue(data.antecedentes[5].valor)
-          this.getFC('alergias').setValue(data.antecedentes[6].valor)
-          this.getFC('accidentes').setValue(data.antecedentes[7].valor)
-          this.getFC('trastornosPsicologicos').setValue(data.antecedentes[8].valor)
-          this.getFC('enfermedadesAnorexiaBulimia').setValue(data.antecedentes[9].valor)
-          this.getFC('violenciaIntrafamiliar').setValue(data.antecedentes[10].valor)
-          this.getFC('hospitalizacion').setValue(data.antecedentes[11].valor)
-          //vacunas
-          this.settearFecha('dt1DosisFecha',data.vacunas[0].fechaAplicacion,0)
-          this.settearFecha('dt2DosisFecha',data.vacunas[1].fechaAplicacion,1)
-          this.settearFecha('dt3DosisFecha',data.vacunas[2].fechaAplicacion,2)
-          this.settearFecha('sr1DosisFecha',data.vacunas[3].fechaAplicacion,3)
-          this.settearFecha('sr2DosisFecha',data.vacunas[4].fechaAplicacion,4)
-          this.settearFecha('sr3DosisFecha',data.vacunas[5].fechaAplicacion,5)
-          this.settearFecha('hvb1DosisFecha',data.vacunas[6].fechaAplicacion,6)
-          this.settearFecha('hvb2DosisFecha',data.vacunas[7].fechaAplicacion,7)
-          this.settearFecha('hvb3DosisFecha',data.vacunas[8].fechaAplicacion,8)
-          this.settearFecha('fa1DosisFecha',data.vacunas[9].fechaAplicacion,9)
-          this.settearFecha('fa2DosisFecha',data.vacunas[10].fechaAplicacion,10)
-          this.settearFecha('fa3DosisFecha',data.vacunas[11].fechaAplicacion,11)
-          //antecedentes familiares
-          const dataFamiliar=resp['object']['antecedenteFamiliar'];
-          this.getFCFamiliar('tuberculosis').setValue(dataFamiliar.antecedente[0].valor)
-          this.getFCFamiliar('obesidad').setValue(dataFamiliar.antecedente[1].valor)
-          this.getFCFamiliar('vihSIDA').setValue(dataFamiliar.antecedente[2].valor)
-          this.getFCFamiliar('hipertencionArterial').setValue(dataFamiliar.antecedente[3].valor)
-          this.getFCFamiliar('diabetes').setValue(dataFamiliar.antecedente[4].valor)
-          this.getFCFamiliar('hiperlipidemia').setValue(dataFamiliar.antecedente[5].valor)
-          this.getFCFamiliar('infarto').setValue(dataFamiliar.antecedente[6].valor)
-          this.getFCFamiliar('transtornoPsicologico').setValue(dataFamiliar.antecedente[7].valor)
-          this.getFCFamiliar('drogas').setValue(dataFamiliar.antecedente[8].valor)
-          this.getFCFamiliar('violenciaFamiliar').setValue(dataFamiliar.antecedente[9].valor)
-          this.getFCFamiliar('madreAdolescente').setValue(dataFamiliar.antecedente[10].valor)
-          this.getFCFamiliar('maltratos').setValue(dataFamiliar.antecedente[11].valor)
-          this.getFCFamiliar('otrosEnfermedades').setValue(dataFamiliar.antecedente[12].valor)
-          this.getFCFamiliar('madreInstruccion').setValue(dataFamiliar.intrucionMadre)
-          this.getFCFamiliar('padreInstruccion').setValue(dataFamiliar.intrucionPadre)
-          this.getFCFamiliar('otroInstruccion').setValue(dataFamiliar.intrucionOtro)
+          if (resp['object']!=null){
+              console.log('data recuperada')
+              const data=resp['object']['antecedentePersonal'];
+              this.getFC('perinatales').setValue(data.perinatales)
+              this.getFC('crecimiento').setValue(data.crecimiento)
+              this.getFC('desarrollo').setValue(data.desarrollo)
+              this.getFC('tuberculosis').setValue(data.antecedentes[0].valor)
+              this.getFC('sobaAsma').setValue(data.antecedentes[1].valor)
+              this.getFC('transfusionesSanguineas').setValue(data.antecedentes[2].valor)
+              this.getFC('usoMedicinas').setValue(data.antecedentes[3].valor)
+              this.getFC('consumoDrogas').setValue(data.antecedentes[4].valor)
+              this.getFC('intervencionesQuirurgicas').setValue(data.antecedentes[5].valor)
+              this.getFC('alergias').setValue(data.antecedentes[6].valor)
+              this.getFC('accidentes').setValue(data.antecedentes[7].valor)
+              this.getFC('trastornosPsicologicos').setValue(data.antecedentes[8].valor)
+              this.getFC('enfermedadesAnorexiaBulimia').setValue(data.antecedentes[9].valor)
+              this.getFC('violenciaIntrafamiliar').setValue(data.antecedentes[10].valor)
+              this.getFC('hospitalizacion').setValue(data.antecedentes[11].valor)
+              //vacunas
+              this.settearFecha('dt1DosisFecha',data.vacunas[0].fechaAplicacion,0)
+              this.settearFecha('dt2DosisFecha',data.vacunas[1].fechaAplicacion,1)
+              this.settearFecha('dt3DosisFecha',data.vacunas[2].fechaAplicacion,2)
+              this.settearFecha('sr1DosisFecha',data.vacunas[3].fechaAplicacion,3)
+              this.settearFecha('sr2DosisFecha',data.vacunas[4].fechaAplicacion,4)
+              this.settearFecha('sr3DosisFecha',data.vacunas[5].fechaAplicacion,5)
+              this.settearFecha('hvb1DosisFecha',data.vacunas[6].fechaAplicacion,6)
+              this.settearFecha('hvb2DosisFecha',data.vacunas[7].fechaAplicacion,7)
+              this.settearFecha('hvb3DosisFecha',data.vacunas[8].fechaAplicacion,8)
+              this.settearFecha('fa1DosisFecha',data.vacunas[9].fechaAplicacion,9)
+              this.settearFecha('fa2DosisFecha',data.vacunas[10].fechaAplicacion,10)
+              this.settearFecha('fa3DosisFecha',data.vacunas[11].fechaAplicacion,11)
+              //antecedentes familiares
+              const dataFamiliar=resp['object']['antecedenteFamiliar'];
+              this.getFCFamiliar('tuberculosis').setValue(dataFamiliar.antecedente[0].valor)
+              this.getFCFamiliar('obesidad').setValue(dataFamiliar.antecedente[1].valor)
+              this.getFCFamiliar('vihSIDA').setValue(dataFamiliar.antecedente[2].valor)
+              this.getFCFamiliar('hipertencionArterial').setValue(dataFamiliar.antecedente[3].valor)
+              this.getFCFamiliar('diabetes').setValue(dataFamiliar.antecedente[4].valor)
+              this.getFCFamiliar('hiperlipidemia').setValue(dataFamiliar.antecedente[5].valor)
+              this.getFCFamiliar('infarto').setValue(dataFamiliar.antecedente[6].valor)
+              this.getFCFamiliar('transtornoPsicologico').setValue(dataFamiliar.antecedente[7].valor)
+              this.getFCFamiliar('drogas').setValue(dataFamiliar.antecedente[8].valor)
+              this.getFCFamiliar('violenciaFamiliar').setValue(dataFamiliar.antecedente[9].valor)
+              this.getFCFamiliar('madreAdolescente').setValue(dataFamiliar.antecedente[10].valor)
+              this.getFCFamiliar('maltratos').setValue(dataFamiliar.antecedente[11].valor)
+              this.getFCFamiliar('otrosEnfermedades').setValue(dataFamiliar.antecedente[12].valor)
+              this.getFCFamiliar('madreInstruccion').setValue(dataFamiliar.intrucionMadre)
+              this.getFCFamiliar('padreInstruccion').setValue(dataFamiliar.intrucionPadre)
+              this.getFCFamiliar('otroInstruccion').setValue(dataFamiliar.intrucionOtro)
+          }
+          else{
+              console.log('no existe data')
+          }
       });
 
   }
