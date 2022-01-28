@@ -26,6 +26,7 @@ import { IpressRolesComponent } from './ipress-roles/ipress-roles.component';
 import { IpressTurnosComponent } from './ipress-turnos/ipress-turnos.component';
 import { IpressAmbientesComponent } from './ipress-ambientes/ipress-ambientes.component';
 import { AtencionesModule } from "./admision/atenciones.module";
+import { IpressHorariosComponent } from './ipress-horarios/ipress-horarios.component';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import { AtencionesModule } from "./admision/atenciones.module";
         IpressRolesComponent,
         IpressTurnosComponent,
         IpressAmbientesComponent,
+        IpressHorariosComponent,
     ],
     exports: [
         PersonalSaludComponent,

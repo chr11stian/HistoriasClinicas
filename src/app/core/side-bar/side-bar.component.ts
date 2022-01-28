@@ -428,6 +428,11 @@ const menu_ipress = [
                 routerLink: "admision/ipress-roles",
             },
             {
+                label: "Ipress Horarios",
+                icon: "pi pi-pw pi-file",
+                routerLink: "admision/ipress-horarios",
+            },
+            {
                 icon: "pi pi-file",
                 label: "Tipo Personal",
                 routerLink: "mantenimientos/tipo-personal",

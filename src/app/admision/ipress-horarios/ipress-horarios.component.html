@@ -1,0 +1,204 @@
+<div class="grid m-4">
+    <div class="col-10"></div>
+    <div class="col-2">
+        <p-button *ngIf="isUpdateHorario" label="Guardar" icon="pi pi-save"></p-button>
+        <p-button *ngIf="!isUpdateHorario" label="Editar" icon="pi pi-pencil"></p-button>
+    </div>
+</div>
+
+<div class="grid">
+    <div class="col-12 mt-2">
+        <div class="grid">
+            <div class="col-12 md:col-12 lg:col-5 imagen">
+            </div>
+            <div class="col-12 md:col-12 lg:col-7 align-items-end">
+                <p class="text-pink-700 text-3xl text-left font-semibold align-items-end ">HORARIOS DE ATENCIÓN DE LA IPRESS</p>
+            </div>
+        </div>
+        <p-card styleClass="p-card-shadow ml-4">
+            <form [formGroup]='formHorario'>
+                <div class="grid text-center">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-2">
+                    </div>
+                    <div class="col-4">
+                        <span class="text-pink-700 text-2xl text-center font-semibold"> TURNO MAÑANA </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="text-pink-700 text-2xl text-center font-semibold"> TURNO TARDE </span>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+                <div class="grid text-center">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-2">
+                    </div>
+                    <div class="col-2">
+                        <span class="text-bluegray-900 text-2xl text-center font-semibold"> HORA INICIO </span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-bluegray-900 text-2xl text-center font-semibold"> HORA FIN </span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-bluegray-900 text-2xl text-center font-semibold"> HORA INICIO </span>
+                    </div>
+                    <div class="col-2">
+                        <span class="text-bluegray-900 text-2xl text-center font-semibold"> HORA FIN </span>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+                <div class="grid text-center">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-2">
+                        <span class="text-bluegray-900 text-2xl text-center font-semibold"> LUNES </span>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="lunesInicioManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="lunesFinManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="lunesInicioTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="lunesFinTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+                <div class="grid text-center">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-2">
+                        <span class="text-bluegray-900 text-2xl text-center font-semibold"> MARTES </span>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="martesInicioManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="martesFinManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="martesInicioTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="martesFinTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+                <div class="grid text-center">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-2">
+                        <span class="text-bluegray-900 text-2xl text-center font-semibold"> MIERCOLES </span>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="miercolesInicioManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="miercolesFinManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="miercolesInicioTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="miercolesFinTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+                <div class="grid text-center">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-2">
+                        <span class="text-bluegray-900 text-2xl text-center font-semibold"> JUEVES </span>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="juevesInicioManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="juevesFinManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="juevesInicioTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="juevesFinTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+                <div class="grid text-center">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-2">
+                        <span class="text-bluegray-900 text-2xl text-center font-semibold"> VIERNES </span>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="viernesInicioManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="viernesFinManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="viernesInicioTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="viernesFinTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+                <div class="grid text-center">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-2">
+                        <span class="text-bluegray-900 text-2xl text-center font-semibold"> SABADO </span>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="sabadoInicioManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="sabadoFinManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="sabadoInicioTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="sabadoFinTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+                <div class="grid text-center">
+                    <div class="col-1">
+                    </div>
+                    <div class="col-2">
+                        <span class="text-bluegray-900 text-2xl text-center font-semibold"> DOMINGO </span>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="domingoInicioManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="domingoFinManiana" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="domingoInicioTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora inicio"></p-calendar>
+                    </div>
+                    <div class="col-2">
+                        <p-calendar formControlName="domingoFinTarde" [timeOnly]="true" inputId="timeonly" placeholder="Hora fin"></p-calendar>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                </div>
+            </form>
+        </p-card>
+    </div>
+</div>

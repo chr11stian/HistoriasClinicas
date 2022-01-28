@@ -15,7 +15,8 @@
     </p-toolbar>
     <p-table [value]="data" #dt [globalFilterFields]="['nombres','nroDoc','apPaterno']"
         styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
-        [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas" responsiveLayout="scroll" >
+        [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+        responsiveLayout="scroll">
         <ng-template pTemplate="caption">
             <div class="p-d-flex p-ai-center p-jc-between">
                 <span class="p-input-icon-left">
@@ -39,13 +40,14 @@
                 <th style="text-align: center">Ambientes</th>
                 <th style="text-align: center">Turnos</th>
                 <th style="text-align: center">Roles</th>
+                <th style="text-align: center">Horarios</th>
                 <th style="text-align: center; width:120px">Acción</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr style="text-align: center">
                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                <td style="text-align: center">{{ rowData.codRENAES }}</td>
+                <td style="text-align: center">{{ rowData.renipress }}</td>
                 <td style="text-align: center">{{ rowData.nombreEESS}}</td>
                 <td style="text-align: center">{{ rowData.categoria ? rowData.categoria.abreviatura : "" }}</td>
                 <td style="text-align: center">{{ rowData.ubicacion ? rowData.ubicacion.ubigeo : ""}}</td>
@@ -71,6 +73,10 @@
                     <button pButton pRipple icon="pi pi-clock" class="p-button-rounded p-button-help"
                         (click)="newRol(rowData)"></button>
                 </td>
+                <td style="text-align: center">
+                    <button pButton pRipple icon="pi pi-calendar" class="p-button-rounded p-button-warning"
+                        (click)="newHorario(rowData)"></button>
+                </td>
                 <td style="text-align: center; display: flex">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded m-1"
                         (click)="editar(rowData)"></button>
@@ -85,144 +91,192 @@
 
 
 <!--IPRESS DIALOG-->
-<p-dialog [(visible)]="ipressDialog" [style]="{width: '950px', height: '585px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
+<p-dialog [(visible)]="ipressDialog" [style]="{width: '950px', height: '700px'}" [modal]="true" styleClass="p-fluid"
+    autoZIndex>
+
     <ng-template pTemplate="header">
         <h3 class="m-0">{{titulo()}}</h3>
     </ng-template>
 
     <ng-template pTemplate="body">
-        <form [formGroup]='form'>
-            <div>
+        <div class="m-4">
+            <form [formGroup]='form'>
+                <div>
+                    <div class="grid">
+                        <div class="p-field col-2">
+                            <label>Cod. RENAES:</label>
+                            <input type="text" pInputText formControlName='renipress' placeholder="RENAES">
+                        </div>
+                        <div class="p-field col-2">
+                            <label>RUC:</label>
+                            <input type="text" pInputText formControlName='ruc' placeholder="RUC">
+                        </div>
+                        <div class="p-field col-5">
+                            <label>Nombre EESS:</label>
+                            <input type="text" pInputText formControlName='nombreEESS' placeholder="EESS">
+                        </div>
+                        <div class="p-field col-3">
+                            <label>Categoria:</label>
+                            <p-dropdown *ngIf="!isUpdate" placeholder="Categoria IPRESS" class="inputRedondo"
+                                [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                                [options]="categoriasList" formControlName="categoria" optionLabel="abreviatura"
+                                required>
+                            </p-dropdown>
+                            <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="categoriasList"
+                                formControlName="categoria" optionLabel="abreviatura" required>
+                            </p-dropdown>
+                        </div>
+                        <div class="p-field col-4">
+                            <label>Categorización:</label>
+                            <p-dropdown *ngIf="!isUpdate" placeholder="Categorizacion IPRESS" class="inputRedondo"
+                                [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                                [options]="categorizacionesList" formControlName="categorizacion"
+                                optionLabel="nroDocCategorizacion" required>
+                            </p-dropdown>
+                            <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="categorizacionesList"
+                                formControlName="categorizacion" optionLabel="nroDocCategorizacion" required>
+                            </p-dropdown>
+                        </div>
+                        <div class="p-field col-4">
+                            <label>Clasificación:</label>
+                            <p-dropdown *ngIf="!isUpdate" placeholder="Clasificación IPRESS" class="inputRedondo"
+                                [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                                [options]="clasificacionesList" formControlName="clasificacion"
+                                optionLabel="clasificacion" required>
+                            </p-dropdown>
+                            <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="clasificacionesList"
+                                formControlName="clasificacion" optionLabel="clasificacion" required>
+                            </p-dropdown>
+                        </div>
+                        <div class="p-field col-4">
+                            <label>Unidad ejecutora:</label>
+                            <p-dropdown *ngIf="!isUpdate" placeholder="Unidad ejecutora" class="inputRedondo"
+                                [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                                [options]="unidadesList" formControlName="unidad" optionLabel="unidadEjecutora"
+                                required>
+                            </p-dropdown>
+                            <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                                dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="unidadesList"
+                                formControlName="unidad" optionLabel="unidadEjecutora" required>
+                            </p-dropdown>
+                        </div>
+
+                    </div>
+                </div>
+                <p-divider align="left">
+                    <div class="p-d-inline-flex p-ai-center">
+                        <i class="pi pi-angle-double-right p-mr-2"></i>
+                        <b> Ubicacion</b>
+                    </div>
+                </p-divider>
+                <label>Ubigeo:</label>
+                <div class="grid">
+                    <div class="p-inputgroup col-4">
+                        <input type="text" class="inputRedondo" placeholder="Ubigeo" pInputText formControlName='ubigeo'
+                            (blur)="buscarUbigeo()" required />
+                        <button *ngIf="!loading" type="button" pButton pRipple icon="pi pi-search"
+                            (click)="buscarUbigeo()" class="p-button-outlined p-button-secondary"></button>
+                        <button *ngIf="loading" type="button" pButton pRipple icon="pi pi-spin pi-spinner"
+                            (click)="buscarUbigeo()" class="p-button-outlined p-button-secondary"></button>
+                    </div>
+                </div>
                 <div class="grid">
                     <div class="p-field col-4">
-                        <label>Cod. RENAES:</label>
-                        <input type="text" pInputText formControlName='codRENAES' placeholder="RENAES">
-                    </div>
-                    <div class="p-field col-5">
-                        <label>Nombre EESS:</label>
-                        <input type="text" pInputText formControlName='nombreEESS' placeholder="EESS">
-                    </div>
-                    <div class="p-field col-3">
-                        <label>Categoria:</label>
-                        <p-dropdown *ngIf="!isUpdate" placeholder="Categoria IPRESS" class="inputRedondo"
+                        <label>Departamento:</label>
+                        <p-dropdown *ngIf="!isUpdate" placeholder="Departamento" class="inputRedondo"
                             [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                            [options]="categoriasList" formControlName="categoria" optionLabel="abreviatura" required>
+                            [options]="departamentosList" formControlName="departamento" optionLabel="departamento"
+                            (onChange)="selectedDepartamento()" required>
                         </p-dropdown>
                         <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="categoriasList"
-                            formControlName="categoria" optionLabel="abreviatura" required>
+                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="departamentosList"
+                            formControlName="departamento" optionLabel="departamento"
+                            (onChange)="selectedDepartamento()" required>
+                        </p-dropdown>
+                    </div>
+
+                    <div class="p-field col-4">
+                        <label>Provincia:</label>
+                        <p-dropdown *ngIf="!isUpdate" placeholder="Provincia" class="inputRedondo"
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                            [options]="provinciasList" formControlName="provincia" optionLabel="provincia"
+                            (onChange)="selectedProvincia()" required>
+                        </p-dropdown>
+                        <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="provinciasList"
+                            formControlName="provincia" optionLabel="provincia" (onChange)="selectedProvincia()"
+                            required>
+                        </p-dropdown>
+                    </div>
+                    <div class="p-field col-4">
+                        <label>Distrito:</label>
+                        <p-dropdown *ngIf="!isUpdate" placeholder="Distrito" class="inputRedondo"
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                            [options]="distritosList" formControlName="distrito" optionLabel="distrito"
+                            (onChange)="selectedDistrito()" required>
+                        </p-dropdown>
+                        <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="distritosList"
+                            formControlName="distrito" optionLabel="distrito" (onChange)="selectedDistrito()" required>
                         </p-dropdown>
                     </div>
                 </div>
-            </div>
-            <p-divider align="left">
-                <div class="p-d-inline-flex p-ai-center">
-                    <i class="pi pi-angle-double-right p-mr-2"></i>
-                    <b> Ubicacion</b>
+                <div class="grid">
+                    <div class="p-field col-4">
+                        <label>Centro Poblado:</label>
+                        <p-dropdown *ngIf="!isUpdate" placeholder="Centro Poblado" class="inputRedondo"
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                            [options]="CCPPList" formControlName="centroPoblado" optionLabel="ccpp" [filter]="true"
+                            filterBy="ccpp" required>
+                        </p-dropdown>
+                        <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="CCPPList"
+                            formControlName="centroPoblado" optionLabel="ccpp" [filter]="true" filterBy="ccpp" required>
+                        </p-dropdown>
+                    </div>
+                    <div class="p-field col-8">
+                        <label>Direccion:</label>
+                        <input type="text" pInputText formControlName='direccion' placeholder="Direccion de la IPRESS">
+                    </div>
                 </div>
-            </p-divider>
-            <label>Ubigeo:</label>
-            <div class="grid">
-                <div class="p-inputgroup col-4">
-                    <input type="text" class="inputRedondo" placeholder="Ubigeo" pInputText formControlName='ubigeo'
-                        (blur)="buscarUbigeo()" required />
-                    <button *ngIf="!loading" type="button" pButton pRipple icon="pi pi-search" (click)="buscarUbigeo()"
-                        class="p-button-outlined p-button-secondary"></button>
-                    <button *ngIf="loading" type="button" pButton pRipple icon="pi pi-spin pi-spinner"
-                        (click)="buscarUbigeo()" class="p-button-outlined p-button-secondary"></button>
+                <p-divider align="left">
+                    <div class="p-d-inline-flex p-ai-center">
+                        <i class="pi pi-angle-double-right p-mr-2"></i>
+                        <b>Red de Salud</b>
+                    </div>
+                </p-divider>
+                <div class="grid">
+                    <div class="p-field col-6">
+                        <label>Red:</label>
+                        <p-dropdown *ngIf="!isUpdate" placeholder="Red de salud" class="inputRedondo"
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                            [options]="redesList" formControlName="red" optionLabel="nombreRed"
+                            (onChange)="changeRedSelected()" scrollHeight="90px" required>
+                        </p-dropdown>
+                        <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="redesList"
+                            formControlName="red" optionLabel="nombreRed" (onChange)="changeRedSelected()"
+                            scrollHeight="90px" required>
+                        </p-dropdown>
+                    </div>
+                    <div class="p-field col-6">
+                        <label>MicroRed:</label>
+                        <p-dropdown *ngIf="!isUpdate" placeholder="Micro Red de salud" class="inputRedondo"
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                            [options]="microRedesList" formControlName="microRed" optionLabel="nombreMicroRed"
+                            scrollHeight="90px" required>
+                        </p-dropdown>
+                        <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="microRedesList"
+                            formControlName="microRed" optionLabel="nombreMicroRed" scrollHeight="90px" required>
+                        </p-dropdown>
+                    </div>
                 </div>
-            </div>
-            <div class="grid">
-                <div class="p-field col-4">
-                    <label>Departamento:</label>
-                    <p-dropdown *ngIf="!isUpdate" placeholder="Departamento" class="inputRedondo"
-                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                        [options]="departamentosList" formControlName="departamento" optionLabel="departamento"
-                        (onChange)="selectedDepartamento()" required>
-                    </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="departamentosList"
-                        formControlName="departamento" optionLabel="departamento" (onChange)="selectedDepartamento()"
-                        required>
-                    </p-dropdown>
-                </div>
-
-                <div class="p-field col-4">
-                    <label>Provincia:</label>
-                    <p-dropdown *ngIf="!isUpdate" placeholder="Provincia" class="inputRedondo"
-                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                        [options]="provinciasList" formControlName="provincia" optionLabel="provincia"
-                        (onChange)="selectedProvincia()" required>
-                    </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="provinciasList"
-                        formControlName="provincia" optionLabel="provincia" (onChange)="selectedProvincia()" required>
-                    </p-dropdown>
-                </div>
-                <div class="p-field col-4">
-                    <label>Distrito:</label>
-                    <p-dropdown *ngIf="!isUpdate" placeholder="Distrito" class="inputRedondo"
-                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                        [options]="distritosList" formControlName="distrito" optionLabel="distrito"
-                        (onChange)="selectedDistrito()" required>
-                    </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="distritosList"
-                        formControlName="distrito" optionLabel="distrito" (onChange)="selectedDistrito()" required>
-                    </p-dropdown>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="p-field col-4">
-                    <label>Centro Poblado:</label>
-                    <p-dropdown *ngIf="!isUpdate" placeholder="Centro Poblado" class="inputRedondo"
-                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                        [options]="CCPPList" formControlName="centroPoblado" optionLabel="ccpp" [filter]="true"
-                        filterBy="ccpp" required>
-                    </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="CCPPList"
-                        formControlName="centroPoblado" optionLabel="ccpp" [filter]="true" filterBy="ccpp" required>
-                    </p-dropdown>
-                </div>
-                <div class="p-field col-8">
-                    <label>Direccion:</label>
-                    <input type="text" pInputText formControlName='direccion' placeholder="Direccion de la IPRESS">
-                </div>
-            </div>
-            <p-divider align="left">
-                <div class="p-d-inline-flex p-ai-center">
-                    <i class="pi pi-angle-double-right p-mr-2"></i>
-                    <b>Red de Salud</b>
-                </div>
-            </p-divider>
-            <div class="grid">
-                <div class="p-field col-6">
-                    <label>Red:</label>
-                    <p-dropdown *ngIf="!isUpdate" placeholder="Red de salud" class="inputRedondo"
-                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                        [options]="redesList" formControlName="red" optionLabel="nombreRed"
-                        (onChange)="changeRedSelected()" scrollHeight="100px" required>
-                    </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="redesList" formControlName="red"
-                        optionLabel="nombreRed" (onChange)="changeRedSelected()" scrollHeight="100px" required>
-                    </p-dropdown>
-                </div>
-                <div class="p-field col-6">
-                    <label>MicroRed:</label>
-                    <p-dropdown *ngIf="!isUpdate" placeholder="Micro Red de salud" class="inputRedondo"
-                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
-                        [options]="microRedesList" formControlName="microRed" optionLabel="nombreMicroRed"
-                        scrollHeight="100px" required>
-                    </p-dropdown>
-                    <p-dropdown *ngIf="isUpdate" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="microRedesList"
-                        formControlName="microRed" optionLabel="nombreMicroRed" scrollHeight="100px" required>
-                    </p-dropdown>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </ng-template>
 
     <ng-template pTemplate="footer">
@@ -245,19 +299,21 @@
                     <div class="p-field col-6">
                         <label>Tipo Documento:</label>
                         <p-dropdown *ngIf="!isUpdateEncargado" placeholder="Tipo documento" class="inputRedondo"
-                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown" (onChange)="onChangeTipoDocumento()"
-                            [options]="tipoDocumentosList" formControlName="tipoDocumento" optionLabel="abreviatura"
-                            scrollHeight="100px" required>
+                            [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" inputId="dropdown"
+                            (onChange)="onChangeTipoDocumento()" [options]="tipoDocumentosList"
+                            formControlName="tipoDocumento" optionLabel="abreviatura" scrollHeight="100px" required>
                         </p-dropdown>
                         <p-dropdown *ngIf="isUpdateEncargado" class="inputRedondo" [showTransitionOptions]="'300ms'"
-                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tipoDocumentosList" (onChange)="onChangeTipoDocumento()"
-                            formControlName="tipoDocumento" optionLabel="abreviatura" scrollHeight="200px" required>
+                            dropdownIcon="pi pi-chevron-down" inputId="dropdown" [options]="tipoDocumentosList"
+                            (onChange)="onChangeTipoDocumento()" formControlName="tipoDocumento"
+                            optionLabel="abreviatura" scrollHeight="200px" required>
                         </p-dropdown>
                     </div>
                     <div class="p-field col-6">
                         <label>Nro Documento:</label>
                         <div class="p-inputgroup">
-                            <input type="text" pInputText formControlName="nroDoc" placeholder="Nro Documento" [(maxlength)]="tamanioDocumento">
+                            <input type="text" pInputText formControlName="nroDoc" placeholder="Nro Documento"
+                                [(maxlength)]="tamanioDocumento">
                             <button *ngIf="!loadingEncargado" type="button" pButton pRipple icon="pi pi-search"
                                 (click)="buscarPersonal()" class="p-button-outlined p-button-secondary"></button>
                             <button *ngIf="loadingEncargado" type="button" pButton pRipple icon="pi pi-spin pi-spinner"
@@ -276,7 +332,7 @@
 
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
-        <button  pButton type="button" label="Guardar" (click)="saveEncargado()"></button>
+        <button pButton type="button" label="Guardar" (click)="saveEncargado()"></button>
         <!-- <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="editarEncargado()"></button> -->
     </ng-template>
 </p-dialog>
@@ -383,8 +439,7 @@
                 <p-table [value]="jurisdicciones" #dt styleClass="p-datatable-gridlines" [rows]="5" [paginator]="true"
                     [autoLayout]="true"
                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                    [showCurrentPageReport]="true"
-                    responsiveLayout="scroll">
+                    [showCurrentPageReport]="true" responsiveLayout="scroll">
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
                             <h3>Lista de Jurisdicciones de la IPRESS</h3>
@@ -481,8 +536,7 @@
                 <p-table [value]="ambientes" #dt styleClass="p-datatable-gridlines" [rows]="5"
                     [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [autoLayout]="true"
                     currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
-                    [showCurrentPageReport]="true"
-                    responsiveLayout="scroll">
+                    [showCurrentPageReport]="true" responsiveLayout="scroll">
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
                             <h3>Lista de Ambientes de la IPRESS</h3>
@@ -641,34 +695,36 @@
                             <div class="p-field col-12 md:col-12">
                                 <label>Nombre UPS:</label>
                                 <p-dropdown *ngIf="!isUpdateRol" placeholder="Nombre UPS" class="inputRedondo"
-                                    [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" (onChange)="onChangeUPS()"
-                                    inputId="dropdown" [options]="UPSList" formControlName="nombreUPS"
-                                    optionLabel="nombreUPS" required>
+                                    [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down"
+                                    (onChange)="onChangeUPS()" inputId="dropdown" [options]="UPSList"
+                                    formControlName="nombreUPS" optionLabel="nombreUPS" required>
                                 </p-dropdown>
-                                <p-dropdown *ngIf="isUpdateRol" class="inputRedondo"
-                                    [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" (onChange)="onChangeUPS()"
-                                    inputId="dropdown" [options]="UPSList" formControlName="nombreUPS"
-                                    optionLabel="nombreUPS" required>
+                                <p-dropdown *ngIf="isUpdateRol" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                                    dropdownIcon="pi pi-chevron-down" (onChange)="onChangeUPS()" inputId="dropdown"
+                                    [options]="UPSList" formControlName="nombreUPS" optionLabel="nombreUPS" required>
                                 </p-dropdown>
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label id="nombreFuncion">Nombre funcion:</label>
-                                <input type="text" pInputText formControlName='nombreFuncion' placeholder="Nombre de la Función" disabled/>
+                                <input type="text" pInputText formControlName='nombreFuncion'
+                                    placeholder="Nombre de la Función" disabled />
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label id="tiempoPreparacion">Tiempo preparación:</label>
-                                <p-inputNumber placeholder="Tiempo de preparación" formControlName='tiempoPreparacion' suffix=" minutos" required>
+                                <p-inputNumber placeholder="Tiempo de preparación" formControlName='tiempoPreparacion'
+                                    suffix=" minutos" required>
                                 </p-inputNumber>
                             </div>
                         </div>
                         <div class="p-fluid grid flex justify-content-center">
                             <div class="p-field col-12 md:col-12">
                                 <label id="tiempoPromedioAtencion">Tiempo promedio atención:</label>
-                                <p-inputNumber placeholder="Tiempo promedio de atención" formControlName='tiempoPromedioAtencion' suffix=" minutos" required>
+                                <p-inputNumber placeholder="Tiempo promedio de atención"
+                                    formControlName='tiempoPromedioAtencion' suffix=" minutos" required>
                                 </p-inputNumber>
                             </div>
                         </div>
@@ -726,13 +782,226 @@
                                 <button pButton (click)="editarRol(rowData)" pTooltip="Editar" pRipple type="button"
                                     icon="pi pi-pencil" class="p-button-rounded m-1">
                                 </button>
-                                <button pButton (click)="eliminarRol(rowData)" pTooltip="Eliminar" pRipple
-                                    type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                                <button pButton (click)="eliminarRol(rowData)" pTooltip="Eliminar" pRipple type="button"
+                                    icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
                                 </button>
                             </td>
                         </tr>
                     </ng-template>
                 </p-table>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Salir" class="m-1 w-5rem" (click)="close()"></button>
+    </ng-template>
+</p-dialog>
+
+<!-- HORARIOS IPRESS -->
+<p-dialog [(visible)]="horarioDialog" [style]="{width: '950px'}" [modal]="true" styleClass="p-fluid " autoZIndex>
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-10"></div>
+            <div class="col-2">
+                <p-button *ngIf="isUpdateHorario" label="Guardar" icon="pi pi-save"></p-button>
+                <p-button *ngIf="!isUpdateHorario" label="Editar" icon="pi pi-pencil"></p-button>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-12">
+                <div class="grid">
+                    <div class="col-12 md:col-12 lg:col-4 imagen">
+                    </div>
+                    <div class="col-12 md:col-12 lg:col-8">
+                        <p class="text-pink-700 text-3xl text-center font-semibold ">HORARIOS DE ATENCIÓN DE LA IPRESS</p>
+                    </div>
+                </div>
+                <p-card styleClass="p-card-shadow ml-4">
+                    <form [formGroup]='formHorario'>
+                        <div class="grid text-center">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2">
+                            </div>
+                            <div class="col-4">
+                                <span class="text-pink-700 text-2xl text-center font-semibold"> TURNO MAÑANA </span>
+                            </div>
+                            <div class="col-4">
+                                <span class="text-pink-700 text-2xl text-center font-semibold"> TURNO TARDE </span>
+                            </div>
+                            <div class="col-1">
+                            </div>
+                        </div>
+                        <div class="grid text-center">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-bluegray-900 text-2xl text-center font-semibold"> HORA INICIO </span>
+                            </div>
+                            <div class="col-2">
+                                <span class="text-bluegray-900 text-2xl text-center font-semibold"> HORA FIN </span>
+                            </div>
+                            <div class="col-2">
+                                <span class="text-bluegray-900 text-2xl text-center font-semibold"> HORA INICIO </span>
+                            </div>
+                            <div class="col-2">
+                                <span class="text-bluegray-900 text-2xl text-center font-semibold"> HORA FIN </span>
+                            </div>
+                            <div class="col-1">
+                            </div>
+                        </div>
+                        <div class="grid text-center">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-bluegray-900 text-2xl text-center font-semibold"> LUNES </span>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="lunesInicioManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="lunesFinManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="lunesInicioTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="lunesFinTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-1">
+                            </div>
+                        </div>
+                        <div class="grid text-center">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-bluegray-900 text-2xl text-center font-semibold"> MARTES </span>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="martesInicioManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="martesFinManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="martesInicioTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="martesFinTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-1">
+                            </div>
+                        </div>
+                        <div class="grid text-center">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-bluegray-900 text-2xl text-center font-semibold"> MIERCOLES </span>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="miercolesInicioManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="miercolesFinManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="miercolesInicioTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="miercolesFinTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-1">
+                            </div>
+                        </div>
+                        <div class="grid text-center">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-bluegray-900 text-2xl text-center font-semibold"> JUEVES </span>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="juevesInicioManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="juevesFinManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="juevesInicioTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="juevesFinTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-1">
+                            </div>
+                        </div>
+                        <div class="grid text-center">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-bluegray-900 text-2xl text-center font-semibold"> VIERNES </span>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="viernesInicioManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="viernesFinManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="viernesInicioTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="viernesFinTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-1">
+                            </div>
+                        </div>
+                        <div class="grid text-center">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-bluegray-900 text-2xl text-center font-semibold"> SABADO </span>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="sabadoInicioManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="sabadoFinManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="sabadoInicioTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="sabadoFinTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-1">
+                            </div>
+                        </div>
+                        <div class="grid text-center">
+                            <div class="col-1">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-bluegray-900 text-2xl text-center font-semibold"> DOMINGO </span>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="domingoInicioManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="domingoFinManiana" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="domingoInicioTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-2">
+                                <p-calendar formControlName="domingoFinTarde" [timeOnly]="true" inputId="timeonly"></p-calendar>
+                            </div>
+                            <div class="col-1">
+                            </div>
+                        </div>
+                    </form>
+                </p-card>
             </div>
         </div>
     </ng-template>
