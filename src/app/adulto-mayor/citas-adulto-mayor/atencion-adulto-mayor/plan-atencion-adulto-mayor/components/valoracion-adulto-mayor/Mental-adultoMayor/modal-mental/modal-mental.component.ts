@@ -23,26 +23,26 @@ export class ModalMentalComponent implements OnInit {
     for(let i = 0; i<configuracion[0].valoracionesClinicas.length;i++){
       let cadena = {};
       if(configuracion[0].valoracionesClinicas[i].valoracionMental!=null){
-         cadena  = {
-          tipoDoc:configuracion[0].tipoDoc,
-          nroDoc:configuracion[0].nroDoc,
-          fecha:configuracion[0].valoracionesClinicas[i].fecha,
-          diagnostico1:"",
-          valoracion1:[],
-          diagnostico2:"",
-          valoracion2:[]
-         }
+          cadena = {
+              tipoDoc:configuracion[0].tipoDoc,
+              nroDoc:configuracion[0].nroDoc,
+              fecha:configuracion[0].valoracionesClinicas[i].fecha,
+              diagnostico1:configuracion[0].valoracionesClinicas[i].valoracionMental.diagnosticoCognitivo,
+              valoracion1:configuracion[0].valoracionesClinicas[i].valoracionMental.itemsEstadoCognitivo,
+              diagnostico2:configuracion[0].valoracionesClinicas[i].valoracionMental.diagnosticoAfectivo,
+              valoracion2:configuracion[0].valoracionesClinicas[i].valoracionMental.itemsEstadoAfectivo
+          }
       }
       else{
-        cadena = {
-          tipoDoc:configuracion[0].tipoDoc,
-          nroDoc:configuracion[0].nroDoc,
-          fecha:configuracion[0].valoracionesClinicas[i].fecha,
-          diagnostico1:configuracion[0].valoracionesClinicas[i].valoracionMental.diagnosticoCognitivo,
-          valoracion1:configuracion[0].valoracionesClinicas[i].valoracionMental.itemsEstadoCognitivo,
-          diagnostico2:configuracion[0].valoracionesClinicas[i].valoracionMental.diagnosticoAfectivo,
-          valoracion2:configuracion[0].valoracionesClinicas[i].valoracionMental.itemsEstadoAfectivo
-        }
+          cadena  = {
+              tipoDoc:configuracion[0].tipoDoc,
+              nroDoc:configuracion[0].nroDoc,
+              fecha:configuracion[0].valoracionesClinicas[i].fecha,
+              diagnostico1:"",
+              valoracion1:[],
+              diagnostico2:"",
+              valoracion2:[]
+          }
       }
       this.ListaValoracionFuncional.push(cadena);
 
