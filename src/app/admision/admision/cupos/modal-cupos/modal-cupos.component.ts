@@ -3,11 +3,16 @@ import {DatePipe} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {RolGuardiaService} from "../../../../core/services/rol-guardia/rol-guardia.service";
 import {CuposService} from "../../../../core/services/cupos.service";
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
+import {ModalCupos2Component} from "../modal-cupos2/modal-cupos2.component";
+import {MessageService} from "primeng/api";
 
 @Component({
     selector: 'app-modal-cupos',
     templateUrl: './modal-cupos.component.html',
-    styleUrls: ['./modal-cupos.component.css']
+    styleUrls: ['./modal-cupos.component.css'],
+    providers: [DialogService, DynamicDialogConfig],
+
 })
 export class ModalCuposComponent implements OnInit {
 
@@ -40,10 +45,15 @@ export class ModalCuposComponent implements OnInit {
 
     estadoHoras: string = "LIBRE";
     estadoCupo: string = "active";
+    ref: DynamicDialogRef;
+
+    selectedFecha: any;
 
 
     constructor(private fb: FormBuilder,
                 private rolGuardiaService: RolGuardiaService,
+                private messageService: MessageService,
+                private dialog: DialogService,
                 private cuposService: CuposService,
     ) {
     }
@@ -96,7 +106,6 @@ export class ModalCuposComponent implements OnInit {
         });
     }
 
-
     /** Selecciona el personal de salud para recuperar datos de un event **/
     onRowSelect(event) {
         console.log('event',);
@@ -110,4 +119,29 @@ export class ModalCuposComponent implements OnInit {
         console.log('select personal....', this.personalSelected2);
     }
 
+
+    aceptarDialogCupos() {
+        let auxCupo: any = this.selectedHorario;
+
+        if (auxCupo.length != 1) {
+            this.messageService.add({severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario'});
+            return;
+        }
+        this.selectedFecha = this.datafecha.getDate() + "-" + this.datafecha.getMonth() + 1 + "-" + this.datafecha.getFullYear();
+        console.log('HORARIO SELECCIONADO', this.selectedHorario)
+        console.log('SERVICIO SELECIONADO', this.dataSelectServicio)
+        console.log('FECHA SELECIONADO', this.selectedFecha)
+        this.openDialogCuposNuevo2();
+    }
+
+    /**abre el dialog para cupos**/
+    openDialogCuposNuevo2() {
+        this.ref = this.dialog.open(ModalCupos2Component, {
+            width: '1200px',
+            modal: true,
+            height: '750px',
+            contentStyle: {"max-height": "500", "overflow": "p-fluid"},
+            baseZIndex: 0
+        })
+    }
 }

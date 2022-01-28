@@ -283,13 +283,6 @@ export class CuposComponent implements OnInit, OnDestroy {
         })
     }
 
-    /**Lista las ofertas **/
-    getOfertascuposListar(data) {
-        this.cuposService.getOfertasListar(data).subscribe((resp: any) => {
-            this.dataOfertasCupos = resp.object;
-            console.log("OFERTAS HORARIOS", this.dataOfertasCupos);
-        });
-    }
 
     buildForm() {
         this.formCuposOferta = this.fb.group({
@@ -482,33 +475,6 @@ export class CuposComponent implements OnInit, OnDestroy {
         this.usuarioDialog = true;
     }
 
-
-    /** Selecciona el personal de salud para recuperar datos de un event **/
-    onRowSelect(event) {
-        console.log('event',);
-        this.dataSelectAmbiente = event.data.ambiente;
-        this.dataSelectServicio = event.data.ipress.servicio;
-        this.personalSelected = event.data.personal.nombre;//Personal
-        this.dataSelectHoras = event.data.horaLaboral;
-        console.log('HORAS....', this.dataSelectHoras);
-        /** personalSelected2 almacena todo los datos del event al seleccionar un personal**/
-        this.personalSelected2 = event.data;
-        console.log('select personal....', this.personalSelected2);
-    }
-
-    /** Selecciona  un servicio y fecha y lista las ofertas para reservar un cupo **/
-    changeServicioSelected(event) {
-        this.personalSelected = '';
-        console.log(event)
-        let data = {
-            servicio: this.selectedServicio.nombreUPS,
-            nombreIpress: this.iprees,
-            fechaOferta: this.datafecha,
-        }
-        this.getOfertascuposListar(data);
-        console.log("FECHA OFERTA", data)
-    }
-
     /** Selecciona  un servicio y fecha y lista las cupos confirmados **/
     getListaCuposConfirmados() {
         let data = {
@@ -526,11 +492,6 @@ export class CuposComponent implements OnInit, OnDestroy {
         this.getCuposXservicio();
         // this.ListarPacientesCitasObstetricas();
     }
-
-    onRowUnselect(event) {
-        console.log('no seleccionar');
-    }
-
 
     cancelarPersona() {
         console.log('cancelar')

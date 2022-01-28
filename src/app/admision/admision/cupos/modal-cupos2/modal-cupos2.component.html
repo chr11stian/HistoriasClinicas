@@ -1,0 +1,216 @@
+<div>
+    <p-panel>
+        <ng-template pTemplate="header">
+            <h3 class="m-2">RESERVAR CUPOS</h3>
+        </ng-template>
+        <ng-template pTemplate>
+            <form [formGroup]='formPacientesCupo'>
+                <div class="grid ">
+                    <div class="col-12 md:col-6 lg:col-9 p-field">
+                        <div class="datosPersonales">
+                            <div class="grid m-2">
+                                <div class="col-12 md:col-6 lg:col-2 p-fluid">
+                                    <span class="">TIPO DOCUMENTO</span>
+                                    <div class="">
+                                        <p-dropdown [options]="listaDocumentosIdentidad"
+                                                    formControlName="tipoDoc"
+                                                    placeholder="Tipo Documento"
+                                                    optionLabel="abreviatura"
+                                                    optionValue="abreviatura"
+                                                    [showClear]="false">
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 md:col-6 lg:col-3 p-field">
+                                    <span class="">NRO DOCUMENTO</span>
+                                    <div class="p-inputgroup">
+                                        <input type="text" pInputText
+                                               formControlName="nroDoc"
+                                               placeholder="DNI"
+                                               (blur)="pacienteByNroDoc()"/>
+                                        <p-button label="" icon="pi pi-search" (click)="pacienteByNroDoc()"></p-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="datosPersonales">
+                            <div class="grid m-2">
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">APELLIDOS PATERNO</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="apePaterno"/>
+                                </div>
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">APELLIDOS MATERNO</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="apeMaterno"/>
+                                </div>
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">NOMBRES:</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="primerNombre"/>
+                                </div>
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">OTRO NOMBRE</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="otrosNombres"/>
+                                </div>
+                            </div>
+                            <div class="grid m-2">
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">SEXO</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="sexo"/>
+                                </div>
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">FECHA NACIMIENTO</label>
+                                    <input type="date"
+                                           pInputText
+                                           formControlName="fechaNacimiento"/>
+                                </div>
+                                <div class="p-field col-1">
+                                    <label class="ml-2 font-bold">A</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="edadAnio"/>
+                                </div>
+                                <div class="p-field col-1">
+                                    <label class="ml-2 font-bold">M</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="edadMes"/>
+                                </div>
+                                <div class="p-field col-1">
+                                    <label class="ml-2 font-bold">D</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="edadDia"/>
+                                </div>
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">ESTADO CIVIL</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="estadoCivil"/>
+                                </div>
+                            </div>
+                            <div class="grid m-2">
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">TELEFONO / CELULAR</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="celular"/>
+                                </div>
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">NACIONALIDAD</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="nacionalidad"/>
+                                </div>
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">DEPARTAMENTO</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="departamento"/>
+                                </div>
+                                <div class="p-field col-3">
+                                    <label class="ml-2 font-bold">PROVINCIA</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="provincia"/>
+                                </div>
+                            </div>
+                            <div class="grid m-2">
+                                <div class="p-field col-4">
+                                    <label class="ml-2 font-bold">DISTRITO</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="distrito"/>
+                                </div>
+                                <div class="p-field col-4">
+                                    <label class="ml-2 font-bold">CENTRO POBLADO</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="centroPoblado"/>
+                                </div>
+                                <div class="p-field col-4">
+                                    <label class="ml-2 font-bold">DIRECCION</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="direccion"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="datosExtra">
+                            <div class="grid m-2">
+                                <div class="p-field col-2 md:col-4 lg:col-4">
+                                    <label class="ml-2 font-bold">TIPO SEGURO</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="tipoSeguro"
+                                    />
+                                </div>
+                                <div class="p-field col-2 md:col-4 lg:col-4">
+                                    <label class="ml-2 font-bold">TRANSEUNTE</label>
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="transeunte"/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <div class="datosServicio">
+                            <div class="pfield col-12">
+                                <label class="font-bold">SERVICIO A ATENDERSE:</label>
+                                <p>{{dataSelectServicio}}</p>
+                            </div>
+                            <div class="p-field col-12">
+                                <label class="font-bold">AMBIENTE</label>
+                                <p>{{dataSelectAmbiente}}</p>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="datosServicio ">
+                            <div class="p-field col-12">
+                                <label class="font-bold">PERSONAL RESPONSABLE DE ATENCION:</label>
+                                <p>{{personalSelected}}</p>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="datosServicio">
+                            <div class="p-field col-12">
+                                <label class="font-bold">FECHA A ATENDERSE:</label>
+                                <p>{{selectedFecha}}</p>
+                            </div>
+                            <div class="p-field col-12">
+                                <label class="font-bold">HORA:</label>
+                                <tr *ngFor="let horas of selectedHorario" class="ml-2 font-bold">
+                                    <p>
+                                        {{horas.horaInicio}}-{{horas.horaFin}}
+                                    </p>
+                                </tr>
+                            </div>
+                            <div class="p-field col-12">
+                                <label class="font-bold">ESTADO PAGO:</label>
+                                <p>
+                                    {{detallePago}}
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </ng-template>
+    </p-panel>
+</div>

@@ -8,6 +8,7 @@ import { TabViewComponent } from './tab-view/tab-view.component';
 import {PrimeModule} from "../../shared/prime/prime.module";
 import { ModalCuposComponent } from './cupos/modal-cupos/modal-cupos.component';
 import {PaginatorModule} from "primeng/paginator";
+import { ModalCupos2Component } from './cupos/modal-cupos2/modal-cupos2.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {PaginatorModule} from "primeng/paginator";
         CitasComponent,
         TabViewComponent,
         ModalCuposComponent,
+        ModalCupos2Component,
     ],
     imports: [
         CommonModule,
