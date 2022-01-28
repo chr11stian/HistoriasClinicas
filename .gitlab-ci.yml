@@ -26,7 +26,6 @@ update:release:
     - echo "$CI_COMMIT_BRANCH"
     - cd /server/frontend/historia_clinica_electronica
     - git branch
-    - whoiam
     - git checkout $CI_COMMIT_BRANCH
     - git pull origin $CI_COMMIT_BRANCH
     - git status
