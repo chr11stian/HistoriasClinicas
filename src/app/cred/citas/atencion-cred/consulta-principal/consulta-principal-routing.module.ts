@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import { TestDesarrolloComponent } from '../plan/component/evaluacion-general/test-desarrollo/test-desarrollo.component';
 import { TestTepsiComponent } from '../plan/component/evaluacion-general/test-tepsi/test-tepsi.component';
-import {EvaluacionesConsultaComponent} from './component/evaluaciones-consulta/evaluaciones-consulta.component';
 import {PlanControlConsultaComponent} from './component/plan-control-consulta/plan-control-consulta.component';
 import {StepGeneralComponent} from './component/step-general/step-general.component';
 import {EEDPComponent} from "../plan/component/evaluacion-general/eedp/eedp.component";
@@ -17,10 +16,10 @@ const routes: Routes = [
         path: "plan-control-consulta",
         component: PlanControlConsultaComponent
     },
-    {
-        path: "evaluaciones-consulta",
-        component: EvaluacionesConsultaComponent
-    },
+    // {
+    //     path: "evaluaciones-consulta",
+    //     component: EvaluacionesConsultaComponent
+    // },
     {
         path: "test-tepsi-consulta",
         component: TestTepsiComponent
