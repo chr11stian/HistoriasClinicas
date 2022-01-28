@@ -26,6 +26,7 @@ export class IpressComponent implements OnInit {
   formAmbiente: FormGroup;
   formTurno: FormGroup;
   formRol: FormGroup;
+  formHorario: FormGroup;
 
   loading: boolean = false;
   loadingEncargado: boolean = false;
@@ -36,6 +37,7 @@ export class IpressComponent implements OnInit {
   isUpdateAmbiente: boolean = false;
   isUpdateTurno: boolean = false;
   isUpdateRol: boolean = false;
+  isUpdateHorario: boolean = false;
 
   idUpdate: string = "";
   nombrePersonal: string = "";
@@ -50,6 +52,7 @@ export class IpressComponent implements OnInit {
   provinciasList: any[];
   distritosList: any[];
   CCPPList: any[];
+  
   //ipressList: any[];
   categoriasList: any[];
   redesList: any[];
@@ -57,6 +60,9 @@ export class IpressComponent implements OnInit {
   UPSList: any[];
   tipoTurnosList: any[];
   tipoDocumentosList: any[];
+  categorizacionesList: any[];4
+  clasificacionesList: any[];
+  unidadesList: any[];
 
   //data de dialogs
   data: Ipress[] = [];
@@ -64,7 +70,8 @@ export class IpressComponent implements OnInit {
   ambientes: any[];
   turnos: any[];
   roles: any[];
-
+  horarios: any[];
+  
   //dialogs
   ipressDialog: boolean;
   jurisdiccionDialog: boolean;
@@ -72,6 +79,7 @@ export class IpressComponent implements OnInit {
   turnoDialog: boolean;
   encargadoDialog: boolean;
   rolDialog: boolean;
+  horarioDialog: boolean;
 
   datePipe = new DatePipe('en-US');
   centro: any;
@@ -160,7 +168,8 @@ export class IpressComponent implements OnInit {
   }
   buildForm() {
     this.form = this.formBuilder.group({
-      codRENAES: ['', [Validators.required]],
+      renipress: ['', [Validators.required]],
+      ruc: ['', [Validators.required]],
       nombreEESS: ['', [Validators.required]],
       categoria: ['', [Validators.required]],
       ubigeo: ['', [Validators.required]],
@@ -173,6 +182,9 @@ export class IpressComponent implements OnInit {
       microRed: ['', [Validators.required]],
       docPersonal: ['', [Validators.required]],
       nombrePersonal: ['', [Validators.required]],
+      unidad: ['', [Validators.required]],
+      clasificacion: ['', [Validators.required]],
+      categorizacion: ['', [Validators.required]],
     })
     this.formJurisdiccion = this.formBuilder.group({
       ubigeo: ['', [Validators.required]],
@@ -203,6 +215,36 @@ export class IpressComponent implements OnInit {
       fechaRegistro: ['', [Validators.required]],
       tiempoPromedioAtencion: ['', [Validators.required]],
       tiempoPreparacion: ['', [Validators.required]],
+    })
+    this.formHorario = this.formBuilder.group({
+      lunesInicioManiana: ['', [Validators.required]],
+      lunesFinManiana: ['', [Validators.required]],
+      lunesInicioTarde: ['', [Validators.required]],
+      lunesFinTarde: ['', [Validators.required]],
+      martesInicioManiana: ['', [Validators.required]],
+      martesFinManiana: ['', [Validators.required]],
+      martesInicioTarde: ['', [Validators.required]],
+      martesFinTarde: ['', [Validators.required]],
+      miercolesInicioManiana: ['', [Validators.required]],
+      miercolesFinManiana: ['', [Validators.required]],
+      miercolesInicioTarde: ['', [Validators.required]],
+      miercolesFinTarde: ['', [Validators.required]],
+      juevesInicioManiana: ['', [Validators.required]],
+      juevesFinManiana: ['', [Validators.required]],
+      juevesInicioTarde: ['', [Validators.required]],
+      juevesFinTarde: ['', [Validators.required]],
+      viernesInicioManiana: ['', [Validators.required]],
+      viernesFinManiana: ['', [Validators.required]],
+      viernesInicioTarde: ['', [Validators.required]],
+      viernesFinTarde: ['', [Validators.required]],
+      sabadoInicioManiana: ['', [Validators.required]],
+      sabadoFinManiana: ['', [Validators.required]],
+      sabadoInicioTarde: ['', [Validators.required]],
+      sabadoFinTarde: ['', [Validators.required]],
+      domingoInicioManiana: ['', [Validators.required]],
+      domingoFinManiana: ['', [Validators.required]],
+      domingoInicioTarde: ['', [Validators.required]],
+      domingoFinTarde: ['', [Validators.required]],
     })
   }
 
@@ -338,7 +380,7 @@ export class IpressComponent implements OnInit {
     this.ubicacionService.getCCPPDatos(aux).subscribe((res: any) => {
       this.centro = res.object[0];
       const req = {
-        codRENAES: this.form.value.codRENAES,
+        renipress: this.form.value.renipress,
         nombreEESS: this.form.value.nombreEESS,
         categoria: {
           abreviatura: this.form.value.categoria.abreviatura,
@@ -361,9 +403,21 @@ export class IpressComponent implements OnInit {
           nombreRed: this.form.value.red.nombreRed,
           idMicroRed: this.form.value.microRed.idMicroRed,
           nombreMicroRed: this.form.value.microRed.nombreMicroRed,
+        },
+        categorizacion: {
+          tipoDocCategorizacion: this.form.value.categorizacion.tipoDocCategorizacion,
+          nroDocCategorizacion: this.form.value.categorizacion.nroDocCategorizacion
+        },
+        clasificacion: {
+          clasificacion:this.form.value.clasificacion.clasificacion,
+          tipo:this.form.value.clasificacion.tipo
+        },
+        unidadEjecutora: {
+          unidadEjecutora: this.form.value.unidad.unidadEjecutora,
+          codUnidadEjecutora: this.form.value.unidad.codUnidadEjecutora
         }
       };
-      if (req.codRENAES.trim() !== "") {
+      if (req.renipress.trim() !== "") {
         this.ipressservice.createIpress(req).subscribe(
           result => {
             Swal.fire({
@@ -389,7 +443,7 @@ export class IpressComponent implements OnInit {
   openNew() {
     this.isUpdate = false;
     this.form.reset();
-    this.form.get('codRENAES').setValue("");
+    this.form.get('renipress').setValue("");
     this.form.get('nombreEESS').setValue("");
     this.form.get('categoria').setValue("");
     this.form.get('ubigeo').setValue("");
@@ -405,7 +459,7 @@ export class IpressComponent implements OnInit {
   editar(rowData) {
     this.isUpdate = true;
     this.form.reset();
-    this.form.get('codRENAES').setValue(rowData.codRENAES);
+    this.form.get('renipress').setValue(rowData.renipress);
     this.form.get('nombreEESS').setValue(rowData.nombreEESS);
     this.form.get('categoria').setValue(this.categoriasList.find(cat => cat.abreviatura === rowData.categoria.abreviatura));
     this.form.get('ubigeo').setValue(rowData.ubicacion.ubigeo);
@@ -413,6 +467,7 @@ export class IpressComponent implements OnInit {
     this.form.get('direccion').setValue(rowData.ubicacion.direccion);
     this.form.get('red').setValue(this.redesList.find(red => red.nombreRed === rowData.red.nombreRed));
     this.changeRedSelectedEditar(rowData);
+    //agregar clasificacion, categorizacion y unidad ejecutora aqui usando find
     this.idUpdate = rowData.id;
     this.ipressDialog = true;
   }
@@ -428,7 +483,7 @@ export class IpressComponent implements OnInit {
       this.centro = res.object[0];
       const req = {
         id: this.idUpdate,
-        codRENAES: this.form.value.codRENAES,
+        renipress: this.form.value.renipress,
         nombreEESS: this.form.value.nombreEESS,
         categoria: {
           abreviatura: this.form.value.categoria.abreviatura,
@@ -451,9 +506,21 @@ export class IpressComponent implements OnInit {
           nombreRed: this.form.value.red.nombreRed,
           idMicroRed: this.form.value.microRed.idMicroRed,
           nombreMicroRed: this.form.value.microRed.nombreMicroRed,
+        },
+        categorizacion: {
+          tipoDocCategorizacion: this.form.value.categorizacion.tipoDocCategorizacion,
+          nroDocCategorizacion: this.form.value.categorizacion.nroDocCategorizacion
+        },
+        clasificacion: {
+          clasificacion:this.form.value.clasificacion.clasificacion,
+          tipo:this.form.value.clasificacion.tipo
+        },
+        unidadEjecutora: {
+          unidadEjecutora: this.form.value.unidad.unidadEjecutora,
+          codUnidadEjecutora: this.form.value.unidad.codUnidadEjecutora
         }
       };
-      if (req.codRENAES.trim() !== "") {
+      if (req.renipress.trim() !== "") {
         this.ipressservice.editIpress(req).subscribe(
           result => {
             Swal.fire({
@@ -583,6 +650,12 @@ export class IpressComponent implements OnInit {
     this.idIpress = rowData.id;
     this.formTurno.reset();
     this.turnoDialog = true;
+  }
+  newHorario(rowData) {
+    this.horarios = rowData.turnos;
+    this.idIpress = rowData.id;
+    //this.formHorario.reset();
+    this.horarioDialog = true;
   }
 
   guardarNuevaJurisdiccion() {
