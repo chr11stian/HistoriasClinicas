@@ -32,6 +32,7 @@ export class InmunizacionesComponent implements OnInit {
     // async getLista(){
     getLista() {
         this.servicio.getListaInmunizaciones(this.nroDNI)
+        // this.servicio.getListaInmunizaciones('47825757')
             .toPromise().then((result) => {
             this.listaInmunizaciones = result.object
             this.transform()
@@ -98,7 +99,7 @@ export class InmunizacionesComponent implements OnInit {
         const nueva=objeto.slice(0,objeto.length-1);
         const nueva1:string =`[${nueva}]`
         const json1=JSON.parse(nueva1)
-        this.servicio.updateListaInmunizaciones('47825757',json1)
+        this.servicio.updateListaInmunizaciones(this.nroDNI,json1)
           .toPromise().then((result) => {
             this.messageService.add({severity:'success', summary:'Exito', detail:'registro actualizado'});
         }).catch((err) => {
