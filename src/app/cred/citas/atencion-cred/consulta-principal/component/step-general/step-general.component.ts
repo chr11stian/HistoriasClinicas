@@ -147,12 +147,12 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     nextPage() {
         switch (this.stepName) {
             case 'datos':
-                this.datosGeneralesConsulta.save()
+                // this.datosGeneralesConsulta.save()
                 this.stepName = 'motivo';
                 this.indiceActivo = 1;
                 break;
             case 'motivo':
-                this.motivoConsulta.save()
+                // this.motivoConsulta.save()
                 this.stepName = 'diagnostico';
                 this.indiceActivo = 2;
                 break;
@@ -167,17 +167,17 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 this.indiceActivo = 4;
                 break;
             case 'diagnostico':
-                this.diagnosticoConsulta.save()
+                // this.diagnosticoConsulta.save()
                 this.stepName = 'tratamiento';
                 this.indiceActivo = 5;
                 break;
             case 'tratamiento':
-                this.tratamientoConsulta.save()
+                // this.tratamientoConsulta.save()
                 this.stepName = 'finalizar';
                 this.indiceActivo = 6;
                 break;
             case 'finalizar':
-                this.finalizarConsulta.save()
+                // this.finalizarConsulta.save()
                 break;
         }
     }
@@ -218,23 +218,23 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             console.log('j ', this.indiceActivo, this.j)
             switch (this.j) {
                 case 6:
-                    this.finalizarConsulta.save()
+                    // this.finalizarConsulta.save()
                     break
                 case 5:
-                    this.tratamientoConsulta.save()
+                    // this.tratamientoConsulta.save()
                     break
                 case 4:
-                    this.diagnosticoConsulta.save()
+                    // this.diagnosticoConsulta.save()
                     break
                 case 3:
                     break
                 case 2:
                     break
                 case 1:
-                    this.motivoConsulta.save()
+                    // this.motivoConsulta.save()
                     break
                 case 0:
-                    this.datosGeneralesConsulta.save()
+                    // this.datosGeneralesConsulta.save()
                     break
             }
             this.j = this.indiceActivo
