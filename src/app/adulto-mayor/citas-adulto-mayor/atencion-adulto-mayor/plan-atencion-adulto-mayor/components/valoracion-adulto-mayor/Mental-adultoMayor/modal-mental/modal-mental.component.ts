@@ -19,7 +19,7 @@ export class ModalMentalComponent implements OnInit {
   recuperarValoracionClinicaMental(){
     let configuracion = this.config.data;
     console.log(configuracion);
-      console.log(configuracion[0].valoracionesClinicas[0].fecha)
+    console.log(configuracion[0].valoracionesClinicas[0].fecha)
     for(let i = 0; i<configuracion[0].valoracionesClinicas.length;i++){
       let cadena = {};
       if(configuracion[0].valoracionesClinicas[i].valoracionMental!=null){

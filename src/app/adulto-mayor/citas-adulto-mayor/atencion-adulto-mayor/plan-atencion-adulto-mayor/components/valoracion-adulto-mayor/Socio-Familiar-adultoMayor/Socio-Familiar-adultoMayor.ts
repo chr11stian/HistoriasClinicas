@@ -5,7 +5,6 @@ import {MessageService} from "primeng/api";
 import {item, valoracionFuncional} from "../../models/plan-atencion-adulto-mayor.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {ModalMentalComponent} from "../Mental-adultoMayor/modal-mental/modal-mental.component";
 import {ModalSocio} from "./modal-socio/modal-socio";
 
 @Component({
