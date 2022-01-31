@@ -32,13 +32,40 @@ export class TratamientoConsultaComponent implements OnInit {
     isUpdate3: boolean = false;
     bool3: boolean = false;
     index3: number
-
     tratamiento: tratamientoIntervencionesInterface
-
+    intervaloList: any[];
+    viaadministracionList: any[];
     constructor(private tratamientoService: TratamientoConsultaService,
                 private cieService: CieService,
                 private formBuilder: FormBuilder) {
         this.buildForm();
+        /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR EL TRATAMIENTO*/
+        this.intervaloList = [
+            {label: 'CADA 4 HORAS', value: 'CADA 4 HORAS'},
+            {label: 'CADA 5 HORAS', value: 'CADA 5 HORAS'},
+            {label: 'CADA 6 HORAS', value: 'CADA 6 HORAS'},
+            {label: 'CADA 8 HORAS', value: 'CADA 8 HORAS'},
+            {label: 'CADA 12 HORAS', value: 'CADA 12 HORAS'},
+            {label: 'CADA 24 HORAS', value: 'CADA 24 HORAS'},
+            {label: 'CONDICIONAL A FIEBRE', value: 'CONDICIONAL A FIEBRE'},
+            {label: 'DOSIS UNICA', value: 'DOSIS UNICA'},
+            {label: 'CADA 48 HORAS', value: 'CADA 48 HORAS'}
+        ];
+
+        this.viaadministracionList = [{label: 'ENDOVENOSA', value: 'ENDOVENOSA'},
+            {label: 'INHALADORA', value: 'INHALADORA'},
+            {label: 'INTRADERMICO', value: 'INTRADERMICO'},
+            {label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR'},
+            {label: 'NASAL', value: 'NASAL'},
+            {label: 'OFTALMICO', value: 'OFTALMICO'},
+            {label: 'ORAL', value: 'ORAL'},
+            {label: 'OPTICO', value: 'OPTICO'},
+            {label: 'RECTAL', value: 'RECTAL'},
+            {label: 'SUBCUTANEO', value: 'SUBCUTANEO'},
+            {label: 'SUBLINGUAL', value: 'SUBLINGUAL'},
+            {label: 'TOPICO', value: 'TOPICO'},
+            {label: 'VAGINAL', value: 'VAGINAL'},
+        ];
     }
 
     ngOnInit(): void {
@@ -47,6 +74,13 @@ export class TratamientoConsultaComponent implements OnInit {
     buildForm() {
         this.id = localStorage.getItem(this.attributeLocalS);
         this.formTratamiento = this.formBuilder.group({
+            codigoItem: new FormControl("", []),
+            descripcion: new FormControl("", []),
+            dosis: new FormControl("", []),
+            viaAdministracion: new FormControl("", []),
+            frecuencia: new FormControl("", []),
+            Lote: new FormControl("", []),
+            fechaVencimiento: new FormControl("", []),
             textoTratamiento: new FormControl("", []),
         });
         this.formAcuerdos = this.formBuilder.group({
@@ -120,6 +154,7 @@ export class TratamientoConsultaComponent implements OnInit {
     }
 
     cancelTratamiento() {
+        this.dialogTratamiento = false;
         Swal.fire({
             icon: 'warning',
             title: 'Cancelado...',
@@ -127,7 +162,7 @@ export class TratamientoConsultaComponent implements OnInit {
             showConfirmButton: false,
             timer: 1000
         })
-        this.dialogAcuerdos = false;
+
     }
 
     saveTratamiento() {
@@ -136,13 +171,13 @@ export class TratamientoConsultaComponent implements OnInit {
             aux = false
             this.isUpdate2 = false;
             let a: tratamientoInterface = {
-                codigoItem: "string",
-                descripcion: this.formTratamiento.value.textoTratamiento,
-                nroDosis: 1,
-                viaAdministracion: "string",
-                frecuencia: "string",
-                Lote: "string",
-                fechaVencimiento: "string"
+                codigoItem: this.formTratamiento.value.codigoItem,
+                descripcion: this.formTratamiento.value.descripcion,
+                nroDosis: this.formTratamiento.value.dosis,
+                viaAdministracion: this.formTratamiento.value.viaAdministracion,
+                frecuencia: this.formTratamiento.value.frecuencia,
+                Lote: this.formTratamiento.value.Lote,
+                fechaVencimiento: this.formTratamiento.value.fechaVencimiento
             }
             this.tratamientos.push(a);
         } else {
@@ -229,7 +264,14 @@ export class TratamientoConsultaComponent implements OnInit {
         this.formAcuerdos.get('textoAcuerdo').setValue(row.descripcion);
         this.dialogAcuerdos = true;
     }
+
+    /*****************Imprimir Receta**************/
+    imprimirReceta(){
+     console.log("imprimiendo rececta");
+    }
 }
+
+
 
 interface tratamientoIntervencionesInterface {
     tratamientos: tratamientoInterface[]

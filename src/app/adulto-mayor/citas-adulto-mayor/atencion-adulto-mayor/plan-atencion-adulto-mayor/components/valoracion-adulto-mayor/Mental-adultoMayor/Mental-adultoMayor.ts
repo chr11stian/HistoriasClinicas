@@ -330,8 +330,8 @@ export class MentalAdultoMayor implements OnInit {
         //   detail: res.mensaje
         // });
         this.valoracionService.postValoracionClinicaPorDoc(data).subscribe((res: any) => {
+          this.listaValoracionMental.push(res.object);
           if (res.object.valoracionesClinicas[0].valoracionMental != null) {
-            this.listaValoracionMental.push(res.object);
             console.log(this.listaValoracionMental);
             this.valoracionMental = res.object.valoracionesClinicas[0].valoracionMental;
             console.log(this.valoracionMental);
