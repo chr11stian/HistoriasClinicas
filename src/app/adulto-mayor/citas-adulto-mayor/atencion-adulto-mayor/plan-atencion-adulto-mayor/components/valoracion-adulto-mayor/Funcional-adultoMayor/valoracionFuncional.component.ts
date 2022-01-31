@@ -5,14 +5,19 @@ import { item,  valoracionFuncional,
 import {AdultoMayorService} from "../../../services/adulto-mayor.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ModalAtencionesComponent} from "../../../../../../../obstetricia-general/gestante/atencion/h-clinica-materno-perinatal/component/atenciones/modal-atenciones/modal-atenciones.component";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {ModalValoracionComponent} from "./modal-valoracion/modal-valoracion.component";
 
 @Component({
   selector: 'app-valoracion-funcional-adulto-mayor',
   templateUrl: './valoracionFuncional.component.html',
-  styleUrls: ['./valoracionFuncional.component.css']
+  styleUrls: ['./valoracionFuncional.component.css'],
+  providers: [DialogService]
 })
 export class ValoracionFuncionalComponent implements OnInit {
   idRecuperado = "";
+  ref: DynamicDialogRef;
   formValoracionClinicaFuncional:FormGroup;
   valoracionesFuncional:valoracionFuncional;
   isUpdate: boolean = false;
@@ -23,14 +28,18 @@ export class ValoracionFuncionalComponent implements OnInit {
   diagnostico:string;
   docRecuperado="";
   tipoDocRecuperado="";
-  ListaValoracionFuncional:any;
+  ListaValoracionFuncional:valoracionFuncional[]=[];
+  listaValoracionClinina:any[]=[];
+  arrayFechas:Date[]=[];
   dialogValoracionFuncional:boolean=false;
   constructor(private formBuilder: FormBuilder,
               private valoracionService: AdultoMayorService,
               private messageService: MessageService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private dialogService: DialogService) {
     this.buildForm();
+
   }
   ngOnInit(): void {
     this.route.queryParams
@@ -47,6 +56,7 @@ export class ValoracionFuncionalComponent implements OnInit {
   }
   buildForm() {
     this.formValoracionClinicaFuncional = this.formBuilder.group({
+      fecha:new FormControl(''),
       lavarse: new FormControl(''),
       vestirse: new FormControl(''),
       usoservicioH: new FormControl(''),
@@ -214,6 +224,11 @@ export class ValoracionFuncionalComponent implements OnInit {
     this.valoracionService.postValoracionClinicaPorDoc(data).subscribe((res: any) => {
       console.log('se recupero datos satisfactoriamente', res.object);
      if(res.object.valoracionesClinicas!=null) {
+         this.listaValoracionClinina.push(res.object);
+         for(let i = 0;i<res.object.valoracionesClinicas.length;i++){
+             this.arrayFechas.push(res.object.valoracionesClinicas.fecha);
+             this.ListaValoracionFuncional.push(res.object.valoracionesClinicas[i].valoracionFuncional)
+         }
        this.idRecuperado = res.object.id;
        this.valoracionesFuncional = res.object.valoracionesClinicas[0].valoracionFuncional;
        console.log(this.valoracionesFuncional);
@@ -279,67 +294,14 @@ export class ValoracionFuncionalComponent implements OnInit {
 
 
   }
-  recuperarDataFuncionalBD(){
-    this.valoracionService.getValoracionClinica(this.idRecuperado).subscribe((res: any) => {
-      console.log('se recupero datos satisfactoriamente', res.object);
-      console.log(res.object.valoracionesClinicas[0].valoracionFuncional);
-      this.valoracionesFuncional=res.object.valoracionesClinicas[0].valoracionFuncional;
-       console.log(this.valoracionesFuncional);
-      this.messageService.add({
-        severity: "success",
-        summary: "Exito",
-        detail: res.mensaje
-      });
-      /*****LLENAR CAMPOS RECUPERADOS DE LA BD*****/
-      let dx = this.valoracionesFuncional.diagnostico;
-      console.log("dx",dx);
-      let aux1=this.valoracionesFuncional.items[0].puntaje;
-      console.log(aux1);
-      let aux2=this.valoracionesFuncional.items[1].puntaje;
-      console.log(aux2);
-      let aux3=this.valoracionesFuncional.items[2].puntaje;
-      console.log(aux3);
-      let aux4=this.valoracionesFuncional.items[3].puntaje;
-      console.log(aux4);
-      let aux5=this.valoracionesFuncional.items[4].puntaje;
-      console.log(aux5);
-      let aux6=this.valoracionesFuncional.items[5].puntaje;
-      console.log(aux6);
-      if(aux1==0)
-      this.formValoracionClinicaFuncional.get("lavarse").setValue(false);
-      else{
-        this.formValoracionClinicaFuncional.get("lavarse").setValue(true);
-      }
-      if(aux2==0)
-        this.formValoracionClinicaFuncional.get("vestirse").setValue(false);
-      else{
-        this.formValoracionClinicaFuncional.get("vestirse").setValue(true);
-      }
-      if(aux3==0)
-        this.formValoracionClinicaFuncional.get("usoservicioH").setValue(false);
-      else{
-        this.formValoracionClinicaFuncional.get("usoservicioH").setValue(true);
-      }
-      if(aux4==0)
-        this.formValoracionClinicaFuncional.get("movilizarse").setValue(false);
-      else{
-        this.formValoracionClinicaFuncional.get("movilizarse").setValue(true);
-      }
-      if(aux5==0)
-        this.formValoracionClinicaFuncional.get("continencia").setValue(false);
-      else{
-        this.formValoracionClinicaFuncional.get("continencia").setValue(true);
-      }
-      if(aux6==0)
-        this.formValoracionClinicaFuncional.get("alimentarse").setValue(false);
-      else{
-        this.formValoracionClinicaFuncional.get("alimentarse").setValue(true);
-      }
-     this.formValoracionClinicaFuncional.patchValue({ 'diagnostico': this.valoracionesFuncional.diagnostico });
-    });
-  }
   listarValoraciones(){
-    this.dialogValoracionFuncional=true;
+      this.ref = this.dialogService.open(ModalValoracionComponent, {
+          width: '80%',
+          data:this.listaValoracionClinina
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('datos de modal atenciones ', this.listaValoracionClinina)
 
+  })
   }
 }

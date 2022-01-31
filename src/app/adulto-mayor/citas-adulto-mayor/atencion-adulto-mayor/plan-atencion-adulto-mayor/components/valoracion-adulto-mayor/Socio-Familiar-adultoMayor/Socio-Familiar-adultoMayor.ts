@@ -4,24 +4,31 @@ import {AdultoMayorService} from "../../../services/adulto-mayor.service";
 import {MessageService} from "primeng/api";
 import {item, valoracionFuncional} from "../../models/plan-atencion-adulto-mayor.model";
 import {ActivatedRoute, Router} from "@angular/router";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {ModalMentalComponent} from "../Mental-adultoMayor/modal-mental/modal-mental.component";
+import {ModalSocio} from "./modal-socio/modal-socio";
 
 @Component({
   selector: 'app-valoracion-socio-familiar-adulto-mayor',
   templateUrl: './Socio-Familiar-adultoMayor.html',
-  styleUrls: ['./Socio-Familiar.adultoMayor.css']
+  styleUrls: ['./Socio-Familiar.adultoMayor.css'],
+  providers: [DialogService]
 })
 export class SocioFamiliarAdultoMayor implements OnInit {
   formValoracionFamiliar:FormGroup;
   valoracionSocioFamiliar:valoracionFuncional;
   isUpdate:boolean=false;
-  idRecuperado = "";
   docRecuperado="";
   tipoDocRecuperado="";
+  ref: DynamicDialogRef;
+  listaValoracionSocioFamiliar:any[]=[];
+  lista:any[]=[];
   constructor(private formBuilder: FormBuilder,
               private valoracionService: AdultoMayorService,
               private messageService: MessageService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private dialogService: DialogService) {
     this.builForm();
   }
 
@@ -256,6 +263,7 @@ export class SocioFamiliarAdultoMayor implements OnInit {
     }
     this.valoracionService.postValoracionClinicaPorDoc(data).subscribe((res: any) => {
       console.log('se recupero datos satisfactoriamente', res.object);
+      this.listaValoracionSocioFamiliar.push(res.object);
       if (res.object.valoracionesClinicas[0].valoracionSocioFamiliar != null) {
         this.valoracionSocioFamiliar = res.object.valoracionesClinicas[0].valoracionSocioFamiliar;
         console.log(this.valoracionSocioFamiliar);
@@ -350,5 +358,18 @@ export class SocioFamiliarAdultoMayor implements OnInit {
       }
     });
   }
+  listarValoraciones(){
+
+
+    this.ref = this.dialogService.open(ModalSocio, {
+      width: '80%',
+      data:this.listaValoracionSocioFamiliar
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('datos de modal valoracion mental ', this.listaValoracionSocioFamiliar)
+
+    })
+  }
+
 
 }
