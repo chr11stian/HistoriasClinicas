@@ -9,3 +9,14 @@ p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
     pointer-events: auto;
     z-index: 5;
 }
+.boton-listar{
+    background-color: #0c3866;
+    border-color: #0c3866;
+}
+.titulo{
+    background-color: #0c3866;
+    border-color: #0c3866;
+    height: 30px;
+    text-color: #FFFFF ;
+}
+

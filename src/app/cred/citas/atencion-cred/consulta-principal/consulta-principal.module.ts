@@ -27,6 +27,8 @@ import { InmunizacionesCredComponent } from './component/evaluaciones-consulta/c
 import { TestPeruanoComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/test-peruano/test-peruano.component';
 import { EedpComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/eedp/eedp.component';
 import { TepsiComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/tepsi/tepsi.component';
+import { EvaluacionAlimentacionComponent } from './component/evaluaciones-consulta/components/evaluacion-alimentacion/evaluacion-alimentacion.component';
+import {ToggleButtonModule} from "primeng/togglebutton";
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -45,6 +47,7 @@ import { TepsiComponent } from './component/evaluaciones-consulta/components/des
         TestPeruanoComponent,
         EedpComponent,
         TepsiComponent,
+        EvaluacionAlimentacionComponent,
     ],
     imports: [
         EvaluacionGeneralModule,
@@ -57,7 +60,8 @@ import { TepsiComponent } from './component/evaluaciones-consulta/components/des
         RippleModule,
         SharedModule,
         DividerModule,
-        PlanAtencionIntegralModule
+        PlanAtencionIntegralModule,
+        ToggleButtonModule
     ]
 })
 export class ConsultaPrincipalModule {
