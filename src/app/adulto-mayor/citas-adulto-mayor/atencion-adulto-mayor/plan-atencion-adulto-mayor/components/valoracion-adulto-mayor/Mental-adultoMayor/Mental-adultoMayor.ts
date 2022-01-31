@@ -4,7 +4,6 @@ import {item,valoracionMental} from "../../models/plan-atencion-adulto-mayor.mod
 import {AdultoMayorService} from "../../../services/adulto-mayor.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ModalValoracionComponent} from "../Funcional-adultoMayor/modal-valoracion/modal-valoracion.component";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ModalMentalComponent} from "./modal-mental/modal-mental.component";
 @Component({
@@ -14,7 +13,6 @@ import {ModalMentalComponent} from "./modal-mental/modal-mental.component";
   providers: [DialogService]
 })
 export class MentalAdultoMayor implements OnInit {
-  idRecuperado = "61b23fa6308deb1ddd0b3704";
   formValoracionMental:FormGroup;
   valoracionMental:valoracionMental;
   nivelEducativo:string="";

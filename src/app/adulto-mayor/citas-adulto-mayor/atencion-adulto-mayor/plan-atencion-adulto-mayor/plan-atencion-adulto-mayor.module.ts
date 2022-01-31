@@ -18,6 +18,7 @@ import { ModalPlanAtencionAdultoMayorComponent } from './components/plan-atencio
 import { ModalAtencionPlanComponent } from './components/plan-atencion-adulto-mayor/modal-atencion-plan/modal-atencion-plan.component';
 import { ModalValoracionComponent } from './components/valoracion-adulto-mayor/Funcional-adultoMayor/modal-valoracion/modal-valoracion.component';
 import { ModalMentalComponent } from './components/valoracion-adulto-mayor/Mental-adultoMayor/modal-mental/modal-mental.component';
+import { ModalSocio } from './components/valoracion-adulto-mayor/Socio-Familiar-adultoMayor/modal-socio/modal-socio';
 
 @NgModule({
     declarations: [
@@ -34,6 +35,7 @@ import { ModalMentalComponent } from './components/valoracion-adulto-mayor/Menta
         ModalAtencionPlanComponent,
         ModalValoracionComponent,
         ModalMentalComponent,
+        ModalSocio,
 
     ],
     imports: [

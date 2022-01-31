@@ -50,7 +50,8 @@ export class ModalMentalComponent implements OnInit {
     console.log(this.ListaValoracionFuncional);
   }
   recuperarData(rowData){
-    console.log("recuperando data")
+      console.log("recuperando data");
+      console.log(rowData);
   }
 
 }
