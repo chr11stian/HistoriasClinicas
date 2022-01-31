@@ -1,1 +1,72 @@
-<p>examenes-auxiliares-consulta works!</p>
+<div class="grid">
+    <div class="col-12 md:col-12 mt-2">
+        <p-table #dt [value]="listaExamenesAux" [rows]="3" [paginator]="true" [rowHover]="true"
+            styleClass="p-datatable-sm" dataKey="id"
+            currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} Entradas"
+            [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="grid">
+                    <div class="col-8">
+                        <h4>Medicación de uso Frecuente</h4>
+                    </div>
+                    <div class="col-4">
+                        <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
+                            class="p-button-raised mt-3" (click)="openAddExamDialog()"></button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: center;">Nro</th>
+                    <th style="text-align: center;">Examen</th>
+                    <th style="text-align: center;">Resultado</th>
+                    <th style="text-align: center;">Acción</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr style="text-align: center">
+                    <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                    <td style="text-align: center">{{ rowData.nombre }}</td>
+                    <td style="text-align: center">{{ rowData.valor }}</td>
+                    <td style="text-align: center; display: flex;">
+                        <button pButton pRipple type="button" icon="pi pi-pencil"
+                            (click)="openDialogEditarMedicacionFrecuente(rowData, rowIndex)"
+                            class="p-button-rounded p-button-text"></button>
+                        <button pButton pRipple type="button" icon="pi pi-trash"
+                            (click)="deleteExamItem(rowIndex)"
+                            class="p-button-rounded p-button-danger p-button-text"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '50%'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>NUEVO EXAMEN AUXILIAR</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <form [formGroup]='formExamenAux'>
+            <div class="grid">
+                <div class="col-6">
+                    <label>Examen:</label>
+                    <input type="text" pInputText formControlName='examen' placeholder="Nombre Examen"
+                        class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                </div>
+                <div class="col-12">
+                    <label>Descripción:</label>
+                    <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="descripcion" pInputTextarea
+                        oninput="this.value=this.value.toUpperCase()"></textarea>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="guardarEdicionDiagnostico()"></button>
+        <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="agreeAddExamDialog()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger"
+            (click)="closeDialogDiagnostico()"></button>
+    </ng-template>
+</p-dialog>
