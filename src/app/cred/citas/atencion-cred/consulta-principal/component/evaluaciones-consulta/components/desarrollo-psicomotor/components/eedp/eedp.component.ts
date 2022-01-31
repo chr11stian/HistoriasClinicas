@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
 import { datosEEDPTabla, escalaEval_EEDP_0_4_anios, tablaComparativa } from '../models/eedp';
 
 @Component({
@@ -27,7 +28,11 @@ export class EedpComponent implements OnInit {
   datePipe = new DatePipe('en-US');
   nroDoc: any;
 
-  constructor() { }
+  constructor(
+    private evalAlimenService: EvalAlimenService,
+  ) {
+    console.log('data de eedp');
+  }
 
   ngOnInit(): void {
     this.items = [
@@ -43,7 +48,24 @@ export class EedpComponent implements OnInit {
       { key: 'S6 (M)' },
       { key: 'S6 (M)' }
     ]
+    this.getDatos();
   }
+
+  async getDatos() {
+    await this.evalAlimenService.getEscalaEEDParray().then(data => {
+      this.escalaEEDP = data;
+      // this.evaluacionEEDP.map((evaluacion, index) => {
+      //   this.escalaEEDP[index] = evaluacion.item;
+      // });
+      let mes = this.edadNroSelected;
+      this.evalAlimenService.getTablaComparativaMes(mes).then(data => {
+        this.tablaComparativa = data;
+      });
+      this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
+      console.log('2da array to list ', this.arrayEdadEEDPSelected);
+    });
+  }
+
   saveTest() {
 
   }
@@ -52,7 +74,11 @@ export class EedpComponent implements OnInit {
 
   }
 
-  ChangeStep() {
-    
+  async changeStep(index: number, edadNro: number, edad: string) {
+    console.log('index ', index, 'nro edad ', edadNro, 'edad ', edad);
+    this.indexSelected = index;
+    this.edadNroSelected = edadNro;
+    this.edadSelected = edad;
+    this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
   }
 }

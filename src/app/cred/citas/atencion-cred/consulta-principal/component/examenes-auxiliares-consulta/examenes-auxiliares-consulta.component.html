@@ -7,7 +7,7 @@
             <ng-template pTemplate="caption">
                 <div class="grid">
                     <div class="col-8">
-                        <h4>Medicación de uso Frecuente</h4>
+                        <h4>Lista de Exámenes</h4>
                     </div>
                     <div class="col-4">
                         <button pButton pRipple icon="pi pi-plus" type="button" label="Agregar"
@@ -32,8 +32,7 @@
                         <button pButton pRipple type="button" icon="pi pi-pencil"
                             (click)="openDialogEditarMedicacionFrecuente(rowData, rowIndex)"
                             class="p-button-rounded p-button-text"></button>
-                        <button pButton pRipple type="button" icon="pi pi-trash"
-                            (click)="deleteExamItem(rowIndex)"
+                        <button pButton pRipple type="button" icon="pi pi-trash" (click)="deleteExamItem(rowIndex)"
                             class="p-button-rounded p-button-danger p-button-text"></button>
                     </td>
                 </tr>
