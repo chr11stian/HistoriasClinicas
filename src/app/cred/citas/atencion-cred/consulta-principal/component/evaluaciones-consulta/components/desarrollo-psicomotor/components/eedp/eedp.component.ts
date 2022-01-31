@@ -67,7 +67,7 @@ export class EedpComponent implements OnInit {
   }
 
   saveTest() {
-
+    console.log('data to save ', this.arrayEdadEEDPSelected);
   }
 
   updateEscalaEEDP() {
@@ -75,10 +75,13 @@ export class EedpComponent implements OnInit {
   }
 
   async changeStep(index: number, edadNro: number, edad: string) {
-    console.log('index ', index, 'nro edad ', edadNro, 'edad ', edad);
     this.indexSelected = index;
     this.edadNroSelected = edadNro;
     this.edadSelected = edad;
     this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
+  }
+
+  calcularPuntaje(){
+    
   }
 }
