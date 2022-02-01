@@ -2,7 +2,7 @@
    "data": [
       {
          "letter": "A",
-         "texto": "Control de cabezay tronco sentado",
+         "texto": "Control de cabeza y tronco sentado",
          "img_1": "../../../assets/images/tdd_imagenes_letters/1_mes/1-1mes-01.svg",
          "img_2": "",
          "img_3": "../../../assets/images/tdd_imagenes_letters/3_meses/1-3meses-17.svg",
@@ -23,7 +23,7 @@
       },
       {
          "letter": "B",
-         "texto": "Control de cabezay tronco rotaciones",
+         "texto": "Control de cabeza y tronco rotaciones",
          "img_1": "../../../assets/images/tdd_imagenes_letters/1_mes/2-1mes-02.svg",
          "img_2": "",
          "img_3": "../../../assets/images/tdd_imagenes_letters/3_meses/2-3meses-18.svg",
@@ -44,7 +44,7 @@
       },
       {
          "letter": "C",
-         "texto": "Control de cabezay tronco marcha",
+         "texto": "Control de cabeza y tronco marcha",
          "img_1": "../../../assets/images/tdd_imagenes_letters/1_mes/3-1mes-03.svg",
          "img_2": "../../../assets/images/tdd_imagenes_letters/2_meses/1-2meses-12.svg",
          "img_3": "",
