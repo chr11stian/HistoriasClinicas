@@ -19,7 +19,7 @@
             <h3 class="p-m-0">Lista de Rol de guardias para ofertar cupos</h3>
         </ng-template>
     </p-toolbar>
-    <p-table [value]="data" #dt [globalFilterFields]="['fecha']" styleClass="p-datatable-gridlines   " [rows]="10"
+    <p-table [value]="data" #dt [globalFilterFields]="['fecha','ipress.servicio','personal.nombre','turno.nombre','ambiente']" styleClass="p-datatable-gridlines   " [rows]="10"
         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
         <ng-template pTemplate="caption">
@@ -51,7 +51,8 @@
                 <td style="text-align: center">{{ rowData.turno.nombre }}</td>
                 <td style="text-align: center">{{ rowData.ambiente }}</td>
                 <td style="text-align: center">
-                    <button pButton pRipple type="button" label="Generar" class="p-button-raised p-button-info"
+                    <p-tag *ngIf="validarSiGeneraOferta(rowData)" styleClass="p-mr-2" icon="pi pi-check" severity="success" value="Generado"></p-tag>
+                    <button *ngIf="!validarSiGeneraOferta(rowData)" pButton pRipple type="button" label="Generar" class="p-button-raised p-button-info"
                         (click)="openGenerarDialog(rowData)"></button>
                 </td>
             </tr>
@@ -117,7 +118,7 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Guardar" class="m-1 w-8rem" (click)="guardar()"></button>
+        <button pButton type="button" label="Guardar" class="m-1 w-8rem" (click)="guardarGeneracionOfertas()"></button>
         <button pButton type="button" label="Cancelar" class="m-1 w-8rem p-button-danger" (click)="cancelar()"></button>
     </ng-template>
 </p-dialog>

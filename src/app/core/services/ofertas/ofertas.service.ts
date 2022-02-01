@@ -24,4 +24,17 @@ export class OfertasService {
   getOfertasDisponibles(data){
     return this.http.post(`${this.base_url}/${this.bd}/oferta/disponibilidad`, data)
   }
+  generarOferta(data){
+    return this.http.post(`${this.base_url}/${this.bd}/oferta/nueva-oferta`, data)
+  }
+  listarOfertasXservicio(data){
+    return this.http.post(`${this.base_url}/${this.bd}/oferta/listar`, data)
+  }
+  agregarOfertasAunaLista(data){
+    return this.http.post(`${this.base_url}/${this.bd}/oferta/agregar-cupo`, data)
+  }
+  buscarOfertaXPersonal(data){
+    return this.http.post(`${this.base_url}/${this.bd}/oferta/buscar-ofertas-personal`, data)
+  }
+  
 }

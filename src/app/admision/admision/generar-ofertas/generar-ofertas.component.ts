@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { OfertasService } from 'src/app/core/services/ofertas/ofertas.service';
 
 @Component({
@@ -17,10 +18,12 @@ export class GenerarOfertasComponent implements OnInit {
   fecha: Date = new Date();
   datePipe = new DatePipe("en-US");
   generarDialog: boolean = false;
+  rolSeleccionado: any;
 
   constructor(
     private ofertasService: OfertasService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService: MessageService
   ) {
     this.buildForm();
     this.data = [];
@@ -45,14 +48,15 @@ export class GenerarOfertasComponent implements OnInit {
       tiempoAtencion: ['', [Validators.required]],
     })
   }
-  openGenerarDialog(data){
-    this.generarDialog=true;
+  openGenerarDialog(data) {
+    this.generarDialog = true;
+    this.rolSeleccionado = data;
     this.formGenerar.get('nroDoc').setValue(data.personal.nroDoc);
     this.formGenerar.get('nombre').setValue(data.personal.nombre);
     this.formGenerar.get('servicio').setValue(data.ipress.servicio);
-    let aux= new Date();
+    let aux = new Date();
     aux.setDate(data.turno.dia);
-    aux.setMonth(data.mes-1);
+    aux.setMonth(data.mes - 1);
     aux.setFullYear(data.anio);
     console.log(aux);
     this.formGenerar.get('fecha').setValue(this.datePipe.transform(aux, 'dd/MM/yyyy'));
@@ -74,6 +78,63 @@ export class GenerarOfertasComponent implements OnInit {
       this.data = res.object;
       console.log('LISTA DE ROL DE GUARDIAS DISPONIBLES', this.data);
     })
+  }
+  guardarGeneracionOfertas() {
+    let data = {
+      fechaOferta: this.rolSeleccionado.fechaOferta,
+      anio: this.rolSeleccionado.anio,
+      mes: this.rolSeleccionado.mes,
+      rolGuardias_id: this.rolSeleccionado.rolGuardias_id,
+      personal: {
+        tipoDoc: this.rolSeleccionado.personal.tipoDoc,
+        nroDoc: this.rolSeleccionado.personal.nroDoc,
+        nombre: this.rolSeleccionado.personal.nombre,
+        tipoPersonal: this.rolSeleccionado.personal.tipoPersonal,
+        tipoContrato: this.rolSeleccionado.personal.tipoContrato,
+        sexo: this.rolSeleccionado.personal.sexo,
+      },
+      ipress: {
+        idIpress: this.rolSeleccionado.ipress.idIpress,
+        nombre: this.rolSeleccionado.ipress.nombre,
+        servicio: this.rolSeleccionado.ipress.servicio,
+        tiempoPreparacion: this.formGenerar.value.tiempoPreparacion,
+        tiempoPromedioAtencion: this.formGenerar.value.tiempoAtencion,
+      },
+      turno: {
+        dia: this.rolSeleccionado.turno.dia,
+        nombre: this.rolSeleccionado.turno.nombre,
+        abreviatura: this.rolSeleccionado.turno.abreviatura,
+        nroHoras: this.rolSeleccionado.turno.nroHoras,
+        horaInicio: this.formGenerar.value.horaInicio,
+        horaFin: this.formGenerar.value.horaFin,
+      },
+      ambiente: this.formGenerar.value.ambiente,
+    }
+    console.log('DATA ', data);
+
+    this.ofertasService.generarOferta(data).subscribe((res: any) => {
+      this.showSuccess();
+      this.generarDialog = false;
+      this.rolSeleccionado = {};
+      console.log('rpta', res.object);
+    })
+  }
+  validarSiGeneraOferta(rowData){
+    if (rowData.oferta==null)
+      return false;
+    else return true;
+  }
+  cancelar() {
+    this.generarDialog = false;
+    this.rolSeleccionado = {};
+    this.showError();
+  }
+
+  showSuccess() {
+    this.messageService.add({ severity: 'success', summary: 'Generado', detail: 'Oferta generada correctamente' });
+  }
+  showError() {
+    this.messageService.add({ severity: 'error', summary: 'Cancelado', detail: 'Acción cancelada' });
   }
   ngOnInit(): void {
   }
