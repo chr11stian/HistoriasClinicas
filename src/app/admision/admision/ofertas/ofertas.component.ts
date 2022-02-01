@@ -18,11 +18,11 @@ export class OfertasComponent implements OnInit {
   data: any[];
   fecha: Date = new Date();
   datePipe = new DatePipe("en-US");
-  idIpress: String ="";
-  nombreIpress: String ="";
+  idIpress: String = "";
+  nombreIpress: String = "";
   servicios: any[];
   ofertaSeleccionada: any;
-  horas : any;
+  horas: any;
   buscoPorDoc: boolean = false;
 
   constructor(
@@ -58,6 +58,7 @@ export class OfertasComponent implements OnInit {
       nroOfertasAgregar: ['', [Validators.required]]
     })
   }
+
   /**lista los Servicios por IPRESS**/
   getListaServiciosXIpress() {
     this.rolGuardiaService.getServiciosPorIpress(this.idIpress).subscribe((res: any) => {
@@ -66,9 +67,8 @@ export class OfertasComponent implements OnInit {
     })
   }
 
-
   getListaOfertasXServicio() {
-    this.buscoPorDoc= false;
+    this.buscoPorDoc = false;
     let data = {
       fechaOferta: this.form.value.fechaFiltro,
       nombreIpress: this.nombreIpress,
@@ -82,8 +82,8 @@ export class OfertasComponent implements OnInit {
     })
   }
 
-  getListaOfertaXDocumento(){
-    this.buscoPorDoc= true;
+  getListaOfertaXDocumento() {
+    this.buscoPorDoc = true;
     let data = {
       tipoDoc: "DNI",
       nroDoc: this.form.value.nroDoc,
@@ -106,14 +106,15 @@ export class OfertasComponent implements OnInit {
   showSuccess() {
     this.messageService.add({ severity: 'success', summary: 'Generado', detail: 'Oferta generada correctamente' });
   }
+
   showError() {
     this.messageService.add({ severity: 'error', summary: 'Cancelado', detail: 'Acción cancelada' });
   }
 
-  openNewOfertaAgregar(data){
-    this.ofertasDialog=true;
+  openNewOfertaAgregar(data) {
+    this.ofertasDialog = true;
     this.ofertaSeleccionada = data;
-    this.horas=this.ofertaSeleccionada.horasCupo;
+    this.horas = this.ofertaSeleccionada.horasCupo;
     this.formOfertas.reset();
     this.formOfertas.get('nroDoc').setValue(data.personal.nroDoc);
     this.formOfertas.get('nombre').setValue(data.personal.nombre);
@@ -123,7 +124,7 @@ export class OfertasComponent implements OnInit {
     this.formOfertas.get('nroOfertasActuales').setValue(data.totalOfertas);
     this.formOfertas.get('nroOfertasAgregar').setValue("");
   }
-  guardarOfertasExtra(){
+  guardarOfertasExtra() {
     let data = {
       idOferta: this.ofertaSeleccionada.id,
       nroCupos: this.formOfertas.value.nroOfertasAgregar
