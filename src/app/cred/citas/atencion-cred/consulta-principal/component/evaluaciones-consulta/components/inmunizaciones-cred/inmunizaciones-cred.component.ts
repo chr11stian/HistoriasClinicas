@@ -31,7 +31,6 @@ export class InmunizacionesCredComponent implements OnInit {
     this.tipoDNI=this.rutaActiva.snapshot.queryParams.tipoDoc
     this.nroDNI=this.rutaActiva.snapshot.queryParams.nroDoc
     this.getLista()
-
   }
 
   // async getLista(){

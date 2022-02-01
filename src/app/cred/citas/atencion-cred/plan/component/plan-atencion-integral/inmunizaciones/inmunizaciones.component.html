@@ -1,18 +1,18 @@
-<div class="grid mb-2">
-  <div class="col flex justify-content-start">
-    <div>
-      <button
-        pButton
-        pRipple
-        label="Save"
-        class="mr-2 p-button-info"
-        icon="pi pi-save"
-        (click)="save()"
-        styleClass="p-button"
-      ></button>
-    </div>
-  </div>
-</div>
+<!--<div class="grid mb-2">-->
+<!--  <div class="col flex justify-content-start">-->
+<!--    <div>-->
+<!--      <button-->
+<!--        pButton-->
+<!--        pRipple-->
+<!--        label="Save"-->
+<!--        class="mr-2 p-button-info"-->
+<!--        icon="pi pi-save"-->
+<!--        (click)="save()"-->
+<!--        styleClass="p-button"-->
+<!--      ></button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 <div class="grid">
   <div class="lg:col-4 md:col-6 col-fixed">
     <div class="card flex flex-column">
@@ -34,7 +34,7 @@
             [disabled]="false"
             dateFormat="yy-mm-dd"
             [(ngModel)]="inmu1.fecha"
-            class="vacunado"
+            [disabled]="true"
           ></p-calendar>
         </div>
         <div style="width: 105px" class="mr-2">
@@ -70,7 +70,7 @@
             placeholder="Fecha"
             dateFormat="yy-mm-dd"
             [(ngModel)]="inmu2.fecha"
-            [disabled]="false"
+            [disabled]="true"
           ></p-calendar>
         </div>
         <div style="width: 105px" class="mr-2">
@@ -107,7 +107,7 @@
             placeholder="Fecha"
             dateFormat="yy-mm-dd"
             [(ngModel)]="inmu3.fecha"
-            [disabled]="false"
+            [disabled]="true"
           ></p-calendar>
         </div>
         <div style="width: 105px" class="mr-2">
