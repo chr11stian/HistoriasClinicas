@@ -1,1 +1,124 @@
-<p>generar-ofertas works!</p>
+<div>
+    <p class="text-blue-700 text-2xl text-center font-semibold">GENERAR OFERTAS DEL PERSONAL DE SALUD</p>
+    <form [formGroup]="form">
+        <div class="grid align-items-end">
+            <div class="col-12 md:col-6 lg:col-4 p-field">
+                <span class="">Filtrar por fecha</span>
+                <div class="p-inputgroup">
+                    <p-calendar dateFormat="yy-mm-dd" formControlName="fechaFiltro" [readonlyInput]="true"
+                        (onSelect)="getRolGuardiasDisponibles()">>
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="p-card mt-3">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Lista de Rol de guardias para ofertar cupos</h3>
+        </ng-template>
+    </p-toolbar>
+    <p-table [value]="data" #dt [globalFilterFields]="['fecha','ipress.servicio','personal.nombre','turno.nombre','ambiente']" styleClass="p-datatable-gridlines   " [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Servicio</th>
+                <th style="text-align: center">Personal</th>
+                <th style="text-align: center">Fecha</th>
+                <th style="text-align: center">Turno</th>
+                <th style="text-align: center">Ambiente</th>
+                <th style="text-align: center; width: 120px">Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.ipress.servicio }}</td>
+                <td style="text-align: center">{{ rowData.personal.nombre }}</td>
+                <td style="text-align: center">{{ rowData.turno.dia +"/"+ rowData.mes+ "/"+rowData.anio}}</td>
+                <td style="text-align: center">{{ rowData.turno.nombre }}</td>
+                <td style="text-align: center">{{ rowData.ambiente }}</td>
+                <td style="text-align: center">
+                    <p-tag *ngIf="validarSiGeneraOferta(rowData)" styleClass="p-mr-2" icon="pi pi-check" severity="success" value="Generado"></p-tag>
+                    <button *ngIf="!validarSiGeneraOferta(rowData)" pButton pRipple type="button" label="Generar" class="p-button-raised p-button-info"
+                        (click)="openGenerarDialog(rowData)"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="generarDialog" [style]="{width: '700px'}" [modal]="true" styleClass="p-fluid " autoZIndex>
+    <ng-template pTemplate="body">
+        <p class="text-pink-700 text-xl text-center font-semibold m-0">GENERAR OFERTAS</p>
+        <form [formGroup]='formGenerar'>
+            <p-fieldset legend="Personal">
+                <div class="grid">
+                    <div class="p-field col-6 md:col-4">
+                        <label>Nro Documento:</label>
+                        <input type="text" pInputText formControlName='nroDoc' placeholder="Nro documento" disabled />
+                    </div>
+                    <div class="p-field col-12 md:col-8">
+                        <label>Nombre del personal:</label>
+                        <input type="text" pInputText formControlName='nombre' placeholder="Nombre personal" disabled />
+                    </div>
+                    <div class="p-field col-6 md:col-4">
+                        <label>Servicio:</label>
+                        <input type="text" pInputText formControlName='servicio' placeholder="Servicio" disabled />
+                    </div>
+                    <div class="p-field col-6 md:col-4">
+                        <label>Fecha:</label>
+                        <input type="text" pInputText formControlName='fecha' placeholder="Fecha" disabled />
+                    </div>
+                    <div class="p-field col-6 md:col-4">
+                        <label>Turno:</label>
+                        <input type="text" pInputText formControlName='turno' placeholder="Turno" disabled />
+                    </div>
+                </div>
+            </p-fieldset>
+            <div class="grid m-2">
+                <div class="p-field col-6 md:col-4">
+                    <label>Ambiente:</label>
+                    <input type="text" pInputText formControlName='ambiente' placeholder="Ambiente" />
+                </div>
+                <div class="p-field col-12 md:col-4">
+                    <label>Hora inicio:</label>
+                    <input type="text" pInputText formControlName='horaInicio' placeholder="Hora inicio" />
+                </div>
+                <div class="p-field col-6 md:col-4">
+                    <label>Hora fin:</label>
+                    <input type="text" pInputText formControlName='horaFin' placeholder="Hora fin" />
+                </div>
+                <div class="p-field col-6 md:col-4">
+                    <label>Tiempo preparación:</label>
+                    <p-inputNumber placeholder="Tiempo de preparación" formControlName='tiempoPreparacion'
+                        suffix=" minutos" required>
+                    </p-inputNumber>
+                </div>
+                <div class="p-field col-6 md:col-4">
+                    <label>Tiempo prom. de atención:</label>
+                    <p-inputNumber placeholder="Tiempo promedio de atención" formControlName='tiempoAtencion'
+                        suffix=" minutos" required>
+                    </p-inputNumber>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Guardar" class="m-1 w-8rem" (click)="guardarGeneracionOfertas()"></button>
+        <button pButton type="button" label="Cancelar" class="m-1 w-8rem p-button-danger" (click)="cancelar()"></button>
+    </ng-template>
+</p-dialog>
