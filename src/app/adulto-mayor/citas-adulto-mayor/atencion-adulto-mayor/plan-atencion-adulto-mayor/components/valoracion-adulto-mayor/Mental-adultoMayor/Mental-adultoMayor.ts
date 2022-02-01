@@ -475,4 +475,7 @@ export class MentalAdultoMayor implements OnInit {
 
     })
   }
+  nuevaValoracion(){
+    this.formValoracionMental.reset();
+  }
 }

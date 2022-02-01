@@ -19,6 +19,8 @@ p-toolbar >>> * {
     align-self: center;
 }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 p-steps >>> * {
     text-align: center;
     font-size: small;
@@ -27,6 +29,7 @@ p-steps >>> * {
 
 p-card >>> .p-card-body {
     margin-top: 0px;
+    width:100%;
 }
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
@@ -49,22 +52,23 @@ p-card >>> .p-card-body {
 }
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
-
     color: #393939;
 }
-
 :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
     color: #393939;
 }
-
+=======
+>>>>>>> 374c43cd50707e3581fa4fcb4834965f7bc2a81c
+=======
+>>>>>>> 374c43cd50707e3581fa4fcb4834965f7bc2a81c
 p-tabview >>> .p-tabview-title {
-    font-size: small;
+    /* font-size: medium; */
     color: black;
 }
-
 p-tabview >>> .p-tabview .p-tabview-nav {
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     margin: 1rem;
+
 }
 
 p-tabview >>> .p-tabview .p-tabview-panels {

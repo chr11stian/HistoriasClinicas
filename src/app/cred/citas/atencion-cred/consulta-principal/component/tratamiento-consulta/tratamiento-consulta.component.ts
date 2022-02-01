@@ -79,7 +79,7 @@ export class TratamientoConsultaComponent implements OnInit {
             dosis: new FormControl("", []),
             viaAdministracion: new FormControl("", []),
             frecuencia: new FormControl("", []),
-            Lote: new FormControl("", []),
+            lote: new FormControl("", []),
             fechaVencimiento: new FormControl("", []),
             textoTratamiento: new FormControl("", []),
         });
@@ -119,14 +119,14 @@ export class TratamientoConsultaComponent implements OnInit {
     }
 
     save() {
-        let aux: evalOjosVisionInterface = {
-            ojoDerecho: parseFloat(this.form.value.OD),
-            ojoIzquierdo: parseFloat(this.form.value.OI)
-        }
+        // let aux: evalOjosVisionInterface = {
+        //     ojoDerecho: parseFloat(this.form.value.OD),
+        //     ojoIzquierdo: parseFloat(this.form.value.OI)
+        // }
         const req = {
             tratamientos: this.tratamientos,
-            acuerdos: this.acuerdos,
-            evalOjosVision: aux,
+            // acuerdos: this.acuerdos,
+            // evalOjosVision: aux,
             //tamizajeSaludMental: this.form.value.textoForm
         }
         console.log('req', req)
@@ -176,7 +176,7 @@ export class TratamientoConsultaComponent implements OnInit {
                 nroDosis: this.formTratamiento.value.dosis,
                 viaAdministracion: this.formTratamiento.value.viaAdministracion,
                 frecuencia: this.formTratamiento.value.frecuencia,
-                Lote: this.formTratamiento.value.Lote,
+                Lote: this.formTratamiento.value.lote,
                 fechaVencimiento: this.formTratamiento.value.fechaVencimiento
             }
             this.tratamientos.push(a);

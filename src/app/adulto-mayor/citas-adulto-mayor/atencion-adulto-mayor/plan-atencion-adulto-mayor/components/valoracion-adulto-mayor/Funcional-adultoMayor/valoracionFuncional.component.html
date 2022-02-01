@@ -11,14 +11,17 @@
         <ng-template pTemplate="left">
             <form [formGroup]="formValoracionClinicaFuncional" >
                 <!--primera fila-->
-                <label class="">Fecha:</label>
+                <label id="icon">Fecha:</label>
                 <br>
-                <input type="datetime-local"optionValue="value" formControlName="fecha" pInputText>
+                <p-calendar  formControlName="fecha" [showTime]="true" [showSeconds]="true" [showIcon]="true" inputId="icon" dateFormat="yy-mm-dd" ></p-calendar>
+<!--                <input type="datetime-local"optionValue="value" formControlName="fecha" pInputText >-->
             </form>
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
                     class="guardar-boton" (click)="agregarActualizar()"></button>
+            <button pButton pRipple label="Nuevo" iconPos="right" icon="pi pi-file"
+                    class="boton-listar" (click)="nuevaValoracion()"></button>
             <button pButton pRipple label="Listar Valoraciones Funcional" iconPos="right" icon="pi pi-list"
                     class="boton-listar" (click)="listarValoraciones()"></button>
         </ng-template>

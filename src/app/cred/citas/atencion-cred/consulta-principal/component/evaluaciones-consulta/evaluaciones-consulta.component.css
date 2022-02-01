@@ -1,0 +1,9 @@
+p-tabview >>> .p-tabview .p-tabview-panels {
+    width: 100%;
+}
+
+p-tabview >>> .p-tabview .p-tabview-nav {
+    justify-content: space-between;
+    margin: 1rem;
+
+}
