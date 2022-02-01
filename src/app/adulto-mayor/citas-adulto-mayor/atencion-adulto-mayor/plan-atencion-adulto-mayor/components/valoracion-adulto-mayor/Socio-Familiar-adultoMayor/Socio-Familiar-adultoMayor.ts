@@ -369,6 +369,10 @@ export class SocioFamiliarAdultoMayor implements OnInit {
 
     })
   }
+  nuevaValoracion(){
+    this.formValoracionFamiliar.reset();
+
+  }
 
 
 }
