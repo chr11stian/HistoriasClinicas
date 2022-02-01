@@ -27,6 +27,7 @@ p-steps >>> * {
 
 p-card >>> .p-card-body {
     margin-top: 0px;
+    width:100%;
 }
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-number {
@@ -49,21 +50,17 @@ p-card >>> .p-card-body {
 }
 
 :host >>> .p-steps .p-steps-item .p-menuitem-link .p-steps-title {
-
     color: #393939;
 }
-
 :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
     color: #393939;
 }
-
 p-tabview >>> .p-tabview-title {
     font-size: small;
     color: black;
 }
-
 p-tabview >>> .p-tabview .p-tabview-nav {
-    justify-content: space-between;
+    /*justify-content: space-between;*/
     margin: 1rem;
 }
 
