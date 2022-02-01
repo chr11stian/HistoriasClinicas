@@ -271,7 +271,6 @@
                         <button pButton pRipple type="button" icon="pi pi-pencil" *ngIf="edadEditable==39"
                                 (click)="editarEvaluacion()"
                                 class="p-button-rounded p-button-danger p-button-text"></button>
-
                     </th>
                     <th style="width:100px; height: 30px">42m
                         <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadEditable<42"
@@ -282,7 +281,6 @@
                         <button pButton pRipple type="button" icon="pi pi-pencil" *ngIf="edadEditable==42"
                                 (click)="editarEvaluacion()"
                                 class="p-button-rounded p-button-danger p-button-text"></button>
-
                     </th>
                 </tr>
             </ng-template>
@@ -601,11 +599,10 @@
                     <td style="width:100px; height: 40px" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valorRN" onIcon="pi pi-check"
-                                                offIcon="pi pi-times"></p-toggleButton>
+                                <p-toggleButton [(ngModel)]="datos.valorRN" onIcon="pi pi-check" [disabled]="edadEditable<0"                                                offIcon="pi pi-times"></p-toggleButton>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valorRN" onIcon="pi pi-check"
+                                <p-toggleButton [(ngModel)]="datos.valorRN" onIcon="pi pi-check" [disabled]="edadEditable<0"
                                                 offIcon="pi pi-times"></p-toggleButton>
                             </ng-template>
                         </p-cellEditor>
@@ -613,11 +610,11 @@
                     <td style="width:100px; height: 40px" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor1M" onIcon="pi pi-check"
+                                <p-toggleButton [(ngModel)]="datos.valor1M" onIcon="pi pi-check" [disabled]="edadEditable<1"
                                                 offIcon="pi pi-times"></p-toggleButton>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor1M" onIcon="pi pi-check"
+                                <p-toggleButton [(ngModel)]="datos.valor1M" onIcon="pi pi-check" [disabled]="edadEditable<1"
                                                 offIcon="pi pi-times"></p-toggleButton>
                             </ng-template>
                         </p-cellEditor>

@@ -5,15 +5,14 @@ import { item,  valoracionFuncional,
 import {AdultoMayorService} from "../../../services/adulto-mayor.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ModalAtencionesComponent} from "../../../../../../../obstetricia-general/gestante/atencion/h-clinica-materno-perinatal/component/atenciones/modal-atenciones/modal-atenciones.component";
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {ModalValoracionComponent} from "./modal-valoracion/modal-valoracion.component";
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-valoracion-funcional-adulto-mayor',
   templateUrl: './valoracionFuncional.component.html',
   styleUrls: ['./valoracionFuncional.component.css'],
-  providers: [DialogService]
+  providers: [DialogService,DatePipe],
 })
 export class ValoracionFuncionalComponent implements OnInit {
   idRecuperado = "";
@@ -37,7 +36,8 @@ export class ValoracionFuncionalComponent implements OnInit {
               private messageService: MessageService,
               private route: ActivatedRoute,
               private router: Router,
-              private dialogService: DialogService) {
+              private dialogService: DialogService,
+              private datePipe: DatePipe) {
     this.buildForm();
 
   }
@@ -291,8 +291,6 @@ export class ValoracionFuncionalComponent implements OnInit {
          detail: "No hay datos en Valoración"
        });
      }});
-
-
   }
   listarValoraciones(){
       this.ref = this.dialogService.open(ModalValoracionComponent, {
@@ -303,5 +301,12 @@ export class ValoracionFuncionalComponent implements OnInit {
       console.log('datos de modal atenciones ', this.listaValoracionClinina)
 
   })
+  }
+  nuevaValoracion(){
+    this.formValoracionClinicaFuncional.reset();
+    const date = new Date();
+    const date1 = this.datePipe.transform(date,'yyyy-MM-dd HH:mm:ss');
+    console.log(date1);
+    this.formValoracionClinicaFuncional.get('fecha').setValue(date1);
   }
 }

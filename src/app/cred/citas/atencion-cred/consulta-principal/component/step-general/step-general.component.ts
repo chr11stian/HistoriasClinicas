@@ -167,13 +167,13 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     nextPage() {
         switch (this.stepName) {
             case 'datos':
-                // this.datosGeneralesConsulta.save()
+                this.datosGeneralesConsulta.save()
                 this.stepName = 'motivo';
                 this.indiceActivo = 1;
                 break;
             case 'motivo':
-                // this.motivoConsulta.save()
-                this.stepName = 'diagnostico';
+                this.motivoConsulta.save()
+                this.stepName = 'evaluaciones';
                 this.indiceActivo = 2;
                 break;
             case 'evaluaciones':
@@ -182,22 +182,22 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 this.indiceActivo = 3;
                 break;
             case 'examenesAux':
-                // this.diagnosticoConsulta.save()
+                // this.examenesAuxConsulta.save()
                 this.stepName = 'diagnostico';
                 this.indiceActivo = 4;
                 break;
             case 'diagnostico':
-                // this.diagnosticoConsulta.save()
+                this.diagnosticoConsulta.save()
                 this.stepName = 'tratamiento';
                 this.indiceActivo = 5;
                 break;
             case 'tratamiento':
-                // this.tratamientoConsulta.save()
+                this.tratamientoConsulta.save()
                 this.stepName = 'finalizar';
                 this.indiceActivo = 6;
                 break;
             case 'finalizar':
-                // this.finalizarConsulta.save()
+                this.finalizarConsulta.save()
                 break;
         }
     }
@@ -208,19 +208,19 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             case 'finalizar':
                 console.log('fi ', this.stepName)
                 this.stepName = 'tratamiento';
-                this.indiceActivo = 3;
+                this.indiceActivo = 5;
                 break;
             case 'tratamiento':
                 this.stepName = 'diagnostico';
-                this.indiceActivo = 2;
+                this.indiceActivo = 4;
                 break;
             case 'diagnostico':
                 this.stepName = 'examenesAux';
-                this.indiceActivo = 1;
+                this.indiceActivo = 3;
                 break;
             case 'examenesAux':
                 this.stepName = 'evaluaciones';
-                this.indiceActivo = 1;
+                this.indiceActivo = 2;
                 break;
             case 'evaluaciones':
                 this.stepName = 'motivo';
@@ -238,10 +238,10 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             console.log('j ', this.indiceActivo, this.j)
             switch (this.j) {
                 case 6:
-                    // this.finalizarConsulta.save()
+                    this.finalizarConsulta.save()
                     break
                 case 5:
-                    // this.tratamientoConsulta.save()
+                    this.tratamientoConsulta.save()
                     break
                 case 4:
                     // this.diagnosticoConsulta.save()
