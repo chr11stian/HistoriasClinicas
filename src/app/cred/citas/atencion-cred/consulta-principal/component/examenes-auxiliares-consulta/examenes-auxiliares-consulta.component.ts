@@ -49,4 +49,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.listaExamenesAux.splice(index, 1);
     this.listaExamenesAux = [...this.listaExamenesAux];
   }
+
+  closeExamDialog() {
+    this.addExamDialog = false;
+  }
 }
