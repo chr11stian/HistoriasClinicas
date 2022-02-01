@@ -23,6 +23,8 @@ export class OfertasComponent implements OnInit {
   servicios: any[];
   ofertaSeleccionada: any;
   horas : any;
+  buscoPorDoc: boolean = false;
+
   constructor(
     private ofertasService: OfertasService,
     private rolGuardiaService: RolGuardiaService,
@@ -44,6 +46,7 @@ export class OfertasComponent implements OnInit {
     this.form = this.formBuilder.group({
       fechaFiltro: [new Date()],
       servicio: [""],
+      nroDoc: [""],
     })
     this.formOfertas = this.formBuilder.group({
       nroDoc: [""],
@@ -65,6 +68,7 @@ export class OfertasComponent implements OnInit {
 
 
   getListaOfertasXServicio() {
+    this.buscoPorDoc= false;
     let data = {
       fechaOferta: this.form.value.fechaFiltro,
       nombreIpress: this.nombreIpress,
@@ -79,14 +83,15 @@ export class OfertasComponent implements OnInit {
   }
 
   getListaOfertaXDocumento(){
+    this.buscoPorDoc= true;
     let data = {
-      fechaOferta: this.form.value.fechaFiltro,
+      tipoDoc: "DNI",
+      nroDoc: this.form.value.nroDoc,
       nombreIpress: this.nombreIpress,
-      servicio: this.form.value.servicio
     }
     console.log('DATA ', data);
 
-    this.ofertasService.listarOfertasXservicio(data).subscribe((res: any) => {
+    this.ofertasService.buscarOfertaXPersonal(data).subscribe((res: any) => {
       this.data = res.object;
       console.log('LISTA OFERTAS X DNI', this.data);
     })
@@ -128,7 +133,8 @@ export class OfertasComponent implements OnInit {
       this.ofertasDialog = false;
       this.ofertaSeleccionada = {};
       console.log('rpta', res.object);
-      this.getListaOfertasXServicio() 
+      if (this.buscoPorDoc) this.getListaOfertaXDocumento();
+      else this.getListaOfertasXServicio();
     })
   }
   ngOnInit(): void {
