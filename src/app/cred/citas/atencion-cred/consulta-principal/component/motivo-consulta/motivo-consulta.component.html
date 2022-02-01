@@ -1,51 +1,133 @@
 <div class="grid">
-    <p-fieldset legend="MOTIVOS DE CONSULTA"
-                styleClass="mb-2"
-                [toggleable]="true">
+    <p-fieldset legend="MOTIVOS DE CONSULTA" styleClass="mb-2">
         <form [formGroup]="motivoFG">
-        <textarea class="inputfield w-full mb-2"
-                  formControlName="detailMotivoFC"
-                  pInputTextarea>
+            <textarea class="inputfield w-full mb-2" formControlName="detailMotivoFC" pInputTextarea
+                oninput="this.value=this.value.toUpperCase()">
         </textarea>
-            <div class="grid">
-                <div class="col-12 md:col-2 mt-2">
-                    Tipo de enfermedad :
-                </div>
+            <div class="grid text-right">
                 <div class="col-12 md:col-2">
-                    <input type="text"
-                           pInputText
-                           formControlName="enfermedadFC"
-                           class="inputfield w-full"/>
+                    Tiempo de enfermedad :
+                </div>
+                <div class="col-12 md:col-2 ">
+                    <input type="text" pInputText formControlName="enfermedadFC" class="inputfield w-full"
+                        oninput="this.value=this.value.toUpperCase()" />
                 </div>
                 <div class="col-12 md:col-2 mt-2 text-right">
                     Forma de inicio :
                 </div>
                 <div class="col-12 md:col-2">
-                    <input type="text"
-                           pInputText
-                           formControlName="inicioFC"
-                           class="inputfield w-full"/>
+                    <input type="text" pInputText formControlName="inicioFC" class="inputfield w-full"
+                        oninput="this.value=this.value.toUpperCase()" />
                 </div>
                 <div class="col-12 md:col-1 mt-2 text-right">
                     Curso :
                 </div>
                 <div class="col-12 md:col-3">
-                    <input type="text"
-                           pInputText
-                           formControlName="cursoFC"
-                           class="inputfield w-full"/>
+                    <input type="text" pInputText formControlName="cursoFC" class="inputfield w-full"
+                        oninput="this.value=this.value.toUpperCase()" />
                 </div>
             </div>
         </form>
     </p-fieldset>
 
-    <p-fieldset legend="EXAMEN FÍSICO" [toggleable]="true">
+    <p-fieldset legend="EXAMEN FÍSICO">
         <p-divider></p-divider>
+        <form [formGroup]="formExam">
+            <div class="grid ">
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Piel:</label>
+                            <input type="text" pInputText formControlName='piel' placeholder="Piel"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Mucosas:</label>
+                            <input type="text" pInputText formControlName='mucosas' placeholder="Mucosas"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Cabeza:</label>
+                            <input type="text" pInputText formControlName='cabeza' placeholder="Cabeza"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12">
+                            <label>Cuello:</label>
+                            <input type="text" pInputText formControlName='cuello' placeholder="Cuello"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12">
+                            <label>Cardio Vasc:</label>
+                            <input type="text" pInputText formControlName='cardioVascular' placeholder="Cardio Vascular"
+                                class=" inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Pulmones:</label>
+                            <input type="text" pInputText formControlName='pulmones' placeholder="Pulmones"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Mamas:</label>
+                            <input type="text" pInputText formControlName='mamas' placeholder="Mamas"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Pezones:</label>
+                            <input type="text" pInputText formControlName='pezones' placeholder="Pezones"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12">
+                            <label>Abdomen:</label>
+                            <input type="text" pInputText formControlName='abdomen' placeholder="Abdomen"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <label>Observaciones de Examen Físico</label>
+                <div class="col-12 text-center">
+                    <textarea class="p-fluid w-full" rows="3" cols="85" pInputTextarea formControlName="obsExamenFisico"
+                        oninput="this.value=this.value.toUpperCase()"></textarea>
+                </div>
+            </div>
+            <p-divider></p-divider>
+        </form>
+    </p-fieldset>
+
+    <p-fieldset legend="SIGNOS VITALES">
         <form [formGroup]="examFG">
             <div class="grid">
-                <div class="col-12 md:col-2">
-                    <h3>SIGNOS VITALES :</h3>
-                </div>
                 <div class="col-12 md:col-10">
                     <div class="grid">
                         <ng-container *ngFor="let controlFC of dataExamFisicos">
@@ -53,20 +135,15 @@
                                 {{controlFC.label}}
                             </div>
                             <div class="col-6 md:col-2">
-                                <input type="number"
-                                       pInputText
-                                       [formControlName]="controlFC.nameFC"
-                                       class="inputfield w-full"/>
+                                <input type="number" pInputText [formControlName]="controlFC.nameFC"
+                                    class="inputfield w-full" />
                             </div>
                         </ng-container>
                     </div>
                 </div>
             </div>
             <p-divider></p-divider>
-            <textarea class="inputfield w-full mb-2"
-                      formControlName="detailFC"
-                      pInputTextarea>
-        </textarea>
+            <textarea class="inputfield w-full mb-2" formControlName="detailFC" pInputTextarea></textarea>
         </form>
     </p-fieldset>
 </div>

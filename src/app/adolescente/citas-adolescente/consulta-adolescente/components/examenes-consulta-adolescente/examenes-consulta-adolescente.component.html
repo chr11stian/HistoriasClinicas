@@ -24,32 +24,34 @@
                         <div class="col-6 md:col-4">
                             <label>Apetito:</label>
                             <input formControlName="apetito" class="p-inputtext-sm  p-fluid w-full" type="text"
-                                pInputText placeholder="Apetito" />
+                                pInputText placeholder="Apetito" oninput="this.value=this.value.toUpperCase()" />
                         </div>
                         <div class="col-6 md:col-4">
                             <label>Sed:</label>
-                            <input formControlName="sed" class="p-fluid w-full p-inputtext-sm" type="text" pInputText
-                                placeholder="Sed" />
+                            <input formControlName="Sed" class="p-fluid w-full p-inputtext-sm" type="text" pInputText
+                                placeholder="Sed" oninput="this.value=this.value.toUpperCase()" />
                         </div>
                         <div class="col-6 md:col-4">
                             <label>Sueño:</label>
                             <input formControlName="sueno" class="p-fluid w-full" type="text" class="p-inputtext-sm "
-                                pInputText placeholder="Sueño" />
+                                pInputText placeholder="Sueño" oninput="this.value=this.value.toUpperCase()" />
                         </div>
                         <div class="col-6 md:col-4">
-                            <label>Estado de animo:</label>
+                            <label>Estado de ánimo:</label>
                             <input formControlName="estadoAnimo" class="p-fluid w-full" type="text"
-                                class="p-inputtext-sm " pInputText placeholder="Estado Anim." />
+                                class="p-inputtext-sm " pInputText placeholder="Estado Anim."
+                                oninput="this.value=this.value.toUpperCase()" />
                         </div>
                         <div class="col-6 md:col-4">
                             <label>Orina:</label>
                             <input formControlName="orina" class="p-fluid w-full" type="text" class="p-inputtext-sm "
-                                pInputText placeholder="Orina" />
+                                pInputText placeholder="Orina" oninput="this.value=this.value.toUpperCase()" />
                         </div>
                         <div class="col-6 md:col-4">
                             <label>Deposiciones:</label>
                             <input formControlName="deposiciones" class="p-fluid w-full" type="text"
-                                class="p-inputtext-sm " pInputText placeholder="Deposiciones" />
+                                class="p-inputtext-sm " pInputText placeholder="Deposiciones"
+                                oninput="this.value=this.value.toUpperCase()" />
                         </div>
                     </div>
                 </div>
@@ -89,8 +91,8 @@
                             <label>PA(D):</label>
                             <div class="grid">
                                 <div class="col-8">
-                                    <input type="text" pInputText formControlName='presionDias' placeholder="Diastolica"
-                                        class="p-inputtext-sm  inputfield w-full">
+                                    <input type="number" pInputText formControlName='presionDias'
+                                        placeholder="Diastolica" class="p-inputtext-sm  inputfield w-full">
                                 </div>
                                 <span class="font-italic text-sm mt-3">Hg.</span>
                             </div>
@@ -99,7 +101,7 @@
                             <label>F.C:</label>
                             <div class="grid">
                                 <div class="col-8">
-                                    <input type="text" pInputText formControlName='fc' placeholder="Frec. card."
+                                    <input type="number" pInputText formControlName='fc' placeholder="Frec. card."
                                         class="p-inputtext-sm  inputfield w-full">
                                 </div>
                                 <span class="font-italic text-sm mt-3">x min.</span>
@@ -109,7 +111,7 @@
                             <label>F.R:</label>
                             <div class="grid">
                                 <div class="col-8">
-                                    <input type="text" pInputText formControlName='fr' placeholder="Frec. resp."
+                                    <input type="number" pInputText formControlName='fr' placeholder="Frec. resp."
                                         class="p-inputtext-sm  inputfield w-full">
                                 </div>
                                 <span class="font-italic text-sm mt-3">x min.</span>
@@ -119,7 +121,7 @@
                             <label>Peso:</label>
                             <div class="grid">
                                 <div class="col-8">
-                                    <input type="text" pInputText formControlName='peso' placeholder="Peso"
+                                    <input type="number" pInputText formControlName='peso' placeholder="Peso"
                                         class="p-inputtext-sm  inputfield w-full">
                                 </div>
                                 <span class="font-italic text-left text-sm mt-3">kg.</span>
@@ -129,7 +131,7 @@
                             <label>Talla:</label>
                             <div class="grid">
                                 <div class="col-8">
-                                    <input type="text" pInputText formControlName='talla' placeholder="Talla"
+                                    <input type="number" pInputText formControlName='talla' placeholder="Talla"
                                         class="p-inputtext-sm  inputfield w-full">
                                 </div>
                                 <span class="font-italic text-left text-sm mt-3">m.</span>
@@ -139,7 +141,7 @@
                             <label>IMC:</label>
                             <div class="grid">
                                 <div class="col-8">
-                                    <input type="text" pInputText formControlName='imc' placeholder="IMC"
+                                    <input type="number" pInputText formControlName='imc' placeholder="IMC"
                                         class="p-inputtext-sm  inputfield w-full">
                                 </div>
                             </div>
@@ -243,7 +245,8 @@
             <div class="grid">
                 <div class="col-12">
                     <label>Resultado:</label>
-                    <input formControlName="resultado" type="text" class="p-inputtext-sm " pInputText autofocus />
+                    <input formControlName="resultado" type="text" class="p-inputtext-sm " pInputText autofocus
+                        oninput="this.value=this.value.toUpperCase()" />
                 </div>
             </div>
         </form>
@@ -265,7 +268,8 @@
             <div class="grid">
                 <div class="col-12 md:col-6">
                     <label>Examen:</label>
-                    <input formControlName="nombreExamen" type="text" class="p-inputtext-sm " pInputText autofocus />
+                    <input formControlName="nombreExamen" type="text" class="p-inputtext-sm " pInputText autofocus
+                        oninput="this.value=this.value.toUpperCase()" />
                 </div>
                 <div class="col-12 md:col-6">
                     <label>Resultado:</label>

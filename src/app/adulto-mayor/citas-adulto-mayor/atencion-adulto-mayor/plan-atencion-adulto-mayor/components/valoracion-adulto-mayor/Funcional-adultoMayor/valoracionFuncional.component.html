@@ -1,23 +1,37 @@
-<div class="p-card">
+<div>
+    <p-toolbar>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+                <span style="font-size: 18px;">I. Valoración Funcional(Actividades Básicas de la vida diaria - ABVD)</span>
+            </div>
+        </div>
+    </p-toolbar>
+    <br>
     <p-toolbar>
         <ng-template pTemplate="left">
-            <h3 class="mt-2">I. Valoración Funcional(Actividades Básicas de la vida diaria - ABVD)</h3>
+            <form [formGroup]="formValoracionClinicaFuncional" >
+                <!--primera fila-->
+                <label class="">Fecha:</label>
+                <br>
+                <input type="datetime-local"optionValue="value" formControlName="fecha" pInputText>
+            </form>
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
                     class="guardar-boton" (click)="agregarActualizar()"></button>
-            <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                    class="guardar-boton" (click)="listarValoraciones()"></button>
+            <button pButton pRipple label="Listar Valoraciones Funcional" iconPos="right" icon="pi pi-list"
+                    class="boton-listar" (click)="listarValoraciones()"></button>
         </ng-template>
     </p-toolbar>
     <br>
     <div class="grid">
+
         <div class="col-12 md:col-7 lg:col-7">
             <p-fieldset legend="KATZ" [toggleable]="true">
                 <form [formGroup]="formValoracionClinicaFuncional" >
                     <!--primera fila-->
                     <div class="grid">
-                        <div class="col-6 p-field" style="text-align: right">
+                        <div class="col-6 " style="text-align: right">
                             <label class="">Lavarse: </label>
                         </div>
                         <div class="col-6 p-field">
@@ -122,64 +136,4 @@
         </div>
     </div>
 </div>
-
-
-<p-dialog [(visible)]="dialogValoracionFuncional" [style]="{width: '1200px', height: '600px'}" [modal]="true"
-          styleClass="p-fluid" autoZIndex class="dialogOfertas">
-
-    <div class="p-card">
-        <p-card>
-            <div class="grid">
-                <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
-                    <span style="font-size: 20px;">LISTA DE TAMIZAJES DE VIOLENCIA DE UN PACIENTE</span>
-                </div>
-            </div>
-            <br>
-        </p-card>
-
-
-        <p-accordion>
-            <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA EL DIA DE HOY" [selected]="true">
-                <p-table [value]="ListaValoracionFuncional" #dt [rows]="5"
-                         [rowsPerPageOptions]="[5, 10, 15]"
-                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
-                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                        <tr>
-                            <th style="text-align: center">Nro</th>
-                            <th style="text-align: center">APELLIDOS</th>
-                            <th style="text-align: center">NOMBRES</th>
-                            <th style="text-align: center">FECHA</th>
-                            <th style="text-align: center">NRO HCL</th>
-                            <th style="text-align: center">RESPONSABLE</th>
-                            <th style="text-align: center">DIAGNOSTICO</th>
-                            <th style="text-align: center">ACCION</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                        <tr>
-                            <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData.apePaterno + ' ' + rowData.apeMaterno }}</td>
-                            <td style="text-align: center">{{ rowData.nombres }}</td>
-                            <td style="text-align: center">{{ rowData.fecha }}</td>
-                            <td style="text-align: center">{{ rowData.nroHcl }}</td>
-                            <td style="text-align: center">{{ rowData.nombreResponsableAtencion }}</td>
-                            <td style="text-align: center">{{ rowData.diagnostico }}</td>
-                            <td style="text-align: center">
-<!--                                <button pButton pRipple type="button" label="Actualizar"-->
-<!--                                        (click)="recuperarData(rowData)"-->
-<!--                                        class="p-button-danger" icon="pi pi-pencil"></button>-->
-
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </p-accordionTab>
-        </p-accordion>
-    </div>
-
-</p-dialog>
-
-
 

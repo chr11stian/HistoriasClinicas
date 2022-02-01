@@ -1,0 +1,63 @@
+<div class="grid">
+  <div class="col-12 grid">
+    <div class="col-6 grid">
+      <div class="col-4">Fecha:</div>
+      <div class="col-8">
+        <p-calendar [disabled]="fechaTentativaDisabled" [(ngModel)]="fechaTentativa" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+      </div>
+    </div>
+    <div class="col-6 grid">
+      <div class="col-4">¿Vacuna aplicada en otra fecha?</div>
+      <div class="col-8">
+        <p-selectButton [options]="twoOption"  optionLabel="name" optionValue="code" (onChange)="cambioEstado($event)"></p-selectButton>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 grid">
+    <div class="col-6 grid">
+      <div class="col-4">
+        Lote:
+      </div>
+      <div class="col-8 p-fluid">
+        <p-inputNumber mode="decimal" inputId="withoutgrouping" [useGrouping]="false">
+        </p-inputNumber>
+      </div>
+
+    </div>
+    <div class="col-6 grid">
+      <div class="col-4">
+        fecha Expiración:
+      </div>
+      <div class="col-8 p-fluid">
+        <p-calendar  [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy"></p-calendar>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-2">
+    Fabricante:
+  </div>
+  <div class="col-10 p-fluid">
+    <input type="text" pInputText>
+  </div>
+</div>
+<div class="flex justify-content-end mt-5">
+  <button
+          pButton
+          type="button"
+          label="Cerrar"
+          class="p-button-danger p-button px-5 mx-1 text-center p-button-danger "
+          icon="pi pi-times-circle"
+          style="border-radius: 0.5rem"
+          (click)="cancelar()"
+  ></button>
+  <button
+          pButton
+          type="button"
+          label="Guardar"
+          class="p-button-info p-button px-5 mx-1 text-center"
+          icon="pi pi-save"
+          style="border-radius: 0.5rem"
+          (click)="save()"
+  ></button>
+</div>
