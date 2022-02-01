@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {RolGuardiaService} from "../../../../core/services/rol-guardia/rol-guardia.service";
@@ -29,7 +29,7 @@ export class ModalCuposComponent implements OnInit {
     formCuposOferta: FormGroup;
     ups: [] = [];
 
-    ServicoSelecionado: string = "ENFERMERIA";
+    ServicoSelecionado: string = "OBSTETRICIA";
     dataOfertasCupos: any;
 
     personalSelected: string = '';
@@ -50,6 +50,7 @@ export class ModalCuposComponent implements OnInit {
                 private cuposService: CuposService,
     ) {
     }
+
 
     ngOnInit(): void {
         this.buildForm();
@@ -119,24 +120,32 @@ export class ModalCuposComponent implements OnInit {
         this.cuposService.HoraAtencionSeleccionado = this.selectedHorario
         let auxCupo: any = this.selectedHorario;
 
-        if ((auxCupo.length != 1) && (auxCupo.length = 0)) {
-            this.messageService.add({severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario'});
+        if (auxCupo.length != 1) {
+            this.messageService.add({
+                key: "myKey1",
+                severity: 'warn',
+                summary: 'Alerta',
+                detail: 'Solo debe seleccionar un horario'
+            });
             return;
         }
         // this.selectedFecha = this.datafecha.getDate() + "-" + this.datafecha.getMonth() + 1 + "-" + this.datafecha.getFullYear();
         console.log('HORARIO SELECCIONADO', this.selectedHorario)
         console.log('FECHA SELECIONADO', this.selectedFecha)
         this.openDialogCuposNuevo2();
+
     }
 
     /**abre el dialog para cupos**/
     openDialogCuposNuevo2() {
-        this.ref = this.dialog.open(ModalCupos2Component, {
+        this.cuposService.modal2 = this.dialog.open(ModalCupos2Component, {
             width: '95%',
             modal: true,
             height: '100%',
             contentStyle: {"max-height": "500", "overflow": "p-fluid"},
             baseZIndex: 0
         })
+        this.cuposService.modal1.close();
+
     }
 }

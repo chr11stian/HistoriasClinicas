@@ -21,16 +21,23 @@
     margin-top: 1.8em;
 }
 
-p-panel>>>.p-panel .p-panel-header{
+p-panel >>> .p-panel .p-panel-header {
     background: #0c3866;
     border: 1px solid #0c3866;
     color: #FFFFFF;
 }
 
-p-panel>>>.p-panel .p-panel-content{
+p-panel >>> .p-panel .p-panel-content {
     border: 1px solid #0c3866;
 }
 
 
 /*color: #0c3866;*/
 /*border: 1px solid rgba(12, 56, 102, 0.21);*/
+
+p-toast >>> .p-toast .p-toast-message.p-toast-message-warn {
+    background: rgb(255 236 179);
+    border: solid rgb(217 163 0);
+    border-width: 0 0 0 6px;
+    color: rgb(109 81 0);
+}

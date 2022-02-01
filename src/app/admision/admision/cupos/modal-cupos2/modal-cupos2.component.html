@@ -1,16 +1,14 @@
 <div>
-    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <p-toast position="top-center" key="tc"></p-toast>
+    <p-toast key="paciente"></p-toast>
     <p-panel>
         <ng-template pTemplate="header">
             <h3 class="m-2">REGISTRAR CUPO</h3>
         </ng-template>
         <ng-template pTemplate>
             <form [formGroup]='formPacientesCupo'>
-
-
                 <div class="grid ">
                     <div class="col-12 md:col-6 lg:col-9 p-field">
-
                         <div class="">
                             <div class="grid m-2">
                                 <div class="col-12 md:col-6 lg:col-2 p-fluid">
@@ -28,10 +26,9 @@
                                 <div class="col-12 md:col-6 lg:col-3 p-field">
                                     <span class="">NRO DOCUMENTO</span>
                                     <div class="p-inputgroup">
-                                        <input type="text" pInputText
+                                        <input type="number" pInputText
                                                formControlName="nroDoc"
-                                               placeholder="Nro documento"
-                                               (blur)="pacienteByNroDoc()"/>
+                                               placeholder="Nro documento"/>
                                         <p-button span="" icon="pi pi-search" (click)="pacienteByNroDoc()"></p-button>
                                     </div>
                                 </div>
@@ -329,7 +326,7 @@
                             <div class="col-12 md:col-6 lg:col-12 p-field">
                                 <span class="">.</span>
                                 <div class="p-inputgroup">
-                                    <button pButton pRipple label="GUARDAR" icon="pi pi-plus"
+                                    <button pButton pRipple label="GUARDAR" (click)="saveForm()" icon="pi pi-plus"
                                             class="mr-2"></button>
                                     <button pButton pRipple type="button" icon="pi pi-times-circle" label="CANCELAR"
                                             class="p-button-raised p-button-danger"></button>

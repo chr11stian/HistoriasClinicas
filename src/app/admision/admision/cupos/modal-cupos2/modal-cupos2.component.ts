@@ -7,19 +7,25 @@ import {CuposService} from "../../../../core/services/cupos.service";
 import {UbicacionService} from "../../../../mantenimientos/services/ubicacion/ubicacion.service";
 import {Departamentos, Distrito, Provincias} from "../../../../core/models/ubicacion.models";
 import {DatePipe, formatDate} from "@angular/common";
+import {MessageService} from "primeng/api";
+import {PacienteComponent} from "../../../paciente/paciente.component";
+import {DialogService, DynamicDialogConfig} from "primeng/dynamicdialog";
 
 @Component({
     selector: 'app-modal-cupos2',
     templateUrl: './modal-cupos2.component.html',
-    styleUrls: ['./modal-cupos2.component.css']
+    styleUrls: ['./modal-cupos2.component.css'],
+    providers: [DialogService, DynamicDialogConfig],
+
 })
 export class ModalCupos2Component implements OnInit {
+    idIpressLapostaMedica = "616de45e0273042236434b51";
     formPacientesCupo: FormGroup;
     listaDocumentosIdentidad: any;
     dataPacientes: any;
     detallePago: string = "PENDIENTE";
     TipoDoc: string = "DNI";
-    dataSelectServicio: '';
+    dataSelectServicio = "";
     dataSelectAmbiente: '';
     personalSelected: '';
     selectedFecha: '';
@@ -43,13 +49,17 @@ export class ModalCupos2Component implements OnInit {
     dias: any;
 
     estadoHoras: string = "LIBRE";
-    estadoCupo: string = "active";
+    DataCupos: any;
+    public pacienteComponent: PacienteComponent;
 
 
     constructor(private fb: FormBuilder,
                 private documentoIdentidadService: DocumentoIdentidadService,
+                private messageService: MessageService,
+                // public pacienteComponent: PacienteComponent,
                 private pacienteService: PacienteService,
                 private ubicacionService: UbicacionService,
+                private dialog: DialogService,
                 private cuposService: CuposService,) {
         this.dataSelectServicio = cuposService.ServicioSeleccionado;
         this.dataSelectAmbiente = cuposService.AmbienteSeleccionado;
@@ -66,8 +76,7 @@ export class ModalCupos2Component implements OnInit {
         this.getDocumentosIdentidad();
         // this.calcularEdad("2022-01-31");
         console.log("DATA", this.dataPersonalSelecionado);
-        this.saveForm();
-
+        // this.saveForm();
     }
 
     /**Lista todos los departamento **/
@@ -188,45 +197,102 @@ export class ModalCupos2Component implements OnInit {
             if (res.object != null || res.object != undefined) {
                 this.dataPacientes = res.object
                 console.log('paciente por doc ', this.dataPacientes)
-                this.formPacientesCupo.get('apePaterno').setValue(this.dataPacientes.apePaterno);
-                this.formPacientesCupo.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
-                this.formPacientesCupo.get('primerNombre').setValue(this.dataPacientes.primerNombre);
-                this.formPacientesCupo.get('otrosNombres').setValue(this.dataPacientes.otrosNombres);
-                this.formPacientesCupo.get('sexo').setValue(this.dataPacientes.sexo);
-                this.formPacientesCupo.get('fechaNacimiento').setValue(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
-                this.formPacientesCupo.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
-                this.formPacientesCupo.get('celular').setValue(this.dataPacientes.celular);
-                this.formPacientesCupo.get('nacionalidad').setValue(this.dataPacientes.nacionalidad);
-                this.formPacientesCupo.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
-                this.formPacientesCupo.get('dpto').setValue(this.dataPacientes.domicilio.departamento);
-                this.formPacientesCupo.get('prov').setValue(this.dataPacientes.domicilio.provincia);
-                this.formPacientesCupo.get('dist').setValue(this.dataPacientes.domicilio.distrito);
-                this.formPacientesCupo.get('ccpp').setValue(this.dataPacientes.domicilio.ccpp);
-                this.formPacientesCupo.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
-                this.formPacientesCupo.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
-                this.formPacientesCupo.get('GradoInstrucion').setValue(this.dataPacientes.gradoInstruccion);
+                if (this.dataSelectServicio == "OBSTETRICIA") {
+                    if (this.dataPacientes.sexo == "Femenino") {
+                        this.formPacientesCupo.get('apePaterno').setValue(this.dataPacientes.apePaterno);
+                        this.formPacientesCupo.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
+                        this.formPacientesCupo.get('primerNombre').setValue(this.dataPacientes.primerNombre);
+                        this.formPacientesCupo.get('otrosNombres').setValue(this.dataPacientes.otrosNombres);
+                        this.formPacientesCupo.get('sexo').setValue(this.dataPacientes.sexo);
+                        this.formPacientesCupo.get('fechaNacimiento').setValue(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
+                        this.formPacientesCupo.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
+                        this.formPacientesCupo.get('celular').setValue(this.dataPacientes.celular);
+                        this.formPacientesCupo.get('nacionalidad').setValue(this.dataPacientes.nacionalidad);
+                        this.formPacientesCupo.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
+                        this.formPacientesCupo.get('dpto').setValue(this.dataPacientes.domicilio.departamento);
+                        this.formPacientesCupo.get('prov').setValue(this.dataPacientes.domicilio.provincia);
+                        this.formPacientesCupo.get('dist').setValue(this.dataPacientes.domicilio.distrito);
+                        this.formPacientesCupo.get('ccpp').setValue(this.dataPacientes.domicilio.ccpp);
+                        this.formPacientesCupo.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
+                        this.formPacientesCupo.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
+                        this.formPacientesCupo.get('GradoInstrucion').setValue(this.dataPacientes.gradoInstruccion);
 
-                this.calcularEdad(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
-                this.formPacientesCupo.get('edadAnio').setValue(this.edad);
-                this.formPacientesCupo.get('edadMes').setValue(this.meses);
-                this.formPacientesCupo.get('edadDia').setValue(this.dias);
+                        this.calcularEdad(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
+                        this.formPacientesCupo.get('edadAnio').setValue(this.edad);
+                        this.formPacientesCupo.get('edadMes').setValue(this.meses);
+                        this.formPacientesCupo.get('edadDia').setValue(this.dias);
 
 
-                this.formPacientesCupo.get('GradoInstrucion').setValue(this.dataPacientes.gradoInstruccion);
-                this.formPacientesCupo.get('LugarNacimiento').setValue(this.dataPacientes.nacimiento.departamento + ' ' + this.dataPacientes.nacimiento.provincia + ' ' + this.dataPacientes.nacimiento.distrito);
-                if (this.dataPacientes.tipoSeguro == "SIS") {
-                    this.detallePago = "GRATUITO"
+                        this.formPacientesCupo.get('GradoInstrucion').setValue(this.dataPacientes.gradoInstruccion);
+                        this.formPacientesCupo.get('LugarNacimiento').setValue(this.dataPacientes.nacimiento.departamento + ' ' + this.dataPacientes.nacimiento.provincia + ' ' + this.dataPacientes.nacimiento.distrito);
+                        if (this.dataPacientes.tipoSeguro == "SIS") {
+                            this.detallePago = "GRATUITO"
+                        }
+                    } else {
+                        this.messageService.add({
+                            key: 'tc',
+                            severity: 'info',
+                            summary: this.dataPacientes.apePaterno + " " + this.dataPacientes.apeMaterno + " " + this.dataPacientes.primerNombre,
+                            detail: 'Solo sexo femenino acepta este servicio'
+                        });
+                    }
+                } else {
+                    this.formPacientesCupo.get('apePaterno').setValue(this.dataPacientes.apePaterno);
+                    this.formPacientesCupo.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
+                    this.formPacientesCupo.get('primerNombre').setValue(this.dataPacientes.primerNombre);
+                    this.formPacientesCupo.get('otrosNombres').setValue(this.dataPacientes.otrosNombres);
+                    this.formPacientesCupo.get('sexo').setValue(this.dataPacientes.sexo);
+                    this.formPacientesCupo.get('fechaNacimiento').setValue(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
+                    this.formPacientesCupo.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
+                    this.formPacientesCupo.get('celular').setValue(this.dataPacientes.celular);
+                    this.formPacientesCupo.get('nacionalidad').setValue(this.dataPacientes.nacionalidad);
+                    this.formPacientesCupo.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
+                    this.formPacientesCupo.get('dpto').setValue(this.dataPacientes.domicilio.departamento);
+                    this.formPacientesCupo.get('prov').setValue(this.dataPacientes.domicilio.provincia);
+                    this.formPacientesCupo.get('dist').setValue(this.dataPacientes.domicilio.distrito);
+                    this.formPacientesCupo.get('ccpp').setValue(this.dataPacientes.domicilio.ccpp);
+                    this.formPacientesCupo.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
+                    this.formPacientesCupo.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
+                    this.formPacientesCupo.get('GradoInstrucion').setValue(this.dataPacientes.gradoInstruccion);
+
+                    this.calcularEdad(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
+                    this.formPacientesCupo.get('edadAnio').setValue(this.edad);
+                    this.formPacientesCupo.get('edadMes').setValue(this.meses);
+                    this.formPacientesCupo.get('edadDia').setValue(this.dias);
+
+
+                    this.formPacientesCupo.get('GradoInstrucion').setValue(this.dataPacientes.gradoInstruccion);
+                    this.formPacientesCupo.get('LugarNacimiento').setValue(this.dataPacientes.nacimiento.departamento + ' ' + this.dataPacientes.nacimiento.provincia + ' ' + this.dataPacientes.nacimiento.distrito);
+                    if (this.dataPacientes.tipoSeguro == "SIS") {
+                        this.detallePago = "GRATUITO"
+                    }
                 }
+
+
             } else {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Cupo',
-                    text: 'Paciente no encontrado en la Base de Datos, debe ingresar todo sus datos para crearle Historia Clínica',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
+                this.messageService.add({
+                    key: "paciente",
+                    severity: 'info',
+                    summary: 'Paciente',
+                    detail: 'No existe en la Base de Datos'
+                });
+                this.buscarNuevoPaciente();
             }
         });
+    }
+
+    buscarNuevoPaciente() {
+        this.cuposService.modalPacientes = this.dialog.open(PacienteComponent, {
+            header: "NUEVO PACIENTE",
+            style: {
+                width: "60%"
+            },
+            contentStyle: {
+                overflow: "auto",
+
+            },
+        })
+        this.pacienteComponent.dialogPaciente = true;
     }
 
     cargarDatosReniec() {
@@ -264,7 +330,7 @@ export class ModalCupos2Component implements OnInit {
             paciente: {
                 nombre: this.formPacientesCupo.value.primerNombre + ", " + this.formPacientesCupo.value.otrosNombres,
                 apellidos: this.formPacientesCupo.value.apePaterno + ", " + this.formPacientesCupo.value.apeMaterno,
-                tipoDoc: this.formPacientesCupo.value.tipoDoc.abreviatura,
+                tipoDoc: this.formPacientesCupo.value.tipoDoc,
                 nroDoc: this.formPacientesCupo.value.nroDoc,
                 edadAnio: this.formPacientesCupo.value.edadAnio,
                 edadMes: this.formPacientesCupo.value.edadMes,
@@ -280,13 +346,14 @@ export class ModalCupos2Component implements OnInit {
                 servicio: this.dataPersonalSelecionado.ipress.servicio
             },
         };
-
         console.log("guardar", req);
 
         this.cuposService.saveCupos(req).subscribe(
             (result: any) => {
                 console.log(result.object);
-                if (result.object == null || result.object == undefined) {
+                if (result.object !== null || result.object !== undefined) {
+                    this.cuposService.modal2.close();
+                    this.getCuposXservicio();
                     Swal.fire({
                         icon: 'success',
                         title: 'Cupo',
@@ -294,6 +361,7 @@ export class ModalCupos2Component implements OnInit {
                         showConfirmButton: false,
                         timer: 1500,
                     })
+                    this.actualizarOfertaEstado();
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -305,7 +373,6 @@ export class ModalCupos2Component implements OnInit {
                 }
             }
         );
-        // this.actualizarOfertaEstado();
         this.formPacientesCupo.reset();
     }
 
@@ -321,13 +388,11 @@ export class ModalCupos2Component implements OnInit {
         console.log("DATA ACTUALIZAR OFERTA", data);
 
         this.cuposService.updateEstadoOferta(data).subscribe(resp => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Estado ',
-                text: 'Actualizado',
-                showConfirmButton: false,
-                timer: 1500,
-            })
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Oferta',
+                detail: 'Actualizo con exito'
+            });
         })
     }
 
@@ -346,7 +411,7 @@ export class ModalCupos2Component implements OnInit {
 
     /**Calcula la edad del paciente**/
     calcularEdad(fecha) {
-        // Si la fecha es correcta, calculamos la edad
+        /** Si la fecha es correcta, calculamos la edad*/
         if (typeof fecha != "string" && fecha && this.esNumero(fecha.getTime())) {
             fecha = fecha.formatDate(fecha, "yyyy-MM-dd");
         }
@@ -398,5 +463,19 @@ export class ModalCupos2Component implements OnInit {
         console.log("EDAD", this.edad + ' ' + 'Meses', this.meses + ' ' + 'Dias', this.dias)
 
         return this.edad + " años, " + this.meses + "meses y " + this.dias + " días";
+    }
+
+    /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
+    getCuposXservicio() {
+        let data = {
+            servicio: this.dataPersonalSelecionado.ipress.servicio,
+            fecha: this.dataPersonalSelecionado.fechaOferta,
+        }
+        console.log('DATA ', data);
+        this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
+            this.DataCupos = res.object;
+            this.cuposService.dataCupos = res.object;
+            console.log('LISTA DE CUPOS POR SERVICIO ', this.DataCupos);
+        })
     }
 }

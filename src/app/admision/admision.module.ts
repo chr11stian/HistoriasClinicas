@@ -46,6 +46,7 @@ import { IpressHorariosComponent } from './ipress-horarios/ipress-horarios.compo
         PersonalSaludComponent,
         UsuariosComponent,
         IpressComponent,
+        PacienteComponent,
 
     ],
 

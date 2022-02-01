@@ -26,20 +26,18 @@ export class CuposComponent implements OnInit, OnDestroy {
     idIpressLapostaMedica = "616de45e0273042236434b51";
     iprees: string = "la posta medica";
 
-    dataCupos_por_fechas_servicio: any;
-    DataCupos: any;
+    DataCupos = this.cuposService.dataCupos;
     fecha: string;
-    datafecha: Date = new Date();
-    datePipe = new DatePipe('en-US');
     ups: [] = [];
     justifyOptions: any[];
     formCuposListar: FormGroup;
-    ServicoSelect: string = "OBSTETRICIA";
-
+    datePipe = new DatePipe('en-US');
+    datafecha: Date = new Date();
+    ServicoSelect = "OBSTETRICIA";
+    ref: DynamicDialogRef;
 
     /*******detalle cupo para verificar si mandar a caja o triaje**************/
     detallePago: string = "PENDIENTE"
-    ref: DynamicDialogRef;
 
     constructor(
         private router: Router,
@@ -72,8 +70,7 @@ export class CuposComponent implements OnInit, OnDestroy {
         this.fecha = this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
 
         this.getCuposXservicio();
-        this.getListaCuposConfirmados();
-        // this.ListarPacientesCitasObstetricas();
+
 
     }
 
@@ -88,6 +85,7 @@ export class CuposComponent implements OnInit, OnDestroy {
 
     /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
     getCuposXservicio() {
+        this.DataCupos = null;
         let data = {
             servicio: this.formCuposListar.value.SelectUPS,
             fecha: this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
@@ -100,19 +98,6 @@ export class CuposComponent implements OnInit, OnDestroy {
         })
     }
 
-    // ListarPacientesCitasObstetricas() {
-    //     const data = {
-    //         fechaInicio: this.datePipe.transform(this.datafecha, 'yyyy-MM-dd'),
-    //         fechaFin: this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
-    //     }
-    //
-    //     console.log("data fechas", data)
-    //     this.citasService.getProximaCitasGestacion(data).subscribe((res: any) => {
-    //         this.dataCitas = res.object;
-    //         console.log('Lista de Citas: ', this.dataCitas);
-    //     });
-    // }
-
     /**lista los Servicios por IPRESS**/
     getListaUps() {
         this.rolGuardiaService.getServiciosPorIpress(this.idIpressLapostaMedica)
@@ -122,28 +107,9 @@ export class CuposComponent implements OnInit, OnDestroy {
             });
     }
 
-
-    /** Selecciona  un servicio y fecha y lista las cupos confirmados **/
-    getListaCuposConfirmados() {
-        let data = {
-            servicio: this.formCuposListar.value.SelectUPS,
-            fecha: this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
-        }
-        console.log('DATA', data);
-        this.cuposService.listaCuposConfirmados(this.idIpressLapostaMedica, data).subscribe((res: any) => {
-            this.dataCupos_por_fechas_servicio = res.object;
-            console.log('LISTA DE CITAS CONFIRMADOS POR SERVICIO ', this.dataCupos_por_fechas_servicio);
-        })
-        if (this.dataCupos_por_fechas_servicio != null) {
-            this.dataCupos_por_fechas_servicio = null;
-        }
-        this.getCuposXservicio();
-        // this.ListarPacientesCitasObstetricas();
-    }
-
     /**abre el dialog para cupos**/
     openDialogCuposNuevo() {
-        this.ref = this.dialog.open(ModalCuposComponent, {
+        this.cuposService.modal1 = this.dialog.open(ModalCuposComponent, {
             width: '1200px',
             modal: true,
             height: '750px',
@@ -154,7 +120,7 @@ export class CuposComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         if (this.ref) {
-            this.ref.close();
+            this.ref.destroy();
         }
     }
 
