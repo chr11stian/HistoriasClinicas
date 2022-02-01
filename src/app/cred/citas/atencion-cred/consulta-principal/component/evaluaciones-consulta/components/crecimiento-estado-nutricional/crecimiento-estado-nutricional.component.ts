@@ -6,13 +6,19 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "
 import {ControlCrecimientoService} from "../../../../../plan/component/plan-atencion-integral/services/control-crecimiento/control-crecimiento.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute} from "@angular/router";
+import {WeightChartComponent} from "../../../../../../../modals/weight-chart/weight-chart.component";
+import {HeightChartComponent} from "../../../../../../../modals/height-chart/height-chart.component";
+import {HeightWeightComponent} from "../../../../../../../modals/height-weight/height-weight.component";
+
 
 @Component({
   selector: 'app-crecimiento-estado-nutricional',
   templateUrl: './crecimiento-estado-nutricional.component.html',
-  styleUrls: ['./crecimiento-estado-nutricional.component.css']
+  styleUrls: ['./crecimiento-estado-nutricional.component.css'],
+  providers: [DialogService]
 })
 export class CrecimientoEstadoNutricionalComponent implements OnInit {
+  fechaTentativaDisabled:boolean=true
   tallaPesoFG:FormGroup
   display:boolean=false;
   mesesPeso:any[]=[]
@@ -35,23 +41,33 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
   A8: ControlCrecimiento[] = []
   A9: ControlCrecimiento[] = []
   valor:number=0.9;
+  ref: DynamicDialogRef
   sexo:boolean;
   datePipe = new DatePipe('en-US');
+  twoOption=[
+    {code:'si',name:'Si'},
+    {code:'no',name:'No'}
+  ]
 
   constructor(private fb: FormBuilder,
-              // public dialogService: DialogService,
+              public dialogService: DialogService,
               private servicio: ControlCrecimientoService,
               private messageService: MessageService,
               private rutaActiva: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    // this.tipoDNI=this.rutaActiva.snapshot.queryParams.tipoDoc;
-    // this.nroDNI=this.rutaActiva.snapshot.queryParams.nroDoc;
+    this.tipoDNI=this.rutaActiva.snapshot.queryParams.tipoDoc;
+    this.nroDNI=this.rutaActiva.snapshot.queryParams.nroDoc;
     this.getLista()
     // this.getPaciente();
     this.builForm();
 
+  }
+  cambioEstado(valor){
+    console.log('----------------')
+    const recojido=valor.value;
+    this.fechaTentativaDisabled=recojido==='si'?true:false
   }
   getPaciente(){
     this.servicio.getPaciente(this.nroDNI)
@@ -62,12 +78,12 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     })
   }
   getLista() {
-    this.servicio.getListaControles('47825757')
-      // this.servicio.getListaControles(this.nroDNI)
+    // this.servicio.getListaControles('47825757')
+      this.servicio.getListaControles(this.nroDNI)
       .toPromise().then((result) => {
       this.listaControles = result.object
-      // this.paralosGraficos()
-      console.log('la lista',this.listaControles)
+      this.paralosGraficos()
+      // console.log('la lista',this.listaControles)
       this.transform()
     }).catch((err) => {
       console.log(err)
@@ -85,10 +101,6 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         }
       }
     });
-    console.log('hola mundo')
-    // console.log(this.mesesAltura)
-    // console.log(this.mesesPeso)
-    // console.log(this.mesesAlturaPeso)
   }
   transform(){
     //transformacion a un solo formato que se usará
@@ -154,12 +166,15 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
   //   }
   // }
   agregarPesoTalla(elemento){
+    const fechaString=elemento.fechaTentativa
+    console.log(fechaString)
     this.display=true;
-    this.getFC('fecha').setValue(new Date('01-03-1993'))
+    this.getFC('fecha').setValue(new Date(`${fechaString} 00:00:00`))
 
   }
   builForm(){
     this.tallaPesoFG=new FormGroup({
+      siNo:new FormControl('si',Validators.required),
       fecha: new FormControl('', Validators.required),
       peso:new FormControl('',Validators.required),
       talla:new FormControl('',Validators.required)
@@ -169,10 +184,68 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     return this.tallaPesoFG.get(control);
   }
   cancelar(){
-
+    this.display=false;
   }
   save(){
+  }
 
+  //
+  onWeightChart(): void {
+    // this.determinaEdadPesoTalla();
+    const isBoy = this.sexo
+    this.ref = this.dialogService.open(WeightChartComponent, {
+      data: {
+        dataChild: this.mesesPeso,
+        /* debe ser dataChild:[[mes,peso],..] ejem: dataChild:[[1,4.5],..]  */
+        isBoy: isBoy
+      },
+      header: isBoy ? 'GRÁFICA DE PESO DE UN NIÑO' : 'GRÁFICA DE PESO DE UNA NIÑA',
+      // width: '90%',
+      height: '90%',
+      width: '70%',
+      style: {
+        position: 'absolute',
+        top: '17px',
+      },
+    })
+  }
+
+  onHeightChart(): void {
+    const isBoy = this.sexo
+    this.ref = this.dialogService.open(HeightChartComponent, {
+      data: {
+        dataChild: this.mesesAltura,
+        /* debe ser dataChild:[[mes,altura],..] ejem: dataChild:[[1,4.5],..]  */
+        isBoy: isBoy
+      },
+      header: isBoy ? 'LONGITUD/ESTATURA PARA LOS NIÑOS' : 'LONGITUD/ESTATURA PARA LOS NIÑAS',
+      // width: '90%',
+      height: '90%',
+      width: '70%',
+      style: {
+        position: 'absolute',
+        top: '17px',
+      },
+    })
+  }
+
+  onHeightWeightChart(): void {
+    const isBoy = this.sexo
+    this.ref = this.dialogService.open(HeightWeightComponent, {
+      data: {
+        dataChild: this.mesesAlturaPeso,
+        /* debe ser dataChild:[[altura,peso],..] ejem: dataChild:[[1,4.5],..]  */
+        isBoy: isBoy
+      },
+      header: isBoy ? 'PESO PARA LA LONGITUD NIÑOS' : 'PESO PARA LA LONGITUD NIÑAS',
+      // width: '90%',
+      height: '90%',
+      width: '70%',
+      style: {
+        position: 'absolute',
+        top: '17px',
+      },
+    })
   }
 
 
