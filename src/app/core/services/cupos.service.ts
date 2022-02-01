@@ -9,7 +9,12 @@ export class CuposService {
     base_url = environment.baseUrl;
     bd = environment.bd;
 
-    // base_urlSimular = environment.baseUrlSimular;
+    ServicioSeleccionado = null;
+    AmbienteSeleccionado = null;
+    PersonalResponsableSeleccionado = null;
+    FechaAtencionSeleccionado = null;
+    HoraAtencionSeleccionado: any;
+    dataPersonalSelecionado: any;
 
     constructor(private http: HttpClient) {
     }
@@ -53,7 +58,8 @@ export class CuposService {
     listaCuposConfirmados(idIpres, data) {
         return this.http.post(`${this.base_url}/${this.bd}/cupo/lista/confirmado/${idIpres}`, data)
     }
-    buscarCupoPorDniFechaIpress(nroDoc,id,data){
+
+    buscarCupoPorDniFechaIpress(nroDoc, id, data) {
         return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/${nroDoc}/${id}`, data)
     }
 
