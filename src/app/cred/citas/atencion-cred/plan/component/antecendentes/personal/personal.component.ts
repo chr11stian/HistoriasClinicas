@@ -1,323 +1,320 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, AbstractControl, Validators, FormControl } from '@angular/forms';
-import { AntecedentesPersonalesFormType } from '../../models/antecedentes.interface';
-
-// export interface AntecedentesPersonales {
-//   dni?: string;
-//   embarazo: AEmbarazo;
-//   parto: AParto;
-//   nacimiento: ANacimiento;
-//   alimentacion: AAlimentacion;
-//   patologicos: APatologicos;
-// }
-
-// export interface AEmbarazo {
-//   patologias1:string;
-//   patologias2:string;
-//   normal:boolean;
-//   complicado:boolean;
-//   nro1:string;
-//   nro2:string;
-//   atencionPrenatal:boolean;
-//   lugarApn:string;
-// }
-
-// export interface AParto {
-//   patologias:string;
-//   pEptopico:boolean;
-//   complicado:boolean;
-//   eess:boolean;
-//   domicilio:boolean;
-//   consulParticular:boolean;
-//   profSalud:boolean;
-//   tecnico:boolean;
-//   acs:boolean;
-//   familiar:boolean;
-//   otro:boolean;
-//   detalleOtro:string;
-// }
-
-// export interface ANacimiento {
-//   edadNacer:string;
-//   pesoNacer:string;
-//   tallaNacer:string;
-//   perimetroCefelico:string;
-//   perimetroTorax:string;
-//   inmediato:boolean;
-//   apgar:string;
-//   reanimacion:boolean;
-//   patologiaNeonatal:boolean;
-//   detallePatologia:string;
-//   hospitalizacion:boolean;
-//   tiempoHospital:string;
-// }
-
-// export interface AAlimentacion {
-//   lme:boolean;
-//   mixta:boolean;
-//   artificial:boolean;
-//   iniAlimentacionCompl:string;
-//   suplementoFe:boolean;
-// }
-
-// export interface APatologicos {
-//   tbc:boolean;
-//   asma:boolean;
-//   epilepsia:boolean;
-//   infecciones:boolean;
-//   hospitalizacion:boolean;
-//   transfuSang:boolean;
-//   cirugia:boolean;
-//   alergiaMedicamentos:boolean;
-//   detalleAlergia:string;
-//   otrosAnt:boolean;
-//   detalleOtro:string;
-// }
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {FormGroup, FormBuilder, AbstractControl, Validators, FormControl} from '@angular/forms';
+import {AntecedentesService} from '../../../services/antecedentes/antecedentes.service';
+import {AntecedentesPersonalesFormType} from '../../models/antecedentes.interface';
+import Swal from "sweetalert2";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
-  selector: 'app-personal',
-  templateUrl: './personal.component.html',
-  styleUrls: ['./personal.component.css']
+    selector: 'app-personal',
+    templateUrl: './personal.component.html',
+    styleUrls: ['./personal.component.css']
 })
 export class PersonalComponent implements OnInit {
-  @Output() personalEmit: EventEmitter<AntecedentesPersonalesFormType> = new EventEmitter<AntecedentesPersonalesFormType>();
-  
-  stateOptions: any[];
-  stateOptions1: any[];
-  
-  personalFG: FormGroup;
+    @Output() personalEmit: EventEmitter<AntecedentesPersonalesFormType> = new EventEmitter<AntecedentesPersonalesFormType>();
 
-  constructor(private formBuilder: FormBuilder) {
-    this.buildForm();
-    this.stateOptions = [{label: 'SI', value: true},
-                          {label: 'NO', value: false}];
+    stateOptions: any[];
+    stateOptions1: any[];
 
-    this.stateOptions1 = [{label: '1m', value: 1},
-                          {label: '5m', value: 5}];
-    
-   }
-  
-   getFC(control: string): AbstractControl {
-    return this.personalFG.get(control)
-  }
+    personalFG: FormGroup;
+    nroDoc: string = ''
+    antecedentes: Antecedentes;
 
-  buildForm(): void {
-    this.personalFG = this.formBuilder.group({
-      patologiasE1: [''],
-      patologiasE2: [''],
-      normalE: [null],
-      complicadoE: [null],
-      nroE1: [''],
-      atencionPrenaE: [true],
-      nroE2: [''],
-      lugarApn: [''],
-      patologiasP: [''],
-      partoE: [null],
-      complicadoP: [null],
-      eessP: [null],
-      domicilioP: [null],
-      consultaPP: [null],
-      profSaludP: [null],
-      tecnicoP: [null],
-      acsP: [null],
-      familiarP: [null],
-      otroP: [null],
-      otroDetalleP: [''],
-      edadN: [''],
-      pesoN: [''],
-      tallaN: [''],
-      perimetroCefaN: [''],
-      perimetroTorN: [''],
-      inmediatoN: [true],
-      apgarN: [null],
-      reanimacionN: [true],
-      patologiaNeoN: [true],
-      detallePatologiaN: [''],
-      hospitalizacionN: [true],
-      tiempoHospN: [''],
-      lmeA: [true],
-      mixtaA: [true],
-      ArtificialA: [true],
-      iniAlimentacionC: [''],
-      suplementoFe: [true],
-      tbcP: [true],
-      asmaP: [true],
-      epilepsiaP: [true],
-      infeccionesP: [true],
-      hospitalizPato: [true],
-      transSangp: [true],
-      cirugiaP: [true],
-      alergiaMediP: [true],
-      detalleAlergiaMed: [''],
-      otrosAntP: [true],
-      detalleOtrosAntP: [''],
-      
-    })
-  }
+    constructor(private formBuilder: FormBuilder,
+                private antecedentesService: AntecedentesService,
+                private route: ActivatedRoute,
+                private router: Router) {
+        this.buildForm();
+        this.stateOptions = [{label: 'SI', value: true},
+            {label: 'NO', value: false}];
 
-  rellenarForm(tabla: AntecedentesPersonalesFormType): void {
+        this.stateOptions1 = [{label: '1m', value: 1},
+            {label: '5m', value: 5}];
 
-    this.getFC('patologiasE1').setValue(tabla.embarazo.patologias1)
-    this.getFC('patologiasE2').setValue(tabla.embarazo.patologias2)
-    this.getFC('normalE').setValue(tabla.embarazo.normal)
-    this.getFC('complicadoE').setValue(tabla.embarazo.complicado)
-    this.getFC('nroE1').setValue(tabla.embarazo.nro1)
-    this.getFC('atencionPrenaE').setValue(tabla.embarazo.atencionPrenatal)
-    this.getFC('nroE2').setValue(tabla.embarazo.nro2)
-    this.getFC('lugarApn').setValue(tabla.embarazo.lugarApn)
-    this.getFC('patologiasP').setValue(tabla.parto.patologias)
-    this.getFC('partoE').setValue(tabla.parto.pEptopico)
-    this.getFC('complicadoP').setValue(tabla.parto.complicado)
-    this.getFC('eessP').setValue(tabla.parto.eess)
-    this.getFC('domicilioP').setValue(tabla.parto.domicilio)
-    this.getFC('consultaPP').setValue(tabla.parto.consulParticular)
-    this.getFC('profSaludP').setValue(tabla.parto.profSalud)
-    this.getFC('tecnicoP').setValue(tabla.parto.tecnico)
-    this.getFC('acsP').setValue(tabla.parto.acs)
-    this.getFC('familiarP').setValue(tabla.parto.familiar)
-    this.getFC('otroP').setValue(tabla.parto.otro)
-    this.getFC('otroDetalleP').setValue(tabla.parto.detalleOtro)
-    this.getFC('edadN').setValue(tabla.nacimiento.edadNacer)
-    this.getFC('pesoN').setValue(tabla.nacimiento.pesoNacer)
-    this.getFC('tallaN').setValue(tabla.nacimiento.tallaNacer)
-    this.getFC('perimetroCefaN').setValue(tabla.nacimiento.perimetroCefelico)
-    this.getFC('perimetroTorN').setValue(tabla.nacimiento.perimetroTorax)
-    this.getFC('inmediatoN').setValue(tabla.nacimiento.inmediato)
-    this.getFC('apgarN').setValue(tabla.nacimiento.apgar)
-    this.getFC('reanimacionN').setValue(tabla.nacimiento.reanimacion)
-    this.getFC('patologiaNeoN').setValue(tabla.nacimiento.patologiaNeonatal)
-    this.getFC('detallePatologiaN').setValue(tabla.nacimiento.detallePatologia)
-    this.getFC('hospitalizacionN').setValue(tabla.nacimiento.hospitalizacion)
-    this.getFC('tiempoHospN').setValue(tabla.nacimiento.tiempoHospital)
-    this.getFC('lmeA').setValue(tabla.alimentacion.lme)
-    this.getFC('mixtaA').setValue(tabla.alimentacion.mixta)
-    this.getFC('ArtificialA').setValue(tabla.alimentacion.artificial)
-    this.getFC('iniAlimentacionC').setValue(tabla.alimentacion.iniAlimentacionCompl)
-    this.getFC('suplementoFe').setValue(tabla.alimentacion.suplementoFe)
-    this.getFC('tbcP').setValue(tabla.patologicos.tbc)
-    this.getFC('asmaP').setValue(tabla.patologicos.asma)
-    this.getFC('epilepsiaP').setValue(tabla.patologicos.epilepsia)
-    this.getFC('infeccionesP').setValue(tabla.patologicos.infecciones)
-    this.getFC('hospitalizPato').setValue(tabla.patologicos.hospitalizacion)
-    this.getFC('transSangp').setValue(tabla.patologicos.transfuSang)
-    this.getFC('cirugiaP').setValue(tabla.patologicos.cirugia)
-    this.getFC('alergiaMediP').setValue(tabla.patologicos.alergiaMedicamentos)
-    this.getFC('detalleAlergiaMed').setValue(tabla.patologicos.detalleAlergia)
-    this.getFC('otrosAntP').setValue(tabla.patologicos.otrosAnt)
-    this.getFC('detalleOtrosAntP').setValue(tabla.patologicos.detalleOtro)
-  }
-
-
-  ngOnInit(): void {
-    
-    console.log(this.personalFG);
-    //this.cambiarEstado();
-    
-  }
-
-  // cambiarEstado(){
-  //   this.getFC('normalE').valueChanges.subscribe(v=>{
-  //     this.getFC('complicadoE').setValue(!this.getFC('complicadoE').value)
-  //   })
-  // }
-  cambio(e,nombre:string){
-    console.log(e.value, nombre);
-    this.getFC(nombre).setValue(!e.value)
-  }
-
-  cambio2(e,nombre1:string,nombre2:string){
-    if (this.getFC(nombre1).value===false && this.getFC(nombre2).value===false){
-      return
     }
-    if (e.value===false){
-      return
-    }
-  
-    this.getFC(nombre1).setValue(!e.value)
-    this.getFC(nombre2).setValue(!e.value)
-  }
-  cambio3(e,nombre1:string,nombre2:string,nombre3:string,nombre4:string){
-    if (this.getFC(nombre1).value===false && this.getFC(nombre2).value===false && this.getFC(nombre3).value===false && this.getFC(nombre4).value===false){
-      return
-    }
-    if (e.value===false){
-      return
-    }
-    this.getFC(nombre1).setValue(!e.value)
-    this.getFC(nombre2).setValue(!e.value)
-    this.getFC(nombre3).setValue(!e.value)
-    this.getFC(nombre4).setValue(!e.value)
-  }
 
-  save(){
-    this.personalEmit.emit({
-      embarazo: {
-        patologias1: this.getFC('patologiasE1').value,
-        patologias2: this.getFC('patologiasE2').value,
-        normal: this.getFC('normalE').value,
-        complicado: this.getFC('complicadoE').value,
-        nro1: this.getFC('nroE1').value,
-        nro2: this.getFC('atencionPrenaE').value,
-        atencionPrenatal: this.getFC('nroE2').value,
-        lugarApn: this.getFC('lugarApn').value,
-      },
-      parto: {
-        patologias: this.getFC('patologiasP').value,
-        pEptopico: this.getFC('partoE').value,
-        complicado: this.getFC('complicadoP').value,
-        eess: this.getFC('eessP').value,
-        domicilio: this.getFC('domicilioP').value,
-        consulParticular: this.getFC('consultaPP').value,
-        profSalud: this.getFC('profSaludP').value,
-        tecnico: this.getFC('tecnicoP').value,
-        acs: this.getFC('acsP').value,
-        familiar: this.getFC('familiarP').value,
-        otro: this.getFC('otroP').value,
-        detalleOtro: this.getFC('otroDetalleP').value,
-      },
-      nacimiento: {
-        edadNacer: this.getFC('edadN').value,
-        pesoNacer: this.getFC('pesoN').value,
-        tallaNacer: this.getFC('tallaN').value,
-        perimetroCefelico: this.getFC('perimetroCefaN').value,
-        perimetroTorax: this.getFC('perimetroTorN').value,
-        inmediato: this.getFC('inmediatoN').value,
-        apgar: this.getFC('apgarN').value,
-        reanimacion: this.getFC('reanimacionN').value,
-        patologiaNeonatal: this.getFC('patologiaNeoN').value,
-        detallePatologia: this.getFC('detallePatologiaN').value,
-        hospitalizacion: this.getFC('hospitalizacionN').value,
-        tiempoHospital: this.getFC('tiempoHospN').value,
-      },
-      alimentacion: {
-        lme: this.getFC('lmeA').value,
-        mixta: this.getFC('mixtaA').value,
-        artificial: this.getFC('ArtificialA').value,
-        iniAlimentacionCompl: this.getFC('iniAlimentacionC').value,
-        suplementoFe: this.getFC('suplementoFe').value,
-      },
-      patologicos:{
-        tbc: this.getFC('tbcP').value,
-        asma: this.getFC('asmaP').value,
-        epilepsia: this.getFC('epilepsiaP').value,
-        infecciones: this.getFC('infeccionesP').value,
-        hospitalizacion: this.getFC('hospitalizPato').value,
-        transfuSang: this.getFC('transSangp').value,
-        cirugia: this.getFC('cirugiaP').value,
-        alergiaMedicamentos: this.getFC('alergiaMediP').value,
-        detalleAlergia: this.getFC('detalleAlergiaMed').value,
-        otrosAnt: this.getFC('otrosAntP').value,
-        detalleOtro: this.getFC('detalleOtrosAntP').value,
-      }
-    })
-    console.log(this.personalEmit);
-    console.log(this.personalFG.value);
-    
-    
-  }
+    getFC(control: string): AbstractControl {
+        return this.personalFG.get(control)
+    }
 
-  limpiar() {
-    this.personalFG.reset();
-  }
+    buildForm(): void {
+        this.personalFG = this.formBuilder.group({
+            patologiasE1: [''],
+            patologiasE2: [''],
+            normalE: [null],
+            complicadoE: [null],
+            nroE1: [''],
+            atencionPrenaE: [true],
+            nroE2: [''],
+            lugarApn: [''],
 
+            patologiasP: [''],
+            partoE: [true],
+            complicadoP: [false],
+            eessP: [true],
+            domicilioP: [false],
+            consultaPP: [false],
+            profSaludP: [true],
+            tecnicoP: [false],
+            acsP: [false],
+            familiarP: [false],
+            otroP: [false],
+            otroDetalleP: [''],
+            edadN: [''],
+            pesoN: [''],
+            tallaN: [''],
+            perimetroCefaN: [''],
+            perimetroTorN: [''],
+            inmediatoN: [true],
+            apgarN: [true],
+            reanimacionN: [false],
+            patologiaNeoN: [false],
+            detallePatologiaN: [''],
+            hospitalizacionN: [true],
+            tiempoHospN: [''],
+            lmeA: [true],
+            mixtaA: [false],
+            ArtificialA: [false],
+            iniAlimentacionC: [''],
+            suplementoFe: [false],
+            menor2anios: [true],
+            tbcP: [false],
+            asmaP: [false],
+            epilepsiaP: [false],
+            infeccionesP: [false],
+            hospitalizPato: [false],
+            transSangp: [false],
+            cirugiaP: [false],
+            alergiaMediP: [false],
+            detalleAlergiaMed: [''],
+            otrosAntP: [false],
+            detalleOtrosAntP: [''],
+        })
+    }
+
+    recuperarDatos() {
+        this.antecedentesService.getAntecedentesPersonales(this.nroDoc).subscribe((r: any) => {
+            this.antecedentes = r.object;
+            console.log('object', r.object);
+            console.log('antecedentes', this.antecedentes)
+        })
+    }
+
+    getQueryParams(): void {
+        this.route.queryParams
+            .subscribe(params => {
+                this.nroDoc = params['nroDoc']
+            })
+    }
+
+    ngOnInit(): void {
+        this.getQueryParams()
+        this.recuperarDatos();
+    }
+
+    cambio(e, nombre: string) {
+        console.log(e.value, nombre);
+        this.getFC(nombre).setValue(!e.value)
+    }
+
+    cambio2(e, nombre1: string, nombre2: string) {
+        if (this.getFC(nombre1).value === false && this.getFC(nombre2).value === false) {
+            return
+        }
+        if (e.value === false) {
+            return
+        }
+
+        this.getFC(nombre1).setValue(!e.value)
+        this.getFC(nombre2).setValue(!e.value)
+    }
+
+    cambio3(e, nombre1: string, nombre2: string, nombre3: string, nombre4: string) {
+        if (this.getFC(nombre1).value === false && this.getFC(nombre2).value === false && this.getFC(nombre3).value === false && this.getFC(nombre4).value === false) {
+            return
+        }
+        if (e.value === false) {
+            return
+        }
+        this.getFC(nombre1).setValue(!e.value)
+        this.getFC(nombre2).setValue(!e.value)
+        this.getFC(nombre3).setValue(!e.value)
+        this.getFC(nombre4).setValue(!e.value)
+    }
+
+    cambio4(e, nombre1: string, nombre2: string, nombre3: string) {
+        if (this.getFC(nombre1).value === false && this.getFC(nombre2).value === false && this.getFC(nombre3).value === false) {
+            return
+        }
+        if (e.value === false) {
+            return
+        }
+        this.getFC(nombre1).setValue(!e.value)
+        this.getFC(nombre2).setValue(!e.value)
+        this.getFC(nombre3).setValue(!e.value)
+    }
+
+    save() {
+        let aux: Antecedentes = {
+            embarazo: {
+                tipoEmbarazo: this.getFC('normalE').value ? 'Normal' : 'Complicado',
+                patologiaDuranteGestacion: this.getFC('patologiasE1').value,
+                nroEmbarazo: this.getFC('nroE1').value,
+                atencionPrenatal: this.getFC('atencionPrenaE').value,
+                nroAP: this.getFC('nroE2').value,
+                lugarApn: this.getFC('lugarApn').value
+            },
+            parto: {
+                tipoParto: !this.getFC('complicadoP').value ? 'Eptopico' : 'Complicado',
+                complicacionesDelParto: this.getFC('patologiasP').value,
+                lugarParto: this.getFC('eessP').value ? 'EE.SS' : (this.getFC('domicilioP').value ? 'Domicilio' : 'Consulta'),
+                atendidoPor: this.getFC('profSaludP').value ? 'Profesional' : (this.getFC('tecnicoP').value ? 'Tecnico' : (this.getFC('acsP').value ? 'ACS' : (this.getFC('familiarP').value ? 'Familiar' : this.getFC('otroDetalleP').value)))
+            },
+            nacimiento: {
+                edadGestacionalAlNacer: this.getFC('edadN').value,
+                pesoAlNacer: this.getFC('pesoN').value,
+                tallaAlNacer: this.getFC('tallaN').value,
+                perimetroCefalico: this.getFC('perimetroCefaN').value,
+                perimetroToracico: this.getFC('perimetroTorN').value,
+                respiracionLlantoNacerInmediato: this.getFC('inmediatoN').value,
+                apgar: this.getFC('apgarN').value ? 1 : 5,
+                reanimacion: this.getFC('reanimacionN').value,
+                patologiaNeonatal: this.getFC('patologiaNeoN').value,
+                especifique: this.getFC('detallePatologiaN').value,
+                hospitalizacion: this.getFC('hospitalizacionN').value,
+                tiempoHospitalizacion: {
+                    anio: '',
+                    mes: '',
+                    dia: this.getFC('tiempoHospN').value
+                }
+            },
+            alimentacion: {
+                LME: this.getFC('lmeA').value,
+                mixta: this.getFC('mixtaA').value,
+                artificial: this.getFC('ArtificialA').value,
+                inicioAlimentacionComplemetaria: this.getFC('iniAlimentacionC').value,
+                suplementoHierro: this.getFC('suplementoFe').value,
+                menosDosAnios: this.getFC('menor2anios').value
+            },
+            patologias: [
+                {
+                    codigo: "PATOLOGIA_1",
+                    nombre: "TBC",
+                    valor: this.getFC('tbcP').value
+                },
+                {
+                    codigo: "PATOLOGIA_2",
+                    nombre: "SOBA/ Asma",
+                    valor: this.getFC('asmaP').value
+                },
+                {
+                    codigo: "PATOLOGIA_3",
+                    nombre: "Epilepsia",
+                    valor: this.getFC('epilepsiaP').value
+                },
+                {
+                    codigo: "PATOLOGIA_4",
+                    nombre: "Infecciones",
+                    valor: this.getFC('infeccionesP').value
+                },
+                {
+                    codigo: "PATOLOGIA_5",
+                    nombre: "Hospitalizaciones",
+                    valor: this.getFC('hospitalizPato').value
+                },
+                {
+                    codigo: "PATOLOGIA_6",
+                    nombre: "Tranfusiones Sangre",
+                    valor: this.getFC('transSangp').value
+                },
+                {
+                    codigo: "PATOLOGIA_7",
+                    nombre: "Cirugía",
+                    valor: this.getFC('cirugiaP').value
+                },
+                {
+                    codigo: "PATOLOGIA_8",
+                    nombre: "Alegia a Medicamentos",
+                    valor: this.getFC('alergiaMediP').value
+                }
+            ],
+            otroAntecedentes: this.getFC('detalleOtrosAntP').value
+        }
+        this.antecedentesService.updateAntecedentesPersonales(this.nroDoc, aux).subscribe(
+            (resp) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Actualizado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
+        )
+    }
+
+    limpiar() {
+        this.personalFG.reset();
+    }
+}
+
+export interface Antecedentes {
+    embarazo: Embarazo;
+    parto: Parto;
+    nacimiento: Nacimiento;
+    alimentacion: Alimentacion;
+    patologias: Patologia[];
+    otroAntecedentes: string;
+}
+
+export interface Alimentacion {
+    LME: string;
+    mixta: string,
+    artificial: string,
+    inicioAlimentacionComplemetaria: string;
+    suplementoHierro: boolean;
+    menosDosAnios: boolean;
+}
+
+export interface Embarazo {
+    tipoEmbarazo: string;
+    patologiaDuranteGestacion: string;
+    nroEmbarazo: number;
+    atencionPrenatal: boolean;
+    nroAP: number;
+    lugarApn: string;
+}
+
+export interface Nacimiento {
+    edadGestacionalAlNacer: number;
+    pesoAlNacer: number;
+    tallaAlNacer: number;
+    perimetroCefalico: number;
+    perimetroToracico: number;
+    respiracionLlantoNacerInmediato: boolean;
+    apgar: number;
+    reanimacion: boolean;
+    patologiaNeonatal: boolean;
+    especifique: string;
+    hospitalizacion: boolean;
+    tiempoHospitalizacion: TiempoHospitalizacion;
+}
+
+export interface TiempoHospitalizacion {
+    anio: string;
+    mes: string;
+    dia: string;
+}
+
+export interface Parto {
+    tipoParto: string;
+    complicacionesDelParto: string;
+    lugarParto: string;
+    atendidoPor: string;
+}
+
+export interface Patologia {
+    codigo: string;
+    nombre: string;
+    valor: boolean;
 }

@@ -506,7 +506,7 @@ export class RolGuardiaComponent implements OnInit {
       this.messageService.add({
         severity: "warn",
         summary: "denegado",
-        detail: "El personal de salud no cumple con el minimo de las 252 horas",
+        detail: "El personal de salud no cumple con el minimo de las 150 horas",
       });
     }
 
@@ -515,7 +515,7 @@ export class RolGuardiaComponent implements OnInit {
   validarHoras() {
     let isValid = true;
     for (let i = 0; i < this.listaHoras.length; i++) {
-      if (this.listaHoras[i] <= 252) {
+      if (this.listaHoras[i] <= 150) {
         isValid = false;
       }
     }

@@ -2,7 +2,7 @@
     <div class="lg:col-6 md:col-6 col-fixed">
         <p-table [value]="diagnosticoNosologico" [rowHover]="true"
                  [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
-                 [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                 [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
                  [filterDelay]="0">
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
@@ -37,15 +37,55 @@
                 </tr>
             </ng-template>
         </p-table>
-        <br>
-        <p-table [value]="factoresCondicionales" [rowHover]="true"
+    </div>
+    <div class="lg:col-6 md:col-6 col-fixed">
+        <p-table [value]="diagnosticoNosologico" [rowHover]="true"
                  [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
-                 [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                 [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
                  [filterDelay]="0">
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
-                        4. Factores condicionales de la salud, nutrición y desarrollo
+                        1. Tabla de Registro de HIS
+                    </div>
+                    <div>
+                        <button pButton pRipple label="Agregar" icon="pi pi-plus-circle" class="guardar mr-2"
+                                style="background-color: #0c3866" (click)="openDiagnostico()"></button>
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: center" class="font-2">Nro</th>
+                    <th style="text-align: center" class="font-1">Cod. Prestación de Servicios</th>
+                    <th style="text-align: center" class="font-2">Descripción</th>
+                    <th style="text-align: center" class="font-2">ACCIÓN</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr>
+                    <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                    <td style="text-align: center">{{ rowData.codigoItem }}</td>
+                    <td style="text-align: center">{{ rowData.descripcionItem }}</td>
+                    <td style="text-align: center">
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="eliminarDiagnostico(rowIndex)" pTooltip="Eliminar">
+                        </button>
+
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="lg:col-12 md:col-12 col-fixed">
+        <p-table [value]="factoresCondicionales" [rowHover]="true"
+                 [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
+                 [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
+                 [filterDelay]="0">
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-between">
+                    <div class="table-header mt-2">
+                        2. Factores condicionales de la salud, nutrición y desarrollo
                     </div>
                     <div>
                         <button pButton pRipple label="Agregar" icon="pi pi-plus-circle" class="guardar mr-2"
@@ -78,145 +118,145 @@
     </div>
 
 
-    <div class="lg:col-6 md:col-6 col-fixed">
-        <form [formGroup]=formG>
-            <div class="card flex flex-row">
-                <div class="col-6 col-fixed">
-                    <p-card>
-                        <p-toolbar>
-                            <ng-template pTemplate="left">
-                                <div class="font-semibold"> 2. Condición de Crecimiento y Estado Nutricional</div>
-                            </ng-template>
-                        </p-toolbar>
-                        <br>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Crecimiento adecuado:</span>
-                            <p-radioButton class="mr-2" name="crecimiento" value="val1"
-                                           formControlName="crecimiento"></p-radioButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Crecimiento inadecuado:</span>
-                            <p-radioButton class="mr-2" name="crecimiento" value="val2"
-                                           formControlName="crecimiento"></p-radioButton>
-                        </div>
+<!--    <div class="lg:col-6 md:col-6 col-fixed">-->
+<!--        <form [formGroup]=formG>-->
+<!--            <div class="card flex flex-row">-->
+<!--                <div class="col-6 col-fixed">-->
+<!--                    <p-card>-->
+<!--                        <p-toolbar>-->
+<!--                            <ng-template pTemplate="left">-->
+<!--                                <div class="font-semibold"> 2. Condición de Crecimiento y Estado Nutricional</div>-->
+<!--                            </ng-template>-->
+<!--                        </p-toolbar>-->
+<!--                        <br>-->
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Crecimiento adecuado:</span>-->
+<!--                            <p-radioButton class="mr-2" name="crecimiento" value="val1"-->
+<!--                                           formControlName="crecimiento"></p-radioButton>-->
+<!--                        </div>-->
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Crecimiento inadecuado:</span>-->
+<!--                            <p-radioButton class="mr-2" name="crecimiento" value="val2"-->
+<!--                                           formControlName="crecimiento"></p-radioButton>-->
+<!--                        </div>-->
 
-                        <div class="field grid">
-                            <span class="col-fixed ml-2 font-bold text-sm" style="width:167px">RIESGO NUTRICIONAL</span>
-                            <span class="col-fixed text-right font-bold text-sm">P/T</span>
-                            <span class="col-fixed text-right font-bold text-sm">T/E</span>
-                            <span class="col-fixed text-right font-bold text-sm">P/T</span>
-                        </div>
-                        <div class="field grid">
-                        <span class="col-fixed text-right mr-2"
-                              style="width:180px">Ganancia inadecuada de peso y talla</span>
-                            <p-radioButton class="mr-2" name="ganancia" value="val1"
-                                           formControlName="ganancia"></p-radioButton>
-                            <p-radioButton class="mr-2" name="ganancia" value="val2"
-                                           formControlName="ganancia"></p-radioButton>
-                            <p-radioButton class="mr-2" name="ganancia" value="val3"
-                                           formControlName="ganancia"></p-radioButton>
-                        </div>
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed ml-2 font-bold text-sm" style="width:167px">RIESGO NUTRICIONAL</span>-->
+<!--                            <span class="col-fixed text-right font-bold text-sm">P/T</span>-->
+<!--                            <span class="col-fixed text-right font-bold text-sm">T/E</span>-->
+<!--                            <span class="col-fixed text-right font-bold text-sm">P/T</span>-->
+<!--                        </div>-->
+<!--                        <div class="field grid">-->
+<!--                        <span class="col-fixed text-right mr-2"-->
+<!--                              style="width:180px">Ganancia inadecuada de peso y talla</span>-->
+<!--                            <p-radioButton class="mr-2" name="ganancia" value="val1"-->
+<!--                                           formControlName="ganancia"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="ganancia" value="val2"-->
+<!--                                           formControlName="ganancia"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="ganancia" value="val3"-->
+<!--                                           formControlName="ganancia"></p-radioButton>-->
+<!--                        </div>-->
 
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Desnutrición</span>
-                            <p-radioButton class="mr-2" name="desnutricion" value="val1"
-                                           formControlName="desnutricion"></p-radioButton>
-                            <p-radioButton class="mr-2" name="desnutricion" value="val2"
-                                           formControlName="desnutricion"></p-radioButton>
-                            <p-radioButton class="mr-2" name="desnutricion" value="val3"
-                                           formControlName="desnutricion"></p-radioButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Sobrepeso</span>
-                            <p-radioButton class="mr-2" name="sobrepeso" value="val1"
-                                           formControlName="sobrepeso"></p-radioButton>
-                            <p-radioButton class="mr-2" name="sobrepeso" value="val2"
-                                           formControlName="sobrepeso"></p-radioButton>
-                            <p-radioButton class="mr-2" name="sobrepeso" value="val3"
-                                           formControlName="sobrepeso"></p-radioButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Obesidad</span>
-                            <p-radioButton class="mr-2" name="Obesidad" value="val1"
-                                           formControlName="Obesidad"></p-radioButton>
-                            <p-radioButton class="mr-2" name="Obesidad" value="val2"
-                                           formControlName="Obesidad"></p-radioButton>
-                            <p-radioButton class="mr-2" name="Obesidad" value="val3"
-                                           formControlName="Obesidad"></p-radioButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Otros</span>
-                            <p-radioButton class="mr-2" name="Otros" value="val1"
-                                           formControlName="Otros"></p-radioButton>
-                            <p-radioButton class="mr-2" name="Otros" value="val2"
-                                           formControlName="Otros"></p-radioButton>
-                            <p-radioButton class="mr-2" name="Otros" value="val3"
-                                           formControlName="Otros"></p-radioButton>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2" style="width:180px">Otros</span>
-                            <p-radioButton class="mr-2" name="Otros2" value="val1"
-                                           formControlName="Otros2"></p-radioButton>
-                            <p-radioButton class="mr-2" name="Otros2" value="val2"
-                                           formControlName="Otros2"></p-radioButton>
-                            <p-radioButton class="mr-2" name="Otros2" value="val3"
-                                           formControlName="Otros2"></p-radioButton>
-                        </div>
-                    </p-card>
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Desnutrición</span>-->
+<!--                            <p-radioButton class="mr-2" name="desnutricion" value="val1"-->
+<!--                                           formControlName="desnutricion"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="desnutricion" value="val2"-->
+<!--                                           formControlName="desnutricion"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="desnutricion" value="val3"-->
+<!--                                           formControlName="desnutricion"></p-radioButton>-->
+<!--                        </div>-->
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Sobrepeso</span>-->
+<!--                            <p-radioButton class="mr-2" name="sobrepeso" value="val1"-->
+<!--                                           formControlName="sobrepeso"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="sobrepeso" value="val2"-->
+<!--                                           formControlName="sobrepeso"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="sobrepeso" value="val3"-->
+<!--                                           formControlName="sobrepeso"></p-radioButton>-->
+<!--                        </div>-->
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Obesidad</span>-->
+<!--                            <p-radioButton class="mr-2" name="Obesidad" value="val1"-->
+<!--                                           formControlName="Obesidad"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="Obesidad" value="val2"-->
+<!--                                           formControlName="Obesidad"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="Obesidad" value="val3"-->
+<!--                                           formControlName="Obesidad"></p-radioButton>-->
+<!--                        </div>-->
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Otros</span>-->
+<!--                            <p-radioButton class="mr-2" name="Otros" value="val1"-->
+<!--                                           formControlName="Otros"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="Otros" value="val2"-->
+<!--                                           formControlName="Otros"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="Otros" value="val3"-->
+<!--                                           formControlName="Otros"></p-radioButton>-->
+<!--                        </div>-->
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed text-right mr-2" style="width:180px">Otros</span>-->
+<!--                            <p-radioButton class="mr-2" name="Otros2" value="val1"-->
+<!--                                           formControlName="Otros2"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="Otros2" value="val2"-->
+<!--                                           formControlName="Otros2"></p-radioButton>-->
+<!--                            <p-radioButton class="mr-2" name="Otros2" value="val3"-->
+<!--                                           formControlName="Otros2"></p-radioButton>-->
+<!--                        </div>-->
+<!--                    </p-card>-->
 
-                </div>
-                <div class="col-6 col-fixed">
-                    <p-card>
-                        <p-toolbar>
-                            <ng-template pTemplate="left">
-                                <div class="font-semibold"> 3. Condición de Desarrollo Psicomotor</div>
-                            </ng-template>
-                        </p-toolbar>
-                        <br>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2"
-                                  style="width:180px">Normal:</span>
-                            <p-checkbox class="mt-1" name="condicionNormal" value="val1"
-                                        formControlName="condicionNormal"></p-checkbox>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2"
-                                  style="width:180px">Riesgo de desarrollo:</span>
-                            <p-checkbox class="mt-1" name="condicionRiesgo" value="val1"
-                                        formControlName="condicionRiesgo"></p-checkbox>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2"
-                                  style="width:180px">Deficit del desarrollo según PB:</span>
-                            <p-checkbox class="mt-1" name="condicionDeficit" value="val1"
-                                        formControlName="condicionDeficit"></p-checkbox>
-                        </div>
-                        <div class="field grid">
-                            <span class="col-fixed text-right mr-2"
-                                  style="width:180px">Transtorno del desarrollo:</span>
-                            <p-checkbox class="mt-1" name="condicionTranstorno" value="val1"
-                                        formControlName="condicionTranstorno"></p-checkbox>
-                        </div>
-                    </p-card>
-                </div>
-            </div>
-            <div class="col-12 col-fixed">
-                <p-card>
-                    <p-toolbar>
-                        <ng-template pTemplate="left">
-                            <div class="font-semibold"> OBSERVACIONES</div>
-                        </ng-template>
-                    </p-toolbar>
-                    <div class="field col-12">
-                        <textarea formControlName="observacion" rows="4" pInputTextarea
-                                  style="width: inherit;"
-                                  placeholder="Ingrese sus observaciones..."></textarea>
+<!--                </div>-->
+<!--                <div class="col-6 col-fixed">-->
+<!--                    <p-card>-->
+<!--                        <p-toolbar>-->
+<!--                            <ng-template pTemplate="left">-->
+<!--                                <div class="font-semibold"> 3. Condición de Desarrollo Psicomotor</div>-->
+<!--                            </ng-template>-->
+<!--                        </p-toolbar>-->
+<!--                        <br>-->
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed text-right mr-2"-->
+<!--                                  style="width:180px">Normal:</span>-->
+<!--                            <p-checkbox class="mt-1" name="condicionNormal" value="val1"-->
+<!--                                        formControlName="condicionNormal"></p-checkbox>-->
+<!--                        </div>-->
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed text-right mr-2"-->
+<!--                                  style="width:180px">Riesgo de desarrollo:</span>-->
+<!--                            <p-checkbox class="mt-1" name="condicionRiesgo" value="val1"-->
+<!--                                        formControlName="condicionRiesgo"></p-checkbox>-->
+<!--                        </div>-->
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed text-right mr-2"-->
+<!--                                  style="width:180px">Deficit del desarrollo según PB:</span>-->
+<!--                            <p-checkbox class="mt-1" name="condicionDeficit" value="val1"-->
+<!--                                        formControlName="condicionDeficit"></p-checkbox>-->
+<!--                        </div>-->
+<!--                        <div class="field grid">-->
+<!--                            <span class="col-fixed text-right mr-2"-->
+<!--                                  style="width:180px">Transtorno del desarrollo:</span>-->
+<!--                            <p-checkbox class="mt-1" name="condicionTranstorno" value="val1"-->
+<!--                                        formControlName="condicionTranstorno"></p-checkbox>-->
+<!--                        </div>-->
+<!--                    </p-card>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="col-12 col-fixed">-->
+<!--                <p-card>-->
+<!--                    <p-toolbar>-->
+<!--                        <ng-template pTemplate="left">-->
+<!--                            <div class="font-semibold"> OBSERVACIONES</div>-->
+<!--                        </ng-template>-->
+<!--                    </p-toolbar>-->
+<!--                    <div class="field col-12">-->
+<!--                        <textarea formControlName="observacion" rows="4" pInputTextarea-->
+<!--                                  style="width: inherit;"-->
+<!--                                  placeholder="Ingrese sus observaciones..."></textarea>-->
 
-                    </div>
-                </p-card>
-            </div>
-        </form>
-    </div>
+<!--                    </div>-->
+<!--                </p-card>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
 
 </div>
 
@@ -296,7 +336,7 @@
     </form>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="button-cancelar"
-                icon="pi pi-times" (click)="cancelDiagnostico()"></button>
+                icon="pi pi-times" (click)="cancelFactor()"></button>
         <button class="button-agregar" icon="pi pi-save" pButton type="button"
                 label="Guardar" (click)="saveFactor()"></button>
 

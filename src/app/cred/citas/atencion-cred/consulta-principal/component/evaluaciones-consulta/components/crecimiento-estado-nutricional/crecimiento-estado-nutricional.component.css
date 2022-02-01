@@ -1,0 +1,22 @@
+p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
+    background: #0c3866;
+    border-color: #0c3866;
+}
+::ng-deep .vacunado .p-calendar .p-button {
+    background: green;
+    border: 1px solid #0c3866;
+    align-self: center;
+}
+::ng-deep .noVacunado .p-calendar .p-button {
+    background: red;
+    border: 1px solid #0c3866;
+    align-self: center;
+}
+p-calendar >>> .p-inputtext {
+    font-size: 11px;
+}
+p-calendar >>> .p-button {
+    background: #0c3866;
+    border: 1px solid #0c3866;
+    align-self: center;
+}

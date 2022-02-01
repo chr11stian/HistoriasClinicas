@@ -31,7 +31,15 @@ export class AtencionCredComponent implements OnInit {
                 }
             })
     }
-
+    getTriaje(): void {
+        this.router.navigate(['/dashboard/cred/citas/atencion/triaje'],
+            {
+                queryParams: {
+                    'tipoDoc': this.tipoDoc,
+                    'nroDoc': this.nroDoc,
+                }
+            })
+    }
     getConsultaPrincipal(): void {
         this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'],
             {
