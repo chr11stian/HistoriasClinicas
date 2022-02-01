@@ -8,7 +8,7 @@
     <br>
     <div class="grid">
         <div class="col-12 md:col-6 lg:col-6 p-field">
-            <form [formGroup]="formCuposOferta">
+            <form [formGroup]="formCuposListar">
                 <div class="grid">
                     <div class="col-12 md:col-6 lg:col-4 p-field">
                         <span class="">Filtrar por fecha</span>
@@ -54,9 +54,11 @@
                 <div class="col-12 md:col-6 lg:col-4 p-field">
                     <span class="">.</span>
                     <div class="p-inputgroup">
-                        <button pButton pRipple label="Agregar" (click)="openDialogCuposNuevo()" icon="pi pi-plus"
+                        <button pButton pRipple label="Reservar" (click)="openDialogCuposNuevo()" icon="pi pi-plus"
                                 class="mr-2"></button>
-                        <button pButton pRipple label="Exportar" icon="pi pi-upload" class=""></button>
+                        <button pButton pRipple type="button" icon="pi pi-upload" label="Exportar"
+                                class="p-button-raised p-button-success"></button>
+
                     </div>
                 </div>
             </div>

@@ -24,51 +24,21 @@ import {ModalCuposComponent} from "./modal-cupos/modal-cupos.component";
 export class CuposComponent implements OnInit, OnDestroy {
 
     idIpressLapostaMedica = "616de45e0273042236434b51";
-    listaUps: any;
+    iprees: string = "la posta medica";
+
     dataCupos_por_fechas_servicio: any;
     DataCupos: any;
-    personalSelected2: any;
-    isUpdate: boolean = false;
     fecha: string;
-
-    dataSelectAmbiente: any;
-    dataSelectHoras: any;
-    dataSelectServicio: any;
-    selectedHorario: any;
-    selectedFecha: any;
-    dataPacientes: any;
-
-    estadoHoras: string = "LIBRE";
-    estadoCupo: string = "active";
-    totalHoras: any;
-    hora: any;
-    personals: any;
     datafecha: Date = new Date();
-    fechaParaReservaCupos: string;
-    listaDocumentosIdentidad: any
-
-    dataOfertasCupos: any;
-    ups: [] = [];
     datePipe = new DatePipe('en-US');
-    cuposDialog: boolean;
-    usuarioDialog: boolean;
-    selectedServicio: any;
-
-    personalSelected: string = '';
+    ups: [] = [];
     justifyOptions: any[];
-    stateOptions: any[];
-    formCuposOferta: FormGroup;
-    dataCitas: any;
-
-
-    iprees: string = "la posta medica";
+    formCuposListar: FormGroup;
     ServicoSelect: string = "OBSTETRICIA";
-    Pacientes: any;
-    ProximaCita: any;
+
 
     /*******detalle cupo para verificar si mandar a caja o triaje**************/
     detallePago: string = "PENDIENTE"
-    tieneSIS: boolean = false;
     ref: DynamicDialogRef;
 
     constructor(
@@ -82,7 +52,6 @@ export class CuposComponent implements OnInit, OnDestroy {
         private documentoIdentidadService: DocumentoIdentidadService,
         private pacienteService: PacienteService,
         private rolGuardiaService: RolGuardiaService,
-        private citasService: CitasService,
     ) {
         this.justifyOptions = [
             {icon: "pi pi-align-left", justify: "Left"},
@@ -96,14 +65,11 @@ export class CuposComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.buildForm();
-        this.formCuposOferta.get('SelectUPS').setValue(this.ServicoSelect);
-        this.formCuposOferta.get('fechaBusqueda').setValue(this.datafecha);
+        this.formCuposListar.get('SelectUPS').setValue(this.ServicoSelect);
+        this.formCuposListar.get('fechaBusqueda').setValue(this.datafecha);
         this.detallePago = "PENDIENTE";
-        // this.getDataUPS();
         this.getListaUps();
-        this.getDocumentosIdentidad();
-        this.fecha = this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
-        console.log("HORARIO", this.selectedHorario);
+        this.fecha = this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
 
         this.getCuposXservicio();
         this.getListaCuposConfirmados();
@@ -111,12 +77,20 @@ export class CuposComponent implements OnInit, OnDestroy {
 
     }
 
+    buildForm() {
+        this.formCuposListar = this.fb.group({
+            fechaBusqueda: new FormControl(''),
+            tipoDoc: new FormControl(''),
+            nroDoc: new FormControl(''),
+            SelectUPS: new FormControl(''),
+        })
+    }
 
     /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
     getCuposXservicio() {
         let data = {
-            servicio: this.formCuposOferta.value.SelectUPS,
-            fecha: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
+            servicio: this.formCuposListar.value.SelectUPS,
+            fecha: this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         console.log('DATA ', data);
 
@@ -129,7 +103,7 @@ export class CuposComponent implements OnInit, OnDestroy {
     // ListarPacientesCitasObstetricas() {
     //     const data = {
     //         fechaInicio: this.datePipe.transform(this.datafecha, 'yyyy-MM-dd'),
-    //         fechaFin: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
+    //         fechaFin: this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
     //     }
     //
     //     console.log("data fechas", data)
@@ -138,133 +112,6 @@ export class CuposComponent implements OnInit, OnDestroy {
     //         console.log('Lista de Citas: ', this.dataCitas);
     //     });
     // }
-
-
-    updateCitas(event) {
-        const data = {
-            id: event.id,
-            estado: "CANCELADO",
-        }
-        console.log("DATA EVENT", data)
-        this.citasService.UpdateCitas(data).subscribe(resp => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Cita Cancelado',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-        })
-
-
-    }
-
-    obtenerFecha(fecha: Date): string {
-        let arr = fecha.toString().split('-');
-        const Year: string = arr[0];
-        const Months: string = arr[1];
-        const Day: string = arr[1];
-        console.log(Year + '-' + Months + '-' + Day);
-        return Year + '-' + Months + '-' + Day;
-    }
-
-    // cambiarDetallePago(){
-    //     if(this.dataPacientes.tipoSeguro=="SIS"){this.detallePago="GRATUITO"}
-    // }
-    /**Busca los pacientes por su Numero de Documento**/
-    pacienteByNroDoc() {
-        let auxNroDoc = {
-            tipoDoc: this.formCuposOferta.value.tipoDoc.abreviatura,
-            nroDoc: this.formCuposOferta.value.nroDoc,
-        }
-        this.pacienteService.getPacienteByNroDoc(auxNroDoc).subscribe((res: any) => {
-            if (res.object != null || res.object != undefined) {
-                this.dataPacientes = res.object
-                console.log('paciente por doc ', this.dataPacientes)
-                this.formCuposOferta.get('apePaterno').setValue(this.dataPacientes.apePaterno);
-                this.formCuposOferta.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
-                this.formCuposOferta.get('primerNombre').setValue(this.dataPacientes.primerNombre);
-                this.formCuposOferta.get('otrosNombres').setValue(this.dataPacientes.otrosNombres);
-                this.formCuposOferta.get('sexo').setValue(this.dataPacientes.sexo);
-                this.formCuposOferta.get('fechaNacimiento').setValue(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
-                this.formCuposOferta.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
-                this.formCuposOferta.get('celular').setValue(this.dataPacientes.celular);
-                this.formCuposOferta.get('nacionalidad').setValue(this.dataPacientes.nacionalidad);
-                this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
-                this.formCuposOferta.get('departamento').setValue(this.dataPacientes.domicilio.departamento);
-                this.formCuposOferta.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
-                this.formCuposOferta.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
-                this.formCuposOferta.get('centroPoblado').setValue(this.dataPacientes.domicilio.ccpp);
-                this.formCuposOferta.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
-                this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
-                if (this.dataPacientes.tipoSeguro == "SIS") {
-                    this.detallePago = "GRATUITO"
-                }
-                this.formCuposOferta.get('edadAnio').setValue(this.ageCalculatorA(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento)));
-                this.formCuposOferta.get('edadMes').setValue(this.ageCalculatorM(this.dataPacientes.nacimiento.fechaNacimiento));
-                this.formCuposOferta.get('edadDia').setValue(this.ageCalculatorD(this.dataPacientes.nacimiento.fechaNacimiento));
-            } else {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Cupo',
-                    text: 'Paciente no encontrado en la Base de Datos, debe ingresar todo sus datos para crearle Historia Clínica',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-                this.buscarNuevoPaciente();
-            }
-            if (res.object != null || res.object != undefined) {
-                this.dataPacientes = res.object
-                console.log('paciente por doc ', this.dataPacientes)
-                this.formCuposOferta.get('apePaterno').setValue(this.dataPacientes.apePaterno);
-                this.formCuposOferta.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
-                this.formCuposOferta.get('primerNombre').setValue(this.dataPacientes.primerNombre);
-                this.formCuposOferta.get('otrosNombres').setValue(this.dataPacientes.otrosNombres);
-                this.formCuposOferta.get('sexo').setValue(this.dataPacientes.sexo);
-                this.formCuposOferta.get('fechaNacimiento').setValue(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento));
-                this.formCuposOferta.get('estadoCivil').setValue(this.dataPacientes.estadoCivil);
-                this.formCuposOferta.get('celular').setValue(this.dataPacientes.celular);
-                this.formCuposOferta.get('nacionalidad').setValue(this.dataPacientes.nacionalidad);
-                this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
-                this.formCuposOferta.get('departamento').setValue(this.dataPacientes.domicilio.departamento);
-                this.formCuposOferta.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
-                this.formCuposOferta.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
-                this.formCuposOferta.get('centroPoblado').setValue(this.dataPacientes.domicilio.ccpp);
-                this.formCuposOferta.get('direccion').setValue(this.dataPacientes.domicilio.direccion);
-                this.formCuposOferta.get('tipoSeguro').setValue(this.dataPacientes.tipoSeguro);
-                if (this.dataPacientes.tipoSeguro == "SIS") {
-                    this.detallePago = "GRATUITO"
-                } else {
-                    this.detallePago = "PENDIENTE"
-                }
-                this.formCuposOferta.get('edadAnio').setValue(this.ageCalculatorA(this.obtenerFecha(this.dataPacientes.nacimiento.fechaNacimiento)));
-                this.formCuposOferta.get('edadMes').setValue(this.ageCalculatorM(this.dataPacientes.nacimiento.fechaNacimiento));
-                this.formCuposOferta.get('edadDia').setValue(this.ageCalculatorD(this.dataPacientes.nacimiento.fechaNacimiento));
-            } else {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Cupo',
-                    text: 'Paciente no encontrado en la Base de Datos, debe ingresar todo sus datos para crearle Historia Clínica',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-                this.buscarNuevoPaciente();
-            }
-        });
-    }
-
-    buscarNuevoPaciente() {
-        this.ref = this.dialog.open(PacienteComponent, {
-            header: "NUEVO PACIENTE",
-            style: {
-                width: "60%"
-            },
-            contentStyle: {
-                overflow: "auto",
-
-            },
-        })
-    }
 
     /**lista los Servicios por IPRESS**/
     getListaUps() {
@@ -275,211 +122,12 @@ export class CuposComponent implements OnInit, OnDestroy {
             });
     }
 
-    /**Lista los tipos de documentos de Identidad de un paciente**/
-    getDocumentosIdentidad() {
-        this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
-            this.listaDocumentosIdentidad = res.object;
-            console.log('docs ', this.listaDocumentosIdentidad);
-        })
-    }
-
-
-    buildForm() {
-        this.formCuposOferta = this.fb.group({
-            fechaBusqueda: new FormControl(''),
-            fechaAtencion: new FormControl(''),
-            oferta_id: new FormControl(''),
-            descripcion: new FormControl(''),
-            horaAtencion: new FormControl(''),
-            horaAtencionFin: new FormControl(''),
-            ambiente: new FormControl(''),
-
-            primerNombre: new FormControl(''),
-            otrosNombres: new FormControl(''),
-            apePaterno: new FormControl(''),
-            apeMaterno: new FormControl(''),
-            sexo: new FormControl(''),
-            fechaNacimiento: new FormControl(''),
-            estadoCivil: new FormControl(''),
-            celular: new FormControl(''),
-
-            nacionalidad: new FormControl(''),
-            departamento: new FormControl(''),
-            provincia: new FormControl(''),
-            distrito: new FormControl(''),
-            centroPoblado: new FormControl(''),
-            direccion: new FormControl(''),
-
-            tipoDoc: new FormControl(''),
-            nroDoc: new FormControl(''),
-
-            tipoSeguro: new FormControl(''),
-            transeunte: new FormControl(''),
-
-            edadAnio: new FormControl(''),
-            edadMes: new FormControl(''),
-            edadDia: new FormControl(''),
-
-            estado: new FormControl(''),
-            SelectUPS: new FormControl(''),
-        })
-    }
-
-    separar_Fechas() {
-        let fecha = this.personalSelected2.fechaOferta;
-        let elem = fecha.split(' ',);
-        let fecha1 = elem[0];
-        let hora = elem[1];
-        this.fechaParaReservaCupos = fecha1;
-    }
-
-    saveForm() {
-        this.separar_Fechas();
-        this.isUpdate = false;
-        const req = {
-            fechaAtencion: this.fechaParaReservaCupos,
-            nroCupo: this.personalSelected2.totalOfertas,
-            oferta_id: this.personalSelected2.id,
-            // descripcion: this.formCuposOferta.value.descripcion,
-            descripcion: "asdfgh",
-            horaAtencion: this.selectedHorario[0].horaInicio + ":00",
-            horaAtencionFin: this.selectedHorario[0].horaFin + ":00",
-            ambiente: this.personalSelected2.ambiente,
-
-            paciente: {
-                nombre: this.formCuposOferta.value.primerNombre + ", " + this.formCuposOferta.value.otrosNombres,
-                apellidos: this.formCuposOferta.value.apePaterno + ", " + this.formCuposOferta.value.apeMaterno,
-                tipoDoc: this.formCuposOferta.value.tipoDoc.abreviatura,
-                nroDoc: this.formCuposOferta.value.nroDoc,
-            },
-
-            // transeunte: this.formCuposOferta.value.transeunte,
-            transeunte: false,
-            estado: this.estadoCupo,
-            detallePago: this.detallePago,
-
-            personal: {
-                nombre: this.personalSelected2.personal.nombre,
-                turno: this.personalSelected2.nombreTurno,
-                nroDoc: this.personalSelected2.personal.nroDoc,
-            },
-            ipress: {
-                ipress_id: this.personalSelected2.ipress.idIpress,
-                nombre: this.personalSelected2.ipress.nombre,
-                servicio: this.personalSelected2.ipress.servicio
-            },
-        };
-
-        console.log("guardar", req);
-
-        this.cuposService.saveCupos(req).subscribe(
-            (result: any) => {
-                console.log(result.object);
-                if (result.object == null || result.object == undefined) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Cupo',
-                        text: result.mensaje,
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Cupo',
-                        text: result.mensaje,
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                    this.actualizarOfertaEstado();
-
-                }
-            }
-        );
-        this.formCuposOferta.reset();
-        this.dataOfertasCupos = null;
-        this.usuarioDialog = false;
-        this.cuposDialog = false;
-    }
-
-    /****Actualiza el estado de las ofertas despues de guardar un cupo LIBRE / OCUPADO**/
-    actualizarOfertaEstado() {
-        let data = {
-            idOferta: this.personalSelected2.id,
-            horaInicio: this.selectedHorario[0].horaInicio,
-            horaFin: this.selectedHorario[0].horaFin,
-            estado: "OCUPADO"
-        }
-
-        console.log("DATA ACTUALIZAR OFERTA", data);
-
-        this.cuposService.updateEstadoOferta(data).subscribe(resp => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Estado Actualizado',
-                text: '',
-                showConfirmButton: false,
-                timer: 1500,
-            })
-        })
-    }
-
-    openModal() {
-        this.selectedHorario = null;
-        this.cuposDialog = true;
-    }
-
-    aceptarDialogCupos() {
-        let auxCupo: any = this.selectedHorario;
-
-        if (auxCupo.length != 1) {
-            this.messageService.add({severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario'});
-            return;
-        }
-        this.selectedFecha = this.datafecha.getDate() + "-" + this.datafecha.getMonth() + 1 + "-" + this.datafecha.getFullYear();
-        console.log('HORARIO SELECCIONADO', this.selectedHorario)
-        console.log('selected servicio ', this.selectedServicio)
-        this.cuposDialog = false;
-        this.openDialog2();
-        console.log("JPC", this.selectedHorario);
-    }
-
-    closeDialogCupos() {
-        /***cambios madai*/
-        this.cuposDialog = false;
-        Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Se cancelo la reserva de cupo',
-            showConfirmButton: false,
-            timer: 1500
-        })
-    }
-
-    closeDialogCupos2() {
-        /***cambios madai*/
-        this.usuarioDialog = false;
-
-        Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Se cancelo la reserva de cupo',
-            showConfirmButton: false,
-            timer: 1500
-        })
-        this.dataOfertasCupos = [];
-
-    }
-
-    openDialog2() {
-        this.usuarioDialog = true;
-    }
 
     /** Selecciona  un servicio y fecha y lista las cupos confirmados **/
     getListaCuposConfirmados() {
         let data = {
-            servicio: this.formCuposOferta.value.SelectUPS,
-            fecha: this.datePipe.transform(this.formCuposOferta.value.fechaBusqueda, 'yyyy-MM-dd')
+            servicio: this.formCuposListar.value.SelectUPS,
+            fecha: this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         console.log('DATA', data);
         this.cuposService.listaCuposConfirmados(this.idIpressLapostaMedica, data).subscribe((res: any) => {
@@ -493,73 +141,15 @@ export class CuposComponent implements OnInit, OnDestroy {
         // this.ListarPacientesCitasObstetricas();
     }
 
-    cancelarPersona() {
-        console.log('cancelar')
-        this.selectedHorario = {};
-        this.usuarioDialog = false;
-
-    }
-
-    recuperarDatos() {
-        let data = {
-            aux: this.formCuposOferta.value.nroDocumento
-        }
-    }
-
-    ageCalculatorA(fechaNacimiento) {
-        let edad = 0;
-        if (fechaNacimiento) {
-            const convertAge = new Date(fechaNacimiento);
-            console.log(convertAge);
-            const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-            console.log(timeDiff);
-            edad = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-        }
-        return edad;
-    }
-
-    ageCalculatorM(fechaNacimiento) {
-        // Si la fecha es correcta, calculamos la edad
-        var values = fechaNacimiento.split("-");
-        var dia = values[2];
-        var mes = values[1];
-        var ano = values[0];
-        // cogemos los valores actuales
-        var fecha_hoy = new Date();
-        var ahora_ano = fecha_hoy.getFullYear();
-        var ahora_mes = fecha_hoy.getMonth() + 1;
-        var ahora_dia = fecha_hoy.getDate();
-
-        return 3;
-
-    }
-
-    ageCalculatorD(fechaNacimiento) {
-        // Si la fecha es correcta, calculamos la edad
-        var values = fechaNacimiento.split("-");
-        var dia = values[2];
-        var mes = values[1];
-        var ano = values[0];
-        // cogemos los valores actuales
-        var fecha_hoy = new Date();
-        var ahora_ano = fecha_hoy.getFullYear();
-        var ahora_mes = fecha_hoy.getMonth() + 1;
-        var ahora_dia = fecha_hoy.getDate();
-        console.log(dia);
-        console.log(ahora_dia)
-        return 11;
-
-    }
-
     /**abre el dialog para cupos**/
     openDialogCuposNuevo() {
         this.ref = this.dialog.open(ModalCuposComponent, {
             width: '1200px',
             modal: true,
             height: '750px',
-            contentStyle: {"max-height": "500", "overflow": "p-fluid"},
-            baseZIndex: 0
-        })
+            contentStyle: {"max-height": "500", "overflow": "auto"},
+            baseZIndex: 10000
+        });
     }
 
     ngOnDestroy() {

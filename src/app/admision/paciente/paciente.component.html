@@ -61,7 +61,7 @@
             <div class="p-field col-3">
                 <label>Número Doc:</label>
                 <input type="text" pInputText placeholder="Ingrese el número de doc" formControlName="nroDoc"
-                    (keyup)="cargarDatosReniec()" class="inputTest" />
+                    (blur)="cargarDatosReniec()" class="inputTest" />
             </div>
             <div class="p-field col-3" *ngIf="!peruvian">
                 <label>Nro. Historia Clinica:</label>
@@ -149,7 +149,7 @@
             <div class="p-field">
                 <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataCentroPoblado"
                     [(ngModel)]="ccpp" optionLabel="ccpp" defaultLabel="Seleccione un centroPoblado"
-                    placeholder="Seleccione un centro poblado" id="distrito" [showClear]="false">
+                    placeholder="Seleccione un centro poblado" id="ccpp" [showClear]="false">
                 </p-dropdown>
             </div>
         </div>

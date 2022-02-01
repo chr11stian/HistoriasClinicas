@@ -424,7 +424,7 @@ export class PacienteComponent implements OnInit {
     console.log(nroDoc);
     this.pacienteService.getDataReniecPaciente(nroDoc).subscribe((res: any) => {
       console.log(res.resultado);
-      console.log(res.nombres);
+      console.log(res);
       this.formPaciente.get("primerNombre").setValue(res.nombres);
       this.formPaciente.get("apPaterno").setValue(res.apePaterno);
       this.formPaciente.get("apMaterno").setValue(res.apeMaterno);

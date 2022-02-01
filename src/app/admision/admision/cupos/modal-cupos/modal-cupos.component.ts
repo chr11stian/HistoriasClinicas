@@ -29,22 +29,15 @@ export class ModalCuposComponent implements OnInit {
     formCuposOferta: FormGroup;
     ups: [] = [];
 
-    ServicoSelecionado: string = "OBSTETRICIA";
-
-
+    ServicoSelecionado: string = "ENFERMERIA";
     dataOfertasCupos: any;
 
-
     personalSelected: string = '';
-    personalSelected2: any;
-
     dataSelectAmbiente: any;
     dataSelectHoras: any;
-    dataSelectServicio: any;
     selectedHorario: any;
 
     estadoHoras: string = "LIBRE";
-    estadoCupo: string = "active";
     ref: DynamicDialogRef;
 
     selectedFecha: any;
@@ -88,7 +81,6 @@ export class ModalCuposComponent implements OnInit {
 
     /** Selecciona  un servicio y fecha y lista las ofertas para reservar un cupo **/
     changeServicioSelected() {
-        // this.personalSelected = '';
         let data = {
             nombreIpress: this.iprees,
             servicio: this.formCuposOferta.value.SelectUPSOferta,
@@ -109,27 +101,30 @@ export class ModalCuposComponent implements OnInit {
     /** Selecciona el personal de salud para recuperar datos de un event **/
     onRowSelect(event) {
         console.log('event',);
-        this.dataSelectAmbiente = event.data.ambiente;
-        this.dataSelectServicio = event.data.ipress.servicio;
+        this.cuposService.AmbienteSeleccionado = event.data.ambiente;
+        this.cuposService.ServicioSeleccionado = event.data.ipress.servicio;
+        this.cuposService.PersonalResponsableSeleccionado = event.data.personal.nombre;//Personal
+        this.cuposService.HoraAtencionSeleccionado = event.data.horasCupo;
+        this.cuposService.FechaAtencionSeleccionado = event.data.fechaOferta;
+        this.cuposService.dataPersonalSelecionado = event.data;
+
         this.personalSelected = event.data.personal.nombre;//Personal
+        this.dataSelectAmbiente = event.data.ambiente;
         this.dataSelectHoras = event.data.horasCupo;
-        console.log('HORAS....', this.dataSelectHoras);
-        /** personalSelected2 almacena todo los datos del event al seleccionar un personal**/
-        this.personalSelected2 = event.data;
-        console.log('select personal....', this.personalSelected2);
     }
 
 
+    /**Abre un modal si cumplen los parametros**/
     aceptarDialogCupos() {
+        this.cuposService.HoraAtencionSeleccionado = this.selectedHorario
         let auxCupo: any = this.selectedHorario;
 
-        if (auxCupo.length != 1) {
+        if ((auxCupo.length != 1) && (auxCupo.length = 0)) {
             this.messageService.add({severity: 'warn', summary: 'Alerta', detail: 'Solo debe seleccionar un horario'});
             return;
         }
-        this.selectedFecha = this.datafecha.getDate() + "-" + this.datafecha.getMonth() + 1 + "-" + this.datafecha.getFullYear();
+        // this.selectedFecha = this.datafecha.getDate() + "-" + this.datafecha.getMonth() + 1 + "-" + this.datafecha.getFullYear();
         console.log('HORARIO SELECCIONADO', this.selectedHorario)
-        console.log('SERVICIO SELECIONADO', this.dataSelectServicio)
         console.log('FECHA SELECIONADO', this.selectedFecha)
         this.openDialogCuposNuevo2();
     }
@@ -137,9 +132,9 @@ export class ModalCuposComponent implements OnInit {
     /**abre el dialog para cupos**/
     openDialogCuposNuevo2() {
         this.ref = this.dialog.open(ModalCupos2Component, {
-            width: '1200px',
+            width: '95%',
             modal: true,
-            height: '750px',
+            height: '100%',
             contentStyle: {"max-height": "500", "overflow": "p-fluid"},
             baseZIndex: 0
         })
