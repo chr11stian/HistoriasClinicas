@@ -128,6 +128,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
     cancelDiagnostico() {
+        this.diagnosticoDialog = false;
         Swal.fire({
             icon: 'warning',
             title: 'Cancelado...',
@@ -135,7 +136,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
             showConfirmButton: false,
             timer: 1000
         })
-        this.diagnosticoDialog = false;
+
     }
 
     /* funciones tabla factor */
@@ -145,7 +146,16 @@ export class DiagnosticoConsultaComponent implements OnInit {
         this.formFactor.get('factorTexto').setValue("");
         this.factorDialog = true;
     }
-
+    cancelFactor(){
+        this.factorDialog = false;
+        Swal.fire({
+            icon: 'warning',
+            title: 'Cancelado...',
+            text: '',
+            showConfirmButton: false,
+            timer: 1000
+        })
+    }
     saveFactor() {
         let aux = true
         if (this.bool === false) {

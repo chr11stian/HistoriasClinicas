@@ -29,10 +29,10 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     attributeLocalS = 'idConsulta'
     anamnesisFC = new FormControl({value: '', disabled: false})
     auxDatosGeneralesConsulta: datosGeneralesConsulta
-    sino = [
+    stateOptions = [
         {label: 'Si', value: true},
         {label: 'No', value: false}
-    ];
+    ]
     twoMonths: formControlInterface[] = [
         {
             index: '1',
@@ -144,8 +144,8 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         }
     }
 
-    recuperarData() {
-        this.consultaGeneralService.getGenerales(this.id).subscribe((r: any) => {
+    recuperarData(id) {
+        this.consultaGeneralService.getGenerales(id).subscribe((r: any) => {
             this.auxDatosGeneralesConsulta = r.object
             console.log('datosGeneralesConsulta', this.auxDatosGeneralesConsulta)
             this.generalInfoFG.get('name').setValue(r.object.datosGeneralesConsulta.nombresApellidos)
@@ -156,27 +156,30 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
             this.generalInfoFG.get('dateAttention').setValue(fecha)
             this.generalInfoFG.get('hour').setValue(fecha)
             //--actualizar datos generales
-            this.twoMonthsFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[0].valor as boolean)
-            this.twoMonthsFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[1].valor as boolean)
-            this.twoMonthsFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[2].valor as boolean)
-            this.twoMonthsFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[3].valor as boolean)
-            this.twoMonthsFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[4].valor as boolean)
-            this.twoMonthsFG.get('6').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[5].valor as boolean)
-            this.twoMonthsFG.get('7').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[6].valor as boolean)
-            this.twoMonthsFG.get('8').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[7].valor as boolean)
-
-            this.twoMonthsMoreFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[0].valor as boolean)
-            this.twoMonthsMoreFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[1].valor as boolean)
-            this.twoMonthsMoreFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[2].valor as boolean)
-            this.twoMonthsMoreFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[3].valor as boolean)
-            this.twoMonthsMoreFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[4].valor as boolean)
-
-            this.allYearFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[0].valor as boolean)
-            this.allYearFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[1].valor as boolean)
-            this.allYearFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[2].valor as boolean)
-            this.allYearFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[3].valor as boolean)
-            this.allYearFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[4].valor as boolean)
-
+            if (this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M !== null) {
+                this.twoMonthsFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[0].valor as boolean)
+                this.twoMonthsFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[1].valor as boolean)
+                this.twoMonthsFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[2].valor as boolean)
+                this.twoMonthsFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[3].valor as boolean)
+                this.twoMonthsFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[4].valor as boolean)
+                this.twoMonthsFG.get('6').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[5].valor as boolean)
+                this.twoMonthsFG.get('7').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[6].valor as boolean)
+                this.twoMonthsFG.get('8').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[7].valor as boolean)
+            }
+            if (this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A !== null) {
+                this.twoMonthsMoreFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[0].valor as boolean)
+                this.twoMonthsMoreFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[1].valor as boolean)
+                this.twoMonthsMoreFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[2].valor as boolean)
+                this.twoMonthsMoreFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[3].valor as boolean)
+                this.twoMonthsMoreFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[4].valor as boolean)
+            }
+            if (this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades !== null) {
+                this.allYearFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[0].valor as boolean)
+                this.allYearFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[1].valor as boolean)
+                this.allYearFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[2].valor as boolean)
+                this.allYearFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[3].valor as boolean)
+                this.allYearFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[4].valor as boolean)
+            }
             this.signoPeligroFG.get('presentSigns').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.noPresentaSigno)
             this.factorRiesgoFG.get('cuidaNinio').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.factorRiesgo.cuidaNinio)
             this.factorRiesgoFG.get('participaPadre').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.factorRiesgo.participaPadre)
@@ -195,7 +198,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
             year: new FormControl({value: null, disabled: true}, [Validators.required])
         })
         this.signoPeligroFG = new FormGroup({
-            presentSigns: new FormControl({value: null, disabled: false}, [Validators.required])
+            presentSigns: new FormControl({value: false, disabled: false}, [Validators.required])
         })
         const selectFC = new FormControl({value: null, disabled: false}, [])
         this.twoMonths.forEach((v) => {
@@ -210,28 +213,28 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         })
 
         this.twoMonthsFG = new FormGroup({
-            1: new FormControl(""),
-            2: new FormControl(""),
-            3: new FormControl(""),
-            4: new FormControl(""),
-            5: new FormControl(""),
-            6: new FormControl(""),
-            7: new FormControl(""),
-            8: new FormControl(""),
+            1: new FormControl(false),
+            2: new FormControl(false),
+            3: new FormControl(false),
+            4: new FormControl(false),
+            5: new FormControl(false),
+            6: new FormControl(false),
+            7: new FormControl(false),
+            8: new FormControl(false),
         })
         this.twoMonthsMoreFG = new FormGroup({
-            1: new FormControl({value: null, disabled: false}, [Validators.required]),
-            2: new FormControl({value: null, disabled: false}, [Validators.required]),
-            3: new FormControl({value: null, disabled: false}, [Validators.required]),
-            4: new FormControl({value: null, disabled: false}, [Validators.required]),
-            5: new FormControl({value: null, disabled: false}, [Validators.required]),
+            1: new FormControl({value: false, disabled: false}, [Validators.required]),
+            2: new FormControl({value: false, disabled: false}, [Validators.required]),
+            3: new FormControl({value: false, disabled: false}, [Validators.required]),
+            4: new FormControl({value: false, disabled: false}, [Validators.required]),
+            5: new FormControl({value: false, disabled: false}, [Validators.required]),
         })
         this.allYearFG = new FormGroup({
-            1: new FormControl({value: null, disabled: false}, [Validators.required]),
-            2: new FormControl({value: null, disabled: false}, [Validators.required]),
-            3: new FormControl({value: null, disabled: false}, [Validators.required]),
-            4: new FormControl({value: null, disabled: false}, [Validators.required]),
-            5: new FormControl({value: null, disabled: false}, [Validators.required]),
+            1: new FormControl({value: false, disabled: false}, [Validators.required]),
+            2: new FormControl({value: false, disabled: false}, [Validators.required]),
+            3: new FormControl({value: false, disabled: false}, [Validators.required]),
+            4: new FormControl({value: false, disabled: false}, [Validators.required]),
+            5: new FormControl({value: false, disabled: false}, [Validators.required]),
         })
         /** form para factor de riesgo */
         this.factorRiesgoFG = new FormGroup({
@@ -247,8 +250,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-        this.recuperarData()
-        // this.getDatos()
+        if (this.id !== null) this.recuperarData(this.id);
     }
 
     getDatos(): void {
@@ -294,21 +296,21 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
                     return {
                         codigo: (index + 1) + '',
                         descripcion: element.label,
-                        valor: this.twoMonthsFG.get(element.index).value as boolean
+                        valor: this.twoMonthsFG.get(element.index).value === null ? false : this.twoMonthsFG.get(element.index).value as boolean
                     }
                 }),
                 menor2Ma4A: this.twoMonthsMore.map((element, index) => {
                     return {
                         codigo: (index + 1) + '',
                         descripcion: element.label,
-                        valor: this.twoMonthsMoreFG.get(element.index).value as boolean
+                        valor: this.twoMonthsMoreFG.get(element.index).value === null ? false : this.twoMonthsMoreFG.get(element.index).value as boolean
                     }
                 }),
                 todasLasEdades: this.allYear.map((element, index) => {
                     return {
                         codigo: (index + 1) + '',
                         descripcion: element.label,
-                        valor: this.allYearFG.get(element.index).value as boolean
+                        valor: this.allYearFG.get(element.index).value === null ? false : this.allYearFG.get(element.index).value as boolean
                     }
                 }),
                 noPresentaSigno: this.signoPeligroFG.get('presentSigns').value
@@ -349,7 +351,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         if ((mes == ahora_mes) && (ahora_dia < dia)) {
             edad--;
         }
-        if (edad > 1900) {
+        if (edad >= 1900) {
             edad -= 1900;
         }
 

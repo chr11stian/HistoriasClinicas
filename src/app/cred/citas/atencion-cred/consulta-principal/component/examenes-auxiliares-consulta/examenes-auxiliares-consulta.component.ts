@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-examenes-auxiliares-consulta',
@@ -6,13 +7,58 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./examenes-auxiliares-consulta.component.css']
 })
 export class ExamenesAuxiliaresConsultaComponent implements OnInit {
+  listaExamenesAux: any[] = [];
+  addExamDialog: boolean = false;
+  formExamenAux: FormGroup;
+  isUpdate: boolean = false;
+  listaExamenes:string[] = [
+    'TEST DE GRAHAM',
+    'DESCARTE DE ANEMIA',
+    'SALUD BUCAL',
+    'SESIONES DEMOSTRATIVAS',
+    'PARASITO SERIADO',
+    'VISITAS DOMICILIARIAS'
+  ];
 
-  constructor() { }
+  constructor(
+    private fb: FormBuilder,
+  ) {
+    this.inicializarForm();
+  }
 
   ngOnInit(): void {
+
   }
-  save(){
-    
+  inicializarForm() {
+    this.formExamenAux = this.fb.group({
+      examen: new FormControl('', { validators: [Validators.required] }),
+      descripcion: new FormControl('', { validators: [Validators.required] }),
+    });
+  }
+  save() {
+
+  }
+  openAddExamDialog() {
+    this.formExamenAux.reset();
+    this.addExamDialog = true;
   }
 
+  agreeAddExamDialog() {
+    let dataExam = {
+      nombre: this.formExamenAux.value.examen,
+      valor: this.formExamenAux.value.descripcion
+    }
+    this.listaExamenesAux.push(dataExam);
+    this.listaExamenesAux = [...this.listaExamenesAux];
+    this.addExamDialog = false;
+  }
+
+  deleteExamItem(index) {
+    this.listaExamenesAux.splice(index, 1);
+    this.listaExamenesAux = [...this.listaExamenesAux];
+  }
+
+  closeExamDialog() {
+    this.addExamDialog = false;
+  }
 }
