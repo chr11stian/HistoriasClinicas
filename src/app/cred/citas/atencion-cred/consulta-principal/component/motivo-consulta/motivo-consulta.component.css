@@ -1,17 +1,41 @@
 p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
-    background: #0c3866;
-    border-color: #0c3866;
+  background: #0c3866;
+  border-color: #0c3866;
 }
 p-calendar >>> .p-button {
-    background: #0c3866;
-    border: 1px solid #0c3866;
-    align-self: center;
+  background: #0c3866;
+  border: 1px solid #0c3866;
+  align-self: center;
 }
 .guardar {
-    background: #0c3866;
-    border-color: #0c3866;
-    align-items: center;
+  background: #0c3866;
+  border-color: #0c3866;
+  align-items: center;
 }
 p-toolbar >>> * {
-    align-self: center;
+  align-self: center;
+}
+p-fieldset >>> .p-fieldset .p-fieldset-legend {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  background: #d8dee5;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: small;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"] {
+  padding-left: 0.5em;
+  text-align: left;
 }

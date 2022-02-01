@@ -95,5 +95,4 @@ export class EvalAlimenService {
         .then(data => { console.log('creacion exitosa', data) })
         .catch(error => { console.log('error en la creacion', error) })
   }
-
 }
