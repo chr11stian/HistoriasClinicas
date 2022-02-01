@@ -18,9 +18,6 @@ p-calendar >>> .p-button {
 p-toolbar >>> * {
     align-self: center;
 }
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 p-steps >>> * {
     text-align: center;
     font-size: small;
@@ -57,10 +54,6 @@ p-card >>> .p-card-body {
 :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
     color: #393939;
 }
-=======
->>>>>>> 374c43cd50707e3581fa4fcb4834965f7bc2a81c
-=======
->>>>>>> 374c43cd50707e3581fa4fcb4834965f7bc2a81c
 p-tabview >>> .p-tabview-title {
     /* font-size: medium; */
     color: black;
