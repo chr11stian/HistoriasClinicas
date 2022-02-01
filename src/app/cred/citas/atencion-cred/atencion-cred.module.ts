@@ -7,13 +7,15 @@ import { PrimeModule } from '../../../shared/prime/prime.module';
 import { PlanModule } from './plan/plan.module';
 import { ConsultaPrincipalModule } from './consulta-principal/consulta-principal.module';
 import { ExamenesCredModule } from './examenes-cred/examenes-cred.module';
-import {RippleModule} from 'primeng/ripple'
+import { TriajeCredModule } from './triaje-cred/triaje-cred.module'
+import {RippleModule} from 'primeng/ripple';
 
 @NgModule({
   declarations: [
-    AtencionCredComponent
+    AtencionCredComponent,
   ],
     imports: [
+        TriajeCredModule,
         ExamenesCredModule,
         PlanModule,
         ConsultaPrincipalModule,

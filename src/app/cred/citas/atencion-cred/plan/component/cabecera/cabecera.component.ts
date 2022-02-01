@@ -44,7 +44,7 @@ export class CabeceraComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck() {
-        this.saveStep()
+        //this.saveStep()
     }
 
     ngOnInit(): void {

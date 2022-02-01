@@ -1,4 +1,10 @@
-<!-- Datos generales -->
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2" style="font-size:2rem">TRIAJE CRED</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+    </ng-template>
+</p-toolbar>
 <p-fieldset legend="Información Básica" [toggleable]="true">
     <form [formGroup]="generalInfoFG">
         <div class="grid">
@@ -46,6 +52,26 @@
         </div>
     </form>
 </p-fieldset>
+
+<p-fieldset legend="Signos Vitales" [toggleable]="true">
+    <form [formGroup]="examFG">
+        <div class="grid">
+            <div class="col-12 md:col-10">
+                <div class="grid">
+                    <ng-container *ngFor="let controlFC of dataExamFisicos">
+                        <div class="col-6 md:col-1 text-right">
+                            {{controlFC.label}}
+                        </div>
+                        <div class="col-6 md:col-2">
+                            <input type="number" pInputText [formControlName]="controlFC.nameFC"
+                                   class="inputfield w-full"/>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </form>
+</p-fieldset>
 <p-fieldset legend="Descarte de signos de peligro"
             [toggleable]="true"
             [formGroup]="signoPeligroFG">
@@ -53,14 +79,15 @@
         <div class="col-10 md:col-10">
             <div class="grid">
                 <div class="md:col-8 mt-2" style="text-align: right">
-                    NO PRESENTA SIGNOS :
+                    PRESENTA SIGNOS :
                 </div>
                 <div class="md:col-4">
                     <p-selectButton [options]="stateOptions"
                                     class="inputfield w-full"
                                     optionLabel="label"
                                     formControlName="presentSigns"
-                                    optionValue="value">
+                                    optionValue="value"
+                                    (onChange)="cambio($event)">
                     </p-selectButton>
                 </div>
             </div>
@@ -200,6 +227,28 @@
               pInputTextarea>
     </textarea>
 </p-fieldset>
+
+
+<div class="col col-offset-9">
+    <button type="submit"
+            pButton
+            pRipple
+            icon="pi pi-save"
+            label="Interconsulta"
+            formControlName="Interconsulta"
+            style="background-color: #0c3866"
+            class="p-button-raised p-button-info"></button>
+    <button type="submit"
+            icon="pi pi-times-circle"
+            pButton
+            pRipple
+            formControlName="Consulta"
+            label="Seguir Consulta"
+            style="background-color: #0c3866"
+            class="ml-4 p-button-raised p-button-info"
+    >
+    </button>
+</div>
 
 
 <!-- End Datos generales -->
