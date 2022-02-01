@@ -14,7 +14,7 @@ p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
   align-self: center;
 }
 ::ng-deep .noVacunado .p-calendar .p-button {
-  background: greenw;
+  background: green;
   border: 1px solid #0c3866;
   align-self: center;
 }

@@ -29,6 +29,7 @@ import { EedpComponent } from './component/evaluaciones-consulta/components/desa
 import { TepsiComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/tepsi/tepsi.component';
 import { EvaluacionAlimentacionComponent } from './component/evaluaciones-consulta/components/evaluacion-alimentacion/evaluacion-alimentacion.component';
 import {ToggleButtonModule} from "primeng/togglebutton";
+import { VacunaComponent } from './component/evaluaciones-consulta/components/vacuna/vacuna.component';
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -48,6 +49,7 @@ import {ToggleButtonModule} from "primeng/togglebutton";
         EedpComponent,
         TepsiComponent,
         EvaluacionAlimentacionComponent,
+        VacunaComponent,
     ],
     imports: [
         EvaluacionGeneralModule,
