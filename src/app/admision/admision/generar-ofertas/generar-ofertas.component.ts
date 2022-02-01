@@ -116,6 +116,7 @@ export class GenerarOfertasComponent implements OnInit {
       this.showSuccess();
       this.generarDialog = false;
       this.rolSeleccionado = {};
+      this.getRolGuardiasDisponibles();
       console.log('rpta', res.object);
     })
   }
