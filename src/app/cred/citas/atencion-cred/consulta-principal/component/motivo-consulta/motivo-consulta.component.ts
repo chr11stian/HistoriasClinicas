@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core'
-import {FormControl, FormGroup} from '@angular/forms'
+import { Component, OnInit } from '@angular/core'
+import { FormControl, FormGroup } from '@angular/forms'
 import Swal from "sweetalert2";
-import {MotivosConsultaService} from "../../services/motivos-consulta.service";
+import { MotivosConsultaService } from "../../services/motivos-consulta.service";
 
 interface formControlInterface {
     pro: string,
@@ -18,18 +18,19 @@ interface formControlInterface {
 export class MotivoConsultaComponent implements OnInit {
     id: string;
     attributeLocalS = 'idConsulta'
-    examFG: FormGroup
-    motivoFG: FormGroup
+    examFG: FormGroup;
+    motivoFG: FormGroup;
+    formExam: FormGroup;
     dataExamFisicos: formControlInterface[] = [
-        {pro: 't', label: 'T°', nameFC: 'TFC'},
-        {pro: 'pa', label: 'PA', nameFC: 'PAFC'},
-        {pro: 'fc', label: 'FC:', nameFC: 'FC'},
-        {pro: 'fr', label: 'FR', nameFC: 'FRFC'},
-        {pro: 'peso', label: 'Peso ', nameFC: 'PesoFC'},
-        {pro: 'talla', label: 'Talla ', nameFC: 'TallaFC'},
-        {pro: 'pc', label: 'PC ', nameFC: 'PCFC'}
+        { pro: 't', label: 'T°', nameFC: 'TFC' },
+        { pro: 'pa', label: 'PA', nameFC: 'PAFC' },
+        { pro: 'fc', label: 'FC:', nameFC: 'FC' },
+        { pro: 'fr', label: 'FR', nameFC: 'FRFC' },
+        { pro: 'peso', label: 'Peso ', nameFC: 'PesoFC' },
+        { pro: 'talla', label: 'Talla ', nameFC: 'TallaFC' },
+        { pro: 'pc', label: 'PC ', nameFC: 'PCFC' }
     ]
-    motivosConsulta: motivosConsultaInterface
+    motivosConsulta: motivosConsultaInterface;
 
     constructor(private motivosService: MotivosConsultaService) {
         this.buildFG()
@@ -39,22 +40,35 @@ export class MotivoConsultaComponent implements OnInit {
     buildFG(): void {
         this.id = localStorage.getItem(this.attributeLocalS);
         this.motivoFG = new FormGroup({
-            detailMotivoFC: new FormControl({value: null, disabled: false}, []),
-            enfermedadFC: new FormControl({value: null, disabled: false}, []),
-            inicioFC: new FormControl({value: null, disabled: false}, []),
-            cursoFC: new FormControl({value: null, disabled: false}, []),
+            detailMotivoFC: new FormControl({ value: null, disabled: false }, []),
+            enfermedadFC: new FormControl({ value: null, disabled: false }, []),
+            inicioFC: new FormControl({ value: null, disabled: false }, []),
+            cursoFC: new FormControl({ value: null, disabled: false }, []),
         })
-        /** examen fisico */
+        /** Signos vitales */
         this.examFG = new FormGroup({
-            TFC: new FormControl({value: null, disabled: false}, []),
-            PAFC: new FormControl({value: null, disabled: false}, []),
-            FC: new FormControl({value: null, disabled: false}, []),
-            FRFC: new FormControl({value: null, disabled: false}, []),
-            PesoFC: new FormControl({value: null, disabled: false}, []),
-            TallaFC: new FormControl({value: null, disabled: false}, []),
-            PCFC: new FormControl({value: null, disabled: false}, []),
+            TFC: new FormControl({ value: null, disabled: false }, []),
+            PAFC: new FormControl({ value: null, disabled: false }, []),
+            FC: new FormControl({ value: null, disabled: false }, []),
+            FRFC: new FormControl({ value: null, disabled: false }, []),
+            PesoFC: new FormControl({ value: null, disabled: false }, []),
+            TallaFC: new FormControl({ value: null, disabled: false }, []),
+            PCFC: new FormControl({ value: null, disabled: false }, []),
             detailFC: new FormControl("", []),
         })
+        /** examen fisico */
+        this.formExam = new FormGroup({
+            piel: new FormControl(""),
+            mucosas: new FormControl(""),
+            cabeza: new FormControl(""),
+            cuello: new FormControl(""),
+            cardioVascular: new FormControl(""),
+            pulmones: new FormControl(""),
+            mamas: new FormControl(""),
+            pezones: new FormControl(""),
+            abdomen: new FormControl(""),
+            obsExamenFisico: new FormControl(""),
+        });
     }
 
     ngOnInit(): void {
@@ -91,7 +105,7 @@ export class MotivoConsultaComponent implements OnInit {
             talla: this.examFG.value.TallaFC,
             pc: this.examFG.value.PCFC
         }
-        console.log("examFG ",this.examFG.value)
+        console.log("examFG ", this.examFG.value)
         let examenFisico: examenFisicoInterface = {
             signosVitales: signosVitales,
             revisionCabeza: this.examFG.value.detailFC,
