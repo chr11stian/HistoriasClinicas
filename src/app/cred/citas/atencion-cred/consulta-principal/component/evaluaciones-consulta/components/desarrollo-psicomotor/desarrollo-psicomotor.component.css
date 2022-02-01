@@ -19,6 +19,7 @@ p-toolbar >>> * {
     align-self: center;
 }
 
+<<<<<<< HEAD
 p-steps >>> * {
     text-align: center;
     font-size: small;
@@ -55,13 +56,16 @@ p-card >>> .p-card-body {
 :host >>> .p-steps .p-steps-item.p-highlight .p-steps-title {
     color: #393939;
 }
+=======
+>>>>>>> 374c43cd50707e3581fa4fcb4834965f7bc2a81c
 p-tabview >>> .p-tabview-title {
-    font-size: small;
+    /* font-size: medium; */
     color: black;
 }
 p-tabview >>> .p-tabview .p-tabview-nav {
     /*justify-content: space-between;*/
     margin: 1rem;
+
 }
 
 p-tabview >>> .p-tabview .p-tabview-panels {

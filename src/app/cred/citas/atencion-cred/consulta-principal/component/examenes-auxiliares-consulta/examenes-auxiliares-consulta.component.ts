@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-examenes-auxiliares-consulta',
@@ -11,6 +11,14 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   addExamDialog: boolean = false;
   formExamenAux: FormGroup;
   isUpdate: boolean = false;
+  listaExamenes:string[] = [
+    'TEST DE GRAHAM',
+    'DESCARTE DE ANEMIA',
+    'SALUD BUCAL',
+    'SESIONES DEMOSTRATIVAS',
+    'PARASITO SERIADO',
+    'VISITAS DOMICILIARIAS'
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -23,8 +31,8 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
   inicializarForm() {
     this.formExamenAux = this.fb.group({
-      examen: new FormControl(''),
-      descripcion: new FormControl(''),
+      examen: new FormControl('', { validators: [Validators.required] }),
+      descripcion: new FormControl('', { validators: [Validators.required] }),
     });
   }
   save() {
@@ -48,5 +56,9 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   deleteExamItem(index) {
     this.listaExamenesAux.splice(index, 1);
     this.listaExamenesAux = [...this.listaExamenesAux];
+  }
+
+  closeExamDialog() {
+    this.addExamDialog = false;
   }
 }
