@@ -7,8 +7,46 @@
         </div>
     </p-card>
 </div>
+<div class="datosPersonales margen mb-4">
+    <div class="grid align-items-center font-style">
+        <div *ngIf="genere=='F'" class="col-12 md:col-12 lg:col-3 imagen-F">
+        </div>
+        <div *ngIf="genere=='M'" class="col-12 md:col-12 lg:col-3 imagen-M">
+        </div>
+        <div class="col-3">
+            <div class="flex flex-column ">
+                <label class="text-blue-700">Paciente: </label>
+                <span>{{data.nombres +', '+ data.apellidos}}</span>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="flex flex-column">
+                <label class="text-blue-700">Tipo Doc: </label>
+                <span>{{data.tipoDoc}}</span>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="flex flex-column">
+                <label class="text-blue-700">Nro Doc: </label>
+                <span>{{data.nroDoc}}</span>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="flex flex-column">
+                <label class="text-blue-700">Fecha Nacimiento: </label>
+                <span>{{paciente.nacimiento.fechaNacimiento|date:'dd/MM/yyyy'}}</span>
+            </div>
+        </div>
+        <!-- <div class="col-2">
+            <div class="flex flex-column">
+                <label>Fecha Nacimiento: </label>
+                <span>12/10/2000</span>
+            </div>
+        </div> -->
+    </div>
+</div>
 <p-steps [model]="items" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo"
-         (activeIndexChange)="ChangeStep($event)">
+    (activeIndexChange)="ChangeStep($event)">
 </p-steps>
 <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
     <p-card>

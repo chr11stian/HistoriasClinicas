@@ -6,6 +6,9 @@ import {ControlCrecimiento} from '../models/plan-atencion-integral.model'
 import {HeightWeightComponent} from '../../../../../../modals/height-weight/height-weight.component'
 import {WeightChartComponent} from '../../../../../../modals/weight-chart/weight-chart.component'
 import {HeightChartComponent} from '../../../../../../modals/height-chart/height-chart.component'
+import {MessageService} from 'primeng/api';
+import {ActivatedRoute} from "@angular/router";
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-control-crecimiento',
@@ -13,6 +16,8 @@ import {HeightChartComponent} from '../../../../../../modals/height-chart/height
     styleUrls: ['./control-crecimiento.component.css']
 })
 export class ControlCrecimientoComponent implements OnInit {
+    tipoDNI:string;
+    nroDNI:string
     expandir: boolean = true
     ref: DynamicDialogRef
     listaControles: ControlCrecimiento[] = []
@@ -30,20 +35,24 @@ export class ControlCrecimientoComponent implements OnInit {
     A9: ControlCrecimiento[] = []
     valor:number=0.9;
     sexo:boolean;
+    datePipe = new DatePipe('en-US');
 
     constructor(private fb: FormBuilder,
                 public dialogService: DialogService,
-                private servicio: ControlCrecimientoService) {
+                private servicio: ControlCrecimientoService,
+                private messageService: MessageService,
+                private rutaActiva: ActivatedRoute) {
     }
 
     ngOnInit(): void {
-        // this.fetchControlCrecimiento()
+        this.tipoDNI=this.rutaActiva.snapshot.queryParams.tipoDoc;
+        this.nroDNI=this.rutaActiva.snapshot.queryParams.nroDoc;
         this.getLista()
         this.getPaciente();
 
     }
     getPaciente(){
-        this.servicio.getPaciente('47825757')
+        this.servicio.getPaciente(this.nroDNI)
           .toPromise().then((result) => {
             this.sexo=result.object.formatoFiliacion.datosGeneralesFiliacion.sexo
         }).catch((err) => {
@@ -52,6 +61,7 @@ export class ControlCrecimientoComponent implements OnInit {
     }
     getLista() {
         this.servicio.getListaControles('47825757')
+        // this.servicio.getListaControles(this.nroDNI)
             .toPromise().then((result) => {
             this.listaControles = result.object
             this.paralosGraficos()
@@ -62,11 +72,11 @@ export class ControlCrecimientoComponent implements OnInit {
     }
     paralosGraficos(){
         this.listaControles.forEach((item,index)=>{
-            if(item.peso!==0.0){
+            if(item.peso!==0.0 && item.talla!=0) {
               if (item.edadMes<=33){
                 this.mesesAlturaPeso.push([item.talla,item.peso])
               }
-              if(item.edadMes>=1 && item.edadMes<=57){
+              if(item.edadMes>=1 && item.edadMes<=60){
                 this.mesesAltura.push([item.edadMes,item.talla]);
                 this.mesesPeso.push([item.edadMes,item.peso])
               }
@@ -88,7 +98,8 @@ export class ControlCrecimientoComponent implements OnInit {
             }
             else {
                 i.fecha=i.fecha.split(' ')[0];
-                i.fechaTentativa=i.fechaTentativa.split(' ')[0];
+                // i.fechaTentativa=i.fechaTentativa.split(' ')[0];
+                i.fechaTentativa = this.datePipe.transform(i.fechaTentativa, 'dd-MM-yyyy HH:mm:ss');
             }
         }) 
         console.log("lista conversa",this.listaControles);
@@ -193,8 +204,12 @@ export class ControlCrecimientoComponent implements OnInit {
         // console.log(json1)
         this.servicio.updateListaControlCrecimiento('47825757',json1)
           .toPromise().then((result) => {
-            console.log("exito")
-            // this.messageService.add({severity:'success', summary:'Service Message', detail:'registro actualizado'});
+            // console.log("exito")
+            this.messageService.add({severity:'success', summary:'Service Message', detail:'registro actualizado'});
+            this.mesesPeso=[];
+            this.mesesAlturaPeso=[];
+            this.mesesAltura=[];
+            this.getLista();
         }).catch((err) => {
             console.log('E',err)
         })
