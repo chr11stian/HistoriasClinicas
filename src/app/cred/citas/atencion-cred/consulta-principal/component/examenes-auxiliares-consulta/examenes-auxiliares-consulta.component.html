@@ -48,10 +48,11 @@
     <ng-template pTemplate="body">
         <form [formGroup]='formExamenAux'>
             <div class="grid">
-                <div class="col-6">
+                <div class="p-fluid col-5">
                     <label>Examen:</label>
-                    <input type="text" pInputText formControlName='examen' placeholder="Nombre Examen"
-                        class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                    <p-dropdown [options]="listaExamenes" formControlName="examen" placeholder="SELECCIONA UN EXAMEN"
+                        [showClear]="false" appendTo="body">
+                    </p-dropdown>
                 </div>
                 <div class="col-12">
                     <label>Descripción:</label>
@@ -65,7 +66,6 @@
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="guardarEdicionDiagnostico()"></button>
         <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="agreeAddExamDialog()"></button>
-        <button pButton type=" button" label="Cancelar" class="p-button-danger"
-            (click)="closeExamDialog()"></button>
+        <button pButton type=" button" label="Cancelar" class="p-button-danger" (click)="closeExamDialog()"></button>
     </ng-template>
 </p-dialog>
