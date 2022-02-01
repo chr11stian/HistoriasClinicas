@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import Swal from "sweetalert2";
-import {TratamientoConsultaService} from "../../services/tratamiento-consulta.service";
 import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
 import {FinalizarConsultaService} from "../../services/finalizar-consulta.service";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -24,7 +23,7 @@ export class FinalizarConsultaComponent implements OnInit {
     formAcuerdos: FormGroup;
     formReferencia: FormGroup;
     form: FormGroup
-    dialogTratamiento: boolean;
+
     dialogAcuerdos: boolean;
     dialogExamenes: boolean;
     dialogReferencia: boolean;

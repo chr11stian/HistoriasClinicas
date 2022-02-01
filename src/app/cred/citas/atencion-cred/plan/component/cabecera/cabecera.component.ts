@@ -44,7 +44,7 @@ export class CabeceraComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck() {
-        this.saveStep()
+        //this.saveStep()
     }
 
     ngOnInit(): void {
@@ -131,17 +131,17 @@ export class CabeceraComponent implements OnInit, DoCheck {
             case 'datos':
                 this.datosGenerales.save()
                 this.stepName = 'antecedentes';
-                this.indiceActivo = 1;
+                this.indiceActivo = 0;
                 break;
             case 'antecedentes':
                 //this.antecedentes.save()
                 this.stepName = 'plan';
-                this.indiceActivo = 2;
+                this.indiceActivo = 1;
                 break;
             case 'plan':
                 //this.planAtencion.save()
                 this.stepName = 'evaluacion';
-                this.indiceActivo = 3;
+                this.indiceActivo = 2;
                 break;
             case 'evaluacion':
                 //this.evaluacion.save()
@@ -188,7 +188,6 @@ export class CabeceraComponent implements OnInit, DoCheck {
         }
     }
 }
-
 
 interface data {
     name: string

@@ -7,8 +7,6 @@ const routes: Routes = [
     path: "plan-atencion-integral",
     component: CabeceraComponent
   }
-
-
 ];
 
 @NgModule({

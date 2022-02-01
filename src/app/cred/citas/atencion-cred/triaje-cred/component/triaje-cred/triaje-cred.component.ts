@@ -1,18 +1,24 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
-import {FormControl, FormGroup, Validators} from '@angular/forms'
-import {ConsultaGeneralService} from '../../services/consulta-general.service'
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
+import {ConsultaGeneralService} from "../../../consulta-principal/services/consulta-general.service";
 import Swal from "sweetalert2";
 
-@Component({
-    selector: 'app-datos-generales-consulta',
-    templateUrl: './datos-generales-consulta.component.html',
-    styleUrls: ['./datos-generales-consulta.component.css']
-})
+interface formInterface {
+    pro: string,
+    label: string,
+    nameFC: string
+}
 
-export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
-    // @Input() consulta: ConsultaGeneralInterface
+@Component({
+    selector: 'app-triaje-cred',
+    templateUrl: './triaje-cred.component.html',
+    styleUrls: ['./triaje-cred.component.css']
+})
+export class TriajeCredComponent implements OnInit {
+    isShown: boolean = false;
     @Input() consulta: any
+    examFG: FormGroup;
     generalInfoFG: FormGroup
     signoPeligroFG: FormGroup
     factorRiesgoFG: FormGroup
@@ -32,6 +38,15 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     stateOptions = [
         {label: 'Si', value: true},
         {label: 'No', value: false}
+    ]
+    dataExamFisicos: formInterface[] = [
+        {pro: 't', label: 'T°', nameFC: 'TFC'},
+        {pro: 'pa', label: 'PA', nameFC: 'PAFC'},
+        {pro: 'fc', label: 'FC:', nameFC: 'FC'},
+        {pro: 'fr', label: 'FR', nameFC: 'FRFC'},
+        {pro: 'peso', label: 'Peso ', nameFC: 'PesoFC'},
+        {pro: 'talla', label: 'Talla ', nameFC: 'TallaFC'},
+        {pro: 'pc', label: 'PC ', nameFC: 'PCFC'}
     ]
     twoMonths: formControlInterface[] = [
         {
@@ -191,6 +206,16 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     }
 
     buildForm(): void {
+        /** Signos vitales */
+        this.examFG = new FormGroup({
+            TFC: new FormControl({value: null, disabled: false}, []),
+            PAFC: new FormControl({value: null, disabled: false}, []),
+            FC: new FormControl({value: null, disabled: false}, []),
+            FRFC: new FormControl({value: null, disabled: false}, []),
+            PesoFC: new FormControl({value: null, disabled: false}, []),
+            TallaFC: new FormControl({value: null, disabled: false}, []),
+            PCFC: new FormControl({value: null, disabled: false}, []),
+        })
         this.generalInfoFG = new FormGroup({
             name: new FormControl({value: '', disabled: true}, [Validators.required]),
             dateAttention: new FormControl({value: '', disabled: true}, [Validators.required]),
@@ -380,9 +405,13 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         this.dia = dias
     }
 
-
     onNext() {
         this.save()
+    }
+
+    cambio(e) {
+        this.isShown = !this.isShown;
+        console.log('show', this.isShown)
     }
 }
 
