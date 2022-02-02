@@ -56,7 +56,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         this.saveStep()
     }
 
-    ngOnInit(): void {
+    async ngOnInit() {
         this.items = [
             { label: 'Datos Generales', styleClass: 'icon' },
             { label: 'Motivo de Consulta', styleClass: 'icon1' },
@@ -66,16 +66,18 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             { label: 'Tratamiento', styleClass: 'icon5' },
             { label: 'Finalizar', styleClass: 'icon6' },
         ]
-        this.getQueryParams()
+        await this.getQueryParams()
     }
 
-    getQueryParams(): void {
+    getQueryParams() {
         this.route.queryParams
             .subscribe(params => {
                 if (params['nroDoc'] && !localStorage.getItem(this.attributeLocalS)) {
                     this.tipoDoc = params['tipoDoc']
                     this.nroDoc = params['nroDoc']
+                    console.log('1')
                     this.getNuevaConsulta()
+
                 } else if (localStorage.getItem(this.attributeLocalS)) {
                     this.getConsulta(localStorage.getItem(this.attributeLocalS))
                 } else {
@@ -94,8 +96,8 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         )
     }
 
-    getNuevaConsulta(): void {
-        this.consultaGeneralService.crearConsulta(
+    /*async getNuevaConsulta() {
+        await this.consultaGeneralService.crearConsulta(
             {
                 'tipoDoc': this.tipoDoc,
                 'nroDoc': this.nroDoc,
@@ -104,9 +106,27 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             }
         ).toPromise().then((result) => {
             this.consulta = result
+            console.log('result: ' + result)
             localStorage.setItem(this.attributeLocalS, this.consulta.object.id)
+            console.log('2')
+
         }).catch((err) => {
             console.log(err)
+        })
+    }*/
+
+    async getNuevaConsulta() {
+        await this.consultaGeneralService.crearConsulta({
+            'tipoDoc': this.tipoDoc,
+            'nroDoc': this.nroDoc,
+            'tipoDocProfesional': 'DNI',
+            'nroDocProfesional': '45678912'
+        }).subscribe((r) => {
+            this.consulta = r
+            console.log('result: ' + r)
+            localStorage.setItem(this.attributeLocalS, this.consulta.object.id)
+            this.datosGeneralesConsulta.recuperarData(this.consulta.object.id)
+            console.log('2')
         })
     }
 

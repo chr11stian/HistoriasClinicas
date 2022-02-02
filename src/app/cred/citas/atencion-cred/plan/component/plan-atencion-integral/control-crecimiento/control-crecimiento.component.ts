@@ -98,8 +98,8 @@ export class ControlCrecimientoComponent implements OnInit {
             }
             else {
                 i.fecha=i.fecha.split(' ')[0];
-                // i.fechaTentativa=i.fechaTentativa.split(' ')[0];
-                i.fechaTentativa = this.datePipe.transform(i.fechaTentativa, 'dd-MM-yyyy HH:mm:ss');
+                i.fechaTentativa=i.fechaTentativa.split(' ')[0];
+                // i.fechaTentativa = this.datePipe.transform(i.fechaTentativa, 'dd-MM-yyyy HH:mm:ss');
             }
         }) 
         console.log("lista conversa",this.listaControles);

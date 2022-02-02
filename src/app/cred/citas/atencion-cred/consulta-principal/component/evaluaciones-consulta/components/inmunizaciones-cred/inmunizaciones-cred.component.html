@@ -33,7 +33,7 @@
                   [ngClass]="{'vacunado':inmu1.fecha,'noVacunado':!inmu1.fecha}"
           ></p-calendar>
         </div>
-        <button *ngIf="inmu1.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined agregar" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu1)></button>
+        <button *ngIf="inmu1.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu1)></button>
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@
                   [ngClass]="{'vacunado':inmu2.fecha,'noVacunado':!inmu2.fecha}"
           ></p-calendar>
         </div>
-         <button *ngIf="inmu2.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined agregar" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu2)></button>
+         <button *ngIf="inmu2.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu2)></button>
       </div>
     </div>
   </div>
@@ -111,8 +111,37 @@
                   [ngClass]="{'vacunado':inmu3.fecha,'noVacunado':!inmu3.fecha}"
           ></p-calendar>
         </div>
-        <button *ngIf="inmu3.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined agregar" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu3)></button>
+        <button *ngIf="inmu3.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu3)></button>
       </div>
     </div>
   </div>
 </div>
+<!--<div class="grid flex justify-content-center">-->
+<!--  <div class="col-6  grid borde">-->
+<!--    <div class="col-6 grid">-->
+<!--      <div class="col-6">-->
+<!--        Pesos y tallas tomadas-->
+<!--      </div>-->
+<!--      <div class="col-2 p p-fluid">-->
+<!--        <i class="pi pi-calendar" style="font-size: 2rem;background-color: red"></i>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-6 grid">-->
+<!--      <div class="col-6">-->
+<!--        Pesos y tallas  NO tomados-->
+<!--      </div>-->
+<!--      <div class="col-6">-->
+<!--        <p-calendar-->
+<!--                [showIcon]="true"-->
+<!--                inputId="icon"-->
+<!--                [disabled]="true"-->
+<!--                dateFormat="yy-mm-dd"-->
+<!--                class="noVacunado"-->
+<!--        ></p-calendar>-->
+<!--      </div>-->
+
+<!--    </div>-->
+
+<!--  </div>-->
+
+<!--</div>-->
