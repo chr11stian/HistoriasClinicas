@@ -44,3 +44,6 @@ package-lock.json
 #SERVIDOR
 Dockerfile
 nginx.conf
+
+#Variables de entorno
+/src/environments/*
