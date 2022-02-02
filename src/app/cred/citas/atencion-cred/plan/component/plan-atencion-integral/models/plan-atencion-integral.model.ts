@@ -7,6 +7,7 @@ export interface Inmunizaciones {
     fechaTentativa?: string
 }
 export interface ControlCrecimiento{
+    edadMes:number,
     descripcionEdad: string,
     genero?: string,
     nroControl: number,

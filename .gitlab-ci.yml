@@ -1,25 +1,24 @@
-stages:    
-  - update      
+stages:
+  - update
   - build
   - build-docker
   - deploy
 
-update:master:     
+update:master:
   stage: update
   script:
     - cd /server/frontend/historia_clinica_electronica
     - echo "Actualizacion"
     - echo "$CI_COMMIT_BRANCH"
-    - git status 
-    - whoami
+    - git status
     - git branch
     - git checkout master
     - git pull origin $CI_COMMIT_BRANCH
     - git status
-  only: 
+  only:
     - master
 
-update:release:     
+update:release:
   stage: update
   script:
     - echo "Actualizacion del realease para pruebas"
@@ -30,10 +29,10 @@ update:release:
     - git checkout $CI_COMMIT_BRANCH
     - git pull origin $CI_COMMIT_BRANCH
     - git status
-  only: 
-    - /^release.*$/    
+  only:
+    - /^release.*$/
 
-build-job:     
+build-job:
   stage: build
   script:
     - echo "Compiling the code..."
@@ -42,7 +41,7 @@ build-job:
     - npm install
     - npm run build
   only:
-    - /^release.*$/ 
+    - /^release.*$/
     - master
 
 clean-area:master:   # This job also runs in the test stage.
@@ -81,22 +80,22 @@ build-area:master:   # This job also runs in the test stage.
   only:
     - master
 
-build-area:realease:   
-  stage: build-docker   
+build-area:realease:
+  stage: build-docker
   script:
     - echo "creando contenedores/prueba !NO ES PRODUCCION!"
     - cd /server/frontend/historia_clinica_electronica
     - git branch
     - docker build -t hce-img_prueba .
   only:
-    - /^release.*$/ 
+    - /^release.*$/
 
 deploy-job:master:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   script:
     - echo "Deploying application..."
     - docker run --name web-historia --restart always -d -p 4002:80 hce-img
-  only: 
+  only:
     - master
 
 deploy-job:release:      # This job runs in the deploy stage.
@@ -104,5 +103,5 @@ deploy-job:release:      # This job runs in the deploy stage.
   script:
     - echo "Deploying application..."
     - docker run --name web-historia_prueba --restart always -d -p 4012:80 hce-img_prueba
-  only: 
-    - /^release.*$/ 
+  only:
+    - /^release.*$/
