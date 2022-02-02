@@ -15,6 +15,7 @@ import {MessageService} from 'primeng/api';
 export class SesionesAtencionTempranaComponent implements OnInit {
 
   listaControles: SesionesTempranas[] = []
+  sesiones:any[]=[];
   ref: DynamicDialogRef;
 
   constructor(private servicio: SesionesAtencionTempranaService, public dialogService: DialogService, public messageService: MessageService) { }
@@ -23,7 +24,7 @@ export class SesionesAtencionTempranaComponent implements OnInit {
     this.getLista()
   }
   getLista() {
-    this.servicio.getListaSesiones('47825757')
+    this.servicio.getListaSesiones('10101099')
         .toPromise().then((result) => {
         this.listaControles = result.object
     }).catch((err) => {
@@ -39,7 +40,7 @@ export class SesionesAtencionTempranaComponent implements OnInit {
       width: "40%",
     });
   }
-  editarSesion(row){
+  editarSesion(rowData,rowIndex){
     console.log("editar sesion");
     let title='Editar '+row.descripcion
     this.ref= this.dialogService.open(EditarSesionComponent, {
@@ -50,6 +51,9 @@ export class SesionesAtencionTempranaComponent implements OnInit {
       header: title,
       width: "40%",
     });
+  }
+  eliminarSesion(rowIndex){
+
   }
 
 }
