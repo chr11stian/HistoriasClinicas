@@ -54,14 +54,15 @@ export class AdultoMayorService {
     postValoracionClinicaPorDoc(data){
         return this.http.post(`${this.base_url}/${this.bd}/adultomayor/valoracionclinica/listar/`,data)
     }
-
+    postValoracionClinicaMentalPorDoc(data){
+        return this.http.post(`${this.base_url}/${this.bd}/adultomayor/valoracionclinica/listarValoracionMental/`,data)
+    }
     postValoracionClinica(idFiliacion, data) {
         return this.http.post(`${this.base_url}/${this.bd}/adultomayor/valoracionclinica/agregar/${idFiliacion}`, data);
     }
     postValoracionClinicaAgregarPorDoc(data){
         return this.http.post(`${this.base_url}/${this.bd}/adultomayor/valoracionclinica/agregar/`, data);
     }
-
     updateValoracionClinica(idFiliacion, data) {
         return this.http.put(`${this.base_url}/${this.bd}/adultomayor/valoracionclinica/actualizar/${idFiliacion}`, data);
     }

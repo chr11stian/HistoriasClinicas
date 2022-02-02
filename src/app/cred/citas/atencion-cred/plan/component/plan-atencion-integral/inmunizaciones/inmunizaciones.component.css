@@ -8,6 +8,17 @@ p-calendar >>> .p-button {
   align-self: center;
   height: 29px;
 }
+::ng-deep .vacunado .p-calendar .p-button {
+  background: red;
+  border: 1px solid #0c3866;
+  align-self: center;
+}
+::ng-deep .noVacunado .p-calendar .p-button {
+  background: green;
+  border: 1px solid #0c3866;
+  align-self: center;
+}
+
 .agregar {
   border-color: #0c3866;
   color: #0c3866;

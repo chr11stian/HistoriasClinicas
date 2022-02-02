@@ -1,13 +1,16 @@
-import {Component, OnInit, ViewChild, DoCheck} from '@angular/core'
-import {MenuItem} from 'primeng/api'
-import {ConsultaGeneralService} from '../../services/consulta-general.service'
-import {ApiConsulta} from '../../models/consultaGeneral'
-import {ActivatedRoute, Router} from '@angular/router'
-import {DatosGeneralesConsultaComponent} from '../datos-generales-consulta/datos-generales-consulta.component'
-import {MotivoConsultaComponent} from '../motivo-consulta/motivo-consulta.component'
-import {DiagnosticoConsultaComponent} from "../diagnostico-consulta/diagnostico-consulta.component";
-import {TratamientoConsultaComponent} from "../tratamiento-consulta/tratamiento-consulta.component";
-import {FinalizarConsultaComponent} from "../finalizar-consulta/finalizar-consulta.component";
+import { Component, OnInit, ViewChild, DoCheck } from '@angular/core'
+import { MenuItem } from 'primeng/api'
+import { ConsultaGeneralService } from '../../services/consulta-general.service'
+import { ApiConsulta } from '../../models/consultaGeneral'
+import { ActivatedRoute, Router } from '@angular/router'
+import { DatosGeneralesConsultaComponent } from '../datos-generales-consulta/datos-generales-consulta.component'
+import { MotivoConsultaComponent } from '../motivo-consulta/motivo-consulta.component'
+import { DiagnosticoConsultaComponent } from "../diagnostico-consulta/diagnostico-consulta.component";
+import { TratamientoConsultaComponent } from "../tratamiento-consulta/tratamiento-consulta.component";
+import { FinalizarConsultaComponent } from "../finalizar-consulta/finalizar-consulta.component";
+import { EvaluacionesConsultaComponent } from '../evaluaciones-consulta/evaluaciones-consulta.component'
+import { ExamenesAuxiliaresConsultaComponent } from '../examenes-auxiliares-consulta/examenes-auxiliares-consulta.component'
+
 
 @Component({
     selector: 'app-step-general',
@@ -35,15 +38,17 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     @ViewChild(DiagnosticoConsultaComponent) diagnosticoConsulta: DiagnosticoConsultaComponent
     @ViewChild(TratamientoConsultaComponent) tratamientoConsulta: TratamientoConsultaComponent
     @ViewChild(FinalizarConsultaComponent) finalizarConsulta: FinalizarConsultaComponent
+    @ViewChild(EvaluacionesConsultaComponent) evaluacionesConsulta: EvaluacionesConsultaComponent
+    @ViewChild(ExamenesAuxiliaresConsultaComponent) examenesAuxConsulta: ExamenesAuxiliaresConsultaComponent
 
     constructor(private consultaGeneralService: ConsultaGeneralService,
-                private route: ActivatedRoute,
-                private router: Router) {
+        private route: ActivatedRoute,
+        private router: Router) {
         this.options = [
-            {name: 'DNI', code: 1},
-            {name: 'CARNET RN', code: 2},
-            {name: 'C EXTRANJERIA', code: 3},
-            {name: 'OTROS', code: 4},
+            { name: 'DNI', code: 1 },
+            { name: 'CARNET RN', code: 2 },
+            { name: 'C EXTRANJERIA', code: 3 },
+            { name: 'OTROS', code: 4 },
         ]
     }
 
@@ -51,24 +56,28 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         this.saveStep()
     }
 
-    ngOnInit(): void {
+    async ngOnInit() {
         this.items = [
-            {label: 'Datos Generales', styleClass: 'icon'},
-            {label: 'Motivo de Consulta', styleClass: 'icon1'},
-            {label: 'Diagnostico', styleClass: 'icon2'},
-            {label: 'Tratamiento', styleClass: 'icon3'},
-            {label: 'Finalizar', styleClass: 'icon4'},
+            { label: 'Datos Generales', styleClass: 'icon' },
+            { label: 'Motivo de Consulta', styleClass: 'icon1' },
+            { label: 'Evaluaciones', styleClass: 'icon2' },
+            { label: 'Exámenes Auxiliares', styleClass: 'icon3' },
+            { label: 'Diagnostico', styleClass: 'icon4' },
+            { label: 'Tratamiento', styleClass: 'icon5' },
+            { label: 'Finalizar', styleClass: 'icon6' },
         ]
-        this.getQueryParams()
+        await this.getQueryParams()
     }
 
-    getQueryParams(): void {
+    getQueryParams() {
         this.route.queryParams
             .subscribe(params => {
                 if (params['nroDoc'] && !localStorage.getItem(this.attributeLocalS)) {
                     this.tipoDoc = params['tipoDoc']
                     this.nroDoc = params['nroDoc']
+                    console.log('1')
                     this.getNuevaConsulta()
+
                 } else if (localStorage.getItem(this.attributeLocalS)) {
                     this.getConsulta(localStorage.getItem(this.attributeLocalS))
                 } else {
@@ -87,8 +96,8 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         )
     }
 
-    getNuevaConsulta(): void {
-        this.consultaGeneralService.crearConsulta(
+    /*async getNuevaConsulta() {
+        await this.consultaGeneralService.crearConsulta(
             {
                 'tipoDoc': this.tipoDoc,
                 'nroDoc': this.nroDoc,
@@ -97,23 +106,47 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             }
         ).toPromise().then((result) => {
             this.consulta = result
+            console.log('result: ' + result)
             localStorage.setItem(this.attributeLocalS, this.consulta.object.id)
+            console.log('2')
+
         }).catch((err) => {
             console.log(err)
+        })
+    }*/
+
+    async getNuevaConsulta() {
+        await this.consultaGeneralService.crearConsulta({
+            'tipoDoc': this.tipoDoc,
+            'nroDoc': this.nroDoc,
+            'tipoDocProfesional': 'DNI',
+            'nroDocProfesional': '45678912'
+        }).subscribe((r) => {
+            this.consulta = r
+            console.log('result: ' + r)
+            localStorage.setItem(this.attributeLocalS, this.consulta.object.id)
+            this.datosGeneralesConsulta.recuperarData(this.consulta.object.id)
+            console.log('2')
         })
     }
 
     //--cambia los nombres de los steps según el indice
     name() {
         switch (this.indiceActivo) {
-            case 4:
+            case 6:
                 this.stepName = 'finalizar'
                 break
-            case 3:
+            case 5:
                 this.stepName = 'tratamiento'
                 break
-            case 2:
+            case 4:
                 this.stepName = 'diagnostico'
+                break
+            case 3:
+                this.stepName = 'examenesAux'
+                break
+            case 2:
+                this.stepName = 'evaluaciones'
                 break
             case 1:
                 this.stepName = 'motivo'
@@ -140,18 +173,28 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 break;
             case 'motivo':
                 this.motivoConsulta.save()
-                this.stepName = 'diagnostico';
+                this.stepName = 'evaluaciones';
                 this.indiceActivo = 2;
+                break;
+            case 'evaluaciones':
+                // this.evaluacionesConsulta.save()
+                this.stepName = 'examenesAux';
+                this.indiceActivo = 3;
+                break;
+            case 'examenesAux':
+                // this.examenesAuxConsulta.save()
+                this.stepName = 'diagnostico';
+                this.indiceActivo = 4;
                 break;
             case 'diagnostico':
                 this.diagnosticoConsulta.save()
                 this.stepName = 'tratamiento';
-                this.indiceActivo = 3;
+                this.indiceActivo = 5;
                 break;
             case 'tratamiento':
                 this.tratamientoConsulta.save()
                 this.stepName = 'finalizar';
-                this.indiceActivo = 4;
+                this.indiceActivo = 6;
                 break;
             case 'finalizar':
                 this.finalizarConsulta.save()
@@ -163,15 +206,23 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     prevPage() {
         switch (this.stepName) {
             case 'finalizar':
-                console.log('fi ',this.stepName)
+                console.log('fi ', this.stepName)
                 this.stepName = 'tratamiento';
-                this.indiceActivo = 3;
+                this.indiceActivo = 5;
                 break;
             case 'tratamiento':
                 this.stepName = 'diagnostico';
-                this.indiceActivo = 2;
+                this.indiceActivo = 4;
                 break;
             case 'diagnostico':
+                this.stepName = 'examenesAux';
+                this.indiceActivo = 3;
+                break;
+            case 'examenesAux':
+                this.stepName = 'evaluaciones';
+                this.indiceActivo = 2;
+                break;
+            case 'evaluaciones':
                 this.stepName = 'motivo';
                 this.indiceActivo = 1;
                 break;
@@ -186,20 +237,24 @@ export class StepGeneralComponent implements OnInit, DoCheck {
         if (this.indiceActivo !== this.j) {
             console.log('j ', this.indiceActivo, this.j)
             switch (this.j) {
-                case 4:
+                case 6:
                     this.finalizarConsulta.save()
                     break
-                case 3:
+                case 5:
                     this.tratamientoConsulta.save()
                     break
+                case 4:
+                    // this.diagnosticoConsulta.save()
+                    break
+                case 3:
+                    break
                 case 2:
-                    this.diagnosticoConsulta.save()
                     break
                 case 1:
-                    this.motivoConsulta.save()
+                    // this.motivoConsulta.save()
                     break
                 case 0:
-                    this.datosGeneralesConsulta.save()
+                    // this.datosGeneralesConsulta.save()
                     break
             }
             this.j = this.indiceActivo

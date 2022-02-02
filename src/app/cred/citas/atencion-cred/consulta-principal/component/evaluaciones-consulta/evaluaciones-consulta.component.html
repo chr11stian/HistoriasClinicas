@@ -1,38 +1,30 @@
-<p-card>
-    <span style="font-size:1.5em; margin-left: 3em">CONTROL DE CRECIMIENTO Y DESARROLLO> Evaluaciones </span>
-    <div class="grid" style="margin:50px">
-        <div routerLink="../test-evaluacion-alimenticia-consulta" class="col-6">
-            <div class="grid bg-azul">
-                <img src="././assets/images/img_3.png" class="imgPsico align-content-end">
-            </div>
-            <div class="grid bg-blanco">
-                <span class="texto">EVALUACIÓN DE LA ALIMENTACIÓN DE LA NIÑA Y EL NIÑO</span>
-            </div>
-        </div>
-        <div routerLink="../test-eedp-consulta" class="col-6">
-            <div class="grid bg-azul">
-                <img src="././assets/images/img_1.png" class="imgPsico align-content-end">
-            </div>
-            <div class="grid bg-blanco">
-                <span class="texto">EVALUACIÓN DEL DESARROLLO PSICOMOTOR (EEDP)</span>
-            </div>
-        </div>
-        <div routerLink="../test-desarrollo-consulta" class="col-6">
-            <div class="grid bg-azul">
-                <img src="././assets/images/img_2.png" class="imgPsico align-content-end">
-            </div>
-            <div class="grid bg-blanco">
-                <span class="texto">EVALUACIÓN DEL DESARROLLO DEL TEST PERUANO</span>
-            </div>
-        </div>
-        <div routerLink="../test-tepsi-consulta" class="col-6">
-            <div class="grid bg-azul">
-                <img src="././assets/images/img_4.png" class="imgPsico align-content-end">
-            </div>
-            <div class="grid bg-blanco">
-                <span class="texto">PROTOCOLO TEST DE DESARROLLO PSICOMOTOR TEPSI</span>
-            </div>
-        </div>
-
-    </div>
-</p-card>
+<div class="body-psicomotor">
+  <p-tabView class="w-full">
+    <p-tabPanel header="ALIMENTACION" leftIcon="pi pi-calendar">
+      <app-evaluacion-alimentacion></app-evaluacion-alimentacion>
+    </p-tabPanel>
+    <p-tabPanel
+      header="CRECIMIENTO Y ESTADO NUTRICIONAL"
+      leftIcon="pi pi-chart-line"
+    >
+      <app-crecimiento-estado-nutricional></app-crecimiento-estado-nutricional>
+    </p-tabPanel>
+    <p-tabPanel header="DESARROLLO PSICOMOTOR" leftIcon="pi pi-map">
+      <app-desarrollo-psicomotor></app-desarrollo-psicomotor>
+    </p-tabPanel>
+    <p-tabPanel
+      header="TAMIZAJES"
+      headerStyleClass="w-2 text-center"
+      leftIcon="pi pi-file-o"
+    >
+      <app-tamizajes></app-tamizajes>
+    </p-tabPanel>
+    <p-tabPanel
+      header="INMUNIZACIONES"
+      headerStyleClass="w-2 text-center"
+      leftIcon="pi pi-shield"
+    >
+      <app-inmunizaciones-cred></app-inmunizaciones-cred>
+    </p-tabPanel>
+  </p-tabView>
+</div>

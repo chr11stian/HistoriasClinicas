@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import Swal from "sweetalert2";
-import {TratamientoConsultaService} from "../../services/tratamiento-consulta.service";
 import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
 import {FinalizarConsultaService} from "../../services/finalizar-consulta.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-finalizar-consulta',
@@ -23,7 +23,7 @@ export class FinalizarConsultaComponent implements OnInit {
     formAcuerdos: FormGroup;
     formReferencia: FormGroup;
     form: FormGroup
-    dialogTratamiento: boolean;
+
     dialogAcuerdos: boolean;
     dialogExamenes: boolean;
     dialogReferencia: boolean;
@@ -42,9 +42,15 @@ export class FinalizarConsultaComponent implements OnInit {
     bool5: boolean = false;
     index5: number
 
+    tipoDoc: string = ''
+    nroDoc: string = ''
+
+
     constructor(private finalizarService: FinalizarConsultaService,
                 private cieService: CieService,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private router: Router,
+                private route: ActivatedRoute) {
         this.buildFG();
 
         this.nombreEspecialidad =
@@ -109,6 +115,14 @@ export class FinalizarConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.route.queryParams
+            .subscribe(params => {
+                console.log('params', params)
+                if (params['nroDoc']) {
+                    this.tipoDoc = params['tipoDoc']
+                    this.nroDoc = params['nroDoc']
+                }
+            })
         this.recuperarFinalizar()
     }
 
@@ -350,6 +364,15 @@ export class FinalizarConsultaComponent implements OnInit {
                 }
             )
         }
+    }
+    irEvaluaciones(){
+        /** redirigir a atencion de usuario */
+        this.router.navigate(['/dashboard/cred/citas/atencion/evaluaciones-consulta'], {
+            queryParams: {
+                'tipoDoc': this.tipoDoc,
+                'nroDoc': this.nroDoc,
+            }
+        })
     }
 }
 

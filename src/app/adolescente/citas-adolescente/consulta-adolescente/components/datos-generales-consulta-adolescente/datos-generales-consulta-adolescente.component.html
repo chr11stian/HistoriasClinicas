@@ -38,7 +38,7 @@
                         <div class="col-12 md:col-12">
                             <label>Apellidos y Nombres del Acompañante:</label>
                             <input formControlName="nombreAcompaniante" type="text" class="inputfield w-full" pInputText
-                                placeholder="Nro control" />
+                                placeholder="Nombre del acompañante" oninput="this.value=this.value.toUpperCase()" />
                         </div>
                         <!-- <div class="col-12 md:col-12">
                             <p-divider align="left">
@@ -60,23 +60,24 @@
                         <div class="col-12 md:col-12">
                             <label>Motivo de Consulta:</label>
                             <input formControlName="motivoConsulta" type="text" class="inputfield w-full" pInputText
-                                placeholder="Motivo de Consulta" />
+                                placeholder="Motivo de Consulta" oninput="this.value=this.value.toUpperCase()" />
                         </div>
                         <div class="col-12 md:col-6">
                             <label>Forma de inicio:</label>
                             <input formControlName="formaInicio" type="text" class="inputfield w-full" pInputText
-                                placeholder="Nro control" />
+                                placeholder="Forma de Inicio" oninput="this.value=this.value.toUpperCase()" />
                         </div>
                         <div class="col-12 md:col-6">
                             <label>Tiempo de enfermedad:</label>
                             <input formControlName="tiempoEnfermedad" type="text" class="inputfield w-full" pInputText
-                                placeholder="Nro control" />
+                                placeholder="Tiempo de Enfermedad" oninput="this.value=this.value.toUpperCase()" />
                         </div>
                         <div class="col-12 md:col-12">
                             <label>Observaciones:</label>
                             <textarea [rows]="4" class="inputfield w-full" autoResize="autoResize"
                                 formControlName="observacionesSignosAlarma" pInputTextarea
-                                placeholder="Describa la medicación"></textarea>
+                                placeholder="Describa la medicación"
+                                oninput="this.value=this.value.toUpperCase()"></textarea>
                         </div>
                     </div>
                 </div>
@@ -173,7 +174,7 @@
             <div class="col-12">
                 <label>Signo de Alarma:</label>
                 <input type="text" pInputText formControlName='signoAlarma' placeholder="Descripcion" autofocus
-                    class="inputfield w-full">
+                    class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
             </div>
         </form>
     </ng-template>
@@ -194,7 +195,7 @@
             <div class="col-12">
                 <label>Medicación:</label>
                 <input type="text" pInputText formControlName='medicacionFrec' placeholder="Medicación" autofocus
-                    class="inputfield w-full">
+                    class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
             </div>
         </form>
     </ng-template>

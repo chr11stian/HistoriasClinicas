@@ -21,7 +21,7 @@ export class TestDesarrolloComponent implements OnInit {
   }
 
   cambiarEstado(){
-
+    console.log("cambio de estado")
   }
 
 }

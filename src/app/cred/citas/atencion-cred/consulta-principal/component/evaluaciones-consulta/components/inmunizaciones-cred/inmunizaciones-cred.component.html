@@ -1,0 +1,147 @@
+<div class="grid">
+  <div class="lg:col-4 md:col-6 col-fixed">
+    <div class="card flex flex-column">
+      <div class="field grid">
+        <div class="mr-2 text-right" style="width: 170px">Fecha</div>
+        <div class="text-right" style="width: 135px">Fecha Tentativa</div>
+      </div>
+      <div class="field grid" *ngFor="let inmu1 of lista1" >
+        <span
+                class="col-fixed text-right mr-1"
+                style="width: 100px"
+                w
+        >{{ inmu1.nombreVacuna }}:</span
+        >
+        <div style="width: 105px" class="mr-2">
+          <p-calendar
+                  [showIcon]="true"
+                  placeholder="Fecha"
+                  [disabled]="true"
+                  dateFormat="yy-mm-dd"
+                  [(ngModel)]="inmu1.fecha"
+                  [ngClass]="{'vacunado':inmu1.fecha,'noVacunado':!inmu1.fecha}"
+          ></p-calendar>
+        </div>
+        <div style="width: 105px" class="mr-2">
+          <p-calendar
+                  class="vacunado"
+                  [showIcon]="true"
+                  [disabled]="true"
+                  placeholder="Fecha"
+                  dateFormat="yy-mm-dd"
+                  [(ngModel)]="inmu1.fechaTentativa"
+                  [ngClass]="{'vacunado':inmu1.fecha,'noVacunado':!inmu1.fecha}"
+          ></p-calendar>
+        </div>
+        <button *ngIf="inmu1.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu1)></button>
+      </div>
+    </div>
+  </div>
+  <div class="lg:col-4 md:col-6 col-fixed">
+    <div class="card flex flex-column">
+      <div class="field grid">
+        <div class="mr-2 text-right" style="width: 170px">Fecha</div>
+        <div class="text-right" style="width: 135px">Fecha Tentativa</div>
+      </div>
+      <div class="field grid" *ngFor="let inmu2 of lista2">
+        <span
+                class="col-fixed text-right mr-1"
+                style="width: 100px"
+                [style]="inmu2.fecha ? 'color:green' : 'color:#BF0D21'"
+        >{{ inmu2.nombreVacuna }}:</span
+        >
+        <div style="width: 105px" class="mr-2">
+          <p-calendar
+                  [showIcon]="true"
+                  inputId="icon"
+                  placeholder="Fecha"
+                  dateFormat="yy-mm-dd"
+                  [(ngModel)]="inmu2.fecha"
+                  [disabled]="true"
+                  [ngClass]="{'vacunado':inmu2.fecha,'noVacunado':!inmu2.fecha}"
+          ></p-calendar>
+        </div>
+        <div style="width: 105px" class="mr-2">
+          <p-calendar
+                  [showIcon]="true"
+                  inputId="icon"
+                  [disabled]="true"
+                  placeholder="Fecha"
+                  dateFormat="yy-mm-dd"
+                  [(ngModel)]="inmu2.fechaTentativa"
+                  [ngClass]="{'vacunado':inmu2.fecha,'noVacunado':!inmu2.fecha}"
+          ></p-calendar>
+        </div>
+         <button *ngIf="inmu2.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu2)></button>
+      </div>
+    </div>
+  </div>
+  <div class="lg:col-4 md:col-6 col-fixed">
+    <div class="card flex flex-column">
+      <div class="field grid">
+        <div class="mr-2 text-right" style="width: 170px">Fecha</div>
+        <div class="text-right" style="width: 135px">Fecha Tentativa</div>
+      </div>
+      <div class="field grid" *ngFor="let inmu3 of lista3">
+        <span
+                class="col-fixed text-right mr-1"
+                style="width: 100px"
+                [style]="inmu3.fecha ? 'color:green' : 'color:#BF0D21'"
+        >{{ inmu3.nombreVacuna }}:</span
+        >
+        <div style="width: 105px" class="mr-2">
+          <p-calendar
+                  [showIcon]="true"
+                  inputId="icon"
+                  placeholder="Fecha"
+                  dateFormat="yy-mm-dd"
+                  [(ngModel)]="inmu3.fecha"
+                  [disabled]="true"
+                  [ngClass]="{'vacunado':inmu3.fecha,'noVacunado':!inmu3.fecha}"
+          ></p-calendar>
+        </div>
+        <div style="width: 105px" class="mr-2">
+          <p-calendar
+                  [showIcon]="true"
+                  inputId="icon"
+                  [disabled]="true"
+                  placeholder="Fecha"
+                  dateFormat="yy-mm-dd"
+                  [(ngModel)]="inmu3.fechaTentativa"
+                  [ngClass]="{'vacunado':inmu3.fecha,'noVacunado':!inmu3.fecha}"
+          ></p-calendar>
+        </div>
+        <button *ngIf="inmu3.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu3)></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--<div class="grid flex justify-content-center">-->
+<!--  <div class="col-6  grid borde">-->
+<!--    <div class="col-6 grid">-->
+<!--      <div class="col-6">-->
+<!--        Pesos y tallas tomadas-->
+<!--      </div>-->
+<!--      <div class="col-2 p p-fluid">-->
+<!--        <i class="pi pi-calendar" style="font-size: 2rem;background-color: red"></i>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="col-6 grid">-->
+<!--      <div class="col-6">-->
+<!--        Pesos y tallas  NO tomados-->
+<!--      </div>-->
+<!--      <div class="col-6">-->
+<!--        <p-calendar-->
+<!--                [showIcon]="true"-->
+<!--                inputId="icon"-->
+<!--                [disabled]="true"-->
+<!--                dateFormat="yy-mm-dd"-->
+<!--                class="noVacunado"-->
+<!--        ></p-calendar>-->
+<!--      </div>-->
+
+<!--    </div>-->
+
+<!--  </div>-->
+
+<!--</div>-->
