@@ -29,7 +29,9 @@ export class ValoracionFuncionalComponent implements OnInit {
   tipoDocRecuperado="";
   ListaValoracionFuncional:valoracionFuncional[]=[];
   listaValoracionClinina:any[]=[];
-  arrayFechas:Date[]=[];
+  dataValoracion:any;
+  checked=false;
+  date = new Date();
   dialogValoracionFuncional:boolean=false;
   constructor(private formBuilder: FormBuilder,
               private valoracionService: AdultoMayorService,
@@ -56,7 +58,7 @@ export class ValoracionFuncionalComponent implements OnInit {
   }
   buildForm() {
     this.formValoracionClinicaFuncional = this.formBuilder.group({
-      fecha:new FormControl(''),
+      fecha:new FormControl(this.datePipe.transform(this.date,'yyyy-MM-dd HH:mm:ss')),
       lavarse: new FormControl(''),
       vestirse: new FormControl(''),
       usoservicioH: new FormControl(''),
@@ -201,7 +203,7 @@ export class ValoracionFuncionalComponent implements OnInit {
       tipoDoc:this.tipoDocRecuperado,
       nroDoc:this.docRecuperado,
       valoracionClinica:{
-        fecha: this.obtenerFecha(),
+        fecha: this.formValoracionClinicaFuncional.value.fecha,
         valoracionClinica: this.valoracionesFuncional
       }
     }
@@ -225,18 +227,34 @@ export class ValoracionFuncionalComponent implements OnInit {
       console.log('se recupero datos satisfactoriamente', res.object);
      if(res.object.valoracionesClinicas!=null) {
          this.listaValoracionClinina.push(res.object);
-         for(let i = 0;i<res.object.valoracionesClinicas.length;i++){
-             this.arrayFechas.push(res.object.valoracionesClinicas.fecha);
-             this.ListaValoracionFuncional.push(res.object.valoracionesClinicas[i].valoracionFuncional)
-         }
-       this.idRecuperado = res.object.id;
-       this.valoracionesFuncional = res.object.valoracionesClinicas[0].valoracionFuncional;
-       console.log(this.valoracionesFuncional);
+          console.log(this.listaValoracionClinina);
+      }
+    else{
        this.messageService.add({
-         severity: "success",
-         summary: "Exito",
-         detail: res.mensaje
+         severity: "warn",
+         summary: "Error",
+         detail: "No hay datos en Valoración"
        });
+     }});
+  }
+  listarValoraciones(){
+      this.ref = this.dialogService.open(ModalValoracionComponent, {
+          width: '80%',
+          data:this.listaValoracionClinina
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('datos de modal atenciones ', data);
+      this.dataValoracion = data;
+      this.llenarDatosParaActualizar();
+  })
+  }
+  llenarDatosParaActualizar(){
+      console.log(this.dataValoracion);
+      this.formValoracionClinicaFuncional.patchValue({ 'fecha': this.dataValoracion.data.fecha });
+      // this.formValoracionClinicaFuncional.value.fecha = this.datePipe.transform(this.dataValoracion.data.fecha);
+      console.log(this.dataValoracion.data.valoracion1)
+     if(this.dataValoracion.data.valoracion1.length!=0){
+        this.valoracionesFuncional=this.dataValoracion.data.valoracion1;
         /*****LLENAR CAMPOS RECUPERADOS DE LA BD*****/
         let dx = this.valoracionesFuncional.diagnostico;
         console.log("dx",dx);
@@ -253,60 +271,109 @@ export class ValoracionFuncionalComponent implements OnInit {
         let aux6=this.valoracionesFuncional.items[5].puntaje;
         console.log(aux6);
         if(aux1==0)
-          this.formValoracionClinicaFuncional.get("lavarse").setValue(false);
+            this.formValoracionClinicaFuncional.get("lavarse").setValue(false);
         else{
-          this.formValoracionClinicaFuncional.get("lavarse").setValue(true);
+            this.formValoracionClinicaFuncional.get("lavarse").setValue(true);
         }
         if(aux2==0)
-          this.formValoracionClinicaFuncional.get("vestirse").setValue(false);
+            this.formValoracionClinicaFuncional.get("vestirse").setValue(false);
         else{
-          this.formValoracionClinicaFuncional.get("vestirse").setValue(true);
+            this.formValoracionClinicaFuncional.get("vestirse").setValue(true);
         }
         if(aux3==0)
-          this.formValoracionClinicaFuncional.get("usoservicioH").setValue(false);
+            this.formValoracionClinicaFuncional.get("usoservicioH").setValue(false);
         else{
-          this.formValoracionClinicaFuncional.get("usoservicioH").setValue(true);
+            this.formValoracionClinicaFuncional.get("usoservicioH").setValue(true);
         }
         if(aux4==0)
-          this.formValoracionClinicaFuncional.get("movilizarse").setValue(false);
+            this.formValoracionClinicaFuncional.get("movilizarse").setValue(false);
         else{
-          this.formValoracionClinicaFuncional.get("movilizarse").setValue(true);
+            this.formValoracionClinicaFuncional.get("movilizarse").setValue(true);
         }
         if(aux5==0)
-          this.formValoracionClinicaFuncional.get("continencia").setValue(false);
+            this.formValoracionClinicaFuncional.get("continencia").setValue(false);
         else{
-          this.formValoracionClinicaFuncional.get("continencia").setValue(true);
+            this.formValoracionClinicaFuncional.get("continencia").setValue(true);
         }
         if(aux6==0)
-          this.formValoracionClinicaFuncional.get("alimentarse").setValue(false);
+            this.formValoracionClinicaFuncional.get("alimentarse").setValue(false);
         else{
-          this.formValoracionClinicaFuncional.get("alimentarse").setValue(true);
+            this.formValoracionClinicaFuncional.get("alimentarse").setValue(true);
         }
         this.formValoracionClinicaFuncional.patchValue({ 'diagnostico': this.valoracionesFuncional.diagnostico });
-      }
-    else{
-       this.messageService.add({
-         severity: "warn",
-         summary: "Error",
-         detail: "No hay datos en Valoración"
-       });
-     }});
-  }
-  listarValoraciones(){
-      this.ref = this.dialogService.open(ModalValoracionComponent, {
-          width: '80%',
-          data:this.listaValoracionClinina
-    })
-    this.ref.onClose.subscribe((data: any) => {
-      console.log('datos de modal atenciones ', this.listaValoracionClinina)
+    }
 
-  })
+
   }
-  nuevaValoracion(){
-    this.formValoracionClinicaFuncional.reset();
-    const date = new Date();
-    const date1 = this.datePipe.transform(date,'yyyy-MM-dd HH:mm:ss');
-    console.log(date1);
-    this.formValoracionClinicaFuncional.get('fecha').setValue(date1);
+  nuevaValoracion() {
+      this.formValoracionClinicaFuncional = this.formBuilder.group({
+          fecha:new FormControl(this.datePipe.transform(this.date,'yyyy-MM-dd HH:mm:ss')),
+          lavarse: new FormControl(''),
+          vestirse: new FormControl(''),
+          usoservicioH: new FormControl(''),
+          movilizarse: new FormControl(''),
+          continencia: new FormControl(''),
+          alimentarse: new FormControl(''),
+          diagnostico: new FormControl(''),
+      })
+
   }
+  guardarValoracionFuncional2(){
+      let fecha = this.datePipe.transform(this.formValoracionClinicaFuncional.value.fecha,'yyyy-MM-dd HH:mm:ss');
+      this.recuperarValoracionFuncional();
+      let cadena = {
+          tipoDoc:this.tipoDocRecuperado,
+          nroDoc:this.docRecuperado,
+          valoracionClinica:{
+              fecha: fecha,
+              valoracionFuncional: this.valoracionesFuncional
+          }
+      }
+     let bandera:boolean=false;
+         for (let i = 0; i<this.listaValoracionClinina[0].valoracionesClinicas.length;i++){
+             if(this.listaValoracionClinina[0].valoracionesClinicas[i].fecha==fecha){
+                 bandera = true;
+                 console.log(this.listaValoracionClinina[0].valoracionesClinicas[i].fecha)
+                 console.log("fecha"+ fecha);
+                 console.log(bandera);
+             }
+         }
+      console.log("bandera",bandera);
+      console.log("lista de valoraciones"+ this.listaValoracionClinina[0].valoracionesClinicas[0].fecha);
+      this.formValoracionClinicaFuncional.patchValue({ 'diagnostico': this.valoracionesFuncional.diagnostico });
+      console.log('valoracion funcional a guardar:',cadena);
+      if (bandera==false){
+
+          this.valoracionService.postValoracionClinicaAgregarPorDoc(cadena).subscribe((res: any) => {
+              console.log('se actualizo correctamente ', res.object);
+              this.messageService.add({
+                  severity: "success",
+                  summary: "Exito",
+                  detail: "Se guardo la valoracion con éxito"
+              });
+          });
+      }
+      else {
+          let fecha2 = this.datePipe.transform(this.formValoracionClinicaFuncional.value.fecha,'yyyy-MM-dd HH:mm:ss');
+          let cadena2 = {
+              fechaAnterior:fecha,
+              tipoDoc:this.tipoDocRecuperado,
+              nroDoc:this.docRecuperado,
+              valoracionClinica:{
+                  fecha: fecha2,
+                  valoracionFuncional: this.valoracionesFuncional
+              }
+          }
+          this.valoracionService.updateValoracionClinicaEditarPorDoc(cadena2).subscribe((res: any) => {
+              console.log('se actualizo correctamente ', res.object);
+              this.messageService.add({
+                  severity: "success",
+                  summary: "Exito",
+                  detail: "Se actualizo correctamente"
+              });
+          });
+      }
+  }
+
+
 }
