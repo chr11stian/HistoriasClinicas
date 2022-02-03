@@ -15,12 +15,12 @@ export class CitasService {
   }
 
   listarCitasTentativasEnfermeria(){
-    //return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/citas/servicio/${id}`, data)
+    //return this.http.post(`${this.base_url}/${this.bd}/cupo/listarPendientesEnfermeria/${id}`, data)
   }
   listarCitasTentativasMedicina(){
-    //return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/citas/servicio/${id}`, data)
+    //return this.http.post(`${this.base_url}/${this.bd}/cupo/listarPendientesMedicionGeneral/${id}`, data)
   }
   listarCitasTentativasObstetricia(){
-    //return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/citas/servicio/${id}`, data)
+    //return this.http.post(`${this.base_url}/${this.bd}/cupo/listarPendientesObstetricia/${id}`, data)
   }
 }

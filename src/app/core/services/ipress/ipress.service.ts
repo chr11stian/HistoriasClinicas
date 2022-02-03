@@ -88,4 +88,19 @@ export class IpressService {
     createEncargadoIpress(req) {
         return this.http.put<any>(`${this.base_url}/${this.bd}/ipress/cambiarencargado`, req)
     }
+
+    //horarios
+    updateHorariosIpress(idIpress, req){
+        return this.http.put<any>(`${this.base_url}/${this.bd}/ipress/actualizarhorario/${idIpress}`, req)
+    }
+
+    //clasificaciones
+    listarClasificaciones(){
+        return this.http.get<any>(`${this.base_url}/${this.bd}/ipress/listarMantenimientoClasificaciones`)
+    }
+
+    //categorizaciones
+    listarCategorizaciones(){
+        return this.http.get<any>(`${this.base_url}/${this.bd}/ipress/listarTipoDocCategorizacion`)
+    }
 }

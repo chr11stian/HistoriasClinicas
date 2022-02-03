@@ -6,4 +6,15 @@ button {
     width: 160px;
     display:block;
     margin:auto;
-  }
+}
+p-tabview >>> .p-tabview-title {
+    /* font-size: medium; */
+    color: black;
+}
+p-tabview >>> .p-tabview .p-tabview-nav {
+    justify-content: space-around;
+    margin: 1rem;
+}
+p-tabview >>> .p-tabview .p-tabview-panels {
+    height: 100%;
+}

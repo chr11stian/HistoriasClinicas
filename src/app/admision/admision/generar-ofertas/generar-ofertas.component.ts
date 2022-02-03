@@ -67,6 +67,7 @@ export class GenerarOfertasComponent implements OnInit {
     this.formGenerar.get('tiempoPreparacion').setValue(data.ipress.tiempoPreparacion);
     this.formGenerar.get('tiempoAtencion').setValue(data.ipress.tiempoPromedioAtencion);
   }
+  
   getRolGuardiasDisponibles() {
     let data = {
       fechaOferta: this.form.value.fechaFiltro,
