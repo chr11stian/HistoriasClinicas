@@ -14,7 +14,6 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   listaExamenes:string[] = [
     'TEST DE GRAHAM',
     'DOSAJE DE HENOGLOBINA',
-    'SALUD BUCAL',
     'SESIONES DEMOSTRATIVAS',
     'PARASITO SERIADO',
     'VISITAS DOMICILIARIAS'

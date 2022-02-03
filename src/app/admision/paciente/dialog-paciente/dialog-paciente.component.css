@@ -1,0 +1,26 @@
+.image {
+  width: 150px;
+  height: 195px;
+  margin: 10px auto;
+  display: block;
+}
+.p-inputtext:disabled {
+  opacity: 1;
+}
+.footer {
+  text-align: right;
+  /* display: flexbox; */
+  /* text-align: center; */
+  background: white;
+  position: absolute;
+  /* margin-top: 2.5; */
+  bottom: 0;
+  width: 95%;
+  height: 5em;
+  color: white;
+  bottom: 0;
+  z-index: 200;
+}
+.dialog{
+    max-height: 70%;
+}
