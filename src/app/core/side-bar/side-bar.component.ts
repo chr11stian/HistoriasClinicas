@@ -247,7 +247,7 @@ const menu_ipress = [
             {
                 icon: "pi pi-file",
                 label: "Cupos",
-                routerLink: "admision/cupos",
+                routerLink: "admision/atenciones",
             },
             {
                 label: "Caja",

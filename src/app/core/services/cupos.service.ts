@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from "@angular/common/http";
+import {DynamicDialogRef} from "primeng/dynamicdialog";
 
 @Injectable({
     providedIn: 'root'
@@ -9,12 +10,17 @@ export class CuposService {
     base_url = environment.baseUrl;
     bd = environment.bd;
 
-    ServicioSeleccionado = null;
+    ServicioSeleccionado = "";
     AmbienteSeleccionado = null;
     PersonalResponsableSeleccionado = null;
     FechaAtencionSeleccionado = null;
     HoraAtencionSeleccionado: any;
     dataPersonalSelecionado: any;
+
+    modal1: DynamicDialogRef;
+    modal2: DynamicDialogRef;
+    modalPacientes: DynamicDialogRef;
+    dataCupos: any[];
 
     constructor(private http: HttpClient) {
     }
@@ -47,20 +53,21 @@ export class CuposService {
         return this.http.post(`${this.base_url}/${this.bd}/oferta/crear-ofertas`, data)
     }
 
-    // getCuposServicioFecha(idipres, data) {
-    //     return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/servicio/${idipres}`, data)
-    // }
+
 
     getCuposServicioFecha(idipres, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/cupos/servicio/${idipres}`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/servicio/${idipres}`, data)
     }
 
     listaCuposConfirmados(idIpres, data) {
         return this.http.post(`${this.base_url}/${this.bd}/cupo/lista/confirmado/${idIpres}`, data)
     }
 
-    buscarCupoPorDniFechaIpress(nroDoc, id, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/${nroDoc}/${id}`, data)
+    buscarCupoPorDniFechaIpress(idIpres, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-total/${idIpres}`, data)
     }
 
+    cambioOfertasTotal(idIpres, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/buscar/${idIpres}`, data)
+    }
 }

@@ -22,7 +22,7 @@ const routes: Routes = [
             },
             {
                 path: "admision",
-                loadChildren: () => import('src/app/admision/admision.module').then(n => n.AdmisionModule),
+                loadChildren: () => import('src/app/modulos/admision.module').then(n => n.AdmisionModule),
             },
             {
                 path: "mantenimientos",

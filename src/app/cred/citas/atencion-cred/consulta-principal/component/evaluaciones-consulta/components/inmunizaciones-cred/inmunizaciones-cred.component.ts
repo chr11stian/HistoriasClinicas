@@ -36,9 +36,10 @@ export class InmunizacionesCredComponent implements OnInit {
 
   // async getLista(){
   getLista() {
+    this.servicio;
+    // .getListaInmunizaciones(this.nroDNI)
     this.servicio
-      .getListaInmunizaciones(this.nroDNI)
-      // this.servicio.getListaInmunizaciones('47825757')
+      .getListaInmunizaciones("47825757")
       .toPromise()
       .then((result) => {
         this.listaInmunizaciones = result.object;
