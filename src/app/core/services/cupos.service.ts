@@ -20,7 +20,7 @@ export class CuposService {
     modal1: DynamicDialogRef;
     modal2: DynamicDialogRef;
     modalPacientes: DynamicDialogRef;
-    dataCupos: any;
+    dataCupos: any[];
 
     constructor(private http: HttpClient) {
     }
@@ -53,9 +53,7 @@ export class CuposService {
         return this.http.post(`${this.base_url}/${this.bd}/oferta/crear-ofertas`, data)
     }
 
-    // getCuposServicioFecha(idipres, data) {
-    //     return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/servicio/${idipres}`, data)
-    // }
+
 
     getCuposServicioFecha(idipres, data) {
         return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/servicio/${idipres}`, data)
@@ -65,8 +63,11 @@ export class CuposService {
         return this.http.post(`${this.base_url}/${this.bd}/cupo/lista/confirmado/${idIpres}`, data)
     }
 
-    buscarCupoPorDniFechaIpress(nroDoc, id, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/${nroDoc}/${id}`, data)
+    buscarCupoPorDniFechaIpress(idIpres, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-total/${idIpres}`, data)
     }
 
+    cambioOfertasTotal(idIpres, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/buscar/${idIpres}`, data)
+    }
 }

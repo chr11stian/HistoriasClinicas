@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 import {PacienteService} from "../../../../core/services/paciente/paciente.service";
 import {CuposService} from "../../../../core/services/cupos.service";
 import {UbicacionService} from "../../../../mantenimientos/services/ubicacion/ubicacion.service";
-import {Departamentos, Distrito, Provincias} from "../../../../core/models/ubicacion.models";
-import {DatePipe, formatDate} from "@angular/common";
+import {Distrito, Provincias} from "../../../../core/models/ubicacion.models";
+import {DatePipe} from "@angular/common";
 import {MessageService} from "primeng/api";
 import {PacienteComponent} from "../../../paciente/paciente.component";
 import {DialogService, DynamicDialogConfig} from "primeng/dynamicdialog";
@@ -50,6 +50,13 @@ export class ModalCupos2Component implements OnInit {
 
     estadoHoras: string = "LIBRE";
     DataCupos: any;
+
+
+    /**ID de los datos seleccionados**/
+    DepartamentoIDSelct: any;
+    ProvinciaIDSelct: any;
+    DistritoIDSelct: any;
+
     public pacienteComponent: PacienteComponent;
 
 
@@ -79,6 +86,65 @@ export class ModalCupos2Component implements OnInit {
         // this.saveForm();
     }
 
+    /**Recupera las provincias  de un determinado departamento cuando buscas un paciente por su dni**/
+    listarUbicacionPacienteProvincias() {
+        let departamento = this.dataPacientes.domicilio.departamento;
+        this.dataDepartamentos.forEach(object => {
+            if (object.departamento === departamento) {
+                console.log("Departamento:", object);
+                this.DepartamentoIDSelct = object.iddd
+            }
+        });
+        let dpto = {
+            iddd: this.DepartamentoIDSelct
+        }
+        this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
+            this.dataProvincia = res.object;
+            console.log("PROVINCIA:", this.dataProvincia);
+            this.listarUbicacionPacientedistritos();
+        });
+
+    }
+
+    /**Recupera los Distritos de un determinado provincia cuando buscas un paciente por su dni**/
+    listarUbicacionPacientedistritos() {
+        let provincia = this.dataPacientes.domicilio.provincia;
+        this.dataProvincia.forEach(object => {
+            if (object.provincia === provincia) {
+                console.log("Provincia:", object);
+                this.ProvinciaIDSelct = object.idpp
+            }
+        });
+        let provincia1 = {
+            iddd: this.DepartamentoIDSelct,
+            idpp: this.ProvinciaIDSelct,
+        };
+        this.ubicacionService.getDistritos(provincia1).subscribe((res: any) => {
+            this.dataDistrito = res.object;
+            this.listarUbicacionPacienteCCPP();
+        });
+
+    }
+
+    /**Recupera los Centros poblados de un determinado Distrito cuando buscas un paciente por su dni**/
+    listarUbicacionPacienteCCPP() {
+        let distrito = this.dataPacientes.domicilio.distrito;
+        this.dataDistrito.forEach(object => {
+            if (object.distrito === distrito) {
+                console.log("Distrito:", object);
+                this.DistritoIDSelct = object.iddis
+            }
+        });
+        let distrito1 = {
+            iddd: this.DepartamentoIDSelct,
+            idpp: this.ProvinciaIDSelct,
+            iddis: this.DistritoIDSelct,
+        }
+        this.ubicacionService.getCentroPoblado(distrito1).subscribe((res: any) => {
+            this.dataCentroPoblado = res.object;
+        });
+    }
+
     /**Lista todos los departamento **/
     getDepartamentos() {
         this.ubicacionService.getDepartamentos().subscribe((resp: any) => {
@@ -89,46 +155,66 @@ export class ModalCupos2Component implements OnInit {
 
     /**Selecciona un departamento y lista las provincias**/
     selectedDepartamento() {
-        let dpto = {
-            iddd: this.formPacientesCupo.value.dpto.iddd
-        }
+        let depa = this.formPacientesCupo.value.dpto;
+        this.dataDepartamentos.forEach(object => {
+            if (object.departamento === depa) {
+                console.log("Departamento:", object);
+                this.DepartamentoIDSelct = object.iddd
+            }
+        });
 
-        console.log("Departamento", dpto);
+        let dpto = {
+            iddd: this.DepartamentoIDSelct
+        }
         this.dataDistrito = '';
         this.dataCentroPoblado = '';
         this.ubicacionService.getProvincias(dpto).subscribe((res: any) => {
             this.dataProvincia = res.object;
         });
         this.formPacientesCupo.get('ccpp').setValue('');
-        this.formPacientesCupo.get('direccion').setValue(this.formPacientesCupo.value.dpto.departamento + ', ' + this.formPacientesCupo.value.prov.provincia + ', ' + this.formPacientesCupo.value.dist.distrito);
     }
 
     /**Selecciona un Provincia y lista los Distritos**/
     selectedProvincia() {
+        // DistritoIDSelct
+        let provinciaX = this.formPacientesCupo.value.prov;
+        this.dataProvincia.forEach(object => {
+            if (object.provincia === provinciaX) {
+                console.log("Provincia:", object);
+                this.ProvinciaIDSelct = object.idpp
+            }
+        });
+
         let provincia = {
-            iddd: this.formPacientesCupo.value.dpto.iddd,
-            idpp: this.formPacientesCupo.value.prov.idpp,
+            iddd: this.DepartamentoIDSelct,
+            idpp: this.ProvinciaIDSelct,
         };
         this.dataCentroPoblado = '';
         this.ubicacionService.getDistritos(provincia).subscribe((res: any) => {
             this.dataDistrito = res.object;
         });
         this.formPacientesCupo.get('ccpp').setValue('');
-        this.formPacientesCupo.get('direccion').setValue(this.formPacientesCupo.value.dpto.departamento + ', ' + this.formPacientesCupo.value.prov.provincia + ', ' + this.formPacientesCupo.value.dist.distrito);
 
     }
 
     /**Selecciona un Distrito y lista los Centros Poblados**/
     selectedDistrito() {
+        let distritoX = this.formPacientesCupo.value.dist;
+        this.dataDistrito.forEach(object => {
+            if (object.distrito === distritoX) {
+                console.log("Distrito:", object);
+                this.DistritoIDSelct = object.iddis
+            }
+        });
+
         let distrito = {
-            iddd: this.formPacientesCupo.value.dpto.iddd,
-            idpp: this.formPacientesCupo.value.prov.idpp,
-            iddis: this.formPacientesCupo.value.dist.iddis
+            iddd: this.DepartamentoIDSelct,
+            idpp: this.ProvinciaIDSelct,
+            iddis: this.DistritoIDSelct,
         }
         this.ubicacionService.getCentroPoblado(distrito).subscribe((res: any) => {
             this.dataCentroPoblado = res.object;
         });
-        this.formPacientesCupo.get('direccion').setValue(this.formPacientesCupo.value.dpto.departamento + ', ' + this.formPacientesCupo.value.prov.provincia + ', ' + this.formPacientesCupo.value.dist.distrito);
     }
 
 
@@ -188,6 +274,8 @@ export class ModalCupos2Component implements OnInit {
         return Year + '-' + Months + '-' + Day;
     }
 
+
+    /**Busca un paciente por su numero de documento y los recupera en el formPacientesCupo**/
     pacienteByNroDoc() {
         let auxNroDoc = {
             tipoDoc: this.formPacientesCupo.value.tipoDoc,
@@ -197,8 +285,9 @@ export class ModalCupos2Component implements OnInit {
             if (res.object != null || res.object != undefined) {
                 this.dataPacientes = res.object
                 console.log('paciente por doc ', this.dataPacientes)
+                this.listarUbicacionPacienteProvincias();
                 if (this.dataSelectServicio == "OBSTETRICIA") {
-                    if (this.dataPacientes.sexo == "Femenino") {
+                    if ((this.dataPacientes.sexo == "Femenino") || (this.dataPacientes.sexo == "FEMENINO")) {
                         this.formPacientesCupo.get('apePaterno').setValue(this.dataPacientes.apePaterno);
                         this.formPacientesCupo.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
                         this.formPacientesCupo.get('primerNombre').setValue(this.dataPacientes.primerNombre);
@@ -233,7 +322,7 @@ export class ModalCupos2Component implements OnInit {
                             key: 'tc',
                             severity: 'info',
                             summary: this.dataPacientes.apePaterno + " " + this.dataPacientes.apeMaterno + " " + this.dataPacientes.primerNombre,
-                            detail: 'Solo sexo femenino acepta este servicio'
+                            detail: 'El servicio no esta disponible'
                         });
                     }
                 } else {
@@ -267,7 +356,6 @@ export class ModalCupos2Component implements OnInit {
                         this.detallePago = "GRATUITO"
                     }
                 }
-
 
             } else {
                 this.messageService.add({
@@ -317,14 +405,16 @@ export class ModalCupos2Component implements OnInit {
         });
     }
 
+
+    /**Registra un nuevo cupo para un determinado paciente**/
     saveForm() {
         const req = {
             fechaAtencion: this.selectedFecha,
             nroCupo: '',
             oferta_id: this.dataPersonalSelecionado.id,
             descripcion: "asdfgh",
-            horaAtencion: this.selectedHorario[0].horaInicio + ":00",
-            horaAtencionFin: this.selectedHorario[0].horaFin + ":00",
+            horaAtencion: this.selectedHorario[0].horaInicio,
+            horaAtencionFin: this.selectedHorario[0].horaFin,
             ambiente: this.dataPersonalSelecionado.ambiente,
 
             paciente: {
@@ -359,7 +449,7 @@ export class ModalCupos2Component implements OnInit {
                         title: 'Cupo',
                         text: result.mensaje,
                         showConfirmButton: false,
-                        timer: 1500,
+                        timer: 2000,
                     })
                     this.actualizarOfertaEstado();
                 } else {
@@ -377,6 +467,8 @@ export class ModalCupos2Component implements OnInit {
     }
 
 
+    /**Actualiza el estdo de una oferta que pertenece al Personal**/
+    /****/
     actualizarOfertaEstado() {
         let data = {
             idOferta: this.dataPersonalSelecionado.id,
@@ -460,8 +552,6 @@ export class ModalCupos2Component implements OnInit {
             let ultimoDiaMes = new Date(ahora_ano, ahora_mes - 1, 0);
             this.dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
         }
-        console.log("EDAD", this.edad + ' ' + 'Meses', this.meses + ' ' + 'Dias', this.dias)
-
         return this.edad + " años, " + this.meses + "meses y " + this.dias + " días";
     }
 
@@ -475,7 +565,11 @@ export class ModalCupos2Component implements OnInit {
         this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.DataCupos = res.object;
             this.cuposService.dataCupos = res.object;
-            console.log('LISTA DE CUPOS POR SERVICIO ', this.DataCupos);
         })
+    }
+
+    cerrar(){
+        this.formPacientesCupo.reset();
+        this.cuposService.modal2.close();
     }
 }

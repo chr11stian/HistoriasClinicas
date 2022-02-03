@@ -9,9 +9,6 @@ import {UpsService} from "../../../mantenimientos/services/ups/ups.service";
 import {DocumentoIdentidadService} from "../../../mantenimientos/services/documento-identidad/documento-identidad.service";
 import {PacienteService} from "../../../core/services/paciente/paciente.service";
 import {RolGuardiaService} from "../../../core/services/rol-guardia/rol-guardia.service";
-import {CitasService} from "../../../obstetricia-general/services/citas.service";
-import Swal from "sweetalert2";
-import {PacienteComponent} from "../../paciente/paciente.component";
 import {ModalCuposComponent} from "./modal-cupos/modal-cupos.component";
 
 @Component({
@@ -26,7 +23,9 @@ export class CuposComponent implements OnInit, OnDestroy {
     idIpressLapostaMedica = "616de45e0273042236434b51";
     iprees: string = "la posta medica";
 
-    DataCupos = this.cuposService.dataCupos;
+    DataCupos: any[];
+    DataCuposPaciente: any;
+
     fecha: string;
     ups: [] = [];
     justifyOptions: any[];
@@ -34,7 +33,13 @@ export class CuposComponent implements OnInit, OnDestroy {
     datePipe = new DatePipe('en-US');
     datafecha: Date = new Date();
     ServicoSelect = "OBSTETRICIA";
+    TipoDoc: string = "DNI";
     ref: DynamicDialogRef;
+    buscoPorDoc: boolean = false;
+
+    listaDocumentosIdentidad: any;
+
+    verPacienteDialog: boolean = false;
 
     /*******detalle cupo para verificar si mandar a caja o triaje**************/
     detallePago: string = "PENDIENTE"
@@ -63,6 +68,8 @@ export class CuposComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.buildForm();
+        this.getDocumentosIdentidad();
+        this.formCuposListar.get('tipoDoc').setValue(this.TipoDoc);
         this.formCuposListar.get('SelectUPS').setValue(this.ServicoSelect);
         this.formCuposListar.get('fechaBusqueda').setValue(this.datafecha);
         this.detallePago = "PENDIENTE";
@@ -72,6 +79,14 @@ export class CuposComponent implements OnInit, OnDestroy {
         this.getCuposXservicio();
 
 
+    }
+
+    /**Lista los tipos de documentos de Identidad de un paciente**/
+    getDocumentosIdentidad() {
+        this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
+            this.listaDocumentosIdentidad = res.object;
+            console.log('docs ', this.listaDocumentosIdentidad);
+        })
     }
 
     buildForm() {
@@ -118,10 +133,51 @@ export class CuposComponent implements OnInit, OnDestroy {
         });
     }
 
+    buscarCupoXdniFecha() {
+        let data = {
+            tipoDoc: this.formCuposListar.value.tipoDoc,
+            nroDoc: this.formCuposListar.value.nroDoc,
+            fecha: this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
+        }
+        console.log("DATA DNI", data)
+        this.cuposService.buscarCupoPorDniFechaIpress(this.idIpressLapostaMedica, data).subscribe((res: any) => {
+            this.DataCuposPaciente = res.object;
+            console.log('LISTA DE CUPOS DEL PACIENTE', this.DataCuposPaciente);
+            if (this.DataCuposPaciente == null) {
+                this.showInfo();
+            } else {
+                this.showSuccess();
+                this.DataCupos = null;
+                this.DataCupos = [this.DataCuposPaciente];
+            }
+        });
+    }
+
+
+    showSuccess() {
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Paciente',
+            detail: 'Recuperado con exito'
+        });
+    }
+
+    showInfo() {
+        this.messageService.add({
+            severity: 'info',
+            summary: 'Paciente',
+            detail: 'No existe en la Base de Datos'
+        });
+    }
+
     ngOnDestroy() {
         if (this.ref) {
             this.ref.destroy();
         }
+    }
+
+    verDialogPaciente() {
+        this.verPacienteDialog = true;
     }
 
 }
