@@ -424,7 +424,7 @@ export class PacienteComponent implements OnInit {
       this.peruvian = false;
     }
   }
-  cargarDatosReniec(){
+  cargarDatosReniec() {
     let nroDoc = this.formPaciente.value.nroDoc;
     console.log(nroDoc);
     this.pacienteService.getDataReniecPaciente(nroDoc).subscribe((res: any) => {
@@ -437,16 +437,21 @@ export class PacienteComponent implements OnInit {
       this.formPaciente.get("restriccion").setValue(res.restriccion);
       this.formPaciente.get("estadoCivil").setValue(res.estadoCivil);
       this.formPaciente.get("direccion").setValue(res.direccion);
-      if(res.tipoSeguro=="01"){ this.formPaciente.get("tipoSeguro").setValue("SIS");}
+      if (res.tipoSeguro == "01") { this.formPaciente.get("tipoSeguro").setValue("SIS"); }
       this.formPaciente.get("fechaInscripcion").setValue(res.fecAfiliacion);
 
       // console.log('lista ipress ', this.listaIpress)
     });
   }
-  openDialogPacienteComp(){
+  openDialogPacienteComp() {
     this.ref = this.dialog.open(DialogPacienteComponent, {
       header: "PACIENTE",
       width: "75%",
+      height: "90%"
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('data del otro dialog ');
+      this.cargarPacientes();
     })
   }
 }

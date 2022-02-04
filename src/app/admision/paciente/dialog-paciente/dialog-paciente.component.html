@@ -1,7 +1,7 @@
 <div class="grid dialog">
     <div class="col-12">
         <form [formGroup]='formPaciente'>
-            <div class="grid mt-1">
+            <div class="grid">
                 <div class="p-field col-2 flex flex-column">
                     <label>Tipo Doc</label>
                     <p-dropdown [options]="listaDocumentos" formControlName="tipoDoc"
@@ -22,7 +22,7 @@
             </div>
             <div class="grid">
                 <div class="col-8">
-                    <div class="grid mt-1">
+                    <div class="grid">
                         <div class="p-field col-3 flex flex-column">
                             <label>Primer Nombre:</label>
                             <input type="text" pInputText formControlName="primerNombre" class="inputTest"
@@ -44,7 +44,7 @@
                                 oninput="this.value=this.value.toUpperCase()" disabled />
                         </div>
                     </div>
-                    <div class="grid mt-1">
+                    <div class="grid">
                         <div class=" col-3 flex flex-column">
                             <label>Departamento:</label>
                             <div class="p-field">
@@ -76,7 +76,8 @@
                                     oninput="this.value=this.value.toUpperCase()" /> -->
                                 <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataCentroPoblado"
                                     formControlName="ccpp" optionLabel="ccpp" defaultLabel="Seleccione un centroPoblado"
-                                    placeholder="Seleccione un centro poblado" id="distrito" [showClear]="false">
+                                    placeholder="Seleccione un centro poblado" id="distrito" [showClear]="false"
+                                    class="p-fluid w-full">
                                 </p-dropdown>
                             </div>
                         </div>
@@ -92,7 +93,7 @@
                         </div>
                         <div class="p-field col-3 flex flex-column">
                             <label>Celular:</label>
-                            <input type="text" pInputText formControlName="celular" class="inputTest" />
+                            <input type="number" pInputText formControlName="celular" class="inputTest" />
                         </div>
                         <div class="p-field col-3 flex flex-column">
                             <label>Sexo:</label>
@@ -119,7 +120,7 @@
                 </div>
             </div>
 
-            <div class="grid mt-1">
+            <div class="grid">
                 <div class="p-field col-2 flex flex-column">
                     <label>Fecha de Nacimiento:</label>
                     <input type="date" pInputText formControlName='fechaNacimiento' placeholder=""
@@ -143,7 +144,7 @@
                         oninput="this.value=this.value.toUpperCase()" />
                 </div>
             </div>
-            <div class="grid mt-1">
+            <div class="grid">
                 <div class="p-field col-6 flex flex-column">
                     <label>Direccion:</label>
                     <input type="text" pInputText formControlName="direccion" class="inputTest"
@@ -155,7 +156,7 @@
                     <p-chips formControlName="discapacidad" separator="," ngDefaultControl></p-chips>
                 </div>
             </div>
-            <div class="grid mt-1">
+            <div class="grid">
                 <div class="p-field col-2 flex flex-column">
                     <label>Estado Civil:</label>
                     <!-- <input type="text" pInputText formControlName="estadoCivil" class="inputTest" /> -->
@@ -185,6 +186,6 @@
 </div>
 <div class="footer">
     <button pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2"
-        (click)="recuperarDatos()"></button>
+        (click)="saveForm()"></button>
     <button pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
 </div>

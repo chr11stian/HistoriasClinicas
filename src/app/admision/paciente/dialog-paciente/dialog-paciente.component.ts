@@ -1,11 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
 import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
 import { EtniaService } from 'src/app/mantenimientos/services/etnia/etnia.service';
 import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
 import { image } from 'src/assets/images/image.const';
+import Swal from 'sweetalert2';
 
 // import { image } from '../../../assets/images/image.const';
 
@@ -24,6 +26,7 @@ export class DialogPacienteComponent implements OnInit {
   peruvian: boolean = true;
   dataPaciente: any;
   codUbigeo: any;
+  nacionalidad: string;
   codCCPP: any;
   auxipress: string = "615b30b37194ce03d782561c";
   imagePath: string = image;
@@ -71,6 +74,7 @@ export class DialogPacienteComponent implements OnInit {
     private etniaService: EtniaService,
     private documentoIdentidadService: DocumentoIdentidadService,
     private ubicacionService: UbicacionService,
+    private ref: DynamicDialogRef
   ) {
     this.inicializarForm();
     this.cargarDocumentos();
@@ -181,18 +185,30 @@ export class DialogPacienteComponent implements OnInit {
     }
   }
   recuperarDatos() {
-    console.log('centro poblado ', this.formPaciente.value.ccpp);
+    // console.log('data centro poblado ', this.formPaciente.value.ccpp);
+    if (this.formPaciente.value.ccpp == '') {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Seleccione Centro Poblado',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      return;
+    }
     let aux = this.formPaciente.value.etnia;
     let auxNroHcl: string;
     if (this.peruvian) {
       auxNroHcl = this.formPaciente.value.nroDoc;
+      this.nacionalidad = 'PERUANO'
     } else {
       auxNroHcl = this.formPaciente.value.nroHcl;
+      this.nacionalidad = 'EXTRANJERO'
     }
+    console.log('data de centro poblado ', this.formPaciente.value.ccpp);
     this.dataPaciente = {
-      nroHcl: auxNroHcl,
+      nroHcl: String(auxNroHcl),
       tipoDoc: this.formPaciente.value.tipoDoc,
-      nroDoc: this.formPaciente.value.nroDoc,
+      nroDoc: String(this.formPaciente.value.nroDoc),
       primerNombre: this.formPaciente.value.primerNombre,
       otrosNombres: this.formPaciente.value.otrosNombres,
       apePaterno: this.formPaciente.value.apPaterno,
@@ -200,12 +216,12 @@ export class DialogPacienteComponent implements OnInit {
       sexo: this.formPaciente.value.sexo,
       nacimiento: {
         // fechaNacimiento: this.formPaciente.value.fechaNacimiento
-        fechaNacimiento: this.formPaciente.value.fechaNacimiento + ' 00:00:00',
+        fechaNacimiento: this.datePipe.transform(this.formPaciente.value.fechaNacimiento, 'yyyy-MM-dd HH:mm:ss'),
       },
-      celular: this.formPaciente.value.celular,
+      celular: String(this.formPaciente.value.celular),
       tipoSeguro: this.formPaciente.value.tipoSeguro,
       discapacidad: this.formPaciente.value.discapacidad == '' ? [] : this.formPaciente.value.discapacidad,
-      nacionalidad: this.formPaciente.value.nacionalidad,
+      nacionalidad: this.nacionalidad,
       estadoCivil: this.formPaciente.value.estadoCivil,
       procedencia: this.formPaciente.value.procedencia,
       etnia: {
@@ -213,62 +229,39 @@ export class DialogPacienteComponent implements OnInit {
         etnia: aux.descripcion
       },
       gradoInstruccion: this.formPaciente.value.gradoInstruccion,
-      fechaInscripcion: this.formPaciente.value.fechaInscripcion,
-      fechaEmision: this.formPaciente.value.fechaEmision,
+      fechaInscripcion: this.datePipe.transform(this.formPaciente.value.fechaInscripcion, 'yyyy-MM-dd HH:mm:ss'),
+      fechaEmision: this.datePipe.transform(this.formPaciente.value.fechaEmision, 'yyyy-MM-dd HH:mm:ss'),
       restricion: this.formPaciente.value.restriccion,
       domicilio: {
         departamento: this.formPaciente.value.departamento,
         provincia: this.formPaciente.value.provincia,
         distrito: this.formPaciente.value.distrito,
         direccion: this.formPaciente.value.direccion,
-        idccpp: this.formPaciente.value.ccpp.ccpp,
-        ccpp: this.formPaciente.value.ccpp.idccpp,
+        idccpp: this.formPaciente.value.ccpp.idccpp,
+        ccpp: this.formPaciente.value.ccpp.ccpp,
         ubigeo: this.codUbigeo
       },
       // nombrePadre: this.formPaciente.value.nombrePadre,
       // nombreMadre: this.formPaciente.value.nombreMadre,
+      // this.datePipe.transform(this.formPaciente.value.fechaInscripcion, 'dd/MM/yyyy')
       idIpress: this.auxipress,
     }
-    console.log('data paciente to save ', this.dataPaciente);
   }
 
   saveForm() {
-    // this.isUpdate = false;
-    // let otrosNombres = this.form.value.nombres.split(" ", 2);
-    // let otros = otrosNombres.shift();
-    // otrosNombres = otrosNombres.join(" ");
-    // let primerNombre = this.form.value.nombres.split(" ")[0];
-    // console.log(this.form.value.fechaNacimiento);
-    // const req = {
-    //   tipoDoc: this.form.value.tipoDoc,
-    //   nroDoc: this.form.value.nroDoc,
-    //   apePaterno: this.form.value.apePaterno,
-    //   apeMaterno: this.form.value.apeMaterno,
-    //   primerNombre: primerNombre,
-    //   otrosNombres: otrosNombres,
-    //   fechaNacimiento: this.datePipe.transform(
-    //     this.form.value.fechaNacimiento,
-    //     "yyyy-MM-dd"
-    //   ),
-    //   sexo: this.form.value.sexo,
-    // };
-    // console.log(req);
-    // if (req.nroDoc.trim() !== "") {
-    //   this.personalservice.createPersonal(req).subscribe((result) => {
-    //     Swal.fire({
-    //       icon: "success",
-    //       title: "Agregado correctamente",
-    //       text: "",
-    //       showConfirmButton: false,
-    //       timer: 1500,
-    //     });
-    //     this.getPersonal();
-    //     this.personalDialog = false;
-    //   });
-    // }
+    this.recuperarDatos();
+    this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
+      this.closeDialog();
+      Swal.fire({
+        icon: 'success',
+        title: 'Se Registro Exitosamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    });
   }
   closeDialog() {
-
+    this.ref.close()
   }
   editarDatos() {
 

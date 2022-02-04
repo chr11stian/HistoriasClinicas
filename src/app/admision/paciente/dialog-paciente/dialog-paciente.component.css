@@ -21,6 +21,7 @@
   bottom: 0;
   z-index: 200;
 }
-.dialog{
-    max-height: 70%;
+
+::ng-deep .swal2-container {
+  z-index: 1000000;
 }
