@@ -31,14 +31,15 @@ export class CitasComponent implements OnInit {
     this.nombreIpress = "la posta medica";
     this.data = [];
     this.servicios = [];
-    this.form.get('fechaFiltro').setValue(this.fecha);
+    
     this.getListaServiciosXIpress();
     this.getListaCitasXServicio();
   }
 
   buildForm() {
     this.form = this.formBuilder.group({
-      fechaFiltro: [new Date()],
+      fechaFiltroInicio: [new Date()],
+      fechaFiltroFin: [new Date()],
       servicio: [""],
       nroDoc: [""],
     })
@@ -62,15 +63,17 @@ export class CitasComponent implements OnInit {
   }
 
   getListaCitasXServicio() {
-    let data = {
-      fecha: this.datePipe.transform(this.form.value.fechaFiltro, 'yyyy-MM-dd'),
-      servicio: this.form.value.servicio
+    let data={
+      fechaInicio: this.datePipe.transform(this.form.value.fechaFiltroInicio, 'yyyy-MM-dd'),
+      fechaFin : this.datePipe.transform(this.form.value.fechaFiltroFin, 'yyyy-MM-dd'),
+      servicio : this.form.value.servicio,
     }
+    
     console.log('DATA ', data);
 
-    this.citasService.listarCitasXservicio(this.idIpress,data).subscribe((res: any) => {
+    this.citasService.listarCitasXservicio(data).subscribe((res: any) => {
       this.data = res.object;
-      console.log('LISTA DE CITAS X SERVICIO IPRESS', this.servicios);
+      console.log('LISTA DE CITAS X SERVICIO IPRESS', this.data);
     })
   }
 

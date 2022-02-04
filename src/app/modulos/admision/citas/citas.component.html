@@ -3,14 +3,21 @@
       <form [formGroup]="form">
             <div class="grid align-items-end m-1 p-fluid">
                   <div class="col-6 md:col-4 lg:col-2 p-field">
-                        <span class="">Filtrar por fecha</span>
+                        <span class="">Fecha desde:</span>
                         <div class="p-inputgroup">
-                              <p-calendar dateFormat="yy-mm-dd" formControlName="fechaFiltro" [readonlyInput]="true"
+                              <p-calendar dateFormat="yy-mm-dd" formControlName="fechaFiltroInicio"
+                                    [readonlyInput]="true" (onSelect)="getListaCitasXServicio()">
+                              </p-calendar>
+                        </div>
+                  </div>
+                  <div class="col-6 md:col-4 lg:col-2 p-field">
+                        <span class="">Fecha hasta:</span>
+                        <div class="p-inputgroup">
+                              <p-calendar dateFormat="yy-mm-dd" formControlName="fechaFiltroFin" [readonlyInput]="true"
                                     (onSelect)="getListaCitasXServicio()">
                               </p-calendar>
                         </div>
                   </div>
-
                   <div class="col-6 md:col-4 lg:col-3 p-field">
                         <span class="">Filtrar por Servicio</span>
                         <div class="">
@@ -25,7 +32,7 @@
                         <span class="font-semibold">Ingrese número de documento:</span>
                         <div class="">
                               <input type="text" class="inputfield w-9" pInputText formControlName="nroDoc" />
-                              <p-button icon="pi pi-search" (click)="getListaOfertaXDocumento()"></p-button>
+                              <p-button icon="pi pi-search"></p-button>
                         </div>
                   </div>
             </div>
@@ -52,24 +59,30 @@
                   <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                         <tr>
                               <th style="text-align: center">Nro</th>
-                              <th style="text-align: center">Fecha</th>
-                              <th style="text-align: center">Personal</th>
-                              <th style="text-align: center">Nro de ofertas</th>
                               <th style="text-align: center">Servicio</th>
-                              <th style="text-align: center; width: 120px">Acción</th>
+                              <th style="text-align: center">Nro doc.</th>
+                              <th style="text-align: center">Paciente</th>
+                              <th style="text-align: center">Fecha</th>
+                              <th style="text-align: center">Celular</th>
+                              <th style="text-align: center">Acción</th>
                         </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                         <tr style="text-align: center">
                               <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                              <td style="text-align: center">{{ rowData.fechaOferta }}</td>
-                              <td style="text-align: center">{{ rowData.personal.nombre }}</td>
-                              <td style="text-align: center">{{ rowData.totalOfertas }}</td>
-                              <td style="text-align: center">{{ rowData.ipress.servicio }}</td>
+                              <td style="text-align: center">{{ rowData.servicio }}</td>
+                              <td style="text-align: center">{{ rowData.nroDoc }}</td>
+                              <td style="text-align: center">{{ rowData.datosPaciente.primerNombre+ " , "+
+                                    rowData.datosPaciente.apePaterno +" "+ rowData.datosPaciente.apeMaterno}}</td>
+                              <td style="text-align: center">{{ rowData.proxCita.fecha}}</td>
+                              <td style="text-align: center">{{ rowData.datosPaciente.celular }}</td>
                               <td style="text-align: center">
-                                    <button pButton pRipple type="button" label="Agregar Ofertas"
-                                          class="p-button-raised p-button-info"
-                                          (click)="openNewOfertaAgregar(rowData)"></button>
+                                    <span class="p-buttonset">
+                                          <button pButton pRipple label="Confirmar" icon="pi pi-check-square"
+                                                class="p-button-success"></button>
+                                          <button pButton pRipple label="Reprogramar" icon="pi pi-refresh" class="p-button-secondary"></button>
+                                          <button pButton pRipple label="Ver" icon="pi pi-calendar" class="p-button-help"></button>
+                                    </span>
                               </td>
                         </tr>
                   </ng-template>

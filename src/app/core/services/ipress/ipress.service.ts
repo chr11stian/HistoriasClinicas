@@ -103,4 +103,10 @@ export class IpressService {
     listarCategorizaciones(){
         return this.http.get<any>(`${this.base_url}/${this.bd}/ipress/listarTipoDocCategorizacion`)
     }
+
+    //buscar ambiente x servicio
+    buscarAmbientesXServicioXipress(data){
+       return this.http.post<any>(`${this.base_url}/${this.bd}/ipress/listarAmbientesXNombreUps`,data)
+    }
+
 }
