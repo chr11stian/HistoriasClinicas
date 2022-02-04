@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <!-- <div class="col-4">
                     <div class="grid">
                         <div class="col-12 ">
                             <label>Mamas:</label>
@@ -105,7 +105,7 @@
                                    class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-4">
                     <div class="grid">
                         <div class="col-12">
@@ -115,8 +115,9 @@
                         </div>
                     </div>
                 </div>
-                <label>Observaciones de Examen Físico</label>
-                <div class="col-12 text-center">
+                
+                <div class="col-12">
+                    <label>Observaciones de Examen Físico:</label>
                     <textarea class="p-fluid w-full" rows="3" cols="85" pInputTextarea formControlName="obsExamenFisico"
                               oninput="this.value=this.value.toUpperCase()"></textarea>
                 </div>
@@ -143,6 +144,7 @@
                 </div>
             </div>
             <p-divider></p-divider>
+            <label>Observaciones de Examen Físico:</label>
             <textarea class="inputfield w-full mb-2" formControlName="detailFC" pInputTextarea></textarea>
         </form>
     </p-fieldset>

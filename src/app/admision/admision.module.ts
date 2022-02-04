@@ -25,6 +25,7 @@ import { RegistrarTriajeComponent } from './triaje/registrar-triaje/registrar-tr
 import { IpressRolesComponent } from './ipress-roles/ipress-roles.component';
 import { IpressTurnosComponent } from './ipress-turnos/ipress-turnos.component';
 import { IpressAmbientesComponent } from './ipress-ambientes/ipress-ambientes.component';
+import { DialogPacienteComponent } from './paciente/dialog-paciente/dialog-paciente.component';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import { IpressAmbientesComponent } from './ipress-ambientes/ipress-ambientes.co
         IpressRolesComponent,
         IpressTurnosComponent,
         IpressAmbientesComponent,
+        DialogPacienteComponent,
     ],
     exports: [
         PersonalSaludComponent,

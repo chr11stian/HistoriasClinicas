@@ -1,4 +1,5 @@
 <div>
+<<<<<<< HEAD
         <form [formGroup]="formTamizajeCred">
             <div class="grid">
                 <div class="col-12 md:col-6 lg:col-6 p-field">
@@ -62,4 +63,67 @@
 
             </div>
         </form>
+=======
+    <form [formGroup]="formTamizajeCred">
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <p-panel header="TAMIZAJE AUDITIVO" toggleable="true">
+                    <br>
+                    <span class="p-float-label">
+                                    <textarea id="float-input" rows="8" cols="30" pInputTextarea class="w-full"
+                                              formControlName="tamizajeAuditivo"></textarea>
+                                    <label for="float-input">Descripcion:</label>
+                                </span>
+                </p-panel>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <p-panel header="EXÁMEN OCULAR" toggleable="true">
+                    <div class="grid">
+                        <div class="col-6">
+                            <label>OD</label>
+                            <input type="text" pInputTextarea p-fluid placeholder="Ojo Derecho"
+                                   formControlName="ojoDerecho">
+                        </div>
+                        <div class="col-6">
+                            <label>OI</label>
+                            <input type="text" pInputTextarea p-fluid placeholder="Ojo Izquierdo"
+                                   formControlName="ojoIzquierdo">
+                        </div>
+                        <br>
+                        <div class="col-12">
+                            <span class="p-float-label">
+                                <textarea id="float-input1" rows="5" cols="30" pInputTextarea class="w-full"
+                                          formControlName="descripcionTamizajeOcular"></textarea>
+                                <label for="float-input1">Descripcion:</label>
+                            </span>
+                        </div>
+                    </div>
+                </p-panel>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <p-panel header="EXÁMEN ESTOMATOLÓGICO" toggleable="true">
+                    <br>
+                    <span class="p-float-label">
+                        <textarea id="float-input3" rows="8" cols="30" pInputTextarea class="w-full"
+                                  formControlName="estomatologico"></textarea>
+                        <label for="float-input3">Descripcion:</label>
+                    </span>
+                </p-panel>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <p-panel header="TAMIZAJE DE SALUD MENTAL (VIF)" toggleable="true">
+                    <br>
+                    <span class="p-float-label">
+                        <textarea id="float-input4" rows="8" cols="30" pInputTextarea class="w-full"
+                                  formControlName="tamizajeMental"></textarea>
+                        <label for="float-input4">Descripcion:</label>
+                    </span>
+                </p-panel>
+            </div>
+
+        </div>
+    </form>
+    <p-toast></p-toast>
+>>>>>>> 313ab072a794a1c793a7be2c55075ad4caf31bd1
 </div>
