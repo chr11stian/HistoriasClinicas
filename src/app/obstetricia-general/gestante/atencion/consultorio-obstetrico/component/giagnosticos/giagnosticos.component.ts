@@ -35,7 +35,6 @@ export class GiagnosticosComponent implements OnInit {
     referencia: any;
     proxCita: any;
     orientaciones: any[]=[];
-    orientaciones2: any[]=[];
 
     /*******DATA AUX PARA RECUPERAR DE LA BD*******/
     dataAux: any;

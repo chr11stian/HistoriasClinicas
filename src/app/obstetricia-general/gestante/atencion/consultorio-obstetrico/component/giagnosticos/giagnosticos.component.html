@@ -149,16 +149,18 @@
 </div>
 <!--*************************DIALOGO AGREGAR DX***********************************-->
 <p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog" [modal]="true"
-          [draggable]="false" [resizable]="false">
+          [draggable]="false" [resizable]="false" >
     <div class="grid p-fluid">
-        <div class="col-6">
+        <div class="col-6" p-fluid>
+            <br>
             <div class="p-field-radiobutton">
                 <p-radioButton name="descripcion" value="opcionBusqueda" [(ngModel)]="opcionBusqueda"  value="porDescripcion"
                                inputId="opcion1"></p-radioButton>
                 <label>Buscar por Descripcion</label>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-6 p-fluid">
+            <br>
             <div class="p-field-radiobutton">
                 <p-radioButton name="cie10" value="opcionBusqueda" [(ngModel)]="opcionBusqueda" value="porcie10"
                                inputId="opcion2" ></p-radioButton>
@@ -168,16 +170,17 @@
     </div>
     <br>
     <form   [formGroup]='form' (ngSubmit)="save1(formTemplate)" #formTemplate ="ngForm" >
-        <label *ngIf="opcionBusqueda=='porDescripcion'">Diagnóstico:</label>
-        <label  *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>
         <div class="grid">
-            <div class="col-12">
+            <div class="col-12" p-fluid>
+                <label *ngIf="opcionBusqueda=='porDescripcion'">Diagnóstico:</label>
                 <p-autoComplete *ngIf="opcionBusqueda=='porDescripcion'" formControlName="diagnostico"
-                                [suggestions]="Cie10" (completeMethod)="filterDiagnostico($event)"
-                                field="descripcionItem" [minLength]="1" placeholder="Descripcion" class="areaText">
+                                [suggestions]="Cie10"
+                                (completeMethod)="filterDiagnostico($event)" field="descripcionItem"
+                                [minLength]="1" placeholder="Descripcion" class="areaText">
                 </p-autoComplete>
             </div>
-            <div class="col-12">
+            <div class="col-12" p-fluid>
+                <label  *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>
                 <p-autoComplete  *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico"
                                  [suggestions]="Cie10"
                                  (completeMethod)="filterDiagnostico($event)" field="codigoItem"
@@ -185,14 +188,16 @@
                 </p-autoComplete>
             </div>
         </div>
-        <br><br>
-        <div class="col-12 p-fluid">
-            <div class="p-field">
-                <label>Tipo:</label>
-                <p-dropdown  inputId="dropdown" [options]="tipoList" formControlName="tipo"
-                             placeholder="seleccionar" optionLabel="label" optionValue="value"
-                             defaultLabel="Seleccione:" required>
-                </p-dropdown>
+        <br>
+        <br>
+        <div class="grid">
+            <div class="col-12 p-fluid">
+
+                    <label>Tipo:</label>
+                    <p-dropdown  inputId="dropdown" [options]="tipoList" formControlName="tipo"
+                                 placeholder="seleccionar" optionLabel="label" optionValue="value"
+                                 defaultLabel="Seleccione:" required>
+                    </p-dropdown>
             </div>
         </div>
     </form>
