@@ -10,7 +10,7 @@ import { PacienteService } from 'src/app/core/services/paciente/paciente.service
 import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
 import { EtniaService } from 'src/app/mantenimientos/services/etnia/etnia.service';
 import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
-import {DialogPacienteComponent} from "../../modulos/paciente/dialog-paciente/dialog-paciente.component";
+import {DialogPacienteComponent} from "./dialog-paciente/dialog-paciente.component";
 
 
 @Component({
