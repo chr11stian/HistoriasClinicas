@@ -160,6 +160,44 @@ export class GraphicComponent implements OnInit, OnChanges {
                     }
                 }
                 yAxisGraph['min'] = -4
+                console.log('yAxisGraph ', yAxisGraph)
+            } else if (this.data.typeAxisX === 'altura') {
+                tooltipGraph['axisPointer'] = {
+                    show: true,
+                    label: {
+                        formatter: function (params) {
+                            return params.value + 'cm'
+                        }
+                    }
+                }
+                xAxisGraph['axisLabel'] = {
+                    rotate: 90,
+                    fontWeight: 'bold',
+                    fontSize: 14
+                }
+                yAxisGraph['min'] = 40
+                yAxisGraph['max'] = 125
+                // xAxisGraph['max'] = 60
+                xAxisGraph['nameGap'] = 2
+            }  else if (this.data.typeAxisX === 'circunferencia') {
+                tooltipGraph['axisPointer'] = {
+                    show: true,
+                    label: {
+                        formatter: function (params) {
+                            return params.value + 'cm'
+                        }
+                    }
+                }
+                xAxisGraph['axisLabel'] = {
+                    rotate: 90,
+                    fontWeight: 'bold',
+                    fontSize: 14
+                }
+                yAxisGraph['min'] = 30
+                yAxisGraph['max'] = 56
+                xAxisGraph['max'] = 60
+                // xAxisGraph['max'] = 60
+                xAxisGraph['nameGap'] = 2
             } else if (this.data.typeAxisX === 'longitud') {
                 tooltipGraph['axisPointer'] = {
                     show: true,
