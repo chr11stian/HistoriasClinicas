@@ -13,8 +13,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   isUpdate: boolean = false;
   listaExamenes:string[] = [
     'TEST DE GRAHAM',
-    'DESCARTE DE ANEMIA',
-    'SALUD BUCAL',
+    'DOSAJE DE HENOGLOBINA',
     'SESIONES DEMOSTRATIVAS',
     'PARASITO SERIADO',
     'VISITAS DOMICILIARIAS'

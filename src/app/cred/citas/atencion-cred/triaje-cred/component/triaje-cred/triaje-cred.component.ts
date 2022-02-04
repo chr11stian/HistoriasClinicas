@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ConsultaGeneralService} from "../../../consulta-principal/services/consulta-general.service";
 import Swal from "sweetalert2";
 
@@ -147,7 +147,7 @@ export class TriajeCredComponent implements OnInit {
         }
     ]
 
-    constructor(private route: ActivatedRoute,
+    constructor(private router: Router, private route: ActivatedRoute,
                 private consultaGeneralService: ConsultaGeneralService) {
         this.id = localStorage.getItem(this.attributeLocalS);
         this.buildForm()
@@ -412,6 +412,26 @@ export class TriajeCredComponent implements OnInit {
     cambio(e) {
         this.isShown = !this.isShown;
         console.log('show', this.isShown)
+    }
+
+    getExamenes(): void {
+        this.router.navigate(['/dashboard/cred/citas/atencion/examenes'],
+            {
+                queryParams: {
+                    'tipoDoc': this.tipoDoc,
+                    'nroDoc': this.nroDoc,
+                }
+            })
+    }
+
+    getConsultaPrincipal(): void {
+        this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'],
+            {
+                queryParams: {
+                    'tipoDoc': this.tipoDoc,
+                    'nroDoc': this.nroDoc,
+                }
+            })
     }
 }
 

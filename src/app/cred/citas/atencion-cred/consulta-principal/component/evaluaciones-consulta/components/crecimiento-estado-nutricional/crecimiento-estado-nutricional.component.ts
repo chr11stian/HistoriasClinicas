@@ -9,6 +9,7 @@ import {ActivatedRoute} from "@angular/router";
 import {WeightChartComponent} from "../../../../../../../modals/weight-chart/weight-chart.component";
 import {HeightChartComponent} from "../../../../../../../modals/height-chart/height-chart.component";
 import {HeightWeightComponent} from "../../../../../../../modals/height-weight/height-weight.component";
+import {CircumferenceChartComponent} from "../../../../../../../modals/circumference-chart/circumference-chart.component";
 
 
 @Component({
@@ -22,6 +23,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
   tallaPesoFG:FormGroup
   display:boolean=false;
   mesesPeso:any[]=[]
+  mesesCircunferencia:any[]=[]
   mesesAltura:any[]=[]
   mesesAlturaPeso:any[]=[]
   tipoDNI:string;
@@ -98,6 +100,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         if(item.edadMes>=1 && item.edadMes<=60){
           this.mesesAltura.push([item.edadMes,item.talla]);
           this.mesesPeso.push([item.edadMes,item.peso])
+          this.mesesCircunferencia.push([item.edadMes,item.peso])
         }
       }
     });
@@ -247,6 +250,24 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
       },
     })
   }
-
+  onCircumferenceChart(): void {
+    // this.determinaEdadPesoTalla();
+    const isBoy = this.sexo
+    this.ref = this.dialogService.open(CircumferenceChartComponent, {
+      data: {
+        dataChild: this.mesesCircunferencia,
+        /* debe ser dataChild:[[mes,peso],..] ejem: dataChild:[[1,4.5],..]  */
+        isBoy: isBoy
+      },
+      header: isBoy ? 'GRÁFICA DE CIRCUMFERENCIA CEFALICA DE UN NIÑO' : 'GRÁFICA DE CIRCUMFERENCIA CEFALICA DE UNA NIÑA',
+      // width: '90%',
+      height: '90%',
+      width: '70%',
+      style: {
+        position: 'absolute',
+        top: '17px',
+      },
+    })
+  }
 
 }

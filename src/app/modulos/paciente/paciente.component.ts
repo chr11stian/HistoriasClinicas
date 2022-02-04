@@ -1,20 +1,23 @@
-import {DatePipe} from '@angular/common';
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {ConfirmationService, MessageService} from 'primeng/api';
-import {TipoEtnia} from 'src/app/core/models/mantenimiento.models';
-import {Departamentos, Distrito, Provincias} from 'src/app/core/models/ubicacion.models';
-import {IpressService} from 'src/app/core/services/ipress/ipress.service';
-import {PacienteService} from 'src/app/core/services/paciente/paciente.service';
-import {DocumentoIdentidadService} from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
-import {EtniaService} from 'src/app/mantenimientos/services/etnia/etnia.service';
-import {UbicacionService} from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TipoEtnia } from 'src/app/core/models/mantenimiento.models';
+import { Departamentos, Distrito, Provincias } from 'src/app/core/models/ubicacion.models';
+import { IpressService } from 'src/app/core/services/ipress/ipress.service';
+import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
+import { DocumentoIdentidadService } from 'src/app/mantenimientos/services/documento-identidad/documento-identidad.service';
+import { EtniaService } from 'src/app/mantenimientos/services/etnia/etnia.service';
+import { UbicacionService } from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
+import {DialogPacienteComponent} from "../../modulos/paciente/dialog-paciente/dialog-paciente.component";
 
 
 @Component({
     selector: 'app-paciente',
     templateUrl: './paciente.component.html',
-    styleUrls: ['./paciente.component.css']
+    styleUrls: ['./paciente.component.css'],
+    providers: [DialogService],
 })
 export class PacienteComponent implements OnInit {
 
@@ -37,6 +40,7 @@ export class PacienteComponent implements OnInit {
     ccpp: any;
     id: string;
     peruvian: boolean = true;
+    ref: DynamicDialogRef;
     auxipress: string = "615b30b37194ce03d782561c";
     listaEstadoCivil = [
         'SOLTERO',
@@ -85,6 +89,7 @@ export class PacienteComponent implements OnInit {
         private etniaService: EtniaService,
         private messageService: MessageService,
         private confirmationService: ConfirmationService,
+        private dialog: DialogService,
     ) {
 
     }
@@ -242,7 +247,7 @@ export class PacienteComponent implements OnInit {
             this.formPaciente.reset();
             this.closeDialogPaciente();
             this.cargarPacientes();
-            this.messageService.add({severity: 'success', summary: 'Exito', detail: res.mensaje});
+            this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
         });
     }
 
@@ -256,32 +261,32 @@ export class PacienteComponent implements OnInit {
         this.update = true;
         this.formPaciente.reset();
         this.dialogPaciente = true;
-        this.formPaciente.patchValue({tipoDoc: row.tipoDoc});
-        this.formPaciente.patchValue({nroDoc: row.nroDoc});
-        this.formPaciente.patchValue({primerNombre: row.primerNombre});
-        this.formPaciente.patchValue({otrosNombres: row.otrosNombres});
-        this.formPaciente.patchValue({apPaterno: row.apePaterno});
-        this.formPaciente.patchValue({apMaterno: row.apeMaterno});
-        this.formPaciente.patchValue({celular: row.celular});
-        this.formPaciente.patchValue({tipoSeguro: row.tipoSeguro});
-        this.formPaciente.patchValue({nacionalidad: row.nacionalidad});
-        this.formPaciente.patchValue({procedencia: row.procedencia});
-        this.formPaciente.patchValue({estadoCivil: row.estadoCivil});
-        this.formPaciente.patchValue({etnia: row.etnia});
-        this.formPaciente.patchValue({gradoInstruccion: row.gradoInstruccion});
-        this.formPaciente.patchValue({sexo: row.sexo});
+        this.formPaciente.patchValue({ tipoDoc: row.tipoDoc });
+        this.formPaciente.patchValue({ nroDoc: row.nroDoc });
+        this.formPaciente.patchValue({ primerNombre: row.primerNombre });
+        this.formPaciente.patchValue({ otrosNombres: row.otrosNombres });
+        this.formPaciente.patchValue({ apPaterno: row.apePaterno });
+        this.formPaciente.patchValue({ apMaterno: row.apeMaterno });
+        this.formPaciente.patchValue({ celular: row.celular });
+        this.formPaciente.patchValue({ tipoSeguro: row.tipoSeguro });
+        this.formPaciente.patchValue({ nacionalidad: row.nacionalidad });
+        this.formPaciente.patchValue({ procedencia: row.procedencia });
+        this.formPaciente.patchValue({ estadoCivil: row.estadoCivil });
+        this.formPaciente.patchValue({ etnia: row.etnia });
+        this.formPaciente.patchValue({ gradoInstruccion: row.gradoInstruccion });
+        this.formPaciente.patchValue({ sexo: row.sexo });
         let auxFechaNacimiento = row.nacimiento.fechaNacimiento;
         auxFechaNacimiento = auxFechaNacimiento.split(" ", 1);
         let auxFechaInscrip = row.fechaInscripcion;
         auxFechaInscrip = auxFechaInscrip.split(" ", 1);
         let auxFechaEmision = row.fechaEmision;
         auxFechaEmision = auxFechaEmision.split(" ", 1);
-        this.formPaciente.patchValue({fechaNacimiento: auxFechaNacimiento[0]});
-        this.formPaciente.patchValue({fechaInscripcion: auxFechaInscrip[0]});
-        this.formPaciente.patchValue({fechaEmision: auxFechaEmision[0]});
-        this.formPaciente.patchValue({restriccion: row.restriccion});
-        this.formPaciente.patchValue({discapacidad: row.discapacidad});
-        this.formPaciente.patchValue({direccion: row.domicilio.direccion});
+        this.formPaciente.patchValue({ fechaNacimiento: auxFechaNacimiento[0] });
+        this.formPaciente.patchValue({ fechaInscripcion: auxFechaInscrip[0] });
+        this.formPaciente.patchValue({ fechaEmision: auxFechaEmision[0] });
+        this.formPaciente.patchValue({ restriccion: row.restriccion });
+        this.formPaciente.patchValue({ discapacidad: row.discapacidad });
+        this.formPaciente.patchValue({ direccion: row.domicilio.direccion });
         let auxDep = row.domicilio.ubigeo.slice(0, 2);
         let auxProv = row.domicilio.ubigeo.slice(2, 4);
         let auxDist = row.domicilio.ubigeo.slice(4, 6);
@@ -365,7 +370,6 @@ export class PacienteComponent implements OnInit {
             this.dataProvincia = res.object;
         });
     }
-
     selectedProvincia() {
         let provincia = {
             iddd: this.dpto.iddd,
@@ -375,7 +379,6 @@ export class PacienteComponent implements OnInit {
             this.dataDistrito = res.object;
         });
     }
-
     selectedDistrito() {
         let distrito = {
             iddd: this.dpto.iddd,
@@ -421,13 +424,12 @@ export class PacienteComponent implements OnInit {
             this.peruvian = false;
         }
     }
-
     cargarDatosReniec() {
         let nroDoc = this.formPaciente.value.nroDoc;
         console.log(nroDoc);
         this.pacienteService.getDataReniecPaciente(nroDoc).subscribe((res: any) => {
             console.log(res.resultado);
-            console.log(res);
+            console.log(res.nombres);
             this.formPaciente.get("primerNombre").setValue(res.nombres);
             this.formPaciente.get("apPaterno").setValue(res.apePaterno);
             this.formPaciente.get("apMaterno").setValue(res.apeMaterno);
@@ -435,12 +437,21 @@ export class PacienteComponent implements OnInit {
             this.formPaciente.get("restriccion").setValue(res.restriccion);
             this.formPaciente.get("estadoCivil").setValue(res.estadoCivil);
             this.formPaciente.get("direccion").setValue(res.direccion);
-            if (res.tipoSeguro == "01") {
-                this.formPaciente.get("tipoSeguro").setValue("SIS");
-            }
+            if (res.tipoSeguro == "01") { this.formPaciente.get("tipoSeguro").setValue("SIS"); }
             this.formPaciente.get("fechaInscripcion").setValue(res.fecAfiliacion);
 
             // console.log('lista ipress ', this.listaIpress)
         });
+    }
+    openDialogPacienteComp() {
+        this.ref = this.dialog.open(DialogPacienteComponent, {
+            header: "PACIENTE",
+            width: "75%",
+            height: "90%"
+        })
+        this.ref.onClose.subscribe((data: any) => {
+            console.log('data del otro dialog ');
+            this.cargarPacientes();
+        })
     }
 }
