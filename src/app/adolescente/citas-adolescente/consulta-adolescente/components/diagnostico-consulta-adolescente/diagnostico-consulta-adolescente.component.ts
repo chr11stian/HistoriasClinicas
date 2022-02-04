@@ -102,7 +102,7 @@ export class DiagnosticoConsultaAdolescenteComponent implements OnInit {
   }
   guardarDiagnostico() {
     this.recuperarDiagnosticos();
-    this.consultaAdolescenteService.putActualizarDiagnostico("61f1195d58886c4342580d64", this.dataDiagnostico).subscribe((res: any) => {
+    this.consultaAdolescenteService.putActualizarDiagnostico("61fbe59670859f5c74e4599b", this.dataDiagnostico).subscribe((res: any) => {
       this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
     });
     console.log('data diagnostico to save ', this.dataDiagnostico);

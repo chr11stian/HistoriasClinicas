@@ -68,9 +68,7 @@ export class InmunizacionesCredComponent implements OnInit {
     // aqui la lista de inmunicaiones queda vacia
     this.lista1 = this.listaInmunizaciones.splice(0, 8);
     this.lista2 = this.listaInmunizaciones.splice(0, 8);
-    this.lista3 = this.listaInmunizaciones.splice(
-      0,
-      this.listaInmunizaciones.length
+    this.lista3 = this.listaInmunizaciones.splice(0,this.listaInmunizaciones.length
     );
   }
   getFecha(date: Date) {
