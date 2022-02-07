@@ -7,6 +7,8 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {PacienteService} from "../core/services/paciente/paciente.service";
 import {MessageService} from "primeng/api";
+import {CuposService} from "../core/services/cupos.service";
+import {DocumentoIdentidadService} from "../mantenimientos/services/documento-identidad/documento-identidad.service";
 
 @Component({
     selector: 'app-citas',
@@ -15,7 +17,8 @@ import {MessageService} from "primeng/api";
     providers: [DialogService],
 })
 export class CitasComponent implements OnInit {
-
+    idIpressLapostaMedica = "616de45e0273042236434b51";
+    iprees: string = "la posta medica";
     options: data[]
     selectedOption: data
     citas: any[]
@@ -31,6 +34,10 @@ export class CitasComponent implements OnInit {
     dataPaciente: any;
     dataPaciente2: any;
 
+    DataCupos: any;
+    listaDocumentosIdentidad: any;
+    TipoDoc: string = "DNI";
+
 
     constructor(private obstetriciaGeneralService: ObstetriciaGeneralService,
                 private obstetriciaService: ObstetriciaGeneralService,
@@ -38,6 +45,8 @@ export class CitasComponent implements OnInit {
                 private fb: FormBuilder,
                 private pacienteService: PacienteService,
                 private messageService: MessageService,
+                private cuposService: CuposService,
+                private documentoIdentidadService: DocumentoIdentidadService,
     ) {
         this.options = [
             {name: "DNI", code: 1},
@@ -61,24 +70,40 @@ export class CitasComponent implements OnInit {
 
     ngOnInit(): void {
         this.buildForm();
-        this.formCitas.get('fechaFinal').setValue(this.fechaActual);
-        this.formCitas.get('fechaInicio').setValue(this.fechaActual);
-
-        const data = {
-            fechaInicio: this.datePipe.transform(this.formCitas.value.fechaFinal, 'yyyy-MM-dd'),
-            fechaFin: this.datePipe.transform(this.formCitas.value.fechaFinal, 'yyyy-MM-dd'),
-        }
-        this.citasService.getProximaCitasGestacion(data).subscribe((res: any) => {
-            this.dataCitas = res.object;
-            console.log('Lista de Citas: ', this.dataCitas);
-        });
+        this.formCitas.get('tipoDoc').setValue(this.TipoDoc);
+        this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
+        this.getDocumentosIdentidad();
+        this.getCuposXservicio();
     }
 
     buildForm() {
         this.formCitas = this.fb.group({
             fechaInicio: new FormControl(''),
-            fechaFinal: new FormControl(''),
+            fechaBusqueda: new FormControl(''),
+            tipoDoc: new FormControl(''),
             nroDoc: new FormControl(''),
+        })
+    }
+
+    /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
+    getCuposXservicio() {
+        let data = {
+            servicio: 'OBSTETRICIA',
+            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+        }
+        console.log('DATA ', data);
+
+        this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
+            this.DataCupos = res.object;
+            console.log('LISTA DE CUPOS POR SERVICIO ', this.DataCupos);
+        })
+    }
+
+    /**Lista los tipos de documentos de Identidad de un paciente**/
+    getDocumentosIdentidad() {
+        this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
+            this.listaDocumentosIdentidad = res.object;
+            console.log('docs ', this.listaDocumentosIdentidad);
         })
     }
 
@@ -116,15 +141,15 @@ export class CitasComponent implements OnInit {
     }
 
 
-
     enviarData(event) {
         this.obstetriciaGeneralService.tipoDoc = null;
         this.obstetriciaGeneralService.nroDoc = null;
         console.log("EVENTO", event);
         // this.obstetriciaGeneralService.observable$.emit(event.id);
-        this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
-        this.obstetriciaGeneralService.nroDoc = event.nroDoc;
+        this.obstetriciaGeneralService.tipoDoc = event.paciente.tipoDoc;
+        this.obstetriciaGeneralService.nroDoc = event.paciente.nroDoc;
     }
+
 
     showSuccess() {
         this.messageService.add({

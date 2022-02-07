@@ -64,10 +64,14 @@ export class CuposService {
     }
 
     buscarCupoPorDniFechaIpress(idIpres, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-total/${idIpres}`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/${idIpres}`, data)
     }
 
     cambioOfertasTotal(idIpres, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/oferta/buscar/${idIpres}`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-total/${idIpres}`, data)
+    }
+
+    updatePacienteExtras(data) {
+        return this.http.put(`${this.base_url}/${this.bd}/paciente/actualizarDatos/`, data)
     }
 }
