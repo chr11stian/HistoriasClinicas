@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CuposComponent } from './cupos.component';
+import { UnidadEjecutoraComponent } from './unidad-ejecutora.component';
 
-describe('CuposComponent', () => {
-  let component: CuposComponent;
-  let fixture: ComponentFixture<CuposComponent>;
+describe('UnidadEjecutoraComponent', () => {
+  let component: UnidadEjecutoraComponent;
+  let fixture: ComponentFixture<UnidadEjecutoraComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CuposComponent ]
+      declarations: [ UnidadEjecutoraComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CuposComponent);
+    fixture = TestBed.createComponent(UnidadEjecutoraComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
