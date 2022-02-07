@@ -104,7 +104,7 @@ export class DatosGeneralesConsultaAdolescenteComponent implements OnInit {
         nroDoc: '99999999'
       },
       codRENAES: '00002292',
-      episodioClinico: ''
+      episodioClinico: '',
       //this.datePipe.transform(this.formInterconsulta.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
     }
   }

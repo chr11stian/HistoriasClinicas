@@ -16,6 +16,7 @@ import { WeightChartComponent } from './modals/weight-chart/weight-chart.compone
 import { HeightChartComponent } from './modals/height-chart/height-chart.component';
 import { HeightWeightComponent } from './modals/height-weight/height-weight.component'
 import { SharedModule } from '../shared/shared.module';
+import { CircumferenceChartComponent } from './modals/circumference-chart/circumference-chart.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SharedModule } from '../shared/shared.module';
     WeightChartComponent,
     HeightChartComponent,
     HeightWeightComponent,
+    CircumferenceChartComponent,
   ],
 
   imports: [

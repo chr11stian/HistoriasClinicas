@@ -10,14 +10,12 @@ import {SuplementacionesMicronutrientesComponent} from './suplementaciones-micro
 import {TratamientoSeguimientoAnemiaComponent} from './tratamiento-seguimiento-anemia/tratamiento-seguimiento-anemia.component';
 import {SesionesAtencionTempranaComponent} from './sesiones-atencion-temprana/sesiones-atencion-temprana.component';
 //visualizaciones como dialog a export
-import { EditarSesionComponent} from './sesiones-atencion-temprana/editar-sesion/editar-sesion.component'
 import { NuevaSesionComponent} from './sesiones-atencion-temprana/nueva-sesion/nueva-sesion.component'
 
 
 
 @NgModule({
   declarations: [
-  EditarSesionComponent,
   NuevaSesionComponent,
   InmunizacionesComponent,
   ControlCrecimientoComponent,
@@ -27,7 +25,6 @@ import { NuevaSesionComponent} from './sesiones-atencion-temprana/nueva-sesion/n
   DescartesComponent 
 ],
 exports: [
-  EditarSesionComponent,
   NuevaSesionComponent,
   InmunizacionesComponent,
   ControlCrecimientoComponent,

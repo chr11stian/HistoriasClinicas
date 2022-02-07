@@ -32,6 +32,19 @@
     border: 1px solid #dfdfdf;
     padding-left: 10px;
  }
- .tepsi{
-     width: 100%;
+ .color-1{
+     background-color:#D77F8A ;
+     border: 1px solid black;
  }
+ .color-2{
+     background-color: #F3D9DC;
+     border: 1px solid black;
+ }
+.color-3{
+    /*background-color: #F3D9DC;*/
+    border: 1px solid black;
+}
+.margenes{
+    padding: 0px;
+    margin:0px;
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {DynamicDialogConfig} from "primeng/dynamicdialog";
+import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 
 @Component({
   selector: 'app-modal-valoracion',
@@ -10,7 +10,8 @@ export class ModalValoracionComponent implements OnInit {
   ListaValoracionFuncional:any[]=[];
   valoracion:string="";
 
-  constructor(private config:DynamicDialogConfig) {
+  constructor(private config:DynamicDialogConfig,
+              private ref: DynamicDialogRef) {
 
     if(config.data){
       this.recuperarValoracionClinicaFuncional();
@@ -20,6 +21,7 @@ export class ModalValoracionComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   recuperarValoracionClinicaFuncional(){
     this.valoracion = "valoracionFuncional";
     let configuracion = this.config.data;
@@ -51,7 +53,10 @@ export class ModalValoracionComponent implements OnInit {
   }
 
   recuperarData(rowData){
-    console.log("recuperando data")
-  }
-
+    localStorage.setItem('dataValoracion',rowData);
+    console.log("recuperando data",rowData)
+    this.ref.close(
+        this.config.data?{
+          data:rowData}:rowData);
+        }
 }

@@ -39,4 +39,14 @@ export class HeightWeightChartService {
         return this.http
             .get<any>('assets/data/boy_height_weight.json')
     }
+
+    getDataCircumferenceBoy(){
+        return this.http
+            .get<any>('assets/data/circumference_boys.json')
+    }
+
+    getDataCircumferenceGirl(){
+        return this.http
+            .get<any>('assets/data/circumference_girls.json')
+    }
 }

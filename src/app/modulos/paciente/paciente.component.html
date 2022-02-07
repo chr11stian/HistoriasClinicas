@@ -4,6 +4,8 @@
             <h3 class="p-m-0">Paciente</h3>
         </ng-template>
         <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Agregar dialog" icon="pi pi-plus" class="p-button-danger mr-2"
+                (click)="openDialogPacienteComp()"></button>
             <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger mr-2"
                 (click)="openDialogPaciente()"></button>
             <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
