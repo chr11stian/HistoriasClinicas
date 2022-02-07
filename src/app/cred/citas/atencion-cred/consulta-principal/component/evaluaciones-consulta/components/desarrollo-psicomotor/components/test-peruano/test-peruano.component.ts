@@ -13,6 +13,8 @@ export class TestPeruanoComponent implements OnInit {
   imagenes: any[];
   value: boolean;
   formDatos_TestPeruano:FormGroup;
+  listaTestPeruano:any[]=[];
+  displayMaximizable:boolean;
   constructor(private testDesarrollo: TestDesarrollo,
               private form: FormBuilder) { }
 
@@ -75,5 +77,9 @@ export class TestPeruanoComponent implements OnInit {
     let fecha1 = this.formDatos_TestPeruano.value.fecha1;
 
 
+  }
+  openTestPeruano(){
+    console.log("abriendo test Peruano");
+    this.displayMaximizable = true;
   }
 }

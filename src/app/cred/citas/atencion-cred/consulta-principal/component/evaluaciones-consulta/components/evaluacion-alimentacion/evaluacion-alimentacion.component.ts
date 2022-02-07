@@ -152,6 +152,12 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
         "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
         "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
+      },
+      {
+        "titulo": "Diagnostico",
+        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
+        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
+        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
       }
     ]
     this.ObtenerUltimaEvaluacion();
@@ -654,7 +660,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       }
     });
   }
-
   eliminarEvaluacion(indice){
     console.log('entro eliminar', this.evaluacionAlimenticia);
 

@@ -1,13 +1,13 @@
-p-toggleButton >>> .p-togglebutton.p-button.p-highlight {
-    background: #0c3866;
-    border-color: #0c3866;
-    color: #ffffff;
-}
-p-toggleButton >>> .p-togglebutton.p-button.p-highlight:hover {
-    background: #0c3866;
-    border-color: #0c3866;
-    color: #ffffff;
-}
+/*p-toggleButton >>> .p-togglebutton.p-button.p-highlight {*/
+/*    background: #0c3866;*/
+/*    border-color: #0c3866;*/
+/*    color: #ffffff;*/
+/*}*/
+/*p-toggleButton >>> .p-togglebutton.p-button.p-highlight:hover {*/
+/*    background: #0c3866;*/
+/*    border-color: #0c3866;*/
+/*    color: #ffffff;*/
+/*}*/
 p-dialog >>> .p-dialog .p-dialog-header {
     border-bottom: 0 none;
     background: #0c3866;
@@ -36,23 +36,26 @@ p-dialog >>> .p-dialog .p-dialog-footer button {
     width: auto;
     color:#0c3866;
 }
-::ng-deep debellenar .p-togglebutton.p-button.p-highlight{
+::ng-deep .debellenar .p-togglebutton.p-button.p-highlight{
     background: red;
     border-color: red;
     color: #ffffff;
 }
-::ng-deep debellenar .p-togglebutton.p-button.p-highlight:hover{
+::ng-deep .debellenar .p-togglebutton.p-button.p-highlight:hover{
     background: red;
     border-color: red;
     color: #ffffff;
 }
-::ng-deep llenado .p-togglebutton >>> .p-togglebutton.p-button.p-highlight {
+::ng-deep .llenado .p-togglebutton.p-button.p-highlight {
     background: #0c3866;
     border-color: #0c3866;
     color: #ffffff;
 }
-::ng-deep llenado .p-togglebutton >>>.p-togglebutton.p-button.p-highlight:hover {
+::ng-deep .llenado .p-togglebutton.p-button.p-highlight:hover {
     background: #0c3866;
     border-color: #0c3866;
     color: #ffffff;
+}
+p-calendar >>> .p-calendar .p-datepicker {
+    width: 250px;
 }
