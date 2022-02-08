@@ -12,7 +12,7 @@ import {MessageService} from "primeng/api";
     styleUrls: ['./giagnosticos.component.css']
 })
 export class GiagnosticosComponent implements OnInit {
-     selectedDiagnostico: any;
+    selectedDiagnostico: any;
     opcionBusqueda: string;
     /**Recupera el Id del Consultorio Obstetrico**/
     idConsultoriObstetrico: string;
@@ -35,7 +35,6 @@ export class GiagnosticosComponent implements OnInit {
     referencia: any;
     proxCita: any;
     orientaciones: any[]=[];
-    orientaciones2: any[]=[];
 
     /*******DATA AUX PARA RECUPERAR DE LA BD*******/
     dataAux: any;
