@@ -26,13 +26,13 @@ export class CircumferenceChartComponent implements OnInit {
         this.colorNegro,
     ]
     names = [
-        '-3',
-        '-2',
-        '-1',
-        '0',
-        '1',
-        '2',
-        '3',
+        'P3',
+        'P10',
+        'P25',
+        'P50',
+        'P75',
+        'P90',
+        'P97',
     ]
 
     constructor(public ref: DynamicDialogRef,
@@ -77,7 +77,7 @@ export class CircumferenceChartComponent implements OnInit {
         this.data = {
             nameAxisY: 'Longitud/Circunferencia (cm)',
             nameAxisX: 'EDAD (EN MESES Y AÑOS CUMPLIDOS)',
-            titleGraph: 'Puntuación Z ',
+            titleGraph: 'Percentiles',
             subTitleGraph: '(Nacimiento a 5 años)',
             measurementUnits: ['cm', 'meses'],
             series: valueSerie,
