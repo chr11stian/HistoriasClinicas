@@ -48,3 +48,24 @@
     padding: 0px;
     margin:0px;
 }
+/*.resultados th,td{*/
+/*    !*border: 1px solid blue;*!*/
+/*    margin:0px;*/
+/*    height: 30px;*/
+
+/*}*/
+.resultadosSubTest{
+    border-collapse: collapse;
+    width: 80%;
+}
+.resultadosSubTest th{
+    /*background-color: #ECECEC;*/
+    border: 1px solid #D4D4D4;
+    padding:1rem;
+    margin:1rem;
+}
+.resultadosSubTest td{
+    border: 1px solid #D4D4D4;
+    padding: 0.4rem;
+    text-align: center;
+}

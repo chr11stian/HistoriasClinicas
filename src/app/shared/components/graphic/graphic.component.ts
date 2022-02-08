@@ -193,8 +193,8 @@ export class GraphicComponent implements OnInit, OnChanges {
                     fontWeight: 'bold',
                     fontSize: 14
                 }
-                yAxisGraph['min'] = 30
-                yAxisGraph['max'] = 56
+                yAxisGraph['min'] = 31.5
+                yAxisGraph['max'] = 54
                 xAxisGraph['max'] = 60
                 // xAxisGraph['max'] = 60
                 xAxisGraph['nameGap'] = 2
