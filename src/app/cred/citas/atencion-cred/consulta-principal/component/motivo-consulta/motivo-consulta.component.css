@@ -52,3 +52,12 @@ li {
   margin-left: 1rem;
   margin-right: 1rem;
 }
+.imagen-head {
+  content: url("src\assets\images\baby_head.png");
+  width: 17rem;
+  display: block;
+  margin: auto;
+}
+.title{
+  font-size: 2.5rem;
+}

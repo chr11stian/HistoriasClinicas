@@ -139,7 +139,10 @@ export class MotivoConsultaComponent implements OnInit {
         }
     }
     openHeadAlert() {
-        this.headAlert = true;
+        if (this.formExam.value.cabeza.length < 1) {
+            this.headAlert = true;
+        }
+
     }
 }
 
