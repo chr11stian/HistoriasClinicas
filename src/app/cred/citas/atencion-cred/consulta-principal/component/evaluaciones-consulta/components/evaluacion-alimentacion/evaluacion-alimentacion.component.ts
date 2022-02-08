@@ -4,6 +4,7 @@ import {DatePipe} from "@angular/common";
 import {EvalAlimenService} from "../../../../../plan/component/evaluacion-general/service/eval-alimen.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
+import {ConsultaGeneralService} from "../../../../services/consulta-general.service";
 
 @Component({
   selector: 'app-evaluacion-alimentacion',
@@ -13,24 +14,27 @@ import {MessageService} from "primeng/api";
 export class EvaluacionAlimentacionComponent implements OnInit {
   tipoDocRecuperado:string="";
   nroDocRecuperado:string="";
-  products1: Product[];
+  // products1: Product[];
   evaluacionAlimenticia: FechaEvaluacionAlimentacion[]=[];
   Evaluaciones:EvaluacionAlimenticia[]=[];
-  Preguntas:Preguntas;
-  ArrayEvaluaciones:EvaluacionAlimenticia;
+
   datePipe=new DatePipe('en-US');
   edadEditable:number =0;
-  sino = [
-    { label: 'SI', value: true },
-    { label: 'NO', value: false }
-  ];
+
+  id:string="";
+  attributeLocalS = 'idConsulta'
+  edadMeses:number=0;
+  displayPosition: boolean;
+  position: string;
   constructor(private evalAlimenService: EvalAlimenService,
               private route: ActivatedRoute,
               private router: Router,
-              private messageService: MessageService) { }
-
+              private messageService: MessageService,
+              private consultaGeneralService: ConsultaGeneralService) {
+    this.id = localStorage.getItem(this.attributeLocalS);
+  }
   ngOnInit(): void {
-    this.route.queryParams
+     this.route.queryParams
         .subscribe(params => {
           console.log('params', params)
           if (params['nroDoc']) {
@@ -148,10 +152,31 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
         "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
         "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
+      },
+      {
+        "titulo": "Diagnostico",
+        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
+        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
+        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
       }
     ]
     this.ObtenerUltimaEvaluacion();
+    this.recuperarEdadNinio();
     this.recuperarDataEvaluacionAlimenticiaBD();
+    this.showDialogEdad('top');
+  }
+  recuperarEdadNinio(){
+    this.consultaGeneralService.getGenerales(this.id).subscribe((r: any) => {
+      console.log(r.object.datosGeneralesConsulta.edad);
+      this.edadMeses=  r.object.datosGeneralesConsulta.edad.anio*12 + r.object.datosGeneralesConsulta.edad.mes;
+      console.log(this.edadMeses);
+    });
+
+  }
+  showDialogEdad(position:string){
+    console.log("entrado a dialog", this.edadMeses);
+    this.position = position;
+    this.displayPosition = true;
   }
   recuperarDataEvaluacionAlimenticiaBD(){
     this.evalAlimenService.getEvaluacionAlimenticiaCred(this.nroDocRecuperado).subscribe((res: any) => {
@@ -230,7 +255,8 @@ export class EvaluacionAlimentacionComponent implements OnInit {
             this.evaluacionAlimenticia[x+1].valor7M = aux[i].listaPreguntas[x].estado;
             x++;
           }
-        } if(aux[i].edad == 8) {
+        }
+        if(aux[i].edad == 8) {
           this.evaluacionAlimenticia[0].valor8M = aux[i].fechaRegistro;
           let x  = 0;
           while(aux[i].listaPreguntas[x]!=undefined){
@@ -293,7 +319,8 @@ export class EvaluacionAlimentacionComponent implements OnInit {
             this.evaluacionAlimenticia[x+1].valor18M = aux[i].listaPreguntas[x].estado;
             x++;
           }
-        } if(aux[i].edad == 20) {
+        }
+        if(aux[i].edad == 20) {
           this.evaluacionAlimenticia[0].valor20M = aux[i].fechaRegistro;
           let x  = 0;
           while(aux[i].listaPreguntas[x]!=undefined){
@@ -348,7 +375,8 @@ export class EvaluacionAlimentacionComponent implements OnInit {
             this.evaluacionAlimenticia[x+1].valor39M = aux[i].listaPreguntas[x].estado;
             x++;
           }
-        } if(aux[i].edad == 42) {
+        }
+        if(aux[i].edad == 42) {
           this.evaluacionAlimenticia[0].valor42M = aux[i].fechaRegistro;
           let x  = 0;
           while(aux[i].listaPreguntas[x]!=undefined){
@@ -358,7 +386,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         i++;
       }
-
 
     });
   }
@@ -623,11 +650,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         this.edadEditable = res.object.edad;
         prefijo = this.obtenerTitulo(this.edadEditable);
         console.log(this.edadEditable);
-        this.messageService.add({
-          severity: "success",
-          summary: "Exito",
-          detail: "Se recupero la última atención"
-        });
       }
       else{
         this.messageService.add({
@@ -636,10 +658,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           detail: "No hay datos registrados"
         });
       }
-
-
     });
-
   }
   eliminarEvaluacion(indice){
     console.log('entro eliminar', this.evaluacionAlimenticia);
@@ -652,10 +671,5 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     {
       this.evaluacionAlimenticia[i][prefijo]="";
     }
-
-
-
   }
-
-
 }

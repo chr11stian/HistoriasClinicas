@@ -1,120 +1,156 @@
-<p-card header="DESARROLLO PSICOMOTOR"></p-card>
-<p-card>
-   <p-table responsiveLayout="scroll" [value]="imagenes" [resizableColumns]="true" scrollDirection="both" scrollHeight="400px" >
+<div>
+   <div class="tabla">
+      <p-card header="DESARROLLO PSICOMOTOR PERUANO"></p-card>
+   </div>
+   <p-toolbar>
+      <ng-template pTemplate="left">
+         <span class="p-m-0">RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO</span>
+      </ng-template>
+<!--      <ng-template pTemplate="right" class="button">-->
+<!--         <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"-->
+<!--                 class="guardar mr-2" (click)="openTestPeruano()" style="background-color: #0c3866"></button>-->
+<!--      </ng-template>-->
+   </p-toolbar>
+   <p-table class="table-over" [value]="listaTestPeruano" #dt styleClass="p-datatable-gridlines" [rows]="10"
+            [rowsPerPageOptions]="[10, 25, 50]"
+            [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
       <ng-template pTemplate="header">
          <tr>
-            <th style="background-color: white; width: 60px; height: 40px;"><div></div><div></div></th>
-            <th style="background-color: white;">
-               <div class="flex justify-content-center flex-column">
-                  <div class="flex flex-column justify-content-center caja" style="background-color: #4C4C4C">
-                     <div style="font-size: 15px; font-weight: bold; margin-left: 34px;">1</div>
-                     <div style="font-size: 15px; font-weight: bold; margin-left: 24px;">MES</div>
-                  </div>
-                  <div style="margin-left: 25px;" class="triangulo-1"></div>
-               </div>
-            </th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F0047F"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">2</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-2"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #FF6601"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">3</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-3"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F30E19"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">4</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-4"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F93D5A"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">5</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-5"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #FEA61D"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">6</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-6"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F5923B"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">7</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-7"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #DD360C"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">8</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-8"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #DD6910"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">9</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-9"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5BBA7D"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">10</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-10"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5AB543"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">11</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-11"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #9BC922"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">12</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-12"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5EAA29"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">15</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-15"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #62C2BB"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">18</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-18"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5C97C6"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">21</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-21"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5E64AD"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">24</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-24"></div></div></th>
-            <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #B573B6"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">30</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-30"></div></div></th>
+            <th style="text-align: center" class="font-2">Nro</th>
+            <th style="text-align: center" class="font-2">FECHA</th>
+            <th style="text-align: center" class="font-2">EDAD TOMADA EL TEST</th>
+            <th style="text-align: center" class="font-2">DIAGNÓSTICO</th>
+            <th style="text-align: center" class="font-2">ACCIÓN</th>
          </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-rowIndex="rowIndex" let-sale>
-         <tr *ngIf="rowIndex == 0">
-            <td style="background-color: #FF8300; border-radius: 15px; width: 100px; color:black; font-weight: bold; padding: 0px; margin: 0px;">FECHA</td>
-            <td style="background-color: #FDC070"></td>
-            <td style="background-color: #FFFF80"></td>
-            <td style="background-color: #FDC070"></td>
-            <td style="background-color: #FFFF80"></td>
-            <td style="background-color: #FDC070"></td>
-            <td style="background-color: #FFFF80"></td>
-            <td style="background-color: #FDC070"></td>
-            <td style="background-color: #FFFF80"></td>
-            <td style="background-color: #FDC070"></td>
-            <td style="background-color: #FFFF80"></td>
-            <td style="background-color: #FDC070"></td>
-            <td style="background-color: #FFFF80"></td>
-            <td style="background-color: #FDC070"></td>
-            <td style="background-color: #FFFF80"></td>
-            <td style="background-color: #FDC070"></td>
-            <td style="background-color: #FFFF80"></td>
-            <td style="background-color: #FDC070"></td>
-         </tr>
-
+      <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
          <tr>
-            <td  style="padding: 0px;" class="flex">
-               <div style="background-color: #FF6601; color: white; margin: 5px; border-radius: 15px; margin-right: 0px;">
-                  <div style="font-weight: bold; font-size: 2rem">
-                     {{sale.letter}}
-                  </div>
-                  <div style="background-color: #FF6601; color: white; border-radius: 15px; font-weight: bold;" class="flex surface-overlay">
-                     <div style="font-size: small; width: 110px; padding-bottom: 10px;" class="white-space-normal">
-                        {{sale.texto}}
-                     </div>
-                  </div>
-               </div>
-               <p style="margin-top:30px" class="triangulo"></p>
+            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+            <td style="text-align: center">{{ rowData.fecha }}</td>
+            <td style="text-align: center">{{ rowData.edad }}</td>
+            <td style="text-align: center">{{ rowData.diagnostico }}</td>
+            <td style="text-align: center">
+               <button pButton (click)="openTestPeruano(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
+                       icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+               </button>
             </td>
-
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_1 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_1}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_2 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_2}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_3 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_3}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_4 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_4}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_5 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_5}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_6 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_6}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_7 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_7}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_8 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_8}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_9 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_9}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_10 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_10}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_11 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_11}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_12 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_12}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_15 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_15}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_18 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_18}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_21 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_21}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_24 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_24}}></td>
-            <td (click)="cambiarEstado()" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_30 != ''" (click)="cambiarEstado()"  class="button-menu" src={{sale.img_30}}></td>
-         </tr>
-
-         <tr *ngIf="rowIndex == 11">
-            <td style="background-color: white; width: 60px; height: 40px;"><div></div><div></div></td>
-            <td style="background-color: white;">
-               <div class="flex justify-content-center flex-column">
-                  <div class="flex flex-column justify-content-center caja" style="background-color: #4C4C4C">
-                     <div style="font-size: 15px; font-weight: bold; margin-left: 34px;">1</div>
-                     <div style="font-size: 15px; font-weight: bold; margin-left: 24px;">MES</div>
-                  </div>
-                  <div style="margin-left: 25px;" class="triangulo-1"></div>
-               </div>
-            </td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div style="margin-left: 25px;" class="triangulo-2"></div><div class="flex flex-column justify-content-center caja" style="background-color: #F0047F"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">2</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #FF6601"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">3</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-3"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F30E19"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">4</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-4"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F93D5A"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">5</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-5"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #FEA61D"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">6</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-6"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F5923B"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">7</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-7"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #DD360C"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">8</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-8"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #DD6910"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">9</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-9"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5BBA7D"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">10</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-10"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5AB543"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">11</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-11"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #9BC922"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">12</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-12"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5EAA29"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">15</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-15"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #62C2BB"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">18</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-18"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5C97C6"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">21</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-21"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5E64AD"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">24</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-24"></div></div></td>
-            <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #B573B6"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">30</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-30"></div></div></td>
          </tr>
       </ng-template>
+
    </p-table>
-</p-card>
+</div>
+
+<p-dialog header="TEST DE DESARROLLO PSICOMOTOR PERUANO" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '80vw'}" [maximizable]="true" [draggable]="false" [resizable]="false">
+   <div class="tabla">
+      <form [formGroup]='formDatos_TestPeruano'>
+         <p-table responsiveLayout="scroll"
+                  [value]="imagenes"
+                  scrollDirection="both"
+                  scrollHeight="100%" styleClass="mt-3"
+                  [virtualRowHeight]="40" >
+            <ng-template pTemplate="header">
+               <tr>
+                  <th style="background-color: white; width: 40px; height: 30px;"><div></div><div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #4C4C4C"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">1</div><div style="font-size: 15px; font-weight: bold; margin-left: 24px;">MES</div></div><div style="margin-left: 25px;" class="triangulo-1"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F0047F"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">2</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-2"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #FF6601"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">3</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-3"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F30E19"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">4</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-4"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F93D5A"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">5</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-5"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #FEA61D"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">6</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-6"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F5923B"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">7</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-7"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #DD360C"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">8</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-8"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #DD6910"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">9</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-9"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5BBA7D"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">10</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-10"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5AB543"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">11</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-11"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #9BC922"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">12</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-12"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5EAA29"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">15</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-15"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #62C2BB"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">18</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-18"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5C97C6"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">21</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-21"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5E64AD"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">24</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-24"></div></div></th>
+                  <th style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #B573B6"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">30</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-30"></div></div></th>
+               </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowIndex="rowIndex" let-sale>
+               <tr *ngIf="rowIndex == 0">
+                  <td style="background-color: #FF8300; border-radius: 15px; width: 80px; color:black; font-weight: bold; padding: 0px; margin: 0px;">FECHA</td>
+                  <td style="background-color: #FDC070; width:100px;"><p-calendar formControlName="fecha1"  showTime="true" dateFormat="dd-mm-yy" class="fondo1" ></p-calendar></td>
+                  <td style="background-color: #FFFF80; width:100px;"><p-calendar formControlName="fecha2" showTime="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
+                  <td style="background-color: #FDC070; width:100px;"><p-calendar formControlName="fecha3" showTime="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
+                  <td style="background-color: #FFFF80; width:100px;"><p-calendar formControlName="fecha4" showTime="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
+                  <td style="background-color: #FDC070"><p-calendar formControlName="fecha5" showTime="true" dateFormat="dd-mm-yy"  class="fondo1"></p-calendar></td>
+                  <td style="background-color: #FFFF80"><p-calendar formControlName="fecha6" showTime="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
+                  <td style="background-color: #FDC070"><p-calendar formControlName="fecha7" showTime="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
+                  <td style="background-color: #FFFF80"><p-calendar formControlName="fecha8" showTime="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
+                  <td style="background-color: #FDC070"><p-calendar formControlName="fecha9" showTime="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
+                  <td style="background-color: #FFFF80"><p-calendar formControlName="fecha10" showTime="true" dateFormat="dd-mm-yy"  class="fondo2"></p-calendar></td>
+                  <td style="background-color: #FDC070"><p-calendar formControlName="fecha11" showTime="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
+                  <td style="background-color: #FFFF80"><p-calendar formControlName="fecha12" showTime="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
+                  <td style="background-color: #FDC070"><p-calendar formControlName="fecha13" showTime="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
+                  <td style="background-color: #FFFF80"><p-calendar formControlName="fecha14" showTime="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
+                  <td style="background-color: #FDC070"><p-calendar formControlName="fecha15" showTime="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
+                  <td style="background-color: #FFFF80"><p-calendar formControlName="fecha16" showTime="true" dateFormat="dd-mm-yy" class="fondo2"></p-calendar></td>
+                  <td style="background-color: #FDC070"><p-calendar formControlName="fecha17" showTime="true" dateFormat="dd-mm-yy" class="fondo1"></p-calendar></td>
+               </tr>
+               <tr>
+                  <td  style="padding: 0px;" pFrozenColumn class="flex">
+                     <div style="background-color: #FF6601; color: white; margin: 5px; border-radius: 15px; margin-right: 0px;">
+                        <div style="font-weight: bold; font-size: 2rem">
+                           {{sale.letter}}
+                        </div>
+                        <div style="background-color: #FF6601; color: white; border-radius: 15px; font-weight: bold;" class="flex surface-overlay">
+                           <div style="font-size: small; width: 110px; padding-bottom: 10px;" class="white-space-normal">
+                              {{sale.texto}}
+                           </div>
+                        </div>
+                     </div>
+                     <p style="margin-top:30px" class="triangulo"></p>
+                  </td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_1 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_1}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_2 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_2}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_3 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_3}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_4 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_4}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_5 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_5}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_6 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_6}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_7 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_7}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_8 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_8}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_9 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_9}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_10 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_10}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_11 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_11}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_12 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_12}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_15 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_15}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_18 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_18}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_21 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_21}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_24 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_24}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+                  <td (click)="cambiarEstado(sale,rowIndex)" style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_30 != ''" (click)="cambiarEstado(sale,rowIndex)"  class="button-menu" src={{sale.img_30}}><p-checkbox formControlName="posicion1" [binary]="true"></p-checkbox></td>
+               </tr>
+               <tr *ngIf="rowIndex == 11">
+                  <td style="background-color: white; width: 60px; height: 40px;"><div></div><div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #4C4C4C"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">1</div><div style="font-size: 15px; font-weight: bold; margin-left: 24px;">MES</div></div><div style="margin-left: 25px;" class="triangulo-1"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div style="margin-left: 25px;" class="triangulo-2"></div><div class="flex flex-column justify-content-center caja" style="background-color: #F0047F"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">2</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #FF6601"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">3</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-3"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F30E19"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">4</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-4"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F93D5A"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">5</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-5"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #FEA61D"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">6</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-6"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #F5923B"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">7</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-7"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #DD360C"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">8</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-8"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #DD6910"><div style="font-size: 15px; font-weight: bold; margin-left: 34px;">9</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-9"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5BBA7D"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">10</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-10"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5AB543"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">11</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-11"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #9BC922"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">12</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-12"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5EAA29"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">15</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-15"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #62C2BB"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">18</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-18"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5C97C6"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">21</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-21"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #5E64AD"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">24</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-24"></div></div></td>
+                  <td style="background-color: white;"><div class="flex justify-content-center flex-column"><div class="flex flex-column justify-content-center caja" style="background-color: #B573B6"><div style="font-size: 15px; font-weight: bold; margin-left: 32px;">30</div><div style="font-size: 15px; font-weight: bold; margin-left: 16px;">MESES</div></div><div style="margin-left: 25px;" class="triangulo-30"></div></div></td>
+               </tr>
+            </ng-template>
+         </p-table>
+      </form>
+   </div>
+   <ng-template pTemplate="footer">
+      <p-button icon="pi pi-save" (click)="displayMaximizable=false" label="Guardar" styleClass="p-button-text"></p-button>
+   </ng-template>
+
+</p-dialog>
+

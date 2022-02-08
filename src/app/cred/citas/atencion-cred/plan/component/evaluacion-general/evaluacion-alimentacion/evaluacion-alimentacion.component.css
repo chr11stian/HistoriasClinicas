@@ -8,12 +8,17 @@
     top: 0px;
     position: relative;
 }
-.clasejimmy {
-    z-index: 1001;
-    transform-origin: center bottom;
-    top: 0;
-    left: 0px;
+p-toggleButton >>> .p-togglebutton.p-button.p-highlight {
+    background: #0c3866;
+    border-color: #0c3866;
+    color: #ffffff;
 }
+p-toggleButton >>> .p-togglebutton.p-button.p-highlight:hover {
+    background: #0c3866;
+    border-color: #0c3866;
+    color: #ffffff;
+}
+
 p-cellEditor >> p-calendar >>> .p-calendar .p-datepicker{
     z-index: 1010;
     transform-origin: center bottom;

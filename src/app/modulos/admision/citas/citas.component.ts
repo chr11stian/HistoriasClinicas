@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { CitasService } from 'src/app/core/services/citas/citas.service';
 import { RolGuardiaService } from 'src/app/core/services/rol-guardia/rol-guardia.service';
@@ -13,12 +13,20 @@ import { RolGuardiaService } from 'src/app/core/services/rol-guardia/rol-guardia
 export class CitasComponent implements OnInit {
 
   form: FormGroup;
+  formConfirmar: FormGroup;
+  formReprogramar: FormGroup;
+  formVerCitas: FormGroup;
+
   data: any[];
   fecha: Date = new Date();
   datePipe = new DatePipe("en-US");
   idIpress: String = "";
   nombreIpress: String = "";
   servicios: any[];
+  citas: any[]=[];
+  confirmarDialog: boolean = false;
+  reprogramarDialog: boolean = false;
+  verCitasDialog: boolean = false;
 
   constructor(
     private rolGuardiaService: RolGuardiaService,
@@ -31,26 +39,35 @@ export class CitasComponent implements OnInit {
     this.nombreIpress = "la posta medica";
     this.data = [];
     this.servicios = [];
-    this.form.get('fechaFiltro').setValue(this.fecha);
+
     this.getListaServiciosXIpress();
     this.getListaCitasXServicio();
   }
 
   buildForm() {
     this.form = this.formBuilder.group({
-      fechaFiltro: [new Date()],
+      fechaFiltroInicio: [new Date()],
+      fechaFiltroFin: [new Date()],
       servicio: [""],
       nroDoc: [""],
     })
-    // this.formOfertas = this.formBuilder.group({
-    //   nroDoc: [""],
-    //   nombre: [""],
-    //   servicio: [""],
-    //   fecha: [""],
-    //   ambiente: [''],
-    //   nroOfertasActuales: [''],
-    //   nroOfertasAgregar: ['', [Validators.required]]
-    // })
+    this.formConfirmar = this.formBuilder.group({
+
+    })
+    this.formReprogramar = this.formBuilder.group({
+      nroDoc: [""],
+      nombre: [""],
+      servicio: [""],
+      fecha: [""],
+      fechaReprogramacion: ['', [Validators.required]]
+    })
+    this.formVerCitas = this.formBuilder.group({
+      nroDoc: [""],
+      nombre: [""],
+      sexo: [""],
+      fechaNacimiento: [""],
+      edad: [""],
+    })
   }
 
   /**lista los Servicios por IPRESS**/
@@ -63,35 +80,36 @@ export class CitasComponent implements OnInit {
 
   getListaCitasXServicio() {
     let data = {
-      fecha: this.datePipe.transform(this.form.value.fechaFiltro, 'yyyy-MM-dd'),
-      servicio: this.form.value.servicio
+      fechaInicio: this.datePipe.transform(this.form.value.fechaFiltroInicio, 'yyyy-MM-dd'),
+      fechaFin: this.datePipe.transform(this.form.value.fechaFiltroFin, 'yyyy-MM-dd'),
+      servicio: this.form.value.servicio,
     }
+
     console.log('DATA ', data);
 
-    this.citasService.listarCitasXservicio(this.idIpress,data).subscribe((res: any) => {
+    this.citasService.listarCitasXservicio(data).subscribe((res: any) => {
       this.data = res.object;
-      console.log('LISTA DE CITAS X SERVICIO IPRESS', this.servicios);
+      console.log('LISTA DE CITAS X SERVICIO IPRESS', this.data);
     })
   }
 
-  getListaTentativaXServicios(){
-    
+  openConfirmar(data) {
+    this.confirmarDialog = true;
+  }
+  openReprogramacion(data) {
+    this.reprogramarDialog = true;
+  }
+  cancelarCita(data) {
+    //insertar servicio para cancelar cita
+  }
+  openVerTodasCitas(data) {
+    this.verCitasDialog = true;
   }
 
-  getListaOfertaXDocumento(){
-    let data = {
-      tipoDoc: "DNI",
-      nroDoc: this.form.value.nroDoc,
-      nombreIpress: this.nombreIpress,
-    }
-    console.log('DATA ', data);
 
-    // this.ofertasService.buscarOfertaXPersonal(data).subscribe((res: any) => {
-    //   this.data = res.object;
-    //   console.log('LISTA OFERTAS X DNI', this.data);
-    // })
+  guardarReprogramacion() {
+
   }
-
   ngOnInit(): void {
   }
 
