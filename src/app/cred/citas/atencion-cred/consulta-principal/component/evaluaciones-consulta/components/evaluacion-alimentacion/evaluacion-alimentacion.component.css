@@ -56,6 +56,3 @@ p-dialog >>> .p-dialog .p-dialog-footer button {
     border-color: #0c3866;
     color: #ffffff;
 }
-p-calendar >>> .p-calendar .p-datepicker {
-    width: 250px;
-}

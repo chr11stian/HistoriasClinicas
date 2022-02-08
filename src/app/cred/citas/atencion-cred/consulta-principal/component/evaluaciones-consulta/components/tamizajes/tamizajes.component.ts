@@ -8,6 +8,10 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 })
 export class TamizajesComponent implements OnInit {
   formTamizajeCred:FormGroup;
+  sino = [
+    { label: 'SI', value: true },
+    { label: 'NO', value: false }
+  ];
   constructor(private formBuilder: FormBuilder) {
     this.builForm();
   }
@@ -17,6 +21,13 @@ export class TamizajesComponent implements OnInit {
   builForm(){
     this.formTamizajeCred = this.formBuilder.group({
       tamizajeAuditivo:new FormControl(''),
+      prematuro:new FormControl(''),
+      uci:new FormControl(''),
+      billirubina:new FormControl(''),
+      perdidaAudicion:new FormControl(''),
+      infeccionOido:new FormControl(''),
+      meningitis:new FormControl(''),
+      expuestoSonido:new FormControl(''),
       ojoDerecho:new FormControl(''),
       ojoIzquierdo:new FormControl(''),
       descripcionTamizajeOcular:new FormControl(''),

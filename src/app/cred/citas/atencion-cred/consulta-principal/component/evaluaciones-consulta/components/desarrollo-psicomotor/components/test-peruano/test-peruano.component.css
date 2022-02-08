@@ -163,3 +163,6 @@ p-table >>> .p-datatable .p-datatable-thead > tr > th {
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
 }
+p-calendar >>> .p-calendar .p-datepicker {
+    width: 250px;
+}
