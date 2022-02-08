@@ -18,6 +18,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     'PARASITO SERIADO',
     'VISITAS DOMICILIARIAS'
   ];
+  listaLugares: string[]=[
+    'CONSULTORIO',
+    'LABORATORIO'
+  ]
 
   constructor(
     private fb: FormBuilder,

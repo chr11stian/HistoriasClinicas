@@ -6,11 +6,11 @@
 
 }
 .button-agregar{
-    background: #003C71;
+    background: #0c3866;
 
 }
 p-calendar >>> .p-button.p-button-icon-only {
-    background-color: #003c71;
+    background-color: #0c3866;
 
 }
 p-calendar{
@@ -23,7 +23,20 @@ p-dialog >>> .p-dropdown{
     position: absolute;
 }
 p-dialog>>> .p-autocomplete{
-    width:305px;
+    width:100%;
+}
+p-dialog>>> .p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #0c3866;
+    color: #ffffff;
+    padding: 1.5rem;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+.p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color:#ffffff;
 }
 .table-over{
     overflow-x: auto;

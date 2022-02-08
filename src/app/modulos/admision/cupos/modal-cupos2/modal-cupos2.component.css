@@ -1,0 +1,35 @@
+.hora,
+.hoy,
+.maniana {
+    background: rgb(41, 182, 197);
+    border: 1px solid #0c3866;
+    width: 4em;
+    height: 3em;
+    /* text-align: center; */
+    margin: 0.5px;
+    padding: auto;
+}
+
+.datosPersonales,
+.datosExtra,
+.datos,
+.datosServicio {
+    border: 1px solid #2570c4;
+    border-radius: 10px;
+}
+
+.btn-buscar {
+    margin-top: 1.8em;
+}
+
+p-panel >>> .p-panel .p-panel-header {
+    background: #0c3866;
+    border: 1px solid #0c3866;
+    color: #FFFFFF;
+}
+
+p-panel >>> .p-panel .p-panel-content {
+    border: 1px solid #0c3866;
+}
+
+

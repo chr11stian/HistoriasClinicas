@@ -30,6 +30,7 @@ import { CondicionPacienteDiscapacidadModalComponent } from "./component/condici
 import { TipoContratoComponent } from "./component/tipo-contrato/tipo-contrato.component";
 import { UpsComponent } from "./component/ups/ups.component";
 import { DividerModule } from "primeng/divider";
+import { UnidadEjecutoraComponent } from './component/unidad-ejecutora/unidad-ejecutora.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { DividerModule } from "primeng/divider";
     CondicionPacienteDiscapacidadModalComponent,
     TipoContratoComponent,
     UpsComponent,
+    UnidadEjecutoraComponent,
   ],
 
   exports: [TipoPersonalComponent, UbicacionComponent],
