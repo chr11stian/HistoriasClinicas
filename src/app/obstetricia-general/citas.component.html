@@ -1,10 +1,10 @@
 <div class="p-panel">
+    <br>
     <div class="grid">
         <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
             <span style="font-size: 16px;">LISTA DE PACIENTES EN OBSTETRICIA</span>
         </div>
     </div>
-    <br>
     <br>
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
@@ -19,21 +19,24 @@
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-6">
                 <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-3">
+                    <div class="col-12 md:col-6 lg:col-2 p-fluid">
                         <span class="">TIPO DOC</span>
-                        <div class="">
-
-                        </div>
+                        <p-dropdown [options]="listaDocumentosIdentidad"
+                                    formControlName="tipoDoc"
+                                    placeholder="Tipo Documento"
+                                    optionLabel="abreviatura"
+                                    optionValue="abreviatura"
+                                    [showClear]="false">
+                        </p-dropdown>
                     </div>
                     <div class="col-12 md:col-6 lg:col-4 p-field">
                         <span class="">DOCUMENTO DEL PACIENTE</span>
                         <div class="p-inputgroup">
                             <input type="text" pInputText formControlName="nroDoc"/>
-                            <p-button icon="pi pi-search" (click)="getPacientesXnroDocumento()"></p-button>
+                            <p-button icon="pi pi-search" (click)="buscarCupoXdniFecha()"></p-button>
                         </div>
                     </div>
                 </div>
-
             </div>
             <div class="col-12 md:col-6 lg:col-6 p-field">
                 <div class="grid">
@@ -70,7 +73,7 @@
                         <th style="text-align: center">HORA ATENCION</th>
                         <th style="text-align: center">FECHA ATENCION</th>
                         <th style="text-align: center">SERVICIO</th>
-                        <th style="text-align: center">ESTADO</th>
+                        <th style="text-align: center">TELEFONO</th>
                         <th style="text-align: center">ACCION</th>
 
                     </tr>
@@ -84,12 +87,14 @@
                         <td style="text-align: center">{{ rowData.horaAtencion}}</td>
                         <td style="text-align: center">{{ rowData.fechaAtencion}}</td>
                         <td style="text-align: center">{{ rowData.ipress.servicio}}</td>
-                        <td style="text-align: center">{{ rowData.detallePago}}</td>
+                        <td style="text-align: center">{{ rowData.telefono}}</td>
 
                         <td style="text-align: center">
                             <button pButton pRipple type="button" routerLink="gestante" label="Atender"
                                     class="p-button-secondary"
                                     (click)="enviarData(rowData)"></button>
+                            <button pButton pRipple type="button" routerLink="noControl" label="Triar"
+                                    class="p-button-help"></button>
                         </td>
                     </tr>
                 </ng-template>

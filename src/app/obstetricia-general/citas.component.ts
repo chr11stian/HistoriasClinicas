@@ -29,14 +29,13 @@ export class CitasComponent implements OnInit {
     datePipe = new DatePipe('en-US');
     fechaActual = new Date();
 
-    Pacientes: any;
-    ProximaCita: any;
-    dataPaciente: any;
-    dataPaciente2: any;
 
-    DataCupos: any;
+    dataPaciente: any;
+
+    DataCupos: any[];
     listaDocumentosIdentidad: any;
     TipoDoc: string = "DNI";
+    DataCuposPaciente: any;
 
 
     constructor(private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -107,9 +106,10 @@ export class CitasComponent implements OnInit {
         })
     }
 
+    /**Busca un paciente por le numero de documento**/
     getPacientesXnroDocumento() {
         let data = {
-            tipoDoc: "DNI",
+            tipoDoc: this.formCitas.value.tipoDoc,
             nroDoc: this.formCitas.value.nroDoc,
         }
         this.pacienteService.getPacienteByNroDoc(data).subscribe((res: any) => {
@@ -118,20 +118,35 @@ export class CitasComponent implements OnInit {
                 this.showInfo();
             } else {
                 this.showSuccess();
-                let nombre = this.dataPaciente.primerNombre;
-                let apellidoPaterno = this.dataPaciente.apePaterno;
-                let apellidoMaterno = this.dataPaciente.apeMaterno;
-                let nroDoc = this.dataPaciente.nroDoc;
-                let telefono = this.dataPaciente.celular;
-                let tipoDoc = this.dataPaciente.tipoDoc;
-                this.dataPaciente2 = [{apellidoPaterno, apellidoMaterno, nombre, nroDoc, telefono, tipoDoc}]
+                this.DataCupos = null;
+                this.DataCupos = [this.dataPaciente]
             }
-
-            console.log('paciente por doc ', this.dataPaciente2);
+            console.log('paciente por doc ', this.dataPaciente);
 
 
         });
 
+    }
+
+    /**Busca un cupo por el numero de dni de un paciente**/
+    buscarCupoXdniFecha() {
+        let data = {
+            tipoDoc: this.formCitas.value.tipoDoc,
+            nroDoc: this.formCitas.value.nroDoc,
+            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+        }
+        console.log("DATA DNI", data)
+        this.cuposService.buscarCupoPorDniFechaIpress(this.idIpressLapostaMedica, data).subscribe((res: any) => {
+            this.DataCuposPaciente = res.object;
+            console.log('LISTA DE CUPO DEL PACIENTE', this.DataCuposPaciente);
+            if (this.DataCuposPaciente == null) {
+                this.showInfo();
+            } else {
+                this.showSuccess();
+                this.DataCupos = null;
+                this.DataCupos = [this.DataCuposPaciente];
+            }
+        });
     }
 
     /**Modulo para hacer cosultas no gestantes**/
