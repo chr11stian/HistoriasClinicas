@@ -77,11 +77,15 @@
                                 <p-cellEditor (onChange)="calcularResultado()">
                                     <ng-template pTemplate="input">
                                         <input style="width:50px; text-align: center;" pInputText type="text"
-                                            [(ngModel)]="datos.puntajeEEDP">
+                                            [(ngModel)]="datos.puntajeEEDP"
+                                            onkeypress="return (event.charCode == 48 || event.charCode == 54)"
+                                            maxlength="1">
                                     </ng-template>
                                     <ng-template pTemplate="output">
                                         <input style="width:50px" pInputText type="text" [(ngModel)]="datos.puntajeEEDP"
-                                            (blur)="calcularResultado()" onClick="this.select();">
+                                            (blur)="calcularResultado()" onClick="this.select();"
+                                            onkeypress="return (event.charCode == 48 || event.charCode == 54)"
+                                            maxlength="1">
                                     </ng-template>
                                 </p-cellEditor>
                             </td>

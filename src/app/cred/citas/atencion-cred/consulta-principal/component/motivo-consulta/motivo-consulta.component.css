@@ -39,3 +39,16 @@ input[type="number"] {
   padding-left: 0.5em;
   text-align: left;
 }
+
+li {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  font-weight: bolder;
+}
+.borde {
+  font-family: cursive;
+  border: solid 1px #cdcdcd;
+  border-radius: 10px;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}

@@ -21,6 +21,7 @@ export class MotivoConsultaComponent implements OnInit {
     examFG: FormGroup;
     motivoFG: FormGroup;
     formExam: FormGroup;
+    headAlert: boolean = false;
     dataExamFisicos: formControlInterface[] = [
         { pro: 't', label: 'T°', nameFC: 'TFC' },
         { pro: 'pa', label: 'PA', nameFC: 'PAFC' },
@@ -136,6 +137,9 @@ export class MotivoConsultaComponent implements OnInit {
                 }
             )
         }
+    }
+    openHeadAlert() {
+        this.headAlert = true;
     }
 }
 

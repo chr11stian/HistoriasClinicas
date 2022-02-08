@@ -183,9 +183,9 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
             timer: 1500,
           })
         })
-            .catch((error) => {
-              console.log('Error al guardar', error)
-            });
+          .catch((error) => {
+            console.log('Error al guardar', error)
+          });
       } else {
         let dias = 61;
         let sumaAnterior = parseFloat(this.evaluacionEEDP[this.indexSelected - 1].puntajeTotalEedp);
@@ -201,20 +201,20 @@ export class EscalaEvaluacionEEDPComponent implements OnInit {
           }
         })
         this.evalAlimenService.postEvaluacionEEDP(dni, evaluacion_ninio)
-            .then(result => {
-              Swal.fire({
-                icon: 'success',
-                title: 'Test guarado correctamente',
-                text: 'Mes' + this.edadNroSelected,
-                showConfirmButton: false,
-                timer: 1500,
+          .then(result => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Test guarado correctamente',
+              text: 'Mes' + this.edadNroSelected,
+              showConfirmButton: false,
+              timer: 1500,
 
-              })
             })
-            .catch((error) => {
-              console.log('Error al guardar', error)
+          })
+          .catch((error) => {
+            console.log('Error al guardar', error)
 
-            });
+          });
       }
     }
     this.ref.close();

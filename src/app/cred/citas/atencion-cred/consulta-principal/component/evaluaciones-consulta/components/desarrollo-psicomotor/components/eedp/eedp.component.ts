@@ -102,7 +102,7 @@ export class EedpComponent implements OnInit {
   }
 
   calcularPuntaje() {
-
+    
   }
 
   comoCalcularPtj() {
