@@ -34,34 +34,35 @@
         <p-divider></p-divider>
         <form [formGroup]="formExam">
             <div class="grid ">
-                <div class="col-4">
+                <div class="col-6">
                     <div class="grid">
                         <div class="col-12 ">
-                            <label>Ojos:</label>
-                            <input type="text" pInputText formControlName='piel' placeholder="Piel"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="grid">
-                        <div class="col-12 ">
-                            <label>Nariz:</label>
-                            <input type="text" pInputText formControlName='mucosas' placeholder="Mucosas"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="grid">
-                        <div class="col-12 ">
-                            <label>Boca:</label>
+                            <label>Cabeza:</label>
                             <input type="text" pInputText formControlName='cabeza' placeholder="Cabeza"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openHeadAlert()" (blur)="probarBlur()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Cabellos:</label>
+                            <input type="text" pInputText formControlName='mucosas' placeholder="Cabellos"
                                 class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Cara:</label>
+                            <input type="text" pInputText formControlName='cabeza' placeholder="Cara"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
                     <div class="grid">
                         <div class="col-12">
                             <label>Cuello:</label>
@@ -73,31 +74,12 @@
                 <div class="col-4">
                     <div class="grid">
                         <div class="col-12">
-                            <label>Torax:</label>
-                            <input type="text" pInputText formControlName='cardioVascular' placeholder="Cardio Vascular"
+                            <label>Tórax:</label>
+                            <input type="text" pInputText formControlName='cardioVascular' placeholder="Torax"
                                 class=" inputfield w-full" oninput="this.value=this.value.toUpperCase()">
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="col-4">
-                    <div class="grid">
-                        <div class="col-12 ">
-                            <label>Mamas:</label>
-                            <input type="text" pInputText formControlName='mamas' placeholder="Mamas"
-                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="grid">
-                        <div class="col-12 ">
-                            <label>Pezones:</label>
-                            <input type="text" pInputText formControlName='pezones' placeholder="Pezones"
-                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
-                        </div>
-                    </div>
-                </div> -->
                 <div class="col-4">
                     <div class="grid">
                         <div class="col-12">
@@ -111,7 +93,7 @@
                     <div class="grid">
                         <div class="col-12 ">
                             <label>Columna Vertebral:</label>
-                            <input type="text" pInputText formControlName='pulmones' placeholder="Pulmones"
+                            <input type="text" pInputText formControlName='pulmones' placeholder="Columna Vertebral"
                                 class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
                         </div>
                     </div>
@@ -120,7 +102,7 @@
                     <div class="grid">
                         <div class="col-12 ">
                             <label>Extremidades:</label>
-                            <input type="text" pInputText formControlName='mamas' placeholder="Mamas"
+                            <input type="text" pInputText formControlName='mamas' placeholder="Extremidades"
                                 class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
                         </div>
                     </div>
@@ -129,7 +111,7 @@
                     <div class="grid">
                         <div class="col-12 ">
                             <label>Genitouriano:</label>
-                            <input type="text" pInputText formControlName='mamas' placeholder="Mamas"
+                            <input type="text" pInputText formControlName='mamas' placeholder="Genitouriano"
                                 class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
                         </div>
                     </div>
@@ -137,8 +119,26 @@
                 <div class="col-4">
                     <div class="grid">
                         <div class="col-12 ">
-                            <label>Examen Neurologico:</label>
-                            <input type="text" pInputText formControlName='pezones' placeholder="Pezones"
+                            <label>Ano:</label>
+                            <input type="text" pInputText formControlName='mamas' placeholder="Ano"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Piel y Anexos:</label>
+                            <input type="text" pInputText formControlName='mamas' placeholder="Piel y Anexos"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Examen Neurológico:</label>
+                            <input type="text" pInputText formControlName='pezones' placeholder="Examen Neurológico"
                                 class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
                         </div>
                     </div>
@@ -186,3 +186,31 @@
         </form>
     </p-fieldset>
 </div>
+<!-- DIALOG ADD RESULTADOS EXAMENES AUXILIARES -->
+<p-dialog class="dialogo m-4" [(visible)]="headAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid" position="right" [transitionOptions]="'200ms'">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <!-- <div class="col-3" class="imagen-head">
+            </div> -->
+            <div class="col-12">
+                <h4>CABEZA</h4>
+                <ul class="borde">
+                    <li>Palpar las suturas y fontanelas.</li>
+                    <li>Si las fontanelas están prematuramente cerradas pensar en: microcefalia, craneosinostosis,
+                        hipertiroidismo, derivar al especialista y realizar seguimiento.</li>
+                    <li>Verifcar si las fontanelas están abombadas, para identifcar hipertensión endocraneana, meningitis.
+                    </li>
+                    <li>Si la fontanela está más amplia de lo normal puede deberse a: Hidrocefalia, hipotiroidismo,
+                        prematuridad, malnutrición.</li>
+                    <li>Podemos encontrar suturas cabalgadas lo que requiere observación y seguimiento.</li>
+                    <li>Cualquier condición anormal referir para evaluación y tratamiento al nivel correspondiente.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+    <!-- <ng-template pTemplate="footer" class="text-right">
+        <button *ngIf="!updateAuxExam" pButton type="button" label="Guardar" (click)="aceptarAuxExam()"></button>
+        <button *ngIf="updateAuxExam" pButton type="button" label="Edit" (click)="aceptarDialogEditAuxExam()"></button>
+        <button pButton type=" button" label="Cerrar" class="p-button-danger" (click)="closeDialog()"></button>
+    </ng-template> -->
+</p-dialog>

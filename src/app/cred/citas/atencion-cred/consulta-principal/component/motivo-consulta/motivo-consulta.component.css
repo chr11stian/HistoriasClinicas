@@ -39,3 +39,29 @@ input[type="number"] {
   padding-left: 0.5em;
   text-align: left;
 }
+
+li {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-weight: 450;
+}
+.borde {
+  /* font-family: cursive; */
+  border: solid 1px #cdcdcd;
+  border-radius: 10px;
+}
+.imagen-head {
+  content: url("src\assets\images\baby_head.png");
+  width: 17rem;
+  display: block;
+  margin: auto;
+}
+.title {
+  font-size: 2.5rem;
+}
+::ng-deep .p-dialog-header {
+  display: none;
+}
+::ng-deep .p-dialog-content {
+  border-radius: 10px;
+}

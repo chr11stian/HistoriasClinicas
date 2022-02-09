@@ -27,6 +27,8 @@ export class EedpComponent implements OnInit {
   resultadoEvaluacion = "Resultado de la evalaucion";
   datePipe = new DatePipe('en-US');
   nroDoc: any;
+  totalPoints: number = 0;
+  monthPoints: number;
 
   constructor(
     private evalAlimenService: EvalAlimenService,
@@ -54,6 +56,7 @@ export class EedpComponent implements OnInit {
   async getDatos() {
     await this.evalAlimenService.getEscalaEEDParray().then(data => {
       this.escalaEEDP = data;
+      console.log('data de res ', data);
       // this.evaluacionEEDP.map((evaluacion, index) => {
       //   this.escalaEEDP[index] = evaluacion.item;
       // });
@@ -62,12 +65,18 @@ export class EedpComponent implements OnInit {
         this.tablaComparativa = data;
       });
       this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
-      console.log('2da array to list ', this.arrayEdadEEDPSelected);
+      this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
+      // console.log('2da array to list ', this.arrayEdadEEDPSelected[0].puntajeMaximo);
     });
   }
 
   saveTest() {
-    console.log('data to save ', this.arrayEdadEEDPSelected);
+    // this.arrayEdadEEDPSelected.forEach(item => {
+    //   this.totalPoints += parseInt(item.puntajeEEDP)
+    // });
+    // console.log('total points ', this.totalPoints);
+    console.log('array to save ', this.escalaEEDP);
+    // this.escalaEEDP
   }
 
   updateEscalaEEDP() {
@@ -79,9 +88,31 @@ export class EedpComponent implements OnInit {
     this.edadNroSelected = edadNro;
     this.edadSelected = edad;
     this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
+    console.log('index ', index, 'edad nro', edadNro, ' edad ', edad);
+    console.log('array selected ', this.arrayEdadEEDPSelected);
+    this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
+    this.totalPoints
+    // this.arrayEdadEEDPSelected.forEach(item => {
+    //   this.totalPoints += parseInt(item.puntajeEEDP)
+    // });
+    // console.log('total points ', this.totalPoints);
+
+    this.totalPoints += this.monthPoints;
+    console.log('total points to save ', this.totalPoints);
   }
 
-  calcularPuntaje(){
+  calcularPuntaje() {
     
+  }
+
+  comoCalcularPtj() {
+
+  }
+  calcularResultado() {
+    this.monthPoints = 0;
+    this.arrayEdadEEDPSelected.forEach(item => {
+      this.monthPoints += parseInt(item.puntajeEEDP)
+    });
+    console.log('total points ', this.monthPoints);
   }
 }
