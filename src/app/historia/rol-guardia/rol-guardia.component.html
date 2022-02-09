@@ -38,7 +38,7 @@
                             optionLabel="nombreUPS"
                             placeholder="Seleccionar"
                             styleClass="my-2 py-1"
-                            (onChange)="changeUps1($event, dd)"
+                            (onChange)="changeUps1($event)"
                             [(ngModel)]="upsSeleccionada"
                     ></p-dropdown>
                 </div>
@@ -48,34 +48,36 @@
                     style="background-color:#D9D9D9;border-bottom: 1px solid #CDCDCD"
             >
                 <div >
-                    <p-calendar
-                            [appendTo]="calendarWrapper"
-                            [(ngModel)]="dateValue"
-                            (onSelect)="cambiarFecha($event)"
-                            view="month"
-                            dateFormat="mm/yy"
-                            [yearNavigator]="true"
-                            yearRange="2020:2030"
-                    ></p-calendar>
+<!--                    <p-calendar-->
+<!--                            [appendTo]="calendarWrapper"-->
+<!--                            [(ngModel)]="dateValue"-->
+<!--                            (onSelect)="cambiarFecha($event)"-->
+<!--                            view="month"-->
+<!--                            dateFormat="mm/yy"-->
+<!--                            [yearNavigator]="true"-->
+<!--                            yearRange="2020:2030"-->
+<!--                    ></p-calendar>-->
                     <div
                             class="flex align-items-center text-center justify-content-center"
                     >
-                        <!-- <button
+                        <button
                           pButton
                           type="button"
                           label=""
                           icon="pi pi-chevron-left"
                           class="p-button-text p-button-secondary"
-                        ></button> -->
+                          (click)="isAdelante=false;cambiarFecha();"
+                        ></button>
                         <span class="m-3">
                          {{ mesLetras() }} {{ fecha.getFullYear() }}</span>
-                        <!-- <button
+                        <button
                           pButton
                           type="button"
                           label=""
                           icon="pi pi-chevron-right"
                           class="p-button-text p-button-secondary"
-                        ></button> -->
+                          (click)="isAdelante=true;cambiarFecha();"
+                        ></button>
                     </div>
                 </div>
             </th>
@@ -125,16 +127,16 @@
             </td>
             <td *ngFor="let dia of cabeceraMes; let j = index" class="" >
                 <!-- {{ i }} -{{ j }} -->
+<!--                    placeholder="NA"-->
                 <p-dropdown
                     #dd
                     class="bordeDropTurno"
-                    placeholder="NA"
                     [inline]="false"
                     [appendTo]="dropdown"
                     [options]="listaTurno"
                     [virtualScroll]="true"
-                    optionLabel="abreviatura"
                     dataKey="abreviatura"
+                    optionLabel="abreviatura"
                     [(ngModel)]="matriz[i][j]"
                     (onChange)="changeTurno(i, j)"
                 ></p-dropdown>
