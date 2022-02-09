@@ -259,7 +259,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         /* debe ser dataChild:[[mes,peso],..] ejem: dataChild:[[1,4.5],..]  */
         isBoy: isBoy
       },
-      header: isBoy ? 'GRÁFICA DE CIRCUMFERENCIA CEFALICA DE UN NIÑO' : 'GRÁFICA DE CIRCUMFERENCIA CEFALICA DE UNA NIÑA',
+      header: isBoy ? 'GRÁFICO DEL PERIMETRO CEFÁLIC0 DE UN NIÑO' : 'GRÁFICO DEL PERIMETRO CEFÁLIC0 DE UNA NIÑA',
       // width: '90%',
       height: '90%',
       width: '70%',

@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
-import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
-import {FinalizarConsultaService} from "../../services/finalizar-consulta.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import { CieService } from "../../../../../../obstetricia-general/services/cie.service";
+import { FinalizarConsultaService } from "../../services/finalizar-consulta.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
     selector: 'app-finalizar-consulta',
@@ -47,43 +47,43 @@ export class FinalizarConsultaComponent implements OnInit {
 
 
     constructor(private finalizarService: FinalizarConsultaService,
-                private cieService: CieService,
-                private formBuilder: FormBuilder,
-                private router: Router,
-                private route: ActivatedRoute) {
+        private cieService: CieService,
+        private formBuilder: FormBuilder,
+        private router: Router,
+        private route: ActivatedRoute) {
         this.buildFG();
 
         this.nombreEspecialidad =
             [
-                {label: 'ENDOVENOSA', value: 'ENDOVENOSA'},
-                {label: 'INHALADORA', value: 'INHALADORA'},
-                {label: 'INTRADERMICO', value: 'INTRADERMICO'},
-                {label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR'},
-                {label: 'NASAL', value: 'NASAL'},
-                {label: 'OFTALMICO', value: 'OFTALMICO'},
-                {label: 'ORAL', value: 'ORAL'},
-                {label: 'OPTICO', value: 'OPTICO'},
-                {label: 'RECTAL', value: 'RECTAL'},
-                {label: 'SUBCUTANEO', value: 'SUBCUTANEO'},
-                {label: 'SUBLINGUAL', value: 'SUBLINGUAL'},
-                {label: 'TOPICO', value: 'TOPICO'},
-                {label: 'VAGINAL', value: 'VAGINAL'},
+                { label: 'ENDOVENOSA', value: 'ENDOVENOSA' },
+                { label: 'INHALADORA', value: 'INHALADORA' },
+                { label: 'INTRADERMICO', value: 'INTRADERMICO' },
+                { label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR' },
+                { label: 'NASAL', value: 'NASAL' },
+                { label: 'OFTALMICO', value: 'OFTALMICO' },
+                { label: 'ORAL', value: 'ORAL' },
+                { label: 'OPTICO', value: 'OPTICO' },
+                { label: 'RECTAL', value: 'RECTAL' },
+                { label: 'SUBCUTANEO', value: 'SUBCUTANEO' },
+                { label: 'SUBLINGUAL', value: 'SUBLINGUAL' },
+                { label: 'TOPICO', value: 'TOPICO' },
+                { label: 'VAGINAL', value: 'VAGINAL' },
             ];
         this.examen =
             [
-                {label: 'ENDOVENOSA', value: 'ENDOVENOSA'},
-                {label: 'INHALADORA', value: 'INHALADORA'},
-                {label: 'INTRADERMICO', value: 'INTRADERMICO'},
-                {label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR'},
-                {label: 'NASAL', value: 'NASAL'},
-                {label: 'OFTALMICO', value: 'OFTALMICO'},
-                {label: 'ORAL', value: 'ORAL'},
-                {label: 'OPTICO', value: 'OPTICO'},
-                {label: 'RECTAL', value: 'RECTAL'},
-                {label: 'SUBCUTANEO', value: 'SUBCUTANEO'},
-                {label: 'SUBLINGUAL', value: 'SUBLINGUAL'},
-                {label: 'TOPICO', value: 'TOPICO'},
-                {label: 'VAGINAL', value: 'VAGINAL'},
+                { label: 'ENDOVENOSA', value: 'ENDOVENOSA' },
+                { label: 'INHALADORA', value: 'INHALADORA' },
+                { label: 'INTRADERMICO', value: 'INTRADERMICO' },
+                { label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR' },
+                { label: 'NASAL', value: 'NASAL' },
+                { label: 'OFTALMICO', value: 'OFTALMICO' },
+                { label: 'ORAL', value: 'ORAL' },
+                { label: 'OPTICO', value: 'OPTICO' },
+                { label: 'RECTAL', value: 'RECTAL' },
+                { label: 'SUBCUTANEO', value: 'SUBCUTANEO' },
+                { label: 'SUBLINGUAL', value: 'SUBLINGUAL' },
+                { label: 'TOPICO', value: 'TOPICO' },
+                { label: 'VAGINAL', value: 'VAGINAL' },
             ];
     }
 
@@ -91,11 +91,11 @@ export class FinalizarConsultaComponent implements OnInit {
     buildFG(): void {
         this.id = localStorage.getItem(this.attributeLocalS);
         this.acuerdosFG = new FormGroup({
-            detailAcuerdoFC: new FormControl({value: '', disabled: false}, []),
-            proximaCitaFC: new FormControl({value: null, disabled: false}, []),
-            atendidoFC: new FormControl({value: '', disabled: false}, []),
-            dniFC: new FormControl({value: '', disabled: false}, []),
-            observacionFC: new FormControl({value: '', disabled: false}, []),
+            detailAcuerdoFC: new FormControl({ value: '', disabled: false }, []),
+            proximaCitaFC: new FormControl({ value: null, disabled: false }, []),
+            atendidoFC: new FormControl({ value: '', disabled: false }, []),
+            dniFC: new FormControl({ value: '', disabled: false }, []),
+            observacionFC: new FormControl({ value: '', disabled: false }, []),
         })
         this.formAcuerdos = this.formBuilder.group({
             descripcionAcuerdo: new FormControl("", []),
@@ -365,7 +365,7 @@ export class FinalizarConsultaComponent implements OnInit {
             )
         }
     }
-    irEvaluaciones(){
+    irEvaluaciones() {
         /** redirigir a atencion de usuario */
         this.router.navigate(['/dashboard/cred/citas/atencion/evaluaciones-consulta'], {
             queryParams: {
@@ -374,6 +374,17 @@ export class FinalizarConsultaComponent implements OnInit {
             }
         })
     }
+    irInterconsulta() {
+        this.router.navigate(['/dashboard/cred/citas/atencion/examenes'],
+            {
+                queryParams: {
+                    'tipoDoc': this.tipoDoc,
+                    'nroDoc': this.nroDoc,
+                }
+            })
+    }
+
+
 }
 
 interface finalizarAtencionInterface {

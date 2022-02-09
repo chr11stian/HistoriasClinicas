@@ -10,17 +10,7 @@ export class CitasService {
   bd = environment.bd;
   constructor(private http: HttpClient) { }
 
-  listarCitasXservicio(id,data){
-    return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/citas/servicio/${id}`, data)
-  }
-
-  listarCitasTentativasEnfermeria(){
-    //return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/citas/servicio/${id}`, data)
-  }
-  listarCitasTentativasMedicina(){
-    //return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/citas/servicio/${id}`, data)
-  }
-  listarCitasTentativasObstetricia(){
-    //return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/citas/servicio/${id}`, data)
+  listarCitasXservicio(data){
+    return this.http.post(`${this.base_url}/${this.bd}/cupo/listarPendientes`, data)
   }
 }

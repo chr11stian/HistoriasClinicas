@@ -4,6 +4,20 @@ p-card >>> .p-card .p-card-title{
 .tabla{
     width:100%;
 }
+::ng-deep .fondo1 .p-calendar .p-inputtext{
+
+     flex: 1 1 auto;
+     width: 1%;
+     background: #FDC070;
+
+}
+::ng-deep .fondo2 .p-calendar .p-inputtext{
+/**/
+    flex: 1 1 auto;
+    width: 1%;
+    background: #FFFF80;
+
+}
 .caja {
     color: white;
     border-radius:10px;
@@ -148,4 +162,7 @@ p-table >>> .p-datatable .p-datatable-thead > tr > th {
     border-top: 8px solid #B573B6;
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
+}
+p-calendar >>> .p-calendar .p-datepicker {
+    width: 250px;
 }

@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { IpressService } from 'src/app/core/services/ipress/ipress.service';
 import { OfertasService } from 'src/app/core/services/ofertas/ofertas.service';
 
 @Component({
@@ -19,12 +20,19 @@ export class GenerarOfertasComponent implements OnInit {
   datePipe = new DatePipe("en-US");
   generarDialog: boolean = false;
   rolSeleccionado: any;
+  ambientes: any[];
+
+  idIpress: String = "";
+  nombreIpress: String = "";
 
   constructor(
     private ofertasService: OfertasService,
+    private ipressService: IpressService,
     private formBuilder: FormBuilder,
     private messageService: MessageService
   ) {
+    this.idIpress = "616de45e0273042236434b51";
+    this.nombreIpress = "la posta medica";
     this.buildForm();
     this.data = [];
     this.form.get('fechaFiltro').setValue(this.fecha);
@@ -48,9 +56,20 @@ export class GenerarOfertasComponent implements OnInit {
       tiempoAtencion: ['', [Validators.required]],
     })
   }
+  getAmbientesPorServicio(servicio) {
+    let data = {
+      idIpress: this.idIpress,
+      nombreUps: servicio
+    }
+    this.ipressService.buscarAmbientesXServicioXipress(data).subscribe((res: any) => {
+      this.ambientes = res.object;
+      console.log('LISTA AMBIENTES POR SERVICIO', this.ambientes);
+    })
+  }
   openGenerarDialog(data) {
     this.generarDialog = true;
     this.rolSeleccionado = data;
+    this.getAmbientesPorServicio(data.ipress.servicio);
     this.formGenerar.get('nroDoc').setValue(data.personal.nroDoc);
     this.formGenerar.get('nombre').setValue(data.personal.nombre);
     this.formGenerar.get('servicio').setValue(data.ipress.servicio);
@@ -67,10 +86,11 @@ export class GenerarOfertasComponent implements OnInit {
     this.formGenerar.get('tiempoPreparacion').setValue(data.ipress.tiempoPreparacion);
     this.formGenerar.get('tiempoAtencion').setValue(data.ipress.tiempoPromedioAtencion);
   }
+
   getRolGuardiasDisponibles() {
     let data = {
       fechaOferta: this.form.value.fechaFiltro,
-      nombreIpress: "la posta medica",
+      nombreIpress: this.nombreIpress,
     }
     console.log('DATA ', data);
 
@@ -120,8 +140,8 @@ export class GenerarOfertasComponent implements OnInit {
       console.log('rpta', res.object);
     })
   }
-  validarSiGeneraOferta(rowData){
-    if (rowData.oferta==null)
+  validarSiGeneraOferta(rowData) {
+    if (rowData.oferta == null)
       return false;
     else return true;
   }

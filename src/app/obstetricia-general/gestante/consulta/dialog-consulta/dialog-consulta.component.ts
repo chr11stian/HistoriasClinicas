@@ -128,52 +128,52 @@ export class DialogConsultaComponent implements OnInit {
         { name: 'CADA 48 HORAS', code: '12' }
     ];
     listaExamenesAuxiliaresExistentes = [
-        { tipo: 'HEMATOLOGIA', examen:'HEMOGLOBINA'},
-        { tipo: 'HEMATOLOGIA', examen:'HEMATOCRITO'},
-        { tipo: 'HEMATOLOGIA', examen:'HEMOGRAMA COMPLETO'},
-        { tipo: 'HEMATOLOGIA', examen:'TIEMPO DE COAGULACION'},
-        { tipo: 'HEMATOLOGIA', examen:'TIEMPO DE SANGRIA'},
-        { tipo: 'HEMATOLOGIA', examen:'V.S.G.'},
-        { tipo: 'HEMATOLOGIA', examen:'RECUENTO DE PLAQUETAS'},
-        { tipo: 'HEMATOLOGIA', examen:'RECUENTO DE GLÓBULOS ROJOS'},
-        { tipo: 'HEMATOLOGIA', examen:'RECUENTO DE GLÓBULOS BLANCOS'},
-        { tipo: 'HEMATOLOGIA', examen:'CONSTANTES CORPUSCULARES'},
-        { tipo: 'HEMATOLOGIA', examen:'COMPATIBILIDAD SANGUINEA'},
-        { tipo: 'BIOQUIMICA', examen:'GLUCOSA'},
-        { tipo: 'BIOQUIMICA', examen:'COLESTEROL TOTAL'},
-        { tipo: 'BIOQUIMICA', examen:'TRIGLICERIDOS'},
-        { tipo: 'BIOQUIMICA', examen:'UREA'},
-        { tipo: 'BIOQUIMICA', examen:'CREATININA'},
-        { tipo: 'BIOQUIMICA', examen:'T.G.O.'},
-        { tipo: 'BIOQUIMICA', examen:'T.G.P.'},
-        { tipo: 'BIOQUIMICA', examen:'BILIRRUBINAS TOTAL Y FRACC.'},
-        { tipo: 'BIOQUIMICA', examen:'PROTEINAS TOTALES Y FRACC.'},
-        { tipo: 'BIOQUIMICA', examen:'ALBÚMINA'},
-        { tipo: 'BIOQUIMICA', examen:'FOSFATASA ALCALINA'},
-        { tipo: 'MICROBIOLOGIA', examen:'EXAMEN DIR. DE SECRECIÓN VAG.'},
-        { tipo: 'MICROBIOLOGIA', examen:'GRAM'},
-        { tipo: 'INMUNOLOGIA', examen:'GRUPO SANGUINEO Y FACTOR RH'},
-        { tipo: 'INMUNOLOGIA', examen:'PROTEINA C REACTIVA'},
-        { tipo: 'INMUNOLOGIA', examen:'REACCION DE WIDAL'},
-        { tipo: 'INMUNOLOGIA', examen:'FACTOR REUMATOIDEO'},
-        { tipo: 'INMUNOLOGIA', examen:'R.P.R. Y/O PRUEBA RÁPIDA DE SÍFILIS'},
-        { tipo: 'INMUNOLOGIA', examen:'V.I.H. (PRUEBA RÁPIDA)'},
-        { tipo: 'INMUNOLOGIA', examen:'ANTÍGENO DE SUPERFICIE HEPATITIS B'},
-        { tipo: 'INMUNOLOGIA', examen:'BHCG (TEST DE EMBARAZO)'},
-        { tipo: 'INMUNOLOGIA', examen:'ANTIESTREPTOLISINAS (ASO)'},
-        { tipo: 'INMUNOLOGIA', examen:'ANTIGENO FEBRIL PARA BRUCELA'},
-        { tipo: 'UROANÁLISIS', examen:'EXAMEN COMPLETO DE ORINA'},
-        { tipo: 'UROANÁLISIS', examen:'SEDIMENTO URINARIO'},
-        { tipo: 'UROANÁLISIS', examen:'PROTEINURIA CUANTITATIVA/CUALITATIVA'},
-        { tipo: 'UROANÁLISIS', examen:'TEST DE ÁCIDO SULFOSALICÍLICO'},
-        { tipo: 'PARASITOLOGÍA', examen:'EX. PARASITOLÓGICO DIRECTO DE HECES'},
-        { tipo: 'PARASITOLOGÍA', examen:'EX. PARASITOLÓGICO SERIADO DE HECES'},
-        { tipo: 'PARASITOLOGÍA', examen:'TEST DE GRAHAM'},
-        { tipo: 'PARASITOLOGÍA', examen:'COPROFUNCIONAL'},
-        { tipo: 'PARASITOLOGÍA', examen:'THEVENON EN HECES'},
-        { tipo: 'PARASITOLOGÍA', examen:'REACCIÓN INFLAMATORIA/MOCO FECAL'},
-        { tipo: 'OTROS EXÁMENES', examen:'BATERÍA DE LABORATORIO GESTANTE'},
-        { tipo: 'OTROS EXÁMENES', examen:'TEST DE HELECHO'},
+        { tipo: 'HEMATOLOGIA', examen: 'HEMOGLOBINA' },
+        { tipo: 'HEMATOLOGIA', examen: 'HEMATOCRITO' },
+        { tipo: 'HEMATOLOGIA', examen: 'HEMOGRAMA COMPLETO' },
+        { tipo: 'HEMATOLOGIA', examen: 'TIEMPO DE COAGULACION' },
+        { tipo: 'HEMATOLOGIA', examen: 'TIEMPO DE SANGRIA' },
+        { tipo: 'HEMATOLOGIA', examen: 'V.S.G.' },
+        { tipo: 'HEMATOLOGIA', examen: 'RECUENTO DE PLAQUETAS' },
+        { tipo: 'HEMATOLOGIA', examen: 'RECUENTO DE GLÓBULOS ROJOS' },
+        { tipo: 'HEMATOLOGIA', examen: 'RECUENTO DE GLÓBULOS BLANCOS' },
+        { tipo: 'HEMATOLOGIA', examen: 'CONSTANTES CORPUSCULARES' },
+        { tipo: 'HEMATOLOGIA', examen: 'COMPATIBILIDAD SANGUINEA' },
+        { tipo: 'BIOQUIMICA', examen: 'GLUCOSA' },
+        { tipo: 'BIOQUIMICA', examen: 'COLESTEROL TOTAL' },
+        { tipo: 'BIOQUIMICA', examen: 'TRIGLICERIDOS' },
+        { tipo: 'BIOQUIMICA', examen: 'UREA' },
+        { tipo: 'BIOQUIMICA', examen: 'CREATININA' },
+        { tipo: 'BIOQUIMICA', examen: 'T.G.O.' },
+        { tipo: 'BIOQUIMICA', examen: 'T.G.P.' },
+        { tipo: 'BIOQUIMICA', examen: 'BILIRRUBINAS TOTAL Y FRACC.' },
+        { tipo: 'BIOQUIMICA', examen: 'PROTEINAS TOTALES Y FRACC.' },
+        { tipo: 'BIOQUIMICA', examen: 'ALBÚMINA' },
+        { tipo: 'BIOQUIMICA', examen: 'FOSFATASA ALCALINA' },
+        { tipo: 'MICROBIOLOGIA', examen: 'EXAMEN DIR. DE SECRECIÓN VAG.' },
+        { tipo: 'MICROBIOLOGIA', examen: 'GRAM' },
+        { tipo: 'INMUNOLOGIA', examen: 'GRUPO SANGUINEO Y FACTOR RH' },
+        { tipo: 'INMUNOLOGIA', examen: 'PROTEINA C REACTIVA' },
+        { tipo: 'INMUNOLOGIA', examen: 'REACCION DE WIDAL' },
+        { tipo: 'INMUNOLOGIA', examen: 'FACTOR REUMATOIDEO' },
+        { tipo: 'INMUNOLOGIA', examen: 'R.P.R. Y/O PRUEBA RÁPIDA DE SÍFILIS' },
+        { tipo: 'INMUNOLOGIA', examen: 'V.I.H. (PRUEBA RÁPIDA)' },
+        { tipo: 'INMUNOLOGIA', examen: 'ANTÍGENO DE SUPERFICIE HEPATITIS B' },
+        { tipo: 'INMUNOLOGIA', examen: 'BHCG (TEST DE EMBARAZO)' },
+        { tipo: 'INMUNOLOGIA', examen: 'ANTIESTREPTOLISINAS (ASO)' },
+        { tipo: 'INMUNOLOGIA', examen: 'ANTIGENO FEBRIL PARA BRUCELA' },
+        { tipo: 'UROANÁLISIS', examen: 'EXAMEN COMPLETO DE ORINA' },
+        { tipo: 'UROANÁLISIS', examen: 'SEDIMENTO URINARIO' },
+        { tipo: 'UROANÁLISIS', examen: 'PROTEINURIA CUANTITATIVA/CUALITATIVA' },
+        { tipo: 'UROANÁLISIS', examen: 'TEST DE ÁCIDO SULFOSALICÍLICO' },
+        { tipo: 'PARASITOLOGÍA', examen: 'EX. PARASITOLÓGICO DIRECTO DE HECES' },
+        { tipo: 'PARASITOLOGÍA', examen: 'EX. PARASITOLÓGICO SERIADO DE HECES' },
+        { tipo: 'PARASITOLOGÍA', examen: 'TEST DE GRAHAM' },
+        { tipo: 'PARASITOLOGÍA', examen: 'COPROFUNCIONAL' },
+        { tipo: 'PARASITOLOGÍA', examen: 'THEVENON EN HECES' },
+        { tipo: 'PARASITOLOGÍA', examen: 'REACCIÓN INFLAMATORIA/MOCO FECAL' },
+        { tipo: 'OTROS EXÁMENES', examen: 'BATERÍA DE LABORATORIO GESTANTE' },
+        { tipo: 'OTROS EXÁMENES', examen: 'TEST DE HELECHO' },
     ];
     datosOtrosPruebasFisicas: any[] = [];
     indexEditarOtrosPruebasFisicasEditado: number = 0;
@@ -211,7 +211,7 @@ export class DialogConsultaComponent implements OnInit {
     listaDeCIE: any;
 
     eleccion: any;
-    
+
     constructor(
         private fb: FormBuilder,
         private ref: DynamicDialogRef,
@@ -239,7 +239,7 @@ export class DialogConsultaComponent implements OnInit {
             if (config.data) {
                 this.llenarCamposEdicionConsulta();
                 this.estadoEdicion = true;
-                console.log("estadoEdicion",this.estadoEdicion);
+                console.log("estadoEdicion", this.estadoEdicion);
             }
         });
 
@@ -259,8 +259,8 @@ export class DialogConsultaComponent implements OnInit {
             console.log('edad gestacional ', edadGestacional);
         }
     }
-    onChangeEstadoVisita(){
-        this.estadoVisitaDomiciMostrar=this.form.value.visitaDomiciliariaEstado==="SI"?true:false;
+    onChangeEstadoVisita() {
+        this.estadoVisitaDomiciMostrar = this.form.value.visitaDomiciliariaEstado === "SI" ? true : false;
     }
     ngOnInit(): void { }
 
@@ -967,7 +967,7 @@ export class DialogConsultaComponent implements OnInit {
         var examen = //{
             //tipo: this.formTratamiento.value.tipo,
             /*examen:*/ this.formExamenAuxiliar.value.examen;
-            //codigo: this.formTratamiento.value.codigo,
+        //codigo: this.formTratamiento.value.codigo,
         //}
         console.log(examen);
         this.datosExamenesAuxiliares.push(examen);
@@ -998,7 +998,7 @@ export class DialogConsultaComponent implements OnInit {
         var examen = //{
             //tipo: this.formTratamiento.value.tipo,
             /*examen:*/ this.formExamenAuxiliar.value.examen;
-            //codigo: this.formTratamiento.value.codigo,
+        //codigo: this.formTratamiento.value.codigo,
         //}
         console.log(examen);
         this.datosExamenesAuxiliares.splice(this.indexExamenAuxiliarEditado, 1, examen);
@@ -1241,6 +1241,7 @@ export class DialogConsultaComponent implements OnInit {
             nroEmbarazo: this.datosNuevaConsulta.nroEmbarazo,
             tipoDoc: this.datosNuevaConsulta.tipoDoc,
             nroDoc: this.datosNuevaConsulta.nroDoc,
+            servicio: "OBSTETRICIA",
 
             nroAtencion: parseInt(this.form.value.nroAtencion),
             nroControlSis: parseInt(this.form.value.nroControlSis),
@@ -1628,7 +1629,7 @@ export class DialogConsultaComponent implements OnInit {
             consulta.examenesFisicos.push(this.datosOtrosPruebasFisicas[i])
         }
         console.log('data to save ', consulta);
-        console.log("estadoEdicion",this.estadoEdicion);
+        console.log("estadoEdicion", this.estadoEdicion);
         if (!this.estadoEdicion) {
             this.consultaObstetriciaService.postDatoConsultaObstetrica(consulta, this.form.value.nroFetos).subscribe((res: any) => {
                 console.log('rpta ', res.object);

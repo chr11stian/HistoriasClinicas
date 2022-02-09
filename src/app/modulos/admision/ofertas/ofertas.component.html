@@ -36,7 +36,7 @@
                 <h3 class="p-m-0">Lista de ofertas por cada turno del personal</h3>
             </ng-template>
         </p-toolbar>
-        <p-table [value]="data" #dt [globalFilterFields]="['fecha']" styleClass="p-datatable-gridlines   " [rows]="10"
+        <p-table [value]="data" #dt [globalFilterFields]="['fecha','personal.nombre','ipress.servicio']" styleClass="p-datatable-gridlines   " [rows]="10"
             [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
             <ng-template pTemplate="caption">
