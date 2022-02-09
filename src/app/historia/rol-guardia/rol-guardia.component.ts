@@ -557,4 +557,8 @@ export class RolGuardiaComponent implements OnInit {
     // this.ref.close("cerrado");
     // this.changeUps1('300101')
   }
+  modal(rowData){
+    console.log(rowData)
+  }
+
 }
