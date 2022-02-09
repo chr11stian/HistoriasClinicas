@@ -50,18 +50,25 @@ li {
   border: solid 1px #cdcdcd;
   border-radius: 10px;
 }
-.imagen-head {
-  content: url("src\assets\images\baby_head.png");
-  width: 17rem;
+.imagen-barlow {
+  content: url("src\assets\images\signo-de-barlow.png");
+  width: 40rem;
   display: block;
-  margin: auto;
+  /* margin: auto; */
+  /* flex: 100%; */
+}
+.imagen-ortolani{
+  text-align: center;
+  content: url("src\assets\images\ortolani.png");
+  width: 26rem;
+  display: block;
 }
 .title {
   font-size: 2.5rem;
 }
-::ng-deep .p-dialog-header {
+::ng-deep .dialogo .p-dialog-header {
   display: none;
 }
-::ng-deep .p-dialog-content {
+::ng-deep .dialogo .p-dialog-content {
   border-radius: 10px;
 }
