@@ -40,7 +40,7 @@
                             <label>Cabeza:</label>
                             <input type="text" pInputText formControlName='cabeza' placeholder="Cabeza"
                                 class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openHeadAlert()">
+                                (focus)="openHeadAlert()" (blur)="probarBlur()">
                         </div>
                     </div>
                 </div>
@@ -187,15 +187,13 @@
     </p-fieldset>
 </div>
 <!-- DIALOG ADD RESULTADOS EXAMENES AUXILIARES -->
-<p-dialog class="dialogo m-4" [(visible)]="headAlert" [style]="{width: '70%'}" [modal]="true" styleClass="p-fluid" position="right">
-    <ng-template pTemplate="header">
-        <h3>CABEZA</h3>
-    </ng-template>
+<p-dialog class="dialogo m-4" [(visible)]="headAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid" position="right" [transitionOptions]="'200ms'">
     <ng-template pTemplate="body">
         <div class="grid">
-            <div class="col-3" class="imagen-head">
-            </div>
-            <div class="col-9">
+            <!-- <div class="col-3" class="imagen-head">
+            </div> -->
+            <div class="col-12">
+                <h4>CABEZA</h4>
                 <ul class="borde">
                     <li>Palpar las suturas y fontanelas.</li>
                     <li>Si las fontanelas están prematuramente cerradas pensar en: microcefalia, craneosinostosis,

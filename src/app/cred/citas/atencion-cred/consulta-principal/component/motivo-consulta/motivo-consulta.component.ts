@@ -144,6 +144,9 @@ export class MotivoConsultaComponent implements OnInit {
         }
 
     }
+    probarBlur() {
+        console.log('probando blur');
+    }
 }
 
 interface motivosConsultaInterface {

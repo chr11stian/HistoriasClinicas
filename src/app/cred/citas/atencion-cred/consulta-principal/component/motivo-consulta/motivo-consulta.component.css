@@ -41,16 +41,14 @@ input[type="number"] {
 }
 
 li {
-  font-size: 1.25rem;
-  line-height: 1.7;
-  font-weight: bolder;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-weight: 450;
 }
 .borde {
-  font-family: cursive;
+  /* font-family: cursive; */
   border: solid 1px #cdcdcd;
   border-radius: 10px;
-  margin-left: 1rem;
-  margin-right: 1rem;
 }
 .imagen-head {
   content: url("src\assets\images\baby_head.png");
@@ -58,6 +56,12 @@ li {
   display: block;
   margin: auto;
 }
-.title{
+.title {
   font-size: 2.5rem;
+}
+::ng-deep .p-dialog-header {
+  display: none;
+}
+::ng-deep .p-dialog-content {
+  border-radius: 10px;
 }
