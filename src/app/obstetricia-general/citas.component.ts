@@ -9,6 +9,7 @@ import {PacienteService} from "../core/services/paciente/paciente.service";
 import {MessageService} from "primeng/api";
 import {CuposService} from "../core/services/cupos.service";
 import {DocumentoIdentidadService} from "../mantenimientos/services/documento-identidad/documento-identidad.service";
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-citas',
@@ -30,7 +31,7 @@ export class CitasComponent implements OnInit {
     fechaActual = new Date();
 
 
-    dataPaciente: any;
+    dataPaciente: any[];
 
     DataCupos: any[];
     listaDocumentosIdentidad: any;
@@ -113,40 +114,40 @@ export class CitasComponent implements OnInit {
             nroDoc: this.formCitas.value.nroDoc,
         }
         this.pacienteService.getPacienteByNroDoc(data).subscribe((res: any) => {
-            this.dataPaciente = res.object;
+            this.dataPaciente = [res.object];
             if (this.dataPaciente == null) {
-                this.showInfo();
+                this.showInfoPaciente();
             } else {
                 this.showSuccess();
-                this.DataCupos = null;
-                this.DataCupos = [this.dataPaciente]
             }
             console.log('paciente por doc ', this.dataPaciente);
-
-
         });
 
     }
 
     /**Busca un cupo por el numero de dni de un paciente**/
-    buscarCupoXdniFecha() {
+    async buscarCupoXdniFecha() {
         let data = {
             tipoDoc: this.formCitas.value.tipoDoc,
             nroDoc: this.formCitas.value.nroDoc,
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         console.log("DATA DNI", data)
-        this.cuposService.buscarCupoPorDniFechaIpress(this.idIpressLapostaMedica, data).subscribe((res: any) => {
-            this.DataCuposPaciente = res.object;
-            console.log('LISTA DE CUPO DEL PACIENTE', this.DataCuposPaciente);
-            if (this.DataCuposPaciente == null) {
-                this.showInfo();
-            } else {
-                this.showSuccess();
-                this.DataCupos = null;
-                this.DataCupos = [this.DataCuposPaciente];
-            }
-        });
+
+        await this.cuposService.buscarCupoPorDniFechaIpress(this.idIpressLapostaMedica, data)
+            .then(result => {
+                this.DataCuposPaciente = result
+                console.log('LISTA DE CUPO DEL PACIENTE', result)
+                if (this.DataCuposPaciente == undefined) {
+                    this.showInfo();
+                    this.getPacientesXnroDocumento();
+                } else {
+                    this.showSuccess();
+                    this.dataPaciente = null;
+                    this.DataCupos = null;
+                    this.DataCupos = [this.DataCuposPaciente.object];
+                }
+            });
     }
 
     /**Modulo para hacer cosultas no gestantes**/
@@ -174,11 +175,19 @@ export class CitasComponent implements OnInit {
         });
     }
 
-    showInfo() {
+    showInfoPaciente() {
         this.messageService.add({
             severity: 'info',
             summary: 'Paciente',
             detail: 'No existe en la Base de Datos'
+        });
+    }
+
+    showInfo() {
+        this.messageService.add({
+            severity: 'info',
+            summary: 'Paciente',
+            detail: 'No tiene un registro de cupo'
         });
     }
 }
