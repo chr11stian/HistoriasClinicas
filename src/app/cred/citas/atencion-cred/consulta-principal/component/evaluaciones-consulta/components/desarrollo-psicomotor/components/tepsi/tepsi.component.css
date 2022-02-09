@@ -57,6 +57,7 @@
 .resultadosSubTest{
     border-collapse: collapse;
     width: 80%;
+    margin: auto;
 }
 .resultadosSubTest th{
     /*background-color: #ECECEC;*/
