@@ -28,9 +28,13 @@
                                     <div class="p-inputgroup">
                                         <input type="number" pInputText
                                                formControlName="nroDoc"
-                                               placeholder="Nro documento"/>
+                                               placeholder="Nro documento" (blur)="pacienteByNroDoc()"
+                                               class="inputTest"/>
                                         <p-button span="" icon="pi pi-search" (click)="pacienteByNroDoc()"></p-button>
                                     </div>
+                                    <small class="p-error" *ngIf="isInvalid('nroDoc')">
+                                        * Numero documento es necesario
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -140,12 +144,15 @@
 
                             <div class="grid m-2">
                                 <div class="col-12 md:col-6 lg:col-3 p-field">
-                                    <span class="">TELEFONO / CELULAR</span>
-                                    <div class="p-inputgroup">
-                                        <input type="text"
-                                               pInputText
-                                               formControlName="celular"/>
-                                    </div>
+                                        <span class="">TELEFONO / CELULAR</span>
+                                        <div class="p-inputgroup">
+                                            <input type="text"
+                                                   pInputText
+                                                   formControlName="celular"/>
+                                        </div>
+                                    <small class="p-error" *ngIf="isInvalid('celular')">
+                                        * Telefono es necesario
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -155,20 +162,20 @@
                         <div class="datosPersonales">
                             <div class="grid m-2">
                                 <div class="col-12 md:col-6 lg:col-3 p-field">
-                                    <span>DEPARTAMENTO:</span>
-                                    <div class="p-fluid">
-                                        <p-dropdown inputId="dropdown" [autoDisplayFirst]="false"
-                                                    [options]="dataDepartamentos"
-                                                    formControlName="dpto"
-                                                    (onChange)="selectedDepartamento()"
-                                                    placeholder="Seleccione un Departamento"
-                                                    [showClear]="false"
-                                                    optionLabel="departamento"
-                                                    optionValue="departamento"
-                                                    defaultLabel="Seleccione un Departamento"
-                                                    id="departamento">
-                                        </p-dropdown>
-                                    </div>
+                                        <span>DEPARTAMENTO:</span>
+                                        <div class="p-fluid">
+                                            <p-dropdown inputId="dropdown" [autoDisplayFirst]="false"
+                                                        [options]="dataDepartamentos"
+                                                        formControlName="dpto"
+                                                        (onChange)="selectedDepartamento()"
+                                                        placeholder="Seleccione un Departamento"
+                                                        [showClear]="false"
+                                                        optionLabel="departamento"
+                                                        optionValue="departamento"
+                                                        defaultLabel="Seleccione un Departamento"
+                                                        id="departamento">
+                                            </p-dropdown>
+                                        </div>
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field">
                                     <span>PROVINCIA:</span>
@@ -332,7 +339,8 @@
                                     <button pButton pRipple label="GUARDAR" (click)="saveForm()" icon="pi pi-plus"
                                             class="mr-2"></button>
                                     <button pButton pRipple type="button" icon="pi pi-times-circle" label="CANCELAR"
-                                            class="p-button-raised p-button-danger" (click)="cerrar()"></button>
+                                            class="p-button-raised p-button-danger"
+                                            (click)="updatePacienteCupos()"></button>
                                 </div>
                             </div>
                         </div>

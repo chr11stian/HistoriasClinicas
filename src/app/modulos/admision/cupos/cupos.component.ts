@@ -141,9 +141,9 @@ export class CuposComponent implements OnInit, OnDestroy {
         }
         console.log("DATA DNI", data)
         this.cuposService.buscarCupoPorDniFechaIpress(this.idIpressLapostaMedica, data).subscribe((res: any) => {
-            this.DataCuposPaciente = res.object;
-            console.log('LISTA DE CUPOS DEL PACIENTE', this.DataCuposPaciente);
-            if (this.DataCuposPaciente == null) {
+            this.DataCuposPaciente = res;
+            console.log('LISTA DE CUPO DEL PACIENTE', this.DataCuposPaciente);
+            if (res) {
                 this.showInfo();
             } else {
                 this.showSuccess();

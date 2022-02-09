@@ -55,7 +55,7 @@ export class PersonalSaludComponent implements OnInit {
   datosPersonales: any[];
 
   especialidades: any[];
-  rolesX: any[] = [];;
+  rolesX: any[] = [];
   listaUpsX: any[];
   personalDialog: boolean;
   personalEspecialidadDialog: boolean;
