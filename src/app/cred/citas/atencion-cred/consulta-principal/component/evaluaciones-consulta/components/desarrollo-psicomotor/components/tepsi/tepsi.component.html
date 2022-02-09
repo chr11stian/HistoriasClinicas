@@ -96,22 +96,91 @@
 <!--        <div class="blanco">1. SUB TEST MOTROCIDAD</div>-->
 <!--    </div>-->
 <!--</div>-->
-<div class="grid">
-  <div class="col-6 grid">
-    <div class="col-4 grid">
-      <input class="col-6" type="text" placeholder="1" pInputText />
-      <div class="col-6">Años</div>
+<div class="grid" [formGroup]="datosGeneralesFG">
+  <div class="col-6">
+    <div class="grid">
+      <div class="col-3 text-right" style="font-weight: bold; ">Edad:</div>
+      <div class="col-3 grid">
+        <input class="col-6" formControlName="anio" type="text" placeholder="1" pInputText/>
+        <div class="col-6">Años</div>
+      </div>
+      <div class="col-3 grid">
+        <input class="col-6" formControlName="mes" type="text" placeholder="11" pInputText/>
+        <div class="col-6">Meses</div>
+      </div>
+      <div class="col-3 grid">
+        <input class="col-6" formControlName="dia" type="text" placeholder="25" pInputText/>
+        <div class="col-6">Dias</div>
+      </div>
     </div>
-    <div class="col-4 grid">
-      <input class="col-6" type="text" placeholder="11" pInputText />
-      <div class="col-6">Meses</div>
+    <div class="grid">
+      <div class="col-4">
+        Fecha:
+      </div>
+      <div class="col-4 p-fluid">
+        <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+      </div>
     </div>
-    <div class="col-4 grid">
-      <input class="col-6" type="text" placeholder="25" pInputText />
-      <div class="col-6">Dias</div>
+    <div class="grid">
+      <div class="col-4">Nombre Examinador:</div>
+      <div class="col-8 p-fluid"><input type="text" pInputText>{{rango}}</div>
     </div>
+
+  </div>
+  <div class="col-6 ">
+    <table class="resultadosSubTest">
+      <tbody>
+        <tr>
+          <th colspan="4" class="text-center">RESULTADOS SUB TEST</th>
+        </tr>
+        <tr>
+          <th>Areas</th>
+          <th>Puntaje Bruto</th>
+          <th>Puntaje T</th>
+          <th>Categoria</th>
+        </tr>
+        <tr>
+          <th>Coordinacion</th>
+          <td class="text-center">{{resultado[0]}}</td>
+          <td style="text-align: center">{{puntajeT[0]}}</td>
+          <td>{{categoria[0]}}</td>
+        </tr>
+        <tr>
+          <th>Lenguaje</th>
+          <td>{{resultado[1]}}</td>
+          <td>{{puntajeT[1]}}</td>
+          <td>{{categoria[1]}}</td>
+        </tr>
+        <tr>
+          <th>Motricidad</th>
+          <td>{{resultado[2]}}</td>
+          <td>{{puntajeT[2]}}</td>
+          <td>{{categoria[2]}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="resultadosSubTest mt-3">
+      <tbody>
+        <tr>
+          <th colspan="3">RESULTADO TEST TOTAL</th>
+        </tr>
+        <tr>
+          <th>Puntaje Bruto</th>
+          <th>Puntaje T</th>
+          <th>Categoria</th>
+        </tr>
+        <tr>
+          <td>{{resultadoA[0].puntajeBruto}}</td>
+          <td>{{resultadoA[0].puntajeT}}</td>
+          <td>{{resultadoA[0].categoria}}</td>
+        </tr>
+
+      </tbody>
+    </table>
   </div>
 </div>
+
+
 <div class="grid">
   <div class="col-6">
     <div class="caja2 mt-3" (click)="abrimosModal(0)">
@@ -130,8 +199,9 @@
   <div class="col-6 grid">
     <div class="col-5"></div>
     <div class="col-7 grid">
-      <div class="col-4 text-center">RETRASO RIESGO</div>
-      <div class="col-8 text-center">NORMALIDAD</div>
+      <div class="col-2 text-center" style="font-size: 0.8rem">RETRASO</div>
+      <div class="col-2 text-center" style="font-size: 0.8rem">RIESGO</div>
+      <div class="col-8 text-center" style="font-size: 0.8rem">NORMALIDAD</div>
     </div>
     <div class="col-5" style="font-weight: bold; padding-top: 0px">
       TEST TOTAL
@@ -144,16 +214,25 @@
       <div class="col-2 color-3"></div>
       <div class="col-2 color-3"></div>
     </div>
-    <div class="col-5 text-right" style="margin: 0px; padding: 0px">
+    <div class="col-4 text-center" style="margin: 0px; padding: 0px">
       PUNTAJE T
     </div>
-    <div class="col-7 grid mt-0" style="margin: 0px; padding: 0px">
-      <div class="col-2 text-left margenes">20</div>
-      <div class="col-2 text-left margenes">30</div>
-      <div class="col-2 text-left margenes">40</div>
-      <div class="col-2 text-left margenes">50</div>
-      <div class="col-2 text-left margenes">60</div>
-      <div class="col-2 text-left margenes">70</div>
+    <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">
+      <div class="col margenes text-right" style="justify-content: center">20</div>
+      <div class="col margenes text-right" style="justify-content: center">30</div>
+      <div class="col margenes text-right" style="justify-content: center">40</div>
+      <div class="col margenes text-right" style="justify-content: center">50</div>
+      <div class="col margenes text-right" style="justify-content: center">60</div>
+      <div class="col margenes text-right" style="justify-content: center">70</div>
+      <div class="col margenes text-right" style="justify-content: center">80</div>
+
+<!--      <div class="" style="width: 40px">20</div>-->
+<!--      <div class="" style="width: 40px">30</div>-->
+<!--      <div class="" style="width: 40px">40</div>-->
+<!--      <div class="" style="width: 40px">50</div>-->
+<!--      <div class="" style="width: 40px">60</div>-->
+<!--      <div class="" style="width: 40px">70</div>-->
+<!--      <div class="" style="width: 40px">80</div>-->
     </div>
     <div class="col-5" style="font-weight: bold; padding-top: 40px">
       SUB TEST COORDINACION
@@ -184,1043 +263,1222 @@
       <div class="col-2 color-3"></div>
       <div class="col-2 color-3"></div>
     </div>
-    <div class="col-5 text-right mt-0">PUNTAJE T</div>
-    <div class="col-7 grid mt-0">
-      <div class="col-2 text-left">20</div>
-      <div class="col-2 text-left">30</div>
-      <div class="col-2 text-left">40</div>
-      <div class="col-2 text-left">50</div>
-      <div class="col-2 text-left">60</div>
-      <div class="col-2 text-left">70</div>
+    <div class="col-4 text-center" style="margin: 0px; padding: 0px">
+      PUNTAJE T
+    </div>
+    <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">
+      <div class="col margenes text-right" style="justify-content: center">20</div>
+      <div class="col margenes text-right" style="justify-content: center">30</div>
+      <div class="col margenes text-right" style="justify-content: center">40</div>
+      <div class="col margenes text-right" style="justify-content: center">50</div>
+      <div class="col margenes text-right" style="justify-content: center">60</div>
+      <div class="col margenes text-right" style="justify-content: center">70</div>
+      <div class="col margenes text-right" style="justify-content: center">80</div>
     </div>
   </div>
 </div>
 <p-dialog [(visible)]="display[0]" [modal]="true">
-  <ng-template pTemplate="header"> 1.SUB. TEST DE COORDINACION </ng-template>
-  <table>
+  <ng-template pTemplate="header"> 1.SUB. TEST DE COORDINACION</ng-template>
+  <table class="tablaCoordinacion">
     <tbody>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[0]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          1C
-        </td>
-        <td>Traslada agua de un vaso a otro sin derramar (dos vasos)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[1]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          2C
-        </td>
-        <td>
-          Construye un puente con tres cubos con modelo presentes (seis cubos)
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[2]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          3C
-        </td>
-        <td>Construye una torre de 8 ó mas cubos (doce cubos)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[3]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          4C
-        </td>
-        <td>Desabotona (Estuche)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[4]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          5C
-        </td>
-        <td>Abotona (Estuche)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[5]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          6C
-        </td>
-        <td>Enhebra una aguja (aguja de lana, hilo)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[6]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          7C
-        </td>
-        <td>Desata cordones (tablero c/cordón)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[7]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          8C
-        </td>
-        <td>Copia una linea recta (Lamina 1, Lápiz, reverso hoja reg.)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[8]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          9C
-        </td>
-        <td>Copia de un circulo (Lam 2, lápiz, reverso hoja reg.)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[9]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          10C
-        </td>
-        <td>Copia una cruz (Lam 3, lápiz, reverso hoja reg.)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[10]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          11C
-        </td>
-        <td>Copia un triangulo (Lam 4, lápiz, reverso hoja reg.)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[11]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          12C
-        </td>
-        <td>Copia un cuadrado (Lam 5, lápiz, reverso hoja reg.)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[12]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          13C
-        </td>
-        <td>
-          Dibuja 9 o mas partes de una figura humana (Lápiz, reverso hoja reg.)
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[13]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          14C
-        </td>
-        <td>
-          Dibuja 6 o mas partes de una figura humana (Lápiz, reverso hoja reg.)
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[14]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          15C
-        </td>
-        <td>
-          Dibuja 3 o mas partes de una figura humana (Lápiz, reverso hoja reg.)
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            [(ngModel)]="selectedValues1[15]"
-            (onChange)="calcularSuma($event, 1)"
-          ></p-checkbox>
-          16C
-        </td>
-        <td>Ordena por tamaño (Tablero, barritas)</td>
-      </tr>
-      <tr>
-        <td
-          style="
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[0]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        1C
+      </td>
+      <td>Traslada agua de un vaso a otro sin derramar (dos vasos)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[1]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        2C
+      </td>
+      <td>
+        Construye un puente con tres cubos con modelo presentes (seis cubos)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[2]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        3C
+      </td>
+      <td>Construye una torre de 8 ó mas cubos (doce cubos)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[3]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        4C
+      </td>
+      <td>Desabotona (Estuche)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[4]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        5C
+      </td>
+      <td>Abotona (Estuche)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[5]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        6C
+      </td>
+      <td>Enhebra una aguja (aguja de lana, hilo)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[6]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        7C
+      </td>
+      <td>Desata cordones (tablero c/cordón)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[7]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        8C
+      </td>
+      <td>Copia una linea recta (Lamina 1, Lápiz, reverso hoja reg.)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[8]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        9C
+      </td>
+      <td>Copia de un circulo (Lam 2, lápiz, reverso hoja reg.)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[9]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        10C
+      </td>
+      <td>Copia una cruz (Lam 3, lápiz, reverso hoja reg.)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[10]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        11C
+      </td>
+      <td>Copia un triangulo (Lam 4, lápiz, reverso hoja reg.)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[11]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        12C
+      </td>
+      <td>Copia un cuadrado (Lam 5, lápiz, reverso hoja reg.)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[12]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        13C
+      </td>
+      <td>
+        Dibuja 9 o mas partes de una figura humana (Lápiz, reverso hoja reg.)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[13]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        14C
+      </td>
+      <td>
+        Dibuja 6 o mas partes de una figura humana (Lápiz, reverso hoja reg.)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[14]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        15C
+      </td>
+      <td>
+        Dibuja 3 o mas partes de una figura humana (Lápiz, reverso hoja reg.)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                [(ngModel)]="selectedValues1[15]"
+                (onChange)="calcularSuma($event, 1)"
+        ></p-checkbox>
+        16C
+      </td>
+      <td>Ordena por tamaño (Tablero, barritas)</td>
+    </tr>
+    <tr>
+      <td
+              style="
             width: 60px;
             border: 1px solid #BFBFBF;
             border-radius: 10px;
-            justify-content: center;
+            text-align: center;
           "
-        >
-          {{ resultado[0] }}
-        </td>
-        <td style="font-weight: bold; font-size: 1.3rem">
-          TOTAL SUB TEST COORDINACIÓN: PB
-        </td>
-      </tr>
+      >
+        {{ resultado[0] }}
+      </td>
+      <td style="font-weight: bold; font-size: 1.3rem">
+        TOTAL SUB TEST COORDINACIÓN: PB
+      </td>
+    </tr>
     </tbody>
   </table>
-  <ng-template pTemplate="footer"> </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Guadar Test Coordinacion" iconPos="right" icon=""
+            class="" style="background-color: #0c3866" (click)="saveTestCoordinacion()"></button>
+  </ng-template>
 </p-dialog>
 <!--sub test lenguaje-->
 <p-dialog
-  [(visible)]="display[1]"
-  [modal]="true"
-  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-  [style]="{ width: '40vw' }"
+        [(visible)]="display[1]"
+        [modal]="true"
+        [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+        [style]="{ width: '60vw' }"
 >
-  <ng-template pTemplate="header"> 1.SUB. TEST DE COORDINACION </ng-template>
-  <table>
+  <ng-template pTemplate="header"> 2.SUB. TEST DE LENGUAJE</ng-template>
+  <table class="tablaLenguaje">
     <tbody>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[0]"
-          ></p-checkbox>
-          1L
-        </td>
-        <td>
-          Reconoce grande y chico (Lam 6)
-          Grande................. Chico.................
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[1]"
-          ></p-checkbox>
-          2L
-        </td>
-        <td>
-          Reconoce más y menos (Lam 7)
-          Más................. Menos.................
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[2]"
-          ></p-checkbox>
-          3L
-        </td>
-        <td>
-          Nombra animales (Lam 8)
-          <br />
-          <div class="grid">
-            <div class="col-3 grid">
-              <div class="col-6">Gato</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues23[0]" (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Perro</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues23[1]" (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Chancho</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues23[2]" (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Pato</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues23[3]" (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Paloma</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues23[4]" (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Oveja</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues23[5]" (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Tortuga</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues23[6]" (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Gallina</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues23[7]" (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox> </div>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[0]"
+        ></p-checkbox>
+        1L
+      </td>
+      <td>
+        Reconoce grande y chico (Lam 6)<br>
+        (Grande)(Chico)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[1]"
+        ></p-checkbox>
+        2L
+      </td>
+      <td>
+        Reconoce más y menos (Lam 7)<br>
+        (Más)(Menos)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[2]"
+                disabled="true"
+        ></p-checkbox>
+        3L
+      </td>
+      <td>
+        Nombra animales (Lam 8)
+        <br/>
+        <div class="grid">
+          <div class="col-3 grid">
+            <div class="col-6">Gato</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues23[0]"
+                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
             </div>
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[3]"
-          ></p-checkbox>
-          4L
-        </td>
-        <td>
-          Nombra objetos (Lam 9)
-          <br />
-          <div class="grid">
-            <div class="col-3 grid">
-              <div class="col-6">Paraguas</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues24[0]" (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Vela</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues24[1]" (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Escoba</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues24[2]" (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Tetera</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues24[3]"(onChange)="evaluandoItem($event,1,3,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Zapatos</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues24[4]" (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Reloj</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues24[5]" (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Serrucho</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues24[6]" (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Taza</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues24[7]" (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox> </div>
-            </div>
-
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[4]"
-          ></p-checkbox>
-          5L
-        </td>
-        <td>Reconoce Largo y corto (Lam 1)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[5]"
-          ></p-checkbox>
-          6L
-        </td>
-        <td>
-          Verbaliza acciones (Lam 11)<br>
-          <div class="grid">
-            <div class="col-3 grid">
-              <div class="col-6">Cortando</div>
-              <div class="col-6 text-center"><p-checkbox binary="true" [(ngModel)]="selectedValues26[0]" (onChange)="evaluandoItem($event,2,5,3)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Saltando</div>
-              <div class="col-6 text-center"><p-checkbox binary="true" [(ngModel)]="selectedValues26[1]" (onChange)="evaluandoItem($event,2,5,3)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Planchando</div>
-              <div class="col-6 text-center"><p-checkbox binary="true" [(ngModel)]="selectedValues26[2]"(onChange)="evaluandoItem($event,2,5,3)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Comiendo</div>
-              <div class="col-6 text-center"><p-checkbox binary="true" [(ngModel)]="selectedValues26[3]"(onChange)="evaluandoItem($event,2,5,3)"></p-checkbox> </div>
+          <div class="col-3 grid">
+            <div class="col-6">Perro</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues23[1]"
+                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
             </div>
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[6]"
-          ></p-checkbox>
-          7L
-        </td>
-        <td>
-          Conoce la utilidad de objetos
-          <br />
-          <div class="grid">
-            <div class="col-4 grid">
-              <div class="col-6">Cuchara</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues27[0]" (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox> </div>
+          <div class="col-3 grid">
+            <div class="col-6">Chancho</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues23[2]"
+                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
             </div>
-            <div class="col-4 grid">
-              <div class="col-6">Lápiz</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues27[1]" (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox> </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Pato</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues23[3]"
+                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
             </div>
-            <div class="col-4 grid">
-              <div class="col-6">Jabón</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues27[2]" (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox> </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Paloma</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues23[4]"
+                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
             </div>
-            <div class="col-4 grid">
-              <div class="col-6">Escoba</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues27[3]" (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox> </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Oveja</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues23[5]"
+                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
             </div>
-            <div class="col-4 grid">
-              <div class="col-6">Cama</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues27[4]" (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox> </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Tortuga</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues23[6]"
+                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
             </div>
-            <div class="col-4 grid">
-              <div class="col-6">Tijera</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues27[5]" (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox> </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Gallina</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues23[7]"
+                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[3]"
+                disabled="true"
+        ></p-checkbox>
+        4L
+      </td>
+      <td>
+        Nombra objetos (Lam 9)
+        <br/>
+        <div class="grid">
+          <div class="col-3 grid">
+            <div class="col-6">Paraguas</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues24[0]"
+                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Vela</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues24[1]"
+                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Escoba</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues24[2]"
+                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Tetera</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues24[3]"
+                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Zapatos</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues24[4]"
+                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Reloj</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues24[5]"
+                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Serrucho</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues24[6]"
+                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Taza</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues24[7]"
+                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
             </div>
           </div>
 
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[7]"
-          ></p-checkbox>
-          8L
-        </td>
-        <td>
-          Discrimina pesado y liviano (Bolsas con arena y esponja)
-          <br />
-          Pesado .................................................... Liviano
-          .........................................
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[8]"
-          ></p-checkbox>
-          9L
-        </td>
-        <td>
-          Verbaliza su nombre y apellido
-          <br />
-          Nombre................. Apellido.................
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[9]"
-          ></p-checkbox>
-          10L
-        </td>
-        <td>
-          Identifica sexo
-          .................................................................................................
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[10]"
-          ></p-checkbox>
-          11L
-        </td>
-        <td>
-          Conoce el nombre de sus padres
-          <br />Papa .......................................................
-          Mama ...........................................
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[11]"
-          ></p-checkbox>
-          12L
-        </td>
-        <td>
-          Da respuestas coherentes a situaciones planteadas
-          <br />
-          <div class="grid">
-            <div class="col-4 grid">
-              <div class="col-6">Hambre</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues212[0]" (onChange)="evaluandoItem($event,4,11,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Cansado</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues212[1]" (onChange)="evaluandoItem($event,4,11,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Frío</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues212[2]" (onChange)="evaluandoItem($event,4,11,2)"></p-checkbox> </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[4]"
+        ></p-checkbox>
+        5L
+      </td>
+      <td>Reconoce Largo y corto (Lam 1)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[5]"
+                disabled="true"
+        ></p-checkbox>
+        6L
+      </td>
+      <td>
+        Verbaliza acciones (Lam 11)<br>
+        <div class="grid">
+          <div class="col-3 grid">
+            <div class="col-6">Cortando</div>
+            <div class="col-6 text-center">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues26[0]"
+                          (onChange)="evaluandoItem($event,2,5,3)"></p-checkbox>
             </div>
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[12]"
-          ></p-checkbox>
-          13L
-        </td>
-        <td>
-          Comprende preposiciones (Lapíz)
-          <br />
-          <div class="grid">
-            <div class="col-4 grid">
-              <div class="col-6">Detrás</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues213[0]" (onChange)="evaluandoItem($event,5,12,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Sobre</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues213[1]" (onChange)="evaluandoItem($event,5,12,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Debajo</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues213[2]" (onChange)="evaluandoItem($event,5,12,2)"></p-checkbox> </div>
+          <div class="col-3 grid">
+            <div class="col-6">Saltando</div>
+            <div class="col-6 text-center">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues26[1]"
+                          (onChange)="evaluandoItem($event,2,5,3)"></p-checkbox>
             </div>
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[13]"
-          ></p-checkbox>
-          14L
-        </td>
-        <td>
-          Razona por analogías opuestas
-          <br />
-          <div class="grid">
-            <div class="col-4 grid">
-              <div class="col-6">Hielo</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues214[0]" (onChange)="evaluandoItem($event,6,13,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Ratón</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues214[1]" (onChange)="evaluandoItem($event,6,13,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Mamá</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues214[2]" (onChange)="evaluandoItem($event,6,13,2)"></p-checkbox> </div>
+          <div class="col-3 grid">
+            <div class="col-6">Planchando</div>
+            <div class="col-6 text-center">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues26[2]"
+                          (onChange)="evaluandoItem($event,2,5,3)"></p-checkbox>
             </div>
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[14]"
-          ></p-checkbox>
-          15L
-        </td>
-        <td>
-          Nombra colores(Papel lustre azul,amarillo,rojo)
-          <br />
-          <div class="grid">
-            <div class="col-4 grid">
-              <div class="col-6">Azul</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues215[0]" (onChange)="evaluandoItem($event,7,14,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Amarillo</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues215[1]" (onChange)="evaluandoItem($event,7,14,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Rojo</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues215[2]" (onChange)="evaluandoItem($event,7,14,2)"></p-checkbox> </div>
+          <div class="col-3 grid">
+            <div class="col-6">Comiendo</div>
+            <div class="col-6 text-center">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues26[3]"
+                          (onChange)="evaluandoItem($event,2,5,3)"></p-checkbox>
             </div>
           </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[6]"
+                disabled="true"
+        ></p-checkbox>
+        7L
+      </td>
+      <td>
+        Conoce la utilidad de objetos
+        <br/>
+        <div class="grid">
+          <div class="col-4 grid">
+            <div class="col-6">Cuchara</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues27[0]"
+                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Lápiz</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues27[1]"
+                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Jabón</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues27[2]"
+                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Escoba</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues27[3]"
+                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Cama</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues27[4]"
+                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Tijera</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues27[5]"
+                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+            </div>
+          </div>
+        </div>
 
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[15]"
-          ></p-checkbox>
-          16L
-        </td>
-        <td>
-          Señala Colores(Papel lustre azul,amarillo,rojo)
-          <br />
-          <div class="grid">
-            <div class="col-4 grid">
-              <div class="col-6">Azul</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues216[0]" (onChange)="evaluandoItem($event,8,15,2)" ></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Amarillo</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues216[1]" (onChange)="evaluandoItem($event,8,15,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Rojo</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues216[2]" (onChange)="evaluandoItem($event,8,15,2)"></p-checkbox> </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[16]"
-          ></p-checkbox>
-          17L
-        </td>
-        <td>
-          Nombra Figuras geométricas (Lam 12)
-          <br />
-          <div class="grid">
-            <div class="col-4 grid">
-              <div class="col-6">redondo</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues217[0]" (onChange)="evaluandoItem($event,9,16,2)" ></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">cuadrado</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues217[1]" (onChange)="evaluandoItem($event,9,16,2)" ></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">triangulo</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues217[2]" (onChange)="evaluandoItem($event,9,16,2)" ></p-checkbox> </div>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[17]"
-          ></p-checkbox>
-          18L
-        </td>
-        <td>
-          Señala Figuras geométricas (Lam 12)
-          <br />
-          <div class="grid">
-            <div class="col-4 grid">
-              <div class="col-6">redondo</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues218[0]" (onChange)="evaluandoItem($event,10,17,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">cuadrado</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues218[1]" (onChange)="evaluandoItem($event,10,17,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">triangulo</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues218[2]" (onChange)="evaluandoItem($event,10,17,2)"></p-checkbox> </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[7]"
+        ></p-checkbox>
+        8L
+      </td>
+      <td>
+        Discrimina pesado y liviano (Bolsas con arena y esponja)
+        <br/>
+        (Pesado)(Liviano)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[8]"
+        ></p-checkbox>
+        9L
+      </td>
+      <td>
+        Verbaliza su nombre y apellido
+        <br/>
+        (Nombre)( Apellido)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[9]"
+        ></p-checkbox>
+        10L
+      </td>
+      <td>
+        Identifica sexo
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[10]"
+        ></p-checkbox>
+        11L
+      </td>
+      <td>
+        Conoce el nombre de sus padres
+        <br/>(Papa)(Mama )      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[11]"
+                disabled="true"
+        ></p-checkbox>
+        12L
+      </td>
+      <td>
+        Da respuestas coherentes a situaciones planteadas
+        <br/>
+        <div class="grid">
+          <div class="col-4 grid">
+            <div class="col-6">Hambre</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues212[0]"
+                          (onChange)="evaluandoItem($event,4,11,2)"></p-checkbox>
             </div>
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[18]"
-          ></p-checkbox>
-          19L
-        </td>
-        <td>
-          Describe escenas (Lam 13 y 14)
-          <br />
-          13...........................................................................................................................
-          14...........................................................................................................................
-          ...........................................................................................................................
-        </td>
-      </tr>
+          <div class="col-4 grid">
+            <div class="col-6">Cansado</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues212[1]"
+                          (onChange)="evaluandoItem($event,4,11,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Frío</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues212[2]"
+                          (onChange)="evaluandoItem($event,4,11,2)"></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[12]"
+                disabled="true"
+        ></p-checkbox>
+        13L
+      </td>
+      <td>
+        Comprende preposiciones (Lapíz)
+        <br/>
+        <div class="grid">
+          <div class="col-4 grid">
+            <div class="col-6">Detrás</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues213[0]"
+                          (onChange)="evaluandoItem($event,5,12,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Sobre</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues213[1]"
+                          (onChange)="evaluandoItem($event,5,12,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Debajo</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues213[2]"
+                          (onChange)="evaluandoItem($event,5,12,2)"></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[13]"
+                disabled="true"
+        ></p-checkbox>
+        14L
+      </td>
+      <td>
+        Razona por analogías opuestas
+        <br/>
+        <div class="grid">
+          <div class="col-4 grid">
+            <div class="col-6">Hielo</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues214[0]"
+                          (onChange)="evaluandoItem($event,6,13,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Ratón</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues214[1]"
+                          (onChange)="evaluandoItem($event,6,13,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Mamá</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues214[2]"
+                          (onChange)="evaluandoItem($event,6,13,2)"></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[14]"
+                disabled="true"
+        ></p-checkbox>
+        15L
+      </td>
+      <td>
+        Nombra colores(Papel lustre azul,amarillo,rojo)
+        <br/>
+        <div class="grid">
+          <div class="col-4 grid">
+            <div class="col-6">Azul</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues215[0]"
+                          (onChange)="evaluandoItem($event,7,14,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Amarillo</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues215[1]"
+                          (onChange)="evaluandoItem($event,7,14,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Rojo</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues215[2]"
+                          (onChange)="evaluandoItem($event,7,14,2)"></p-checkbox>
+            </div>
+          </div>
+        </div>
 
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[19]"
-          ></p-checkbox>
-          20L
-        </td>
-        <td>Reconoce absurdos (Lam 15)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[20]"
-          ></p-checkbox>
-          21L
-        </td>
-        <td>Usa plurales (Lam 16)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[21]"
-          ></p-checkbox>
-          22L
-        </td>
-        <td>
-          Reconoce antes y después (Lam 17)
-          <br />
-          Antes ..........................................................
-          Después .....................................
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[22]"
-          ></p-checkbox>
-          23L
-        </td>
-        <td>
-          Define palabras
-          <div class="grid">
-            <div class="col-3 grid">
-              <div class="col-6">Manzana</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues223[0]" (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Pelota</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues223[1]" (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Zapato</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues223[2]" (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox> </div>
-            </div>
-            <div class="col-3 grid">
-              <div class="col-6">Abrigo</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues223[3]" (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox> </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[15]"
+                disabled="true"
+        ></p-checkbox>
+        16L
+      </td>
+      <td>
+        Señala Colores(Papel lustre azul,amarillo,rojo)
+        <br/>
+        <div class="grid">
+          <div class="col-4 grid">
+            <div class="col-6">Azul</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues216[0]"
+                          (onChange)="evaluandoItem($event,8,15,2)"></p-checkbox>
             </div>
           </div>
-          <br/>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 2)"
-            [(ngModel)]="selectedValues2[23]"
-          ></p-checkbox>
-          24L
-        </td>
-        <td>
-          Nombra caracteristícas de objetos (Pelota, globo inflado bolsa)<br />
-          <div class="grid">
-            <div class="col-4 grid">
-              <div class="col-6">Pelota</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues224[0]" (onChange)="evaluandoItem($event,12,23,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Globo inflado</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues224[1]" (onChange)="evaluandoItem($event,12,23,2)"></p-checkbox> </div>
-            </div>
-            <div class="col-4 grid">
-              <div class="col-6">Bolsa</div>
-              <div class="col-6 text-left"><p-checkbox binary="true" [(ngModel)]="selectedValues224[2]" (onChange)="evaluandoItem($event,12,23,2)"></p-checkbox> </div>
+          <div class="col-4 grid">
+            <div class="col-6">Amarillo</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues216[1]"
+                          (onChange)="evaluandoItem($event,8,15,2)"></p-checkbox>
             </div>
           </div>
-        </td>
-      </tr>
-      <tr>
-        <td
-          style="
+          <div class="col-4 grid">
+            <div class="col-6">Rojo</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues216[2]"
+                          (onChange)="evaluandoItem($event,8,15,2)"></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[16]"
+                disabled="true"
+        ></p-checkbox>
+        17L
+      </td>
+      <td>
+        Nombra Figuras geométricas (Lam 12)
+        <br/>
+        <div class="grid">
+          <div class="col-4 grid">
+            <div class="col-6">redondo</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues217[0]"
+                          (onChange)="evaluandoItem($event,9,16,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">cuadrado</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues217[1]"
+                          (onChange)="evaluandoItem($event,9,16,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">triangulo</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues217[2]"
+                          (onChange)="evaluandoItem($event,9,16,2)"></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[17]"
+                disabled="true"
+        ></p-checkbox>
+        18L
+      </td>
+      <td>
+        Señala Figuras geométricas (Lam 12)
+        <br/>
+        <div class="grid">
+          <div class="col-4 grid">
+            <div class="col-6">redondo</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues218[0]"
+                          (onChange)="evaluandoItem($event,10,17,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">cuadrado</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues218[1]"
+                          (onChange)="evaluandoItem($event,10,17,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">triangulo</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues218[2]"
+                          (onChange)="evaluandoItem($event,10,17,2)"></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[18]"
+        ></p-checkbox>
+        19L
+      </td>
+      <td>
+        Describe escenas (Lam 13 y 14)
+        <br/>
+        (13)(14)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[19]"
+        ></p-checkbox>
+        20L
+      </td>
+      <td>Reconoce absurdos (Lam 15)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[20]"
+        ></p-checkbox>
+        21L
+      </td>
+      <td>Usa plurales (Lam 16)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[21]"
+        ></p-checkbox>
+        22L
+      </td>
+      <td>
+        Reconoce antes y después (Lam 17)
+        <br/>
+        (Antes)(Después)
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[22]"
+                disabled="true"
+        ></p-checkbox>
+        23L
+      </td>
+      <td>
+        Define palabras
+        <div class="grid">
+          <div class="col-3 grid">
+            <div class="col-6">Manzana</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues223[0]"
+                          (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Pelota</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues223[1]"
+                          (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Zapato</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues223[2]"
+                          (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-3 grid">
+            <div class="col-6">Abrigo</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues223[3]"
+                          (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox>
+            </div>
+          </div>
+        </div>
+        <br/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 2)"
+                [(ngModel)]="selectedValues2[23]"
+                disabled="true"
+        ></p-checkbox>
+        24L
+      </td>
+      <td>
+        Nombra caracteristícas de objetos (Pelota, globo inflado bolsa)<br/>
+        <div class="grid">
+          <div class="col-4 grid">
+            <div class="col-6">Pelota</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues224[0]"
+                          (onChange)="evaluandoItem($event,12,23,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Globo inflado</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues224[1]"
+                          (onChange)="evaluandoItem($event,12,23,2)"></p-checkbox>
+            </div>
+          </div>
+          <div class="col-4 grid">
+            <div class="col-6">Bolsa</div>
+            <div class="col-6 text-left">
+              <p-checkbox binary="true" [(ngModel)]="selectedValues224[2]"
+                          (onChange)="evaluandoItem($event,12,23,2)"></p-checkbox>
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td   style="
             width: 60px;
             border: 1px solid #BFBFBF;
             border-radius: 10px;
-            justify-content: center;
+            text-align: center;
           "
-        >
-          {{ resultado[1] }}
-        </td>
-        <td style="font-weight: bold; font-size: 1.3rem">
-          TOTAL SUB TEST LENGUAJE: PB
-        </td>
-      </tr>
+      >
+        {{ resultado[1] }}
+      </td>
+      <td style="font-weight: bold; font-size: 1.3rem">
+        TOTAL SUB TEST LENGUAJE: PB
+      </td>
+    </tr>
     </tbody>
   </table>
-  <ng-template pTemplate="footer"> </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Guadar Test Lenguaje" iconPos="right" icon=""
+            class="" style="background-color: #0c3866" (click)="saveTestLenguaje()"></button>
+  </ng-template>
 </p-dialog>
 <!--sub test motrocidad-->
 <p-dialog
-  [(visible)]="display[2]"
-  [modal]="true"
-  [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-  [style]="{ width: '50vw' }"
+        [(visible)]="display[2]"
+        [modal]="true"
+        [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+        [style]="{ width: '50vw' }"
 >
-  <ng-template pTemplate="header"> 3.SUB TEST MOTRICIDAD </ng-template>
-  <table>
+  <ng-template pTemplate="header"> 3.SUB TEST MOTRICIDAD</ng-template>
+  <table class="tablaMotricidad">
     <tbody>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[0]"
-          ></p-checkbox>
-          1M
-        </td>
-        <td>Salta con los dos pies en el mismo lugar</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[1]"
-          ></p-checkbox>
-          2M
-        </td>
-        <td>Camina dies pasos llevando un vaso de agua(Vazo lleno de agua).</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[2]"
-          ></p-checkbox>
-          3M
-        </td>
-        <td>Lanza una pelota en una dirección determinada (Pelota)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[3]"
-          ></p-checkbox>
-          4M
-        </td>
-        <td>Se para en un pie sin apoyo 10 seg. ó más.</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[4]"
-          ></p-checkbox>
-          5M
-        </td>
-        <td>Separa en un pie sin apoyo 5 seg. ó más.</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[5]"
-          ></p-checkbox>
-          6M
-        </td>
-        <td>Separa en un pie sin apoyo 1 seg. ó más.</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[6]"
-          ></p-checkbox>
-          7M
-        </td>
-        <td>Camina en punta de pie seis ó más pasos</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[7]"
-          ></p-checkbox>
-          8M
-        </td>
-        <td>Salta 20 cms. con los pies juntos (hoja reg.)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[8]"
-          ></p-checkbox>
-          9M
-        </td>
-        <td>Salta en un pie tres o mas veces sin apoyo.</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[9]"
-          ></p-checkbox>
-          10M
-        </td>
-        <td>Coge una pelota(Pelota)</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[10]"
-          ></p-checkbox>
-          11M
-        </td>
-        <td>Camina hacia delante topando talón y punta.</td>
-      </tr>
-      <tr>
-        <td>
-          <p-checkbox
-            name="groupname"
-            binary="true"
-            (onChange)="calcularSuma($event, 3)"
-            [(ngModel)]="selectedValues3[11]"
-          ></p-checkbox>
-          12M
-        </td>
-        <td>Camina hacia atrás topando punta y talón</td>
-      </tr>
-      <tr>
-        <td
-          style="
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[0]"
+        ></p-checkbox>
+        1M
+      </td>
+      <td>Salta con los dos pies en el mismo lugar</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[1]"
+        ></p-checkbox>
+        2M
+      </td>
+      <td>Camina dies pasos llevando un vaso de agua(Vazo lleno de agua).</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[2]"
+        ></p-checkbox>
+        3M
+      </td>
+      <td>Lanza una pelota en una dirección determinada (Pelota)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[3]"
+        ></p-checkbox>
+        4M
+      </td>
+      <td>Se para en un pie sin apoyo 10 seg. ó más.</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[4]"
+        ></p-checkbox>
+        5M
+      </td>
+      <td>Separa en un pie sin apoyo 5 seg. ó más.</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[5]"
+        ></p-checkbox>
+        6M
+      </td>
+      <td>Separa en un pie sin apoyo 1 seg. ó más.</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[6]"
+        ></p-checkbox>
+        7M
+      </td>
+      <td>Camina en punta de pie seis ó más pasos</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[7]"
+        ></p-checkbox>
+        8M
+      </td>
+      <td>Salta 20 cms. con los pies juntos (hoja reg.)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[8]"
+        ></p-checkbox>
+        9M
+      </td>
+      <td>Salta en un pie tres o mas veces sin apoyo.</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[9]"
+        ></p-checkbox>
+        10M
+      </td>
+      <td>Coge una pelota(Pelota)</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[10]"
+        ></p-checkbox>
+        11M
+      </td>
+      <td>Camina hacia delante topando talón y punta.</td>
+    </tr>
+    <tr>
+      <td>
+        <p-checkbox
+                name="groupname"
+                binary="true"
+                (onChange)="calcularSuma($event, 3)"
+                [(ngModel)]="selectedValues3[11]"
+        ></p-checkbox>
+        12M
+      </td>
+      <td>Camina hacia atrás topando punta y talón</td>
+    </tr>
+    <tr>
+      <td
+              style="
             width: 60px;
             border: 1px solid #BFBFBF;
             border-radius: 10px;
-            justify-content: center;
+            text-align: center;
           "
-        >
-          {{ resultado[2] }}
-        </td>
-        <td style="font-weight: bold; font-size: 1.3rem">
-          TOTAL SUB TEST LENGUAJE: PB
-        </td>
-      </tr>
+      >
+        {{ resultado[2] }}
+      </td>
+      <td style="font-weight: bold; font-size: 1.3rem">
+        TOTAL SUB TEST LENGUAJE: PB
+      </td>
+    </tr>
     </tbody>
   </table>
-  <ng-template pTemplate="footer"> </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Guadar Test Motrocidad" iconPos="right" icon=""
+            class="" style="background-color: #0c3866" (click)="saveTestMotrocidad()"></button>
+  </ng-template>
 </p-dialog>
