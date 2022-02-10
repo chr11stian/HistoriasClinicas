@@ -21,6 +21,7 @@ export class MotivoConsultaComponent implements OnInit {
     examFG: FormGroup;
     motivoFG: FormGroup;
     formExam: FormGroup;
+    formExamNeurologico: FormGroup;
     headAlert: boolean = false;
     hairAlert: boolean = false;
     faceAlert: boolean = false;
@@ -32,6 +33,8 @@ export class MotivoConsultaComponent implements OnInit {
     genitourianAlert: boolean = false;
     anusAlert: boolean = false;
     skinAlert: boolean = false;
+    olfactoryAlert: boolean = false;
+
     dataExamFisicos: formControlInterface[] = [
         { pro: 't', label: 'T°', nameFC: 'TFC' },
         { pro: 'pa', label: 'PA', nameFC: 'PAFC' },
@@ -88,6 +91,19 @@ export class MotivoConsultaComponent implements OnInit {
 
             obsExamenFisico: new FormControl(""),
         });
+        /** examen neurologico */
+        this.formExamNeurologico = new FormGroup({
+            olfatorio: new FormControl(""),
+            optico: new FormControl(""),
+            oculomotores: new FormControl(""),
+            trigemino: new FormControl(""),
+            facial: new FormControl(""),
+            auditivo: new FormControl(""),
+            glosoNeumo: new FormControl(""),
+            espinal: new FormControl(""),
+            hipogloso: new FormControl(""),
+            obsExamenNeurologico: new FormControl(""),
+        })
     }
 
     ngOnInit(): void {
@@ -112,6 +128,34 @@ export class MotivoConsultaComponent implements OnInit {
             this.examFG.get('PCFC').setValue(this.motivosConsulta.examenFisico.signosVitales.pc)
             this.examFG.get('detailFC').setValue(this.motivosConsulta.examenFisico.revisionCuello)
         })
+    }
+    recuperarDatos() {
+        let examenFisico = {
+            cabeza: this.formExam.value.cabeza,
+            cabellos: this.formExam.value.cabellos,
+            cara: this.formExam.value.cara,
+            cuello: this.formExam.value.cuello,
+            torax: this.formExam.value.torax,
+            abdomen: this.formExam.value.abdomen,
+            columnaVertebral: this.formExam.value.columnaVert,
+            extremidades: this.formExam.value.extremidades,
+            genitouriano: this.formExam.value.genitouriano,
+            ano: this.formExam.value.ano,
+            pielAnexo: this.formExam.value.piel,
+            observacionesFisico: this.formExam.value.obsExamenFisico,
+        }
+        let examenNeurologico = {
+            olfarico: this.formExamNeurologico.value.olfarico,
+            optico: this.formExamNeurologico.value.optico,
+            oculomotores: this.formExamNeurologico.value.oculomotores,
+            trigemico: this.formExamNeurologico.value.trigemico,
+            facial: this.formExamNeurologico.value.facial,
+            auditivo: this.formExamNeurologico.value.auditivo,
+            glosoNeumo: this.formExamNeurologico.value.glosoNeumo,
+            espinal: this.formExamNeurologico.value.espinal,
+            hipogloso: this.formExamNeurologico.value.hipogloso,
+            observacionesNeurologico: this.formExamNeurologico.value.obsExamenNeurologico
+        }
     }
 
     save() {
@@ -159,10 +203,10 @@ export class MotivoConsultaComponent implements OnInit {
     openAlert(key) {
         switch (key) {
             case 1:
-                this.formExam.value.cabeza.length < 1 ? this.headAlert = true : ''
+                this.formExam.value.piel.length < 1 ? this.skinAlert = true : ''
                 break;
             case 2:
-                this.formExam.value.cabello.length < 1 ? this.hairAlert = true : ''
+                this.formExam.value.cabeza.length < 1 ? this.headAlert = true : ''
                 break
             case 3:
                 this.formExam.value.cara.length < 1 ? this.faceAlert = true : ''
@@ -191,19 +235,14 @@ export class MotivoConsultaComponent implements OnInit {
             case 11:
                 this.formExam.value.piel.length < 1 ? this.skinAlert = true : ''
                 break
+            case 11:
+                this.formExam.value.piel.olfatorio < 1 ? this.olfactoryAlert = true : ''
+                break
             default:
                 break;
         }
-
-    }
-    probarBlur() {
-        console.log('probando blur');
-    }
-    closeAlert() {
-        console.log('cerrar alert');
     }
 }
-
 interface motivosConsultaInterface {
     motivosConsulta: string,
     tiempoEnfermedad: string,
