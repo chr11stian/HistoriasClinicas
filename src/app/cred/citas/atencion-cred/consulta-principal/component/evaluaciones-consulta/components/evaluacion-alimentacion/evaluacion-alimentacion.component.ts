@@ -24,7 +24,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
   id:string="62028f4c7ef573236aba9876";
   attributeLocalS = 'idConsulta'
-  edadMeses:number=0;
+  edadMeses:number=4;
   displayPosition: boolean;
   position: string;
   constructor(private evalAlimenService: EvaluacionAlimentacionService,
@@ -179,6 +179,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     this.position = position;
     this.displayPosition = true;
   }
+  /******RECUPERAR LISTA DE EVALUACION ALIMENTICIA*******/
   recuperarDataEvaluacionAlimenticiaBD(){
     this.evalAlimenService.getEvaluacionAlimenticiaCred(this.id).subscribe((res: any) => {
       this.Evaluaciones.push(res.object);
@@ -225,7 +226,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           }
         }
         if(aux.edad == 4) {
-          this.evaluacionAlimenticia[0].valor4M = aux[i].fechaRegistro;
+          this.evaluacionAlimenticia[0].valor4M = aux.fechaRegistro;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor4M = aux.listaPreguntas[x].estado;
@@ -386,15 +387,16 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         i++;
       }
-
     });
   }
+  /*************RECUPERAR EL VALOR DE EDAD COMO STRING ************/
   obtenerTitulo(indice):string{
     if(indice==0){return "valorRN"}
     else{
       return "valor" + indice + "M"
     }
   }
+  /**************GUARDAR UNA EVALUACION ALIMENTICIA***************/
   guardarEvaluacion(indice){
     console.log('entro guardar', this.evaluacionAlimenticia);
     let prefijo = this.obtenerTitulo(indice);
@@ -523,7 +525,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     return fecha2+":00";
   }
   editarEvaluacion(){
-    let prefijo = this.obtenerTitulo(this.edadEditable);
+    let prefijo = this.obtenerTitulo(this.edadMeses);
     console.log(prefijo);
     console.log(this.Evaluaciones);
 
@@ -629,7 +631,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       codigoPrestacion:"0001",
       evaluacionAlimentacionMes:{
         fechaRegistro:this.convertirFecha(this.evaluacionAlimenticia[0][prefijo]),
-        edad:this.edadEditable,
+        edad:this.edadMeses,
         listaPreguntas:lista,
         diagnostico:'ALIMENTACION INADEACUADA'
       }
