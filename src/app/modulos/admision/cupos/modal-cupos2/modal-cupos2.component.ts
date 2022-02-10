@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DocumentoIdentidadService} from "../../../../mantenimientos/services/documento-identidad/documento-identidad.service";
 import Swal from "sweetalert2";
 import {PacienteService} from "../../../../core/services/paciente/paciente.service";
@@ -10,6 +10,7 @@ import {DatePipe} from "@angular/common";
 import {MessageService} from "primeng/api";
 import {PacienteComponent} from "../../../paciente/paciente.component";
 import {DialogService, DynamicDialogConfig} from "primeng/dynamicdialog";
+import {DialogPacienteComponent} from "../../../paciente/dialog-paciente/dialog-paciente.component";
 
 @Component({
     selector: 'app-modal-cupos2',
@@ -219,6 +220,7 @@ export class ModalCupos2Component implements OnInit {
 
 
     buildForm() {
+
         this.formPacientesCupo = this.fb.group({
             primerNombre: new FormControl(''),
             otrosNombres: new FormControl(''),
@@ -227,33 +229,33 @@ export class ModalCupos2Component implements OnInit {
             sexo: new FormControl(''),
             fechaNacimiento: new FormControl(''),
             estadoCivil: new FormControl(''),
-            celular: new FormControl(''),
+            celular: new FormControl('', Validators.required),
 
             nacionalidad: new FormControl(''),
             departamento: new FormControl(''),
             provincia: new FormControl(''),
             distrito: new FormControl(''),
             centroPoblado: new FormControl(''),
-            direccion: new FormControl(''),
+            direccion: new FormControl('',[Validators.required]),
             procedencia: new FormControl(''),
             LugarNacimiento: new FormControl(''),
             GradoInstrucion: new FormControl(''),
 
-            tipoDoc: new FormControl(''),
-            nroDoc: new FormControl(''),
+            tipoDoc: new FormControl('', [Validators.required]),
+            nroDoc: new FormControl('', [Validators.required, Validators.maxLength(8)]),
 
-            tipoSeguro: new FormControl(''),
-            transeunte: new FormControl(''),
+            tipoSeguro: new FormControl('',[Validators.required]),
+            transeunte: new FormControl('',[Validators.required]),
 
             edadAnio: new FormControl(''),
             edadMes: new FormControl(''),
             edadDia: new FormControl(''),
 
 
-            dpto: new FormControl(''),
-            prov: new FormControl(''),
-            dist: new FormControl(''),
-            ccpp: new FormControl(''),
+            dpto: new FormControl('',[Validators.required]),
+            prov: new FormControl('',[Validators.required]),
+            dist: new FormControl('',[Validators.required]),
+            ccpp: new FormControl('',[Validators.required]),
         })
     }
 
@@ -370,41 +372,18 @@ export class ModalCupos2Component implements OnInit {
     }
 
     buscarNuevoPaciente() {
-        this.cuposService.modalPacientes = this.dialog.open(PacienteComponent, {
+        this.cuposService.modalPacientes = this.dialog.open(DialogPacienteComponent, {
             header: "NUEVO PACIENTE",
             style: {
-                width: "60%"
+                width: "90%"
             },
             contentStyle: {
                 overflow: "auto",
 
             },
         })
-        this.pacienteComponent.dialogPaciente = true;
+        // this.pacienteComponent.dialogPaciente = true;
     }
-
-    cargarDatosReniec() {
-        let nroDoc = this.formPacientesCupo.value.nroDoc;
-        console.log(nroDoc);
-        this.pacienteService.getDataReniecPaciente(nroDoc).subscribe((res: any) => {
-            console.log(res.resultado);
-            console.log(res);
-            this.formPacientesCupo.get("primerNombre").setValue(res.nombres);
-            this.formPacientesCupo.get("apePaterno").setValue(res.apePaterno);
-            this.formPacientesCupo.get("apeMaterno").setValue(res.apeMaterno);
-            // if(res.genero="0"){ this.formPaciente.get("sexo").setValue("FEMENINO");}else{"MASCULINO"}
-            this.formPacientesCupo.get("restriccion").setValue(res.restriccion);
-            this.formPacientesCupo.get("estadoCivil").setValue(res.estadoCivil);
-            this.formPacientesCupo.get("direccion").setValue(res.direccion);
-            if (res.tipoSeguro == "01") {
-                this.formPacientesCupo.get("tipoSeguro").setValue("SIS");
-            }
-            this.formPacientesCupo.get("fechaInscripcion").setValue(res.fecAfiliacion);
-
-            // console.log('lista ipress ', this.listaIpress)
-        });
-    }
-
 
     /**Registra un nuevo cupo para un determinado paciente**/
     saveForm() {
@@ -436,8 +415,8 @@ export class ModalCupos2Component implements OnInit {
                 servicio: this.dataPersonalSelecionado.ipress.servicio
             },
         };
+        this.updatePacienteCupos();
         console.log("guardar", req);
-
         this.cuposService.saveCupos(req).subscribe(
             (result: any) => {
                 console.log(result.object);
@@ -468,6 +447,7 @@ export class ModalCupos2Component implements OnInit {
 
 
     /**Actualiza el estdo de una oferta que pertenece al Personal**/
+
     /****/
     actualizarOfertaEstado() {
         let data = {
@@ -483,6 +463,33 @@ export class ModalCupos2Component implements OnInit {
             this.messageService.add({
                 severity: 'success',
                 summary: 'Oferta',
+                detail: 'Actualizo con exito'
+            });
+        })
+    }
+
+    updatePacienteCupos() {
+        let data = {
+            tipoDoc: this.formPacientesCupo.value.tipoDoc,
+            nroDoc: this.formPacientesCupo.value.nroDoc,
+            celular: this.formPacientesCupo.value.celular,
+            tipoSeguro: this.formPacientesCupo.value.tipoSeguro,
+            gradoInstruccion: this.formPacientesCupo.value.GradoInstrucion,
+            domicilio: {
+                departamento: this.formPacientesCupo.value.dpto,
+                provincia: this.formPacientesCupo.value.prov,
+                distrito: this.formPacientesCupo.value.dist,
+                direccion: this.formPacientesCupo.value.direccion,
+                idccpp: '',
+                ccpp: this.formPacientesCupo.value.ccpp,
+                ubigeo: this.DepartamentoIDSelct + this.ProvinciaIDSelct + this.DistritoIDSelct,
+            }
+        }
+        console.log("DATA PACIENTE YY", data)
+        this.cuposService.updatePacienteExtras(data).subscribe(resp => {
+            this.messageService.add({
+                severity: 'success',
+                summary: 'Paciente',
                 detail: 'Actualizo con exito'
             });
         })
@@ -568,8 +575,13 @@ export class ModalCupos2Component implements OnInit {
         })
     }
 
-    cerrar(){
+    cerrar() {
         this.formPacientesCupo.reset();
         this.cuposService.modal2.close();
+    }
+
+    isInvalid(control: string): boolean {
+        const formC: AbstractControl = this.formPacientesCupo.get(control);
+        return formC.invalid && (formC.dirty || formC.touched);
     }
 }
