@@ -13,6 +13,7 @@ export class PagosComponent implements OnInit {
 
     DataPendientesPago: any;
     idIpressLapostaMedica = "616de45e0273042236434b51";
+    ipressNombre="La posta medica";
     formCaja: FormGroup;
     datePipe = new DatePipe('en-US');
     datafecha: Date = new Date();
@@ -32,12 +33,20 @@ export class PagosComponent implements OnInit {
     buildForm() {
         this.formCaja = this.fb.group({
             fechaBusqueda: new FormControl(''),
+            nroCaja: new FormControl(''),
+            nroBoleta: new FormControl(''),
             nroDoc: new FormControl(''),
             apePaterno: new FormControl(''),
             nombres: new FormControl(''),
+            direccion: new FormControl(''),
             estado: new FormControl(''),
-            servico: new FormControl(''),
+            servicio: new FormControl(''),
             nroCupo: new FormControl(''),
+            fechaRecibo: new FormControl(''),
+            fechaAtencion: new FormControl(''),
+            horaAtencion: new FormControl(''),
+            precioServicio: new FormControl(''),
+            tipoSeguro: new FormControl(''),
         })
     }
 
@@ -77,8 +86,7 @@ export class PagosComponent implements OnInit {
         this.formCaja.get('apePaterno').setValue(event.paciente.apellidos);
         this.formCaja.get('nombres').setValue(event.paciente.nombre);
         this.formCaja.get('estado').setValue(event.detallePago);
-        this.formCaja.get('servico').setValue(event.ipress.servicio);
-        this.formCaja.get('nroCupo').setValue(event.nroCupo);
+        this.formCaja.get('servicio').setValue(event.ipress.servicio);
     }
 
     close(){
