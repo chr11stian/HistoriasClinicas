@@ -9,8 +9,7 @@
         <span
                 class="col-fixed text-right mr-1"
                 style="width: 100px"
-                w
-        >{{ inmu1.nombreVacuna }}:</span
+        >Nombre Vacuna:</span
         >
         <div style="width: 105px" class="mr-2">
           <p-calendar
@@ -18,8 +17,8 @@
                   placeholder="Fecha"
                   [disabled]="true"
                   dateFormat="yy-mm-dd"
-                  [(ngModel)]="inmu1.fecha"
-                  [ngClass]="{'vacunado':inmu1.fecha,'noVacunado':!inmu1.fecha}"
+                  [(ngModel)]="inmu1.fechaAplicacion"
+                  [ngClass]="{'vacunado':inmu1.fechaAplicacion,'noVacunado':!inmu1.fechaAplicacion}"
           ></p-calendar>
         </div>
         <div style="width: 105px" class="mr-2">
@@ -30,10 +29,10 @@
                   placeholder="Fecha"
                   dateFormat="yy-mm-dd"
                   [(ngModel)]="inmu1.fechaTentativa"
-                  [ngClass]="{'vacunado':inmu1.fecha,'noVacunado':!inmu1.fecha}"
+                  [ngClass]="{'vacunado':inmu1.fechaAplicacion,'noVacunado':!inmu1.fechaAplicacion}"
           ></p-calendar>
         </div>
-        <button *ngIf="inmu1.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu1)></button>
+        <button *ngIf="inmu1.fechaAplicacion?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu1)></button>
       </div>
     </div>
   </div>
@@ -47,8 +46,8 @@
         <span
                 class="col-fixed text-right mr-1"
                 style="width: 100px"
-                [style]="inmu2.fecha ? 'color:green' : 'color:#BF0D21'"
-        >{{ inmu2.nombreVacuna }}:</span
+                [style]="inmu2.fechaAplicacion ? 'color:green' : 'color:#BF0D21'"
+        >Nombre Vacuna</span
         >
         <div style="width: 105px" class="mr-2">
           <p-calendar
@@ -56,9 +55,9 @@
                   inputId="icon"
                   placeholder="Fecha"
                   dateFormat="yy-mm-dd"
-                  [(ngModel)]="inmu2.fecha"
+                  [(ngModel)]="inmu2.fechaAplicacion"
                   [disabled]="true"
-                  [ngClass]="{'vacunado':inmu2.fecha,'noVacunado':!inmu2.fecha}"
+                  [ngClass]="{'vacunado':inmu2.fechaAplicacion,'noVacunado':!inmu2.fechaAplicacion}"
           ></p-calendar>
         </div>
         <div style="width: 105px" class="mr-2">
@@ -69,10 +68,10 @@
                   placeholder="Fecha"
                   dateFormat="yy-mm-dd"
                   [(ngModel)]="inmu2.fechaTentativa"
-                  [ngClass]="{'vacunado':inmu2.fecha,'noVacunado':!inmu2.fecha}"
+                  [ngClass]="{'vacunado':inmu2.fechaAplicacion,'noVacunado':!inmu2.fechaAplicacion}"
           ></p-calendar>
         </div>
-         <button *ngIf="inmu2.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu2)></button>
+         <button *ngIf="inmu2.fechaAplicacion?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu2)></button>
       </div>
     </div>
   </div>
@@ -86,8 +85,8 @@
         <span
                 class="col-fixed text-right mr-1"
                 style="width: 100px"
-                [style]="inmu3.fecha ? 'color:green' : 'color:#BF0D21'"
-        >{{ inmu3.nombreVacuna }}:</span
+                [style]="inmu3.fechaAplicacion ? 'color:green' : 'color:#BF0D21'"
+        >Nombre Vacuna:</span
         >
         <div style="width: 105px" class="mr-2">
           <p-calendar
@@ -95,9 +94,9 @@
                   inputId="icon"
                   placeholder="Fecha"
                   dateFormat="yy-mm-dd"
-                  [(ngModel)]="inmu3.fecha"
+                  [(ngModel)]="inmu3.fechaAplicacion"
                   [disabled]="true"
-                  [ngClass]="{'vacunado':inmu3.fecha,'noVacunado':!inmu3.fecha}"
+                  [ngClass]="{'vacunado':inmu3.fechaAplicacion,'noVacunado':!inmu3.fechaAplicacion}"
           ></p-calendar>
         </div>
         <div style="width: 105px" class="mr-2">
@@ -108,10 +107,10 @@
                   placeholder="Fecha"
                   dateFormat="yy-mm-dd"
                   [(ngModel)]="inmu3.fechaTentativa"
-                  [ngClass]="{'vacunado':inmu3.fecha,'noVacunado':!inmu3.fecha}"
+                  [ngClass]="{'vacunado':inmu3.fechaAplicacion,'noVacunado':!inmu3.fechaAplicacion}"
           ></p-calendar>
         </div>
-        <button *ngIf="inmu3.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu3)></button>
+        <button *ngIf="inmu3.fechaAplicacion?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined" pTooltip="Editar Inmunización" (click)=agregarVacuna(inmu3)></button>
       </div>
     </div>
   </div>

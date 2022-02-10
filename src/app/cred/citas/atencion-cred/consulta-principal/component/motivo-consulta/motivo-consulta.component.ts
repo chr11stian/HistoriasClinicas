@@ -21,6 +21,17 @@ export class MotivoConsultaComponent implements OnInit {
     examFG: FormGroup;
     motivoFG: FormGroup;
     formExam: FormGroup;
+    headAlert: boolean = false;
+    hairAlert: boolean = false;
+    faceAlert: boolean = false;
+    neckAlert: boolean = false;
+    thoraxAlert: boolean = false;
+    abdomenAlert: boolean = false;
+    spineAlert: boolean = false;
+    extremitiesAlert: boolean = false;
+    genitourianAlert: boolean = false;
+    anusAlert: boolean = false;
+    skinAlert: boolean = false;
     dataExamFisicos: formControlInterface[] = [
         { pro: 't', label: 'T°', nameFC: 'TFC' },
         { pro: 'pa', label: 'PA', nameFC: 'PAFC' },
@@ -30,6 +41,9 @@ export class MotivoConsultaComponent implements OnInit {
         { pro: 'talla', label: 'Talla ', nameFC: 'TallaFC' },
         { pro: 'pc', label: 'PC ', nameFC: 'PCFC' }
     ]
+    edad: number = 18;
+    // genero: string = 'FEMENINO';
+    genero: string = 'MASCULINO';
     motivosConsulta: motivosConsultaInterface;
 
     constructor(private motivosService: MotivosConsultaService) {
@@ -58,15 +72,20 @@ export class MotivoConsultaComponent implements OnInit {
         })
         /** examen fisico */
         this.formExam = new FormGroup({
-            piel: new FormControl(""),
             mucosas: new FormControl(""),
             cabeza: new FormControl(""),
+            cabello: new FormControl(""),
+            cara: new FormControl(""),
             cuello: new FormControl(""),
-            cardioVascular: new FormControl(""),
-            pulmones: new FormControl(""),
-            mamas: new FormControl(""),
-            pezones: new FormControl(""),
+            torax: new FormControl(""),
             abdomen: new FormControl(""),
+            columnaVert: new FormControl(""),
+            extremidades: new FormControl(""),
+            genitouriano: new FormControl(""),
+            ano: new FormControl(""),
+            piel: new FormControl(""),
+            examNeurologico: new FormControl(""),
+
             obsExamenFisico: new FormControl(""),
         });
     }
@@ -136,6 +155,52 @@ export class MotivoConsultaComponent implements OnInit {
                 }
             )
         }
+    }
+    openAlert(key) {
+        switch (key) {
+            case 1:
+                this.formExam.value.cabeza.length < 1 ? this.headAlert = true : ''
+                break;
+            case 2:
+                this.formExam.value.cabello.length < 1 ? this.hairAlert = true : ''
+                break
+            case 3:
+                this.formExam.value.cara.length < 1 ? this.faceAlert = true : ''
+                break
+            case 4:
+                this.formExam.value.cuello.length < 1 ? this.neckAlert = true : ''
+                break
+            case 5:
+                this.formExam.value.torax.length < 1 ? this.thoraxAlert = true : ''
+                break
+            case 6:
+                this.formExam.value.abdomen.length < 1 ? this.abdomenAlert = true : ''
+                break
+            case 7:
+                this.formExam.value.columnaVert.length < 1 ? this.spineAlert = true : ''
+                break
+            case 8:
+                this.formExam.value.extremidades.length < 1 ? this.extremitiesAlert = true : ''
+                break
+            case 9:
+                this.formExam.value.genitouriano.length < 1 ? this.genitourianAlert = true : ''
+                break
+            case 10:
+                this.formExam.value.ano.length < 1 ? this.anusAlert = true : ''
+                break
+            case 11:
+                this.formExam.value.piel.length < 1 ? this.skinAlert = true : ''
+                break
+            default:
+                break;
+        }
+
+    }
+    probarBlur() {
+        console.log('probando blur');
+    }
+    closeAlert() {
+        console.log('cerrar alert');
     }
 }
 
