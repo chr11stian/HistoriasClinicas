@@ -6,6 +6,7 @@
       <button pButton pRipple label="Comprimir" class="mr-2 p-button-secondary" icon="pi pi-window-minimize" (click)="expandir=true" styleClass="p-button-lg"></button>
     </div>
     <div class="flex justify-content-between">
+      <button pButton pRipple label="Grafico del Perimetro Cefálico" (click)="onCircumferenceChart()" class="mr-2 p-button-warning " icon="pi pi-chart-line" styleClass="p-button-lg"></button>
       <button pButton pRipple label="Grafica de Peso" (click)="onWeightChart()" class="mr-2 p-button-warning " icon="pi pi-chart-line" styleClass="p-button-lg"></button>
       <button pButton pRipple label="Grafica Estatura" (click)="onHeightChart()" class="mr-2 p-button-warning" icon="pi pi-chart-line" styleClass="p-button-lg"></button>
       <button pButton pRipple label="Grafica de Peso/Longitud" (click)="onHeightWeightChart()" class="p-button-warning" icon="pi pi-chart-line" styleClass="p-button-lg"></button>
@@ -19,6 +20,7 @@
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
           <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
           <div class="mr-2 text-right" style="width:80px">Fecha</div>
           <div class="text-right" style="width:140px">Fecha Tentativa</div>
           <!--                    <div class="mr-2 text-right" style="width:265px">Fecha</div>-->
@@ -28,6 +30,7 @@
           <span [style]="itemRN.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{itemRN.nroControl}}°:</span>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [disabled]="true" [(ngModel)]="itemRN.peso"/>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [disabled]="true" [(ngModel)]="itemRN.talla"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="itemRN.talla"/>
           <div class="mr-2" style="width:113px">
             <p-calendar [ngClass]="{'vacunado':itemRN.fecha,'noVacunado':!itemRN.fecha}" [showIcon]="true" inputId="icon"  [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="itemRN.fecha"></p-calendar>
           </div>
@@ -44,6 +47,7 @@
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
           <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
           <div class="mr-2 text-right" style="width:80px">Fecha</div>
           <div class="text-right" style="width:140px">Fecha Tentativa</div>
         </div>
@@ -51,6 +55,7 @@
           <span class="col-fixed text-right mr-4" [style]="itemMN1.fecha ? 'color:green' : 'color:#BF0D21'" style="width:20px">{{itemMN1.nroControl}}°:</span>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="itemMN1.peso" [disabled]="true"/>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="itemMN1.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="itemMN1.talla"/>
           <div class="mr-2" style="width:113px">
             <p-calendar [ngClass]="{'vacunado':itemMN1.fecha,'noVacunado':!itemMN1.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="itemMN1.fecha"></p-calendar>
           </div>
@@ -67,6 +72,7 @@
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
           <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
           <div class="mr-2 text-right" style="width:80px">Fecha</div>
           <div class="text-right" style="width:140px">Fecha Tentativa</div>
         </div>
@@ -74,6 +80,7 @@
           <span [style]="item1.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item1.nroControl}}°:</span>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item1.peso" [disabled]="true"/>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item1.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item1.talla"/>
           <div class="mr-2" style="width:113px">
             <p-calendar [ngClass]="{'vacunado':item1.fecha,'noVacunado':!item1.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item1.fecha"></p-calendar>
           </div>
@@ -90,6 +97,7 @@
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
           <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
           <div class="mr-2 text-right" style="width:80px">Fecha</div>
           <div class="text-right" style="width:140px">Fecha Tentativa</div>
         </div>
@@ -97,6 +105,7 @@
           <span [style]="item2.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item2.nroControl}}°:</span>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item2.peso" [disabled]="true"/>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item2.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item2.talla"/>
           <div class="mr-2" style="width:113px">
             <p-calendar [ngClass]="{'vacunado':item2.fecha,'noVacunado':!item2.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item2.fecha"></p-calendar>
           </div>
@@ -114,6 +123,7 @@
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
           <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
           <div class="mr-2 text-right" style="width:80px">Fecha</div>
           <div class="text-right" style="width:140px">Fecha Tentativa</div>
         </div>
@@ -121,6 +131,7 @@
           <span [style]="item3.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item3.nroControl}}°:</span>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item3.peso" [disabled]="true"/>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item3.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item3.talla"/>
           <div class="mr-2" style="width:113px">
             <p-calendar [ngClass]="{'vacunado':item3.fecha,'noVacunado':!item3.fecha}" inputId="icon" placeholder="Fecha" [disabled]=true dateFormat="yy-mm-dd" [(ngModel)]="item3.fecha"></p-calendar>
           </div>
@@ -137,6 +148,7 @@
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
           <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
           <div class="mr-2 text-right" style="width:80px">Fecha</div>
           <div class="text-right" style="width:140px">Fecha Tentativa</div>
         </div>
@@ -144,6 +156,7 @@
           <span [style]="item4.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item4.nroControl}}°:</span>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item4.peso" [disabled]="true"/>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item4.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item4.talla"/>
           <div class="mr-2" style="width:113px">
             <p-calendar [ngClass]="{'vacunado':item4.fecha,'noVacunado':!item4.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item4.fecha"></p-calendar>
           </div>
@@ -160,6 +173,7 @@
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
           <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
           <div class="mr-2 text-right" style="width:80px">Fecha</div>
           <div class="text-right" style="width:140px">Fecha Tentativa</div>
         </div>
@@ -167,6 +181,7 @@
           <span [style]="item5.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item5.nroControl}}°:</span>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item5.peso" [disabled]="true"/>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item5.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item5.talla"/>
           <div class="mr-2" style="width:113px">
             <p-calendar [ngClass]="{'vacunado':item5.fecha,'noVacunado':!item5.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item5.fecha"></p-calendar>
           </div>
@@ -183,6 +198,7 @@
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
           <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
           <div class="mr-2 text-right" style="width:80px">Fecha</div>
           <div class="text-right" style="width:140px">Fecha Tentativa</div>
         </div>
@@ -190,6 +206,7 @@
           <span [style]="item6.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item6.nroControl}}°:</span>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item6.peso" [disabled]="true"/>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item6.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item6.talla"/>
           <div class="mr-2" style="width:113px">
             <p-calendar [ngClass]="{'vacunado':item6.fecha,'noVacunado':!item6.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item6.fecha"></p-calendar>
           </div>
@@ -206,6 +223,7 @@
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
           <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
           <div class="mr-2 text-right" style="width:80px">Fecha</div>
           <div class="text-right" style="width:140px">Fecha Tentativa</div>
         </div>
@@ -213,6 +231,7 @@
           <span  [style]="item7.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item7.nroControl}}°:</span>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item7.peso" [disabled]="true"/>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item7.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item7.talla"/>
           <div class="mr-2" style="width:113px">
             <p-calendar [ngClass]="{'vacunado':item7.fecha,'noVacunado':!item7.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item7.fecha"></p-calendar>
           </div>
@@ -229,6 +248,7 @@
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
           <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
           <div class="mr-2 text-right" style="width:80px">Fecha</div>
           <div class="text-right" style="width:140px">Fecha Tentativa</div>
         </div>
@@ -236,6 +256,7 @@
           <span [style]="item8.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item8.nroControl}}°:</span>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item8.peso" [disabled]="true"/>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item8.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item8.talla"/>
           <div class="mr-2" style="width:113px">
             <p-calendar [ngClass]="{'vacunado':item8.fecha,'noVacunado':!item8.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item8.fecha"></p-calendar>
           </div>
@@ -252,6 +273,7 @@
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
           <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
           <div class="mr-2 text-right" style="width:80px">Fecha</div>
           <div class="text-right" style="width:140px">Fecha Tentativa</div>
         </div>
@@ -259,6 +281,7 @@
           <span [style]="item9.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item9.nroControl}}°:</span>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item9.peso" [disabled]="true"/>
           <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item9.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item9.talla"/>
           <div class="mr-2" style="width:113px">
             <p-calendar [ngClass]="{'vacunado':item9.fecha,'noVacunado':!item9.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item9.fecha"></p-calendar>
           </div>

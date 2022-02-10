@@ -236,12 +236,14 @@
             icon="pi pi-save"
             label="Interconsulta"
             formControlName="Interconsulta"
+            (click)="getExamenes()"
             style="background-color: #0c3866"
             class="p-button-raised p-button-info"></button>
     <button type="submit"
             icon="pi pi-times-circle"
             pButton
             pRipple
+            (click)="getConsultaPrincipal()"
             formControlName="Consulta"
             label="Seguir Consulta"
             style="background-color: #0c3866"

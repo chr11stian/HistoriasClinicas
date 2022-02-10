@@ -1,125 +1,174 @@
 <div class="grid">
-    <p-fieldset legend="MOTIVOS DE CONSULTA" styleClass="mb-2">
-        <form [formGroup]="motivoFG">
-            <textarea class="inputfield w-full mb-2" formControlName="detailMotivoFC" pInputTextarea
-                      oninput="this.value=this.value.toUpperCase()">
-        </textarea>
-            <div class="grid text-right">
-                <div class="col-12 md:col-2">
-                    Tiempo de enfermedad :
-                </div>
-                <div class="col-12 md:col-2 ">
-                    <input type="text" pInputText formControlName="enfermedadFC" class="inputfield w-full"
-                           oninput="this.value=this.value.toUpperCase()"/>
-                </div>
-                <div class="col-12 md:col-2 mt-2 text-right">
-                    Forma de inicio :
-                </div>
-                <div class="col-12 md:col-2">
-                    <input type="text" pInputText formControlName="inicioFC" class="inputfield w-full"
-                           oninput="this.value=this.value.toUpperCase()"/>
-                </div>
-                <div class="col-12 md:col-1 mt-2 text-right">
-                    Curso :
-                </div>
-                <div class="col-12 md:col-3">
-                    <input type="text" pInputText formControlName="cursoFC" class="inputfield w-full"
-                           oninput="this.value=this.value.toUpperCase()"/>
-                </div>
-            </div>
-        </form>
-    </p-fieldset>
-
+    <div class="col-12">
+        <p-fieldset legend="MOTIVOS DE CONSULTA" styleClass="mb-2">
+            <form [formGroup]="motivoFG">
+                <textarea class="inputfield w-full mb-2" formControlName="detailMotivoFC" pInputTextarea
+                    oninput="this.value=this.value.toUpperCase()"></textarea>
+                <!-- <div class="grid text-right">
+                    <div class="col-12 md:col-2">
+                        Tiempo de enfermedad :
+                    </div>
+                    <div class="col-12 md:col-2 ">
+                        <input type="text" pInputText formControlName="enfermedadFC" class="inputfield w-full"
+                               oninput="this.value=this.value.toUpperCase()"/>
+                    </div>
+                    <div class="col-12 md:col-2 mt-2 text-right">
+                        Forma de inicio :
+                    </div>
+                    <div class="col-12 md:col-2">
+                        <input type="text" pInputText formControlName="inicioFC" class="inputfield w-full"
+                               oninput="this.value=this.value.toUpperCase()"/>
+                    </div>
+                    <div class="col-12 md:col-1 mt-2 text-right">
+                        Curso :
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <input type="text" pInputText formControlName="cursoFC" class="inputfield w-full"
+                               oninput="this.value=this.value.toUpperCase()"/>
+                    </div>
+                </div> -->
+            </form>
+        </p-fieldset>
+    </div>
     <p-fieldset legend="EXAMEN FÍSICO">
         <p-divider></p-divider>
         <form [formGroup]="formExam">
             <div class="grid ">
-                <div class="col-4">
-                    <div class="grid">
-                        <div class="col-12 ">
-                            <label>Piel:</label>
-                            <input type="text" pInputText formControlName='piel' placeholder="Piel"
-                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="grid">
-                        <div class="col-12 ">
-                            <label>Mucosas:</label>
-                            <input type="text" pInputText formControlName='mucosas' placeholder="Mucosas"
-                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="grid">
                         <div class="col-12 ">
                             <label>Cabeza:</label>
                             <input type="text" pInputText formControlName='cabeza' placeholder="Cabeza"
-                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(1)">
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Cabellos:</label>
+                            <input type="text" pInputText formControlName='cabello' placeholder="Cabellos"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(2)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Cara:</label>
+                            <input type="text" pInputText formControlName='cara' placeholder="Cara"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(3)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
                     <div class="grid">
                         <div class="col-12">
                             <label>Cuello:</label>
                             <input type="text" pInputText formControlName='cuello' placeholder="Cuello"
-                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(4)">
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="grid">
                         <div class="col-12">
-                            <label>Cardio Vasc:</label>
-                            <input type="text" pInputText formControlName='cardioVascular' placeholder="Cardio Vascular"
-                                   class=" inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                            <label>Tórax:</label>
+                            <input type="text" pInputText formControlName='torax' placeholder="Torax"
+                                class=" inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(5)">
                         </div>
                     </div>
                 </div>
-                <div class="col-4">
-                    <div class="grid">
-                        <div class="col-12 ">
-                            <label>Pulmones:</label>
-                            <input type="text" pInputText formControlName='pulmones' placeholder="Pulmones"
-                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="grid">
-                        <div class="col-12 ">
-                            <label>Mamas:</label>
-                            <input type="text" pInputText formControlName='mamas' placeholder="Mamas"
-                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="grid">
-                        <div class="col-12 ">
-                            <label>Pezones:</label>
-                            <input type="text" pInputText formControlName='pezones' placeholder="Pezones"
-                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="grid">
                         <div class="col-12">
                             <label>Abdomen:</label>
                             <input type="text" pInputText formControlName='abdomen' placeholder="Abdomen"
-                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(6)">
                         </div>
                     </div>
                 </div>
-                <label>Observaciones de Examen Físico</label>
-                <div class="col-12 text-center">
-                    <textarea class="p-fluid w-full" rows="3" cols="85" pInputTextarea formControlName="obsExamenFisico"
-                              oninput="this.value=this.value.toUpperCase()"></textarea>
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Columna Vertebral:</label>
+                            <input type="text" pInputText formControlName='columnaVert' placeholder="Columna Vertebral"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(7)">
+                        </div>
+                    </div>
                 </div>
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Extremidades:</label>
+                            <input type="text" pInputText formControlName='extremidades' placeholder="Extremidades"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(8)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Genitouriano:</label>
+                            <input type="text" pInputText formControlName='genitouriano' placeholder="Genitouriano"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(9)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Ano:</label>
+                            <input type="text" pInputText formControlName='ano' placeholder="Ano"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(10)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Piel y Anexos:</label>
+                            <input type="text" pInputText formControlName='piel' placeholder="Piel y Anexos"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(11)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Examen Neurológico:</label>
+                            <input type="text" pInputText formControlName='examNeurologico'
+                                placeholder="Examen Neurológico" class="inputfield w-full"
+                                oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-4">
+                    <div class="grid">
+                        <div class="col-12 ">
+                            <label>Pezones:</label>
+                            <input type="text" pInputText formControlName='pezones' placeholder="Pezones"
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-12">
+                    <label>Observaciones de Examen Físico:</label>
+                    <textarea class="p-fluid w-full" rows="3" cols="85" pInputTextarea formControlName="obsExamenFisico"
+                        oninput="this.value=this.value.toUpperCase()"></textarea>
+                </div>
+
             </div>
             <p-divider></p-divider>
         </form>
@@ -136,14 +185,300 @@
                             </div>
                             <div class="col-6 md:col-2">
                                 <input type="number" pInputText [formControlName]="controlFC.nameFC"
-                                       class="inputfield w-full"/>
+                                    class="inputfield w-full" />
                             </div>
                         </ng-container>
                     </div>
                 </div>
             </div>
             <p-divider></p-divider>
+            <label>Observaciones de Signos Vitales:</label>
             <textarea class="inputfield w-full mb-2" formControlName="detailFC" pInputTextarea></textarea>
         </form>
     </p-fieldset>
 </div>
+<!-- DIALOG ADD RESULTADOS EXAMENES AUXILIARES -->
+<p-dialog class="dialogo m-4" [(visible)]="headAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">CABEZA</h4>
+                <p-divider></p-divider>
+                <ul>
+                    <li>Palpar las suturas y fontanelas.</li>
+                    <li>Si las fontanelas están prematuramente cerradas pensar en: microcefalia, craneosinostosis,
+                        hipertiroidismo, derivar al especialista y realizar seguimiento.</li>
+                    <li>Verificar si las fontanelas están abombadas, para identificar hipertensión endocraneana,
+                        meningitis.
+                    </li>
+                    <li>Si la fontanela está más amplia de lo normal puede deberse a: Hidrocefalia, hipotiroidismo,
+                        prematuridad, malnutrición.</li>
+                    <li>Podemos encontrar suturas cabalgadas lo que requiere observación y seguimiento.</li>
+                    <li>Cualquier condición anormal referir para evaluación y tratamiento al nivel correspondiente.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="hairAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">CABELLOS</h4>
+                <ul>
+                    <li>Verificar implantación, distribución, textura (quebradizo), color, ver si hay infecciones en
+                        cuero cabelludo, pediculosis e higiene.</li>
+                    <li>Según corresponda dar indicaciones o referir para evaluación o tratamiento al nivel
+                        correspondiente.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="faceAlert" [style]="{width: '50%'}" [modal]="true" styleClass="p-fluid"
+    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">CARA</h4>
+                <div>
+                    <div class="mb-2 ml-2">
+                        <label>FACIES: </label><span>Observar la forma, simetría de movimientos (descartar
+                            parálisis
+                            facial), edema o aumento.</span>
+                    </div>
+                    <div class="mb-2 ml-2">
+                        <label>OREJA: </label> <span>Observar anomalías externas en pabellón auricular o
+                            ausencia de las
+                            mismas, implantación
+                            baja de las orejas, secreciones, higiene. Sí hay otoscopio evaluar el tímpano: color,
+                            brillo,
+                            dolor o
+                            presencia de secreciones.</span>
+                    </div>
+                    <div class="mb-2 ml-2">
+                        <label>OJOS: </label>
+                    </div>
+                    <ul>
+                        <li>Párpados: observar hinchazón, cambios de color.</li>
+                        <li>Conjuntivas: color, palidez, secreción.</li>
+                        <li>Esclerótica: ictericia, cambio de color.</li>
+                        <li>Pupilas: acomodación y tamaño.</li>
+                        <li>Movimientos oculares: completos y simétricos.</li>
+                        <li>Globos oculares: Si hay protrusión o si éstos son pequeños.</li>
+                        <li>Estrabismo (debe hacerse el diagnóstico a los 6 meses de edad) derivar para evaluación por
+                            médico oftalmólogo.</li>
+                    </ul>
+                    <div class="ml-2 mb-2">
+                        <label>NARIZ: </label> <span>Observar si las fosas nasales están permeables. Evaluar
+                            deformidades o desviación del tabique.
+                            Observar si el niño respira bien por la nariz estando con la boca cerrada.
+                            Si hay presencia de congestión nasal y secreción sanguinolenta investigar.</span>
+                    </div>
+                    <div class="ml-2">
+                        <label>BOCA: </label><span>Observar simetría, mucosa, encías, frenillo sublingual, piezas
+                            dentarias.
+                            Malformaciones como fsura palatina anterior y posterior, derivar al médico o especialista en
+                            cirugía plástica.
+                            Mala oclusión, higiene (presencia de caries).Derivar a odontología.
+                            Inspeccionar: labios encías, lengua, amígdalas, faringe, estado de higiene.
+                            Descartar: Inﬂamaciones, hemangioma o parálisis.
+                            Dentición: Erupción y caída de la primera dentición</span>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="neckAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">CUELLO</h4>
+                <ul>
+                    <li>Explorar simetría, ﬂexibilidad, presencia de dolor, tumoraciones, aumento de volumen de los
+                        ganglios.</li>
+                    <li>Evaluar glándula tiroidea, buscando bocio congénito, nódulos o tumoraciones.</li>
+                    <li>Según corresponda referir para evaluación o tratamiento al nivel correspondiente.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="thoraxAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">TORAX</h4>
+                <ul>
+                    <li>Observar asimetrías, movimientos respiratorios, tiraje.</li>
+                    <li>Agrandamiento de la glándula mamaria o presencia de secreción láctea(es normal sólo en recién
+                        nacidos).</li>
+                    <li>Auscultar para detectar ruidos anormales cardiacos y/o respiratorios, soplos.</li>
+                    <li><b>En caso de Cardiopatía se puede presentar cianosis, taquicardia, lactancia materna
+                            entrecortada,
+                            sudoración excesiva durante la lactancia. Referir a Cardiología.</b></li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="abdomenAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">ABDOMEN</h4>
+                <ul>
+                    <li>Observar distensión abdominal, circulación venosa colateral, ombligo de acuerdo a la edad
+                        (cuidado e higiene).</li>
+                    <li>Palpar determinando si hay crecimiento del hígado, bazo y tumoraciones.</li>
+                    <li>Presencia de hernias umbilicales, inguinales.</li>
+                    <li>Referir al especialista en cirugía pediátrica una vez confirmado el diagnóstico.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="spineAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">COLUMNA VERTEBRAL</h4>
+                <ul>
+                    <li>Observar asimetrías, rigidez y postura estando el niño sentado, de pie y acostado, verifcando si
+                        hay desviaciones de la curvatura normal de la columna: <b> lordosis, escoliosis y cifosis.</b>
+                    </li>
+                    <li>El manejo se realizará de acuerdo a las guías de práctica clínica vigente.</li>
+                    <li>En el recién nacido evaluar presencia de <b>espina bífida</b> que se puede manifestar por:
+                        presencia
+                        de bulto graso, mancha rojiza, zona de pelos largos anormales u orifcio cutáneo en cualquier
+                        zona
+                        desde el cuello a la región sacro coxígea. Derivar al médico o especialista en Neurocirugía.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="extremitiesAlert" [style]="{width: '50%'}" [modal]="true"
+    styleClass="p-fluid" position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">EXTREMIDADES</h4>
+                <ul>
+                    <div>
+                        <label>Descarte de Displasia de Cadera:</label>
+                    </div>
+                    <div *ngIf="edad<3" class="imagen-barlow"></div>
+                    <div *ngIf="edad>=3" class="imagen-ortolani"></div>
+                    <li>Otros hallazgos pueden ser acortamiento de uno de los miembros; limitación en la abducción, en
+                        el lado afectado y asimetría de pliegues.</li>
+                    <li>El manejo se realizará de acuerdo a las guías de práctica clínica vigente.</li>
+                    <li *ngIf="edad==18">Observar piernas arqueadas y difcultad en la marcha.</li>
+                    <li *ngIf="edad >= 24">Examinar el arco plantar para diagnosticar pie plano.</li>
+                    <li>En todos estos casos derivar al médico o especialista en Traumatología, para su manejo de
+                        acuerdo a guía de práctica clínica vigente.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="genitourianAlert" [style]="{width: '40%'}" [modal]="true"
+    styleClass="p-fluid" position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">GENITOURIANO</h4>
+                <ul>
+                    <li>Observar el tamaño y forma de los genitales externos, higiene, presencia de inﬂamación,
+                        dolor o
+                        secreciones.</li>
+                    <div class="mt-2">
+                        <li *ngIf="genero=='MASCULINO'"><label *ngIf="genero=='MASCULINO'">NIÑO: </label><span
+                                *ngIf="genero=='MASCULINO'">Determinar el
+                                tamaño, ubicación, palpación de los testículos a fn de
+                                descartar
+                                criptorquidia, hidrocele y observar prepucio para descartar fmosis, hipospadia,
+                                epispadia.
+                                En el pene determinar tamaño, presencia de fmosis y/ o adherencias del prepucio,
+                                inﬂamación
+                                y dolor.</span></li>
+                        <li *ngIf="genero=='FEMENINO'"><label *ngIf="genero=='FEMENINO'" class="mt-2">NIÑA:
+                            </label><span *ngIf="genero=='FEMENINO'">Observar,
+                                labios mayores, menores, clítoris, himen. Detectar sinequia
+                                de labios (labios
+                                menores unidos y no se observa himen).</span></li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="anusAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">ANO</h4>
+                <ul>
+                    <li>En recién nacidos verifcar características y permeabilidad.</li>
+                    <li>Observar fisuras, fístulas perianales, malformaciones ano rectales.</li>
+                    <li>En caso de fístulas perianales o malformaciones ano rectales, referir inmediatamente al servicio
+                        de Cirugía Pediátrica.</li>
+                    <li>Preguntar por las características de las deposiciones a fin de identificar alteraciones
+                        (diarrea,
+                        estreñimiento, etc.) y dar indicaciones o referir para tratamiento.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="skinAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">PIEL Y ANEXOS</h4>
+                <ul>
+                    <li>Observar color (cianosis, ictericia, palidez), hemangioma, erupciones, presencia de edema,
+                        estado de higiene.</li>
+                    <li>Coloración verdosa en zona sacro coccígea, las llamadas Manchas Mongólicas, son normales y
+                        desaparecen a los dos años de edad.</li>
+                    <li>En caso de fístulas perianales o malformaciones ano rectales, referir inmediatamente al servicio
+                        de Cirugía Pediátrica.</li>
+                    <li><b>Dermatitis, observar maceración de la piel por contacto prolongado con pañal mojado</b>.</li>
+                    <li> Según corresponda dar indicaciones o referir para evaluación o tratamiento.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="skinAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">PIEL Y ANEXOS</h4>
+                <ul>
+                    <li>Observar color (cianosis, ictericia, palidez), hemangioma, erupciones, presencia de edema,
+                        estado de higiene.</li>
+                    <li>Coloración verdosa en zona sacro coccígea, las llamadas Manchas Mongólicas, son normales y
+                        desaparecen a los dos años de edad.</li>
+                    <li>En caso de fístulas perianales o malformaciones ano rectales, referir inmediatamente al servicio
+                        de Cirugía Pediátrica.</li>
+                    <li><b>Dermatitis, observar maceración de la piel por contacto prolongado con pañal mojado</b>.</li>
+                    <li> Según corresponda dar indicaciones o referir para evaluación o tratamiento.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

@@ -7,6 +7,7 @@ p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header > a {
     border-bottom: none !important;
     border-right: none !important;
     border-left: 5px solid #AF0017; /*jiimmy*/
+    /*border-left: 5px solid rgb(12 56 102); !*jiimmy*!*/
 }
 
 
@@ -31,7 +32,7 @@ p-panelmenu >>> .p-panelmenu-header.p-highlight:not(.p-enabled) > a {
 }
 
 /*p-panelmenu>>> .pi-chevron-right:before {*/
-/*    content: none !important;*/
+/*    content: none !important; rgb(12 56 102)*/
 /*}*/
 
 .size-panel-menu {
@@ -102,3 +103,13 @@ p-panelmenu >>> .p-panelmenu-header.p-highlight:not(.p-enabled) > a {
 p-panelmenu >>> .p-panelmenu-panel .p-panelmenu-header > a:hover {
     border-color: #FBF3F4 !important
 }
+
+
+/*p-panelMenu>>>.p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-text {*/
+/*    padding: 0px 12px;*/
+/*    font-size: 13px;*/
+/*    border-top: 0 none;*/
+/*    border-top-width: 0px;*/
+/*    border-top-style: none;*/
+/*    border-top-color: initial;*/
+/*}*/

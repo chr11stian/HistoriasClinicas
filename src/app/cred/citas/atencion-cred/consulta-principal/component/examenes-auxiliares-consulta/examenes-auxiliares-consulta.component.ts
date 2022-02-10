@@ -13,12 +13,13 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   isUpdate: boolean = false;
   listaExamenes:string[] = [
     'TEST DE GRAHAM',
-    'DESCARTE DE ANEMIA',
-    'SALUD BUCAL',
-    'SESIONES DEMOSTRATIVAS',
+    'DOSAJE DE HENOGLOBINA',
     'PARASITO SERIADO',
-    'VISITAS DOMICILIARIAS'
   ];
+  listaLugares: string[]=[
+    'CONSULTORIO',
+    'LABORATORIO'
+  ]
 
   constructor(
     private fb: FormBuilder,

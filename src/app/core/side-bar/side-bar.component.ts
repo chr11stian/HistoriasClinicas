@@ -247,7 +247,7 @@ const menu_ipress = [
             {
                 icon: "pi pi-file",
                 label: "Cupos",
-                routerLink: "admision/cupos",
+                routerLink: "admision/atenciones",
             },
             {
                 label: "Caja",
@@ -428,9 +428,19 @@ const menu_ipress = [
                 routerLink: "admision/ipress-roles",
             },
             {
+                label: "Ipress Horarios",
+                icon: "pi pi-pw pi-file",
+                routerLink: "admision/ipress-horarios",
+            },
+            {
                 icon: "pi pi-file",
                 label: "Tipo Personal",
                 routerLink: "mantenimientos/tipo-personal",
+            },
+            {
+                icon: "pi pi-file",
+                label: "Unidad ejecutora",
+                routerLink: "mantenimientos/unidad-ejecutora",
             },
         ],
     },

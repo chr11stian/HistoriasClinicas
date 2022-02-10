@@ -9,17 +9,22 @@
     <br>
     <p-toolbar>
         <ng-template pTemplate="left">
+            <label>¿Se atiende en otra fecha?:  </label>
+            <p-checkbox [(ngModel)]="checked" binary="true" inputId="binary"></p-checkbox>
+            <br>
+            <br>
             <form [formGroup]="formValoracionClinicaFuncional" >
                 <!--primera fila-->
                 <label id="icon">Fecha:</label>
                 <br>
-                <p-calendar  formControlName="fecha" [showTime]="true" [showSeconds]="true" [showIcon]="true" inputId="icon" dateFormat="yy-mm-dd" ></p-calendar>
+                <p-calendar  formControlName="fecha" [showTime]="true" [showSeconds]="true" [showIcon]="true" inputId="icon" dateFormat="yy-mm-dd" [disabled]="checked===false"></p-calendar>
 <!--                <input type="datetime-local"optionValue="value" formControlName="fecha" pInputText >-->
+
             </form>
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                    class="guardar-boton" (click)="agregarActualizar()"></button>
+                    class="guardar-boton" (click)="guardarValoracionFuncional2()"></button>
             <button pButton pRipple label="Nuevo" iconPos="right" icon="pi pi-file"
                     class="boton-listar" (click)="nuevaValoracion()"></button>
             <button pButton pRipple label="Listar Valoraciones Funcional" iconPos="right" icon="pi pi-list"
