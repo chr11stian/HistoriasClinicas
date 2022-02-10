@@ -253,7 +253,7 @@ export class TepsiComponent implements OnInit {
           mes: this.getFC('mes').value,
           dia: this.getFC('dia').value,
         },
-        fechaTest:'2021-11-17 12:50:02',
+        fechaTest:new Date(),
         nombreExaminador: this.getFC('nombreExaminador').value,
         resultadoTestTotal: {
           puntajeBruto: this.resultado[0],

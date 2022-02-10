@@ -22,8 +22,14 @@
     </ng-template>
 
     <ng-template pTemplate="header">
-        <tr>
-            <th rowSpan="2" colSpan="3" class="text-center" style="min-width: 250px ;border-bottom:1px solid #CDCDCD" >
+        <tr >
+            <th class="frozenCol text-center"
+                pFrozenColumn
+                [frozen]="true"
+                rowSpan="2"
+                colSpan="3"
+
+                style="min-width: 250px ;border-bottom:1px solid #CDCDCD" >
                 <strong>
                     <label class="line-height-4" for="username2" class="text-base" style="font-weight:normal">
                         Servicio:</label
@@ -90,10 +96,14 @@
             >
                 {{ dia.abreviatura }}
             </th>
-            <th rowspan="2" style="background-color:#D9D9D9">Horas</th>
+            <th  class="frozenCol"
+                 pFrozenColumn
+                 [frozen]="true" rowspan="2" style="background-color:#D9D9D9">Horas</th>
         </tr>
         <tr>
-            <th colspan="3" >
+            <th  class="frozenCol"
+                 pFrozenColumn
+                 [frozen]="true" colspan="3" >
                 PERSONAL DE SALUD
             </th>
 <!--            <th >-->
@@ -112,8 +122,10 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-i="rowIndex;">
-        <tr  [pSelectableRow]="rowData" (click)="modal(rowData)">
-            <td style="min-width: 3rem">
+        <tr  [pSelectableRow]="rowData" (click)="modal(rowData,i)">
+            <td  class="frozenCol"
+                 pFrozenColumn
+                 [frozen]="true" style="min-width: 3rem">
                 {{ i + 1 }}
             </td>
 <!--            <td class="">-->
@@ -122,7 +134,9 @@
 <!--            <td class="" >-->
 <!--                {{ rowData.nombre }}-->
 <!--            </td>-->
-            <td colspan="2">
+            <td  class="frozenCol"
+                 pFrozenColumn
+                 [frozen]="true" colspan="2">
                 {{rowData.nombreCompleto}}
             </td>
             <td *ngFor="let dia of cabeceraMes; let j = index" class="" >
@@ -141,7 +155,9 @@
                     (onChange)="changeTurno(i, j)"
                 ></p-dropdown>
             </td>
-            <td class="">{{ listaHoras[i] }}</td>
+            <td  class="frozenCol"
+                 pFrozenColumn
+                 [frozen]="true" >{{ listaHoras[i] }}</td>
         </tr>
     </ng-template>
 </p-table>
@@ -181,7 +197,7 @@
             </div>
             <div class="col-2">
                 <span><p>F-Feriado</p> </span>
-                <span><p style="color:#BF0D21">NA-No Asignado</p> </span>
+<!--                <span><p style="color:#BF0D21">NA-No Asignado</p> </span>-->
             </div>
         </div>
     </div>
@@ -195,29 +211,32 @@
                     class="bg-blue-700 p-button px-5 mx-1 text-center"
                     icon="pi pi-save"
                     (click)="designar()"
-                    [disabled]="upsSeleccionada == ''"
+                    [disabled]="!isSelected"
                     style="border-radius: 0.5rem"
+                    de
             ></button>
         </div>
+<!--                    [disabled]="upsSeleccionada == ''"-->
         <div class="col-6 flex align-content-center flex-wrap card-container">
-            <button
-                    pButton
-                    type="button"
-                    label="Cerrar"
-                    class="p-button-danger p-button px-5 mx-1 text-center p-button-danger "
-                    icon="pi pi-times-circle"
-                    (click)="close()"
-                    style="border-radius: 0.5rem"
-            ></button>
+<!--            <button-->
+<!--                    pButton-->
+<!--                    type="button"-->
+<!--                    label="Cerrar"-->
+<!--                    class="p-button-danger p-button px-5 mx-1 text-center p-button-danger "-->
+<!--                    icon="pi pi-times-circle"-->
+<!--                    (click)="close()"-->
+<!--                    style="border-radius: 0.5rem"-->
+<!--            ></button>-->
         </div>
     </div>
 </div>
 <!-- </p-card> -->
 <p-confirmDialog
         [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
-        [style]="{ width: '25vw' }"
+        [style]="{ width: '45vw' }"
         key="positionDialog"
         [baseZIndex]="10000"
+        position="top"
 ></p-confirmDialog>
 <p-toast [style]="{ marginTop: '80px' }" key="toast1"></p-toast>
 <p-toast [style]="{ marginTop: '80px' }" key="toast2"></p-toast>
