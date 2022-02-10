@@ -186,6 +186,7 @@ export class PersonalSaludComponent implements OnInit {
     this.formRol = this.formBuilder.group({
       nombreFuncion: ["", [Validators.required]],
       ups: ["", [Validators.required]],
+      rolGuardia: ["", [Validators.required]]
     });
   }
   getPersonal() {
@@ -486,6 +487,7 @@ export class PersonalSaludComponent implements OnInit {
     this.idRolX = rowData.id;
     this.formRol.reset();
     this.personalRolDialogX = true;
+    this.isUpdateRolX = false;
   }
   guardarNuevoEspecialidad() {
     this.isUpdateEspecialidad = false;
@@ -513,6 +515,7 @@ export class PersonalSaludComponent implements OnInit {
     this.isUpdateRolX = true;
     this.formRol.get("nombreFuncion").setValue(rowData.nombreFuncion);
     this.formRol.get("ups").setValue(rowData.codUPS);
+    this.formRol.get("rolGuardia").setValue(rowData.rolGuardia);
     // this.estadoUpdateRol = rowData.estado;
 
   }
@@ -608,6 +611,7 @@ export class PersonalSaludComponent implements OnInit {
       const req = {
             nombreFuncion: this.formRol.value.nombreFuncion,
             codUPS: this.formRol.value.ups,
+            rolGuardia: this.formRol.value.rolGuardia,
           }
           this.personalservice
             .addRolesPersonal(this.idRolX, req)
@@ -622,6 +626,7 @@ export class PersonalSaludComponent implements OnInit {
               this.rolesX.push(req);
               this.getPersonal();
               this.guardarNuevoRol();
+              this.isUpdateRolX = false;
             });
     }
     else{
@@ -668,6 +673,7 @@ export class PersonalSaludComponent implements OnInit {
     const req = {
       nombreFuncion: this.formRol.value.nombreFuncion,
       codUPS: this.formRol.value.ups,
+      rolGuardia: this.formRol.value.rolGuardia
     }
     console.log(req);
 
@@ -682,7 +688,8 @@ export class PersonalSaludComponent implements OnInit {
         });
         // this.getPersonalIdEspecialidad();
         // this.getPersonal();
-        this.guardarNuevoEspecialidad();
+        this.guardarNuevoRol();
+        this.isUpdateRolX = false;
       });
   }
   ngOnInit(): void { }
