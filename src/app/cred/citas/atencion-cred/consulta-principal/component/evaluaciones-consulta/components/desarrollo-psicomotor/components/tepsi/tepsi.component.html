@@ -1,101 +1,10 @@
-<!--<div class="grid tepsi">-->
-<!--    <div class=" caja col-12">-->
-<!--        <div>-->
-<!--            <strong>Edad:</strong>-->
-<!--        </div>-->
-<!--        <div class="ml-5">-->
-<!--            <input id="float-input" type="text" pInputText placeholder="Mostrar años">-->
-<!--            Años-->
-<!--        </div>-->
-<!--        <div class="ml-5">-->
-<!--            <input id="float-input" type="text" pInputText placeholder="Mostrar meses">-->
-<!--            Meses-->
-<!--        </div>-->
-<!--        <div class="ml-5">-->
-<!--            <input id="float-input" type="text" pInputText placeholder="Mostrar días">-->
-<!--            Días-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="col-3">-->
-<!--        <span class="flex flex-column p-input-icon-right ml-3">-->
-<!--            Fecha:-->
-<!--            <p-calendar class="ml-2" showTime="true" placeholder="dd/mm/aaaa"></p-calendar>-->
-<!--            <i class="pi pi-calendar"></i>-->
-<!--        </span>-->
-<!--        <div class="flex flex-column ml-3 mt-2">-->
-<!--            <p>Examinador:</p>-->
-<!--            <input class="ml-2" style='width: 100%;' id="float-input" type="text" pInputText-->
-<!--                placeholder="Ingresa Examinador">-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+<div class="grid mb-3">
+  <div class="col-12 flex justify-content-end">
+  <button pButton pRipple label="Guardar Test tepsi" iconPos="right" icon="pi pi-plus"
+          class="guardar mr-2" style="background-color: #0c3866" (click)="save()"></button>
+  </div>
+</div>
 
-<!--<div class="flex" style="margin-top:40px">-->
-
-<!--    <div class="flex">-->
-<!--        <div>-->
-<!--            <div class="flex justify-content-center"-->
-<!--                style='border:1px solid #E50019; padding: 10px; align-items: center;'>-->
-<!--                <strong>RESULTADO TEST TOTAL</strong>-->
-<!--            </div>-->
-<!--            <div style='border: 1px solid #E50019; padding: 10px' class="flex flex-column justify-content-left">-->
-<!--                <div class="flex ml-3 mt-2">-->
-<!--                    <p>Puntaje Bruto:</p>-->
-<!--                    <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>-->
-<!--                </div>-->
-<!--                <div class="flex ml-3 mt-2">-->
-<!--                    <p>Puntaje T:</p>-->
-<!--                    <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>-->
-<!--                </div>-->
-<!--                <div class="flex ml-3 mt-2">-->
-<!--                    <p>Categoría:</p>-->
-<!--                    <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="ml-3">-->
-<!--            <div class="flex justify-content-center"-->
-<!--                style='border:1px solid #E50019; padding: 10px; align-items: center;'>-->
-<!--                <strong>RESULTADOS SUBTEST</strong>-->
-<!--            </div>-->
-<!--            <div style='border: 1px solid #E50019; padding: 10px' class="flex flex-column justify-content-left">-->
-<!--                <div class="flex ml-3 mt-2">-->
-<!--                    <p>Puntaje Bruto:</p>-->
-<!--                    <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>-->
-<!--                </div>-->
-<!--                <div class="flex ml-3 mt-2">-->
-<!--                    <p>Puntaje T:</p>-->
-<!--                    <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>-->
-<!--                </div>-->
-<!--                <div class="flex ml-3 mt-2">-->
-<!--                    <p>Categoría:</p>-->
-<!--                    <input class="ml-2 p-inputtext-sm" id="float-input" type="text" pInputText>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
-<!--    <div>-->
-<!--        &lt;!&ndash; Aqui va los cuadros rojos &ndash;&gt;-->
-<!--    </div>-->
-
-<!--</div>-->
-
-<!--<div style="margin-top:40px" class="flex justify-content-around">-->
-<!--    <div class="caja2">-->
-<!--        <div class="azul"></div>-->
-<!--        <div class="blanco">1. SUB TEST COORDINACIÓN</div>-->
-<!--    </div>-->
-<!--    <div class="caja2">-->
-<!--        <div class="azul"></div>-->
-<!--        <div class="blanco">2. SUB TEST LENGUAJE</div>-->
-<!--    </div>-->
-<!--    <div class="caja2">-->
-<!--        <div class="azul"></div>-->
-<!--        <div class="blanco">1. SUB TEST MOTROCIDAD</div>-->
-<!--    </div>-->
-<!--</div>-->
 <div class="grid" [formGroup]="datosGeneralesFG">
   <div class="col-6">
     <div class="grid">
@@ -123,48 +32,32 @@
     </div>
     <div class="grid">
       <div class="col-4">Nombre Examinador:</div>
-      <div class="col-8 p-fluid"><input type="text" pInputText>{{rango}}</div>
+      <div class="col-8 p-fluid"><input formControlName="nombreExaminador" [placeholder]="rango" type="text" pInputText></div>
     </div>
 
+<!--    movemos los subtest-->
+    <div class="">
+      <div class="caja2 mt-3" (click)="abrimosModal(0)">
+        <div class="azul"></div>
+        <div class="blanco">1. SUB TEST COORDINACIÓN</div>
+      </div>
+      <div class="caja2 mt-3" (click)="abrimosModal(1)">
+        <div class="azul"></div>
+        <div class="blanco">2. SUB TEST LENGUAJE</div>
+      </div>
+      <div class="caja2 mt-3" (click)="abrimosModal(2)">
+        <div class="azul"></div>
+        <div class="blanco">3. SUB TEST MOTROCIDAD</div>
+      </div>
+    </div>
   </div>
   <div class="col-6 ">
-    <table class="resultadosSubTest">
-      <tbody>
-        <tr>
-          <th colspan="4" class="text-center">RESULTADOS SUB TEST</th>
-        </tr>
-        <tr>
-          <th>Areas</th>
-          <th>Puntaje Bruto</th>
-          <th>Puntaje T</th>
-          <th>Categoria</th>
-        </tr>
-        <tr>
-          <th>Coordinacion</th>
-          <td class="text-center">{{resultado[0]}}</td>
-          <td style="text-align: center">{{puntajeT[0]}}</td>
-          <td>{{categoria[0]}}</td>
-        </tr>
-        <tr>
-          <th>Lenguaje</th>
-          <td>{{resultado[1]}}</td>
-          <td>{{puntajeT[1]}}</td>
-          <td>{{categoria[1]}}</td>
-        </tr>
-        <tr>
-          <th>Motricidad</th>
-          <td>{{resultado[2]}}</td>
-          <td>{{puntajeT[2]}}</td>
-          <td>{{categoria[2]}}</td>
-        </tr>
-      </tbody>
-    </table>
-    <table class="resultadosSubTest mt-3">
+    <table class="resultadosSubTest mb-3">
       <tbody>
         <tr>
           <th colspan="3">RESULTADO TEST TOTAL</th>
         </tr>
-        <tr>
+        <tr style="height: 10px">
           <th>Puntaje Bruto</th>
           <th>Puntaje T</th>
           <th>Categoria</th>
@@ -174,108 +67,203 @@
           <td>{{resultadoA[0].puntajeT}}</td>
           <td>{{resultadoA[0].categoria}}</td>
         </tr>
-
       </tbody>
     </table>
+    <table class="resultadosSubTest" style="margin-bottom: 10px">
+      <tbody>
+      <tr>
+        <th colspan="4" class="text-center">RESULTADOS SUB TEST</th>
+      </tr>
+      <tr>
+        <th>Areas</th>
+        <th>Puntaje Bruto</th>
+        <th>Puntaje T</th>
+        <th>Categoria</th>
+      </tr>
+      <tr>
+        <th>Coordinacion</th>
+        <td class="text-center">{{resultado[0]}}</td>
+        <td style="text-align: center">{{puntajeT[0]}}</td>
+        <td>{{categoria[0]}}</td>
+      </tr>
+      <tr>
+        <th>Lenguaje</th>
+        <td>{{resultado[1]}}</td>
+        <td>{{puntajeT[1]}}</td>
+        <td>{{categoria[1]}}</td>
+      </tr>
+      <tr>
+        <th>Motricidad</th>
+        <td>{{resultado[2]}}</td>
+        <td>{{puntajeT[2]}}</td>
+        <td>{{categoria[2]}}</td>
+      </tr>
+      </tbody>
+    </table>
+      <div class="grid">
+        <div class="col-5"></div>
+        <div class="col-7 grid">
+          <div class="col-2 text-center" style="font-size: 0.8rem">RETRASO</div>
+          <div class="col-2 text-center" style="font-size: 0.8rem">RIESGO</div>
+          <div class="col-8 text-center" style="font-size: 0.8rem">NORMALIDAD</div>
+        </div>
+        <div class="col-5" style="font-weight: bold; padding-top: 0px">
+          TEST TOTAL
+        </div>
+        <div class="col-7 grid" style="height: 30px">
+          <div class="col-2 color-1"></div>
+          <div class="col-2 color-2"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+        </div>
+        <div class="col-4 text-center" style="margin: 0px; padding: 0px">
+          PUNTAJE T
+        </div>
+        <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">
+          <div class="col margenes text-right" style="justify-content: center">20</div>
+          <div class="col margenes text-right" style="justify-content: center">30</div>
+          <div class="col margenes text-right" style="justify-content: center">40</div>
+          <div class="col margenes text-right" style="justify-content: center">50</div>
+          <div class="col margenes text-right" style="justify-content: center">60</div>
+          <div class="col margenes text-right" style="justify-content: center">70</div>
+          <div class="col margenes text-right" style="justify-content: center">80</div>
+        </div>
+        <div class="col-5" style="font-weight: bold; padding-top: 20px">
+          SUB TEST COORDINACION
+        </div>
+        <div class="col-7 grid" style="height: 30px; padding-top: 20px">
+          <div class="col-2 color-1"></div>
+          <div class="col-2 color-2"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+        </div>
+        <div class="col-5" style="font-weight: bold">SUB TEST LENGUAJE</div>
+        <div class="col-7 grid" style="height: 30px">
+          <div class="col-2 color-1"></div>
+          <div class="col-2 color-2"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+        </div>
+        <div class="col-5" style="font-weight: bold">SUB TEST MOTRICIDAD</div>
+        <div class="col-7 grid" style="height: 30px">
+          <div class="col-2 color-1"></div>
+          <div class="col-2 color-2"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+          <div class="col-2 color-3"></div>
+        </div>
+        <div class="col-4 text-center" style="margin: 0px; padding: 0px">
+          PUNTAJE T
+        </div>
+        <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">
+          <div class="col margenes text-right" style="justify-content: center">20</div>
+          <div class="col margenes text-right" style="justify-content: center">30</div>
+          <div class="col margenes text-right" style="justify-content: center">40</div>
+          <div class="col margenes text-right" style="justify-content: center">50</div>
+          <div class="col margenes text-right" style="justify-content: center">60</div>
+          <div class="col margenes text-right" style="justify-content: center">70</div>
+          <div class="col margenes text-right" style="justify-content: center">80</div>
+        </div>
+      </div>
   </div>
 </div>
 
 
 <div class="grid">
   <div class="col-6">
-    <div class="caja2 mt-3" (click)="abrimosModal(0)">
-      <div class="azul"></div>
-      <div class="blanco">1. SUB TEST COORDINACIÓN</div>
-    </div>
-    <div class="caja2 mt-3" (click)="abrimosModal(1)">
-      <div class="azul"></div>
-      <div class="blanco">2. SUB TEST LENGUAJE</div>
-    </div>
-    <div class="caja2 mt-3" (click)="abrimosModal(2)">
-      <div class="azul"></div>
-      <div class="blanco">3. SUB TEST MOTROCIDAD</div>
-    </div>
+<!--    <div class="caja2 mt-3" (click)="abrimosModal(0)">-->
+<!--      <div class="azul"></div>-->
+<!--      <div class="blanco">1. SUB TEST COORDINACIÓN</div>-->
+<!--    </div>-->
+<!--    <div class="caja2 mt-3" (click)="abrimosModal(1)">-->
+<!--      <div class="azul"></div>-->
+<!--      <div class="blanco">2. SUB TEST LENGUAJE</div>-->
+<!--    </div>-->
+<!--    <div class="caja2 mt-3" (click)="abrimosModal(2)">-->
+<!--      <div class="azul"></div>-->
+<!--      <div class="blanco">3. SUB TEST MOTROCIDAD</div>-->
+<!--    </div>-->
   </div>
-  <div class="col-6 grid">
-    <div class="col-5"></div>
-    <div class="col-7 grid">
-      <div class="col-2 text-center" style="font-size: 0.8rem">RETRASO</div>
-      <div class="col-2 text-center" style="font-size: 0.8rem">RIESGO</div>
-      <div class="col-8 text-center" style="font-size: 0.8rem">NORMALIDAD</div>
-    </div>
-    <div class="col-5" style="font-weight: bold; padding-top: 0px">
-      TEST TOTAL
-    </div>
-    <div class="col-7 grid" style="height: 30px">
-      <div class="col-2 color-1"></div>
-      <div class="col-2 color-2"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-    </div>
-    <div class="col-4 text-center" style="margin: 0px; padding: 0px">
-      PUNTAJE T
-    </div>
-    <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">
-      <div class="col margenes text-right" style="justify-content: center">20</div>
-      <div class="col margenes text-right" style="justify-content: center">30</div>
-      <div class="col margenes text-right" style="justify-content: center">40</div>
-      <div class="col margenes text-right" style="justify-content: center">50</div>
-      <div class="col margenes text-right" style="justify-content: center">60</div>
-      <div class="col margenes text-right" style="justify-content: center">70</div>
-      <div class="col margenes text-right" style="justify-content: center">80</div>
 
-<!--      <div class="" style="width: 40px">20</div>-->
-<!--      <div class="" style="width: 40px">30</div>-->
-<!--      <div class="" style="width: 40px">40</div>-->
-<!--      <div class="" style="width: 40px">50</div>-->
-<!--      <div class="" style="width: 40px">60</div>-->
-<!--      <div class="" style="width: 40px">70</div>-->
-<!--      <div class="" style="width: 40px">80</div>-->
-    </div>
-    <div class="col-5" style="font-weight: bold; padding-top: 40px">
-      SUB TEST COORDINACION
-    </div>
-    <div class="col-7 grid" style="height: 30px; padding-top: 40px">
-      <div class="col-2 color-1"></div>
-      <div class="col-2 color-2"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-    </div>
-    <div class="col-5" style="font-weight: bold">SUB TEST LENGUAJE</div>
-    <div class="col-7 grid" style="height: 30px">
-      <div class="col-2 color-1"></div>
-      <div class="col-2 color-2"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-    </div>
-    <div class="col-5" style="font-weight: bold">SUB TEST MOTRICIDAD</div>
-    <div class="col-7 grid" style="height: 30px">
-      <div class="col-2 color-1"></div>
-      <div class="col-2 color-2"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-      <div class="col-2 color-3"></div>
-    </div>
-    <div class="col-4 text-center" style="margin: 0px; padding: 0px">
-      PUNTAJE T
-    </div>
-    <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">
-      <div class="col margenes text-right" style="justify-content: center">20</div>
-      <div class="col margenes text-right" style="justify-content: center">30</div>
-      <div class="col margenes text-right" style="justify-content: center">40</div>
-      <div class="col margenes text-right" style="justify-content: center">50</div>
-      <div class="col margenes text-right" style="justify-content: center">60</div>
-      <div class="col margenes text-right" style="justify-content: center">70</div>
-      <div class="col margenes text-right" style="justify-content: center">80</div>
-    </div>
-  </div>
+<!--  <div class="col-6 grid">-->
+  <!--    <div class="col-5"></div>-->
+  <!--    <div class="col-7 grid">-->
+  <!--      <div class="col-2 text-center" style="font-size: 0.8rem">RETRASO</div>-->
+  <!--      <div class="col-2 text-center" style="font-size: 0.8rem">RIESGO</div>-->
+  <!--      <div class="col-8 text-center" style="font-size: 0.8rem">NORMALIDAD</div>-->
+  <!--    </div>-->
+  <!--    <div class="col-5" style="font-weight: bold; padding-top: 0px">-->
+  <!--      TEST TOTAL-->
+  <!--    </div>-->
+  <!--    <div class="col-7 grid" style="height: 30px">-->
+  <!--      <div class="col-2 color-1"></div>-->
+  <!--      <div class="col-2 color-2"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--    </div>-->
+  <!--    <div class="col-4 text-center" style="margin: 0px; padding: 0px">-->
+  <!--      PUNTAJE T-->
+  <!--    </div>-->
+  <!--    <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">20</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">30</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">40</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">50</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">60</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">70</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">80</div>-->
+  <!--    </div>-->
+  <!--    <div class="col-5" style="font-weight: bold; padding-top: 20px">-->
+  <!--      SUB TEST COORDINACION-->
+  <!--    </div>-->
+  <!--    <div class="col-7 grid" style="height: 30px; padding-top: 20px">-->
+  <!--      <div class="col-2 color-1"></div>-->
+  <!--      <div class="col-2 color-2"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--    </div>-->
+  <!--    <div class="col-5" style="font-weight: bold">SUB TEST LENGUAJE</div>-->
+  <!--    <div class="col-7 grid" style="height: 30px">-->
+  <!--      <div class="col-2 color-1"></div>-->
+  <!--      <div class="col-2 color-2"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--    </div>-->
+  <!--    <div class="col-5" style="font-weight: bold">SUB TEST MOTRICIDAD</div>-->
+  <!--    <div class="col-7 grid" style="height: 30px">-->
+  <!--      <div class="col-2 color-1"></div>-->
+  <!--      <div class="col-2 color-2"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--      <div class="col-2 color-3"></div>-->
+  <!--    </div>-->
+  <!--    <div class="col-4 text-center" style="margin: 0px; padding: 0px">-->
+  <!--      PUNTAJE T-->
+  <!--    </div>-->
+  <!--    <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">20</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">30</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">40</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">50</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">60</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">70</div>-->
+  <!--      <div class="col margenes text-right" style="justify-content: center">80</div>-->
+  <!--    </div>-->
+  <!--  </div>-->
 </div>
 <p-dialog [(visible)]="display[0]" [modal]="true">
   <ng-template pTemplate="header"> 1.SUB. TEST DE COORDINACION</ng-template>
