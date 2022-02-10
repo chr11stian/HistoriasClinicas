@@ -24,8 +24,8 @@
         <span
           class="col-fixed text-right mr-1"
           style="width: 100px"
-          [style]="inmu1.fecha ? 'color:#757476' : 'color:#BF0D21'"
-          >{{ inmu1.nombreVacuna }}:</span
+          [style]="inmu1.fechaAplicacion ? 'color:#757476' : 'color:#BF0D21'"
+          >Nombre Vacuna:</span
         >
         <div style="width: 105px" class="mr-2">
           <p-calendar
@@ -33,7 +33,7 @@
             placeholder="Fecha"
             [disabled]="false"
             dateFormat="yy-mm-dd"
-            [(ngModel)]="inmu1.fecha"
+            [(ngModel)]="inmu1.fechaAplicacion"
             [disabled]="true"
           ></p-calendar>
         </div>
@@ -60,8 +60,8 @@
         <span
           class="col-fixed text-right mr-1"
           style="width: 100px"
-          [style]="inmu2.fecha ? 'color:#757476' : 'color:#BF0D21'"
-          >{{ inmu2.nombreVacuna }}:</span
+          [style]="inmu2.fechaAplicacion ? 'color:#757476' : 'color:#BF0D21'"
+          >nombre vacuna</span
         >
         <div style="width: 105px" class="mr-2">
           <p-calendar
@@ -69,7 +69,7 @@
             inputId="icon"
             placeholder="Fecha"
             dateFormat="yy-mm-dd"
-            [(ngModel)]="inmu2.fecha"
+            [(ngModel)]="inmu2.fechaAplicacion"
             [disabled]="true"
           ></p-calendar>
         </div>
@@ -97,8 +97,8 @@
         <span
           class="col-fixed text-right mr-1"
           style="width: 100px"
-          [style]="inmu3.fecha ? 'color:#757476' : 'color:#BF0D21'"
-          >{{ inmu3.nombreVacuna }}:</span
+          [style]="inmu3.fechaAplicacion ? 'color:#757476' : 'color:#BF0D21'"
+          >nombre VAcuna:</span
         >
         <div style="width: 105px" class="mr-2">
           <p-calendar
@@ -106,7 +106,7 @@
             inputId="icon"
             placeholder="Fecha"
             dateFormat="yy-mm-dd"
-            [(ngModel)]="inmu3.fecha"
+            [(ngModel)]="inmu3.fechaAplicacion"
             [disabled]="true"
           ></p-calendar>
         </div>

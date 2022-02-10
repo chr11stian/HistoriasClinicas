@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/forms";
 import {TepsiService} from "../../services/tepsi.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-tepsi',
@@ -10,7 +11,7 @@ import {TepsiService} from "../../services/tepsi.service";
 export class TepsiComponent implements OnInit {
   display:boolean[]=[false,false,false]
   selectedValues1: boolean[] = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
-  selectedValues2: boolean[] = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
+  selectedValues2: boolean[] = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
   selectedValues3: boolean[] = [false,false,false,false,false,false,false,false,false,false,false,false];
 
   acumulador:number[]=[0,0,0,0,0,0,0,0,0,0,0,0,0];
@@ -38,7 +39,8 @@ export class TepsiComponent implements OnInit {
   edadMes:number;
   edadDia:number;
   rango:number=0
-  constructor(private tepsiService:TepsiService) { }
+  constructor(private tepsiService:TepsiService,
+              private messageService: MessageService) { }
   ngOnInit(): void {
     this.buildForm();
     //la fecha de nacimiento nos las facilitaran mas adelante
@@ -58,7 +60,8 @@ export class TepsiComponent implements OnInit {
     this.datosGeneralesFG=new FormGroup({
       anio:new FormControl('0',Validators.required),
       mes:new FormControl('0',Validators.required),
-      dia:new FormControl('0',Validators.required)
+      dia:new FormControl('0',Validators.required),
+      nombreExaminador:new FormControl('',Validators.required)
     })
   }
   determinarRango(){
@@ -181,8 +184,12 @@ export class TepsiComponent implements OnInit {
     }
   }
   puntajeTotal:number=0;
+
+
   saveTestCoordinacion(){
+
     this.display[0]=false;
+    this.examenesResueltos[0]=true;
     const element=this.tablaSubTestCoordinacion.find((item)=>{
       return this.resultado[0]==item.puntajeBruto
     })
@@ -193,6 +200,7 @@ export class TepsiComponent implements OnInit {
   }
   saveTestLenguaje(){
     this.display[1]=false;
+    this.examenesResueltos[1]=true;
     const element=this.tablaSubTestLenguaje.find((item)=>{
       return this.resultado[1]==item.puntajeBruto
     })
@@ -204,6 +212,7 @@ export class TepsiComponent implements OnInit {
   }
   saveTestMotrocidad(){
     this.display[2]=false;
+    this.examenesResueltos[2]=true;
     const element=this.tablaSubTestMotricidad.find((item)=>{
       return this.resultado[2]==item.puntajeBruto
     })
@@ -232,8 +241,64 @@ export class TepsiComponent implements OnInit {
     this.resultadoA[0]['categoria']=this.determinarCategoria(element.puntajeT)
     console.log(this.resultado)
   }
-
-
+  examenesResueltos:boolean[]=[false,false,false]
+  save() {
+    const faltante=this.examenesResueltos.filter((element)=>{
+      return element==false;
+    })
+    if(faltante.length==0){
+      const requestInput = {
+        edad: {
+          anio: this.getFC('anio').value,
+          mes: this.getFC('mes').value,
+          dia: this.getFC('dia').value,
+        },
+        fechaTest:'2021-11-17 12:50:02',
+        nombreExaminador: this.getFC('nombreExaminador').value,
+        resultadoTestTotal: {
+          puntajeBruto: this.resultado[0],
+          puntajeT: this.puntajeT[0],
+          categoria: this.categoria[0]
+        },
+        subTestCoordinacion: {
+          tipoSubTest:"COORDINACION",
+          puntajeBruto: this.resultado[0],
+          puntajeT: this.puntajeT[0],
+          categoria: this.categoria[0],
+          listItemTest:this.determinarArreglo('C',this.selectedValues1),
+        },
+        subTestLenguaje: {
+          tipoSubTest:"LENGUAJE",
+          puntajeBruto: this.resultado[1],
+          puntajeT: this.puntajeT[1],
+          categoria: this.categoria[1],
+          listItemTest:this.determinarArreglo('L',this.selectedValues2),
+        },
+        subTestMotricidad: {
+          tipoSubTest:"MOTRICIDAD",
+          puntajeBruto: this.resultado[2],
+          puntajeT: this.puntajeT[2],
+          categoria: this.categoria[2],
+          listItemTest:this.determinarArreglo('M',this.selectedValues3),
+        }
+      }
+      console.log(requestInput)
+      this.tepsiService.addRegistroTepsi('98745896',requestInput).subscribe((resp)=>{
+        this.messageService.add({severity:'success', summary:'Test Guardado', detail:resp['mensaje']});
+      },(error)=>{
+        console.log('error!!!!!!!!!!')
+      })
+    }
+    else {
+      this.messageService.add({severity:'error', summary:'Test no Guardado', detail:'Debe llenar todos los Test '});
+    }
+  }
+  determinarArreglo(letra:string,arreglo:any[]){
+    const arregloAux=arreglo.map((element,index)=>{
+      return {codigo:`${index+1}L`,valor:element?1:0}
+    })
+    return arregloAux
+  }
 }
 interface resultado {
   puntajeBruto: number,

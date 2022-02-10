@@ -52,13 +52,13 @@ export class InmunizacionesCredComponent implements OnInit {
   transform() {
     //transformacion a un solo formato que se usará
     this.listaInmunizaciones.forEach((i) => {
-      if (i.fecha === null) {
-        i.fecha = "";
+      if (i.fechaAplicacion === null) {
+        i.fechaAplicacion = "";
       }
       if (i.fechaTentativa === null) {
         i.fechaTentativa = "";
       } else {
-        i.fecha = i.fecha.split(" ")[0];
+        i.fechaAplicacion = i.fechaAplicacion.split(" ")[0];
         i.fechaTentativa = i.fechaTentativa.split(" ")[0];
       }
     });

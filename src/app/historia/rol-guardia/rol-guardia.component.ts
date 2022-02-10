@@ -39,6 +39,7 @@ export class RolGuardiaComponent implements OnInit {
   loading: boolean = true;
   loadingUps: boolean = true;
   listaTurno: any[] = [];
+  listaAmbiente:any[]=[];
   listaUps: any[] = [];
   upsSeleccionada = "";
   listaPersonal: any[] = [];
@@ -68,6 +69,7 @@ export class RolGuardiaComponent implements OnInit {
 
     this.getListaUps();
     this.getListaTurno();
+    this.getListaAmbiente()
   }
 
   ngOnInit(): void {
@@ -85,7 +87,15 @@ export class RolGuardiaComponent implements OnInit {
         this.loadingUps = false;
       });
   }
-
+  getListaAmbiente() {
+   this.listaAmbiente=[
+     {codigo:'001',nombreAmbiente:'medicina01'},
+     {codigo:'002',nombreAmbiente:'medicina02'},
+     {codigo:'003',nombreAmbiente:'acupuntura01'},
+     {codigo:'cod123',nombreAmbiente:'ambiente123'},
+     {codigo:'005',nombreAmbiente:'OBSTETRICIA2'},
+   ]
+  }
   getListaUps() {
     this.rolGuardiaService
       .getServiciosPorIpress(this.idIpressZarzuela)
@@ -94,23 +104,23 @@ export class RolGuardiaComponent implements OnInit {
         this.loading = false;
       });
   }
-
   crearMatriz() {
     this.matriz = [];
-    for (let i = 0; i < this.listaPersonal.length; i++) {
+    // for (let i = 0; i < this.listaPersonal.length; i++) {
+    this.listaPersonal.forEach((item)=>{
       let filaAux = [];
       for (let j = 0; j < this.nroDiasMes; j++) {
         let turnoDefecto = {
           dia: j + 1,
-          nombre: "Sin valor",
-          abreviatura: "sin valor",
+          nombre: "LIBRE",
+          abreviatura: "L",
           nroHoras: 0,
         };
         filaAux.push(turnoDefecto);
       }
       this.matriz.push(filaAux);
-    }
-
+    })
+    console.log('change ups evento:', this.matriz)
     // this.recuperarMes();
   }
 
@@ -211,9 +221,28 @@ export class RolGuardiaComponent implements OnInit {
   //   this.isMesPasado = isVisible;
   //   //console.log("esModficable", isVisible);
   // }
-  cambiarFecha(fechaseleccionada: Date) {
+  fechaAA=new Date()
+  fechaAdelante(){
+    console.log(this.fechaAA)
+
+  }
+  fechaAtras(){
+
+  }
+  isAdelante:boolean
+  cambiarFecha() {
+    //agregando
+    if(this.isAdelante){
+      console.log(this.fecha)
+      this.fecha=new Date(this.fecha.setMonth(this.fecha.getMonth()+1))
+      console.log(this.fecha)
+    }
+    else{
+      this.fecha=new Date(this.fecha.setMonth(this.fecha.getMonth()-1))
+    }
+    //agregando
     this.upsSeleccionada = "";
-    this.fecha = fechaseleccionada;
+    // this.fecha = fechaseleccionada;
     this.numeroDiasMes();
     this.generarCabecera();
     this.colorearCabecera();
@@ -449,6 +478,7 @@ export class RolGuardiaComponent implements OnInit {
 
   changeTurno(i, j) {
     this.recalcularxFila(i);
+    console.log('mostramos matriz',this.matriz)
   }
 
   construirFilaDelDia(fila) {
@@ -527,4 +557,8 @@ export class RolGuardiaComponent implements OnInit {
     // this.ref.close("cerrado");
     // this.changeUps1('300101')
   }
+  modal(rowData){
+    console.log(rowData)
+  }
+
 }
