@@ -133,26 +133,27 @@ export class CuposComponent implements OnInit, OnDestroy {
         });
     }
 
-    buscarCupoXdniFecha() {
+    async buscarCupoXdniFecha() {
         let data = {
             tipoDoc: this.formCuposListar.value.tipoDoc,
             nroDoc: this.formCuposListar.value.nroDoc,
             fecha: this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         console.log("DATA DNI", data)
-        this.cuposService.buscarCupoPorDniFechaIpress(this.idIpressLapostaMedica, data).subscribe((res: any) => {
-            this.DataCuposPaciente = res;
-            console.log('LISTA DE CUPO DEL PACIENTE', this.DataCuposPaciente);
-            if (res) {
-                this.showInfo();
-            } else {
-                this.showSuccess();
-                this.DataCupos = null;
-                this.DataCupos = [this.DataCuposPaciente];
-            }
-        });
-    }
 
+        await this.cuposService.buscarCupoPorDniFechaIpress(this.idIpressLapostaMedica, data)
+            .then(result => {
+                this.DataCuposPaciente = result
+                console.log('LISTA DE CUPO DEL PACIENTE', result)
+                if (this.DataCuposPaciente == undefined) {
+                    this.showInfo();
+                } else {
+                    this.showSuccess();
+                    this.DataCupos = null;
+                    this.DataCupos = [this.DataCuposPaciente.object];
+                }
+            });
+    }
 
     showSuccess() {
         this.messageService.add({
@@ -165,8 +166,8 @@ export class CuposComponent implements OnInit, OnDestroy {
     showInfo() {
         this.messageService.add({
             severity: 'info',
-            summary: 'Paciente',
-            detail: 'No existe en la Base de Datos'
+            summary: 'Cupo',
+            detail: 'No hay para este paciente en la Base de Datos'
         });
     }
 

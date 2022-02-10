@@ -46,13 +46,13 @@ export class InmunizacionesComponent implements OnInit {
   transform() {
     //transformacion a un solo formato que se usará
     this.listaInmunizaciones.forEach((i) => {
-      if (i.fecha === null) {
-        i.fecha = "";
+      if (i.fechaAplicacion === null) {
+        i.fechaAplicacion = "";
       }
       if (i.fechaTentativa === null) {
         i.fechaTentativa = "";
       } else {
-        i.fecha = i.fecha.split(" ")[0];
+        i.fechaAplicacion = i.fechaAplicacion.split(" ")[0];
         i.fechaTentativa = i.fechaTentativa.split(" ")[0];
       }
     });
@@ -86,54 +86,54 @@ export class InmunizacionesComponent implements OnInit {
       return "";
     }
   }
-  save() {
-    //armamos la "
-    let objeto: string = "";
-    this.lista1.forEach((elemento) => {
-      objeto += `{"descripcionEdad":"${
-        elemento.descripcionEdad
-      }","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${
-        elemento.nroDosis
-      }
-            ,"estado":${elemento.estado},"fecha":"${
-        elemento.fecha ? this.getFecha(new Date(elemento.fecha)) : ""
-      }","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`;
-    });
-    this.lista2.forEach((elemento) => {
-      objeto += `{"descripcionEdad":"${
-        elemento.descripcionEdad
-      }","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${
-        elemento.nroDosis
-      }
-            ,"estado":${elemento.estado},"fecha":"${
-        elemento.fecha ? this.getFecha(new Date(elemento.fecha)) : ""
-      }","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`;
-    });
-    this.lista3.forEach((elemento) => {
-      objeto += `{"descripcionEdad":"${
-        elemento.descripcionEdad
-      }","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${
-        elemento.nroDosis
-      }
-            ,"estado":${elemento.estado},"fecha":"${
-        elemento.fecha ? this.getFecha(new Date(elemento.fecha)) : ""
-      }","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`;
-    });
-    const nueva = objeto.slice(0, objeto.length - 1);
-    const nueva1: string = `[${nueva}]`;
-    const json1 = JSON.parse(nueva1);
-    this.servicio
-      .updateListaInmunizaciones(this.nroDNI, json1)
-      .toPromise()
-      .then((result) => {
-        this.messageService.add({
-          severity: "success",
-          summary: "Exito",
-          detail: "registro actualizado",
-        });
-      })
-      .catch((err) => {
-        console.log("E", err);
-      });
-  }
+  // save() {
+  //   //armamos la "
+  //   let objeto: string = "";
+  //   this.lista1.forEach((elemento) => {
+  //     objeto += `{"descripcionEdad":"${
+  //       elemento.descripcionEdad
+  //     }","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${
+  //       elemento.nroDosis
+  //     }
+  //           ,"estado":${elemento.estado},"fecha":"${
+  //       elemento.fecha ? this.getFecha(new Date(elemento.fecha)) : ""
+  //     }","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`;
+  //   });
+  //   this.lista2.forEach((elemento) => {
+  //     objeto += `{"descripcionEdad":"${
+  //       elemento.descripcionEdad
+  //     }","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${
+  //       elemento.nroDosis
+  //     }
+  //           ,"estado":${elemento.estado},"fecha":"${
+  //       elemento.fecha ? this.getFecha(new Date(elemento.fecha)) : ""
+  //     }","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`;
+  //   });
+  //   this.lista3.forEach((elemento) => {
+  //     objeto += `{"descripcionEdad":"${
+  //       elemento.descripcionEdad
+  //     }","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${
+  //       elemento.nroDosis
+  //     }
+  //           ,"estado":${elemento.estado},"fecha":"${
+  //       elemento.fecha ? this.getFecha(new Date(elemento.fecha)) : ""
+  //     }","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`;
+  //   });
+  //   const nueva = objeto.slice(0, objeto.length - 1);
+  //   const nueva1: string = `[${nueva}]`;
+  //   const json1 = JSON.parse(nueva1);
+  //   this.servicio
+  //     .updateListaInmunizaciones(this.nroDNI, json1)
+  //     .toPromise()
+  //     .then((result) => {
+  //       this.messageService.add({
+  //         severity: "success",
+  //         summary: "Exito",
+  //         detail: "registro actualizado",
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log("E", err);
+  //     });
+  // }
 }
