@@ -29,6 +29,9 @@ export class MotivoConsultaComponent implements OnInit {
     abdomenAlert: boolean = false;
     spineAlert: boolean = false;
     extremitiesAlert: boolean = false;
+    genitourianAlert: boolean = false;
+    anusAlert: boolean = false;
+    skinAlert: boolean = false;
     dataExamFisicos: formControlInterface[] = [
         { pro: 't', label: 'T°', nameFC: 'TFC' },
         { pro: 'pa', label: 'PA', nameFC: 'PAFC' },
@@ -38,7 +41,9 @@ export class MotivoConsultaComponent implements OnInit {
         { pro: 'talla', label: 'Talla ', nameFC: 'TallaFC' },
         { pro: 'pc', label: 'PC ', nameFC: 'PCFC' }
     ]
-    edad: number = 3;
+    edad: number = 18;
+    // genero: string = 'FEMENINO';
+    genero: string = 'MASCULINO';
     motivosConsulta: motivosConsultaInterface;
 
     constructor(private motivosService: MotivosConsultaService) {
@@ -176,6 +181,15 @@ export class MotivoConsultaComponent implements OnInit {
                 break
             case 8:
                 this.formExam.value.extremidades.length < 1 ? this.extremitiesAlert = true : ''
+                break
+            case 9:
+                this.formExam.value.genitouriano.length < 1 ? this.genitourianAlert = true : ''
+                break
+            case 10:
+                this.formExam.value.ano.length < 1 ? this.anusAlert = true : ''
+                break
+            case 11:
+                this.formExam.value.piel.length < 1 ? this.skinAlert = true : ''
                 break
             default:
                 break;

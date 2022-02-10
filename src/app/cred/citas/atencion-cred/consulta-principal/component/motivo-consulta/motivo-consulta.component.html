@@ -129,7 +129,8 @@
                         <div class="col-12 ">
                             <label>Ano:</label>
                             <input type="text" pInputText formControlName='ano' placeholder="Ano"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(10)">
                         </div>
                     </div>
                 </div>
@@ -138,7 +139,8 @@
                         <div class="col-12 ">
                             <label>Piel y Anexos:</label>
                             <input type="text" pInputText formControlName='piel' placeholder="Piel y Anexos"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()">
+                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                (focus)="openAlert(11)">
                         </div>
                     </div>
                 </div>
@@ -200,15 +202,14 @@
     position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
-            <!-- <div class="col-3" class="imagen-head">
-            </div> -->
             <div class="col-12">
-                <h4>CABEZA</h4>
+                <h4 class="text-blue-700">CABEZA</h4>
+                <p-divider></p-divider>
                 <ul>
                     <li>Palpar las suturas y fontanelas.</li>
                     <li>Si las fontanelas están prematuramente cerradas pensar en: microcefalia, craneosinostosis,
                         hipertiroidismo, derivar al especialista y realizar seguimiento.</li>
-                    <li>Verifcar si las fontanelas están abombadas, para identifcar hipertensión endocraneana,
+                    <li>Verificar si las fontanelas están abombadas, para identificar hipertensión endocraneana,
                         meningitis.
                     </li>
                     <li>Si la fontanela está más amplia de lo normal puede deberse a: Hidrocefalia, hipotiroidismo,
@@ -219,22 +220,15 @@
             </div>
         </div>
     </ng-template>
-    <!-- <ng-template pTemplate="footer" class="text-right">
-        <button *ngIf="!updateAuxExam" pButton type="button" label="Guardar" (click)="aceptarAuxExam()"></button>
-        <button *ngIf="updateAuxExam" pButton type="button" label="Edit" (click)="aceptarDialogEditAuxExam()"></button>
-        <button pButton type=" button" label="Cerrar" class="p-button-danger" (click)="closeDialog()"></button>
-    </ng-template> -->
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="hairAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
     position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
-            <!-- <div class="col-3" class="imagen-head">
-            </div> -->
             <div class="col-12">
-                <h4>CABELLOS</h4>
+                <h4 class="text-blue-700">CABELLOS</h4>
                 <ul>
-                    <li>Verifcar implantación, distribución, textura (quebradizo), color, ver si hay infecciones en
+                    <li>Verificar implantación, distribución, textura (quebradizo), color, ver si hay infecciones en
                         cuero cabelludo, pediculosis e higiene.</li>
                     <li>Según corresponda dar indicaciones o referir para evaluación o tratamiento al nivel
                         correspondiente.</li>
@@ -248,19 +242,23 @@
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
-                <h4>CARA</h4>
+                <h4 class="text-blue-700">CARA</h4>
                 <div>
-                    <div class="text ml-2">
+                    <div class="mb-2 ml-2">
                         <label>FACIES: </label><span>Observar la forma, simetría de movimientos (descartar
                             parálisis
-                            facial), edema o aumento.</span><br>
+                            facial), edema o aumento.</span>
+                    </div>
+                    <div class="mb-2 ml-2">
                         <label>OREJA: </label> <span>Observar anomalías externas en pabellón auricular o
                             ausencia de las
                             mismas, implantación
                             baja de las orejas, secreciones, higiene. Sí hay otoscopio evaluar el tímpano: color,
                             brillo,
                             dolor o
-                            presencia de secreciones.</span><br>
+                            presencia de secreciones.</span>
+                    </div>
+                    <div class="mb-2 ml-2">
                         <label>OJOS: </label>
                     </div>
                     <ul>
@@ -273,11 +271,13 @@
                         <li>Estrabismo (debe hacerse el diagnóstico a los 6 meses de edad) derivar para evaluación por
                             médico oftalmólogo.</li>
                     </ul>
-                    <div class="ml-2">
+                    <div class="ml-2 mb-2">
                         <label>NARIZ: </label> <span>Observar si las fosas nasales están permeables. Evaluar
                             deformidades o desviación del tabique.
                             Observar si el niño respira bien por la nariz estando con la boca cerrada.
-                            Si hay presencia de congestión nasal y secreción sanguinolenta investigar.</span><br>
+                            Si hay presencia de congestión nasal y secreción sanguinolenta investigar.</span>
+                    </div>
+                    <div class="ml-2">
                         <label>BOCA: </label><span>Observar simetría, mucosa, encías, frenillo sublingual, piezas
                             dentarias.
                             Malformaciones como fsura palatina anterior y posterior, derivar al médico o especialista en
@@ -287,6 +287,8 @@
                             Descartar: Inﬂamaciones, hemangioma o parálisis.
                             Dentición: Erupción y caída de la primera dentición</span>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -296,10 +298,8 @@
     position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
-            <!-- <div class="col-3" class="imagen-head">
-            </div> -->
             <div class="col-12">
-                <h4>CUELLO</h4>
+                <h4 class="text-blue-700">CUELLO</h4>
                 <ul>
                     <li>Explorar simetría, ﬂexibilidad, presencia de dolor, tumoraciones, aumento de volumen de los
                         ganglios.</li>
@@ -311,11 +311,11 @@
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="thoraxAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
-    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
-                <h4>TORAX</h4>
+                <h4 class="text-blue-700">TORAX</h4>
                 <ul>
                     <li>Observar asimetrías, movimientos respiratorios, tiraje.</li>
                     <li>Agrandamiento de la glándula mamaria o presencia de secreción láctea(es normal sólo en recién
@@ -334,7 +334,7 @@
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
-                <h4>ABDOMEN</h4>
+                <h4 class="text-blue-700">ABDOMEN</h4>
                 <ul>
                     <li>Observar distensión abdominal, circulación venosa colateral, ombligo de acuerdo a la edad
                         (cuidado e higiene).</li>
@@ -347,11 +347,11 @@
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="spineAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
-    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
-                <h4>COLUMNA VERTEBRAL</h4>
+                <h4 class="text-blue-700">COLUMNA VERTEBRAL</h4>
                 <ul>
                     <li>Observar asimetrías, rigidez y postura estando el niño sentado, de pie y acostado, verifcando si
                         hay desviaciones de la curvatura normal de la columna: <b> lordosis, escoliosis y cifosis.</b>
@@ -373,7 +373,7 @@
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
-                <h4>EXTREMIDADES</h4>
+                <h4 class="text-blue-700">EXTREMIDADES</h4>
                 <ul>
                     <div>
                         <label>Descarte de Displasia de Cadera:</label>
@@ -383,12 +383,100 @@
                     <li>Otros hallazgos pueden ser acortamiento de uno de los miembros; limitación en la abducción, en
                         el lado afectado y asimetría de pliegues.</li>
                     <li>El manejo se realizará de acuerdo a las guías de práctica clínica vigente.</li>
-                    <li>En el recién nacido evaluar presencia de <b>espina bífida</b> que se puede manifestar por:
-                        presencia de bulto graso, mancha rojiza, zona de pelos largos anormales u orifcio cutáneo en
-                        cualquier
-                        zona
-                        desde el cuello a la región sacro coxígea. Derivar al médico o especialista en Neurocirugía.
-                    </li>
+                    <li *ngIf="edad==18">Observar piernas arqueadas y difcultad en la marcha.</li>
+                    <li *ngIf="edad >= 24">Examinar el arco plantar para diagnosticar pie plano.</li>
+                    <li>En todos estos casos derivar al médico o especialista en Traumatología, para su manejo de
+                        acuerdo a guía de práctica clínica vigente.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="genitourianAlert" [style]="{width: '40%'}" [modal]="true"
+    styleClass="p-fluid" position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">GENITOURIANO</h4>
+                <ul>
+                    <li>Observar el tamaño y forma de los genitales externos, higiene, presencia de inﬂamación,
+                        dolor o
+                        secreciones.</li>
+                    <div class="mt-2">
+                        <li *ngIf="genero=='MASCULINO'"><label *ngIf="genero=='MASCULINO'">NIÑO: </label><span
+                                *ngIf="genero=='MASCULINO'">Determinar el
+                                tamaño, ubicación, palpación de los testículos a fn de
+                                descartar
+                                criptorquidia, hidrocele y observar prepucio para descartar fmosis, hipospadia,
+                                epispadia.
+                                En el pene determinar tamaño, presencia de fmosis y/ o adherencias del prepucio,
+                                inﬂamación
+                                y dolor.</span></li>
+                        <li *ngIf="genero=='FEMENINO'"><label *ngIf="genero=='FEMENINO'" class="mt-2">NIÑA:
+                            </label><span *ngIf="genero=='FEMENINO'">Observar,
+                                labios mayores, menores, clítoris, himen. Detectar sinequia
+                                de labios (labios
+                                menores unidos y no se observa himen).</span></li>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="anusAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">ANO</h4>
+                <ul>
+                    <li>En recién nacidos verifcar características y permeabilidad.</li>
+                    <li>Observar fisuras, fístulas perianales, malformaciones ano rectales.</li>
+                    <li>En caso de fístulas perianales o malformaciones ano rectales, referir inmediatamente al servicio
+                        de Cirugía Pediátrica.</li>
+                    <li>Preguntar por las características de las deposiciones a fin de identificar alteraciones
+                        (diarrea,
+                        estreñimiento, etc.) y dar indicaciones o referir para tratamiento.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="skinAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">PIEL Y ANEXOS</h4>
+                <ul>
+                    <li>Observar color (cianosis, ictericia, palidez), hemangioma, erupciones, presencia de edema,
+                        estado de higiene.</li>
+                    <li>Coloración verdosa en zona sacro coccígea, las llamadas Manchas Mongólicas, son normales y
+                        desaparecen a los dos años de edad.</li>
+                    <li>En caso de fístulas perianales o malformaciones ano rectales, referir inmediatamente al servicio
+                        de Cirugía Pediátrica.</li>
+                    <li><b>Dermatitis, observar maceración de la piel por contacto prolongado con pañal mojado</b>.</li>
+                    <li> Según corresponda dar indicaciones o referir para evaluación o tratamiento.</li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>
+<p-dialog class="dialogo m-4" [(visible)]="skinAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
+    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-12">
+                <h4 class="text-blue-700">PIEL Y ANEXOS</h4>
+                <ul>
+                    <li>Observar color (cianosis, ictericia, palidez), hemangioma, erupciones, presencia de edema,
+                        estado de higiene.</li>
+                    <li>Coloración verdosa en zona sacro coccígea, las llamadas Manchas Mongólicas, son normales y
+                        desaparecen a los dos años de edad.</li>
+                    <li>En caso de fístulas perianales o malformaciones ano rectales, referir inmediatamente al servicio
+                        de Cirugía Pediátrica.</li>
+                    <li><b>Dermatitis, observar maceración de la piel por contacto prolongado con pañal mojado</b>.</li>
+                    <li> Según corresponda dar indicaciones o referir para evaluación o tratamiento.</li>
                 </ul>
             </div>
         </div>

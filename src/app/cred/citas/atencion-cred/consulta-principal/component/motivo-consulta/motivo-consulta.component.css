@@ -72,3 +72,6 @@ li {
 ::ng-deep .dialogo .p-dialog-content {
   border-radius: 10px;
 }
+h4{
+  height: 0.8rem;
+}
