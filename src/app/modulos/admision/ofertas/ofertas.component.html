@@ -6,7 +6,7 @@
                 <span class="">Filtrar por fecha</span>
                 <div class="p-inputgroup">
                     <p-calendar dateFormat="yy-mm-dd" formControlName="fechaFiltro" [readonlyInput]="true"
-                        (onSelect)="getListaOfertasXServicio()">
+                                (onSelect)="getListaOfertasXServicio()">
                     </p-calendar>
                 </div>
             </div>
@@ -14,9 +14,13 @@
             <div class="col-6 md:col-4 lg:col-3 p-field">
                 <span class="">Filtrar por Servicio</span>
                 <div class="">
-                    <p-dropdown [options]="servicios" formControlName="servicio" placeholder="Seleccione un servicio"
-                        optionLabel="nombreUPS" optionValue="nombreUPS" [showClear]="false"
-                        (onChange)="getListaOfertasXServicio()">
+                    <p-dropdown [options]="servicios"
+                                formControlName="servicio"
+                                placeholder="Seleccione un servicio"
+                                optionLabel="nombreUPS"
+                                optionValue="nombreUPS"
+                                [showClear]="false"
+                                (onChange)="getListaOfertasXServicio()">
                     </p-dropdown>
                 </div>
             </div>
@@ -24,38 +28,30 @@
             <div class="col-6 md:col-4 lg:col-3 p-field">
                 <span class="font-semibold">Ingrese número de documento:</span>
                 <div class="">
-                    <input type="text" class="inputfield w-9" pInputText formControlName="nroDoc" />
+                    <input type="text" class="inputfield w-9" pInputText formControlName="nroDoc"/>
                     <p-button icon="pi pi-search" (click)="getListaOfertaXDocumento()"></p-button>
                 </div>
             </div>
         </div>
     </form>
-    <div class="p-card mt-3">
+    <div class="p-card ">
         <p-toolbar styleClass="p-mb-4">
             <ng-template pTemplate="left">
                 <h3 class="p-m-0">Lista de ofertas por cada turno del personal</h3>
             </ng-template>
         </p-toolbar>
-        <p-table [value]="data" #dt [globalFilterFields]="['fecha','personal.nombre','ipress.servicio']" styleClass="p-datatable-gridlines   " [rows]="10"
-            [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
-            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-            <ng-template pTemplate="caption">
-                <div class="p-d-flex p-ai-center p-jc-between">
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                            placeholder="Buscar..." />
-                    </span>
-                </div>
-            </ng-template>
-            <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+        <p-table [value]="data" #dt [globalFilterFields]="['fecha','personal.nombre','ipress.servicio']"
+                 styleClass="p-datatable-gridlines" [rows]="10"
+                 [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                 currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+            <ng-template pTemplate="header">
                 <tr>
                     <th style="text-align: center">Nro</th>
-                    <th style="text-align: center">Fecha</th>
-                    <th style="text-align: center">Personal</th>
-                    <th style="text-align: center">Nro de ofertas</th>
-                    <th style="text-align: center">Servicio</th>
-                    <th style="text-align: center; width: 120px">Acción</th>
+                    <th style="text-align: center">FECHA</th>
+                    <th style="text-align: center">PERSONAL</th>
+                    <th style="text-align: center">Nro DE OFERTAS</th>
+                    <th style="text-align: center">SERVICIO</th>
+                    <th style="text-align: center">ACCIÓN</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -66,15 +62,19 @@
                     <td style="text-align: center">{{ rowData.totalOfertas }}</td>
                     <td style="text-align: center">{{ rowData.ipress.servicio }}</td>
                     <td style="text-align: center">
-                        <button pButton pRipple type="button" label="Agregar Ofertas"
-                            class="p-button-raised p-button-info" (click)="openNewOfertaAgregar(rowData)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-plus" label="Ofertas"
+                                (click)="openNewOfertaAgregar(rowData)"></button>
+                        <button pButton pRipple type="button" icon="pi pi-angle-double-right" label="Transferir"
+                                (click)="eventTransferirCupo(rowData)"
+                                class="p-button-secondary"></button>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
     </div>
 </div>
-<p-dialog [(visible)]="ofertasDialog" [style]="{width: '700px'}" [modal]="true" styleClass="p-fluid " autoZIndex>
+<p-dialog [(visible)]="ofertasDialog" [style]="{width: '700px'}" [modal]="true"
+          [draggable]="false" [resizable]="false">
     <ng-template pTemplate="body">
         <p class="text-pink-700 text-xl text-center font-semibold m-0">AGREGAR OFERTAS</p>
         <form [formGroup]='formOfertas'>
@@ -82,15 +82,15 @@
                 <div class="grid">
                     <div class="p-field col-6 md:col-4">
                         <label>Nro Documento:</label>
-                        <input type="text" pInputText formControlName='nroDoc' placeholder="Nro documento" disabled />
+                        <input type="text" pInputText formControlName='nroDoc' placeholder="Nro documento" disabled/>
                     </div>
                     <div class="p-field col-12 md:col-8">
                         <label>Nombre del personal:</label>
-                        <input type="text" pInputText formControlName='nombre' placeholder="Nombre personal" disabled />
+                        <input type="text" pInputText formControlName='nombre' placeholder="Nombre personal" disabled/>
                     </div>
                     <div class="p-field col-6 md:col-4">
                         <label>Servicio:</label>
-                        <input type="text" pInputText formControlName='servicio' placeholder="Servicio" disabled />
+                        <input type="text" pInputText formControlName='servicio' placeholder="Servicio" disabled/>
                     </div>
                     <div class="p-field col-6 md:col-4">
                         <label>Ambiente:</label>
@@ -98,18 +98,19 @@
                     </div>
                     <div class="p-field col-6 md:col-4">
                         <label>Fecha:</label>
-                        <input type="text" pInputText formControlName='fecha' placeholder="Fecha" disabled />
+                        <input type="text" pInputText formControlName='fecha' placeholder="Fecha" disabled/>
                     </div>
                 </div>
             </p-fieldset>
             <div class="grid m-2">
                 <div class="p-field col-12 md:col-4">
                     <label>Nro de ofertas actuales:</label>
-                    <input type="text" pInputText formControlName='nroOfertasActuales' placeholder="Ofertas actuales" disabled/>
+                    <input type="text" pInputText formControlName='nroOfertasActuales' placeholder="Ofertas actuales"
+                           disabled/>
                 </div>
                 <div class="p-field col-12 md:col-4">
                     <label>Nro de ofertas extra:</label>
-                    <input type="number" pInputText formControlName='nroOfertasAgregar' placeholder="Ofertas extras" />
+                    <input type="number" pInputText formControlName='nroOfertasAgregar' placeholder="Ofertas extras"/>
                 </div>
             </div>
             <div class="card ml-3 mb-1">
@@ -125,7 +126,7 @@
                     </ng-template>
                     <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                         <tr>
-                            <td style="min-width:150px">{{rowIndex+1}}</td>
+                            <td style="min-width:150px">{{rowIndex + 1}}</td>
                             <td style="min-width:150px">{{rowData.horaInicio}}</td>
                             <td style="min-width:150px">{{rowData.horaFin}}</td>
                             <td style="min-width:150px">
@@ -141,6 +142,200 @@
 
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Guardar" class="m-1 w-8rem" (click)="guardarOfertasExtra()"></button>
+        <button pButton type="button" label="Cancelar" class="m-1 w-8rem p-button-danger" (click)="cancelar()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="DialogTransferir" [style]="{width: '1400px', height: '500'}" [modal]="true"
+          [draggable]="false" [resizable]="false">
+    <div class="col-12 md:col-6 lg:col-12 p-field">
+
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+                <p class="text-pink-700 text-xl text-center font-semibold m-0">TRANSFERIR CUPOS</p>
+            </div>
+        </div>
+        <br>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <form [formGroup]='formTransferirCupos'>
+                    <label class="">DATOS PERSONALES DEL PERSONAL DE SALUD QUE VA TRANSFERIR</label>
+                    <div class="personal">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                                <span class="">NRO DOCUMENTO</span>
+                                <div class="p-inputgroup">
+                                    <input type="number" pInputText
+                                           formControlName="nroDoc"
+                                           placeholder="Nro documento"/>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-8 p-field">
+                                <span class="">APELLIDOS</span>
+                                <div class="p-inputgroup">
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="nombre"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">SERVICIO</span>
+                                <div class="p-inputgroup">
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="servicio"/>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">AMBIENTE</span>
+                                <div class="p-inputgroup">
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="ambiente"/>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">FECHA</span>
+                                <div class="p-inputgroup">
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="fecha"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">NUMERO DE OFERTAS</span>
+                                <div class="p-inputgroup">
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="nroOfertasActuales2"/>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">HORA DESDE</span>
+                                <div class="p-inputgroup">
+                                    <input type="text"
+                                           pInputText
+                                           placeholder="Hora inicio"
+                                           formControlName="horaInicio"/>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">HORA HASTA</span>
+                                <div class="p-inputgroup">
+                                    <input type="text"
+                                           pInputText
+                                           placeholder="Hora fin"
+                                           formControlName="horaFin"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <p-panel>
+                    <ng-template pTemplate="header">
+                        OFERTAS
+                    </ng-template>
+                    <p-table [value]="horas" [scrollable]="true" scrollHeight="350px">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="text-align: center">Nro</th>
+                                <th style="text-align: center">HORA INICIO</th>
+                                <th style="text-align: center">HORA FIN</th>
+                                <th style="text-align: center">ESTADO</th>
+                                <th style="text-align: center">SELECIONAR</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                            <tr>
+                                <td style="text-align: center">{{rowIndex + 1}}</td>
+                                <td style="text-align: center">{{rowData.horaInicio}}</td>
+                                <td style="text-align: center">{{rowData.horaFin}}</td>
+                                <td style="text-align: center">
+                                    <p-tag *ngIf="rowData.estado == 'LIBRE'" severity="info"
+                                           value="LIBRE"></p-tag>
+                                    <p-tag *ngIf="rowData.estado == 'OCUPADO'" severity="danger"
+                                           value="OCUPADO"></p-tag>
+                                </td>
+                                <td style="text-align: center">
+                                    <p-checkbox name="groupname" [value]="rowData"
+                                                [(ngModel)]="selectedHorario"
+                                                (onChange)="SelectHorarios()">
+                                    </p-checkbox>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </p-panel>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6 p-field">
+                <form [formGroup]='formTransferirCupos2'>
+                    <label class="">DATOS PERSONALES DEL PERSONAL DE SALUD QUE REEMPLAZA </label>
+                    <div class="personal">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                                <span class="">NRO DOCUMENTO</span>
+                                <div class="p-inputgroup">
+                                    <input type="number" pInputText
+                                           formControlName="nroDoc2"
+                                           placeholder="Nro documento"/>
+                                    <p-button span="" icon="pi pi-search"
+                                              (click)="listarPersonalRolGuardia()"></p-button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-6 p-field"><span class="">APELLIDOS Y NOMBRES</span>
+                                <div class="p-inputgroup">
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="apellidos2"/>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
+                                <span class="">SERVICIO</span>
+                                <div class="p-inputgroup">
+                                    <input type="text"
+                                           pInputText
+                                           formControlName="servicio2"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-6 p-fluid">
+                                <span class="">SELECIONE EL TURNO</span>
+                                <div class="">
+                                    <p-dropdown [options]="TurnosPersonal"
+                                                placeholder="Select Turno"
+                                                optionLabel="nombre"
+                                                optionValue="dia"
+                                                formControlName="turnos"
+                                                [showClear]="false"
+                                                (onChange)="VerDiasDelTurno($event)">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-3 p-field">
+                                <span class="">DIA</span>
+                                <div class="p-inputgroup">
+                                    <input type="text"
+                                           pInputText
+                                           id="txt1"
+                                           formControlName="dia"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Transferir todo" class="m-1 w-8rem"
+                (click)="cambioTotasDeCupos()"></button>
+        <button pButton type="button" label="Transferencia parcial" class="m-1 w-8rem"
+                (click)="tranferenciaParcialDeCupos()"></button>
         <button pButton type="button" label="Cancelar" class="m-1 w-8rem p-button-danger" (click)="cancelar()"></button>
     </ng-template>
 </p-dialog>

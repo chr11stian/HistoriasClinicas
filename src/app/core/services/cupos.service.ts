@@ -75,8 +75,16 @@ export class CuposService {
             })
     }
 
-    cambioOfertasTotal(idIpres, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-total/${idIpres}`, data)
+    cambioOfertasElTotal(idOferta, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-total/${idOferta}`, data)
+    }
+
+    TranferenciaParcialCupos(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-parcial/`, data)
+    }
+
+    buscarPersonalRolGuardia(TipoDNI, NroDoc) {
+        return this.http.get(`${this.base_url}/${this.bd}/rolguardia/personal/hoy/${TipoDNI}/${NroDoc}`)
     }
 
     updatePacienteExtras(data) {
