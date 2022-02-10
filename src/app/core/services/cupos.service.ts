@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {HttpClient} from "@angular/common/http";
 import {DynamicDialogRef} from "primeng/dynamicdialog";
+import {escalaEval_EEDP_0_4_anios} from "../../cred/citas/atencion-cred/plan/component/evaluacion-general/models/EscalaEEDP";
 
 @Injectable({
     providedIn: 'root'
@@ -54,7 +55,6 @@ export class CuposService {
     }
 
 
-
     getCuposServicioFecha(idipres, data) {
         return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/servicio/${idipres}`, data)
     }
@@ -64,10 +64,22 @@ export class CuposService {
     }
 
     buscarCupoPorDniFechaIpress(idIpres, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-total/${idIpres}`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/buscar/${idIpres}`, data)
+            .toPromise()
+            .then(result => {
+                return result;
+                console.log('Exitosa', result)
+            })
+            .catch(error => {
+                console.log('error en la en la lista', error)
+            })
     }
 
     cambioOfertasTotal(idIpres, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/oferta/buscar/${idIpres}`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-total/${idIpres}`, data)
+    }
+
+    updatePacienteExtras(data) {
+        return this.http.put(`${this.base_url}/${this.bd}/paciente/actualizarDatos/`, data)
     }
 }
