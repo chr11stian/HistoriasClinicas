@@ -5,7 +5,10 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { ConsultasService } from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/services/consultas.service';
 import { ConsultaObstetriciaService } from 'src/app/obstetricia-general/gestante/consulta/services/consulta-obstetricia/consulta-obstetricia.service';
 import { CuposTriajeService } from '../services/cupos-triaje/cupos-triaje.service';
-
+import { image } from '../../../../assets/images/image.const';
+import { imageNina } from '../../../../assets/images/imageNina.const';
+import { imageNino } from '../../../../assets/images/imageNino.const';
+import { PersonalService } from 'src/app/core/services/personal-services/personal.service';
 @Component({
   selector: 'app-registrar-triaje',
   templateUrl: './registrar-triaje.component.html',
@@ -18,11 +21,15 @@ export class RegistrarTriajeComponent implements OnInit {
   idCupo: string;
   dataTriaje: any;
   imcOption: number;
-
+  imagePath: string = image;
+  dataPIDE: any;
+  imc: any;
+  ver=false;
   constructor(
     private fb: FormBuilder,
     private dialog: DialogService,
     private triajeService: CuposTriajeService,
+    private personalService: PersonalService,
     private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
     private messageService: MessageService,
@@ -31,20 +38,42 @@ export class RegistrarTriajeComponent implements OnInit {
     console.log('data of listar ', config.data.data);
     this.datosPersonales = config.data.data;
     this.idCupo = this.datosPersonales.id;
+    if (this.datosPersonales.paciente.edadAnio < 18) {
+      if (this.datosPersonales.paciente.sexo == "FEMENINO")
+        this.imagePath = imageNina;
+      else
+        this.imagePath = imageNino;
+    }
+    else {
+      this.traerFoto();
+    }
     if (config.data.option == 2) {
-      this.triajeService.getVerTriajeByIdCupo(this.idCupo).subscribe((res: any) => {
-        this.dataTriaje = res.object;
-        this.formTriaje.patchValue({ temperatura: this.dataTriaje.funcionesVitales.t });
-        this.formTriaje.patchValue({ presionSis: this.dataTriaje.funcionesVitales.presionSistolica });
-        this.formTriaje.patchValue({ presionDias: this.dataTriaje.funcionesVitales.presionDiastolica });
-        this.formTriaje.patchValue({ fc: this.dataTriaje.funcionesVitales.fc });
-        this.formTriaje.patchValue({ fr: this.dataTriaje.funcionesVitales.fr });
-        this.formTriaje.patchValue({ peso: this.dataTriaje.funcionesVitales.peso });
-        this.formTriaje.patchValue({ talla: this.dataTriaje.funcionesVitales.talla });
-      })
+      this.ver=true;
+      this.formTriaje.patchValue({ temperatura: this.datosPersonales.funcionesVitales.temperatura });
+      this.formTriaje.patchValue({ presionSis: this.datosPersonales.funcionesVitales.presionSistolica });
+      this.formTriaje.patchValue({ presionDias: this.datosPersonales.funcionesVitales.presionDiastolica });
+      this.formTriaje.patchValue({ fc: this.datosPersonales.funcionesVitales.fc });
+      this.formTriaje.patchValue({ fr: this.datosPersonales.funcionesVitales.fr });
+      this.formTriaje.patchValue({ peso: this.datosPersonales.funcionesVitales.peso });
+      this.formTriaje.patchValue({ talla: this.datosPersonales.funcionesVitales.talla });
+      this.calcularIMC();
+      this.formTriaje.get("temperatura").disable();
+      this.formTriaje.get("presionSis").disable();
+      this.formTriaje.get("presionDias").disable();
+      this.formTriaje.get("fc").disable();
+      this.formTriaje.get("fr").disable();
+      this.formTriaje.get("peso").disable();
+      this.formTriaje.get("talla").disable();
     }
   }
 
+  traerFoto() {
+    this.personalService.getDatosReniec(this.datosPersonales.paciente.nroDoc).subscribe((res: any) => {
+      this.dataPIDE = res;
+      console.log(res);
+      this.imagePath = res.foto;
+    });
+  }
   ngOnInit(): void {
   }
 
@@ -62,13 +91,14 @@ export class RegistrarTriajeComponent implements OnInit {
 
   recuperarDatos() {
     this.triaje = {
-      t: parseFloat(this.formTriaje.value.temperatura),
+      temperatura: parseFloat(this.formTriaje.value.temperatura),
       presionSistolica: parseInt(this.formTriaje.value.presionSis),
       presionDiastolica: parseInt(this.formTriaje.value.presionDias),
       fc: parseInt(this.formTriaje.value.fc),
       fr: parseInt(this.formTriaje.value.fr),
       peso: parseFloat(this.formTriaje.value.peso),
       talla: parseFloat(this.formTriaje.value.talla),
+      imc: this.imc
     }
   }
 
@@ -85,7 +115,32 @@ export class RegistrarTriajeComponent implements OnInit {
   closeDialog() {
     this.ref.close();
   }
-
+  ponerEdadEnLetras() {
+    let anios = this.datosPersonales.paciente.edadAnio;
+    let meses = this.datosPersonales.paciente.edadMes;
+    let dias = this.datosPersonales.paciente.edadDia;
+    let cadena = ""
+    if (anios > 1) {
+      cadena += anios + " años,";
+    }
+    else {
+      if (anios != 0)
+        cadena += anios + " año,"
+    }
+    if (meses > 1) {
+      cadena += meses + " meses, ";
+    }
+    else {
+      cadena += meses + " mes, "
+    }
+    if (dias > 1) {
+      cadena += dias + " dias";
+    }
+    else {
+      cadena += dias + " dia"
+    }
+    return cadena;
+  }
   loadData() {
     this.formTriaje.patchValue({ temperatura: '' });
     this.formTriaje.patchValue({ presionSis: '' });
@@ -98,7 +153,7 @@ export class RegistrarTriajeComponent implements OnInit {
 
   calcularIMC() {
     let pesoAux: number = this.formTriaje.value.peso;
-    let tallaAux: number = this.formTriaje.value.talla;
+    let tallaAux: number = (this.formTriaje.value.talla) * 0.01;
     let imc = pesoAux / (tallaAux * tallaAux)
     console.log('imc ', imc);
     if (imc < 18.5) {
@@ -113,15 +168,17 @@ export class RegistrarTriajeComponent implements OnInit {
     if (imc > 30) {
       this.imcOption = 4
     }
+    this.imc = imc;
   }
 }
+
 interface Triaje {
-  t: number,
+  temperatura: number,
   presionSistolica: number,
   presionDiastolica: number,
   fc: number,
   fr: number,
   peso: number,
   talla: number,
-
+  imc: number
 }
