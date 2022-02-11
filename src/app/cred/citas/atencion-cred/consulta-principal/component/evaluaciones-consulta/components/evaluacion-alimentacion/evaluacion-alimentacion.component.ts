@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {ConsultaGeneralService} from "../../../../services/consulta-general.service";
 import {EvaluacionAlimentacionService} from "../../services/evaluacion-alimentacion.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-evaluacion-alimentacion',
@@ -15,7 +16,6 @@ import {EvaluacionAlimentacionService} from "../../services/evaluacion-alimentac
 export class EvaluacionAlimentacionComponent implements OnInit {
   tipoDocRecuperado:string="";
   nroDocRecuperado:string="";
-  // products1: Product[];
   evaluacionAlimenticia: FechaEvaluacionAlimentacion[]=[];
   Evaluaciones:EvaluacionAlimenticia[]=[];
 
@@ -24,9 +24,16 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
   id:string="62028f4c7ef573236aba9876";
   attributeLocalS = 'idConsulta'
-  edadMeses:number=4;
+  edadMeses:number=7;
   displayPosition: boolean;
   position: string;
+  diagnostico:string;
+  diagnosticoList = [{name: 'NINO CON LACTANCIA MATERNA CONTINUADA', code: 'NINO CON LACTANCIA MATERNA CONTINUADA'},
+    {name: 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO', code: 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO'},
+    {name: 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA', code: 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'},
+    {name: 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA', code: 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'}
+  ];
+
   constructor(private evalAlimenService: EvaluacionAlimentacionService,
               private route: ActivatedRoute,
               private router: Router,
@@ -163,7 +170,8 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     ]
     // this.ObtenerUltimaEvaluacion();
     this.recuperarEdadNinio();
-    this.recuperarDataEvaluacionAlimenticiaBD();
+    this.recuperarDataPlanAlimentaciaBD();
+    // this.recuperarDataEvaluacionAlimenticiaBD();
     this.showDialogEdad('top');
   }
   recuperarEdadNinio(){
@@ -174,25 +182,27 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     });
 
   }
+  /**Mostrar la edad del niño en alerta**/
   showDialogEdad(position:string){
     console.log("entrado a dialog", this.edadMeses);
     this.position = position;
     this.displayPosition = true;
   }
   /******RECUPERAR LISTA DE EVALUACION ALIMENTICIA*******/
-  recuperarDataEvaluacionAlimenticiaBD(){
-    this.evalAlimenService.getEvaluacionAlimenticiaCred(this.id).subscribe((res: any) => {
-      this.Evaluaciones.push(res.object);
-      console.log('evaluacion', this.evaluacionAlimenticia);
+  recuperarDataPlanAlimentaciaBD(){
+    this.evalAlimenService.getEvaluacionAlimenticiaCredPlan(this.nroDocRecuperado).subscribe((res: any) => {
+      this.Evaluaciones = (res.object);
+      console.log('evaluacion', res.object);
       console.log('paciente por doc ', this.Evaluaciones)
       console.log(this.Evaluaciones[0]);
-      let aux = this.Evaluaciones[0].evaluacionAlimentacionMes;
+      let aux:any;
       let i = 0
-      while(this.Evaluaciones[i].evaluacionAlimentacionMes!=undefined){
+      while(this.Evaluaciones[i]!=undefined){
         console.log("entrando i", i);
-        aux=this.Evaluaciones[i].evaluacionAlimentacionMes
+        aux=this.Evaluaciones[i]
         if(aux.edad == 0){
           this.evaluacionAlimenticia[0].valorRN = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valorRN = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valorRN = aux.listaPreguntas[x].estado;
@@ -202,6 +212,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         if(aux.edad == 1) {
           console.log(this.evaluacionAlimenticia[0]);
           this.evaluacionAlimenticia[0].valor1M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor1M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor1M = aux.listaPreguntas[x].estado;
@@ -211,6 +222,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 2) {
           this.evaluacionAlimenticia[0].valor2M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor2M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor2M = aux.listaPreguntas[x].estado;
@@ -219,6 +231,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 3) {
           this.evaluacionAlimenticia[0].valor3M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor3M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor3M = aux.listaPreguntas[x].estado;
@@ -227,6 +240,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 4) {
           this.evaluacionAlimenticia[0].valor4M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor4M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor4M = aux.listaPreguntas[x].estado;
@@ -235,6 +249,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 5) {
           this.evaluacionAlimenticia[0].valor5M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor5M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor5M = aux.listaPreguntas[x].estado;
@@ -243,6 +258,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 6) {
           this.evaluacionAlimenticia[0].valor6M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor6M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor6M = aux.listaPreguntas[x].estado;
@@ -251,6 +267,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 7) {
           this.evaluacionAlimenticia[0].valor7M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor7M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor7M = aux.listaPreguntas[x].estado;
@@ -259,6 +276,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 8) {
           this.evaluacionAlimenticia[0].valor8M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor8M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor8M = aux.listaPreguntas[x].estado;
@@ -267,6 +285,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 9) {
           this.evaluacionAlimenticia[0].valor9M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor9M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor9M = aux.listaPreguntas[x].estado;
@@ -275,6 +294,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 10) {
           this.evaluacionAlimenticia[0].valor10M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor10M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor10M = aux.listaPreguntas[x].estado;
@@ -283,6 +303,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 11) {
           this.evaluacionAlimenticia[0].valor11M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor11M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor11M = aux.listaPreguntas[x].estado;
@@ -291,6 +312,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 12) {
           this.evaluacionAlimenticia[0].valor12M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor12M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor12M = aux.listaPreguntas[x].estado;
@@ -299,6 +321,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 14) {
           this.evaluacionAlimenticia[0].valor14M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor14M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor14M = aux.listaPreguntas[x].estado;
@@ -307,6 +330,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 16) {
           this.evaluacionAlimenticia[0].valor16M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor16M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor16M = aux.listaPreguntas[x].estado;
@@ -315,6 +339,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 18) {
           this.evaluacionAlimenticia[0].valor18M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor18M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor18M = aux.listaPreguntas[x].estado;
@@ -323,6 +348,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 20) {
           this.evaluacionAlimenticia[0].valor20M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor20M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor20M = aux.listaPreguntas[x].estado;
@@ -331,6 +357,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 22) {
           this.evaluacionAlimenticia[0].valor22M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor22M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor22M = aux.listaPreguntas[x].estado;
@@ -339,6 +366,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 24) {
           this.evaluacionAlimenticia[0].valor24M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor24M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor24M = aux.listaPreguntas[x].estado;
@@ -347,6 +375,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 30) {
           this.evaluacionAlimenticia[0].valor30M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor30M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor30M = aux.listaPreguntas[x].estado;
@@ -355,6 +384,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 33) {
           this.evaluacionAlimenticia[0].valor33M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor33M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor33M = aux.listaPreguntas[x].estado;
@@ -363,6 +393,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 36) {
           this.evaluacionAlimenticia[0].valor36M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor36M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor36M = aux.listaPreguntas[x].estado;
@@ -379,6 +410,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
         if(aux.edad == 42) {
           this.evaluacionAlimenticia[0].valor42M = aux.fechaRegistro;
+          this.evaluacionAlimenticia[18].valor42M = aux.diagnostico;
           let x  = 0;
           while(aux.listaPreguntas[x]!=undefined){
             this.evaluacionAlimenticia[x+1].valor42M = aux.listaPreguntas[x].estado;
@@ -403,7 +435,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     let preguntas=[];
     console.log(prefijo);
     console.log(this.evaluacionAlimenticia[1][prefijo])
-    for(let i = 1;i<this.evaluacionAlimenticia.length;i++)
+    for(let i = 1;i<this.evaluacionAlimenticia.length-1;i++)
     {
       preguntas.push(this.evaluacionAlimenticia[i][prefijo]);
     }
@@ -495,10 +527,16 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       }
     ];
     console.log("preguntas", preguntas);
+    let dx = this.calcularDiagnostico(preguntas);
+    let cie10:string = this.calcularCie10(dx);
+    this.diagnostico=dx;
+    console.log('diagnostico:', dx);
+    console.log('diagnostico:', cie10);
+
     let cadena:EvaluacionAlimenticia = {
       // fechaRegistro: new Date(this.datePipe.transform(this.evaluacionAlimenticia[0][prefijo],'yyyy-MM-dd HH:mm:ss')),
-      nombreEvaluacion:"EVALUACION ALIMENTACION",
-      codigoCIE10:'Z0017',
+      nombreEvaluacion:'EVALUACION_ALIMENTACION',
+      codigoCIE10:cie10,
       codigoHIS:'Z0017.01',
       codigoPrestacion:'0001',
       evaluacionAlimentacionMes:
@@ -506,18 +544,62 @@ export class EvaluacionAlimentacionComponent implements OnInit {
             fechaRegistro: this.convertirFecha(this.evaluacionAlimenticia[0][prefijo]),
             edad:indice,
             listaPreguntas:lista,
-            diagnostico:"ALIMENTACION INADEACUADA"
+            diagnostico:dx
           }
     }
     this.evalAlimenService.addEvaluacionAlimenticiaCred(this.id,cadena).subscribe((res: any) => {
       console.log('se guardo correctamente ', res.object);
       console.log('se guardo correctamente cade ', cadena);
-      this.messageService.add({
-        severity: "success",
-        summary: "Exito",
-        detail: "Se guardo correctamente el registro de Evaluacion de la edad: " + indice + "meses"
-      });
+      Swal.fire({
+        icon: 'success',
+        title: 'Evaluacion Alimenticia',
+        text: 'Se guardo existosamente la evaluacion para la edad ' + this.edadMeses,
+        showConfirmButton: false,
+        timer: 2000,
+      })
     });
+
+  }
+  calcularCie10(dx){
+    if(dx == 'NINO CON LACTANCIA MATERNA CONTINUADA'){
+      return 'Z0016'
+    }else{
+      if(dx == 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO'){
+        return 'P929'
+      }
+      else{
+        if(dx == 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA') {
+          return 'Z0017'
+        }
+        else{
+          return 'SINCIE'
+        }
+      }
+    }
+
+  }
+  calcularDiagnostico(preguntas:boolean[]){
+    console.log(preguntas);
+    if(this.edadMeses<=6)
+    {
+      console.log(preguntas[0]);
+      if(preguntas[0]==true && preguntas[1]==true && preguntas[2]==true && preguntas[3]!=true && preguntas[4]!=true && preguntas[5]!=true){
+          return 'NINO CON LACTANCIA MATERNA CONTINUADA'
+      }
+      else return 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO'
+    }else{
+      if(this.edadMeses>=7 && this.edadMeses <=22){
+          if(preguntas[0]==true  && preguntas[3]==true && preguntas[4]==true && preguntas[5]==true && preguntas[6]==true && preguntas[7]==true && preguntas[8]==true && preguntas[9]==true && preguntas[10]==true && preguntas[11]==true && preguntas[12]==true && preguntas[13]==true){
+            return 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'
+          }
+          else return 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'
+      }
+      else
+      if(preguntas[6]==true && preguntas[7]==true && preguntas[8]==true && preguntas[9]==true && preguntas[10]==true && preguntas[11]==true && preguntas[12]==true && preguntas[13]==true){
+        return 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'
+      }
+      else return 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'
+    }
 
   }
   convertirFecha(fecha){
@@ -531,8 +613,9 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
     let preguntas=[];
     console.log(prefijo);
+
     console.log(this.evaluacionAlimenticia[1][prefijo])
-    for(let i = 1;i<this.evaluacionAlimenticia.length;i++)
+    for(let i = 1;i<this.evaluacionAlimenticia.length-1;i++)
     {
       preguntas.push(this.evaluacionAlimenticia[i][prefijo]);
     }
@@ -624,62 +707,64 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       }
     ];
     console.log("preguntas", preguntas);
+    let dx = this.calcularDiagnostico(preguntas);
+    let cie10:string = this.calcularCie10(dx);
+    console.log('diagnostico:', dx);
+    console.log('diagnostico:', cie10);
+    this.diagnostico=dx;
+    let fecha=this.verificarFechaApta(this.evaluacionAlimenticia[0][prefijo]);
     let cadena:any= {
-      nombreEvaluacion:'EVALUACION ALIMENTACION',
-      codigoCIE10:'Z0017',
+      nombreEvaluacion:'EVALUACION_ALIMENTACION',
+      codigoCIE10:cie10,
       codigoHIS:'Z0017.01',
       codigoPrestacion:"0001",
       evaluacionAlimentacionMes:{
-        fechaRegistro:this.convertirFecha(this.evaluacionAlimenticia[0][prefijo]),
+        fechaRegistro:this.convertirFecha(fecha),
         edad:this.edadMeses,
         listaPreguntas:lista,
-        diagnostico:'ALIMENTACION INADEACUADA'
+        diagnostico:dx
       }
     }
     console.log(cadena);
-    let Aux:any[]=[];
-    // console.log(this.Evaluaciones.length);
-    for(let i=0;i<this.edadEditable;i++){
-      Aux[i]=this.Evaluaciones[0][i];
-      console.log(this.Evaluaciones[0][i]);
-    }
-    console.log(Aux);
-    console.log("eliminando",Aux);
-    Aux.push(cadena);
-    console.log(Aux);
-    this.evalAlimenService.updateEvaluacionAlimenticiaCred(this.id,Aux).subscribe((res: any) => {
+    this.evalAlimenService.updateEvaluacionAlimenticiaCred(this.id,cadena).subscribe((res: any) => {
       console.log('se edito correctamente ', res.object);
       console.log('se edito correctamente cade ', cadena);
-      this.messageService.add({
-        severity: "success",
-        summary: "Exito",
-        detail: "Se edito correctamente el registro de Evaluacion del mes: " + this.edadEditable
-      });
+      Swal.fire({
+        icon: 'success',
+        title: 'Evaluacion Alimenticia',
+        text: 'Se actualizo existosamente la evaluacion para la edad ' + this.edadMeses,
+        showConfirmButton: false,
+        timer: 2000,
+      })
     });
 
-  }
-  // ObtenerUltimaEvaluacion(){
-  //   console.log('entro editar', this.Evaluaciones);
-  //   let prefijo = "";
-  //   this.evalAlimenService.lastEvaluacionAlimenticiaCred(this.nroDocRecuperado).subscribe((res: any) => {
-  //     if(res.object!=null || res.object!=undefined){
-  //       console.log('recupero ultimo elemento ', res.object);
-  //       this.edadEditable = res.object.edad;
-  //       prefijo = this.obtenerTitulo(this.edadEditable);
-  //       console.log(this.edadEditable);
-  //     }
-  //     else{
-  //       this.messageService.add({
-  //         severity: "error",
-  //         summary: "Error",
-  //         detail: "No hay datos registrados"
-  //       });
-  //     }
-  //   });
-  // }
-  eliminarEvaluacion(indice){
-    console.log('entro eliminar', this.evaluacionAlimenticia);
 
+  }
+  showSuccessEdito() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Update',
+      detail: 'Se actualizo correctamente'
+    });
+  }
+  showSuccessGuarda() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Save',
+      detail: 'Se guardo correctamente el registro para la edad:' + this.edadMeses
+    });
+  }
+  verificarFechaApta(fecha){
+    var fechas2 = fecha.replace("T"," ");
+    var fechas = fechas2.split(" ");
+    console.log(fechas);
+    var horas = fechas[1].split(":");
+    console.log(horas);
+    console.log(fechas[0] +" " + horas[0] + ":" + horas [1]);
+    return fechas[0] +" " + horas[0] + ":" + horas [1];
+  }
+  limpiarAlimentacion(indice){
+    console.log('entro eliminar', this.evaluacionAlimenticia);
     let prefijo = this.obtenerTitulo(indice);
     console.log(prefijo);
     console.log(this.evaluacionAlimenticia[1][prefijo])
@@ -689,7 +774,17 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       this.evaluacionAlimenticia[i][prefijo]="";
     }
   }
+  guardarActualizar(indice){
+    this.evalAlimenService.getEvaluacionAlimenticiaCred(this.id).subscribe((res: any) => {
+      console.log('se edito correctamente ', res.object);
+      if(res.object == null)
+      {
+        this.guardarEvaluacion(indice);
+      }
+      else {this.editarEvaluacion();}
+    });
 
+  }
 }
 export interface Evaluacion{
   fechaRegistro?: string;
