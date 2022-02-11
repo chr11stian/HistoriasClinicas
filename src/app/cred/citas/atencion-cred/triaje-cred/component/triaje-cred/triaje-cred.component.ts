@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ConsultaGeneralService} from "../../../consulta-principal/services/consulta-general.service";
 import Swal from "sweetalert2";
+import {dato, triajeInterface} from "../../../../models/data";
 
 interface formInterface {
     pro: string,
@@ -16,8 +17,6 @@ interface formInterface {
     styleUrls: ['./triaje-cred.component.css']
 })
 export class TriajeCredComponent implements OnInit {
-    isShown: boolean = false;
-    @Input() consulta: any
     examFG: FormGroup;
     generalInfoFG: FormGroup
     signoPeligroFG: FormGroup
@@ -30,9 +29,12 @@ export class TriajeCredComponent implements OnInit {
     anio: number = 0
     mes: number = 0
     dia: number = 0
-
+    triaje: triajeInterface
+    fecha_hoy: Date = new Date();
+    data: dato
+    my: boolean = true
     id: string;
-    attributeLocalS = 'idConsulta'
+    attributeLocalS = 'documento'
     anamnesisFC = new FormControl({value: '', disabled: false})
     auxDatosGeneralesConsulta: datosGeneralesConsulta
     stateOptions = [
@@ -90,7 +92,6 @@ export class TriajeCredComponent implements OnInit {
             nameFC: 'letargico'
         }
     ]
-
     twoMonthsMore: formControlInterface[] = [
         {
             index: '1',
@@ -104,7 +105,7 @@ export class TriajeCredComponent implements OnInit {
         },
         {
             index: '3',
-            label: 'Letárgico o comaloso',
+            label: 'Letárgico o comatoso',
             nameFC: 'letargicoMore'
         },
         {
@@ -118,7 +119,6 @@ export class TriajeCredComponent implements OnInit {
             nameFC: 'tirajeSubcostal'
         }
     ]
-
     allYear: formControlInterface[] = [
         {
             index: '1',
@@ -149,7 +149,8 @@ export class TriajeCredComponent implements OnInit {
 
     constructor(private router: Router, private route: ActivatedRoute,
                 private consultaGeneralService: ConsultaGeneralService) {
-        this.id = localStorage.getItem(this.attributeLocalS);
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.recuperarPersona()
         this.buildForm()
     }
 
@@ -157,6 +158,22 @@ export class TriajeCredComponent implements OnInit {
         if (changes.consulta.currentValue !== changes.consulta.previousValue) {
             //this.fillForm()
         }
+    }
+
+    recuperarPersona() {
+        this.consultaGeneralService.datosGenerales({
+            tipoDoc: this.data.tipoDoc,
+            nroDoc: this.data.nroDocumento
+        }).subscribe((r: any) => {
+            let nombre = r.object.primerNombre + " " + r.object.otrosNombres + " " + r.object.apePaterno + " " + r.object.apeMaterno
+            //console.log('o: ',);
+            this.generalInfoFG.get('name').setValue(nombre)
+            this.calcularEdad(r.object.nacimiento.fechaNacimiento)
+            const edad = this.anio + ' años ' + this.mes + ' meses ' + this.dia + ' dias'
+            this.generalInfoFG.get('year').setValue(edad)
+            this.generalInfoFG.get('dateAttention').setValue(this.fecha_hoy)
+            this.generalInfoFG.get('hour').setValue(this.fecha_hoy)
+        })
     }
 
     recuperarData(id) {
@@ -275,33 +292,17 @@ export class TriajeCredComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if (this.id !== null) this.recuperarData(this.id);
+        //if (this.id !== null) this.recuperarData(this.id);
     }
 
-    getDatos(): void {
-        // this.consultaGeneralService.crearConsulta(
-        //     {
-        //         'tipoDoc': 'DNI',
-        //         'nroDoc': '10102023',
-        //         'tipoDocProfesional': 'DNI',
-        //         'nroDocProfesional': '45678912'
-        //     }
-        // ).toPromise().then((result) => {
-        //     this.consulta = result.object
-        //     this.fillForm()
-        // }).catch((err) => {
-        //     console.log(err)
-        // })
-    }
-
-    fillForm(): void {
-        /** rellenar general infomación */
+    /**
+     fillForm(): void {
         this.generalInfoFG.get('name').setValue(this.consulta.datosGenerales.datosGeneralesConsulta.nombresApellidos)
         this.generalInfoFG.get('dateAttention').setValue(new Date(this.consulta.created_at.substr(0, 10)))
         this.generalInfoFG.get('hour').setValue(new Date('' + this.consulta.created_at))
         const edad = this.consulta.datosGenerales.datosGeneralesConsulta.edad
         this.generalInfoFG.get('year').setValue(edad.anio + ' años ' + edad.mes + ' meses ' + edad.dia + ' dias')
-    }
+    }**/
 
     save(): void {
         // const consultaInput: ConsultaInputType = {
@@ -357,6 +358,10 @@ export class TriajeCredComponent implements OnInit {
         }
     }
 
+    save2(): void {
+
+    }
+
     calcularEdad(fecha: string) {
         let fechaNacimiento: Date = new Date(fecha);
         let dia = fechaNacimiento.getDate()
@@ -364,10 +369,9 @@ export class TriajeCredComponent implements OnInit {
         let ano = fechaNacimiento.getFullYear()
 
         // cogemos los valores actuales
-        let fecha_hoy: Date = new Date();
-        let ahora_ano = fecha_hoy.getFullYear()
-        let ahora_mes = fecha_hoy.getMonth() + 1;
-        let ahora_dia = fecha_hoy.getDate();
+        let ahora_ano = this.fecha_hoy.getFullYear()
+        let ahora_mes = this.fecha_hoy.getMonth() + 1;
+        let ahora_dia = this.fecha_hoy.getDate();
 
         let edad = (ahora_ano + 1900) - ano;
         if (ahora_mes < mes) {
@@ -410,27 +414,26 @@ export class TriajeCredComponent implements OnInit {
     }
 
     cambio(e) {
-        this.isShown = !this.isShown;
-        console.log('show', this.isShown)
+        this.my = !e.value
     }
 
     getExamenes(): void {
         this.router.navigate(['/dashboard/cred/citas/atencion/examenes'],
             {
-                queryParams: {
+                /**queryParams: {
                     'tipoDoc': this.tipoDoc,
                     'nroDoc': this.nroDoc,
-                }
+                }**/
             })
     }
 
     getConsultaPrincipal(): void {
         this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'],
             {
-                queryParams: {
+                /**queryParams: {
                     'tipoDoc': this.tipoDoc,
                     'nroDoc': this.nroDoc,
-                }
+                }**/
             })
     }
 }

@@ -11,7 +11,7 @@ import {dato} from "src/app/cred/citas/models/data"
     styleUrls: ['./lista-consulta.component.css']
 })
 export class ListaConsultaComponent implements OnInit {
-    attributeLocalS = 'nroDocumento'
+    attributeLocalS = 'documento'
     dataConsulta: any;
     dataLifiado: any;
     FormPaciente: FormGroup;

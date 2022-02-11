@@ -28,7 +28,7 @@ export interface userCita {
     providers: [DialogService]
 })
 export class CitasComponent implements OnInit {
-    attributeLocalS = 'nroDocumento'
+    attributeLocalS = 'documento'
     idIpressLapostaMedica = "616de45e0273042236434b51";
     iprees: string = "la posta medica";
     options: data[]

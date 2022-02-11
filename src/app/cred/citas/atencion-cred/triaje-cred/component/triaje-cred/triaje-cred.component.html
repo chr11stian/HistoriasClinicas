@@ -107,7 +107,7 @@
                             <p-selectButton [options]="stateOptions"
                                             class="inputfield w-full"
                                             optionLabel="label"
-
+                                            (onChange)="cambio($event)"
                                             [formControlName]="formC.index"
                                             optionValue="value">
                             </p-selectButton>
@@ -128,7 +128,7 @@
                             <p-selectButton [options]="stateOptions"
                                             class="inputfield w-full"
                                             optionLabel="label"
-
+                                            (onChange)="cambio($event)"
                                             [formControlName]="formC.index"
                                             optionValue="value">
                             </p-selectButton>
@@ -149,12 +149,26 @@
                             <p-selectButton [options]="stateOptions"
                                             class="inputfield w-full"
                                             optionLabel="label"
-
+                                            (onChange)="cambio($event)"
                                             [formControlName]="formC.index"
                                             optionValue="value">
                             </p-selectButton>
                         </div>
                     </div>
+                </div>
+                <div class="md:col-8 mt-2"></div>
+                <div [hidden]="my">
+                    <button
+                            type="submit"
+                            icon="pi pi-save"
+                            pButton
+                            pRipple
+                            (click)="getExamenes()"
+                            label="Interconsulta"
+                            style="background-color: #0c3866"
+                            class="ml-4 p-button-raised p-button-info"
+                    >
+                    </button>
                 </div>
             </form>
         </div>
@@ -231,20 +245,10 @@
 
 <div class="col col-offset-9">
     <button type="submit"
-            pButton
-            pRipple
             icon="pi pi-save"
-            label="Interconsulta"
-            formControlName="Interconsulta"
-            (click)="getExamenes()"
-            style="background-color: #0c3866"
-            class="p-button-raised p-button-info"></button>
-    <button type="submit"
-            icon="pi pi-times-circle"
             pButton
             pRipple
             (click)="getConsultaPrincipal()"
-            formControlName="Consulta"
             label="Seguir Consulta"
             style="background-color: #0c3866"
             class="ml-4 p-button-raised p-button-info"
@@ -252,7 +256,5 @@
     </button>
 </div>
 
-
-<!-- End Datos generales -->
 
 
