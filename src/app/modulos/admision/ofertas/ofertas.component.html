@@ -157,7 +157,7 @@
         </div>
         <br>
         <div class="grid">
-            <div class="col-12 md:col-6 lg:col-6 p-field">
+            <div class="col-12 md:col-6 lg:col-5 p-field">
                 <form [formGroup]='formTransferirCupos'>
                     <label class="">DATOS PERSONALES DEL PERSONAL DE SALUD QUE VA TRANSFERIR</label>
                     <div class="personal">
@@ -266,7 +266,11 @@
                     </p-table>
                 </p-panel>
             </div>
-            <div class="col-12 md:col-6 lg:col-6 p-field">
+            <div class="col-12 md:col-6 lg:col-2 p-field">
+                <button pButton type="button" label="Transferir todo" icon="pi pi-angle-double-right" class="p-button-success"
+                        (click)="cambioTotasDeCupos()"></button>
+            </div>
+            <div class="col-12 md:col-6 lg:col-5 p-field">
                 <form [formGroup]='formTransferirCupos2'>
                     <label class="">DATOS PERSONALES DEL PERSONAL DE SALUD QUE REEMPLAZA </label>
                     <div class="personal">
@@ -332,8 +336,6 @@
     </div>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Transferir todo" class="m-1 w-8rem"
-                (click)="cambioTotasDeCupos()"></button>
         <button pButton type="button" label="Transferencia parcial" class="m-1 w-8rem"
                 (click)="tranferenciaParcialDeCupos()"></button>
         <button pButton type="button" label="Cancelar" class="m-1 w-8rem p-button-danger" (click)="cancelar()"></button>

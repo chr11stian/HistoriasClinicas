@@ -222,7 +222,7 @@ export class OfertasComponent implements OnInit {
 
     }
 
-    cambioTotasDeCupos() {
+    async cambioTotasDeCupos() {
         let data = {
             tipoDoc: "DNI",
             nroDoc: this.formTransferirCupos2.value.nroDoc2,
@@ -233,20 +233,31 @@ export class OfertasComponent implements OnInit {
         }
         console.log("DAAAAA", data);
 
-        this.cuposService.cambioOfertasElTotal(this.IdOfertaParaCambiar, data).subscribe((res: any) => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Transferencia',
-                text: 'Exitosa',
-                showConfirmButton: false,
-                timer: 2000,
-            })
+        await this.cuposService.cambioOfertasElTotal(this.IdOfertaParaCambiar, data).then((res: any) => {
+            console.log("sasas", res);
+            if (res.object !== null) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Transferencia',
+                    text: 'Exitosa',
+                    showConfirmButton: false,
+                    timer: 3000,
+                })
+            } else {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Transferencia',
+                    text: 'No fue creada, El Personal no tiene el mismo Servicio',
+                    showConfirmButton: false,
+                    timer: 3000,
+                })
+            }
         });
         this.DialogTransferir = false;
 
     }
 
-    tranferenciaParcialDeCupos() {
+    async tranferenciaParcialDeCupos() {
         let data = {
             idOferta: this.IdOfertaParaCambiar,
             personal: {
@@ -264,17 +275,29 @@ export class OfertasComponent implements OnInit {
 
         }
         console.log("DAAAAA", data);
+        await this.cuposService.TranferenciaParcialCupos(data)
+            .then((result: any) => {
+                console.log("sasas", result);
+                if (result.object !== null) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Transferencia',
+                        text: 'Exitosa',
+                        showConfirmButton: false,
+                        timer: 3000,
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Transferencia',
+                        text: 'No fue creada, El Personal no tiene el mismo Servicio',
+                        showConfirmButton: false,
+                        timer: 3000,
+                    })
+                }
 
-        this.cuposService.TranferenciaParcialCupos(data).subscribe((res: any) => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Transferencia',
-                text: 'Exitosa',
-                showConfirmButton: false,
-                timer: 2000,
-            })
-        });
-
-
+            });
+        this.formTransferirCupos2.reset();
+        this.DialogTransferir = false;
     }
 }
