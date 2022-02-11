@@ -1,0 +1,80 @@
+<div>
+    <p-panel>
+        <ng-template pTemplate="header">
+            <label class="">CONSULTAS DEL PACIENTE</label>
+        </ng-template>
+        <div class="">
+            <div class="grid">
+                <div class="col-12 md:col-6 lg:col-1 p-field">
+                    <div class="col-12 md:col-6 lg:col-1 p-field">
+                        <div class="image-container">
+                            <!--<p-image src="assets/images/paciente.jpg" alt="Image" width="35"></p-image>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-11 p-field">
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-2 p-field">
+                            <div class="p-inputgroup">
+                                <label>{{tipoDoc}}:</label>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-8 p-field">
+                            <div class="p-inputgroup">
+                                <tr>{{nroDoc}}</tr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="col-12 md:col-6 lg:col-2 p-field">
+                            <div class="p-inputgroup">
+                                <label>APELLIDOS Y NOMBRES:</label>
+                            </div>
+                        </div>
+                        <div class="col-12 md:col-6 lg:col-8 p-field">
+                            <div class="p-inputgroup">
+                                <tr>{{apellidosNombres}}</tr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-panel>
+
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <span class="p-m-0">
+                LISTA DE CONSULTAS
+            </span>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table [value]="dataConsulta" #dt styleClass="p-datatable-gridlines" [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50]"
+             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">NRO</th>
+                <th style="text-align: center">FECHA DE CONSULTA</th>
+                <th style="text-align: center">ESTADO</th>
+                <th style="text-align: center">ACCIONES</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.fecha }}</td>
+                <td style="text-align: center">{{ rowData.estado }}</td>
+                <td style="text-align: center">
+                    <span class="p-buttonset">
+                        <button pButton pRipple class="p-button-info" label="Plan de Atención" routerLink=""
+                                icon="pi pi-book"
+                                (click)="atencion(rowData)"></button>
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
