@@ -48,5 +48,31 @@ p-table >>> .p-datatable .p-datatable-tbody > tr > td {
 }
 span p{
   margin: 0rem;
-
+}
+/*stylos para poner frozen*/
+.frozenCol {
+  background: inherit;
+  grid-area: topright;
+  border: solid 1px black;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.frozenCol:after {
+  bottom: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  border: solid 1px black !important;
+}
+  .frozenCol-th {
+    background: inherit;
+  position: sticky;
+  top: 0;
+}
+.frozenCol-th::after {
+  position: absolute;
+  overflow-x: auto;
 }

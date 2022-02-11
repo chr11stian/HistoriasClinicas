@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { CitasService } from 'src/app/core/services/citas/citas.service';
 import { RolGuardiaService } from 'src/app/core/services/rol-guardia/rol-guardia.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-citas',
@@ -99,8 +100,36 @@ export class CitasComponent implements OnInit {
   openReprogramacion(data) {
     this.reprogramarDialog = true;
   }
-  cancelarCita(data) {
-    //insertar servicio para cancelar cita
+  cancelarCita(datos) {
+    Swal.fire({
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      icon: 'warning',
+      title: 'Estás seguro de cancelar esta cita?',
+      text: '',
+      showConfirmButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        let data={
+          id: datos.id,
+          fecha: datos.proxCita.fecha,
+          servicio: datos.servicio,
+          tipoCita: datos.tipoCita
+        }
+        this.citasService.cancelarCita(data).subscribe(
+          result => {
+            this.getListaCitasXServicio();
+          }
+        );
+        Swal.fire({
+          icon: 'success',
+          title: 'Cita cancelada correctamente',
+          text: '',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
   }
   openVerTodasCitas(data) {
     this.verCitasDialog = true;
