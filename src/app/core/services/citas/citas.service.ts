@@ -13,4 +13,8 @@ export class CitasService {
   listarCitasXservicio(data){
     return this.http.post(`${this.base_url}/${this.bd}/cupo/listarPendientes`, data)
   }
+
+  cancelarCita(data){
+    return this.http.post(`${this.base_url}/${this.bd}/cupo/cancelarProxCita`, data)
+  }
 }

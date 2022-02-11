@@ -61,9 +61,9 @@
                               <th style="text-align: center">Nro</th>
                               <th style="text-align: center">Servicio</th>
                               <th style="text-align: center">Nro doc.</th>
-                              <!-- <th style="text-align: center">Paciente</th> -->
+                              <th style="text-align: center">Paciente</th>
                               <th style="text-align: center">Fecha</th>
-                              <!-- <th style="text-align: center">Celular</th> -->
+                              <th style="text-align: center">Celular</th>
                               <th style="text-align: center">Acción</th>
                         </tr>
                   </ng-template>
@@ -72,21 +72,21 @@
                               <td style="text-align: center">{{ rowIndex + 1 }}</td>
                               <td style="text-align: center">{{ rowData.servicio }}</td>
                               <td style="text-align: center">{{ rowData.nroDoc }}</td>
-                              <!-- <td style="text-align: center">{{ rowData.datosPaciente.primerNombre+ " , "+
-                                    rowData.datosPaciente.apePaterno +" "+ rowData.datosPaciente.apeMaterno}}</td> -->
+                              <td style="text-align: center">{{ rowData.datosPaciente.primerNombre+ ", "+
+                                    rowData.datosPaciente.apePaterno +" "+ rowData.datosPaciente.apeMaterno}}</td>
                               <td style="text-align: center">{{ rowData.proxCita.fecha}}</td>
-                              <!-- <td style="text-align: center">{{ rowData.datosPaciente.celular }}</td> -->
+                              <td style="text-align: center">{{ rowData.datosPaciente.celular }}</td>
                               <td style="text-align: center">
                                     <span class="p-buttonset">
-                                          <button pButton pRipple label="Confirmar" icon="pi pi-check-square"
-                                                class="p-button-success" (click)="openConfirmar(rowData)"></button>
+                                          <!-- <button pButton pRipple label="Confirmar" icon="pi pi-check-square"
+                                                class="p-button-success" (click)="openConfirmar(rowData)"></button> -->
                                           <button pButton pRipple label="Reprogramar" icon="pi pi-refresh"
                                                 class="p-button-secondary"
                                                 (click)="openReprogramacion(rowData)"></button>
                                           <button pButton pRipple label="Cancelar" icon="pi pi-calendar"
                                                 class="p-button-danger" (click)="cancelarCita(rowData)"></button>
-                                          <button pButton pRipple label="Ver" icon="pi pi-calendar"
-                                                class="p-button-help" (click)="openVerTodasCitas(rowData)"></button>
+                                          <!-- <button pButton pRipple label="Ver" icon="pi pi-calendar"
+                                                class="p-button-help" (click)="openVerTodasCitas(rowData)"></button> -->
                                     </span>
                               </td>
                         </tr>

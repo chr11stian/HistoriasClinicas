@@ -13,10 +13,8 @@
                         <div class="col-12 md:col-6 lg:col-4 p-field">
                             <label class="">BUSCAR POR FECHA</label>
                             <div class="p-inputgroup">
-                                <p-calendar dateFormat="yy-mm-dd" placeholder="Fecha"
-                                            formControlName="fechaBusqueda"
-                                            [readonlyInput]="true"
-                                            (onSelect)="getListaCuposConfirmados()">
+                                <p-calendar dateFormat="yy-mm-dd" placeholder="Fecha" formControlName="fechaBusqueda"
+                                    [readonlyInput]="true" (onSelect)="getListaCuposConfirmados()">
                                 </p-calendar>
                             </div>
                         </div>
@@ -32,17 +30,16 @@
 
     <p-accordion>
         <p-accordionTab header="LISTA DE PACIENTES CON CUPOS PARA LA FECHA" [selected]="true">
-            <p-table #dt [value]="DataPendientesPago" [rows]="10" [paginator]="true"
-                     [globalFilterFields]="['DNI']"
-                     [rowHover]="true" dataKey="id"
-                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                     [showCurrentPageReport]="true">
+            <p-table #dt [value]="DataPendientesPago" [rows]="10" [paginator]="true" [globalFilterFields]="['DNI']"
+                [rowHover]="true" dataKey="id"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [showCurrentPageReport]="true">
                 <ng-template pTemplate="caption">
                     <div class="p-d-flex p-ai-center p-jc-between">
                         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
                             <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                                   placeholder="Filtrar por dni"/>
+                                placeholder="Filtrar por dni" />
                         </span>
                     </div>
                 </ng-template>
@@ -72,8 +69,8 @@
                         <td style="text-align: center">{{ rowData.ipress.servicio}}</td>
                         <td style="text-align: center">{{ rowData.detallePago}}</td>
                         <td style="text-align: center">
-                            <button pButton pRipple type="button" label="Pagar"
-                                    class="p-button-raised p-button-success" (click)="openModal(rowData)"></button>
+                            <button pButton pRipple type="button" label="Pagar" class="p-button-raised p-button-success"
+                                (click)="openModal(rowData)"></button>
                         </td>
                     </tr>
                 </ng-template>
@@ -83,64 +80,148 @@
 </div>
 
 
-<p-dialog [(visible)]="Dialogpagos" [style]="{width: '700px'}" [modal]="true"
-          styleClass="p-fluid" autoZIndex>
-    <p-panel>
-        <ng-template pTemplate="header">
-            <h3 class="m-2">PAGAR SERVICO</h3>
-        </ng-template>
-        <ng-template pTemplate>
+<p-dialog [(visible)]="Dialogpagos" [style]="{width: '780px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
+    <div class="grid">
+        <div class="col-5">
+            <div class="grid">
+                <div class="col-6 image1">
+                </div>
+                <div class="col-6 image2">
+                </div>
+            </div>
+            <div class="grid">
+                <form [formGroup]='formCaja'>
+                    <div class="col-12">
+                        <label class="text-pink-600">Fecha y hora de emision:</label>
+                        <input type="text" pInputText class="inputfield w-full" formControlName="fechaRecibo">
+                    </div>
+                </form>
+            </div>
+            <div class="recuadro p-2">
+                <div class="col-12 ">
+                    <label class="text-pink-600">IPRESS:</label>
+                    <label class="ml-2">{{ipressNombre}}</label>
+                </div>
+                <div class="col-12 pt-0">
+                    <label class="text-pink-600">RENAES:</label>
+                    <label class="ml-2">{{ipressRenaes}}</label>
+                </div>
+                <div class="col-12 pt-0">
+                    <label class="text-pink-600">Dirección:</label>
+                    <label class="ml-2">{{ipressDireccion}}</label>
+                </div>
+                <div class="col-12 pt-0">
+                    <label class="text-pink-600">Teléfono:</label>
+                    <label class="ml-2">{{ipressTelefono}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-7">
+            <p-panel>
+                <ng-template pTemplate="header" class="text-center">
+                    <h3 class="m-2 text-pink-600">PAGAR SERVICIO</h3>
+                </ng-template>
+                <ng-template pTemplate>
+                    <form [formGroup]='formCaja'>
+                        <div class="grid">
+                            <div class="col-6 md:col-6 lg:col-6 p-field pt-0">
+                                <div class="">
+                                    <label class="">Nro de caja: </label>
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="nroCaja">
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-6 lg:col-6 p-field pt-0">
+                                <div class="">
+                                    <label class="">Nro de boleta: </label>
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="nroBoleta">
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-6 lg:col-6 p-field pt-0">
+                                <div class="">
+                                    <label class="">Documento de identidad: </label>
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="nroDoc">
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-6 lg:col-6 p-field pt-0">
+                                <div class="">
+                                    <label class="">Apellidos:</label>
+                                    <input type="text" pInputText class="inputfield w-full"
+                                        formControlName="apePaterno">
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-6 lg:col-6 p-field pt-0">
+                                <div class="">
+                                    <label class="">Nombres: </label>
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="nombres">
+                                </div>
+                            </div>
+                            <div class="col-6 md:col-6 lg:col-6 p-field pt-0">
+                                <div class="">
+                                    <label class="">Edad: </label>
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="edad">
+                                </div>
+                            </div>
+                            <!-- <div class="col-12 p-field pt-0">
+                                <div class="">
+                                    <label class="">Dirección: </label>
+                                    <input type="text" pInputText class="inputfield w-full" formControlName="direccion">
+                                </div>
+                            </div> -->
+                        </div>
+                    </form>
+                </ng-template>
+            </p-panel>
+        </div>
+    </div>
+    <div class="grid">
+        <div class="col-8">
             <form [formGroup]='formCaja'>
-
-                <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
-                        <div class="">
-                            <label class="">Documento de identidad: </label>
-                            <input type="text" pInputText class="inputfield w-full" formControlName="nroDoc">
-                        </div>
+                <div class="grid recuadro mt-1 ml-1 p-1">
+                    <div class="col-6">
+                        <label class="text-pink-600">Detalle:</label>
                     </div>
-                </div>
-                <br>
-                <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
-                        <div class="">
-                            <label class="">Apellidos:</label>
-                            <input type="text" pInputText class="inputfield w-full" formControlName="apePaterno">
-                        </div>
+                    <div class="col-6"></div>
+                    <div class="col-6 pt-0">
+                        <label>Estado:</label>
+                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full" formControlName="estado">
                     </div>
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
-                        <div class="">
-                            <label class="">Nombres: </label>
-                            <input type="text" pInputText class="inputfield w-full" formControlName="nombres">
-                        </div>
+                    <div class="col-6 pt-0">
+                        <label>Fecha de atención:</label>
+                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
+                            formControlName="fechaAtencion">
                     </div>
-
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
-                        <div class="">
-                            <label class="">Numero de cupo: </label>
-                            <input type="text" pInputText class="inputfield w-full" formControlName="nroCupo">
-                        </div>
+                    <div class="col-6 pt-0">
+                        <label>Servicio:</label>
+                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
+                            formControlName="servicio">
                     </div>
-                </div>
-                <div class="grid">
-                    <div class="col-12 md:col-6 lg:col-4 p-field">
-                        <div class="">
-                            <label class="">ESTADO: </label>
-                            <input type="text" pInputText class="inputfield w-full" formControlName="estado">
-                        </div>
-                    </div>
-                    <div class="col-12 md:col-6 lg:col-8 p-field">
-                        <div class="">
-                            <label class="">SERVICO:</label>
-                            <input type="text" pInputText class="inputfield w-full" formControlName="servico">
-                        </div>
+                    <div class="col-6 pt-0">
+                        <label>Hora de atención:</label>
+                        <input type="text" pInputText class="p-inputtext-sm  w-full" formControlName="horaAtencion">
                     </div>
                 </div>
             </form>
-        </ng-template>
-    </p-panel>
-
-
+        </div>
+        <div class="col-4">
+            <form [formGroup]='formCaja'>
+                <div class="grid recuadro mt-1 ml-1 p-1">
+                    <div class="col-12">
+                        <label class="text-pink-600">Pago:</label>
+                    </div>
+                    <div class="col-12 pt-0">
+                        <label>Precio del servicio:</label>
+                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
+                            formControlName="precioServicio">
+                    </div>
+                    <div class="col-12 pt-0">
+                        <label>Tipo de seguro:</label>
+                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
+                            formControlName="tipoSeguro">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <ng-template pTemplate=footer>
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="close()"></button>
         <button pButton type="button" label="Guardar" (click)="pagar()"></button>
