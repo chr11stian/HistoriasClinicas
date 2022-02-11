@@ -2,8 +2,8 @@
 <div class="grid mb-2">
   <div class="col-12 flex justify-content-between">
     <div class="flex justify-content-between">
-      <button pButton pRipple label="Expandir" class="mr-2 p-button-success" icon="pi pi-window-maximize" (click)="expandir=false" styleClass="p-button-lg"></button>
-      <button pButton pRipple label="Comprimir" class="mr-2 p-button-secondary" icon="pi pi-window-minimize" (click)="expandir=true" styleClass="p-button-lg"></button>
+<!--      <button pButton pRipple label="Expandir" class="mr-2 p-button-success" icon="pi pi-window-maximize" (click)="expandir=false" styleClass="p-button-lg"></button>-->
+<!--      <button pButton pRipple label="Comprimir" class="mr-2 p-button-secondary" icon="pi pi-window-minimize" (click)="expandir=true" styleClass="p-button-lg"></button>-->
     </div>
     <div class="flex justify-content-between">
       <button pButton pRipple label="Grafico del Perimetro Cefálico" (click)="onCircumferenceChart()" class="mr-2 p-button-warning " icon="pi pi-chart-line" styleClass="p-button-lg"></button>
@@ -13,9 +13,12 @@
     </div>
   </div>
 </div>
+<div>
+  <p-dropdown [options]="ventanas" [virtualScroll]="true" (onChange)="cambiamos($event)" optionValue="code" optionLabel="name"  itemSize="30"></p-dropdown>
+</div>
 <div class="grid">
-  <div class="lg:col-6 md:col-6 col-fixed">
-    <p-fieldset legend="Recién Nacido" [toggleable]="true" [collapsed]="expandir">
+  <div class="col-7">
+    <p-fieldset *ngIf="edad==-1" legend="Recién Nacido" [toggleable]="true" >
       <div class="card flex flex-column">
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
@@ -41,8 +44,7 @@
         </div>
       </div>
     </p-fieldset>
-    <br>
-    <p-fieldset legend="Menor de 01 año" [toggleable]="true" [collapsed]="expandir">
+    <p-fieldset *ngIf="edad==0" legend="Menor de 01 año" [toggleable]="true" >
       <div class="card flex flex-column">
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
@@ -66,8 +68,8 @@
         </div>
       </div>
     </p-fieldset>
-    <br>
-    <p-fieldset legend="1 año" [toggleable]="true" [collapsed]="expandir">
+
+    <p-fieldset *ngIf="edad==1" legend="1 año" [toggleable]="true" >
       <div class="card flex flex-column">
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
@@ -91,8 +93,8 @@
         </div>
       </div>
     </p-fieldset>
-    <br>
-    <p-fieldset legend="2 años" [toggleable]="true" [collapsed]="expandir">
+
+    <p-fieldset *ngIf="edad==2" legend="2 años" [toggleable]="true" >
       <div class="card flex flex-column">
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
@@ -116,9 +118,9 @@
         </div>
       </div>
     </p-fieldset>
-  </div>
-  <div class="lg:col-6 md:col-6 col-fixed">
-    <p-fieldset legend="3 años" [toggleable]="true" [collapsed]="expandir">
+
+
+    <p-fieldset *ngIf="edad==3" legend="3 años" [toggleable]="true" >
       <div class="card flex flex-column">
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
@@ -142,8 +144,8 @@
         </div>
       </div>
     </p-fieldset>
-    <br>
-    <p-fieldset legend="4 años" [toggleable]="true" [collapsed]="expandir">
+
+    <p-fieldset *ngIf="edad==4" legend="4 años" [toggleable]="true" >
       <div class="card flex flex-column">
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
@@ -167,8 +169,7 @@
         </div>
       </div>
     </p-fieldset>
-    <br>
-    <p-fieldset legend="5 años" [toggleable]="true" [collapsed]="expandir">
+    <p-fieldset *ngIf="edad==5" legend="5 años" [toggleable]="true" >
       <div class="card flex flex-column">
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
@@ -192,8 +193,8 @@
         </div>
       </div>
     </p-fieldset>
-    <br>
-    <p-fieldset legend="6 años" [toggleable]="true" [collapsed]="expandir">
+
+    <p-fieldset *ngIf="edad==6" legend="6 años" [toggleable]="true" >
       <div class="card flex flex-column">
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
@@ -217,8 +218,8 @@
         </div>
       </div>
     </p-fieldset>
-    <br>
-    <p-fieldset legend="7 años" [toggleable]="true" [collapsed]="expandir">
+
+    <p-fieldset *ngIf="edad==7" legend="7 años" [toggleable]="true" >
       <div class="card flex flex-column">
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
@@ -242,8 +243,7 @@
         </div>
       </div>
     </p-fieldset>
-    <br>
-    <p-fieldset legend="8 años" [toggleable]="true" [collapsed]="expandir">
+    <p-fieldset *ngIf="edad==8" legend="8 años" [toggleable]="true" >
       <div class="card flex flex-column">
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
@@ -267,8 +267,7 @@
         </div>
       </div>
     </p-fieldset>
-    <br>
-    <p-fieldset legend="9 años" [toggleable]="true" [collapsed]="expandir">
+    <p-fieldset *ngIf="edad==9?true:false" legend="9 años" [toggleable]="true" >
       <div class="card flex flex-column">
         <div class="field grid">
           <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
@@ -293,8 +292,8 @@
       </div>
     </p-fieldset>
   </div>
-</div>
 
+</div>
 <p-dialog [(visible)]="display" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '40vw'}">
   <ng-template pTemplate="header" >
     <span style="font-weight: bold">

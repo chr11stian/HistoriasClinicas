@@ -13,9 +13,9 @@ export class PagosComponent implements OnInit {
 
     DataPendientesPago: any;
     idIpressLapostaMedica = "616de45e0273042236434b51";
-    ipressNombre = "La posta medica";
-    ipressRenaes = "123456";
-    ipressDireccion = "direccion de la esquina";
+    ipressNombre = "Belempampa";
+    ipressRenaes = "2306";
+    ipressDireccion = "Urb. Tupac Amaru S/N";
     ipressTelefono = "084-457812";
     formCaja: FormGroup;
     datePipe = new DatePipe('en-US');
@@ -54,7 +54,7 @@ export class PagosComponent implements OnInit {
         this.formCaja = this.fb.group({
             fechaBusqueda: new FormControl(''),
             nroCaja: new FormControl(''),
-            nroBoleta: new FormControl(''),
+            nroBoleta: new FormControl('0013'),
             nroDoc: new FormControl(''),
             apePaterno: new FormControl(''),
             nombres: new FormControl(''),
@@ -149,7 +149,7 @@ export class PagosComponent implements OnInit {
         this.formCaja.get('servicio').setValue(event.ipress.servicio);
         this.formCaja.get('nroCaja').setValue("01");
         this.formCaja.get('fechaRecibo').setValue(new Date().toLocaleString());
-        this.formCaja.get('nroBoleta').setValue("");
+        this.formCaja.get('nroBoleta').setValue("00013");
         this.formCaja.get('fechaAtencion').setValue(event.fechaAtencion);
         this.formCaja.get('horaAtencion').setValue(event.horaAtencion+"-"+event.horaAtencionFin);
         this.formCaja.get('precioServicio').setValue((this.tarifario.find((serv)=>serv.servicio==event.ipress.servicio)).costo);

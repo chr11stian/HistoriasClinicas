@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div *ngIf="indexItem !== indexSelected">
-                <div class="steps_NoSelected" (click)="changeStep(indexItem, item.edadNro, item.edad)">
+                <div class="steps_NoSelected" (click)="changeStep(indexItem, item.edadNro, item.edad, itemEEDP)">
                     <div class="div-titulo-nro">
                         <label class="steps-titulo-edadNro">{{item.edadNro}}</label>
                     </div>
@@ -60,13 +60,13 @@
                         <tr>
                             <th rowspan="2" colspan="8">ITEM</th>
                             <th colspan="2">{{'PUNTAJE ' + puntaje + ' C/U'}}</th>
-                            <th colspan="4">PAUTA BREVE</th>
+                            <!-- <th colspan="4">PAUTA BREVE</th> -->
                         </tr>
 
                         <tr>
                             <th colspan="2">EEDP</th>
-                            <th colspan="2">N</th>
-                            <th colspan="2">R</th>
+                            <!-- <th colspan="2">N</th>
+                            <th colspan="2">R</th> -->
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-datos>
@@ -89,7 +89,7 @@
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
-                            <td colspan="2">
+                            <!-- <td colspan="2">
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
                                         <p-checkbox [(ngModel)]="datos.puntajeBreveN" binary="true" inputId="binary">
@@ -112,7 +112,7 @@
                                         </p-checkbox>
                                     </ng-template>
                                 </p-cellEditor>
-                            </td>
+                            </td> -->
                         </tr>
                     </ng-template>
                 </p-table>
