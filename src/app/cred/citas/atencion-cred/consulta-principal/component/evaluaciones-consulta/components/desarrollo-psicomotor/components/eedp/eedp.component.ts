@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
-import { AnswerEEDP, datosEEDPTabla, escalaEval_EEDP_0_4_anios, ItemEEDP, tablaComparativa } from '../models/eedp';
+import { AnswerEEDP, datosEEDPTabla, escalaEval_EEDP_0_4_anios, ItemEEDP, tablaComparativa, TestEEDP } from '../models/eedp';
 
 @Component({
   selector: 'app-eedp',
@@ -31,6 +31,7 @@ export class EedpComponent implements OnInit {
   monthPoints: number;
   itemEEDP: ItemEEDP;
   listaPreguntas: ItemEEDP[] = [];
+  dataTestEEDP: TestEEDP;
 
   constructor(
     private evalAlimenService: EvalAlimenService,
@@ -73,12 +74,10 @@ export class EedpComponent implements OnInit {
   }
 
   saveTest() {
-    // this.arrayEdadEEDPSelected.forEach(item => {
-    //   this.totalPoints += parseInt(item.puntajeEEDP)
-    // });
-    // console.log('total points ', this.totalPoints);
-    console.log('array to save ', this.escalaEEDP);
-    // this.escalaEEDP
+    // this.dataTestEEDP = {
+    //   fecha
+    // }
+    console.log('data to save ', this.listaPreguntas);
   }
 
   updateEscalaEEDP() {
@@ -92,10 +91,13 @@ export class EedpComponent implements OnInit {
     this.edadSelected = edad;
     this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
     this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
-    this.totalPoints
-    // if (prevArray.) {
-      
-    // }
+    this.totalPoints;
+    if (prevArray != undefined) {
+      if (prevArray.puntajeTotalEedp > 0) {
+        this.listaPreguntas.push(prevArray);
+      }
+
+    }
     // this.arrayEdadEEDPSelected.forEach(item => {
     //   this.totalPoints += parseInt(item.puntajeEEDP)
     // });
