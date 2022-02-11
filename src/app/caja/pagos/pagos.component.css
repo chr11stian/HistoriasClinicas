@@ -1,0 +1,22 @@
+.image1{
+    background: url('src/assets/images/logo_minsa.png') no-repeat;
+    background-size: contain;
+    height: 75px;
+    background-position: 50% 50%;
+    margin-top: 7px;
+}
+.image2{
+    background: url('src/assets/images/geresaLogo.png') no-repeat;
+    height: 75px;
+    background-size: contain;
+    background-position: 50% 50%;
+    display:block;
+    margin-top: 7px;
+}
+.recuadro{
+    border-style: solid;
+    border-width: 1px;
+    border-color: gainsboro;
+    border-radius: 10px;
+}
+

@@ -21,4 +21,8 @@ export class ServicesService {
     UpdateCupoCAja(idCupo) {
         return this.http.get(`${this.base_url}/${this.bd}/cupo/actualizar/caja/${idCupo}`)
     }
+
+    pagarCupo(idIpress,ambienteCaja,pago){
+        return this.http.put(`${this.base_url}/${this.bd}/caja/guardarRecibo/${idIpress}/${ambienteCaja}`,pago) 
+    }
 }

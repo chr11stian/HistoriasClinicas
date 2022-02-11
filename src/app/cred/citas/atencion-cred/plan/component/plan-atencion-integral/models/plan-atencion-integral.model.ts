@@ -1,10 +1,27 @@
+// export interface Inmunizaciones {
+//     descripcionEdad: string,
+//     nombreVacuna: string,
+//     nroDosis: number,
+//     estado: boolean,
+//     fecha?: string,
+//     fechaTentativa?: string
+// }
+
 export interface Inmunizaciones {
-    descripcionEdad: string,
-    nombreVacuna: string,
-    nroDosis: number,
-    estado: boolean,
-    fecha?: string,
-    fechaTentativa?: string
+        codigo: string;
+        edadMes: number;
+        descripcion: string;
+        cantidad: number;
+        dosis: number;
+        viaAdministracion: string;
+        duracion: number;
+        lote: number;
+        fechaVenc: string;
+        encargado: string;
+        fechaAplicacion: string;
+        fechaTentativa: string;
+        cie10: string;
+        his: string;
 }
 export interface ControlCrecimiento{
     edadMes:number,
