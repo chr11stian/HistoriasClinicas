@@ -1,5 +1,5 @@
 .recuadro {
-    border-style:solid;
+    border-style: solid;
     border-width: 1px;
     border-radius: 5px;
 }
@@ -15,6 +15,27 @@ p-fieldset >>> .p-fieldset .p-fieldset-legend {
 }
 
 .personal {
-    border: 1px solid #2570c4;
+    border: 1px solid #adadad;
     border-radius: 10px;
+}
+
+
+
+p-panel >>> .p-panel .p-panel-content {
+    padding: 1rem;
+    border: 1px solid #e3e2e2;
+    background: rgb(255 255 255);
+    color: rgb(73 80 87);
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top: 0 none;
+}
+
+p-panel>>>.p-panel .p-panel-header {
+    border: 1px solid #e3e2e2;
+    padding: 1rem;
+    background: rgb(248 249 250);
+    color: rgb(73 80 87);
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
 }

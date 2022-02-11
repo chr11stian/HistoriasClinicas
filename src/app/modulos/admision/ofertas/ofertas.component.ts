@@ -35,7 +35,8 @@ export class OfertasComponent implements OnInit {
     SelectServicio = "MEDICINA GENERAL";
     DataPersonalBusqueda: any;
     TurnosPersonal: any;
-    selectedHorario: any;
+    selectedHorario: any = null;
+    activarBoton: string = null;
 
     constructor(
         private ofertasService: OfertasService,
@@ -216,9 +217,17 @@ export class OfertasComponent implements OnInit {
     }
 
     SelectHorarios() {
-        this.formTransferirCupos.get('horaInicio').setValue(this.selectedHorario[0].horaInicio);
-        this.formTransferirCupos.get('horaFin').setValue(this.selectedHorario[1].horaFin);
-        console.log("select Horas", this.selectedHorario);
+        let Inicio = '';
+        if (this.selectedHorario != null) {
+            Inicio = this.selectedHorario[0].horaInicio;
+            this.formTransferirCupos.get('horaInicio').setValue(Inicio);
+        } else {
+        }
+
+        // this.formTransferirCupos.get('horaFin').setValue(this.selectedHorario[1].horaFin);
+        // this.activarBoton = this.selectedHorario[0].horaInicio;
+        // console.log("select Horas", this.selectedHorario);
+        // this.selectedHorario = null;
 
     }
 

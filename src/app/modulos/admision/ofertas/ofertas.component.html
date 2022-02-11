@@ -146,7 +146,7 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="DialogTransferir" [style]="{width: '1400px', height: '500'}" [modal]="true"
+<p-dialog [(visible)]="DialogTransferir" [style]="{width: '1200px', height: '500'}" [modal]="true"
           [draggable]="false" [resizable]="false">
     <div class="col-12 md:col-6 lg:col-12 p-field">
 
@@ -157,9 +157,9 @@
         </div>
         <br>
         <div class="grid">
-            <div class="col-12 md:col-6 lg:col-5 p-field">
+            <div class="col-12 md:col-6 lg:col-8 p-field">
                 <form [formGroup]='formTransferirCupos'>
-                    <label class="">DATOS PERSONALES DEL PERSONAL DE SALUD QUE VA TRANSFERIR</label>
+                    <label class="">PERSONAL DE SALUD QUE VA TRANSFERIR</label>
                     <div class="personal">
                         <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-4 p-field">
@@ -230,6 +230,7 @@
                         </div>
                     </div>
                 </form>
+                <br>
                 <p-panel>
                     <ng-template pTemplate="header">
                         OFERTAS
@@ -266,16 +267,12 @@
                     </p-table>
                 </p-panel>
             </div>
-            <div class="col-12 md:col-6 lg:col-2 p-field">
-                <button pButton type="button" label="Transferir todo" icon="pi pi-angle-double-right" class="p-button-success"
-                        (click)="cambioTotasDeCupos()"></button>
-            </div>
-            <div class="col-12 md:col-6 lg:col-5 p-field">
+            <div class="col-12 md:col-6 lg:col-4 p-field">
                 <form [formGroup]='formTransferirCupos2'>
-                    <label class="">DATOS PERSONALES DEL PERSONAL DE SALUD QUE REEMPLAZA </label>
+                    <label class="">PERSONAL DE SALUD QUE REEMPLAZA </label>
                     <div class="personal">
                         <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
                                 <span class="">NRO DOCUMENTO</span>
                                 <div class="p-inputgroup">
                                     <input type="number" pInputText
@@ -287,13 +284,15 @@
                             </div>
                         </div>
                         <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-6 p-field"><span class="">APELLIDOS Y NOMBRES</span>
+                            <div class="col-12 md:col-6 lg:col-12 p-field"><span class="">APELLIDOS Y NOMBRES</span>
                                 <div class="p-inputgroup">
                                     <input type="text"
                                            pInputText
                                            formControlName="apellidos2"/>
                                 </div>
                             </div>
+                        </div>
+                        <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-6 p-field">
                                 <span class="">SERVICIO</span>
                                 <div class="p-inputgroup">
@@ -302,8 +301,6 @@
                                            formControlName="servicio2"/>
                                 </div>
                             </div>
-                        </div>
-                        <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-6 p-fluid">
                                 <span class="">SELECIONE EL TURNO</span>
                                 <div class="">
@@ -317,6 +314,8 @@
                                     </p-dropdown>
                                 </div>
                             </div>
+                        </div>
+                        <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-3 p-field">
                                 <span class="">DIA</span>
                                 <div class="p-inputgroup">
@@ -329,15 +328,26 @@
                         </div>
 
                     </div>
+                    <br>
+                    <div>
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-6 p-field" style="align-items: center">
+                                <button pButton type="button" label="Transferir todo" icon="pi pi-angle-double-right"
+                                        class="p-button-success"
+                                        (click)="cambioTotasDeCupos()"
+                                ></button>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
+                                <button style="text-align: center" icon="pi pi-angle-double-right" pButton type="button"
+                                        label="Transferencia parcial"
+                                        (click)="tranferenciaParcialDeCupos()"
+                                        [disabled]="activarBoton==null"></button>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
 
     </div>
-
-    <ng-template pTemplate="footer">
-        <button pButton type="button" label="Transferencia parcial" class="m-1 w-8rem"
-                (click)="tranferenciaParcialDeCupos()"></button>
-        <button pButton type="button" label="Cancelar" class="m-1 w-8rem p-button-danger" (click)="cancelar()"></button>
-    </ng-template>
 </p-dialog>
