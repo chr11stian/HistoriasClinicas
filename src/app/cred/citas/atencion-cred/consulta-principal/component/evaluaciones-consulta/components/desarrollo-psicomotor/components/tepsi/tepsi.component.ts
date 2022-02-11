@@ -35,53 +35,44 @@ export class TepsiComponent implements OnInit {
   tablaSubTestCoordinacion:any[];
   tablaSubTestLenguaje:any[];
   tablaSubTestMotricidad:any[];
-  edadAnio:number;
-  edadMes:number;
-  edadDia:number;
+  anioEdad:number;
+  mesEdad:number;
+  diaEdad:number;
   rango:number=0
+  fechaNacimiento='01/01/2022'
   constructor(private tepsiService:TepsiService,
               private messageService: MessageService) { }
   ngOnInit(): void {
     this.buildForm();
-    //la fecha de nacimiento nos las facilitaran mas adelante
-    this.calcularEdad('08/01/2018')
-    this.getFC('anio').setValue(this.edadAnio);
-    this.getFC('mes').setValue(this.edadMes);
-    this.getFC('dia').setValue(this.edadDia);
-    this.rango=this.determinarRango();
-    this.tepsiService.getTablaPuntaje(this.rango).subscribe((result)=>{
-      this.tablaPuntajeTotal=result['object']['tablaPuntajeTotal'];
-      this.tablaSubTestCoordinacion=result['object']['tablaSubTestCoordinacion'];
-      this.tablaSubTestLenguaje=result['object']['tablaSubTestLenguaje'];
-      this.tablaSubTestMotricidad=result['object']['tablaSubTestMotricidad'];
-    });
+    this.calcularEdadDinamico(this.getFC('fechaSelected').value)
   }
   buildForm(){
     this.datosGeneralesFG=new FormGroup({
-      anio:new FormControl('0',Validators.required),
-      mes:new FormControl('0',Validators.required),
-      dia:new FormControl('0',Validators.required),
-      nombreExaminador:new FormControl('',Validators.required)
+      // anio:new FormControl('0',Validators.required),
+      // mes:new FormControl('0',Validators.required),
+      // dia:new FormControl('0',Validators.required),
+      nombreExaminador:new FormControl('',Validators.required),
+      fechaSelected:new FormControl(new Date(),Validators.required)
     })
   }
   determinarRango(){
-    if((this.edadAnio==2 && this.edadMes<=5)||(this.edadAnio==2 && this.edadMes==6 && this.edadDia==0) ) {
+    if((this.anioEdad==2 && this.mesEdad<=5)||(this.anioEdad==2 && this.mesEdad==6 && this.diaEdad==0) ) {
       return 1;
     }
     else{
-      if((this.edadAnio==2 && this.edadMes>=6)||(this.edadAnio==3 && this.edadMes==0 && this.edadDia==0) ){
+      if((this.anioEdad==2 && this.mesEdad>=6)||(this.anioEdad==3 && this.mesEdad==0 && this.diaEdad==0) ){
         return 2;
       }
       else{
-        if((this.edadAnio==3 && this.edadMes<=5)||(this.edadAnio==3 && this.edadMes==6 &&this.edadDia==0)){
+        if((this.anioEdad==3 && this.mesEdad<=5)||(this.anioEdad==3 && this.mesEdad==6 &&this.diaEdad==0)){
           return 3;
         }
         else{
-          if((this.edadAnio==3 && this.edadMes>=6) || (this.edadAnio==4 && this.edadMes==0 && this.edadDia==0)){
+          if((this.anioEdad==3 && this.mesEdad>=6) || (this.anioEdad==4 && this.mesEdad==0 && this.diaEdad==0)){
             return 4;
           }
           else{
-            if(( this.edadAnio==4 && this.edadMes<=5) || (this.edadAnio==4 && this.edadMes==6 && this.edadDia==0 )){
+            if(( this.anioEdad==4 && this.mesEdad<=5) || (this.anioEdad==4 && this.mesEdad==6 && this.diaEdad==0 )){
               return 5
             }
             else{
@@ -116,12 +107,68 @@ export class TepsiComponent implements OnInit {
     }
   }
   datosGeneralesFG:FormGroup;
-  calcularEdad(fecha: string) {
-    let fechaNacimiento: Date = new Date(fecha);
+  calcularEdadDinamico(fechaInput:Date){
+    //fecha ingresada
+    let fechaNacimiento: Date = new Date("01/01/2022");
     let dia = fechaNacimiento.getDate()
     let mes = fechaNacimiento.getMonth() + 1
     let ano = fechaNacimiento.getFullYear()
 
+    // cogemos los ingresados
+    let fecha_hoy:Date= fechaInput;
+    let ahora_ano = fecha_hoy.getFullYear()
+    let ahora_mes = fecha_hoy.getMonth() + 1;
+    let ahora_dia = fecha_hoy.getDate();
+
+    let edad = (ahora_ano + 1900) - ano;
+    if (ahora_mes < mes) {
+      edad--;
+    }
+    if ((mes == ahora_mes) && (ahora_dia < dia)) {
+      edad--;
+    }
+    if (edad >= 1900) {
+      edad -= 1900;
+    }
+
+    let meses = 0;
+    if (ahora_mes > mes && dia > ahora_dia)
+      meses = ahora_mes - mes - 1;
+    else if (ahora_mes > mes)
+      meses = ahora_mes - mes
+    if (ahora_mes < mes && dia < ahora_dia)
+      meses = 12 - (mes - ahora_mes);
+    else if (ahora_mes < mes)
+      meses = 12 - (mes - ahora_mes + 1);
+    if (ahora_mes == mes && dia > ahora_dia)
+      meses = 11;
+
+    // calculamos los dias
+    let dias = 0;
+    if (ahora_dia > dia)
+      dias = ahora_dia - dia;
+    if (ahora_dia < dia) {
+      let ultimoDiaMes: Date = new Date(ahora_ano, ahora_mes - 1, 0);
+      dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
+    }
+    this.anioEdad = edad
+    this.mesEdad = meses
+    this.diaEdad= dias
+    this.rango=this.determinarRango();
+    this.tepsiService.getTablaPuntaje(this.rango).subscribe((result)=>{
+      this.tablaPuntajeTotal=result['object']['tablaPuntajeTotal'];
+      this.tablaSubTestCoordinacion=result['object']['tablaSubTestCoordinacion'];
+      this.tablaSubTestLenguaje=result['object']['tablaSubTestLenguaje'];
+      this.tablaSubTestMotricidad=result['object']['tablaSubTestMotricidad'];
+    });
+  }
+  calcularEdad(fecha:any) {
+    let fechaNacimiento: Date = new Date(fecha);
+    let dia = fechaNacimiento.getDate()
+    let mes = fechaNacimiento.getMonth() + 1
+    let ano = fechaNacimiento.getFullYear()
+    console.log('fecha nacimiento',fechaNacimiento)
+    console.log('dia,mes,años',dia,mes,ano)
     // cogemos los valores actuales
     let fecha_hoy: Date = new Date();
     let ahora_ano = fecha_hoy.getFullYear()
@@ -159,9 +206,9 @@ export class TepsiComponent implements OnInit {
       let ultimoDiaMes: Date = new Date(ahora_ano, ahora_mes - 1, 0);
       dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
     }
-    this.edadAnio = edad
-    this.edadMes = meses
-    this.edadDia = dias
+    this.anioEdad = edad
+    this.mesEdad = meses
+    this.diaEdad = dias
   }
   categoria:string[]=['','','']
   calcularSuma(valor,nroTest){
