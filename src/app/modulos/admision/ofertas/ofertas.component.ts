@@ -216,19 +216,56 @@ export class OfertasComponent implements OnInit {
         this.formTransferirCupos2.get('dia').setValue(event.value);
     }
 
-    SelectHorarios() {
-        let Inicio = '';
-        if (this.selectedHorario != null) {
-            Inicio = this.selectedHorario[0].horaInicio;
-            this.formTransferirCupos.get('horaInicio').setValue(Inicio);
-        } else {
-        }
+    SelectHorarios(event) {
+        console.log("select Horas", event);
+        let horasInicio
+        event.checked.forEach(function (value) {
+            horasInicio = value.horaInicio;
+            console.log(horasInicio);
+        });
+        this.activarBoton = horasInicio;
+        console.log("Activar", this.activarBoton);
+        this.formTransferirCupos.get('horaInicio').setValue(horasInicio);
 
+        // let Inicio = '';
+        // let Fin = '';
+        // if (this.selectedHorario != null) {
+        //     Inicio = this.selectedHorario[0].horaInicio;
+        //     Fin = this.selectedHorario[1].horaFin;
+        //     if (Inicio != '') {
+        //         this.formTransferirCupos.get('horaInicio').setValue(Inicio);
+        //     }
+        //     if (Fin != '') {
+        //         this.formTransferirCupos.get('horaFin').setValue(Fin);
+        //     }
+        //     this.activarBoton = Inicio + Fin;
+        //
+        //
+        // } else {
+        //     this.selectedHorario = null;
+        // }
         // this.formTransferirCupos.get('horaFin').setValue(this.selectedHorario[1].horaFin);
-        // this.activarBoton = this.selectedHorario[0].horaInicio;
-        // console.log("select Horas", this.selectedHorario);
         // this.selectedHorario = null;
 
+    }
+
+    seleccionarTodo(e: any) {
+
+        this.selectedHorario.forEach(x => x.checked = e.target.checked)
+        console.log(e)
+
+    }
+
+    getAlbumId(e: any, name: string) {
+        if (e.target.checked) {
+            console.log(name + 'checked');
+            this.horas.push(name);
+        } else {
+            console.log(name + 'Uncheched');
+            this.horas = this.horas.filter(m => m != name);
+        }
+
+        console.log(this.horas);
     }
 
     async cambioTotasDeCupos() {

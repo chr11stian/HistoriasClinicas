@@ -257,9 +257,8 @@
                                            value="OCUPADO"></p-tag>
                                 </td>
                                 <td style="text-align: center">
-                                    <p-checkbox name="groupname" [value]="rowData"
-                                                [(ngModel)]="selectedHorario"
-                                                (onChange)="SelectHorarios()">
+                                    <p-checkbox id="1" [value]="rowData"
+                                                (onChange)="SelectHorarios($event)">
                                     </p-checkbox>
                                 </td>
                             </tr>
@@ -342,6 +341,13 @@
                                         label="Transferencia parcial"
                                         (click)="tranferenciaParcialDeCupos()"
                                         [disabled]="activarBoton==null"></button>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
+                                <tr>
+                                    <td><input type="checkbox" name="1" value="false" (change)="getAlbumId($event,'1')">
+                                    </td>
+                                    <td>Selecionar todo</td>
+                                </tr>
                             </div>
                         </div>
                     </div>
