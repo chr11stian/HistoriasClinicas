@@ -74,8 +74,16 @@
                             <td colspan="2">{{datos.areEvaluacion}}</td>
                             <td colspan="6" pEditableColumn>{{datos.descripcion}}</td>
                             <td colspan="2">
-                                <p-cellEditor (onChange)="calcularResultado()">
+                                <p-cellEditor >
                                     <ng-template pTemplate="input">
+                                        <p-checkbox [(ngModel)]="datos.puntajeEEDP" binary="true" inputId="binary" (onChange)="calcularResultado()">
+                                        </p-checkbox>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        <p-checkbox [(ngModel)]="datos.puntajeEEDP" binary="true" inputId="binary" (onChange)="calcularResultado()">
+                                        </p-checkbox>
+                                    </ng-template>
+                                    <!-- <ng-template pTemplate="input">
                                         <input style="width:50px; text-align: center;" pInputText type="text"
                                             [(ngModel)]="datos.puntajeEEDP"
                                             onkeypress="return (event.charCode == 48 || event.charCode == 54)"
@@ -86,7 +94,7 @@
                                             (blur)="calcularResultado()" onClick="this.select();"
                                             onkeypress="return (event.charCode == 48 || event.charCode == 54)"
                                             maxlength="1">
-                                    </ng-template>
+                                    </ng-template> -->
                                 </p-cellEditor>
                             </td>
                             <!-- <td colspan="2">

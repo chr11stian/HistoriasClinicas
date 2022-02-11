@@ -62,7 +62,7 @@ export interface DatosEEDP {
     areEvaluacion: string,
     descripcion: string,
     puntajeMaximo: string,
-    puntajeEEDP: string,
+    puntajeEEDP: boolean,
     puntajeBreveN: boolean,
     puntajeBreveR: boolean
 }

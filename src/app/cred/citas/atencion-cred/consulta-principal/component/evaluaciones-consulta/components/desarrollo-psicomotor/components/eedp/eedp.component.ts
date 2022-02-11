@@ -32,6 +32,7 @@ export class EedpComponent implements OnInit {
   itemEEDP: ItemEEDP;
   listaPreguntas: ItemEEDP[] = [];
   dataTestEEDP: TestEEDP;
+  escaleEEDP: datosEEDPTabla;
 
   constructor(
     private evalAlimenService: EvalAlimenService,
@@ -59,7 +60,6 @@ export class EedpComponent implements OnInit {
   async getDatos() {
     await this.evalAlimenService.getEscalaEEDParray().then(data => {
       this.escalaEEDP = data;
-      console.log('data de res ', data);
       // this.evaluacionEEDP.map((evaluacion, index) => {
       //   this.escalaEEDP[index] = evaluacion.item;
       // });
@@ -98,13 +98,6 @@ export class EedpComponent implements OnInit {
       }
 
     }
-    // this.arrayEdadEEDPSelected.forEach(item => {
-    //   this.totalPoints += parseInt(item.puntajeEEDP)
-    // });
-    // console.log('total points ', this.totalPoints);
-
-    // this.totalPoints += this.monthPoints;
-    // console.log('total points to save ', this.totalPoints);
   }
 
   calcularPuntaje() {
@@ -118,7 +111,9 @@ export class EedpComponent implements OnInit {
     this.monthPoints = 0;
 
     this.arrayEdadEEDPSelected.forEach(item => {
-      this.monthPoints += parseInt(item.puntajeEEDP)
+      if (item.puntajeEEDP) {
+        this.monthPoints += parseInt(this.puntaje);
+      }
     });
     let ansMonth = this.arrayEdadEEDPSelected.map(item => {
       let auxAns = {
@@ -128,8 +123,6 @@ export class EedpComponent implements OnInit {
       }
       return auxAns
     });
-    console.log('nuevo arreglo to answer ', ansMonth);
-
     this.itemEEDP = {
       edad: this.edadNroSelected,
       puntajeTotalEedp: this.monthPoints,
