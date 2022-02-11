@@ -23,7 +23,8 @@ export class RegistrarTriajeComponent implements OnInit {
   imcOption: number;
   imagePath: string = image;
   dataPIDE: any;
-
+  imc: any;
+  ver=false;
   constructor(
     private fb: FormBuilder,
     private dialog: DialogService,
@@ -39,21 +40,30 @@ export class RegistrarTriajeComponent implements OnInit {
     this.idCupo = this.datosPersonales.id;
     if (this.datosPersonales.paciente.edadAnio < 18) {
       if (this.datosPersonales.paciente.sexo == "FEMENINO")
-        this.imagePath=imageNina;
-      else 
-        this.imagePath=imageNino;
+        this.imagePath = imageNina;
+      else
+        this.imagePath = imageNino;
     }
     else {
       this.traerFoto();
     }
     if (config.data.option == 2) {
+      this.ver=true;
       this.formTriaje.patchValue({ temperatura: this.datosPersonales.funcionesVitales.temperatura });
-        this.formTriaje.patchValue({ presionSis: this.datosPersonales.funcionesVitales.presionSistolica });
-        this.formTriaje.patchValue({ presionDias: this.datosPersonales.funcionesVitales.presionDiastolica });
-        this.formTriaje.patchValue({ fc: this.datosPersonales.funcionesVitales.fc });
-        this.formTriaje.patchValue({ fr: this.datosPersonales.funcionesVitales.fr });
-        this.formTriaje.patchValue({ peso: this.datosPersonales.funcionesVitales.peso });
-        this.formTriaje.patchValue({ talla: this.datosPersonales.funcionesVitales.talla });
+      this.formTriaje.patchValue({ presionSis: this.datosPersonales.funcionesVitales.presionSistolica });
+      this.formTriaje.patchValue({ presionDias: this.datosPersonales.funcionesVitales.presionDiastolica });
+      this.formTriaje.patchValue({ fc: this.datosPersonales.funcionesVitales.fc });
+      this.formTriaje.patchValue({ fr: this.datosPersonales.funcionesVitales.fr });
+      this.formTriaje.patchValue({ peso: this.datosPersonales.funcionesVitales.peso });
+      this.formTriaje.patchValue({ talla: this.datosPersonales.funcionesVitales.talla });
+      this.calcularIMC();
+      this.formTriaje.get("temperatura").disable();
+      this.formTriaje.get("presionSis").disable();
+      this.formTriaje.get("presionDias").disable();
+      this.formTriaje.get("fc").disable();
+      this.formTriaje.get("fr").disable();
+      this.formTriaje.get("peso").disable();
+      this.formTriaje.get("talla").disable();
     }
   }
 
@@ -88,6 +98,7 @@ export class RegistrarTriajeComponent implements OnInit {
       fr: parseInt(this.formTriaje.value.fr),
       peso: parseFloat(this.formTriaje.value.peso),
       talla: parseFloat(this.formTriaje.value.talla),
+      imc: this.imc
     }
   }
 
@@ -142,7 +153,7 @@ export class RegistrarTriajeComponent implements OnInit {
 
   calcularIMC() {
     let pesoAux: number = this.formTriaje.value.peso;
-    let tallaAux: number = this.formTriaje.value.talla;
+    let tallaAux: number = (this.formTriaje.value.talla) * 0.01;
     let imc = pesoAux / (tallaAux * tallaAux)
     console.log('imc ', imc);
     if (imc < 18.5) {
@@ -157,6 +168,7 @@ export class RegistrarTriajeComponent implements OnInit {
     if (imc > 30) {
       this.imcOption = 4
     }
+    this.imc = imc;
   }
 }
 
@@ -168,5 +180,5 @@ interface Triaje {
   fr: number,
   peso: number,
   talla: number,
-
+  imc: number
 }

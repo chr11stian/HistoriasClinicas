@@ -108,7 +108,7 @@
                                         </div>
                                         <div class="col-5">
                                             <input type="number" pInputText formControlName='peso' placeholder="Peso"
-                                                class="inputfield w-full">
+                                                class="inputfield w-full" (blur)="calcularIMC()">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">kg.</span>
@@ -148,6 +148,7 @@
     </div>
 </div>
 <div class="footer mt-4">
-    <button pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2" (click)="guardarTriaje()"></button>
-    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
+    <button *ngIf="!ver" pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2" (click)="guardarTriaje()"></button>
+    <button *ngIf="ver" pButton type="button" label="Salir" class="p-button-primary mt-4 mr-2" (click)="closeDialog()"></button>
+    <button *ngIf="!ver"pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
 </div>

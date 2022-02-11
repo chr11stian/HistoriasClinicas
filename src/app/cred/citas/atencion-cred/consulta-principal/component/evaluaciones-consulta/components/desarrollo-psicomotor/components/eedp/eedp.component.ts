@@ -30,7 +30,7 @@ export class EedpComponent implements OnInit {
   totalPoints: number = 0;
   monthPoints: number;
   itemEEDP: ItemEEDP;
-  listaPreguntas
+  listaPreguntas: ItemEEDP[] = [];
 
   constructor(
     private evalAlimenService: EvalAlimenService,
@@ -93,6 +93,9 @@ export class EedpComponent implements OnInit {
     this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
     this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
     this.totalPoints
+    // if (prevArray.) {
+      
+    // }
     // this.arrayEdadEEDPSelected.forEach(item => {
     //   this.totalPoints += parseInt(item.puntajeEEDP)
     // });
