@@ -5,7 +5,10 @@ import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dy
 import { ConsultasService } from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/services/consultas.service';
 import { ConsultaObstetriciaService } from 'src/app/obstetricia-general/gestante/consulta/services/consulta-obstetricia/consulta-obstetricia.service';
 import { CuposTriajeService } from '../services/cupos-triaje/cupos-triaje.service';
-
+import { image } from '../../../../assets/images/image.const';
+import { imageNina } from '../../../../assets/images/imageNina.const';
+import { imageNino } from '../../../../assets/images/imageNino.const';
+import { PersonalService } from 'src/app/core/services/personal-services/personal.service';
 @Component({
   selector: 'app-registrar-triaje',
   templateUrl: './registrar-triaje.component.html',
@@ -18,11 +21,14 @@ export class RegistrarTriajeComponent implements OnInit {
   idCupo: string;
   dataTriaje: any;
   imcOption: number;
+  imagePath: string = image;
+  dataPIDE: any;
 
   constructor(
     private fb: FormBuilder,
     private dialog: DialogService,
     private triajeService: CuposTriajeService,
+    private personalService: PersonalService,
     private config: DynamicDialogConfig,
     private ref: DynamicDialogRef,
     private messageService: MessageService,
@@ -31,6 +37,15 @@ export class RegistrarTriajeComponent implements OnInit {
     console.log('data of listar ', config.data.data);
     this.datosPersonales = config.data.data;
     this.idCupo = this.datosPersonales.id;
+    if (this.datosPersonales.paciente.edadAnio < 18) {
+      if (this.datosPersonales.paciente.sexo == "FEMENINO")
+        this.imagePath=imageNina;
+      else 
+        this.imagePath=imageNino;
+    }
+    else {
+      this.traerFoto();
+    }
     if (config.data.option == 2) {
       this.triajeService.getVerTriajeByIdCupo(this.idCupo).subscribe((res: any) => {
         this.dataTriaje = res.object;
@@ -45,6 +60,13 @@ export class RegistrarTriajeComponent implements OnInit {
     }
   }
 
+  traerFoto() {
+    this.personalService.getDatosReniec(this.datosPersonales.paciente.nroDoc).subscribe((res: any) => {
+      this.dataPIDE = res;
+      console.log(res);
+      this.imagePath = res.foto;
+    });
+  }
   ngOnInit(): void {
   }
 
@@ -85,7 +107,32 @@ export class RegistrarTriajeComponent implements OnInit {
   closeDialog() {
     this.ref.close();
   }
-
+  ponerEdadEnLetras() {
+    let anios = this.datosPersonales.paciente.edadAnio;
+    let meses = this.datosPersonales.paciente.edadMes;
+    let dias = this.datosPersonales.paciente.edadDia;
+    let cadena = ""
+    if (anios > 1) {
+      cadena += anios + " años,";
+    }
+    else {
+      if (anios != 0)
+        cadena += anios + " año,"
+    }
+    if (meses > 1) {
+      cadena += meses + " meses, ";
+    }
+    else {
+      cadena += meses + " mes, "
+    }
+    if (dias > 1) {
+      cadena += dias + " dias";
+    }
+    else {
+      cadena += dias + " dia"
+    }
+    return cadena;
+  }
   loadData() {
     this.formTriaje.patchValue({ temperatura: '' });
     this.formTriaje.patchValue({ presionSis: '' });
@@ -115,6 +162,7 @@ export class RegistrarTriajeComponent implements OnInit {
     }
   }
 }
+
 interface Triaje {
   t: number,
   presionSistolica: number,
