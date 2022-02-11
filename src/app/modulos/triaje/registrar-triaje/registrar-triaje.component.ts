@@ -32,16 +32,13 @@ export class RegistrarTriajeComponent implements OnInit {
     this.datosPersonales = config.data.data;
     this.idCupo = this.datosPersonales.id;
     if (config.data.option == 2) {
-      this.triajeService.getVerTriajeByIdCupo(this.idCupo).subscribe((res: any) => {
-        this.dataTriaje = res.object;
-        this.formTriaje.patchValue({ temperatura: this.dataTriaje.funcionesVitales.t });
-        this.formTriaje.patchValue({ presionSis: this.dataTriaje.funcionesVitales.presionSistolica });
-        this.formTriaje.patchValue({ presionDias: this.dataTriaje.funcionesVitales.presionDiastolica });
-        this.formTriaje.patchValue({ fc: this.dataTriaje.funcionesVitales.fc });
-        this.formTriaje.patchValue({ fr: this.dataTriaje.funcionesVitales.fr });
-        this.formTriaje.patchValue({ peso: this.dataTriaje.funcionesVitales.peso });
-        this.formTriaje.patchValue({ talla: this.dataTriaje.funcionesVitales.talla });
-      })
+      this.formTriaje.patchValue({ temperatura: this.datosPersonales.funcionesVitales.temperatura });
+        this.formTriaje.patchValue({ presionSis: this.datosPersonales.funcionesVitales.presionSistolica });
+        this.formTriaje.patchValue({ presionDias: this.datosPersonales.funcionesVitales.presionDiastolica });
+        this.formTriaje.patchValue({ fc: this.datosPersonales.funcionesVitales.fc });
+        this.formTriaje.patchValue({ fr: this.datosPersonales.funcionesVitales.fr });
+        this.formTriaje.patchValue({ peso: this.datosPersonales.funcionesVitales.peso });
+        this.formTriaje.patchValue({ talla: this.datosPersonales.funcionesVitales.talla });
     }
   }
 
@@ -62,7 +59,7 @@ export class RegistrarTriajeComponent implements OnInit {
 
   recuperarDatos() {
     this.triaje = {
-      t: parseFloat(this.formTriaje.value.temperatura),
+      temperatura: parseFloat(this.formTriaje.value.temperatura),
       presionSistolica: parseInt(this.formTriaje.value.presionSis),
       presionDiastolica: parseInt(this.formTriaje.value.presionDias),
       fc: parseInt(this.formTriaje.value.fc),
@@ -116,7 +113,7 @@ export class RegistrarTriajeComponent implements OnInit {
   }
 }
 interface Triaje {
-  t: number,
+  temperatura: number,
   presionSistolica: number,
   presionDiastolica: number,
   fc: number,

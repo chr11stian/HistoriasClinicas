@@ -132,8 +132,7 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="col-6">
+                <div class="col-6">
                     <div class="grid">
                         <div class="col-12 ">
                             <label>Examen Neurológico:</label>
@@ -142,7 +141,7 @@
                                 oninput="this.value=this.value.toUpperCase()">
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="col-12">
                     <label>Observaciones de Examen Físico:</label>
                     <textarea class="p-fluid w-full" rows="3" cols="85" pInputTextarea formControlName="obsExamenFisico"
@@ -260,6 +259,7 @@
         <div class="grid">
             <div class="col-12">
                 <h4 class="text-blue-700">PIEL Y FANERAS (CABELLO, UÑAS)</h4>
+                <p-divider></p-divider>
                 <ul>
                     <li>Observar en la piel el color, turgencia (elasticidad), hidratación,
                         temperatura (cianosis, ictericia, palidez), valorar y describir la presencia de lesiones o
@@ -287,7 +287,7 @@
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="headAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
-    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
@@ -545,7 +545,6 @@
         </div>
     </ng-template>
 </p-dialog>
-
 <!-- ALERTAS PARA EXAMEN NEUROLOGICO -->
 <p-dialog class="dialogo m-4" [(visible)]="olfactoryAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
     position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">

@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
-import { datosEEDPTabla, escalaEval_EEDP_0_4_anios, tablaComparativa } from '../models/eedp';
+import { AnswerEEDP, datosEEDPTabla, escalaEval_EEDP_0_4_anios, ItemEEDP, tablaComparativa } from '../models/eedp';
 
 @Component({
   selector: 'app-eedp',
@@ -29,6 +29,8 @@ export class EedpComponent implements OnInit {
   nroDoc: any;
   totalPoints: number = 0;
   monthPoints: number;
+  itemEEDP: ItemEEDP;
+  listaPreguntas
 
   constructor(
     private evalAlimenService: EvalAlimenService,
@@ -83,13 +85,12 @@ export class EedpComponent implements OnInit {
 
   }
 
-  async changeStep(index: number, edadNro: number, edad: string) {
+  async changeStep(index: number, edadNro: number, edad: string, prevArray: any) {
+    console.log('arreglo anterior de test ', prevArray);
     this.indexSelected = index;
     this.edadNroSelected = edadNro;
     this.edadSelected = edad;
     this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
-    console.log('index ', index, 'edad nro', edadNro, ' edad ', edad);
-    console.log('array selected ', this.arrayEdadEEDPSelected);
     this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
     this.totalPoints
     // this.arrayEdadEEDPSelected.forEach(item => {
@@ -97,12 +98,12 @@ export class EedpComponent implements OnInit {
     // });
     // console.log('total points ', this.totalPoints);
 
-    this.totalPoints += this.monthPoints;
-    console.log('total points to save ', this.totalPoints);
+    // this.totalPoints += this.monthPoints;
+    // console.log('total points to save ', this.totalPoints);
   }
 
   calcularPuntaje() {
-    
+
   }
 
   comoCalcularPtj() {
@@ -110,9 +111,25 @@ export class EedpComponent implements OnInit {
   }
   calcularResultado() {
     this.monthPoints = 0;
+
     this.arrayEdadEEDPSelected.forEach(item => {
       this.monthPoints += parseInt(item.puntajeEEDP)
     });
-    console.log('total points ', this.monthPoints);
+    let ansMonth = this.arrayEdadEEDPSelected.map(item => {
+      let auxAns = {
+        codigo: parseInt(item.codigo),
+        puntajeEEDP: item.puntajeEEDP,
+        areEvaluacion: item.areEvaluacion
+      }
+      return auxAns
+    });
+    console.log('nuevo arreglo to answer ', ansMonth);
+
+    this.itemEEDP = {
+      edad: this.edadNroSelected,
+      puntajeTotalEedp: this.monthPoints,
+      puntajeMaximoEedp: parseInt(this.puntaje),
+      itemEedp: ansMonth
+    }
   }
 }
