@@ -92,7 +92,7 @@ export class CuposService {
             .toPromise()
             .then(result => {
                 return result;
-                console.log('Registro Exitosa', result)
+                console.log('Transferencia Exitosa', result)
             })
             .catch(error => {
                 console.log('Error al crear el registro, El Personal no tiene el mismo Servici', error)
@@ -102,6 +102,15 @@ export class CuposService {
 
     buscarPersonalRolGuardia(TipoDNI, NroDoc) {
         return this.http.get(`${this.base_url}/${this.bd}/rolguardia/personal/hoy/${TipoDNI}/${NroDoc}`)
+            .toPromise()
+            .then((result: any) => {
+                return result;
+
+            })
+            .catch(error => {
+                console.log('No se encotro personal de salud');
+                return error = null;
+            })
     }
 
     updatePacienteExtras(data) {

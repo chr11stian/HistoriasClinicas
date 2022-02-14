@@ -39,3 +39,30 @@ p-panel>>>.p-panel .p-panel-header {
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
 }
+
+p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
+    content: url("src\assets\svg-icons\check-svgrepo-com.svg");
+}
+
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box,
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight:hover,
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight,
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon {
+    background: rgb(234, 187, 38);
+    border: rgb(234, 187, 38);
+}
+
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight,
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box,
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight:hover,
+::ng-deep .rojo .p-radiobutton .p-radiobutton-icon {
+    border-color: red;
+    background: red;
+}
+
+::ng-deep .default .p-radiobutton .p-radiobutton-icon,
+::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight,
+::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight:hover {
+    background: #2196f3;
+    border: #2196f3;
+}

@@ -35,8 +35,8 @@ export class OfertasComponent implements OnInit {
     SelectServicio = "MEDICINA GENERAL";
     DataPersonalBusqueda: any;
     TurnosPersonal: any;
-    selectedHorario: any = null;
-    activarBoton: string = null;
+    selectedHorario: any[];
+    activarBoton: string = '';
 
     constructor(
         private ofertasService: OfertasService,
@@ -75,22 +75,22 @@ export class OfertasComponent implements OnInit {
         });
 
         this.formTransferirCupos = this.formBuilder.group({
-            nroDoc: new FormControl(''),
-            nombre: new FormControl(''),
-            servicio: new FormControl(''),
-            fecha: new FormControl(''),
-            ambiente: new FormControl(''),
-            nroOfertasActuales2: new FormControl(''),
-            horaInicio: new FormControl(''),
+            nroDoc: new FormControl({value: '', disabled: true}),
+            nombre: new FormControl({value: '', disabled: true}),
+            servicio: new FormControl({value: '', disabled: true}),
+            fecha: new FormControl({value: '', disabled: true}),
+            ambiente: new FormControl({value: '', disabled: true}),
+            nroOfertasActuales2: new FormControl({value: '', disabled: true}),
+            horaInicio: new FormControl({value: '', disabled: false}, Validators.required),
             horaFin: new FormControl(''),
         });
         this.formTransferirCupos2 = this.formBuilder.group({
             nroDoc2: new FormControl(''),
-            apellidos2: new FormControl(''),
-            nombres2: new FormControl(''),
-            servicio2: new FormControl(''),
+            apellidos2: new FormControl({value: '', disabled: true}),
+            servicio2: new FormControl({value: '', disabled: true}),
             dia: new FormControl(''),
             turnos: new FormControl(''),
+            transferir: new FormControl(''),
         });
     }
 
@@ -195,13 +195,28 @@ export class OfertasComponent implements OnInit {
     }
 
 
-    listarPersonalRolGuardia() {
+    async listarPersonalRolGuardia() {
         let tipoDoc = "DNI";
         let nroDoc = this.formTransferirCupos2.value.nroDoc2;
-        this.cuposService.buscarPersonalRolGuardia(tipoDoc, nroDoc).subscribe((res: any) => {
-            this.DataPersonalBusqueda = res.object[0];
-            this.TurnosPersonal = this.DataPersonalBusqueda.turnos;
-            console.log("DataPersonal", this.TurnosPersonal);
+        await this.cuposService.buscarPersonalRolGuardia(tipoDoc, nroDoc).then((res: any) => {
+            if (res.object !== null) {
+                this.DataPersonalBusqueda = res.object[0];
+                this.TurnosPersonal = this.DataPersonalBusqueda.turnos;
+                this.messageService.add({
+                    key: 'myKey1',
+                    severity: 'success',
+                    summary: 'Personal',
+                    detail: 'Consulta exitosa'
+                });
+            } else {
+                this.messageService.add({
+                    key: 'myKey1',
+                    severity: 'info',
+                    summary: 'Personal',
+                    detail: 'No se encontro en la base de datos'
+                });
+            }
+            console.log("DataPersonal", res);
 
             this.formTransferirCupos2.reset();
             this.formTransferirCupos2.get('nroDoc2').setValue(this.DataPersonalBusqueda.personal.nroDoc);
@@ -216,63 +231,32 @@ export class OfertasComponent implements OnInit {
         this.formTransferirCupos2.get('dia').setValue(event.value);
     }
 
-    SelectHorarios(event) {
-        console.log("select Horas", event);
-        let horasInicio
-        event.checked.forEach(function (value) {
-            horasInicio = value.horaInicio;
-            console.log(horasInicio);
-        });
-        this.activarBoton = horasInicio;
+    SelectHorarios() {
+        // this.activarBoton = this.datePipe.transform(this.formTransferirCupos.value.horaFin, 'HH:mm')
+        this.activarBoton = this.formTransferirCupos2.value.transferir;
         console.log("Activar", this.activarBoton);
-        this.formTransferirCupos.get('horaInicio').setValue(horasInicio);
-
-        // let Inicio = '';
-        // let Fin = '';
-        // if (this.selectedHorario != null) {
-        //     Inicio = this.selectedHorario[0].horaInicio;
-        //     Fin = this.selectedHorario[1].horaFin;
-        //     if (Inicio != '') {
-        //         this.formTransferirCupos.get('horaInicio').setValue(Inicio);
-        //     }
-        //     if (Fin != '') {
-        //         this.formTransferirCupos.get('horaFin').setValue(Fin);
-        //     }
-        //     this.activarBoton = Inicio + Fin;
-        //
-        //
-        // } else {
-        //     this.selectedHorario = null;
-        // }
-        // this.formTransferirCupos.get('horaFin').setValue(this.selectedHorario[1].horaFin);
-        // this.selectedHorario = null;
-
+        // this.formTransferirCupos.get('horaInicio').setValue(horasInicio);
+        // this.datePipe.transform(this.formTransferirCupos.value.fechaVenc, 'yyyy-MM-dd HH:mm:ss')
     }
 
-    seleccionarTodo(e: any) {
-
-        this.selectedHorario.forEach(x => x.checked = e.target.checked)
-        console.log(e)
-
+    SelectHorarios2(event) {
+        console.log("select Horas", event);
     }
 
-    getAlbumId(e: any, name: string) {
-        if (e.target.checked) {
-            console.log(name + 'checked');
-            this.horas.push(name);
+    cambiodeCupos() {
+        if (this.activarBoton == 'Transferencia Total') {
+            this.cambioTotasDeCupos();
         } else {
-            console.log(name + 'Uncheched');
-            this.horas = this.horas.filter(m => m != name);
+            this.tranferenciaParcialDeCupos();
         }
-
-        console.log(this.horas);
     }
+
 
     async cambioTotasDeCupos() {
         let data = {
             tipoDoc: "DNI",
             nroDoc: this.formTransferirCupos2.value.nroDoc2,
-            nombre: this.formTransferirCupos2.value.apellidos2,
+            nombre: this.DataPersonalBusqueda.personal.nombre,
             tipoPersonal: this.DataPersonalBusqueda.personal.tipoPersonal,
             tipoContrato: this.DataPersonalBusqueda.personal.tipoContrato,
             sexo: "FEMENINO"
@@ -309,14 +293,14 @@ export class OfertasComponent implements OnInit {
             personal: {
                 tipoDoc: "DNI",
                 nroDoc: this.formTransferirCupos2.value.nroDoc2,
-                nombre: this.formTransferirCupos2.value.apellidos2,
+                nombre: this.DataPersonalBusqueda.personal.nombre,
                 tipoPersonal: this.DataPersonalBusqueda.personal.tipoPersonal,
                 tipoContrato: this.DataPersonalBusqueda.personal.tipoContrato,
                 sexo: "FEMENINO"
             },
             horario: {
-                horaInicio: this.formTransferirCupos.value.horaInicio,
-                horaFin: this.formTransferirCupos.value.horaFin,
+                horaInicio: this.datePipe.transform(this.formTransferirCupos.value.horaInicio, 'HH:mm'),
+                horaFin: this.datePipe.transform(this.formTransferirCupos.value.horaFin, 'HH:mm'),
             }
 
         }

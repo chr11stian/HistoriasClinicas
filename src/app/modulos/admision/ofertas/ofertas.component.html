@@ -146,18 +146,18 @@
     </ng-template>
 </p-dialog>
 
-<p-dialog [(visible)]="DialogTransferir" [style]="{width: '1200px', height: '500'}" [modal]="true"
+<p-dialog [(visible)]="DialogTransferir" [style]="{width: '1200px'}" [modal]="true"
           [draggable]="false" [resizable]="false">
+    <p-toast key="myKey1"></p-toast>
     <div class="col-12 md:col-6 lg:col-12 p-field">
-
         <div class="grid">
-            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
-                <p class="text-pink-700 text-xl text-center font-semibold m-0">TRANSFERIR CUPOS</p>
+            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center">
+                <p class="text-blue-700 text-2xl text-center font-semibold">TRANSFERIR CUPOS</p>
             </div>
         </div>
-        <br>
+
         <div class="grid">
-            <div class="col-12 md:col-6 lg:col-8 p-field">
+            <div class="col-12 md:col-6 lg:col-7 p-field">
                 <form [formGroup]='formTransferirCupos'>
                     <label class="">PERSONAL DE SALUD QUE VA TRANSFERIR</label>
                     <div class="personal">
@@ -213,20 +213,20 @@
                             </div>
                             <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">HORA DESDE</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           placeholder="Hora inicio"
-                                           formControlName="horaInicio"/>
+                                    <p-calendar [timeOnly]="true" [hourFormat]="24" inputId="timeonly"
+                                                placeholder="Hora inicio"
+                                                formControlName="horaInicio"></p-calendar>
                                 </div>
                             </div>
                             <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">HORA HASTA</span>
                                 <div class="p-inputgroup">
-                                    <input type="text"
-                                           pInputText
-                                           placeholder="Hora fin"
-                                           formControlName="horaFin"/>
+                                    <p-calendar [timeOnly]="true" [hourFormat]="24" inputId="timeonly"
+                                                placeholder="Hora fin"
+                                                formControlName="horaFin"
+                                                (click)="SelectHorarios()"></p-calendar>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </form>
@@ -235,14 +235,14 @@
                     <ng-template pTemplate="header">
                         OFERTAS
                     </ng-template>
-                    <p-table [value]="horas" [scrollable]="true" scrollHeight="350px">
+                    <p-table [value]="horas" [(selection)]="selectedHorario" responsiveLayout="scroll"
+                             scrollHeight="260px">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="text-align: center">Nro</th>
                                 <th style="text-align: center">HORA INICIO</th>
                                 <th style="text-align: center">HORA FIN</th>
                                 <th style="text-align: center">ESTADO</th>
-                                <th style="text-align: center">SELECIONAR</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -256,17 +256,16 @@
                                     <p-tag *ngIf="rowData.estado == 'OCUPADO'" severity="danger"
                                            value="OCUPADO"></p-tag>
                                 </td>
-                                <td style="text-align: center">
-                                    <p-checkbox id="1" [value]="rowData"
-                                                (onChange)="SelectHorarios($event)">
-                                    </p-checkbox>
-                                </td>
+                                <!--                                <td style="text-align: center">-->
+                                <!--                                    <p-checkbox  [value]="rowData" [(ngModel)]="selectedHorario"-->
+                                <!--                                                     (onChange)="SelectHorarios($event)"></p-checkbox >-->
+                                <!--                                </td>-->
                             </tr>
                         </ng-template>
                     </p-table>
                 </p-panel>
             </div>
-            <div class="col-12 md:col-6 lg:col-4 p-field">
+            <div class="col-12 md:col-6 lg:col-5 p-field">
                 <form [formGroup]='formTransferirCupos2'>
                     <label class="">PERSONAL DE SALUD QUE REEMPLAZA </label>
                     <div class="personal">
@@ -328,28 +327,39 @@
 
                     </div>
                     <br>
-                    <div>
-                        <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-6 p-field" style="align-items: center">
-                                <button pButton type="button" label="Transferir todo" icon="pi pi-angle-double-right"
-                                        class="p-button-success"
-                                        (click)="cambioTotasDeCupos()"
-                                ></button>
-                            </div>
-                            <div class="col-12 md:col-6 lg:col-6 p-field">
-                                <button style="text-align: center" icon="pi pi-angle-double-right" pButton type="button"
-                                        label="Transferencia parcial"
-                                        (click)="tranferenciaParcialDeCupos()"
-                                        [disabled]="activarBoton==null"></button>
-                            </div>
-                            <div class="col-12 md:col-6 lg:col-6 p-field">
-                                <tr>
-                                    <td><input type="checkbox" name="1" value="false" (change)="getAlbumId($event,'1')">
-                                    </td>
-                                    <td>Selecionar todo</td>
-                                </tr>
+
+                    <div class="grid m-2">
+                        <div class="col-12 md:col-6 lg:col-6 p-field">
+                            <div class="m-1 p-inputgroup">
+                                <p-radioButton class="default" name="transferir" value="Transferencia Total"
+                                               formControlName="transferir" (click)="SelectHorarios()"
+                                               [disabled]="DataPersonalBusqueda==null"></p-radioButton>
+                                <span class="">TRANSFERIR TODO</span>
                             </div>
                         </div>
+                        <div class="col-12 md:col-6 lg:col-6 p-field">
+                            <div class="m-1 p-inputgroup">
+                                <p-radioButton class="default" name="transferir" value="Transferencia Parcial"
+                                               formControlName="transferir" (click)="SelectHorarios()"
+                                               [disabled]="DataPersonalBusqueda==null"></p-radioButton>
+                                <span class="">TRANSFERENCIA PARCIAL</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid m-2">
+                        <div class="col-12 md:col-6 lg:col-12 p-field" style="align-items: center">
+                            <button pButton type="button" label="Transferir cupos" icon="pi pi-angle-double-right"
+                                    class="p-button-success"
+                                    (click)="cambiodeCupos()"
+                                    [disabled]="activarBoton==''"></button>
+                        </div>
+                        <!--                        <div class="col-12 md:col-6 lg:col-6 p-field">-->
+                        <!--                            <button style="text-align: center" icon="pi pi-angle-double-right" pButton type="button"-->
+                        <!--                                    label="Transferencia parcial"-->
+                        <!--                                    (click)="tranferenciaParcialDeCupos()"-->
+                        <!--                                    [disabled]="activarBoton==null"></button>-->
+                        <!--                        </div>-->
                     </div>
                 </form>
             </div>
