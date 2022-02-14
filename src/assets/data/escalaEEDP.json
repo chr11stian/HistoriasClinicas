@@ -6,7 +6,7 @@
                 "areEvaluacion": "S",
                 "descripcion": "Fija la mirada en el rostro del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -15,7 +15,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Reacciona al sonido de la campanilla(detras)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -24,7 +24,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Aprieta el dedo indice del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -33,7 +33,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -42,7 +42,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Movimiento de cabeza en posición prona",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -53,7 +53,7 @@
                 "areEvaluacion": "S",
                 "descripcion": "Mímica en respuesta al rostro del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -62,7 +62,7 @@
                 "areEvaluacion": "S_L",
                 "descripcion": "Vocaliza en respuesta a la sonrisa y conversación del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -71,7 +71,7 @@
                 "areEvaluacion": "C_S",
                 "descripcion": "Reacciona ante el desaparecimiento de la cara del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -80,7 +80,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Intenta controlar la cabeza al ser llevado a posicion sentado",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -89,7 +89,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "vocaliza dos sonidos diferentes",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -100,7 +100,7 @@
                 "areEvaluacion": "S",
                 "descripcion": "Sonrie en respuesta a la sonrisa del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -109,7 +109,7 @@
                 "areEvaluacion": "S_L",
                 "descripcion": "Busca con la vista la fuente del sonido (detras)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -118,7 +118,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Sigue con la vista la argolla (ángulo de 180°)(detras)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -127,7 +127,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Mantiene cabeza erguida al ser llevado a posicion sentado",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -136,7 +136,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Vocalizacion prolongada",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -147,7 +147,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "La cabeza sigue la cuchara que desaparece",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -156,7 +156,7 @@
                 "areEvaluacion": "C_L",
                 "descripcion": "Gira la cabeza al sonido de la campanilla (detras)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -165,7 +165,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "En posicion prona se levanta asi mismo",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -174,7 +174,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Levanta cabeza y hombro al ser llevado a posición sentada",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -183,7 +183,7 @@
                 "areEvaluacion": "S_L",
                 "descripcion": "Rie a carcajadas",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -194,7 +194,7 @@
                 "areEvaluacion": "S_L",
                 "descripcion": "Vuelve la cabeza a quien le habla(detrás)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -203,7 +203,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Palpa el borde de la cama",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -212,7 +212,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Intenta presión de la argolla (detrás)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -221,7 +221,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Empuja hasta lograr la posición sentada",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -230,7 +230,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Se mantiene sentado con breve apoyo",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -241,7 +241,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Se mantiene sentado solo momentaneamente",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -250,7 +250,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Vuelve la cabeza a la cuchara caída",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -259,7 +259,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Coge la argolla",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -268,7 +268,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Coge el cubo",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -277,7 +277,7 @@
                 "areEvaluacion": "S_L",
                 "descripcion": "Vocaliza cuando se le habla",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -288,7 +288,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Se mantiene sentado solo por 30 segundos a más",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -297,7 +297,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Intenta agarrar la pastilla",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -306,7 +306,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Escucha selectivamente palabras familiares",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -315,7 +315,7 @@
                 "areEvaluacion": "S",
                 "descripcion": "Coopera a los juegos",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -324,7 +324,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Coge dos cubos, uno en cada mano",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -335,7 +335,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Se sienta y se mantiene erguido",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -344,7 +344,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Fracciona hasta lograr la posición de pie",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -353,7 +353,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Iniciación de pasos sostenido bajo los brazos",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -362,7 +362,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Coge la pastilla con movimiento de rastrillo",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -371,7 +371,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Dice da-da o equivalente",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -382,7 +382,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Logra llegar a posición de pie, apoyado en un mueble",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -391,7 +391,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Camina sostenido bajo los brazos",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -400,7 +400,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Coge la pastilla con participación del pulgar",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -409,7 +409,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Encuentra el cubo bajo el pañal",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -418,7 +418,7 @@
                 "areEvaluacion": "S_L",
                 "descripcion": "Reacciona a los requerimientos verbales",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -429,7 +429,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Coge la pastilla con pulgar e índice",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -438,7 +438,7 @@
                 "areEvaluacion": "S",
                 "descripcion": "Imita gestos simples",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -447,7 +447,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Coge el tercer cubo dejando uno de los dos primeros",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -456,7 +456,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Junta cubos en la línea media",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -465,7 +465,7 @@
                 "areEvaluacion": "S_L",
                 "descripcion": "Reacciona al “no, no”",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -476,7 +476,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Coge la pastilla con pulgar e índice",
                 "puntajeMaximo": "12",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -485,7 +485,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Imita gestos simples",
                 "puntajeMaximo": "12",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -494,7 +494,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Coge el tercer cubo dejando uno de los dos primeros",
                 "puntajeMaximo": "12",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -503,7 +503,7 @@
                 "areEvaluacion": "S_L",
                 "descripcion": "Junta cubos en la línea media",
                 "puntajeMaximo": "12",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -512,7 +512,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Reacciona al “no, no”",
                 "puntajeMaximo": "12",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -523,7 +523,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Camina solo",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -532,7 +532,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Introduce la pastilla en la botella",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -541,7 +541,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Espontáneamente garabatea",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -550,7 +550,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Coge el tercer cubo conservando los dos primeros",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -559,7 +559,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Dice al menos tres palabras",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -570,7 +570,7 @@
                 "areEvaluacion": "S_L",
                 "descripcion": "Muestra sus zapatos",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -579,7 +579,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Camina varios pasos hacia el lado",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -588,7 +588,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Camina varios pasos hacia atrás",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -597,7 +597,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Retira inmediatamente la pastilla de la botella",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -606,7 +606,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Atrae el cubo con un palo",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -617,7 +617,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Nombra un objeto de los cuatro presentado",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -626,7 +626,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Imita tres palabras en el momento del examen",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -635,7 +635,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Construye una torre con tres cubos",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -644,7 +644,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Dice al menos seis palabras",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -653,7 +653,7 @@
                 "areEvaluacion": "S_L",
                 "descripcion": "Usa palabras para comunicar deseos",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -664,7 +664,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Se para en un pie con ayuda",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -673,7 +673,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Nombra dos objetos de los cuatro presentados",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -682,7 +682,7 @@
                 "areEvaluacion": "S",
                 "descripcion": "Ayuda en tareas simples",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -691,7 +691,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Apunta 4 o más partes en el cuerpo de la muñeca",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -700,7 +700,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Construye una torre con cinco cubos",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -711,7 +711,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Nombra animales (de 8 menciona 6)",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -720,7 +720,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Nombra colores (rojo, azul, amarillo)",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -729,7 +729,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Copia una cruz",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -738,7 +738,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Construye una torre de 8 cubos",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -747,7 +747,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Se para con un pie (10 segundos a más)",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
@@ -758,7 +758,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Verbaliza su nombre y apeliido",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -767,7 +767,7 @@
                 "areEvaluacion": "L",
                 "descripcion": "Conoce la utilidad de los objetos (cuchara, lápiz, tijera, jabón)",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -776,7 +776,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Copia un circulo",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -785,7 +785,7 @@
                 "areEvaluacion": "C",
                 "descripcion": "Abotona y desabotona (usar estuche)",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
@@ -794,7 +794,7 @@
                 "areEvaluacion": "M",
                 "descripcion": "Camina en punta de pie seis pasos o más",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }

@@ -12,6 +12,10 @@ export class EvaluacionAlimentacionService {
     bd = environment.bd;
     constructor(private http: HttpClient) { }
     /** SERVICIOS EVALUACION ALIMENTICIA**/
+    getEvaluacionAlimenticiaCredPlan(nroDoc) {
+        return this.http.get(`${this.base_url}/${this.bd}/cred/evaluacion/alimentacion/${nroDoc}`);
+    }
+    /***SERVICIOS EVALUACION ALIMENTICIA CONSULTA****/
     getEvaluacionAlimenticiaCred(id) {
         return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/alimentacion/${id}`);
     }
@@ -21,5 +25,6 @@ export class EvaluacionAlimentacionService {
     updateEvaluacionAlimenticiaCred(id,data){
         return this.http.put(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/alimentacion/${id}`,data);
     }
+
 
 }
