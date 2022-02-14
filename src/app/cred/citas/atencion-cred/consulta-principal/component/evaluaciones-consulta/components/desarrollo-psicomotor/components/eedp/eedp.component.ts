@@ -103,10 +103,6 @@ export class EedpComponent implements OnInit {
   calcularPuntaje() {
 
   }
-
-  comoCalcularPtj() {
-
-  }
   calcularResultado() {
     this.monthPoints = 0;
 
