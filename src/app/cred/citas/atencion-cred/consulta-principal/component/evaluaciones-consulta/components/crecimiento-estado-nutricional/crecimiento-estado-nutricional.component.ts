@@ -19,6 +19,7 @@ import {CircumferenceChartComponent} from "../../../../../../../modals/circumfer
   providers: [DialogService]
 })
 export class CrecimientoEstadoNutricionalComponent implements OnInit {
+  edad:number//toma valores -1,0,1,2,3,4,5,6,7,8,9
   fechaTentativaDisabled:boolean=true
   tallaPesoFG:FormGroup
   display:boolean=false;
@@ -57,14 +58,35 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
               private messageService: MessageService,
               private rutaActiva: ActivatedRoute) {
   }
+  ventanas:any[]=[{name:'recien nacido',code:-1},
+    {name:'menos de 1 año',code:0},
+    {name:'1 año',code:1},
+    {name:'2 años',code:2},
+    {name:'3 años',code:3},
+    {name:'4 años',code:4},
+    {name:'5 años',code:5},
+    {name:'6 años',code:6},
+    {name:'7 años',code:7},
+    {name:'8 años',code:8},
 
+
+  ]
+  cambiamos(numero){
+    console.log(numero.value)
+    this.edad=numero.value;
+    console.log(this.edad);
+  }
   ngOnInit(): void {
     this.tipoDNI=this.rutaActiva.snapshot.queryParams.tipoDoc;
     this.nroDNI=this.rutaActiva.snapshot.queryParams.nroDoc;
     this.getLista()
     // this.getPaciente();
     this.builForm();
-
+    this.calcularEdad();
+  }
+  calcularEdad(){
+    //calculamos en k periodo de vacunacion se encuentra
+    this.edad=-1;
   }
   cambioEstado(valor){
     console.log('----------------')

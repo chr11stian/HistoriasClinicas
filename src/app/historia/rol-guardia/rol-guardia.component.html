@@ -50,7 +50,7 @@
                 </div>
             </th>
             <th
-                    [colSpan]="cabeceraMes.length + 1"
+                    [colSpan]="cabeceraMes.length + 2"
                     style="background-color:#D9D9D9;border-bottom: 1px solid #CDCDCD"
             >
                 <div >
@@ -89,6 +89,7 @@
             </th>
         </tr>
         <tr >
+            <th  rowspan="2" style="background-color:#D9D9D9">Ambiente</th>
             <th
                     *ngFor="let dia of cabeceraMes"
                     [style]="dia.bg"
@@ -138,6 +139,17 @@
                  pFrozenColumn
                  [frozen]="true" colspan="2">
                 {{rowData.nombreCompleto}}
+            </td>
+            <td>
+                <p-dropdown
+                        #dd
+                        class="bordeDropTurno"
+                        [inline]="false"
+                        [appendTo]="dropdown"
+                        [options]="listaAmbienteXipres"
+                        [virtualScroll]="true"
+                        [(ngModel)]="listaAmbiente[i]"
+                ></p-dropdown>
             </td>
             <td *ngFor="let dia of cabeceraMes; let j = index" class="" >
                 <!-- {{ i }} -{{ j }} -->

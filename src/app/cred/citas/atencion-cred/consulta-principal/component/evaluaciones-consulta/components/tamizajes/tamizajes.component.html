@@ -7,8 +7,36 @@
                             <div class="col-6">
                                 <p-panel header="Preguntar al Adulto(a):" >
                                     <div class="grid">
+                                        <div class="col-8 p-fluid p-field" style="text-align: left">
+                                            <label class="">1. ¿Diria que en su familia se dan situaciones de violencia?</label>
+                                        </div>
+                                        <div class="col-4 p-fluid p-field" style="text-align: left">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="prematuro"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                        <div class="col-8 p-fluid p-field" style="text-align: left">
+                                            <label class="">1. ¿Alguna vez algún miembro de su familia le insulta?</label>
+                                        </div>
+                                        <div class="col-4 p-fluid p-field" style="text-align: left">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="prematuro"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                        <div class="col-8 p-fluid p-field" style="text-align: left">
+                                            <label class="">1. ¿Alguna vez algún miembro de su familia le golpea?</label>
+                                        </div>
+                                        <div class="col-4 p-fluid p-field" style="text-align: left">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="prematuro"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                        <div class="col-8 p-fluid p-field" style="text-align: left">
+                                            <label class="">1. ¿Alguna vez algún miembro de su familia le chantajea?</label>
+                                        </div>
+                                        <div class="col-4 p-fluid p-field" style="text-align: left">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="prematuro"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
                                         <div class="col-12 p-fluid p-field" style="text-align: left">
-                                            <label class="">1. ¿Alguna vez algún miembro de su familia lo insulta, lo golpea, le chantajea o le obliga a tener relaciones sexuales?</label>
+                                            <label class="">1. ¿Alguna vez algún miembro de su familia lo insulta, lo golpea, le obliga a tener relaciones sexuales?</label>
                                         </div>
                                         <div class="col-4 p-fluid p-field">
                                             <p-selectButton [options]="sino"  optionValue="value" formControlName="prematuro"
@@ -27,12 +55,47 @@
                                 <p-panel header="Preguntar al padre, madre o adulto responsable del cuidado del niño(a):">
                                     <div class="grid">
                                         <div class="col-8 p-fluid p-field" style="text-align: left">
-                                            <label class="">1. ¿Alguna vez algún miembro de su familia lo insulta, lo golpea, le chantajea o le obliga a tener relaciones sexuales?</label>
+                                            <label class="">1. Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?</label>
+                                        </div>
+                                        <div class="col-4 p-fluid p-field">
+                                            <p-selectButton [options]="facil"  optionValue="value" formControlName="prematuro"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                        <div class="col-8 p-fluid p-field" style="text-align: left">
+                                            <label class="">2. Alguna vez pierde el control?</label>
+                                        </div>
+                                        <div class="col-4 p-fluid p-field">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="consideraFacil"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                        <div class="col-12" p-fluid>
+                                            <div class="grid">
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary"></p-checkbox>
+                                                    <label>¿Pega?</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary"></p-checkbox>
+                                                    <label>¿Grita?</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary"></p-checkbox>
+                                                    <label>¿Empuja o sacude?</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary"></p-checkbox>
+                                                    <label>¿Encierra?</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-8 p-fluid p-field" style="text-align: left">
+                                            <label class="">3. ¿Su hijo es muy desobediente?</label>
                                         </div>
                                         <div class="col-4 p-fluid p-field">
                                             <p-selectButton [options]="sino"  optionValue="value" formControlName="prematuro"
                                                             optionLabel="label"></p-selectButton>
                                         </div>
+
                                     </div>
                                 </p-panel>
                             </div>
@@ -336,10 +399,11 @@
         <ng-template pTemplate="header">
             <tr>
 <!--                <th style="max-width:50px;text-align: center;background: #dea496;color: #1D1D1B;font-size: 15px">NRO.</th>-->
-                <th style="min-width:80px;text-align: center;background: #dea496;color: black;font-size: 18px">PRUEBA O MÉTODO</th>
-                <th style="min-width:450px;text-align: center;background: #dea496;color: black;font-size: 18px">APLICACIÓN</th>
-                <th style="min-width:100px;text-align: center;background: #dea496;color: black;font-size: 18px">INDICACIÓN PARA REFERENCIA A ESPECIALISTA</th>
-                <th style="min-width:100px;text-align: center;background: #dea496;color: black;font-size: 18px">EDAD PREVISTA PARA APLICACIÓN DE LA PRUEBA</th>
+                <th style="min-width:80px;text-align: center;background: #dea496;color: black;font-size: 18px">PRUEBA DE DETECCIÓN</th>
+                <th style="min-width:450px;text-align: center;background: #dea496;color: black;font-size: 18px">APLICACIÓN DE LA PRUEBA</th>
+                <th style="min-width:100px;text-align: center;background: #dea496;color: black;font-size: 18px">ALTERACIÓN</th>
+                <th style="min-width:120px;text-align: center;background: #dea496;color: black;font-size: 18px">EDADES PARA CONTROL</th>
+                <th style="min-width:100px;text-align: center;background: #dea496;color: black;font-size: 18px">INDICACIONES PARA REFERENCIA AL OFTALMÓLOGO</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" pTemplate="body" let-rowData>
@@ -347,11 +411,27 @@
 <!--                <td style="max-width:50px;text-align: center;background: #dea496;color: #1D1D1B;font-size: 15px" class="font-2">{{ rowIndex + 1 }}</td>-->
                 <td style="min-width:80px;text-align: center;background: #e59686;color: black;font-size: 18px">{{ rowData.prueba }}</td>
                 <td style="min-width:450px;text-align: justify;color: black;font-size: 16px">{{ rowData.aplicacion }}</td>
+                <td style="min-width:100px;text-align: justify;color: black;font-size: 16px">{{ rowData.alteracion }}</td>
+                <td style="min-width:120px;text-align: justify;color: black;font-size: 18px">{{ rowData.edad }}</td>
                 <td style="min-width:100px;text-align: justify;color: black;font-size: 18px">{{ rowData.indicacion }}</td>
-                <td style="min-width:100px;text-align: justify;color: black;font-size: 18px">{{ rowData.edad }}</td>
             </tr>
         </ng-template>
     </p-table>
+    <div style="text-align: left">
+        <h4>RECOMENDACIONES:</h4>
+        <ul>
+            <li>
+                Evaluación en la niña y niño prematuro y de bajo peso:
+                La evaluación se realizará de acuerdo a la Guía de Práctica Clínica de Retinopatía de la Prematuridad: RM Nº 539-2006/MINSA y documentos técnicos
+                complementarios vigentes.
+            </li>
+            <li>
+                Evaluación en el niño a término y peso adecuado para la edad:
+                La trascendencia de la evaluación de la visión radica en que la mayor parte del proceso de aprendizaje se da a través de la visión; por lo tanto es de suma importancia la
+                detección precoz e intervención oportuna de déficit visual, a fin de contribuir en el desarrollo óptimo de la niña o niño.
+            </li>
+        </ul>
+    </div>
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-save" (click)="displayMaximizable=false" label="Cerrar" styleClass="p-button-text"></p-button>
     </ng-template>
