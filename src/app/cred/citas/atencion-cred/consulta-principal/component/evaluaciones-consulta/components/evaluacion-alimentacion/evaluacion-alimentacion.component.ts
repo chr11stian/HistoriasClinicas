@@ -168,10 +168,8 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
       }
     ]
-    // this.ObtenerUltimaEvaluacion();
-    this.recuperarEdadNinio();
+    // this.recuperarEdadNinio(); /*cuando recupere datos en consulta*/
     this.recuperarDataPlanAlimentaciaBD();
-    // this.recuperarDataEvaluacionAlimenticiaBD();
     this.showDialogEdad('top');
   }
   recuperarEdadNinio(){
@@ -610,10 +608,8 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     let prefijo = this.obtenerTitulo(this.edadMeses);
     console.log(prefijo);
     console.log(this.Evaluaciones);
-
     let preguntas=[];
     console.log(prefijo);
-
     console.log(this.evaluacionAlimenticia[1][prefijo])
     for(let i = 1;i<this.evaluacionAlimenticia.length-1;i++)
     {
@@ -737,22 +733,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         timer: 2000,
       })
     });
-
-
-  }
-  showSuccessEdito() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Update',
-      detail: 'Se actualizo correctamente'
-    });
-  }
-  showSuccessGuarda() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Save',
-      detail: 'Se guardo correctamente el registro para la edad:' + this.edadMeses
-    });
   }
   verificarFechaApta(fecha){
     var fechas2 = fecha.replace("T"," ");
@@ -762,17 +742,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     console.log(horas);
     console.log(fechas[0] +" " + horas[0] + ":" + horas [1]);
     return fechas[0] +" " + horas[0] + ":" + horas [1];
-  }
-  limpiarAlimentacion(indice){
-    console.log('entro eliminar', this.evaluacionAlimenticia);
-    let prefijo = this.obtenerTitulo(indice);
-    console.log(prefijo);
-    console.log(this.evaluacionAlimenticia[1][prefijo])
-    this.evaluacionAlimenticia[0][prefijo]="";
-    for(let i = 1;i<this.evaluacionAlimenticia.length;i++)
-    {
-      this.evaluacionAlimenticia[i][prefijo]="";
-    }
   }
   guardarActualizar(indice){
     this.evalAlimenService.getEvaluacionAlimenticiaCred(this.id).subscribe((res: any) => {

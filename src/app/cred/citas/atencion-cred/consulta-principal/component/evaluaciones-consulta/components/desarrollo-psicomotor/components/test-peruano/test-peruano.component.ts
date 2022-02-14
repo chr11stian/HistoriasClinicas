@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {TestDesarrollo} from "../../../../../../../plan/component/evaluacion-general/test-desarrollo/test-desarrollo.service";
 import {TestPeruano} from "../../services/test-peruano/tes-peruano.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 
@@ -15,7 +14,8 @@ export class TestPeruanoComponent implements OnInit {
   formDatos_TestPeruano:FormGroup;
   listaTestPeruano:any[]=[];
   displayMaximizable:boolean;
-  constructor(private testDesarrollo: TestDesarrollo,
+  events:any[];
+  constructor(private testDesarrollo: TestPeruano,
               private form: FormBuilder) { }
 
   ngOnInit(): void {
@@ -24,49 +24,20 @@ export class TestPeruanoComponent implements OnInit {
           this.imagenes = data;
         }
     )
+    this.events = [
+      {status: 'A', date: '15/10/2020 10:30', color: '#9C27B0', edad:'1m'},
+      {status: 'B', date: '15/10/2020 10:30', color: '#9C27B0', edad:'2m'},
+      {status: 'C', date: '15/10/2020 10:30', color: '#9C27B0', edad:'2m'},
+      {status: 'D', date: '15/10/2020 10:30', color: '#9C27B0', edad:'2m'},
+      {status: 'E', date: '15/10/2020 10:30', color: '#9C27B0', edad:'2m'},
+      {status: 'F', date: '15/10/2020 10:30', color: '#9C27B0', edad:'2m'},
+    ];
   }
   builForm(){
     this.formDatos_TestPeruano = this.form.group({
       /**Datos personales**/
       posicion1: new FormControl(''),
-      posicion2: new FormControl(''),
-      posicion3: new FormControl(''),
-      posicion4: new FormControl(''),
-      posicion5: new FormControl(''),
-      posicion6: new FormControl(''),
-      posicion7: new FormControl(''),
-      posicion8: new FormControl(''),
-      posicion9: new FormControl(''),
-      posicion10: new FormControl(''),
-      posicion11: new FormControl(''),
-      posicion12: new FormControl(''),
-      posicion15: new FormControl(''),
-      posicion18: new FormControl(''),
-      posicion21: new FormControl(''),
-      posicion24: new FormControl(''),
-      posicion30: new FormControl(''),
-
-      fecha1:new FormControl(''),
-      fecha2: new FormControl(''),
-      fecha3: new FormControl(''),
-      fecha4: new FormControl(''),
-      fecha5: new FormControl(''),
-      fecha6: new FormControl(''),
-      fecha7: new FormControl(''),
-      fecha8: new FormControl(''),
-      fecha9: new FormControl(''),
-      fecha10: new FormControl(''),
-      fecha11: new FormControl(''),
-      fecha12: new FormControl(''),
-      fecha13: new FormControl(''),
-      fecha14: new FormControl(''),
-      fecha15: new FormControl(''),
-      fecha16: new FormControl(''),
-      fecha17: new FormControl(''),
-      fecha18: new FormControl(''),
-      fecha21: new FormControl(''),
-      fecha24: new FormControl(''),
-      fecha30: new FormControl(''),
+      fecha:new FormControl(''),
     })
   }
   cambiarEstado(sale,rowIndex) {
