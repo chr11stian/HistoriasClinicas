@@ -48,6 +48,10 @@
                 LISTA DE CONSULTAS
             </span>
         </ng-template>
+        <ng-template pTemplate="right">
+            <button pButton pRipple class="p-button-info" label="Nueva Consulta" routerLink="../citas/atencion"
+                    icon="pi pi-book"></button>
+        </ng-template>
     </p-toolbar>
 
     <p-table [value]="dataConsulta" #dt styleClass="p-datatable-gridlines" [rows]="10"
@@ -65,7 +69,7 @@
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                <td style="text-align: center">{{ rowData.fecha }}</td>
+                <td style="text-align: center">{{ rowData.fechaAtencion }}</td>
                 <td style="text-align: center">{{ rowData.estado }}</td>
                 <td style="text-align: center">
                     <span class="p-buttonset">

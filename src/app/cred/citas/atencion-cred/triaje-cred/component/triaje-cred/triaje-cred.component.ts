@@ -2,8 +2,9 @@ import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ConsultaGeneralService} from "../../../consulta-principal/services/consulta-general.service";
+import {ListaConsultaService} from "../../../../services/lista-consulta.service";
 import Swal from "sweetalert2";
-import {dato, triajeInterface} from "../../../../models/data";
+import {dato, triajeInterface, SignosVitales} from "../../../../models/data";
 
 interface formInterface {
     pro: string,
@@ -41,14 +42,109 @@ export class TriajeCredComponent implements OnInit {
         {label: 'Si', value: true},
         {label: 'No', value: false}
     ]
+
     dataExamFisicos: formInterface[] = [
-        {pro: 't', label: 'T°', nameFC: 'TFC'},
-        {pro: 'pa', label: 'PA', nameFC: 'PAFC'},
+        {pro: 'temperatura', label: 'T°', nameFC: 'TFC'},
+        {pro: 'presionSistolica', label: 'PS', nameFC: 'PSFC'},
+        {pro: 'presionDiastolica', label: 'PD', nameFC: 'PDFC'},
         {pro: 'fc', label: 'FC:', nameFC: 'FC'},
         {pro: 'fr', label: 'FR', nameFC: 'FRFC'},
         {pro: 'peso', label: 'Peso ', nameFC: 'PesoFC'},
         {pro: 'talla', label: 'Talla ', nameFC: 'TallaFC'},
-        {pro: 'pc', label: 'PC ', nameFC: 'PCFC'}
+        {pro: 'imc', label: 'imc ', nameFC: 'imcFC'},
+        {pro: 'perimetroCefalico', label: 'PC ', nameFC: 'PCFC'}
+    ]
+    list: formControlInterface[] = [
+        {
+            index: '1',
+            label: 'No quiere mamar ni succiona',
+            nameFC: 'noMama',
+        },
+        {
+            index: '2',
+            label: 'Convulsiones',
+            nameFC: 'convulsion',
+        },
+        {
+            index: '3',
+            label: 'Fontanela abombada',
+            nameFC: 'abombada'
+        },
+        {
+            index: '4',
+            label: 'Enrojecimiento del ombligo se extiende a la piel',
+            nameFC: 'enrojemiento'
+        },
+        {
+            index: '5',
+            label: 'Fiebre o temperatura baja',
+            nameFC: 'temperatura'
+        },
+        {
+            index: '6',
+            label: 'Rigidez de nuca',
+            nameFC: 'rigidezNuca'
+        },
+        {
+            index: '7',
+            label: 'Pústulas muchas y extensas',
+            nameFC: 'pustulas'
+        },
+        {
+            index: '8',
+            label: 'Letárgico o comatoso',
+            nameFC: 'letargico'
+        },
+        {
+            index: '1',
+            label: 'No puede beber o tomar el pecho',
+            nameFC: 'noTomaPecho'
+        },
+        {
+            index: '2',
+            label: 'Convulsiones',
+            nameFC: 'convulsionesMore'
+        },
+        {
+            index: '3',
+            label: 'Letárgico o comatoso',
+            nameFC: 'letargicoMore'
+        },
+        {
+            index: '4',
+            label: 'Vomita todo',
+            nameFC: 'vomitaTodo'
+        },
+        {
+            index: '5',
+            label: 'Estridor en reposo / tiraje subcostal',
+            nameFC: 'tirajeSubcostal'
+        },
+        {
+            index: '1',
+            label: 'Emaciación visible grave',
+            nameFC: 'emaciacionVisibleAll'
+        },
+        {
+            index: '2',
+            label: 'Piel vuelve muy lentamente',
+            nameFC: 'pielvuelveAll'
+        },
+        {
+            index: '3',
+            label: 'Traumatismo / Quemaduras',
+            nameFC: 'traumatismoQuemaduraAll'
+        },
+        {
+            index: '4',
+            label: 'Envenenamiento',
+            nameFC: 'envenenamientoAll'
+        },
+        {
+            index: '5',
+            label: 'Palidez palmar intensa',
+            nameFC: 'palidezAll'
+        }
     ]
     twoMonths: formControlInterface[] = [
         {
@@ -148,6 +244,7 @@ export class TriajeCredComponent implements OnInit {
     ]
 
     constructor(private router: Router, private route: ActivatedRoute,
+                private consultaService: ListaConsultaService,
                 private consultaGeneralService: ConsultaGeneralService) {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.recuperarPersona()
@@ -226,11 +323,13 @@ export class TriajeCredComponent implements OnInit {
         /** Signos vitales */
         this.examFG = new FormGroup({
             TFC: new FormControl({value: null, disabled: false}, []),
-            PAFC: new FormControl({value: null, disabled: false}, []),
+            PSFC: new FormControl({value: null, disabled: false}, []),
+            PDFC: new FormControl({value: null, disabled: false}, []),
             FC: new FormControl({value: null, disabled: false}, []),
             FRFC: new FormControl({value: null, disabled: false}, []),
             PesoFC: new FormControl({value: null, disabled: false}, []),
             TallaFC: new FormControl({value: null, disabled: false}, []),
+            imcFC: new FormControl({value: null, disabled: false}, []),
             PCFC: new FormControl({value: null, disabled: false}, []),
         })
         this.generalInfoFG = new FormGroup({
@@ -305,47 +404,63 @@ export class TriajeCredComponent implements OnInit {
     }**/
 
     save(): void {
-        // const consultaInput: ConsultaInputType = {
-        const edad: edadInterface = {
-            anio: this.anio,
-            mes: this.mes,
-            dia: this.dia
-        }
-        this.auxDatosGeneralesConsulta.datosGeneralesConsulta.edad = edad
-        const req: datosGeneralesConsulta = {
-            datosGeneralesConsulta: this.auxDatosGeneralesConsulta.datosGeneralesConsulta,
-            anamnesis: this.anamnesisFC.value,
-            descarteSignosPeligro: {
-                factorRiesgo: this.factorRiesgoFG.value,
 
-                menor2M: this.twoMonths.map((element, index) => {
-                    return {
-                        codigo: (index + 1) + '',
-                        descripcion: element.label,
-                        valor: this.twoMonthsFG.get(element.index).value === null ? false : this.twoMonthsFG.get(element.index).value as boolean
-                    }
-                }),
-                menor2Ma4A: this.twoMonthsMore.map((element, index) => {
-                    return {
-                        codigo: (index + 1) + '',
-                        descripcion: element.label,
-                        valor: this.twoMonthsMoreFG.get(element.index).value === null ? false : this.twoMonthsMoreFG.get(element.index).value as boolean
-                    }
-                }),
-                todasLasEdades: this.allYear.map((element, index) => {
-                    return {
-                        codigo: (index + 1) + '',
-                        descripcion: element.label,
-                        valor: this.allYearFG.get(element.index).value === null ? false : this.allYearFG.get(element.index).value as boolean
-                    }
-                }),
-                noPresentaSigno: this.signoPeligroFG.get('presentSigns').value
-            },
+        const aux: any[] = []
+        this.twoMonths.map((element, index) => {
+            aux.push({
+                codSigno: (index + 1) + '',
+                tipoEdad: 'Menor de 2 Meses',
+                nombreSigno: element.label,
+                valorSigno: this.twoMonthsFG.get(element.index).value === null ? false : this.twoMonthsFG.get(element.index).value as boolean
+            })
+        })
+        this.twoMonthsMore.map((element, index) => {
+            aux.push({
+                codSigno: (index + 1) + '',
+                tipoEdad: 'De 2 meses a 4 años',
+                nombreSigno: element.label,
+                valorSigno: this.twoMonthsMoreFG.get(element.index).value === null ? false : this.twoMonthsMoreFG.get(element.index).value as boolean
+            })
+        })
+        this.allYear.map((element, index) => {
+            aux.push({
+                codSigno: (index + 1) + '',
+                tipoEdad: 'Para todas las edades',
+                nombreSigno: element.label,
+                valorSigno: this.allYearFG.get(element.index).value === null ? false : this.allYearFG.get(element.index).value as boolean
+            })
+        })
+
+        let signosVitales: SignosVitales = {
+            temperatura: this.examFG.value.TFC,
+            presionSistolica: this.examFG.value.PSFC,
+            presionDiastolica: this.examFG.value.PDFC,
+            fc: this.examFG.value.FC,
+            fr: this.examFG.value.FRFC,
+            peso: this.examFG.value.PesoFC,
+            talla: this.examFG.value.TallaFC,
+            imc: this.examFG.value.imcFC,
+            perimetroCefalico: this.examFG.value.PCFC
         }
+        const req: triajeInterface = {
+            signosVitales: signosVitales,
+            listaSignosAlarma: aux,
+            noPresentaSigno: this.signoPeligroFG.get('presentSigns').value,
+            factorRiesgo: this.factorRiesgoFG.value,
+            anamnesis: this.anamnesisFC.value,
+        }
+
         console.log('req', req)
         if (req) {
-            this.consultaGeneralService.updateGenerales(this.id, req).subscribe(
-                (resp) => {
+            this.consultaService.crearConsulta(this.data.nroDocumento, req).subscribe(
+                (r: any) => {
+                    let data: dato = {
+                        nroDocumento: this.data.nroDocumento,
+                        tipoDoc: this.data.tipoDoc,
+                        idConsulta: r.object.id
+                    }
+                    localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+                    console.log('respuesta ', r)
                     Swal.fire({
                         icon: 'success',
                         title: 'Actualizado correctamente',

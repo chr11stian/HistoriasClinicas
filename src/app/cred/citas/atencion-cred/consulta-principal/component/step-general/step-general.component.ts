@@ -70,7 +70,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
     }
 
     getQueryParams() {
-        this.route.queryParams
+        /*this.route.queryParams
             .subscribe(params => {
                 if (params['nroDoc'] && !localStorage.getItem(this.attributeLocalS)) {
                     this.tipoDoc = params['tipoDoc']
@@ -83,7 +83,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 } else {
                     this.router.navigate(['/dashboard/cred/citas'])
                 }
-            })
+            })*/
     }
 
     getConsulta(idConsulta: string) {
