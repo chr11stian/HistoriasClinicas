@@ -5,34 +5,43 @@
   </div>
 </div>
 
-<div class="grid" [formGroup]="datosGeneralesFG">
+<div class="grid" >
   <div class="col-6">
-    <div class="grid">
-      <div class="col-3 text-right" style="font-weight: bold; ">Edad:</div>
-      <div class="col-3 grid">
-        <input class="col-6" formControlName="anio" type="text" placeholder="1" pInputText/>
-        <div class="col-6">Años</div>
+    <div class="flex justify-content-start">
+      <div class="col-4 text-right" style="font-weight: bold; ">Edad:</div>
+      <div class="col-2 p-fluid mr-1" >
+<!--        <input class="col-6" [value]="anioEdad" type="text" placeholder="1" pInputText/>-->
+        <p-inputNumber disabled="true" [(ngModel)]="anioEdad" inputId="percent"  suffix=" años">
+        </p-inputNumber>
+
       </div>
-      <div class="col-3 grid">
-        <input class="col-6" formControlName="mes" type="text" placeholder="11" pInputText/>
-        <div class="col-6">Meses</div>
+      <div class="col-2 p-fluid mr-1">
+<!--        <input class="col-6" [value]="mesEdad" type="text" placeholder="11" pInputText/>-->
+        <p-inputNumber disabled="true" [(ngModel)]="mesEdad" inputId="percent" suffix=" meses">
+        </p-inputNumber>
+
       </div>
-      <div class="col-3 grid">
-        <input class="col-6" formControlName="dia" type="text" placeholder="25" pInputText/>
-        <div class="col-6">Dias</div>
+      <div class="col-2 p-fluid mr-1">
+<!--        <input class="col-6" [value]="diaEdad" type="text" placeholder="25" pInputText/>-->
+        <p-inputNumber disabled="true" [(ngModel)]="diaEdad" inputId="percent" suffix=" dias">
+        </p-inputNumber>
       </div>
     </div>
-    <div class="grid">
-      <div class="col-4">
+
+    <div [formGroup]="datosGeneralesFG">
+
+    <div class="grid" >
+      <div class="col-4 text-right">
         Fecha:
       </div>
       <div class="col-4 p-fluid">
-        <p-calendar [showIcon]="true" inputId="icon"></p-calendar>
+        <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" formControlName="fechaSelected" (onSelect)="calcularEdadDinamico($event)"></p-calendar>
       </div>
     </div>
     <div class="grid">
-      <div class="col-4">Nombre Examinador:</div>
+      <div class="col-4 text-right">Nombre Examinador:</div>
       <div class="col-8 p-fluid"><input formControlName="nombreExaminador" [placeholder]="rango" type="text" pInputText></div>
+    </div>
     </div>
 
 <!--    movemos los subtest-->
@@ -105,7 +114,7 @@
         <div class="col-7 grid">
           <div class="col-2 text-center" style="font-size: 0.8rem">RETRASO</div>
           <div class="col-2 text-center" style="font-size: 0.8rem">RIESGO</div>
-          <div class="col-8 text-center" style="font-size: 0.8rem">NORMALIDAD</div>
+          <div class="col-8 text-center" style="font-size: 1rem">NORMALIDAD</div>
         </div>
         <div class="col-5" style="font-weight: bold; padding-top: 0px">
           TEST TOTAL

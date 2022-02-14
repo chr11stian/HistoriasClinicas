@@ -40,6 +40,8 @@ export class RolGuardiaComponent implements OnInit {
   loadingUps: boolean = true;
   listaTurno: any[] = [];
   listaAmbiente:any[]=[];
+  // listaAmbienteSelected:any[]=[]
+  listaAmbienteXipres:any[]=[]
   listaUps: any[] = [];
   upsSeleccionada = "";
   listaPersonal: any[] = [];
@@ -89,12 +91,12 @@ export class RolGuardiaComponent implements OnInit {
       });
   }
   getListaAmbiente() {
-   this.listaAmbiente=[
-     {codigo:'001',nombreAmbiente:'medicina01'},
-     {codigo:'002',nombreAmbiente:'medicina02'},
-     {codigo:'003',nombreAmbiente:'acupuntura01'},
-     {codigo:'cod123',nombreAmbiente:'ambiente123'},
-     {codigo:'005',nombreAmbiente:'OBSTETRICIA2'},
+   this.listaAmbienteXipres=[
+     'medicina01',
+     'medicina02',
+     'acupuntura01',
+     'ambiente123',
+     'OBSTETRICIA2',
    ]
   }
   getListaUps() {
@@ -223,13 +225,7 @@ export class RolGuardiaComponent implements OnInit {
   //   //console.log("esModficable", isVisible);
   // }
   fechaAA=new Date()
-  fechaAdelante(){
-    console.log(this.fechaAA)
 
-  }
-  fechaAtras(){
-
-  }
   isAdelante:boolean
   cambiarFecha() {
     //agregando
@@ -260,6 +256,12 @@ export class RolGuardiaComponent implements OnInit {
       this.listaHoras.push(0);
     }
   }
+  // IniciarAmbientes() {
+  //   this.listaAmbienteSelected = [];
+  //   for (let i = 0; i < this.listaPersonal.length; i++) {
+  //     this.listaHoras.push('ambiente1');
+  //   }
+  // }
 
   // changeUps1(codUps) {
   //   let requestInput: any = {
@@ -309,17 +311,17 @@ export class RolGuardiaComponent implements OnInit {
   //     }
   //   );
   // }
-  union(arr1, arr2) {
-    let arrRespuesta = arr1
-    console.log('arreglo respuesta parcial', arrRespuesta)
-    arr2.forEach((elemento) => {
-      const found = arr1.find(element => element.nroDoc == elemento.nroDoc);
-      if (!found) {
-        arrRespuesta.push(found)
-      }
-    });
-    return arrRespuesta
-  }
+  // union(arr1, arr2) {
+  //   let arrRespuesta = arr1
+  //   console.log('arreglo respuesta parcial', arrRespuesta)
+  //   arr2.forEach((elemento) => {
+  //     const found = arr1.find(element => element.nroDoc == elemento.nroDoc);
+  //     if (!found) {
+  //       arrRespuesta.push(found)
+  //     }
+  //   });
+  //   return arrRespuesta
+  // }
 
   changeUps1(codUps) {
     let ipressUpsInput: any = {
@@ -328,7 +330,9 @@ export class RolGuardiaComponent implements OnInit {
     };
     this.isSelected=false;
     this.listaPersonal = [];
+    this.listaAmbiente=[];
     this.listaHoras=[];
+
     this.personalService.getPorIpressUps(ipressUpsInput).subscribe((resp: any) => {
       let requestInput: any = {
         anio: this.fecha.getFullYear(),
@@ -344,19 +348,23 @@ export class RolGuardiaComponent implements OnInit {
               nroDoc: elemento.nroDoc,
               tipoDoc: elemento.tipoDoc,
               nombreCompleto: `${elemento.apePaterno} ${elemento.apeMaterno} ${elemento.primerNombre}`
-            })
+            });
+            this.listaAmbiente.push('ambiente123')//->ambiente x defecto
           });
         }
         let listaRol=[]
+        let listaAmbienteAux=[]
         if (resp1["cod"] === "2002") {
           const listaAux = resp1['object']
           listaAux.forEach((element) => {
             let rolNecesario = element.personal
+            let ambienteNecesario=element.ambiente
             listaRol.push({
               nroDoc: rolNecesario.nroDoc,
               tipoDoc: rolNecesario.tipoDoc,
               nombreCompleto: rolNecesario.nombre,
-              rol:element.turnos
+              rol:element.turnos,
+              ambiente:element.ambiente
             });
           });
         }
@@ -368,6 +376,7 @@ export class RolGuardiaComponent implements OnInit {
            listaRol.forEach((personalWithRol)=>{
              if(personal.nroDoc==personalWithRol.nroDoc){
                this.matriz[index]=personalWithRol['rol']
+               this.listaAmbiente[index]=personalWithRol['ambiente']
              }
            })
         })
@@ -558,7 +567,7 @@ export class RolGuardiaComponent implements OnInit {
           let mesInput: any = {
             anio: this.fecha.getFullYear(),
             mes: this.fecha.getMonth() + 1,
-            ambiente: "medicina01",
+            ambiente: this.listaAmbiente[this.indexSelected],
             ipress: {
               idIpress: "616de45e0273042236434b51",
               nombre: "la posta medica",

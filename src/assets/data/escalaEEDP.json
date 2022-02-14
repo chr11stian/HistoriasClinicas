@@ -2,799 +2,799 @@
     "data": [
         [
             {
-                "codigo": "pregunta_1",
+                "codigo": 1,
                 "areEvaluacion": "S",
                 "descripcion": "Fija la mirada en el rostro del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_2",
+                "codigo": 2,
                 "areEvaluacion": "L",
                 "descripcion": "Reacciona al sonido de la campanilla(detras)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_3",
+                "codigo": 3,
                 "areEvaluacion": "M",
                 "descripcion": "Aprieta el dedo indice del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_4",
+                "codigo": 4,
                 "areEvaluacion": "C",
                 "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_5",
+                "codigo": 5,
                 "areEvaluacion": "M",
                 "descripcion": "Movimiento de cabeza en posición prona",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_6",
+                "codigo": 6,
                 "areEvaluacion": "S",
                 "descripcion": "Mímica en respuesta al rostro del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_7",
+                "codigo": 7,
                 "areEvaluacion": "S_L",
                 "descripcion": "Vocaliza en respuesta a la sonrisa y conversación del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_8",
+                "codigo": 8,
                 "areEvaluacion": "C_S",
                 "descripcion": "Reacciona ante el desaparecimiento de la cara del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_9",
+                "codigo": 9,
                 "areEvaluacion": "M",
                 "descripcion": "Intenta controlar la cabeza al ser llevado a posicion sentado",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_10",
+                "codigo": 10,
                 "areEvaluacion": "L",
                 "descripcion": "vocaliza dos sonidos diferentes",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_11",
+                "codigo": 11,
                 "areEvaluacion": "S",
                 "descripcion": "Sonrie en respuesta a la sonrisa del examinador",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_12",
+                "codigo": 12,
                 "areEvaluacion": "S_L",
                 "descripcion": "Busca con la vista la fuente del sonido (detras)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_13",
+                "codigo": 13,
                 "areEvaluacion": "C",
                 "descripcion": "Sigue con la vista la argolla (ángulo de 180°)(detras)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_14",
+                "codigo": 14,
                 "areEvaluacion": "M",
                 "descripcion": "Mantiene cabeza erguida al ser llevado a posicion sentado",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_15",
+                "codigo": 15,
                 "areEvaluacion": "L",
                 "descripcion": "Vocalizacion prolongada",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_16",
+                "codigo": 16,
                 "areEvaluacion": "C",
                 "descripcion": "La cabeza sigue la cuchara que desaparece",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_17",
+                "codigo": 17,
                 "areEvaluacion": "C_L",
                 "descripcion": "Gira la cabeza al sonido de la campanilla (detras)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_18",
+                "codigo": 18,
                 "areEvaluacion": "M",
                 "descripcion": "En posicion prona se levanta asi mismo",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_19",
+                "codigo": 19,
                 "areEvaluacion": "M",
                 "descripcion": "Levanta cabeza y hombro al ser llevado a posición sentada",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_20",
+                "codigo": 20,
                 "areEvaluacion": "S_L",
                 "descripcion": "Rie a carcajadas",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_21",
+                "codigo": 21,
                 "areEvaluacion": "S_L",
                 "descripcion": "Vuelve la cabeza a quien le habla(detrás)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_22",
+                "codigo": 22,
                 "areEvaluacion": "C",
                 "descripcion": "Palpa el borde de la cama",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_23",
+                "codigo": 23,
                 "areEvaluacion": "C",
                 "descripcion": "Intenta presión de la argolla (detrás)",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_24",
+                "codigo": 24,
                 "areEvaluacion": "M",
                 "descripcion": "Empuja hasta lograr la posición sentada",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_25",
+                "codigo": 25,
                 "areEvaluacion": "M",
                 "descripcion": "Se mantiene sentado con breve apoyo",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_26",
+                "codigo": 26,
                 "areEvaluacion": "M",
                 "descripcion": "Se mantiene sentado solo momentaneamente",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_27",
+                "codigo": 27,
                 "areEvaluacion": "C",
                 "descripcion": "Vuelve la cabeza a la cuchara caída",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_28",
+                "codigo": 28,
                 "areEvaluacion": "C",
                 "descripcion": "Coge la argolla",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_29",
+                "codigo": 29,
                 "areEvaluacion": "C",
                 "descripcion": "Coge el cubo",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_30",
+                "codigo": 30,
                 "areEvaluacion": "S_L",
                 "descripcion": "Vocaliza cuando se le habla",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_31",
+                "codigo": 31,
                 "areEvaluacion": "M",
                 "descripcion": "Se mantiene sentado solo por 30 segundos a más",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_32",
+                "codigo": 32,
                 "areEvaluacion": "C",
                 "descripcion": "Intenta agarrar la pastilla",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_33",
+                "codigo": 33,
                 "areEvaluacion": "L",
                 "descripcion": "Escucha selectivamente palabras familiares",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_34",
+                "codigo": 34,
                 "areEvaluacion": "S",
                 "descripcion": "Coopera a los juegos",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_35",
+                "codigo": 35,
                 "areEvaluacion": "C",
                 "descripcion": "Coge dos cubos, uno en cada mano",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_36",
+                "codigo": 36,
                 "areEvaluacion": "M",
                 "descripcion": "Se sienta y se mantiene erguido",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_37",
+                "codigo": 37,
                 "areEvaluacion": "M",
                 "descripcion": "Fracciona hasta lograr la posición de pie",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_38",
+                "codigo": 38,
                 "areEvaluacion": "M",
                 "descripcion": "Iniciación de pasos sostenido bajo los brazos",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_39",
+                "codigo": 39,
                 "areEvaluacion": "C",
                 "descripcion": "Coge la pastilla con movimiento de rastrillo",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_40",
+                "codigo": 40,
                 "areEvaluacion": "C",
                 "descripcion": "Dice da-da o equivalente",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_41",
+                "codigo": 41,
                 "areEvaluacion": "M",
                 "descripcion": "Logra llegar a posición de pie, apoyado en un mueble",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_42",
+                "codigo": 42,
                 "areEvaluacion": "M",
                 "descripcion": "Camina sostenido bajo los brazos",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_43",
+                "codigo": 43,
                 "areEvaluacion": "C",
                 "descripcion": "Coge la pastilla con participación del pulgar",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_44",
+                "codigo": 44,
                 "areEvaluacion": "C",
                 "descripcion": "Encuentra el cubo bajo el pañal",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_45",
+                "codigo": 45,
                 "areEvaluacion": "S_L",
                 "descripcion": "Reacciona a los requerimientos verbales",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_46",
+                "codigo": 46,
                 "areEvaluacion": "C",
                 "descripcion": "Coge la pastilla con pulgar e índice",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_47",
+                "codigo": 47,
                 "areEvaluacion": "S",
                 "descripcion": "Imita gestos simples",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_48",
+                "codigo": 48,
                 "areEvaluacion": "C",
                 "descripcion": "Coge el tercer cubo dejando uno de los dos primeros",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_49",
+                "codigo": 49,
                 "areEvaluacion": "C",
                 "descripcion": "Junta cubos en la línea media",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_50",
+                "codigo": 50,
                 "areEvaluacion": "S_L",
                 "descripcion": "Reacciona al “no, no”",
                 "puntajeMaximo": "6",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_51",
+                "codigo": 51,
                 "areEvaluacion": "M",
                 "descripcion": "Coge la pastilla con pulgar e índice",
                 "puntajeMaximo": "12",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_52",
+                "codigo": 52,
                 "areEvaluacion": "C",
                 "descripcion": "Imita gestos simples",
                 "puntajeMaximo": "12",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_53",
+                "codigo": 53,
                 "areEvaluacion": "M",
                 "descripcion": "Coge el tercer cubo dejando uno de los dos primeros",
                 "puntajeMaximo": "12",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_54",
+                "codigo": 54,
                 "areEvaluacion": "S_L",
                 "descripcion": "Junta cubos en la línea media",
                 "puntajeMaximo": "12",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_55",
+                "codigo": 55,
                 "areEvaluacion": "L",
                 "descripcion": "Reacciona al “no, no”",
                 "puntajeMaximo": "12",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_56",
+                "codigo": 56,
                 "areEvaluacion": "M",
                 "descripcion": "Camina solo",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_57",
+                "codigo": 57,
                 "areEvaluacion": "C",
                 "descripcion": "Introduce la pastilla en la botella",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_58",
+                "codigo": 58,
                 "areEvaluacion": "C",
                 "descripcion": "Espontáneamente garabatea",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_59",
+                "codigo": 59,
                 "areEvaluacion": "C",
                 "descripcion": "Coge el tercer cubo conservando los dos primeros",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_60",
+                "codigo": 60,
                 "areEvaluacion": "L",
                 "descripcion": "Dice al menos tres palabras",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_61",
+                "codigo": 61,
                 "areEvaluacion": "S_L",
                 "descripcion": "Muestra sus zapatos",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_62",
+                "codigo": 62,
                 "areEvaluacion": "M",
                 "descripcion": "Camina varios pasos hacia el lado",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_63",
+                "codigo": 63,
                 "areEvaluacion": "M",
                 "descripcion": "Camina varios pasos hacia atrás",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_64",
+                "codigo": 64,
                 "areEvaluacion": "C",
                 "descripcion": "Retira inmediatamente la pastilla de la botella",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_65",
+                "codigo": 65,
                 "areEvaluacion": "C",
                 "descripcion": "Atrae el cubo con un palo",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_66",
+                "codigo": 66,
                 "areEvaluacion": "L",
                 "descripcion": "Nombra un objeto de los cuatro presentado",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_67",
+                "codigo": 67,
                 "areEvaluacion": "L",
                 "descripcion": "Imita tres palabras en el momento del examen",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_68",
+                "codigo": 68,
                 "areEvaluacion": "C",
                 "descripcion": "Construye una torre con tres cubos",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_69",
+                "codigo": 69,
                 "areEvaluacion": "L",
                 "descripcion": "Dice al menos seis palabras",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_70",
+                "codigo": 70,
                 "areEvaluacion": "S_L",
                 "descripcion": "Usa palabras para comunicar deseos",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_71",
+                "codigo": 71,
                 "areEvaluacion": "M",
                 "descripcion": "Se para en un pie con ayuda",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_72",
+                "codigo": 72,
                 "areEvaluacion": "L",
                 "descripcion": "Nombra dos objetos de los cuatro presentados",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_73",
+                "codigo": 73,
                 "areEvaluacion": "S",
                 "descripcion": "Ayuda en tareas simples",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_74",
+                "codigo": 74,
                 "areEvaluacion": "L",
                 "descripcion": "Apunta 4 o más partes en el cuerpo de la muñeca",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_75",
+                "codigo": 75,
                 "areEvaluacion": "C",
                 "descripcion": "Construye una torre con cinco cubos",
                 "puntajeMaximo": "18",
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_76",
+                "codigo": 76,
                 "areEvaluacion": "L",
                 "descripcion": "Nombra animales (de 8 menciona 6)",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_77",
+                "codigo": 77,
                 "areEvaluacion": "L",
                 "descripcion": "Nombra colores (rojo, azul, amarillo)",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_78",
+                "codigo": 78,
                 "areEvaluacion": "M",
                 "descripcion": "Copia una cruz",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_79",
+                "codigo": 79,
                 "areEvaluacion": "C",
                 "descripcion": "Construye una torre de 8 cubos",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_80",
+                "codigo": 80,
                 "areEvaluacion": "M",
                 "descripcion": "Se para con un pie (10 segundos a más)",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }
         ],
         [
             {
-                "codigo": "pregunta_81",
+                "codigo": 81,
                 "areEvaluacion": "L",
                 "descripcion": "Verbaliza su nombre y apeliido",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_82",
+                "codigo": 82,
                 "areEvaluacion": "L",
                 "descripcion": "Conoce la utilidad de los objetos (cuchara, lápiz, tijera, jabón)",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_83",
+                "codigo": 83,
                 "areEvaluacion": "C",
                 "descripcion": "Copia un circulo",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_84",
+                "codigo": 84,
                 "areEvaluacion": "C",
                 "descripcion": "Abotona y desabotona (usar estuche)",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             },
             {
-                "codigo": "pregunta_85",
+                "codigo": 85,
                 "areEvaluacion": "M",
                 "descripcion": "Camina en punta de pie seis pasos o más",
                 "puntajeMaximo": null,
-                "puntajeEEDP": "0",
+                "puntajeEEDP": false,
                 "puntajeBreveN": false,
                 "puntajeBreveR": false
             }

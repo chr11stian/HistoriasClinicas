@@ -79,11 +79,11 @@ export class TestDesarrolloComponent implements OnInit {
       fecha10: new FormControl(''),
       fecha11: new FormControl(''),
       fecha12: new FormControl(''),
+      fecha13: new FormControl(''),
+      fecha14: new FormControl(''),
       fecha15: new FormControl(''),
-      fecha18: new FormControl(''),
-      fecha21: new FormControl(''),
-      fecha24: new FormControl(''),
-      fecha30: new FormControl(''),
+      fecha16: new FormControl(''),
+      fecha17: new FormControl(''),
     })
   }
   cambiarEstado(sale,rowIndex) {

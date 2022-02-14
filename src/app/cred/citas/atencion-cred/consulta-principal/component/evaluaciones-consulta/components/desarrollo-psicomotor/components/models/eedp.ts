@@ -4,7 +4,7 @@ export interface ObjectEscalaEEDP {
 
 export interface escalaEval_EEDP_0_4_anios {
     edad: number,
-    condicion:string,
+    condicion: string,
     fecha: string,
     examinador: string,
     puntajeTotalEedp: string
@@ -62,7 +62,31 @@ export interface DatosEEDP {
     areEvaluacion: string,
     descripcion: string,
     puntajeMaximo: string,
-    puntajeEEDP: string,
+    puntajeEEDP: boolean,
     puntajeBreveN: boolean,
     puntajeBreveR: boolean
+}
+export interface AnswerEEDP {
+    codigo: number,
+    puntajeEEDP: string,
+    areEvaluacion: string
+}
+export interface ItemEEDP {
+    edad: number,
+    puntajeTotalEedp: number,
+    puntajeMaximoEedp: number,
+    itemEedp?: AnswerEEDP[]
+}
+export interface TestEEDP {
+    fecha: string,
+    edadCronologica: number,
+    edadMental: number,
+    diagnostico: string,
+    coeficienteDesarrolllo: number,
+    examinador: string,
+    listaUltimasPreguntas?: [{
+        clave?: string,
+        numeroPregunta?: number
+    }],
+    listaItemEedp: ItemEEDP[]
 }
