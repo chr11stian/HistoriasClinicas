@@ -74,9 +74,6 @@ export class EedpComponent implements OnInit {
   }
 
   saveTest() {
-    // this.dataTestEEDP = {
-    //   fecha
-    // }
     this.monthPoints = 0;
 
     this.arrayEdadEEDPSelected.forEach(item => {
@@ -98,13 +95,18 @@ export class EedpComponent implements OnInit {
       puntajeMaximoEedp: parseInt(this.puntaje),
       itemEedp: ansMonth
     }
-    if (this.itemEEDP.puntajeTotalEedp > 0) {
-      console.log('el puntaje es mayor a 0', this.listaPreguntas.includes(this.itemEEDP), 'lista de preguntas mensuales ', this.listaPreguntas);
-      if (this.listaPreguntas.includes(this.itemEEDP))
-        return
+    let dup;
+    this.listaPreguntas.forEach(item => {
+      console.log('item ', item.edad);
+      if (item.edad === this.itemEEDP.edad) {
+        dup = true;
+      }
+    })
+    if (dup || this.itemEEDP.puntajeTotalEedp == 0) {
+
+    } else {
       this.listaPreguntas.push(this.itemEEDP);
     }
-    console.log('datos del mes  ', this.itemEEDP);
     this.listaPreguntas.sort((a, b) => a.edad - b.edad);
     console.log('data to save ', this.listaPreguntas);
   }
