@@ -76,22 +76,23 @@ export class OfertasComponent implements OnInit {
         });
 
         this.formTransferirCupos = this.formBuilder.group({
-            nroDoc: new FormControl({value: '', disabled: true}),
-            nombre: new FormControl({value: '', disabled: true}),
-            servicio: new FormControl({value: '', disabled: true}),
-            fecha: new FormControl({value: '', disabled: true}),
-            ambiente: new FormControl({value: '', disabled: true}),
-            nroOfertasActuales2: new FormControl({value: '', disabled: true}),
+            nroDoc: new FormControl(''),
+            nombre: new FormControl(''),
+            servicio: new FormControl(''),
+            fecha: new FormControl(''),
+            ambiente: new FormControl(''),
+            nroOfertasActuales2: new FormControl(''),
             horaInicio: new FormControl(''),
             horaFin: new FormControl(''),
         });
-        this.formTransferirCupos2 = this.formBuilder.group({
+
+        this.formTransferirCupos2 = new FormGroup({
+            apellidos2: new FormControl('', Validators.required),
+            servicio2: new FormControl('', Validators.required),
             nroDoc2: new FormControl(''),
-            apellidos2: new FormControl({value: '', disabled: true}),
-            servicio2: new FormControl({value: '', disabled: true}),
             dia: new FormControl(''),
             turnos: new FormControl(''),
-            transferir: new FormControl(''),
+            transferir: new FormControl(),
         });
     }
 
@@ -180,6 +181,7 @@ export class OfertasComponent implements OnInit {
 
     }
 
+    /**hace un evento, al selecionar recupera la data de la oferta de un solo personal**/
     eventTransferirCupo(event) {
         this.DialogTransferir = true;
         this.IdOfertaParaCambiar = event.id;
@@ -196,6 +198,7 @@ export class OfertasComponent implements OnInit {
     }
 
 
+    /**Busca un personal de su rol de guardia**/
     async listarPersonalRolGuardia() {
         let tipoDoc = "DNI";
         let nroDoc = this.formTransferirCupos2.value.nroDoc2;
@@ -227,24 +230,23 @@ export class OfertasComponent implements OnInit {
         });
     }
 
+    /**Seleccionas un turno y recupera en dia de ese turno**/
     VerDiasDelTurno(event) {
         console.log("Trunos select", event);
         this.formTransferirCupos2.get('dia').setValue(event.value);
     }
 
+
+    /**Selecciona radioButton y asigna el valorpara activar el boton y el input **/
     SelectHorarios() {
-        // this.activarBoton = this.datePipe.transform(this.formTransferirCupos.value.horaFin, 'HH:mm')
         this.activarBoton = this.formTransferirCupos2.value.transferir;
         this.activarInput = this.formTransferirCupos2.value.transferir;
         console.log("Activar", this.activarBoton);
-        // this.formTransferirCupos.get('horaInicio').setValue(horasInicio);
-        // this.datePipe.transform(this.formTransferirCupos.value.fechaVenc, 'yyyy-MM-dd HH:mm:ss')
     }
 
-    SelectHorarios2(event) {
-        console.log("select Horas", event);
-    }
 
+    /**Usa las funciones de cambioTotasDeCupos y tranferenciaParcialDeCupos y hace una
+     * validacion para activar los botones**/
     cambiodeCupos() {
         if (this.activarBoton == 'Transferencia Total') {
             this.cambioTotasDeCupos();
@@ -253,7 +255,7 @@ export class OfertasComponent implements OnInit {
         }
     }
 
-
+    /**Transfiere los cupos en su totalidad**/
     async cambioTotasDeCupos() {
         let data = {
             tipoDoc: "DNI",
@@ -261,7 +263,7 @@ export class OfertasComponent implements OnInit {
             nombre: this.DataPersonalBusqueda.personal.nombre,
             tipoPersonal: this.DataPersonalBusqueda.personal.tipoPersonal,
             tipoContrato: this.DataPersonalBusqueda.personal.tipoContrato,
-            sexo: "FEMENINO"
+            sexo: this.DataPersonalBusqueda.personal.sexo,
         }
         console.log("DAAAAA", data);
 
@@ -285,10 +287,12 @@ export class OfertasComponent implements OnInit {
                 })
             }
         });
+        this.formTransferirCupos2.reset();
         this.DialogTransferir = false;
 
     }
 
+    /**Transfiere los cupos en forma parcial**/
     async tranferenciaParcialDeCupos() {
         let data = {
             idOferta: this.IdOfertaParaCambiar,
@@ -296,9 +300,10 @@ export class OfertasComponent implements OnInit {
                 tipoDoc: "DNI",
                 nroDoc: this.formTransferirCupos2.value.nroDoc2,
                 nombre: this.DataPersonalBusqueda.personal.nombre,
+                // nombre: this.formTransferirCupos2.value.apellidos2,
                 tipoPersonal: this.DataPersonalBusqueda.personal.tipoPersonal,
                 tipoContrato: this.DataPersonalBusqueda.personal.tipoContrato,
-                sexo: "FEMENINO"
+                sexo: this.DataPersonalBusqueda.personal.sexo,
             },
             horario: {
                 horaInicio: this.datePipe.transform(this.formTransferirCupos.value.horaInicio, 'HH:mm'),
@@ -306,7 +311,8 @@ export class OfertasComponent implements OnInit {
             }
 
         }
-        console.log("DAAAAA", data);
+
+        console.log("dataaaa", data)
         await this.cuposService.TranferenciaParcialCupos(data)
             .then((result: any) => {
                 console.log("sasas", result);
@@ -331,5 +337,15 @@ export class OfertasComponent implements OnInit {
             });
         this.formTransferirCupos2.reset();
         this.DialogTransferir = false;
+    }
+
+
+    cancelarTransferencia() {
+        this.formTransferirCupos2.reset();
+        this.DialogTransferir = false;
+    }
+
+    nuevoTransferencia() {
+        this.formTransferirCupos2.reset();
     }
 }

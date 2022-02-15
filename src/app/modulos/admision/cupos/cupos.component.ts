@@ -30,9 +30,10 @@ export class CuposComponent implements OnInit, OnDestroy {
     ups: [] = [];
     justifyOptions: any[];
     formCuposListar: FormGroup;
+    formRacuperarCupo: FormGroup;
     datePipe = new DatePipe('en-US');
     datafecha: Date = new Date();
-    ServicoSelect = "OBSTETRICIA";
+    ServicoSelect = "MEDICINA GENERAL";
     TipoDoc: string = "DNI";
     ref: DynamicDialogRef;
     buscoPorDoc: boolean = false;
@@ -95,6 +96,20 @@ export class CuposComponent implements OnInit, OnDestroy {
             tipoDoc: new FormControl(''),
             nroDoc: new FormControl(''),
             SelectUPS: new FormControl(''),
+        })
+        this.formRacuperarCupo = this.fb.group({
+            dniPaciente: new FormControl(''),
+            apellidos: new FormControl(''),
+            nombres: new FormControl(''),
+
+            sexo: new FormControl(''),
+            edad: new FormControl(''),
+            nroHCL: new FormControl(''),
+            celular: new FormControl(''),
+
+            detallePago: new FormControl(''),
+            servicio: new FormControl(''),
+            personal: new FormControl(''),
         })
     }
 
@@ -177,8 +192,31 @@ export class CuposComponent implements OnInit, OnDestroy {
         }
     }
 
-    verDialogPaciente() {
+    verDialogPaciente(event) {
         this.verPacienteDialog = true;
+        console.log("DATA", event)
+        this.formRacuperarCupo.get('dniPaciente').setValue(event.paciente.nroDoc);
+        this.formRacuperarCupo.get('apellidos').setValue(event.paciente.apellidos);
+        this.formRacuperarCupo.get('nombres').setValue(event.paciente.nombre);
+        this.formRacuperarCupo.get('edad').setValue(event.paciente.edadAnio);
+        this.formRacuperarCupo.get('sexo').setValue(event.paciente.sexo);
+        this.formRacuperarCupo.get('celular').setValue(event.paciente.nroTelefono);
+        this.formRacuperarCupo.get('nroHCL').setValue(event.paciente.nroHcl);
+        this.formRacuperarCupo.get('detallePago').setValue(event.detallePago);
+        this.formRacuperarCupo.get('servicio').setValue(event.ipress.servicio);
+        this.formRacuperarCupo.get('personal').setValue(event.personal.nombre);
+
+
+        //     sexo: new FormControl(''),
+        //     estadoCivil: new FormControl(''),
+        //     fechaNacimiento: new FormControl(''),
+        //     nacionalidad: new FormControl(''),
+        //     LugarNacimiento: new FormControl(''),
+        //     GradoInstrucion: new FormControl(''),
+        //     procedencia: new FormControl(''),
+        //     celular: new FormControl(''),
+        //     tipoSeguro: new FormControl(''),
+        //     transeunte: new FormControl(''),
     }
 
 }
