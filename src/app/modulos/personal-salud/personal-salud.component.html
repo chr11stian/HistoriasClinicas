@@ -402,6 +402,44 @@
                 </p-dropdown>
               </div>
             </div>
+            <div class="p-fluid grid flex justify-content-center">
+              <div class="p-field col-6">
+                <label>Estado rol guardia:</label>
+                <p-selectButton [options]="stateOptions" formControlName="rolGuardia" optionLabel="label"
+                  optionValue="value">
+                </p-selectButton>
+              </div>
+              <div class="p-field col-6">
+                <label>Borrar:</label>
+                <p-selectButton [options]="stateOptions" formControlName="delete" optionLabel="label"
+                  optionValue="value">
+                </p-selectButton>
+              </div>
+              <div class="p-field col-6">
+                <label>Actualizar:</label>
+                <p-selectButton [options]="stateOptions" formControlName="update" optionLabel="label"
+                  optionValue="value">
+                </p-selectButton>
+              </div>
+              <div class="p-field col-6">
+                <label>Crear:</label>
+                <p-selectButton [options]="stateOptions" formControlName="create" optionLabel="label"
+                  optionValue="value">
+                </p-selectButton>
+              </div>
+              <div class="p-field col-6">
+                <label>Insertar:</label>
+                <p-selectButton [options]="stateOptions" formControlName="insert" optionLabel="label"
+                  optionValue="value">
+                </p-selectButton>
+              </div>
+              <div class="p-field col-6">
+                <label>Leer:</label>
+                <p-selectButton [options]="stateOptions" formControlName="read" optionLabel="label"
+                  optionValue="value">
+                </p-selectButton>
+              </div>
+            </div>
           </form>
           <br />
           <div class="flex justify-content-end">
@@ -430,6 +468,7 @@
               <th style="text-align: center">Nro</th>
               <th style="text-align: center">Nombre</th>
               <th style="text-align: center">Rol del Personal</th>
+              <th style="text-align: center">Estado rol</th>
               <th style="text-align: center; width: 8rem">Acción</th>
             </tr>
           </ng-template>
@@ -440,7 +479,15 @@
               <td *ngIf="rowData.codUPS=='300101'" style="text-align: center">ANESTESIOLOGIA</td>
               <td *ngIf="rowData.codUPS=='303203'" style="text-align: center">OBSTETRICIA</td>
               <td *ngIf="rowData.codUPS=='302303'" style="text-align: center">MEDICINA GENERAL</td>
-
+              <td *ngIf="rowData.codUPS=='206908'" style="text-align: center">ENFERMERIA</td>
+              <td style="text-align: center">
+                <p-tag *ngIf="rowData.rolGuardia" styleClass="p-mr-2" severity="success" value="Activo"
+                  [rounded]="true">
+                </p-tag>
+                <p-tag *ngIf="!rowData.rolGuardia" styleClass="p-mr-2" severity="danger" value="Inactivo"
+                  [rounded]="true">
+                </p-tag>
+              </td>
               <td>
                 <button pButton (click)="editarRolX(rowData)" pTooltip="Editar" pRipple type="button"
                   icon="pi pi-pencil" class="p-button-rounded m-1"></button>

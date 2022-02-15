@@ -93,7 +93,7 @@ export class PersonalService {
     }
     editRol(idPersonal, reqRol) {
         return this.http.put<any>(
-            `${this.base_url}/${this.bd}/personal/actualizaroll/${idPersonal}`,
+            `${this.base_url}/${this.bd}/personal/actualizarrol/${idPersonal}`,
             reqRol
         );
     }

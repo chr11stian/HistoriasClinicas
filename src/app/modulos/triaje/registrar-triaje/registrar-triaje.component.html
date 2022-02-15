@@ -3,11 +3,11 @@
         <form [formGroup]='formTriaje'>
             <div class="col-12 md:col-12  pb-5">
                 <div class="grid mb-3 margen">
-                    <div class="col-3">
+                    <div class="col-2">
                         <label>Nro Doc:</label>
                         <span class="font-italic font-bold">{{' ' +datosPersonales.paciente.nroDoc}}</span>
                     </div>
-                    <div class="col-6">
+                    <div class="col-4">
                         <label>NOMBRES:</label>
                         <span class="font-italic font-bold">{{' ' + datosPersonales.paciente.nombre+ ' ' +
                             datosPersonales.paciente.apellidos}}</span>
@@ -16,9 +16,17 @@
                         <label>Servicio:</label>
                         <span class="font-italic font-bold">{{' ' +datosPersonales.ipress.servicio}}</span>
                     </div>
+                    
+                    <div class="col-3">
+                        <label>Edad:</label>
+                        <span class="font-italic font-bold">{{' ' +ponerEdadEnLetras()}}</span>
+                    </div>
                 </div>
                 <div class="grid">
-                    <div class="col-12 md:col-12 lg:col-3 imagen">
+                    <!-- <div class="col-12 md:col-12 lg:col-3 imagen">
+                    </div> -->
+                    <div class="col-3">
+                        <img class="image" alt="Imagen" src="{{'data:image/jpg;base64,' + imagePath}}" />
                     </div>
                     <div class="col-12 md:col-12 lg:col-9">
                         <p-fieldset legend="Funciones Vitales">
@@ -100,7 +108,7 @@
                                         </div>
                                         <div class="col-5">
                                             <input type="number" pInputText formControlName='peso' placeholder="Peso"
-                                                class="inputfield w-full">
+                                                class="inputfield w-full" (blur)="calcularIMC()">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">kg.</span>
@@ -140,6 +148,7 @@
     </div>
 </div>
 <div class="footer mt-4">
-    <button pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2" (click)="guardarTriaje()"></button>
-    <button pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
+    <button *ngIf="!ver" pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2" (click)="guardarTriaje()"></button>
+    <button *ngIf="ver" pButton type="button" label="Salir" class="p-button-primary mt-4 mr-2" (click)="closeDialog()"></button>
+    <button *ngIf="!ver"pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
 </div>
