@@ -403,14 +403,43 @@
               </div>
             </div>
             <div class="p-fluid grid flex justify-content-center">
-              <div class="p-field col-12">
+              <div class="p-field col-6">
                 <label>Estado rol guardia:</label>
                 <p-selectButton [options]="stateOptions" formControlName="rolGuardia" optionLabel="label"
                   optionValue="value">
                 </p-selectButton>
               </div>
+              <div class="p-field col-6">
+                <label>Borrar:</label>
+                <p-selectButton [options]="stateOptions" formControlName="delete" optionLabel="label"
+                  optionValue="value">
+                </p-selectButton>
+              </div>
+              <div class="p-field col-6">
+                <label>Actualizar:</label>
+                <p-selectButton [options]="stateOptions" formControlName="update" optionLabel="label"
+                  optionValue="value">
+                </p-selectButton>
+              </div>
+              <div class="p-field col-6">
+                <label>Crear:</label>
+                <p-selectButton [options]="stateOptions" formControlName="create" optionLabel="label"
+                  optionValue="value">
+                </p-selectButton>
+              </div>
+              <div class="p-field col-6">
+                <label>Insertar:</label>
+                <p-selectButton [options]="stateOptions" formControlName="insert" optionLabel="label"
+                  optionValue="value">
+                </p-selectButton>
+              </div>
+              <div class="p-field col-6">
+                <label>Leer:</label>
+                <p-selectButton [options]="stateOptions" formControlName="read" optionLabel="label"
+                  optionValue="value">
+                </p-selectButton>
+              </div>
             </div>
-
           </form>
           <br />
           <div class="flex justify-content-end">
