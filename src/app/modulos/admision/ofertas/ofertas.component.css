@@ -15,10 +15,9 @@ p-fieldset >>> .p-fieldset .p-fieldset-legend {
 }
 
 .personal {
-    border: 1px solid #adadad;
+    border: 1px solid rgb(227 226 226);
     border-radius: 10px;
 }
-
 
 
 p-panel >>> .p-panel .p-panel-content {
@@ -31,7 +30,7 @@ p-panel >>> .p-panel .p-panel-content {
     border-top: 0 none;
 }
 
-p-panel>>>.p-panel .p-panel-header {
+p-panel >>> .p-panel .p-panel-header {
     border: 1px solid #e3e2e2;
     padding: 1rem;
     background: rgb(248 249 250);
@@ -65,4 +64,15 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
 ::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight:hover {
     background: #2196f3;
     border: #2196f3;
+}
+
+.color-span {
+    color: rgb(12 56 102);
+}
+
+
+p-calendar >>> .p-calendar .p-inputtext {
+    flex: 1 1 auto;
+    width: 1%;
+    background: rgb(255 228 196);
 }

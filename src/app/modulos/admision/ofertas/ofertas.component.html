@@ -159,11 +159,11 @@
         <div class="grid">
             <div class="col-12 md:col-6 lg:col-7 p-field">
                 <form [formGroup]='formTransferirCupos'>
-                    <label class="">PERSONAL DE SALUD QUE VA TRANSFERIR</label>
+                    <label class="color-span">PERSONAL DE SALUD QUE VA TRANSFERIR</label>
                     <div class="personal">
                         <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-4 p-field">
-                                <span class="">NRO DOCUMENTO</span>
+                                <span class="color-span">NRO DOCUMENTO</span>
                                 <div class="p-inputgroup">
                                     <input type="number" pInputText
                                            formControlName="nroDoc"
@@ -171,7 +171,7 @@
                                 </div>
                             </div>
                             <div class="col-12 md:col-6 lg:col-8 p-field">
-                                <span class="">APELLIDOS</span>
+                                <span class="color-span">APELLIDOS</span>
                                 <div class="p-inputgroup">
                                     <input type="text"
                                            pInputText
@@ -180,21 +180,24 @@
                             </div>
                         </div>
                         <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">SERVICIO</span>
+                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                                <span class="color-span">SERVICIO</span>
                                 <div class="p-inputgroup">
                                     <input type="text"
                                            pInputText
                                            formControlName="servicio"/>
                                 </div>
                             </div>
-                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">AMBIENTE</span>
+                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                                <span class="color-span">AMBIENTE</span>
                                 <div class="p-inputgroup">
                                     <input type="text"
                                            pInputText
                                            formControlName="ambiente"/>
                                 </div>
                             </div>
-                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">FECHA</span>
+                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                                <span class="color-span">FECHA</span>
                                 <div class="p-inputgroup">
                                     <input type="text"
                                            pInputText
@@ -204,26 +207,30 @@
                         </div>
 
                         <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">NUMERO DE OFERTAS</span>
+                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                                <span class="color-span">NUMERO DE OFERTAS</span>
                                 <div class="p-inputgroup">
                                     <input type="text"
                                            pInputText
                                            formControlName="nroOfertasActuales2"/>
                                 </div>
                             </div>
-                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">HORA DESDE</span>
+                            <div class="col-12 md:col-6 lg:col-4 p-field">
+                                <span class="color-span">HORA INICIO</span>
                                 <div class="p-inputgroup">
                                     <p-calendar [timeOnly]="true" [hourFormat]="24" inputId="timeonly"
-                                                placeholder="Hora inicio"
-                                                formControlName="horaInicio"></p-calendar>
+                                                placeholder=""
+                                                formControlName="horaInicio"
+                                                [disabled]="activarInput!='Transferencia Parcial'"></p-calendar>
                                 </div>
                             </div>
-                            <div class="col-12 md:col-6 lg:col-4 p-field"><span class="">HORA HASTA</span>
+                            <div class="col-12 md:col-6 lg:col-4 p-field"><span
+                                    class="color-span">HORA FIN</span>
                                 <div class="p-inputgroup">
                                     <p-calendar [timeOnly]="true" [hourFormat]="24" inputId="timeonly"
-                                                placeholder="Hora fin"
+                                                placeholder=""
                                                 formControlName="horaFin"
-                                                (click)="SelectHorarios()"></p-calendar>
+                                                [disabled]="activarInput!='Transferencia Parcial'"></p-calendar>
                                 </div>
                             </div>
 
@@ -232,8 +239,8 @@
                 </form>
                 <br>
                 <p-panel>
-                    <ng-template pTemplate="header">
-                        OFERTAS
+                    <ng-template class="color-span" pTemplate="header">
+                        <span class="color-span">OFERTAS</span>
                     </ng-template>
                     <p-table [value]="horas" [(selection)]="selectedHorario" responsiveLayout="scroll"
                              scrollHeight="260px">
@@ -267,11 +274,11 @@
             </div>
             <div class="col-12 md:col-6 lg:col-5 p-field">
                 <form [formGroup]='formTransferirCupos2'>
-                    <label class="">PERSONAL DE SALUD QUE REEMPLAZA </label>
+                    <label class="color-span">PERSONAL DE SALUD QUE REEMPLAZA </label>
                     <div class="personal">
                         <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-6 p-field">
-                                <span class="">NRO DOCUMENTO</span>
+                                <span class="color-span">NRO DOCUMENTO</span>
                                 <div class="p-inputgroup">
                                     <input type="number" pInputText
                                            formControlName="nroDoc2"
@@ -282,7 +289,8 @@
                             </div>
                         </div>
                         <div class="grid m-2">
-                            <div class="col-12 md:col-6 lg:col-12 p-field"><span class="">APELLIDOS Y NOMBRES</span>
+                            <div class="col-12 md:col-6 lg:col-12 p-field">
+                                <span class="color-span">APELLIDOS Y NOMBRES</span>
                                 <div class="p-inputgroup">
                                     <input type="text"
                                            pInputText
@@ -292,7 +300,7 @@
                         </div>
                         <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-6 p-field">
-                                <span class="">SERVICIO</span>
+                                <span class="color-span">SERVICIO</span>
                                 <div class="p-inputgroup">
                                     <input type="text"
                                            pInputText
@@ -300,7 +308,7 @@
                                 </div>
                             </div>
                             <div class="col-12 md:col-6 lg:col-6 p-fluid">
-                                <span class="">SELECIONE EL TURNO</span>
+                                <span class="color-span">SELECIONE EL TURNO</span>
                                 <div class="">
                                     <p-dropdown [options]="TurnosPersonal"
                                                 placeholder="Select Turno"
@@ -315,7 +323,7 @@
                         </div>
                         <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-3 p-field">
-                                <span class="">DIA</span>
+                                <span class="color-span">DIA</span>
                                 <div class="p-inputgroup">
                                     <input type="text"
                                            pInputText
@@ -334,7 +342,7 @@
                                 <p-radioButton class="default" name="transferir" value="Transferencia Total"
                                                formControlName="transferir" (click)="SelectHorarios()"
                                                [disabled]="DataPersonalBusqueda==null"></p-radioButton>
-                                <span class="">TRANSFERIR TODO</span>
+                                <span class="color-span">TRANSFERIR TODO</span>
                             </div>
                         </div>
                         <div class="col-12 md:col-6 lg:col-6 p-field">
@@ -342,7 +350,7 @@
                                 <p-radioButton class="default" name="transferir" value="Transferencia Parcial"
                                                formControlName="transferir" (click)="SelectHorarios()"
                                                [disabled]="DataPersonalBusqueda==null"></p-radioButton>
-                                <span class="">TRANSFERENCIA PARCIAL</span>
+                                <span class="color-span">TRANSFERENCIA PARCIAL</span>
                             </div>
                         </div>
                     </div>

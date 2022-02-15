@@ -37,6 +37,7 @@ export class OfertasComponent implements OnInit {
     TurnosPersonal: any;
     selectedHorario: any[];
     activarBoton: string = '';
+    activarInput: string = 'Transferir todo';
 
     constructor(
         private ofertasService: OfertasService,
@@ -81,7 +82,7 @@ export class OfertasComponent implements OnInit {
             fecha: new FormControl({value: '', disabled: true}),
             ambiente: new FormControl({value: '', disabled: true}),
             nroOfertasActuales2: new FormControl({value: '', disabled: true}),
-            horaInicio: new FormControl({value: '', disabled: false}, Validators.required),
+            horaInicio: new FormControl(''),
             horaFin: new FormControl(''),
         });
         this.formTransferirCupos2 = this.formBuilder.group({
@@ -234,6 +235,7 @@ export class OfertasComponent implements OnInit {
     SelectHorarios() {
         // this.activarBoton = this.datePipe.transform(this.formTransferirCupos.value.horaFin, 'HH:mm')
         this.activarBoton = this.formTransferirCupos2.value.transferir;
+        this.activarInput = this.formTransferirCupos2.value.transferir;
         console.log("Activar", this.activarBoton);
         // this.formTransferirCupos.get('horaInicio').setValue(horasInicio);
         // this.datePipe.transform(this.formTransferirCupos.value.fechaVenc, 'yyyy-MM-dd HH:mm:ss')
