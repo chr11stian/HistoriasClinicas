@@ -23,6 +23,7 @@ export class CitasComponent implements OnInit {
     options: data[]
     selectedOption: data
     citas: any[]
+    loading: boolean = true;
 
 
     dataCitas: any;
@@ -95,6 +96,7 @@ export class CitasComponent implements OnInit {
 
         this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.DataCupos = res.object;
+            this.loading = false;
             console.log('LISTA DE CUPOS POR SERVICIO ', this.DataCupos);
         })
     }
