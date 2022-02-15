@@ -31,7 +31,7 @@
     <div [formGroup]="datosGeneralesFG">
 
     <div class="grid" >
-      <div class="col-4 text-right">
+      <div style="font-weight: bold" class="col-4 text-right">
         Fecha:
       </div>
       <div class="col-4 p-fluid">
@@ -39,9 +39,12 @@
       </div>
     </div>
     <div class="grid">
-      <div class="col-4 text-right">Nombre Examinador:</div>
-      <div class="col-8 p-fluid"><input formControlName="nombreExaminador" [placeholder]="rango" type="text" pInputText></div>
+      <div style="font-weight: bold" class="col-4 text-right">Nombre Examinador:</div>
+      <div class="col-8 p-fluid"><input formControlName="nombreExaminador"  type="text" pInputText></div>
     </div>
+      <div class="grid">
+        {{rango}}
+      </div>
     </div>
 
 <!--    movemos los subtest-->
@@ -72,6 +75,7 @@
           <th>Categoria</th>
         </tr>
         <tr>
+<!--          <td>{{resultadoA[0].puntajeBruto}}</td>-->
           <td>{{resultadoA[0].puntajeBruto}}</td>
           <td>{{resultadoA[0].puntajeT}}</td>
           <td>{{resultadoA[0].categoria}}</td>
@@ -91,21 +95,21 @@
       </tr>
       <tr>
         <th>Coordinacion</th>
-        <td class="text-center">{{resultado[0]}}</td>
-        <td style="text-align: center">{{puntajeT[0]}}</td>
-        <td>{{categoria[0]}}</td>
+        <td class="text-center">{{resultadoA[1].puntajeBruto}}</td>
+        <td style="text-align: center">{{this.resultadoA[1].puntajeT}}</td>
+        <td>{{resultadoA[1].categoria}}</td>
       </tr>
       <tr>
         <th>Lenguaje</th>
-        <td>{{resultado[1]}}</td>
-        <td>{{puntajeT[1]}}</td>
-        <td>{{categoria[1]}}</td>
+        <td class="text-center">{{resultadoA[2].puntajeBruto}}</td>
+        <td style="text-align: center">{{resultadoA[2].puntajeT}}</td>
+        <td>{{resultadoA[2].categoria}}</td>
       </tr>
       <tr>
         <th>Motricidad</th>
-        <td>{{resultado[2]}}</td>
-        <td>{{puntajeT[2]}}</td>
-        <td>{{categoria[2]}}</td>
+        <td class="text-center">{{resultadoA[3].puntajeBruto}}</td>
+        <td style="text-align: center">{{resultadoA[3].puntajeT}}</td>
+        <td>{{resultadoA[3].categoria}}</td>
       </tr>
       </tbody>
     </table>
@@ -283,8 +287,8 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[0]"
-                (onChange)="calcularSuma($event, 1)"
+                [(ngModel)]="arregloSubtest[0][0]"
+                (onChange)="calcularResultadoSubTest1(1)"
         ></p-checkbox>
         1C
       </td>
@@ -295,9 +299,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[1]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][1]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         2C
       </td>
       <td>
@@ -309,9 +313,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[2]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][2]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         3C
       </td>
       <td>Construye una torre de 8 ó mas cubos (doce cubos)</td>
@@ -321,9 +325,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[3]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][3]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         4C
       </td>
       <td>Desabotona (Estuche)</td>
@@ -333,9 +337,10 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[4]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][4]"
+                (onChange)="calcularResultadoSubTest1(1)"
+
+                        ></p-checkbox>
         5C
       </td>
       <td>Abotona (Estuche)</td>
@@ -345,9 +350,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[5]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][5]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         6C
       </td>
       <td>Enhebra una aguja (aguja de lana, hilo)</td>
@@ -357,9 +362,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[6]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][6]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         7C
       </td>
       <td>Desata cordones (tablero c/cordón)</td>
@@ -369,9 +374,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[7]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][7]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         8C
       </td>
       <td>Copia una linea recta (Lamina 1, Lápiz, reverso hoja reg.)</td>
@@ -381,9 +386,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[8]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][8]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         9C
       </td>
       <td>Copia de un circulo (Lam 2, lápiz, reverso hoja reg.)</td>
@@ -393,9 +398,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[9]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][9]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         10C
       </td>
       <td>Copia una cruz (Lam 3, lápiz, reverso hoja reg.)</td>
@@ -405,9 +410,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[10]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][10]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         11C
       </td>
       <td>Copia un triangulo (Lam 4, lápiz, reverso hoja reg.)</td>
@@ -417,9 +422,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[11]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][11]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         12C
       </td>
       <td>Copia un cuadrado (Lam 5, lápiz, reverso hoja reg.)</td>
@@ -429,9 +434,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[12]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][12]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         13C
       </td>
       <td>
@@ -443,9 +448,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[13]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][13]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         14C
       </td>
       <td>
@@ -457,9 +462,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[14]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][14]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         15C
       </td>
       <td>
@@ -471,9 +476,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                [(ngModel)]="selectedValues1[15]"
-                (onChange)="calcularSuma($event, 1)"
-        ></p-checkbox>
+                [(ngModel)]="arregloSubtest[0][15]"
+                (onChange)="calcularResultadoSubTest1(1)"
+                        ></p-checkbox>
         16C
       </td>
       <td>Ordena por tamaño (Tablero, barritas)</td>
@@ -487,7 +492,7 @@
             text-align: center;
           "
       >
-        {{ resultado[0] }}
+        {{ resultadoA[1].puntajeBruto }}
       </td>
       <td style="font-weight: bold; font-size: 1.3rem">
         TOTAL SUB TEST COORDINACIÓN: PB
@@ -497,7 +502,7 @@
   </table>
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Guadar Test Coordinacion" iconPos="right" icon=""
-            class="" style="background-color: #0c3866" (click)="saveTestCoordinacion()"></button>
+            class="" style="background-color: #0c3866" (click)="isResolve[0]=true;this.display[0]=false" ></button>
   </ng-template>
 </p-dialog>
 <!--sub test lenguaje-->
@@ -505,7 +510,7 @@
         [(visible)]="display[1]"
         [modal]="true"
         [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-        [style]="{ width: '60vw' }"
+        [style]="{ width: '40vw' }"
 >
   <ng-template pTemplate="header" style="font-weight: bold;color:red"> 2.SUB. TEST DE LENGUAJE</ng-template>
   <table class="tablaLenguaje">
@@ -515,8 +520,8 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[0]"
+                [(ngModel)]="arregloSubtest[1][0]"
+                (onChange)="calcularResultadoSubTest1(2)"
         ></p-checkbox>
         1L
       </td>
@@ -530,8 +535,8 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[1]"
+                [(ngModel)]="arregloSubtest[1][1]"
+                (onChange)="calcularResultadoSubTest1(2)"
         ></p-checkbox>
         2L
       </td>
@@ -545,8 +550,8 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[2]"
+                [(ngModel)]="arregloSubtest[1][2]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         3L
@@ -558,57 +563,57 @@
           <div class="col-3 grid">
             <div class="col-6">Gato</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues23[0]"
-                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][0]"
+                          (onChange)="evaluandoItem(0)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Perro</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues23[1]"
-                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][1]"
+                          (onChange)="evaluandoItem(0)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Chancho</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues23[2]"
-                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][2]"
+                          (onChange)="evaluandoItem(0)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Pato</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues23[3]"
-                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][3]"
+                          (onChange)="evaluandoItem(0)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Paloma</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues23[4]"
-                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][4]"
+                          (onChange)="evaluandoItem(0)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Oveja</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues23[5]"
-                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][5]"
+                          (onChange)="evaluandoItem(0)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Tortuga</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues23[6]"
-                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][6]"
+                          (onChange)="evaluandoItem(0)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Gallina</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues23[7]"
-                          (onChange)="evaluandoItem($event,0,2,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[0][7]"
+                          (onChange)="evaluandoItem(0)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -619,8 +624,8 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[3]"
+                [(ngModel)]="arregloSubtest[1][3]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         4L
@@ -632,57 +637,57 @@
           <div class="col-3 grid">
             <div class="col-6">Paraguas</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues24[0]"
-                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][0]"
+                          (onChange)="evaluandoItem(1)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Vela</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues24[1]"
-                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][1]"
+                          (onChange)="evaluandoItem(1)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Escoba</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues24[2]"
-                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][1]"
+                          (onChange)="evaluandoItem(1)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Tetera</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues24[3]"
-                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][3]"
+                          (onChange)="evaluandoItem(1)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Zapatos</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues24[4]"
-                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][4]"
+                          (onChange)="evaluandoItem(1)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Reloj</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues24[5]"
-                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][5]"
+                          (onChange)="evaluandoItem(1)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Serrucho</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues24[6]"
-                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][6]"
+                          (onChange)="evaluandoItem(1)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Taza</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues24[7]"
-                          (onChange)="evaluandoItem($event,1,3,5)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][7]"
+                          (onChange)="evaluandoItem(1)"></p-checkbox>
             </div>
           </div>
 
@@ -694,8 +699,8 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[4]"
+                [(ngModel)]="arregloSubtest[1][4]"
+                (onChange)="calcularResultadoSubTest1(2)"
         ></p-checkbox>
         5L
       </td>
@@ -706,8 +711,7 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[5]"
+                [(ngModel)]="arregloSubtest[1][5]"
                 disabled="true"
         ></p-checkbox>
         6L
@@ -718,29 +722,29 @@
           <div class="col-3 grid">
             <div class="col-6">Cortando</div>
             <div class="col-6 text-center">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues26[0]"
-                          (onChange)="evaluandoItem($event,2,5,3)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[2][0]"
+                          (onChange)="evaluandoItem(2)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Saltando</div>
             <div class="col-6 text-center">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues26[1]"
-                          (onChange)="evaluandoItem($event,2,5,3)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[2][1]"
+                          (onChange)="evaluandoItem(2)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Planchando</div>
             <div class="col-6 text-center">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues26[2]"
-                          (onChange)="evaluandoItem($event,2,5,3)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[2][2]"
+                          (onChange)="evaluandoItem(2)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Comiendo</div>
             <div class="col-6 text-center">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues26[3]"
-                          (onChange)="evaluandoItem($event,2,5,3)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[2][3]"
+                          (onChange)="evaluandoItem(2)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -751,8 +755,8 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[6]"
+                [(ngModel)]="arregloSubtest[1][6]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         7L
@@ -764,43 +768,43 @@
           <div class="col-4 grid">
             <div class="col-6">Cuchara</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues27[0]"
-                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][0]"
+                          (onChange)="evaluandoItem(3)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Lápiz</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues27[1]"
-                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][1]"
+                          (onChange)="evaluandoItem(3)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Jabón</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues27[2]"
-                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][2]"
+                          (onChange)="evaluandoItem(3)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Escoba</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues27[3]"
-                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][3]"
+                          (onChange)="evaluandoItem(3)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Cama</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues27[4]"
-                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][4]"
+                          (onChange)="evaluandoItem(3)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Tijera</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues27[5]"
-                          (onChange)="evaluandoItem($event,3,6,4)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[3][5]"
+                          (onChange)="evaluandoItem(3)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -812,8 +816,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[7]"
+
+                [(ngModel)]="arregloSubtest[1][7]"
+                (onChange)="calcularResultadoSubTest1(2)"
         ></p-checkbox>
         8L
       </td>
@@ -828,8 +833,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[8]"
+
+                [(ngModel)]="arregloSubtest[1][8]"
+                (onChange)="calcularResultadoSubTest1(2)"
         ></p-checkbox>
         9L
       </td>
@@ -844,8 +850,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[9]"
+
+                [(ngModel)]="arregloSubtest[1][9]"
+                (onChange)="calcularResultadoSubTest1(2)"
         ></p-checkbox>
         10L
       </td>
@@ -858,8 +865,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[10]"
+
+                [(ngModel)]="arregloSubtest[1][10]"
+                (onChange)="calcularResultadoSubTest1(2)"
         ></p-checkbox>
         11L
       </td>
@@ -872,8 +880,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[11]"
+
+                [(ngModel)]="arregloSubtest[1][11]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         12L
@@ -885,22 +894,22 @@
           <div class="col-4 grid">
             <div class="col-6">Hambre</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues212[0]"
-                          (onChange)="evaluandoItem($event,4,11,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[4][0]"
+                          (onChange)="evaluandoItem(4)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Cansado</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues212[1]"
-                          (onChange)="evaluandoItem($event,4,11,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[4][1]"
+                          (onChange)="evaluandoItem(4)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Frío</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues212[2]"
-                          (onChange)="evaluandoItem($event,4,11,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[4][2]"
+                          (onChange)="evaluandoItem(4)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -911,8 +920,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[12]"
+
+                [(ngModel)]="arregloSubtest[1][12]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         13L
@@ -924,22 +934,22 @@
           <div class="col-4 grid">
             <div class="col-6">Detrás</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues213[0]"
-                          (onChange)="evaluandoItem($event,5,12,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[5][0]"
+                          (onChange)="evaluandoItem(5)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Sobre</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues213[1]"
-                          (onChange)="evaluandoItem($event,5,12,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[5][1]"
+                          (onChange)="evaluandoItem(5)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Debajo</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues213[2]"
-                          (onChange)="evaluandoItem($event,5,12,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[5][2]"
+                          (onChange)="evaluandoItem(5)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -950,8 +960,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[13]"
+
+                [(ngModel)]="arregloSubtest[1][13]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         14L
@@ -963,22 +974,22 @@
           <div class="col-4 grid">
             <div class="col-6">Hielo</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues214[0]"
-                          (onChange)="evaluandoItem($event,6,13,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[6][0]"
+                          (onChange)="evaluandoItem(6)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Ratón</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues214[1]"
-                          (onChange)="evaluandoItem($event,6,13,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[6][1]"
+                          (onChange)="evaluandoItem(6)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Mamá</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues214[2]"
-                          (onChange)="evaluandoItem($event,6,13,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[6][2]"
+                          (onChange)="evaluandoItem(6)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -989,8 +1000,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[14]"
+
+                [(ngModel)]="arregloSubtest[1][14]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         15L
@@ -1002,22 +1014,22 @@
           <div class="col-4 grid">
             <div class="col-6">Azul</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues215[0]"
-                          (onChange)="evaluandoItem($event,7,14,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[7][0]"
+                          (onChange)="evaluandoItem(7)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Amarillo</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues215[1]"
-                          (onChange)="evaluandoItem($event,7,14,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[7][1]"
+                          (onChange)="evaluandoItem(7)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Rojo</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues215[2]"
-                          (onChange)="evaluandoItem($event,7,14,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[7][2]"
+                          (onChange)="evaluandoItem(7)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -1029,8 +1041,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[15]"
+
+                [(ngModel)]="arregloSubtest[1][15]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         16L
@@ -1042,22 +1055,22 @@
           <div class="col-4 grid">
             <div class="col-6">Azul</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues216[0]"
-                          (onChange)="evaluandoItem($event,8,15,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[8][0]"
+                          (onChange)="evaluandoItem(8)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Amarillo</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues216[1]"
-                          (onChange)="evaluandoItem($event,8,15,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[8][1]"
+                          (onChange)="evaluandoItem(8)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Rojo</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues216[2]"
-                          (onChange)="evaluandoItem($event,8,15,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[8][2]"
+                          (onChange)="evaluandoItem(8)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -1068,8 +1081,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[16]"
+
+                [(ngModel)]="arregloSubtest[1][16]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         17L
@@ -1081,22 +1095,22 @@
           <div class="col-4 grid">
             <div class="col-6">redondo</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues217[0]"
-                          (onChange)="evaluandoItem($event,9,16,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[9][0]"
+                          (onChange)="evaluandoItem(9)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">cuadrado</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues217[1]"
-                          (onChange)="evaluandoItem($event,9,16,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[9][1]"
+                          (onChange)="evaluandoItem(9)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">triangulo</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues217[2]"
-                          (onChange)="evaluandoItem($event,9,16,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[9][2]"
+                          (onChange)="evaluandoItem(9)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -1107,8 +1121,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[17]"
+
+                [(ngModel)]="arregloSubtest[1][17]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         18L
@@ -1120,22 +1135,22 @@
           <div class="col-4 grid">
             <div class="col-6">redondo</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues218[0]"
-                          (onChange)="evaluandoItem($event,10,17,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[10][0]"
+                          (onChange)="evaluandoItem(10)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">cuadrado</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues218[1]"
-                          (onChange)="evaluandoItem($event,10,17,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[10][1]"
+                          (onChange)="evaluandoItem(10)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">triangulo</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues218[2]"
-                          (onChange)="evaluandoItem($event,10,17,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[10][2]"
+                          (onChange)="evaluandoItem(10)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -1146,8 +1161,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[18]"
+
+                [(ngModel)]="arregloSubtest[1][18]"
+                (onChange)="calcularResultadoSubTest1(2)"
         ></p-checkbox>
         19L
       </td>
@@ -1163,8 +1179,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[19]"
+
+                [(ngModel)]="arregloSubtest[1][19]"
+                (onChange)="calcularResultadoSubTest1(2)"
         ></p-checkbox>
         20L
       </td>
@@ -1175,8 +1192,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[20]"
+
+                [(ngModel)]="arregloSubtest[1][20]"
+                (onChange)="calcularResultadoSubTest1(2)"
         ></p-checkbox>
         21L
       </td>
@@ -1187,8 +1205,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[21]"
+
+                [(ngModel)]="arregloSubtest[1][21]"
+                (onChange)="calcularResultadoSubTest1(2)"
         ></p-checkbox>
         22L
       </td>
@@ -1203,8 +1222,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[22]"
+
+                [(ngModel)]="arregloSubtest[1][22]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         23L
@@ -1215,29 +1235,29 @@
           <div class="col-3 grid">
             <div class="col-6">Manzana</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues223[0]"
-                          (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[11][0]"
+                          (onChange)="evaluandoItem(11)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Pelota</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues223[1]"
-                          (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[11][1]"
+                          (onChange)="evaluandoItem(11)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Zapato</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues223[2]"
-                          (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[11][2]"
+                          (onChange)="evaluandoItem(11)"></p-checkbox>
             </div>
           </div>
           <div class="col-3 grid">
             <div class="col-6">Abrigo</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues223[3]"
-                          (onChange)="evaluandoItem($event,11,22,3)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[11][3]"
+                          (onChange)="evaluandoItem(11)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -1249,8 +1269,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 2)"
-                [(ngModel)]="selectedValues2[23]"
+
+                [(ngModel)]="arregloSubtest[1][23]"
+                (onChange)="calcularResultadoSubTest1(2)"
                 disabled="true"
         ></p-checkbox>
         24L
@@ -1261,22 +1282,22 @@
           <div class="col-4 grid">
             <div class="col-6">Pelota</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues224[0]"
-                          (onChange)="evaluandoItem($event,12,23,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[12][0]"
+                          (onChange)="evaluandoItem(12)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Globo inflado</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues224[1]"
-                          (onChange)="evaluandoItem($event,12,23,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[12][1]"
+                          (onChange)="evaluandoItem(12)"></p-checkbox>
             </div>
           </div>
           <div class="col-4 grid">
             <div class="col-6">Bolsa</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="selectedValues224[2]"
-                          (onChange)="evaluandoItem($event,12,23,2)"></p-checkbox>
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[12][2]"
+                          (onChange)="evaluandoItem(12)"></p-checkbox>
             </div>
           </div>
         </div>
@@ -1290,7 +1311,7 @@
             text-align: center;
           "
       >
-        {{ resultado[1] }}
+        {{ resultadoA[2].puntajeBruto }}
       </td>
       <td style="font-weight: bold; font-size: 1.3rem">
         TOTAL SUB TEST LENGUAJE: PB
@@ -1300,7 +1321,7 @@
   </table>
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Guadar Test Lenguaje" iconPos="right" icon=""
-            class="" style="background-color: #0c3866" (click)="saveTestLenguaje()"></button>
+            class="" style="background-color: #0c3866"  (click)="isResolve[1]=true;this.display[1]=false"></button>
   </ng-template>
 </p-dialog>
 <!--sub test motrocidad-->
@@ -1318,8 +1339,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[0]"
+
+                [(ngModel)]="arregloSubtest[2][0]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         1M
       </td>
@@ -1330,8 +1352,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[1]"
+
+                [(ngModel)]="arregloSubtest[2][1]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         2M
       </td>
@@ -1342,8 +1365,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[2]"
+
+                [(ngModel)]="arregloSubtest[2][2]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         3M
       </td>
@@ -1354,8 +1378,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[3]"
+
+                [(ngModel)]="arregloSubtest[2][3]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         4M
       </td>
@@ -1366,8 +1391,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[4]"
+
+                [(ngModel)]="arregloSubtest[2][4]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         5M
       </td>
@@ -1378,8 +1404,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[5]"
+
+                [(ngModel)]="arregloSubtest[2][5]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         6M
       </td>
@@ -1390,8 +1417,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[6]"
+
+                [(ngModel)]="arregloSubtest[2][6]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         7M
       </td>
@@ -1402,8 +1430,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[7]"
+
+                [(ngModel)]="arregloSubtest[2][7]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         8M
       </td>
@@ -1414,8 +1443,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[8]"
+
+                [(ngModel)]="arregloSubtest[2][8]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         9M
       </td>
@@ -1426,8 +1456,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[9]"
+
+                [(ngModel)]="arregloSubtest[2][9]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         10M
       </td>
@@ -1438,8 +1469,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[10]"
+
+                [(ngModel)]="arregloSubtest[2][10]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         11M
       </td>
@@ -1450,8 +1482,9 @@
         <p-checkbox
                 name="groupname"
                 binary="true"
-                (onChange)="calcularSuma($event, 3)"
-                [(ngModel)]="selectedValues3[11]"
+
+                [(ngModel)]="arregloSubtest[2][11]"
+                (onChange)="calcularResultadoSubTest1(3)"
         ></p-checkbox>
         12M
       </td>
@@ -1466,7 +1499,7 @@
             text-align: center;
           "
       >
-        {{ resultado[2] }}
+        {{ resultadoA[3].puntajeBruto }}
       </td>
       <td style="font-weight: bold; font-size: 1.3rem">
         TOTAL SUB TEST LENGUAJE: PB
@@ -1476,6 +1509,7 @@
   </table>
   <ng-template pTemplate="footer">
     <button pButton pRipple label="Guadar Test Motrocidad" iconPos="right" icon=""
-            class="" style="background-color: #0c3866" (click)="saveTestMotrocidad()"></button>
+            class="" style="background-color: #0c3866"  (click)="isResolve[2]=true;this.display[2]=false"></button>
   </ng-template>
 </p-dialog>
+<p-toast key="myKey1"></p-toast>
