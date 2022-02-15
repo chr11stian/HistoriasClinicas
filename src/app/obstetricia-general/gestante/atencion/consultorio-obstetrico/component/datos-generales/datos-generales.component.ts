@@ -443,12 +443,12 @@ export class DatosGeneralesComponent implements OnInit {
             ],
             fumaCigarros: this.formDatos_Generales.value.FumaCigarros,
             drogas: this.formDatos_Generales.value.Drogas,
-            */
+            
             psicoprofilaxis: {
                 estado: this.formDatos_Generales.value.Psicoprofilaxis,
                 fecha: "",
             },
-
+            */
             listaSignosAlarmas: [
                 {
                     tipoEdad: null,
