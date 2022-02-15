@@ -108,12 +108,10 @@
                             <td style="text-align: center">{{ rowData.horaInicio}}</td>
                             <td style="text-align: center">{{ rowData.horaFin}}</td>
                             <td style="text-align: center">
-                                <p-tag *ngIf="rowData.estado == estadoHoras"
-                                       styleClass="p-mr-2"
-                                       severity="Success"
-                                       value="Activo"
-                                       [rounded]="true">
-                                </p-tag>
+                                <p-tag *ngIf="rowData.estado == 'LIBRE'" severity="info"
+                                       value="LIBRE"></p-tag>
+                                <p-tag *ngIf="rowData.estado == 'OCUPADO'" severity="danger"
+                                       value="OCUPADO"></p-tag>
                             </td>
 
                             <td style="text-align: center">
