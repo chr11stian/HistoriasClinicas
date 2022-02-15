@@ -253,9 +253,22 @@ export class DatosGeneralesComponent implements OnInit {
             console.log("nacimiento", this.fechaConvertido)
             this.ageCalculator();//calcula la edad desde la fecha de nacimiento
             this.formDatos_Generales.get('edad').setValue(this.edad);
-            this.formDatos_Generales.get('hora').setValue(this.horaActualString);
+            this.formDatos_Generales.get('fecha').setValue(new Date());
             this.getConsultas();//Recupera la cunsulta por HCL y Numero de embarazo
+            let data={
+                nroHcl: this.dataPacientes.nroHcl
+            }
+            this.consultasService.getUltimaConsultaControl(data).subscribe((res: any) => {
+                console.log("datos ultima consulta",res.object)
+                let informacion=res.object;
+                this.formDatos_Generales.get('ocupacion').setValue(informacion.ocupacion);
+                this.formDatos_Generales.get('nroAtencion').setValue(informacion.nroUltimaAtencion+1);
+                this.formDatos_Generales.get('nroControl').setValue(informacion.nroMayorControlSis);
+                this.formDatos_Generales.get('nroHcl').setValue(informacion.nroHcl);
+            });
         });
+        
+        
     }
 
     buildForm() {
@@ -409,7 +422,7 @@ export class DatosGeneralesComponent implements OnInit {
                 },
             ],*/
 
-            antecedentesGinObs: [{
+            /*antecedentesGinObs: [{
                 fechaUltRegla: this.formDatos_Generales.value.FUR,
                 fechaPosiParto: this.formDatos_Generales.value.FPP,
                 rcat: this.formDatos_Generales.value.RCAT,
@@ -430,7 +443,7 @@ export class DatosGeneralesComponent implements OnInit {
             ],
             fumaCigarros: this.formDatos_Generales.value.FumaCigarros,
             drogas: this.formDatos_Generales.value.Drogas,
-
+            */
             psicoprofilaxis: {
                 estado: this.formDatos_Generales.value.Psicoprofilaxis,
                 fecha: "",

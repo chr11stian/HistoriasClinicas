@@ -44,4 +44,8 @@ export class ConsultasService {
     getInterrogatorioById(consulta) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarInterrogatorioxid`, consulta)
     }
+
+    getUltimaConsultaControl(nroHcl) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsulta`, nroHcl)
+    }
 }
