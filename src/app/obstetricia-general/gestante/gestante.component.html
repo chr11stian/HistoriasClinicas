@@ -56,7 +56,8 @@
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple routerLink="obstetricia" label=" Nuevo Embarazo" icon="pi pi-plus"
-                    class="p-button-raised p-button-primary" (click)="newEmbarazo()"></button>
+                    class="p-button-raised p-button-primary" (click)="newEmbarazo()"
+                    [disabled]="filiacionUltimaPosicion!=='FINALIZADO'"></button>
         </ng-template>
     </p-toolbar>
 

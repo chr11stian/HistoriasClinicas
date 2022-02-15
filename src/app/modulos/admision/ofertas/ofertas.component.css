@@ -76,3 +76,24 @@ p-calendar >>> .p-calendar .p-inputtext {
     width: 1%;
     background: rgb(255 228 196);
 }
+
+p-dialog>>> .p-dialog .p-dialog-header .p-dialog-header-icon {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+    color: rgb(108 117 125);
+    border: 0 none;
+    background: rgb(0 0 0 / 0%);
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    margin-right: 0.5rem;
+}
+
+p-dialog>>>.p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: rgb(255 255 255);
+    color: rgb(73 80 87);
+    padding: 0.5rem;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}

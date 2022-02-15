@@ -115,7 +115,7 @@
 
                     <td style="text-align: center">
                         <button pButton pRipple type="button" label="Abrir" class="p-button-secondary"
-                                (click)="verDialogPaciente()"></button>
+                                (click)="verDialogPaciente(rowData)"></button>
                     </td>
                 </tr>
             </ng-template>
@@ -129,142 +129,103 @@
 <p-dialog [(visible)]="verPacienteDialog" [style]="{width: '800px'}" [modal]="true" styleClass="p-fluid " autoZIndex>
     <ng-template pTemplate="body">
         <label class="">DATOS DEL PACIENTE</label>
-        <div class="datosPersonales">
-            <div class="grid m-2">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <span class="">APELLIDOS PATERNO</span>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="apePaterno" disabled/>
+        <form [formGroup]="formRacuperarCupo" >
+            <div class="datosPersonales">
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <span class="">DNI</span>
+                        <div class="p-inputgroup">
+                            <input type="text"
+                                   pInputText
+                                   formControlName="dniPaciente"/>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <span class="">APELLIDOS</span>
+                        <div class="p-inputgroup">
+                            <input type="text"
+                                   pInputText
+                                   formControlName="apellidos"/>
+                        </div>
+                    </div>
+
+                    <div class="col-12 md:col-6 lg:col-4 p-field">
+                        <span class="">NOMBRES</span>
+                        <div class="p-inputgroup">
+                            <input type="text"
+                                   pInputText
+                                   formControlName="nombres"/>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <span class="">APELLIDOS MATERNO</span>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="apeMaterno" disabled/>
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <span class="">SEXO</span>
+                        <div class="p-inputgroup">
+                            <input type="text"
+                                   pInputText
+                                   formControlName="sexo"/>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <span class="">NOMBRES</span>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="primerNombre" disabled/>
+                    <div class="col-12 md:col-6 lg:col-2 p-field">
+                        <span class="">EDAD</span>
+                        <div class="p-inputgroup">
+                            <input type="text"
+                                   pInputText
+                                   formControlName="edad"/>
+                        </div>
                     </div>
-                </div>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <span class="">NRO HISTORIA CLINICA</span>
+                        <div class="p-inputgroup">
+                            <input type="text"
+                                   pInputText
+                                   formControlName="nroHCL"/>
+                        </div>
+                    </div>
 
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <span class="">OTRO NOMBRE</span>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="otrosNombres" disabled/>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <span class="">TELEFONO / CELULAR</span>
+                        <div class="p-inputgroup">
+                            <input type="text"
+                                   pInputText
+                                   formControlName="celular"/>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="grid m-2">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <span class="">SEXO</span>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="sexo" disabled/>
+            <br>
+            <div class="datosPersonales">
+                <div class="grid m-2">
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <label class="">DETALLE DE PAGO</label>
+                        <div class="p-inputgroup">
+                            <input type="text"
+                                   pInputText
+                                   formControlName="detallePago"/>
+                        </div>
                     </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <span class="">ESTADO CIVIL</span>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="estadoCivil"/>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <span class="">FECHA NACIMIENTO</span>
-                    <div class="p-inputgroup">
-                        <input type="date"
-                               pInputText
-                               formControlName="fechaNacimiento" disabled/>
-                    </div>
-                </div>
 
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <span class="">NACIONALIDAD</span>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="nacionalidad" disabled/>
+                    <div class="col-12 md:col-6 lg:col-3 p-field">
+                        <label class="">SERVICIO</label>
+                        <div class="p-inputgroup">
+                            <input type="text"
+                                   pInputText
+                                   formControlName="servicio"/>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6 lg:col-6 p-field">
+                        <label class="">PERSONAL DE SALUD</label>
+                        <div class="p-inputgroup">
+                            <input type="text"
+                                   pInputText
+                                   formControlName="personal"/>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="grid m-2">
-                <div class="col-12 md:col-6 lg:col-6 p-field">
-                    <span class="">LUGAR DE NACIMIENTO</span>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="LugarNacimiento" disabled/>
-                    </div>
-                </div>
-
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <span class="">GRADO DE INSTRUCCION</span>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="GradoInstrucion"/>
-                    </div>
-                </div>
-
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <span class="">DISCAPACIDAD</span>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="procedencia"/>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid m-2">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <span class="">TELEFONO / CELULAR</span>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="celular"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="datosPersonales">
-            <div class="grid m-2">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <label class="">TIPO SEGURO</label>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="tipoSeguro"/>
-                    </div>
-                </div>
-
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <label class="">TRANSEUNTE</label>
-                    <div class="p-inputgroup">
-                        <input type="text"
-                               pInputText
-                               formControlName="transeunte"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        </form>
     </ng-template>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Guardar" class="m-1 w-8rem"></button>
