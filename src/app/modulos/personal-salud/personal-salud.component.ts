@@ -13,7 +13,7 @@ import {
 import { TipoPersonalService } from "src/app/mantenimientos/services/tipo-personal/tipo-personal.service";
 import { EspecialidadService } from "src/app/mantenimientos/services/especialidad/especialidad.service";
 import { ColegioProfesionalService } from "src/app/mantenimientos/services/colegio-profesional/colegio-profesional.service";
-import {DatePipe, getLocaleDateFormat} from "@angular/common";
+import { DatePipe, getLocaleDateFormat } from "@angular/common";
 import { TipoContratoService } from "src/app/mantenimientos/services/tipo-contrato/tipo-contrato.service";
 import { IpressService } from "src/app/core/services/ipress/ipress.service";
 import { RolGuardiaService } from "src/app/core/services/rol-guardia/rol-guardia.service";
@@ -150,7 +150,7 @@ export class PersonalSaludComponent implements OnInit {
       this.ipressList = res.object;
     });
   }
-  getSexos(){
+  getSexos() {
     this.personalservice.getSexos().subscribe((res: any) => {
       this.sexoList = res.sexo;
       console.log(this.sexoList);
@@ -186,7 +186,12 @@ export class PersonalSaludComponent implements OnInit {
     this.formRol = this.formBuilder.group({
       nombreFuncion: ["", [Validators.required]],
       ups: ["", [Validators.required]],
-      rolGuardia: ["", [Validators.required]]
+      rolGuardia: ["", [Validators.required]],
+      delete: ["", [Validators.required]],
+      update: ["", [Validators.required]],
+      create: ["", [Validators.required]],
+      insert: ["", [Validators.required]],
+      read: ["", [Validators.required]],
     });
   }
   getPersonal() {
@@ -272,7 +277,7 @@ export class PersonalSaludComponent implements OnInit {
   openNew() {
     this.isUpdate = false;
     this.form.reset();
-    this.imagePath= image;
+    this.imagePath = image;
     this.form.get("nroDoc").enable();
     this.form.get("nroDoc").setValue("");
     this.form.get("tipoDoc").setValue("DNI");
@@ -303,7 +308,7 @@ export class PersonalSaludComponent implements OnInit {
   editar(rowData) {
     this.isUpdate = true;
     this.form.reset();
-    this.imagePath= image;
+    this.imagePath = image;
     this.form.get("nroDoc").setValue(rowData.nroDoc);
     this.traerDataEditar();
     this.form.get("tipoDoc").setValue(rowData.tipoDoc);
@@ -318,8 +323,8 @@ export class PersonalSaludComponent implements OnInit {
     this.form.get("contratoAbreviatura").setValue(rowData.contratoAbreviatura);
     this.form.get("sexo").setValue(rowData.sexo);
     this.form.get("detalleIpress").setValue(rowData.detalleIpress ? rowData.detalleIpress[0].idIpress : "");
-    this.form.get("fechaInicio").setValue(rowData.detalleIpress ? 
-      this.datePipe.transform(rowData.detalleIpress[0].fechaInicio,"yyyy-MM-dd"): "");
+    this.form.get("fechaInicio").setValue(rowData.detalleIpress ?
+      this.datePipe.transform(rowData.detalleIpress[0].fechaInicio, "yyyy-MM-dd") : "");
     this.idUpdate = rowData.id;
     this.form.get("estadoCivil").disable();
     this.form.get("distrito").disable();
@@ -445,15 +450,15 @@ export class PersonalSaludComponent implements OnInit {
     this.personalservice.getDatosReniec(this.form.value.nroDoc).subscribe((res: any) => {
       this.dataPIDE = res;
       console.log(res);
-      this.imagePath= res.foto;
+      this.imagePath = res.foto;
       this.form.get("apePaterno").setValue(this.dataPIDE.apePaterno);
       this.form.get("apeMaterno").setValue(this.dataPIDE.apeMaterno);
       this.form.get("nombres").setValue(this.dataPIDE.nombres);
-      this.form.get("fechaNacimiento").setValue(this.dataPIDE.fecNacimiento==null?"":this.dataPIDE.fecNacimiento.split("T", 1)[0]);
-      this.form.get("sexo").setValue(this.dataPIDE.genero==""?"":(this.dataPIDE.genero=="0"?"FEMENINO":"MASCULINO"));
+      this.form.get("fechaNacimiento").setValue(this.dataPIDE.fecNacimiento == null ? "" : this.dataPIDE.fecNacimiento.split("T", 1)[0]);
+      this.form.get("sexo").setValue(this.dataPIDE.genero == "" ? "" : (this.dataPIDE.genero == "0" ? "FEMENINO" : "MASCULINO"));
       this.form.get("domicilioActual").setValue(this.dataPIDE.direccion);
       this.form.get("estadoCivil").setValue(this.dataPIDE.estadoCivil);
-      let aux=this.dataPIDE.ubigeo.split("/", 3);
+      let aux = this.dataPIDE.ubigeo.split("/", 3);
       this.form.get("departamento").setValue(aux[0]);
       this.form.get("provincia").setValue(aux[1]);
       this.form.get("distrito").setValue(aux[2]);
@@ -462,10 +467,10 @@ export class PersonalSaludComponent implements OnInit {
   traerDataEditar() {
     this.personalservice.getDatosReniec(this.form.value.nroDoc).subscribe((res: any) => {
       this.dataPIDE = res;
-      this.imagePath= res.foto;
+      this.imagePath = res.foto;
       this.form.get("domicilioActual").setValue(this.dataPIDE.direccion);
       this.form.get("estadoCivil").setValue(this.dataPIDE.estadoCivil);
-      let aux=this.dataPIDE.ubigeo.split("/", 3);
+      let aux = this.dataPIDE.ubigeo.split("/", 3);
       this.form.get("departamento").setValue(aux[0]);
       this.form.get("provincia").setValue(aux[1]);
       this.form.get("distrito").setValue(aux[2]);
@@ -479,7 +484,7 @@ export class PersonalSaludComponent implements OnInit {
     this.personalEspecialidadDialog = true;
   }
   newRolX(rowData) {
-    if(rowData.roles!=null){
+    if (rowData.roles != null) {
       this.rolesX = rowData.roles;
     }
     console.log(this.rolesX);
@@ -516,6 +521,11 @@ export class PersonalSaludComponent implements OnInit {
     this.formRol.get("nombreFuncion").setValue(rowData.nombreFuncion);
     this.formRol.get("ups").setValue(rowData.codUPS);
     this.formRol.get("rolGuardia").setValue(rowData.rolGuardia);
+    this.formRol.get("delete").setValue(rowData.delete);
+    this.formRol.get("update").setValue(rowData.update);
+    this.formRol.get("create").setValue(rowData.create);
+    this.formRol.get("insert").setValue(rowData.insert);
+    this.formRol.get("read").setValue(rowData.read);
     // this.estadoUpdateRol = rowData.estado;
 
   }
@@ -573,7 +583,7 @@ export class PersonalSaludComponent implements OnInit {
             });
             this.rolesX.splice(index, 1)
             this.getPersonalIdEspecialidad();
-            // this.getPersonal();
+            this.getPersonal();
           });
       }
     });
@@ -605,38 +615,43 @@ export class PersonalSaludComponent implements OnInit {
   }
   saveRol() {
     var isRepeat;
-    if (this.rolesX.length!==0)
-      isRepeat = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups)?true:false;
-    if(!isRepeat){
+    if (this.rolesX.length !== 0)
+      isRepeat = this.rolesX.find((rol) => rol.codUPS === this.formRol.value.ups) ? true : false;
+    if (!isRepeat) {
       const req = {
-            nombreFuncion: this.formRol.value.nombreFuncion,
-            codUPS: this.formRol.value.ups,
-            rolGuardia: this.formRol.value.rolGuardia,
-          }
-          this.personalservice
-            .addRolesPersonal(this.idRolX, req)
-            .subscribe((result) => {
-              Swal.fire({
-                icon: "success",
-                title: "Agregado correctamente",
-                text: "",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-              this.rolesX.push(req);
-              this.getPersonal();
-              this.guardarNuevoRol();
-              this.isUpdateRolX = false;
-            });
-    }
-    else{
-      Swal.fire({
-            icon: "warning",
-            title: "Ups repetida",
+        nombreFuncion: this.formRol.value.nombreFuncion,
+        codUPS: this.formRol.value.ups,
+        rolGuardia: this.formRol.value.rolGuardia,
+        delete: this.formRol.value.delete,
+        update: this.formRol.value.update,
+        create: this.formRol.value.create,
+        insert: this.formRol.value.insert,
+        read: this.formRol.value.read,
+      }
+      this.personalservice
+        .addRolesPersonal(this.idRolX, req)
+        .subscribe((result) => {
+          Swal.fire({
+            icon: "success",
+            title: "Agregado correctamente",
             text: "",
             showConfirmButton: false,
             timer: 1500,
           });
+          this.rolesX.push(req);
+          this.getPersonal();
+          this.guardarNuevoRol();
+          this.isUpdateRolX = false;
+        });
+    }
+    else {
+      Swal.fire({
+        icon: "warning",
+        title: "Ups repetida",
+        text: "",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   }
   saveEdicionEspecialidad() {
@@ -673,7 +688,12 @@ export class PersonalSaludComponent implements OnInit {
     const req = {
       nombreFuncion: this.formRol.value.nombreFuncion,
       codUPS: this.formRol.value.ups,
-      rolGuardia: this.formRol.value.rolGuardia
+      rolGuardia: this.formRol.value.rolGuardia,
+      delete: this.formRol.value.delete,
+      update: this.formRol.value.update,
+      create: this.formRol.value.create,
+      insert: this.formRol.value.insert,
+      read: this.formRol.value.read,
     }
     console.log(req);
 

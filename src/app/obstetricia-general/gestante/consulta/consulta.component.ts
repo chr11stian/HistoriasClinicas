@@ -111,7 +111,11 @@ export class ConsultaComponent implements OnInit {
     }
 
     irConsulta(){
-        this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'])
+        let row: any = {
+            editar: false,
+            nroAtencion: 1,
+        }
+        this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'],row)
     } 
 
     // openDialogConsultaUniversal() {
