@@ -1,9 +1,16 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core'
 import {FormControl, FormGroup, Validators} from '@angular/forms'
 import {ConsultaGeneralService} from '../../services/consulta-general.service'
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import Swal from "sweetalert2";
+import {dato, SignosVitales, triajeInterface} from "../../../../models/data";
+import {ListaConsultaService} from "../../../../services/lista-consulta.service";
 
+interface formInterface {
+    pro: string,
+    label: string,
+    nameFC: string
+}
 @Component({
     selector: 'app-datos-generales-consulta',
     templateUrl: './datos-generales-consulta.component.html',
@@ -11,8 +18,7 @@ import Swal from "sweetalert2";
 })
 
 export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
-    // @Input() consulta: ConsultaGeneralInterface
-    @Input() consulta: any
+    examFG: FormGroup;
     generalInfoFG: FormGroup
     signoPeligroFG: FormGroup
     factorRiesgoFG: FormGroup
@@ -24,14 +30,110 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     anio: number = 0
     mes: number = 0
     dia: number = 0
-
+    triaje: triajeInterface
+    fecha_hoy: Date = new Date();
+    data: dato
+    my: boolean = true
     id: string;
-    attributeLocalS = 'idConsulta'
+    attributeLocalS = 'documento'
     anamnesisFC = new FormControl({value: '', disabled: false})
     auxDatosGeneralesConsulta: datosGeneralesConsulta
     stateOptions = [
         {label: 'Si', value: true},
         {label: 'No', value: false}
+    ]
+
+    list: formControlInterface[] = [
+        {
+            index: '1',
+            label: 'No quiere mamar ni succiona',
+            nameFC: 'noMama',
+        },
+        {
+            index: '2',
+            label: 'Convulsiones',
+            nameFC: 'convulsion',
+        },
+        {
+            index: '3',
+            label: 'Fontanela abombada',
+            nameFC: 'abombada'
+        },
+        {
+            index: '4',
+            label: 'Enrojecimiento del ombligo se extiende a la piel',
+            nameFC: 'enrojemiento'
+        },
+        {
+            index: '5',
+            label: 'Fiebre o temperatura baja',
+            nameFC: 'temperatura'
+        },
+        {
+            index: '6',
+            label: 'Rigidez de nuca',
+            nameFC: 'rigidezNuca'
+        },
+        {
+            index: '7',
+            label: 'Pústulas muchas y extensas',
+            nameFC: 'pustulas'
+        },
+        {
+            index: '8',
+            label: 'Letárgico o comatoso',
+            nameFC: 'letargico'
+        },
+        {
+            index: '1',
+            label: 'No puede beber o tomar el pecho',
+            nameFC: 'noTomaPecho'
+        },
+        {
+            index: '2',
+            label: 'Convulsiones',
+            nameFC: 'convulsionesMore'
+        },
+        {
+            index: '3',
+            label: 'Letárgico o comatoso',
+            nameFC: 'letargicoMore'
+        },
+        {
+            index: '4',
+            label: 'Vomita todo',
+            nameFC: 'vomitaTodo'
+        },
+        {
+            index: '5',
+            label: 'Estridor en reposo / tiraje subcostal',
+            nameFC: 'tirajeSubcostal'
+        },
+        {
+            index: '1',
+            label: 'Emaciación visible grave',
+            nameFC: 'emaciacionVisibleAll'
+        },
+        {
+            index: '2',
+            label: 'Piel vuelve muy lentamente',
+            nameFC: 'pielvuelveAll'
+        },
+        {
+            index: '3',
+            label: 'Traumatismo / Quemaduras',
+            nameFC: 'traumatismoQuemaduraAll'
+        },
+        {
+            index: '4',
+            label: 'Envenenamiento',
+            nameFC: 'envenenamientoAll'
+        },
+        {
+            index: '5',
+            label: 'Palidez palmar intensa',
+            nameFC: 'palidezAll'
+        }
     ]
     twoMonths: formControlInterface[] = [
         {
@@ -75,7 +177,6 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
             nameFC: 'letargico'
         }
     ]
-
     twoMonthsMore: formControlInterface[] = [
         {
             index: '1',
@@ -89,7 +190,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         },
         {
             index: '3',
-            label: 'Letárgico o comaloso',
+            label: 'Letárgico o comatoso',
             nameFC: 'letargicoMore'
         },
         {
@@ -103,7 +204,6 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
             nameFC: 'tirajeSubcostal'
         }
     ]
-
     allYear: formControlInterface[] = [
         {
             index: '1',
@@ -132,9 +232,11 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         }
     ]
 
-    constructor(private route: ActivatedRoute,
+    constructor(private router: Router, private route: ActivatedRoute,
+                private consultaService: ListaConsultaService,
                 private consultaGeneralService: ConsultaGeneralService) {
-        this.id = localStorage.getItem(this.attributeLocalS);
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.recuperarPersona()
         this.buildForm()
     }
 
@@ -142,6 +244,21 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         if (changes.consulta.currentValue !== changes.consulta.previousValue) {
             //this.fillForm()
         }
+    }
+
+    recuperarPersona() {
+        this.consultaGeneralService.datosGenerales({
+            tipoDoc: this.data.tipoDoc,
+            nroDoc: this.data.nroDocumento
+        }).subscribe((r: any) => {
+            let nombre = r.object.primerNombre + " " + r.object.otrosNombres + " " + r.object.apePaterno + " " + r.object.apeMaterno
+            this.generalInfoFG.get('name').setValue(nombre)
+            this.calcularEdad(r.object.nacimiento.fechaNacimiento)
+            const edad = this.anio + ' años ' + this.mes + ' meses ' + this.dia + ' dias'
+            this.generalInfoFG.get('year').setValue(edad)
+            this.generalInfoFG.get('dateAttention').setValue(this.fecha_hoy)
+            this.generalInfoFG.get('hour').setValue(this.fecha_hoy)
+        })
     }
 
     recuperarData(id) {
@@ -191,6 +308,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     }
 
     buildForm(): void {
+
         this.generalInfoFG = new FormGroup({
             name: new FormControl({value: '', disabled: true}, [Validators.required]),
             dateAttention: new FormControl({value: '', disabled: true}, [Validators.required]),
@@ -250,76 +368,76 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-        if (this.id !== null) this.recuperarData(this.id);
+        //if (this.id !== null) this.recuperarData(this.id);
     }
 
-    getDatos(): void {
-        // this.consultaGeneralService.crearConsulta(
-        //     {
-        //         'tipoDoc': 'DNI',
-        //         'nroDoc': '10102023',
-        //         'tipoDocProfesional': 'DNI',
-        //         'nroDocProfesional': '45678912'
-        //     }
-        // ).toPromise().then((result) => {
-        //     this.consulta = result.object
-        //     this.fillForm()
-        // }).catch((err) => {
-        //     console.log(err)
-        // })
-    }
-
-    fillForm(): void {
-        /** rellenar general infomación */
+    /**
+     fillForm(): void {
         this.generalInfoFG.get('name').setValue(this.consulta.datosGenerales.datosGeneralesConsulta.nombresApellidos)
         this.generalInfoFG.get('dateAttention').setValue(new Date(this.consulta.created_at.substr(0, 10)))
         this.generalInfoFG.get('hour').setValue(new Date('' + this.consulta.created_at))
         const edad = this.consulta.datosGenerales.datosGeneralesConsulta.edad
         this.generalInfoFG.get('year').setValue(edad.anio + ' años ' + edad.mes + ' meses ' + edad.dia + ' dias')
-    }
+    }**/
 
     save(): void {
-        // const consultaInput: ConsultaInputType = {
-        const edad: edadInterface = {
-            anio: this.anio,
-            mes: this.mes,
-            dia: this.dia
-        }
-        this.auxDatosGeneralesConsulta.datosGeneralesConsulta.edad = edad
-        const req: datosGeneralesConsulta = {
-            datosGeneralesConsulta: this.auxDatosGeneralesConsulta.datosGeneralesConsulta,
-            anamnesis: this.anamnesisFC.value,
-            descarteSignosPeligro: {
-                factorRiesgo: this.factorRiesgoFG.value,
 
-                menor2M: this.twoMonths.map((element, index) => {
-                    return {
-                        codigo: (index + 1) + '',
-                        descripcion: element.label,
-                        valor: this.twoMonthsFG.get(element.index).value === null ? false : this.twoMonthsFG.get(element.index).value as boolean
-                    }
-                }),
-                menor2Ma4A: this.twoMonthsMore.map((element, index) => {
-                    return {
-                        codigo: (index + 1) + '',
-                        descripcion: element.label,
-                        valor: this.twoMonthsMoreFG.get(element.index).value === null ? false : this.twoMonthsMoreFG.get(element.index).value as boolean
-                    }
-                }),
-                todasLasEdades: this.allYear.map((element, index) => {
-                    return {
-                        codigo: (index + 1) + '',
-                        descripcion: element.label,
-                        valor: this.allYearFG.get(element.index).value === null ? false : this.allYearFG.get(element.index).value as boolean
-                    }
-                }),
-                noPresentaSigno: this.signoPeligroFG.get('presentSigns').value
-            },
+        const aux: any[] = []
+        this.twoMonths.map((element, index) => {
+            aux.push({
+                codSigno: (index + 1) + '',
+                tipoEdad: 'Menor de 2 Meses',
+                nombreSigno: element.label,
+                valorSigno: this.twoMonthsFG.get(element.index).value === null ? false : this.twoMonthsFG.get(element.index).value as boolean
+            })
+        })
+        this.twoMonthsMore.map((element, index) => {
+            aux.push({
+                codSigno: (index + 1) + '',
+                tipoEdad: 'De 2 meses a 4 años',
+                nombreSigno: element.label,
+                valorSigno: this.twoMonthsMoreFG.get(element.index).value === null ? false : this.twoMonthsMoreFG.get(element.index).value as boolean
+            })
+        })
+        this.allYear.map((element, index) => {
+            aux.push({
+                codSigno: (index + 1) + '',
+                tipoEdad: 'Para todas las edades',
+                nombreSigno: element.label,
+                valorSigno: this.allYearFG.get(element.index).value === null ? false : this.allYearFG.get(element.index).value as boolean
+            })
+        })
+
+        let signosVitales: SignosVitales = {
+            temperatura: this.examFG.value.TFC,
+            presionSistolica: this.examFG.value.PSFC,
+            presionDiastolica: this.examFG.value.PDFC,
+            fc: this.examFG.value.FC,
+            fr: this.examFG.value.FRFC,
+            peso: this.examFG.value.PesoFC,
+            talla: this.examFG.value.TallaFC,
+            imc: this.examFG.value.imcFC,
+            perimetroCefalico: this.examFG.value.PCFC
         }
+        const req: triajeInterface = {
+            signosVitales: signosVitales,
+            listaSignosAlarma: aux,
+            noPresentaSigno: this.signoPeligroFG.get('presentSigns').value,
+            factorRiesgo: this.factorRiesgoFG.value,
+            anamnesis: this.anamnesisFC.value,
+        }
+
         console.log('req', req)
         if (req) {
-            this.consultaGeneralService.updateGenerales(this.id, req).subscribe(
-                (resp) => {
+            this.consultaService.crearConsulta(this.data.nroDocumento, req).subscribe(
+                (r: any) => {
+                    let data: dato = {
+                        nroDocumento: this.data.nroDocumento,
+                        tipoDoc: this.data.tipoDoc,
+                        idConsulta: r.object.id
+                    }
+                    localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+                    console.log('respuesta ', r)
                     Swal.fire({
                         icon: 'success',
                         title: 'Actualizado correctamente',
@@ -332,6 +450,10 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         }
     }
 
+    save2(): void {
+
+    }
+
     calcularEdad(fecha: string) {
         let fechaNacimiento: Date = new Date(fecha);
         let dia = fechaNacimiento.getDate()
@@ -339,10 +461,9 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         let ano = fechaNacimiento.getFullYear()
 
         // cogemos los valores actuales
-        let fecha_hoy: Date = new Date();
-        let ahora_ano = fecha_hoy.getFullYear()
-        let ahora_mes = fecha_hoy.getMonth() + 1;
-        let ahora_dia = fecha_hoy.getDate();
+        let ahora_ano = this.fecha_hoy.getFullYear()
+        let ahora_mes = this.fecha_hoy.getMonth() + 1;
+        let ahora_dia = this.fecha_hoy.getDate();
 
         let edad = (ahora_ano + 1900) - ano;
         if (ahora_mes < mes) {
@@ -380,9 +501,32 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
         this.dia = dias
     }
 
-
     onNext() {
         this.save()
+    }
+
+    cambio(e) {
+        this.my = !e.value
+    }
+
+    getExamenes(): void {
+        this.router.navigate(['/dashboard/cred/citas/atencion/examenes'],
+            {
+                /**queryParams: {
+                    'tipoDoc': this.tipoDoc,
+                    'nroDoc': this.nroDoc,
+                }**/
+            })
+    }
+
+    getConsultaPrincipal(): void {
+        this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'],
+            {
+                /**queryParams: {
+                    'tipoDoc': this.tipoDoc,
+                    'nroDoc': this.nroDoc,
+                }**/
+            })
     }
 }
 

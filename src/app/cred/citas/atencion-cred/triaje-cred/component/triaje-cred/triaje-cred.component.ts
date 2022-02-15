@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ConsultaGeneralService} from "../../../consulta-principal/services/consulta-general.service";
 import {ListaConsultaService} from "../../../../services/lista-consulta.service";
 import Swal from "sweetalert2";
-import {dato, triajeInterface, SignosVitales} from "../../../../models/data";
+import {dato, triajeInterface, SignosVitales, FactorRiesgo} from "../../../../models/data";
 
 interface formInterface {
     pro: string,
