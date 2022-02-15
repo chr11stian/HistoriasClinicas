@@ -157,11 +157,19 @@ export class CitasComponent implements OnInit {
     }
 
 
+
+    enviarData2(event) {
+        this.obstetriciaGeneralService.tipoDoc = null;
+        this.obstetriciaGeneralService.nroDoc = null;
+        console.log("BUSQUEDA DNI SIN CUPO EVENTO", event);
+        this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
+        this.obstetriciaGeneralService.nroDoc = event.nroDoc;
+    }
+
     enviarData(event) {
         this.obstetriciaGeneralService.tipoDoc = null;
         this.obstetriciaGeneralService.nroDoc = null;
-        console.log("EVENTO", event);
-        // this.obstetriciaGeneralService.observable$.emit(event.id);
+        console.log("LISTA DE CUPOS EVENTO", event);
         this.obstetriciaGeneralService.tipoDoc = event.paciente.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = event.paciente.nroDoc;
     }

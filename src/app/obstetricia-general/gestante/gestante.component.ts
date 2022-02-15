@@ -38,7 +38,7 @@ export class GestanteComponent implements OnInit {
     getpacientesFiliados(tipoDoc, nroDoc) {
         this.obstetriciaGeneralService.getPacienteFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.pacientesFiliacion = res.object
-            console.log('paciente filiados ', this.pacientesFiliacion)
+            console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
         });
     }
 
