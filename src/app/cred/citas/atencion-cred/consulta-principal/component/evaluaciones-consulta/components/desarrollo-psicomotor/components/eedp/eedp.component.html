@@ -1,4 +1,5 @@
 <div class="col-12">
+    <label> edad: {{chronicAge}} dias</label>
     <div class="container_steps">
         <div *ngFor="let item of items; index as indexItem">
             <div *ngIf="indexItem === indexSelected">
@@ -74,13 +75,15 @@
                             <td colspan="2">{{datos.areEvaluacion}}</td>
                             <td colspan="6" pEditableColumn>{{datos.descripcion}}</td>
                             <td colspan="2">
-                                <p-cellEditor >
+                                <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <p-checkbox [(ngModel)]="datos.puntajeEEDP" binary="true" inputId="binary" (onChange)="calcularResultado()">
+                                        <p-checkbox [(ngModel)]="datos.puntajeEEDP" binary="true" inputId="binary"
+                                            (onChange)="calcularResultado()">
                                         </p-checkbox>
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        <p-checkbox [(ngModel)]="datos.puntajeEEDP" binary="true" inputId="binary" (onChange)="calcularResultado()">
+                                        <p-checkbox [(ngModel)]="datos.puntajeEEDP" binary="true" inputId="binary"
+                                            (onChange)="calcularResultado()">
                                         </p-checkbox>
                                     </ng-template>
                                     <!-- <ng-template pTemplate="input">

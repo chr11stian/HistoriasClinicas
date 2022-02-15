@@ -69,7 +69,7 @@ export interface DatosEEDP {
 export interface AnswerEEDP {
     codigo: number,
     puntajeEEDP: string,
-    areEvaluacion: string
+    areaEvaluacion: string
 }
 export interface ItemEEDP {
     edad: number,
