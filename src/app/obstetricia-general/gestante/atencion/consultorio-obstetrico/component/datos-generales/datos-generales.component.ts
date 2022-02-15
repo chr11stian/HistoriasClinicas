@@ -237,8 +237,6 @@ export class DatosGeneralesComponent implements OnInit {
         console.log("GESTAS", this.sumagestas);
     }
 
-
-
     //Recuperar datos de un paciendo por su documento de identidad
     getpacienteByNroDoc() {
         this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
@@ -356,7 +354,6 @@ export class DatosGeneralesComponent implements OnInit {
 
         })
     }
-
 
     //Agregar, actualizar datos de consultorio obstetrico
     Add_updateConsultas() {
