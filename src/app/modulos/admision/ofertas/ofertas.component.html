@@ -80,35 +80,34 @@
         <form [formGroup]='formOfertas'>
             <p-fieldset legend="Personal">
                 <div class="grid">
-                    <div class="p-field col-6 md:col-4">
+                    <div class="p-fluid col-6 md:col-4">
                         <label>Nro Documento:</label>
-                        <input type="text" pInputText formControlName='nroDoc' placeholder="Nro documento" disabled/>
+                        <input type="text" pInputText formControlName='nroDoc' placeholder="Nro documento"/>
                     </div>
-                    <div class="p-field col-12 md:col-8">
+                    <div class="p-fluid col-12 md:col-8">
                         <label>Nombre del personal:</label>
-                        <input type="text" pInputText formControlName='nombre' placeholder="Nombre personal" disabled/>
+                        <input type="text" pInputText formControlName='nombre' placeholder="Nombre personal"/>
                     </div>
-                    <div class="p-field col-6 md:col-4">
+                    <div class="p-fluid col-6 md:col-4">
                         <label>Servicio:</label>
-                        <input type="text" pInputText formControlName='servicio' placeholder="Servicio" disabled/>
+                        <input type="text" pInputText formControlName='servicio' placeholder="Servicio"/>
                     </div>
-                    <div class="p-field col-6 md:col-4">
+                    <div class="p-fluid col-6 md:col-4">
                         <label>Ambiente:</label>
-                        <input type="text" pInputText formControlName='ambiente' placeholder="Ambiente" disabled/>
+                        <input type="text" pInputText formControlName='ambiente' placeholder="Ambiente"/>
                     </div>
-                    <div class="p-field col-6 md:col-4">
+                    <div class="p-fluid col-6 md:col-4">
                         <label>Fecha:</label>
-                        <input type="text" pInputText formControlName='fecha' placeholder="Fecha" disabled/>
+                        <input type="text" pInputText formControlName='fecha' placeholder="Fecha"/>
                     </div>
                 </div>
             </p-fieldset>
             <div class="grid m-2">
-                <div class="p-field col-12 md:col-4">
+                <div class="p-fluid col-12 md:col-4">
                     <label>Nro de ofertas actuales:</label>
-                    <input type="text" pInputText formControlName='nroOfertasActuales' placeholder="Ofertas actuales"
-                           disabled/>
+                    <input type="text" pInputText formControlName='nroOfertasActuales' placeholder="Ofertas actuales"/>
                 </div>
-                <div class="p-field col-12 md:col-4">
+                <div class="p-fluid col-12 md:col-4">
                     <label>Nro de ofertas extra:</label>
                     <input type="number" pInputText formControlName='nroOfertasAgregar' placeholder="Ofertas extras"/>
                 </div>
@@ -148,6 +147,7 @@
 
 <p-dialog [(visible)]="DialogTransferir" [style]="{width: '1200px'}" [modal]="true"
           [draggable]="false" [resizable]="false">
+
     <p-toast key="myKey1"></p-toast>
     <div class="col-12 md:col-6 lg:col-12 p-field">
         <div class="grid">
@@ -287,6 +287,9 @@
                                               (click)="listarPersonalRolGuardia()"></p-button>
                                 </div>
                             </div>
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
+                                <p-table [loading]="loading"></p-table>
+                            </div>
                         </div>
                         <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
@@ -356,18 +359,21 @@
                     </div>
 
                     <div class="grid m-2">
-                        <div class="col-12 md:col-6 lg:col-12 p-field" style="align-items: center">
-                            <button pButton type="button" label="Transferir cupos" icon="pi pi-angle-double-right"
-                                    class="p-button-success"
-                                    (click)="cambiodeCupos()"
-                                    [disabled]="activarBoton==''"></button>
+                        <div class="col-12 md:col-6 lg:col-12 p-field">
+                            <div class="p-inputgroup lg:text-center">
+                                <button pButton type="button" label="Transferir cupos"
+                                        icon="pi pi-angle-double-right"
+                                        class="p-button-success mr-2"
+                                        (click)="cambiodeCupos()"
+                                        [disabled]="activarBoton==null"></button>
+                                <button pButton pRipple type="button" label="Nuevo personal"
+                                        class="p-button-info mr-2"
+                                        icon="pi pi-refresh" (click)="nuevoTransferencia()"
+                                        [disabled]="activarBoton==null"></button>
+                                <button pButton pRipple type="button" label="Cancelar" class="p-button-danger"
+                                        icon="pi pi-ban" (click)="cancelarTransferencia()"></button>
+                            </div>
                         </div>
-                        <!--                        <div class="col-12 md:col-6 lg:col-6 p-field">-->
-                        <!--                            <button style="text-align: center" icon="pi pi-angle-double-right" pButton type="button"-->
-                        <!--                                    label="Transferencia parcial"-->
-                        <!--                                    (click)="tranferenciaParcialDeCupos()"-->
-                        <!--                                    [disabled]="activarBoton==null"></button>-->
-                        <!--                        </div>-->
                     </div>
                 </form>
             </div>
