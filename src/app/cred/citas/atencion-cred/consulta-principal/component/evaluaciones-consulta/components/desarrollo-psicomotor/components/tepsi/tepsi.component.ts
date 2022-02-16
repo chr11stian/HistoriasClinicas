@@ -50,7 +50,7 @@ export class TepsiComponent implements OnInit {
   ngOnInit(): void {
     // this.recuperarFechaNacimiento()
     this.calcularEdadDinamico(this.getFC('fechaSelected').value)
-    this.getTablaPuntaje();
+
     this.getTestTepsi();
   }
   buildForm(){
@@ -201,6 +201,7 @@ export class TepsiComponent implements OnInit {
     this.mesEdad = meses
     this.diaEdad= dias
     this.rango=this.determinarRango();
+    this.getTablaPuntaje();
   }
   async getTablaPuntaje(){
     await this.tepsiService.getTablaPuntaje1(this.rango).then((data)=>{
@@ -208,10 +209,10 @@ export class TepsiComponent implements OnInit {
       this.tablaSubTest.push(data['object']['tablaSubTestCoordinacion'])
       this.tablaSubTest.push(data['object']['tablaSubTestLenguaje'])
       this.tablaSubTest.push(data['object']['tablaSubTestMotricidad'])
-      console.log('tabla lenguajes',this.tablaSubTest[1]);
       this.calcularResultadoSubTest1(1);
       this.calcularResultadoSubTest1(2);
       this.calcularResultadoSubTest1(3);
+      this.calcularTotal();
 
     });
 
@@ -329,20 +330,20 @@ export class TepsiComponent implements OnInit {
       return element==false;
     })
     if(faltante.length==0){
+      const fecha:string[]=(this.getFC('fechaSelected').value).toISOString().split('T')
+      const hora:string=fecha[1].split('.')[0];
       const requestInput={
-
         codigoCIE10:"Z009",
         codigoHIS:"Z009",
         codigoPrestacion:"0001",
         testTepsi:{
           edad:{
-            anio:this.anioEdad,
-            mes:this.mesEdad,
-            dia:this.diaEdad
+            anio:'3',
+            mes:'5',
+            dia:'1'
           },
-          fechaAtencion:"2021-11-17 12:50:02",
-          diagnostico:"N",
-          docExaminador:"99999999",
+          fechaAtencion:`${fecha[0]} ${hora}`,
+          docExaminador:this.getFC('nombreExaminador').value,
           resultadoTestTotal:{
             puntajeBruto:this.resultadoA[0].puntajeBruto,
             puntajeT:this.resultadoA[0].puntajeT,
@@ -370,7 +371,9 @@ export class TepsiComponent implements OnInit {
             listItemTest:this.determinarArreglo('M',this.arregloSubtest[2])
           }
         }
-    }
+
+
+        }
 
       console.log('request inpu',requestInput)
       if(this.isUpdate){
