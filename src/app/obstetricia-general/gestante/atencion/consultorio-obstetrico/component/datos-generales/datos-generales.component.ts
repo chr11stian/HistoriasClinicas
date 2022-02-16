@@ -127,16 +127,24 @@ export class DatosGeneralesComponent implements OnInit {
             if (this.dataConsultas !== null) {
                 this.showSuccess();
                 this.formDatos_Generales.get('nroDoc').setValue(this.dataPacientes.nroDoc);
-                this.formDatos_Generales.get('telefono').setValue(this.dataConsultas.datosPersonales.telefono);
-                this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataConsultas.datosPersonales.gradoInstitucional);
-                this.formDatos_Generales.get('ocupacion').setValue(this.dataConsultas.datosPersonales.ocupacion);
-                this.formDatos_Generales.get('edad').setValue(this.dataConsultas.datosPerHist.edad);
-                this.formDatos_Generales.get('direccion').setValue(this.dataConsultas.datosPerHist.direccion);
+                //this.formDatos_Generales.get('telefono').setValue(this.dataConsultas.datosPersonales.telefono);
+                //this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataConsultas.datosPersonales.gradoInstitucional);
+                this.formDatos_Generales.get('ocupacion').setValue(this.dataConsultas.ocupacion);
+                this.formDatos_Generales.get('edad').setValue(this.dataConsultas.anioEdad);
+                this.formDatos_Generales.get('direccion').setValue(this.dataConsultas.direccion);
                 this.formDatos_Generales.get('fecha').setValue(this.dataConsultas.fecha);
-                // this.formDatos_Generales.get('hora').setValue(this.dataConsultas.fecha);
+
+                //recuperar datos del acompañante
+                this.formDatos_Generales.get('nroDocAcompaniante').setValue(this.dataConsultas.acompanante.nroDoc);
+                this.formDatos_Generales.get('apellidosAcompaniante').setValue(this.dataConsultas.acompanante.apellidos);
+                this.formDatos_Generales.get('nombresAcompaniante').setValue(this.dataConsultas.acompanante.nombre);
+                this.formDatos_Generales.get('edadAcompaniante').setValue(this.dataConsultas.acompanante.edad);
+                this.formDatos_Generales.get('telefonoAcompaniante').setValue(this.dataConsultas.acompanante.telefono);
+                this.formDatos_Generales.get('direccionAcompaniante').setValue(this.dataConsultas.acompanante.direccion);
+                this.formDatos_Generales.get('lazoParentesco').setValue(this.dataConsultas.acompanante.lazoParentesco);
 
                 //Recuperar Vacunas previas
-                this.formDatos_Generales.get('vAntitetánica1Dosis').setValue(this.dataConsultas.vacunasPrevias[0].descripcion);
+                /*this.formDatos_Generales.get('vAntitetánica1Dosis').setValue(this.dataConsultas.vacunasPrevias[0].descripcion);
                 this.formDatos_Generales.get('fecha1').setValue(this.dataConsultas.vacunasPrevias[0].fecha);
                 this.formDatos_Generales.get('vAntitetánica2Dosis').setValue(this.dataConsultas.vacunasPrevias[1].descripcion);
                 this.formDatos_Generales.get('fecha2').setValue(this.dataConsultas.vacunasPrevias[1].fecha);
@@ -148,9 +156,9 @@ export class DatosGeneralesComponent implements OnInit {
                 this.formDatos_Generales.get('fecha5').setValue(this.dataConsultas.vacunasPrevias[4].fecha);
                 this.formDatos_Generales.get('Covid19').setValue(this.dataConsultas.vacunasPrevias[5].descripcion);
                 this.formDatos_Generales.get('fecha6').setValue(this.dataConsultas.vacunasPrevias[5].fecha);
-
+                */
                 //recuperar Antecedentes Gineco Obstetrico
-                this.formDatos_Generales.get('FUR').setValue(this.dataConsultas.antecedentesGinObs[0].fechaUltRegla);
+                /*this.formDatos_Generales.get('FUR').setValue(this.dataConsultas.antecedentesGinObs[0].fechaUltRegla);
                 this.formDatos_Generales.get('FPP').setValue(this.dataConsultas.antecedentesGinObs[0].fechaPosiParto);
                 this.formDatos_Generales.get('RCAT').setValue(this.dataConsultas.antecedentesGinObs[0].rcat);
                 this.formDatos_Generales.get('G').setValue(this.dataConsultas.antecedentesGinObs[0].g);
@@ -160,28 +168,28 @@ export class DatosGeneralesComponent implements OnInit {
                 this.formDatos_Generales.get('P4').setValue(this.dataConsultas.antecedentesGinObs[0].p4);
                 this.formDatos_Generales.get('gesAnterior').setValue(this.dataConsultas.antecedentesGinObs[0].gestAnterior);
                 this.formDatos_Generales.get('RNpesoMayor').setValue(this.dataConsultas.antecedentesGinObs[0].rnMayorPeso);
-
+                */
                 //RECUPERA LOS ANTECEDENTES
-                this.formDatos_Generales.get('AntecedentesFamiliares').setValue(this.dataConsultas.antecedentesFamiliares[0]);
-                this.formDatos_Generales.get('AntecedentesPersonales').setValue(this.dataConsultas.antecedentesPersonales[0]);
+                //this.formDatos_Generales.get('AntecedentesFamiliares').setValue(this.dataConsultas.antecedentesFamiliares[0]);
+                //this.formDatos_Generales.get('AntecedentesPersonales').setValue(this.dataConsultas.antecedentesPersonales[0]);
                 this.formDatos_Generales.get('FumaCigarros').setValue(this.dataConsultas.fumaCigarros);
                 this.formDatos_Generales.get('Drogas').setValue(this.dataConsultas.drogas);
                 this.formDatos_Generales.get('Psicoprofilaxis').setValue(this.dataConsultas.psicoprofilaxis.estado);
 
                 //RECUPERA DESCARTE SIGNOS DE ALARMA
-                this.formDatos_Generales.get('DificultadRespiratoria').setValue(this.dataConsultas.descarteSignosAlarmas[0].valor);
-                this.formDatos_Generales.get('HipertenciónArterial').setValue(this.dataConsultas.descarteSignosAlarmas[1].valor);
-                this.formDatos_Generales.get('SangradoNasal').setValue(this.dataConsultas.descarteSignosAlarmas[2].valor);
-                this.formDatos_Generales.get('DeshidrataciónAguda').setValue(this.dataConsultas.descarteSignosAlarmas[3].valor);
-                this.formDatos_Generales.get('CompromisoDelSensorio').setValue(this.dataConsultas.descarteSignosAlarmas[4].valor);
-                this.formDatos_Generales.get('TraumatismoQuemadura').setValue(this.dataConsultas.descarteSignosAlarmas[5].valor);
-                this.formDatos_Generales.get('AbdomenAgudo').setValue(this.dataConsultas.descarteSignosAlarmas[6].valor);
-                this.formDatos_Generales.get('IntoxicaciónEnvenenamiento').setValue(this.dataConsultas.descarteSignosAlarmas[7].valor);
-                this.formDatos_Generales.get('FiebreAlta').setValue(this.dataConsultas.descarteSignosAlarmas[8].valor);
-                this.formDatos_Generales.get('Convulciones').setValue(this.dataConsultas.descarteSignosAlarmas[9].valor);
-                this.formDatos_Generales.get('SangradoGenital').setValue(this.dataConsultas.descarteSignosAlarmas[10].valor);
-                this.formDatos_Generales.get('DolorDeCabeza').setValue(this.dataConsultas.descarteSignosAlarmas[11].valor);
-                this.formDatos_Generales.get('Edema').setValue(this.dataConsultas.descarteSignosAlarmas[12].valor);
+                this.formDatos_Generales.get('DificultadRespiratoria').setValue(this.dataConsultas.listaSignosAlarma[0].valor);
+                this.formDatos_Generales.get('HipertenciónArterial').setValue(this.dataConsultas.listaSignosAlarma[1].valor);
+                this.formDatos_Generales.get('SangradoNasal').setValue(this.dataConsultas.listaSignosAlarma[2].valor);
+                this.formDatos_Generales.get('DeshidrataciónAguda').setValue(this.dataConsultas.listaSignosAlarma[3].valor);
+                this.formDatos_Generales.get('CompromisoDelSensorio').setValue(this.dataConsultas.listaSignosAlarma[4].valor);
+                this.formDatos_Generales.get('TraumatismoQuemadura').setValue(this.dataConsultas.listaSignosAlarma[5].valor);
+                this.formDatos_Generales.get('AbdomenAgudo').setValue(this.dataConsultas.listaSignosAlarma[6].valor);
+                this.formDatos_Generales.get('IntoxicaciónEnvenenamiento').setValue(this.dataConsultas.listaSignosAlarma[7].valor);
+                this.formDatos_Generales.get('FiebreAlta').setValue(this.dataConsultas.listaSignosAlarma[8].valor);
+                this.formDatos_Generales.get('Convulciones').setValue(this.dataConsultas.listaSignosAlarma[9].valor);
+                this.formDatos_Generales.get('SangradoGenital').setValue(this.dataConsultas.listaSignosAlarma[10].valor);
+                this.formDatos_Generales.get('DolorDeCabeza').setValue(this.dataConsultas.listaSignosAlarma[11].valor);
+                this.formDatos_Generales.get('Edema').setValue(this.dataConsultas.listaSignosAlarma[12].valor);
 
                 //RECUPERA DESCARTE ATENSION INTEGRAL
                 this.formDatos_Generales.get('OrientaciónConsegeríaSignosAlarma').setValue(this.dataConsultas.orientaciones[0].valor);
@@ -350,7 +358,7 @@ export class DatosGeneralesComponent implements OnInit {
             DolorDeCabeza: new FormControl(''),
             Edema: new FormControl(''),
 
-            /****ATENSION INTEGRAL******/
+            /****ATENCION INTEGRAL******/
             OrientaciónConsegeríaSignosAlarma: new FormControl(''),
             ConsejeríaEnfermedadesComunes: new FormControl(''),
             SospechasTuberculosis: new FormControl(''),
@@ -440,16 +448,16 @@ export class DatosGeneralesComponent implements OnInit {
             ],
             antecedentesPersonales: [
                 this.formDatos_Generales.value.AntecedentesPersonales,
-            ],
-            fumaCigarros: this.formDatos_Generales.value.FumaCigarros,
-            drogas: this.formDatos_Generales.value.Drogas,
+            ],*/
+            //fumaCigarros: this.formDatos_Generales.value.FumaCigarros,
+            //drogas: this.formDatos_Generales.value.Drogas,
             
             psicoprofilaxis: {
                 estado: this.formDatos_Generales.value.Psicoprofilaxis,
                 fecha: "",
             },
-            */
-            listaSignosAlarmas: [
+            
+            listaSignosAlarma: [
                 {
                     tipoEdad: null,
                     nombreSigno: "Dificultad respiratoria",
