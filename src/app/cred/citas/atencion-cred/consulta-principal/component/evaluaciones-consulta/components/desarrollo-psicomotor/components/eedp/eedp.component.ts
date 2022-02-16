@@ -38,13 +38,14 @@ export class EedpComponent implements OnInit {
   anioEdad;
   mesEdad;
   diaEdad;
-  chronicAge: any;
+  chronologicalAge: any;
   dataPatient: any;
   mentalAge: any;
   standardPoints: any;
   tablaPuntajeEstandar: any;
   coeficienteDesarrollo: any;
-  mentalMonth: number;
+  mentalMonth: number = 1;
+  diagnostico: any;
 
   constructor(
     private evalAlimenService: EvalAlimenService,
@@ -82,28 +83,21 @@ export class EedpComponent implements OnInit {
   async getDatos() {
     await this.evalAlimenService.getEscalaEEDParray().then(data => {
       this.escalaEEDP = data;
-      // this.evaluacionEEDP.map((evaluacion, index) => {
-      //   this.escalaEEDP[index] = evaluacion.item;
-      // });
       let mes = this.edadNroSelected;
       this.evalAlimenService.getTablaComparativaMes(mes).then(data => {
         this.tablaComparativa = data;
       });
       this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
       this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
-      // console.log('2da array to list ', this.arrayEdadEEDPSelected[0].puntajeMaximo);
     });
   }
 
   async saveTest() {
     this.monthPoints = 0;
-
-    this.arrayEdadEEDPSelected.forEach(item => {
+    let ansMonth = this.arrayEdadEEDPSelected.map(item => {
       if (item.puntajeEEDP) {
         this.monthPoints += parseInt(this.puntaje);
       }
-    });
-    let ansMonth = this.arrayEdadEEDPSelected.map(item => {
       let auxAns = {
         codigo: parseInt(item.codigo),
         puntajeEEDP: item.puntajeEEDP,
@@ -119,13 +113,11 @@ export class EedpComponent implements OnInit {
     }
     let dup;
     this.listaPreguntas.forEach(item => {
-      // console.log('item ', item.edad);
       if (item.edad === this.itemEEDP.edad) {
         dup = true;
       }
     })
     if (dup || this.itemEEDP.puntajeTotalEedp == 0) {
-
     } else {
       this.listaPreguntas.push(this.itemEEDP);
     }
@@ -133,10 +125,8 @@ export class EedpComponent implements OnInit {
     this.listaPreguntas.forEach(item => {
       this.totalPoints += item.puntajeTotalEedp;
     })
-    console.log('total points ', this.totalPoints, 'list to save ', this.listaPreguntas);
     this.totalPoints = this.totalPoints + (this.mentalMonth - 1) * 30;
-    this.standardPoints = (this.totalPoints / this.chronicAge).toFixed(2);
-    console.log('standard points ', this.standardPoints, 'total points ', this.totalPoints);
+    this.standardPoints = (this.totalPoints / this.chronologicalAge).toFixed(2);
     await this.testService.getTablaComparativaMes(this.mesEdad).then(data => {
       this.tablaPuntajeEstandar = data;
       this.tablaPuntajeEstandar.forEach(item => {
@@ -145,7 +135,23 @@ export class EedpComponent implements OnInit {
         }
       })
     })
+    console.log('total points ', this.totalPoints, 'list to save ', this.listaPreguntas);
+    console.log('data to print ', this.coeficienteDesarrollo);
     console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo, 'mes de 5  qston ', this.mentalMonth)
+    this.dataTestEEDP = {
+      codigoCIE10: "Z009",
+      codigoHIS: "Z009",
+      codigoPrestacion: "0001",
+      testEedp: {
+        fechaAtencion: this.fechaEvaluacion,
+        edadCronologica: this.chronologicalAge,
+        edadMental: this.mentalAge,
+        diagnostico: this.diagnostico,
+        coeficienteDesarrolllo: this.coeficienteDesarrollo,
+        docExaminador: "89685545",
+        listaItemEedp: this.listaPreguntas
+      }
+    }
   }
 
   updateEscalaEEDP() {
@@ -218,7 +224,7 @@ export class EedpComponent implements OnInit {
     this.anioEdad = edad;
     this.mesEdad = meses;
     this.diaEdad = dias;
-    this.chronicAge = this.mesEdad * 30 + this.diaEdad;
+    this.chronologicalAge = this.mesEdad * 30 + this.diaEdad;
   }
   calcularResultado() {
     this.monthPoints = 0;

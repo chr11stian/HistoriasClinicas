@@ -78,15 +78,20 @@ export interface ItemEEDP {
     itemEedp?: AnswerEEDP[]
 }
 export interface TestEEDP {
-    fecha: string,
-    edadCronologica: number,
-    edadMental: number,
-    diagnostico: string,
-    coeficienteDesarrolllo: number,
-    examinador: string,
-    listaUltimasPreguntas?: [{
-        clave?: string,
-        numeroPregunta?: number
-    }],
-    listaItemEedp: ItemEEDP[]
+    codigoCIE10: string,
+    codigoHIS: string,
+    codigoPrestacion: string,
+    testEedp: {
+        fechaAtencion: string,
+        edadCronologica: number,
+        edadMental: number,
+        diagnostico: string,
+        coeficienteDesarrolllo: number,
+        docExaminador: string,
+        listaUltimasPreguntas?: [{
+            clave?: string,
+            numeroPregunta?: number
+        }],
+        listaItemEedp: ItemEEDP[]
+    }
 }
