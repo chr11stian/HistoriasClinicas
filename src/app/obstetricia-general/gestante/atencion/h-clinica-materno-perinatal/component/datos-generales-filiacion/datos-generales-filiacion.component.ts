@@ -1,9 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {FiliancionService} from "../../services/filiancion-atenciones/filiancion.service";
 import {formatDate} from "@angular/common";
 import Swal from "sweetalert2";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
+import {validate} from "codelyzer/walkerFactory/walkerFn";
 
 @Component({
     selector: 'app-datos-generales-filiacion',
@@ -126,10 +127,6 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
 
     agrgarFiliacionDatoPersonales() {
-        // if (this.dataIDfiliacion.nroHcl == "" || this.dataPacientes.nroHcl == "") {
-        //     this.dataIDfiliacion;
-        //     this.dataPacientes;
-        // }
         const req = {
             nroHcl: this.formDatos_Generales.value.HCL,
             nroGestante: 0,
@@ -216,6 +213,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             this.formDatos_Generales.get('provincia').setValue(this.dataPacientes.domicilio.provincia);
             this.formDatos_Generales.get('distrito').setValue(this.dataPacientes.domicilio.distrito);
             this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataPacientes.gradoInstruccion);
+            this.formDatos_Generales.get('cel1').setValue(this.dataPacientes.celular);
 
             this.fechanacimiento = this.dataPacientes.nacimiento.fechaNacimiento;
             this.convertiFecha();
@@ -300,7 +298,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             nombreRN: new FormControl(''),
             pabreRN: new FormControl(''),
             religion: new FormControl(''),
-            cel1: new FormControl(''),
+            cel1: new FormControl('', [Validators.required, Validators.minLength(9)]),
             cel2: new FormControl(''),
             idioma: new FormControl(''),
         })

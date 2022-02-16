@@ -36,8 +36,9 @@ export class OfertasComponent implements OnInit {
     DataPersonalBusqueda: any;
     TurnosPersonal: any;
     selectedHorario: any[];
-    activarBoton: string = '';
+    activarBoton: string = null;
     activarInput: string = 'Transferir todo';
+    loading: boolean;
 
     constructor(
         private ofertasService: OfertasService,
@@ -200,9 +201,11 @@ export class OfertasComponent implements OnInit {
 
     /**Busca un personal de su rol de guardia**/
     async listarPersonalRolGuardia() {
+        this.loading = true;
         let tipoDoc = "DNI";
         let nroDoc = this.formTransferirCupos2.value.nroDoc2;
         await this.cuposService.buscarPersonalRolGuardia(tipoDoc, nroDoc).then((res: any) => {
+            this.loading = false;
             if (res.object !== null) {
                 this.DataPersonalBusqueda = res.object[0];
                 this.TurnosPersonal = this.DataPersonalBusqueda.turnos;
@@ -346,6 +349,8 @@ export class OfertasComponent implements OnInit {
     }
 
     nuevoTransferencia() {
+        this.activarBoton = null;
+        this.DataPersonalBusqueda = null;
         this.formTransferirCupos2.reset();
     }
 }
