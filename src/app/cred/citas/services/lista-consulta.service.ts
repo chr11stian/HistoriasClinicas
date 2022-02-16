@@ -26,4 +26,10 @@ export class ListaConsultaService {
         const url = `${this.base_url}/hce/cred/consulta/crear/${dni}`
         return this.http.post(url, data)
     }
+
+    getDatosGenerales(idConsulta){
+        const url = `${this.base_url}/hce/cred/consulta/datos/generales/${idConsulta}`
+        return this.http.get(url)
+
+    }
 }

@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ConsultaGeneralService} from "../../../consulta-principal/services/consulta-general.service";
 import {ListaConsultaService} from "../../../../services/lista-consulta.service";
 import Swal from "sweetalert2";
-import {dato, triajeInterface, SignosVitales, FactorRiesgo} from "../../../../models/data";
+import {dato, triajeInterface, SignosVitales, outputTriajeInterface} from "../../../../models/data";
 
 interface formInterface {
     pro: string,
@@ -31,12 +31,14 @@ export class TriajeCredComponent implements OnInit {
     mes: number = 0
     dia: number = 0
     triaje: triajeInterface
+    auxTriaje: outputTriajeInterface
     fecha_hoy: Date = new Date();
     data: dato
     my: boolean = true
     id: string;
     attributeLocalS = 'documento'
     anamnesisFC = new FormControl({value: '', disabled: false})
+    obsFC = new FormControl({value: '', disabled: false})
     auxDatosGeneralesConsulta: datosGeneralesConsulta
     stateOptions = [
         {label: 'Si', value: true},
@@ -247,7 +249,7 @@ export class TriajeCredComponent implements OnInit {
                 private consultaService: ListaConsultaService,
                 private consultaGeneralService: ConsultaGeneralService) {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-        this.recuperarPersona()
+        (this.data.idConsulta !== '') ? this.recuperarData(this.data.idConsulta) : this.recuperarPersona()
         this.buildForm()
     }
 
@@ -274,54 +276,68 @@ export class TriajeCredComponent implements OnInit {
     }
 
     recuperarData(id) {
-        this.consultaGeneralService.getGenerales(id).subscribe((r: any) => {
-            this.auxDatosGeneralesConsulta = r.object
-            console.log('datosGeneralesConsulta', this.auxDatosGeneralesConsulta)
-            this.generalInfoFG.get('name').setValue(r.object.datosGeneralesConsulta.nombresApellidos)
-            this.calcularEdad(r.object.datosGeneralesConsulta.fechaNacimiento)
-            const edad = this.anio + ' años ' + this.mes + ' meses ' + this.dia + ' dias'
+        this.consultaGeneralService.datosGenerales({
+            tipoDoc: this.data.tipoDoc,
+            nroDoc: this.data.nroDocumento
+        }).subscribe((r: any) => {
+            let nombre = r.object.primerNombre + " " + r.object.otrosNombres + " " + r.object.apePaterno + " " + r.object.apeMaterno
+            this.generalInfoFG.get('name').setValue(nombre)
+        })
+        this.consultaService.getDatosGenerales(id).subscribe((r: any) => {
+            this.auxTriaje = r.object
+            console.log('aux: ', this.auxTriaje)
+            let date: Date = new Date(this.auxTriaje.fecha)
+            this.generalInfoFG.get('dateAttention').setValue(date)
+            this.generalInfoFG.get('hour').setValue(date)
+            let edad = this.auxTriaje.anioEdad+ ' años ' + this.auxTriaje.mesEdad + ' meses ' + this.auxTriaje.diaEdad + ' dias'
             this.generalInfoFG.get('year').setValue(edad)
-            const fecha = new Date(r.object.datosGeneralesConsulta.fechaAtencionConsulta)
-            this.generalInfoFG.get('dateAttention').setValue(fecha)
-            this.generalInfoFG.get('hour').setValue(fecha)
-            //--actualizar datos generales
-            if (this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M !== null) {
-                this.twoMonthsFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[0].valor as boolean)
-                this.twoMonthsFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[1].valor as boolean)
-                this.twoMonthsFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[2].valor as boolean)
-                this.twoMonthsFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[3].valor as boolean)
-                this.twoMonthsFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[4].valor as boolean)
-                this.twoMonthsFG.get('6').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[5].valor as boolean)
-                this.twoMonthsFG.get('7').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[6].valor as boolean)
-                this.twoMonthsFG.get('8').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2M[7].valor as boolean)
-            }
-            if (this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A !== null) {
-                this.twoMonthsMoreFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[0].valor as boolean)
-                this.twoMonthsMoreFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[1].valor as boolean)
-                this.twoMonthsMoreFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[2].valor as boolean)
-                this.twoMonthsMoreFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[3].valor as boolean)
-                this.twoMonthsMoreFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.menor2Ma4A[4].valor as boolean)
-            }
-            if (this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades !== null) {
-                this.allYearFG.get('1').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[0].valor as boolean)
-                this.allYearFG.get('2').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[1].valor as boolean)
-                this.allYearFG.get('3').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[2].valor as boolean)
-                this.allYearFG.get('4').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[3].valor as boolean)
-                this.allYearFG.get('5').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.todasLasEdades[4].valor as boolean)
-            }
-            this.signoPeligroFG.get('presentSigns').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.noPresentaSigno)
-            this.factorRiesgoFG.get('cuidaNinio').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.factorRiesgo.cuidaNinio)
-            this.factorRiesgoFG.get('participaPadre').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.factorRiesgo.participaPadre)
-            this.factorRiesgoFG.get('recibeAfecto').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.factorRiesgo.recibeAfecto)
-            this.factorRiesgoFG.get('especificacion').setValue(this.auxDatosGeneralesConsulta.descarteSignosPeligro.factorRiesgo.especificacion)
 
-            this.anamnesisFC.setValue(this.auxDatosGeneralesConsulta.anamnesis)
+            this.examFG.get('TFC').setValue(this.auxTriaje.signosVitales.temperatura)
+            this.examFG.get('PSFC').setValue(this.auxTriaje.signosVitales.presionSistolica)
+            this.examFG.get('PDFC').setValue(this.auxTriaje.signosVitales.presionDiastolica)
+            this.examFG.get('FC').setValue(this.auxTriaje.signosVitales.fc)
+            this.examFG.get('FRFC').setValue(this.auxTriaje.signosVitales.fr)
+            this.examFG.get('PesoFC').setValue(this.auxTriaje.signosVitales.peso)
+            this.examFG.get('TallaFC').setValue(this.auxTriaje.signosVitales.talla)
+            this.examFG.get('imcFC').setValue(this.auxTriaje.signosVitales.imc)
+            this.examFG.get('PCFC').setValue(this.auxTriaje.signosVitales.perimetroCefalico)
+
+            this.twoMonthsFG.get('1').setValue(this.auxTriaje.listaSignosAlarma[0].valorSigno as boolean)
+            this.twoMonthsFG.get('2').setValue(this.auxTriaje.listaSignosAlarma[1].valorSigno as boolean)
+            this.twoMonthsFG.get('3').setValue(this.auxTriaje.listaSignosAlarma[2].valorSigno as boolean)
+            this.twoMonthsFG.get('4').setValue(this.auxTriaje.listaSignosAlarma[3].valorSigno as boolean)
+            this.twoMonthsFG.get('5').setValue(this.auxTriaje.listaSignosAlarma[4].valorSigno as boolean)
+            this.twoMonthsFG.get('6').setValue(this.auxTriaje.listaSignosAlarma[5].valorSigno as boolean)
+            this.twoMonthsFG.get('7').setValue(this.auxTriaje.listaSignosAlarma[6].valorSigno as boolean)
+            this.twoMonthsFG.get('8').setValue(this.auxTriaje.listaSignosAlarma[7].valorSigno as boolean)
+
+            this.twoMonthsMoreFG.get('1').setValue(this.auxTriaje.listaSignosAlarma[8].valorSigno as boolean)
+            this.twoMonthsMoreFG.get('2').setValue(this.auxTriaje.listaSignosAlarma[9].valorSigno as boolean)
+            this.twoMonthsMoreFG.get('3').setValue(this.auxTriaje.listaSignosAlarma[10].valorSigno as boolean)
+            this.twoMonthsMoreFG.get('4').setValue(this.auxTriaje.listaSignosAlarma[11].valorSigno as boolean)
+            this.twoMonthsMoreFG.get('5').setValue(this.auxTriaje.listaSignosAlarma[12].valorSigno as boolean)
+
+            this.allYearFG.get('1').setValue(this.auxTriaje.listaSignosAlarma[13].valorSigno as boolean)
+            this.allYearFG.get('2').setValue(this.auxTriaje.listaSignosAlarma[14].valorSigno as boolean)
+            this.allYearFG.get('3').setValue(this.auxTriaje.listaSignosAlarma[15].valorSigno as boolean)
+            this.allYearFG.get('4').setValue(this.auxTriaje.listaSignosAlarma[16].valorSigno as boolean)
+            this.allYearFG.get('5').setValue(this.auxTriaje.listaSignosAlarma[17].valorSigno as boolean)
+
+            this.signoPeligroFG.get('presentSigns').setValue(this.auxTriaje.noPresentaSigno)
+            this.factorRiesgoFG.get('cuidaNinio').setValue(this.auxTriaje.factorRiesgo.cuidaNinio)
+            this.factorRiesgoFG.get('participaPadre').setValue(this.auxTriaje.factorRiesgo.participaPadre)
+            this.factorRiesgoFG.get('recibeAfecto').setValue(this.auxTriaje.factorRiesgo.recibeAfecto)
+            this.factorRiesgoFG.get('especificacion').setValue(this.auxTriaje.factorRiesgo.especificacion)
+
+            this.anamnesisFC.setValue(this.auxTriaje.anamnesis)
+            this.obsFC.setValue(this.auxTriaje.obsSignosVitales)
         })
     }
 
     buildForm(): void {
         /** Signos vitales */
         this.examFG = new FormGroup({
+            obsFC: new FormControl({value: '', disabled: false}),
             TFC: new FormControl({value: null, disabled: false}, []),
             PSFC: new FormControl({value: null, disabled: false}, []),
             PDFC: new FormControl({value: null, disabled: false}, []),
@@ -445,9 +461,10 @@ export class TriajeCredComponent implements OnInit {
         const req: triajeInterface = {
             signosVitales: signosVitales,
             listaSignosAlarma: aux,
+            obsSignosVitales: this.obsFC.value,
             noPresentaSigno: this.signoPeligroFG.get('presentSigns').value,
             factorRiesgo: this.factorRiesgoFG.value,
-            anamnesis: this.anamnesisFC.value,
+            anamnesis: this.anamnesisFC.value
         }
 
         console.log('req', req)
