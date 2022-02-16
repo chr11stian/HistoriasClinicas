@@ -48,7 +48,7 @@ export class TepsiComponent implements OnInit {
     this.buildForm();
   }
   ngOnInit(): void {
-    this.recuperarFechaNacimiento()
+    // this.recuperarFechaNacimiento()
     this.calcularEdadDinamico(this.getFC('fechaSelected').value)
     this.getTablaPuntaje();
     this.getTestTepsi();
@@ -77,12 +77,10 @@ export class TepsiComponent implements OnInit {
         this.isUpdate=true;
         this.messageService.add({key: 'myKey1', severity:'success', summary: 'Registro recuperado', detail: 'Registro recuperado satisfactoriamente'});
         const resultado=resp['object']['testTepsi'];
-        this.anioEdad=resultado['edad']['anio']
-        this.mesEdad=resultado['edad']['mes']
-        this.diaEdad=resultado['edad']['dia']
-        // this.getFC('fechaSelected').setValue(resultado['fechaAtencion'])
-         this.getFC('nombreExaminador').setValue(resultado['docExaminador'])
-         this.arregloSubtest[0]= this.reconstruirTest(resultado['subTestCoordinacion']['listItemTest']);
+        this.getFC('fechaSelected').setValue(new Date(resultado['fechaAtencion']))
+        this.calcularEdadDinamico(new Date((resultado['fechaAtencion'])))
+        this.getFC('nombreExaminador').setValue(resultado['docExaminador'])
+        this.arregloSubtest[0]= this.reconstruirTest(resultado['subTestCoordinacion']['listItemTest']);
         this.calcularResultadoSubTest1(1)
         this.arregloSubtest[1]= this.reconstruirTest(resultado['subTestLenguaje']['listItemTest']);
         this.calcularResultadoSubTest1(2)
@@ -90,8 +88,6 @@ export class TepsiComponent implements OnInit {
         this.calcularResultadoSubTest1(3)
         console.log('resultado deeeeeeeeeeeeeeeeeeee',this.arregloSubtest[2])
       }
-
-
     })
   }
   determinarRango(){
@@ -159,7 +155,7 @@ export class TepsiComponent implements OnInit {
   }
   calcularEdadDinamico(fechaInput:Date){
     //fecha ingresada
-    let fechaNacimiento: Date = new Date("01/01/2022");
+    let fechaNacimiento: Date = new Date("01/01/2018"); //requeriremos la fecha de nacimiento//formato dia/mes/año
     let dia = fechaNacimiento.getDate()
     let mes = fechaNacimiento.getMonth() + 1
     let ano = fechaNacimiento.getFullYear()
@@ -333,48 +329,6 @@ export class TepsiComponent implements OnInit {
       return element==false;
     })
     if(faltante.length==0){
-      console.log('entramos al if')
-      // const requestInput = {
-      //   codigoCIE10:"Z009",
-      //   codigoHIS:"Z009",
-      //   codigoPrestacion:"0001",
-      //   testTepsi:{
-      //   edad: {
-      //     anio: this.anioEdad,
-      //     mes: this.mesEdad,
-      //     dia: this.diaEdad,
-      //   },
-      //   fechaAtencion:"2021-11-17 12:50:02",
-      //   diagnostico:this.resultadoA[0].categoria,
-      //   docExaminador: this.getFC('nombreExaminador').value,
-      //   resultadoTestTotal: {
-      //     puntajeBruto: this.resultadoA[0].puntajeBruto,
-      //     puntajeT: this.resultadoA[0].puntajeT,
-      //     categoria: this.resultadoA[0].categoria
-      //   },
-      //   subTestCoordinacion: {
-      //     tipoSubTest:"COORDINACION",
-      //     puntajeBruto:this.resultadoA[1].puntajeBruto,
-      //     puntajeT:this.resultadoA[1].puntajeT,
-      //     categoria:this.resultadoA[1].categoria,
-      //     listItemTest:this.determinarArreglo('C',this.arregloSubtest[0])
-      //   },
-      //   subTestLenguaje: {
-      //     tipoSubTest:"LENGUAJE",
-      //     puntajeBruto:this.resultadoA[2].puntajeBruto,
-      //     puntajeT:this.resultadoA[2].puntajeT,
-      //     categoria:this.resultadoA[2].categoria,
-      //     listItemTest:this.determinarArreglo('L',this.arregloSubtest[1])
-      //   },
-      //   subTestMotricidad: {
-      //     tipoSubTest:"MOTRICIDAD",
-      //     puntajeBruto:this.resultadoA[3].puntajeBruto,
-      //     puntajeT:this.resultadoA[3].puntajeT,
-      //     categoria:this.resultadoA[3].categoria,
-      //     listItemTest:this.determinarArreglo('M',this.arregloSubtest[2])
-      //   }
-      //   }
-      // }
       const requestInput={
 
         codigoCIE10:"Z009",
@@ -416,13 +370,7 @@ export class TepsiComponent implements OnInit {
             listItemTest:this.determinarArreglo('M',this.arregloSubtest[2])
           }
         }
-
-
     }
-
-
-
-
 
       console.log('request inpu',requestInput)
       if(this.isUpdate){
@@ -440,7 +388,6 @@ export class TepsiComponent implements OnInit {
         },(error)=>{
           console.log('error!!!!!!!!!!')
         })
-
       }
     }
     else {
