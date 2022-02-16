@@ -147,6 +147,7 @@
 
 <p-dialog [(visible)]="DialogTransferir" [style]="{width: '1200px'}" [modal]="true"
           [draggable]="false" [resizable]="false">
+
     <p-toast key="myKey1"></p-toast>
     <div class="col-12 md:col-6 lg:col-12 p-field">
         <div class="grid">
@@ -286,6 +287,9 @@
                                               (click)="listarPersonalRolGuardia()"></p-button>
                                 </div>
                             </div>
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
+                                <p-table [loading]="loading"></p-table>
+                            </div>
                         </div>
                         <div class="grid m-2">
                             <div class="col-12 md:col-6 lg:col-12 p-field">
@@ -357,13 +361,15 @@
                     <div class="grid m-2">
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="p-inputgroup lg:text-center">
-                                <button pButton type="button" label="Transferir cupos" icon="pi pi-angle-double-right"
+                                <button pButton type="button" label="Transferir cupos"
+                                        icon="pi pi-angle-double-right"
                                         class="p-button-success mr-2"
                                         (click)="cambiodeCupos()"
-                                        [disabled]="activarBoton==''"></button>
-                                <button pButton pRipple type="button" label="Nuevo personal" class="p-button-info mr-2"
+                                        [disabled]="activarBoton==null"></button>
+                                <button pButton pRipple type="button" label="Nuevo personal"
+                                        class="p-button-info mr-2"
                                         icon="pi pi-refresh" (click)="nuevoTransferencia()"
-                                        [disabled]="activarBoton==''"></button>
+                                        [disabled]="activarBoton==null"></button>
                                 <button pButton pRipple type="button" label="Cancelar" class="p-button-danger"
                                         icon="pi pi-ban" (click)="cancelarTransferencia()"></button>
                             </div>

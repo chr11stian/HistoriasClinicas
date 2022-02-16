@@ -109,7 +109,7 @@ export class CuposService {
             })
             .catch(error => {
                 console.log('No se encotro personal de salud');
-                return error = null;
+                return null;
             })
     }
 
