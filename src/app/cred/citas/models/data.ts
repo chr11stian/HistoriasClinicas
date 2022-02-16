@@ -6,12 +6,12 @@ export interface dato {
 
 export interface outputTriajeInterface {
     fecha: string,
-    "anioEdad": number,
-    "mesEdad": number,
-    "diaEdad": number,
+    anioEdad: number,
+    mesEdad: number,
+    diaEdad: number,
     signosVitales: SignosVitales;
     listaSignosAlarma: ListaSignosAlarma[];
-    noPresentaSigno: boolean;
+    presentaSigno: boolean;
     factorRiesgo: FactorRiesgo;
     anamnesis: string;
     obsSignosVitales: string;
@@ -20,15 +20,22 @@ export interface outputTriajeInterface {
 export interface triajeInterface {
     signosVitales: SignosVitales;
     listaSignosAlarma: ListaSignosAlarma[];
-    noPresentaSigno: boolean;
+    presentaSigno: boolean;
     factorRiesgo: FactorRiesgo;
     anamnesis: string;
     obsSignosVitales: string;
 }
 
+export interface interconsultaInterface {
+    signosVitales: SignosVitales;
+    listaSignosAlarma: ListaSignosAlarma[];
+    presentaSigno: boolean;
+    obsSignosVitales: string;
+}
+
 export interface datosConsultaInterface {
     listaSignosAlarma: ListaSignosAlarma[];
-    noPresentaSigno: boolean;
+    presentaSigno: boolean;
     factorRiesgo: FactorRiesgo;
     anamnesis: string;
 }
@@ -37,9 +44,10 @@ export interface motivoConsultaInterface {
     motivoConsulta: string;
     signosVitales: SignosVitales;
     obsSignosVitales: string;
-    interMedicinaGeneral: InterMedicinaGeneral;
     examenesFisicos: ExamenesFisico[];
+    examenNeurologico: ExamenesFisico[];
     obsExamenFisico: string;
+    obsExamenNeurologico: string;
 }
 
 export interface FactorRiesgo {
@@ -74,10 +82,4 @@ export interface ExamenesFisico {
     valor: string;
 }
 
-export interface InterMedicinaGeneral {
-    tiempoEnfermedad: string;
-    formaInicio: string;
-    curso: string;
-    observacion: string;
-}
 

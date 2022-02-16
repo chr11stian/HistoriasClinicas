@@ -12,10 +12,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-11 p-field">
+                <div class="col-12 md:col-12 lg:col-11 p-field justify-content-center">
                     <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-2 p-field">
-                            <div class="p-inputgroup">
+                        <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <div class="p-inputgroup justify-content-end">
                                 <label>{{tipoDoc}}:</label>
                             </div>
                         </div>
@@ -26,8 +26,8 @@
                         </div>
                     </div>
                     <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-2 p-field">
-                            <div class="p-inputgroup">
+                        <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <div class="p-inputgroup justify-content-end">
                                 <label>APELLIDOS Y NOMBRES:</label>
                             </div>
                         </div>
@@ -73,7 +73,8 @@
                 <td style="text-align: center">{{ rowData.estado }}</td>
                 <td style="text-align: center">
                     <span class="p-buttonset">
-                        <button pButton pRipple class="p-button-info" label="Plan de Atención" routerLink="../citas/atencion"
+                        <button pButton pRipple class="p-button-info" label="Plan de Atención"
+                                routerLink="../citas/atencion"
                                 icon="pi pi-book" style="background-color: #0c3866"
                                 (click)="atencion(rowData)"></button>
                     </span>

@@ -64,7 +64,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             { label: 'Exámenes Auxiliares', styleClass: 'icon3' },
             { label: 'Diagnostico', styleClass: 'icon4' },
             { label: 'Tratamiento', styleClass: 'icon5' },
-            { label: 'Finalizar', styleClass: 'icon6' },
+            { label: 'Acuerdos', styleClass: 'icon6' },
         ]
         await this.getQueryParams()
     }

@@ -4,10 +4,22 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ConsultaGeneralService} from "../../../consulta-principal/services/consulta-general.service";
 import {ListaConsultaService} from "../../../../services/lista-consulta.service";
 import Swal from "sweetalert2";
-import {dato, triajeInterface, SignosVitales, outputTriajeInterface} from "../../../../models/data";
+import {
+    dato,
+    triajeInterface,
+    SignosVitales,
+    outputTriajeInterface,
+    interconsultaInterface
+} from "../../../../models/data";
 
 interface formInterface {
     pro: string,
+    label: string,
+    nameFC: string
+}
+
+interface formControlInterface {
+    index: string,
     label: string,
     nameFC: string
 }
@@ -34,12 +46,13 @@ export class TriajeCredComponent implements OnInit {
     auxTriaje: outputTriajeInterface
     fecha_hoy: Date = new Date();
     data: dato
+    signosVitales: SignosVitales
+    aux: any[] = []
     my: boolean = true
     id: string;
     attributeLocalS = 'documento'
     anamnesisFC = new FormControl({value: '', disabled: false})
     obsFC = new FormControl({value: '', disabled: false})
-    auxDatosGeneralesConsulta: datosGeneralesConsulta
     stateOptions = [
         {label: 'Si', value: true},
         {label: 'No', value: false}
@@ -255,7 +268,6 @@ export class TriajeCredComponent implements OnInit {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.consulta.currentValue !== changes.consulta.previousValue) {
-            //this.fillForm()
         }
     }
 
@@ -289,7 +301,7 @@ export class TriajeCredComponent implements OnInit {
             let date: Date = new Date(this.auxTriaje.fecha)
             this.generalInfoFG.get('dateAttention').setValue(date)
             this.generalInfoFG.get('hour').setValue(date)
-            let edad = this.auxTriaje.anioEdad+ ' años ' + this.auxTriaje.mesEdad + ' meses ' + this.auxTriaje.diaEdad + ' dias'
+            let edad = this.auxTriaje.anioEdad + ' años ' + this.auxTriaje.mesEdad + ' meses ' + this.auxTriaje.diaEdad + ' dias'
             this.generalInfoFG.get('year').setValue(edad)
 
             this.examFG.get('TFC').setValue(this.auxTriaje.signosVitales.temperatura)
@@ -323,7 +335,7 @@ export class TriajeCredComponent implements OnInit {
             this.allYearFG.get('4').setValue(this.auxTriaje.listaSignosAlarma[16].valorSigno as boolean)
             this.allYearFG.get('5').setValue(this.auxTriaje.listaSignosAlarma[17].valorSigno as boolean)
 
-            this.signoPeligroFG.get('presentSigns').setValue(this.auxTriaje.noPresentaSigno)
+            this.signoPeligroFG.get('presentSigns').setValue(this.auxTriaje.presentaSigno)
             this.factorRiesgoFG.get('cuidaNinio').setValue(this.auxTriaje.factorRiesgo.cuidaNinio)
             this.factorRiesgoFG.get('participaPadre').setValue(this.auxTriaje.factorRiesgo.participaPadre)
             this.factorRiesgoFG.get('recibeAfecto').setValue(this.auxTriaje.factorRiesgo.recibeAfecto)
@@ -407,23 +419,12 @@ export class TriajeCredComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        //if (this.id !== null) this.recuperarData(this.id);
     }
 
-    /**
-     fillForm(): void {
-        this.generalInfoFG.get('name').setValue(this.consulta.datosGenerales.datosGeneralesConsulta.nombresApellidos)
-        this.generalInfoFG.get('dateAttention').setValue(new Date(this.consulta.created_at.substr(0, 10)))
-        this.generalInfoFG.get('hour').setValue(new Date('' + this.consulta.created_at))
-        const edad = this.consulta.datosGenerales.datosGeneralesConsulta.edad
-        this.generalInfoFG.get('year').setValue(edad.anio + ' años ' + edad.mes + ' meses ' + edad.dia + ' dias')
-    }**/
+    outData() {
 
-    save(): void {
-
-        const aux: any[] = []
         this.twoMonths.map((element, index) => {
-            aux.push({
+            this.aux.push({
                 codSigno: (index + 1) + '',
                 tipoEdad: 'Menor de 2 Meses',
                 nombreSigno: element.label,
@@ -431,7 +432,7 @@ export class TriajeCredComponent implements OnInit {
             })
         })
         this.twoMonthsMore.map((element, index) => {
-            aux.push({
+            this.aux.push({
                 codSigno: (index + 1) + '',
                 tipoEdad: 'De 2 meses a 4 años',
                 nombreSigno: element.label,
@@ -439,7 +440,7 @@ export class TriajeCredComponent implements OnInit {
             })
         })
         this.allYear.map((element, index) => {
-            aux.push({
+            this.aux.push({
                 codSigno: (index + 1) + '',
                 tipoEdad: 'Para todas las edades',
                 nombreSigno: element.label,
@@ -447,7 +448,7 @@ export class TriajeCredComponent implements OnInit {
             })
         })
 
-        let signosVitales: SignosVitales = {
+        this.signosVitales = {
             temperatura: this.examFG.value.TFC,
             presionSistolica: this.examFG.value.PSFC,
             presionDiastolica: this.examFG.value.PDFC,
@@ -458,11 +459,15 @@ export class TriajeCredComponent implements OnInit {
             imc: this.examFG.value.imcFC,
             perimetroCefalico: this.examFG.value.PCFC
         }
+    }
+
+    save(): void {
+        this.outData()
         const req: triajeInterface = {
-            signosVitales: signosVitales,
-            listaSignosAlarma: aux,
+            signosVitales: this.signosVitales,
+            listaSignosAlarma: this.aux,
             obsSignosVitales: this.obsFC.value,
-            noPresentaSigno: this.signoPeligroFG.get('presentSigns').value,
+            presentaSigno: this.signoPeligroFG.get('presentSigns').value,
             factorRiesgo: this.factorRiesgoFG.value,
             anamnesis: this.anamnesisFC.value
         }
@@ -490,8 +495,35 @@ export class TriajeCredComponent implements OnInit {
         }
     }
 
-    save2(): void {
-
+    saveInterconsulta(): void {
+        this.outData()
+        const req: interconsultaInterface = {
+            signosVitales: this.signosVitales,
+            listaSignosAlarma: this.aux,
+            obsSignosVitales: this.obsFC.value,
+            presentaSigno: this.signoPeligroFG.get('presentSigns').value
+        }
+        console.log('req', req)
+        if (req) {
+            this.consultaService.crearInterconsulta(this.data.nroDocumento, req).subscribe(
+                (r: any) => {
+                    /*let data: dato = {
+                        nroDocumento: this.data.nroDocumento,
+                        tipoDoc: this.data.tipoDoc,
+                        idConsulta: r.object.id
+                    }
+                    localStorage.setItem(this.attributeLocalS, JSON.stringify(data));*/
+                    console.log('respuesta ', r)
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizado correctamente',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+            )
+        }
     }
 
     calcularEdad(fecha: string) {
@@ -541,88 +573,18 @@ export class TriajeCredComponent implements OnInit {
         this.dia = dias
     }
 
-    onNext() {
-        this.save()
-    }
-
     cambio(e) {
         this.my = !e.value
     }
 
     getExamenes(): void {
-        this.router.navigate(['/dashboard/cred/citas/atencion/examenes'],
-            {
-                /**queryParams: {
-                    'tipoDoc': this.tipoDoc,
-                    'nroDoc': this.nroDoc,
-                }**/
-            })
+        this.saveInterconsulta()
+        this.router.navigate(['/dashboard/cred/citas/atencion/examenes'])
     }
 
     getConsultaPrincipal(): void {
-        this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'],
-            {
-                /**queryParams: {
-                    'tipoDoc': this.tipoDoc,
-                    'nroDoc': this.nroDoc,
-                }**/
-            })
+        if (this.data.idConsulta === '') this.save()
+        this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
     }
-}
-
-interface datosGeneralesConsulta {
-    anamnesis: string,
-    descarteSignosPeligro: descarteSignosPeligroInterface,
-    datosGeneralesConsulta: datosGeneralesConsultaInterface
-}
-
-interface datosGeneralesConsultaInterface {
-    tipoDocPaciente: string,
-    nroDocPaciente: string,
-    nroHistoria: string,
-    nombresApellidos: string,
-    fechaAtencionConsulta: string,
-    hora: string,
-    fechaNacimiento: string,
-    fechaActual: string,
-    edad: edadInterface
-}
-
-interface descarteSignosPeligroInterface {
-    menor2M: menor2MInterface[],
-    menor2Ma4A: menor2MInterface[],
-    todasLasEdades: menor2MInterface[],
-    noPresentaSigno: boolean,
-    factorRiesgo: factorRiesgoInterface
-}
-
-interface factorRiesgoInterface {
-    cuidaNinio: string,
-    participaPadre: string,
-    recibeAfecto: string,
-    especificacion: string
-}
-
-interface menor2MInterface {
-    codigo: string,
-    valor: boolean,
-    descripcion: string,
-}
-
-interface formControlInterface {
-    index: string,
-    label: string,
-    nameFC: string
-}
-
-interface data {
-    tipoDoc: string,
-    nroDoc: string
-}
-
-interface edadInterface {
-    anio: number,
-    mes: number,
-    dia: number
 }
 

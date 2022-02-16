@@ -22,6 +22,11 @@ export class ListaConsultaService {
         return this.http.get(url)
     }
 
+    crearInterconsulta(dni: string, data) {
+        const url = `${this.base_url}/hce/cred/consulta/crear/interconsulta/${dni}`
+        return this.http.post(url, data)
+    }
+
     crearConsulta(dni: string, data) {
         const url = `${this.base_url}/hce/cred/consulta/crear/${dni}`
         return this.http.post(url, data)
