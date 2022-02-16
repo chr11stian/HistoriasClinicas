@@ -4,6 +4,7 @@ import {TepsiService} from "../../services/tepsi.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute} from "@angular/router";
 import {elementAt} from "rxjs/operators";
+import {element} from "protractor";
 
 @Component({
   selector: 'app-tepsi',
@@ -17,18 +18,18 @@ export class TepsiComponent implements OnInit {
                   [false,false,false,false,false,false,false,false,false,false,false,false]];
   subPreguntas=[
   [false,false,false,false,false,false,false,false],
-  [false,false,false,false,false,false,false,false,false,false,false,false],
-  [false,false,false,false,false,false,false,false,false,false,false,false],
-  [false,false,false,false,false,false,false,false,false,false,false,false],
-   [false,false,false,false,false,false,false,false,false,false,false,false],
-   [false,false,false,false,false,false,false,false,false,false,false,false],
-   [false,false,false,false,false,false,false,false,false,false,false,false],
-   [false,false,false,false,false,false,false,false,false,false,false,false],
-   [false,false,false,false,false,false,false,false,false,false,false,false],
-   [false,false,false,false,false,false,false,false,false,false,false,false],
-   [false,false,false,false,false,false,false,false,false,false,false,false],
-   [false,false,false,false,false,false,false,false,false,false,false,false],
-   [false,false,false,false,false,false,false,false,false,false,false,false]]
+  [false,false,false,false,false,false,false,false],
+  [false,false,false,false],
+  [false,false,false,false,false,false,false,false],
+   [false,false,false],
+   [false,false,false],
+   [false,false,false],
+   [false,false,false],
+   [false,false,false],
+   [false,false,false],
+   [false,false,false],
+   [false,false,false],
+   [false,false,false]]
   tablaPuntajeTotal:any[];
   tablaSubTest:any[]=[];
   datosGeneralesFG:FormGroup;
@@ -82,13 +83,29 @@ export class TepsiComponent implements OnInit {
         this.getFC('nombreExaminador').setValue(resultado['docExaminador'])
         this.arregloSubtest[0]= this.reconstruirTest(resultado['subTestCoordinacion']['listItemTest']);
         this.calcularResultadoSubTest1(1)
+
         this.arregloSubtest[1]= this.reconstruirTest(resultado['subTestLenguaje']['listItemTest']);
         this.calcularResultadoSubTest1(2)
+        this.resconstruirSubPreguntas((resultado['subTestLenguaje']['listItemTest']));
+
         this.arregloSubtest[2]= this.reconstruirTest(resultado['subTestMotricidad']['listItemTest']);
         this.calcularResultadoSubTest1(3)
-        console.log('resultado deeeeeeeeeeeeeeeeeeee',this.arregloSubtest[2])
+
       }
     })
+  }
+  resconstruirSubPreguntas(arregloLenguaje){
+    // this.subPreguntas=[]
+    this.subPreguntas.forEach((element,index)=>{
+        this.subPreguntas[index]=this.recuperarTrueFalse(arregloLenguaje[this.indicePregunta[index]-1].listaPreguntas)
+      })
+    console.log('respuesta',this.subPreguntas);
+  }
+  recuperarTrueFalse(arreglo){
+    let arregloAux=arreglo.map((element)=>{
+      return element.valor;
+    })
+    return arregloAux
   }
   determinarRango(){
     if((this.anioEdad==2 && this.mesEdad<=5)||(this.anioEdad==2 && this.mesEdad==6 && this.diaEdad==0) ) {
@@ -155,7 +172,7 @@ export class TepsiComponent implements OnInit {
   }
   calcularEdadDinamico(fechaInput:Date){
     //fecha ingresada
-    let fechaNacimiento: Date = new Date("01/01/2018"); //requeriremos la fecha de nacimiento//formato dia/mes/año
+    let fechaNacimiento: Date = new Date("2018-06-17 00:00:00"); //requeriremos la fecha de nacimiento//formato mes/dia/año
     let dia = fechaNacimiento.getDate()
     let mes = fechaNacimiento.getMonth() + 1
     let ano = fechaNacimiento.getFullYear()
@@ -338,9 +355,9 @@ export class TepsiComponent implements OnInit {
         codigoPrestacion:"0001",
         testTepsi:{
           edad:{
-            anio:'3',
-            mes:'5',
-            dia:'1'
+            anio:this.anioEdad,//todo debe ser la misma fecha recuperada
+            mes:this.mesEdad,
+            dia:this.diaEdad
           },
           fechaAtencion:`${fecha[0]} ${hora}`,
           docExaminador:this.getFC('nombreExaminador').value,
@@ -361,7 +378,7 @@ export class TepsiComponent implements OnInit {
             puntajeBruto:this.resultadoA[2].puntajeBruto,
             puntajeT:this.resultadoA[2].puntajeT,
             categoria:this.resultadoA[2].categoria,
-            listItemTest:this.determinarArreglo('L',this.arregloSubtest[1])
+            listItemTest:this.determinarArreglo2('L',this.arregloSubtest[1])
           },
           subTestMotricidad:{
             tipoSubTest:"MOTRICIDAD",
@@ -403,6 +420,26 @@ export class TepsiComponent implements OnInit {
     })
     return arregloAux
   }
+  determinarArreglo2(letra:string,arreglo:any[]){
+    let arregloAux:any[]=[];
+    let auxPregunta;
+    arreglo.forEach((item,index)=>{
+      auxPregunta={codigo:`${index+1}${letra}`,valor:item?1:0}
+      arregloAux.push(auxPregunta)
+    })
+    console.log(arregloAux);
+    this.indicePregunta.forEach((element,index)=>{
+      arregloAux[element-1].listaPreguntas=this.construirEstructura(this.subPreguntas[index])
+    })
+    return arregloAux
+  }
+  construirEstructura(arreglo:any[]){
+    const arregloAux=arreglo.map((element,index)=>{
+      return {nroPregunta:index+1,valor:element}
+    })
+    return arregloAux
+  }
+
 }
 interface resultado {
   puntajeBruto: number,
