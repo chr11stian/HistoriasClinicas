@@ -3,7 +3,7 @@
         <p-fieldset legend="MOTIVOS DE CONSULTA" styleClass="mb-2">
             <form [formGroup]="motivoFG">
                 <textarea class="inputfield w-full mb-2" formControlName="detailMotivoFC" pInputTextarea
-                    oninput="this.value=this.value.toUpperCase()"></textarea>
+                          oninput="this.value=this.value.toUpperCase()"></textarea>
             </form>
         </p-fieldset>
     </div>
@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-6 md:col-2">
                                 <input type="number" pInputText [formControlName]="controlFC.nameFC"
-                                    class="inputfield w-full" />
+                                       class="inputfield w-full"/>
                             </div>
                         </ng-container>
                     </div>
@@ -37,8 +37,8 @@
                         <div class="col-12 ">
                             <label>Piel y Faneras (cabello, uñas):</label>
                             <input type="text" pInputText formControlName='piel' placeholder="Piel y Faneras"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(1)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(1)">
                         </div>
                     </div>
                 </div>
@@ -47,8 +47,8 @@
                         <div class="col-12 ">
                             <label>Cabeza:</label>
                             <input type="text" pInputText formControlName='cabeza' placeholder="Cabeza"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(2)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(2)">
                         </div>
                     </div>
                 </div>
@@ -57,8 +57,8 @@
                         <div class="col-12 ">
                             <label>Cara:</label>
                             <input type="text" pInputText formControlName='cara' placeholder="Cara"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(3)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(3)">
                         </div>
                     </div>
                 </div>
@@ -67,8 +67,8 @@
                         <div class="col-12">
                             <label>Cuello:</label>
                             <input type="text" pInputText formControlName='cuello' placeholder="Cuello"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(4)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(4)">
                         </div>
                     </div>
                 </div>
@@ -77,8 +77,8 @@
                         <div class="col-12">
                             <label>Tórax:</label>
                             <input type="text" pInputText formControlName='torax' placeholder="Torax"
-                                class=" inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(5)">
+                                   class=" inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(5)">
                         </div>
                     </div>
                 </div>
@@ -87,8 +87,8 @@
                         <div class="col-12">
                             <label>Abdomen:</label>
                             <input type="text" pInputText formControlName='abdomen' placeholder="Abdomen"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(6)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(6)">
                         </div>
                     </div>
                 </div>
@@ -97,8 +97,8 @@
                         <div class="col-12 ">
                             <label>Columna Vertebral:</label>
                             <input type="text" pInputText formControlName='columnaVert' placeholder="Columna Vertebral"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(7)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(7)">
                         </div>
                     </div>
                 </div>
@@ -107,8 +107,8 @@
                         <div class="col-12 ">
                             <label>Extremidades:</label>
                             <input type="text" pInputText formControlName='extremidades' placeholder="Extremidades"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(8)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(8)">
                         </div>
                     </div>
                 </div>
@@ -117,8 +117,8 @@
                         <div class="col-12 ">
                             <label>Genitouriano:</label>
                             <input type="text" pInputText formControlName='genitouriano' placeholder="Genitouriano"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(9)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(9)">
                         </div>
                     </div>
                 </div>
@@ -127,25 +127,15 @@
                         <div class="col-12 ">
                             <label>Ano:</label>
                             <input type="text" pInputText formControlName='ano' placeholder="Ano"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(10)">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="grid">
-                        <div class="col-12 ">
-                            <label>Examen Neurológico:</label>
-                            <input type="text" pInputText formControlName='examNeurologico'
-                                placeholder="Examen Neurológico" class="inputfield w-full"
-                                oninput="this.value=this.value.toUpperCase()">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(10)">
                         </div>
                     </div>
                 </div>
                 <div class="col-12">
                     <label>Observaciones de Examen Físico:</label>
                     <textarea class="p-fluid w-full" rows="3" cols="85" pInputTextarea formControlName="obsExamenFisico"
-                        oninput="this.value=this.value.toUpperCase()"></textarea>
+                              oninput="this.value=this.value.toUpperCase()"></textarea>
                 </div>
             </div>
         </form>
@@ -158,8 +148,8 @@
                         <div class="col-12 ">
                             <label>Olfatorio:</label>
                             <input type="text" pInputText formControlName='olfatorio' placeholder="Olfatorio"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(12)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(12)">
                         </div>
                     </div>
                 </div>
@@ -168,8 +158,8 @@
                         <div class="col-12 ">
                             <label>Óptico:</label>
                             <input type="text" pInputText formControlName='optico' placeholder="Óptico"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(13)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(13)">
                         </div>
                     </div>
                 </div>
@@ -178,8 +168,8 @@
                         <div class="col-12 ">
                             <label>Oculomoteres:</label>
                             <input type="text" pInputText formControlName='oculomotores' placeholder="Óptico"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(14)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(14)">
                         </div>
                     </div>
                 </div>
@@ -188,8 +178,8 @@
                         <div class="col-12 ">
                             <label>Trigémino:</label>
                             <input type="text" pInputText formControlName='trigemino' placeholder="Trigémino"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(15)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(15)">
                         </div>
                     </div>
                 </div>
@@ -198,8 +188,8 @@
                         <div class="col-12 ">
                             <label>Facial:</label>
                             <input type="text" pInputText formControlName='facial' placeholder="Facial"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(16)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(16)">
                         </div>
                     </div>
                 </div>
@@ -208,8 +198,8 @@
                         <div class="col-12 ">
                             <label>Auditivo:</label>
                             <input type="text" pInputText formControlName='auditivo' placeholder="Auditivo"
-                                class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
-                                (focus)="openAlert(18)">
+                                   class="inputfield w-full" oninput="this.value=this.value.toUpperCase()"
+                                   (focus)="openAlert(18)">
                         </div>
                     </div>
                 </div>
@@ -218,8 +208,8 @@
                         <div class="col-12 ">
                             <label>Glosofaringeo y Neumogástrico:</label>
                             <input type="text" pInputText formControlName='glosoNeumo'
-                                placeholder="Glosofaringeo y Neumogástrico" class="inputfield w-full"
-                                oninput="this.value=this.value.toUpperCase()" (focus)="openAlert(19)">
+                                   placeholder="Glosofaringeo y Neumogástrico" class="inputfield w-full"
+                                   oninput="this.value=this.value.toUpperCase()" (focus)="openAlert(19)">
                         </div>
                     </div>
                 </div>
@@ -228,8 +218,8 @@
                         <div class="col-12 ">
                             <label>Espinal:</label>
                             <input type="text" pInputText formControlName='espinal'
-                                placeholder="Glosofaringeo y Neumogástrico" class="inputfield w-full"
-                                oninput="this.value=this.value.toUpperCase()" (focus)="openAlert(20)">
+                                   placeholder="Glosofaringeo y Neumogástrico" class="inputfield w-full"
+                                   oninput="this.value=this.value.toUpperCase()" (focus)="openAlert(20)">
                         </div>
                     </div>
                 </div>
@@ -237,16 +227,17 @@
                     <div class="grid">
                         <div class="col-12 ">
                             <label>Hipogloso:</label>
-                            <input type="text" pInputText formControlName='glosoNeumo'
-                                placeholder="Glosofaringeo y Neumogástrico" class="inputfield w-full"
-                                oninput="this.value=this.value.toUpperCase()" (focus)="openAlert(21)">
+                            <input type="text" pInputText formControlName='hipogloso'
+                                   placeholder="Glosofaringeo y Neumogástrico" class="inputfield w-full"
+                                   oninput="this.value=this.value.toUpperCase()" (focus)="openAlert(21)">
                         </div>
                     </div>
                 </div>
                 <div class="col-12">
                     <label>Observaciones de Examen Neurológico:</label>
                     <textarea class="p-fluid w-full" rows="3" cols="85" pInputTextarea
-                        formControlName="obsExamenNeurologico" oninput="this.value=this.value.toUpperCase()"></textarea>
+                              formControlName="obsExamenNeurologico"
+                              oninput="this.value=this.value.toUpperCase()"></textarea>
                 </div>
             </div>
         </form>
@@ -254,7 +245,7 @@
 </div>
 <!-- DIALOG ADD RESULTADOS EXAMENES AUXILIARES -->
 <p-dialog class="dialogo m-4" [(visible)]="skinAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
-    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+          position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
@@ -264,22 +255,28 @@
                     <li>Observar en la piel el color, turgencia (elasticidad), hidratación,
                         temperatura (cianosis, ictericia, palidez), valorar y describir la presencia de lesiones o
                         anormalidades como: eritema, pápula, macula, vesícula, ampolla, edema, escoriación y eccema
-                        (descartar dermatitis atópica);</li>
+                        (descartar dermatitis atópica);
+                    </li>
                     <li>Considerar la medición del diámetro de un hemangioma, manchas y lunares (coloración y
-                        engrosamiento), presencia de edema, manchas, lunares.</li>
+                        engrosamiento), presencia de edema, manchas, lunares.
+                    </li>
                     <li>La coloración verdosa en zona sacro coccígea, son llamadas manchas
-                        mongólicas, son normales y desaparecen aproximadamente entre los dos años de edad.</li>
+                        mongólicas, son normales y desaparecen aproximadamente entre los dos años de edad.
+                    </li>
                     <li>Observar irritación o erupción de la piel por contacto prolongado con
                         pañal mojado (Dermatitis perineal, perianal o en los pliegues de las
                         ingles). Cuando hay presencia de hongos en la piel se observará lesiones
                         eritematosa con bordes precisos (Dermatomicosis perineal). Derivar al
-                        pediatra.</li>
+                        pediatra.
+                    </li>
                     <li>Verificar en el cabello la textura (quebradizo) y coloración, tipo de implantación, cantidad.
                     </li>
                     <li>Las uñas deben ser lisas y redondas, observar: el color, fragilidad (quebradizas), forma,
-                        limpieza y la presencia de uñeros. Realizar prueba del llenado capilar.</li>
+                        limpieza y la presencia de uñeros. Realizar prueba del llenado capilar.
+                    </li>
                     <li>Observar signos sospechosos de violencia (moretones, quemaduras y
-                        otros).</li>
+                        otros).
+                    </li>
                     <li>Valorar el estado de higiene.</li>
                 </ul>
             </div>
@@ -287,7 +284,7 @@
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="headAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
-    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+          position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
@@ -296,19 +293,22 @@
                 <ul>
                     <li>Palpar las suturas y fontanelas: si las fontanelas están prematuramente cerradas pensar en:
                         microcefalia, craneosinostosis,
-                        hipertiroidismo, derivar al especialista y realizar seguimiento.</li>
+                        hipertiroidismo, derivar al especialista y realizar seguimiento.
+                    </li>
                     <li>Verificar si las fontanelas están abombadas para identificar hipertensión endocraneana,
                         meningitis. Si la fontanela está más amplia de lo normal puede deberse a hidrocefalia,
-                        hipotiroidismo, prematuridad, malnutrición.</li>
+                        hipotiroidismo, prematuridad, malnutrición.
+                    </li>
                     <li>Si encuentran las suturas cabalgadas, observar y realizar seguimiento con el control del
-                        Perímetrico Cefálico y compararlas con el padrón de referencia.</li>
+                        Perímetrico Cefálico y compararlas con el padrón de referencia.
+                    </li>
                 </ul>
             </div>
         </div>
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="faceAlert" [style]="{width: '60%'}" [modal]="true" styleClass="p-fluid"
-    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+          position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
@@ -330,25 +330,30 @@
                     <ul>
                         <li>Párpados: oobservar presencia del párpado caído que tapa el eje visual (ptosis palpebral),
                             edema, inflamación; si las pestañas se encuentran invertidas, rozando la conjuntiva
-                            (entropión), o evertido, dejando a la conjuntiva expuesta (ectropión).</li>
+                            (entropión), o evertido, dejando a la conjuntiva expuesta (ectropión).
+                        </li>
                         <li>La presencia de un repliegue del párpado, del superior al inferior (epicantos).</li>
                         <li>Conjuntivas y escleróticas: color (rojo, palidez, ictericia, esclera azulada), secreción.
                         </li>
                         <li>Iris: cambios de color.</li>
                         <li>Pupilas: presencia de reflejo pupilar; observar forma, color. La pupila blanca (leucocoria)
-                            puede ser catarata congénita o retinoblastoma, entre otras causas.</li>
+                            puede ser catarata congénita o retinoblastoma, entre otras causas.
+                        </li>
                         <li>Reflejo rojo binocular debe estar presente.</li>
                         <li>Globos oculares: observar si estos son pequeños (microftalmos o
                             nanoftalmos) o más grandes de lo considerado normal (glaucoma
-                            congénito).</li>
+                            congénito).
+                        </li>
                         <li>Evaluar el movimiento de seguimiento de ambos ojos aplicando el Test de
                             Hirschberg y de cubrir/descubrir. A partir de los 6 meses de edad, ver la
                             posición, si están desviados hacia adentro, fuera, arriba o abajo
                             (descartar estrabismo). El especialista realizará otras pruebas específicas
                             como las opacidades en la transparencia de los medios oculares (Reflejo
-                            Luminoso Corneal o Test de Bruckner).</li>
+                            Luminoso Corneal o Test de Bruckner).
+                        </li>
                         <li>Evaluación de fijación monocular: aplicación del test cubrir/descubrir
-                            (cover/uncover).</li>
+                            (cover/uncover).
+                        </li>
                         <li>Realizar la agudeza visual a partir de los tres años de edad.</li>
                     </ul>
                     <div class="ml-2 mb-2">
@@ -360,13 +365,16 @@
                         <label>BOCA: </label>
                         <ul>
                             <li>Descartar presencia de frenillo lingual corto, labio y/o paladar fisurado,
-                                maloclusiones. Referir al especialista.</li>
+                                maloclusiones. Referir al especialista.
+                            </li>
                             <li>Levantar el labio superior para detectar precozmente cambios de color o cavidades en los
-                                incisivos superiores y verificar higiene bucal.</li>
+                                incisivos superiores y verificar higiene bucal.
+                            </li>
                             <li>A los 3 años, contar 20 dientes primarios.</li>
                             <li>Dar pautas de higiene bucal y cepillado con pasta fluorada.</li>
                             <li>Referir al odontólogo para procedimientos preventivos y recuperativos (de ser
-                                necesario).</li>
+                                necesario).
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -375,7 +383,7 @@
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="neckAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
-    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+          position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
@@ -383,7 +391,8 @@
                 <ul>
                     <li>Explorar simetría, flexibilidad, presencia de dolor, tumoraciones, aumento de volumen de los
                         ganglios linfáticos cervicales o mandibulares y barbilla, de cada lado de la parte frontal o en
-                        ambos lados del cuello y por debajo de cada lado de la parte posterior.</li>
+                        ambos lados del cuello y por debajo de cada lado de la parte posterior.
+                    </li>
                     <li>Palpar detrás de los oídos y sobre la parte posterior de la cabeza.</li>
                     <li>Según corresponda referir para evaluación o tratamiento al nivel correspondiente.</li>
                     <li>De ser posible, evaluar la glándula tiroidea, buscando bocio congénito, nódulos o tumoraciones.
@@ -394,7 +403,7 @@
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="thoraxAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
-    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+          position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
@@ -402,14 +411,18 @@
                 <ul>
                     <li>Observar la expansibilidad torácica, la frecuencia respiratoria al minuto,
                         las características de los movimientos respiratorios, buscar de tiraje
-                        intercostal.</li>
+                        intercostal.
+                    </li>
                     <li>Inspeccionar el agrandamiento de la glándula mamaria o presencia de
-                        secreción láctea (normal en recién nacidos).</li>
+                        secreción láctea (normal en recién nacidos).
+                    </li>
                     <li>Auscultar ruidos normales y anormales cardiacos (soplos) y/o
-                        respiratorios (sibilantes, roncos, estertores).</li>
+                        respiratorios (sibilantes, roncos, estertores).
+                    </li>
                     <li>Observar asimetrías, deformaciones (tórax en quilla, pectumexcavatum),</li>
                     <li>En casos de cardiopatía, observar la presencia de cianosis distal, perioral, taquicardia,
-                        lactancia materna entrecortada por cansancio durante la succión y diaforesis.</li>
+                        lactancia materna entrecortada por cansancio durante la succión y diaforesis.
+                    </li>
                     <li>De ser patológica derivar al especialista.</li>
                 </ul>
             </div>
@@ -417,7 +430,7 @@
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="abdomenAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
-    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+          position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
@@ -425,13 +438,16 @@
                 <ul>
                     <li>Observar en el abdomen forma, motilidad de la pared abdominal (distendido o excavado), palpar la
                         protuberancia umbilical: el tamaño y la retractilidad, signos inflamatorios (descartar hernia
-                        umbilical), en el caso de granuloma umbilical si existe secreción serohemática.</li>
+                        umbilical), en el caso de granuloma umbilical si existe secreción serohemática.
+                    </li>
                     <li>Inspeccionar si hay crecimiento del hígado por debajo del reborde costal
                         (que es normal durante el primer mes), bazo y la presencia de masas o
-                        hernias.</li>
+                        hernias.
+                    </li>
                     <li>Auscultar los ruidos hidroaéreos, si se encuentran ausentes o aumentados.</li>
                     <li>Palpar hernia inguinal: la protrusión en la zona inguinal o inguino
-                        escrotal, se presenta durante el llanto o al pujo y disminuye al reposo.</li>
+                        escrotal, se presenta durante el llanto o al pujo y disminuye al reposo.
+                    </li>
                     <li>Referir al especialista.</li>
                 </ul>
             </div>
@@ -439,7 +455,7 @@
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="spineAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
-    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+          position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
@@ -447,13 +463,16 @@
                 <ul>
                     <li>Observar asimetrías, rigidez y postura cuando la niña o niño está sentado, de pie y acostado,
                         verificando si hay desviaciones de la curvatura normal de la columna. Deben encontrarse
-                        alineadas desde las vértebras cervicales hasta la línea interglútea.</li>
+                        alineadas desde las vértebras cervicales hasta la línea interglútea.
+                    </li>
                     <li>En el recién nacido evaluar presencia de un bulto graso, mancha rojiza,
                         zona de pelos largos anormales u orificio cutáneo en cualquier zona
                         desde el cuello a la región sacrocoxígea (descartar espina bífida o espina
-                        bífida oculta). Derivar al especialista.</li>
+                        bífida oculta). Derivar al especialista.
+                    </li>
                     <li>Fóvea pilodinal es la presencia de una depresión o fosa en la región sacra.
-                        Debe mantenerse en buen estado de higiene a fin de evitar infecciones.</li>
+                        Debe mantenerse en buen estado de higiene a fin de evitar infecciones.
+                    </li>
                     <li>La lordosis, escoliosis y xifosis, se evalúan en especial en niños mayores de 2 años.</li>
                 </ul>
             </div>
@@ -461,7 +480,7 @@
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="extremitiesAlert" [style]="{width: '50%'}" [modal]="true"
-    styleClass="p-fluid" position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+          styleClass="p-fluid" position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
@@ -473,48 +492,56 @@
                     <div *ngIf="edad<3" class="imagen-barlow"></div>
                     <div *ngIf="edad>=3" class="imagen-ortolani"></div>
                     <li>Otros hallazgos pueden ser acortamiento de uno de los miembros; limitación en la abducción, en
-                        el lado afectado y asimetría de pliegues.</li>
+                        el lado afectado y asimetría de pliegues.
+                    </li>
                     <li>El manejo se realizará de acuerdo a las guías de práctica clínica vigente.</li>
                     <li *ngIf="edad==18">Observar piernas arqueadas y difcultad en la marcha.</li>
                     <li *ngIf="edad >= 24">Examinar el arco plantar para diagnosticar pie plano.</li>
                     <li>En todos estos casos derivar al médico o especialista en Traumatología, para su manejo de
-                        acuerdo a guía de práctica clínica vigente.</li>
+                        acuerdo a guía de práctica clínica vigente.
+                    </li>
                     <li>Recomendar a la madre, padre o cuidador no usar andador y forzar a andar a su niña o niño.</li>
                     <li>Según las condiciones de salubridad, recomendar no usar zapatos o zapatillas antes de la marcha
-                        estable.</li>
+                        estable.
+                    </li>
                 </ul>
             </div>
         </div>
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="genitourianAlert" [style]="{width: '40%'}" [modal]="true"
-    styleClass="p-fluid" position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+          styleClass="p-fluid" position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
                 <h4 class="text-blue-700">GENITOURIANO</h4>
                 <ul>
                     <li>Observar el tamaño y forma de los genitales externos, higiene, presencia de inflamación, dolor o
-                        secreciones, búsqueda de algún signo sospechoso deviolencia.</li>
+                        secreciones, búsqueda de algún signo sospechoso deviolencia.
+                    </li>
                     <div class="mt-2">
                         <li *ngIf="genero=='MASCULINO'"><label *ngIf="genero=='MASCULINO'">NIÑO: </label><span
                                 *ngIf="genero=='MASCULINO'">determinar el tamaño, ubicación, palpación de los testículos
                                 y volumen.</span></li>
                         <li *ngIf="genero=='FEMENINO'"><label *ngIf="genero=='FEMENINO'" class="mt-2">NIÑA:
-                            </label><span *ngIf="genero=='FEMENINO'">observar labios mayores menores, clítoris, himen.
+                        </label><span *ngIf="genero=='FEMENINO'">observar labios mayores menores, clítoris, himen.
                                 Detectar adherencias anormales de labios (labios menores unidos y no se observa
                                 himen).</span></li>
                         <li>No hacer ningún tipo de ejercicios porque la mala manipulación produce
-                            inflamación, dolor o infecciones urinarias.</li>
+                            inflamación, dolor o infecciones urinarias.
+                        </li>
                         <li>Criptorquidia, si ambos o uno de los testículos han descendido o están
-                            ausentes.</li>
+                            ausentes.
+                        </li>
                         <li>Hidrocele, aumento de volumen de la zona escrotal de consistencia liquida.
                             No derivar antes del año, pero descartar en caso que sea tenso y grande
-                            (presencia de una masa que puede ser hernia escrotal).</li>
+                            (presencia de una masa que puede ser hernia escrotal).
+                        </li>
                         <li>Fimosis: observar el pene en la zona del prepucio, la estrechez del orificio del
                             prepucio impide la salida del glande o al retraerlo hay adherencias (balano
                             prepucial). Referir a partir de los dos años edad (Se le denomina fimosis
-                            fisiológica)</li>
+                            fisiológica)
+                        </li>
                         <li>Epispadias: es cuando hay meato uretral en la zona dorsal del pene.</li>
                         <li>Hipospadia: hay meato uretral debajo de la punta del pene.</li>
                         <li>En todos estos casos referir al médico o al especialista en cirugía pediátrica.</li>
@@ -525,7 +552,7 @@
     </ng-template>
 </p-dialog>
 <p-dialog class="dialogo m-4" [(visible)]="anusAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
-    position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
+          position="left" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
@@ -534,10 +561,12 @@
                     <li>En recién nacidos verificar características y permeabilidad.</li>
                     <li>En los niños de mayores de 2 meses de edad, en posición de cúbito dorsal,
                         observar fisuras, erupciones, cicatrices, fístulas perianales o malformaciones
-                        ano-rectales.</li>
+                        ano-rectales.
+                    </li>
                     <li>Valorar la eliminación: preguntar al padre/cuidador por las características de
                         las deposiciones, si estas son duras, secas y están acompañadas de esfuerzo
-                        (estreñimiento).</li>
+                        (estreñimiento).
+                    </li>
                     <li>Estar atentos ante un algún signo de violencia o maltrato.</li>
                     <li>En todos estos casos referir al médico o al especialista en cirugía pediátrica.</li>
                 </ul>
@@ -547,7 +576,7 @@
 </p-dialog>
 <!-- ALERTAS PARA EXAMEN NEUROLOGICO -->
 <p-dialog class="dialogo m-4" [(visible)]="olfactoryAlert" [style]="{width: '40%'}" [modal]="true" styleClass="p-fluid"
-    position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
+          position="right" [transitionOptions]="'200ms'" [dismissableMask]="true">
     <ng-template pTemplate="body">
         <div class="grid">
             <div class="col-12">
@@ -555,7 +584,8 @@
                 <ul>
                     <li>Se valora utilizando sustancias de olores conocidos (clavo de olor, café, perfume, etc.),
                         evaluar cada fosa nasal por separado (solicitar que el niño o niña mantenga la boca y ojos
-                        cerrados).</li>
+                        cerrados).
+                    </li>
                     <li>En el recién nacido se explora poco por lo difícil de obtener una respuesta.</li>
                 </ul>
             </div>

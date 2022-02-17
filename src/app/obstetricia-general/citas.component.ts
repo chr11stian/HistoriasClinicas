@@ -23,6 +23,7 @@ export class CitasComponent implements OnInit {
     options: data[]
     selectedOption: data
     citas: any[]
+    loading: boolean = true;
 
 
     dataCitas: any;
@@ -95,6 +96,7 @@ export class CitasComponent implements OnInit {
 
         this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
             this.DataCupos = res.object;
+            this.loading = false;
             console.log('LISTA DE CUPOS POR SERVICIO ', this.DataCupos);
         })
     }
@@ -157,11 +159,19 @@ export class CitasComponent implements OnInit {
     }
 
 
+
+    enviarData2(event) {
+        this.obstetriciaGeneralService.tipoDoc = null;
+        this.obstetriciaGeneralService.nroDoc = null;
+        console.log("BUSQUEDA DNI SIN CUPO EVENTO", event);
+        this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
+        this.obstetriciaGeneralService.nroDoc = event.nroDoc;
+    }
+
     enviarData(event) {
         this.obstetriciaGeneralService.tipoDoc = null;
         this.obstetriciaGeneralService.nroDoc = null;
-        console.log("EVENTO", event);
-        // this.obstetriciaGeneralService.observable$.emit(event.id);
+        console.log("LISTA DE CUPOS EVENTO", event);
         this.obstetriciaGeneralService.tipoDoc = event.paciente.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = event.paciente.nroDoc;
     }

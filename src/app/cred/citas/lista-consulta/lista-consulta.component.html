@@ -1,23 +1,21 @@
 <div>
     <p-panel>
         <ng-template pTemplate="header">
-            <label class="">GESTACIONES DEL PACIENTE</label>
+            <label class="">CONSULTAS DEL PACIENTE</label>
         </ng-template>
         <div class="">
             <div class="grid">
                 <div class="col-12 md:col-6 lg:col-1 p-field">
                     <div class="col-12 md:col-6 lg:col-1 p-field">
                         <div class="image-container">
-                            <p-image src="assets/images/paciente.jpg" alt="Image" width="35"></p-image>
+                            <!--<p-image src="assets/images/paciente.jpg" alt="Image" width="35"></p-image>-->
                         </div>
                     </div>
-
                 </div>
-
-                <div class="col-12 md:col-6 lg:col-11 p-field">
+                <div class="col-12 md:col-12 lg:col-11 p-field justify-content-center">
                     <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-2 p-field">
-                            <div class="p-inputgroup">
+                        <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <div class="p-inputgroup justify-content-end">
                                 <label>{{tipoDoc}}:</label>
                             </div>
                         </div>
@@ -28,8 +26,8 @@
                         </div>
                     </div>
                     <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-2 p-field">
-                            <div class="p-inputgroup">
+                        <div class="col-12 md:col-6 lg:col-4 p-field">
+                            <div class="p-inputgroup justify-content-end">
                                 <label>APELLIDOS Y NOMBRES:</label>
                             </div>
                         </div>
@@ -41,56 +39,47 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-
     </p-panel>
-
 
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
             <span class="p-m-0">
-                LISTA DE CONSULTA REALIZADAS EL DIA DE HOY
+                LISTA DE CONSULTAS
             </span>
         </ng-template>
-        <ng-template pTemplate="right" class="button">
-            <button pButton pRipple routerLink="obstetricia" label=" Nuevo Embarazo" icon="pi pi-plus"
-                    class="p-button-raised p-button-primary" (click)="newEmbarazo()"
-                    [disabled]="filiacionUltimaPosicion!=='FINALIZADO'"></button>
+        <ng-template pTemplate="right">
+            <button pButton pRipple class="p-button-info" label="Nueva Consulta" routerLink="../citas/atencion"
+                    style="background-color: #0c3866" icon="pi pi-book"></button>
         </ng-template>
     </p-toolbar>
 
-
-    <p-table [value]="pacientesFiliacion" #dt styleClass="p-datatable-gridlines" [rows]="10"
+    <p-table [value]="dataConsulta" #dt styleClass="p-datatable-gridlines" [rows]="10"
              [rowsPerPageOptions]="[10, 25, 50]"
              [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
              currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
-                <th style="text-align: center">NUMERO DE GESTACION</th>
+                <th style="text-align: center">NRO</th>
+                <th style="text-align: center">FECHA DE CONSULTA</th>
                 <th style="text-align: center">ESTADO</th>
                 <th style="text-align: center">ACCIONES</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr>
-                <td style="text-align: center">{{ rowData.nroEmbarazo }}</td>
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.fechaAtencion }}</td>
                 <td style="text-align: center">{{ rowData.estado }}</td>
                 <td style="text-align: center">
                     <span class="p-buttonset">
-                        <button pButton pRipple class="p-button-success" routerLink="obstetricia" label="Atencion"
-                                icon="pi pi-caret-right"
+                        <button pButton pRipple class="p-button-info" label="Plan de Atención"
+                                routerLink="../citas/atencion"
+                                icon="pi pi-book" style="background-color: #0c3866"
                                 (click)="atencion(rowData)"></button>
-                        <button pButton pRipple class="p-button-info" label="Consultas" routerLink="../../consulta"
-                                icon="pi pi-book"
-                                (click)="consultas(rowData)"></button>
                     </span>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
-
-<!-- dialogo consulta -->

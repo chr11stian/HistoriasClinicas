@@ -64,13 +64,13 @@ export class StepGeneralComponent implements OnInit, DoCheck {
             { label: 'Exámenes Auxiliares', styleClass: 'icon3' },
             { label: 'Diagnostico', styleClass: 'icon4' },
             { label: 'Tratamiento', styleClass: 'icon5' },
-            { label: 'Finalizar', styleClass: 'icon6' },
+            { label: 'Acuerdos', styleClass: 'icon6' },
         ]
         await this.getQueryParams()
     }
 
     getQueryParams() {
-        this.route.queryParams
+        /*this.route.queryParams
             .subscribe(params => {
                 if (params['nroDoc'] && !localStorage.getItem(this.attributeLocalS)) {
                     this.tipoDoc = params['tipoDoc']
@@ -83,7 +83,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 } else {
                     this.router.navigate(['/dashboard/cred/citas'])
                 }
-            })
+            })*/
     }
 
     getConsulta(idConsulta: string) {

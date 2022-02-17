@@ -404,6 +404,9 @@ export class ModalCupos2Component implements OnInit {
                 edadAnio: this.formPacientesCupo.value.edadAnio,
                 edadMes: this.formPacientesCupo.value.edadMes,
                 edadDia: this.formPacientesCupo.value.edadDia,
+                nroHcl: this.dataPacientes.nroHcl,
+                sexo: this.formPacientesCupo.value.sexo,
+                nroTelefono: this.formPacientesCupo.value.celular,
             },
 
             transeunte: false,

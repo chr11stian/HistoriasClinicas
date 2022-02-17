@@ -11,7 +11,7 @@ import {FiliancionService} from "./atencion/h-clinica-materno-perinatal/services
 })
 export class GestanteComponent implements OnInit {
 
-    pacientesFiliacion: any;
+    pacientesFiliacion: any[];
     dataLifiado: any;
     FormPaciente: FormGroup;
     tipoDoc: any;
@@ -20,6 +20,8 @@ export class GestanteComponent implements OnInit {
 
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
+
+    filiacionUltimaPosicion = '';
 
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -33,12 +35,28 @@ export class GestanteComponent implements OnInit {
         // this.buildForm();
         this.pacienteByNroDoc();
 
+        // for (let i = 0; i <= DATA.length; i++) {
+        //     let data = this.pacientesFiliacion[i];
+        //     console.log('ARREGLO', data)
+        //
+        // }
+        let A = [1, 2, 3, 4]
+
+
     }
 
     getpacientesFiliados(tipoDoc, nroDoc) {
         this.obstetriciaGeneralService.getPacienteFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
             this.pacientesFiliacion = res.object
-            console.log('paciente filiados ', this.pacientesFiliacion)
+            console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
+            if(this.pacientesFiliacion==null){
+                this.filiacionUltimaPosicion='FINALIZADO';
+            }else {
+                let index = this.pacientesFiliacion.length - 1;
+                this.filiacionUltimaPosicion = this.pacientesFiliacion[index].estado;
+                console.log('ARREGLO ULTIMA POSICION', this.filiacionUltimaPosicion);
+            }
+
         });
     }
 
@@ -75,6 +93,8 @@ export class GestanteComponent implements OnInit {
 
         });
         this.getpacientesFiliados(tipoDoc, nroDoc);
+
+
     }
 
     newEmbarazo() {
@@ -82,7 +102,6 @@ export class GestanteComponent implements OnInit {
         this.obstetriciaGeneralService.tipoDoc = this.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = this.nroDoc;
     }
-
 
 
 }
