@@ -94,6 +94,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     dataAntecedentes: any;
     formAntecedentes: FormGroup;
 
+    gestas = 8
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
