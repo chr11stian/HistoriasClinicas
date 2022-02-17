@@ -113,7 +113,7 @@
       </tr>
       </tbody>
     </table>
-      <div class="grid">
+      <div class="grid justify-content-center">
 <!--        <div class="col-5"></div>-->
 <!--        <div class="col-7 grid">-->
 <!--          <div class="col-2 text-center" style="font-size: 0.8rem">RETRASO</div>-->
@@ -184,7 +184,28 @@
 <!--          <div class="col margenes text-right" style="justify-content: center">70</div>-->
 <!--          <div class="col margenes text-right" style="justify-content: center">80</div>-->
 <!--        </div>-->
-        
+
+<!--        <div class="card">-->
+<!--          <h5>Horizontal</h5>-->
+<!--          <p-chart type="bar" [data]="basicData" [options]="horizontalOptions" width="20rem" height="6.7rem"></p-chart>-->
+<!--        </div>-->
+        <div class="field col-12">
+          <p-card [style]="{'height': '30rem', 'padding-top': 'unset'}">
+            <ng-template pTemplate="header">
+              <div class="flex justify-content-center"> <h3 style="margin-bottom: unset;">Visitas Domiciliarias</h3></div>
+            </ng-template>
+            <div class="flex justify-content-center" style="position: relative;">
+              <div style="position: absolute;width: 30vw;overflow-x: scroll;">
+                <p-chart type="bar" [data]="basicData" [options]="horizontalOptions" width="45vw" height="50vh"></p-chart>
+
+              </div>
+            </div>
+
+          </p-card>
+
+        </div>
+
+
       </div>
   </div>
 </div>
@@ -1514,3 +1535,39 @@
   </ng-template>
 </p-dialog>
 <p-toast key="myKey1"></p-toast>
+
+<!--<p-dialog [(visible)]="displayGrafico"-->
+<!--          [modal]="true"-->
+<!--          [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"-->
+<!--          [style]="{ width: '100vw' }">-->
+<!--  <ng-template pTemplate="header"> 1.SUB. TEST DE COORDINACION</ng-template>-->
+<!--&lt;!&ndash;  contenido&ndash;&gt;-->
+<!--  <div class="col-2.5">-->
+<!--    <p-card [style]="{'width': '20rem','height': '10rem', 'margin-bottom': '1em','margin-left:': '1em','margin-right':'1em'}">-->
+<!--      <ng-template pTemplate="header">-->
+<!--        <div class="flex justify-content-center"> <h3 style="margin-bottom: unset; margin-top:5px; color:#5a5353ad;">{{actor}} con Sobrepeso</h3></div>-->
+<!--      </ng-template>-->
+<!--      <div class="flex align-items-start">-->
+<!--        <div class="flex flex-column">-->
+<!--          <label style="font-size:2.5rem;font-weight: bold; color:#0c0b0b;">155</label>-->
+<!--          <div style="position: relative;" width="60px">-->
+<!--            <label class="flex justify-content-center" style="color:#09ee1c;font-weight: bold;">2.3% ↑</label>-->
+<!--          </div>-->
+<!--          <div class="justify-content-center">-->
+<!--            <label style="color:#5a5353ad;font-size:.75rem;font-weight: bold;">estadistica</label>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="mr:col-2" style="height:110px;position: relative;">-->
+<!--          <p-chart type="bar" [data]="data3" [options]="chartOptions1" width="14rem" height="6.7rem"></p-chart>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </p-card>-->
+
+<!--  </div>-->
+<!--&lt;!&ndash;  fin contenido&ndash;&gt;-->
+
+
+
+<!--  <ng-template pTemplate="footer">pie</ng-template>-->
+<!--</p-dialog>-->

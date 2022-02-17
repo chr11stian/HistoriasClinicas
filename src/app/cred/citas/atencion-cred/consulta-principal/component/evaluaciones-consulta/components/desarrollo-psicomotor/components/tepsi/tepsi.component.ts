@@ -12,6 +12,8 @@ import {puntaje, resultado, contenedorSubTest, itenTestResultado, listaPregunta}
 })
 export class TepsiComponent implements OnInit {
   basicData: any;
+  horizontalOptions:any
+  displayGrafico:boolean=false;
   display:boolean[]=[false,false,false]
   arregloSubtest=[[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
                   [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -48,27 +50,56 @@ export class TepsiComponent implements OnInit {
     this.idConsulta='620bb9b786bca43e001f570f'
     this.buildForm();
   }
+  traerPuntaje(){
+    const aux=this.resultadoA
+    return [aux[0].puntajeT,aux[1].puntajeT,aux[2].puntajeT,aux[3].puntajeT]
+
+  }
   chart(){
     this.basicData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: ['Test Total', 'subTest Coordinacion', 'Sub Test Lenguaje', 'Sub Test Motricidad'],
       datasets: [
         {
           label: 'My First dataset',
-          backgroundColor: '#42A5F5',
-          data: [65, 59, 80, 81, 56, 55, 40]
-        },
-        {
-          label: 'My Second dataset',
-          backgroundColor: '#FFA726',
-          data: [28, 48, 40, 19, 86, 27, 90]
+          backgroundColor: 'green',
+          data: this.traerPuntaje(),
         }
       ]
     };
+    this.horizontalOptions = {
+      indexAxis: 'y',
+      plugins: {
+        legend: {
+          labels: {
+            color: '#ebedef'
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: 'black'
+          },
+          grid: {
+            color: 'red'
+          }
+        },
+        y: {
+          ticks: {
+            color: 'black'
+          },
+          grid: {
+            color: 'red'
+          }
+        }
+      }
+    };
+
   }
   ngOnInit(): void {
-    this.chart();
     this.calcularEdadDinamico(this.getFC('fechaSelected').value)
     this.getTestTepsi();
+    this.chart();
   }
   buildForm(){
     this.datosGeneralesFG=new FormGroup({
@@ -387,5 +418,8 @@ export class TepsiComponent implements OnInit {
       return {nroPregunta:index+1,valor:element}
     })
     return arregloAux
+  }
+  abrirGrafica(){
+    this.displayGrafico=true
   }
 }
