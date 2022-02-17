@@ -39,11 +39,20 @@ export class ListaConsultaComponent implements OnInit {
     }
 
     atencion(event) {
-        let dato = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
         let data: dato = {
-            nroDocumento: dato.nroDocumento,
-            tipoDoc: dato.tipoDoc,
+            nroDocumento: this.data.nroDocumento,
+            tipoDoc: this.data.tipoDoc,
             idConsulta: event.id
+        }
+        localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+    }
+
+    nuevaConsulta() {
+        let data: dato = {
+            nroDocumento: this.data.nroDocumento,
+            tipoDoc: this.data.tipoDoc,
+            idConsulta: ''
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     }

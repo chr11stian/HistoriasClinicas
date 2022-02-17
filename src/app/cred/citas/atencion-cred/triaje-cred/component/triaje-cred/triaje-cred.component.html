@@ -63,8 +63,15 @@
                             {{controlFC.label}}
                         </div>
                         <div class="col-6 md:col-2">
-                            <input type="number" pInputText [formControlName]="controlFC.nameFC"
-                                   class="inputfield w-full"/>
+                            <ng-container *ngIf="(controlFC.nameFC === 'TallaFC' || controlFC.nameFC === 'PesoFC'); else otros">
+                                <input (ngModelChange)="imc()" type="number" pInputText [formControlName]="controlFC.nameFC"
+                                       class="inputfield w-full"
+                                />
+                            </ng-container>
+                            <ng-template #otros>
+                                <input maxlength="6" type="number" pInputText [formControlName]="controlFC.nameFC"
+                                       class="inputfield w-full"/>
+                            </ng-template>
                         </div>
                     </ng-container>
                 </div>

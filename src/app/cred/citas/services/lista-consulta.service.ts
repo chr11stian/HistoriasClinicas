@@ -12,6 +12,7 @@ export class ListaConsultaService {
 
     tipoDoc: string = "";
     nroDoc: string = "";
+    idConsulta: string= ""
     data: any;
 
     constructor(private http: HttpClient) {

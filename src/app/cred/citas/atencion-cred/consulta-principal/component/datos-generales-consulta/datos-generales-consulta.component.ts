@@ -231,9 +231,6 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     constructor(private router: Router, private route: ActivatedRoute,
                 private consultaService: ListaConsultaService,
                 private consultaGeneralService: ConsultaGeneralService) {
-        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-        if (this.data.idConsulta !== '') this.recuperarData(this.data.idConsulta)
-        this.buildForm()
     }
 
     buildForm(): void {
@@ -371,6 +368,11 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        console.log('2')
+        console.log('data', this.data)
+        if (this.data.idConsulta !== '') this.recuperarData(this.data.idConsulta)
+        this.buildForm()
     }
 
     save(): void {

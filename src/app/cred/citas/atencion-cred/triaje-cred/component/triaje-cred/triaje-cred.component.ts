@@ -50,6 +50,7 @@ export class TriajeCredComponent implements OnInit {
     aux: any[] = []
     my: boolean = true
     id: string;
+    bar
     attributeLocalS = 'documento'
     anamnesisFC = new FormControl({value: '', disabled: false})
     obsFC = new FormControl({value: '', disabled: false})
@@ -461,7 +462,7 @@ export class TriajeCredComponent implements OnInit {
         }
     }
 
-    save(): void {
+    async save() {
         this.outData()
         const req: triajeInterface = {
             signosVitales: this.signosVitales,
@@ -474,7 +475,7 @@ export class TriajeCredComponent implements OnInit {
 
         console.log('req', req)
         if (req) {
-            this.consultaService.crearConsulta(this.data.nroDocumento, req).subscribe(
+            await this.consultaService.crearConsulta(this.data.nroDocumento, req).subscribe(
                 (r: any) => {
                     let data: dato = {
                         nroDocumento: this.data.nroDocumento,
@@ -482,6 +483,8 @@ export class TriajeCredComponent implements OnInit {
                         idConsulta: r.object.id
                     }
                     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+                    console.log('triaje data',data)
+                    console.log('1')
                     console.log('respuesta ', r)
                     Swal.fire({
                         icon: 'success',
@@ -573,6 +576,12 @@ export class TriajeCredComponent implements OnInit {
         this.dia = dias
     }
 
+    imc() {
+        let peso = this.examFG.value.PesoFC
+        let talla = this.examFG.value.TallaFC
+        this.examFG.get('imcFC').setValue(peso / (talla * talla))
+    }
+
     cambio(e) {
         this.my = !e.value
     }
@@ -583,7 +592,9 @@ export class TriajeCredComponent implements OnInit {
     }
 
     getConsultaPrincipal(): void {
-        if (this.data.idConsulta === '') this.save()
+        if (this.data.idConsulta === '') {
+            this.save()
+        }
         this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
     }
 }
