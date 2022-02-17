@@ -368,6 +368,7 @@ export class DatosGeneralesConsultaComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
+        console.log('idConsulta ',this.consultaService.idConsulta)
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         console.log('2')
         console.log('data', this.data)

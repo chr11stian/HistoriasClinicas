@@ -475,15 +475,16 @@ export class TriajeCredComponent implements OnInit {
 
         console.log('req', req)
         if (req) {
-            await this.consultaService.crearConsulta(this.data.nroDocumento, req).subscribe(
+            await this.consultaService.crearConsulta(this.data.nroDocumento, req).toPromise().then(
                 (r: any) => {
                     let data: dato = {
                         nroDocumento: this.data.nroDocumento,
                         tipoDoc: this.data.tipoDoc,
                         idConsulta: r.object.id
                     }
+                    this.consultaService.idConsulta = r.object.id
                     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
-                    console.log('triaje data',data)
+                    console.log('triaje data', data)
                     console.log('1')
                     console.log('respuesta ', r)
                     Swal.fire({
@@ -595,7 +596,11 @@ export class TriajeCredComponent implements OnInit {
         if (this.data.idConsulta === '') {
             this.save()
         }
-        this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
+        setTimeout(() => {
+            this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
+        }, 1000);
+
+
     }
 }
 
