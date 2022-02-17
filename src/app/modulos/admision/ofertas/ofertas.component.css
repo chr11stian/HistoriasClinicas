@@ -1,5 +1,5 @@
 .recuadro {
-    border-style:solid; 
+    border-style: solid;
     border-width: 1px;
     border-radius: 5px;
 }
@@ -12,4 +12,88 @@ p-fieldset >>> .p-fieldset .p-fieldset-legend {
     font-weight: 600;
     border-radius: 5px;
     font-size: small;
-  }
+}
+
+.personal {
+    border: 1px solid rgb(227 226 226);
+    border-radius: 10px;
+}
+
+
+p-panel >>> .p-panel .p-panel-content {
+    padding: 1rem;
+    border: 1px solid #e3e2e2;
+    background: rgb(255 255 255);
+    color: rgb(73 80 87);
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top: 0 none;
+}
+
+p-panel >>> .p-panel .p-panel-header {
+    border: 1px solid #e3e2e2;
+    padding: 1rem;
+    background: rgb(248 249 250);
+    color: rgb(73 80 87);
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}
+
+p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
+    content: url("src\assets\svg-icons\check-svgrepo-com.svg");
+}
+
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box,
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight:hover,
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight,
+::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon {
+    background: rgb(234, 187, 38);
+    border: rgb(234, 187, 38);
+}
+
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight,
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box,
+::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight:hover,
+::ng-deep .rojo .p-radiobutton .p-radiobutton-icon {
+    border-color: red;
+    background: red;
+}
+
+::ng-deep .default .p-radiobutton .p-radiobutton-icon,
+::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight,
+::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight:hover {
+    background: #2196f3;
+    border: #2196f3;
+}
+
+.color-span {
+    color: rgb(12 56 102);
+}
+
+
+p-calendar >>> .p-calendar .p-inputtext {
+    flex: 1 1 auto;
+    width: 1%;
+    background: rgb(255 228 196);
+}
+
+p-dialog>>> .p-dialog .p-dialog-header .p-dialog-header-icon {
+    display: none;
+    width: 2rem;
+    height: 2rem;
+    color: rgb(108 117 125);
+    border: 0 none;
+    background: rgb(0 0 0 / 0%);
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    margin-right: 0.5rem;
+}
+
+p-dialog>>>.p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: rgb(255 255 255);
+    color: rgb(73 80 87);
+    padding: 0.5rem;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+}

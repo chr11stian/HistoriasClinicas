@@ -75,8 +75,42 @@ export class CuposService {
             })
     }
 
-    cambioOfertasTotal(idIpres, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-total/${idIpres}`, data)
+    cambioOfertasElTotal(idOferta, data) {
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-total/${idOferta}`, data)
+            .toPromise()
+            .then(result => {
+                return result;
+                console.log('Registro Exitosa', result)
+            })
+            .catch(error => {
+                console.log('Error al crear el registro, El Personal no tiene el mismo Servicio', error)
+            })
+    }
+
+    TranferenciaParcialCupos(data) {
+        return this.http.post(`${this.base_url}/${this.bd}/oferta/cambiar-personal-parcial/`, data)
+            .toPromise()
+            .then(result => {
+                return result;
+                console.log('Transferencia Exitosa', result)
+            })
+            .catch(error => {
+                console.log('Error al crear el registro, El Personal no tiene el mismo Servici', error)
+            })
+    }
+
+
+    buscarPersonalRolGuardia(TipoDNI, NroDoc) {
+        return this.http.get(`${this.base_url}/${this.bd}/rolguardia/personal/hoy/${TipoDNI}/${NroDoc}`)
+            .toPromise()
+            .then((result: any) => {
+                return result;
+
+            })
+            .catch(error => {
+                console.log('No se encotro personal de salud');
+                return null;
+            })
     }
 
     updatePacienteExtras(data) {

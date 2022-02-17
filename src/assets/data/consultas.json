@@ -1,0 +1,28 @@
+{
+  "consultas": [
+    {
+      "nro": 1,
+      "fecha": "25/04/2020",
+      "estado": "pendiente",
+      "idConsulta": "C001"
+    },
+    {
+      "nro": 2,
+      "fecha": "25/05/2020",
+      "estado": "pendiente",
+      "idConsulta": "C002"
+    },
+    {
+      "nro": 3,
+      "fecha": "25/06/2020",
+      "estado": "pendiente",
+      "idConsulta": "C003"
+    },
+    {
+      "nro": 4,
+      "fecha": "25/07/2020",
+      "estado": "pendiente",
+      "idConsulta": "C004"
+    }
+  ]
+}
