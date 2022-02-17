@@ -298,7 +298,7 @@ export class TriajeCredComponent implements OnInit {
         })
         this.consultaService.getDatosGenerales(id).subscribe((r: any) => {
             this.auxTriaje = r.object
-            console.log('aux: ', this.auxTriaje)
+            //console.log('aux: ', this.auxTriaje)
             let date: Date = new Date(this.auxTriaje.fecha)
             this.generalInfoFG.get('dateAttention').setValue(date)
             this.generalInfoFG.get('hour').setValue(date)
@@ -480,7 +480,8 @@ export class TriajeCredComponent implements OnInit {
                     let data: dato = {
                         nroDocumento: this.data.nroDocumento,
                         tipoDoc: this.data.tipoDoc,
-                        idConsulta: r.object.id
+                        idConsulta: r.object.id,
+                        fechaNacimiento: this.data.fechaNacimiento
                     }
                     this.consultaService.idConsulta = r.object.id
                     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));

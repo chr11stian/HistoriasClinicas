@@ -21,6 +21,7 @@ export class ListaConsultaComponent implements OnInit {
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
     data: dato
+    fechaNacimiento: string
 
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -43,7 +44,8 @@ export class ListaConsultaComponent implements OnInit {
         let data: dato = {
             nroDocumento: this.data.nroDocumento,
             tipoDoc: this.data.tipoDoc,
-            idConsulta: event.id
+            idConsulta: event.id,
+            fechaNacimiento: this.fechaNacimiento
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     }
@@ -52,7 +54,8 @@ export class ListaConsultaComponent implements OnInit {
         let data: dato = {
             nroDocumento: this.data.nroDocumento,
             tipoDoc: this.data.tipoDoc,
-            idConsulta: ''
+            idConsulta: '',
+            fechaNacimiento: this.fechaNacimiento
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     }
@@ -62,6 +65,7 @@ export class ListaConsultaComponent implements OnInit {
 
         this.filiancionService.getPacienteNroDocFiliacion(this.data.tipoDoc, this.data.nroDocumento).subscribe((res: any) => {
             this.dataLifiado = res.object
+            this.fechaNacimiento= res.object.nacimiento.fechaNacimiento
             console.log('paciente por doc ', this.dataLifiado)
             this.tipoDoc = this.dataLifiado.tipoDoc
             this.nroDoc = this.dataLifiado.nroDoc;
