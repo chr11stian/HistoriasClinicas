@@ -42,16 +42,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     // this.id = localStorage.getItem(this.attributeLocalS);
   }
   ngOnInit(): void {
-     this.route.queryParams
-        .subscribe(params => {
-          console.log('params', params)
-          if (params['nroDoc']) {
-            this.tipoDocRecuperado = params['tipoDoc']
-            this.nroDocRecuperado = params['nroDoc']
-          } else {
-            this.router.navigate(['/dashboard/cred/citas'])
-          }
-        })
     this.evaluacionAlimenticia = [
       {
         "titulo": "Fecha",
