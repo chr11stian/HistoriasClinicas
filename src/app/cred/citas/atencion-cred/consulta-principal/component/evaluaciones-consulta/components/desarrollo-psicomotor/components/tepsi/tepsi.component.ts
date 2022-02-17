@@ -3,8 +3,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/form
 import {TepsiService} from "../../services/tepsi.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute} from "@angular/router";
-import {elementAt} from "rxjs/operators";
-import {element} from "protractor";
+import {puntaje, resultado, contenedorSubTest, itenTestResultado, listaPregunta} from "../models/tepsi";
 
 @Component({
   selector: 'app-tepsi',
@@ -12,6 +11,7 @@ import {element} from "protractor";
   styleUrls: ['./tepsi.component.css']
 })
 export class TepsiComponent implements OnInit {
+  basicData: any;
   display:boolean[]=[false,false,false]
   arregloSubtest=[[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
                   [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
@@ -30,8 +30,8 @@ export class TepsiComponent implements OnInit {
    [false,false,false],
    [false,false,false],
    [false,false,false]]
-  tablaPuntajeTotal:any[];
-  tablaSubTest:any[]=[];
+  tablaPuntajeTotal:puntaje[];
+  tablaSubTestG:contenedorSubTest[]=[];
   datosGeneralesFG:FormGroup;
   anioEdad:number;
   mesEdad:number;
@@ -39,8 +39,8 @@ export class TepsiComponent implements OnInit {
   rango:number=0
   fechaNacimiento=''
   idConsulta:string
-  minimo:any[]=[5,5,3,4,2,2,2,2,2,2,2,3,2]
-  indicePregunta:any[]=[3,4,6,7,12,13,14,15,16,17,18,23,24]
+  minimo:number[]=[5,5,3,4,2,2,2,2,2,2,2,3,2]
+  indicePregunta:number[]=[3,4,6,7,12,13,14,15,16,17,18,23,24]
   constructor(private tepsiService:TepsiService,
               private messageService: MessageService,
               private rutaActiva:ActivatedRoute) {
@@ -48,10 +48,26 @@ export class TepsiComponent implements OnInit {
     this.idConsulta='620bb9b786bca43e001f570f'
     this.buildForm();
   }
+  chart(){
+    this.basicData = {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [
+        {
+          label: 'My First dataset',
+          backgroundColor: '#42A5F5',
+          data: [65, 59, 80, 81, 56, 55, 40]
+        },
+        {
+          label: 'My Second dataset',
+          backgroundColor: '#FFA726',
+          data: [28, 48, 40, 19, 86, 27, 90]
+        }
+      ]
+    };
+  }
   ngOnInit(): void {
-    // this.recuperarFechaNacimiento()
+    this.chart();
     this.calcularEdadDinamico(this.getFC('fechaSelected').value)
-
     this.getTestTepsi();
   }
   buildForm(){
@@ -95,7 +111,6 @@ export class TepsiComponent implements OnInit {
     })
   }
   resconstruirSubPreguntas(arregloLenguaje){
-    // this.subPreguntas=[]
     this.subPreguntas.forEach((element,index)=>{
         this.subPreguntas[index]=this.recuperarTrueFalse(arregloLenguaje[this.indicePregunta[index]-1].listaPreguntas)
       })
@@ -152,27 +167,9 @@ export class TepsiComponent implements OnInit {
       this.arregloSubtest[1][this.indicePregunta[index]-1]=false
     }
     this.calcularResultadoSubTest1(2)
-
-
-
-    // if (valor.checked){
-    //   this.acumulador[indexAcumulador]+=1
-    //   if (this.acumulador[indexAcumulador]==minimo) {
-    //     this.selectedValues2[indexTest]=true;
-    //     this.resultado[1]+=1
-    //   }
-    // }
-    // else{
-    //   this.acumulador[indexAcumulador]-=1
-    //   if (this.acumulador[indexAcumulador]==minimo-1){
-    //     this.selectedValues2[indexTest]=false;
-    //     this.resultado[1]-=1
-    //   }
-    // }
   }
   calcularEdadDinamico(fechaInput:Date){
-    //fecha ingresada
-    let fechaNacimiento: Date = new Date("2018-06-17 00:00:00"); //requeriremos la fecha de nacimiento//formato mes/dia/año
+    let fechaNacimiento: Date = new Date("2018-06-18 00:00:00"); //requeriremos la fecha de nacimiento//formato mes/dia/año
     let dia = fechaNacimiento.getDate()
     let mes = fechaNacimiento.getMonth() + 1
     let ano = fechaNacimiento.getFullYear()
@@ -223,9 +220,9 @@ export class TepsiComponent implements OnInit {
   async getTablaPuntaje(){
     await this.tepsiService.getTablaPuntaje1(this.rango).then((data)=>{
       this.tablaPuntajeTotal=data['object']['tablaPuntajeTotal'];
-      this.tablaSubTest.push(data['object']['tablaSubTestCoordinacion'])
-      this.tablaSubTest.push(data['object']['tablaSubTestLenguaje'])
-      this.tablaSubTest.push(data['object']['tablaSubTestMotricidad'])
+      this.tablaSubTestG.push({subTest:data['object']['tablaSubTestCoordinacion']})
+      this.tablaSubTestG.push({subTest: data['object']['tablaSubTestLenguaje']})
+      this.tablaSubTestG.push({subTest:data['object']['tablaSubTestMotricidad']})
       this.calcularResultadoSubTest1(1);
       this.calcularResultadoSubTest1(2);
       this.calcularResultadoSubTest1(3);
@@ -234,55 +231,7 @@ export class TepsiComponent implements OnInit {
     });
 
   }
-  calcularEdad(fecha:any) {
-    let fechaNacimiento: Date = new Date(fecha);
-    let dia = fechaNacimiento.getDate()
-    let mes = fechaNacimiento.getMonth() + 1
-    let ano = fechaNacimiento.getFullYear()
-    console.log('fecha nacimiento',fechaNacimiento)
-    console.log('dia,mes,años',dia,mes,ano)
-    // cogemos los valores actuales
-    let fecha_hoy: Date = new Date();
-    let ahora_ano = fecha_hoy.getFullYear()
-    let ahora_mes = fecha_hoy.getMonth() + 1;
-    let ahora_dia = fecha_hoy.getDate();
-
-    let edad = (ahora_ano + 1900) - ano;
-    if (ahora_mes < mes) {
-      edad--;
-    }
-    if ((mes == ahora_mes) && (ahora_dia < dia)) {
-      edad--;
-    }
-    if (edad >= 1900) {
-      edad -= 1900;
-    }
-
-    let meses = 0;
-    if (ahora_mes > mes && dia > ahora_dia)
-      meses = ahora_mes - mes - 1;
-    else if (ahora_mes > mes)
-      meses = ahora_mes - mes
-    if (ahora_mes < mes && dia < ahora_dia)
-      meses = 12 - (mes - ahora_mes);
-    else if (ahora_mes < mes)
-      meses = 12 - (mes - ahora_mes + 1);
-    if (ahora_mes == mes && dia > ahora_dia)
-      meses = 11;
-
-    // calculamos los dias
-    let dias = 0;
-    if (ahora_dia > dia)
-      dias = ahora_dia - dia;
-    if (ahora_dia < dia) {
-      let ultimoDiaMes: Date = new Date(ahora_ano, ahora_mes - 1, 0);
-      dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
-    }
-    this.anioEdad = edad
-    this.mesEdad = meses
-    this.diaEdad = dias
-  }
-  calcularSumaArreglos(arregloBoolean:any[]){
+  calcularSumaArreglos(arregloBoolean:boolean[]){
     let sumaAux=0
     arregloBoolean.forEach((element)=>{
       if(element==true){
@@ -321,24 +270,22 @@ export class TepsiComponent implements OnInit {
     }
   ]
   calcularTotal(){
-    this.resultadoA[0]['puntajeBruto']=this.resultadoA[1].puntajeBruto+this.resultadoA[2].puntajeBruto+this.resultadoA[3].puntajeBruto
-    // console.log('disk vacio',this.tablaPuntajeTotal)
-    const element=this.tablaPuntajeTotal.find((item)=>{
-      return this.resultadoA[0]["puntajeBruto"]==item.puntajeBruto
+    this.resultadoA[0].puntajeBruto=this.resultadoA[1].puntajeBruto+this.resultadoA[2].puntajeBruto+this.resultadoA[3].puntajeBruto
+    const element=this.tablaPuntajeTotal.find((item:puntaje)=>{
+      return this.resultadoA[0].puntajeBruto===parseInt(item.puntajeBruto)
     })
-    this.resultadoA[0]['puntajeT']=element.puntajeT
-    this.resultadoA[0]['categoria']=this.determinarCategoria(element.puntajeT)
+    this.resultadoA[0].puntajeT=parseInt(element.puntajeT)
+    this.resultadoA[0].categoria=this.determinarCategoria(parseInt(element.puntajeT));
   }
   isResolve:boolean[]=[false,false,false] //todo
 
   calcularResultadoSubTest1(indexSubTest:number) {//1,2,3
     this.resultadoA[indexSubTest].puntajeBruto = this.calcularSumaArreglos(this.arregloSubtest[indexSubTest-1])
-    const element = this.tablaSubTest[indexSubTest-1].find((item) => {
-      return this.resultadoA[indexSubTest].puntajeBruto == item.puntajeBruto
+    const element = this.tablaSubTestG[indexSubTest-1].subTest.find((item:puntaje) => {
+      return this.resultadoA[indexSubTest].puntajeBruto == parseInt(item.puntajeBruto)
     })
-    console.log('elemento vacio diske',element)
-    this.resultadoA[indexSubTest]['puntajeT']=element.puntajeT
-    this.resultadoA[indexSubTest]['categoria'] = this.determinarCategoria(element.puntajeT)
+    this.resultadoA[indexSubTest].puntajeT=parseInt(element.puntajeT)
+    this.resultadoA[indexSubTest].categoria = this.determinarCategoria(parseInt(element.puntajeT))
     this.calcularTotal();
   }
   save() {
@@ -414,37 +361,31 @@ export class TepsiComponent implements OnInit {
       this.messageService.add({severity:'error', summary:'Test no Guardado', detail:'Debe llenar todos los Test '});
     }
   }
-  determinarArreglo(letra:string,arreglo:any[]){
+  determinarArreglo(letra:string,arreglo:boolean[]):itenTestResultado[]{
     const arregloAux=arreglo.map((element,index)=>{
       return {codigo:`${index+1}${letra}`,valor:element?1:0}
     })
     return arregloAux
   }
-  determinarArreglo2(letra:string,arreglo:any[]){
-    let arregloAux:any[]=[];
-    let auxPregunta;
-    arreglo.forEach((item,index)=>{
-      auxPregunta={codigo:`${index+1}${letra}`,valor:item?1:0}
-      arregloAux.push(auxPregunta)
+  determinarArreglo2(letra:string,arreglo:any[]):itenTestResultado[]{
+    // let arregloAux:[]=[];
+    // let auxPregunta;
+    // arreglo.forEach((item,index)=>{
+    //   auxPregunta={codigo:`${index+1}${letra}`,valor:item?1:0}
+    //   arregloAux.push(auxPregunta)
+    // })
+    const arregloAux:itenTestResultado[]=arreglo.map((element,index)=>{
+      return {codigo:`${index+1}${letra}`,valor:element?1:0}
     })
-    console.log(arregloAux);
     this.indicePregunta.forEach((element,index)=>{
       arregloAux[element-1].listaPreguntas=this.construirEstructura(this.subPreguntas[index])
     })
     return arregloAux
   }
-  construirEstructura(arreglo:any[]){
+  construirEstructura(arreglo:boolean[]):listaPregunta[]{
     const arregloAux=arreglo.map((element,index)=>{
       return {nroPregunta:index+1,valor:element}
     })
     return arregloAux
   }
-
 }
-interface resultado {
-  puntajeBruto: number,
-  puntajeT: number,
-  categoria: string,
-
-}
-
