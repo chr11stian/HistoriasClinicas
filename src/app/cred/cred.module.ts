@@ -17,6 +17,7 @@ import { HeightChartComponent } from './modals/height-chart/height-chart.compone
 import { HeightWeightComponent } from './modals/height-weight/height-weight.component'
 import { SharedModule } from '../shared/shared.module';
 import { CircumferenceChartComponent } from './modals/circumference-chart/circumference-chart.component';
+import { ListaConsultaComponent } from './citas/lista-consulta/lista-consulta.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CircumferenceChartComponent } from './modals/circumference-chart/circum
     HeightChartComponent,
     HeightWeightComponent,
     CircumferenceChartComponent,
+    ListaConsultaComponent,
   ],
 
   imports: [

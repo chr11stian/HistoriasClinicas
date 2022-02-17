@@ -35,11 +35,11 @@
         Fecha:
       </div>
       <div class="col-4 p-fluid">
-        <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" formControlName="fechaSelected" (onSelect)="calcularEdadDinamico($event)"></p-calendar>
+        <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" inputId="icon" formControlName="fechaSelected" disabled="true" ></p-calendar>
       </div>
     </div>
     <div class="grid">
-      <div style="font-weight: bold" class="col-4 text-right">Nombre Examinador:</div>
+      <div style="font-weight: bold" class="col-4 text-right">Nro DNI Examinador:</div>
       <div class="col-8 p-fluid"><input formControlName="nombreExaminador"  type="text" pInputText></div>
     </div>
       <div class="grid">
@@ -651,7 +651,7 @@
           <div class="col-3 grid">
             <div class="col-6">Escoba</div>
             <div class="col-6 text-left">
-              <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][1]"
+              <p-checkbox binary="true" [(ngModel)]="subPreguntas[1][2]"
                           (onChange)="evaluandoItem(1)"></p-checkbox>
             </div>
           </div>

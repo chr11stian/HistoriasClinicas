@@ -115,7 +115,7 @@ export class FinalizarConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.queryParams
+        /*this.route.queryParams
             .subscribe(params => {
                 console.log('params', params)
                 if (params['nroDoc']) {
@@ -123,7 +123,7 @@ export class FinalizarConsultaComponent implements OnInit {
                     this.nroDoc = params['nroDoc']
                 }
             })
-        this.recuperarFinalizar()
+        this.recuperarFinalizar()*/
     }
 
     /* funciones tabla acuerdo*/
@@ -336,7 +336,7 @@ export class FinalizarConsultaComponent implements OnInit {
     }
 
     save() {
-        let r: referenciaInterface = {
+        /*let r: referenciaInterface = {
             consultorio: this.referencia[0].consultorio === null ? 'consultorio' : this.referencia[0].consultorio,
             motivo: this.referencia[0].motivo === null ? 'motivo' : this.referencia[0].motivo,
             codRENAES: this.referencia[0].codRENAES === null ? 'codRENAES' : this.referencia[0].codRENAES
@@ -363,7 +363,7 @@ export class FinalizarConsultaComponent implements OnInit {
                     })
                 }
             )
-        }
+        }*/
     }
     irEvaluaciones() {
         /** redirigir a atencion de usuario */
