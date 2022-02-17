@@ -11,16 +11,16 @@ export class EedpService {
 
   constructor(private http: HttpClient) { }
 
-  postAgregarEEDP(idConsulta:string, dataEEDP) {
+  postAgregarEEDP(idConsulta: string, dataEEDP) {
     return this.http.post(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/eedp/${idConsulta}`, dataEEDP);
   }
-  getEEDPxIdConsulta(idConsulta:string) {
+  getEEDPxIdConsulta(idConsulta: string) {
     return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/eedp/${idConsulta}`);
   }
-  getListarEEDPxHistoria(nroHcl:string) {
+  getListarEEDPxHistoria(nroHcl: string) {
     return this.http.get(`${this.base_url}/${this.bd}/cred/planintegral/evaluacion/eedp/${nroHcl}`)
   }
-  putEEDPxByIdConsulta(idConsulta:string, dataEEDP) {
+  putEEDPxByIdConsulta(idConsulta: string, dataEEDP) {
     return this.http.put(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/eedp/${idConsulta}`, dataEEDP);
   }
 }

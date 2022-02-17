@@ -46,6 +46,7 @@ export class EedpComponent implements OnInit {
   coeficienteDesarrollo: any;
   mentalMonth: number = 1;
   diagnostico: any;
+  areaEvaluacion: string[] = ['C', 'S', 'L', 'M']
 
   constructor(
     private evalAlimenService: EvalAlimenService,
@@ -71,11 +72,11 @@ export class EedpComponent implements OnInit {
       { edadNro: 18, edad: 'MESES' }, { edadNro: 21, edad: 'MESES' }, { edadNro: 24, edad: 'MESES' },
       { edadNro: 3, edad: 'AÑOS' }, { edadNro: 4, edad: 'AÑOS' }
     ]
-    this.datos = [
-      { key: 'S6 (M)' },
-      { key: 'S6 (M)' },
-      { key: 'S6 (M)' }
-    ]
+    // this.datos = [
+    //   { key: 'S6 (M)' },
+    //   { key: 'S6 (M)' },
+    //   { key: 'S6 (M)' }
+    // ]
     this.getDatos();
     this.calcularEdad();
   }
@@ -103,7 +104,7 @@ export class EedpComponent implements OnInit {
         puntajeEEDP: item.puntajeEEDP,
         areaEvaluacion: item.areEvaluacion
       }
-      return auxAns
+      return auxAns;
     });
     this.itemEEDP = {
       edad: this.edadNroSelected,
@@ -118,6 +119,7 @@ export class EedpComponent implements OnInit {
       }
     })
     if (dup || this.itemEEDP.puntajeTotalEedp == 0) {
+
     } else {
       this.listaPreguntas.push(this.itemEEDP);
     }
@@ -125,8 +127,14 @@ export class EedpComponent implements OnInit {
     this.listaPreguntas.forEach(item => {
       this.totalPoints += item.puntajeTotalEedp;
     })
+    for (let i = this.listaPreguntas.length - 1; i >= 0; i--) {
+      if ((this.listaPreguntas[i].puntajeMaximoEedp * 5) == this.listaPreguntas[i].puntajeTotalEedp) {
+        this.mentalMonth = this.listaPreguntas[i].edad;
+      }
+    }
     this.totalPoints = this.totalPoints + (this.mentalMonth - 1) * 30;
-    this.standardPoints = (this.totalPoints / this.chronologicalAge).toFixed(2);
+    this.standardPoints = parseFloat((this.totalPoints / this.chronologicalAge).toFixed(2));
+    console.log('puntos estandar ', this.standardPoints);
     await this.testService.getTablaComparativaMes(this.mesEdad).then(data => {
       this.tablaPuntajeEstandar = data;
       this.tablaPuntajeEstandar.forEach(item => {
@@ -134,10 +142,18 @@ export class EedpComponent implements OnInit {
           this.coeficienteDesarrollo = item.pe;
         }
       })
-    })
+    });
+    if (this.coeficienteDesarrollo >= 0.85)
+      this.diagnostico = 'N'
+    if (this.coeficienteDesarrollo <= 0.84 && this.coeficienteDesarrollo >= 0.70)
+      this.diagnostico = 'RI'
+    if (this.coeficienteDesarrollo <= 0.69)
+      this.diagnostico = 'RE'
+
+    { this.diagnostico = 'RE' }
+    console.log('mes mental ', this.mentalMonth);
     console.log('total points ', this.totalPoints, 'list to save ', this.listaPreguntas);
-    console.log('data to print ', this.coeficienteDesarrollo);
-    console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo, 'mes de 5  qston ', this.mentalMonth)
+    console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo)
     this.dataTestEEDP = {
       codigoCIE10: "Z009",
       codigoHIS: "Z009",
@@ -145,17 +161,46 @@ export class EedpComponent implements OnInit {
       testEedp: {
         fechaAtencion: this.fechaEvaluacion,
         edadCronologica: this.chronologicalAge,
-        edadMental: this.mentalAge,
+        edadMental: this.totalPoints,
         diagnostico: this.diagnostico,
-        coeficienteDesarrolllo: this.coeficienteDesarrollo,
+        coeficienteDesarrollo: this.coeficienteDesarrollo,
         docExaminador: "89685545",
+        listaUltimasPreguntas: [
+          {
+            clave: 'C',
+            numeroPregunta: this.calculateArea(this.listaPreguntas, 'C')
+          }, {
+            clave: 'S',
+            numeroPregunta: this.calculateArea(this.listaPreguntas, 'S')
+          }, {
+            clave: 'L',
+            numeroPregunta: this.calculateArea(this.listaPreguntas, 'L')
+          }, {
+            clave: 'M',
+            numeroPregunta: this.calculateArea(this.listaPreguntas, 'M')
+          }
+        ],
         listaItemEedp: this.listaPreguntas
       }
     }
+    console.log('data to save ', this.dataTestEEDP);
   }
 
-  updateEscalaEEDP() {
-
+  calculateArea(lista: ItemEEDP[], area: string): number {
+    let codArea;
+    lista.forEach(item => {
+      item.itemEedp.forEach(item2 => {
+        let areas = item2.areaEvaluacion.split("_")
+        // console.log('areas ', areas, 'length', areas.length);
+        for (let i = 0; i < areas.length; i++) {
+          if (areas[i] == area && item2.puntajeEEDP) {
+            // console.log('se encontro ', area, item2.codigo);
+            codArea = item2.codigo;
+          }
+        }
+      })
+    });
+    return codArea;
   }
 
   async changeStep(index: number, edadNro: number, edad: string, prevArray: any) {
@@ -172,9 +217,9 @@ export class EedpComponent implements OnInit {
           return
         this.listaPreguntas.push(prevArray);
       }
-    }
-    if (prevArray.puntajeTotalEedp == parseInt(this.puntaje) * 5) {
-      this.mentalMonth = prevArray.edad;
+      // if (prevArray.puntajeTotalEedp == parseInt(this.puntaje) * 5) {
+      //   this.mentalMonth = prevArray.edad;
+      // }
     }
   }
 
@@ -248,5 +293,9 @@ export class EedpComponent implements OnInit {
       puntajeMaximoEedp: parseInt(this.puntaje),
       itemEedp: ansMonth
     }
+  }
+
+  updateEscalaEEDP() {
+
   }
 }

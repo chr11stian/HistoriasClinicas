@@ -86,12 +86,13 @@ export interface TestEEDP {
         edadCronologica: number,
         edadMental: number,
         diagnostico: string,
-        coeficienteDesarrolllo: number,
+        coeficienteDesarrollo: number,
         docExaminador: string,
-        listaUltimasPreguntas?: [{
-            clave?: string,
-            numeroPregunta?: number
-        }],
+        listaUltimasPreguntas?: Tupla[],
         listaItemEedp: ItemEEDP[]
     }
+}
+export interface Tupla {
+    clave: string,
+    numeroPregunta: number
 }
