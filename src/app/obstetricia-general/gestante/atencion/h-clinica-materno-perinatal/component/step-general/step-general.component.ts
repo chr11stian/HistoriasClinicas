@@ -25,7 +25,7 @@ export class StepGeneralComponent implements OnInit {
 
     ngOnInit(): void {
         this.items = [
-            {label: "Datos Generales"},
+            {label: "Filiación"},
             {label: "Antecedentes"},
             {label: "Datos Basales"},
             {label: "Atenciones"},
