@@ -50,6 +50,7 @@ export class TriajeCredComponent implements OnInit {
     aux: any[] = []
     my: boolean = true
     id: string;
+    bar
     attributeLocalS = 'documento'
     anamnesisFC = new FormControl({value: '', disabled: false})
     obsFC = new FormControl({value: '', disabled: false})
@@ -297,7 +298,7 @@ export class TriajeCredComponent implements OnInit {
         })
         this.consultaService.getDatosGenerales(id).subscribe((r: any) => {
             this.auxTriaje = r.object
-            console.log('aux: ', this.auxTriaje)
+            //console.log('aux: ', this.auxTriaje)
             let date: Date = new Date(this.auxTriaje.fecha)
             this.generalInfoFG.get('dateAttention').setValue(date)
             this.generalInfoFG.get('hour').setValue(date)
@@ -461,7 +462,7 @@ export class TriajeCredComponent implements OnInit {
         }
     }
 
-    save(): void {
+    async save() {
         this.outData()
         const req: triajeInterface = {
             signosVitales: this.signosVitales,
@@ -474,14 +475,18 @@ export class TriajeCredComponent implements OnInit {
 
         console.log('req', req)
         if (req) {
-            this.consultaService.crearConsulta(this.data.nroDocumento, req).subscribe(
+            await this.consultaService.crearConsulta(this.data.nroDocumento, req).toPromise().then(
                 (r: any) => {
                     let data: dato = {
                         nroDocumento: this.data.nroDocumento,
                         tipoDoc: this.data.tipoDoc,
-                        idConsulta: r.object.id
+                        idConsulta: r.object.id,
+                        fechaNacimiento: this.data.fechaNacimiento
                     }
+                    this.consultaService.idConsulta = r.object.id
                     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+                    console.log('triaje data', data)
+                    console.log('1')
                     console.log('respuesta ', r)
                     Swal.fire({
                         icon: 'success',
@@ -573,6 +578,12 @@ export class TriajeCredComponent implements OnInit {
         this.dia = dias
     }
 
+    imc() {
+        let peso = this.examFG.value.PesoFC
+        let talla = this.examFG.value.TallaFC
+        this.examFG.get('imcFC').setValue(peso / (talla * talla))
+    }
+
     cambio(e) {
         this.my = !e.value
     }
@@ -583,8 +594,14 @@ export class TriajeCredComponent implements OnInit {
     }
 
     getConsultaPrincipal(): void {
-        if (this.data.idConsulta === '') this.save()
-        this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
+        if (this.data.idConsulta === '') {
+            this.save()
+        }
+        setTimeout(() => {
+            this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
+        }, 1000);
+
+
     }
 }
 

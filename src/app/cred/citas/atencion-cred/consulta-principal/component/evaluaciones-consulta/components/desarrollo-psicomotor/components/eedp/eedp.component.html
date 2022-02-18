@@ -1,5 +1,4 @@
 <div class="col-12">
-    <label> edad: {{chronologicalAge}} dias</label>
     <div class="container_steps">
         <div *ngFor="let item of items; index as indexItem">
             <div *ngIf="indexItem === indexSelected">
@@ -30,6 +29,16 @@
     <div class="div_line_Separate_card"></div>
     <div>
         <p-fieldset legend="{{edadNroSelected + ' ' + edadSelected}}">
+            <div class="grid">
+                <div class="col-3">
+                    <label>Edad Cronológica: </label>
+                    <span>{{chronologicalAge}} dias</span>
+                </div>
+                <div class="col-3">
+                    <label>Puntos Mensuales: </label>
+                    <span>{{monthPoints}}</span>
+                </div>
+            </div>
             <div class="container_input_datos">
                 <div class="col-3">
                     <input class="input_Evaluacion" id="Nvalue" width="" [(ngModel)]="resultadoEvaluacion" pInputText />
@@ -129,8 +138,8 @@
                 </p-table>
             </div>
             <div class="grid mt-2">
-                <p-button [disabled]="disabledUpdate" (click)="updateEscalaEEDP()">Actualizar</p-button>
-                <p-button [disabled]="disabled" (click)="saveTest()">Guardar</p-button>
+                <!-- <p-button [disabled]="disabledUpdate" (click)="updateEscalaEEDP()">Actualizar</p-button> -->
+                <p-button [disabled]="disabled" (click)="confirmSaveTest()">Guardar</p-button>
             </div>
         </p-fieldset>
     </div>
