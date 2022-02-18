@@ -26,10 +26,16 @@ export class TepsiService {
   getRegistroTepsi(idConsulta:string){
     return this.http.get(`${this.base_url}/${this.bd}/cred/tepsi/${idConsulta}`);
   }
-
-  getConsultaTepsi(idConsulta:string){
-    return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/tepsi/${idConsulta}`);
+  getConsultaTepsi(idConsulta:string) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/tepsi/${idConsulta}`)
+      .toPromise()
+      .then(data => { return data })
+      .catch(error => { return error })
   }
+
+  // getConsultaTepsi(idConsulta:string){
+  //   return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/tepsi/${idConsulta}`);
+  // }
   postConsultaTepsi(idConsulta:string,requestInput){
     return this.http.post(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/tepsi/${idConsulta}`,requestInput);
   }
