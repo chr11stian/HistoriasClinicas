@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { datosEEDPTabla } from '../models/eedp';
+import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
+import Swal from 'sweetalert2';
+import { datosEEDPTabla, tablaComparativa } from '../models/eedp';
 
 @Component({
   selector: 'app-pauta-breve',
@@ -16,10 +18,16 @@ export class PautaBreveComponent implements OnInit {
   arrayEdadEEDPSelected: datosEEDPTabla[];
   fechaEvaluacion: string;
   edadSelected: string = 'MES';
-  disabled:boolean = true;
+  disabled: boolean = true;
+  escalaEEDP: datosEEDPTabla;
+  tablaComparativa: tablaComparativa[];
+  puntaje: string = '';
 
-
-  constructor() { }
+  constructor(
+    private testService: EvalAlimenService,
+  ) {
+    this.getDatos();
+  }
 
   ngOnInit(): void {
     this.items = [
@@ -32,7 +40,53 @@ export class PautaBreveComponent implements OnInit {
     ]
   }
 
-  confirmSaveTest() {
+  async getDatos() {
+    await this.testService.getEscalaEEDParray().then(data => {
+      this.escalaEEDP = data;
+      let mes = this.edadNroSelected;
+      this.testService.getTablaComparativaMes(mes).then(data => {
+        console.log('pauta breve ', data);
+        this.tablaComparativa = data;
+      });
+      this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
+      this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
+    });
+  }
 
+  async changeStep(index: number, edadNro: number, edad: string) {
+    this.indexSelected = index;
+    this.edadNroSelected = edadNro;
+    this.edadSelected = edad;
+    this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
+  }
+
+  saveTest() {
+    console.log('data selected ', this.arrayEdadEEDPSelected, 'mes seleccionado ', this.indexSelected);
+    let ansMonth = this.arrayEdadEEDPSelected.map(item => {
+      let auxAns = {
+        pregunta: item.codigo,
+        areaEvaluacion: item.areEvaluacion,
+        estadoN: item.puntajeBreveN,
+        estadoD: item.puntajeBreveR
+      }
+      return auxAns;
+    });
+    console.log('respuesta del mes ', ansMonth);
+  }
+
+  confirmSaveTest() {
+    Swal.fire({
+      title: 'Esta Seguro que Desea Guardar los Cambios?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.saveTest();
+      }
+    })
   }
 }
