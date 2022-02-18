@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
 import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
+import Swal from 'sweetalert2';
 import { EedpService } from '../../services/eedp.service';
 import { AnswerEEDP, datosEEDPTabla, escalaEval_EEDP_0_4_anios, ItemEEDP, tablaComparativa, TestEEDP } from '../models/eedp';
 
@@ -44,10 +45,10 @@ export class EedpComponent implements OnInit {
   mentalAge: any;
   standardPoints: any;
   tablaPuntajeEstandar: any;
-  coeficienteDesarrollo: number;
+  coeficienteDesarrollo: any;
   mentalMonth: number = 1;
   diagnostico: any;
-  idConsulta: string;
+  idConsulta: any;
 
   constructor(
     private evalAlimenService: EvalAlimenService,
@@ -63,9 +64,9 @@ export class EedpComponent implements OnInit {
       this.dataPatient = res.object;
       console.log('data de paciente ', this.dataPatient);
     });
-    this.idConsulta = "620bafcf7f44f40f0f241564";
-    console.log('fecha actual ', this.fechaEvaluacion);
-    this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd')
+    this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
+    console.log('id de consulta ', this.idConsulta);
+    this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     // this.datePipe.transform(this.formInterconsulta.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
   }
 
@@ -146,7 +147,7 @@ export class EedpComponent implements OnInit {
       this.tablaPuntajeEstandar.forEach(item => {
         if (String(this.standardPoints) == item.em_ec) {
           this.coeficienteDesarrollo = item.pe;
-          console.log('item de tabla ', item, 'coef des ', this.coeficienteDesarrollo);
+          console.log('item de tabla ', item, 'coef des ', this.coeficienteDesarrollo, typeof (this.coeficienteDesarrollo));
         }
       })
     });
@@ -169,7 +170,7 @@ export class EedpComponent implements OnInit {
         edadCronologica: this.chronologicalAge,
         edadMental: this.totalPoints,
         diagnostico: this.diagnostico,
-        coeficienteDesarrollo: this.coeficienteDesarrollo,
+        coeficienteDesarrollo: parseFloat(this.coeficienteDesarrollo),
         docExaminador: "89685545",
         listaUltimasPreguntas: [
           {
@@ -191,7 +192,12 @@ export class EedpComponent implements OnInit {
     }
     // console.log('data to save ', this.dataTestEEDP);
     this.eedpService.postAgregarEEDP(this.idConsulta, this.dataTestEEDP).subscribe((res: any) => {
-      console.log('se guardo correctamente');
+      Swal.fire({
+        icon: 'success',
+        title: 'Se Guardo el test EEDP Correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
   }
 
@@ -303,6 +309,27 @@ export class EedpComponent implements OnInit {
       puntajeMaximoEedp: parseInt(this.puntaje),
       listItemEedp: ansMonth
     }
+  }
+
+  confirmSaveTest(){
+    Swal.fire({
+      title: 'Esta Seguro que Desea Guardar los Cambios?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText:'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.saveTest();
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      }
+    })
   }
 
   updateEscalaEEDP() {
