@@ -36,5 +36,4 @@ export class TepsiService {
   putConsultaTepsi(idConsulta:string,requestInput){
     return this.http.put(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/tepsi/${idConsulta}`,requestInput);
   }
-
 }

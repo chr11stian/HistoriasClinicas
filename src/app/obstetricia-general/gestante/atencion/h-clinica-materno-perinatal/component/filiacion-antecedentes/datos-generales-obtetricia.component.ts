@@ -93,8 +93,18 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     dataAntecedentes: any;
     formAntecedentes: FormGroup;
+    formAntecedentesObstetricos: FormGroup;
 
-    gestas = 8
+    gestas = 0;
+    abortos = 0;
+    partos = 0;
+    vaginales = 0;
+    cesarias = 0;
+    nacidosVivos = 0;
+    nacidosMuertos = 0;
+    viven = 0;
+    muertoPrimeraSemana = 0;
+    despuesPrimeraSemana = 0;
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
@@ -155,6 +165,20 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         this.getpacienteFiiacionByID();
     }
 
+    calculargestas() {
+        this.viven = this.formAntecedentesObstetricos.value.viven;
+        this.muertoPrimeraSemana = this.formAntecedentesObstetricos.value.muertoPrimeraSemana;
+        this.despuesPrimeraSemana = this.formAntecedentesObstetricos.value.despuesPrimeraSemana;
+        this.nacidosVivos = (this.viven + this.muertoPrimeraSemana + this.despuesPrimeraSemana);
+        this.formAntecedentesObstetricos.get('NacidosVivos').setValue(this.nacidosVivos);
+        this.nacidosMuertos = this.formAntecedentesObstetricos.value.NacidosMuertos;
+        this.vaginales = this.formAntecedentesObstetricos.value.vaginales;
+        this.cesarias = this.formAntecedentesObstetricos.value.cesarias;
+        this.partos = (this.vaginales + this.cesarias);
+        this.formAntecedentesObstetricos.get('partos').setValue(this.partos);
+        this.abortos = this.formAntecedentesObstetricos.value.abortos;
+        this.gestas = (this.abortos + this.partos);
+    }
 
     inicializarAregloAntfamiliares(): void {
         if (this.antecedentes1[0] == null) {
@@ -293,35 +317,21 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
 
-    // ngAfterViewInit(): void {
-    //     // create an array with nodes
-    //     const nodes = new DataSet<any>([
-    //         {id: 1, label: 'Node 1'},
-    //         {id: 2, label: 'Node 2'},
-    //         {id: 3, label: 'Node 3'},
-    //         {id: 4, label: 'Node 4'},
-    //         {id: 5, label: 'Node 5'},
-    //     ]);
-    //
-    //     // create an array with edges
-    //     const edges = new DataSet<any>([
-    //         {from: '1', to: '3'},
-    //         {from: '1', to: '2'},
-    //         {from: '2', to: '4'},
-    //         {from: '2', to: '5'},
-    //     ]);
-    //
-    //     const data = {nodes, edges};
-    //
-    //     const container = this.visNetwork;
-    //     this.networkInstance = new Network(container.nativeElement, data, {});
-    // }
-
-
     buildForm2() {
+        this.formAntecedentesObstetricos = this.form.group({
+            viven: new FormControl(''),
+            muertoPrimeraSemana: new FormControl(''),
+            despuesPrimeraSemana: new FormControl(''),
+            NacidosVivos: new FormControl(''),
+            NacidosMuertos: new FormControl(''),
+            vaginales: new FormControl(''),
+            cesarias: new FormControl(''),
+            abortos: new FormControl(''),
+            partos: new FormControl(''),
+        })
+
         this.formAntecedentes = this.form.group({
             antecendentesObstetricos: new FormControl(''),
-
 
             /**Gestacion anterior**/
             fecha: new FormControl(''),
@@ -345,21 +355,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             nombrefamiliar11: new FormControl(''),
             nombrefamiliar12: new FormControl(''),
 
-
-            /**Antecedentes Familiares**/
-            // ninguno: new FormControl(''),
-            // alergia: new FormControl(''),
-            // EnferHepertens: new FormControl(''),
-            // epilepcia: new FormControl(''),
-            // diabetes: new FormControl(''),
-            // EnfCongenitas: new FormControl(''),
-            // EmbMultiple: new FormControl(''),
-            // malaria: new FormControl(''),
-            // HipArterial: new FormControl(''),
-            // HipoTiroidismo: new FormControl(''),
-            // neoplásica: new FormControl(''),
-            // TBCPulmonar: new FormControl(''),
-            // otros: new FormControl(''),
 
             //********************************
             captada: new FormControl(''),
