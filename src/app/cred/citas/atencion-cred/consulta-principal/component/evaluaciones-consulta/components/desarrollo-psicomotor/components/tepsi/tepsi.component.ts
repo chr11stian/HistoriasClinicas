@@ -54,7 +54,7 @@ export class TepsiComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     // this.idConsulta='620bb9b786bca43e001f570f'
     this.idConsulta=this.data.idConsulta
-    this.fechaNacimiento=this.data.fechaNacimiento;
+    //this.fechaNacimiento=this.data.fechaNacimiento;
     console.log(this.idConsulta);
     this.buildForm();
   }
