@@ -3,8 +3,9 @@ import {AbstractControl, FormControl, FormGroup, Validators} from "@angular/form
 import {TepsiService} from "../../services/tepsi.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute} from "@angular/router";
-import {puntaje, resultado, contenedorSubTest, itenTestResultado, listaPregunta} from "../models/tepsi";
+
 import {dato} from "../../../../../../../../models/data";
+import {puntaje, contenedorSubTest, resultado, itenTestResultado, listaPregunta} from '../models/tepsi';
 
 @Component({
   selector: 'app-tepsi',
