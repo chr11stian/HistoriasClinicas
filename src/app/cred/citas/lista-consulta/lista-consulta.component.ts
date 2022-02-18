@@ -22,14 +22,19 @@ export class ListaConsultaComponent implements OnInit {
     nroDocRecuperado: string;
     data: dato
     fechaNacimiento: string
+    sexo: string
 
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
                 private filiancionService: FiliancionService,
-                private listaConsultaService: ListaConsultaService) {
+                private listaConsultaService: ListaConsultaService,
+                private consultaService: ListaConsultaService
+    ) {
     }
 
-    ngOnInit(): void {
+    ngOnInit()
+        :
+        void {
         this.consultasNroDoc();
     }
 
@@ -41,13 +46,23 @@ export class ListaConsultaComponent implements OnInit {
 
     atencion(event) {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
-        let data: dato = {
-            nroDocumento: this.data.nroDocumento,
-            tipoDoc: this.data.tipoDoc,
-            idConsulta: event.id,
-            fechaNacimiento: this.fechaNacimiento
-        }
-        localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+        console.log('codes',event.id,this.data)
+        this.saveAge(event.id)
+    }
+
+    saveAge(idConsulta) {
+        this.consultaService.getConsulta(idConsulta).subscribe((r: any) => {
+            let data: dato = {
+                tipoDoc: this.data.tipoDoc,
+                nroDocumento: this.data.nroDocumento,
+                idConsulta: idConsulta,
+                anio: r.object.anioEdad,
+                mes: r.object.mesEdad,
+                dia: r.object.diaEdad,
+                sexo: this.sexo
+            }
+            localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+        })
     }
 
     nuevaConsulta() {
@@ -55,7 +70,7 @@ export class ListaConsultaComponent implements OnInit {
             nroDocumento: this.data.nroDocumento,
             tipoDoc: this.data.tipoDoc,
             idConsulta: '',
-            fechaNacimiento: this.fechaNacimiento
+            sexo: this.sexo
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     }
@@ -64,8 +79,9 @@ export class ListaConsultaComponent implements OnInit {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
 
         this.filiancionService.getPacienteNroDocFiliacion(this.data.tipoDoc, this.data.nroDocumento).subscribe((res: any) => {
+            console.log('code',res.object)
             this.dataLifiado = res.object
-            this.fechaNacimiento= res.object.nacimiento.fechaNacimiento
+            this.sexo = res.object.sexo
             console.log('paciente por doc ', this.dataLifiado)
             this.tipoDoc = this.dataLifiado.tipoDoc
             this.nroDoc = this.dataLifiado.nroDoc;

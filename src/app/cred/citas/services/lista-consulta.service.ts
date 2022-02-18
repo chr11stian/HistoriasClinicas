@@ -12,10 +12,15 @@ export class ListaConsultaService {
 
     tipoDoc: string = "";
     nroDoc: string = "";
-    idConsulta: string= ""
+    idConsulta: string = ""
     data: any;
 
     constructor(private http: HttpClient) {
+    }
+
+    getConsulta(idConsulta: string) {
+        const url = `${this.base_url}/hce/cred/consulta/${idConsulta}`
+        return this.http.get(url)
     }
 
     getConsultasCRED(dni) {
@@ -33,7 +38,7 @@ export class ListaConsultaService {
         return this.http.post(url, data)
     }
 
-    getDatosGenerales(idConsulta){
+    getDatosGenerales(idConsulta) {
         const url = `${this.base_url}/hce/cred/consulta/datos/generales/${idConsulta}`
         return this.http.get(url)
 

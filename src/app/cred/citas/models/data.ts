@@ -1,8 +1,11 @@
 export interface dato {
-    nroDocumento: string,
-    tipoDoc: string,
+    nroDocumento?: string,
+    tipoDoc?: string,
     idConsulta: string,
-    fechaNacimiento: string
+    anio?: number
+    mes?: number
+    dia?: number
+    sexo?: string
 }
 
 export interface outputTriajeInterface {

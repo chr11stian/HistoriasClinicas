@@ -481,13 +481,13 @@ export class TriajeCredComponent implements OnInit {
                         nroDocumento: this.data.nroDocumento,
                         tipoDoc: this.data.tipoDoc,
                         idConsulta: r.object.id,
-                        fechaNacimiento: this.data.fechaNacimiento
+                        anio: r.object.anioEdad,
+                        mes: r.object.mesEdad,
+                        dia: r.object.diaEdad,
+                        sexo: this.data.sexo
                     }
                     this.consultaService.idConsulta = r.object.id
                     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
-                    console.log('triaje data', data)
-                    console.log('1')
-                    console.log('respuesta ', r)
                     Swal.fire({
                         icon: 'success',
                         title: 'Actualizado correctamente',
