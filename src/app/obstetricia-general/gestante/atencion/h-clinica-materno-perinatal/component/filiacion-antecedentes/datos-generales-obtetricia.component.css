@@ -91,6 +91,7 @@ input[type="number"] {
 input[type="number"] {
     padding-left: 0.1em;
     text-align: center;
+    height: 22px;
 }
 
 /*.amarilloInput {*/
@@ -118,6 +119,12 @@ input[type="number"] {
     background: rgb(248 249 250)
 }
 
+.border3 {
+    border: 1px solid rgb(255 255 255);
+    border-radius: 3px;
+    /*background: rgb(248 249 250)*/
+}
+
 label {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     /*font-weight: bold;*/
@@ -129,10 +136,10 @@ svg {
     position: relative;
     z-index: 100;
     display: block;
-    height: 300px;
+    height: 280px;
     width: 880px;
     margin: auto;
-    background-color: rgba(250, 89, 100, .3);
+    /*background-color: rgba(250, 89, 100, .3);*/
     margin: 0 auto;
     fill: red;
     /*max-width: 180%;*/
