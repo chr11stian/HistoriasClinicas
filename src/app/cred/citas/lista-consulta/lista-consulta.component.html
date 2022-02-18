@@ -50,7 +50,7 @@
         </ng-template>
         <ng-template pTemplate="right">
             <button pButton pRipple class="p-button-info" label="Nueva Consulta" routerLink="../citas/atencion"
-                    style="background-color: #0c3866" icon="pi pi-book"></button>
+                    (click)="nuevaConsulta()" style="background-color: #0c3866" icon="pi pi-book"></button>
         </ng-template>
     </p-toolbar>
 
@@ -70,10 +70,24 @@
             <tr>
                 <td style="text-align: center">{{ rowIndex + 1 }}</td>
                 <td style="text-align: center">{{ rowData.fechaAtencion }}</td>
-                <td style="text-align: center">{{ rowData.estado }}</td>
+                <td style="text-align: center" *ngIf="rowData.estadoAtencion===1; else regular">
+                    <p-tag
+                            severity="warning"
+                            value="pendiente">
+                    </p-tag>
+                </td>
+                <ng-template #regular>
+                    <td style="text-align: center" *ngIf="rowData.estadoAtencion===0">
+                        <p-tag
+                                severity="success"
+                                value="interconsulta">
+                        </p-tag>
+                    </td>
+                </ng-template>
+
                 <td style="text-align: center">
                     <span class="p-buttonset">
-                        <button pButton pRipple class="p-button-info" label="Plan de Atención"
+                        <button pButton pRipple class="p-button-info" label="Consulta #"
                                 routerLink="../citas/atencion"
                                 icon="pi pi-book" style="background-color: #0c3866"
                                 (click)="atencion(rowData)"></button>
