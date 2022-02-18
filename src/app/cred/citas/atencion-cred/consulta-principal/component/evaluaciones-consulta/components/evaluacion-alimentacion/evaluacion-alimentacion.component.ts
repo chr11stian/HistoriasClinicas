@@ -7,6 +7,8 @@ import {MessageService} from "primeng/api";
 import {ConsultaGeneralService} from "../../../../services/consulta-general.service";
 import {EvaluacionAlimentacionService} from "../../services/evaluacion-alimentacion.service";
 import Swal from "sweetalert2";
+import {dato} from "../../../../../../models/data";
+import {ListaConsultaService} from "../../../../../../services/lista-consulta.service";
 
 @Component({
   selector: 'app-evaluacion-alimentacion',
@@ -22,12 +24,13 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   datePipe=new DatePipe('en-US');
   edadEditable:number =0;
 
-  id:string="62028f4c7ef573236aba9876";
-  attributeLocalS = 'idConsulta'
-  edadMeses:number=7;
+  // id:string="62028f4c7ef573236aba9876";
+  attributeLocalS = 'documento';
+  edadMeses:number=1;
   displayPosition: boolean;
   position: string;
   diagnostico:string;
+  data:dato;
   diagnosticoList = [{name: 'NINO CON LACTANCIA MATERNA CONTINUADA', code: 'NINO CON LACTANCIA MATERNA CONTINUADA'},
     {name: 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO', code: 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO'},
     {name: 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA', code: 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'},
@@ -38,8 +41,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router,
               private messageService: MessageService,
-              private consultaGeneralService: ConsultaGeneralService) {
-    // this.id = localStorage.getItem(this.attributeLocalS);
+              private consultaService: ListaConsultaService) {
   }
   ngOnInit(): void {
     this.evaluacionAlimenticia = [
@@ -158,14 +160,16 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
       }
     ]
+    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     // this.recuperarEdadNinio(); /*cuando recupere datos en consulta*/
     this.recuperarDataPlanAlimentaciaBD();
     this.showDialogEdad('top');
   }
   recuperarEdadNinio(){
-    this.consultaGeneralService.getGenerales(this.id).subscribe((r: any) => {
-      console.log(r.object.datosGeneralesConsulta.edad);
-      this.edadMeses=  r.object.datosGeneralesConsulta.edad.anio*12 + r.object.datosGeneralesConsulta.edad.mes;
+    console.log('entrando a recuperar edad');
+    this.consultaService.getDatosGenerales(this.data.idConsulta).subscribe((r: any) => {
+      // console.log(r.object.datosGeneralesConsulta.edad);
+      this.edadMeses=  r.object.datosGeneralesConsulta.anioEdad + r.object.datosGeneralesConsulta.mesEdad;
       console.log(this.edadMeses);
     });
 
@@ -178,235 +182,256 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   }
   /******RECUPERAR LISTA DE EVALUACION ALIMENTICIA*******/
   recuperarDataPlanAlimentaciaBD(){
-    this.evalAlimenService.getEvaluacionAlimenticiaCredPlan(this.nroDocRecuperado).subscribe((res: any) => {
+    console.log('documentos',this.data.nroDocumento);
+    this.evalAlimenService.getEvaluacionAlimenticiaCredPlan(this.data.nroDocumento).subscribe((res: any) => {
       this.Evaluaciones = (res.object);
-      console.log('evaluacion', res.object);
-      console.log('paciente por doc ', this.Evaluaciones)
-      console.log(this.Evaluaciones[0]);
-      let aux:any;
-      let i = 0
-      while(this.Evaluaciones[i]!=undefined){
-        console.log("entrando i", i);
-        aux=this.Evaluaciones[i]
-        if(aux.edad == 0){
-          this.evaluacionAlimenticia[0].valorRN = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valorRN = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valorRN = aux.listaPreguntas[x].estado;
-            x++;
+      if(this.Evaluaciones!=null){
+        Swal.fire({
+          icon: 'success',
+          title: 'Evaluación Alimenticia',
+          text: 'Se recupero registros con éxito',
+          showConfirmButton: false,
+          timer: 2000,
+        })
+        console.log('evaluacion', res.object);
+        console.log('paciente por doc ', this.Evaluaciones)
+        console.log(this.Evaluaciones[0]);
+        let aux:any;
+        let i = 0
+        while(this.Evaluaciones[i]!=undefined){
+          console.log("entrando i", i);
+          aux=this.Evaluaciones[i]
+          if(aux.edad == 0){
+            this.evaluacionAlimenticia[0].valorRN = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valorRN = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valorRN = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 1) {
-          console.log(this.evaluacionAlimenticia[0]);
-          this.evaluacionAlimenticia[0].valor1M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor1M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor1M = aux.listaPreguntas[x].estado;
-            x++;
-          }
+          if(aux.edad == 1) {
+            console.log(this.evaluacionAlimenticia[0]);
+            this.evaluacionAlimenticia[0].valor1M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor1M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor1M = aux.listaPreguntas[x].estado;
+              x++;
+            }
 
-        }
-        if(aux.edad == 2) {
-          this.evaluacionAlimenticia[0].valor2M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor2M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor2M = aux.listaPreguntas[x].estado;
-            x++;
           }
-        }
-        if(aux.edad == 3) {
-          this.evaluacionAlimenticia[0].valor3M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor3M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor3M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 2) {
+            this.evaluacionAlimenticia[0].valor2M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor2M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor2M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 4) {
-          this.evaluacionAlimenticia[0].valor4M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor4M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor4M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 3) {
+            this.evaluacionAlimenticia[0].valor3M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor3M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor3M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 5) {
-          this.evaluacionAlimenticia[0].valor5M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor5M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor5M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 4) {
+            this.evaluacionAlimenticia[0].valor4M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor4M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor4M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 6) {
-          this.evaluacionAlimenticia[0].valor6M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor6M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor6M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 5) {
+            this.evaluacionAlimenticia[0].valor5M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor5M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor5M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 7) {
-          this.evaluacionAlimenticia[0].valor7M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor7M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor7M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 6) {
+            this.evaluacionAlimenticia[0].valor6M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor6M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor6M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 8) {
-          this.evaluacionAlimenticia[0].valor8M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor8M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor8M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 7) {
+            this.evaluacionAlimenticia[0].valor7M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor7M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor7M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 9) {
-          this.evaluacionAlimenticia[0].valor9M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor9M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor9M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 8) {
+            this.evaluacionAlimenticia[0].valor8M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor8M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor8M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 10) {
-          this.evaluacionAlimenticia[0].valor10M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor10M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor10M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 9) {
+            this.evaluacionAlimenticia[0].valor9M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor9M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor9M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 11) {
-          this.evaluacionAlimenticia[0].valor11M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor11M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor11M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 10) {
+            this.evaluacionAlimenticia[0].valor10M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor10M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor10M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 12) {
-          this.evaluacionAlimenticia[0].valor12M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor12M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor12M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 11) {
+            this.evaluacionAlimenticia[0].valor11M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor11M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor11M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 14) {
-          this.evaluacionAlimenticia[0].valor14M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor14M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor14M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 12) {
+            this.evaluacionAlimenticia[0].valor12M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor12M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor12M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 16) {
-          this.evaluacionAlimenticia[0].valor16M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor16M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor16M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 14) {
+            this.evaluacionAlimenticia[0].valor14M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor14M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor14M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 18) {
-          this.evaluacionAlimenticia[0].valor18M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor18M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor18M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 16) {
+            this.evaluacionAlimenticia[0].valor16M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor16M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor16M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 20) {
-          this.evaluacionAlimenticia[0].valor20M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor20M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor20M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 18) {
+            this.evaluacionAlimenticia[0].valor18M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor18M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor18M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 22) {
-          this.evaluacionAlimenticia[0].valor22M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor22M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor22M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 20) {
+            this.evaluacionAlimenticia[0].valor20M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor20M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor20M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 24) {
-          this.evaluacionAlimenticia[0].valor24M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor24M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor24M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 22) {
+            this.evaluacionAlimenticia[0].valor22M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor22M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor22M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 30) {
-          this.evaluacionAlimenticia[0].valor30M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor30M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor30M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 24) {
+            this.evaluacionAlimenticia[0].valor24M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor24M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor24M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 33) {
-          this.evaluacionAlimenticia[0].valor33M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor33M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor33M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 30) {
+            this.evaluacionAlimenticia[0].valor30M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor30M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor30M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 36) {
-          this.evaluacionAlimenticia[0].valor36M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor36M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor36M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 33) {
+            this.evaluacionAlimenticia[0].valor33M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor33M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor33M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 39) {
-          this.evaluacionAlimenticia[0].valor39M = aux.fechaRegistro;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor39M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 36) {
+            this.evaluacionAlimenticia[0].valor36M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor36M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor36M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
-        }
-        if(aux.edad == 42) {
-          this.evaluacionAlimenticia[0].valor42M = aux.fechaRegistro;
-          this.evaluacionAlimenticia[18].valor42M = aux.diagnostico;
-          let x  = 0;
-          while(aux.listaPreguntas[x]!=undefined){
-            this.evaluacionAlimenticia[x+1].valor42M = aux.listaPreguntas[x].estado;
-            x++;
+          if(aux.edad == 39) {
+            this.evaluacionAlimenticia[0].valor39M = aux.fechaRegistro;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor39M = aux.listaPreguntas[x].estado;
+              x++;
+            }
           }
+          if(aux.edad == 42) {
+            this.evaluacionAlimenticia[0].valor42M = aux.fechaRegistro;
+            this.evaluacionAlimenticia[18].valor42M = aux.diagnostico;
+            let x  = 0;
+            while(aux.listaPreguntas[x]!=undefined){
+              this.evaluacionAlimenticia[x+1].valor42M = aux.listaPreguntas[x].estado;
+              x++;
+            }
+          }
+          i++;
         }
-        i++;
+
       }
+      else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Test Peruano',
+          text: 'No existe ningún registro de Evaluación',
+          showConfirmButton: false,
+          timer: 2000,
+        })
+      }
+
     });
   }
   /*************RECUPERAR EL VALOR DE EDAD COMO STRING ************/
@@ -535,7 +560,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
             diagnostico:dx
           }
     }
-    this.evalAlimenService.addEvaluacionAlimenticiaCred(this.id,cadena).subscribe((res: any) => {
+    this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
       console.log('se guardo correctamente ', res.object);
       console.log('se guardo correctamente cade ', cadena);
       Swal.fire({
@@ -712,7 +737,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       }
     }
     console.log(cadena);
-    this.evalAlimenService.updateEvaluacionAlimenticiaCred(this.id,cadena).subscribe((res: any) => {
+    this.evalAlimenService.updateEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
       console.log('se edito correctamente ', res.object);
       console.log('se edito correctamente cade ', cadena);
       Swal.fire({
@@ -734,7 +759,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     return fechas[0] +" " + horas[0] + ":" + horas [1];
   }
   guardarActualizar(indice){
-    this.evalAlimenService.getEvaluacionAlimenticiaCred(this.id).subscribe((res: any) => {
+    this.evalAlimenService.getEvaluacionAlimenticiaCred(this.data.idConsulta).subscribe((res: any) => {
       console.log('se edito correctamente ', res.object);
       if(res.object == null)
       {
