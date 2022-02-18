@@ -38,6 +38,8 @@ export class FiliancionService {
     getAntecedentesFiliacion(id) {
         return this.http.get(`${this.base_url}/${this.bd}/filiacion/buscarfiliacion/${id}`)
     }
-
+    getDatosReniec(doc){
+        return this.http.get(`${this.base_url}/${this.bd}/pide/datos-sis/${doc}`)
+    }
 
 }

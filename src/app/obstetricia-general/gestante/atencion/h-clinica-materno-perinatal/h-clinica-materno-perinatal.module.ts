@@ -18,6 +18,9 @@ import {HClinicaMaternoPerinatalRoutingModule} from "./h-clinica-materno-perinat
 import { HemoglobinaDialogComponent } from './component/datos-basales/hemoglobina-dialog/hemoglobina-dialog.component';
 import { ModalAtencionesComponent } from './component/atenciones/modal-atenciones/modal-atenciones.component';
 import {DialogPatologiasMaternasComponent} from "./component/datos-basales/dialog-patologias-maternas/dialog-patologias-maternas.component";
+import {ScrollPanelModule} from "primeng/scrollpanel";
+import {ScrollTopModule} from "primeng/scrolltop";
+import {VirtualScrollerModule} from "primeng/virtualscroller";
 
 
 @NgModule({
@@ -43,6 +46,9 @@ import {DialogPatologiasMaternasComponent} from "./component/datos-basales/dialo
         PaginatorModule,
         PrimeModule,
         HClinicaMaternoPerinatalRoutingModule,
+        ScrollPanelModule,
+        ScrollTopModule,
+        VirtualScrollerModule,
 
     ]
 })

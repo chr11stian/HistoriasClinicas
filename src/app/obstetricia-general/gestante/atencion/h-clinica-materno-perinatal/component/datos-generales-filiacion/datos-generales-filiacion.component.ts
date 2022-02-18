@@ -5,6 +5,8 @@ import {formatDate} from "@angular/common";
 import Swal from "sweetalert2";
 import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
 import {validate} from "codelyzer/walkerFactory/walkerFn";
+import {PersonalService} from "../../../../../../core/services/personal-services/personal.service";
+import {image} from "../../../../../../../assets/images/image.const";
 
 @Component({
     selector: 'app-datos-generales-filiacion',
@@ -27,6 +29,8 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     edad: any;
     // idDocumento: string;
     dataIDfiliacion: any;
+    dataPacientesReniec: any;
+    imagePath: string = image;
     formDatos_Generales: FormGroup;
 
 
@@ -197,7 +201,8 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
     getpacienteByNroDoc() {
         this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
-            this.dataPacientes = res.object
+            this.dataPacientes = res.object;
+            this.traerDataReniec();
             console.log('paciente por doc ', this.dataPacientes)
             this.formDatos_Generales.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
@@ -238,6 +243,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     getpacienteFiiacionByID() {
         this.filiancionService.getPacienteFiliacionId(this.idRecuperado).subscribe((res: any) => {
             this.dataIDfiliacion = res.object;
+            this.traerDataReniec();
             console.log('fiilacion por ID ', this.dataIDfiliacion)
             this.formDatos_Generales.get('apePaterno').setValue(this.dataIDfiliacion.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataIDfiliacion.apeMaterno);
@@ -298,10 +304,18 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
             nombreRN: new FormControl(''),
             pabreRN: new FormControl(''),
             religion: new FormControl(''),
-            cel1: new FormControl('', [Validators.required, Validators.minLength(9)]),
+            cel1: new FormControl('', [Validators.required, Validators.min(1), Validators.max(9)]),
             cel2: new FormControl(''),
             idioma: new FormControl(''),
         })
     }
 
+
+    traerDataReniec() {
+        this.filiancionService.getDatosReniec(this.nroDocRecuperado).subscribe((res: any) => {
+            this.dataPacientesReniec = res;
+            console.log(res);
+            this.imagePath = res.foto;
+        });
+    }
 }
