@@ -4,7 +4,8 @@ import { GraphicComponent } from './components/graphic/graphic.component';
 import {NgxEchartsModule} from 'ngx-echarts';
 import { SelectBtnComponent } from './components/select-btn/select-btn.component'
 import {PrimeModule} from './prime/prime.module';
-import { CalendarPAIComponent } from './components/calendar-pai/calendar-pai.component'
+import { CalendarPAIComponent } from './components/calendar-pai/calendar-pai.component';
+import { FunctionComponent } from './function/function.component'
 
 
 
@@ -12,7 +13,8 @@ import { CalendarPAIComponent } from './components/calendar-pai/calendar-pai.com
     declarations: [
         GraphicComponent,
         SelectBtnComponent,
-        CalendarPAIComponent
+        CalendarPAIComponent,
+        FunctionComponent
     ],
     exports: [
         GraphicComponent,

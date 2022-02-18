@@ -590,18 +590,45 @@ export class TriajeCredComponent implements OnInit {
 
     getExamenes(): void {
         this.saveInterconsulta()
+        this.getPlan(this.data.nroDocumento)
         this.router.navigate(['/dashboard/cred/citas/atencion/examenes'])
     }
 
     getConsultaPrincipal(): void {
         if (this.data.idConsulta === '') {
             this.save()
+            this.getPlan(this.data.nroDocumento)
         }
         setTimeout(() => {
             this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'])
         }, 1000);
-
-
     }
+
+    getPlan(dni: string) {
+        this.consultaGeneralService.traerPlan(dni).subscribe(
+            result => {
+                if (result.cod === '2404') {
+                    this.getNuevoPlan()
+                    console.log('2404', result)
+                }
+            }, err => {
+                console.log(err)
+            }
+        )
+    }
+
+    getNuevoPlan(): void {
+        this.consultaGeneralService.crearPlan(
+            {
+                'tipoDoc': this.data.tipoDoc,
+                'nroDoc': this.data.nroDocumento
+            }
+        ).toPromise().then((result) => {
+            console.log(result)
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
+
 }
 
