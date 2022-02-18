@@ -4,6 +4,7 @@ import {TepsiService} from "../../services/tepsi.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute} from "@angular/router";
 import {puntaje, resultado, contenedorSubTest, itenTestResultado, listaPregunta} from "../models/tepsi";
+import {dato} from "../../../../../../../../models/data";
 
 @Component({
   selector: 'app-tepsi',
@@ -40,14 +41,20 @@ export class TepsiComponent implements OnInit {
   diaEdad:number;
   rango:number=0
   fechaNacimiento=''
+  attributeLocalS = 'documento'
+  data:dato
   idConsulta:string
+
   minimo:number[]=[5,5,3,4,2,2,2,2,2,2,2,3,2]
   indicePregunta:number[]=[3,4,6,7,12,13,14,15,16,17,18,23,24]
   constructor(private tepsiService:TepsiService,
               private messageService: MessageService,
               private rutaActiva:ActivatedRoute) {
-    // this.idConsulta=this.rutaActiva.snapshot.queryParams.nroDoc
-    this.idConsulta='620bb9b786bca43e001f570f'
+    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    // this.idConsulta='620bb9b786bca43e001f570f'
+    this.idConsulta=this.data.idConsulta
+    this.fechaNacimiento=this.data.fechaNacimiento;
+    console.log(this.idConsulta);
     this.buildForm();
   }
   traerPuntaje(){
@@ -127,11 +134,6 @@ export class TepsiComponent implements OnInit {
       nombreExaminador:new FormControl('',Validators.required),
       fechaSelected:new FormControl(new Date(),Validators.required)
     })
-  }
-  recuperarFechaNacimiento(){
-    // todo recuperar con servicio provisto
-    this.fechaNacimiento='01/01/2022'
-    console.log('id de la consulta',this.idConsulta);
   }
   reconstruirTest(arreglo:any[]){
     const aux=arreglo.map((element)=>{
@@ -226,8 +228,9 @@ export class TepsiComponent implements OnInit {
     this.calcularResultadoSubTest1(2)
   }
   calcularEdadDinamico(fechaInput:Date){
-    console.log('calcular edad dinamico 1')
-    let fechaNacimiento: Date = new Date("2018-06-18 00:00:00"); //requeriremos la fecha de nacimiento//formato mes/dia/año
+    console.log('fecha nacimiento',this.fechaNacimiento)
+
+    let fechaNacimiento: Date = new Date(this.fechaNacimiento); //requeriremos la fecha de nacimiento//formato mes/dia/año
     let dia = fechaNacimiento.getDate()
     let mes = fechaNacimiento.getMonth() + 1
     let ano = fechaNacimiento.getFullYear()
