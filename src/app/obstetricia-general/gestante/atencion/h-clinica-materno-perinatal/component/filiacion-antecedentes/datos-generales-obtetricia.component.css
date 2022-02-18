@@ -23,9 +23,6 @@ p-toolbar >>> * {
     align-self: center;
 }
 
-label {
-    font-weight: normal;
-}
 
 .logo_Region {
     width: 100%;
@@ -93,67 +90,51 @@ input[type="number"] {
 
 input[type="number"] {
     padding-left: 0.1em;
-    text-align: left;
+    text-align: center;
 }
+
+/*.amarilloInput {*/
+/*    background: rgb(252, 213, 90);*/
+/*    color: rgb(0, 0, 0);*/
+/*}*/
+/*.rojoInput {*/
+/*    background: rgba(197, 0, 9, 0.63);*/
+/*    color: rgb(255, 255, 255);*/
+/*}*/
 
 ::ng-deep .dialogo .p-dialog-mask .p-element {
     display: block;
-}
-
-
-canvas {
-    border: 1px solid #b4b4b4;
-}
-
-
-/**DIBUJOS DE**/
-#content{
-    position:relative;
-}
-.mydiv{
-    border:1px solid #368ABB;
-    background-color: #ffffff;
-    position:absolute;
-}
-.mydiv:after{
-    content:no-close-quote;
-    position:absolute;
-    top:50%;
-    left:50%;
-    background-color:black;
-    width:4px;
-    height:4px;
-    border-radius:50%;
-    margin-left:-2px;
-    margin-top:-2px;
-}
-#div1{
-    left:100px;
-    top:50px;
-    width:40px;
-    height:20px;
-}
-#div2{
-    left:20px;
-    top:50px;
-    width:40px;
-    height:20px;
-}
-#line{
-    position:absolute;
-    width:1px;
-    background-color:red;
-}
-
-#div3{
-    left:150px;
-    top:50px;
-    width:40px;
-    height:20px;
 }
 
 .border {
     border: 1px solid rgb(222 226 230);
     border-radius: 3px;
     /*background: rgb(248 249 250)*/
+}
+
+.border2 {
+    border: 1px solid rgb(222 226 230);
+    border-radius: 3px;
+    background: rgb(248 249 250)
+}
+
+label {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-weight: bold;*/
+    color: rgb(135 135 135);
+}
+
+svg {
+    /*text-align: center;*/
+    position: relative;
+    z-index: 100;
+    display: block;
+    height: 300px;
+    width: 880px;
+    margin: auto;
+    background-color: rgba(250, 89, 100, .3);
+    margin: 0 auto;
+    fill: red;
+    /*max-width: 180%;*/
+    /*max-height: 100%;*/
 }
