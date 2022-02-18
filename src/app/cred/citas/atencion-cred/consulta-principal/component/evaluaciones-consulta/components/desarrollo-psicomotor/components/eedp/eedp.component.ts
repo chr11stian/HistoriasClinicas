@@ -311,7 +311,7 @@ export class EedpComponent implements OnInit {
     }
   }
 
-  confirmSaveTest(){
+  confirmSaveTest() {
     Swal.fire({
       title: 'Esta Seguro que Desea Guardar los Cambios?',
       icon: 'question',
@@ -319,20 +319,11 @@ export class EedpComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Confirmar',
-      cancelButtonText:'Cancelar'
+      cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
         this.saveTest();
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
       }
     })
-  }
-
-  updateEscalaEEDP() {
-
   }
 }
