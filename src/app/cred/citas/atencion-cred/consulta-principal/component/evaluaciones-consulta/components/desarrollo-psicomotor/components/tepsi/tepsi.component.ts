@@ -52,16 +52,37 @@ export class TepsiComponent implements OnInit {
   }
   traerPuntaje(){
     const aux=this.resultadoA
+    console.log('a imprimir',aux[0].puntajeT,aux[1].puntajeT,aux[2].puntajeT,aux[3].puntajeT)
     return [aux[0].puntajeT,aux[1].puntajeT,aux[2].puntajeT,aux[3].puntajeT]
+  }
+  determinaColor(){
+    const aux=this.resultadoA
+    let color:string;
+    const arreglo=  aux.map((item)=>{
+      if(item.categoria=='Normal'){
+        color='green';
+      }
+      else{
+        if(item.categoria=='Riesgo'){
+          color='#F3D9DC'
+        }
+        else{
+          color='#D77F8A'
+        }
+      }
 
+      return color
+    })
+
+    return arreglo
   }
   chart(){
     this.basicData = {
       labels: ['Test Total', 'subTest Coordinacion', 'Sub Test Lenguaje', 'Sub Test Motricidad'],
       datasets: [
         {
-          label: 'My First dataset',
-          backgroundColor: 'green',
+          label: 'Puntaje T Resultado Test Total',
+          backgroundColor: this.determinaColor(),
           data: this.traerPuntaje(),
         }
       ]
@@ -71,7 +92,7 @@ export class TepsiComponent implements OnInit {
       plugins: {
         legend: {
           labels: {
-            color: '#ebedef'
+            color: 'black',
           }
         }
       },
@@ -81,7 +102,7 @@ export class TepsiComponent implements OnInit {
             color: 'black'
           },
           grid: {
-            color: 'red'
+            color: '#AF0017'
           }
         },
         y: {
@@ -89,7 +110,7 @@ export class TepsiComponent implements OnInit {
             color: 'black'
           },
           grid: {
-            color: 'red'
+            color: '#AF0017'
           }
         }
       }
@@ -99,7 +120,7 @@ export class TepsiComponent implements OnInit {
   ngOnInit(): void {
     this.calcularEdadDinamico(this.getFC('fechaSelected').value)
     this.getTestTepsi();
-    this.chart();
+    console.log('impresion desde el ng on init')
   }
   buildForm(){
     this.datosGeneralesFG=new FormGroup({
@@ -119,8 +140,9 @@ export class TepsiComponent implements OnInit {
     return aux
   }
   isUpdate:boolean=false
-  getTestTepsi(){
-    this.tepsiService.getConsultaTepsi(this.idConsulta).subscribe((resp)=>{
+  async getTestTepsi(){
+    console.log('desde get test tepsi2')
+    await this.tepsiService.getConsultaTepsi(this.idConsulta).then((resp)=>{
       if (resp['cod']=='2121'){
         this.isUpdate=true;
         this.messageService.add({key: 'myKey1', severity:'success', summary: 'Registro recuperado', detail: 'Registro recuperado satisfactoriamente'});
@@ -137,9 +159,12 @@ export class TepsiComponent implements OnInit {
 
         this.arregloSubtest[2]= this.reconstruirTest(resultado['subTestMotricidad']['listItemTest']);
         this.calcularResultadoSubTest1(3)
-
+        console.log('en pleno susbcribe ')
       }
     })
+    console.log('despues del suscribe')
+
+
   }
   resconstruirSubPreguntas(arregloLenguaje){
     this.subPreguntas.forEach((element,index)=>{
@@ -154,6 +179,7 @@ export class TepsiComponent implements OnInit {
     return arregloAux
   }
   determinarRango(){
+    console.log('determinar rango 2')
     if((this.anioEdad==2 && this.mesEdad<=5)||(this.anioEdad==2 && this.mesEdad==6 && this.diaEdad==0) ) {
       return 1;
     }
@@ -200,6 +226,7 @@ export class TepsiComponent implements OnInit {
     this.calcularResultadoSubTest1(2)
   }
   calcularEdadDinamico(fechaInput:Date){
+    console.log('calcular edad dinamico 1')
     let fechaNacimiento: Date = new Date("2018-06-18 00:00:00"); //requeriremos la fecha de nacimiento//formato mes/dia/año
     let dia = fechaNacimiento.getDate()
     let mes = fechaNacimiento.getMonth() + 1
@@ -249,6 +276,7 @@ export class TepsiComponent implements OnInit {
     this.getTablaPuntaje();
   }
   async getTablaPuntaje(){
+    console.log('get tabla puntaje')
     await this.tepsiService.getTablaPuntaje1(this.rango).then((data)=>{
       this.tablaPuntajeTotal=data['object']['tablaPuntajeTotal'];
       this.tablaSubTestG.push({subTest:data['object']['tablaSubTestCoordinacion']})
@@ -282,20 +310,20 @@ export class TepsiComponent implements OnInit {
     }
   }
   resultadoA:resultado[]=[{
-    puntajeBruto:0,
+    puntajeBruto:0,//test total
     puntajeT:0,
     categoria:''
   },{
-    puntajeBruto:0,
+    puntajeBruto:0,//subtest coordinacion
     puntajeT:0,
     categoria:''
   },{
-    puntajeBruto:0,
+    puntajeBruto:0,//subtest lenguaje
     puntajeT:0,
     categoria:''
   },
     {
-      puntajeBruto:0,
+      puntajeBruto:0,//subtest motricidad
       puntajeT:0,
       categoria:''
     }
@@ -318,6 +346,8 @@ export class TepsiComponent implements OnInit {
     this.resultadoA[indexSubTest].puntajeT=parseInt(element.puntajeT)
     this.resultadoA[indexSubTest].categoria = this.determinarCategoria(parseInt(element.puntajeT))
     this.calcularTotal();
+    this.chart();
+
   }
   save() {
     console.log('entramos al save')
