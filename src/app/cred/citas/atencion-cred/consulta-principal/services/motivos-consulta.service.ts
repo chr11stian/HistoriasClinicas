@@ -17,11 +17,11 @@ export class MotivosConsultaService {
     }
 
     updateMotivos(id, data) {
-        return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/motivos/${id}`, data)
+        return this.http.post(`${this.urlServer}/${this.bd}/cred/consulta/agregar/motivo/${id}`, data)
     }
 
-    getMotivos(id) {
-        return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/motivos/${id}`)
+    getMotivos(idConsulta) {
+        return this.http.get(`${this.urlServer}/${this.bd}/cred/consulta/motivo/${idConsulta}`)
     }
 }
 

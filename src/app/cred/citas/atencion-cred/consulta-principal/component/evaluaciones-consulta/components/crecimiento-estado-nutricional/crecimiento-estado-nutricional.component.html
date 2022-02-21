@@ -1,0 +1,355 @@
+<div #calendarWrapper></div>
+<div class="grid mb-2">
+  <div class="col-12 flex justify-content-between">
+    <div class="flex justify-content-between">
+<!--      <button pButton pRipple label="Expandir" class="mr-2 p-button-success" icon="pi pi-window-maximize" (click)="expandir=false" styleClass="p-button-lg"></button>-->
+<!--      <button pButton pRipple label="Comprimir" class="mr-2 p-button-secondary" icon="pi pi-window-minimize" (click)="expandir=true" styleClass="p-button-lg"></button>-->
+    </div>
+    <div class="flex justify-content-between">
+      <button pButton pRipple label="Grafico del Perimetro Cefálico" (click)="onCircumferenceChart()" class="mr-2 p-button-warning " icon="pi pi-chart-line" styleClass="p-button-lg"></button>
+      <button pButton pRipple label="Grafica de Peso" (click)="onWeightChart()" class="mr-2 p-button-warning " icon="pi pi-chart-line" styleClass="p-button-lg"></button>
+      <button pButton pRipple label="Grafica Estatura" (click)="onHeightChart()" class="mr-2 p-button-warning" icon="pi pi-chart-line" styleClass="p-button-lg"></button>
+      <button pButton pRipple label="Grafica de Peso/Longitud" (click)="onHeightWeightChart()" class="p-button-warning" icon="pi pi-chart-line" styleClass="p-button-lg"></button>
+    </div>
+  </div>
+</div>
+<div>
+  <p-dropdown [options]="ventanas" [virtualScroll]="true" (onChange)="cambiamos($event)" optionValue="code" optionLabel="name"  itemSize="30"></p-dropdown>
+</div>
+<div class="grid">
+  <div class="col-7">
+    <p-fieldset *ngIf="edad==-1" legend="Recién Nacido" [toggleable]="true" >
+      <div class="card flex flex-column">
+        <div class="field grid">
+          <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
+          <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Fecha</div>
+          <div class="text-right" style="width:140px">Fecha Tentativa</div>
+          <!--                    <div class="mr-2 text-right" style="width:265px">Fecha</div>-->
+          <!--                    <div class="text-right" style="width:140px">Fecha Tentativa</div>-->
+        </div>
+        <div class="field grid" *ngFor="let itemRN of RN">
+          <span [style]="itemRN.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{itemRN.nroControl}}°:</span>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [disabled]="true" [(ngModel)]="itemRN.peso"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [disabled]="true" [(ngModel)]="itemRN.talla"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="itemRN.talla"/>
+          <div class="mr-2" style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':itemRN.fecha,'noVacunado':!itemRN.fecha}" [showIcon]="true" inputId="icon"  [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="itemRN.fecha"></p-calendar>
+          </div>
+          <div style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':itemRN.fecha,'noVacunado':!itemRN.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="itemRN.fechaTentativa"></p-calendar>
+          </div>
+          <button *ngIf="itemRN.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined ml-2" pTooltip="Agregar Peso y Talla" (click)=agregarPesoTalla(itemRN)></button>
+        </div>
+      </div>
+    </p-fieldset>
+    <p-fieldset *ngIf="edad==0" legend="Menor de 01 año" [toggleable]="true" >
+      <div class="card flex flex-column">
+        <div class="field grid">
+          <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
+          <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Fecha</div>
+          <div class="text-right" style="width:140px">Fecha Tentativa</div>
+        </div>
+        <div class="field grid" *ngFor="let itemMN1 of Menor_1A">
+          <span class="col-fixed text-right mr-4" [style]="itemMN1.fecha ? 'color:green' : 'color:#BF0D21'" style="width:20px">{{itemMN1.nroControl}}°:</span>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="itemMN1.peso" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="itemMN1.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="itemMN1.talla"/>
+          <div class="mr-2" style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':itemMN1.fecha,'noVacunado':!itemMN1.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="itemMN1.fecha"></p-calendar>
+          </div>
+          <div style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':itemMN1.fecha,'noVacunado':!itemMN1.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="itemMN1.fechaTentativa"></p-calendar>
+          </div>
+          <button *ngIf="itemMN1.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined ml-2" pTooltip="Agregar Peso y Talla" (click)=agregarPesoTalla(itemMN1)></button>
+        </div>
+      </div>
+    </p-fieldset>
+
+    <p-fieldset *ngIf="edad==1" legend="1 año" [toggleable]="true" >
+      <div class="card flex flex-column">
+        <div class="field grid">
+          <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
+          <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Fecha</div>
+          <div class="text-right" style="width:140px">Fecha Tentativa</div>
+        </div>
+        <div class="field grid" *ngFor="let item1 of A1">
+          <span [style]="item1.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item1.nroControl}}°:</span>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item1.peso" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item1.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item1.talla"/>
+          <div class="mr-2" style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item1.fecha,'noVacunado':!item1.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item1.fecha"></p-calendar>
+          </div>
+          <div style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item1.fecha,'noVacunado':!item1.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item1.fechaTentativa"></p-calendar>
+          </div>
+          <button *ngIf="item1.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined ml-2" pTooltip="Agregar Peso y Talla" (click)=agregarPesoTalla(item1)></button>
+        </div>
+      </div>
+    </p-fieldset>
+
+    <p-fieldset *ngIf="edad==2" legend="2 años" [toggleable]="true" >
+      <div class="card flex flex-column">
+        <div class="field grid">
+          <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
+          <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Fecha</div>
+          <div class="text-right" style="width:140px">Fecha Tentativa</div>
+        </div>
+        <div class="field grid" *ngFor="let item2 of A2">
+          <span [style]="item2.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item2.nroControl}}°:</span>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item2.peso" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item2.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item2.talla"/>
+          <div class="mr-2" style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item2.fecha,'noVacunado':!item2.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item2.fecha"></p-calendar>
+          </div>
+          <div style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item2.fecha,'noVacunado':!item2.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item2.fechaTentativa"></p-calendar>
+          </div>
+          <button *ngIf="item2.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined ml-2" pTooltip="Agregar Peso y Talla" (click)=agregarPesoTalla(item2)></button>
+        </div>
+      </div>
+    </p-fieldset>
+
+
+    <p-fieldset *ngIf="edad==3" legend="3 años" [toggleable]="true" >
+      <div class="card flex flex-column">
+        <div class="field grid">
+          <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
+          <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Fecha</div>
+          <div class="text-right" style="width:140px">Fecha Tentativa</div>
+        </div>
+        <div class="field grid" *ngFor="let item3 of A3">
+          <span [style]="item3.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item3.nroControl}}°:</span>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item3.peso" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item3.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item3.talla"/>
+          <div class="mr-2" style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item3.fecha,'noVacunado':!item3.fecha}" inputId="icon" placeholder="Fecha" [disabled]=true dateFormat="yy-mm-dd" [(ngModel)]="item3.fecha"></p-calendar>
+          </div>
+          <div style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item3.fecha,'noVacunado':!item3.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item3.fechaTentativa"></p-calendar>
+          </div>
+          <button *ngIf="item3.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined ml-2" pTooltip="Agregar Peso y Talla" (click)=agregarPesoTalla(item3)></button>
+        </div>
+      </div>
+    </p-fieldset>
+
+    <p-fieldset *ngIf="edad==4" legend="4 años" [toggleable]="true" >
+      <div class="card flex flex-column">
+        <div class="field grid">
+          <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
+          <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Fecha</div>
+          <div class="text-right" style="width:140px">Fecha Tentativa</div>
+        </div>
+        <div class="field grid" *ngFor="let item4 of A4">
+          <span [style]="item4.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item4.nroControl}}°:</span>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item4.peso" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item4.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item4.talla"/>
+          <div class="mr-2" style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item4.fecha,'noVacunado':!item4.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item4.fecha"></p-calendar>
+          </div>
+          <div style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item4.fecha,'noVacunado':!item4.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item4.fechaTentativa"></p-calendar>
+          </div>
+          <button *ngIf="item4.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined ml-2" pTooltip="Agregar Peso y Talla" (click)=agregarPesoTalla(item4)></button>
+        </div>
+      </div>
+    </p-fieldset>
+    <p-fieldset *ngIf="edad==5" legend="5 años" [toggleable]="true" >
+      <div class="card flex flex-column">
+        <div class="field grid">
+          <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
+          <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Fecha</div>
+          <div class="text-right" style="width:140px">Fecha Tentativa</div>
+        </div>
+        <div class="field grid" *ngFor="let item5 of A5">
+          <span [style]="item5.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item5.nroControl}}°:</span>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item5.peso" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item5.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item5.talla"/>
+          <div class="mr-2" style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item5.fecha,'noVacunado':!item5.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item5.fecha"></p-calendar>
+          </div>
+          <div style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item5.fecha,'noVacunado':!item5.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item5.fechaTentativa"></p-calendar>
+          </div>
+          <button *ngIf="item5.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined ml-2" pTooltip="Agregar Peso y Talla" (click)=agregarPesoTalla(item5)></button>
+        </div>
+      </div>
+    </p-fieldset>
+
+    <p-fieldset *ngIf="edad==6" legend="6 años" [toggleable]="true" >
+      <div class="card flex flex-column">
+        <div class="field grid">
+          <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
+          <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Fecha</div>
+          <div class="text-right" style="width:140px">Fecha Tentativa</div>
+        </div>
+        <div class="field grid" *ngFor="let item6 of A6">
+          <span [style]="item6.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item6.nroControl}}°:</span>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item6.peso" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item6.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item6.talla"/>
+          <div class="mr-2" style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item6.fecha,'noVacunado':!item6.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item6.fecha"></p-calendar>
+          </div>
+          <div style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item6.fecha,'noVacunado':!item6.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item6.fechaTentativa"></p-calendar>
+          </div>
+          <button *ngIf="item6.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined ml-2" pTooltip="Agregar Peso y Talla" (click)=agregarPesoTalla(item6)></button>
+        </div>
+      </div>
+    </p-fieldset>
+
+    <p-fieldset *ngIf="edad==7" legend="7 años" [toggleable]="true" >
+      <div class="card flex flex-column">
+        <div class="field grid">
+          <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
+          <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Fecha</div>
+          <div class="text-right" style="width:140px">Fecha Tentativa</div>
+        </div>
+        <div class="field grid" *ngFor="let item7 of A7">
+          <span  [style]="item7.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item7.nroControl}}°:</span>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item7.peso" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item7.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item7.talla"/>
+          <div class="mr-2" style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item7.fecha,'noVacunado':!item7.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item7.fecha"></p-calendar>
+          </div>
+          <div style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item7.fecha,'noVacunado':!item7.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item7.fechaTentativa"></p-calendar>
+          </div>
+          <button *ngIf="item7.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined ml-2" pTooltip="Agregar Peso y Talla" (click)=agregarPesoTalla(item7)></button>
+        </div>
+      </div>
+    </p-fieldset>
+    <p-fieldset *ngIf="edad==8" legend="8 años" [toggleable]="true" >
+      <div class="card flex flex-column">
+        <div class="field grid">
+          <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
+          <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Fecha</div>
+          <div class="text-right" style="width:140px">Fecha Tentativa</div>
+        </div>
+        <div class="field grid" *ngFor="let item8 of A8">
+          <span [style]="item8.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item8.nroControl}}°:</span>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item8.peso" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item8.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item8.talla"/>
+          <div class="mr-2" style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item8.fecha,'noVacunado':!item8.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item8.fecha"></p-calendar>
+          </div>
+          <div style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item8.fecha,'noVacunado':!item8.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item8.fechaTentativa"></p-calendar>
+          </div>
+          <button *ngIf="item8.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined ml-2" pTooltip="Agregar Peso y Talla" (click)=agregarPesoTalla(item8)></button>
+        </div>
+      </div>
+    </p-fieldset>
+    <p-fieldset *ngIf="edad==9?true:false" legend="9 años" [toggleable]="true" >
+      <div class="card flex flex-column">
+        <div class="field grid">
+          <div class="mr-2 text-right" style="width:90px">Peso(gr)</div>
+          <div class="mr-2 text-right" style="width:80px">Talla(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Circunferencia(cm)</div>
+          <div class="mr-2 text-right" style="width:80px">Fecha</div>
+          <div class="text-right" style="width:140px">Fecha Tentativa</div>
+        </div>
+        <div class="field grid" *ngFor="let item9 of A9">
+          <span [style]="item9.fecha ? 'color:green' : 'color:#BF0D21'" class="col-fixed text-right mr-4" style="width:20px">{{item9.nroControl}}°:</span>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Peso" [(ngModel)]="item9.peso" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Talla" [(ngModel)]="item9.talla" [disabled]="true"/>
+          <input type="number" class="mr-2" pInputText style="width:70px" placeholder="Circunferencia" [disabled]="true" [(ngModel)]="item9.talla"/>
+          <div class="mr-2" style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item9.fecha,'noVacunado':!item9.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item9.fecha"></p-calendar>
+          </div>
+          <div style="width:113px">
+            <p-calendar [ngClass]="{'vacunado':item9.fecha,'noVacunado':!item9.fecha}" [showIcon]="true" inputId="icon" [disabled]=true placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item9.fechaTentativa"></p-calendar>
+          </div>
+          <button *ngIf="item9.fecha?false:true" pButton pRipple type="button" icon="pi pi-plus" class="p-button-rounded p-button-outlined ml-2" pTooltip="Agregar Peso y Talla" (click)=agregarPesoTalla(item9)></button>
+        </div>
+      </div>
+    </p-fieldset>
+  </div>
+
+</div>
+<p-dialog [(visible)]="display" [modal]="true" [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '40vw'}">
+  <ng-template pTemplate="header" >
+    <span style="font-weight: bold">
+      Agregar Peso Talla
+    </span>
+  </ng-template>
+  <div class="" [formGroup]="tallaPesoFG">
+    <div class="grid">
+      <div class="col-5 grid">
+        <div class="col-4">Fecha:</div>
+        <div class="col-8">
+          <p-calendar  [appendTo]="calendarWrapper" [disabled]="fechaTentativaDisabled" formControlName="fecha" [showIcon]="true" inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" ></p-calendar>
+        </div>
+      </div>
+      <div class="col-7 grid">
+        <div class="col-6">Pesado y tallado en la fecha programada?</div>
+        <div class="col-3 p-fluid ">
+          <p-selectButton [options]="twoOption"  formControlName="siNo" optionLabel="name" optionValue="code" (onChange)="cambioEstado($event)"></p-selectButton>
+        </div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-5 grid">
+        <div class="col-4">Peso(gr):</div>
+        <div class="col-8 p-fluid">
+          <input formControlName="peso" type="number" class="mr-2" pInputText placeholder="Peso"/>
+        </div>
+      </div>
+      <div class="col-7 grid">
+        <div class="col-6">Talla(cm):</div>
+        <div class="col-6 p-fluid">
+          <input formControlName="talla" type="number" class="mr-2" pInputText placeholder="Talla"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="flex justify-content-end">
+      <button
+              pButton
+              type="button"
+              label="Cerrar"
+              class="p-button-danger p-button px-5 mx-1 text-center p-button-danger "
+              icon="pi pi-times-circle"
+              style="border-radius: 0.5rem"
+              (click)="cancelar()"
+      ></button>
+      <button
+              pButton
+              type="button"
+              label="Guardar"
+              class="p-button-info p-button px-5 mx-1 text-center"
+              icon="pi pi-save"
+              style="border-radius: 0.5rem"
+              (click)="save()"
+      ></button>
+    </div>
+  </ng-template>
+</p-dialog>

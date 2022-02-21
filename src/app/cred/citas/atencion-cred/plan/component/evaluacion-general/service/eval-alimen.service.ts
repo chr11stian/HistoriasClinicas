@@ -15,7 +15,7 @@ export class EvalAlimenService {
 
 
   constructor(private http: HttpClient) { }
-  /**cambios hechos por madai**/
+  /** SERVICIOS EVALUACION ALIMENTICIA**/
   getEvaluacionAlimenticiaCred(nroDoc) {
     return this.http.get(`${this.base_url}/${this.bd}/cred/evaluacion/alimentacion/${nroDoc}`);
   }
@@ -95,5 +95,4 @@ export class EvalAlimenService {
         .then(data => { console.log('creacion exitosa', data) })
         .catch(error => { console.log('error en la creacion', error) })
   }
-
 }

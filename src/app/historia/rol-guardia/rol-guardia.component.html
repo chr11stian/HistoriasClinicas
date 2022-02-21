@@ -22,8 +22,14 @@
     </ng-template>
 
     <ng-template pTemplate="header">
-        <tr>
-            <th rowSpan="2" colSpan="3" class="text-center" style="min-width: 250px ;border-bottom:1px solid #CDCDCD" >
+        <tr >
+            <th class="frozenCol text-center"
+                pFrozenColumn
+                [frozen]="true"
+                rowSpan="2"
+                colSpan="3"
+
+                style="min-width: 250px ;border-bottom:1px solid #CDCDCD" >
                 <strong>
                     <label class="line-height-4" for="username2" class="text-base" style="font-weight:normal">
                         Servicio:</label
@@ -38,49 +44,52 @@
                             optionLabel="nombreUPS"
                             placeholder="Seleccionar"
                             styleClass="my-2 py-1"
-                            (onChange)="changeUps1($event, dd)"
+                            (onChange)="changeUps1($event)"
                             [(ngModel)]="upsSeleccionada"
                     ></p-dropdown>
                 </div>
             </th>
             <th
-                    [colSpan]="cabeceraMes.length + 1"
+                    [colSpan]="cabeceraMes.length + 2"
                     style="background-color:#D9D9D9;border-bottom: 1px solid #CDCDCD"
             >
                 <div >
-                    <p-calendar
-                            [appendTo]="calendarWrapper"
-                            [(ngModel)]="dateValue"
-                            (onSelect)="cambiarFecha($event)"
-                            view="month"
-                            dateFormat="mm/yy"
-                            [yearNavigator]="true"
-                            yearRange="2020:2030"
-                    ></p-calendar>
+<!--                    <p-calendar-->
+<!--                            [appendTo]="calendarWrapper"-->
+<!--                            [(ngModel)]="dateValue"-->
+<!--                            (onSelect)="cambiarFecha($event)"-->
+<!--                            view="month"-->
+<!--                            dateFormat="mm/yy"-->
+<!--                            [yearNavigator]="true"-->
+<!--                            yearRange="2020:2030"-->
+<!--                    ></p-calendar>-->
                     <div
                             class="flex align-items-center text-center justify-content-center"
                     >
-                        <!-- <button
+                        <button
                           pButton
                           type="button"
                           label=""
                           icon="pi pi-chevron-left"
                           class="p-button-text p-button-secondary"
-                        ></button> -->
+                          (click)="isAdelante=false;cambiarFecha();"
+                        ></button>
                         <span class="m-3">
                          {{ mesLetras() }} {{ fecha.getFullYear() }}</span>
-                        <!-- <button
+                        <button
                           pButton
                           type="button"
                           label=""
                           icon="pi pi-chevron-right"
                           class="p-button-text p-button-secondary"
-                        ></button> -->
+                          (click)="isAdelante=true;cambiarFecha();"
+                        ></button>
                     </div>
                 </div>
             </th>
         </tr>
         <tr >
+            <th class="ml-3" rowspan="2" style="background-color:#D9D9D9">Ambiente</th>
             <th
                     *ngFor="let dia of cabeceraMes"
                     [style]="dia.bg"
@@ -88,10 +97,14 @@
             >
                 {{ dia.abreviatura }}
             </th>
-            <th rowspan="2" style="background-color:#D9D9D9">Horas</th>
+            <th  class="frozenCol"
+                 pFrozenColumn
+                 [frozen]="true" rowspan="2" style="background-color:#D9D9D9">Horas</th>
         </tr>
         <tr>
-            <th colspan="3" >
+            <th  class="frozenCol"
+                 pFrozenColumn
+                 [frozen]="true" colspan="3" >
                 PERSONAL DE SALUD
             </th>
 <!--            <th >-->
@@ -110,8 +123,10 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-i="rowIndex;">
-        <tr>
-            <td style="min-width: 3rem">
+        <tr  [pSelectableRow]="rowData" (click)="modal(rowData,i)">
+            <td  class="frozenCol"
+                 pFrozenColumn
+                 [frozen]="true" style="min-width: 3rem">
                 {{ i + 1 }}
             </td>
 <!--            <td class="">-->
@@ -120,26 +135,41 @@
 <!--            <td class="" >-->
 <!--                {{ rowData.nombre }}-->
 <!--            </td>-->
-            <td colspan="2">
+            <td  class="frozenCol"
+                 pFrozenColumn
+                 [frozen]="true" colspan="2">
                 {{rowData.nombreCompleto}}
+            </td>
+            <td>
+                <p-dropdown
+                        #dd
+                        class="bordeDropTurno"
+                        [inline]="false"
+                        [appendTo]="dropdown"
+                        [options]="listaAmbienteXipres"
+                        [virtualScroll]="true"
+                        [(ngModel)]="listaAmbiente[i]"
+                ></p-dropdown>
             </td>
             <td *ngFor="let dia of cabeceraMes; let j = index" class="" >
                 <!-- {{ i }} -{{ j }} -->
+<!--                    placeholder="NA"-->
                 <p-dropdown
                     #dd
                     class="bordeDropTurno"
-                    placeholder="NA"
                     [inline]="false"
                     [appendTo]="dropdown"
                     [options]="listaTurno"
                     [virtualScroll]="true"
-                    optionLabel="abreviatura"
                     dataKey="abreviatura"
+                    optionLabel="abreviatura"
                     [(ngModel)]="matriz[i][j]"
                     (onChange)="changeTurno(i, j)"
                 ></p-dropdown>
             </td>
-            <td class="">{{ listaHoras[i] }}</td>
+            <td  class="frozenCol"
+                 pFrozenColumn
+                 [frozen]="true" >{{ listaHoras[i] }}</td>
         </tr>
     </ng-template>
 </p-table>
@@ -167,7 +197,7 @@
         <span
         ><p>N-Noche</p>
           <p>R-Reten</p>
-          <p>L-Libre</p></span
+          <p style="color:#BF0D21">L-Libre</p></span
         >
             </div>
             <div class="col-3">
@@ -179,7 +209,7 @@
             </div>
             <div class="col-2">
                 <span><p>F-Feriado</p> </span>
-                <span><p style="color:#BF0D21">NA-No Asignado</p> </span>
+<!--                <span><p style="color:#BF0D21">NA-No Asignado</p> </span>-->
             </div>
         </div>
     </div>
@@ -193,29 +223,32 @@
                     class="bg-blue-700 p-button px-5 mx-1 text-center"
                     icon="pi pi-save"
                     (click)="designar()"
-                    [disabled]="upsSeleccionada == ''"
+                    [disabled]="!isSelected"
                     style="border-radius: 0.5rem"
+                    de
             ></button>
         </div>
+<!--                    [disabled]="upsSeleccionada == ''"-->
         <div class="col-6 flex align-content-center flex-wrap card-container">
-            <button
-                    pButton
-                    type="button"
-                    label="Cerrar"
-                    class="p-button-danger p-button px-5 mx-1 text-center p-button-danger "
-                    icon="pi pi-times-circle"
-                    (click)="close()"
-                    style="border-radius: 0.5rem"
-            ></button>
+<!--            <button-->
+<!--                    pButton-->
+<!--                    type="button"-->
+<!--                    label="Cerrar"-->
+<!--                    class="p-button-danger p-button px-5 mx-1 text-center p-button-danger "-->
+<!--                    icon="pi pi-times-circle"-->
+<!--                    (click)="close()"-->
+<!--                    style="border-radius: 0.5rem"-->
+<!--            ></button>-->
         </div>
     </div>
 </div>
 <!-- </p-card> -->
 <p-confirmDialog
         [breakpoints]="{ '960px': '25vw', '640px': '100vw' }"
-        [style]="{ width: '25vw' }"
+        [style]="{ width: '45vw' }"
         key="positionDialog"
         [baseZIndex]="10000"
+        position="top"
 ></p-confirmDialog>
 <p-toast [style]="{ marginTop: '80px' }" key="toast1"></p-toast>
 <p-toast [style]="{ marginTop: '80px' }" key="toast2"></p-toast>

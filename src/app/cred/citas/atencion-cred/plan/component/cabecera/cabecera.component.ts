@@ -7,6 +7,7 @@ import {DatosGeneralesComponent} from "../datos-generales/datos-generales.compon
 import {AntecendentesComponent} from "../antecendentes/antecendentes.component";
 import {PlanAtencionIntegralComponent} from "../plan-atencion-integral/plan-atencion-integral.component";
 import {EvaluacionGeneralComponent} from "../evaluacion-general/evaluacion-general.component";
+import {dato} from "../../../../models/data";
 
 @Component({
     selector: "app-cabecera",
@@ -15,10 +16,11 @@ import {EvaluacionGeneralComponent} from "../evaluacion-general/evaluacion-gener
 })
 export class CabeceraComponent implements OnInit, DoCheck {
     /* lo que reciben del paso anterior */
+    data: dato
     tipoDoc: string = ''
     nroDoc: string = ''
     /** key de lo que se guarda en el local storage */
-    attributeLocalS = 'idConsulta'
+    attributeLocalS = 'documento'
     options: data[]
     selectedOption: data
     items: MenuItem[]
@@ -44,7 +46,7 @@ export class CabeceraComponent implements OnInit, DoCheck {
     }
 
     ngDoCheck() {
-        this.saveStep()
+        //this.saveStep()
     }
 
     ngOnInit(): void {
@@ -58,17 +60,9 @@ export class CabeceraComponent implements OnInit, DoCheck {
     }
 
     getQueryParams(): void {
-        this.route.queryParams
-            .subscribe(params => {
-                if (params['nroDoc']) {
-                    this.tipoDoc = params['tipoDoc']
-                    this.nroDoc = params['nroDoc']
-                    this.getPlan(this.nroDoc)
-                } else {
-                    this.router.navigate(['/dashboard/cred/citas'])
-                }
-            })
-        console.log('plan de atencion', this.consulta)
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.getPlan(this.data.nroDocumento)
+        console.log('plan de atencion', this.data)
     }
 
     getPlan(dni: string) {
@@ -91,8 +85,8 @@ export class CabeceraComponent implements OnInit, DoCheck {
     getNuevoPlan(): void {
         this.consultaGeneralService.crearPlan(
             {
-                'tipoDoc': this.tipoDoc,
-                'nroDoc': this.nroDoc
+                'tipoDoc': this.data.tipoDoc,
+                'nroDoc': this.data.nroDocumento
             }
         ).toPromise().then((result) => {
             this.consulta = result
@@ -131,17 +125,17 @@ export class CabeceraComponent implements OnInit, DoCheck {
             case 'datos':
                 this.datosGenerales.save()
                 this.stepName = 'antecedentes';
-                this.indiceActivo = 1;
+                this.indiceActivo = 0;
                 break;
             case 'antecedentes':
                 //this.antecedentes.save()
                 this.stepName = 'plan';
-                this.indiceActivo = 2;
+                this.indiceActivo = 1;
                 break;
             case 'plan':
                 //this.planAtencion.save()
                 this.stepName = 'evaluacion';
-                this.indiceActivo = 3;
+                this.indiceActivo = 2;
                 break;
             case 'evaluacion':
                 //this.evaluacion.save()
@@ -188,7 +182,6 @@ export class CabeceraComponent implements OnInit, DoCheck {
         }
     }
 }
-
 
 interface data {
     name: string

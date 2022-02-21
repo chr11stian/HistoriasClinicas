@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import Swal from "sweetalert2";
-import {TratamientoConsultaService} from "../../services/tratamiento-consulta.service";
-import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
-import {FinalizarConsultaService} from "../../services/finalizar-consulta.service";
+import { CieService } from "../../../../../../obstetricia-general/services/cie.service";
+import { FinalizarConsultaService } from "../../services/finalizar-consulta.service";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
     selector: 'app-finalizar-consulta',
@@ -23,7 +23,7 @@ export class FinalizarConsultaComponent implements OnInit {
     formAcuerdos: FormGroup;
     formReferencia: FormGroup;
     form: FormGroup
-    dialogTratamiento: boolean;
+
     dialogAcuerdos: boolean;
     dialogExamenes: boolean;
     dialogReferencia: boolean;
@@ -42,42 +42,48 @@ export class FinalizarConsultaComponent implements OnInit {
     bool5: boolean = false;
     index5: number
 
+    tipoDoc: string = ''
+    nroDoc: string = ''
+
+
     constructor(private finalizarService: FinalizarConsultaService,
-                private cieService: CieService,
-                private formBuilder: FormBuilder) {
+        private cieService: CieService,
+        private formBuilder: FormBuilder,
+        private router: Router,
+        private route: ActivatedRoute) {
         this.buildFG();
 
         this.nombreEspecialidad =
             [
-                {label: 'ENDOVENOSA', value: 'ENDOVENOSA'},
-                {label: 'INHALADORA', value: 'INHALADORA'},
-                {label: 'INTRADERMICO', value: 'INTRADERMICO'},
-                {label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR'},
-                {label: 'NASAL', value: 'NASAL'},
-                {label: 'OFTALMICO', value: 'OFTALMICO'},
-                {label: 'ORAL', value: 'ORAL'},
-                {label: 'OPTICO', value: 'OPTICO'},
-                {label: 'RECTAL', value: 'RECTAL'},
-                {label: 'SUBCUTANEO', value: 'SUBCUTANEO'},
-                {label: 'SUBLINGUAL', value: 'SUBLINGUAL'},
-                {label: 'TOPICO', value: 'TOPICO'},
-                {label: 'VAGINAL', value: 'VAGINAL'},
+                { label: 'ENDOVENOSA', value: 'ENDOVENOSA' },
+                { label: 'INHALADORA', value: 'INHALADORA' },
+                { label: 'INTRADERMICO', value: 'INTRADERMICO' },
+                { label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR' },
+                { label: 'NASAL', value: 'NASAL' },
+                { label: 'OFTALMICO', value: 'OFTALMICO' },
+                { label: 'ORAL', value: 'ORAL' },
+                { label: 'OPTICO', value: 'OPTICO' },
+                { label: 'RECTAL', value: 'RECTAL' },
+                { label: 'SUBCUTANEO', value: 'SUBCUTANEO' },
+                { label: 'SUBLINGUAL', value: 'SUBLINGUAL' },
+                { label: 'TOPICO', value: 'TOPICO' },
+                { label: 'VAGINAL', value: 'VAGINAL' },
             ];
         this.examen =
             [
-                {label: 'ENDOVENOSA', value: 'ENDOVENOSA'},
-                {label: 'INHALADORA', value: 'INHALADORA'},
-                {label: 'INTRADERMICO', value: 'INTRADERMICO'},
-                {label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR'},
-                {label: 'NASAL', value: 'NASAL'},
-                {label: 'OFTALMICO', value: 'OFTALMICO'},
-                {label: 'ORAL', value: 'ORAL'},
-                {label: 'OPTICO', value: 'OPTICO'},
-                {label: 'RECTAL', value: 'RECTAL'},
-                {label: 'SUBCUTANEO', value: 'SUBCUTANEO'},
-                {label: 'SUBLINGUAL', value: 'SUBLINGUAL'},
-                {label: 'TOPICO', value: 'TOPICO'},
-                {label: 'VAGINAL', value: 'VAGINAL'},
+                { label: 'ENDOVENOSA', value: 'ENDOVENOSA' },
+                { label: 'INHALADORA', value: 'INHALADORA' },
+                { label: 'INTRADERMICO', value: 'INTRADERMICO' },
+                { label: 'INTRAMUSCULAR', value: 'INTRAMUSCULAR' },
+                { label: 'NASAL', value: 'NASAL' },
+                { label: 'OFTALMICO', value: 'OFTALMICO' },
+                { label: 'ORAL', value: 'ORAL' },
+                { label: 'OPTICO', value: 'OPTICO' },
+                { label: 'RECTAL', value: 'RECTAL' },
+                { label: 'SUBCUTANEO', value: 'SUBCUTANEO' },
+                { label: 'SUBLINGUAL', value: 'SUBLINGUAL' },
+                { label: 'TOPICO', value: 'TOPICO' },
+                { label: 'VAGINAL', value: 'VAGINAL' },
             ];
     }
 
@@ -85,11 +91,11 @@ export class FinalizarConsultaComponent implements OnInit {
     buildFG(): void {
         this.id = localStorage.getItem(this.attributeLocalS);
         this.acuerdosFG = new FormGroup({
-            detailAcuerdoFC: new FormControl({value: '', disabled: false}, []),
-            proximaCitaFC: new FormControl({value: null, disabled: false}, []),
-            atendidoFC: new FormControl({value: '', disabled: false}, []),
-            dniFC: new FormControl({value: '', disabled: false}, []),
-            observacionFC: new FormControl({value: '', disabled: false}, []),
+            detailAcuerdoFC: new FormControl({ value: '', disabled: false }, []),
+            proximaCitaFC: new FormControl({ value: null, disabled: false }, []),
+            atendidoFC: new FormControl({ value: '', disabled: false }, []),
+            dniFC: new FormControl({ value: '', disabled: false }, []),
+            observacionFC: new FormControl({ value: '', disabled: false }, []),
         })
         this.formAcuerdos = this.formBuilder.group({
             descripcionAcuerdo: new FormControl("", []),
@@ -109,7 +115,15 @@ export class FinalizarConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.recuperarFinalizar()
+        /*this.route.queryParams
+            .subscribe(params => {
+                console.log('params', params)
+                if (params['nroDoc']) {
+                    this.tipoDoc = params['tipoDoc']
+                    this.nroDoc = params['nroDoc']
+                }
+            })
+        this.recuperarFinalizar()*/
     }
 
     /* funciones tabla acuerdo*/
@@ -322,7 +336,7 @@ export class FinalizarConsultaComponent implements OnInit {
     }
 
     save() {
-        let r: referenciaInterface = {
+        /*let r: referenciaInterface = {
             consultorio: this.referencia[0].consultorio === null ? 'consultorio' : this.referencia[0].consultorio,
             motivo: this.referencia[0].motivo === null ? 'motivo' : this.referencia[0].motivo,
             codRENAES: this.referencia[0].codRENAES === null ? 'codRENAES' : this.referencia[0].codRENAES
@@ -349,8 +363,28 @@ export class FinalizarConsultaComponent implements OnInit {
                     })
                 }
             )
-        }
+        }*/
     }
+    irEvaluaciones() {
+        /** redirigir a atencion de usuario */
+        this.router.navigate(['/dashboard/cred/citas/atencion/evaluaciones-consulta'], {
+            queryParams: {
+                'tipoDoc': this.tipoDoc,
+                'nroDoc': this.nroDoc,
+            }
+        })
+    }
+    irInterconsulta() {
+        this.router.navigate(['/dashboard/cred/citas/atencion/examenes'],
+            {
+                queryParams: {
+                    'tipoDoc': this.tipoDoc,
+                    'nroDoc': this.nroDoc,
+                }
+            })
+    }
+
+
 }
 
 interface finalizarAtencionInterface {

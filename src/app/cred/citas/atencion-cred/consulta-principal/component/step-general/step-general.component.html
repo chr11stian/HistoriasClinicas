@@ -6,7 +6,7 @@
     </div>
 </div>
 <p-steps [model]="items" styleClass="step-custom" [readonly]="false" [(activeIndex)]="indiceActivo"
-         (activeIndexChange)="ChangeStep($event)">
+    (activeIndexChange)="ChangeStep($event)">
 </p-steps>
 <div class="stepsdemo-content" *ngIf="stepName === 'datos'">
     <p-card>
@@ -17,7 +17,7 @@
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                        class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
                 </ng-template>
             </p-toolbar>
         </ng-template>
@@ -34,10 +34,10 @@
                     <h3 class="mt-2">MOTIVO DE CONSULTA</h3>
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
-                    <button pButton pRipple label="Atras" icon="pi pi-angle-left"
-                            class="p-button-secondary mr-2" (click)="prevPage()"></button>
+                    <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
+                        (click)="prevPage()"></button>
                     <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                        class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
                 </ng-template>
             </p-toolbar>
         </ng-template>
@@ -55,10 +55,9 @@
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
-                            (click)="prevPage()"></button>
+                        (click)="prevPage()"></button>
                     <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2"
-                            style="background-color: #0c3866" (click)="nextPage()"></button>
+                        class="guardar mr-2" style="background-color: #0c3866" (click)="nextPage()"></button>
                 </ng-template>
             </p-toolbar>
         </ng-template>
@@ -76,9 +75,9 @@
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Atras" (click)="prevPage()" icon="pi pi-angle-left"
-                            class="p-button-secondary mr-2"></button>
+                        class="p-button-secondary mr-2"></button>
                     <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                            class="guardar mr-2" style="background-color: #0c3866" (click)="nextPage()"></button>
+                        class="guardar mr-2" style="background-color: #0c3866" (click)="nextPage()"></button>
                 </ng-template>
             </p-toolbar>
         </ng-template>
@@ -92,18 +91,58 @@
         <ng-template pTemplate="header">
             <p-toolbar>
                 <ng-template pTemplate="left">
-                    <h3 class="mt-2">FINALIZACIÓN DE LA CONSULTA</h3>
+                    <h3 class="mt-2">ACUERDOS DE LA CONSULTA</h3>
                 </ng-template>
                 <ng-template pTemplate="right" class="button">
                     <button pButton pRipple label="Atras" (click)="prevPage()" icon="pi pi-angle-left"
-                            class="p-button-secondary mr-2"></button>
-                    <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save"
-                            class="guardar mr-2" (click)="nextPage()" style="background-color: #0c3866"></button>
+                        class="p-button-secondary mr-2"></button>
+                    <button pButton pRipple label="Guardar" iconPos="right" icon="pi pi-save" class="guardar mr-2"
+                        (click)="nextPage()" style="background-color: #0c3866"></button>
                 </ng-template>
             </p-toolbar>
         </ng-template>
         <ng-template pTemplate="content">
             <app-finalizar-consulta></app-finalizar-consulta>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'evaluaciones'">
+    <p-card>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">EVALUACIONES</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
+                        (click)="prevPage()"></button>
+                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                        class="guardar mr-2" style="background-color: #0c3866" (click)="nextPage()"></button>
+                </ng-template>
+            </p-toolbar>
+        </ng-template>
+        <ng-template pTemplate="content">
+            <app-evaluaciones-consulta></app-evaluaciones-consulta>
+        </ng-template>
+    </p-card>
+</div>
+<div class="stepsdemo-content" *ngIf="stepName === 'examenesAux'">
+    <p-card>
+        <ng-template pTemplate="header">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <h3 class="mt-2">EXÁMENES AUXILIARES</h3>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+                    <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"
+                        (click)="prevPage()"></button>
+                    <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
+                        class="guardar mr-2" style="background-color: #0c3866" (click)="nextPage()"></button>
+                </ng-template>
+            </p-toolbar>
+        </ng-template>
+        <ng-template pTemplate="content">
+            <app-examenes-auxiliares-consulta></app-examenes-auxiliares-consulta>
         </ng-template>
     </p-card>
 </div>

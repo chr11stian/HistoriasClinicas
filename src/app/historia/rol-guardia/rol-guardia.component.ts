@@ -39,6 +39,9 @@ export class RolGuardiaComponent implements OnInit {
   loading: boolean = true;
   loadingUps: boolean = true;
   listaTurno: any[] = [];
+  listaAmbiente:any[]=[];
+  // listaAmbienteSelected:any[]=[]
+  listaAmbienteXipres:any[]=[]
   listaUps: any[] = [];
   upsSeleccionada = "";
   listaPersonal: any[] = [];
@@ -59,6 +62,7 @@ export class RolGuardiaComponent implements OnInit {
     private personalService: PersonalService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
+
     //public ref: DynamicDialogRef
   ) {
     this.numeroDiasMes();
@@ -68,6 +72,7 @@ export class RolGuardiaComponent implements OnInit {
 
     this.getListaUps();
     this.getListaTurno();
+    this.getListaAmbiente()
   }
 
   ngOnInit(): void {
@@ -85,7 +90,15 @@ export class RolGuardiaComponent implements OnInit {
         this.loadingUps = false;
       });
   }
-
+  getListaAmbiente() {
+   this.listaAmbienteXipres=[
+     'medicina01',
+     'medicina02',
+     'acupuntura01',
+     'ambiente123',
+     'OBSTETRICIA2',
+   ]
+  }
   getListaUps() {
     this.rolGuardiaService
       .getServiciosPorIpress(this.idIpressZarzuela)
@@ -94,23 +107,23 @@ export class RolGuardiaComponent implements OnInit {
         this.loading = false;
       });
   }
-
   crearMatriz() {
     this.matriz = [];
-    for (let i = 0; i < this.listaPersonal.length; i++) {
+    // for (let i = 0; i < this.listaPersonal.length; i++) {
+    this.listaPersonal.forEach((item)=>{
       let filaAux = [];
       for (let j = 0; j < this.nroDiasMes; j++) {
         let turnoDefecto = {
           dia: j + 1,
-          nombre: "Sin valor",
-          abreviatura: "sin valor",
+          nombre: "LIBRE",
+          abreviatura: "L",
           nroHoras: 0,
         };
         filaAux.push(turnoDefecto);
       }
       this.matriz.push(filaAux);
-    }
-
+    })
+    console.log('change ups evento:', this.matriz)
     // this.recuperarMes();
   }
 
@@ -211,9 +224,22 @@ export class RolGuardiaComponent implements OnInit {
   //   this.isMesPasado = isVisible;
   //   //console.log("esModficable", isVisible);
   // }
-  cambiarFecha(fechaseleccionada: Date) {
+  fechaAA=new Date()
+
+  isAdelante:boolean
+  cambiarFecha() {
+    //agregando
+    if(this.isAdelante){
+      console.log(this.fecha)
+      this.fecha=new Date(this.fecha.setMonth(this.fecha.getMonth()+1))
+      console.log(this.fecha)
+    }
+    else{
+      this.fecha=new Date(this.fecha.setMonth(this.fecha.getMonth()-1))
+    }
+    //agregando
     this.upsSeleccionada = "";
-    this.fecha = fechaseleccionada;
+    // this.fecha = fechaseleccionada;
     this.numeroDiasMes();
     this.generarCabecera();
     this.colorearCabecera();
@@ -230,6 +256,12 @@ export class RolGuardiaComponent implements OnInit {
       this.listaHoras.push(0);
     }
   }
+  // IniciarAmbientes() {
+  //   this.listaAmbienteSelected = [];
+  //   for (let i = 0; i < this.listaPersonal.length; i++) {
+  //     this.listaHoras.push('ambiente1');
+  //   }
+  // }
 
   // changeUps1(codUps) {
   //   let requestInput: any = {
@@ -279,25 +311,28 @@ export class RolGuardiaComponent implements OnInit {
   //     }
   //   );
   // }
-  union(arr1, arr2) {
-    let arrRespuesta = arr1
-    console.log('arreglo respuesta parcial', arrRespuesta)
-    arr2.forEach((elemento) => {
-      const found = arr1.find(element => element.nroDoc == elemento.nroDoc);
-      if (!found) {
-        arrRespuesta.push(found)
-      }
-    });
-    return arrRespuesta
-  }
+  // union(arr1, arr2) {
+  //   let arrRespuesta = arr1
+  //   console.log('arreglo respuesta parcial', arrRespuesta)
+  //   arr2.forEach((elemento) => {
+  //     const found = arr1.find(element => element.nroDoc == elemento.nroDoc);
+  //     if (!found) {
+  //       arrRespuesta.push(found)
+  //     }
+  //   });
+  //   return arrRespuesta
+  // }
 
   changeUps1(codUps) {
     let ipressUpsInput: any = {
       codUps: codUps.value.id,
       idIpress: this.idIpressZarzuela,
     };
+    this.isSelected=false;
     this.listaPersonal = [];
+    this.listaAmbiente=[];
     this.listaHoras=[];
+
     this.personalService.getPorIpressUps(ipressUpsInput).subscribe((resp: any) => {
       let requestInput: any = {
         anio: this.fecha.getFullYear(),
@@ -313,19 +348,23 @@ export class RolGuardiaComponent implements OnInit {
               nroDoc: elemento.nroDoc,
               tipoDoc: elemento.tipoDoc,
               nombreCompleto: `${elemento.apePaterno} ${elemento.apeMaterno} ${elemento.primerNombre}`
-            })
+            });
+            this.listaAmbiente.push('ambiente123')//->ambiente x defecto
           });
         }
         let listaRol=[]
+        let listaAmbienteAux=[]
         if (resp1["cod"] === "2002") {
           const listaAux = resp1['object']
           listaAux.forEach((element) => {
             let rolNecesario = element.personal
+            let ambienteNecesario=element.ambiente
             listaRol.push({
               nroDoc: rolNecesario.nroDoc,
               tipoDoc: rolNecesario.tipoDoc,
               nombreCompleto: rolNecesario.nombre,
-              rol:element.turnos
+              rol:element.turnos,
+              ambiente:element.ambiente
             });
           });
         }
@@ -337,6 +376,7 @@ export class RolGuardiaComponent implements OnInit {
            listaRol.forEach((personalWithRol)=>{
              if(personal.nroDoc==personalWithRol.nroDoc){
                this.matriz[index]=personalWithRol['rol']
+               this.listaAmbiente[index]=personalWithRol['ambiente']
              }
            })
         })
@@ -449,6 +489,7 @@ export class RolGuardiaComponent implements OnInit {
 
   changeTurno(i, j) {
     this.recalcularxFila(i);
+    console.log('mostramos matriz',this.matriz)
   }
 
   construirFilaDelDia(fila) {
@@ -463,7 +504,7 @@ export class RolGuardiaComponent implements OnInit {
     return listaTurno;
   }
 
-  designar() {
+  designar1() {
     // validaciones
     console.log('-->',this.validarHoras(),this.listaHoras)
     if (this.validarHoras()) {
@@ -506,20 +547,93 @@ export class RolGuardiaComponent implements OnInit {
       this.messageService.add({
         severity: "warn",
         summary: "denegado",
-        detail: "El personal de salud no cumple con el minimo de las 252 horas",
+        detail: "El personal de salud no cumple con el minimo de las 150 horas",
       });
     }
 
   }
+  designar() {
 
-  validarHoras() {
+
+    this.confirmationService.confirm({
+      header: "Confirmación",
+      message: `Estas seguro que deseas asignar rol para el personal ${this.listaPersonal[this.indexSelected]['nombreCompleto']},con un total de ${this.listaHoras[this.indexSelected]} horas `,
+      icon: "pi  pi-exclamation-triangle ",
+      acceptLabel: "Si",
+      rejectLabel: "No",
+      key:"positionDialog",
+      accept: () => {
+        if (this.validarHoras()) {
+          let mesInput: any = {
+            anio: this.fecha.getFullYear(),
+            mes: this.fecha.getMonth() + 1,
+            ambiente: this.listaAmbiente[this.indexSelected],
+            ipress: {
+              idIpress: "616de45e0273042236434b51",
+              nombre: "la posta medica",
+              servicio: this.upsSeleccionada["nombreUPS"],
+            },
+            personal: {
+              tipoDoc: this.listaPersonal[this.indexSelected]["tipoDoc"],
+              nroDoc: this.listaPersonal[this.indexSelected]["nroDoc"],
+            },
+            turnos: this.construirFilaDelDia(this.indexSelected),
+          };
+          this.rolGuardiaService.AddRolGuardia(mesInput).subscribe(
+            (resp) => {
+              this.messageService.add({
+                severity: "success",
+                summary: "Modificar",
+                detail: `Se asigno rol 
+                para el personal ${this.listaPersonal[this.indexSelected]['nombreCompleto']} `,
+                key: "toast2",
+              });
+
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+
+        } else {
+          this.messageService.add({
+            severity: "warn",
+            summary: "denegado",
+            detail: `el personal ${this.listaPersonal[this.indexSelected]['nombreCompleto']} no cumple con las 150 horas requeridas`
+          });
+        }
+
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: "warn",
+          summary: "denegado",
+          detail: `no se asigno rol a dicho personal`
+        });
+      },
+    });
+
+
+
+
+
+  }
+
+  validarHoras1() {
     let isValid = true;
     for (let i = 0; i < this.listaHoras.length; i++) {
-      if (this.listaHoras[i] <= 252) {
+      if (this.listaHoras[i] <= 150) {
         isValid = false;
       }
     }
     return isValid;
+  }
+  validarHoras() {
+      if (this.listaHoras[this.indexSelected] < 150) {
+        return false;
+      }
+      else
+        return true
   }
 
   close() {
@@ -527,4 +641,12 @@ export class RolGuardiaComponent implements OnInit {
     // this.ref.close("cerrado");
     // this.changeUps1('300101')
   }
+  isSelected:boolean=false;
+  indexSelected:number;
+  modal(rowData,index){
+    this.isSelected=true;
+    this.indexSelected=index
+
+  }
+
 }

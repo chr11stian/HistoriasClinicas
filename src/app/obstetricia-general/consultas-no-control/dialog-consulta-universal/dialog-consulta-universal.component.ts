@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import Swal from 'sweetalert2';
 import { ConsultaObstetriciaService } from '../../gestante/consulta/services/consulta-obstetricia/consulta-obstetricia.service';
 import { CieService } from '../../services/cie.service';
 import { ObstetriciaGeneralService } from '../../services/obstetricia-general.service';
@@ -630,17 +631,21 @@ export class DialogConsultaUniversalComponent implements OnInit {
                 tipoDoc: 'DNI',
                 nroDoc: '10101010'
             },
+            // servicio: "OBSTETRICIA"
             // codRENAES: '';
         }
     }
 
     guardarConsulta() {
         this.recuperarDatos();
+        console.log('data to save ', this.dataConsulta);
         this.consultaObstetricaService.postConsultaNoControl(this.dataConsulta).subscribe((res: any) => {
-            this.messageService.add({
-                severity: "success",
-                summary: "Exito",
-                detail: res.mensaje
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'La consulta se Guardo Correctamente',
+                showConfirmButton: false,
+                timer: 1500
             });
             this.ref.close();
         });

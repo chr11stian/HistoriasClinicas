@@ -20,7 +20,7 @@ export class AtencionCredComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.route.queryParams
+        /**this.route.queryParams
             .subscribe(params => {
                 console.log('params', params)
                 if (params['nroDoc']) {
@@ -29,25 +29,33 @@ export class AtencionCredComponent implements OnInit {
                 } else {
                     this.router.navigate(['/dashboard/cred/citas'])
                 }
+            })**/
+    }
+    getTriaje(): void {
+        this.router.navigate(['/dashboard/cred/citas/atencion/triaje'],
+            {
+                /**queryParams: {
+                    'tipoDoc': this.tipoDoc,
+                    'nroDoc': this.nroDoc,
+                }**/
             })
     }
-
     getConsultaPrincipal(): void {
         this.router.navigate(['/dashboard/cred/citas/atencion/consulta-principal'],
             {
-                queryParams: {
+                /**queryParams: {
                     'tipoDoc': this.tipoDoc,
                     'nroDoc': this.nroDoc,
-                }
+                }**/
             })
     }
     getPlanAtencionIntegralPrincipal(): void {
         this.router.navigate(['/dashboard/cred/citas/atencion/plan-atencion-integral'],
             {
-                queryParams: {
+                /**queryParams: {
                     'tipoDoc': this.tipoDoc,
                     'nroDoc': this.nroDoc,
-                }
+                }**/
             })
     }
 

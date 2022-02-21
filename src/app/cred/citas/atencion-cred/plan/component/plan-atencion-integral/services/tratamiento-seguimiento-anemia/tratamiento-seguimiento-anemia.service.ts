@@ -13,4 +13,8 @@ export class TratamientoSeguimientoAnemiaService {
   getListaTratamientos(dni: string){
     return this.http.get<any>(`${this.base_url}/${this.bd}/cred/tratamiento_anemia/${dni}`);
   }
+  addListaTratamientos(dni: string,requestInput:any){
+    return this.http.put<any>(`${this.base_url}/${this.bd}/cred/update_tratamiento_anemia/${dni}`,requestInput);
+  }
+
 }

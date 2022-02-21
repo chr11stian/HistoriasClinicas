@@ -1,47 +1,104 @@
-<div class="grid">
-    <div class="lg:col-5 col-fixed">
-        <div class=" mb-2">
-            <div class="col flex justify-content-end">
-                <div>
-                    <button pButton pRipple label="Atención nueva" class="guardar" icon="pi pi-plus-circle" styleClass="p-button" (click)="nuevaSesion()"></button>
-                </div>
-            </div>
+<div class="p-card">
+    <div class="grid">
+        <div class="col-12 md-12 lg-12">
+            <p-toolbar>
+                <ng-template pTemplate="left">
+                    <span class="p-m-0">SESIONES DEMOSTRATIVAS</span>
+                </ng-template>
+                <ng-template pTemplate="right" class="button">
+<!--                    <button pButton pRipple label="Atención nueva" class="guardar" icon="pi pi-plus-circle" styleClass="p-button" (click)="nuevaSesion()"></button>-->
+                </ng-template>
+            </p-toolbar>
+
+            <p-table class="table-over" [value]="sesiones" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                     [rowsPerPageOptions]="[10, 25, 50]"
+                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="text-align: center" class="font-2">Nro</th>
+                        <th style="text-align: center" class="font-2">TEMA</th>
+                        <th style="text-align: center" class="font-2">FECHA</th>
+                        <th style="text-align: center" class="font-2">NOMBRES</th>
+                        <th style="text-align: center" class="font-2">APELLIDOS</th>
+                        <th style="text-align: center" class="font-2">EDAD</th>
+                        <th style="text-align: center" class="font-2">DESCRIPCION DE ACTIVIDAD</th>
+                        <th style="text-align: center" class="font-2">MATERIALES</th>
+                        <th style="text-align: center" class="font-2">ACCIÓN</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.tema }}</td>
+                        <td style="text-align: center">{{ rowData.fecha }}</td>
+                        <td style="text-align: center">{{ rowData.nombres }}</td>
+                        <td style="text-align: center">{{ rowData.apellidos }}</td>
+                        <td style="text-align: center">{{ rowData.edad }}</td>
+                        <td style="text-align: center">{{ rowData.descripcion }}</td>
+                        <td style="text-align: center">{{ rowData.materiales }}</td>
+                        <td style="text-align: center">
+<!--                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"-->
+<!--                                    (click)="editarSesion(rowData,rowIndex)" pTooltip="Editar"></button>-->
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                    (click)="eliminarSesion(rowIndex)" pTooltip="Eliminar">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
         </div>
-        <p-fieldset legend="Sesiones de Atención Temprana" [toggleable]="true">
-            <div class="card flex flex-column">
-                <div class="field grid" *ngFor="let item of listaControles; let iItem=index">
-                    <span class="col-fixed text-right mr-2" style="width:30px">{{iItem +1}}°:</span>
-                    <input type="text" class="mr-2" [disabled]=true pInputText style="width:200px" placeholder="Descripción" [(ngModel)]="item.descripcion"> 
-                    <div style="width:113px" class="mr-2">
-                        <p-calendar [showIcon]="true" [disabled]=true inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item.fecha"></p-calendar>
-                    </div>
-                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-outlined agregar" pTooltip="Editar Sesión" (click)=editarSesion(item)></button>
-                </div>
-            </div>
-        </p-fieldset>  
+
     </div>
-    <div class="lg:col-7 col-fixed">
-        <p-fieldset legend="Materiales - Atención Temprana" [toggleable]="true">
-            <div class="card flex flex-row">
-                <div class="col-6 col-fixed">
-                    <p-card header="Material Sesión 01" subheader="Nombre de la sesión" styleClass="p-card-shadow">
-                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>
-                    </p-card>
-                    <br>
-                    <p-card header="Material Sesión 03" subheader="Nombre de la sesión" styleClass="p-card-shadow">
-                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>
-                    </p-card>
-                </div>
-                <div class="col-6 col-fixed">
-                    <p-card header="Material Sesión 02" subheader="Nombre de la sesión" styleClass="p-card-shadow">
-                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>
-                    </p-card>
-                    <br>
-                    <p-card header="Material Sesión 04" subheader="Nombre de la sesión" styleClass="p-card-shadow">
-                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>
-                    </p-card>
-                </div>
-            </div>
-        </p-fieldset>  
-    </div>
+
 </div>
+
+
+
+<!--<div class="grid">-->
+<!--    <div class="grid">-->
+<!--        <div class=" mb-2">-->
+<!--            <div class="col flex justify-content-end">-->
+<!--                <div>-->
+<!--                    <button pButton pRipple label="Atención nueva" class="guardar" icon="pi pi-plus-circle" styleClass="p-button" (click)="nuevaSesion()"></button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <p-fieldset legend="Sesiones de Atención Temprana" [toggleable]="true">-->
+<!--            <div class="card flex flex-column">-->
+<!--                <div class="field grid" *ngFor="let item of listaControles; let iItem=index">-->
+<!--                    <span class="col-fixed text-right mr-2" style="width:30px">{{iItem +1}}°:</span>-->
+<!--                    <input type="text" class="mr-2" [disabled]=true pInputText style="width:200px" placeholder="Descripción" [(ngModel)]="item.descripcion"> -->
+<!--                    <div style="width:113px" class="mr-2">-->
+<!--                        <p-calendar [showIcon]="true" [disabled]=true inputId="icon" placeholder="Fecha" dateFormat="yy-mm-dd" [(ngModel)]="item.fecha"></p-calendar>-->
+<!--                    </div>-->
+<!--                    <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-outlined agregar" pTooltip="Editar Sesión" (click)=editarSesion(item)></button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </p-fieldset>  -->
+<!--    </div>-->
+<!--    <div class="lg:col-7 col-fixed">-->
+<!--        <p-fieldset legend="Materiales - Atención Temprana" [toggleable]="true">-->
+<!--            <div class="card flex flex-row">-->
+<!--                <div class="col-6 col-fixed">-->
+<!--                    <p-card header="Material Sesión 01" subheader="Nombre de la sesión" styleClass="p-card-shadow">-->
+<!--                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>-->
+<!--                    </p-card>-->
+<!--                    <br>-->
+<!--                    <p-card header="Material Sesión 03" subheader="Nombre de la sesión" styleClass="p-card-shadow">-->
+<!--                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>-->
+<!--                    </p-card>-->
+<!--                </div>-->
+<!--                <div class="col-6 col-fixed">-->
+<!--                    <p-card header="Material Sesión 02" subheader="Nombre de la sesión" styleClass="p-card-shadow">-->
+<!--                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>-->
+<!--                    </p-card>-->
+<!--                    <br>-->
+<!--                    <p-card header="Material Sesión 04" subheader="Nombre de la sesión" styleClass="p-card-shadow">-->
+<!--                        <p-button class="guardar" label="Ver Información" icon="pi pi-eye"></p-button>-->
+<!--                    </p-card>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </p-fieldset>  -->
+<!--    </div>-->

@@ -1,17 +1,77 @@
 p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
-    background: #0c3866;
-    border-color: #0c3866;
+  background: #0c3866;
+  border-color: #0c3866;
 }
 p-calendar >>> .p-button {
-    background: #0c3866;
-    border: 1px solid #0c3866;
-    align-self: center;
+  background: #0c3866;
+  border: 1px solid #0c3866;
+  align-self: center;
 }
 .guardar {
-    background: #0c3866;
-    border-color: #0c3866;
-    align-items: center;
+  background: #0c3866;
+  border-color: #0c3866;
+  align-items: center;
 }
 p-toolbar >>> * {
-    align-self: center;
+  align-self: center;
+}
+p-fieldset >>> .p-fieldset .p-fieldset-legend {
+  padding: 0.5rem;
+  border: 1px solid #dee2e6;
+  color: #495057;
+  background: #d8dee5;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: small;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"] {
+  padding-left: 0.5em;
+  text-align: left;
+}
+
+li {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-weight: 450;
+}
+.borde {
+  /* font-family: cursive; */
+  border: solid 1px #cdcdcd;
+  border-radius: 10px;
+}
+.imagen-barlow {
+  content: url("src\assets\images\signo-de-barlow.png");
+  width: 40rem;
+  display: block;
+  /* margin: auto; */
+  /* flex: 100%; */
+}
+.imagen-ortolani{
+  text-align: center;
+  content: url("src\assets\images\ortolani.png");
+  width: 26rem;
+  display: block;
+}
+.title {
+  font-size: 2.5rem;
+}
+::ng-deep .dialogo .p-dialog-header {
+  display: none;
+}
+::ng-deep .dialogo .p-dialog-content {
+  border-radius: 10px;
+}
+h4{
+  height: 0.8rem;
 }

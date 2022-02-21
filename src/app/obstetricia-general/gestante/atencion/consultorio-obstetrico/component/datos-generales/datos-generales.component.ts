@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
-import {ConsultasService} from "../../services/consultas.service";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { ObstetriciaGeneralService } from "../../../../../services/obstetricia-general.service";
+import { ConsultasService } from "../../services/consultas.service";
 import Swal from "sweetalert2";
-import {FiliancionService} from "../../../h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
-import {DatePipe} from "@angular/common";
-import {MessageService} from "primeng/api";
+import { FiliancionService } from "../../../h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
+import { DatePipe } from "@angular/common";
+import { MessageService } from "primeng/api";
 
 @Component({
     selector: 'app-datos-generales',
@@ -50,10 +50,10 @@ export class DatosGeneralesComponent implements OnInit {
     nroEmbarazo: string;
 
     constructor(private form: FormBuilder,
-                private obstetriciaGeneralService: ObstetriciaGeneralService,
-                private consultasService: ConsultasService,
-                private filiancionService: FiliancionService,
-                private messageService: MessageService,) {
+        private obstetriciaGeneralService: ObstetriciaGeneralService,
+        private consultasService: ConsultasService,
+        private filiancionService: FiliancionService,
+        private messageService: MessageService,) {
 
         this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
         this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
@@ -62,34 +62,34 @@ export class DatosGeneralesComponent implements OnInit {
 
         /** OTRAS OPCIONES**/
         this.opciones = [
-            {name: 'SI', boleano: true},
-            {name: 'NO', boleano: false}
+            { name: 'SI', boleano: true },
+            { name: 'NO', boleano: false }
         ];
 
         //opciones de vacunas previas///
         this.opciones1 = [
-            {name: 'SI', decripcion: 'SI, V. Antitetánica 1° Dosis'},
-            {name: 'NO', decripcion: 'No, V. Antitetánica 1° Dosis'}
+            { name: 'SI', decripcion: 'SI, V. Antitetánica 1° Dosis' },
+            { name: 'NO', decripcion: 'No, V. Antitetánica 1° Dosis' }
         ];
         this.opciones2 = [
-            {name: 'SI', decripcion: 'SI, V. Antitetánica 2° Dosis'},
-            {name: 'NO', decripcion: 'No, V. Antitetánica 2° Dosis'}
+            { name: 'SI', decripcion: 'SI, V. Antitetánica 2° Dosis' },
+            { name: 'NO', decripcion: 'No, V. Antitetánica 2° Dosis' }
         ];
         this.opciones3 = [
-            {name: 'SI', decripcion: 'SI, Rubeola'},
-            {name: 'NO', decripcion: 'No, Rubeola'}
+            { name: 'SI', decripcion: 'SI, Rubeola' },
+            { name: 'NO', decripcion: 'No, Rubeola' }
         ];
         this.opciones4 = [
-            {name: 'SI', decripcion: 'SI, Hepatites B'},
-            {name: 'NO', decripcion: 'No, Hepatites B'}
+            { name: 'SI', decripcion: 'SI, Hepatites B' },
+            { name: 'NO', decripcion: 'No, Hepatites B' }
         ];
         this.opciones5 = [
-            {name: 'SI', decripcion: 'SI, Papiloma V'},
-            {name: 'NO', decripcion: 'No, Papiloma V'}
+            { name: 'SI', decripcion: 'SI, Papiloma V' },
+            { name: 'NO', decripcion: 'No, Papiloma V' }
         ];
         this.opciones6 = [
-            {name: 'SI', decripcion: 'SI, Covid-19'},
-            {name: 'NO', decripcion: 'No, Covid-19'}
+            { name: 'SI', decripcion: 'SI, Covid-19' },
+            { name: 'NO', decripcion: 'No, Covid-19' }
         ];
         //opciones de vacunas previas///
     }
@@ -237,8 +237,6 @@ export class DatosGeneralesComponent implements OnInit {
         console.log("GESTAS", this.sumagestas);
     }
 
-
-
     //Recuperar datos de un paciendo por su documento de identidad
     getpacienteByNroDoc() {
         this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
@@ -262,6 +260,11 @@ export class DatosGeneralesComponent implements OnInit {
 
     buildForm() {
         this.formDatos_Generales = this.form.group({
+            //datos de la consulta
+            nroAtencion: new FormControl(''),
+            nroControl: new FormControl(''),
+            nroHcl: new FormControl(''),
+
             //Datos generales del paciente
             nroDoc: new FormControl(''),
             apePaterno: new FormControl(''),
@@ -275,6 +278,15 @@ export class DatosGeneralesComponent implements OnInit {
             fecha: new FormControl(''),
             hora: new FormControl(''),
             nroFetos: new FormControl(''),
+
+            //datos acompaniante
+            nroDocAcompaniante: new FormControl(''),
+            apellidosAcompaniante: new FormControl(''),
+            nombresAcompaniante: new FormControl(''),
+            edadAcompaniante: new FormControl(''),
+            telefonoAcompaniante: new FormControl(''),
+            direccionAcompaniante: new FormControl(''),
+            lazoParentesco: new FormControl(''),
 
             //Vacunas previas del paciente
             vAntitetánica1Dosis: new FormControl(''),
@@ -343,28 +355,34 @@ export class DatosGeneralesComponent implements OnInit {
         })
     }
 
-
     //Agregar, actualizar datos de consultorio obstetrico
     Add_updateConsultas() {
         this.data = {
+            fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
+            anioEdad: this.formDatos_Generales.value.edad,
             nroHcl: this.dataPacientes.nroHcl,
-            nroAtencion: 1,
-            nroControlSis: 1,
             nroEmbarazo: this.nroEmbarazo,
             tipoDoc: this.tipoDocRecuperado,
             nroDoc: this.nroDocRecuperado,
-            fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
+            direccion: this.formDatos_Generales.value.direccion,
+            ocupacion: this.formDatos_Generales.value.ocupacion,
 
-            datosPerHist: {
-                edad: this.formDatos_Generales.value.edad,
-                direccion: this.formDatos_Generales.value.direccion,
+            acompanante: {
+                tipoDoc: "DNI",
+                nroDoc: this.formDatos_Generales.value.nroDocAcompaniante,
+                nombre: this.formDatos_Generales.value.nombresAcompaniante,
+                apellidos: this.formDatos_Generales.value.apellidosAcompaniante,
+                lazoParentesco: this.formDatos_Generales.value.lazoParentesco,
+                edad: this.formDatos_Generales.value.edadAcompaniante,
+                direccion: this.formDatos_Generales.value.direccionAcompaniante,
+                telefono: this.formDatos_Generales.value.telefonoAcompaniante
             },
-            datosPersonales: {
-                telefono: this.formDatos_Generales.value.telefono,
-                ocupacion: this.formDatos_Generales.value.ocupacion,
-                gradoInstitucional: this.formDatos_Generales.value.gradoInstruccion,
-            },
-            vacunasPrevias: [
+
+            nroAtencion: this.formDatos_Generales.value.nroAtencion,
+            nroControlSis: this.formDatos_Generales.value.nroControlSis,
+
+            /////----------------------------
+            /*vacunasPrevias: [
                 {
                     descripcion: this.formDatos_Generales.value.vAntitetánica1Dosis,
                     fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha1, 'yyyy-MM-dd HH:mm:ss'),
@@ -389,7 +407,7 @@ export class DatosGeneralesComponent implements OnInit {
                     descripcion: this.formDatos_Generales.value.Covid19,
                     fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha6, 'yyyy-MM-dd HH:mm:ss'),
                 },
-            ],
+            ],*/
 
             antecedentesGinObs: [{
                 fechaUltRegla: this.formDatos_Generales.value.FUR,
@@ -418,60 +436,72 @@ export class DatosGeneralesComponent implements OnInit {
                 fecha: "",
             },
 
-            descarteSignosAlarmas: [
+            listaSignosAlarmas: [
                 {
-                    descripcion: "Dificultad respiratoria",
-                    valor: this.formDatos_Generales.value.DificultadRespiratoria,
+                    tipoEdad: null,
+                    nombreSigno: "Dificultad respiratoria",
+                    valorSigno: this.formDatos_Generales.value.DificultadRespiratoria,
                 },
                 {
-                    descripcion: "Hipertención Arterial",
-                    valor: this.formDatos_Generales.value.HipertenciónArterial,
+                    tipoEdad: null,
+                    nombreSigno: "Hipertención Arterial",
+                    valorSigno: this.formDatos_Generales.value.HipertenciónArterial,
                 },
                 {
-                    descripcion: "Sangrado nasal",
-                    valor: this.formDatos_Generales.value.SangradoNasal,
+                    tipoEdad: null,
+                    nombreSigno: "Sangrado nasal",
+                    valorSigno: this.formDatos_Generales.value.SangradoNasal,
                 },
                 {
-                    descripcion: "Deshidratación aguda",
-                    valor: this.formDatos_Generales.value.DeshidrataciónAguda,
+                    tipoEdad: null,
+                    nombreSigno: "Deshidratación aguda",
+                    valorSigno: this.formDatos_Generales.value.DeshidrataciónAguda,
                 },
                 {
-                    descripcion: "Compromiso del sensorio",
-                    valor: this.formDatos_Generales.value.CompromisoDelSensorio,
+                    tipoEdad: null,
+                    nombreSigno: "Compromiso del sensorio",
+                    valorSigno: this.formDatos_Generales.value.CompromisoDelSensorio,
                 },
                 {
-                    descripcion: "Traumatismo Quemadura",
-                    valor: this.formDatos_Generales.value.TraumatismoQuemadura,
-                },
-
-                {
-                    descripcion: "Abdomen agudo",
-                    valor: this.formDatos_Generales.value.AbdomenAgudo,
-                },
-                {
-                    descripcion: "Intoxicación Envenenamiento",
-                    valor: this.formDatos_Generales.value.IntoxicaciónEnvenenamiento,
+                    tipoEdad: null,
+                    nombreSigno: "Traumatismo Quemadura",
+                    valorSigno: this.formDatos_Generales.value.TraumatismoQuemadura,
                 },
 
                 {
-                    descripcion: "Fiebre alta",
-                    valor: this.formDatos_Generales.value.FiebreAlta,
+                    tipoEdad: null,
+                    nombreSigno: "Abdomen agudo",
+                    valorSigno: this.formDatos_Generales.value.AbdomenAgudo,
                 },
                 {
-                    descripcion: "Convulciones",
-                    valor: this.formDatos_Generales.value.Convulciones,
+                    tipoEdad: null,
+                    nombreSigno: "Intoxicación Envenenamiento",
+                    valorSigno: this.formDatos_Generales.value.IntoxicaciónEnvenenamiento,
                 },
                 {
-                    descripcion: "Sangrado genital",
-                    valor: this.formDatos_Generales.value.SangradoGenital,
+                    tipoEdad: null,
+                    nombreSigno: "Fiebre alta",
+                    valorSigno: this.formDatos_Generales.value.FiebreAlta,
                 },
                 {
-                    descripcion: "Dolor de cabeza",
-                    valor: this.formDatos_Generales.value.DolorDeCabeza,
+                    tipoEdad: null,
+                    nombreSigno: "Convulciones",
+                    valorSigno: this.formDatos_Generales.value.Convulciones,
                 },
                 {
-                    descripcion: "Edema",
-                    valor: this.formDatos_Generales.value.Edema,
+                    tipoEdad: null,
+                    nombreSigno: "Sangrado genital",
+                    valorSigno: this.formDatos_Generales.value.SangradoGenital,
+                },
+                {
+                    tipoEdad: null,
+                    nombreSigno: "Dolor de cabeza",
+                    valorSigno: this.formDatos_Generales.value.DolorDeCabeza,
+                },
+                {
+                    tipoEdad: null,
+                    nombreSigno: "Edema",
+                    valorSigno: this.formDatos_Generales.value.Edema,
                 },
 
             ],
@@ -541,27 +571,27 @@ export class DatosGeneralesComponent implements OnInit {
         console.log("DATA UPDATE Y ADD CONSULTAS", this.data);
         if (this.dataConsultas == null) {
             this.consultasService.addConsultas(this.nroFetos, this.data).subscribe(result => {
-                    console.log(result);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Se guardo con exito',
-                        text: '',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    })
-                }
+                console.log(result);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Se guardo con exito',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            }
             )
         } else {
             this.consultasService.updateConsultas(this.nroFetos, this.data).subscribe((result: any) => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Actualizo con exito',
-                        text: '',
-                        showConfirmButton: false,
-                        timer: 1500,
-                    });
-                    console.log('rpta', result);
-                }
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Actualizo con exito',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                console.log('rpta', result);
+            }
             );
         }
     }

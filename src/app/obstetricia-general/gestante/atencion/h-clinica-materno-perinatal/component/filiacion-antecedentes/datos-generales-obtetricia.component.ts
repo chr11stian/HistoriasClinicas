@@ -93,7 +93,18 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     dataAntecedentes: any;
     formAntecedentes: FormGroup;
+    formAntecedentesObstetricos: FormGroup;
 
+    gestas = 0;
+    abortos = 0;
+    partos = 0;
+    vaginales = 0;
+    cesarias = 0;
+    nacidosVivos = 0;
+    nacidosMuertos = 0;
+    viven = 0;
+    muertoPrimeraSemana = 0;
+    despuesPrimeraSemana = 0;
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
@@ -152,51 +163,21 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         // })
         this.buildForm2();
         this.getpacienteFiiacionByID();
-        this.adjustLine(
-            document.getElementById('div1'),
-            document.getElementById('div2'),
-            document.getElementById('line')
-        );
-
-
     }
 
-    adjustLine(from, to, line) {
-
-        var fT = from.offsetTop + from.offsetHeight / 2;
-        var tT = to.offsetTop + to.offsetHeight / 2;
-        var fL = from.offsetLeft + from.offsetWidth / 2;
-        var tL = to.offsetLeft + to.offsetWidth / 2;
-
-        var CA = Math.abs(tT - fT);
-        var CO = Math.abs(tL - fL);
-        var H = Math.sqrt(CA * CA + CO * CO);
-        var ANG = 180 / Math.PI * Math.acos(CA / H);
-
-        if (tT > fT) {
-            var top = (tT - fT) / 2 + fT;
-        } else {
-            var top = (fT - tT) / 2 + tT;
-        }
-        if (tL > fL) {
-            var left = (tL - fL) / 2 + fL;
-        } else {
-            var left = (fL - tL) / 2 + tL;
-        }
-
-        if ((fT < tT && fL < tL) || (tT < fT && tL < fL) || (fT > tT && fL > tL) || (tT > fT && tL > fL)) {
-            ANG *= -1;
-        }
-        top -= H / 2;
-
-        line.style["-webkit-transform"] = 'rotate(' + ANG + 'deg)';
-        line.style["-moz-transform"] = 'rotate(' + ANG + 'deg)';
-        line.style["-ms-transform"] = 'rotate(' + ANG + 'deg)';
-        line.style["-o-transform"] = 'rotate(' + ANG + 'deg)';
-        line.style["-transform"] = 'rotate(' + ANG + 'deg)';
-        line.style.top = top + 'px';
-        line.style.left = left + 'px';
-        line.style.height = H + 'px';
+    calculargestas() {
+        this.viven = this.formAntecedentesObstetricos.value.viven;
+        this.muertoPrimeraSemana = this.formAntecedentesObstetricos.value.muertoPrimeraSemana;
+        this.despuesPrimeraSemana = this.formAntecedentesObstetricos.value.despuesPrimeraSemana;
+        this.nacidosVivos = (this.viven + this.muertoPrimeraSemana + this.despuesPrimeraSemana);
+        this.formAntecedentesObstetricos.get('NacidosVivos').setValue(this.nacidosVivos);
+        this.nacidosMuertos = this.formAntecedentesObstetricos.value.NacidosMuertos;
+        this.vaginales = this.formAntecedentesObstetricos.value.vaginales;
+        this.cesarias = this.formAntecedentesObstetricos.value.cesarias;
+        this.partos = (this.vaginales + this.cesarias);
+        this.formAntecedentesObstetricos.get('partos').setValue(this.partos);
+        this.abortos = this.formAntecedentesObstetricos.value.abortos;
+        this.gestas = (this.abortos + this.partos);
     }
 
     inicializarAregloAntfamiliares(): void {
@@ -336,35 +317,21 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
 
-    // ngAfterViewInit(): void {
-    //     // create an array with nodes
-    //     const nodes = new DataSet<any>([
-    //         {id: 1, label: 'Node 1'},
-    //         {id: 2, label: 'Node 2'},
-    //         {id: 3, label: 'Node 3'},
-    //         {id: 4, label: 'Node 4'},
-    //         {id: 5, label: 'Node 5'},
-    //     ]);
-    //
-    //     // create an array with edges
-    //     const edges = new DataSet<any>([
-    //         {from: '1', to: '3'},
-    //         {from: '1', to: '2'},
-    //         {from: '2', to: '4'},
-    //         {from: '2', to: '5'},
-    //     ]);
-    //
-    //     const data = {nodes, edges};
-    //
-    //     const container = this.visNetwork;
-    //     this.networkInstance = new Network(container.nativeElement, data, {});
-    // }
-
-
     buildForm2() {
+        this.formAntecedentesObstetricos = this.form.group({
+            viven: new FormControl(''),
+            muertoPrimeraSemana: new FormControl(''),
+            despuesPrimeraSemana: new FormControl(''),
+            NacidosVivos: new FormControl(''),
+            NacidosMuertos: new FormControl(''),
+            vaginales: new FormControl(''),
+            cesarias: new FormControl(''),
+            abortos: new FormControl(''),
+            partos: new FormControl(''),
+        })
+
         this.formAntecedentes = this.form.group({
             antecendentesObstetricos: new FormControl(''),
-
 
             /**Gestacion anterior**/
             fecha: new FormControl(''),
@@ -388,21 +355,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             nombrefamiliar11: new FormControl(''),
             nombrefamiliar12: new FormControl(''),
 
-
-            /**Antecedentes Familiares**/
-            // ninguno: new FormControl(''),
-            // alergia: new FormControl(''),
-            // EnferHepertens: new FormControl(''),
-            // epilepcia: new FormControl(''),
-            // diabetes: new FormControl(''),
-            // EnfCongenitas: new FormControl(''),
-            // EmbMultiple: new FormControl(''),
-            // malaria: new FormControl(''),
-            // HipArterial: new FormControl(''),
-            // HipoTiroidismo: new FormControl(''),
-            // neoplásica: new FormControl(''),
-            // TBCPulmonar: new FormControl(''),
-            // otros: new FormControl(''),
 
             //********************************
             captada: new FormControl(''),

@@ -1,0 +1,279 @@
+<p-toolbar>
+    <ng-template pTemplate="left">
+        <h3 class="mt-2" style="font-size:2rem">TRIAJE CRED</h3>
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+    </ng-template>
+</p-toolbar>
+<p-fieldset legend="Información Básica" [toggleable]="true">
+    <form [formGroup]="generalInfoFG">
+        <div class="grid">
+            <div class="col-12 md:col-2 text-center mt-2">
+                Nombre completo:
+            </div>
+            <div class="col-12 md:col-10">
+                <input type="text"
+                       pInputText
+                       formControlName="name"
+                       class="inputfield w-full"
+                       placeholder="Nombre del paciente "/>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="col-12 md:col-2 text-center mt-2">
+                Fecha de atención:
+            </div>
+            <div class="col-12 md:col-2">
+                <p-calendar [showIcon]="true"
+                            formControlName="dateAttention"
+                            class="inputfield w-full"
+                            inputId="icon">
+                </p-calendar>
+            </div>
+            <div class="col-12 md:col-1 text-center mt-2">
+                Hora:
+            </div>
+            <div class="col-12 md:col-1">
+                <p-calendar [timeOnly]="true"
+                            formControlName="hour"
+                            inputId="timeonly">
+                </p-calendar>
+            </div>
+            <div class="col-12 md:col-1 text-center mt-2">
+                Edad:
+            </div>
+            <div class="col-12 md:col-3">
+                <input type="text"
+                       pInputText
+                       formControlName="year"
+                       class="inputfield w-full"
+                       placeholder="Edad del paciente"/>
+            </div>
+        </div>
+    </form>
+</p-fieldset>
+
+<p-fieldset legend="Signos Vitales" [toggleable]="true">
+    <form [formGroup]="examFG">
+        <div class="grid">
+            <div class="col-12 md:col-10">
+                <div class="grid">
+                    <ng-container *ngFor="let controlFC of dataExamFisicos">
+                        <div class="col-6 md:col-1 text-right">
+                            {{controlFC.label}}
+                        </div>
+                        <div class="col-6 md:col-2">
+                            <ng-container *ngIf="(controlFC.nameFC === 'TallaFC' || controlFC.nameFC === 'PesoFC'); else otros">
+                                <input (ngModelChange)="imc()" type="number" pInputText [formControlName]="controlFC.nameFC"
+                                       class="inputfield w-full"
+                                />
+                            </ng-container>
+                            <ng-template #otros>
+                                <input maxlength="6" type="number" pInputText [formControlName]="controlFC.nameFC"
+                                       class="inputfield w-full"/>
+                            </ng-template>
+                        </div>
+                    </ng-container>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-12 md:col-12">
+            <span> Observaciones:</span>
+            <textarea
+                    [formControl]="obsFC"
+                    class="inputfield w-full"
+                    pInputTextarea>
+        </textarea>
+        </div>
+    </form>
+</p-fieldset>
+<p-fieldset legend="Descarte de signos de peligro"
+            [toggleable]="true"
+            [formGroup]="signoPeligroFG">
+    <div class="grid">
+        <div class="col-10 md:col-10">
+            <div class="grid">
+                <div class="md:col-8 mt-2" style="text-align: right">
+                    PRESENTA SIGNOS :
+                </div>
+                <div class="md:col-4">
+                    <p-selectButton [options]="stateOptions"
+                                    class="inputfield w-full"
+                                    optionLabel="label"
+                                    formControlName="presentSigns"
+                                    optionValue="value"
+                                    (onChange)="cambio($event)">
+                    </p-selectButton>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="col-12 md:col-4">
+            <form [formGroup]="twoMonthsFG">
+                <h4 class="text-center"> MENOR DE 2 MESES:</h4>
+                <div *ngFor="let formC of twoMonths">
+                    <div class="grid">
+                        <div class="md:col-8 mt-2" style="text-align: center">
+                            {{formC.label}} :
+                        </div>
+                        <div class="md:col-4">
+                            <p-selectButton [options]="stateOptions"
+                                            class="inputfield w-full"
+                                            optionLabel="label"
+                                            (onChange)="cambio($event)"
+                                            [formControlName]="formC.index"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 md:col-4">
+            <form [formGroup]="twoMonthsMoreFG">
+                <h4 class="text-center"> DE 2 MESES a 4 AÑOS:</h4>
+                <div *ngFor="let formC of twoMonthsMore">
+                    <div class="grid">
+                        <div class="md:col-8 mt-2" style="text-align: center">
+                            {{formC.label}} :
+                        </div>
+                        <div class="md:col-4">
+                            <p-selectButton [options]="stateOptions"
+                                            class="inputfield w-full"
+                                            optionLabel="label"
+                                            (onChange)="cambio($event)"
+                                            [formControlName]="formC.index"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-12 md:col-4">
+            <form [formGroup]="allYearFG">
+                <h4 class="text-center"> PARA TODAS LAS EDADES:</h4>
+                <div *ngFor="let formC of allYear">
+                    <div class="grid">
+                        <div class="md:col-8 mt-2" style="text-align: center">
+                            {{formC.label}} :
+                        </div>
+                        <div class="md:col-4">
+                            <p-selectButton [options]="stateOptions"
+                                            class="inputfield w-full"
+                                            optionLabel="label"
+                                            (onChange)="cambio($event)"
+                                            [formControlName]="formC.index"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <p-divider></p-divider>
+    <div [hidden]="!my">
+        <form [formGroup]="factorRiesgoFG">
+            <h4> IDENTIFIQUE FACTORES DE RIESGO</h4>
+            <div class="grid">
+                <div class="col-2">
+                    ¿Quién cuida al niño?
+                </div>
+                <div class="col-10">
+                    <input type="text"
+                           pInputText
+                           formControlName="cuidaNinio"
+                           class="inputfield w-full"
+                           placeholder="Detalle"/>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-12 md:col-6">
+                    <div class="grid">
+                        <div class="md:col-8 mt-2" style="text-align: left">
+                            ¿Participa el padre en el cuidado del niño? :
+                        </div>
+                        <div class="md:col-4">
+                            <p-selectButton [options]="stateOptions"
+                                            class="inputfield w-full"
+                                            optionLabel="label"
+                                            formControlName="participaPadre"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6">
+                    <div class="grid">
+                        <div class="md:col-8 mt-2" style="text-align: left">
+                            ¿El niño recibe muestras de afecto? :
+                        </div>
+                        <div class="md:col-4">
+                            <p-selectButton [options]="stateOptions"
+                                            class="inputfield w-full"
+                                            optionLabel="label"
+                                            formControlName="recibeAfecto"
+                                            optionValue="value">
+                            </p-selectButton>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col-2">
+                    Especifique:
+                </div>
+                <div class="col-10">
+                    <input type="text"
+                           pInputText
+                           class="inputfield w-full"
+                           formControlName="especificacion"
+                           placeholder="Detalle"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</p-fieldset>
+
+<p-fieldset legend="ANAMNESIS" [hidden]="!my" [toggleable]="true">
+    <textarea class="inputfield w-full"
+              [formControl]="anamnesisFC"
+              pInputTextarea>
+    </textarea>
+</p-fieldset>
+
+
+<div class="col col-offset-9">
+    <div [hidden]="my">
+        <button
+                type="submit"
+                icon="pi pi-save"
+                pButton
+                pRipple
+                (click)="getExamenes()"
+                label="Interconsulta"
+                style="background-color: #0c3866"
+                class="ml-4 p-button-raised p-button-info"
+        >
+        </button>
+    </div>
+    <div [hidden]="!my">
+        <button type="submit"
+                icon="pi pi-save"
+                pButton
+                pRipple
+                (click)="getConsultaPrincipal()"
+                label="Seguir Consulta"
+                style="background-color: #0c3866"
+                class="ml-4 p-button-raised p-button-info"
+        >
+        </button>
+    </div>
+</div>
+
+
+

@@ -4,27 +4,34 @@ import {item,valoracionMental} from "../../models/plan-atencion-adulto-mayor.mod
 import {AdultoMayorService} from "../../../services/adulto-mayor.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
+import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
+import {ModalMentalComponent} from "./modal-mental/modal-mental.component";
 @Component({
   selector: 'app-valoracion-mental-adulto-mayor',
   templateUrl: './Mental-adultoMayor.html',
-  styleUrls: ['./Mental-adultoMayor.css']
+  styleUrls: ['./Mental-adultoMayor.css'],
+  providers: [DialogService]
 })
 export class MentalAdultoMayor implements OnInit {
-  idRecuperado = "61b23fa6308deb1ddd0b3704";
   formValoracionMental:FormGroup;
   valoracionMental:valoracionMental;
   nivelEducativo:string="";
+  valoracion:string="";
+  ref: DynamicDialogRef;
   sino = [
     { label: 'SI', value: true },
     { label: 'NO', value: false }
   ];
   docRecuperado="";
   tipoDocRecuperado="";
+  listaValoracionMental:any[]=[];
+  lista:any[]=[];
   constructor(private formBuilder: FormBuilder,
               private valoracionService: AdultoMayorService,
               private messageService: MessageService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private dialogService: DialogService) {
     this.buildForm();
   }
 
@@ -310,130 +317,165 @@ export class MentalAdultoMayor implements OnInit {
       tipoDoc: this.tipoDocRecuperado,
       nroDoc: this.docRecuperado
     }
-    this.valoracionService.postValoracionClinicaPorDoc(data).subscribe((res: any) => {
-      if (res.object.valoracionesClinicas[0].valoracionMental != null) {
-        this.valoracionMental = res.object.valoracionesClinicas[0].valoracionMental;
-        this.messageService.add({
-          severity: "success",
-          summary: "Exito",
-          detail: res.mensaje
-        });
-        /*****LLENAR CAMPOS RECUPERADOS DE LA BD - COGNITIVO*****/
-        // let dxCognitivo = this.valoracionMental.diagnosticoCognitivo;
-        // console.log("dx",dxCognitivo);
-        let aux1 = this.valoracionMental.itemsEstadoCognitivo[0].respuesta;
-        // console.log(aux1);
-        let aux2 = this.valoracionMental.itemsEstadoCognitivo[1].respuesta;
-        // console.log(aux2);
-        let aux3 = this.valoracionMental.itemsEstadoCognitivo[2].respuesta;
-        // console.log(aux3);
-        let aux4 = this.valoracionMental.itemsEstadoCognitivo[3].respuesta;
-        // console.log(aux4);
-        let aux5 = this.valoracionMental.itemsEstadoCognitivo[4].respuesta;
-        // console.log(aux5);
-        let aux6 = this.valoracionMental.itemsEstadoCognitivo[5].respuesta;
-        // console.log(aux6);
-        let aux7 = this.valoracionMental.itemsEstadoCognitivo[6].respuesta;
-        // console.log(aux7);
-        let aux8 = this.valoracionMental.itemsEstadoCognitivo[7].respuesta;
-        // console.log(aux8);
-        let aux9 = this.valoracionMental.itemsEstadoCognitivo[8].respuesta;
-        // console.log(aux9);
-        let aux10 = this.valoracionMental.itemsEstadoCognitivo[9].respuesta;
-        // console.log(aux10);
 
-        if (aux1 == 'NO')
-          this.formValoracionMental.get("sabeFecha").setValue(false);
-        else {
-          this.formValoracionMental.get("sabeFecha").setValue(true);
-        }
-        if (aux2 == 'NO')
-          this.formValoracionMental.get("sabeSemana").setValue(false);
-        else {
-          this.formValoracionMental.get("sabeSemana").setValue(true);
-        }
-        if (aux3 == 'NO')
-          this.formValoracionMental.get("sabeLugar").setValue(false);
-        else {
-          this.formValoracionMental.get("sabeLugar").setValue(true);
-        }
-        if (aux4 == 'NO')
-          this.formValoracionMental.get("sabeTelefonoDireccion").setValue(false);
-        else {
-          this.formValoracionMental.get("sabeTelefonoDireccion").setValue(true);
-        }
-        if (aux5 == 'NO')
-          this.formValoracionMental.get("sabeEdad").setValue(false);
-        else {
-          this.formValoracionMental.get("sabeEdad").setValue(true);
-        }
-        if (aux6 == 'NO')
-          this.formValoracionMental.get("sabeLugarNac").setValue(false);
-        else {
-          this.formValoracionMental.get("sabeLugarNac").setValue(true);
-        }
-        if (aux7 == 'NO')
-          this.formValoracionMental.get("sabePresidente").setValue(false);
-        else {
-          this.formValoracionMental.get("sabePresidente").setValue(true);
-        }
-        if (aux8 == 'NO')
-          this.formValoracionMental.get("sabeAnteriorPresidente").setValue(false);
-        else {
-          this.formValoracionMental.get("sabeAnteriorPresidente").setValue(true);
-        }
-        if (aux9 == 'NO')
-          this.formValoracionMental.get("sabeApeMadre").setValue(false);
-        else {
-          this.formValoracionMental.get("sabeApeMadre").setValue(true);
-        }
-        if (aux10 == 'NO')
-          this.formValoracionMental.get("sabeResta").setValue(false);
-        else {
-          this.formValoracionMental.get("sabeResta").setValue(true);
-        }
-        this.formValoracionMental.patchValue({'diagnosticoCognitivo': this.valoracionMental.diagnosticoCognitivo});
-        this.formValoracionMental.patchValue({'diagnosticoAfectivo': this.valoracionMental.diagnosticoAfectivo});
-        /*********************RECUPERAR ESTADO AFECTIVO*****************************/
+    // this.valoracionService.postValoracionClinicaMentalPorDoc(data).subscribe((res: any) => {
+    //   if (res.object != null) {
+    //     this.valoracionMental = res.object;
+    //     console.log(this.valoracionMental);
+    //     let tamanio = res.object.length;
+        // this.valoracionMental = res.object.valoracionesClinicas[0].valoracionMental;
+        // this.messageService.add({
+        //   severity: "success",
+        //   summary: "Exito",
+        //   detail: res.mensaje
+        // });
+        this.valoracionService.postValoracionClinicaPorDoc(data).subscribe((res: any) => {
+          this.listaValoracionMental.push(res.object);
+          if (res.object.valoracionesClinicas[0].valoracionMental != null) {
+            console.log(this.listaValoracionMental);
+            this.valoracionMental = res.object.valoracionesClinicas[0].valoracionMental;
+            console.log(this.valoracionMental);
+          this.messageService.add({
+            severity: "success",
+            summary: "Exito",
+            detail: res.mensaje
+          });
         /*****LLENAR CAMPOS RECUPERADOS DE LA BD - COGNITIVO*****/
-        let dxAfectivo = this.valoracionMental.diagnosticoAfectivo;
-        console.log("dx", dxAfectivo);
-        let aux11 = this.valoracionMental.itemsEstadoCognitivo[0].respuesta;
-        // console.log(aux11);
-        let aux12 = this.valoracionMental.itemsEstadoCognitivo[1].respuesta;
-        // console.log(aux12);
-        let aux13 = this.valoracionMental.itemsEstadoCognitivo[2].respuesta;
-        // console.log(aux13);
-        let aux14 = this.valoracionMental.itemsEstadoCognitivo[3].respuesta;
-        // console.log(aux14);
+        let dxCognitivo = this.valoracionMental.diagnosticoCognitivo;
+        console.log("dx",dxCognitivo);
+          let aux1 = this.valoracionMental[0].itemsEstadoCognitivo[0].respuesta;
+          // console.log(aux1);
+          let aux2 = this.valoracionMental[0].itemsEstadoCognitivo[1].respuesta;
+          // console.log(aux2);
+          let aux3 = this.valoracionMental[0].itemsEstadoCognitivo[2].respuesta;
+          // console.log(aux3);
+          let aux4 = this.valoracionMental[0].itemsEstadoCognitivo[3].respuesta;
+          // console.log(aux4);
+          let aux5 = this.valoracionMental[0].itemsEstadoCognitivo[4].respuesta;
+          // console.log(aux5);
+          let aux6 = this.valoracionMental[0].itemsEstadoCognitivo[5].respuesta;
+          // console.log(aux6);
+          let aux7 = this.valoracionMental[0].itemsEstadoCognitivo[6].respuesta;
+          // console.log(aux7);
+          let aux8 = this.valoracionMental[0].itemsEstadoCognitivo[7].respuesta;
+          // console.log(aux8);
+          let aux9 = this.valoracionMental[0].itemsEstadoCognitivo[8].respuesta;
+          // console.log(aux9);
+          let aux10 = this.valoracionMental[0].itemsEstadoCognitivo[9].respuesta;
+          // console.log(aux10);
 
-        if (aux11 == 'NO')
-          this.formValoracionMental.get("satisfecho").setValue(false);
-        else {
-          this.formValoracionMental.get("satisfecho").setValue(true);
+          if (aux1 == 'NO')
+            this.formValoracionMental.get("sabeFecha").setValue(false);
+          else {
+            this.formValoracionMental.get("sabeFecha").setValue(true);
+          }
+          if (aux2 == 'NO')
+            this.formValoracionMental.get("sabeSemana").setValue(false);
+          else {
+            this.formValoracionMental.get("sabeSemana").setValue(true);
+          }
+          if (aux3 == 'NO')
+            this.formValoracionMental.get("sabeLugar").setValue(false);
+          else {
+            this.formValoracionMental.get("sabeLugar").setValue(true);
+          }
+          if (aux4 == 'NO')
+            this.formValoracionMental.get("sabeTelefonoDireccion").setValue(false);
+          else {
+            this.formValoracionMental.get("sabeTelefonoDireccion").setValue(true);
+          }
+          if (aux5 == 'NO')
+            this.formValoracionMental.get("sabeEdad").setValue(false);
+          else {
+            this.formValoracionMental.get("sabeEdad").setValue(true);
+          }
+          if (aux6 == 'NO')
+            this.formValoracionMental.get("sabeLugarNac").setValue(false);
+          else {
+            this.formValoracionMental.get("sabeLugarNac").setValue(true);
+          }
+          if (aux7 == 'NO')
+            this.formValoracionMental.get("sabePresidente").setValue(false);
+          else {
+            this.formValoracionMental.get("sabePresidente").setValue(true);
+          }
+          if (aux8 == 'NO')
+            this.formValoracionMental.get("sabeAnteriorPresidente").setValue(false);
+          else {
+            this.formValoracionMental.get("sabeAnteriorPresidente").setValue(true);
+          }
+          if (aux9 == 'NO')
+            this.formValoracionMental.get("sabeApeMadre").setValue(false);
+          else {
+            this.formValoracionMental.get("sabeApeMadre").setValue(true);
+          }
+          if (aux10 == 'NO')
+            this.formValoracionMental.get("sabeResta").setValue(false);
+          else {
+            this.formValoracionMental.get("sabeResta").setValue(true);
+          }
+          this.formValoracionMental.patchValue({'diagnosticoCognitivo': this.valoracionMental[0].diagnosticoCognitivo});
+          this.formValoracionMental.patchValue({'diagnosticoAfectivo': this.valoracionMental[0].diagnosticoAfectivo});
+          /*********************RECUPERAR ESTADO AFECTIVO*****************************/
+          /*****LLENAR CAMPOS RECUPERADOS DE LA BD - COGNITIVO*****/
+          let dxAfectivo = this.valoracionMental[0].diagnosticoAfectivo;
+          console.log("dx", dxAfectivo);
+          let aux11 = this.valoracionMental[0].itemsEstadoCognitivo[0].respuesta;
+          // console.log(aux11);
+          let aux12 = this.valoracionMental[0].itemsEstadoCognitivo[1].respuesta;
+          // console.log(aux12);
+          let aux13 = this.valoracionMental[0].itemsEstadoCognitivo[2].respuesta;
+          // console.log(aux13);
+          let aux14 = this.valoracionMental[0].itemsEstadoCognitivo[3].respuesta;
+          // console.log(aux14);
+
+          if (aux11 == 'NO')
+            this.formValoracionMental.get("satisfecho").setValue(false);
+          else {
+            this.formValoracionMental.get("satisfecho").setValue(true);
+          }
+          if (aux12 == 'NO')
+            this.formValoracionMental.get("importante").setValue(false);
+          else {
+            this.formValoracionMental.get("importante").setValue(true);
+          }
+          if (aux13 == 'NO')
+            this.formValoracionMental.get("probMemoria").setValue(false);
+          else {
+            this.formValoracionMental.get("probMemoria").setValue(true);
+          }
+          if (aux14 == 'NO')
+            this.formValoracionMental.get("desganado").setValue(false);
+          else {
+            this.formValoracionMental.get("desganado").setValue(true);
+          }
+
         }
-        if (aux12 == 'NO')
-          this.formValoracionMental.get("importante").setValue(false);
-        else {
-          this.formValoracionMental.get("importante").setValue(true);
-        }
-        if (aux13 == 'NO')
-          this.formValoracionMental.get("probMemoria").setValue(false);
-        else {
-          this.formValoracionMental.get("probMemoria").setValue(true);
-        }
-        if (aux14 == 'NO')
-          this.formValoracionMental.get("desganado").setValue(false);
-        else {
-          this.formValoracionMental.get("desganado").setValue(true);
-        }
-      } else {
-        this.messageService.add({
-          severity: "warn",
-          summary: "Error",
-          detail: "No hay datos en Valoración"
-        });
-      }
-    });
+
+            else {
+            this.messageService.add({
+              severity: "warn",
+              summary: "Error",
+              detail: "No hay datos en Valoración"
+            });
+          }
+
+         });
+
+  }
+  listarValoraciones(){
+    this.valoracion = "valoracionMental";
+
+    this.ref = this.dialogService.open(ModalMentalComponent, {
+      width: '80%',
+      data:this.listaValoracionMental
+    })
+    this.ref.onClose.subscribe((data: any) => {
+      console.log('datos de modal valoracion mental ', this.listaValoracionMental)
+
+    })
+  }
+  nuevaValoracion(){
+    this.formValoracionMental.reset();
   }
 }

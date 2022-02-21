@@ -7,6 +7,9 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DatePipe} from "@angular/common";
 import {PacienteService} from "../core/services/paciente/paciente.service";
 import {MessageService} from "primeng/api";
+import {CuposService} from "../core/services/cupos.service";
+import {DocumentoIdentidadService} from "../mantenimientos/services/documento-identidad/documento-identidad.service";
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-citas',
@@ -15,10 +18,12 @@ import {MessageService} from "primeng/api";
     providers: [DialogService],
 })
 export class CitasComponent implements OnInit {
-
+    idIpressLapostaMedica = "616de45e0273042236434b51";
+    iprees: string = "la posta medica";
     options: data[]
     selectedOption: data
     citas: any[]
+    loading: boolean = true;
 
 
     dataCitas: any;
@@ -26,10 +31,13 @@ export class CitasComponent implements OnInit {
     datePipe = new DatePipe('en-US');
     fechaActual = new Date();
 
-    Pacientes: any;
-    ProximaCita: any;
-    dataPaciente: any;
-    dataPaciente2: any;
+
+    dataPaciente: any[];
+
+    DataCupos: any[];
+    listaDocumentosIdentidad: any;
+    TipoDoc: string = "DNI";
+    DataCuposPaciente: any;
 
 
     constructor(private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -38,6 +46,8 @@ export class CitasComponent implements OnInit {
                 private fb: FormBuilder,
                 private pacienteService: PacienteService,
                 private messageService: MessageService,
+                private cuposService: CuposService,
+                private documentoIdentidadService: DocumentoIdentidadService,
     ) {
         this.options = [
             {name: "DNI", code: 1},
@@ -61,52 +71,85 @@ export class CitasComponent implements OnInit {
 
     ngOnInit(): void {
         this.buildForm();
-        this.formCitas.get('fechaFinal').setValue(this.fechaActual);
-        this.formCitas.get('fechaInicio').setValue(this.fechaActual);
-
-        const data = {
-            fechaInicio: this.datePipe.transform(this.formCitas.value.fechaFinal, 'yyyy-MM-dd'),
-            fechaFin: this.datePipe.transform(this.formCitas.value.fechaFinal, 'yyyy-MM-dd'),
-        }
-        this.citasService.getProximaCitasGestacion(data).subscribe((res: any) => {
-            this.dataCitas = res.object;
-            console.log('Lista de Citas: ', this.dataCitas);
-        });
+        this.formCitas.get('tipoDoc').setValue(this.TipoDoc);
+        this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
+        this.getDocumentosIdentidad();
+        this.getCuposXservicio();
     }
 
     buildForm() {
         this.formCitas = this.fb.group({
             fechaInicio: new FormControl(''),
-            fechaFinal: new FormControl(''),
+            fechaBusqueda: new FormControl(''),
+            tipoDoc: new FormControl(''),
             nroDoc: new FormControl(''),
         })
     }
 
+    /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
+    getCuposXservicio() {
+        let data = {
+            servicio: 'OBSTETRICIA',
+            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+        }
+        console.log('DATA ', data);
+
+        this.cuposService.getCuposServicioFecha(this.idIpressLapostaMedica, data).subscribe((res: any) => {
+            this.DataCupos = res.object;
+            this.loading = false;
+            console.log('LISTA DE CUPOS POR SERVICIO ', this.DataCupos);
+        })
+    }
+
+    /**Lista los tipos de documentos de Identidad de un paciente**/
+    getDocumentosIdentidad() {
+        this.documentoIdentidadService.getDocumentosIdentidad().subscribe((res: any) => {
+            this.listaDocumentosIdentidad = res.object;
+            console.log('docs ', this.listaDocumentosIdentidad);
+        })
+    }
+
+    /**Busca un paciente por le numero de documento**/
     getPacientesXnroDocumento() {
         let data = {
-            tipoDoc: "DNI",
+            tipoDoc: this.formCitas.value.tipoDoc,
             nroDoc: this.formCitas.value.nroDoc,
         }
         this.pacienteService.getPacienteByNroDoc(data).subscribe((res: any) => {
-            this.dataPaciente = res.object;
+            this.dataPaciente = [res.object];
             if (this.dataPaciente == null) {
-                this.showInfo();
+                this.showInfoPaciente();
             } else {
                 this.showSuccess();
-                let nombre = this.dataPaciente.primerNombre;
-                let apellidoPaterno = this.dataPaciente.apePaterno;
-                let apellidoMaterno = this.dataPaciente.apeMaterno;
-                let nroDoc = this.dataPaciente.nroDoc;
-                let telefono = this.dataPaciente.celular;
-                let tipoDoc = this.dataPaciente.tipoDoc;
-                this.dataPaciente2 = [{apellidoPaterno, apellidoMaterno, nombre, nroDoc, telefono, tipoDoc}]
             }
-
-            console.log('paciente por doc ', this.dataPaciente2);
-
-
+            console.log('paciente por doc ', this.dataPaciente);
         });
 
+    }
+
+    /**Busca un cupo por el numero de dni de un paciente**/
+    async buscarCupoXdniFecha() {
+        let data = {
+            tipoDoc: this.formCitas.value.tipoDoc,
+            nroDoc: this.formCitas.value.nroDoc,
+            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+        }
+        console.log("DATA DNI", data)
+
+        await this.cuposService.buscarCupoPorDniFechaIpress(this.idIpressLapostaMedica, data)
+            .then(result => {
+                this.DataCuposPaciente = result
+                console.log('LISTA DE CUPO DEL PACIENTE', result)
+                if (this.DataCuposPaciente == undefined) {
+                    this.showInfo();
+                    this.getPacientesXnroDocumento();
+                } else {
+                    this.showSuccess();
+                    this.dataPaciente = null;
+                    this.DataCupos = null;
+                    this.DataCupos = [this.DataCuposPaciente.object];
+                }
+            });
     }
 
     /**Modulo para hacer cosultas no gestantes**/
@@ -117,14 +160,22 @@ export class CitasComponent implements OnInit {
 
 
 
-    enviarData(event) {
+    enviarData2(event) {
         this.obstetriciaGeneralService.tipoDoc = null;
         this.obstetriciaGeneralService.nroDoc = null;
-        console.log("EVENTO", event);
-        // this.obstetriciaGeneralService.observable$.emit(event.id);
+        console.log("BUSQUEDA DNI SIN CUPO EVENTO", event);
         this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
         this.obstetriciaGeneralService.nroDoc = event.nroDoc;
     }
+
+    enviarData(event) {
+        this.obstetriciaGeneralService.tipoDoc = null;
+        this.obstetriciaGeneralService.nroDoc = null;
+        console.log("LISTA DE CUPOS EVENTO", event);
+        this.obstetriciaGeneralService.tipoDoc = event.paciente.tipoDoc;
+        this.obstetriciaGeneralService.nroDoc = event.paciente.nroDoc;
+    }
+
 
     showSuccess() {
         this.messageService.add({
@@ -134,11 +185,19 @@ export class CitasComponent implements OnInit {
         });
     }
 
-    showInfo() {
+    showInfoPaciente() {
         this.messageService.add({
             severity: 'info',
             summary: 'Paciente',
             detail: 'No existe en la Base de Datos'
+        });
+    }
+
+    showInfo() {
+        this.messageService.add({
+            severity: 'info',
+            summary: 'Paciente',
+            detail: 'No tiene un registro de cupo'
         });
     }
 }

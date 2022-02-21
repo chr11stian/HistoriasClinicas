@@ -1,0 +1,144 @@
+<div class="p-card">
+    <p-toolbar styleClass="p-mb-4">
+
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">USUARIOS DEL SISTEMA</h3>
+        </ng-template>
+
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                    (click)="openNew()"></button>
+
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="usuarios" [rows]="10" [paginator]="true"
+             [globalFilterFields]="['nombres','dni','apellidos']"
+             [(selection)]="selectedUsuario" [rowHover]="true" dataKey="id"
+             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} listas"
+             [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <!--                <h5 class="p-m-0">Personales de salud</h5>-->
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+<!--                    <input pInputText type="text"-->
+<!--                           (input)="dt.filterGlobal($event.target.value,'contains')"-->
+<!--                           placeholder="Buscar..."/>-->
+                </span>
+            </div>
+        </ng-template>
+
+        <ng-template class="ng-template" pTemplate="header">
+            <tr>
+                <th style="text-align: center">DNI</th>
+                <th style="text-align: center">APELLIDOS</th>
+                <th style="text-align: center">NOMBRES</th>
+                <th style="text-align: center">TELEFONO</th>
+                <th style="text-align: center">ROLES</th>
+                <th style="text-align: center">EDITAR / ESTADO</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-usuario style="text-align: center">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{usuario.nro_doc}}</td>
+                <td style="text-align: center">{{usuario.apellidos}}</td>
+                <td style="text-align: center">{{usuario.nombres}}</td>
+                <td style="text-align: center">{{usuario.telefono}}</td>
+                <td style="text-align: center">{{usuario.roles}}</td>
+                <td style="text-align: center">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary "
+                            (click)="editUsuario(usuario)"></button>
+                    <button pButton pRipple icon="pi pi-check" class="p-button-rounded p-button-success "
+                    ></button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                En total ahi {{usuarios ? usuarios.length : 0 }} Usuarios.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog [(visible)]="usuarioDialog" [style]="{width: '1080px'}" header="Registrar Usuarios" [modal]="true"
+          styleClass="p-fluid">
+    <ng-template pTemplate="body">
+        <div class="grid">
+            <div class="col-2">
+                <label>DOCUMENTO IDENTIDAD</label>
+                <div class="p-inputgroup">
+                    <input style="width: 15rem" type="number" id="nro_doc"
+                           [(ngModel)]="usuario.nro_doc"
+                           pInputText>
+                    <p-button icon="pi pi-search"></p-button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="grid">
+            <div class="p-field col-4">
+                <label>USUARIO</label>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                    <input style="width: 15rem" type="text" id="usuario" [(ngModel)]="usuario.id"
+                           pInputText>
+                </div>
+            </div>
+
+            <div class="p-field col-4">
+                <label>E-MAIL</label>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                    <input style="width: 15rem" type="text" id="e-mail"
+                           [(ngModel)]="usuario.email" pInputText>
+                </div>
+            </div>
+
+            <div class="p-field col-4">
+                <label>TELEFONO</label>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                    <input style="width: 15rem" type="text" id="telefono"
+                           [(ngModel)]="usuario.telefono" pInputText>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="grid">
+
+            <div class="p-field col-3">
+                <label>NIVEL DE USUARIO</label>
+                <div class="p-inputgroup">
+                    <input style="width: 15rem" type="text" id="nivel_usuario"
+                           [(ngModel)]="usuario.nro_doc"
+                           pInputText>
+                </div>
+            </div>
+
+            <div class="p-field col-3">
+                <label>ROLES</label>
+                <div class="p-inputgroup">
+                    <input style="width: 15rem" type="text" id="roles" [(ngModel)]="usuario.roles"
+                           pInputText>
+                </div>
+            </div>
+
+        </div>
+
+        <br>
+
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
+        <button pButton type="button" label="Guardar" (click)="save()"></button>
+    </ng-template>
+</p-dialog>

@@ -11,6 +11,7 @@ import {environment} from "../../../../environments/environment";
 })
 export class PersonalService {
     base_url = environment.baseUrl;
+    base_url_PIDE = environment.base_url_pide;
     bd = environment.bd;
     private _refresh = new Subject<void>();
     private personales: Personal[] = [];
@@ -92,7 +93,7 @@ export class PersonalService {
     }
     editRol(idPersonal, reqRol) {
         return this.http.put<any>(
-            `${this.base_url}/${this.bd}/personal/actualizaroll/${idPersonal}`,
+            `${this.base_url}/${this.bd}/personal/actualizarrol/${idPersonal}`,
             reqRol
         );
     }
@@ -102,5 +103,9 @@ export class PersonalService {
         return this.http.get<any>(
             `${this.base_url}/${this.bd}/tools/genero`
         );
+    }
+
+    getDatosReniec(doc){
+        return this.http.get(`${this.base_url}/${this.bd}/pide/datos-sis/${doc}`)
     }
 }

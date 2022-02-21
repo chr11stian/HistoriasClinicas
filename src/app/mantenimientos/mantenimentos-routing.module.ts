@@ -24,6 +24,7 @@ import { TipoSeguroComponent } from "./component/tipo-seguro/tipo-seguro.compone
 import { UpsComponent } from "./component/ups/ups.component";
 import { CondicionPacienteDiscapacidadComponent } from "./component/condicion-paciente-discapacidad/condicion-paciente-discapacidad.component";
 import { TipoContratoComponent } from "./component/tipo-contrato/tipo-contrato.component";
+import { UnidadEjecutoraComponent } from "./component/unidad-ejecutora/unidad-ejecutora.component";
 
 const routes: Routes = [
   {
@@ -54,10 +55,6 @@ const routes: Routes = [
   {
     path: "especialidad",
     component: EspecialidadComponent,
-  },
-  {
-    path: "tipo-personal",
-    component: TipoPersonalComponent,
   },
   {
     path: "tipo-turno",
@@ -115,6 +112,10 @@ const routes: Routes = [
   {
     path: "tipo-contrato",
     component: TipoContratoComponent,
+  },
+  {
+    path: "unidad-ejecutora",
+    component: UnidadEjecutoraComponent,
   },
 ];
 

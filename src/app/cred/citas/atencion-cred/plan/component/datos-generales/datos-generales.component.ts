@@ -8,6 +8,7 @@ import {
 import {DatosGeneralesService} from "../../services/datos-generales/datos-generales.service";
 import Swal from "sweetalert2";
 import {ActivatedRoute, Router} from "@angular/router";
+import {dato} from "../../../../models/data";
 
 @Component({
     selector: "app-datos-generales",
@@ -16,6 +17,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class DatosGeneralesComponent implements OnInit {
     form: FormGroup
+    data: dato
+    attributeLocalS = 'documento'
     options: string[]
     stateOptions: any[]
     stateOptions1: any[]
@@ -77,10 +80,12 @@ export class DatosGeneralesComponent implements OnInit {
     }
 
     getQueryParams(): void {
-        this.route.queryParams
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.nroDoc = this.data.nroDocumento
+        /*this.route.queryParams
             .subscribe(params => {
                 this.nroDoc = params['nroDoc']
-            })
+            })*/
     }
 
     build() {

@@ -1,0 +1,168 @@
+p-card >>> .p-card .p-card-title{
+    margin: 0.5rem 0rem 0.5rem 0.5rem;
+}
+.tabla{
+    width:100%;
+}
+::ng-deep .fondo1 .p-calendar .p-inputtext{
+
+     flex: 1 1 auto;
+     width: 1%;
+     background: #FDC070;
+
+}
+::ng-deep .fondo2 .p-calendar .p-inputtext{
+/**/
+    flex: 1 1 auto;
+    width: 1%;
+    background: #FFFF80;
+
+}
+.caja {
+    color: white;
+    border-radius:10px;
+    width: 80px;
+    height: 40px;
+    margin: 0px;
+}
+.triangulo {
+    width: 0;
+    height: 0;
+    border-left: 10px solid #FF6601;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+}
+p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+    text-align: center;
+    font-size: small;
+    word-wrap: break-word;
+    padding: 2px;
+}
+p-table >>> .p-datatable .p-datatable-thead > tr > th {
+    padding: 3px;
+}
+
+
+
+.triangulo-1 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #4C4C4C;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-2 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #F0047F;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-3 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #FF6601;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-4 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #F30E19;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-5 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #F93D5A;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-6 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #FEA61D;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-7 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #F5923B;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-8 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #DD360C;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-9 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #DD6910;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-10 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #5BBA7D;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-11 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #5AB543;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-12 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #9BC922;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-15 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #5EAA29;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-18 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #62C2BB;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-21 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #5C97C6;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-24 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #5E64AD;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+.triangulo-30 {
+    width: 0;
+    height: 0;
+    border-top: 8px solid #B573B6;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+}
+p-calendar >>> .p-calendar .p-datepicker {
+    width: 250px;
+}

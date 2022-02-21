@@ -6,7 +6,7 @@ import {DialogConsultaUniversalComponent} from "../../historia-consultas/dialog-
 import {DialogConsultaComponent} from "./dialog-consulta/dialog-consulta.component";
 import {ConsultaObstetriciaService} from "./services/consulta-obstetricia/consulta-obstetricia.service";
 import {ObstetriciaGeneralService} from "../../services/obstetricia-general.service";
-
+import {Router} from "@angular/router";
 
 @Component({
     selector: "app-consulta",
@@ -30,7 +30,8 @@ export class ConsultaComponent implements OnInit {
         private location: Location,
         private dialog: DialogService,
         private consultaObstetriciaService: ConsultaObstetriciaService,
-        private obstetriciaGeneralService: ObstetriciaGeneralService
+        private obstetriciaGeneralService: ObstetriciaGeneralService,
+        private router: Router
     ) {
         this.inicializarForm();
         this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
@@ -108,6 +109,14 @@ export class ConsultaComponent implements OnInit {
             this.consultas = res.object ? res.object : [];
         })
     }
+
+    irConsulta(){
+        let row: any = {
+            editar: false,
+            nroAtencion: 1,
+        }
+        this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'],row)
+    } 
 
     // openDialogConsultaUniversal() {
     //   this.ref = this.dialog.open(DialogConsultaUniversalComponent, {
