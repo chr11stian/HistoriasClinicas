@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import Swal from "sweetalert2";
 import {EvaluacionAlimentacionService} from "../../services/evaluacion-alimentacion.service";
+import {dato} from "../../../../../../models/data";
 
 @Component({
   selector: 'app-tamizajes',
@@ -12,6 +13,8 @@ export class TamizajesComponent implements OnInit {
   formTamizajeCred: FormGroup;
   listaPruebasVisuales: any[] = [];
   displayMaximizable: boolean;
+  attributeLocalS = 'documento';
+  data:dato;
   sino = [
     {label: 'SI', value: 'si'},
     {label: 'NO', value: 'no'}
@@ -31,6 +34,7 @@ export class TamizajesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     this.listaPruebasVisuales = [
       {
         prueba: 'INSPECCIÓN OCULAR',
@@ -169,7 +173,7 @@ export class TamizajesComponent implements OnInit {
   }
 
   recuperarTamizajesBD() {
-    this.evalAlimenService.getTamizajeCred(this.idConsulta).subscribe((res: any) => {
+    this.evalAlimenService.getTamizajeCred(this.data.idConsulta).subscribe((res: any) => {
       console.log('se edito correctamente ', res.object);
       this.idFichaTamizaje = res.object.id;
       let negligencia: any = res.object.negligencia;
@@ -886,7 +890,7 @@ export class TamizajesComponent implements OnInit {
   addTamizaje(){
     console.log("entrando a guardar data");
     this.getTamizaje();
-    this.evalAlimenService.addTamizajeCred(this.idConsulta,this.tamizajes).subscribe((res: any) => {
+    this.evalAlimenService.addTamizajeCred(this.data.idConsulta,this.tamizajes).subscribe((res: any) => {
       console.log('se guardo correctamente ', res.object);
       Swal.fire({
         icon: 'success',

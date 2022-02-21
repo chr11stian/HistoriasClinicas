@@ -4,6 +4,7 @@ import {EvalAlimenService} from '../service/eval-alimen.service';
 import {ActivatedRoute, Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {DatePipe} from "@angular/common";
+import {dato} from "../../../../../models/data";
 
 @Component({
     selector: 'app-evaluacion-alimentacion',
@@ -18,7 +19,9 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     Evaluaciones: EvaluacionAlimenticia[] = [];
     Preguntas: Preguntas;
     ArrayEvaluaciones: EvaluacionAlimenticia;
+    attributeLocalS = 'documento';
     datePipe = new DatePipe('en-US');
+    data:dato;
     edadEditable: number = 0;
     sino = [
         {label: 'SI', value: true},
@@ -32,16 +35,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        /*this.route.queryParams
-            .subscribe(params => {
-              console.log('params', params)
-              if (params['nroDoc']) {
-                this.tipoDocRecuperado = params['tipoDoc']
-                this.nroDocRecuperado = params['nroDoc']
-              } else {
-                this.router.navigate(['/dashboard/cred/citas'])
-              }
-            })*/
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.evaluacionAlimenticia = [
             {
                 "titulo": "Fecha",
@@ -562,7 +556,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     }
 
     recuperarDataEvaluacionAlimenticiaBD() {
-        this.evalAlimenService.getEvaluacionAlimenticiaCred(this.nroDocRecuperado).subscribe((res: any) => {
+        this.evalAlimenService.getEvaluacionAlimenticiaCred(this.data.nroDocumento).subscribe((res: any) => {
             this.Evaluaciones.push(res.object);
             console.log('evaluacion', this.evaluacionAlimenticia);
             console.log('paciente por doc ', this.Evaluaciones)
@@ -797,7 +791,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
         });
     }
-
     obtenerTitulo(indice): string {
         if (indice == 0) {
             return "valorRN"
@@ -805,16 +798,10 @@ export class EvaluacionAlimentacionComponent implements OnInit {
             return "valor" + indice + "M"
         }
     }
-
-    convertirFecha(fecha) {
-        const fecha2 = fecha.replace("T", " ");
-        return fecha2 + ":00";
-    }
-
     ObtenerUltimaEvaluacion() {
         console.log('entro editar', this.Evaluaciones);
         let prefijo = "";
-        this.evalAlimenService.lastEvaluacionAlimenticiaCred(this.nroDocRecuperado).subscribe((res: any) => {
+        this.evalAlimenService.lastEvaluacionAlimenticiaCred(this.data.nroDocumento).subscribe((res: any) => {
             if (res.object != null || res.object != undefined) {
                 console.log('recupero ultimo elemento ', res.object);
                 this.edadEditable = res.object.edad;
@@ -823,13 +810,13 @@ export class EvaluacionAlimentacionComponent implements OnInit {
                 this.messageService.add({
                     severity: "success",
                     summary: "Exito",
-                    detail: "Se recupero la última atención"
+                    detail: "Se recupero las evaluaciones regsitradas en todas las consultas"
                 });
             } else {
                 this.messageService.add({
                     severity: "error",
                     summary: "Error",
-                    detail: "No hay datos registrados"
+                    detail: "No hay datos registrados en consultas"
                 });
             }
 
