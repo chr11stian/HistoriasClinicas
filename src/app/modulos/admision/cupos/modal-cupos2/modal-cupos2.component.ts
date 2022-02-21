@@ -207,7 +207,6 @@ export class ModalCupos2Component implements OnInit {
                 this.DistritoIDSelct = object.iddis
             }
         });
-
         let distrito = {
             iddd: this.DepartamentoIDSelct,
             idpp: this.ProvinciaIDSelct,
@@ -220,7 +219,6 @@ export class ModalCupos2Component implements OnInit {
 
 
     buildForm() {
-
         this.formPacientesCupo = this.fb.group({
             primerNombre: new FormControl(''),
             otrosNombres: new FormControl(''),
@@ -236,7 +234,7 @@ export class ModalCupos2Component implements OnInit {
             provincia: new FormControl(''),
             distrito: new FormControl(''),
             centroPoblado: new FormControl(''),
-            direccion: new FormControl('',[Validators.required]),
+            direccion: new FormControl('', [Validators.required]),
             procedencia: new FormControl(''),
             LugarNacimiento: new FormControl(''),
             GradoInstrucion: new FormControl(''),
@@ -244,18 +242,18 @@ export class ModalCupos2Component implements OnInit {
             tipoDoc: new FormControl('', [Validators.required]),
             nroDoc: new FormControl('', [Validators.required, Validators.maxLength(8)]),
 
-            tipoSeguro: new FormControl('',[Validators.required]),
-            transeunte: new FormControl('',[Validators.required]),
+            tipoSeguro: new FormControl('', [Validators.required]),
+            transeunte: new FormControl('', [Validators.required]),
 
             edadAnio: new FormControl(''),
             edadMes: new FormControl(''),
             edadDia: new FormControl(''),
 
 
-            dpto: new FormControl('',[Validators.required]),
-            prov: new FormControl('',[Validators.required]),
-            dist: new FormControl('',[Validators.required]),
-            ccpp: new FormControl('',[Validators.required]),
+            dpto: new FormControl('', [Validators.required]),
+            prov: new FormControl('', [Validators.required]),
+            dist: new FormControl('', [Validators.required]),
+            ccpp: new FormControl('', [Validators.required]),
         })
     }
 
@@ -382,7 +380,6 @@ export class ModalCupos2Component implements OnInit {
 
             },
         })
-        // this.pacienteComponent.dialogPaciente = true;
     }
 
     /**Registra un nuevo cupo para un determinado paciente**/
@@ -450,8 +447,6 @@ export class ModalCupos2Component implements OnInit {
 
 
     /**Actualiza el estdo de una oferta que pertenece al Personal**/
-
-    /****/
     actualizarOfertaEstado() {
         let data = {
             idOferta: this.dataPersonalSelecionado.id,
@@ -459,9 +454,7 @@ export class ModalCupos2Component implements OnInit {
             horaFin: this.selectedHorario[0].horaFin,
             estado: "OCUPADO"
         }
-
         console.log("DATA ACTUALIZAR OFERTA", data);
-
         this.cuposService.updateEstadoOferta(data).subscribe(resp => {
             this.messageService.add({
                 severity: 'success',
