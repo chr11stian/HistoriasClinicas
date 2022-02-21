@@ -1,0 +1,633 @@
+{
+    "data": [
+        [
+            {
+                "pregunta": 1,
+                "areaEvaluacion": "S",
+                "descripcion": "Fija la mirada en el rostro del examinador.",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 2,
+                "areaEvaluacion": "L",
+                "descripcion": "Reacciona al sonido de la campanilla (detras).",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 3,
+                "areaEvaluacion": "M",
+                "descripcion": "Aprieta el dedo indice del examinador.",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 4,
+                "areaEvaluacion": "C",
+                "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras).",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 5,
+                "areaEvaluacion": "M",
+                "descripcion": "Movimiento de cabeza en posición prona.",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 6,
+                "areaEvaluacion": "S",
+                "descripcion": "Mímica en respuesta al rostro del examinador",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 7,
+                "areaEvaluacion": "S_L",
+                "descripcion": "Vocaliza en respuesta a la sonrisa y conversación del examinador",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 8,
+                "areaEvaluacion": "C_S",
+                "descripcion": "Reacciona ante el desaparecimiento de la cara del examinador",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 9,
+                "areaEvaluacion": "M",
+                "descripcion": "Intenta controlar la cabeza al ser llevado a posicion sentado",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 10,
+                "areaEvaluacion": "L",
+                "descripcion": "vocaliza dos sonidos diferentes",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 11,
+                "areaEvaluacion": "S",
+                "descripcion": "Sonrie en respuesta a la sonrisa del examinador",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 12,
+                "areaEvaluacion": "C_L",
+                "descripcion": "Busca con la vista la fuente del sonido (detras)",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 13,
+                "areaEvaluacion": "C",
+                "descripcion": "Sigue con la vista la argolla (ángulo de 180°)(detras)",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 14,
+                "areaEvaluacion": "M",
+                "descripcion": "Mantiene cabeza erguida al ser llevado a posicion sentado",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 15,
+                "areaEvaluacion": "L",
+                "descripcion": "Vocalizacion prolongada",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 16,
+                "areaEvaluacion": "C",
+                "descripcion": "La cabeza sigue la cuchara que desaparece",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 17,
+                "areaEvaluacion": "C_L",
+                "descripcion": "Gira la cabeza al sonido de la campanilla (detras)",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 18,
+                "areaEvaluacion": "M",
+                "descripcion": "En posicion prona se levanta asi mismo",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 19,
+                "areaEvaluacion": "M",
+                "descripcion": "Levanta cabeza y hombro al ser llevado a posición sentada",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 20,
+                "areaEvaluacion": "S_L",
+                "descripcion": "Rie a carcajadas",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 21,
+                "areaEvaluacion": "S_L",
+                "descripcion": "Vuelve la cabeza a quien le habla(detrás)",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 22,
+                "areaEvaluacion": "C",
+                "descripcion": "Palpa el borde de la cama",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 23,
+                "areaEvaluacion": "C",
+                "descripcion": "Intenta presión de la argolla (detrás)",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 24,
+                "areaEvaluacion": "M",
+                "descripcion": "Empuja hasta lograr la posición sentada",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 25,
+                "areaEvaluacion": "M",
+                "descripcion": "Se mantiene sentado con breve apoyo",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 26,
+                "areaEvaluacion": "M",
+                "descripcion": "Se mantiene sentado solo momentaneamente",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 27,
+                "areaEvaluacion": "C",
+                "descripcion": "Vuelve la cabeza a la cuchara caída",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 28,
+                "areaEvaluacion": "C",
+                "descripcion": "Coge la argolla",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 29,
+                "areaEvaluacion": "C",
+                "descripcion": "Coge el cubo",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 30,
+                "areaEvaluacion": "S_L",
+                "descripcion": "Vocaliza cuando se le habla",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 31,
+                "areaEvaluacion": "M",
+                "descripcion": "Se mantiene sentado solo por 30 segundos a más",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 32,
+                "areaEvaluacion": "C",
+                "descripcion": "Intenta agarrar la pastilla",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 33,
+                "areaEvaluacion": "L",
+                "descripcion": "Escucha selectivamente palabras familiares",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 34,
+                "areaEvaluacion": "S",
+                "descripcion": "Coopera a los juegos",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 35,
+                "areaEvaluacion": "C",
+                "descripcion": "Coge dos cubos, uno en cada mano",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 36,
+                "areaEvaluacion": "M",
+                "descripcion": "Se sienta y se mantiene erguido",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 37,
+                "areaEvaluacion": "M",
+                "descripcion": "Fracciona hasta lograr la posición de pie",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 38,
+                "areaEvaluacion": "M",
+                "descripcion": "Iniciación de pasos sostenido bajo los brazos",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 39,
+                "areaEvaluacion": "C",
+                "descripcion": "Coge la pastilla con movimiento de rastrillo",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 40,
+                "areaEvaluacion": "L",
+                "descripcion": "Dice da-da o equivalente",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 41,
+                "areaEvaluacion": "M",
+                "descripcion": "Logra llegar a posición de pie, apoyado en un mueble",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 42,
+                "areaEvaluacion": "M",
+                "descripcion": "Camina sostenido bajo los brazos",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 43,
+                "areaEvaluacion": "C",
+                "descripcion": "Coge la pastilla con participación del pulgar",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 44,
+                "areaEvaluacion": "C",
+                "descripcion": "Encuentra el cubo bajo el pañal",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 45,
+                "areaEvaluacion": "S_L",
+                "descripcion": "Reacciona a los requerimientos verbales",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 46,
+                "areaEvaluacion": "C",
+                "descripcion": "Coge la pastilla con pulgar e índice",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 47,
+                "areaEvaluacion": "S",
+                "descripcion": "Imita gestos simples",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 48,
+                "areaEvaluacion": "C",
+                "descripcion": "Coge el tercer cubo dejando uno de los dos primeros",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 49,
+                "areaEvaluacion": "C",
+                "descripcion": "Junta cubos en la línea media",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 50,
+                "areaEvaluacion": "S_L",
+                "descripcion": "Reacciona al “no, no”",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 51,
+                "areaEvaluacion": "M",
+                "descripcion": "Coge la pastilla con pulgar e índice",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 52,
+                "areaEvaluacion": "C",
+                "descripcion": "Imita gestos simples",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 53,
+                "areaEvaluacion": "M",
+                "descripcion": "Coge el tercer cubo dejando uno de los dos primeros",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 54,
+                "areaEvaluacion": "S_L",
+                "descripcion": "Junta cubos en la línea media",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 55,
+                "areaEvaluacion": "L",
+                "descripcion": "Reacciona al “no, no”",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 56,
+                "areaEvaluacion": "M",
+                "descripcion": "Camina solo",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 57,
+                "areaEvaluacion": "C",
+                "descripcion": "Introduce la pastilla en la botella",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 58,
+                "areaEvaluacion": "C",
+                "descripcion": "Espontáneamente garabatea",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 59,
+                "areaEvaluacion": "C",
+                "descripcion": "Coge el tercer cubo conservando los dos primeros",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 60,
+                "areaEvaluacion": "L",
+                "descripcion": "Dice al menos tres palabras",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 61,
+                "areaEvaluacion": "S_L",
+                "descripcion": "Muestra sus zapatos",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 62,
+                "areaEvaluacion": "M",
+                "descripcion": "Camina varios pasos hacia el lado",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 63,
+                "areaEvaluacion": "M",
+                "descripcion": "Camina varios pasos hacia atrás",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 64,
+                "areaEvaluacion": "C",
+                "descripcion": "Retira inmediatamente la pastilla de la botella",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 65,
+                "areaEvaluacion": "C",
+                "descripcion": "Atrae el cubo con un palo",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 66,
+                "areaEvaluacion": "L",
+                "descripcion": "Nombra un objeto de los cuatro presentado",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 67,
+                "areaEvaluacion": "L",
+                "descripcion": "Imita tres palabras en el momento del examen",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 68,
+                "areaEvaluacion": "C",
+                "descripcion": "Construye una torre con tres cubos",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 69,
+                "areaEvaluacion": "L",
+                "descripcion": "Dice al menos seis palabras",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 70,
+                "areaEvaluacion": "S_L",
+                "descripcion": "Usa palabras para comunicar deseos",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 71,
+                "areaEvaluacion": "M",
+                "descripcion": "Se para en un pie con ayuda",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 72,
+                "areaEvaluacion": "L",
+                "descripcion": "Nombra dos objetos de los cuatro presentados",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 73,
+                "areaEvaluacion": "S",
+                "descripcion": "Ayuda en tareas simples",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 74,
+                "areaEvaluacion": "L",
+                "descripcion": "Apunta 4 o más partes en el cuerpo de la muñeca",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 75,
+                "areaEvaluacion": "C",
+                "descripcion": "Construye una torre con cinco cubos",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 76,
+                "areaEvaluacion": "L",
+                "descripcion": "Nombra animales (de 8 menciona 6)",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 77,
+                "areaEvaluacion": "L",
+                "descripcion": "Nombra colores (rojo, azul, amarillo)",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 78,
+                "areaEvaluacion": "M",
+                "descripcion": "Copia una cruz",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 79,
+                "areaEvaluacion": "C",
+                "descripcion": "Construye una torre de 8 cubos",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 80,
+                "areaEvaluacion": "M",
+                "descripcion": "Se para con un pie (10 segundos a más)",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ],
+        [
+            {
+                "pregunta": 81,
+                "areaEvaluacion": "L",
+                "descripcion": "Verbaliza su nombre y apeliido",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 82,
+                "areaEvaluacion": "L",
+                "descripcion": "Conoce la utilidad de los objetos (cuchara, lápiz, tijera, jabón)",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 83,
+                "areaEvaluacion": "C",
+                "descripcion": "Copia un circulo",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 84,
+                "areaEvaluacion": "C",
+                "descripcion": "Abotona y desabotona (usar estuche)",
+                "estadoN": false,
+                "estadoD": false
+            },
+            {
+                "pregunta": 85,
+                "areaEvaluacion": "M",
+                "descripcion": "Camina en punta de pie seis pasos o más",
+                "estadoN": false,
+                "estadoD": false
+            }
+        ]
+    ]
+}

@@ -30,11 +30,8 @@ import { TepsiComponent } from './component/evaluaciones-consulta/components/des
 import { EvaluacionAlimentacionComponent } from './component/evaluaciones-consulta/components/evaluacion-alimentacion/evaluacion-alimentacion.component';
 import {ToggleButtonModule} from "primeng/togglebutton";
 import { VacunaComponent } from './component/evaluaciones-consulta/components/vacuna/vacuna.component';
-<<<<<<< HEAD
 import { PautaBreveComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/pauta-breve/pauta-breve.component';
-=======
 import {TimelineModule} from "primeng/timeline";
->>>>>>> cb868cbc7ee030cd5c70e268db3d0bf1ef827262
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
