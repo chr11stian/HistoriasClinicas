@@ -501,8 +501,35 @@ export class TriajeCredComponent implements OnInit {
                 }
             )
         }
+        this.getPlan(this.data.nroDocumento);
+    }
+    getPlan(dni: string) {
+        this.consultaGeneralService.traerPlan(dni).subscribe(
+            result => {
+                if (result.cod === '2404') {
+                    this.getNuevoPlan()
+                    console.log('2404', result)
+                }
+                if (result.cod === '2403') {
+                    console.log('2403', result)
+                }
+            }, err => {
+                console.log(err)
+            }
+        )
     }
 
+    getNuevoPlan(): void {
+        this.consultaGeneralService.crearPlan(
+            {
+                'tipoDoc': this.data.tipoDoc,
+                'nroDoc': this.data.nroDocumento
+            }
+        ).toPromise().then((result) => {
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
     saveInterconsulta(): void {
         this.outData()
         const req: interconsultaInterface = {
