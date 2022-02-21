@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
 import Swal from 'sweetalert2';
@@ -27,6 +28,7 @@ export class PautaBreveComponent implements OnInit {
   idConsulta: string;
   dataPB: EvaluationPB;
   dataPautaBreve: any;
+  datePipe = new DatePipe('en-US');
 
   constructor(
     private testService: EvalAlimenService,
@@ -34,6 +36,7 @@ export class PautaBreveComponent implements OnInit {
   ) {
     this.getDatos();
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
+    this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   }
 
   ngOnInit(): void {
@@ -80,14 +83,13 @@ export class PautaBreveComponent implements OnInit {
       }
       return auxAns;
     });
-    // console.log('data to save ', ansMonth);
 
     this.dataPB = {
       codigoCIE10: '',
       codigoHIS: '',
       codigoPrestacion: '',
       evaluacionPautaBreveMes: {
-        fechaAtencion: '',
+        fechaAtencion: this.datePipe.transform(this.fechaEvaluacion, 'yyyy-MM-dd HH:mm:ss'),
         mesEdad: this.edadNroSelected,
         diagnostico: '',
         docExaminador: "89685545",
@@ -97,11 +99,11 @@ export class PautaBreveComponent implements OnInit {
     this.pautaBreveService.postAgregarPB(this.idConsulta, this.dataPB).subscribe((res: any) => {
       Swal.fire({
         icon: 'success',
-        title: 'Se Guardo la Pauta Breve',
+        title: 'Se Guardo la Pauta Breve Correctamente',
         showConfirmButton: false,
         timer: 1500
       })
-    })
+    });
   }
 
   confirmSaveTest() {
