@@ -335,7 +335,6 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ fr: Rpta.signosVitales.fr });
       this.form.patchValue({ peso: Rpta.signosVitales.peso });
       this.form.patchValue({ talla: Rpta.signosVitales.talla });
-      // this.form.patchValue({ imc: this.form.get("imc").setValue(parseFloat(this.ultimaConsulta.imc)) });
       //funciones biologicas
       this.form.patchValue({ apetito: Rpta.funcionesBiologicas[0].valor });
       this.form.patchValue({ sed: Rpta.funcionesBiologicas[1].valor });
@@ -343,6 +342,13 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ estadoAnimo: Rpta.funcionesBiologicas[3].valor });
       this.form.patchValue({ orina: Rpta.funcionesBiologicas[4].valor });
       this.form.patchValue({ deposiciones: Rpta.funcionesBiologicas[5].valor });
+
+      this.form.patchValue({ apetitoDetalle: Rpta.funcionesBiologicas[0].detalle });
+      this.form.patchValue({ sedDetalle: Rpta.funcionesBiologicas[1].detalle });
+      this.form.patchValue({ suenosDetalle: Rpta.funcionesBiologicas[2].detalle });
+      this.form.patchValue({ estadoAnimoDetalle: Rpta.funcionesBiologicas[3].detalle });
+      this.form.patchValue({ orinaDetalle: Rpta.funcionesBiologicas[4].detalle });
+      this.form.patchValue({ deposicionesDetalle: Rpta.funcionesBiologicas[5].detalle });
       //consulta datos
       this.form.patchValue({ motivoConsulta: Rpta.motivoConsulta });
       this.form.patchValue({ anamnesis: Rpta.anamnesis });
@@ -360,6 +366,16 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ mamas: Rpta.examenesFisicos[6].valor });
       this.form.patchValue({ pezones: Rpta.examenesFisicos[7].valor });
       this.form.patchValue({ abdomen: Rpta.examenesFisicos[8].valor });
+
+      this.form.patchValue({ pielDetalle: Rpta.examenesFisicos[0].detalle });
+      this.form.patchValue({ mucosasDetalle: Rpta.examenesFisicos[1].detalle });
+      this.form.patchValue({ cabezaDetalle: Rpta.examenesFisicos[2].detalle });
+      this.form.patchValue({ cuelloDetalle: Rpta.examenesFisicos[3].detalle });
+      this.form.patchValue({ cardioVascDetalle: Rpta.examenesFisicos[4].detalle });
+      this.form.patchValue({ pulmonesDetalle: Rpta.examenesFisicos[5].detalle });
+      this.form.patchValue({ mamasDetalle: Rpta.examenesFisicos[6].detalle });
+      this.form.patchValue({ pezonesDetalle: Rpta.examenesFisicos[7].detalle });
+      this.form.patchValue({ abdomenDetalle: Rpta.examenesFisicos[8].detalle });
       if (Rpta.examenesFisicos[8].valor.length > 9) {
         this.form.patchValue({ examenFisicoOtro: Rpta.examenesFisicos[9].valor });
       }
