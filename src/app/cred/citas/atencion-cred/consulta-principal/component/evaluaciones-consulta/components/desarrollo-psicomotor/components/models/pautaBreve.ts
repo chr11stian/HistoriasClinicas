@@ -1,6 +1,7 @@
 export interface AnswerPB {
     pregunta: number,
     areaEvaluacion: string,
+    descripcion?: string,
     estadoN: boolean,
     estadoD: boolean,
 }

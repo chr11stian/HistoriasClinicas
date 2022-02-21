@@ -31,6 +31,7 @@ import { EvaluacionAlimentacionComponent } from './component/evaluaciones-consul
 import {ToggleButtonModule} from "primeng/togglebutton";
 import { VacunaComponent } from './component/evaluaciones-consulta/components/vacuna/vacuna.component';
 import { PautaBreveComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/pauta-breve/pauta-breve.component';
+import {TimelineModule} from "primeng/timeline";
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -65,7 +66,8 @@ import { PautaBreveComponent } from './component/evaluaciones-consulta/component
         SharedModule,
         DividerModule,
         PlanAtencionIntegralModule,
-        ToggleButtonModule
+        ToggleButtonModule,
+        TimelineModule
     ]
 })
 export class ConsultaPrincipalModule {

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
 import Swal from 'sweetalert2';
+import { PautaBreveService } from '../../services/pauta-breve.service';
 import { datosEEDPTabla, tablaComparativa } from '../models/eedp';
+import { EvaluationPB } from '../models/pautaBreve';
 
 @Component({
   selector: 'app-pauta-breve',
@@ -15,18 +17,23 @@ export class PautaBreveComponent implements OnInit {
   datos: {}[];
   resultadoEvaluacion: '';
   examinador: string;
-  arrayEdadEEDPSelected: datosEEDPTabla[];
+  arrayEdadPautaBreveSelected: datosEEDPTabla[];
   fechaEvaluacion: string;
   edadSelected: string = 'MES';
   disabled: boolean = true;
   escalaEEDP: datosEEDPTabla;
   tablaComparativa: tablaComparativa[];
   puntaje: string = '';
+  idConsulta: string;
+  dataPB: EvaluationPB;
+  dataPautaBreve: any;
 
   constructor(
     private testService: EvalAlimenService,
+    private pautaBreveService: PautaBreveService,
   ) {
     this.getDatos();
+    this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
   }
 
   ngOnInit(): void {
@@ -41,37 +48,66 @@ export class PautaBreveComponent implements OnInit {
   }
 
   async getDatos() {
-    await this.testService.getEscalaEEDParray().then(data => {
-      this.escalaEEDP = data;
-      let mes = this.edadNroSelected;
-      this.testService.getTablaComparativaMes(mes).then(data => {
-        console.log('pauta breve ', data);
-        this.tablaComparativa = data;
-      });
-      this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
-      this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
-    });
+    await this.testService.getPautaBreveArray().then(data => {
+      this.dataPautaBreve = data;
+      console.log('array de pauta breve ', this.dataPautaBreve);
+      this.arrayEdadPautaBreveSelected = this.dataPautaBreve[this.indexSelected]
+      // this.puntaje = this.dataPautaBreve[this.indexSelected]
+    })
+
+    // await this.testService.getEscalaEEDParray().then(data => {
+    //   this.escalaEEDP = data;
+    //   let mes = this.edadNroSelected;
+    //   this.arrayEdadPautaBreveSelected = this.escalaEEDP[this.indexSelected];
+    //   this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
+    // });
   }
 
   async changeStep(index: number, edadNro: number, edad: string) {
     this.indexSelected = index;
     this.edadNroSelected = edadNro;
     this.edadSelected = edad;
-    this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
+    this.arrayEdadPautaBreveSelected = this.dataPautaBreve[this.indexSelected];
   }
 
   saveTest() {
-    console.log('data selected ', this.arrayEdadEEDPSelected, 'mes seleccionado ', this.indexSelected);
-    let ansMonth = this.arrayEdadEEDPSelected.map(item => {
-      let auxAns = {
-        pregunta: item.codigo,
-        areaEvaluacion: item.areEvaluacion,
-        estadoN: item.puntajeBreveN,
-        estadoD: item.puntajeBreveR
-      }
-      return auxAns;
-    });
-    console.log('respuesta del mes ', ansMonth);
+    console.log('data selected ', this.arrayEdadPautaBreveSelected, 'mes seleccionado ', this.indexSelected);
+
+    
+    // let ansMonth = this.arrayEdadEEDPSelected.map(item => {
+    //   let auxAns = {
+    //     pregunta: item.codigo,
+    //     areaEvaluacion: item.areEvaluacion,
+    //     estadoN: item.puntajeBreveN,
+    //     estadoD: item.puntajeBreveR
+    //   }
+    //   return auxAns;
+    // });
+    // console.log('data to save ', ansMonth);
+
+    // this.dataPB = {
+    //   codigoCIE10: 'Z009',
+    //   codigoHIS: 'Z009',
+    //   codigoPrestacion: '001',
+    //   evaluacionPautaBreveMes:{
+    //     fechaAtencion:'',
+    //     mesEdad: this.indexSelected,
+    //     diagnostico:'',
+    //     docExaminador:"89685545",
+    //     listaItemPB: ansMonth
+    //   }
+    // }
+
+
+
+    // this.pautaBreveService.postAgregarPB(this.idConsulta, ansMonth).subscribe((res: any) => {
+    //   Swal.fire({
+    //     icon: 'success',
+    //     title: 'Se Guardo la Pauta Breve',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   })
+    // })
   }
 
   confirmSaveTest() {
