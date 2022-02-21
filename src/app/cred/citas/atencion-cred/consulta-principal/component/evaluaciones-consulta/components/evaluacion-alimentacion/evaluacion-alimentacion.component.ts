@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FechaEvaluacionAlimentacion, Product, Preguntas} from "../../../../../plan/component/evaluacion-general/models/EvaluacionAlimentacion";
 import {DatePipe} from "@angular/common";
-import {EvalAlimenService} from "../../../../../plan/component/evaluacion-general/service/eval-alimen.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {MessageService} from "primeng/api";
-import {ConsultaGeneralService} from "../../../../services/consulta-general.service";
 import {EvaluacionAlimentacionService} from "../../services/evaluacion-alimentacion.service";
 import Swal from "sweetalert2";
 import {dato} from "../../../../../../models/data";
-import {ListaConsultaService} from "../../../../../../services/lista-consulta.service";
 
 @Component({
   selector: 'app-evaluacion-alimentacion',
@@ -20,13 +15,9 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   nroDocRecuperado:string="";
   evaluacionAlimenticia: FechaEvaluacionAlimentacion[]=[];
   Evaluaciones:EvaluacionAlimenticia[]=[];
-
   datePipe=new DatePipe('en-US');
-  edadEditable:number =0;
-
-  // id:string="62028f4c7ef573236aba9876";
   attributeLocalS = 'documento';
-  edadMeses:number=1;
+  edadMeses:number=8;
   displayPosition: boolean;
   position: string;
   diagnostico:string;
@@ -37,11 +28,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     {name: 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA', code: 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'}
   ];
 
-  constructor(private evalAlimenService: EvaluacionAlimentacionService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private messageService: MessageService,
-              private consultaService: ListaConsultaService) {
+  constructor(private evalAlimenService: EvaluacionAlimentacionService) {
   }
   ngOnInit(): void {
     this.evaluacionAlimenticia = [
@@ -163,16 +150,13 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     // this.recuperarEdadNinio(); /*cuando recupere datos en consulta*/
     this.recuperarDataPlanAlimentaciaBD();
+    this.VerificarRegistroExistenteEnEsteMes(this.edadMeses);
     this.showDialogEdad('top');
   }
   recuperarEdadNinio(){
     console.log('entrando a recuperar edad');
-    this.consultaService.getDatosGenerales(this.data.idConsulta).subscribe((r: any) => {
-      // console.log(r.object.datosGeneralesConsulta.edad);
-      this.edadMeses=  r.object.datosGeneralesConsulta.anioEdad + r.object.datosGeneralesConsulta.mesEdad;
+      this.edadMeses=2
       console.log(this.edadMeses);
-    });
-
   }
   /**Mostrar la edad del niño en alerta**/
   showDialogEdad(position:string){
@@ -186,13 +170,13 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     this.evalAlimenService.getEvaluacionAlimenticiaCredPlan(this.data.nroDocumento).subscribe((res: any) => {
       this.Evaluaciones = (res.object);
       if(this.Evaluaciones!=null){
-        Swal.fire({
-          icon: 'success',
-          title: 'Evaluación Alimenticia',
-          text: 'Se recupero registros con éxito',
-          showConfirmButton: false,
-          timer: 2000,
-        })
+        // Swal.fire({
+        //   icon: 'success',
+        //   title: 'Evaluación Alimenticia',
+        //   text: 'Se recupero registros anteriores con éxito',
+        //   showConfirmButton: false,
+        //   timer: 2000,
+        // })
         console.log('evaluacion', res.object);
         console.log('paciente por doc ', this.Evaluaciones)
         console.log(this.Evaluaciones[0]);
@@ -219,7 +203,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
               this.evaluacionAlimenticia[x+1].valor1M = aux.listaPreguntas[x].estado;
               x++;
             }
-
           }
           if(aux.edad == 2) {
             this.evaluacionAlimenticia[0].valor2M = aux.fechaRegistro;
@@ -560,17 +543,59 @@ export class EvaluacionAlimentacionComponent implements OnInit {
             diagnostico:dx
           }
     }
-    this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
-      console.log('se guardo correctamente ', res.object);
-      console.log('se guardo correctamente cade ', cadena);
-      Swal.fire({
-        icon: 'success',
-        title: 'Evaluacion Alimenticia',
-        text: 'Se guardo existosamente la evaluacion para la edad ' + this.edadMeses,
-        showConfirmButton: false,
-        timer: 2000,
-      })
-    });
+    Swal.fire({
+      title: 'Esta seguro que desea guardar este registro?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Guardar',
+      denyButtonText: `No Guardar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
+          console.log('se guardo correctamente ', res.object);
+          Swal.fire({
+            icon: 'success',
+            title: 'Test Peruano',
+            text: 'Se guardo existosamente la evaluacion para la edad ' + this.edadMeses,
+            showConfirmButton: false,
+            timer: 2000,
+          })
+        },error=>{
+          Swal.fire({
+            icon: 'error',
+            title: 'Evaluacion Alimenticia',
+            text: '¡¡Error, ya existe un registro en esta edad. No puede ingresar otro!!',
+            showConfirmButton: false,
+            timer: 2000,
+          })
+        });
+        Swal.fire('Guardado!', '', 'success')
+      } else if (result.isDenied) {
+        Swal.fire('No se guardo este registro', '', 'info')
+      }
+    })
+
+    // this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
+    //   console.log('se guardo correctamente ', res.object);
+    //   console.log('se guardo correctamente cade ', cadena);
+    //
+    //   Swal.fire({
+    //     icon: 'success',
+    //     title: 'Evaluacion Alimenticia',
+    //     text: 'Se guardo existosamente la evaluacion para la edad ' + this.edadMeses,
+    //     showConfirmButton: false,
+    //     timer: 2000,
+    //   })
+    // },error=>{
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Evaluacion Alimenticia',
+    //     text: error,
+    //     showConfirmButton: false,
+    //     timer: 2000,
+    //   })
+    // });
 
   }
   calcularCie10(dx){
@@ -619,153 +644,155 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     const fecha2 = fecha.replace("T"," ");
     return fecha2+":00";
   }
-  editarEvaluacion(){
-    let prefijo = this.obtenerTitulo(this.edadMeses);
-    console.log(prefijo);
-    console.log(this.Evaluaciones);
-    let preguntas=[];
-    console.log(prefijo);
-    console.log(this.evaluacionAlimenticia[1][prefijo])
-    for(let i = 1;i<this.evaluacionAlimenticia.length-1;i++)
-    {
-      preguntas.push(this.evaluacionAlimenticia[i][prefijo]);
-    }
-    let lista:Preguntas[] = [
-      {
-        "codigo": "PREG_1",
-        "estado": preguntas[0],
-        "descripcion": "¿La Niña Esta Recibiendo Lactancia Materna? (explorar) "
-      },
-      {
-        "codigo": "PREG_2",
-        "estado": preguntas[1],
-        "descripcion": "¿La tecnica de LM es adecuada? (explorar y observar)"
-      },
-      {
-        "codigo": "PREG_3",
-        "estado": preguntas[2],
-        "descripcion": "¿La frecuencia de LM es adecuada? (explorar y observar)"
-      },
-      {
-        "codigo": "PREG_4",
-        "estado": preguntas[3],
-        "descripcion": "¿La niña o niño recibe leche no materna? (explorar)"
-      },
-      {
-        "codigo": "PREG_5",
-        "estado": preguntas[4],
-        "descripcion": "¿La niña o niño recibe aguitas? (explorar)"
-      },
-      {
-        "codigo": "PREG_6",
-        "estado":preguntas[5],
-        "descripcion": "La niña o niño recibe algun otro alimento? (explorar)"
-      },
-      {
-        "codigo": "PREG_7",
-        "estado": preguntas[6],
-        "descripcion": "¿La consistencia de la preparacion es adecuada segun la edad?(explorar)"
-      },
-      {
-        "codigo": "PREG_8",
-        "estado": preguntas[7],
-        "descripcion": "¿La cantidad de alimentos es adecuada segun edad? (explorar)"
-      },
-      {
-        "codigo": "PREG_9",
-        "estado": preguntas[8],
-        "descripcion": "¿La frecuencia de la alimentacion es adecuada segun la edad? (explorar)"
-      },
-      {
-        "codigo": "PREG_10",
-        "estado": preguntas[9],
-        "descripcion": "¿Consume alimentos de origen animal? (explorar)"
-      },
-      {
-        "codigo": "PREG_11",
-        "estado": preguntas[10],
-        "descripcion": "¿Consume frutas y verduras? (explorar)"
-      },
-      {
-        "codigo": "PREG_12",
-        "estado": preguntas[11],
-        "descripcion": "¿Añade aceite, mantequilla o margarina a la comida del niño?"
-      },
-      {
-        "codigo": "PREG_13",
-        "estado": preguntas[12],
-        "descripcion": "¿La niña o niño recibe los alimentos en su propio plato?"
-      },
-      {
-        "codigo": "PREG_14",
-        "estado": preguntas[13],
-        "descripcion": "¿Añade sal yodada a la comida familiar?"
-      },
-      {
-        "codigo": "PREG_15",
-        "estado": preguntas[14],
-        "descripcion": "¿Es niño beneficiario de algun Programa de Apoyo Social? Si() No() Especificar"
-      },
-      {
-        "codigo": "PREG_16",
-        "estado": preguntas[15],
-        "descripcion": "¿Cuantos sobres de micronutrientes consumio en el mes? Si() No() Especificar"
-      },
-      {
-        "codigo": "OBS",
-        "estado": preguntas[16],
-        "descripcion": "Pregunta Adicional"
-      }
-    ];
-    console.log("preguntas", preguntas);
-    let dx = this.calcularDiagnostico(preguntas);
-    let cie10:string = this.calcularCie10(dx);
-    console.log('diagnostico:', dx);
-    console.log('diagnostico:', cie10);
-    this.diagnostico=dx;
-    let fecha=this.verificarFechaApta(this.evaluacionAlimenticia[0][prefijo]);
-    let cadena:any= {
-      nombreEvaluacion:'EVALUACION_ALIMENTACION',
-      codigoCIE10:cie10,
-      codigoHIS:'Z0017.01',
-      codigoPrestacion:"0001",
-      evaluacionAlimentacionMes:{
-        fechaRegistro:this.convertirFecha(fecha),
-        edad:this.edadMeses,
-        listaPreguntas:lista,
-        diagnostico:dx
-      }
-    }
-    console.log(cadena);
-    this.evalAlimenService.updateEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
+  // editarEvaluacion(){
+  //   let prefijo = this.obtenerTitulo(this.edadMeses);
+  //   console.log(prefijo);
+  //   console.log(this.Evaluaciones);
+  //   let preguntas=[];
+  //   console.log(prefijo);
+  //   console.log(this.evaluacionAlimenticia[1][prefijo])
+  //   for(let i = 1;i<this.evaluacionAlimenticia.length-1;i++)
+  //   {
+  //     preguntas.push(this.evaluacionAlimenticia[i][prefijo]);
+  //   }
+  //   let lista:Preguntas[] = [
+  //     {
+  //       "codigo": "PREG_1",
+  //       "estado": preguntas[0],
+  //       "descripcion": "¿La Niña Esta Recibiendo Lactancia Materna? (explorar) "
+  //     },
+  //     {
+  //       "codigo": "PREG_2",
+  //       "estado": preguntas[1],
+  //       "descripcion": "¿La tecnica de LM es adecuada? (explorar y observar)"
+  //     },
+  //     {
+  //       "codigo": "PREG_3",
+  //       "estado": preguntas[2],
+  //       "descripcion": "¿La frecuencia de LM es adecuada? (explorar y observar)"
+  //     },
+  //     {
+  //       "codigo": "PREG_4",
+  //       "estado": preguntas[3],
+  //       "descripcion": "¿La niña o niño recibe leche no materna? (explorar)"
+  //     },
+  //     {
+  //       "codigo": "PREG_5",
+  //       "estado": preguntas[4],
+  //       "descripcion": "¿La niña o niño recibe aguitas? (explorar)"
+  //     },
+  //     {
+  //       "codigo": "PREG_6",
+  //       "estado":preguntas[5],
+  //       "descripcion": "La niña o niño recibe algun otro alimento? (explorar)"
+  //     },
+  //     {
+  //       "codigo": "PREG_7",
+  //       "estado": preguntas[6],
+  //       "descripcion": "¿La consistencia de la preparacion es adecuada segun la edad?(explorar)"
+  //     },
+  //     {
+  //       "codigo": "PREG_8",
+  //       "estado": preguntas[7],
+  //       "descripcion": "¿La cantidad de alimentos es adecuada segun edad? (explorar)"
+  //     },
+  //     {
+  //       "codigo": "PREG_9",
+  //       "estado": preguntas[8],
+  //       "descripcion": "¿La frecuencia de la alimentacion es adecuada segun la edad? (explorar)"
+  //     },
+  //     {
+  //       "codigo": "PREG_10",
+  //       "estado": preguntas[9],
+  //       "descripcion": "¿Consume alimentos de origen animal? (explorar)"
+  //     },
+  //     {
+  //       "codigo": "PREG_11",
+  //       "estado": preguntas[10],
+  //       "descripcion": "¿Consume frutas y verduras? (explorar)"
+  //     },
+  //     {
+  //       "codigo": "PREG_12",
+  //       "estado": preguntas[11],
+  //       "descripcion": "¿Añade aceite, mantequilla o margarina a la comida del niño?"
+  //     },
+  //     {
+  //       "codigo": "PREG_13",
+  //       "estado": preguntas[12],
+  //       "descripcion": "¿La niña o niño recibe los alimentos en su propio plato?"
+  //     },
+  //     {
+  //       "codigo": "PREG_14",
+  //       "estado": preguntas[13],
+  //       "descripcion": "¿Añade sal yodada a la comida familiar?"
+  //     },
+  //     {
+  //       "codigo": "PREG_15",
+  //       "estado": preguntas[14],
+  //       "descripcion": "¿Es niño beneficiario de algun Programa de Apoyo Social? Si() No() Especificar"
+  //     },
+  //     {
+  //       "codigo": "PREG_16",
+  //       "estado": preguntas[15],
+  //       "descripcion": "¿Cuantos sobres de micronutrientes consumio en el mes? Si() No() Especificar"
+  //     },
+  //     {
+  //       "codigo": "OBS",
+  //       "estado": preguntas[16],
+  //       "descripcion": "Pregunta Adicional"
+  //     }
+  //   ];
+  //   console.log("preguntas", preguntas);
+  //   let dx = this.calcularDiagnostico(preguntas);
+  //   let cie10:string = this.calcularCie10(dx);
+  //   console.log('diagnostico:', dx);
+  //   console.log('diagnostico:', cie10);
+  //   this.diagnostico=dx;
+  //   let fecha=this.verificarFechaApta(this.evaluacionAlimenticia[0][prefijo]);
+  //   let cadena:any= {
+  //     nombreEvaluacion:'EVALUACION_ALIMENTACION',
+  //     codigoCIE10:cie10,
+  //     codigoHIS:'Z0017.01',
+  //     codigoPrestacion:"0001",
+  //     evaluacionAlimentacionMes:{
+  //       fechaRegistro:this.convertirFecha(fecha),
+  //       edad:this.edadMeses,
+  //       listaPreguntas:lista,
+  //       diagnostico:dx
+  //     }
+  //   }
+  //   console.log(cadena);
+  //   this.evalAlimenService.updateEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
+  //     console.log('se edito correctamente ', res.object);
+  //     console.log('se edito correctamente cade ', cadena);
+  //     Swal.fire({
+  //       icon: 'success',
+  //       title: 'Evaluacion Alimenticia',
+  //       text: 'Se actualizo existosamente la evaluacion para la edad ' + this.edadMeses,
+  //       showConfirmButton: false,
+  //       timer: 2000,
+  //     })
+  //   });
+  // }
+
+  async VerificarRegistroExistenteEnEsteMes(indice){
+    this.evalAlimenService.getEvaluacionAlimenticiaCred(this.data.idConsulta).subscribe((res: any) => {
       console.log('se edito correctamente ', res.object);
-      console.log('se edito correctamente cade ', cadena);
       Swal.fire({
         icon: 'success',
         title: 'Evaluacion Alimenticia',
-        text: 'Se actualizo existosamente la evaluacion para la edad ' + this.edadMeses,
+        text: 'Ya existe un registro guardado para esta edad: ' + this.edadMeses + 'meses',
         showConfirmButton: false,
         timer: 2000,
       })
-    });
-  }
-  verificarFechaApta(fecha){
-    var fechas2 = fecha.replace("T"," ");
-    var fechas = fechas2.split(" ");
-    console.log(fechas);
-    var horas = fechas[1].split(":");
-    console.log(horas);
-    console.log(fechas[0] +" " + horas[0] + ":" + horas [1]);
-    return fechas[0] +" " + horas[0] + ":" + horas [1];
-  }
-  guardarActualizar(indice){
-    this.evalAlimenService.getEvaluacionAlimenticiaCred(this.data.idConsulta).subscribe((res: any) => {
-      console.log('se edito correctamente ', res.object);
-      if(res.object == null)
-      {
-        this.guardarEvaluacion(indice);
-      }
-      else {this.editarEvaluacion();}
+    },err=>{
+        Swal.fire({
+          icon: 'error',
+          title: 'Evaluacion Alimenticia',
+          text: 'No hay registro de evaluacion ',
+          showConfirmButton: false,
+          timer: 2000,
+        })
     });
 
   }

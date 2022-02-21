@@ -39,16 +39,20 @@ p-table >>> .p-datatable .p-datatable-tbody > tr > td {
     padding: 2px;
     /*background:red;*/
 }
-::ng-deep .columnaEdadNormal .p-table >>>  .p-datatable .p-datatable-tbody > tr > td {
-    text-align: center;
-    font-size: small;
-    word-wrap: break-word;
+p-dialog >>> .p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #0c3866;
+    color: #495057;
+    padding: 1.5rem;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    z-index:89999;
 }
-::ng-deep .columnaEdad .p-table >>>  .p-datatable .p-datatable-tbody > tr > td {
-    text-align: center;
-    font-size: small;
-    word-wrap: break-word;
-    backgroud:green;
+p-dialog >>> .p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #ffffff;
+    z-index:89999;
 }
 p-table >>> .p-datatable .p-datatable-thead > tr > th {
     padding: 3px;
@@ -266,12 +270,6 @@ p-calendar >>> .p-calendar .p-datepicker {
     background: darkcyan;
     border-color: darkcyan;
     color: #ffffff;
-}
-.my-swal {
-    display: -webkit-box;
-    display: flex;
-    position: fixed;
-    z-index: 300000;
 }
 
 

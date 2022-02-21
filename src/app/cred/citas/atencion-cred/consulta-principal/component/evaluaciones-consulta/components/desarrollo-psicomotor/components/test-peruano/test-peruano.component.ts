@@ -22,8 +22,9 @@ export class TestPeruanoComponent implements OnInit {
   displayMaximizable:boolean;
   attributeLocalS = 'documento';
   evaluacionDesarrollo:any;
-  edadMeses:number = 1;
-  // id:string="620e7cc36fbaf876dcbe144f";
+  edadMeses:number = 8;
+  displayPosition: boolean;
+  position: string;
   datePipe = new DatePipe('en-US');
   codigosArr:any[]=[];
   estadoVisualizar=false;
@@ -60,10 +61,17 @@ export class TestPeruanoComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     // this.recuperarEdadNinio();
     this.recuperarTestPlanCred();
+    this.showDialogEdad('top');
     this.getTestPerunoBDTestPorConsulta();
   }
+  /**Mostrar la edad del niño en alerta**/
+  showDialogEdad(position:string){
+    console.log("entrado a dialog", this.edadMeses);
+    this.position = position;
+    this.displayPosition = true;
+  }
   recuperarEdadNinio(){
-      // this.edadMeses=  this.data..datosGeneralesConsulta.anioEdad + r.object.datosGeneralesConsulta.mesEdad;
+      // this.edadMeses=  this.data.
       console.log(this.edadMeses);
 
   }
@@ -502,6 +510,7 @@ export class TestPeruanoComponent implements OnInit {
       }
     }
 
+
   }
 
   btnGuardar(){
@@ -520,6 +529,12 @@ export class TestPeruanoComponent implements OnInit {
         calificacion:this.calificacion
       }
     }
+    let cadena = {
+      fecha:data.evaluacionDesarrolloMes.fecha,
+      edad:data.evaluacionDesarrolloMes.edad,
+      diagnostico:data.evaluacionDesarrolloMes.diagnostico
+    }
+    this.listaTestPeruano[0]=(cadena);
     this.displayMaximizable=false;
     Swal.fire({
       title: 'Esta seguro que desea guardar este registro?',

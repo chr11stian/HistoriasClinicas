@@ -108,16 +108,16 @@
                             </div>
                             <p style="margin-top:30px" class="triangulo"></p>
                         </td>
-                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_1 != ''"class="button-menu" src={{sale.img_1}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_1']" [binary]="true" [ngClass]="'diagnostico1',{'columnaEdad':edadMeses==1,'columnaEdadNormal':edadMeses!=1}"(onChange)="cambiarEstado('A_1')" ngTrueValue="true" ></p-checkbox></td> <!--[disabled]="edadMeses<1"-->
-                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_2 != ''"class="button-menu" src={{sale.img_2}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_2']" [binary]="true" [ngClass]="'diagnostico2'" (onChange)="cambiarEstado('A_2')" ngTrueValue="true"></p-checkbox></td> <!--[disabled]="edadMeses<2"-->
-                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_3 != ''"class="button-menu" src={{sale.img_3}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_3']" [binary]="true" [ngClass]="'diagnostico3'" (onChange)="cambiarEstado('A_3')" ngTrueValue="true"></p-checkbox></td> <!--[disabled]="edadMeses<3"-->
-                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_4 != ''"class="button-menu" src={{sale.img_4}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_4']" [binary]="true" [ngClass]="'diagnostico4'" (onChange)="cambiarEstado('A_4')" ngTrueValue="true"></p-checkbox></td> <!--[disabled]="edadMeses<4"-->
-                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_5 != ''"class="button-menu" src={{sale.img_5}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_5']" [binary]="true" [ngClass]="'diagnostico5'" (onChange)="cambiarEstado('A_5')" ngTrueValue="true"></p-checkbox></td> <!--[disabled]="edadMeses<5"-->
-                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_6 != ''"class="button-menu" src={{sale.img_6}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_6']" [binary]="true" [ngClass]="'diagnostico6'" (onChange)="cambiarEstado('A_6')" ngTrueValue="true"></p-checkbox></td> <!--[disabled]="edadMeses<6"-->
-                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_7 != ''"class="button-menu" src={{sale.img_7}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_7']" [binary]="true" [ngClass]="'diagnostico7'" (onChange)="cambiarEstado('A_7')" ngTrueValue="true"></p-checkbox></td> <!--[disabled]="edadMeses<7"-->
-                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_8 != ''"class="button-menu" src={{sale.img_8}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_8']" [binary]="true" [ngClass]="'diagnostico8'" (onChange)="cambiarEstado('A_8')" ngTrueValue="true"></p-checkbox></td> <!--[disabled]="edadMeses<8"-->
-                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_9 != ''"class="button-menu" src={{sale.img_9}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_9']" [binary]="true" [ngClass]="'diagnostico9'" (onChange)="cambiarEstado('A_9')" ngTrueValue="true"></p-checkbox></td> <!--[disabled]="edadMeses<9"-->
-                        <td  style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_10 != ''" class="button-menu" src={{sale.img_10}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_10']" [binary]="true" [ngClass]="'diagnostico10'" (onChange)="cambiarEstado('A_10')" ngTrueValue="true"></p-checkbox></td> <!--[disabled]="edadMeses<10"-->
+                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_1 != ''"class="button-menu" src={{sale.img_1}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_1']" [binary]="true" [ngClass]="'diagnostico1'" (onChange)="cambiarEstado('A_1')" ></p-checkbox></td> <!--[disabled]="edadMeses<1"-->
+                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_2 != ''"class="button-menu" src={{sale.img_2}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_2']" [binary]="true" [ngClass]="'diagnostico2'" (onChange)="cambiarEstado('A_2')" ></p-checkbox></td> <!--[disabled]="edadMeses<2"-->
+                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_3 != ''"class="button-menu" src={{sale.img_3}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_3']" [binary]="true" [ngClass]="'diagnostico3'" (onChange)="cambiarEstado('A_3')" ></p-checkbox></td> <!--[disabled]="edadMeses<3"-->
+                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_4 != ''"class="button-menu" src={{sale.img_4}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_4']" [binary]="true" [ngClass]="'diagnostico4'" (onChange)="cambiarEstado('A_4')" ></p-checkbox></td> <!--[disabled]="edadMeses<4"-->
+                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_5 != ''"class="button-menu" src={{sale.img_5}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_5']" [binary]="true" [ngClass]="'diagnostico5'" (onChange)="cambiarEstado('A_5')" ></p-checkbox></td> <!--[disabled]="edadMeses<5"-->
+                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_6 != ''"class="button-menu" src={{sale.img_6}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_6']" [binary]="true" [ngClass]="'diagnostico6'" (onChange)="cambiarEstado('A_6')" ></p-checkbox></td> <!--[disabled]="edadMeses<6"-->
+                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_7 != ''"class="button-menu" src={{sale.img_7}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_7']" [binary]="true" [ngClass]="'diagnostico7'" (onChange)="cambiarEstado('A_7')" ></p-checkbox></td> <!--[disabled]="edadMeses<7"-->
+                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_8 != ''"class="button-menu" src={{sale.img_8}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_8']" [binary]="true" [ngClass]="'diagnostico8'" (onChange)="cambiarEstado('A_8')" ></p-checkbox></td> <!--[disabled]="edadMeses<8"-->
+                        <td style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_9 != ''"class="button-menu" src={{sale.img_9}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_9']" [binary]="true" [ngClass]="'diagnostico9'" (onChange)="cambiarEstado('A_9')" ></p-checkbox></td> <!--[disabled]="edadMeses<9"-->
+                        <td  style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_10 != ''" class="button-menu" src={{sale.img_10}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_10']" [binary]="true" [ngClass]="'diagnostico10'" (onChange)="cambiarEstado('A_10')" ></p-checkbox></td> <!--[disabled]="edadMeses<10"-->
                         <td  style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_11 != ''" class="button-menu" src={{sale.img_11}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_11']" [binary]="true" [ngClass]="'diagnostico11'" (onChange)="cambiarEstado('A_11')"></p-checkbox></td> <!--[disabled]="edadMeses<11"-->
                         <td  style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_12 != ''" class="button-menu" src={{sale.img_12}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_12']" [binary]="true" [ngClass]="'diagnostico12'" (onChange)="cambiarEstado('A_12')"></p-checkbox></td> <!--[disabled]="edadMeses<12"-->
                         <td  style="border: 1px solid black; cursor: pointer"><img *ngIf="sale.img_15 != ''" class="button-menu" src={{sale.img_15}}><p-checkbox [formControl]="formDatos_TestPeruano.controls['A_15']" [binary]="true" [ngClass]="'diagnostico15'" (onChange)="cambiarEstado('A_15')"></p-checkbox></td> <!--[disabled]="edadMeses<15"-->
@@ -515,6 +515,18 @@
         <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="displayMaximizable=false" iconPos="right"></button>
     </ng-template>
 
+</p-dialog>
+
+<p-dialog header="RECUERDA QUE:" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}"
+          [draggable]="false" [resizable]="false">
+    <h3> EL NIÑO(A) TIENE: {{edadMeses}} MESES. </h3>
+    <h4>
+        DEBES DE  REGISTRAR LA EVALUACIÓN DE LA ALIMENTACION DEL NIÑO(A)
+        CORRESPONDIENTE A SU EDAD, RECUERDE QUE SOLO PUEDE GUARDAR Y EDITAR MIENTRAS ESTE EN ESTA EDAD.</h4>
+    <h3 style="text-align: center">GRACIAS</h3>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayPosition=false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
 </p-dialog>
 
 
