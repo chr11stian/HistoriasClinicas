@@ -22,6 +22,7 @@ export class ListaConsultaComponent implements OnInit {
     nroDocRecuperado: string;
     data: dato
     fechaNacimiento: string
+    sexo: string
 
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -40,14 +41,20 @@ export class ListaConsultaComponent implements OnInit {
     }
 
     atencion(event) {
-        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
-        let data: dato = {
-            nroDocumento: this.data.nroDocumento,
-            tipoDoc: this.data.tipoDoc,
-            idConsulta: event.id,
-            fechaNacimiento: this.fechaNacimiento
-        }
-        localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+        this.listaConsultaService.getConsulta(event.id).subscribe((r: any) => {
+            this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS))
+            let data: dato = {
+                nroDocumento: this.data.nroDocumento,
+                tipoDoc: this.data.tipoDoc,
+                idConsulta: event.id,
+                anio: r.object.anioEdad,
+                mes: r.object.mesEdad,
+                dia: r.object.diaEdad,
+                sexo: this.data.sexo
+            }
+            localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
+        })
+
     }
 
     nuevaConsulta() {
@@ -55,7 +62,7 @@ export class ListaConsultaComponent implements OnInit {
             nroDocumento: this.data.nroDocumento,
             tipoDoc: this.data.tipoDoc,
             idConsulta: '',
-            fechaNacimiento: this.fechaNacimiento
+            sexo: this.sexo
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     }
@@ -65,8 +72,9 @@ export class ListaConsultaComponent implements OnInit {
 
         this.filiancionService.getPacienteNroDocFiliacion(this.data.tipoDoc, this.data.nroDocumento).subscribe((res: any) => {
             this.dataLifiado = res.object
-            this.fechaNacimiento= res.object.nacimiento.fechaNacimiento
-            console.log('paciente por doc ', this.dataLifiado)
+            this.sexo = res.object.sexo
+            this.fechaNacimiento = res.object.nacimiento.fechaNacimiento
+            console.log('paciente por doc ', res.object)
             this.tipoDoc = this.dataLifiado.tipoDoc
             this.nroDoc = this.dataLifiado.nroDoc;
             this.apellidosNombres = this.dataLifiado.apePaterno + ' ' + this.dataLifiado.apeMaterno + ' ' + this.dataLifiado.primerNombre + ' ' + this.dataLifiado.otrosNombres;
