@@ -1,6 +1,10 @@
+.button-agregar{
+    background: #0c3866;
+
+}
 p-panel>>>.p-panel.p-panel-toggleable .p-panel-header {
     padding: 0.5rem 1rem;
-    background: #0c3866;
+    background: dimgrey;
     color: #FFFFFF;
 }
 p-panel>>>.p-panel .p-panel-header .p-panel-header-icon {

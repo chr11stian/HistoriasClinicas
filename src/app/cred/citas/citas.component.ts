@@ -190,7 +190,8 @@ export class CitasComponent implements OnInit {
             {
                 nroDocumento: event.paciente.nroDoc,
                 tipoDoc: event.paciente.tipoDoc,
-                idConsulta: ''
+                idConsulta: '',
+                sexo: ''
             }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     }

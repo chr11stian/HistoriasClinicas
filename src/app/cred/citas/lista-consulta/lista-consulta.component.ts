@@ -22,6 +22,7 @@ export class ListaConsultaComponent implements OnInit {
     nroDocRecuperado: string;
     data: dato
     fechaNacimiento: string
+    sexo: string
 
     constructor(private form: FormBuilder,
                 private obstetriciaGeneralService: ObstetriciaGeneralService,
@@ -48,7 +49,8 @@ export class ListaConsultaComponent implements OnInit {
                 idConsulta: event.id,
                 anio: r.object.anioEdad,
                 mes: r.object.mesEdad,
-                dia: r.object.diaEdad
+                dia: r.object.diaEdad,
+                sexo: this.data.sexo
             }
             localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
         })
@@ -60,6 +62,7 @@ export class ListaConsultaComponent implements OnInit {
             nroDocumento: this.data.nroDocumento,
             tipoDoc: this.data.tipoDoc,
             idConsulta: '',
+            sexo: this.sexo
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     }
@@ -69,6 +72,7 @@ export class ListaConsultaComponent implements OnInit {
 
         this.filiancionService.getPacienteNroDocFiliacion(this.data.tipoDoc, this.data.nroDocumento).subscribe((res: any) => {
             this.dataLifiado = res.object
+            this.sexo = res.object.sexo
             this.fechaNacimiento = res.object.nacimiento.fechaNacimiento
             console.log('paciente por doc ', res.object)
             this.tipoDoc = this.dataLifiado.tipoDoc
