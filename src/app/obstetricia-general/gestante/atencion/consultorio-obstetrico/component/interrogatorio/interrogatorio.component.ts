@@ -44,6 +44,10 @@ export class InterrogatorioComponent implements OnInit {
     { name: "+++" },
     { name: "No aplica" }
   ];
+  listaFuncionesBiologicas=[
+    { name:"Conservado"},
+    { name:"Alterado"}
+  ];
   interrogatorioData: any;
   ref: DynamicDialogRef;
   fetalesExamDialog: boolean = false;
@@ -101,18 +105,27 @@ export class InterrogatorioComponent implements OnInit {
       peso: new FormControl(""),
       talla: new FormControl(""),
       imc: new FormControl(""),
+
       apetito: new FormControl(""),
       sed: new FormControl(""),
       suenos: new FormControl(""),
       estadoAnimo: new FormControl(""),
       orina: new FormControl(""),
       deposiciones: new FormControl(""),
+      apetitoDetalle: new FormControl(""),
+      sedDetalle: new FormControl(""),
+      suenosDetalle: new FormControl(""),
+      estadoAnimoDetalle: new FormControl(""),
+      orinaDetalle: new FormControl(""),
+      deposicionesDetalle: new FormControl(""),
+
       motivoConsulta: new FormControl(""),
       anamnesis: new FormControl(""),
       tiempoEnfermedad: new FormControl(""),
       formaInicio: new FormControl(""),
       curso: new FormControl(""),
       observacion: new FormControl(""),
+
       piel: new FormControl(""),
       mucosas: new FormControl(""),
       cabeza: new FormControl(""),
@@ -122,7 +135,17 @@ export class InterrogatorioComponent implements OnInit {
       mamas: new FormControl(""),
       pezones: new FormControl(""),
       abdomen: new FormControl(""),
+      pielDetalle: new FormControl(""),
+      mucosasDetalle: new FormControl(""),
+      cabezaDetalle: new FormControl(""),
+      cuelloDetalle: new FormControl(""),
+      cardioVascDetalle: new FormControl(""),
+      pulmonesDetalle: new FormControl(""),
+      mamasDetalle: new FormControl(""),
+      pezonesDetalle: new FormControl(""),
+      abdomenDetalle: new FormControl(""),
       examenFisicoOtro: new FormControl(""),
+
       alturaUterina: new FormControl(""),
       selectSituacion: new FormControl(""),
       selectPresentacion: new FormControl(""),
@@ -153,6 +176,7 @@ export class InterrogatorioComponent implements OnInit {
     this.formExamFisico = this.fb.group({
       examName: new FormControl(""),
       examResult: new FormControl(""),
+      examDetalle: new FormControl(""),
     })
   }
 
@@ -160,15 +184,15 @@ export class InterrogatorioComponent implements OnInit {
     //RECUPERAR DATOS
     console.log('ultima consulta prom ', this.ultimaConsulta);
     let auxPhysicalExam: any[] = [
-      { nombreExamen: 'piel', valor: this.form.value.piel },
-      { nombreExamen: 'mucosas', valor: this.form.value.mucosas },
-      { nombreExamen: 'cabeza', valor: this.form.value.cabeza },
-      { nombreExamen: 'cuello', valor: this.form.value.cuello },
-      { nombreExamen: 'cardioVasc', valor: this.form.value.cardioVasc },
-      { nombreExamen: 'pulmones', valor: this.form.value.pulmones },
-      { nombreExamen: 'mamas', valor: this.form.value.mamas },
-      { nombreExamen: 'pezones', valor: this.form.value.pezones },
-      { nombreExamen: 'abdomen', valor: this.form.value.abdomen },
+      { nombreExamen: 'piel', valor: this.form.value.piel, detalle: this.form.value.pielDetalle },
+      { nombreExamen: 'mucosas', valor: this.form.value.mucosas, detalle: this.form.value.mucosasDetalle },
+      { nombreExamen: 'cabeza', valor: this.form.value.cabeza, detalle: this.form.value.cabezaDetalle },
+      { nombreExamen: 'cuello', valor: this.form.value.cuello, detalle: this.form.value.cuelloDetalle },
+      { nombreExamen: 'cardioVasc', valor: this.form.value.cardioVasc, detalle: this.form.value.cardioVascDetalle },
+      { nombreExamen: 'pulmones', valor: this.form.value.pulmones, detalle: this.form.value.pulmonesDetalle },
+      { nombreExamen: 'mamas', valor: this.form.value.mamas, detalle: this.form.value.mamasDetalle },
+      { nombreExamen: 'pezones', valor: this.form.value.pezones, detalle: this.form.value.pezonesDetalle },
+      { nombreExamen: 'abdomen', valor: this.form.value.abdomen, detalle: this.form.value.abdomenDetalle },
     ]
 
     for (let i = 0; i < this.listaOtrosPruebasFisicas.length; i++) {
@@ -194,12 +218,12 @@ export class InterrogatorioComponent implements OnInit {
         perimetroCefalico: null,
       },
       funcionesBiologicas: [
-        { funcion: 'Apetito', valor: this.form.value.apetito },
-        { funcion: 'Sed', valor: this.form.value.sed },
-        { funcion: 'Sueños', valor: this.form.value.suenos },
-        { funcion: 'Estado Animo', valor: this.form.value.estadoAnimo },
-        { funcion: 'Orina', valor: this.form.value.orina },
-        { funcion: 'Deposiciones', valor: this.form.value.deposiciones },
+        { funcion: 'Apetito', valor: this.form.value.apetito, detalle: this.form.value.apetitoDetalle },
+        { funcion: 'Sed', valor: this.form.value.sed, detalle: this.form.value.sedDetalle},
+        { funcion: 'Sueños', valor: this.form.value.suenos, detalle: this.form.value.suenosDetalle},
+        { funcion: 'Estado Animo', valor: this.form.value.estadoAnimo, detalle: this.form.value.estadoAnimoDetalle},
+        { funcion: 'Orina', valor: this.form.value.orina, detalle: this.form.value.orinaDetalle },
+        { funcion: 'Deposiciones', valor: this.form.value.deposiciones, detalle: this.form.value.deposicionesDetalle},
       ],
       anamnesis: this.form.value.anamnesis,
       motivoConsulta: this.form.value.motivoConsulta,
@@ -277,7 +301,8 @@ export class InterrogatorioComponent implements OnInit {
     let auxExamFis = {
       codigoExamen: null,
       nombreExamen: this.formExamFisico.value.examName,
-      valor: this.formExamFisico.value.examResult
+      valor: this.formExamFisico.value.examResult,
+      detalle: this.formExamFisico.value.examDetalle,
     }
     this.listaOtrosPruebasFisicas.push(auxExamFis);
     this.examenesFisicosDialog = false;
