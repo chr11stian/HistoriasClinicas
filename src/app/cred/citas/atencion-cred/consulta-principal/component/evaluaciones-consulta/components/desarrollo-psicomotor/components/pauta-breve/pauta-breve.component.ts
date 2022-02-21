@@ -3,7 +3,7 @@ import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/compone
 import Swal from 'sweetalert2';
 import { PautaBreveService } from '../../services/pauta-breve.service';
 import { datosEEDPTabla, tablaComparativa } from '../models/eedp';
-import { EvaluationPB } from '../models/pautaBreve';
+import { AnswerPB, EvaluationPB } from '../models/pautaBreve';
 
 @Component({
   selector: 'app-pauta-breve',
@@ -17,7 +17,7 @@ export class PautaBreveComponent implements OnInit {
   datos: {}[];
   resultadoEvaluacion: '';
   examinador: string;
-  arrayEdadPautaBreveSelected: datosEEDPTabla[];
+  arrayEdadPautaBreveSelected: AnswerPB[];
   fechaEvaluacion: string;
   edadSelected: string = 'MES';
   disabled: boolean = true;
@@ -71,43 +71,37 @@ export class PautaBreveComponent implements OnInit {
   }
 
   saveTest() {
-    console.log('data selected ', this.arrayEdadPautaBreveSelected, 'mes seleccionado ', this.indexSelected);
-
-    
-    // let ansMonth = this.arrayEdadEEDPSelected.map(item => {
-    //   let auxAns = {
-    //     pregunta: item.codigo,
-    //     areaEvaluacion: item.areEvaluacion,
-    //     estadoN: item.puntajeBreveN,
-    //     estadoD: item.puntajeBreveR
-    //   }
-    //   return auxAns;
-    // });
+    let ansMonth = this.arrayEdadPautaBreveSelected.map(item => {
+      let auxAns = {
+        pregunta: item.pregunta,
+        areaEvaluacion: item.areaEvaluacion,
+        estadoN: item.estadoN,
+        estadoD: item.estadoD
+      }
+      return auxAns;
+    });
     // console.log('data to save ', ansMonth);
 
-    // this.dataPB = {
-    //   codigoCIE10: 'Z009',
-    //   codigoHIS: 'Z009',
-    //   codigoPrestacion: '001',
-    //   evaluacionPautaBreveMes:{
-    //     fechaAtencion:'',
-    //     mesEdad: this.indexSelected,
-    //     diagnostico:'',
-    //     docExaminador:"89685545",
-    //     listaItemPB: ansMonth
-    //   }
-    // }
-
-
-
-    // this.pautaBreveService.postAgregarPB(this.idConsulta, ansMonth).subscribe((res: any) => {
-    //   Swal.fire({
-    //     icon: 'success',
-    //     title: 'Se Guardo la Pauta Breve',
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   })
-    // })
+    this.dataPB = {
+      codigoCIE10: '',
+      codigoHIS: '',
+      codigoPrestacion: '',
+      evaluacionPautaBreveMes: {
+        fechaAtencion: '',
+        mesEdad: this.edadNroSelected,
+        diagnostico: '',
+        docExaminador: "89685545",
+        listaItemPB: ansMonth
+      }
+    }
+    this.pautaBreveService.postAgregarPB(this.idConsulta, this.dataPB).subscribe((res: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Se Guardo la Pauta Breve',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
   }
 
   confirmSaveTest() {

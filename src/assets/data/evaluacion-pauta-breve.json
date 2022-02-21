@@ -3,35 +3,35 @@
         [
             {
                 "pregunta": 1,
-                "areEvaluacion": "S",
+                "areaEvaluacion": "S",
                 "descripcion": "Fija la mirada en el rostro del examinador.",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 2,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Reacciona al sonido de la campanilla (detras).",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 3,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Aprieta el dedo indice del examinador.",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 4,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Sigue con la vista la argolla (ángulo de 90°)(detras).",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 5,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Movimiento de cabeza en posición prona.",
                 "estadoN": false,
                 "estadoD": false
@@ -40,35 +40,35 @@
         [
             {
                 "pregunta": 6,
-                "areEvaluacion": "S",
+                "areaEvaluacion": "S",
                 "descripcion": "Mímica en respuesta al rostro del examinador",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 7,
-                "areEvaluacion": "S_L",
+                "areaEvaluacion": "S_L",
                 "descripcion": "Vocaliza en respuesta a la sonrisa y conversación del examinador",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 8,
-                "areEvaluacion": "C_S",
+                "areaEvaluacion": "C_S",
                 "descripcion": "Reacciona ante el desaparecimiento de la cara del examinador",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 9,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Intenta controlar la cabeza al ser llevado a posicion sentado",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 10,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "vocaliza dos sonidos diferentes",
                 "estadoN": false,
                 "estadoD": false
@@ -77,35 +77,35 @@
         [
             {
                 "pregunta": 11,
-                "areEvaluacion": "S",
+                "areaEvaluacion": "S",
                 "descripcion": "Sonrie en respuesta a la sonrisa del examinador",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 12,
-                "areEvaluacion": "S_L",
+                "areaEvaluacion": "C_L",
                 "descripcion": "Busca con la vista la fuente del sonido (detras)",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 13,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Sigue con la vista la argolla (ángulo de 180°)(detras)",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 14,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Mantiene cabeza erguida al ser llevado a posicion sentado",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 15,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Vocalizacion prolongada",
                 "estadoN": false,
                 "estadoD": false
@@ -114,35 +114,35 @@
         [
             {
                 "pregunta": 16,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "La cabeza sigue la cuchara que desaparece",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 17,
-                "areEvaluacion": "C_L",
+                "areaEvaluacion": "C_L",
                 "descripcion": "Gira la cabeza al sonido de la campanilla (detras)",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 18,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "En posicion prona se levanta asi mismo",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 19,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Levanta cabeza y hombro al ser llevado a posición sentada",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 20,
-                "areEvaluacion": "S_L",
+                "areaEvaluacion": "S_L",
                 "descripcion": "Rie a carcajadas",
                 "estadoN": false,
                 "estadoD": false
@@ -151,35 +151,35 @@
         [
             {
                 "pregunta": 21,
-                "areEvaluacion": "S_L",
+                "areaEvaluacion": "S_L",
                 "descripcion": "Vuelve la cabeza a quien le habla(detrás)",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 22,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Palpa el borde de la cama",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 23,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Intenta presión de la argolla (detrás)",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 24,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Empuja hasta lograr la posición sentada",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 25,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Se mantiene sentado con breve apoyo",
                 "estadoN": false,
                 "estadoD": false
@@ -188,35 +188,35 @@
         [
             {
                 "pregunta": 26,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Se mantiene sentado solo momentaneamente",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 27,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Vuelve la cabeza a la cuchara caída",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 28,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Coge la argolla",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 29,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Coge el cubo",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 30,
-                "areEvaluacion": "S_L",
+                "areaEvaluacion": "S_L",
                 "descripcion": "Vocaliza cuando se le habla",
                 "estadoN": false,
                 "estadoD": false
@@ -225,35 +225,35 @@
         [
             {
                 "pregunta": 31,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Se mantiene sentado solo por 30 segundos a más",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 32,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Intenta agarrar la pastilla",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 33,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Escucha selectivamente palabras familiares",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 34,
-                "areEvaluacion": "S",
+                "areaEvaluacion": "S",
                 "descripcion": "Coopera a los juegos",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 35,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Coge dos cubos, uno en cada mano",
                 "estadoN": false,
                 "estadoD": false
@@ -262,35 +262,35 @@
         [
             {
                 "pregunta": 36,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Se sienta y se mantiene erguido",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 37,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Fracciona hasta lograr la posición de pie",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 38,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Iniciación de pasos sostenido bajo los brazos",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 39,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Coge la pastilla con movimiento de rastrillo",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 40,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "L",
                 "descripcion": "Dice da-da o equivalente",
                 "estadoN": false,
                 "estadoD": false
@@ -299,35 +299,35 @@
         [
             {
                 "pregunta": 41,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Logra llegar a posición de pie, apoyado en un mueble",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 42,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Camina sostenido bajo los brazos",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 43,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Coge la pastilla con participación del pulgar",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 44,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Encuentra el cubo bajo el pañal",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 45,
-                "areEvaluacion": "S_L",
+                "areaEvaluacion": "S_L",
                 "descripcion": "Reacciona a los requerimientos verbales",
                 "estadoN": false,
                 "estadoD": false
@@ -336,35 +336,35 @@
         [
             {
                 "pregunta": 46,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Coge la pastilla con pulgar e índice",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 47,
-                "areEvaluacion": "S",
+                "areaEvaluacion": "S",
                 "descripcion": "Imita gestos simples",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 48,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Coge el tercer cubo dejando uno de los dos primeros",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 49,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Junta cubos en la línea media",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 50,
-                "areEvaluacion": "S_L",
+                "areaEvaluacion": "S_L",
                 "descripcion": "Reacciona al “no, no”",
                 "estadoN": false,
                 "estadoD": false
@@ -373,35 +373,35 @@
         [
             {
                 "pregunta": 51,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Coge la pastilla con pulgar e índice",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 52,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Imita gestos simples",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 53,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Coge el tercer cubo dejando uno de los dos primeros",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 54,
-                "areEvaluacion": "S_L",
+                "areaEvaluacion": "S_L",
                 "descripcion": "Junta cubos en la línea media",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 55,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Reacciona al “no, no”",
                 "estadoN": false,
                 "estadoD": false
@@ -410,35 +410,35 @@
         [
             {
                 "pregunta": 56,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Camina solo",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 57,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Introduce la pastilla en la botella",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 58,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Espontáneamente garabatea",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 59,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Coge el tercer cubo conservando los dos primeros",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 60,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Dice al menos tres palabras",
                 "estadoN": false,
                 "estadoD": false
@@ -447,35 +447,35 @@
         [
             {
                 "pregunta": 61,
-                "areEvaluacion": "S_L",
+                "areaEvaluacion": "S_L",
                 "descripcion": "Muestra sus zapatos",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 62,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Camina varios pasos hacia el lado",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 63,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Camina varios pasos hacia atrás",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 64,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Retira inmediatamente la pastilla de la botella",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 65,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Atrae el cubo con un palo",
                 "estadoN": false,
                 "estadoD": false
@@ -484,35 +484,35 @@
         [
             {
                 "pregunta": 66,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Nombra un objeto de los cuatro presentado",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 67,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Imita tres palabras en el momento del examen",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 68,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Construye una torre con tres cubos",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 69,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Dice al menos seis palabras",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 70,
-                "areEvaluacion": "S_L",
+                "areaEvaluacion": "S_L",
                 "descripcion": "Usa palabras para comunicar deseos",
                 "estadoN": false,
                 "estadoD": false
@@ -521,35 +521,35 @@
         [
             {
                 "pregunta": 71,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Se para en un pie con ayuda",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 72,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Nombra dos objetos de los cuatro presentados",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 73,
-                "areEvaluacion": "S",
+                "areaEvaluacion": "S",
                 "descripcion": "Ayuda en tareas simples",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 74,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Apunta 4 o más partes en el cuerpo de la muñeca",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 75,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Construye una torre con cinco cubos",
                 "estadoN": false,
                 "estadoD": false
@@ -558,35 +558,35 @@
         [
             {
                 "pregunta": 76,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Nombra animales (de 8 menciona 6)",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 77,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Nombra colores (rojo, azul, amarillo)",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 78,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Copia una cruz",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 79,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Construye una torre de 8 cubos",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 80,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Se para con un pie (10 segundos a más)",
                 "estadoN": false,
                 "estadoD": false
@@ -595,35 +595,35 @@
         [
             {
                 "pregunta": 81,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Verbaliza su nombre y apeliido",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 82,
-                "areEvaluacion": "L",
+                "areaEvaluacion": "L",
                 "descripcion": "Conoce la utilidad de los objetos (cuchara, lápiz, tijera, jabón)",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 83,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Copia un circulo",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 84,
-                "areEvaluacion": "C",
+                "areaEvaluacion": "C",
                 "descripcion": "Abotona y desabotona (usar estuche)",
                 "estadoN": false,
                 "estadoD": false
             },
             {
                 "pregunta": 85,
-                "areEvaluacion": "M",
+                "areaEvaluacion": "M",
                 "descripcion": "Camina en punta de pie seis pasos o más",
                 "estadoN": false,
                 "estadoD": false
