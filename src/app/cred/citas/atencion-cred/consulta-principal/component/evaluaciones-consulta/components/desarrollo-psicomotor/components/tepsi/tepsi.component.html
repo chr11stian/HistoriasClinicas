@@ -113,77 +113,128 @@
       </tr>
       </tbody>
     </table>
-      <div class="grid">
-        <div class="col-5"></div>
-        <div class="col-7 grid">
-          <div class="col-2 text-center" style="font-size: 0.8rem">RETRASO</div>
-          <div class="col-2 text-center" style="font-size: 0.8rem">RIESGO</div>
-          <div class="col-8 text-center" style="font-size: 1rem">NORMALIDAD</div>
+      <div class="grid justify-content-center">
+<!--        <div class="col-5"></div>-->
+<!--        <div class="col-7 grid">-->
+<!--          <div class="col-2 text-center" style="font-size: 0.8rem">RETRASO</div>-->
+<!--          <div class="col-2 text-center" style="font-size: 0.8rem">RIESGO</div>-->
+<!--          <div class="col-8 text-center" style="font-size: 1rem">NORMALIDAD</div>-->
+<!--        </div>-->
+<!--        <div class="col-5" style="font-weight: bold; padding-top: 0px">-->
+<!--          TEST TOTAL-->
+<!--        </div>-->
+<!--        <div class="col-7 grid" style="height: 30px">-->
+<!--          <div class="col-2 color-1"></div>-->
+<!--          <div class="col-2 color-2"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--        </div>-->
+<!--        <div class="col-4 text-center" style="margin: 0px; padding: 0px">-->
+<!--          PUNTAJE T-->
+<!--        </div>-->
+<!--        <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">-->
+<!--          <div class="col margenes text-right" style="justify-content: center">20</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">30</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">40</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">50</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">60</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">70</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">80</div>-->
+<!--        </div>-->
+<!--        <div class="col-5" style="font-weight: bold; padding-top: 20px">-->
+<!--          SUB TEST COORDINACION-->
+<!--        </div>-->
+<!--        <div class="col-7 grid" style="height: 30px; padding-top: 20px">-->
+<!--          <div class="col-2 color-1"></div>-->
+<!--          <div class="col-2 color-2"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--        </div>-->
+<!--        <div class="col-5" style="font-weight: bold">SUB TEST LENGUAJE</div>-->
+<!--        <div class="col-7 grid" style="height: 30px">-->
+<!--          <div class="col-2 color-1"></div>-->
+<!--          <div class="col-2 color-2"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--        </div>-->
+<!--        <div class="col-5" style="font-weight: bold">SUB TEST MOTRICIDAD</div>-->
+<!--        <div class="col-7 grid" style="height: 30px">-->
+<!--          <div class="col-2 color-1"></div>-->
+<!--          <div class="col-2 color-2"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--          <div class="col-2 color-3"></div>-->
+<!--        </div>-->
+<!--        <div class="col-4 text-center" style="margin: 0px; padding: 0px">-->
+<!--          PUNTAJE T-->
+<!--        </div>-->
+<!--        <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">-->
+<!--          <div class="col margenes text-right" style="justify-content: center">20</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">30</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">40</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">50</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">60</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">70</div>-->
+<!--          <div class="col margenes text-right" style="justify-content: center">80</div>-->
+<!--        </div>-->
+
+<!--        <div class="card">-->
+<!--          <h5>Horizontal</h5>-->
+<!--          <p-chart type="bar" [data]="basicData" [options]="horizontalOptions" width="20rem" height="6.7rem"></p-chart>-->
+<!--        </div>-->
+        <div class="field col-12">
+          <p-card [style]="{'height': '21rem', 'padding-top': 'unset'}" class="pr-1">
+            <ng-template pTemplate="header">
+                <h3 style="margin-bottom: unset;" class="text-center mb-2" >Resultado Test</h3>
+              <div class="grid justify-content-center">
+                      <div class="col-3"></div>
+                      <div class="col-9 grid">
+                        <div class="col-2 text-center" style="font-size: 0.8rem">RETRASO</div>
+                        <div class="col-2 text-center" style="font-size: 0.8rem">RIESGO</div>
+                        <div class="col-8 text-center" style="font-size: 1rem">NORMALIDAD</div>
+                      </div>
+                      <div class="col-3" style="font-weight: bold; padding-top: 0px">
+                      </div>
+                      <div class="col-9 grid" style="height: 30px">
+                        <div class="col-2 color-1"></div>
+                        <div class="col-2 color-2"></div>
+                        <div class="col-2 color-3"></div>
+                        <div class="col-2 color-3"></div>
+                        <div class="col-2 color-3"></div>
+                        <div class="col-2 color-3"></div>
+                      </div>
+                      <div class="col-2 text-center" style="margin: 0px; padding: 0px">
+                        PUNTAJE T
+                      </div>
+                      <div class="col-10 grid mt-0" style="margin: 0px; padding: 0px">
+                        <div class="col margenes text-right" style="justify-content: center">20</div>
+                        <div class="col margenes text-right" style="justify-content: center">30</div>
+                        <div class="col margenes text-right" style="justify-content: center">40</div>
+                        <div class="col margenes text-right" style="justify-content: center">50</div>
+                        <div class="col margenes text-right" style="justify-content: center">60</div>
+                        <div class="col margenes text-right" style="justify-content: center">70</div>
+                        <div class="col margenes text-right" style="justify-content: center">80</div>
+                      </div>
+              </div>
+            </ng-template>
+            <div class="flex justify-content-center" style="position: relative;">
+              <div style="position: absolute;width: 30vw;">
+                <p-chart type="bar" [data]="chartData" [options]="horizontalOptions" width="25vw" height="20vh"></p-chart>
+              </div>
+            </div>
+
+          </p-card>
+
         </div>
-        <div class="col-5" style="font-weight: bold; padding-top: 0px">
-          TEST TOTAL
-        </div>
-        <div class="col-7 grid" style="height: 30px">
-          <div class="col-2 color-1"></div>
-          <div class="col-2 color-2"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-        </div>
-        <div class="col-4 text-center" style="margin: 0px; padding: 0px">
-          PUNTAJE T
-        </div>
-        <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">
-          <div class="col margenes text-right" style="justify-content: center">20</div>
-          <div class="col margenes text-right" style="justify-content: center">30</div>
-          <div class="col margenes text-right" style="justify-content: center">40</div>
-          <div class="col margenes text-right" style="justify-content: center">50</div>
-          <div class="col margenes text-right" style="justify-content: center">60</div>
-          <div class="col margenes text-right" style="justify-content: center">70</div>
-          <div class="col margenes text-right" style="justify-content: center">80</div>
-        </div>
-        <div class="col-5" style="font-weight: bold; padding-top: 20px">
-          SUB TEST COORDINACION
-        </div>
-        <div class="col-7 grid" style="height: 30px; padding-top: 20px">
-          <div class="col-2 color-1"></div>
-          <div class="col-2 color-2"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-        </div>
-        <div class="col-5" style="font-weight: bold">SUB TEST LENGUAJE</div>
-        <div class="col-7 grid" style="height: 30px">
-          <div class="col-2 color-1"></div>
-          <div class="col-2 color-2"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-        </div>
-        <div class="col-5" style="font-weight: bold">SUB TEST MOTRICIDAD</div>
-        <div class="col-7 grid" style="height: 30px">
-          <div class="col-2 color-1"></div>
-          <div class="col-2 color-2"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-          <div class="col-2 color-3"></div>
-        </div>
-        <div class="col-4 text-center" style="margin: 0px; padding: 0px">
-          PUNTAJE T
-        </div>
-        <div class="col-8 grid mt-0" style="margin: 0px; padding: 0px">
-          <div class="col margenes text-right" style="justify-content: center">20</div>
-          <div class="col margenes text-right" style="justify-content: center">30</div>
-          <div class="col margenes text-right" style="justify-content: center">40</div>
-          <div class="col margenes text-right" style="justify-content: center">50</div>
-          <div class="col margenes text-right" style="justify-content: center">60</div>
-          <div class="col margenes text-right" style="justify-content: center">70</div>
-          <div class="col margenes text-right" style="justify-content: center">80</div>
-        </div>
+
+
       </div>
   </div>
 </div>
@@ -278,7 +329,7 @@
   <!--    </div>-->
   <!--  </div>-->
 </div>
-<p-dialog [(visible)]="display[0]" [modal]="true">
+<p-dialog [(visible)]="displayTest[0]" [modal]="true">
   <ng-template pTemplate="header"> 1.SUB. TEST DE COORDINACION</ng-template>
   <table class="tablaCoordinacion">
     <tbody>
@@ -501,13 +552,13 @@
     </tbody>
   </table>
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Guadar Test Coordinacion" iconPos="right" icon=""
-            class="" style="background-color: #0c3866" (click)="isResolve[0]=true;this.display[0]=false" ></button>
+    <button pButton pRipple label="Terminar Test Coordinacion" iconPos="right" icon=""
+            class="" style="background-color: #0c3866" (click)="isResolve[0]=true;this.displayTest[0]=false" ></button>
   </ng-template>
 </p-dialog>
 <!--sub test lenguaje-->
 <p-dialog
-        [(visible)]="display[1]"
+        [(visible)]="displayTest[1]"
         [modal]="true"
         [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
         [style]="{ width: '40vw' }"
@@ -1320,13 +1371,13 @@
     </tbody>
   </table>
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Guadar Test Lenguaje" iconPos="right" icon=""
-            class="" style="background-color: #0c3866"  (click)="isResolve[1]=true;this.display[1]=false"></button>
+    <button pButton pRipple label="Terminar Test Lenguaje" iconPos="right" icon=""
+            class="" style="background-color: #0c3866"  (click)="isResolve[1]=true;this.displayTest[1]=false"></button>
   </ng-template>
 </p-dialog>
 <!--sub test motrocidad-->
 <p-dialog
-        [(visible)]="display[2]"
+        [(visible)]="displayTest[2]"
         [modal]="true"
         [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
         [style]="{ width: '50vw' }"
@@ -1508,8 +1559,44 @@
     </tbody>
   </table>
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Guadar Test Motrocidad" iconPos="right" icon=""
-            class="" style="background-color: #0c3866"  (click)="isResolve[2]=true;this.display[2]=false"></button>
+    <button pButton pRipple label="Terminar Test Motrocidad" iconPos="right" icon=""
+            class="" style="background-color: #0c3866"  (click)="isResolve[2]=true;this.displayTest[2]=false"></button>
   </ng-template>
 </p-dialog>
 <p-toast key="myKey1"></p-toast>
+
+<!--<p-dialog [(visible)]="displayGrafico"-->
+<!--          [modal]="true"-->
+<!--          [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"-->
+<!--          [style]="{ width: '100vw' }">-->
+<!--  <ng-template pTemplate="header"> 1.SUB. TEST DE COORDINACION</ng-template>-->
+<!--&lt;!&ndash;  contenido&ndash;&gt;-->
+<!--  <div class="col-2.5">-->
+<!--    <p-card [style]="{'width': '20rem','height': '10rem', 'margin-bottom': '1em','margin-left:': '1em','margin-right':'1em'}">-->
+<!--      <ng-template pTemplate="header">-->
+<!--        <div class="flex justify-content-center"> <h3 style="margin-bottom: unset; margin-top:5px; color:#5a5353ad;">{{actor}} con Sobrepeso</h3></div>-->
+<!--      </ng-template>-->
+<!--      <div class="flex align-items-start">-->
+<!--        <div class="flex flex-column">-->
+<!--          <label style="font-size:2.5rem;font-weight: bold; color:#0c0b0b;">155</label>-->
+<!--          <div style="position: relative;" width="60px">-->
+<!--            <label class="flex justify-content-center" style="color:#09ee1c;font-weight: bold;">2.3% ↑</label>-->
+<!--          </div>-->
+<!--          <div class="justify-content-center">-->
+<!--            <label style="color:#5a5353ad;font-size:.75rem;font-weight: bold;">estadistica</label>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="mr:col-2" style="height:110px;position: relative;">-->
+<!--          <p-chart type="bar" [data]="data3" [options]="chartOptions1" width="14rem" height="6.7rem"></p-chart>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </p-card>-->
+
+<!--  </div>-->
+<!--&lt;!&ndash;  fin contenido&ndash;&gt;-->
+
+
+
+<!--  <ng-template pTemplate="footer">pie</ng-template>-->
+<!--</p-dialog>-->
