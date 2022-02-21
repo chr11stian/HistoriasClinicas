@@ -481,7 +481,9 @@ export class TriajeCredComponent implements OnInit {
                         nroDocumento: this.data.nroDocumento,
                         tipoDoc: this.data.tipoDoc,
                         idConsulta: r.object.id,
-                        fechaNacimiento: this.data.fechaNacimiento
+                        anio: r.object.anioEdad,
+                        mes: r.object.mesEdad,
+                        dia: r.object.diaEdad
                     }
                     this.consultaService.idConsulta = r.object.id
                     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
