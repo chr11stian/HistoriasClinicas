@@ -194,7 +194,7 @@
                             <div class="grid">
                                 <div class="col-6">
                                     <p-dropdown [options]="listaFuncionesBiologicas" formControlName="piel"
-                                        optionLabel="name" optionValue="name" class="inputfield p-fluid w-full"
+                                        appendTo="body" optionLabel="name" optionValue="name" class="p-fluid w-full"
                                         placeholder="Seleccione una opción">
                                     </p-dropdown>
                                 </div>
@@ -495,19 +495,17 @@
         <div class="grid">
             <div class="col-6">
                 <label>Nombre Examen:</label>
-                <input type="text" pInputText formControlName='examName' placeholder=""
-                    class="inputfield w-full">
+                <input type="text" pInputText formControlName='examName' placeholder="" class="inputfield w-full">
             </div>
             <div class="col-6">
                 <label>Resultado:</label>
                 <p-dropdown [options]="listaFuncionesBiologicas" formControlName="examResult" optionLabel="name"
-                    optionValue="name"  placeholder="Seleccione una opción">
+                    optionValue="name" placeholder="Seleccione una opción" appendTo="body">
                 </p-dropdown>
             </div>
             <div class="col-12">
                 <label>Detalle:</label>
-                <input type="text" pInputText formControlName='examDetalle' placeholder=""
-                    class="inputfield w-full">
+                <input type="text" pInputText formControlName='examDetalle' placeholder="" class="inputfield w-full">
             </div>
         </div>
         <div class="grid mt-3">
