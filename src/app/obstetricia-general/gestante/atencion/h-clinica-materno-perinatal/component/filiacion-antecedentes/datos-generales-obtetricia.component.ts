@@ -12,21 +12,6 @@ import Swal from "sweetalert2";
 })
 export class DatosGeneralesObtetriciaComponent implements OnInit {
 
-
-    // // @ViewChild('network', {static: false})
-    // @ViewChild('visNetwork', {static: false})
-    // visNetwork!: ElementRef;
-    // private networkInstance: any;
-
-    @ViewChild('canvasEl', {static: true})
-    canvasEl: ElementRef<HTMLCanvasElement>;
-
-    // @ViewChild('canvasEl') canvasEl: ElementRef<HTMLCanvasElement>;
-
-    /**Canvas 2d context*/
-    private context: CanvasRenderingContext2D;
-
-
     /**Antecedentes Personales**/
     otrosAntecedentesFamiliares: string;
     otrosAntecedentesFamiliares2: string[] = [];
@@ -93,7 +78,18 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
     dataAntecedentes: any;
     formAntecedentes: FormGroup;
+    formAntecedentesObstetricos: FormGroup;
 
+    gestas = 0;
+    abortos: number = 0;
+    partos = 0;
+    vaginales: number = 0;
+    cesarias: number = 0;
+    nacidosMuertos: number = 0;
+    viven: number = 0;
+    muertoPrimeraSemana: number = 0;
+    despuesPrimeraSemana: number = 0;
+    nacidosVivos = 0;
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
@@ -154,6 +150,169 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         this.getpacienteFiiacionByID();
     }
 
+    calculargestas() {
+        this.viven = this.formAntecedentesObstetricos.value.viven;
+        this.muertoPrimeraSemana = this.formAntecedentesObstetricos.value.muertoPrimeraSemana;
+        this.despuesPrimeraSemana = this.formAntecedentesObstetricos.value.despuesPrimeraSemana;
+        this.nacidosVivos = (this.viven + this.muertoPrimeraSemana + this.despuesPrimeraSemana);
+        this.formAntecedentesObstetricos.get('NacidosVivos').setValue(this.nacidosVivos);
+        this.nacidosMuertos = this.formAntecedentesObstetricos.value.NacidosMuertos;
+        this.vaginales = this.formAntecedentesObstetricos.value.vaginales;
+        this.cesarias = this.formAntecedentesObstetricos.value.cesarias;
+        this.partos = (this.vaginales + this.cesarias);
+        this.formAntecedentesObstetricos.get('partos').setValue(this.partos);
+        this.abortos = this.formAntecedentesObstetricos.value.abortos;
+        this.gestas = (this.abortos + this.partos);
+    }
+
+    SumaNacidosVivos() {
+        this.nacidosVivos = ((this.viven * 1) + (this.muertoPrimeraSemana * 1) + (this.despuesPrimeraSemana * 1));
+    }
+    SumaPatos() {
+        this.partos = ((this.vaginales * 1) + (this.cesarias * 1));
+    }
+    SumaGetas() {
+        this.gestas = ((this.abortos * 1) + (this.partos * 1))
+    }
+    async inputViven() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Viven',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.viven = text
+            this.SumaNacidosVivos()
+            console.log(this.SumaNacidosVivos())
+
+        }
+
+    }
+    async inputMueroPrimeraSemana() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Muerto 1ra semana',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.muertoPrimeraSemana = text
+            this.SumaNacidosVivos()
+
+        }
+    }
+    async inputDespuesPrimeraSemana() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Después 1ra semana',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.despuesPrimeraSemana = text
+            this.SumaNacidosVivos()
+
+        }
+    }
+    async inputNacidosMuertos() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Nacidos Muertos',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.nacidosMuertos = text
+        }
+    }
+    async inputVaginales() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Vaginales',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.vaginales = text
+            this.SumaPatos()
+            this.SumaGetas()
+        }
+    }
+    async inputCesarias() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Cesarias',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.cesarias = text
+            this.SumaPatos()
+            this.SumaGetas()
+        }
+    }
+    async inputAborto() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Abortos',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.abortos = text
+            this.SumaGetas()
+        }
+    }
 
     inicializarAregloAntfamiliares(): void {
         if (this.antecedentes1[0] == null) {
@@ -292,35 +451,21 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
 
-    // ngAfterViewInit(): void {
-    //     // create an array with nodes
-    //     const nodes = new DataSet<any>([
-    //         {id: 1, label: 'Node 1'},
-    //         {id: 2, label: 'Node 2'},
-    //         {id: 3, label: 'Node 3'},
-    //         {id: 4, label: 'Node 4'},
-    //         {id: 5, label: 'Node 5'},
-    //     ]);
-    //
-    //     // create an array with edges
-    //     const edges = new DataSet<any>([
-    //         {from: '1', to: '3'},
-    //         {from: '1', to: '2'},
-    //         {from: '2', to: '4'},
-    //         {from: '2', to: '5'},
-    //     ]);
-    //
-    //     const data = {nodes, edges};
-    //
-    //     const container = this.visNetwork;
-    //     this.networkInstance = new Network(container.nativeElement, data, {});
-    // }
-
-
     buildForm2() {
+        this.formAntecedentesObstetricos = this.form.group({
+            viven: new FormControl(''),
+            muertoPrimeraSemana: new FormControl(''),
+            despuesPrimeraSemana: new FormControl(''),
+            NacidosVivos: new FormControl(''),
+            NacidosMuertos: new FormControl(''),
+            vaginales: new FormControl(''),
+            cesarias: new FormControl(''),
+            abortos: new FormControl(''),
+            partos: new FormControl(''),
+        })
+
         this.formAntecedentes = this.form.group({
             antecendentesObstetricos: new FormControl(''),
-
 
             /**Gestacion anterior**/
             fecha: new FormControl(''),
@@ -344,21 +489,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             nombrefamiliar11: new FormControl(''),
             nombrefamiliar12: new FormControl(''),
 
-
-            /**Antecedentes Familiares**/
-            // ninguno: new FormControl(''),
-            // alergia: new FormControl(''),
-            // EnferHepertens: new FormControl(''),
-            // epilepcia: new FormControl(''),
-            // diabetes: new FormControl(''),
-            // EnfCongenitas: new FormControl(''),
-            // EmbMultiple: new FormControl(''),
-            // malaria: new FormControl(''),
-            // HipArterial: new FormControl(''),
-            // HipoTiroidismo: new FormControl(''),
-            // neoplásica: new FormControl(''),
-            // TBCPulmonar: new FormControl(''),
-            // otros: new FormControl(''),
 
             //********************************
             captada: new FormControl(''),

@@ -58,6 +58,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
               private messageService: MessageService,
               private rutaActiva: ActivatedRoute) {
   }
+
   ventanas:any[]=[{name:'recien nacido',code:-1},
     {name:'menos de 1 año',code:0},
     {name:'1 año',code:1},

@@ -67,26 +67,32 @@ export interface DatosEEDP {
     puntajeBreveR: boolean
 }
 export interface AnswerEEDP {
-    codigo: number,
+    pregunta: number,
     puntajeEEDP: string,
-    areEvaluacion: string
+    areaEvaluacion: string
 }
 export interface ItemEEDP {
     edad: number,
     puntajeTotalEedp: number,
     puntajeMaximoEedp: number,
-    itemEedp?: AnswerEEDP[]
+    listItemEedp?: AnswerEEDP[]
 }
 export interface TestEEDP {
-    fecha: string,
-    edadCronologica: number,
-    edadMental: number,
-    diagnostico: string,
-    coeficienteDesarrolllo: number,
-    examinador: string,
-    listaUltimasPreguntas?: [{
-        clave?: string,
-        numeroPregunta?: number
-    }],
-    listaItemEedp: ItemEEDP[]
+    codigoCIE10: string,
+    codigoHIS: string,
+    codigoPrestacion: string,
+    testEedp: {
+        fechaAtencion: string,
+        edadCronologica: number,
+        edadMental: number,
+        diagnostico: string,
+        coeficienteDesarrollo: number,
+        docExaminador: string,
+        listaUltimasPreguntas?: Tupla[],
+        listaEvaluacionMesEDDP: ItemEEDP[]
+    }
+}
+export interface Tupla {
+    clave: string,
+    numeroPregunta: number
 }

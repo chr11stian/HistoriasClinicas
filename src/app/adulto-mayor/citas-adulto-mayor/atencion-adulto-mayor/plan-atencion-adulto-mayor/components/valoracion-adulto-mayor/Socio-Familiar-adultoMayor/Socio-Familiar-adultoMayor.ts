@@ -22,6 +22,7 @@ export class SocioFamiliarAdultoMayor implements OnInit {
   ref: DynamicDialogRef;
   listaValoracionSocioFamiliar:any[]=[];
   lista:any[]=[];
+  checked: boolean=false;
   constructor(private formBuilder: FormBuilder,
               private valoracionService: AdultoMayorService,
               private messageService: MessageService,
@@ -358,8 +359,6 @@ export class SocioFamiliarAdultoMayor implements OnInit {
     });
   }
   listarValoraciones(){
-
-
     this.ref = this.dialogService.open(ModalSocio, {
       width: '80%',
       data:this.listaValoracionSocioFamiliar

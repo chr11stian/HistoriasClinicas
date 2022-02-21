@@ -1,6 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { PacienteService } from 'src/app/core/services/paciente/paciente.service';
 import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
+import Swal from 'sweetalert2';
+import { EedpService } from '../../services/eedp.service';
 import { AnswerEEDP, datosEEDPTabla, escalaEval_EEDP_0_4_anios, ItemEEDP, tablaComparativa, TestEEDP } from '../models/eedp';
 
 @Component({
@@ -28,16 +31,43 @@ export class EedpComponent implements OnInit {
   datePipe = new DatePipe('en-US');
   nroDoc: any;
   totalPoints: number = 0;
-  monthPoints: number;
+  monthPoints: number = 0;
   itemEEDP: ItemEEDP;
   listaPreguntas: ItemEEDP[] = [];
   dataTestEEDP: TestEEDP;
   escaleEEDP: datosEEDPTabla;
+  inputDay: any = new Date();
+  anioEdad;
+  mesEdad;
+  diaEdad;
+  chronologicalAge: any;
+  dataPatient: any;
+  mentalAge: any;
+  standardPoints: any;
+  tablaPuntajeEstandar: any;
+  coeficienteDesarrollo: any;
+  mentalMonth: number = 1;
+  diagnostico: any;
+  idConsulta: any;
 
   constructor(
     private evalAlimenService: EvalAlimenService,
+    private pacienteService: PacienteService,
+    private testService: EvalAlimenService,
+    private eedpService: EedpService,
   ) {
-    console.log('data de eedp');
+    let data = {
+      tipoDoc: "DNI",
+      nroDoc: '10101025'
+    }
+    this.pacienteService.getPacienteByNroDoc(data).subscribe((res: any) => {
+      this.dataPatient = res.object;
+      console.log('data de paciente ', this.dataPatient);
+    });
+    this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
+    console.log('id de consulta ', this.idConsulta);
+    this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    // this.datePipe.transform(this.formInterconsulta.value.fecha, 'yyyy-MM-dd HH:mm:ss'),
   }
 
   ngOnInit(): void {
@@ -49,71 +79,147 @@ export class EedpComponent implements OnInit {
       { edadNro: 18, edad: 'MESES' }, { edadNro: 21, edad: 'MESES' }, { edadNro: 24, edad: 'MESES' },
       { edadNro: 3, edad: 'AÑOS' }, { edadNro: 4, edad: 'AÑOS' }
     ]
-    this.datos = [
-      { key: 'S6 (M)' },
-      { key: 'S6 (M)' },
-      { key: 'S6 (M)' }
-    ]
+    // this.datos = [
+    //   { key: 'S6 (M)' },
+    //   { key: 'S6 (M)' },
+    //   { key: 'S6 (M)' }
+    // ]
     this.getDatos();
+    this.calcularEdad();
   }
 
   async getDatos() {
     await this.evalAlimenService.getEscalaEEDParray().then(data => {
       this.escalaEEDP = data;
-      // this.evaluacionEEDP.map((evaluacion, index) => {
-      //   this.escalaEEDP[index] = evaluacion.item;
-      // });
       let mes = this.edadNroSelected;
       this.evalAlimenService.getTablaComparativaMes(mes).then(data => {
         this.tablaComparativa = data;
       });
       this.arrayEdadEEDPSelected = this.escalaEEDP[this.indexSelected];
       this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
-      // console.log('2da array to list ', this.arrayEdadEEDPSelected[0].puntajeMaximo);
     });
   }
 
-  saveTest() {
-    // this.dataTestEEDP = {
-    //   fecha
-    // }
+  async saveTest() {
     this.monthPoints = 0;
-
-    this.arrayEdadEEDPSelected.forEach(item => {
+    let ansMonth = this.arrayEdadEEDPSelected.map(item => {
       if (item.puntajeEEDP) {
         this.monthPoints += parseInt(this.puntaje);
       }
-    });
-    let ansMonth = this.arrayEdadEEDPSelected.map(item => {
       let auxAns = {
-        codigo: parseInt(item.codigo),
+        pregunta: parseInt(item.codigo),
         puntajeEEDP: item.puntajeEEDP,
-        areEvaluacion: item.areEvaluacion
+        areaEvaluacion: item.areEvaluacion
       }
-      return auxAns
+      return auxAns;
     });
     this.itemEEDP = {
       edad: this.edadNroSelected,
       puntajeTotalEedp: this.monthPoints,
       puntajeMaximoEedp: parseInt(this.puntaje),
-      itemEedp: ansMonth
+      listItemEedp: ansMonth
     }
-    if (this.itemEEDP.puntajeTotalEedp > 0) {
-      console.log('el puntaje es mayor a 0', this.listaPreguntas.includes(this.itemEEDP), 'lista de preguntas mensuales ', this.listaPreguntas);
-      if (this.listaPreguntas.includes(this.itemEEDP))
-        return
+    let dup;
+    this.listaPreguntas.forEach(item => {
+      if (item.edad === this.itemEEDP.edad) {
+        dup = true;
+      }
+    })
+    if (dup || this.itemEEDP.puntajeTotalEedp == 0) {
+
+    } else {
       this.listaPreguntas.push(this.itemEEDP);
     }
-    console.log('datos del mes  ', this.itemEEDP);
     this.listaPreguntas.sort((a, b) => a.edad - b.edad);
-    console.log('data to save ', this.listaPreguntas);
+    this.listaPreguntas.forEach(item => {
+      this.totalPoints += item.puntajeTotalEedp;
+    })
+    for (let i = this.listaPreguntas.length - 1; i >= 0; i--) {
+      if ((this.listaPreguntas[i].puntajeMaximoEedp * 5) == this.listaPreguntas[i].puntajeTotalEedp) {
+        this.mentalMonth = this.listaPreguntas[i].edad;
+      }
+    }
+    this.totalPoints = this.totalPoints + (this.mentalMonth - 1) * 30;
+    this.standardPoints = parseFloat((this.totalPoints / this.chronologicalAge).toFixed(2));
+    console.log('puntos estandar ', this.standardPoints);
+    await this.testService.getTablaComparativaMes(this.mesEdad).then(data => {
+      this.tablaPuntajeEstandar = data;
+      this.tablaPuntajeEstandar.forEach(item => {
+        if (String(this.standardPoints) == item.em_ec) {
+          this.coeficienteDesarrollo = item.pe;
+          console.log('item de tabla ', item, 'coef des ', this.coeficienteDesarrollo, typeof (this.coeficienteDesarrollo));
+        }
+      })
+    });
+    console.log('coeficiente 2 ', this.coeficienteDesarrollo);
+    if (this.coeficienteDesarrollo >= 0.85)
+      this.diagnostico = 'N'
+    if (this.coeficienteDesarrollo <= 0.84 && this.coeficienteDesarrollo >= 0.70)
+      this.diagnostico = 'RI'
+    if (this.coeficienteDesarrollo <= 0.69)
+      this.diagnostico = 'RE'
+    // console.log('mes mental ', this.mentalMonth);
+    // console.log('total points ', this.totalPoints, 'list to save ', this.listaPreguntas);
+    // console.log('coeficiente de desarrollo ', this.coeficienteDesarrollo)
+    this.dataTestEEDP = {
+      codigoCIE10: "Z009",
+      codigoHIS: "Z009",
+      codigoPrestacion: "0001",
+      testEedp: {
+        fechaAtencion: this.datePipe.transform(this.fechaEvaluacion, 'yyyy-MM-dd HH:mm:ss'),
+        edadCronologica: this.chronologicalAge,
+        edadMental: this.totalPoints,
+        diagnostico: this.diagnostico,
+        coeficienteDesarrollo: parseFloat(this.coeficienteDesarrollo),
+        docExaminador: "89685545",
+        listaUltimasPreguntas: [
+          {
+            clave: 'C',
+            numeroPregunta: this.calculateArea(this.listaPreguntas, 'C')
+          }, {
+            clave: 'S',
+            numeroPregunta: this.calculateArea(this.listaPreguntas, 'S')
+          }, {
+            clave: 'L',
+            numeroPregunta: this.calculateArea(this.listaPreguntas, 'L')
+          }, {
+            clave: 'M',
+            numeroPregunta: this.calculateArea(this.listaPreguntas, 'M')
+          }
+        ],
+        listaEvaluacionMesEDDP: this.listaPreguntas
+      }
+    }
+    // console.log('data to save ', this.dataTestEEDP);
+    this.eedpService.postAgregarEEDP(this.idConsulta, this.dataTestEEDP).subscribe((res: any) => {
+      Swal.fire({
+        icon: 'success',
+        title: 'Se Guardo el test EEDP Correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
   }
 
-  updateEscalaEEDP() {
-
+  calculateArea(lista: ItemEEDP[], area: string): number {
+    let codArea;
+    lista.forEach(item => {
+      item.listItemEedp.forEach(item2 => {
+        let areas = item2.areaEvaluacion.split("_")
+        // console.log('areas ', areas, 'length', areas.length);
+        for (let i = 0; i < areas.length; i++) {
+          if (areas[i] == area && item2.puntajeEEDP) {
+            // console.log('se encontro ', area, item2.codigo);
+            codArea = item2.pregunta;
+          }
+        }
+      })
+    });
+    return codArea;
   }
 
   async changeStep(index: number, edadNro: number, edad: string, prevArray: any) {
+    this.monthPoints = 0;
     console.log('arreglo anterior de test ', prevArray);
     this.indexSelected = index;
     this.edadNroSelected = edadNro;
@@ -127,12 +233,59 @@ export class EedpComponent implements OnInit {
           return
         this.listaPreguntas.push(prevArray);
       }
+      // if (prevArray.puntajeTotalEedp == parseInt(this.puntaje) * 5) {
+      //   this.mentalMonth = prevArray.edad;
+      // }
     }
-    console.log('continuo en el push de data');
   }
 
-  calcularPuntaje() {
+  calcularEdad() {
+    let fechaNacimiento: Date = new Date("11/14/2021");
+    let dia = fechaNacimiento.getDate()
+    let mes = fechaNacimiento.getMonth() + 1
+    let ano = fechaNacimiento.getFullYear()
 
+    // cogemos los ingresados
+    let fecha_hoy: Date = this.inputDay;
+    let ahora_ano = fecha_hoy.getFullYear()
+    let ahora_mes = fecha_hoy.getMonth() + 1;
+    let ahora_dia = fecha_hoy.getDate();
+
+    let edad = (ahora_ano + 1900) - ano;
+    if (ahora_mes < mes) {
+      edad--;
+    }
+    if ((mes == ahora_mes) && (ahora_dia < dia)) {
+      edad--;
+    }
+    if (edad >= 1900) {
+      edad -= 1900;
+    }
+
+    let meses = 0;
+    if (ahora_mes > mes && dia > ahora_dia)
+      meses = ahora_mes - mes - 1;
+    else if (ahora_mes > mes)
+      meses = ahora_mes - mes
+    if (ahora_mes < mes && dia < ahora_dia)
+      meses = 12 - (mes - ahora_mes);
+    else if (ahora_mes < mes)
+      meses = 12 - (mes - ahora_mes + 1);
+    if (ahora_mes == mes && dia > ahora_dia)
+      meses = 11;
+
+    // calculamos los dias
+    let dias = 0;
+    if (ahora_dia > dia)
+      dias = ahora_dia - dia;
+    if (ahora_dia < dia) {
+      let ultimoDiaMes: Date = new Date(ahora_ano, ahora_mes - 1, 0);
+      dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
+    }
+    this.anioEdad = edad;
+    this.mesEdad = meses;
+    this.diaEdad = dias;
+    this.chronologicalAge = this.mesEdad * 30 + this.diaEdad;
   }
   calcularResultado() {
     this.monthPoints = 0;
@@ -144,9 +297,9 @@ export class EedpComponent implements OnInit {
     });
     let ansMonth = this.arrayEdadEEDPSelected.map(item => {
       let auxAns = {
-        codigo: parseInt(item.codigo),
+        pregunta: parseInt(item.codigo),
         puntajeEEDP: item.puntajeEEDP,
-        areEvaluacion: item.areEvaluacion
+        areaEvaluacion: item.areEvaluacion
       }
       return auxAns
     });
@@ -154,7 +307,23 @@ export class EedpComponent implements OnInit {
       edad: this.edadNroSelected,
       puntajeTotalEedp: this.monthPoints,
       puntajeMaximoEedp: parseInt(this.puntaje),
-      itemEedp: ansMonth
+      listItemEedp: ansMonth
     }
+  }
+
+  confirmSaveTest() {
+    Swal.fire({
+      title: 'Esta Seguro que Desea Guardar los Cambios?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirmar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.saveTest();
+      }
+    })
   }
 }
