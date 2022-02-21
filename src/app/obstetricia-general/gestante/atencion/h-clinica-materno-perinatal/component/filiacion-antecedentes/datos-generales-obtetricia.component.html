@@ -18,130 +18,19 @@
     </p-toolbar>
     <div class="border">
         <form [formGroup]='formAntecedentesObstetricos'>
-            <div class="grid m-2 border2">
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Viven:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class="inputfield w-full" formControlName="viven"
-                                       (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Muerto - 1ra semana:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class=" inputfield w-full"
-                                       formControlName="muertoPrimeraSemana" (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Después - 1ra semana:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class=" inputfield w-full"
-                                       formControlName="despuesPrimeraSemana" (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <br>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Nacidos Vivos:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class="inputfield w-full"
-                                       formControlName="NacidosVivos">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Nacidos Muertos :</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class=" inputfield w-full"
-                                       formControlName="NacidosMuertos" (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <br>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Vaginales:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class="inputfield w-full" formControlName="vaginales"
-                                       (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Cesáreas:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class="inputfield w-full"
-                                       formControlName="cesarias" (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-3 p-field">
-                    <br>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Abortos:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class=" inputfield w-full"
-                                       formControlName="abortos" (keyup)="calculargestas()">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="p-inputgroup">
-                            <div class="col-6" style="text-align: right">
-                                <label>Partos:</label>
-                            </div>
-                            <div class="col-4">
-                                <input type="number" pInputText class="inputfield w-full" formControlName="partos">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="grid m-4">
                 <div class="col-12 md:col-6 lg:col-12">
                     <svg xmlns="http://www.w3.org/2000/svg">
                         <defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs>
-                        <rect x="10" y="10" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect x="10" y="10" width="50" height="30" r="5" rx="5" ry="5"
+                              fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); cursor: pointer">
                         </rect>
                         <symbol id="input1" viewBox="0 0 347.11 49.7" preserveAspectRatio="none"></symbol>
-
                         <text x="35" y="25" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                                    dy="5.5">{{gestas}}</tspan>
@@ -155,12 +44,14 @@
                             </tspan>
                         </text>
 
-                        <rect x="200" y="10" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputAborto()" x="200" y="10" width="50" height="30" r="5" rx="5"
+                              ry="5"
+                              fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
                         <text x="225" y="25" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer;-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{abortos}}
                             </tspan>
@@ -176,11 +67,11 @@
 
                         <rect x="200" y="100" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
                         </rect>
                         <text x="225" y="115" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{partos}}
                             </tspan>
@@ -194,12 +85,13 @@
                             </tspan>
                         </text>
 
-                        <rect x="400" y="10" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputVaginales()" x="400" y="10" width="50" height="30" r="5" rx="5"
+                              ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
                         <text x="425" y="25" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{vaginales}}
                             </tspan>
@@ -213,12 +105,13 @@
                             </tspan>
                         </text>
 
-                        <rect x="400" y="100" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputCesarias()" x="400" y="100" width="50" height="30" r="5" rx="5"
+                              ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(246,26,26); fill: rgba(197, 0, 9, 0.63)"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(246,26,26); fill: rgba(197, 0, 9, 0.63)"></rect>
                         <text x="425" y="115" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{cesarias}}
                             </tspan>
@@ -234,10 +127,10 @@
 
                         <rect x="600" y="10" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
                         <text x="625" y="25" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{nacidosVivos}}
                             </tspan>
@@ -254,12 +147,13 @@
                             </tspan>
                         </text>
 
-                        <rect x="600" y="100" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputNacidosMuertos()" x="600" y="100" width="50" height="30" r="5" rx="5"
+                              ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
                         <text x="625" y="115" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                                    dy="5.5">{{nacidosMuertos}}
@@ -277,14 +171,16 @@
                             </tspan>
                         </text>
 
-                        <rect x="800" y="10" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputViven()" x="800" y="10" width="50" height="30" r="5" rx="5" ry="5"
+                              fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
                         <text x="825" y="25" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
-                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="5.5">{{viven}}
+                            <tspan style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
+                                   dy="5.5">{{viven}}
                             </tspan>
                         </text>
                         <text x="825" y="50" text-anchor="middle" font="10px &quot;Arial&quot;"
@@ -295,12 +191,13 @@
                             </tspan>
                         </text>
 
-                        <rect x="800" y="100" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputMueroPrimeraSemana()" x="800" y="100" width="50" height="30" r="5" rx="5"
+                              ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
                         <text x="825" y="115" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                                    dy="5.5">{{muertoPrimeraSemana}}
@@ -318,12 +215,13 @@
                             </tspan>
                         </text>
 
-                        <rect x="800" y="200" width="50" height="30" r="5" rx="5" ry="5" fill="#ffffff"
+                        <rect (click)="inputDespuesPrimeraSemana()" x="800" y="200" width="50" height="30" r="5" rx="5"
+                              ry="5" fill="#ffffff"
                               stroke="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);stroke:rgb(253,94,0); fill: rgb(252, 213, 90)"></rect>
                         <text x="825" y="215" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
-                              style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 16px Arial;"
                               font-size="16px">
                             <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                                    dy="5.5">{{despuesPrimeraSemana}}

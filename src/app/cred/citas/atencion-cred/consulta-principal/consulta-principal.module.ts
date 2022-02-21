@@ -30,6 +30,7 @@ import { TepsiComponent } from './component/evaluaciones-consulta/components/des
 import { EvaluacionAlimentacionComponent } from './component/evaluaciones-consulta/components/evaluacion-alimentacion/evaluacion-alimentacion.component';
 import {ToggleButtonModule} from "primeng/togglebutton";
 import { VacunaComponent } from './component/evaluaciones-consulta/components/vacuna/vacuna.component';
+import {TimelineModule} from "primeng/timeline";
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -63,7 +64,8 @@ import { VacunaComponent } from './component/evaluaciones-consulta/components/va
         SharedModule,
         DividerModule,
         PlanAtencionIntegralModule,
-        ToggleButtonModule
+        ToggleButtonModule,
+        TimelineModule
     ]
 })
 export class ConsultaPrincipalModule {
