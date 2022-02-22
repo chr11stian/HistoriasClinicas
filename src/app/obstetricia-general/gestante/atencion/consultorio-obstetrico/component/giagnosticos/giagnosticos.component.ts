@@ -1,11 +1,11 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
-import {ObstetriciaGeneralService} from "../../../../../services/obstetricia-general.service";
-import {CieService} from "../../../../../services/cie.service";
-import {ConsultasService} from "../../services/consultas.service";
-import {DatePipe} from "@angular/common";
-import {MessageService} from "primeng/api";
+import { ObstetriciaGeneralService } from "../../../../../services/obstetricia-general.service";
+import { CieService } from "../../../../../services/cie.service";
+import { ConsultasService } from "../../services/consultas.service";
+import { DatePipe } from "@angular/common";
+import { MessageService } from "primeng/api";
 @Component({
     selector: 'app-giagnosticos',
     templateUrl: './giagnosticos.component.html',
@@ -19,7 +19,7 @@ export class GiagnosticosComponent implements OnInit {
     form: FormGroup
     /*****PROPIEDADES del diagnositico**********/
     diagnosticoDialog: boolean;
-    diagnosticos: any[]=[];
+    diagnosticos: any[] = [];
     /******** PROPIEDADES de orientaciones******/
     data2: any[] = []; // data orientaciones
     isUpdate: boolean = false;
@@ -30,11 +30,11 @@ export class GiagnosticosComponent implements OnInit {
     /******PROPIEDADES DE DATOS ADICIONALES**********/
     form2: FormGroup; /*FORM DE ORIENTACIONES*/
     planPartoList: any[];
-    visitaDomiciliariaList:any[];
+    visitaDomiciliariaList: any[];
     formOtrosDatos: FormGroup;
     referencia: any;
     proxCita: any;
-    orientaciones: any[]=[];
+    orientaciones: any[] = [];
 
     /*******DATA AUX PARA RECUPERAR DE LA BD*******/
     dataAux: any;
@@ -43,24 +43,24 @@ export class GiagnosticosComponent implements OnInit {
     datePipe = new DatePipe('en-US');
     visitaDomiciliaria: any;
     /****** Data recuperada********/
-    private edadGestacional:any;
+    private edadGestacional: any;
     private planPartoReenfocada: any;
     private tipoDocRecuperado: any;
     private nroDocRecuperado: any;
-    private nroEmbarazo:any;
-    private nroHclRecuperado:any;
+    private nroEmbarazo: any;
+    private nroHclRecuperado: any;
     /********Lista tipo Dx*****/
-    tipoList:any[]= [];
+    tipoList: any[] = [];
     eleccion: any;
     private nroFetos = 0;
-    private idConsulta:any;
-    private encontradoDxTuberculosis:boolean=false;
+    private idConsulta: any;
+    private encontradoDxTuberculosis: boolean = false;
 
     constructor(private formBuilder: FormBuilder,
-                private obstetriciaService: ObstetriciaGeneralService,
-                private cieService: CieService,
-                private messageService: MessageService,
-                private DxService: ConsultasService) {
+        private obstetriciaService: ObstetriciaGeneralService,
+        private cieService: CieService,
+        private messageService: MessageService,
+        private DxService: ConsultasService) {
         this.buildForm();
         /*********RECUPERAR DATOS*********/
         this.tipoDocRecuperado = this.obstetriciaService.tipoDoc;
@@ -71,20 +71,20 @@ export class GiagnosticosComponent implements OnInit {
         this.nroHclRecuperado = this.obstetriciaService.nroHcl;
         /***************DATOS DE LOS DROPDOWNS*******************/
         /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
-        this.tipoList = [{label: 'DEFINITIVO', value: 'D'},
-            {label: 'PRESUNTIVO', value: 'P'},
-            {label: 'REPETITIVO', value: 'R'},
+        this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
+        { label: 'PRESUNTIVO', value: 'P' },
+        { label: 'REPETITIVO', value: 'R' },
 
         ];
-        this.planPartoList = [{label: 'CONTROL', value: 'CONTROL'},
-            {label: 'VISITA', value: 'VISITA'},
-            {label: 'NO SE HIZO', value: 'NO SE HIZO'},
-            {label: 'NO APLICA', value: 'NO APLICA'}
+        this.planPartoList = [{ label: 'CONTROL', value: 'CONTROL' },
+        { label: 'VISITA', value: 'VISITA' },
+        { label: 'NO SE HIZO', value: 'NO SE HIZO' },
+        { label: 'NO APLICA', value: 'NO APLICA' }
         ];
         this.visitaDomiciliariaList = [
-            {label: 'SI', value: 'SI'},
-            {label: 'NO', value: 'NO'},
-            {label: 'NO APLICA', value: 'NO APLICA'}
+            { label: 'SI', value: 'SI' },
+            { label: 'NO', value: 'NO' },
+            { label: 'NO APLICA', value: 'NO APLICA' }
         ];
     }
     ngOnInit() {
@@ -94,16 +94,14 @@ export class GiagnosticosComponent implements OnInit {
         console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
-
-
     }
-    recuperarNroFetos(){
+    recuperarNroFetos() {
         let idData = {
             id: this.idConsulta
         }
         this.DxService.getUltimaConsultaById(idData).subscribe((res: any) => {
             this.nroFetos = res.object.nroFetos;
-            console.log("nroFetos:",this.nroFetos)
+            console.log("nroFetos:", this.nroFetos)
         })
     }
     showModalDialog() {
@@ -112,48 +110,50 @@ export class GiagnosticosComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             diagnostico: ['', [Validators.required]],
-            tipo:['', [Validators.required]],
-        }),
-            this.form2 = this.formBuilder.group({
-                orientaciones: ['', [Validators.required]],
-            }),
-            this.formOtrosDatos = this.formBuilder.group({
-                consultorio: ['', [Validators.required]],
-                motivo: ['', [Validators.required]],
-                codRENAES: ['', [Validators.required]],
-                proxCita: ['', [Validators.required]],
-                planPartoReenfocada: ['', [Validators.required]],
-                visita: ['', [Validators.required]],
-                fechaVisita: ['', [Validators.required]]
-            })
+            tipo: ['', [Validators.required]],
+        });
+        this.form2 = this.formBuilder.group({
+            orientaciones: ['', [Validators.required]],
+        });
+        this.formOtrosDatos = this.formBuilder.group({
+            consultorio: ['', [Validators.required]],
+            motivo: ['', [Validators.required]],
+            codRENAES: ['', [Validators.required]],
+            proxCita: ['', [Validators.required]],
+            planPartoReenfocada: ['', [Validators.required]],
+            visita: ['', [Validators.required]],
+            fechaVisita: ['', [Validators.required]]
+        });
     }
     /*guardar datos de diagnosticos*/
     save1(form: any) {
         this.isUpdate = false;
-        let bandera:boolean = false;
+        let bandera: boolean = false;
         let dx = this.form.value.diagnostico.descripcionItem;
         let cie = this.form.value.diagnostico.codigoItem;
-        if (dx==" " || dx==null || dx==undefined)
-        {
-            this.messageService.add({severity:'info', summary:'Recuperado', detail:'Diagnostico no válido vuelva a ingresar.'});
-        }else{
-        /***verificar si ya ingreso este dx************/
-        for(let i=0;i<this.diagnosticos.length;i++)
-        {
-            if (this.diagnosticos[i].cie10===cie){bandera = true;
-            console.log(bandera)}
+        if (dx == " " || dx == null || dx == undefined) {
+            this.messageService.add({ severity: 'info', summary: 'Recuperado', detail: 'Diagnostico no válido vuelva a ingresar.' });
+        } else {
+            /***verificar si ya ingreso este dx************/
+            for (let i = 0; i < this.diagnosticos.length; i++) {
+                if (this.diagnosticos[i].cie10 === cie) {
+                    bandera = true;
+                    console.log(bandera)
+                }
+            }
+            /***si el dx es repetido -> mensaje si no ingresar al sistema***/
+            if (bandera === true) {
+                this.messageService.add({ severity: 'info', summary: 'Recuperado', detail: 'Diagnostico ya ingresado, ingrese otro porfavor.' });
+            }
+            else {
+                this.diagnosticos.push({
+                    diagnostico: dx,
+                    cie10: cie,
+                    tipo: this.form.value.tipo
+                }
+                )
+            }
         }
-        /***si el dx es repetido -> mensaje si no ingresar al sistema***/
-        if(bandera===true){
-            this.messageService.add({severity:'info', summary:'Recuperado', detail:'Diagnostico ya ingresado, ingrese otro porfavor.'});
-        }
-       else{
-           this.diagnosticos.push({
-               diagnostico: dx,
-               cie10: cie,
-               tipo: this.form.value.tipo
-           }
-           )}}
         this.diagnosticoDialog = false;
     }
     /******ABRIR DIALOGS DX****/
@@ -215,31 +215,35 @@ export class GiagnosticosComponent implements OnInit {
                 })
             }
         })
-
     }
     enviarDatosRefProxCita() {
         this.referencia = {
             consultorio: this.formOtrosDatos.value.consultorio,
-            motivo: this.formOtrosDatos.value.motivo,
-            codRENAES: this.formOtrosDatos.value.codRENAES
-        },
-        this.proxCita = {fecha:this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd')}
+            motivoReferencia: this.formOtrosDatos.value.motivo,
+            RENIPRESS: this.formOtrosDatos.value.codRENAES,
+            nombreIPRESS: null,
+            idRef : null,
+            DISA : null,
+            lote: null,
+            nroFormato : null
+        }
+        this.proxCita = { fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd') }
         this.visitaDomiciliaria = {
             estado: this.formOtrosDatos.value.visita,
-            fecha:  this.datePipe.transform(this.formOtrosDatos.value.fechaVisita, 'yyyy-MM-dd HH:mm:ss')
+            fecha: this.datePipe.transform(this.formOtrosDatos.value.fechaVisita, 'yyyy-MM-dd HH:mm:ss')
         }
         this.planPartoReenfocada = this.formOtrosDatos.value.planPartoReenfocada
     }
-    guardarDiagnosticosEmbarazo(){
-        let diagnosticosPorConsejeria: any[]=[];
-        let encontradoDxTuberculosis:boolean = false;
+    guardarDiagnosticosEmbarazo() {
+        let diagnosticosPorConsejeria: any[] = [];
+        let encontradoDxTuberculosis: boolean = false;
         let buscado = '2232';
-        for(let i = 0 ; i<= this.orientaciones.length;i++){
-            if(this.orientaciones[i] !=undefined || this.orientaciones[i] !=null) {
+        for (let i = 0; i <= this.orientaciones.length; i++) {
+            if (this.orientaciones[i] != undefined || this.orientaciones[i] != null) {
                 console.log(this.orientaciones[i]);
                 console.log(this.orientaciones[i].cie10);
-                console.log('buscado:' ,buscado);
-                if (this.orientaciones[i].cie10==="2232") {
+                console.log('buscado:', buscado);
+                if (this.orientaciones[i].cie10 === "2232") {
                     encontradoDxTuberculosis = true;
                     console.log('bandera es ', this.encontradoDxTuberculosis);
                 }
@@ -248,38 +252,37 @@ export class GiagnosticosComponent implements OnInit {
         }
         console.log('bandera es ', this.encontradoDxTuberculosis);
         console.log(this.edadGestacional);
-        let dx:any;
-        let cie10:any;
-        if(this.edadGestacional<=50){dx="GESTANTE CON FACTOR DE RIESGO CONTROL 3ER. TRIMESTRE (36 SEMANAS)", cie10="Z3593"}
-        if(this.edadGestacional<=27){dx="GESTANTE CON FACTOR DE RIESGO CONTROL 2DO. TRIMESTRE (24 SEMANAS)", cie10="Z3592"}
-        if(this.edadGestacional<=13){dx="GESTANTE CON FACTOR DE RIESGO CONTROL 1ER. TRIMESTRE (12 SEMANAS)",cie10="Z3591"}
+        let dx: any;
+        let cie10: any;
+        if (this.edadGestacional <= 50) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 3ER. TRIMESTRE (36 SEMANAS)", cie10 = "Z3593" }
+        if (this.edadGestacional <= 27) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 2DO. TRIMESTRE (24 SEMANAS)", cie10 = "Z3592" }
+        if (this.edadGestacional <= 13) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 1ER. TRIMESTRE (12 SEMANAS)", cie10 = "Z3591" }
         diagnosticosPorConsejeria.push({
-                diagnostico: dx,
-                cie10: cie10,
-                tipo: 'D'
+            diagnostico: dx,
+            cie10: cie10,
+            tipo: 'D'
 
         })
         console.log(encontradoDxTuberculosis);
-        if(encontradoDxTuberculosis)
-        {
+        if (encontradoDxTuberculosis) {
             diagnosticosPorConsejeria.push({
-            diagnostico: 'TBC PULMONAR BK (+)',
-            cie10: 'A150',
-            tipo: 'P'
+                diagnostico: 'TBC PULMONAR BK (+)',
+                cie10: 'A150',
+                tipo: 'P'
             })
         }
 
-        const req={
-            id:this.idConsultoriObstetrico,
-            nroHcl:this.nroHclRecuperado,
-            nroEmbarazo:this.nroEmbarazo,
-            nroAtencion:1,
+        const req = {
+            id: this.idConsultoriObstetrico,
+            nroHcl: this.nroHclRecuperado,
+            nroEmbarazo: this.nroEmbarazo,
+            nroAtencion: 1,
             // nroControlSis: 1,
             tipoDoc: this.tipoDocRecuperado,
             nroDoc: this.nroDocRecuperado,
-            diagnosticos:diagnosticosPorConsejeria
+            diagnosticos: diagnosticosPorConsejeria
         }
-        this.DxService.updateConsultas(this.nroFetos,req).subscribe(
+        this.DxService.updateConsultas(this.nroFetos, req).subscribe(
             (resp) => {
                 console.log(resp);
                 console.log(req);
@@ -288,22 +291,30 @@ export class GiagnosticosComponent implements OnInit {
     guardarTodosDatos() {
         this.enviarDatosRefProxCita();
         const req = {
-            id:this.idConsultoriObstetrico,
-            nroHcl:this.nroHclRecuperado,
-            nroEmbarazo:this.nroEmbarazo,
-            nroAtencion:1,
+            id: this.idConsultoriObstetrico,
+            nroHcl: this.nroHclRecuperado,
+            nroEmbarazo: this.nroEmbarazo,
+            nroAtencion: 1,
             // nroControlSis: 1,
             tipoDoc: this.tipoDocRecuperado,
             nroDoc: this.nroDocRecuperado,
             referencia: this.referencia,
-            proxCita: this.proxCita,
-            visitaDomiciliaria:this.visitaDomiciliaria,
-            planPartoReenfocada:this.planPartoReenfocada,
-            diagnosticos:this.diagnosticos
+            visitaDomiciliaria: this.visitaDomiciliaria,
+            planParto: this.planPartoReenfocada,
+            diagnosticos: this.diagnosticos,
+            citas: [
+                {
+                    fecha: this.proxCita,
+                    motivo: "próxima cita",
+                    servicio: "OBSTETRICIA",
+                    estado: "TENTATIVO",
+                    nivelUrgencia: "4"
+                }
+            ],
 
         }
 
-        this.DxService.updateConsultas(this.nroFetos,req).subscribe(
+        this.DxService.updateConsultas(this.nroFetos, req).subscribe(
             (resp) => {
                 console.log(resp);
                 console.log(req);
@@ -318,28 +329,28 @@ export class GiagnosticosComponent implements OnInit {
             }
         )
     }
-    recuperarDatosGuardados(){
-        let aux ={
-            "id" : this.idConsultoriObstetrico,
-            "nroHcl":this.nroHclRecuperado,
-            "nroEmbarazo":this.nroEmbarazo,
-            "nroAtencion":1
+    recuperarDatosGuardados() {
+        let aux = {
+            "id": this.idConsultoriObstetrico,
+            "nroHcl": this.nroHclRecuperado,
+            "nroEmbarazo": this.nroEmbarazo,
+            "nroAtencion": 1
         }
         this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
             this.dataAux = res.object;
-            console.log("data consulta:" +this.dataAux);
+            console.log("data consulta:" + this.dataAux);
 
-            if(res['cod']='2401') {
-                if(this.dataAux!=null){
+            if (res['cod'] = '2401') {
+                if (this.dataAux != null) {
                     console.log(this.dataAux);
-                        this.messageService.add({
-                            severity: 'info',
-                            summary: 'Recuperado',
-                            detail: 'Registro recuperado satisfactoriamente'
-                        });
+                    this.messageService.add({
+                        severity: 'info',
+                        summary: 'Recuperado',
+                        detail: 'Registro recuperado satisfactoriamente'
+                    });
 
                     /**********************RECUPERAR DATOS DE ORIENTACIONES********/
-                    if(this.dataAux.orientaciones!=null) {
+                    if (this.dataAux.orientaciones != null) {
                         let y: number = 0;
                         console.log(this.dataAux.orientaciones);
                         // this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro de orientaciones recuperado satisfactoriamente'});
@@ -351,35 +362,34 @@ export class GiagnosticosComponent implements OnInit {
                             y++;
                         }
                     }
-                    if(this.dataAux.referencia != null){
-                            this.formOtrosDatos.patchValue({'consultorio': this.dataAux.referencia.consultorio});
-                            this.formOtrosDatos.patchValue({'motivo': this.dataAux.referencia.motivo});
-                            this.formOtrosDatos.patchValue({'codRENAES': this.dataAux.referencia.codRENAES});
-                        }
+                    if (this.dataAux.referencia != null) {
+                        this.formOtrosDatos.patchValue({ 'consultorio': this.dataAux.referencia.consultorio });
+                        this.formOtrosDatos.patchValue({ 'motivo': this.dataAux.referencia.motivo });
+                        this.formOtrosDatos.patchValue({ 'codRENAES': this.dataAux.referencia.codRENAES });
+                    }
                     /****************RECUPERAR EDAD GESTACIONAL********************/
-                    console.log("edad gestacional:" , this.dataAux.edadGestacionalSemanas);
-                    if(this.dataAux.edadGestacionalSemanas===null || this.dataAux.edadGestacionalSemanas === undefined)
-                    {
-                        this.edadGestacional=0;
-                    }else{
+                    console.log("edad gestacional:", this.dataAux.edadGestacionalSemanas);
+                    if (this.dataAux.edadGestacionalSemanas === null || this.dataAux.edadGestacionalSemanas === undefined) {
+                        this.edadGestacional = 0;
+                    } else {
                         this.edadGestacional = this.dataAux.edadGestacionalSemanas;
                     }
                     console.log(this.edadGestacional);
                     this.guardarDiagnosticosEmbarazo();
-                        /************************RECUPERAR DATOS EXTRA**************************/
-                    if (this.dataAux.proxCita!=null){
-                        this.formOtrosDatos.patchValue({'proxCita': this.dataAux.proxCita.fecha});
+                    /************************RECUPERAR DATOS EXTRA**************************/
+                    if (this.dataAux.proxCita != null) {
+                        this.formOtrosDatos.patchValue({ 'proxCita': this.dataAux.proxCita.fecha });
                     }
-                    if(this.dataAux.visitaDomiciliaria!=null){
-                        this.formOtrosDatos.patchValue({'visita': this.dataAux.visitaDomiciliaria.estado});
-                        this.formOtrosDatos.patchValue({'fechaVisita': this.dataAux.visitaDomiciliaria.fecha});
+                    if (this.dataAux.visitaDomiciliaria != null) {
+                        this.formOtrosDatos.patchValue({ 'visita': this.dataAux.visitaDomiciliaria.estado });
+                        this.formOtrosDatos.patchValue({ 'fechaVisita': this.dataAux.visitaDomiciliaria.fecha });
                     }
-                    if(this.dataAux.planPartoReenfocada){
-                        this.formOtrosDatos.patchValue({'planPartoReenfocada': this.dataAux.planPartoReenfocada});
+                    if (this.dataAux.planPartoReenfocada) {
+                        this.formOtrosDatos.patchValue({ 'planPartoReenfocada': this.dataAux.planPartoReenfocada });
 
                     }
                     /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
-                    if(this.dataAux.diagnosticos!=null) {
+                    if (this.dataAux.diagnosticos != null) {
                         let x: number = 0;
                         while (x < this.dataAux.diagnosticos.length) {
 
@@ -390,7 +400,7 @@ export class GiagnosticosComponent implements OnInit {
                     }
 
 
-            } else{this.messageService.add({severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía'});}
+                } else { this.messageService.add({ severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía' }); }
             }
         });
     }
