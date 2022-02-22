@@ -345,17 +345,20 @@
                                         <th>Nro</th>
                                         <th>Nombre</th>
                                         <th>Resultado</th>
+                                        <th>Detalle</th>
                                         <th style="text-align: center; width:4rem">Acción</th>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-otrosExam let-i="rowIndex">
                                     <tr>
                                         <td>{{ i + 1}}</td>
-                                        <td>{{otrosExam.funcion}}</td>
+                                        <td>{{otrosExam.nombreExamen}}</td>
                                         <td>{{otrosExam.valor}}</td>
+                                        <td>{{otrosExam.detalle}}</td>
                                         <td>
-                                            <button pButton pRipple class="p-button-danger botones" icon="pi pi-times"
-                                                label="Eliminar" (click)="eliminarExamFisicos(i)"></button>
+                                            <button pButton pRipple type="button" icon="pi pi-trash"
+                                                class="p-button-rounded p-button-danger"
+                                                (click)="eliminarExamFisicos(i)"></button>
                                         </td>
                                     </tr>
                                 </ng-template>
