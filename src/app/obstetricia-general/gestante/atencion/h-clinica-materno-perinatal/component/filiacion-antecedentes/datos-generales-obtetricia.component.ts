@@ -12,21 +12,6 @@ import Swal from "sweetalert2";
 })
 export class DatosGeneralesObtetriciaComponent implements OnInit {
 
-
-    // // @ViewChild('network', {static: false})
-    // @ViewChild('visNetwork', {static: false})
-    // visNetwork!: ElementRef;
-    // private networkInstance: any;
-
-    @ViewChild('canvasEl', {static: true})
-    canvasEl: ElementRef<HTMLCanvasElement>;
-
-    // @ViewChild('canvasEl') canvasEl: ElementRef<HTMLCanvasElement>;
-
-    /**Canvas 2d context*/
-    private context: CanvasRenderingContext2D;
-
-
     /**Antecedentes Personales**/
     otrosAntecedentesFamiliares: string;
     otrosAntecedentesFamiliares2: string[] = [];
@@ -96,15 +81,15 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     formAntecedentesObstetricos: FormGroup;
 
     gestas = 0;
-    abortos = 0;
+    abortos: number = 0;
     partos = 0;
-    vaginales = 0;
-    cesarias = 0;
+    vaginales: number = 0;
+    cesarias: number = 0;
+    nacidosMuertos: number = 0;
+    viven: number = 0;
+    muertoPrimeraSemana: number = 0;
+    despuesPrimeraSemana: number = 0;
     nacidosVivos = 0;
-    nacidosMuertos = 0;
-    viven = 0;
-    muertoPrimeraSemana = 0;
-    despuesPrimeraSemana = 0;
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
@@ -178,6 +163,155 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         this.formAntecedentesObstetricos.get('partos').setValue(this.partos);
         this.abortos = this.formAntecedentesObstetricos.value.abortos;
         this.gestas = (this.abortos + this.partos);
+    }
+
+    SumaNacidosVivos() {
+        this.nacidosVivos = ((this.viven * 1) + (this.muertoPrimeraSemana * 1) + (this.despuesPrimeraSemana * 1));
+    }
+    SumaPatos() {
+        this.partos = ((this.vaginales * 1) + (this.cesarias * 1));
+    }
+    SumaGetas() {
+        this.gestas = ((this.abortos * 1) + (this.partos * 1))
+    }
+    async inputViven() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Viven',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.viven = text
+            this.SumaNacidosVivos()
+            console.log(this.SumaNacidosVivos())
+
+        }
+
+    }
+    async inputMueroPrimeraSemana() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Muerto 1ra semana',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.muertoPrimeraSemana = text
+            this.SumaNacidosVivos()
+
+        }
+    }
+    async inputDespuesPrimeraSemana() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Después 1ra semana',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.despuesPrimeraSemana = text
+            this.SumaNacidosVivos()
+
+        }
+    }
+    async inputNacidosMuertos() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Nacidos Muertos',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.nacidosMuertos = text
+        }
+    }
+    async inputVaginales() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Vaginales',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.vaginales = text
+            this.SumaPatos()
+            this.SumaGetas()
+        }
+    }
+    async inputCesarias() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Cesarias',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.cesarias = text
+            this.SumaPatos()
+            this.SumaGetas()
+        }
+    }
+    async inputAborto() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese un numero',
+            width: '300px',
+
+            inputPlaceholder: 'Abortos',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.abortos = text
+            this.SumaGetas()
+        }
     }
 
     inicializarAregloAntfamiliares(): void {
