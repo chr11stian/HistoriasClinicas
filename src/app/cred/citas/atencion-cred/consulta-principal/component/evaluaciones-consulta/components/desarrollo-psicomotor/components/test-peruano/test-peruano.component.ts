@@ -6,7 +6,7 @@ import {DatePipe} from "@angular/common";
 import {dato} from "../../../../../../../../models/data";
 import {ConsultaGeneralService} from "../../../../../../services/consulta-general.service";
 import {MessageService} from "primeng/api";
-import {element} from "protractor";
+
 
 @Component({
   selector: 'app-test-peruano',
