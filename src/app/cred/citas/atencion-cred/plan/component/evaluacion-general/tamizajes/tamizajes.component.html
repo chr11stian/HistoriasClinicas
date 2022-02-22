@@ -1,1 +1,37 @@
-<p>tamizajes works!</p>
+<div>
+    <div class="tabla">
+        <p-card header="TAMIZAJES NIÑO(A)"></p-card>
+    </div>
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <span class="p-m-0">RESULTADOS DE LOS TAMIZAJES DESARROLLADOS EN CONSULTAS</span>
+        </div>
+
+    </p-toolbar>
+    <p-table class="table-over" [value]="listaTamizajes" #dt styleClass="p-datatable-gridlines" [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50]"
+             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="text-align: center" class="font-2">Nro</th>
+                <th style="text-align: center" class="font-2">FECHA</th>
+                <th style="text-align: center" class="font-2">EDAD TOMADA EL TEST</th>
+                <th style="text-align: center" class="font-2">ACCIÓN</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.fecha | date: 'dd-MM-yyyy HH:mm:ss'}} </td>
+                <td style="text-align: center">{{ rowData.anio }}  año(s) {{rowData.mes}} mes(es) {{rowData.dia}} dia(s)</td>
+                <td style="text-align: center">
+                    <button pButton (click)="openTamizajes(rowData.idTamizaje)" pTooltip="Visualizar" pRipple type="button"
+                            icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>

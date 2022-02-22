@@ -28,10 +28,7 @@ export class EvalAlimenService {
   lastEvaluacionAlimenticiaCred(nroDoc){
     return this.http.get(`${this.base_url}/${this.bd}/cred/evaluacion/alimentacion/ultima/${nroDoc}`);
   }
-  /** SERVICIOS DE TEST PERUANO**/
-  listarTestPeruanoPlan(nroDoc){
-    return this.http.get(`${this.base_url}/${this.bd}/cred/evaluacion/desarrollo/0/30/meses/listar/${nroDoc}`);
-  }
+
   getProductsSmall() {
     return this.http.get<any>('assets/data/products-small.json')
         .toPromise()

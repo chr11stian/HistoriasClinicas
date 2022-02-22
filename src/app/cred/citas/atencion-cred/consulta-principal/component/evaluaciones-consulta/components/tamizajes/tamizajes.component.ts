@@ -11,26 +11,34 @@ import {dato} from "../../../../../../models/data";
 })
 export class TamizajesComponent implements OnInit {
   formTamizajeCred: FormGroup;
+  formTamizajeAuditivo:FormGroup;
+  formTamizajeVIF:FormGroup;
+  formTamizajeVisual:FormGroup;
   listaPruebasVisuales: any[] = [];
   displayMaximizable: boolean;
   attributeLocalS = 'documento';
   data:dato;
-  sino = [
-    {label: 'SI', value: 'si'},
-    {label: 'NO', value: 'no'}
-  ];
-  facil = [
-    {label: 'facil', value: 'facil'},
-    {label: 'dificil', value: 'dificil'}
-  ];
-  idConsulta = '6206f0460318fd575a0b4f6b';
-  consideraFacil: boolean = false;
+  diagnosticoR: any[]=[];
+  sino :any[]=[];
+  facil:any[]=[];
   tamizajes:any;
-  idFichaTamizaje = "6206f0460318fd575a0b4f6b";
+  idFichaTamizaje:string="";
   tamizajesActualizar:any;
   constructor(private formBuilder: FormBuilder,
               private evalAlimenService: EvaluacionAlimentacionService) {
     this.builForm();
+    this.diagnosticoR = [
+      {name: 'POSITIVO (+)', diagnostico: 'POSITIVO'},
+      {name: 'NEGATIVO (-)', diagnostico: 'NEGATIVO'}
+    ];
+    this.sino = [
+      {label: 'SI', value: 'si'},
+      {label: 'NO', value: 'no'}
+    ];
+    this.facil = [
+      {label: 'facil', value: 'facil'},
+      {label: 'dificil', value: 'dificil'}
+    ];
   }
 
   ngOnInit(): void {
@@ -104,67 +112,143 @@ export class TamizajesComponent implements OnInit {
   }
 
   builForm() {
+    this.formTamizajeAuditivo=this.formBuilder.group({
+      prematuro:new FormControl(false),
+      uci:new FormControl(false),
+      billirubina: new FormControl(false),
+      perdidaAudicion:new FormControl(false),
+      infeccionOido:new FormControl(false),
+      meningitis:new FormControl(false),
+      expuestoSonido:new FormControl(false),
+      diagnosticoAuditivo:new FormControl(''),
+      tamizajeAuditivo:new FormControl('')
+    })
+    this.formTamizajeVIF=this.formBuilder.group({
+      /***otras preguntas***/
+      hayViolencia: new FormControl(false),
+      alguienInsulta:new FormControl(false),
+      alguienGolpea:new FormControl(false),
+      alguienChantajea:new FormControl(false),
+      obligaRS:new FormControl(false),
+      quienObligaRS:new FormControl(false),
+      hijoFacil:new FormControl(false),
+      pierdeControl: new FormControl(false),
+      pega: new FormControl(false),
+      grita: new FormControl(false),
+      encierra: new FormControl(false),
+      empuja: new FormControl(false),
+      esDesobediente:new FormControl(false),
+      /******fisico*****/
+      tieneHematomas: new FormControl(false),
+      tieneCicatrices: new FormControl(false),
+      tieneFacturas: new FormControl(false),
+      tieneMarcas: new FormControl(false),
+      tieneLesiones: new FormControl(false),
+      tieneLaceraciones: new FormControl(false),
+      tieneQuejasCronicas: new FormControl(false),
+      tieneProblemasApetito: new FormControl(false),
+      tieneEnuresis: new FormControl(false),
+      /***psicologico***/
+      tieneFalta: new FormControl(false),
+      tieneTristeza: new FormControl(false),
+      tieneRetraimiento: new FormControl(false),
+      tieneLlanto: new FormControl(false),
+      tieneNecesidad: new FormControl(false),
+      tieneDemanda: new FormControl(false),
+      tieneAgresividad: new FormControl(false),
+      tieneTartamudeo: new FormControl(false),
+      tieneTemor: new FormControl(false),
+      Roba: new FormControl(false),
+      tieneAutismo: new FormControl(false),
+      llegaTarde: new FormControl(false),
+      bajoRendimiento: new FormControl(false),
+      seAisla: new FormControl(false),
+      intentaSuicidio: new FormControl(false),
+      /***negligencia***/
+      faltaPeso: new FormControl(false),
+      noVacunado: new FormControl(false),
+      tieneAccidentes: new FormControl(false),
+      esDescuidado: new FormControl(false),
+      faltaEstimulacion: new FormControl(false),
+      /****sexuales*****/
+      conductaInapropiada: new FormControl(false),
+      tieneIrritacion: new FormControl(false),
+      tieneEnfermedad: new FormControl(false),
+      /**diagnostico vif**/
+      diagnosticoVIF:new FormControl(false),
+      tamizajeMental: new FormControl(false)
+    })
+    this.formTamizajeVisual=this.formBuilder.group({
+      ojoDerecho: new FormControl(0),
+      ojoIzquierdo: new FormControl(0),
+      descripcionTamizajeOcular: new FormControl(''),
+      diagnosticoVisual:new FormControl('')
+    })
     this.formTamizajeCred = this.formBuilder.group({
       tamizajeAuditivo: new FormControl(''),
-      prematuro: new FormControl(''),
-      hayViolencia: new FormControl(''),
-      alguienInsulta: new FormControl(''),
-      alguienGolpea: new FormControl(''),
-      alguienChantajea: new FormControl(''),
-      obligaRS: new FormControl(''),
-      hijoFacil: new FormControl(''),
-      pierdeControl: new FormControl(''),
-      pega: new FormControl(''),
-      grita: new FormControl(''),
-      encierra: new FormControl(''),
-      esDesobediente: new FormControl(''),
-      tieneHematomas: new FormControl(''),
-      tieneCicatrices: new FormControl(''),
-      tieneFacturas: new FormControl(''),
-      tieneMarcas: new FormControl(''),
-      tieneLesiones: new FormControl(''),
-      tieneLaceraciones: new FormControl(''),
-      tieneQuejasCronicas: new FormControl(''),
-      tieneProblemasApetito: new FormControl(''),
-      tieneEnuresis: new FormControl(''),
-      tieneFalta: new FormControl(''),
-      tieneTristeza: new FormControl(''),
-      tieneRetraimiento: new FormControl(''),
-      tieneLlanto: new FormControl(''),
-      tieneNecesidad: new FormControl(''),
-      tieneDemanda: new FormControl(''),
-      tieneAgresividad: new FormControl(''),
-      tieneTartamudeo: new FormControl(''),
-      tieneTemor: new FormControl(''),
-      Roba: new FormControl(''),
-      tieneAutismo: new FormControl(''),
-      llegaTarde: new FormControl(''),
-      bajoRendimiento: new FormControl(''),
-      seAisla: new FormControl(''),
-      intentaSuicidio: new FormControl(''),
-      faltaPeso: new FormControl(''),
-      noVacunado: new FormControl(''),
-      tieneAccidentes: new FormControl(''),
-      esDescuidado: new FormControl(''),
-      faltaEstimulacion: new FormControl(''),
-      tieneFatiga: new FormControl(''),
-      conductaInapropiada: new FormControl(''),
-      tieneIrritacion: new FormControl(''),
-      tieneEnfermedad: new FormControl(''),
-      tamizajeMental: new FormControl(''),
-      ojoDerecho: new FormControl(''),
-      ojoIzquierdo: new FormControl(''),
-      descripcionTamizajeOcular: new FormControl(''),
-      estomatologico: new FormControl(''),
-      expuestoSonido: new FormControl(''),
-      meningitis: new FormControl(''),
-      infeccionOido: new FormControl(''),
-      perdidaAudicion: new FormControl(''),
-      billirubina: new FormControl(''),
-      uci: new FormControl(''),
-      empuja: new FormControl(''),
+      prematuro: new FormControl(false),
+      hayViolencia: new FormControl(false),
+      alguienInsulta: new FormControl(false),
+      alguienGolpea: new FormControl(false),
+      alguienChantajea: new FormControl(false),
+      obligaRS: new FormControl(false),
+      hijoFacil: new FormControl(false),
+      pierdeControl: new FormControl(false),
+      pega: new FormControl(false),
+      grita: new FormControl(false),
+      encierra: new FormControl(false),
+      esDesobediente: new FormControl(false),
+      tieneHematomas: new FormControl(false),
+      tieneCicatrices: new FormControl(false),
+      tieneFacturas: new FormControl(false),
+      tieneMarcas: new FormControl(false),
+      tieneLesiones: new FormControl(false),
+      tieneLaceraciones: new FormControl(false),
+      tieneQuejasCronicas: new FormControl(false),
+      tieneProblemasApetito: new FormControl(false),
+      tieneEnuresis: new FormControl(false),
+      tieneFalta: new FormControl(false),
+      tieneTristeza: new FormControl(false),
+      tieneRetraimiento: new FormControl(false),
+      tieneLlanto: new FormControl(false),
+      tieneNecesidad: new FormControl(false),
+      tieneDemanda: new FormControl(false),
+      tieneAgresividad: new FormControl(false),
+      tieneTartamudeo: new FormControl(false),
+      tieneTemor: new FormControl(false),
+      Roba: new FormControl(false),
+      tieneAutismo: new FormControl(false),
+      llegaTarde: new FormControl(false),
+      bajoRendimiento: new FormControl(false),
+      seAisla: new FormControl(false),
+      intentaSuicidio: new FormControl(false),
+      faltaPeso: new FormControl(false),
+      noVacunado: new FormControl(false),
+      tieneAccidentes: new FormControl(false),
+      esDescuidado: new FormControl(false),
+      faltaEstimulacion: new FormControl(false),
+      tieneFatiga: new FormControl(false),
+      conductaInapropiada: new FormControl(false),
+      tieneIrritacion: new FormControl(false),
+      tieneEnfermedad: new FormControl(false),
+      tamizajeMental: new FormControl(false),
+      ojoDerecho: new FormControl(false),
+      ojoIzquierdo: new FormControl(false),
+      descripcionTamizajeOcular: new FormControl(false),
+      estomatologico: new FormControl(false),
+      expuestoSonido: new FormControl(false),
+      meningitis: new FormControl(false),
+      infeccionOido: new FormControl(false),
+      perdidaAudicion: new FormControl(false),
+      billirubina: new FormControl(false),
+      uci: new FormControl(false),
+      empuja: new FormControl(false),
       quienObligaRS: new FormControl(''),
       consideraFacil: new FormControl(''),
+      diagnosticoAuditivo:new FormControl(''),
+      diagnosticoVisual:new FormControl(''),
+      diagnosticoVIF:new FormControl('')
+
     })
   }
 
@@ -188,97 +272,97 @@ export class TamizajesComponent implements OnInit {
 
 
       /********** RECUPERAR TAMIZAJE VIF**************/
-      this.formTamizajeCred.get('hayViolencia').setValue(otrasPreguntas[0].valor);
-      this.formTamizajeCred.get('alguienInsulta').setValue(otrasPreguntas[1].valor);
-      this.formTamizajeCred.get('alguienGolpea').setValue(otrasPreguntas[2].valor);
-      this.formTamizajeCred.get('alguienChantajea').setValue(otrasPreguntas[3].valor);
-      this.formTamizajeCred.get('obligaRS').setValue(otrasPreguntas[4].valor);
-      this.formTamizajeCred.get('quienObligaRS').setValue(otrasPreguntas[4].descripcion);
-      if(otrasPreguntas[4].valor='facil'){this.formTamizajeCred.get('hijoFacil').setValue('facil');}
+      this.formTamizajeVIF.get('hayViolencia').setValue(otrasPreguntas[0].valor);
+      this.formTamizajeVIF.get('alguienInsulta').setValue(otrasPreguntas[1].valor);
+      this.formTamizajeVIF.get('alguienGolpea').setValue(otrasPreguntas[2].valor);
+      this.formTamizajeVIF.get('alguienChantajea').setValue(otrasPreguntas[3].valor);
+      this.formTamizajeVIF.get('obligaRS').setValue(otrasPreguntas[4].valor);
+      this.formTamizajeVIF.get('quienObligaRS').setValue(otrasPreguntas[4].descripcion);
+      if(otrasPreguntas[4].valor='facil'){this.formTamizajeVIF.get('hijoFacil').setValue('facil');}
       else{
-          this.formTamizajeCred.get('hijoFacil').setValue('dificil');
+          this.formTamizajeVIF.get('hijoFacil').setValue('dificil');
       }
-      this.formTamizajeCred.get('pierdeControl').setValue(otrasPreguntas[6].valor);
+      this.formTamizajeVIF.get('pierdeControl').setValue(otrasPreguntas[6].valor);
       if(otrasPreguntas[7].valor=='si'){
-        this.formTamizajeCred.get('pega').setValue(true);
+        this.formTamizajeVIF.get('pega').setValue(true);
       }
       if(otrasPreguntas[8].valor='si'){
-        this.formTamizajeCred.get('grita').setValue(true);
+        this.formTamizajeVIF.get('grita').setValue(true);
       }
       if(otrasPreguntas[9].valor=='si'){
-        this.formTamizajeCred.get('empuja').setValue(true);
+        this.formTamizajeVIF.get('empuja').setValue(true);
       }
       if(otrasPreguntas[10].valor=='si'){
-        this.formTamizajeCred.get('encierra').setValue(true);
+        this.formTamizajeVIF.get('encierra').setValue(true);
       }
-      this.formTamizajeCred.get('esDesobediente').setValue(otrasPreguntas[11].valor);
+      this.formTamizajeVIF.get('esDesobediente').setValue(otrasPreguntas[11].valor);
 
 
       /********fisico************/
-      if(fisico[0].valor=='si'){this.formTamizajeCred.get('tieneHematomas').setValue(true);}
-      if(fisico[1].valor=='si'){this.formTamizajeCred.get('tieneCicatrices').setValue(true);}
-      if(fisico[2].valor=='si'){this.formTamizajeCred.get('tieneFacturas').setValue(true);}
-      if(fisico[3].valor=='si'){this.formTamizajeCred.get('tieneMarcas').setValue(true);}
-      if(fisico[4].valor=='si'){this.formTamizajeCred.get('tieneLesiones').setValue(true);}
-      if(fisico[5].valor=='si'){this.formTamizajeCred.get('tieneLaceraciones').setValue(true);}
-      if(fisico[6].valor=='si'){this.formTamizajeCred.get('tieneQuejasCronicas').setValue(true);}
-      if(fisico[7].valor=='si'){this.formTamizajeCred.get('tieneProblemasApetito').setValue(true);}
-      if(fisico[8].valor=='si'){this.formTamizajeCred.get('tieneEnuresis').setValue(true);}
+      if(fisico[0].valor=='si'){this.formTamizajeVIF.get('tieneHematomas').setValue(true);}
+      if(fisico[1].valor=='si'){this.formTamizajeVIF.get('tieneCicatrices').setValue(true);}
+      if(fisico[2].valor=='si'){this.formTamizajeVIF.get('tieneFacturas').setValue(true);}
+      if(fisico[3].valor=='si'){this.formTamizajeVIF.get('tieneMarcas').setValue(true);}
+      if(fisico[4].valor=='si'){this.formTamizajeVIF.get('tieneLesiones').setValue(true);}
+      if(fisico[5].valor=='si'){this.formTamizajeVIF.get('tieneLaceraciones').setValue(true);}
+      if(fisico[6].valor=='si'){this.formTamizajeVIF.get('tieneQuejasCronicas').setValue(true);}
+      if(fisico[7].valor=='si'){this.formTamizajeVIF.get('tieneProblemasApetito').setValue(true);}
+      if(fisico[8].valor=='si'){this.formTamizajeVIF.get('tieneEnuresis').setValue(true);}
       /********psicologico*******/
 
-      if(psicologico[0].valor=='si'){this.formTamizajeCred.get('tieneFalta').setValue(true);}
-      if(psicologico[1].valor=='si'){this.formTamizajeCred.get('tieneTristeza').setValue(true);}
-      if(psicologico[2].valor=='si'){this.formTamizajeCred.get('tieneRetraimiento').setValue(true);}
-      if(psicologico[3].valor=='si'){this.formTamizajeCred.get('tieneLlanto').setValue(true);}
-      if(psicologico[4].valor=='si'){this.formTamizajeCred.get('tieneNecesidad').setValue(true);}
-      if(psicologico[5].valor=='si'){this.formTamizajeCred.get('tieneDemanda').setValue(true);}
-      if(psicologico[6].valor=='si'){this.formTamizajeCred.get('tieneAgresividad').setValue(true);}
-      if(psicologico[7].valor=='si'){this.formTamizajeCred.get('tieneTartamudeo').setValue(true);}
-      if(psicologico[8].valor=='si'){this.formTamizajeCred.get('tieneTemor').setValue(true);}
-      if(psicologico[9].valor=='si'){this.formTamizajeCred.get('Roba').setValue(true);}
-      if(psicologico[10].valor=='si'){this.formTamizajeCred.get('tieneAutismo').setValue(true);}
-      if(psicologico[11].valor=='si'){this.formTamizajeCred.get('llegaTarde').setValue(true);}
-      if(psicologico[12].valor=='si'){this.formTamizajeCred.get('bajoRendimiento').setValue(true);}
-      if(psicologico[13].valor=='si'){this.formTamizajeCred.get('seAisla').setValue(true);}
-      if(psicologico[14].valor=='si'){this.formTamizajeCred.get('intentaSuicidio').setValue(true);}
+      if(psicologico[0].valor=='si'){this.formTamizajeVIF.get('tieneFalta').setValue(true);}
+      if(psicologico[1].valor=='si'){this.formTamizajeVIF.get('tieneTristeza').setValue(true);}
+      if(psicologico[2].valor=='si'){this.formTamizajeVIF.get('tieneRetraimiento').setValue(true);}
+      if(psicologico[3].valor=='si'){this.formTamizajeVIF.get('tieneLlanto').setValue(true);}
+      if(psicologico[4].valor=='si'){this.formTamizajeVIF.get('tieneNecesidad').setValue(true);}
+      if(psicologico[5].valor=='si'){this.formTamizajeVIF.get('tieneDemanda').setValue(true);}
+      if(psicologico[6].valor=='si'){this.formTamizajeVIF.get('tieneAgresividad').setValue(true);}
+      if(psicologico[7].valor=='si'){this.formTamizajeVIF.get('tieneTartamudeo').setValue(true);}
+      if(psicologico[8].valor=='si'){this.formTamizajeVIF.get('tieneTemor').setValue(true);}
+      if(psicologico[9].valor=='si'){this.formTamizajeVIF.get('Roba').setValue(true);}
+      if(psicologico[10].valor=='si'){this.formTamizajeVIF.get('tieneAutismo').setValue(true);}
+      if(psicologico[11].valor=='si'){this.formTamizajeVIF.get('llegaTarde').setValue(true);}
+      if(psicologico[12].valor=='si'){this.formTamizajeVIF.get('bajoRendimiento').setValue(true);}
+      if(psicologico[13].valor=='si'){this.formTamizajeVIF.get('seAisla').setValue(true);}
+      if(psicologico[14].valor=='si'){this.formTamizajeVIF.get('intentaSuicidio').setValue(true);}
       /********negligencia*******/
-      if(negligencia[0].valor=='si'){this.formTamizajeCred.get('faltaPeso').setValue(true);}
-      if(negligencia[1].valor=='si'){this.formTamizajeCred.get('noVacunado').setValue(true);}
-      if(negligencia[2].valor=='si'){this.formTamizajeCred.get('tieneAccidentes').setValue(true);}
-      if(negligencia[3].valor=='si'){this.formTamizajeCred.get('esDescuidado').setValue(true);}
-      if(negligencia[4].valor=='si'){this.formTamizajeCred.get('faltaEstimulacion').setValue(true);}
-      if(negligencia[5].valor=='si'){this.formTamizajeCred.get('tieneFatiga').setValue(true);}
+      if(negligencia[0].valor=='si'){this.formTamizajeVIF.get('faltaPeso').setValue(true);}
+      if(negligencia[1].valor=='si'){this.formTamizajeVIF.get('noVacunado').setValue(true);}
+      if(negligencia[2].valor=='si'){this.formTamizajeVIF.get('tieneAccidentes').setValue(true);}
+      if(negligencia[3].valor=='si'){this.formTamizajeVIF.get('esDescuidado').setValue(true);}
+      if(negligencia[4].valor=='si'){this.formTamizajeVIF.get('faltaEstimulacion').setValue(true);}
+      if(negligencia[5].valor=='si'){this.formTamizajeVIF.get('tieneFatiga').setValue(true);}
       /********sexuales**********/
-      if(sexuales[0].valor=='si'){this.formTamizajeCred.get('conductaInapropiada').setValue(true);}
-      if(sexuales[1].valor=='si'){this.formTamizajeCred.get('tieneIrritacion').setValue(true);}
-      if(sexuales[2].valor=='si'){this.formTamizajeCred.get('tieneEnfermedad').setValue(true);}
+      if(sexuales[0].valor=='si'){this.formTamizajeVIF.get('conductaInapropiada').setValue(true);}
+      if(sexuales[1].valor=='si'){this.formTamizajeVIF.get('tieneIrritacion').setValue(true);}
+      if(sexuales[2].valor=='si'){this.formTamizajeVIF.get('tieneEnfermedad').setValue(true);}
       this.formTamizajeCred.get('tamizajeMental').setValue(resultado.valor);
       /*******RECUPERAR ALTERACIONES VISUALES******/
-      this.formTamizajeCred.get('ojoDerecho').setValue(alteracionVisual.ojoDerecho);
-      this.formTamizajeCred.get('ojoIzquierdo').setValue(alteracionVisual.ojoIzquierdo);
-      this.formTamizajeCred.get('descripcionTamizajeOcular').setValue(alteracionVisual.descripcion);
+      this.formTamizajeVisual.get('ojoDerecho').setValue(alteracionVisual.ojoDerecho);
+      this.formTamizajeVisual.get('ojoIzquierdo').setValue(alteracionVisual.ojoIzquierdo);
+      this.formTamizajeVisual.get('descripcionTamizajeOcular').setValue(alteracionVisual.descripcion);
       /*************RECUPERAR TAMIZAJE AUDITIVO*******************/
-      this.formTamizajeCred.get("tamizajeAuditivo").setValue(observacionesAuditivo);
+      this.formTamizajeAuditivo.get("tamizajeAuditivo").setValue(observacionesAuditivo);
       if (auditivo[0].valor) {
-        this.formTamizajeCred.get("prematuro").setValue(auditivo[0].valor);
+        this.formTamizajeAuditivo.get("prematuro").setValue(auditivo[0].valor);
       }
       if (auditivo[1].valor) {
-        this.formTamizajeCred.get("uci").setValue(auditivo[1].valor);
+        this.formTamizajeAuditivo.get("uci").setValue(auditivo[1].valor);
       }
       if (auditivo[2].valor) {
-        this.formTamizajeCred.get("billirubina").setValue(auditivo[2].valor);
+        this.formTamizajeAuditivo.get("billirubina").setValue(auditivo[2].valor);
       }
       if (auditivo[3].valor) {
-        this.formTamizajeCred.get("perdidaAudicion").setValue(auditivo[3].valor);
+        this.formTamizajeAuditivo.get("perdidaAudicion").setValue(auditivo[3].valor);
       }
       if (auditivo[4].valor) {
-        this.formTamizajeCred.get("infeccionOido").setValue(auditivo[4].valor);
+        this.formTamizajeAuditivo.get("infeccionOido").setValue(auditivo[4].valor);
       }
       if (auditivo[5].valor) {
-        this.formTamizajeCred.get("meningitis").setValue(auditivo[5].valor);
+        this.formTamizajeAuditivo.get("meningitis").setValue(auditivo[5].valor);
       }
       if (auditivo[6].valor) {
-        this.formTamizajeCred.get("expuestoSonido").setValue(auditivo[6].valor);
+        this.formTamizajeAuditivo.get("expuestoSonido").setValue(auditivo[6].valor);
       }
     });
   }
@@ -286,7 +370,7 @@ export class TamizajesComponent implements OnInit {
   getTamizaje() {
     /************FISICOS***************/
     let fisicos: any[] = [];
-    if (this.formTamizajeCred.value.tieneHematomas == true)
+    if (this.formTamizajeVIF.value.tieneHematomas == true)
     {
       let aux = {
         clave: "Hematomas, contusiones inexplicables",
@@ -303,14 +387,14 @@ export class TamizajesComponent implements OnInit {
         }
         fisicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneCicatrices == true) {
+    if (this.formTamizajeVIF.value.tieneCicatrices == true) {
       let aux = {clave: "Cicatrices, quemaduras", valor: 'si', descripcion: "Cicatrices, quemaduras"}
       fisicos.push(aux);
     }
     else{
         let aux = {clave: "Cicatrices, quemaduras", valor: 'no', descripcion: "Cicatrices, quemaduras"}
         fisicos.push(aux); }
-    if (this.formTamizajeCred.value.tieneFacturas == 'si') {
+    if (this.formTamizajeVIF.value.tieneFacturas == 'si') {
       let aux = {clave: "Fracturas inexpliables", valor: 'si', descripcion: "Fracturas inexpliables"}
       fisicos.push(aux);
     }
@@ -318,7 +402,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Fracturas inexpliables", valor: 'no', descripcion: "Fracturas inexpliables"}
         fisicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneMarcas == true) {
+    if (this.formTamizajeVIF.value.tieneMarcas == true) {
       let aux = {clave: "Marcas de mordeduras", valor: 'si', descripcion: "Marcas de mordeduras"}
       fisicos.push(aux);
     }
@@ -326,7 +410,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Marcas de mordeduras", valor: 'no', descripcion: "Marcas de mordeduras"}
         fisicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneLesiones == true) {
+    if (this.formTamizajeVIF.value.tieneLesiones == true) {
       let aux = {clave: "Lesiones de perineo, vulva, recto, etc", valor: 'si', descripcion: "Lesiones de perineo, vulva, recto, etc"
       }
       fisicos.push(aux);
@@ -336,7 +420,7 @@ export class TamizajesComponent implements OnInit {
         }
         fisicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneLaceraciones == true) {
+    if (this.formTamizajeVIF.value.tieneLaceraciones == true) {
       let aux = { clave: "Laceraciones en boca mejillas, ojos, etc", valor: 'si', descripcion: "Laceraciones en boca mejillas, ojos, etc"
       }
       fisicos.push(aux);
@@ -346,7 +430,7 @@ export class TamizajesComponent implements OnInit {
         }
         fisicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneQuejasCronicas == true) {
+    if (this.formTamizajeVIF.value.tieneQuejasCronicas == true) {
       let aux = {
         clave: "Quejas crónicas sin causa física, cefalea, problemas de sueño (mucho sueño interrupciones del sueño)",
         valor: 'si',
@@ -362,7 +446,7 @@ export class TamizajesComponent implements OnInit {
         }
         fisicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneProblemasApetito == true) {
+    if (this.formTamizajeVIF.value.tieneProblemasApetito == true) {
       let aux = {clave: "Problemas con el apetito", valor: 'si', descripcion: "Problemas con el apetito"}
       fisicos.push(aux);
     }
@@ -370,7 +454,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Problemas con el apetito", valor: 'no', descripcion: "Problemas con el apetito"}
         fisicos.push(aux)
     }
-    if (this.formTamizajeCred.value.tieneEnuresis == true) {
+    if (this.formTamizajeVIF.value.tieneEnuresis == true) {
       let aux = {clave: "Enuresis (niños)", valor: 'si', descripcion: "Enuresis (niños)"}
       fisicos.push(aux);
     }
@@ -380,7 +464,7 @@ export class TamizajesComponent implements OnInit {
     }
     /***********PSICOLOGICO************/
     let psicologicos: any[] = [];
-    if (this.formTamizajeCred.value.tieneFalta == true) {
+    if (this.formTamizajeVIF.value.tieneFalta == true) {
       let aux = {
         clave: "Extrema falta de confianza en si mismo",
         valor: 'si',
@@ -396,7 +480,7 @@ export class TamizajesComponent implements OnInit {
         }
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneTristeza == true) {
+    if (this.formTamizajeVIF.value.tieneTristeza == true) {
       let aux = {clave: "Tristeza, depresión o angustia", valor: 'si', descripcion: "Tristeza, depresión o angustia"}
       psicologicos.push(aux);
     }
@@ -404,7 +488,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Tristeza, depresión o angustia", valor: 'no', descripcion: "Tristeza, depresión o angustia"}
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneRetraimiento == true) {
+    if (this.formTamizajeVIF.value.tieneRetraimiento == true) {
       let aux = {clave: "Retraimiento", valor: 'si', descripcion: "Retraimiento"}
       psicologicos.push(aux);
     }
@@ -412,7 +496,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Retraimiento", valor: 'no', descripcion: "Retraimiento"}
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneLlanto == true) {
+    if (this.formTamizajeVIF.value.tieneLlanto == true) {
       let aux = {clave: "Llanto frecuente", valor: 'si', descripcion: "Llanto frecuente"}
       psicologicos.push(aux);
     }
@@ -420,7 +504,7 @@ export class TamizajesComponent implements OnInit {
       let aux = {clave: "Llanto frecuente", valor: 'no', descripcion: "Llanto frecuente"}
       psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneNecesidad == true) {
+    if (this.formTamizajeVIF.value.tieneNecesidad == true) {
       let aux = {
         clave: "Exagerada necesidad de ganar, sobresalir",
         valor: 'si',
@@ -436,7 +520,7 @@ export class TamizajesComponent implements OnInit {
         }
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneDemanda == true) {
+    if (this.formTamizajeVIF.value.tieneDemanda == true) {
       let aux = {clave: "Demanda excesiva de atención", valor: 'si', descripcion: "Demanda excesiva de atención"}
       psicologicos.push(aux);
     }
@@ -444,7 +528,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Demanda excesiva de atención", valor: 'no', descripcion: "Demanda excesiva de atención"}
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneAgresividad == true) {
+    if (this.formTamizajeVIF.value.tieneAgresividad == true) {
       let aux = {
         clave: "Mucha agresividad o mucha pasividad frente a otros niños", valor: 'si', descripcion: "Mucha agresividad o mucha pasividad frente a otros niños"
       }
@@ -456,7 +540,7 @@ export class TamizajesComponent implements OnInit {
         }
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneTartamudeo == true) {
+    if (this.formTamizajeVIF.value.tieneTartamudeo == true) {
       let aux = {clave: "Tartamudeo", valor: 'si', descripcion: "Tartamudeo"}
       psicologicos.push(aux);
     }
@@ -464,7 +548,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Tartamudeo", valor: 'no', descripcion: "Tartamudeo"}
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneTemor == true) {
+    if (this.formTamizajeVIF.value.tieneTemor == true) {
       let aux = {
         clave: "Temor a los padres o de llegar al hogar",valor: 'si', descripcion: "Temor a los padres o de llegar al hogar"
       }
@@ -476,7 +560,7 @@ export class TamizajesComponent implements OnInit {
         }
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.Roba == true) {
+    if (this.formTamizajeVIF.value.Roba == true) {
       let aux = {
         clave: "Robo, mentira, fuga, desobediencia, agresividad", valor: 'si', descripcion: "Robo, mentira, fuga, desobediencia, agresividad"
       }
@@ -487,7 +571,7 @@ export class TamizajesComponent implements OnInit {
         }
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneAutismo == true) {
+    if (this.formTamizajeVIF.value.tieneAutismo == true) {
       let aux = {
         clave: "Autismo escolar", valor: 'si', descripcion: "Autismo escolar"
       }
@@ -501,7 +585,7 @@ export class TamizajesComponent implements OnInit {
         }
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.llegaTarde == true) {
+    if (this.formTamizajeVIF.value.llegaTarde == true) {
       let aux = {clave: "Llegar tarde a la escuela o retirarse tarde", valor: 'si', descripcion: "Llegar tarde a la escuela o retirarse tarde"}
       psicologicos.push(aux);
     }
@@ -509,7 +593,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Autismo escolar", valor: 'no', descripcion: "Autismo escolar"}
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.bajoRendimiento == true) {
+    if (this.formTamizajeVIF.value.bajoRendimiento == true) {
       let aux = {
         clave: "Bajo rendimiento académico", valor: 'si', descripcion: "Bajo rendimiento académico"
       }
@@ -523,7 +607,7 @@ export class TamizajesComponent implements OnInit {
         }
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.seAisla == true) {
+    if (this.formTamizajeVIF.value.seAisla == true) {
       let aux = {clave: "Aislamiento de personas", valor: 'si', descripcion: "Aislamiento de personas"}
       psicologicos.push(aux);
     }
@@ -531,7 +615,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Aislamiento de personas", valor: 'no', descripcion: "Aislamiento de personas"}
         psicologicos.push(aux);
     }
-    if (this.formTamizajeCred.value.intentaSuicidio == true) {
+    if (this.formTamizajeVIF.value.intentaSuicidio == true) {
       let aux = {clave: "Intento de suicidio", valor: 'si', descripcion: "Intento de suicidio"}
       psicologicos.push(aux);
     }
@@ -542,7 +626,7 @@ export class TamizajesComponent implements OnInit {
 
     /***********NEGLIGENCIA************/
     let negligencia: any[] = [];
-    if (this.formTamizajeCred.value.faltaPeso == true) {
+    if (this.formTamizajeVIF.value.faltaPeso == true) {
       let aux = {clave: "Falta de peso o pobre patrón de crecimiento", valor: 'si', descripcion: "Falta de peso o pobre patrón de crecimiento"}
       negligencia.push(aux);
     }
@@ -550,7 +634,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Falta de peso o pobre patrón de crecimiento", valor: 'no', descripcion: "Falta de peso o pobre patrón de crecimiento"}
         negligencia.push(aux);
     }
-    if (this.formTamizajeCred.value.noVacunado == true) {
+    if (this.formTamizajeVIF.value.noVacunado == true) {
       let aux = {clave: "No vacunas o atención de salud", valor: 'si', descripcion: "No vacunas o atención de salud"}
       negligencia.push(aux);
     }
@@ -558,7 +642,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "No vacunas o atención de salud", valor: 'no', descripcion: "No vacunas o atención de salud"}
         negligencia.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneAccidentes == true) {
+    if (this.formTamizajeVIF.value.tieneAccidentes == true) {
       let aux = {clave: "Accidentes o enfermedades muy frecuentes", valor: 'si', descripcion: "Accidentes o enfermedades muy frecuentes"}
       negligencia.push(aux);
     }
@@ -566,7 +650,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Accidentes o enfermedades muy frecuentes", valor: 'no', descripcion: "Accidentes o enfermedades muy frecuentes"}
         negligencia.push(aux);
     }
-    if (this.formTamizajeCred.value.esDescuidado == true) {
+    if (this.formTamizajeVIF.value.esDescuidado == true) {
       let aux = {clave: "Descuido en higiene o aliño", valor: 'si', descripcion: "Descuido en higiene o aliño"}
       negligencia.push(aux);
     }
@@ -574,7 +658,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Descuido en higiene o aliño", valor: 'no', descripcion: "Descuido en higiene o aliño"}
         negligencia.push(aux);
     }
-    if (this.formTamizajeCred.value.faltaEstimulacion == true) {
+    if (this.formTamizajeVIF.value.faltaEstimulacion == true) {
       let aux = {clave: "Falta de estimulación del desarrollo", valor: 'si', descripcion: "Falta de estimulación del desarrollo"}
       negligencia.push(aux);
     }
@@ -582,7 +666,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Falta de estimulación del desarrollo", valor: 'no', descripcion: "Falta de estimulación del desarrollo"}
         negligencia.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneFatiga == true) {
+    if (this.formTamizajeVIF.value.tieneFatiga == true) {
       let aux = {clave: "Fatiga, sueño, hambre", valor: 'si', descripcion: "Fatiga, sueño, hambre"}
       negligencia.push(aux);
     }
@@ -592,7 +676,7 @@ export class TamizajesComponent implements OnInit {
     }
     /***********NEGLIGENCIA************/
     let sexuales: any[] = [];
-    if (this.formTamizajeCred.value.conductaInapropiada == true) {
+    if (this.formTamizajeVIF.value.conductaInapropiada == true) {
       let aux = {clave: "Conocimiento y conducta sexual inapropiada (niños)", valor: 'si', descripcion: "Conocimiento y conducta sexual inapropiada (niños)"}
       sexuales.push(aux);
     }
@@ -600,7 +684,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Conocimiento y conducta sexual inapropiada (niños)", valor: 'no', descripcion: "Conocimiento y conducta sexual inapropiada (niños)"}
         sexuales.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneIrritacion == true) {
+    if (this.formTamizajeVIF.value.tieneIrritacion == true) {
       let aux = {
         clave: "Irritación, dolor, lesión, hemorragia en zona genital",
         valor: 'si',
@@ -612,7 +696,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: "Irritación, dolor, lesión, hemorragia en zona genital", valor: 'no', descripcion: "Irritación, dolor, lesión, hemorragia en zona genital"}
         sexuales.push(aux);
     }
-    if (this.formTamizajeCred.value.tieneEnfermedad == true) {
+    if (this.formTamizajeVIF.value.tieneEnfermedad == true) {
       let aux = {
         clave: "Enfermedad de transmisión sexual",
         valor: 'si',
@@ -628,7 +712,7 @@ export class TamizajesComponent implements OnInit {
         sexuales.push(aux);
     }
     let otrasPreguntas: any[] = [];
-    if (this.formTamizajeCred.value.hayViolencia == 'si') {
+    if (this.formTamizajeVIF.value.hayViolencia == 'si') {
       let aux = {
         clave: '¿Diria que en su familia se dan situaciones de violencia?',
         valor: 'si',
@@ -644,7 +728,7 @@ export class TamizajesComponent implements OnInit {
         }
         otrasPreguntas.push(aux);
     }
-    if (this.formTamizajeCred.value.alguienInsulta == 'si') {
+    if (this.formTamizajeVIF.value.alguienInsulta == 'si') {
       let aux = {
         clave: '¿Alguna vez algún miembro de su familia le insulta?',
         valor: 'si',
@@ -656,7 +740,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: '¿Alguna vez algún miembro de su familia le insulta?', valor: 'no', descripcion: '¿Alguna vez algún miembro de su familia le insulta?'}
         otrasPreguntas.push(aux);
     }
-    if (this.formTamizajeCred.value.alguienGolpea == 'si') {
+    if (this.formTamizajeVIF.value.alguienGolpea == 'si') {
       let aux = {clave: '¿Alguna vez algún miembro de su familia le golpea?', valor: 'si', descripcion: '¿Alguna vez algún miembro de su familia le golpea?'}
       otrasPreguntas.push(aux);
     }
@@ -664,7 +748,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: '¿Alguna vez algún miembro de su familia le golpea?', valor: 'no', descripcion: '¿Alguna vez algún miembro de su familia le golpea?'}
         otrasPreguntas.push(aux);
     }
-    if (this.formTamizajeCred.value.alguienChantajea == 'si') {
+    if (this.formTamizajeVIF.value.alguienChantajea == 'si') {
       let aux = {clave: '¿Alguna vez algún miembro de su familia le chantajea?', valor: 'si', descripcion: '¿Alguna vez algún miembro de su familia le chantajea?'}
       otrasPreguntas.push(aux);
     }
@@ -672,7 +756,7 @@ export class TamizajesComponent implements OnInit {
         let aux = {clave: '¿Alguna vez algún miembro de su familia le chantajea?', valor: 'no', descripcion: '¿Alguna vez algún miembro de su familia le chantajea?'}
         otrasPreguntas.push(aux);
     }
-    if (this.formTamizajeCred.value.obligaRS == 'si') {
+    if (this.formTamizajeVIF.value.obligaRS == 'si') {
       let aux = {
         clave: '¿Alguna vez algún miembro de su familia lo insulta, lo golpea, le obliga a tener relaciones sexuales?',
         valor: 'si',
@@ -685,14 +769,14 @@ export class TamizajesComponent implements OnInit {
         }
         otrasPreguntas.push(aux);
     }
-    if(this.formTamizajeCred.value.hijoFacil=='facil'){
+    if(this.formTamizajeVIF.value.hijoFacil=='facil'){
         let auxOtras1 = {clave: 'Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?', valor: 'facil', descripcion: "Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?"}
         otrasPreguntas.push(auxOtras1);
     }else{
         let auxOtras1 = {clave: 'Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?', valor: 'dificil', descripcion: "Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?"}
         otrasPreguntas.push(auxOtras1);
     }
-    if(this.formTamizajeCred.value.valor=='si'){
+    if(this.formTamizajeVIF.value.valor=='si'){
         let auxOtras2 = {clave: 'Alguna vez pierde el control?', valor: 'si', descripcion: "Alguna vez pierde el control?"}
         otrasPreguntas.push(auxOtras2);
     }
@@ -700,7 +784,7 @@ export class TamizajesComponent implements OnInit {
         let auxOtras2 = {clave: 'Alguna vez pierde el control?', valor: 'no', descripcion: "Alguna vez pierde el control?"}
         otrasPreguntas.push(auxOtras2);
     }
-    if(this.formTamizajeCred.value.pega==true)
+    if(this.formTamizajeVIF.value.pega==true)
     {
         let auxOtras3 = {
             clave: 'pega',
@@ -717,7 +801,7 @@ export class TamizajesComponent implements OnInit {
         }
         otrasPreguntas.push(auxOtras3);
     }
-   if(this.formTamizajeCred.value.grita==true){
+   if(this.formTamizajeVIF.value.grita==true){
        let auxOtras4 = {
            clave: 'grita',
            valor: 'si',
@@ -733,7 +817,7 @@ export class TamizajesComponent implements OnInit {
        }
        otrasPreguntas.push(auxOtras4);
    }
-   if(this.formTamizajeCred.value.empuja==true){
+   if(this.formTamizajeVIF.value.empuja==true){
        let auxOtras5 = {
            clave: 'empuja',
            valor: 'si',
@@ -749,7 +833,7 @@ export class TamizajesComponent implements OnInit {
        }
        otrasPreguntas.push(auxOtras5);
    }
-   if(this.formTamizajeCred.value.encierra==true){
+   if(this.formTamizajeVIF.value.encierra==true){
        let auxOtras7 = {
            clave: 'encierra',
            valor: 'si',
@@ -765,7 +849,7 @@ export class TamizajesComponent implements OnInit {
        }
        otrasPreguntas.push(auxOtras7);
    }
-   if(this.formTamizajeCred.value.esDesobediente=='si'){
+   if(this.formTamizajeVIF.value.esDesobediente=='si'){
        let auxOtras8 = {clave: 'esDesobediente', valor: 'si', descripcion: "esDesobediente"}
        otrasPreguntas.push(auxOtras8);
    }
@@ -773,15 +857,15 @@ export class TamizajesComponent implements OnInit {
        let auxOtras8 = {clave: 'esDesobediente', valor: 'no', descripcion: "esDesobediente"}
        otrasPreguntas.push(auxOtras8);
    }
-   let resultado ={clave:this.formTamizajeCred.value.tamizajeMental, valor:this.formTamizajeCred.value.tamizajeMental,descripcion:this.formTamizajeCred.value.tamizajeMental}
-   let observacionesAuditivo = this.formTamizajeCred.value.tamizajeAuditivo;
+   let resultado ={clave:this.formTamizajeVIF.value.tamizajeMental, valor:this.formTamizajeCred.value.tamizajeMental,descripcion:this.formTamizajeCred.value.tamizajeMental}
+   let observacionesAuditivo = this.formTamizajeAuditivo.value.tamizajeAuditivo;
    let alteracionVisual = {
-      ojoIzquierdo:this.formTamizajeCred.value.ojoIzquierdo,
-      ojoDerecho:this.formTamizajeCred.value.ojoDerecho,
-      descripcion:this.formTamizajeCred.value.descripcionTamizajeOcular
+      ojoIzquierdo:this.formTamizajeVisual.value.ojoIzquierdo,
+      ojoDerecho:this.formTamizajeVisual.value.ojoDerecho,
+      descripcion:this.formTamizajeVisual.value.descripcionTamizajeOcular
    }
     let auditivo:any[]=[];
-    if(this.formTamizajeCred.value.prematuro=='si'){
+    if(this.formTamizajeAuditivo.value.prematuro=='si'){
         let auditivoAux1 = {
             clave: '¿El niño nació prematuro?',
             valor: 'si',
@@ -797,7 +881,7 @@ export class TamizajesComponent implements OnInit {
         }
         auditivo.push(auditivoAux1);
     }
-    if(this.formTamizajeCred.value.uci=='si'){
+    if(this.formTamizajeAuditivo.value.uci=='si'){
          let auditivoAux2 = {clave: '¿Permaneció en UCI?', valor: 'si', descripcion: "¿Permaneció en UCI?"}
          auditivo.push(auditivoAux2);
      }
@@ -806,7 +890,7 @@ export class TamizajesComponent implements OnInit {
          }
          auditivo.push(auditivoAux2);
      }
-     if(this.formTamizajeCred.value.billirubina=='si'){
+     if(this.formTamizajeAuditivo.value.billirubina=='si'){
          let auditivoAux3 = {clave: '¿Tuvo alta concentración de Billirubina y requirió transfusión sanguínea?', valor: 'si', descripcion: "¿Tuvo alta concentración de Billirubina y requirió transfusión sanguínea?"
          }
          auditivo.push(auditivoAux3);
@@ -816,7 +900,7 @@ export class TamizajesComponent implements OnInit {
          }
          auditivo.push(auditivoAux3);
      }
-     if(this.formTamizajeCred.value.perdidaAudicion=='si'){
+     if(this.formTamizajeAuditivo.value.perdidaAudicion=='si'){
          let auditivoAux4 = {clave: '¿Tiene antecedentes familiares de pérdida de audición?', valor: 'si', descripcion: "¿Tiene antecedentes familiares de pérdida de audición?"
          }
          auditivo.push(auditivoAux4);
@@ -826,7 +910,7 @@ export class TamizajesComponent implements OnInit {
          }
          auditivo.push(auditivoAux4);
      }
-     if(this.formTamizajeCred.value.infeccionOido=='si'){
+     if(this.formTamizajeAuditivo.value.infeccionOido=='si'){
          let auditivoAux5  = {clave: '¿Tuvo infecciones frecuentes en los oídos?', valor: 'si', descripcion: "¿Tuvo infecciones frecuentes en los oídos?"
          }
          auditivo.push(auditivoAux5);
@@ -837,7 +921,7 @@ export class TamizajesComponent implements OnInit {
          }
          auditivo.push(auditivoAux5);
      }
-    if(this.formTamizajeCred.value.meningitis=='si'){
+    if(this.formTamizajeAuditivo.value.meningitis=='si'){
         let auditivoAux6  = {
             clave: '¿Tuvo infecciones como: meningitis o citomegalovirus?', valor: 'si', descripcion: "¿Tuvo infecciones como: meningitis o citomegalovirus?"
         }
@@ -849,7 +933,7 @@ export class TamizajesComponent implements OnInit {
         }
         auditivo.push(auditivoAux6);
     }
-    if(this.formTamizajeCred.value.expuestoSonido=='si'){
+    if(this.formTamizajeAuditivo.value.expuestoSonido=='si'){
         let auditivoAux7  = {
             clave: '¿Estuvo expuesto a sonidos muy fuerte?(Incluso por poco tiempo?', valor: 'si', descripcion: "¿Estuvo expuesto a sonidos muy fuerte?(Incluso por poco tiempo?"
         }

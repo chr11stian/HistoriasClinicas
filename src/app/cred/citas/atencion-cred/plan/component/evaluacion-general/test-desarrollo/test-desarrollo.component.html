@@ -7,7 +7,7 @@
          <span class="p-m-0">RESULTADOS DE TEST DESARROLLO PSICOMOTOR PERUANO</span>
       </div>
       <div class="p-toolbar-group-right">
-         <button pButton pRipple label="Visualizar"  (click)="visualizar()"  pRipple type="button"
+         <button pButton pRipple label="Visualizar todo"  (click)="visualizar()"  pRipple type="button"
                  icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
          </button>
       </div>
@@ -33,7 +33,7 @@
             <td style="text-align: center">{{ rowData.edad }}</td>
             <td style="text-align: center">{{ rowData.diagnostico }}</td>
             <td style="text-align: center">
-               <button pButton (click)="openTestPeruano(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
+               <button pButton (click)="openTestPeruano(rowData.fecha,rowData.edad,rowData.calificacion)" pTooltip="Visualizar" pRipple type="button"
                        icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
                </button>
             </td>
@@ -507,7 +507,7 @@
    </div>
 
    <ng-template pTemplate="footer">
-      <button pButton pRipple type="button" label="Cancelar" class="p-button-danger" icon="pi pi-times" (click)="displayMaximizable=false" iconPos="right"></button>
+      <button pButton pRipple type="button" label="Cerrar" class="p-button-danger" icon="pi pi-times" (click)="displayMaximizable=false" iconPos="right"></button>
    </ng-template>
 
 </p-dialog>

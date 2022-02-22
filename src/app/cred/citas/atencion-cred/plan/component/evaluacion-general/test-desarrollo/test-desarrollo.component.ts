@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TestDesarrollo } from './test-desarrollo.service';
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {dato} from "../../../../../models/data";
+import {DatePipe} from "@angular/common";
 @Component({
   selector: 'app-test-desarrollo',
   templateUrl: './test-desarrollo.component.html',
@@ -14,8 +15,10 @@ export class TestDesarrolloComponent implements OnInit {
   formDatos_TestPeruano:FormGroup;
   attributeLocalS = 'documento';
   data:dato;
-  listaTestPeruano:any[]=[];
+  datePipe = new DatePipe('en-US');
+  listaTestPeruano:TestPeruano[]=[];
   displayMaximizable:boolean;
+
   constructor(
       private testDesarrollo: TestDesarrollo,
       private form: FormBuilder
@@ -29,28 +32,7 @@ export class TestDesarrolloComponent implements OnInit {
         }
     )
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-
-    this.listaTestPeruano = [
-      {
-        nro: 1, /** no debe haber */
-        fecha: '16/11/2021',
-        edad:'1 MES',
-        diagnostico: 'RETARDO',
-
-      },
-      {
-        nro: 2, /** no debe haber */
-        fecha: '16/12/2021',
-        edad:'2 MESES',
-        diagnostico: 'RETARDO',
-      },
-      {
-        nro: 3, /** no debe haber */
-        fecha: '16/01/2022',
-        edad:'3 MESES',
-        diagnostico: 'RETARDO',
-      },
-    ]
+    this.recuperarTestsBD();
   }
   builForm(){
     this.formDatos_TestPeruano = this.form.group({
@@ -292,14 +274,58 @@ export class TestDesarrolloComponent implements OnInit {
     })
   }
 
-  openTestPeruano(rowData,rowIndex){
+  openTestPeruano(fecha,edad,calificacion){
+    this.formDatos_TestPeruano.reset();
     console.log("abriendo test Peruano");
     this.displayMaximizable = true;
-  }
+    console.log(calificacion);
+    console.log(edad);
+    console.log(fecha);
+    calificacion.forEach(element=>this.formDatos_TestPeruano.get(element.codigo).setValue(true))
+    let edadFecha = 'f'+edad.toString();
+    this.formDatos_TestPeruano.get(edadFecha).setValue(this.datePipe.transform(fecha,'dd-MM-yyyy HH:mm:ss'));
 
+  }
 
   visualizar() {
+    this.formDatos_TestPeruano.reset();
+    this.displayMaximizable = true;
+    let testRecuperados:any[]=[];
+    let testFechas:any[]=[];
+    let testCalificaciones:any[]=[];
+    testRecuperados=(this.listaTestPeruano);
+    testRecuperados.forEach(element=>{testFechas.push(element.fecha);testCalificaciones.push(element.calificacion)});
+    for(let i = 0 ; i<testCalificaciones.length;i++){
+      let edad = 'f'+testRecuperados[i].edad.toString()
+      this.formDatos_TestPeruano.get(edad).setValue(this.datePipe.transform(testFechas[i],'dd-MM-yyyy HH:mm:ss'));
+      for(let j = 0;j<12;j++){
+        let codigo = testCalificaciones[i][j].codigo;
+        this.formDatos_TestPeruano.get(codigo).setValue(true);
 
+      }
+    }
   }
 
+  async recuperarTestsBD(){
+    this.testDesarrollo.listarTestPeruanoPlan(this.data.nroDocumento).subscribe((res: any) => {
+      if(res.object!=null){
+        res.object.forEach(element=>this.listaTestPeruano.push(element));
+      }
+    });
+  }
+
+}
+export interface TestPeruano{
+  id?:string;
+  fecha?:string,
+  edad?:string,
+  diagnostico?:string,
+  calificacion?:Calificacion[]
+}
+export interface Calificacion{
+  codigo:string,
+  desripcion:string,
+  actividad:string,
+  x:string,
+  y:string
 }

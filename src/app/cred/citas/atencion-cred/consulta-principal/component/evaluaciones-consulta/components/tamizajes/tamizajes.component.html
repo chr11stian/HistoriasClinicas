@@ -9,10 +9,11 @@
 </p-toolbar>
 
 <div>
-    <form [formGroup]="formTamizajeCred">
+
             <div class="grid">
                 <div class="col-12 p-field p-fluid">
                     <p-panel header="TAMIZAJE DE SALUD MENTAL (VIF)" toggleable="true">
+                        <form [formGroup]="formTamizajeVIF">
                         <div class="grid">
                             <div class="col-6">
                                 <p-panel header="Preguntar al Adulto(a):" toggleable="true" >
@@ -273,6 +274,14 @@
                            </div>
                             <br>
                             <div class="col-12">
+                                <div class="col-12 md:col-6 lg:col-3 p-field">
+                                    <div class="">
+                                        <label class="">Diagnostico del paciente: </label>
+                                        <p-selectButton [options]="diagnosticoR" optionLabel="name"
+                                                        optionValue="diagnostico" formControlName="diagnosticoVIF">
+                                        </p-selectButton>
+                                    </div>
+                                </div>
                                     <div class="col-12 p-fluid">
                                          <span class="p-float-label" >
                                                 <textarea id="float-input4" rows="3" cols="30" pInputTextarea formControlName="tamizajeMental"></textarea>
@@ -281,10 +290,12 @@
                                     </div>
                             </div>
                         </div>
+                        </form>
                     </p-panel>
                 </div> <!---SALUD MENTAL VIF --->
                 <div class="col-12 md:col-6 lg:col-6 p-field">
                     <p-panel header="TAMIZAJE AUDITIVO" toggleable="true" toggleable="true">
+                        <form [formGroup]="formTamizajeAuditivo">
                         <div class="grid">
                                 <div class="col-8 p-fluid" style="text-align: right">
                                     <label class="">¿El niño nació prematuro?: </label>
@@ -351,16 +362,26 @@
                         <br>
                         <div class="grid">
                             <div class="col-12 p-fluid">
+                                <div class="">
+                                    <label class="">Diagnostico del paciente: </label>
+                                    <p-selectButton [options]="diagnosticoR" optionLabel="name"
+                                                    optionValue="diagnostico" formControlName="diagnosticoAuditivo">
+                                    </p-selectButton>
+                                </div>
+                            </div>
+                            <div class="col-12 p-fluid">
                                     <span class="p-float-label" p-fluid>
                                         <textarea id="float-input" rows="3" cols="30" pInputTextarea formControlName="tamizajeAuditivo"></textarea>
                                         <label for="float-input">Resultados:</label>
                                     </span>
                             </div>
                         </div>
+                        </form>
                     </p-panel>
                 </div> <!---TAMIZAJE AUDITIVO --->
                 <div class="col-12 md:col-6 lg:col-6 p-field"> <!--- EVALUACION OCULAR --->
                     <p-panel header="EVALUACIÓN DE ALTERACIONES VISUALES" toggleable="true">
+                        <form [formGroup]="formTamizajeVisual">
                         <div class="grid">
                             <div class="col-6 p-fluid">
                                 <label>OD</label><br>
@@ -371,7 +392,14 @@
                                 <input type="text" pInputTextarea  placeholder="Ojo Izquierdo" formControlName="ojoIzquierdo" p-fluid>
                             </div>
                             <br>
-                            <br>
+                            <div class="col-12 p-fluid">
+                                <div class="">
+                                    <label class="">Diagnostico del paciente: </label>
+                                    <p-selectButton [options]="diagnosticoR" optionLabel="name"
+                                                    optionValue="diagnostico" formControlName="diagnosticoVisual">
+                                    </p-selectButton>
+                                </div>
+                            </div>
                             <div class="col-12 p-fluid">
                                   <span class="p-float-label" >
                                     <textarea id="float-input1" rows="5" cols="30" pInputTextarea
@@ -388,10 +416,11 @@
                                 </button>
                             </div>
                         </div>
+                        </form>
                     </p-panel>
                 </div>
             </div>
-        </form>
+
     <p-toast></p-toast>
 </div>
 

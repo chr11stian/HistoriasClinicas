@@ -29,8 +29,7 @@ export class InmunizacionesCredComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.tipoDNI = this.rutaActiva.snapshot.queryParams.tipoDoc;
-    this.nroDNI = this.rutaActiva.snapshot.queryParams.nroDoc;
+    this.tipoDNI = "47825757";
     this.getLista();
   }
 
@@ -39,26 +38,28 @@ export class InmunizacionesCredComponent implements OnInit {
     this.servicio;
     // .getListaInmunizaciones(this.nroDNI)
     this.servicio
-      .getListaInmunizaciones("47825757")
+      .getListaInmunizaciones("98745896")
       .toPromise()
       .then((result) => {
         this.listaInmunizaciones = result.object;
+        console.log("lista de inmunizaciones", this.listaInmunizaciones);
         this.transform();
       })
       .catch((err) => {
         console.log(err);
       });
+    console.log("inmunizaciones");
   }
   transform() {
     //transformacion a un solo formato que se usará
     this.listaInmunizaciones.forEach((i) => {
-      if (i.fechaAplicacion === null) {
-        i.fechaAplicacion = "";
+      if (i.fecha === null) {
+        i.fecha = "";
       }
       if (i.fechaTentativa === null) {
         i.fechaTentativa = "";
       } else {
-        i.fechaAplicacion = i.fechaAplicacion.split(" ")[0];
+        i.fecha = i.fecha.split(" ")[0];
         i.fechaTentativa = i.fechaTentativa.split(" ")[0];
       }
     });
@@ -68,7 +69,9 @@ export class InmunizacionesCredComponent implements OnInit {
     // aqui la lista de inmunicaiones queda vacia
     this.lista1 = this.listaInmunizaciones.splice(0, 8);
     this.lista2 = this.listaInmunizaciones.splice(0, 8);
-    this.lista3 = this.listaInmunizaciones.splice(0,this.listaInmunizaciones.length
+    this.lista3 = this.listaInmunizaciones.splice(
+      0,
+      this.listaInmunizaciones.length
     );
   }
   getFecha(date: Date) {
