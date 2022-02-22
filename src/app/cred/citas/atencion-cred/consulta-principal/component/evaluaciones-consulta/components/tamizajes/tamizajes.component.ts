@@ -10,7 +10,6 @@ import {dato} from "../../../../../../models/data";
   styleUrls: ['./tamizajes.component.css']
 })
 export class TamizajesComponent implements OnInit {
-  formTamizajeCred: FormGroup;
   formTamizajeAuditivo:FormGroup;
   formTamizajeVIF:FormGroup;
   formTamizajeVisual:FormGroup;
@@ -36,8 +35,8 @@ export class TamizajesComponent implements OnInit {
       {label: 'NO', value: 'no'}
     ];
     this.facil = [
-      {label: 'facil', value: 'facil'},
-      {label: 'dificil', value: 'dificil'}
+      {label: 'FÁCIL', value: 'facil'},
+      {label: 'DIFÍCIL', value: 'dificil'}
     ];
   }
 
@@ -108,7 +107,8 @@ export class TamizajesComponent implements OnInit {
         edad: '3 a 5 años'
       },
     ]
-    this.recuperarTamizajesBD();
+    this.recuperarIdConsulta();
+    // this.recuperarTamizajesBD();
   }
 
   builForm() {
@@ -122,143 +122,106 @@ export class TamizajesComponent implements OnInit {
       expuestoSonido:new FormControl(false),
       diagnosticoAuditivo:new FormControl(''),
       tamizajeAuditivo:new FormControl('')
-    })
+    });
     this.formTamizajeVIF=this.formBuilder.group({
-      /***otras preguntas***/
-      hayViolencia: new FormControl(false),
-      alguienInsulta:new FormControl(false),
-      alguienGolpea:new FormControl(false),
-      alguienChantajea:new FormControl(false),
-      obligaRS:new FormControl(false),
-      quienObligaRS:new FormControl(false),
-      hijoFacil:new FormControl(false),
-      pierdeControl: new FormControl(false),
-      pega: new FormControl(false),
-      grita: new FormControl(false),
-      encierra: new FormControl(false),
-      empuja: new FormControl(false),
-      esDesobediente:new FormControl(false),
-      /******fisico*****/
-      tieneHematomas: new FormControl(false),
-      tieneCicatrices: new FormControl(false),
-      tieneFacturas: new FormControl(false),
-      tieneMarcas: new FormControl(false),
-      tieneLesiones: new FormControl(false),
-      tieneLaceraciones: new FormControl(false),
-      tieneQuejasCronicas: new FormControl(false),
-      tieneProblemasApetito: new FormControl(false),
-      tieneEnuresis: new FormControl(false),
-      /***psicologico***/
-      tieneFalta: new FormControl(false),
-      tieneTristeza: new FormControl(false),
-      tieneRetraimiento: new FormControl(false),
-      tieneLlanto: new FormControl(false),
-      tieneNecesidad: new FormControl(false),
-      tieneDemanda: new FormControl(false),
-      tieneAgresividad: new FormControl(false),
-      tieneTartamudeo: new FormControl(false),
-      tieneTemor: new FormControl(false),
-      Roba: new FormControl(false),
-      tieneAutismo: new FormControl(false),
-      llegaTarde: new FormControl(false),
-      bajoRendimiento: new FormControl(false),
-      seAisla: new FormControl(false),
-      intentaSuicidio: new FormControl(false),
-      /***negligencia***/
-      faltaPeso: new FormControl(false),
-      noVacunado: new FormControl(false),
-      tieneAccidentes: new FormControl(false),
-      esDescuidado: new FormControl(false),
-      faltaEstimulacion: new FormControl(false),
-      /****sexuales*****/
-      conductaInapropiada: new FormControl(false),
-      tieneIrritacion: new FormControl(false),
-      tieneEnfermedad: new FormControl(false),
-      /**diagnostico vif**/
-      diagnosticoVIF:new FormControl(false),
-      tamizajeMental: new FormControl(false)
-    })
+    /***otras preguntas***/
+    hayViolencia: new FormControl('no'),
+        alguienInsulta:new FormControl('no'),
+        alguienGolpea:new FormControl('no'),
+        alguienChantajea:new FormControl('no'),
+        obligaRS:new FormControl('no'),
+        quienObligaRS:new FormControl(''),
+        hijoFacil:new FormControl('dificil'),
+        pierdeControl: new FormControl('no'),
+        pega: new FormControl('no'),
+        grita: new FormControl('no'),
+        encierra: new FormControl('no'),
+        empuja: new FormControl('no'),
+        esDesobediente:new FormControl('no'),
+        /******fisico*****/
+        tieneHematomas: new FormControl('no'),
+        tieneCicatrices: new FormControl('no'),
+        tieneFacturas: new FormControl('no'),
+        tieneMarcas: new FormControl('no'),
+        tieneLesiones: new FormControl('no'),
+        tieneLaceraciones: new FormControl('no'),
+        tieneQuejasCronicas: new FormControl('no'),
+        tieneProblemasApetito: new FormControl('no'),
+        tieneEnuresis: new FormControl('no'),
+        /***psicologico***/
+        tieneFalta: new FormControl('no'),
+        tieneTristeza: new FormControl('no'),
+        tieneRetraimiento: new FormControl('no'),
+        tieneLlanto: new FormControl('no'),
+        tieneNecesidad: new FormControl('no'),
+        tieneDemanda: new FormControl('no'),
+        tieneAgresividad: new FormControl('no'),
+        tieneTartamudeo: new FormControl('no'),
+        tieneTemor: new FormControl('no'),
+        Roba: new FormControl('no'),
+        tieneAutismo: new FormControl('no'),
+        llegaTarde: new FormControl('no'),
+        bajoRendimiento: new FormControl('no'),
+        seAisla: new FormControl('no'),
+        intentaSuicidio: new FormControl('no'),
+        /***negligencia***/
+        faltaPeso: new FormControl('no'),
+        noVacunado: new FormControl('no'),
+        tieneAccidentes: new FormControl('no'),
+        esDescuidado: new FormControl('no'),
+        faltaEstimulacion: new FormControl('no'),
+        tieneFatiga:new FormControl('no'),
+
+        /****sexuales*****/
+        conductaInapropiada: new FormControl('no'),
+        tieneIrritacion: new FormControl('no'),
+        tieneEnfermedad: new FormControl('no'),
+        /**diagnostico vif**/
+        diagnosticoVIF:new FormControl('no'),
+        tamizajeMental: new FormControl(''),
+    });
     this.formTamizajeVisual=this.formBuilder.group({
       ojoDerecho: new FormControl(0),
       ojoIzquierdo: new FormControl(0),
       descripcionTamizajeOcular: new FormControl(''),
       diagnosticoVisual:new FormControl('')
     })
-    this.formTamizajeCred = this.formBuilder.group({
-      tamizajeAuditivo: new FormControl(''),
-      prematuro: new FormControl(false),
-      hayViolencia: new FormControl(false),
-      alguienInsulta: new FormControl(false),
-      alguienGolpea: new FormControl(false),
-      alguienChantajea: new FormControl(false),
-      obligaRS: new FormControl(false),
-      hijoFacil: new FormControl(false),
-      pierdeControl: new FormControl(false),
-      pega: new FormControl(false),
-      grita: new FormControl(false),
-      encierra: new FormControl(false),
-      esDesobediente: new FormControl(false),
-      tieneHematomas: new FormControl(false),
-      tieneCicatrices: new FormControl(false),
-      tieneFacturas: new FormControl(false),
-      tieneMarcas: new FormControl(false),
-      tieneLesiones: new FormControl(false),
-      tieneLaceraciones: new FormControl(false),
-      tieneQuejasCronicas: new FormControl(false),
-      tieneProblemasApetito: new FormControl(false),
-      tieneEnuresis: new FormControl(false),
-      tieneFalta: new FormControl(false),
-      tieneTristeza: new FormControl(false),
-      tieneRetraimiento: new FormControl(false),
-      tieneLlanto: new FormControl(false),
-      tieneNecesidad: new FormControl(false),
-      tieneDemanda: new FormControl(false),
-      tieneAgresividad: new FormControl(false),
-      tieneTartamudeo: new FormControl(false),
-      tieneTemor: new FormControl(false),
-      Roba: new FormControl(false),
-      tieneAutismo: new FormControl(false),
-      llegaTarde: new FormControl(false),
-      bajoRendimiento: new FormControl(false),
-      seAisla: new FormControl(false),
-      intentaSuicidio: new FormControl(false),
-      faltaPeso: new FormControl(false),
-      noVacunado: new FormControl(false),
-      tieneAccidentes: new FormControl(false),
-      esDescuidado: new FormControl(false),
-      faltaEstimulacion: new FormControl(false),
-      tieneFatiga: new FormControl(false),
-      conductaInapropiada: new FormControl(false),
-      tieneIrritacion: new FormControl(false),
-      tieneEnfermedad: new FormControl(false),
-      tamizajeMental: new FormControl(false),
-      ojoDerecho: new FormControl(false),
-      ojoIzquierdo: new FormControl(false),
-      descripcionTamizajeOcular: new FormControl(false),
-      estomatologico: new FormControl(false),
-      expuestoSonido: new FormControl(false),
-      meningitis: new FormControl(false),
-      infeccionOido: new FormControl(false),
-      perdidaAudicion: new FormControl(false),
-      billirubina: new FormControl(false),
-      uci: new FormControl(false),
-      empuja: new FormControl(false),
-      quienObligaRS: new FormControl(''),
-      consideraFacil: new FormControl(''),
-      diagnosticoAuditivo:new FormControl(''),
-      diagnosticoVisual:new FormControl(''),
-      diagnosticoVIF:new FormControl('')
-
-    })
   }
 
   verGuiaEvaluacionOcular() {
     this.displayMaximizable = true;
   }
+  recuperarIdConsulta(){
+      this.evalAlimenService.getConsultaPorId(this.data.idConsulta).subscribe((res: any) => {
+          console.log('se recupero correctamente consulta', res.object);
+          if(res.object.fichaTamizajeId==null || res.object.fichaTamizajeId==undefined)
+          {
+              Swal.fire({
+                  position: 'top-end',
+                  icon: 'info',
+                  title: 'No se encontro ningún registro de Tamizaje en esta  Consulta',
+                  showConfirmButton: false,
+                  timer: 1500
+              })
+          }
+          else{
+              Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Ya tiene registro guardado de Tamizaje en esta Consulta',
+                  showConfirmButton: false,
+                  timer: 1500
+              })
+              this.idFichaTamizaje=res.object.fichaTamizajeId;
+              console.log(this.idFichaTamizaje)
+              this.recuperarTamizajesBD();
+          }
+      })
+  }
 
   recuperarTamizajesBD() {
-    this.evalAlimenService.getTamizajeCred(this.data.idConsulta).subscribe((res: any) => {
-      console.log('se edito correctamente ', res.object);
+    this.evalAlimenService.getTamizajeCred(this.idFichaTamizaje).subscribe((res: any) => {
+      console.log('se recupero correctamente ', res.object);
       this.idFichaTamizaje = res.object.id;
       let negligencia: any = res.object.negligencia;
       let auditivo: any = res.object.auditivo;
@@ -269,8 +232,6 @@ export class TamizajesComponent implements OnInit {
       let psicologico: any = res.object.psicologico;
       let resultado: any = res.object.resultado;
       let sexuales: any = res.object.sexuales;
-
-
       /********** RECUPERAR TAMIZAJE VIF**************/
       this.formTamizajeVIF.get('hayViolencia').setValue(otrasPreguntas[0].valor);
       this.formTamizajeVIF.get('alguienInsulta').setValue(otrasPreguntas[1].valor);
@@ -296,8 +257,6 @@ export class TamizajesComponent implements OnInit {
         this.formTamizajeVIF.get('encierra').setValue(true);
       }
       this.formTamizajeVIF.get('esDesobediente').setValue(otrasPreguntas[11].valor);
-
-
       /********fisico************/
       if(fisico[0].valor=='si'){this.formTamizajeVIF.get('tieneHematomas').setValue(true);}
       if(fisico[1].valor=='si'){this.formTamizajeVIF.get('tieneCicatrices').setValue(true);}
@@ -309,7 +268,6 @@ export class TamizajesComponent implements OnInit {
       if(fisico[7].valor=='si'){this.formTamizajeVIF.get('tieneProblemasApetito').setValue(true);}
       if(fisico[8].valor=='si'){this.formTamizajeVIF.get('tieneEnuresis').setValue(true);}
       /********psicologico*******/
-
       if(psicologico[0].valor=='si'){this.formTamizajeVIF.get('tieneFalta').setValue(true);}
       if(psicologico[1].valor=='si'){this.formTamizajeVIF.get('tieneTristeza').setValue(true);}
       if(psicologico[2].valor=='si'){this.formTamizajeVIF.get('tieneRetraimiento').setValue(true);}
@@ -336,13 +294,16 @@ export class TamizajesComponent implements OnInit {
       if(sexuales[0].valor=='si'){this.formTamizajeVIF.get('conductaInapropiada').setValue(true);}
       if(sexuales[1].valor=='si'){this.formTamizajeVIF.get('tieneIrritacion').setValue(true);}
       if(sexuales[2].valor=='si'){this.formTamizajeVIF.get('tieneEnfermedad').setValue(true);}
-      this.formTamizajeCred.get('tamizajeMental').setValue(resultado.valor);
+      this.formTamizajeVIF.get('diagnosticoVIF').setValue(resultado.valor);
+      this.formTamizajeVIF.get('tamizajeMental').setValue(resultado.descripcion);
       /*******RECUPERAR ALTERACIONES VISUALES******/
       this.formTamizajeVisual.get('ojoDerecho').setValue(alteracionVisual.ojoDerecho);
       this.formTamizajeVisual.get('ojoIzquierdo').setValue(alteracionVisual.ojoIzquierdo);
       this.formTamizajeVisual.get('descripcionTamizajeOcular').setValue(alteracionVisual.descripcion);
+      this.formTamizajeVisual.get('diagnosticoVisual').setValue(alteracionVisual.resultado.valor);
       /*************RECUPERAR TAMIZAJE AUDITIVO*******************/
-      this.formTamizajeAuditivo.get("tamizajeAuditivo").setValue(observacionesAuditivo);
+      this.formTamizajeAuditivo.get("tamizajeAuditivo").setValue(observacionesAuditivo.descripcion);
+      this.formTamizajeAuditivo.get("diagnosticoAuditivo").setValue(observacionesAuditivo.valor);
       if (auditivo[0].valor) {
         this.formTamizajeAuditivo.get("prematuro").setValue(auditivo[0].valor);
       }
@@ -760,12 +721,12 @@ export class TamizajesComponent implements OnInit {
       let aux = {
         clave: '¿Alguna vez algún miembro de su familia lo insulta, lo golpea, le obliga a tener relaciones sexuales?',
         valor: 'si',
-        descripcion: this.formTamizajeCred.value.quienObligaRS
+        descripcion: this.formTamizajeVIF.value.quienObligaRS
       }
       otrasPreguntas.push(aux);
     }
     else{
-        let aux = {clave: '¿Alguna vez algún miembro de su familia lo insulta, lo golpea, le obliga a tener relaciones sexuales?', valor: 'no', descripcion: this.formTamizajeCred.value.quienObligaRS
+        let aux = {clave: '¿Alguna vez algún miembro de su familia lo insulta, lo golpea, le obliga a tener relaciones sexuales?', valor: 'no', descripcion: this.formTamizajeVIF.value.quienObligaRS
         }
         otrasPreguntas.push(aux);
     }
@@ -857,12 +818,14 @@ export class TamizajesComponent implements OnInit {
        let auxOtras8 = {clave: 'esDesobediente', valor: 'no', descripcion: "esDesobediente"}
        otrasPreguntas.push(auxOtras8);
    }
-   let resultado ={clave:this.formTamizajeVIF.value.tamizajeMental, valor:this.formTamizajeCred.value.tamizajeMental,descripcion:this.formTamizajeCred.value.tamizajeMental}
-   let observacionesAuditivo = this.formTamizajeAuditivo.value.tamizajeAuditivo;
+   let resultado ={clave:'RESULTADO TAMIZAJE VIF', valor:this.formTamizajeVIF.value.diagnosticoVIF,descripcion:this.formTamizajeVIF.value.tamizajeMental}
+   let observacionesAuditivo = {clave:'RESULTADO TAMIZAJE AUDITIVO', valor:this.formTamizajeVIF.value.diagnosticoAuditivo,descripcion:this.formTamizajeVIF.value.tamizajeAuditivo}
    let alteracionVisual = {
       ojoIzquierdo:this.formTamizajeVisual.value.ojoIzquierdo,
       ojoDerecho:this.formTamizajeVisual.value.ojoDerecho,
-      descripcion:this.formTamizajeVisual.value.descripcionTamizajeOcular
+      descripcion:this.formTamizajeVisual.value.descripcionTamizajeOcular,
+      resultado :{clave:'RESULTADO TAMIZAJE VISUAL', valor:this.formTamizajeVisual.value.diagnosticoVisual,descripcion:this.formTamizajeVisual.value.alteracionVisual}
+
    }
     let auditivo:any[]=[];
     if(this.formTamizajeAuditivo.value.prematuro=='si'){
@@ -947,7 +910,6 @@ export class TamizajesComponent implements OnInit {
     }
 
     this.tamizajes = {
-
       alteracionVisual : alteracionVisual,
       resultado:resultado,
       observacionesAuditivo:observacionesAuditivo,
@@ -1001,7 +963,7 @@ export class TamizajesComponent implements OnInit {
   }
   actualizarGuardar(){
     this.evalAlimenService.getTamizajeCred(this.idFichaTamizaje).subscribe((res: any) => {
-      console.log('se edito correctamente ', res.object);
+      console.log('se recupero correctamente ', res.object);
       if(res.object==null || res.object==undefined)
       {this.addTamizaje();}
       else{this.updateTamizaje();}
