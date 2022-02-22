@@ -51,6 +51,11 @@ p-checkbox >>> .p-checkbox .p-checkbox-box {
     border-color: rgb(234, 187, 38);
 }
 
+::ng-deep .rojo .p-checkbox .p-checkbox-box {
+    background: rgb(246, 26, 26);
+    border-color: rgb(246, 26, 26);
+}
+
 p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
     content: url("src\assets\svg-icons\check-svgrepo-com.svg");
 }
@@ -136,12 +141,37 @@ svg {
     position: relative;
     z-index: 100;
     display: block;
-    height: 280px;
+    height: 300px;
     width: 880px;
-    margin: auto;
+    /*margin: auto;*/
     /*background-color: rgba(250, 89, 100, .3);*/
     margin: 0 auto;
     fill: red;
+
+
+    /*float: right;*/
+    /*bottom: 2rem;*/
+    /*left:2rem;*/
+    /*margin-right:1rem;*/
+
     /*max-width: 180%;*/
     /*max-height: 100%;*/
+
 }
+
+@media screen and (min-width: 500px) {
+    svg {
+        position: relative;
+        z-index: 100;
+        display: block;
+        height: 300px;
+        width: 880px;
+        /*margin: auto;*/
+        /*background-color: rgba(250, 89, 100, .3);*/
+        margin: 0 auto;
+        fill: red;
+    }
+}
+
+
+
