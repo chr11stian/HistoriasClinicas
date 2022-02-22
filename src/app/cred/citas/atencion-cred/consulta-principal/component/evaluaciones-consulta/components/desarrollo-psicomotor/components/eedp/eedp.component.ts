@@ -56,14 +56,6 @@ export class EedpComponent implements OnInit {
     private testService: EvalAlimenService,
     private eedpService: EedpService,
   ) {
-    let data = {
-      tipoDoc: "DNI",
-      nroDoc: '10101025'
-    }
-    this.pacienteService.getPacienteByNroDoc(data).subscribe((res: any) => {
-      this.dataPatient = res.object;
-      console.log('data de paciente ', this.dataPatient);
-    });
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
     console.log('id de consulta ', this.idConsulta);
     this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');

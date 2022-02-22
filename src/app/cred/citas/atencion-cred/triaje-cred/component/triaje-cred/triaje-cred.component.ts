@@ -481,7 +481,10 @@ export class TriajeCredComponent implements OnInit {
                         nroDocumento: this.data.nroDocumento,
                         tipoDoc: this.data.tipoDoc,
                         idConsulta: r.object.id,
-                        fechaNacimiento: this.data.fechaNacimiento
+                        anio: r.object.anioEdad,
+                        mes: r.object.mesEdad,
+                        dia: r.object.diaEdad,
+                        sexo: this.data.sexo
                     }
                     this.consultaService.idConsulta = r.object.id
                     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
@@ -498,8 +501,35 @@ export class TriajeCredComponent implements OnInit {
                 }
             )
         }
+        this.getPlan(this.data.nroDocumento);
+    }
+    getPlan(dni: string) {
+        this.consultaGeneralService.traerPlan(dni).subscribe(
+            result => {
+                if (result.cod === '2404') {
+                    this.getNuevoPlan()
+                    console.log('2404', result)
+                }
+                if (result.cod === '2403') {
+                    console.log('2403', result)
+                }
+            }, err => {
+                console.log(err)
+            }
+        )
     }
 
+    getNuevoPlan(): void {
+        this.consultaGeneralService.crearPlan(
+            {
+                'tipoDoc': this.data.tipoDoc,
+                'nroDoc': this.data.nroDocumento
+            }
+        ).toPromise().then((result) => {
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
     saveInterconsulta(): void {
         this.outData()
         const req: interconsultaInterface = {
