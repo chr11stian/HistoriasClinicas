@@ -66,16 +66,16 @@ export class PacienteComponent implements OnInit {
         localStorage.setItem('pacienteDepartamento', JSON.stringify(this.dataDepartamentos));
         this.ref = this.dialog.open(DialogPacienteComponent, {
             header: "PACIENTE",
-            width: "75%",
-            height: "90%"
+            width: "90%",
+            height: "100%"
         })
     }
 
     openDialogPacienteComp() {
         this.ref = this.dialog.open(DialogPacienteComponent, {
             header: "PACIENTE",
-            width: "75%",
-            height: "90%"
+            width: "90%",
+            height: "100%"
         })
         this.ref.onClose.subscribe((data: any) => {
             console.log('data del otro dialog ');
