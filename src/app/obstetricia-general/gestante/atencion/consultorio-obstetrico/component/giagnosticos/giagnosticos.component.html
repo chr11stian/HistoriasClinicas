@@ -22,8 +22,8 @@
             <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro </th>
-                    <th style="text-align: center" class="font-1">CIE 10</th>
-                    <th style="text-align: center" class="font-2">DIAGNOSTICOS</th>
+                    <th style="text-align: center" class="font-1">CIE 10 SIS</th>
+                    <th style="text-align: center" class="font-2">DIAGNOSTICOS SIS</th>
                     <th style="text-align: center" class="font-2">TIPO</th>
                     <th style="text-align: center" class="font-2">ACCIÓN</th>
                 </tr>
@@ -31,8 +31,8 @@
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr>
                     <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.cie10 }}</td>
-                    <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                    <td style="text-align: center">{{ rowData.cie10SIS }}</td>
+                    <td style="text-align: center">{{ rowData.diagnosticoSIS }}</td>
                     <td style="text-align: center">{{ rowData.tipo }}</td>
                     <td style="text-align: center">
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"

@@ -330,7 +330,7 @@
                             class="p-button-primary" (click)="openDialogExamenesFinal()" class="mt-3"></button>
                     </div>
                     <div class="grid mt-2">
-                        <div class="col-4">
+                        <div class="col-6">
                             <p-table [value]="listaOtrosPruebasFisicas" [showCurrentPageReport]="true"
                                 [filterDelay]="0">
                                 <ng-template pTemplate="caption">
@@ -364,8 +364,7 @@
                                 </ng-template>
                             </p-table>
                         </div>
-                        <div class="col-1"></div>
-                        <div class="col-7 align-content-start">
+                        <div class="col-6 align-content-start">
                             <label>Observaciones Examen Fisico:</label>
                             <textarea [rows]="2" class="inputfield w-full" autoResize="autoResize"
                                 formControlName="obsExamFisico" pInputTextarea></textarea>
@@ -376,16 +375,16 @@
                     <div class="grid">
                         <div class="col-4">
                             <div class="grid">
-                                <label class="mt-3">Miembros Inferiores:</label>
-                                <input type="text" pInputText formControlName='miembrosInferiores' placeholder=""
-                                    class="funcionesBiologicas p-fluid w-full">
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="grid">
                                 <label class="mt-3">Altura Uterina:</label>
                                 <input type="text" pInputText formControlName='alturaUterina' placeholder=""
                                     class="funcionesBiologicas inputfield w-full">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="grid">
+                                <label class="mt-3">Miembros Inferiores:</label>
+                                <input type="text" pInputText formControlName='miembrosInferiores' placeholder=""
+                                    class="funcionesBiologicas p-fluid w-full">
                             </div>
                         </div>
                         <div class="col-4">
@@ -399,14 +398,22 @@
                         </div>
                     </div>
                     <div class="grid ">
-                        <div class="col-12">
+                        <div class="col-4">
                             <div class="grid">
                                 <label class="mt-3">Genitales Externos:</label>
                                 <input type="text" pInputText formControlName='genitalesExter' placeholder=""
                                     class="funcionesBiologicas inputfield w-full">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="grid">
                                 <label class="mt-3">Vagina:</label>
                                 <input type="text" pInputText formControlName='vagina' placeholder=""
                                     class="funcionesBiologicas inputfield w-full">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="grid">
                                 <label class="mt-3">Cuello Uterino:</label>
                                 <input type="text" pInputText formControlName='cuelloUterino' placeholder=""
                                     class="funcionesBiologicas inputfield w-full">
@@ -414,7 +421,8 @@
                         </div>
                     </div>
                     <div class="grid mt-2">
-                        <div class="col-5">
+                        <div class="col-4"></div>
+                        <div class="col-4">
                             <div class="grid">
                                 <label>Reflejo Osteotendinoso: </label>
                                 <p-radioButton name="osteotendinoso" formControlName="osteotendinoso" value="o"
@@ -435,6 +443,7 @@
                                 <span class="mr-2 ml-1">XXX </span>
                             </div>
                         </div>
+                        <div class="col-4"></div>
                     </div>
                 </p-fieldset>
                 <div class="col-12 mt-3">

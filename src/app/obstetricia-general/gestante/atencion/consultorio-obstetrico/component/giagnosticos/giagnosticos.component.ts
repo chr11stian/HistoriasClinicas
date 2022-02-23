@@ -74,7 +74,6 @@ export class GiagnosticosComponent implements OnInit {
         this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
         { label: 'PRESUNTIVO', value: 'P' },
         { label: 'REPETITIVO', value: 'R' },
-
         ];
         this.planPartoList = [{ label: 'CONTROL', value: 'CONTROL' },
         { label: 'VISITA', value: 'VISITA' },
@@ -136,7 +135,7 @@ export class GiagnosticosComponent implements OnInit {
         } else {
             /***verificar si ya ingreso este dx************/
             for (let i = 0; i < this.diagnosticos.length; i++) {
-                if (this.diagnosticos[i].cie10 === cie) {
+                if (this.diagnosticos[i].cie10SIS === cie) {
                     bandera = true;
                     console.log(bandera)
                 }
@@ -147,8 +146,8 @@ export class GiagnosticosComponent implements OnInit {
             }
             else {
                 this.diagnosticos.push({
-                    diagnostico: dx,
-                    cie10: cie,
+                    diagnosticoSIS: dx,
+                    cie10SIS: cie,
                     tipo: this.form.value.tipo
                 }
                 )
@@ -220,7 +219,7 @@ export class GiagnosticosComponent implements OnInit {
         this.referencia = {
             consultorio: this.formOtrosDatos.value.consultorio,
             motivoReferencia: this.formOtrosDatos.value.motivo,
-            RENIPRESS: this.formOtrosDatos.value.codRENAES,
+            renipress: this.formOtrosDatos.value.codRENAES,
             nombreIPRESS: null,
             idRef : null,
             DISA : null,
@@ -253,21 +252,21 @@ export class GiagnosticosComponent implements OnInit {
         console.log('bandera es ', this.encontradoDxTuberculosis);
         console.log(this.edadGestacional);
         let dx: any;
-        let cie10: any;
-        if (this.edadGestacional <= 50) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 3ER. TRIMESTRE (36 SEMANAS)", cie10 = "Z3593" }
-        if (this.edadGestacional <= 27) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 2DO. TRIMESTRE (24 SEMANAS)", cie10 = "Z3592" }
-        if (this.edadGestacional <= 13) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 1ER. TRIMESTRE (12 SEMANAS)", cie10 = "Z3591" }
+        let cie10SIS: any;
+        if (this.edadGestacional <= 50) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 3ER. TRIMESTRE (36 SEMANAS)", cie10SIS = "Z3593" }
+        if (this.edadGestacional <= 27) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 2DO. TRIMESTRE (24 SEMANAS)", cie10SIS = "Z3592" }
+        if (this.edadGestacional <= 13) { dx = "GESTANTE CON FACTOR DE RIESGO CONTROL 1ER. TRIMESTRE (12 SEMANAS)", cie10SIS = "Z3591" }
         diagnosticosPorConsejeria.push({
-            diagnostico: dx,
-            cie10: cie10,
+            diagnosticoSIS: dx,
+            cie10SIS: cie10SIS,
             tipo: 'D'
 
         })
         console.log(encontradoDxTuberculosis);
         if (encontradoDxTuberculosis) {
             diagnosticosPorConsejeria.push({
-                diagnostico: 'TBC PULMONAR BK (+)',
-                cie10: 'A150',
+                diagnosticoSIS: 'TBC PULMONAR BK (+)',
+                cie10SIS: 'A150',
                 tipo: 'P'
             })
         }
@@ -331,10 +330,10 @@ export class GiagnosticosComponent implements OnInit {
     }
     recuperarDatosGuardados() {
         let aux = {
-            "id": this.idConsultoriObstetrico,
-            "nroHcl": this.nroHclRecuperado,
-            "nroEmbarazo": this.nroEmbarazo,
-            "nroAtencion": 1
+            id: this.idConsultoriObstetrico,
+            nroHcl: this.nroHclRecuperado,
+            nroEmbarazo: this.nroEmbarazo,
+            nroAtencion: 1
         }
         this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
             this.dataAux = res.object;
@@ -364,8 +363,8 @@ export class GiagnosticosComponent implements OnInit {
                     }
                     if (this.dataAux.referencia != null) {
                         this.formOtrosDatos.patchValue({ 'consultorio': this.dataAux.referencia.consultorio });
-                        this.formOtrosDatos.patchValue({ 'motivo': this.dataAux.referencia.motivo });
-                        this.formOtrosDatos.patchValue({ 'codRENAES': this.dataAux.referencia.codRENAES });
+                        this.formOtrosDatos.patchValue({ 'motivo': this.dataAux.referencia.motivoReferencia });
+                        this.formOtrosDatos.patchValue({ 'codRENAES': this.dataAux.referencia.renipress });
                     }
                     /****************RECUPERAR EDAD GESTACIONAL********************/
                     console.log("edad gestacional:", this.dataAux.edadGestacionalSemanas);
@@ -384,8 +383,8 @@ export class GiagnosticosComponent implements OnInit {
                         this.formOtrosDatos.patchValue({ 'visita': this.dataAux.visitaDomiciliaria.estado });
                         this.formOtrosDatos.patchValue({ 'fechaVisita': this.dataAux.visitaDomiciliaria.fecha });
                     }
-                    if (this.dataAux.planPartoReenfocada) {
-                        this.formOtrosDatos.patchValue({ 'planPartoReenfocada': this.dataAux.planPartoReenfocada });
+                    if (this.dataAux.planParto) {
+                        this.formOtrosDatos.patchValue({ 'planPartoReenfocada': this.dataAux.planParto });
 
                     }
                     /************************RECUPERAR DATOS DE DIAGNOSTICOS***************/
