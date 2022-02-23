@@ -31,6 +31,8 @@ import { TipoContratoComponent } from "./component/tipo-contrato/tipo-contrato.c
 import { UpsComponent } from "./component/ups/ups.component";
 import { DividerModule } from "primeng/divider";
 import { UnidadEjecutoraComponent } from './component/unidad-ejecutora/unidad-ejecutora.component';
+import { PrestacionComponent } from './component/prestacion/prestacion.component';
+import { DiagnosticoComponent } from './component/diagnostico/diagnostico.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { UnidadEjecutoraComponent } from './component/unidad-ejecutora/unidad-ej
     TipoContratoComponent,
     UpsComponent,
     UnidadEjecutoraComponent,
+    PrestacionComponent,
+    DiagnosticoComponent,
   ],
 
   exports: [TipoPersonalComponent, UbicacionComponent],
