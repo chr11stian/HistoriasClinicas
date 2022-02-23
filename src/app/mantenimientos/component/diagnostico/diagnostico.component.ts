@@ -18,8 +18,8 @@ export class DiagnosticoComponent implements OnInit {
   data:diagnostico[]=[]
   diagnosticoFC:FormGroup
   estado:any[]=[
-    {name:"Activado",code:"ACTIVADO"},
-    {name:"Desactivo",code:"DESACTIVO"},
+    {name:"Activado",code:"activado"},
+    {name:"Desactivo",code:"desactivado"},
   ]
   constructor(private prestacionService:PrestacionService
               ,private ref: DynamicDialogRef

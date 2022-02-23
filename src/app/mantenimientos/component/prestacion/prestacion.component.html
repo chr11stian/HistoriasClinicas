@@ -10,7 +10,7 @@
 >
   <ng-template pTemplate="caption">
     <div class="flex justify-content-between">
-      <h3>Lista de Prestaciones</h3>
+      <h5  style="font-size: 1rem;margin: 0.5rem">Lista de Prestaciones</h5>
       <button
               pButton
               type="button"
@@ -48,7 +48,13 @@
       <td class="text-center text-800">{{ rowData.sexo }}</td>
       <td class="text-center text-800">{{ rowData.edadMin }}</td>
       <td class="text-center text-800">{{ rowData.edadMax }}</td>
-      <td class="text-center text-800">{{ rowData.denominacion }}</td>
+      <td *ngIf="rowData.denominacion=='ANIOS';else meses"class="text-center text-800">
+      AÑOS</td>
+      <ng-template #meses>
+        <td class="text-center text-800">
+          MESES
+        </td>
+      </ng-template>
       <td class="text-center">
         <span class="p-column-title">Diagnostico</span>
         <button

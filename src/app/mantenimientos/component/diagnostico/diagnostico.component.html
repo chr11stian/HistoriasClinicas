@@ -1,7 +1,7 @@
 
     <div class="grid">
       <div class="col-4">
-        <p-card class="">
+        <p-card >
           <h2>Diagnostico para codigo: {{codigo}}</h2>
           <form [formGroup]="diagnosticoFC" >
             <div class="grid">
@@ -37,14 +37,17 @@
 
             </div>
           </form>
-          <br />
-          <div class="flex justify-content-end">
-            <button [disabled]="diagnosticoFC.invalid" pButton type="button"
-                    label="Guardar" class="m-1 w-9rem" (click)="isUpdate=false;saveDiagnostico()"></button>
-            <button pButton type="button" label="Cancelar" icon="pi pi-plus" (click)="cancelar()"
-                    pTooltip="cancerlar" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
-                    pRipple></button>
-          </div>
+
+          <ng-template pTemplate="footer">
+            <div class="flex justify-content-end">
+              <button [disabled]="diagnosticoFC.invalid" pButton type="button"
+                      label="Guardar" class="m-1 w-9rem" (click)="isUpdate=false;saveDiagnostico()"></button>
+              <button pButton type="button" label="Cancelar" icon="pi pi-plus" (click)="cancelar()"
+                      pTooltip="cancerlar" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
+                      pRipple></button>
+            </div>
+          </ng-template>
+
 
         </p-card>
       </div>
@@ -88,7 +91,13 @@
               <td style="text-align: center">{{ rowData.diagnostico }}</td>
               <td style="text-align: center">{{ rowData.cie10 }}</td>
               <td style="text-align: center">{{ rowData.criterio }}</td>
-              <td style="text-align: center">{{ rowData.estado }}</td>
+              <td style="text-align: center">
+                <p-tag *ngIf="rowData.estado=='ACTIVADO';else desactivado" styleClass="p-mr-2" severity="primary" value="Activado" [rounded]="true"></p-tag>
+                <ng-template #desactivado>
+                  <p-tag styleClass="p-mr-2" severity="danger" value="Desactivo" [rounded]="true"></p-tag>
+                </ng-template>
+              </td>
+<!--              <td style="text-align: center">{{ rowData.estado }}</td>-->
 <!--              <td>-->
 <!--                <button pButton (click)="isUpdate=true;botonActualizar(rowIndex)" pTooltip="Editar" pRipple-->
 <!--                        type="button" icon="pi pi-pencil" class="p-button-rounded m-1">-->
