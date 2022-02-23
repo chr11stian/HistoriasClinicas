@@ -1,14 +1,14 @@
-p-table >>> .p-datatable table {
+::ng-deep .test-eedp .p-datatable table {
   width: auto;
 }
 
-p-table >>> .p-datatable .p-datatable-thead > tr > th {
+::ng-deep .test-eedp .p-datatable .p-datatable-thead > tr > th {
   text-align: center !important;
   border: 1px solid #b6b6b6;
   background-color: #dddddd;
   padding: 0.3rem;
 }
-p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+::ng-deep .test-eedp .p-datatable .p-datatable-tbody > tr > td {
   text-align: center;
   font-size: medium;
   word-wrap: break-word;
@@ -122,4 +122,22 @@ input[type="number"] {
 .label_fecha {
   font-weight: bold;
   font-size: 14px;
+}
+
+::ng-deep .table-desarrollo .p-datatable table {
+  width: auto;
+}
+
+::ng-deep .table-desarrollo .p-datatable .p-datatable-thead > tr > th {
+  text-align: center !important;
+  border: 1px solid #b6b6b6;
+  background-color: #dddddd;
+  padding: 0.3rem;
+}
+::ng-deep .table-desarrollo .p-datatable .p-datatable-tbody > tr > td {
+  padding: 2px;
+}
+.cell_container {
+  width: 100%;
+  height: 100%;
 }

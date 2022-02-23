@@ -10,10 +10,14 @@ export class TablaEedpDesarrolloPsicomotorComponent implements OnInit {
 
   datosNinio: any;
   dataTabla: any;
+  idConsulta: string;
 
   constructor(
     private eedpService: EedpService,
-  ) { }
+  ) {
+    this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
+    console.log('id de consulta desde tabla eedp ', this.idConsulta);
+  }
 
   ngOnInit(): void {
     this.eedpService.getDatosTablaEEDP().then(res => {
@@ -22,7 +26,7 @@ export class TablaEedpDesarrolloPsicomotorComponent implements OnInit {
     });
   }
 
-  funcionLeerDatos(value){
+  funcionLeerDatos(value) {
     console.log('dato en posicion ', value)
   }
 }
