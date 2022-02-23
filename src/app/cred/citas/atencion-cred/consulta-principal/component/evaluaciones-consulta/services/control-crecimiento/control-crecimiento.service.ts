@@ -1,26 +1,25 @@
 import {Injectable} from '@angular/core';
-import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-import {ApiConsulta, DataQuery} from "../atencion-cred/consulta-principal/models/consultaGeneral";
+import {environment} from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ListaConsultaService {
+export class ControlCrecimientoService {
     base_url = environment.baseUrl;
     bd = environment.bd;
-
-    tipoDoc: string = "";
-    nroDoc: string = "";
-    idConsulta: string= ""
-    data: any;
 
     constructor(private http: HttpClient) {
     }
 
-    getConsultasCRED(dni) {
-        const url = `${this.base_url}/hce/cred/consulta/all/${dni}`
+    getControlCrecimiento(dni) {
+        const url = `${this.base_url}/hce/cred/control/${dni}`
         return this.http.get(url)
+    }
+
+    updateControlCrecimiento(idConsulta: string, data) {
+        const url = `${this.base_url}/hce/cred/consulta/evaluacion/crecimiento/${idConsulta}`
+        return this.http.post(url, data)
     }
 
     getConsulta(idConsulta) {
@@ -38,7 +37,7 @@ export class ListaConsultaService {
         return this.http.post(url, data)
     }
 
-    getDatosGenerales(idConsulta){
+    getDatosGenerales(idConsulta) {
         const url = `${this.base_url}/hce/cred/consulta/datos/generales/${idConsulta}`
         return this.http.get(url)
     }
