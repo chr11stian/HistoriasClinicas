@@ -32,6 +32,7 @@ import {ToggleButtonModule} from "primeng/togglebutton";
 import { VacunaComponent } from './component/evaluaciones-consulta/components/vacuna/vacuna.component';
 import { PautaBreveComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/pauta-breve/pauta-breve.component';
 import {TimelineModule} from "primeng/timeline";
+import { TablaEedpDesarrolloPsicomotorComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/tabla-eedp-desarrollo-psicomotor/tabla-eedp-desarrollo-psicomotor.component';
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -53,6 +54,7 @@ import {TimelineModule} from "primeng/timeline";
         EvaluacionAlimentacionComponent,
         VacunaComponent,
         PautaBreveComponent,
+        TablaEedpDesarrolloPsicomotorComponent,
     ],
     imports: [
         EvaluacionGeneralModule,
