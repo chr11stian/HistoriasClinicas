@@ -85,10 +85,20 @@ export interface ExamenesFisico {
     nombreExamen: string;
     valor: string;
 }
+
 export interface controlCrecimiento {
     controlCrecimiento: interfaceCrecimiento[]
 }
-export interface  interfaceCrecimiento {
+
+export interface inputCrecimiento {
+    nombreEvaluacion: string,
+    codigoCIE10: string,
+    codigoHIS: string,
+    codigoPrestacion: string,
+    controlCrecimientoDesaMes: interfaceCrecimiento
+}
+
+export interface interfaceCrecimiento {
     peso: number;
     talla: number;
     imc: number;
@@ -98,7 +108,7 @@ export interface  interfaceCrecimiento {
     genero: string;
     nroControl: number;
     estadoAplicado: boolean;
-    fechaTentativa: string;
-    fecha: string;
+    fechaTentativa: string | Date;
+    fecha: string | Date;
 }
 
