@@ -1,0 +1,103 @@
+<div class="col-12">
+    <div class="container_steps">
+        <div *ngFor="let item of items; index as indexItem">
+            <div *ngIf="indexItem === indexSelected">
+                <div class="steps">
+                    <div class="div-titulo-nro">
+                        <label class="steps-titulo-edadNro">{{item.edadNro}}</label>
+                    </div>
+                    <div class="div-line"></div>
+                    <div class="div-titulo-mes">
+                        <label class="steps-titulo-edadMes">{{item.edad}}</label>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="indexItem !== indexSelected">
+                <div class="steps_NoSelected" (click)="changeStep(indexItem, item.edadNro, item.edad)">
+                    <div class="div-titulo-nro">
+                        <label class="steps-titulo-edadNro">{{item.edadNro}}</label>
+                    </div>
+                    <div class="div-line"></div>
+                    <div class="div-titulo-mes">
+                        <label class="steps-titulo-edadMes">{{item.edad}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="div_line_Separate_card"></div>
+    <div>
+        <p-fieldset legend="{{edadNroSelected + ' ' + edadSelected}}">
+            <div class="container_input_datos">
+                <div class="col-3">
+                    <input class="input_Evaluacion" id="Nvalue" width="" [(ngModel)]="resultadoEvaluacion" pInputText />
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <label class="mt-3">Fecha</label>
+                        <div class="col-8">
+                            <input type="date" [(ngModel)]="fechaEvaluacion" pInputText>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="grid">
+                        <label class="mt-3">Examinador</label>
+                        <div class="col-8">
+                            <input class="input_examinador" pInputText placeholder="Ingrese Examinador"
+                                [(ngModel)]='examinador' />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <p-table dataKey="id" [value]="arrayEdadPautaBreveSelected" responsiveLayout="scroll">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th rowspan="2" colspan="8">ITEM</th>
+                            <th colspan="4">PAUTA BREVE</th>
+                        </tr>
+
+                        <tr>
+                            <th colspan="2">N</th>
+                            <th colspan="2">D</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-datos>
+                        <tr>
+                            <td colspan="2">{{datos.areaEvaluacion}}</td>
+                            <td colspan="6" pEditableColumn>{{datos.descripcion}}</td>
+                            <td colspan="2">
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-checkbox [(ngModel)]="datos.estadoN" binary="true" inputId="binary">
+                                        </p-checkbox>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        <p-checkbox [(ngModel)]="datos.estadoN" binary="true" inputId="binary">
+                                        </p-checkbox>
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td colspan="2">
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-checkbox [(ngModel)]="datos.estadoD" binary="true" inputId="binary">
+                                        </p-checkbox>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        <p-checkbox [(ngModel)]="datos.estadoD" binary="true" inputId="binary">
+                                        </p-checkbox>
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="grid mt-2">
+                <p-button (click)="confirmSaveTest()">Guardar</p-button>
+            </div>
+        </p-fieldset>
+    </div>
+</div>

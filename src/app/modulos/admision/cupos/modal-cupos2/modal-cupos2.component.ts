@@ -163,7 +163,6 @@ export class ModalCupos2Component implements OnInit {
                 this.DepartamentoIDSelct = object.iddd
             }
         });
-
         let dpto = {
             iddd: this.DepartamentoIDSelct
         }
