@@ -1,0 +1,106 @@
+
+    <div class="grid">
+      <div class="col-4">
+        <p-card class="">
+          <h2>Diagnostico para codigo: {{codigo}}</h2>
+          <form [formGroup]="diagnosticoFC" >
+            <div class="grid">
+              <div class="col-2">Grupo:</div>
+              <div class="col-10 p-fluid">
+                <input type="text" pInputText formControlName="grupo" >
+              </div>
+              <div class="col-3">
+                Diagnostico:
+              </div>
+              <div class="col-9 p-fluid">
+                <input type="text" pInputText formControlName="diagnostico" >
+              </div>
+              <div class="col-2">
+                Criterio:
+              </div>
+              <div class="col-10 p-fluid">
+                <input type="text" pInputText formControlName="criterio" >
+              </div>
+              <div class="col-3">
+                cie10:
+              </div>
+              <div class="col-9 p-fluid" >
+                <input type="text" pInputText formControlName="cie10" >
+              </div>
+              <div class="col-3">
+                estado:
+              </div>
+              <div class="col-7 p-fluid">
+                <p-selectButton [options]="estado" optionLabel="name"  optionValue="code" formControlName="estado" ></p-selectButton>
+              </div>
+
+
+            </div>
+          </form>
+          <br />
+          <div class="flex justify-content-end">
+            <button [disabled]="diagnosticoFC.invalid" pButton type="button"
+                    label="Guardar" class="m-1 w-9rem" (click)="isUpdate=false;saveDiagnostico()"></button>
+            <button pButton type="button" label="Cancelar" icon="pi pi-plus" (click)="cancelar()"
+                    pTooltip="cancerlar" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
+                    pRipple></button>
+          </div>
+
+        </p-card>
+      </div>
+      <div class="col-8">
+        <p-table [value]="data" #dt styleClass="p-datatable-gridlines" [rows]="5"
+                 [rowsPerPageOptions]="[5, 10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                 currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+                 [showCurrentPageReport]="true" responsiveLayout="scroll">
+          <ng-template pTemplate="caption">
+              <div class="flex justify-content-between">
+                <h3>Lista diagnosticos para {{descripcion}}</h3>
+<!--                <button-->
+<!--                        pButton-->
+<!--                        type="button"-->
+<!--                        label="Agregar"-->
+<!--                        icon="pi pi-plus"-->
+<!--                        (click)="isUpdate = false;inputDisabled=true;agregarActualizar()"-->
+<!--                        pTooltip="Agregar tipo de personal"-->
+<!--                        tooltipPosition="bottom"-->
+<!--                        class="p-button-danger p-button-sm"-->
+<!--                        pRipple-->
+<!--                ></button>-->
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+              <th style="text-align: center">Nro</th>
+              <th style="text-align: center">grupo</th>
+              <th style="text-align: center">Diagnostico</th>
+              <th style="text-align: center">cie10</th>
+              <th style="text-align: center">Criterio</th>
+              <th style="text-align: center; width:8rem">Estado</th>
+<!--              <th style="text-align: center; width:8rem">Accion</th>-->
+
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr style="text-align: center">
+              <td style="text-align: center">{{ rowIndex + 1 }}</td>
+              <td style="text-align: center">{{ rowData.grupo }}</td>
+              <td style="text-align: center">{{ rowData.diagnostico }}</td>
+              <td style="text-align: center">{{ rowData.cie10 }}</td>
+              <td style="text-align: center">{{ rowData.criterio }}</td>
+              <td style="text-align: center">{{ rowData.estado }}</td>
+<!--              <td>-->
+<!--                <button pButton (click)="isUpdate=true;botonActualizar(rowIndex)" pTooltip="Editar" pRipple-->
+<!--                        type="button" icon="pi pi-pencil" class="p-button-rounded m-1">-->
+<!--                </button>-->
+<!--&lt;!&ndash;                <button pButton (click)="eliminarAmbiente(rowData)" pTooltip="Eliminar" pRipple&ndash;&gt;-->
+<!--&lt;!&ndash;                        type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">&ndash;&gt;-->
+<!--&lt;!&ndash;                </button>&ndash;&gt;-->
+<!--              </td>-->
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <p-toast key="myKey2"></p-toast>
+

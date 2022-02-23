@@ -25,6 +25,7 @@ import { UpsComponent } from "./component/ups/ups.component";
 import { CondicionPacienteDiscapacidadComponent } from "./component/condicion-paciente-discapacidad/condicion-paciente-discapacidad.component";
 import { TipoContratoComponent } from "./component/tipo-contrato/tipo-contrato.component";
 import { UnidadEjecutoraComponent } from "./component/unidad-ejecutora/unidad-ejecutora.component";
+import {PrestacionComponent} from "./component/prestacion/prestacion.component";
 
 const routes: Routes = [
   {
@@ -116,6 +117,10 @@ const routes: Routes = [
   {
     path: "unidad-ejecutora",
     component: UnidadEjecutoraComponent,
+  },
+  {
+    path: "prestacion",
+    component: PrestacionComponent,
   },
 ];
 
