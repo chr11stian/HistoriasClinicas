@@ -17,12 +17,14 @@ export class TamizajesComponent implements OnInit {
   displayMaximizable: boolean;
   attributeLocalS = 'documento';
   data:dato;
-  diagnosticoR: any[]=[];
-  sino :any[]=[];
-  facil:any[]=[];
-  tamizajes:any;
+  diagnosticoR: diagnostico[]=[];
+  sino :sino[]=[];
+  facil:sino[]=[];
+  tamizajes:tamizajes;
   idFichaTamizaje:string="";
-  tamizajesActualizar:any;
+  tamizajesActualizar:tamizajeActualizar;
+  estadoEditar:boolean=false;
+  estadoAgregar:boolean=false;
   constructor(private formBuilder: FormBuilder,
               private evalAlimenService: EvaluacionAlimentacionService) {
     this.builForm();
@@ -196,6 +198,8 @@ export class TamizajesComponent implements OnInit {
           console.log('se recupero correctamente consulta', res.object);
           if(res.object.fichaTamizajeId==null || res.object.fichaTamizajeId==undefined)
           {
+              this.estadoAgregar=true;
+              this.estadoEditar=false;
               Swal.fire({
                   position: 'top-end',
                   icon: 'info',
@@ -205,6 +209,8 @@ export class TamizajesComponent implements OnInit {
               })
           }
           else{
+              this.estadoAgregar=false;
+              this.estadoEditar=true;
               Swal.fire({
                   position: 'top-end',
                   icon: 'success',
@@ -526,7 +532,8 @@ export class TamizajesComponent implements OnInit {
         clave: "Robo, mentira, fuga, desobediencia, agresividad", valor: 'si', descripcion: "Robo, mentira, fuga, desobediencia, agresividad"
       }
       psicologicos.push(aux);
-    }else{
+    }
+    else{
         let aux = {
             clave: "Robo, mentira, fuga, desobediencia, agresividad", valor: 'no', descripcion: "Robo, mentira, fuga, desobediencia, agresividad"
         }
@@ -969,4 +976,36 @@ export class TamizajesComponent implements OnInit {
       else{this.updateTamizaje();}
     })
   }
+}
+export interface diagnostico
+{
+    name?:string,
+    diagnostico?:string
+}
+export interface sino{
+    label?:string,
+    value?:string
+}
+export interface tamizajes{
+    alteracionVisual?: any,
+    resultado?:any,
+    observacionesAuditivo?:any,
+    auditivo?:any,
+    otrasPreguntas?:any,
+    fisico?:any,
+    negligencia?:any,
+    psicologico?:any,
+    sexuales?:any
+}
+export interface tamizajeActualizar{
+    id?:string,
+    alteracionVisual?: any,
+    resultado?:any,
+    observacionesAuditivo?:any,
+    auditivo?:any,
+    otrasPreguntas?:any,
+    fisico?:any,
+    negligencia?:any,
+    psicologico?:any,
+    sexuales?:any
 }

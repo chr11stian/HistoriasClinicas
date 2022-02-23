@@ -3,7 +3,8 @@
         <label>TAMIZAJES NIÑO(A)</label>
     </ng-template>
     <ng-template  pTemplate="right" class="button">
-        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="actualizarGuardar()"></button>
+        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" [disabled]="estadoAgregar==false" (click)="addTamizaje()"></button>
+        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Editar" [disabled]="estadoEditar==false" (click)="updateTamizaje()"></button>
     </ng-template>
 </p-toolbar>
 <br>

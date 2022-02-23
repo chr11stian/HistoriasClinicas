@@ -17,146 +17,80 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   Evaluaciones:EvaluacionAlimenticia[]=[];
   datePipe=new DatePipe('en-US');
   attributeLocalS = 'documento'
-  edadMeses:number=8;
+  edadMeses:number=0;
   displayPosition: boolean;
   position: string;
   diagnostico:string;
   data:dato;
-  diagnosticoList = [{name: 'NINO CON LACTANCIA MATERNA CONTINUADA', code: 'NINO CON LACTANCIA MATERNA CONTINUADA'},
-    {name: 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO', code: 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO'},
-    {name: 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA', code: 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'},
-    {name: 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA', code: 'NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'}
-  ];
+  listaTitulosPreguntas:TipoPregunta[]=[];
 
   constructor(private evalAlimenService: EvaluacionAlimentacionService) {
+    this.listaTitulosPreguntas=[{codigo:'FECHA',titulo:'Fecha'},
+      {codigo:'PREG_1',titulo:'1. ¿El niño(a) esta recibiendo lactancia materna? (explorar)'},
+      {codigo:'PREG_2',titulo:'2. ¿La tecnica de LM es adecuada? (explorar y observar)'},
+      {codigo:'PREG_3',titulo:'3. ¿La frecuencia de LM es adecuada? (explorar y observar)'},
+      {codigo:'PREG_4',titulo:'4. ¿El niño(a) recibe leche no materna? (explorar)'},
+      {codigo:'PREG_5',titulo:'5. ¿El niño(a) recibe agüitas? (explorar)'},
+      {codigo:'PREG_6',titulo:'6. ¿La niña o niño recibe algún otro alimento? (explorar)'},
+      {codigo:'PREG_7',titulo:'7. ¿La consistencia de la preparación es adecuada según la edad? (explorar)'},
+      {codigo:'PREG_8',titulo:'8. ¿La cantidad de Alimentos es adecuada según la edad? (explorar)'},
+      {codigo:'PREG_9',titulo:'9. ¿La frecuencia de la alimentación es adecuada según la edad? (explorar)'},
+      {codigo:'PREG_10',titulo:'10. ¿La frecuencia de la alimentación es adecuada según la edad? (explorar)'},
+      {codigo:'PREG_11',titulo:'11. ¿Consume frutas y verduras? (explorar)'},
+      {codigo:'PREG_12',titulo:'12. ¿Añade aceite, mantequilla o margarina a la comida del niño?'},
+      {codigo:'PREG_13',titulo:'13. ¿La niña o niño o recibe los alimentos en su propio plato?'},
+      {codigo:'PREG_14',titulo:'14. ¿Añade sal yodada a la comida familiar?'},
+      {codigo:'PREG_15',titulo:'15. ¿Es el niño(a) beneficiario de algún programa de apoyo social? (Especificar)'},
+      {codigo:'PREG_16',titulo:'16. ¿Cuántos sobres de micronutrientes consumio en el mes?'},
+      {codigo:'OBS',titulo:'Observaciones'},
+      {codigo:'DIAGNOSTICO',titulo:'Diagnostico'},
+    ]
   }
   ngOnInit(): void {
-    this.evaluacionAlimenticia = [
-      {
-        "titulo": "Fecha",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "1. ¿El niño(a) esta recibiendo lactancia materna? (explorar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "2. ¿La tecnica de LM es adecuada? (explorar y observar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "3. ¿La frecuencia de LM es adecuada? (explorar y observar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "4. ¿El niño(a) recibe leche no materna? (explorar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "5. ¿El niño(a) recibe agüitas? (explorar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "6. ¿La niña o niño recibe algún otro alimento? (explorar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "7. ¿La consistencia de la preparación es adecuada según la edad? (explorar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "8. ¿La cantidad de Alimentos es adecuada según la edad? (explorar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "9. ¿La frecuencia de la alimentación es adecuada según la edad? (explorar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "10. ¿La frecuencia de la alimentación es adecuada según la edad? (explorar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "11. ¿Consume frutas y verduras? (explorar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "12. ¿Añade aceite, mantequilla o margarina a la comida del niño?",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "13. ¿La niña o niño o recibe los alimentos en su propio plato?",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "14. ¿Añade sal yodada a la comida familiar?",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "15. ¿Es el niño(a) beneficiario de algún programa de apoyo social? (Especificar)",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "16. ¿Cuántos sobres de micronutrientes consumio en el mes?",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "Observaciones",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      },
-      {
-        "titulo": "Diagnostico",
-        "valorRN":"",  "valor1M": "",   "valor2M": "","valor3M": "", "valor4M": "","valor5M": "", "valor6M": "", "valor7M": "",
-        "valor8M": "", "valor9M": "", "valor10M": "" , "valor11M": "", "valor12M": "", "valor14M": "", "valor16M": "", "valor18M": "", "valor20M": "", "valor22M": "",
-        "valor24M": "", "valor30M": "", "valor33M":"", "valor36M": "", "valor39M": "", "valor42M": ""
-      }
-    ]
+    this.llenarTabla();
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-    // this.recuperarEdadNinio(); /*cuando recupere datos en consulta*/
+    this.recuperarEdadNinio(); /*cuando recupere datos en consulta*/
     this.recuperarDataPlanAlimentaciaBD();
     this.VerificarRegistroExistenteEnEsteMes(this.edadMeses);
     this.showDialogEdad('top');
   }
+  llenarTabla(){
+    for(let i = 0; i<this.listaTitulosPreguntas.length;i++){
+      let cadena = {
+        titulo:this.listaTitulosPreguntas[i].titulo,
+        valorRN:"",
+        valor1M:"",
+        valor2M:"",
+        valor3M:"",
+        valor4M:"",
+        valor5M:"",
+        valor6M:"",
+        valor7M:"",
+        valor8M:"",
+        valor9M:"",
+        valor10M:"",
+        valor11M:"",
+        valor12M:"",
+        valor14M:"",
+        valor16M:"",
+        valor18M:"",
+        valor20M:"",
+        valor22M:"",
+        valor24M:"",
+        valor27M:"",
+        valor30M:"",
+        valor33M:"",
+        valor36M:"",
+        valor39M:"",
+        valor42M:"",
+      }
+      this.evaluacionAlimenticia.push(cadena);
+    }
+    console.log(this.evaluacionAlimenticia);
+  }
   recuperarEdadNinio(){
-    console.log('entrando a recuperar edad');
-      this.edadMeses=2
-      console.log(this.edadMeses);
+    this.edadMeses=  this.data.anio*12+this.data.mes
+    console.log(this.edadMeses);
   }
   /**Mostrar la edad del niño en alerta**/
   showDialogEdad(position:string){
@@ -169,19 +103,9 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     console.log('documentos',this.data.nroDocumento);
     this.evalAlimenService.getEvaluacionAlimenticiaCredPlan(this.data.nroDocumento).subscribe((res: any) => {
       this.Evaluaciones = (res.object);
-      if(this.Evaluaciones!=null){
-        // Swal.fire({
-        //   icon: 'success',
-        //   title: 'Evaluación Alimenticia',
-        //   text: 'Se recupero registros anteriores con éxito',
-        //   showConfirmButton: false,
-        //   timer: 2000,
-        // })
-        console.log('evaluacion', res.object);
-        console.log('paciente por doc ', this.Evaluaciones)
-        console.log(this.Evaluaciones[0]);
+      if(res.object!=null){
         let aux:any;
-        let i = 0
+        let i = 0;
         while(this.Evaluaciones[i]!=undefined){
           console.log("entrando i", i);
           aux=this.Evaluaciones[i]
@@ -403,18 +327,16 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           }
           i++;
         }
-
       }
       else{
         Swal.fire({
           icon: 'error',
-          title: 'Test Peruano',
+          title: 'Evaluacion Alimenticia',
           text: 'No existe ningún registro de Evaluación',
           showConfirmButton: false,
           timer: 2000,
         })
       }
-
     });
   }
   /*************RECUPERAR EL VALOR DE EDAD COMO STRING ************/
@@ -434,94 +356,18 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     for(let i = 1;i<this.evaluacionAlimenticia.length-1;i++)
     {
       preguntas.push(this.evaluacionAlimenticia[i][prefijo]);
+      console.log(this.evaluacionAlimenticia[i][prefijo])
     }
-    let lista = [
-      {
-        "codigo": "PREG_1",
-        "estado": preguntas[0],
-        "descripcion": "¿La Niña Esta Recibiendo Lactancia Materna? (explorar) "
-      },
-      {
-        "codigo": "PREG_2",
-        "estado": preguntas[1],
-        "descripcion": "¿La tecnica de LM es adecuada? (explorar y observar)"
-      },
-      {
-        "codigo": "PREG_3",
-        "estado": preguntas[2],
-        "descripcion": "¿La frecuencia de LM es adecuada? (explorar y observar)"
-      },
-      {
-        "codigo": "PREG_4",
-        "estado": preguntas[3],
-        "descripcion": "¿La niña o niño recibe leche no materna? (explorar)"
-      },
-      {
-        "codigo": "PREG_5",
-        "estado": preguntas[4],
-        "descripcion": "¿La niña o niño recibe aguitas? (explorar)"
-      },
-      {
-        "codigo": "PREG_6",
-        "estado":preguntas[5],
-        "descripcion": "La niña o niño recibe algun otro alimento? (explorar)"
-      },
-      {
-        "codigo": "PREG_7",
-        "estado": preguntas[6],
-        "descripcion": "¿La consistencia de la preparacion es adecuada segun la edad?(explorar)"
-      },
-      {
-        "codigo": "PREG_8",
-        "estado": preguntas[7],
-        "descripcion": "¿La cantidad de alimentos es adecuada segun edad? (explorar)"
-      },
-      {
-        "codigo": "PREG_9",
-        "estado": preguntas[8],
-        "descripcion": "¿La frecuencia de la alimentacion es adecuada segun la edad? (explorar)"
-      },
-      {
-        "codigo": "PREG_10",
-        "estado": preguntas[9],
-        "descripcion": "¿Consume alimentos de origen animal? (explorar)"
-      },
-      {
-        "codigo": "PREG_11",
-        "estado": preguntas[10],
-        "descripcion": "¿Consume frutas y verduras? (explorar)"
-      },
-      {
-        "codigo": "PREG_12",
-        "estado": preguntas[11],
-        "descripcion": "¿Añade aceite, mantequilla o margarina a la comida del niño?"
-      },
-      {
-        "codigo": "PREG_13",
-        "estado": preguntas[12],
-        "descripcion": "¿La niña o niño recibe los alimentos en su propio plato?"
-      },
-      {
-        "codigo": "PREG_14",
-        "estado": preguntas[13],
-        "descripcion": "¿Añade sal yodada a la comida familiar?"
-      },
-      {
-        "codigo": "PREG_15",
-        "estado": preguntas[14],
-        "descripcion": "¿Es niño beneficiario de algun Programa de Apoyo Social? Si() No() Especificar"
-      },
-      {
-        "codigo": "PREG_16",
-        "estado": preguntas[15],
-        "descripcion": "¿Cuantos sobres de micronutrientes consumio en el mes? Si() No() Especificar"
-      },
-      {
-        "codigo": "OBS",
-        "estado": preguntas[16],
-        "descripcion": ""
+    let listaAux:any[]=[];
+    for(let i=0;i<17;i++){
+      let aux={
+        codigo:this.listaTitulosPreguntas[i+1].codigo,
+        estado:preguntas[i],
+        descripcion:this.listaTitulosPreguntas[i+1].titulo
       }
-    ];
+      console.log(aux);
+      listaAux.push(aux);
+    }
     console.log("preguntas", preguntas);
     let dx = this.calcularDiagnostico(preguntas);
     let cie10:string = this.calcularCie10(dx);
@@ -530,7 +376,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     console.log('diagnostico:', cie10);
 
     let cadena:EvaluacionAlimenticia = {
-      // fechaRegistro: new Date(this.datePipe.transform(this.evaluacionAlimenticia[0][prefijo],'yyyy-MM-dd HH:mm:ss')),
       nombreEvaluacion:'EVALUACION_ALIMENTACION',
       codigoCIE10:cie10,
       codigoHIS:'Z0017.01',
@@ -539,7 +384,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           {
             fechaRegistro: this.convertirFecha(this.evaluacionAlimenticia[0][prefijo]),
             edad:indice,
-            listaPreguntas:lista,
+            listaPreguntas:listaAux,
             diagnostico:dx
           }
     }
@@ -556,11 +401,12 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           console.log('se guardo correctamente ', res.object);
           Swal.fire({
             icon: 'success',
-            title: 'Test Peruano',
+            title: 'Evaluacion Alimenticia',
             text: 'Se guardo existosamente la evaluacion para la edad ' + this.edadMeses,
             showConfirmButton: false,
             timer: 2000,
           })
+          this.mostrarMensajeDiagnostico(dx);
         },error=>{
           Swal.fire({
             icon: 'error',
@@ -571,32 +417,11 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           })
         });
         Swal.fire('Guardado!', '', 'success')
+
       } else if (result.isDenied) {
         Swal.fire('No se guardo este registro', '', 'info')
       }
     })
-
-    // this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
-    //   console.log('se guardo correctamente ', res.object);
-    //   console.log('se guardo correctamente cade ', cadena);
-    //
-    //   Swal.fire({
-    //     icon: 'success',
-    //     title: 'Evaluacion Alimenticia',
-    //     text: 'Se guardo existosamente la evaluacion para la edad ' + this.edadMeses,
-    //     showConfirmButton: false,
-    //     timer: 2000,
-    //   })
-    // },error=>{
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'Evaluacion Alimenticia',
-    //     text: error,
-    //     showConfirmButton: false,
-    //     timer: 2000,
-    //   })
-    // });
-
   }
   calcularCie10(dx){
     if(dx == 'NINO CON LACTANCIA MATERNA CONTINUADA'){
@@ -644,6 +469,30 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     const fecha2 = fecha.replace("T"," ");
     return fecha2+":00";
   }
+  mostrarMensajeDiagnostico(Dx){
+    let timerInterval
+    Swal.fire({
+      title: 'DIAGNOSTICO ',
+      html: 'Espere unos segundos para calcular:',
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+        const b = Swal.getHtmlContainer().querySelector('b')
+        timerInterval = setInterval(() => {
+        }, 100)
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('dx')
+        Swal.fire(Dx)
+      }
+    })
+  }
   // editarEvaluacion(){
   //   let prefijo = this.obtenerTitulo(this.edadMeses);
   //   console.log(prefijo);
@@ -655,93 +504,16 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   //   {
   //     preguntas.push(this.evaluacionAlimenticia[i][prefijo]);
   //   }
-  //   let lista:Preguntas[] = [
-  //     {
-  //       "codigo": "PREG_1",
-  //       "estado": preguntas[0],
-  //       "descripcion": "¿La Niña Esta Recibiendo Lactancia Materna? (explorar) "
-  //     },
-  //     {
-  //       "codigo": "PREG_2",
-  //       "estado": preguntas[1],
-  //       "descripcion": "¿La tecnica de LM es adecuada? (explorar y observar)"
-  //     },
-  //     {
-  //       "codigo": "PREG_3",
-  //       "estado": preguntas[2],
-  //       "descripcion": "¿La frecuencia de LM es adecuada? (explorar y observar)"
-  //     },
-  //     {
-  //       "codigo": "PREG_4",
-  //       "estado": preguntas[3],
-  //       "descripcion": "¿La niña o niño recibe leche no materna? (explorar)"
-  //     },
-  //     {
-  //       "codigo": "PREG_5",
-  //       "estado": preguntas[4],
-  //       "descripcion": "¿La niña o niño recibe aguitas? (explorar)"
-  //     },
-  //     {
-  //       "codigo": "PREG_6",
-  //       "estado":preguntas[5],
-  //       "descripcion": "La niña o niño recibe algun otro alimento? (explorar)"
-  //     },
-  //     {
-  //       "codigo": "PREG_7",
-  //       "estado": preguntas[6],
-  //       "descripcion": "¿La consistencia de la preparacion es adecuada segun la edad?(explorar)"
-  //     },
-  //     {
-  //       "codigo": "PREG_8",
-  //       "estado": preguntas[7],
-  //       "descripcion": "¿La cantidad de alimentos es adecuada segun edad? (explorar)"
-  //     },
-  //     {
-  //       "codigo": "PREG_9",
-  //       "estado": preguntas[8],
-  //       "descripcion": "¿La frecuencia de la alimentacion es adecuada segun la edad? (explorar)"
-  //     },
-  //     {
-  //       "codigo": "PREG_10",
-  //       "estado": preguntas[9],
-  //       "descripcion": "¿Consume alimentos de origen animal? (explorar)"
-  //     },
-  //     {
-  //       "codigo": "PREG_11",
-  //       "estado": preguntas[10],
-  //       "descripcion": "¿Consume frutas y verduras? (explorar)"
-  //     },
-  //     {
-  //       "codigo": "PREG_12",
-  //       "estado": preguntas[11],
-  //       "descripcion": "¿Añade aceite, mantequilla o margarina a la comida del niño?"
-  //     },
-  //     {
-  //       "codigo": "PREG_13",
-  //       "estado": preguntas[12],
-  //       "descripcion": "¿La niña o niño recibe los alimentos en su propio plato?"
-  //     },
-  //     {
-  //       "codigo": "PREG_14",
-  //       "estado": preguntas[13],
-  //       "descripcion": "¿Añade sal yodada a la comida familiar?"
-  //     },
-  //     {
-  //       "codigo": "PREG_15",
-  //       "estado": preguntas[14],
-  //       "descripcion": "¿Es niño beneficiario de algun Programa de Apoyo Social? Si() No() Especificar"
-  //     },
-  //     {
-  //       "codigo": "PREG_16",
-  //       "estado": preguntas[15],
-  //       "descripcion": "¿Cuantos sobres de micronutrientes consumio en el mes? Si() No() Especificar"
-  //     },
-  //     {
-  //       "codigo": "OBS",
-  //       "estado": preguntas[16],
-  //       "descripcion": "Pregunta Adicional"
-  //     }
-  //   ];
+//   let listaAux:any[]=[];
+//   for(let i=0;i<17;i++){
+//   let aux={
+//     codigo:this.listaTitulosPreguntas[i+1].codigo,
+//     estado:preguntas[i],
+//     descripcion:this.listaTitulosPreguntas[i+1].titulo
+//   }
+//   console.log(aux);
+//   listaAux.push(aux);
+// }
   //   console.log("preguntas", preguntas);
   //   let dx = this.calcularDiagnostico(preguntas);
   //   let cie10:string = this.calcularCie10(dx);
@@ -757,7 +529,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   //     evaluacionAlimentacionMes:{
   //       fechaRegistro:this.convertirFecha(fecha),
   //       edad:this.edadMeses,
-  //       listaPreguntas:lista,
+  //       listaPreguntas:listaAux,
   //       diagnostico:dx
   //     }
   //   }
@@ -810,4 +582,7 @@ export interface EvaluacionAlimenticia{
   codigoPrestacion?:string,
   evaluacionAlimentacionMes?:Evaluacion
 }
-
+export interface TipoPregunta{
+  codigo?:string,
+  titulo?:string
+}

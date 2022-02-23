@@ -354,7 +354,7 @@
                         </p-cellEditor>
                     </td>
                 </tr>
-                <tr *ngIf="datos.titulo !=='Fecha' && datos.titulo !== 'Diagnóstico'" pFrozenColumn>
+                <tr *ngIf="datos.titulo !=='Fecha' && datos.titulo !== 'Diagnostico'" pFrozenColumn>
                     <td *ngIf="datos.titulo !=='Observaciones'" style="width:300px; height: 40px"
                         class="titulotabla" pFrozenColumn>{{datos.titulo}}</td>
                     <td *ngIf="datos.titulo ==='Observaciones'" style="width:300px; height: 40px"
@@ -661,36 +661,36 @@
                         </p-cellEditor>
                     </td>
                 </tr>
-                <tr *ngIf="datos.titulo ==='Diagnóstico'" pFrozenColumn>
-                    <td *ngIf="datos.titulo !=='Diagnóstico'" style="width:300px; height: 80px"
-                        class="titulotabla" pFrozenColumn pFrozenColumn>{{datos.titulo}} </td>
-                    <td *ngIf="datos.titulo ==='Diagnóstico'" style="width:300px; height: 80px"
+                <tr *ngIf="datos.titulo ==='Diagnostico'" pFrozenColumn>
+<!--                    <td *ngIf="datos.titulo !=='Diagnóstico'" style="width:300px; height: 80px"-->
+<!--                        class="titulotabla" pFrozenColumn pFrozenColumn>{{datos.titulo}} </td>-->
+                    <td *ngIf="datos.titulo ==='Diagnostico'" style="width:300px; height: 100px"
                         class="titulotablaFecha" pFrozenColumn>{{datos.titulo}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valorRN}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor1M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor2M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor3M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor4M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor5M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor6M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor7M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor8M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor9M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor10M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor11M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor12M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor14M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor16M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor18M}} </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor20M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor22M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor24M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor27M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor30M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor33M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor36M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor39M}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>{{datos.valor42M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valorRN}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor1M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor2M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor3M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor4M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor5M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor6M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor7M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor8M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor9M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor10M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor11M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor12M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor14M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor16M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor18M}} </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor20M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor22M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor24M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor27M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor30M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor33M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor36M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor39M}}</td>
+                    <td style="width:120px; height: 100px" pEditableColumn>{{datos.valor42M}}</td>
                 </tr>
             </ng-template>
         </p-table>

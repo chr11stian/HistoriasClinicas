@@ -59,7 +59,7 @@ export class TestPeruanoComponent implements OnInit {
         }
     )
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-    // this.recuperarEdadNinio();
+    this.recuperarEdadNinio();
     this.recuperarTestPlanCred();
     this.showDialogEdad('top');
     this.getTestPerunoBDTestPorConsulta();
@@ -70,11 +70,12 @@ export class TestPeruanoComponent implements OnInit {
     this.position = position;
     this.displayPosition = true;
   }
-  recuperarEdadNinio(){
-      // this.edadMeses=  this.data.
-      console.log(this.edadMeses);
 
+  recuperarEdadNinio(){
+      this.edadMeses=  this.data.anio*12+this.data.mes
+      console.log(this.edadMeses);
   }
+
   builForm(){
     this.formDatos_TestPeruano = this.form.group({
       /**Datos personales**/
@@ -314,6 +315,7 @@ export class TestPeruanoComponent implements OnInit {
       f30:new FormControl({ value: '',disabled: this.edadMeses!=30})
     })
   }
+
   getTestPerunoBDTestPorConsulta(){
     this.testDesarrollo.getTestPeruano(this.data.idConsulta).subscribe((res: any) => {
       console.log('se RECUPERO correctamente ', res.object);
@@ -330,6 +332,7 @@ export class TestPeruanoComponent implements OnInit {
       }
     });
   }
+
   recuperarTestPlanCred(){
     this.formDatos_TestPeruano.reset();
     this.testDesarrollo.getTestPeruanoPlan(this.data.nroDocumento).subscribe((res: any) => {
@@ -355,6 +358,7 @@ export class TestPeruanoComponent implements OnInit {
 
     });
   }
+
   recuperarData(){
     console.log("evaluacion Desarrollo:",this.evaluacionDesarrollo);
     let x = this.evaluacionDesarrollo.calificacion[0].x;
