@@ -43,6 +43,9 @@ export class EvaluacionAlimentacionService {
     }
     getTamizajeCred(id){
         return this.http.get(`${this.base_url}/${this.bd}/cred/ficha-tamizaje/${id}`);
+    }
+    getConsultaPorId(id){
+        return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/${id}`);
 
     }
 }
