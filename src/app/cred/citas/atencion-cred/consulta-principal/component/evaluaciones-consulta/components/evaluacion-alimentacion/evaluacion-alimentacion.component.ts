@@ -16,7 +16,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   evaluacionAlimenticia: FechaEvaluacionAlimentacion[]=[];
   Evaluaciones:EvaluacionAlimenticia[]=[];
   datePipe=new DatePipe('en-US');
-  attributeLocalS = 'documento';
+  attributeLocalS = 'documento'
   edadMeses:number=8;
   displayPosition: boolean;
   position: string;
@@ -791,7 +791,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           title: 'Evaluacion Alimenticia',
           text: 'No hay registro de evaluacion ',
           showConfirmButton: false,
-          timer: 2000,
+          timer: 3000,
         })
     });
 

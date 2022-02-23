@@ -5,6 +5,7 @@ import {MessageService} from "primeng/api";
 import {ActivatedRoute} from "@angular/router";
 import {dato} from "../../../../../../../../models/data";
 import {puntaje, contenedorSubTest, resultado, itenTestResultado, listaPregunta} from '../models/tepsi';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-tepsi',
@@ -298,8 +299,11 @@ export class TepsiComponent implements OnInit {
     this.mesEdad = meses
     this.diaEdad= dias
   }
+
   async getTablaPuntaje(){
-      await this.tepsiService.getTablaPuntaje1(this.rango).then((data)=>{
+    Swal.fire({title: 'Cargando Datos' });
+    Swal.showLoading();
+    await this.tepsiService.getTablaPuntaje1(this.rango).then((data)=>{
       this.tablaPuntajeTotal=data['object']['tablaPuntajeTotal'];
       this.tablaSubTestG.push({subTest:data['object']['tablaSubTestCoordinacion']})
       this.tablaSubTestG.push({subTest: data['object']['tablaSubTestLenguaje']})
@@ -309,6 +313,7 @@ export class TepsiComponent implements OnInit {
       this.calcularResultadoSubTest1(3);
       this.calcularTotal()
       this.chart();
+      Swal.close();
     });
   }
   calcularSumaArreglos(arregloBoolean:boolean[]){

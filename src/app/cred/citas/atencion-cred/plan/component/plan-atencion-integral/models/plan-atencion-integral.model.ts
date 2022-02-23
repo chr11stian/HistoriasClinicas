@@ -8,7 +8,7 @@
 // }
 
 export interface Inmunizaciones {
-  descripcionEdad: string;
+  descripcionEdad?: string;
   nombreVacuna: string;
   nroDosis: number;
   estado: boolean;

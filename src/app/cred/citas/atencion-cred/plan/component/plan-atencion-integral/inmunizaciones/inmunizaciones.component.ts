@@ -13,7 +13,26 @@ export class InmunizacionesComponent implements OnInit {
   tipoDNI: string;
   nroDNI: string;
   stateOptions: any[];
-  listaInmunizaciones: Inmunizaciones[] = [];
+  listaInmunizaciones: Inmunizaciones[] = [
+    {
+      nombreVacuna: 'hvb1',
+      nroDosis: 2,
+      estado: true,
+      fecha: '2022/12/17',
+      fechaTentativa: '2022/12/17',},
+    {
+      nombreVacuna: 'hvb2',
+      nroDosis: 2,
+      estado: true,
+      fecha: '2022/12/17',
+      fechaTentativa: '2022/12/17',},
+    {
+      nombreVacuna: 'hvb3',
+      nroDosis: 2,
+      estado: true,
+      fecha: '2022/12/17',
+      fechaTentativa: '2022/12/17',},
+  ];
   lista1: Inmunizaciones[] = [];
   lista2: Inmunizaciones[] = [];
   lista3: Inmunizaciones[] = [];
@@ -44,7 +63,7 @@ export class InmunizacionesComponent implements OnInit {
       });
   }
   transform() {
-    //transformacion a un solo formato que se usará
+    // transformacion a un solo formato que se usará
     this.listaInmunizaciones.forEach((i) => {
       if (i.fecha === null) {
         i.fecha = "";
@@ -67,25 +86,6 @@ export class InmunizacionesComponent implements OnInit {
       this.listaInmunizaciones.length
     );
   }
-  getFecha(date: Date) {
-    if (date.toString() !== "") {
-      let hora = date.toLocaleTimeString();
-      let dd = date.getDate();
-      let dd1: string = dd.toString();
-      if (dd < 10) {
-        dd1 = "0" + dd;
-      }
-      let mm = date.getMonth() + 1;
-      let mm1: string = mm.toString();
-      if (mm < 10) {
-        mm1 = "0" + mm;
-      }
-      let yyyy = date.getFullYear();
-      return yyyy + "-" + mm1 + "-" + dd1 + " " + hora;
-    } else {
-      return "";
-    }
-  }
   // save() {
   //   //armamos la "
   //   let objeto: string = "";
@@ -98,7 +98,7 @@ export class InmunizacionesComponent implements OnInit {
   //           ,"estado":${elemento.estado},"fecha":"${
   //       elemento.fecha ? this.getFecha(new Date(elemento.fecha)) : ""
   //     }","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`;
-  //   });
+  //   });s
   //   this.lista2.forEach((elemento) => {
   //     objeto += `{"descripcionEdad":"${
   //       elemento.descripcionEdad

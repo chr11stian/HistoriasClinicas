@@ -69,7 +69,7 @@
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Sexo:</label>
                                     <input type="text" pInputText formControlName="sexo" class="inputTest"
-                                           oninput="this.value=this.value.toUpperCase()" disabled/>
+                                           oninput="this.value=this.value.toUpperCase()"/>
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Grado Instrucción:</label>
@@ -89,12 +89,12 @@
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Fecha de Nacimiento:</label>
                                     <input type="date" pInputText formControlName='fechaNacimiento' placeholder=""
-                                           class="inputfield w-full" disabled>
+                                           class="inputfield w-full">
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Fecha de Inscripción:</label>
                                     <input type="date" pInputText formControlName='fechaInscripcion' placeholder=""
-                                           class="inputfield w-full" disabled>
+                                           class="inputfield w-full">
                                     <!-- <p-calendar formControlName="fechaInscripcion"></p-calendar> -->
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
@@ -129,7 +129,9 @@
                                 <div class="col-12 md:col-6 lg:col-2 flex flex-column">
                                     <label>Etnia:</label>
                                     <p-dropdown inputId="dropdown" [autoDisplayFirst]="false" [options]="dataEtnia"
-                                                formControlName="etnia" appendTo="body" optionLabel="descripcion"
+                                                formControlName="etnia" appendTo="body"
+                                                optionLabel="descripcion"
+                                                optionValue="descripcion"
                                                 defaultLabel=""
                                                 placeholder="Seleccione Etnia" [showClear]="false"
                                                 class="p-fluid w-full">
@@ -139,12 +141,17 @@
                                     <label>Lugar de Nacimiento:</label>
                                     <input type="text" pInputText formControlName="lugarNacimiento" class="inputTest"/>
                                 </div>
-                                <div class="col-12 md:col-6 lg:col-3 flex flex-column">
+                                <div class="col-12 md:col-6 lg:col-2 flex flex-column">
+                                    <label>Nacionalidad:</label>
+                                    <input type="text" pInputText formControlName="nacionalidad" class="inputTest"
+                                           oninput="this.value=this.value.toUpperCase()"/>
+                                </div>
+                                <div class="col-12 md:col-6 lg:col-2 flex flex-column">
                                     <label>Restricción:</label>
                                     <input type="text" pInputText formControlName="restriccion" class="inputTest"
                                            oninput="this.value=this.value.toUpperCase()"/>
                                 </div>
-                                <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
+                                <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
                                     <label>Discapacidad:</label>
                                     <input type="text" pInputText formControlName='discapacidad' placeholder=""
                                            class="inputfield w-full">
@@ -165,44 +172,63 @@
             <div class="grid m-2">
                 <div class="col-12 md:col-6 lg:col-12 p-field">
                     <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
-                            <label>Departamento:</label>
-                            <div class="p-field">
-                                <input type="text" pInputText formControlName="departamento"
-                                       class="inputTest p-fluid w-full"
-                                       oninput="this.value=this.value.toUpperCase()"
-                                       disabled/>
+                        <div class="col-12 md:col-6 lg:col-3 p-field">
+                            <span>DEPARTAMENTO:</span>
+                            <div class="p-fluid">
+                                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false"
+                                            [options]="dataDepartamentos"
+                                            formControlName="departamento"
+                                            placeholder="Seleccione un Departamento"
+                                            [showClear]="false"
+                                            optionLabel="departamento"
+                                            optionValue="departamento"
+                                            defaultLabel="Seleccione un Departamento"
+                                            id="departamento"
+                                            (onChange)="selectedDepartamento()">
+                                </p-dropdown>
                             </div>
                         </div>
-                        <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
-                            <label>Provincia:</label>
-                            <div class="p-field">
-                                <input type="text" pInputText formControlName="provincia"
-                                       class="inputTest p-fluid w-full"
-                                       oninput="this.value=this.value.toUpperCase()"
-                                       disabled/>
+                        <div class="col-12 md:col-6 lg:col-3 p-field">
+                            <span>PROVINCIA:</span>
+                            <div class="p-fluid">
+                                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false"
+                                            [options]="dataProvincia"
+                                            defaultLabel="Seleccione una provincia"
+                                            placeholder="Seleccione una provincia" id="provincia"
+                                            [showClear]="false"
+                                            formControlName="provincia"
+                                            optionLabel="provincia"
+                                            optionValue="provincia"
+                                            (onChange)="selectedProvincia()">
+                                </p-dropdown>
                             </div>
                         </div>
-                        <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
-                            <label>Distrito:</label>
-                            <div class="p-field">
-                                <input type="text" pInputText formControlName="distrito"
-                                       class="inputTest p-fluid w-full"
-                                       oninput="this.value=this.value.toUpperCase()"
-                                       disabled/>
+                        <div class="col-12 md:col-6 lg:col-3 p-field">
+                            <span>DISTRITO:</span>
+                            <div class="p-fluid">
+                                <p-dropdown inputId="dropdown" [autoDisplayFirst]="false"
+                                            [options]="dataDistrito"
+                                            formControlName="distrito"
+                                            optionLabel="distrito"
+                                            optionValue="distrito"
+                                            defaultLabel="Seleccione un distrito"
+                                            placeholder="Seleccione un Distrito"
+                                            id="distrito" [showClear]="false"
+                                            (onChange)="selectedDistrito()">
+                                </p-dropdown>
                             </div>
                         </div>
-                        <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
-                            <label>Centro Poblado:</label>
-                            <div class="p-field">
-                                <!-- <input type="text" pInputText formControlName="dataCentroPoblado" class="inputTest p-fluid w-full"
-                                    oninput="this.value=this.value.toUpperCase()" /> -->
+                        <div class="col-12 md:col-6 lg:col-3 p-field">
+                            <span>CENTRO POBLADO:</span>
+                            <div class="p-fluid">
                                 <p-dropdown inputId="dropdown" [autoDisplayFirst]="false"
                                             [options]="dataCentroPoblado"
-                                            formControlName="ccpp" optionLabel="ccpp"
+                                            formControlName="ccpp"
+                                            optionLabel="ccpp"
+                                            optionValue="ccpp"
                                             defaultLabel="Seleccione un centroPoblado"
-                                            placeholder="Seleccione un centro poblado" [showClear]="false"
-                                            class="p-fluid w-full">
+                                            placeholder="Seleccione un centro poblado" id="ccpp"
+                                            [showClear]="false">
                                 </p-dropdown>
                             </div>
                         </div>
