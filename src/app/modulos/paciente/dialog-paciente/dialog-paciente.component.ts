@@ -8,10 +8,6 @@ import {EtniaService} from 'src/app/mantenimientos/services/etnia/etnia.service'
 import {UbicacionService} from 'src/app/mantenimientos/services/ubicacion/ubicacion.service';
 import {image} from 'src/assets/images/image.const';
 import Swal from 'sweetalert2';
-import {Distrito, Provincias} from "../../../core/models/ubicacion.models";
-import {timeout} from "rxjs/operators";
-
-// import { image } from '../../../assets/images/image.const';
 
 @Component({
     selector: 'app-dialog-paciente',
@@ -23,29 +19,24 @@ export class DialogPacienteComponent implements OnInit {
     isUpdate: boolean = false;
     listaDocumentos: any[] = [];
     dataEtnia: any[] = [];
-    // dataCentroPoblado: any[] = [];
     datePipe = new DatePipe('en-US');
     peruvian: boolean = true;
     dataPaciente: any;
-    codUbigeo: any;
     nacionalidad: string;
-    codCCPP: any;
     auxipress: string = "615b30b37194ce03d782561c";
     imagePath: string = image;
-
     dataDepartamentos: any;
-    dataDepartamentos2: any;
     dataProvincia: any;
     dataDistrito: any;
     dataCentroPoblado: any;
-    prov: Provincias;
-    dist: Distrito;
-    ccpp: any;
+    // ccpp: any;
     dataPacienteReniec: any;
+
     /**ID de los datos seleccionados**/
     DepartamentoIDSelct: any;
     ProvinciaIDSelct: any;
     DistritoIDSelct: any;
+    listaPacientes: any;
 
     dataPacienteEditar: any = null;
 
@@ -57,27 +48,12 @@ export class DialogPacienteComponent implements OnInit {
         'DIVORCIADO',
         'VIUDO'
     ];
+
     listaNacionalidades = [
         'PERUANO',
         'EXTRANJERO'
     ];
-    listaSexo = [
-        'MASCULINO',
-        'FEMENINO'
-    ];
-    listaTipoSeguro = [
-        'SIS',
-        'NO SIS',
-        'EsSalud',
-        'SOAT',
-        'SANIDAD FAP',
-        'SANIDAD NAVAL',
-        'SANIDAD EP',
-        'SANIDAD PNP',
-        'PRIVADOS',
-        'SIS SEMISUBSIDIADO',
-        'OTROS'
-    ];
+
     listaGradoInstruccion = [
         'ANALFABETO',
         'PRIMARIA INCOMPLETA',
@@ -316,6 +292,7 @@ export class DialogPacienteComponent implements OnInit {
         });
     }
 
+    /**Cargar datos de reniec**/
     cargarDatosReniec() {
         let nroDoc: String = String(this.formPaciente.value.nroDoc);
         if (nroDoc.length < 8)
@@ -364,7 +341,7 @@ export class DialogPacienteComponent implements OnInit {
         }
     }
 
-
+    /**Recopila datos en formato JSON**/
     recuperarDatos() {
         let nameAux = this.formPaciente.value.lugarNacimiento.split(',');
         let nacDepartamento = nameAux[0]
@@ -381,7 +358,6 @@ export class DialogPacienteComponent implements OnInit {
             return;
         }
         let aux = this.formPaciente.value.etnia;
-
         console.log('data de Etnia ', aux);
         this.dataPaciente = {
             nroHcl: this.formPaciente.value.HCL,
@@ -401,8 +377,6 @@ export class DialogPacienteComponent implements OnInit {
             celular: String(this.formPaciente.value.celular),
             tipoSeguro: this.formPaciente.value.tipoSeguro,
             codSeguro: this.formPaciente.value.codSeguro,
-
-            // discapacidad: this.formPaciente.value.discapacidad == '' ? [] : this.formPaciente.value.discapacidad,
             discapacidad: [this.formPaciente.value.discapacidad],
             nacionalidad: this.formPaciente.value.nacionalidad,
             estadoCivil: this.formPaciente.value.estadoCivil,
@@ -425,10 +399,18 @@ export class DialogPacienteComponent implements OnInit {
             },
             idIpress: this.auxipress,
         }
-
-        console.log("DATA PACIENTES", this.dataPaciente)
     }
 
+    /**Metodo si va actualizar o agregar un paciente**/
+    updateOEdith() {
+        if (this.dataPacienteEditar == null) {
+            this.saveForm();
+        } else {
+            this.EditarPaciente();
+        }
+    }
+
+    /**Agrega un nuevo paciente**/
     saveForm() {
         this.recuperarDatos();
         this.pacienteService.postPacientes(this.dataPaciente).subscribe((res: any) => {
@@ -442,14 +424,48 @@ export class DialogPacienteComponent implements OnInit {
         });
     }
 
-    closeDialog() {
-        this.ref.close()
+    /**Actualiza datos de un paciente**/
+    EditarPaciente() {
+        this.recuperarDatos();
+        this.dataPaciente.id = this.dataPacienteEditar.id;
+        console.log(this.formPaciente.value.fechaNacimiento, 'data to edit ', this.dataPaciente);
+        this.pacienteService.putPaciente(this.dataPaciente).subscribe((res: any) => {
+            this.closeDialog();
+            console.log('se actualizo correctamente ', res)
+            Swal.fire({
+                icon: 'success',
+                title: 'Se Actualizo Exitosamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+        console.log('aceptar editar paciente')
     }
 
+    /**Recupera todos los pacientes de la lista**/
+    GetPacientes() {
+        this.pacienteService.getPacientes().subscribe((res: any) => {
+            this.listaPacientes = res.object;
+            console.log('lista de pacientes ', this.listaPacientes)
+        });
+    }
+
+    /**Cerar Componete dialog**/
+    closeDialog() {
+        this.ref.close()
+        this.GetPacientes();
+
+    }
+
+    /**Recupera un paciente en el formulario**/
     editarDatos() {
         this.dataDepartamentos = null;
         this.dataDepartamentos = JSON.parse(localStorage.getItem('pacienteDepartamento'));
         this.listarUbicacionPacienteProvincias()
+
+        this.pacienteService.getDataReniecPaciente(this.dataPacienteEditar.nroDoc).subscribe((res: any) => {
+            this.imagePath = res.foto;
+        })
 
         if ((this.dataPacienteEditar !== null) || (this.dataPacienteEditar !== undefined)) {
             console.log("DATA RECUPERADO PACIENTE", this.dataPacienteEditar)
@@ -468,10 +484,10 @@ export class DialogPacienteComponent implements OnInit {
             this.formPaciente.get("fechaEmision").setValue(this.datePipe.transform(this.dataPacienteEditar.fechaEmision, 'yyyy-MM-dd'));
             this.formPaciente.get("estadoCivil").setValue(this.dataPacienteEditar.estadoCivil);
             this.formPaciente.get("etnia").setValue(this.dataPacienteEditar.etnia.tipoEtnia);
-            this.formPaciente.get("lugarNacimiento").setValue(this.dataPacienteEditar.nacimiento.departamento + ', ' + this.dataPacienteEditar.nacimiento.provincia + ', ' + this.dataPacienteEditar.nacimiento.distrito);
+            this.formPaciente.get("lugarNacimiento").setValue(this.dataPacienteEditar.nacimiento.departamento + ',' + this.dataPacienteEditar.nacimiento.provincia + ',' + this.dataPacienteEditar.nacimiento.distrito);
             this.formPaciente.get("nacionalidad").setValue(this.dataPacienteEditar.nacionalidad);
             this.formPaciente.get("restriccion").setValue(this.dataPacienteEditar.restriccion);
-            this.formPaciente.get("discapacidad").setValue(this.dataPacienteEditar.discapacidad);
+            this.formPaciente.get("discapacidad").setValue(this.dataPacienteEditar.discapacidad[0]);
 
             this.formPaciente.get("departamento").setValue(this.dataPacienteEditar.domicilio.departamento);
             this.formPaciente.get("provincia").setValue(this.dataPacienteEditar.domicilio.provincia);
