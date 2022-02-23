@@ -17,10 +17,32 @@ export class InmunizacionesCredComponent implements OnInit {
   tipoDNI: string;
   nroDNI: string;
   stateOptions: any[];
-  listaInmunizaciones: Inmunizaciones[] = [];
-  lista1: Inmunizaciones[] = [];
-  lista2: Inmunizaciones[] = [];
-  lista3: Inmunizaciones[] = [];
+  listaInmunizaciones: Inmunizaciones[] = [{
+    nombreVacuna: 'BCG',
+    nroDosis: 2,
+    estado: true,
+    fecha: '2017/12/17',
+    fechaTentativa: '2017/12/17',
+  },
+    {
+      nombreVacuna: 'HVB',
+      nroDosis: 2,
+      estado: true,
+      fecha: '2017/12/17',
+      fechaTentativa: '2017/12/17',
+    },
+    {
+      nombreVacuna: 'HVB',
+      nroDosis: 2,
+      estado: true,
+      fecha: '2017/12/17',
+      fechaTentativa: '2017/12/17',
+    }
+
+  ];
+  // lista1: Inmunizaciones[] = [];
+  // lista2: Inmunizaciones[] = [];
+  // lista3: Inmunizaciones[] = [];
   constructor(
     private servicio: InmunizacionesService,
     private messageService: MessageService,
@@ -30,7 +52,7 @@ export class InmunizacionesCredComponent implements OnInit {
 
   ngOnInit() {
     this.tipoDNI = "47825757";
-    this.getLista();
+    // this.getLista();
   }
 
   // async getLista(){
@@ -67,32 +89,14 @@ export class InmunizacionesCredComponent implements OnInit {
   }
   separacion() {
     // aqui la lista de inmunicaiones queda vacia
-    this.lista1 = this.listaInmunizaciones.splice(0, 8);
-    this.lista2 = this.listaInmunizaciones.splice(0, 8);
-    this.lista3 = this.listaInmunizaciones.splice(
-      0,
-      this.listaInmunizaciones.length
-    );
+    // this.lista1 = this.listaInmunizaciones.splice(0, 8);
+    // this.lista2 = this.listaInmunizaciones.splice(0, 8);
+    // this.lista3 = this.listaInmunizaciones.splice(
+    //   0,
+    //   this.listaInmunizaciones.length
+    // );
   }
-  getFecha(date: Date) {
-    if (date.toString() !== "") {
-      let hora = date.toLocaleTimeString();
-      let dd = date.getDate();
-      let dd1: string = dd.toString();
-      if (dd < 10) {
-        dd1 = "0" + dd;
-      }
-      let mm = date.getMonth() + 1;
-      let mm1: string = mm.toString();
-      if (mm < 10) {
-        mm1 = "0" + mm;
-      }
-      let yyyy = date.getFullYear();
-      return yyyy + "-" + mm1 + "-" + dd1 + " " + hora;
-    } else {
-      return "";
-    }
-  }
+
   agregarVacuna(vacuna) {
     const ref = this.dialogService.open(VacunaComponent, {
       data: {

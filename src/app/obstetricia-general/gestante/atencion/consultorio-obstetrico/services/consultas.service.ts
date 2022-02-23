@@ -17,10 +17,10 @@ export class ConsultasService {
     }
 
     addConsultas(nroFetos, data) {
-        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsultorio/${nroFetos}`, data)
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarConsulta/${nroFetos}`, data)
     }
     updateConsultas(nroFetos, data) {
-        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsultorio/${nroFetos}`, data);
+        return this.http.put(`${this.base_url}/${this.bd}/obstetricia/consulta/actualizarConsulta/${nroFetos}`, data);
     }
     getConsultaPrenatalByEmbarazo(data) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscar/`, data);
@@ -43,5 +43,9 @@ export class ConsultasService {
 
     getInterrogatorioById(consulta) {
         return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/buscarInterrogatorioxid`, consulta)
+    }
+
+    getUltimaConsultaControl(nroHcl) {
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/numeroUltimaConsulta`, nroHcl)
     }
 }

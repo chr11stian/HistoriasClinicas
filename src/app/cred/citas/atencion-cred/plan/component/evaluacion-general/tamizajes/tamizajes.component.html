@@ -1,0 +1,507 @@
+<div>
+    <div class="tabla">
+        <p-card header="TAMIZAJES NIÑO(A)"></p-card>
+    </div>
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <span class="p-m-0">RESULTADOS DE LOS TAMIZAJES DESARROLLADOS EN CONSULTAS</span>
+        </div>
+
+    </p-toolbar>
+    <p-table class="table-over" [value]="listaTamizajes" #dt styleClass="p-datatable-gridlines" [rows]="10"
+             [rowsPerPageOptions]="[10, 25, 50]"
+             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="text-align: center" class="font-2">Nro</th>
+                <th style="text-align: center" class="font-2">FECHA</th>
+                <th style="text-align: center" class="font-2">EDAD TOMADA EL TEST</th>
+                <th style="text-align: center" class="font-2">ACCIÓN</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr>
+                <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.fecha | date: 'dd-MM-yyyy HH:mm:ss'}} </td>
+                <td style="text-align: center">{{ rowData.anio }}  año(s) {{rowData.mes}} mes(es) {{rowData.dia}} dia(s)</td>
+                <td style="text-align: center">
+                    <button pButton (click)="openTamizajes(rowData.idTamizaje)" pTooltip="Visualizar" pRipple type="button"
+                            icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+
+    </p-table>
+</div>
+
+<p-dialog header="RESULTADO DEL TAMIZAJE"
+          [(visible)]="displayMaximizable"
+          [modal]="true" [style]="{width: '85vw'}"
+          [draggable]="false"
+          [resizable]="false"
+          [maximizable]="true">
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <label>TAMIZAJES NIÑO(A)</label>
+        </ng-template>
+
+    </p-toolbar>
+    <br>
+    <div>
+        <p-accordion>
+            <p-accordionTab header="TAMIZAJE DE SALUD MENTAL (VIF)" [selected]="true">
+                <div class="border">
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <label>PREGUNTAR AL ADULTO(A):</label>
+                        </ng-template>
+                    </p-toolbar>
+                    <div class="border">
+                        <form [formGroup]="formTamizajeVIF">
+                            <div class="grid m-2">
+                                <div class="col-12 md:col-6 lg:col-6">
+                                    <div class="grid">
+                                        <div class="col-8 p-fluid p-field" style="text-align: left">
+                                            <label class="">1. ¿Diria que en su familia se dan situaciones de violencia?</label>
+                                        </div>
+                                        <div class="col-4 p-fluid p-field" style="text-align: left">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="hayViolencia"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                        <div class="col-8 p-fluid p-field" style="text-align: left">
+                                            <label class="">2. ¿Alguna vez algún miembro de su familia le insulta?</label>
+                                        </div>
+                                        <div class="col-4 p-fluid p-field" style="text-align: left">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="alguienInsulta"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 md:col-6 lg:col-6">
+                                    <div class="grid">
+                                        <div class="col-8 p-fluid p-field" style="text-align: left">
+                                            <label class="">3. ¿Alguna vez algún miembro de su familia le golpea?</label>
+                                        </div>
+                                        <div class="col-4 p-fluid p-field" style="text-align: left">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="alguienGolpea"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                        <div class="col-8 p-fluid p-field" style="text-align: left">
+                                            <label class="">4. ¿Alguna vez algún miembro de su familia le chantajea?</label>
+                                        </div>
+                                        <div class="col-4 p-fluid p-field" style="text-align: left">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="alguienChantajea"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 p-fluid p-field" style="text-align: left">
+                                    <label class="">5. ¿Alguna vez algún miembro de su familia lo insulta, lo golpea, le obliga a tener relaciones sexuales?</label>
+                                </div>
+                                <div class="col-4 p-fluid p-field">
+                                    <p-selectButton [options]="sino"  optionValue="value" formControlName="obligaRS"
+                                                    optionLabel="label"></p-selectButton>
+                                </div>
+                                <div class="col-2 p-fluid p-field">
+                                    <label>Quién?</label>
+                                </div>
+                                <div class="col-6 p-fluid p-field">
+                                    <input type="text" pInputText formControlName="quienObligaRS">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <label>PREGUNTAR AL PADRE, MADRE O ADULTO RESPONSABLE DEL CUIDADO DEL NIÑO(A):</label>
+                        </ng-template>
+                    </p-toolbar>
+                    <div class="border">
+                        <form [formGroup]="formTamizajeVIF">
+                            <div class="grid m-2">
+                                <div class="col-6">
+                                    <div class="grid">
+                                        <div class="col-7 p-fluid p-field" style="text-align: left">
+                                            <label class="">1. Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?</label>
+                                        </div>
+                                        <div class="col-5 p-fluid p-field">
+                                            <p-selectButton [options]="facil"  optionValue="value" formControlName="hijoFacil"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-7 p-fluid p-field" style="text-align: left">
+                                            <label class="">2. ¿Su hijo es muy desobediente?</label>
+                                        </div>
+                                        <div class="col-5 p-fluid p-field">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="esDesobediente"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="grid">
+                                        <div class="col-7 p-fluid p-field" style="text-align: left">
+                                            <label class="">3. Alguna vez pierde el control?</label>
+                                        </div>
+                                        <div class="col-5 p-fluid p-field p-fluid">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="pierdeControl"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                    </div>
+                                    <div class="grid">
+                                        <div class="col-6 md:col-3 lg:col-3 field-checkbox p-fluid">
+                                            <p-checkbox  binary="true" inputId="binary" name='pega' [formControl]="formTamizajeVIF.controls['pega']" ></p-checkbox>
+                                            <label>¿Pega?</label>
+                                        </div>
+                                        <div class="col-6 md:col-3 lg:col-3 field-checkbox p-fluid">
+                                            <p-checkbox  binary="true" inputId="binary" name='grita' [formControl]="formTamizajeVIF.controls['grita']" ></p-checkbox>
+                                            <label>¿Grita?</label>
+                                        </div>
+                                        <div class="col-6 md:col-3 lg:col-3 field-checkbox p-fluid">
+                                            <p-checkbox  binary="true" inputId="binary" name='empuja' [formControl]="formTamizajeVIF.controls['empuja']"  ></p-checkbox>
+                                            <label>¿Empuja o sacude?</label>
+                                        </div>
+                                        <div class="col-6 md:col-3 lg:col-3 field-checkbox p-fluid">
+                                            <p-checkbox  binary="true" inputId="binary" name='encierra' [formControl]="formTamizajeVIF.controls['encierra']"></p-checkbox>
+                                            <label>¿Encierra?</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <p-toolbar>
+                        <ng-template pTemplate="left">
+                            <label>MARQUE CON UN CHECK, TODOS LOS INDICADORES DE MALTRATO QUE OBSERVE EN EL NIÑO(A)</label>
+                        </ng-template>
+                    </p-toolbar>
+                    <div class="border">
+                        <form [formGroup]="formTamizajeVIF">
+                            <div class="grid m-2">
+                                <div class="grid">
+                                    <div class="col-6">
+                                        <p-panel header="FÍSICO" toggleable="true">
+                                            <div class="grid">
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" name='tieneHematomas' [formControl]="formTamizajeVIF.controls['tieneHematomas']" ></p-checkbox>
+                                                    <label>Hematomas, contusiones inexplicables</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" name='tieneCicatrices' [formControl]="formTamizajeVIF.controls['tieneCicatrices']"></p-checkbox>
+                                                    <label>Cicatrices, quemaduras</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" name='tieneFacturas' [formControl]="formTamizajeVIF.controls['tieneFacturas']"></p-checkbox>
+                                                    <label>Fracturas inexpliables</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" name='tieneMarcas' [formControl]="formTamizajeVIF.controls['tieneMarcas']"></p-checkbox>
+                                                    <label>Marcas de mordeduras</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" name='tieneLesiones' [formControl]="formTamizajeVIF.controls['tieneLesiones']"></p-checkbox>
+                                                    <label>Lesiones de perineo, vulva, recto, etc.</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" name='tieneLaceraciones' [formControl]="formTamizajeVIF.controls['tieneLaceraciones']"></p-checkbox>
+                                                    <label>Laceraciones en boca mejillas, ojos, etc.</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" name='tieneQuejasCronicas' [formControl]="formTamizajeVIF.controls['tieneQuejasCronicas']"></p-checkbox>
+                                                    <label>Quejas crónicas sin causa física, cefalea, problemas de sueño (mucho sueño interrupciones del sueño)</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" name='tieneProblemasApetito' [formControl]="formTamizajeVIF.controls['tieneProblemasApetito']"></p-checkbox>
+                                                    <label>Problemas con el apetito</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" name='tieneEnuresis' [formControl]="formTamizajeVIF.controls['tieneEnuresis']"></p-checkbox>
+                                                    <label>Enuresis (niños)</label>
+                                                </div>
+                                            </div>
+                                        </p-panel>
+                                    </div>
+                                    <div class="col-6">
+                                        <p-panel header="PSICOLÓGICO" toggleable="true">
+                                            <div class="grid">
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneFalta']"></p-checkbox>
+                                                    <label>Extrema falta de confianza en si mismo</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneTristeza']"></p-checkbox>
+                                                    <label>Tristeza, depresión o angustia.</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneRetraimiento']"></p-checkbox>
+                                                    <label>Retraimiento</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneLlanto']"></p-checkbox>
+                                                    <label>Llanto frecuente</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneNecesidad']"></p-checkbox>
+                                                    <label>Exagerada necesidad de ganar, sobresalir.</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneDemanda']"></p-checkbox>
+                                                    <label>Demanda excesiva de atención</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneAgresividad']"></p-checkbox>
+                                                    <label>Mucha agresividad o mucha pasividad frente a otros niños</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneTartamudeo']"></p-checkbox>
+                                                    <label>Tartamudeo</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneTemor']"></p-checkbox>
+                                                    <label>Temor a los padres o de llegar al hogar.</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['Roba']"></p-checkbox>
+                                                    <label>Robo, mentira, fuga, desobediencia, agresividad.</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneAutismo']"></p-checkbox>
+                                                    <label>Autismo escolar</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['llegaTarde']"></p-checkbox>
+                                                    <label>Llegar tarde a la escuela o retirarse tarde.</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['bajoRendimiento']"></p-checkbox>
+                                                    <label>Bajo rendimiento académico</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['seAisla']"></p-checkbox>
+                                                    <label>Aislamiento de personas.</label>
+                                                </div>
+                                                <div class="col-4 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['intentaSuicidio']"></p-checkbox>
+                                                    <label>Intento de suicidio</label>
+                                                </div>
+                                            </div>
+                                        </p-panel>
+                                    </div>
+                                    <div class="col-6">
+                                        <p-panel header="NEGLIGENCIA" toggleable="true">
+                                            <div class="grid">
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['faltaPeso']"></p-checkbox>
+                                                    <label>Falta de peso o pobre patrón de crecimiento.</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['noVacunado']"></p-checkbox>
+                                                    <label>No vacunas o atención de salud.</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneAccidentes']"></p-checkbox>
+                                                    <label>Accidentes o enfermedades muy frecuentes.</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['esDescuidado']"></p-checkbox>
+                                                    <label>Descuido en higiene o aliño.</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['faltaEstimulacion']"></p-checkbox>
+                                                    <label>Falta de estimulación del desarrollo.</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneFatiga']"></p-checkbox>
+                                                    <label>Fatiga, sueño, hambre.</label>
+                                                </div>
+                                            </div>
+                                        </p-panel>
+                                    </div>
+                                    <div class="col-6">
+                                        <p-panel header="SEXUALES" toggleable="true">
+                                            <div class="grid">
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['conductaInapropiada']"></p-checkbox>
+                                                    <label>Conocimiento y conducta sexual inapropiada (niños).</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneIrritacion']"></p-checkbox>
+                                                    <label>Irritación, dolor, lesión, hemorragia en zona genital.</label>
+                                                </div>
+                                                <div class="col-6 field-checkbox">
+                                                    <p-checkbox  binary="true" inputId="binary" [formControl]="formTamizajeVIF.controls['tieneEnfermedad']"></p-checkbox>
+                                                    <label>Enfermedad de transmisión sexual.</label>
+                                                </div>
+                                            </div>
+                                        </p-panel>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label class="">Diagnostico del paciente: </label>
+                                    <p-selectButton [options]="diagnosticoR" optionLabel="name"
+                                                    optionValue="diagnostico" formControlName="diagnosticoVIF">
+                                    </p-selectButton>
+                                </div>
+                                <div class="col-12 p-fluid">
+                                    <label for="">Observaciones:</label>
+                                    <textarea id="" rows="3" cols="28" pInputTextarea formControlName="tamizajeMental"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        <br>
+        <!---TAMIZAJE AUDITIVO --->
+        <p-accordion>
+            <p-accordionTab header="TAMIZAJE AUDITIVO" [selected]="true">
+                <div class="border">
+                    <form [formGroup]="formTamizajeAuditivo">
+                        <div class="grid m-2">
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
+                                <div class="grid">
+                                    <div class="p-inputgroup">
+                                        <div class="col-8 p-fluid" style="text-align: right">
+                                            <label class="">¿El niño nació prematuro?: </label>
+                                        </div>
+                                        <div class="col-4 p-field p-fluid">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="prematuro"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="p-inputgroup">
+                                        <div class="col-8 p-field p-fluid" style="text-align: right" >
+                                            <label class="">¿Permaneció en UCI?: </label>
+                                        </div>
+                                        <div class="col-4 p-field p-fluid">
+                                            <p-selectButton [options]="sino"  optionValue="value"
+                                                            optionLabel="label" formControlName="uci"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="p-inputgroup">
+                                        <div class="col-8 p-field p-fluid" style="text-align: right">
+                                            <label class="">¿Tuvo alta concentración de Billirubina y requirió transfusión sanguínea?</label>
+                                        </div>
+                                        <div class="col-4 p-field p-fluid">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="billirubina"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="p-inputgroup">
+                                        <div class="col-8 p-field p-fluid" style="text-align: right">
+                                            <label class="">¿Tiene antecedentes familiares de pérdida de audición? </label>
+                                        </div>
+                                        <div class="col-4 p-field p-fluid">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="perdidaAudicion"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 md:col-6 lg:col-6 p-field">
+                                <div class="grid">
+                                    <div class="p-inputgroup">
+                                        <div class="col-8 p-field p-fluid" style="text-align: right">
+                                            <label class="">¿Tuvo infecciones frecuentes en los oídos?: </label>
+                                        </div>
+                                        <div class="col-4 p-field p-fluid">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="infeccionOido"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="p-inputgroup">
+                                        <div class="col-8 p-field p-fluid" style="text-align: right">
+                                            <label class="">¿Tuvo infecciones como: meningitis o citomegalovirus? </label>
+                                        </div>
+                                        <div class="col-4 p-field p-fluid">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="meningitis"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="p-inputgroup">
+                                        <div class="col-8 p-field p-fluid" style="text-align: right">
+                                            <label class="">¿Estuvo expuesto a sonidos muy fuerte?(Incluso por poco tiempo? </label>
+                                        </div>
+                                        <div class="col-4 p-field p-fluid">
+                                            <p-selectButton [options]="sino"  optionValue="value" formControlName="expuestoSonido"
+                                                            optionLabel="label"></p-selectButton>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="">Diagnostico del paciente: </label>
+                                <p-selectButton [options]="diagnosticoR" optionLabel="name"
+                                                optionValue="diagnostico" formControlName="diagnosticoAuditivo">
+                                </p-selectButton>
+                            </div>
+                            <div class="col-12 p-fluid">
+                                <label for="float-input">Observaciones:</label>
+                                <textarea id="float-input" rows="3" cols="28" pInputTextarea formControlName="tamizajeAuditivo"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        <br>
+        <!--- EVALUACION OCULAR --->
+        <p-accordion>
+            <p-accordionTab header="EVALUACIÓN DE ALTERACIONES VISUALES" [selected]="true">
+                <div class="border">
+                    <form [formGroup]="formTamizajeVisual">
+                        <div class="grid m-2">
+                            <div class="col-6 md:col-4 lg:col-4 p-fluid">
+                                <label>OD:</label><br>
+                                <input type="number" pInputTextarea placeholder="Ojo Derecho" formControlName="ojoDerecho" >
+                            </div>
+                            <div class="col-6 md:col-4 lg:col-4 p-fluid">
+                                <label>OI:</label><br>
+                                <input type="number" pInputTextarea placeholder="Ojo Derecho" formControlName="ojoIzquierdo">
+                            </div>
+                            <div class="col-12 md:col-4 lg:col-4 p-fluid">
+                                <label class="">Diagnostico del paciente: </label>
+                                <p-selectButton [options]="diagnosticoR" optionLabel="name"
+                                                optionValue="diagnostico" formControlName="diagnosticoVisual">
+                                </p-selectButton>
+                            </div>
+                            <div class="col-12 p-fluid">
+                                <label for="float-input1">Observaciones:</label><br>
+                                <textarea id="float-input1" rows="3" cols="30" pInputTextarea
+                                          formControlName="descripcionTamizajeOcular"  tooltipPosition="rigth">
+                                 </textarea>
+                            </div>
+<!--                            <div class="col-12" style="text-align: right">-->
+<!--                                <button pButton (click)="verGuiaEvaluacionOcular()" pTooltip="Visualizar Guía" pRipple type="button"-->
+<!--                                        icon="pi pi-eye" class="p-button-help m-1" label="Visualizar Guía">-->
+<!--                                </button>-->
+<!--                            </div>-->
+                        </div>
+
+                    </form>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        <p-toast></p-toast>
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="displayMaximizable=false" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>

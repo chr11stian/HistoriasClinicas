@@ -11,6 +11,7 @@ import { TestDesarrolloComponent } from './test-desarrollo/test-desarrollo.compo
 import { TestTepsiComponent } from './test-tepsi/test-tepsi.component';
 import {ToggleButtonModule} from "primeng/togglebutton";
 import {SpeedDialModule} from "primeng/speeddial";
+import { TamizajesComponent } from './tamizajes/tamizajes.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import {SpeedDialModule} from "primeng/speeddial";
         TestDesarrolloComponent,
         CabeceraEvaGnrlComponent,
         TestTepsiComponent,
+        TamizajesComponent,
     ],
     exports: [
         EvaluacionGeneralComponent,

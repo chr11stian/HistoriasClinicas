@@ -30,6 +30,7 @@ import { TepsiComponent } from './component/evaluaciones-consulta/components/des
 import { EvaluacionAlimentacionComponent } from './component/evaluaciones-consulta/components/evaluacion-alimentacion/evaluacion-alimentacion.component';
 import {ToggleButtonModule} from "primeng/togglebutton";
 import { VacunaComponent } from './component/evaluaciones-consulta/components/vacuna/vacuna.component';
+import { PautaBreveComponent } from './component/evaluaciones-consulta/components/desarrollo-psicomotor/components/pauta-breve/pauta-breve.component';
 import {TimelineModule} from "primeng/timeline";
 @NgModule({
     declarations: [
@@ -51,6 +52,7 @@ import {TimelineModule} from "primeng/timeline";
         TepsiComponent,
         EvaluacionAlimentacionComponent,
         VacunaComponent,
+        PautaBreveComponent,
     ],
     imports: [
         EvaluacionGeneralModule,
