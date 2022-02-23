@@ -90,6 +90,12 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     muertoPrimeraSemana: number = 0;
     despuesPrimeraSemana: number = 0;
     nacidosVivos = 0;
+    RNmayorPeso = 0;
+
+    CeroOTres: any;
+    MayorDosMilQuinientos: any;
+    Multiple: any;
+    MayorTrentaSemanas: any;
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
@@ -168,12 +174,15 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     SumaNacidosVivos() {
         this.nacidosVivos = ((this.viven * 1) + (this.muertoPrimeraSemana * 1) + (this.despuesPrimeraSemana * 1));
     }
+
     SumaPatos() {
         this.partos = ((this.vaginales * 1) + (this.cesarias * 1));
     }
+
     SumaGetas() {
         this.gestas = ((this.abortos * 1) + (this.partos * 1))
     }
+
     async inputViven() {
         const {value: text} = await Swal.fire({
             input: 'number',
@@ -196,6 +205,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         }
 
     }
+
     async inputMueroPrimeraSemana() {
         const {value: text} = await Swal.fire({
             input: 'number',
@@ -216,6 +226,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
         }
     }
+
     async inputDespuesPrimeraSemana() {
         const {value: text} = await Swal.fire({
             input: 'number',
@@ -236,6 +247,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
 
         }
     }
+
     async inputNacidosMuertos() {
         const {value: text} = await Swal.fire({
             input: 'number',
@@ -254,6 +266,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.nacidosMuertos = text
         }
     }
+
     async inputVaginales() {
         const {value: text} = await Swal.fire({
             input: 'number',
@@ -274,6 +287,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.SumaGetas()
         }
     }
+
     async inputCesarias() {
         const {value: text} = await Swal.fire({
             input: 'number',
@@ -294,6 +308,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.SumaGetas()
         }
     }
+
     async inputAborto() {
         const {value: text} = await Swal.fire({
             input: 'number',
@@ -312,6 +327,42 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.abortos = text
             this.SumaGetas()
         }
+    }
+
+    async inputRNmayorPeso() {
+        const {value: text} = await Swal.fire({
+            input: 'number',
+            inputLabel: 'Ingrese RN Mayor Peso',
+            width: '300px',
+
+            inputPlaceholder: 'RN Mayor Peso',
+            inputAttributes: {
+                'aria-label': 'Type your message here'
+            },
+            showCancelButton: true
+        })
+
+        if (text) {
+            // await Swal.fire(text)
+            this.RNmayorPeso = text
+            this.SumaGetas()
+        }
+    }
+
+    ceroOmmas() {
+        this.CeroOTres = 'X';
+    }
+
+    ceroMayorDosMil() {
+        this.MayorDosMilQuinientos = 'X';
+    }
+
+    Multiple1() {
+        this.Multiple = 'X';
+    }
+
+    TrentaSiete() {
+        this.MayorTrentaSemanas = 'X';
     }
 
     inicializarAregloAntfamiliares(): void {
@@ -521,7 +572,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             referidaAgComunal: this.formAntecedentes.value.referidaporAgComuni,
             psicoprofilaxisNroSesiones: this.formAntecedentes.value.sesiones,
             antecedentesPartosPersonales: this.formAntecedentes.value.PartosDomiciliarios,
-
             proceso: "EN GESTACION",
             antecedentesFamiliares: [
                 {
@@ -574,7 +624,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                     valor: this.formAntecedentes.value.nombrefamiliar11,
                 },
             ],
-
+            rnMayorPeso: this.RNmayorPeso,
             antecedentesPersonales: [
 
                 {
@@ -693,10 +743,50 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                     valor: " ",
                 },
             ],
-
             otroAncedentePersonal: this.otros2,
             otroAntecendeteFamiliar: this.otrosAntecedentesFamiliares,
-
+            antecedentesObstetricos: [
+                {
+                    nombre: 'Despues - 1ra Semanas',
+                    valor: this.despuesPrimeraSemana,
+                },
+                {
+                    nombre: 'Muerto - 1ra semana',
+                    valor: this.muertoPrimeraSemana,
+                },
+                {
+                    nombre: 'Viven',
+                    valor: this.viven,
+                },
+                {
+                    nombre: 'Nacidos Vivos',
+                    valor: this.nacidosVivos,
+                },
+                {
+                    nombre: 'Nacidos Muertos',
+                    valor: this.nacidosMuertos,
+                },
+                {
+                    nombre: 'Vaginales',
+                    valor: this.vaginales,
+                },
+                {
+                    nombre: 'Cesarias',
+                    valor: this.cesarias,
+                },
+                {
+                    nombre: 'Abortos',
+                    valor: this.abortos,
+                },
+                {
+                    nombre: 'Partos',
+                    valor: this.partos,
+                },
+                {
+                    nombre: 'Gestas',
+                    valor: this.gestas,
+                },
+            ]
         }
         console.log("DATA ANTECEDENTES", req)
         this.filiancionService.UpdateAntecedentesFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
@@ -719,6 +809,21 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         this.filiancionService.getAntecedentesFiliacion(this.idRecuperado).subscribe((res: any) => {
             this.dataAntecedentes = res.object;
             console.log('Antecedentes por ID ', this.dataAntecedentes)
+
+
+            this.viven = Number(this.dataAntecedentes.antecedentesObstetricos[2].valor);
+            this.muertoPrimeraSemana = Number(this.dataAntecedentes.antecedentesObstetricos[1].valor);
+            this.despuesPrimeraSemana = Number(this.dataAntecedentes.antecedentesObstetricos[0].valor);
+            this.nacidosVivos = Number(this.dataAntecedentes.antecedentesObstetricos[3].valor);
+            this.nacidosMuertos = Number(this.dataAntecedentes.antecedentesObstetricos[4].valor);
+            this.vaginales = Number(this.dataAntecedentes.antecedentesObstetricos[5].valor);
+            this.cesarias = Number(this.dataAntecedentes.antecedentesObstetricos[6].valor);
+            this.partos = Number(this.dataAntecedentes.antecedentesObstetricos[8].valor);
+            this.abortos = Number(this.dataAntecedentes.antecedentesObstetricos[7].valor);
+            this.gestas = Number(this.dataAntecedentes.antecedentesObstetricos[9].valor);
+            this.RNmayorPeso = this.dataAntecedentes.rnMayorPeso;
+
+
             this.formAntecedentes.get('fecha').setValue(this.dataAntecedentes.gestacionAnterior.fecha);
             this.formAntecedentes.get('intergenesico').setValue(this.dataAntecedentes.gestacionAnterior.perIntergenesicoAdecuado);
             this.formAntecedentes.get('terminacion').setValue(this.dataAntecedentes.gestacionAnterior.terminacion);
