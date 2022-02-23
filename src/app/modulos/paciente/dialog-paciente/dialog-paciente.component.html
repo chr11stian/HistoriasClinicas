@@ -33,22 +33,22 @@
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Primer Nombre:</label>
                                     <input type="text" pInputText formControlName="primerNombre" class="inputTest"
-                                           oninput="this.value=this.value.toUpperCase()" disabled/>
+                                           oninput="this.value=this.value.toUpperCase()"/>
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Otros Nombres:</label>
                                     <input type="text" pInputText formControlName="otrosNombres"
-                                           oninput="this.value=this.value.toUpperCase()" disabled/>
+                                           oninput="this.value=this.value.toUpperCase()"/>
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Apellido Paterno:</label>
                                     <input type="text" pInputText formControlName="apPaterno" class="inputTest"
-                                           oninput="this.value=this.value.toUpperCase()" disabled/>
+                                           oninput="this.value=this.value.toUpperCase()"/>
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-3 p-field flex flex-column">
                                     <label>Apellido Materno:</label>
                                     <input type="text" pInputText formControlName="apMaterno" class="inputTest"
-                                           oninput="this.value=this.value.toUpperCase()" disabled/>
+                                           oninput="this.value=this.value.toUpperCase()"/>
                                 </div>
                             </div>
                         </div>
@@ -227,18 +227,15 @@
                                             optionLabel="ccpp"
                                             optionValue="ccpp"
                                             defaultLabel="Seleccione un centroPoblado"
-                                            placeholder="Seleccione un centro poblado" id="ccpp"
-                                            [showClear]="false">
+                                            placeholder="Seleccione un centroPoblado"
+                                            id="CCPP" [showClear]="false">
                                 </p-dropdown>
                             </div>
                         </div>
-                        <div class="col-12 md:col-6 lg:col-4 p-field flex flex-column">
-                            <label>Direccion:</label>
-                            <input type="text" pInputText formControlName="direccion" class="inputTest"
-                                   oninput="this.value=this.value.toUpperCase()"/>
+                        <div class="col-12 md:col-6 lg:col-6 p-field">
+                            <span>Direccion:</span>
+                            <input type="text" pInputText formControlName="direccion" class="inputfield w-full"/>
                         </div>
-                    </div>
-                    <div class="grid">
                     </div>
                 </div>
             </div>
@@ -255,11 +252,11 @@
                         <div class="col-12 md:col-6 lg:col-12 p-field">
                             <div class="grid">
                                 <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
-                                    <label>Tipo Seguro:</label>
+                                    <span>Tipo Seguro:</span>
                                     <input type="text" pInputText formControlName="tipoSeguro" class="inputTest"/>
                                 </div>
                                 <div class="col-12 md:col-6 lg:col-2 p-field flex flex-column">
-                                    <label>Codigo Seguro:</label>
+                                    <span>Codigo Seguro:</span>
                                     <input type="text" pInputText formControlName="codSeguro" class="inputTest"/>
                                 </div>
                             </div>
@@ -271,7 +268,7 @@
     </div>
     <div class="m-3">
         <button pButton type="button" label="Guardar" class="p-button-primary"
-                (click)="saveForm()"></button>
+                (click)="updateOEdith()"></button>
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="closeDialog()"></button>
     </div>
 </div>
