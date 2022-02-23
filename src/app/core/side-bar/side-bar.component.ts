@@ -128,6 +128,11 @@ const menu_geresa = [
                 label: "UPS",
                 routerLink: "mantenimientos/ups",
             },
+            {
+                icon: "pi pi-pw pi-file",
+                label: "Prestacion",
+                routerLink: "mantenimientos/prestacion",
+            },
         ],
     },
 ];

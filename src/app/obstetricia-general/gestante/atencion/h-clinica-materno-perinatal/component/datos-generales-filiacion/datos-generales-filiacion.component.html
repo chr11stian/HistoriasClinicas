@@ -110,8 +110,6 @@
                         <div class="col-6">
                             <p-dropdown [options]="studies"
                                         placeholder="Selec Estudios"
-                                        optionLabel="gradoInstruccion"
-                                        optionValue="gradoInstruccion"
                                         formControlName="gradoInstruccion"
                                         [showClear]="false"
                                         class="p-fluid">
@@ -250,12 +248,13 @@
                         <div class="col-8">
                             <p-dropdown
                                     inputId="dropdown"
-                                    [options]="departamentos"
+                                    [options]="dataDepartamentos"
                                     defaultLabel="Seleccione departamento"
                                     formControlName="departamento"
                                     optionLabel="departamento"
                                     optionValue="departamento"
-                                    class="p-fluid">
+                                    class="p-fluid"
+                                    (onChange)="selectedDepartamento()">
                             </p-dropdown>
                         </div>
                     </div>
@@ -266,11 +265,11 @@
                         <div class="col-8">
                             <p-dropdown
                                     inputId="dropdown2"
-                                    [options]="distritos"
+                                    [options]="dataCentroPoblado"
                                     formControlName="nombreNroSector"
-                                    defaultLabel="Seleccione distrito"
-                                    optionLabel="distrito"
-                                    optionValue="distrito"
+                                    placeholder="Seleccione un sector"
+                                    optionLabel="ccpp"
+                                    optionValue="ccpp"
                                     class="p-fluid">
                             </p-dropdown>
                         </div>
@@ -284,12 +283,13 @@
                         <div class="col-8">
                             <p-dropdown
                                     inputId="dropdown"
-                                    [options]="provincias"
-                                    defaultLabel="Seleccione departamento"
+                                    [options]="dataProvincia"
+                                    placeholder="Seleccione una provincia"
                                     formControlName="provincia"
                                     optionLabel="provincia"
                                     optionValue="provincia"
-                                    class="p-fluid">
+                                    class="p-fluid"
+                                    (onChange)="selectedProvincia()">
                             </p-dropdown>
                         </div>
                     </div>
@@ -313,12 +313,13 @@
                         <div class="col-8">
                             <p-dropdown
                                     inputId="dropdown2"
-                                    [options]="distritos"
+                                    [options]="dataDistrito"
                                     formControlName="distrito"
-                                    defaultLabel="Seleccione distrito"
+                                    placeholder="Seleccione un distrito"
                                     optionLabel="distrito"
                                     optionValue="distrito"
-                                    class="p-fluid">
+                                    class="p-fluid"
+                                    (onChange)="selectedDistrito()">
                             </p-dropdown>
                         </div>
                     </div>
@@ -343,7 +344,7 @@
                                 <label class="">Tipo de seguro:</label>
                             </div>
                             <div class="col-6">
-                                <input type="text" pInputText class="inputfield w-full" formControlName="apePaterno"
+                                <input type="text" pInputText class="inputfield w-full" formControlName="tipoSeguro"
                                        style="text-transform:uppercase">
                             </div>
                         </div>
@@ -356,7 +357,7 @@
                                 <label class="">Estado: </label>
                             </div>
                             <div class="col-6">
-                                <input type="text" pInputText class="inputfield w-full" formControlName="apePaterno"
+                                <input type="text" pInputText class="inputfield w-full" formControlName="tipoSeguro"
                                        style="text-transform:uppercase">
                             </div>
                         </div>
@@ -392,10 +393,10 @@
                 <div class="col-12 md:col-6 lg:col-4 p-field">
                     <div class="grid">
                         <div class="p-inputgroup">
-                            <div class="col-4" style="text-align: right">
+                            <div class="col" style="text-align: right">
                                 <label class="m-1">Establecimiento: </label>
                             </div>
-                            <div class="col-8">
+                            <div class="col">
                                 <input type="text" pInputText class="inputfield w-full"
                                        formControlName="establecimiento"
                                        style="text-transform:uppercase">

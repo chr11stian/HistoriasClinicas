@@ -292,6 +292,12 @@ export class MotivoConsultaComponent implements OnInit {
         }
     }
 
+    imc() {
+        let peso = this.examFG.value.PesoFC
+        let talla = this.examFG.value.TallaFC
+        this.examFG.get('imcFC').setValue(peso / (talla * talla))
+    }
+
     openAlert(key) {
         switch (key) {
             case 1:
