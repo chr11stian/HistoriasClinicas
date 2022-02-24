@@ -210,12 +210,12 @@
 
 </p-dialog>
 <!-- dialogo para cronograma citas -->
-<p-dialog class="dialogo" [(visible)]="cronogramaDialog" [style]="{width: '800px'}" [modal]="true" styleClass="p-fluid">
+<p-dialog class="dialogo" [(visible)]="cronogramaDialog" [style]="{width: '500px'}" [modal]="true"  [draggable]="false" [resizable]="false">
     <ng-template pTemplate="header">
         <h3>CRONOGRAMA DE CITAS DE LA GESTANTE</h3>
     </ng-template>
     <ng-template pTemplate="body">
-        <p-table [value]="cronograma" #dt [rows]="8" styleClass="p-datatable-gridlines" [paginator]="true"
+        <p-table [value]="cronograma" #dt [rows]="6" styleClass="p-datatable-gridlines" [paginator]="true"
             [autoLayout]="true" class="m-3"
             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
             [showCurrentPageReport]="true" responsiveLayout="scroll">
