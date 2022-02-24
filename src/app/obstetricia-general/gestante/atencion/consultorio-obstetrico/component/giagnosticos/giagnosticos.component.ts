@@ -19,6 +19,7 @@ export class GiagnosticosComponent implements OnInit {
     form: FormGroup
     /*****PROPIEDADES del diagnositico**********/
     diagnosticoDialog: boolean;
+    cronogramaDialog: boolean=false;
     diagnosticos: any[] = [];
     /******** PROPIEDADES de orientaciones******/
     data2: any[] = []; // data orientaciones
@@ -35,7 +36,7 @@ export class GiagnosticosComponent implements OnInit {
     referencia: any;
     proxCita: any;
     orientaciones: any[] = [];
-
+    cronograma: any[] = [];
     /*******DATA AUX PARA RECUPERAR DE LA BD*******/
     dataAux: any;
     dataAux2: any;
@@ -85,6 +86,7 @@ export class GiagnosticosComponent implements OnInit {
             { label: 'NO', value: 'NO' },
             { label: 'NO APLICA', value: 'NO APLICA' }
         ];
+        this.recuperarCronograma();
     }
     ngOnInit() {
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
@@ -93,6 +95,13 @@ export class GiagnosticosComponent implements OnInit {
         console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
+        
+    }
+    recuperarCronograma(){
+        this.DxService.getCronogramaGestante(this.obstetriciaService.nroHcl).subscribe((res: any) => {
+            this.cronograma = res.object;
+            console.log("cronograma:", this.cronograma)
+        })
     }
     recuperarNroFetos() {
         let idData = {
@@ -402,5 +411,11 @@ export class GiagnosticosComponent implements OnInit {
                 } else { this.messageService.add({ severity: 'success', summary: 'Registros', detail: 'No hay datos ingresados todavía' }); }
             }
         });
+    }
+    mostrarCronograma(){
+        this.cronogramaDialog=true;
+    }
+    salirCronograma(){
+        this.cronogramaDialog=false;
     }
 }

@@ -1,4 +1,3 @@
-
 <!-------------INICIO DIALOG TRATAMIENTO INMUNIZACIONES--->
 <form [formGroup]='formInmunizaciones'>
 
@@ -6,41 +5,41 @@
         <div class="p-col-6 p-md-4 p-lg-3">
             <label>Codigo:</label>
             <input type="text" style="border-radius: 10px" pInputText formControlName='codigo' placeholder="codigo"
-                   required/>
+                required />
         </div>
         <div class="p-col-6 p-md-4 p-lg-3">
             <label>Descripcion:</label>
-            <input type="text"  style="border-radius: 10px" pInputText formControlName='descripcion' placeholder="descripcion"
-                   required/>
+            <input type="text" style="border-radius: 10px" pInputText formControlName='descripcion'
+                placeholder="descripcion" required />
         </div>
         <div class="p-col-6 p-md-4 p-lg-3">
             <label>Cantidad:</label>
-            <input type="number"  style="border-radius: 10px" pInputText formControlName='numero' placeholder="cantidad"
-                   required />
+            <input type="number" style="border-radius: 10px" pInputText formControlName='numero' placeholder="cantidad"
+                required />
         </div>
         <div class="p-col-6 p-md-4 p-lg-3">
             <label>Dosis:</label>
             <input type="number" style="border-radius: 10px" pInputText formControlName='dosis' placeholder="dosis"
-                   required />
+                required />
         </div>
 
         <div class="p-col-6 p-md-4 p-lg-3">
             <label>Via Admin.</label>
-                <div class="p-field">
-                    <p-dropdown  inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracion"
-                             placeholder="seleccionar" optionLabel="label" optionValue="value"
-                             defaultLabel="Seleccione:" >
-                    </p-dropdown>
+            <div class="p-field">
+                <p-dropdown inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracion"
+                    placeholder="seleccionar" optionLabel="label" optionValue="value" defaultLabel="Seleccione:">
+                </p-dropdown>
             </div>
         </div>
         <div class="p-col-6 p-md-4 p-lg-3">
             <label>Lote:</label>
             <input type="text" style="border-radius: 10px" pInputText formControlName='lote' placeholder="Lote"
-                   required />
+                required />
         </div>
         <div class="p-col-6 p-md-4 p-lg-3">
             <label>Fecha Vencimiento:</label><br>
-            <p-calendar type="Date"  showIcon="true"  formControlName='fechaVenc'  dateFormat="yy-mm-dd" [showTime]="true" [showSeconds]="true" inputId="time" required>
+            <p-calendar type="Date" showIcon="true" formControlName='fechaVenc' dateFormat="yy-mm-dd" [showTime]="true"
+                [showSeconds]="true" inputId="time" required>
             </p-calendar>
 
         </div>
@@ -49,5 +48,5 @@
 <br>
 <div class="footer">
     <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-danger mt-4"></button>
-    <button pButton type="button" label="Cancelar" (click)="closeDialog()"  class="p-button-danger mt-4"></button>
+    <button pButton type="button" label="Cancelar" (click)="closeDialog()" class="p-button-danger mt-4"></button>
 </div>
