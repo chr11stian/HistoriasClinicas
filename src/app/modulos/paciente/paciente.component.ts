@@ -77,10 +77,6 @@ export class PacienteComponent implements OnInit {
             width: "90%",
             height: "100%"
         })
-        this.ref.onClose.subscribe((data: any) => {
-            console.log('data del otro dialog ');
-            this.cargarPacientes();
-        })
         localStorage.removeItem('pacienteDepartamento');
         localStorage.removeItem('pacienteLocalStorage');
     }
