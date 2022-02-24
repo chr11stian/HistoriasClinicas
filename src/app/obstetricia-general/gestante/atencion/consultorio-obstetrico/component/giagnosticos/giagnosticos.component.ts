@@ -19,7 +19,7 @@ export class GiagnosticosComponent implements OnInit {
     form: FormGroup
     /*****PROPIEDADES del diagnositico**********/
     diagnosticoDialog: boolean;
-    cronogramaDialog: boolean=false;
+    cronogramaDialog: boolean = false;
     diagnosticos: any[] = [];
     /******** PROPIEDADES de orientaciones******/
     data2: any[] = []; // data orientaciones
@@ -43,6 +43,7 @@ export class GiagnosticosComponent implements OnInit {
 
     datePipe = new DatePipe('en-US');
     visitaDomiciliaria: any;
+    testDialog: boolean = false;
     /****** Data recuperada********/
     private edadGestacional: any;
     private planPartoReenfocada: any;
@@ -95,9 +96,9 @@ export class GiagnosticosComponent implements OnInit {
         console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
-        
+
     }
-    recuperarCronograma(){
+    recuperarCronograma() {
         this.DxService.getCronogramaGestante(this.obstetriciaService.nroHcl).subscribe((res: any) => {
             this.cronograma = res.object;
             console.log("cronograma:", this.cronograma)
@@ -230,10 +231,10 @@ export class GiagnosticosComponent implements OnInit {
             motivoReferencia: this.formOtrosDatos.value.motivo,
             renipress: this.formOtrosDatos.value.codRENAES,
             nombreIPRESS: null,
-            idRef : null,
-            DISA : null,
+            idRef: null,
+            DISA: null,
             lote: null,
-            nroFormato : null
+            nroFormato: null
         }
         this.proxCita = { fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd') }
         this.visitaDomiciliaria = {
@@ -412,10 +413,11 @@ export class GiagnosticosComponent implements OnInit {
             }
         });
     }
-    mostrarCronograma(){
-        this.cronogramaDialog=true;
+    mostrarCronograma() {
+        // this.cronogramaDialog=true;
+        this.testDialog = true;
     }
-    salirCronograma(){
-        this.cronogramaDialog=false;
+    salirCronograma() {
+        this.cronogramaDialog = false;
     }
 }
