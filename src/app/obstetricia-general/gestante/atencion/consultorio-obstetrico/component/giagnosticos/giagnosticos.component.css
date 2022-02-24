@@ -11,12 +11,11 @@
 }
 p-calendar >>> .p-button.p-button-icon-only {
     background-color: #0c3866;
-
 }
 p-calendar{
     position: absolute;
 }
-p-autoComplete{
+p-autocomplete{
     position: absolute;
 }
 p-dialog >>> .p-dropdown{
@@ -38,9 +37,6 @@ p-dialog>>> .p-dialog .p-dialog-header {
     font-size: 1.25rem;
     color:#ffffff;
 }
-.table-over{
-    overflow-x: auto;
-}
 .confirmation-content {
     display: flex;
     align-items: center;
@@ -55,9 +51,7 @@ p-dialog>>> .p-dialog .p-dialog-header {
     width: auto;
     background: #FFFFFF;
 }
-.p-table >>> .p-table{
-    overflow-x: auto;
-}
+
 p-panel>>>.p-panel .p-panel-header{
     background: #D32F2F;
     border: 1px solid #D32F2F;

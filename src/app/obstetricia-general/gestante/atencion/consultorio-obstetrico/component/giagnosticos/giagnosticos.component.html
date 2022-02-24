@@ -5,26 +5,25 @@
                 <h3 class="mt-2">DIAGNÓSTICO</h3>
             </ng-template>
 
-            <ng-template  pTemplate="right" class="button">
-                <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar" (click)="guardarTodosDatos()"></button>
+            <ng-template pTemplate="right" class="button">
+                <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
+                    (click)="guardarTodosDatos()"></button>
             </ng-template>
         </p-toolbar>
         <ng-template pTemplate="right" class="button">
-            <button pButton pRipple label="Atras" icon="pi pi-angle-left"
-                    class="p-button-secondary mr-2"></button>
-            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                    class="guardar mr-2" style="background-color: #0c3866"></button>
+            <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
+            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right" class="guardar mr-2"
+                style="background-color: #0c3866"></button>
         </ng-template>
         <br>
-        <p-table class="table-over" [value]="diagnosticos" #dt styleClass="p-datatable-gridlines"
-                 [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-                 [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                 currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <p-table class="table-over" [value]="diagnosticos" #dt styleClass="p-datatable-gridlines" [rows]="10"
+            [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
             <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro </th>
-                    <th style="text-align: center" class="font-1">CIE 10</th>
-                    <th style="text-align: center" class="font-2">DIAGNOSTICOS</th>
+                    <th style="text-align: center" class="font-1">CIE 10 SIS</th>
+                    <th style="text-align: center" class="font-2">DIAGNOSTICOS SIS</th>
                     <th style="text-align: center" class="font-2">TIPO</th>
                     <th style="text-align: center" class="font-2">ACCIÓN</th>
                 </tr>
@@ -32,12 +31,12 @@
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr>
                     <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.cie10 }}</td>
-                    <td style="text-align: center">{{ rowData.diagnostico }}</td>
+                    <td style="text-align: center">{{ rowData.cie10SIS }}</td>
+                    <td style="text-align: center">{{ rowData.diagnosticoSIS }}</td>
                     <td style="text-align: center">{{ rowData.tipo }}</td>
                     <td style="text-align: center">
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                (click)="eliminarDx(rowIndex)" pTooltip="Eliminar">
+                            (click)="eliminarDx(rowIndex)" pTooltip="Eliminar">
                         </button>
                     </td>
                 </tr>
@@ -45,9 +44,8 @@
         </p-table>
         <p-toolbar>
             <ng-template pTemplate="right" class="button">
-                <button pButton pRipple label="Agregar Diagnóstico" icon="pi pi-plus"
-                        pButton type="button" class="button-agregar"
-                        (click)="openDiagnostico()"></button>
+                <button pButton pRipple label="Agregar Diagnóstico" icon="pi pi-plus" pButton type="button"
+                    class="button-agregar" (click)="openDiagnostico()"></button>
             </ng-template>
         </p-toolbar>
     </div>
@@ -60,10 +58,10 @@
                         <h3 class="p-m-0">ORIENTACIONES</h3>
                     </ng-template>
                 </p-toolbar>
-                <p-table class="table-over" [value]="orientaciones" #dt styleClass="p-datatable-gridlines"
-                         [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                <p-table class="table-over" [value]="orientaciones" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                    [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
                     <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                         <tr>
                             <th style="text-align: center" class="font-2">Nro </th>
@@ -93,52 +91,56 @@
                             </div>
                             <div class="col:12 lg:col-4 md:col-4 xs:col-12 p-field">
                                 <label>Motivo:</label>
-                                <input type="text" pInputText  formControlName="motivo"  />
+                                <input type="text" pInputText formControlName="motivo" />
                             </div>
-                            <div class="col:12 lg:col-4 md:col-4 xs:col-12p p-field">
+                            <div class="col:12 lg:col-4 md:col-4 xs:col-12 p-field">
                                 <label>Cod. Renaes:</label>
-                                <input type="text" pInputText  formControlName="codRENAES"  />
+                                <input type="text" pInputText formControlName="codRENAES" />
                             </div>
                         </div>
                     </p-fieldset>
                     <br>
                     <p-fieldset legend="PROXIMA CITA">
-                        <div class="p-grid p-fluid">
-                            <div class="col-12">
+                        <div class="grid ">
+                            <div class="col-6">
                                 <p-calendar [showIcon]="true" dateFormat="yy-mm-dd" formControlName="proxCita"
-                                            inputId="icon">
+                                    inputId="icon">
                                 </p-calendar>
                             </div>
+                            <div class="col-6">
+                                <p-button label="Ver cronograma citas" icon="pi pi-calendar-plus"
+                                    (click)="mostrarCronograma()"></p-button>
+                            </div>
                         </div>
-                        <br>
                     </p-fieldset>
                     <br>
                     <p-fieldset legend="DATOS ADICIONALES">
                         <div class="grid p-fluid">
                             <div class="col-12 p-field">
-                                <label>Plan de Parto/Reenfocada:</label>
+                                <label>Plan de Parto:</label>
                                 <div class="p-field">
-                                    <p-dropdown  inputId="dropdown" [options]="planPartoList"  formControlName="planPartoReenfocada"
-                                                 placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                                 defaultLabel="Seleccione:" >
+                                    <p-dropdown inputId="dropdown" [options]="planPartoList"
+                                        formControlName="planPartoReenfocada" placeholder="seleccionar"
+                                        optionLabel="label" optionValue="value" defaultLabel="Seleccione:">
                                     </p-dropdown>
                                 </div>
                             </div>
                             <div class="col-12 p-fluid p-field">
                                 <label>Visita Domiciliaria:</label>
                                 <div class="col-12 p-field">
-                                    <p-dropdown  inputId="dropdown" [options]="visitaDomiciliariaList" [(ngModel)]="eleccion" formControlName="visita"
-                                                 placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                                 defaultLabel="Seleccione:" >
+                                    <p-dropdown inputId="dropdown" [options]="visitaDomiciliariaList"
+                                        [(ngModel)]="eleccion" formControlName="visita" placeholder="seleccionar"
+                                        optionLabel="label" optionValue="value" defaultLabel="Seleccione:">
                                     </p-dropdown>
                                 </div>
                             </div>
                             <div class="col-12 p-fluid p-field">
                                 <label *ngIf="eleccion=='SI'">Fecha Visita:</label><br>
-                                    <p-calendar *ngIf="eleccion=='SI'" type="Date"  showIcon="true"  formControlName='fechaVisita'  dateFormat="yy-mm-dd" [showTime]="true" [showSeconds]="true" inputId="time" >
-                                    </p-calendar>
+                                <p-calendar *ngIf="eleccion=='SI'" type="Date" showIcon="true"
+                                    formControlName='fechaVisita' dateFormat="yy-mm-dd" [showTime]="true"
+                                    [showSeconds]="true" inputId="time">
+                                </p-calendar>
                             </div>
-
                         </div>
                         <br>
                     </p-fieldset>
@@ -148,14 +150,13 @@
     </div>
 </div>
 <!--*************************DIALOGO AGREGAR DX***********************************-->
-<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog" [modal]="true"
-          [draggable]="false" [resizable]="false" >
+<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog" [modal]="true" [draggable]="false" [resizable]="false">
     <div class="grid p-fluid">
         <div class="col-6" p-fluid>
             <br>
             <div class="p-field-radiobutton">
-                <p-radioButton name="descripcion" value="opcionBusqueda" [(ngModel)]="opcionBusqueda"  value="porDescripcion"
-                               inputId="opcion1"></p-radioButton>
+                <p-radioButton name="descripcion" value="opcionBusqueda" [(ngModel)]="opcionBusqueda"
+                    value="porDescripcion" inputId="opcion1"></p-radioButton>
                 <label>Buscar por Descripcion</label>
             </div>
         </div>
@@ -163,28 +164,26 @@
             <br>
             <div class="p-field-radiobutton">
                 <p-radioButton name="cie10" value="opcionBusqueda" [(ngModel)]="opcionBusqueda" value="porcie10"
-                               inputId="opcion2" ></p-radioButton>
+                    inputId="opcion2"></p-radioButton>
                 <label>Buscar por Cie10</label>
             </div>
         </div>
     </div>
     <br>
-    <form   [formGroup]='form' (ngSubmit)="save1(formTemplate)" #formTemplate ="ngForm" >
+    <form [formGroup]='form' (ngSubmit)="save1(formTemplate)" #formTemplate="ngForm">
         <div class="grid">
             <div class="col-12" p-fluid>
                 <label *ngIf="opcionBusqueda=='porDescripcion'">Diagnóstico:</label>
                 <p-autoComplete *ngIf="opcionBusqueda=='porDescripcion'" formControlName="diagnostico"
-                                [suggestions]="Cie10"
-                                (completeMethod)="filterDiagnostico($event)" field="descripcionItem"
-                                [minLength]="1" placeholder="Descripcion" class="areaText">
+                    [suggestions]="Cie10" (completeMethod)="filterDiagnostico($event)" field="descripcionItem"
+                    [minLength]="1" placeholder="Descripcion" class="areaText">
                 </p-autoComplete>
             </div>
             <div class="col-12" p-fluid>
-                <label  *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>
-                <p-autoComplete  *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico"
-                                 [suggestions]="Cie10"
-                                 (completeMethod)="filterDiagnostico($event)" field="codigoItem"
-                                 [minLength]="1" placeholder="CIE 10">
+                <label *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>
+                <p-autoComplete *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico" [suggestions]="Cie10"
+                    (completeMethod)="filterDiagnostico($event)" field="codigoItem" [minLength]="1"
+                    placeholder="CIE 10">
                 </p-autoComplete>
             </div>
         </div>
@@ -193,21 +192,58 @@
         <div class="grid">
             <div class="col-12 p-fluid">
 
-                    <label>Tipo:</label>
-                    <p-dropdown  inputId="dropdown" [options]="tipoList" formControlName="tipo"
-                                 placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                 defaultLabel="Seleccione:" required>
-                    </p-dropdown>
+                <label>Tipo:</label>
+                <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipo" placeholder="seleccionar"
+                    optionLabel="label" optionValue="value" defaultLabel="Seleccione:" required>
+                </p-dropdown>
             </div>
         </div>
     </form>
     <br>
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="button-cancelar"
-                icon="pi pi-times"(click)="canceled1()"></button>
-        <button  class="button-agregar" icon="pi pi-save" pButton type="button"
-                 label="Guardar" (click)="save1(formTemplate)" ></button>
+        <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
+            (click)="canceled1()"></button>
+        <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
+            (click)="save1(formTemplate)"></button>
 
     </ng-template>
 
+</p-dialog>
+<!-- dialogo para cronograma citas -->
+<p-dialog class="dialogo" [(visible)]="cronogramaDialog" [style]="{width: '800px'}" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="header">
+        <h3>CRONOGRAMA DE CITAS DE LA GESTANTE</h3>
+    </ng-template>
+    <ng-template pTemplate="body">
+        <p-table [value]="cronograma" #dt [rows]="8" styleClass="p-datatable-gridlines" [paginator]="true"
+            [autoLayout]="true" class="m-3"
+            currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} entradas"
+            [showCurrentPageReport]="true" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                <div class="flex justify-content-between">
+                    <h3>CRONOGRAMA DE CITAS DE LA GESTANTE</h3>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="text-align: center">Nro</th>
+                    <th style="text-align: center">Descripcion</th>
+                    <th style="text-align: center">Tipo</th>
+                    <th style="text-align: center">Fecha</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr style="text-align: center">
+                    <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                    <td style="text-align: center">{{ rowData.descripcion }}</td>
+                    <td style="text-align: center">{{ rowData.tipo }}</td>
+                    <td style="text-align: center">{{ rowData.fecha }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Salir" class="p-button-danger" (click)="salirCronograma()"></button>
+    </ng-template>
 </p-dialog>

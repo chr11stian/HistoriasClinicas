@@ -376,11 +376,12 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ mamasDetalle: Rpta.examenesFisicos[6].detalle });
       this.form.patchValue({ pezonesDetalle: Rpta.examenesFisicos[7].detalle });
       this.form.patchValue({ abdomenDetalle: Rpta.examenesFisicos[8].detalle });
-      if (Rpta.examenesFisicos[8].valor.length > 9) {
+      if (Rpta.examenesFisicos.length > 9) {
         this.form.patchValue({ examenFisicoOtro: Rpta.examenesFisicos[9].valor });
       }
-      this.form.patchValue({ obsExamFisico: Rpta.examenFisicoObservaciones });
+      this.form.patchValue({ obsExamFisico: Rpta.obsExamenFisico });
       //examene obstetricos
+      console.log("exam",Rpta.examenesObstetricos);
       this.form.patchValue({ miembrosInferiores: Rpta.examenesObstetricos.miembrosInferiores });
       this.form.patchValue({ alturaUterina: Rpta.examenesObstetricos.alturaUterina });
       this.form.patchValue({ edema: Rpta.examenesObstetricos.edema });
