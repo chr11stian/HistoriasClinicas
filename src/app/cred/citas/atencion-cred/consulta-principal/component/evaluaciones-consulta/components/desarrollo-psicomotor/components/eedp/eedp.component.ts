@@ -183,13 +183,14 @@ export class EedpComponent implements OnInit {
     // console.log('data to save ', this.dataTestEEDP);
     this.eedpService.postAgregarEEDP(this.idConsulta, this.dataTestEEDP).subscribe((res: any) => {
       this.arrayRptas = res.object.testEedp.listaUltimasPreguntas;
+      console.log('datos recien recogidos ', this.arrayRptas);
       Swal.fire({
         icon: 'success',
         title: 'Se Guardo el test EEDP Correctamente',
         showConfirmButton: false,
         timer: 1500
       })
-      this.searchLastRes();
+      // this.searchLastRes();
     })
   }
 
@@ -277,7 +278,7 @@ export class EedpComponent implements OnInit {
   }
   searchLastRes() {
     console.log('array to last res ', this.arrayRptas);
-    this.arrayRptas.forEach(item => {
+    this.arrayRptas.forEach((item, i) => {
       switch (item.clave) {
         case 'C':
           this.areaEvalu = 'COORDINACION'
@@ -294,6 +295,7 @@ export class EedpComponent implements OnInit {
         default:
           break;
       }
+      console.log('index value ', i);
       console.log('area de evaluacion ', this.areaEvalu);
     });
   }
