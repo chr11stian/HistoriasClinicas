@@ -60,14 +60,14 @@
                                 <label class="">5. ¿Alguna vez algún miembro de su familia lo insulta, lo golpea, le obliga a tener relaciones sexuales?</label>
                             </div>
                             <div class="col-4 p-fluid p-field">
-                                <p-selectButton [options]="sino"  optionValue="value" formControlName="obligaRS"
+                                <p-selectButton [options]="sino"  optionValue="value" [(ngModel)]="eleccion" formControlName="obligaRS"
                                                 optionLabel="label"></p-selectButton>
                             </div>
                             <div class="col-2 p-fluid p-field">
-                                <label>Quién?</label>
+                                <label *ngIf="eleccion=='si'">Quién?</label>
                             </div>
                             <div class="col-6 p-fluid p-field">
-                                <input type="text" pInputText formControlName="quienObligaRS">
+                                <input type="text" *ngIf="eleccion=='si'" pInputText formControlName="quienObligaRS" style="text-transform: uppercase">
                             </div>
                         </div>
                         </form>
@@ -308,7 +308,7 @@
                             </div>
                             <div class="col-12 p-fluid">
                                 <label for="">Observaciones:</label>
-                                <textarea id="" rows="3" cols="28" pInputTextarea formControlName="tamizajeMental"></textarea>
+                                <textarea id="" rows="3" cols="28" pInputTextarea formControlName="tamizajeMental" style="text-transform: uppercase"></textarea>
                             </div>
                         </div>
                         </form>
@@ -413,7 +413,7 @@
                         </div>
                         <div class="col-12 p-fluid">
                             <label for="float-input">Observaciones:</label>
-                            <textarea id="float-input" rows="3" cols="28" pInputTextarea formControlName="tamizajeAuditivo"></textarea>
+                            <textarea id="float-input" rows="3" cols="28" pInputTextarea formControlName="tamizajeAuditivo" style="text-transform: uppercase"></textarea>
                         </div>
                     </div>
                 </form>
@@ -444,7 +444,7 @@
                         <div class="col-12 p-fluid">
                             <label for="float-input1">Observaciones:</label><br>
                             <textarea id="float-input1" rows="3" cols="30" pInputTextarea
-                                      formControlName="descripcionTamizajeOcular"  tooltipPosition="rigth">
+                                      formControlName="descripcionTamizajeOcular"  tooltipPosition="rigth" style="text-transform: uppercase">
                     </textarea>
                         </div>
                         <div class="col-12" style="text-align: right">

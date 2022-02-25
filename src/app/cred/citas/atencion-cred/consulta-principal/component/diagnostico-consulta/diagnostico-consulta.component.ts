@@ -4,6 +4,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
 import {CieService} from "../../../../../../obstetricia-general/services/cie.service";
 import {DiagnosticoConsultaService} from "../../services/diagnostico-consulta.service";
+import {dato} from "../../../../models/data";
 
 @Component({
     selector: 'app-diagnostico-consulta',
@@ -29,7 +30,10 @@ export class DiagnosticoConsultaComponent implements OnInit {
     hayError: boolean = false;
     isUpdate: boolean = false;
 
-    attributeLocalS = 'idConsulta'
+    resultadosTestEvaluaciones:any[]=[];
+
+    attributeLocalS = 'documento'
+    dataConsulta:dato;
     id: string = "";
 
     diagnostico: diagnosticoInterface
@@ -54,11 +58,12 @@ export class DiagnosticoConsultaComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.dataConsulta = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.recuperarDiagnostico()
     }
 
     buildForm() {
-        this.id = localStorage.getItem(this.attributeLocalS);
+        // this.id = localStorage.getItem(this.attributeLocalS);
         this.form = this.formBuilder.group({
             diagnostico: ['', [Validators.required]],
         });
@@ -83,6 +88,9 @@ export class DiagnosticoConsultaComponent implements OnInit {
         });
 
     }
+
+    /* funciones de tabla resultados evaluaciones - test - tamizajes*/
+
 
     /* funciones tabla diagnostico */
     openDiagnostico() {
@@ -192,7 +200,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
 
     /*  objeto diagnostico */
     recuperarDiagnostico() {
-        this.DiagnosticoService.getDiagnostico(this.id).subscribe((r: any) => {
+        this.DiagnosticoService.getDiagnostico(this.dataConsulta.idConsulta).subscribe((r: any) => {
             //-- recupera informacion de diagnostico
             this.diagnostico = r.object;
             console.log('diagnostico', this.diagnostico)
@@ -224,7 +232,7 @@ export class DiagnosticoConsultaComponent implements OnInit {
         }
         console.log('req', req)
         if (this.diagnosticoNosologico) {
-            this.DiagnosticoService.updateDiagnostico(this.id, req).subscribe(
+            this.DiagnosticoService.updateDiagnostico(this.dataConsulta.idConsulta, req).subscribe(
                 (resp) => {
                     Swal.fire({
                         icon: 'success',

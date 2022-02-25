@@ -25,6 +25,7 @@ export class TamizajesComponent implements OnInit {
   tamizajesActualizar:tamizajeActualizar;
   estadoEditar:boolean=false;
   estadoAgregar:boolean=false;
+  eleccion: string='NO';
   constructor(private formBuilder: FormBuilder,
               private evalAlimenService: EvaluacionAlimentacionService) {
     this.builForm();
@@ -355,45 +356,75 @@ export class TamizajesComponent implements OnInit {
         fisicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneCicatrices == true) {
-      let aux = {clave: "Cicatrices, quemaduras", valor: 'si', descripcion: "Cicatrices, quemaduras"}
+      let aux = {
+          clave: "Cicatrices, quemaduras",
+          valor: 'si',
+          descripcion: "Cicatrices, quemaduras"}
       fisicos.push(aux);
     }
     else{
-        let aux = {clave: "Cicatrices, quemaduras", valor: 'no', descripcion: "Cicatrices, quemaduras"}
+        let aux = {
+            clave: "Cicatrices, quemaduras",
+            valor: 'no',
+            descripcion: "Cicatrices, quemaduras"}
         fisicos.push(aux); }
     if (this.formTamizajeVIF.value.tieneFacturas == 'si') {
-      let aux = {clave: "Fracturas inexpliables", valor: 'si', descripcion: "Fracturas inexpliables"}
+      let aux = {
+          clave: "Fracturas inexpliables",
+          valor: 'si',
+          descripcion: "Fracturas inexpliables"}
       fisicos.push(aux);
     }
     else{
-        let aux = {clave: "Fracturas inexpliables", valor: 'no', descripcion: "Fracturas inexpliables"}
+        let aux = {
+            clave: "Fracturas inexpliables",
+            valor: 'no',
+            descripcion: "Fracturas inexpliables"}
         fisicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneMarcas == true) {
-      let aux = {clave: "Marcas de mordeduras", valor: 'si', descripcion: "Marcas de mordeduras"}
+      let aux = {
+          clave: "Marcas de mordeduras",
+          valor: 'si',
+          descripcion: "Marcas de mordeduras"}
       fisicos.push(aux);
     }
     else{
-        let aux = {clave: "Marcas de mordeduras", valor: 'no', descripcion: "Marcas de mordeduras"}
+        let aux = {
+            clave: "Marcas de mordeduras",
+            valor: 'no',
+            descripcion: "Marcas de mordeduras"}
         fisicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneLesiones == true) {
-      let aux = {clave: "Lesiones de perineo, vulva, recto, etc", valor: 'si', descripcion: "Lesiones de perineo, vulva, recto, etc"
+      let aux = {
+          clave: "Lesiones de perineo, vulva, recto, etc",
+          valor: 'si',
+          descripcion: "Lesiones de perineo, vulva, recto, etc"
       }
       fisicos.push(aux);
     }
     else{
-        let aux = {clave: "Lesiones de perineo, vulva, recto, etc", valor: 'no', descripcion: "Lesiones de perineo, vulva, recto, etc"
+        let aux = {
+            clave: "Lesiones de perineo, vulva, recto, etc",
+            valor: 'no',
+            descripcion: "Lesiones de perineo, vulva, recto, etc"
         }
         fisicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneLaceraciones == true) {
-      let aux = { clave: "Laceraciones en boca mejillas, ojos, etc", valor: 'si', descripcion: "Laceraciones en boca mejillas, ojos, etc"
+      let aux = {
+          clave: "Laceraciones en boca mejillas, ojos, etc",
+          valor: 'si',
+          descripcion: "Laceraciones en boca mejillas, ojos, etc"
       }
       fisicos.push(aux);
     }
     else{
-        let aux = { clave: "Laceraciones en boca mejillas, ojos, etc", valor: 'no', descripcion: "Laceraciones en boca mejillas, ojos, etc"
+        let aux = {
+            clave: "Laceraciones en boca mejillas, ojos, etc",
+            valor: 'no',
+            descripcion: "Laceraciones en boca mejillas, ojos, etc"
         }
         fisicos.push(aux);
     }
@@ -414,19 +445,31 @@ export class TamizajesComponent implements OnInit {
         fisicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneProblemasApetito == true) {
-      let aux = {clave: "Problemas con el apetito", valor: 'si', descripcion: "Problemas con el apetito"}
+      let aux = {
+          clave: "Problemas con el apetito",
+          valor: 'si',
+          descripcion: "Problemas con el apetito"}
       fisicos.push(aux);
     }
     else{
-        let aux = {clave: "Problemas con el apetito", valor: 'no', descripcion: "Problemas con el apetito"}
+        let aux = {
+            clave: "Problemas con el apetito",
+            valor: 'no',
+            descripcion: "Problemas con el apetito"}
         fisicos.push(aux)
     }
     if (this.formTamizajeVIF.value.tieneEnuresis == true) {
-      let aux = {clave: "Enuresis (niños)", valor: 'si', descripcion: "Enuresis (niños)"}
+      let aux = {
+          clave: "Enuresis (niños)",
+          valor: 'si',
+          descripcion: "Enuresis (niños)"}
       fisicos.push(aux);
     }
     else{
-        let aux = {clave: "Enuresis (niños)", valor: 'no', descripcion: "Enuresis (niños)"}
+        let aux = {
+            clave: "Enuresis (niños)",
+            valor: 'no',
+            descripcion: "Enuresis (niños)"}
         fisicos.push(aux);
     }
     /***********PSICOLOGICO************/
@@ -448,27 +491,45 @@ export class TamizajesComponent implements OnInit {
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneTristeza == true) {
-      let aux = {clave: "Tristeza, depresión o angustia", valor: 'si', descripcion: "Tristeza, depresión o angustia"}
+      let aux = {
+          clave: "Tristeza, depresión o angustia",
+          valor: 'si',
+          descripcion: "Tristeza, depresión o angustia"}
       psicologicos.push(aux);
     }
     else{
-        let aux = {clave: "Tristeza, depresión o angustia", valor: 'no', descripcion: "Tristeza, depresión o angustia"}
+        let aux = {
+            clave: "Tristeza, depresión o angustia",
+            valor: 'no',
+            descripcion: "Tristeza, depresión o angustia"}
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneRetraimiento == true) {
-      let aux = {clave: "Retraimiento", valor: 'si', descripcion: "Retraimiento"}
+      let aux = {
+          clave: "Retraimiento",
+          valor: 'si',
+          descripcion: "Retraimiento"}
       psicologicos.push(aux);
     }
     else{
-        let aux = {clave: "Retraimiento", valor: 'no', descripcion: "Retraimiento"}
+        let aux = {
+            clave: "Retraimiento",
+            valor: 'no',
+            descripcion: "Retraimiento"}
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneLlanto == true) {
-      let aux = {clave: "Llanto frecuente", valor: 'si', descripcion: "Llanto frecuente"}
+      let aux = {
+          clave: "Llanto frecuente",
+          valor: 'si',
+          descripcion: "Llanto frecuente"}
       psicologicos.push(aux);
     }
     else{
-      let aux = {clave: "Llanto frecuente", valor: 'no', descripcion: "Llanto frecuente"}
+      let aux = {
+          clave: "Llanto frecuente",
+          valor: 'no',
+          descripcion: "Llanto frecuente"}
       psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneNecesidad == true) {
@@ -488,60 +549,86 @@ export class TamizajesComponent implements OnInit {
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneDemanda == true) {
-      let aux = {clave: "Demanda excesiva de atención", valor: 'si', descripcion: "Demanda excesiva de atención"}
+      let aux = {
+          clave: "Demanda excesiva de atención",
+          valor: 'si',
+          descripcion: "Demanda excesiva de atención"}
       psicologicos.push(aux);
     }
     else{
-        let aux = {clave: "Demanda excesiva de atención", valor: 'no', descripcion: "Demanda excesiva de atención"}
+        let aux = {
+            clave: "Demanda excesiva de atención",
+            valor: 'no',
+            descripcion: "Demanda excesiva de atención"}
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneAgresividad == true) {
       let aux = {
-        clave: "Mucha agresividad o mucha pasividad frente a otros niños", valor: 'si', descripcion: "Mucha agresividad o mucha pasividad frente a otros niños"
+        clave: "Mucha agresividad o mucha pasividad frente a otros niños",
+          valor: 'si',
+          descripcion: "Mucha agresividad o mucha pasividad frente a otros niños"
       }
       psicologicos.push(aux);
     }
     else{
         let aux = {
-            clave: "Mucha agresividad o mucha pasividad frente a otros niños", valor: 'no', descripcion: "Mucha agresividad o mucha pasividad frente a otros niños"
+            clave: "Mucha agresividad o mucha pasividad frente a otros niños",
+            valor: 'no',
+            descripcion: "Mucha agresividad o mucha pasividad frente a otros niños"
         }
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneTartamudeo == true) {
-      let aux = {clave: "Tartamudeo", valor: 'si', descripcion: "Tartamudeo"}
+      let aux = {
+          clave: "Tartamudeo",
+          valor: 'si',
+          descripcion: "Tartamudeo"}
       psicologicos.push(aux);
     }
     else{
-        let aux = {clave: "Tartamudeo", valor: 'no', descripcion: "Tartamudeo"}
+        let aux = {
+            clave: "Tartamudeo",
+            valor: 'no',
+            descripcion: "Tartamudeo"}
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneTemor == true) {
       let aux = {
-        clave: "Temor a los padres o de llegar al hogar",valor: 'si', descripcion: "Temor a los padres o de llegar al hogar"
+        clave: "Temor a los padres o de llegar al hogar",
+          valor: 'si',
+          descripcion: "Temor a los padres o de llegar al hogar"
       }
       psicologicos.push(aux);
     }
     else{
         let aux = {
-            clave: "Temor a los padres o de llegar al hogar", valor: 'no', descripcion: "Temor a los padres o de llegar al hogar"
+            clave: "Temor a los padres o de llegar al hogar",
+            valor: 'no',
+            descripcion: "Temor a los padres o de llegar al hogar"
         }
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.Roba == true) {
       let aux = {
-        clave: "Robo, mentira, fuga, desobediencia, agresividad", valor: 'si', descripcion: "Robo, mentira, fuga, desobediencia, agresividad"
+            clave: "Robo, mentira, fuga, desobediencia, agresividad",
+            valor: 'si',
+            descripcion: "Robo, mentira, fuga, desobediencia, agresividad"
       }
       psicologicos.push(aux);
     }
     else{
         let aux = {
-            clave: "Robo, mentira, fuga, desobediencia, agresividad", valor: 'no', descripcion: "Robo, mentira, fuga, desobediencia, agresividad"
+            clave: "Robo, mentira, fuga, desobediencia, agresividad",
+            valor: 'no',
+            descripcion: "Robo, mentira, fuga, desobediencia, agresividad"
         }
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneAutismo == true) {
       let aux = {
-        clave: "Autismo escolar", valor: 'si', descripcion: "Autismo escolar"
+            clave: "Autismo escolar",
+            valor: 'si',
+            descripcion: "Autismo escolar"
       }
       psicologicos.push(aux);
     }
@@ -554,16 +641,24 @@ export class TamizajesComponent implements OnInit {
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.llegaTarde == true) {
-      let aux = {clave: "Llegar tarde a la escuela o retirarse tarde", valor: 'si', descripcion: "Llegar tarde a la escuela o retirarse tarde"}
+      let aux = {
+          clave: "Llegar tarde a la escuela o retirarse tarde",
+          valor: 'si',
+          descripcion: "Llegar tarde a la escuela o retirarse tarde"}
       psicologicos.push(aux);
     }
     else{
-        let aux = {clave: "Autismo escolar", valor: 'no', descripcion: "Autismo escolar"}
+        let aux = {
+            clave: "Autismo escolar",
+            valor: 'no',
+            descripcion: "Autismo escolar"}
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.bajoRendimiento == true) {
       let aux = {
-        clave: "Bajo rendimiento académico", valor: 'si', descripcion: "Bajo rendimiento académico"
+        clave: "Bajo rendimiento académico",
+          valor: 'si',
+          descripcion: "Bajo rendimiento académico"
       }
       psicologicos.push(aux);
     }
@@ -576,80 +671,134 @@ export class TamizajesComponent implements OnInit {
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.seAisla == true) {
-      let aux = {clave: "Aislamiento de personas", valor: 'si', descripcion: "Aislamiento de personas"}
+      let aux = {
+          clave: "Aislamiento de personas",
+          valor: 'si',
+          descripcion: "Aislamiento de personas"}
       psicologicos.push(aux);
     }
     else{
-        let aux = {clave: "Aislamiento de personas", valor: 'no', descripcion: "Aislamiento de personas"}
+        let aux = {
+            clave: "Aislamiento de personas",
+            valor: 'no',
+            descripcion: "Aislamiento de personas"}
         psicologicos.push(aux);
     }
     if (this.formTamizajeVIF.value.intentaSuicidio == true) {
-      let aux = {clave: "Intento de suicidio", valor: 'si', descripcion: "Intento de suicidio"}
+      let aux = {
+          clave: "Intento de suicidio",
+          valor: 'si',
+          descripcion: "Intento de suicidio"}
       psicologicos.push(aux);
     }
     else{
-      let aux = {clave: "Intento de suicidio", valor: 'no', descripcion: "Intento de suicidio"}
+      let aux = {
+          clave: "Intento de suicidio",
+          valor: 'no',
+          descripcion: "Intento de suicidio"}
       psicologicos.push(aux);
     }
 
     /***********NEGLIGENCIA************/
     let negligencia: any[] = [];
     if (this.formTamizajeVIF.value.faltaPeso == true) {
-      let aux = {clave: "Falta de peso o pobre patrón de crecimiento", valor: 'si', descripcion: "Falta de peso o pobre patrón de crecimiento"}
+      let aux = {
+          clave: "Falta de peso o pobre patrón de crecimiento",
+          valor: 'si',
+          descripcion: "Falta de peso o pobre patrón de crecimiento"}
       negligencia.push(aux);
     }
     else{
-        let aux = {clave: "Falta de peso o pobre patrón de crecimiento", valor: 'no', descripcion: "Falta de peso o pobre patrón de crecimiento"}
+        let aux = {
+            clave: "Falta de peso o pobre patrón de crecimiento",
+            valor: 'no',
+            descripcion: "Falta de peso o pobre patrón de crecimiento"}
         negligencia.push(aux);
     }
     if (this.formTamizajeVIF.value.noVacunado == true) {
-      let aux = {clave: "No vacunas o atención de salud", valor: 'si', descripcion: "No vacunas o atención de salud"}
+      let aux = {
+          clave: "No vacunas o atención de salud",
+          valor: 'si',
+          descripcion: "No vacunas o atención de salud"}
       negligencia.push(aux);
     }
     else{
-        let aux = {clave: "No vacunas o atención de salud", valor: 'no', descripcion: "No vacunas o atención de salud"}
+        let aux = {
+            clave: "No vacunas o atención de salud",
+            valor: 'no',
+            descripcion: "No vacunas o atención de salud"}
         negligencia.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneAccidentes == true) {
-      let aux = {clave: "Accidentes o enfermedades muy frecuentes", valor: 'si', descripcion: "Accidentes o enfermedades muy frecuentes"}
+      let aux = {
+          clave: "Accidentes o enfermedades muy frecuentes",
+          valor: 'si',
+          descripcion: "Accidentes o enfermedades muy frecuentes"}
       negligencia.push(aux);
     }
     else{
-        let aux = {clave: "Accidentes o enfermedades muy frecuentes", valor: 'no', descripcion: "Accidentes o enfermedades muy frecuentes"}
+        let aux = {
+            clave: "Accidentes o enfermedades muy frecuentes",
+            valor: 'no',
+            descripcion: "Accidentes o enfermedades muy frecuentes"}
         negligencia.push(aux);
     }
     if (this.formTamizajeVIF.value.esDescuidado == true) {
-      let aux = {clave: "Descuido en higiene o aliño", valor: 'si', descripcion: "Descuido en higiene o aliño"}
+      let aux = {
+          clave: "Descuido en higiene o aliño",
+          valor: 'si',
+          descripcion: "Descuido en higiene o aliño"}
       negligencia.push(aux);
     }
     else{
-        let aux = {clave: "Descuido en higiene o aliño", valor: 'no', descripcion: "Descuido en higiene o aliño"}
+        let aux = {
+            clave: "Descuido en higiene o aliño",
+            valor: 'no',
+            descripcion: "Descuido en higiene o aliño"}
         negligencia.push(aux);
     }
     if (this.formTamizajeVIF.value.faltaEstimulacion == true) {
-      let aux = {clave: "Falta de estimulación del desarrollo", valor: 'si', descripcion: "Falta de estimulación del desarrollo"}
+      let aux = {
+          clave: "Falta de estimulación del desarrollo",
+          valor: 'si',
+          descripcion: "Falta de estimulación del desarrollo"}
       negligencia.push(aux);
     }
     else{
-        let aux = {clave: "Falta de estimulación del desarrollo", valor: 'no', descripcion: "Falta de estimulación del desarrollo"}
+        let aux = {
+            clave: "Falta de estimulación del desarrollo",
+            valor: 'no',
+            descripcion: "Falta de estimulación del desarrollo"}
         negligencia.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneFatiga == true) {
-      let aux = {clave: "Fatiga, sueño, hambre", valor: 'si', descripcion: "Fatiga, sueño, hambre"}
+      let aux = {
+          clave: "Fatiga, sueño, hambre",
+          valor: 'si',
+          descripcion: "Fatiga, sueño, hambre"}
       negligencia.push(aux);
     }
     else{
-        let aux = {clave: "Fatiga, sueño, hambre", valor: 'no', descripcion: "Fatiga, sueño, hambre"}
+        let aux = {
+            clave: "Fatiga, sueño, hambre",
+            valor: 'no',
+            descripcion: "Fatiga, sueño, hambre"}
         negligencia.push(aux);
     }
     /***********NEGLIGENCIA************/
     let sexuales: any[] = [];
     if (this.formTamizajeVIF.value.conductaInapropiada == true) {
-      let aux = {clave: "Conocimiento y conducta sexual inapropiada (niños)", valor: 'si', descripcion: "Conocimiento y conducta sexual inapropiada (niños)"}
+      let aux = {
+          clave: "Conocimiento y conducta sexual inapropiada (niños)",
+          valor: 'si',
+          descripcion: "Conocimiento y conducta sexual inapropiada (niños)"}
       sexuales.push(aux);
     }
     else{
-        let aux = {clave: "Conocimiento y conducta sexual inapropiada (niños)", valor: 'no', descripcion: "Conocimiento y conducta sexual inapropiada (niños)"}
+        let aux = {
+            clave: "Conocimiento y conducta sexual inapropiada (niños)",
+            valor: 'no',
+            descripcion: "Conocimiento y conducta sexual inapropiada (niños)"}
         sexuales.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneIrritacion == true) {
@@ -661,7 +810,10 @@ export class TamizajesComponent implements OnInit {
       sexuales.push(aux);
     }
     else{
-        let aux = {clave: "Irritación, dolor, lesión, hemorragia en zona genital", valor: 'no', descripcion: "Irritación, dolor, lesión, hemorragia en zona genital"}
+        let aux = {
+            clave: "Irritación, dolor, lesión, hemorragia en zona genital",
+            valor: 'no',
+            descripcion: "Irritación, dolor, lesión, hemorragia en zona genital"}
         sexuales.push(aux);
     }
     if (this.formTamizajeVIF.value.tieneEnfermedad == true) {
@@ -705,23 +857,38 @@ export class TamizajesComponent implements OnInit {
       otrasPreguntas.push(aux);
     }
     else{
-        let aux = {clave: '¿Alguna vez algún miembro de su familia le insulta?', valor: 'no', descripcion: '¿Alguna vez algún miembro de su familia le insulta?'}
+        let aux = {
+            clave: '¿Alguna vez algún miembro de su familia le insulta?',
+            valor: 'no',
+            descripcion: '¿Alguna vez algún miembro de su familia le insulta?'}
         otrasPreguntas.push(aux);
     }
     if (this.formTamizajeVIF.value.alguienGolpea == 'si') {
-      let aux = {clave: '¿Alguna vez algún miembro de su familia le golpea?', valor: 'si', descripcion: '¿Alguna vez algún miembro de su familia le golpea?'}
+      let aux = {
+          clave: '¿Alguna vez algún miembro de su familia le golpea?',
+          valor: 'si',
+          descripcion: '¿Alguna vez algún miembro de su familia le golpea?'}
       otrasPreguntas.push(aux);
     }
     else{
-        let aux = {clave: '¿Alguna vez algún miembro de su familia le golpea?', valor: 'no', descripcion: '¿Alguna vez algún miembro de su familia le golpea?'}
+        let aux = {
+            clave: '¿Alguna vez algún miembro de su familia le golpea?',
+            valor: 'no',
+            descripcion: '¿Alguna vez algún miembro de su familia le golpea?'}
         otrasPreguntas.push(aux);
     }
     if (this.formTamizajeVIF.value.alguienChantajea == 'si') {
-      let aux = {clave: '¿Alguna vez algún miembro de su familia le chantajea?', valor: 'si', descripcion: '¿Alguna vez algún miembro de su familia le chantajea?'}
+      let aux = {
+          clave: '¿Alguna vez algún miembro de su familia le chantajea?',
+          valor: 'si',
+          descripcion: '¿Alguna vez algún miembro de su familia le chantajea?'}
       otrasPreguntas.push(aux);
     }
     else{
-        let aux = {clave: '¿Alguna vez algún miembro de su familia le chantajea?', valor: 'no', descripcion: '¿Alguna vez algún miembro de su familia le chantajea?'}
+        let aux = {
+            clave: '¿Alguna vez algún miembro de su familia le chantajea?',
+            valor: 'no',
+            descripcion: '¿Alguna vez algún miembro de su familia le chantajea?'}
         otrasPreguntas.push(aux);
     }
     if (this.formTamizajeVIF.value.obligaRS == 'si') {
@@ -733,23 +900,38 @@ export class TamizajesComponent implements OnInit {
       otrasPreguntas.push(aux);
     }
     else{
-        let aux = {clave: '¿Alguna vez algún miembro de su familia lo insulta, lo golpea, le obliga a tener relaciones sexuales?', valor: 'no', descripcion: this.formTamizajeVIF.value.quienObligaRS
+        let aux = {
+            clave: '¿Alguna vez algún miembro de su familia lo insulta, lo golpea, le obliga a tener relaciones sexuales?',
+            valor: 'no',
+            descripcion: this.formTamizajeVIF.value.quienObligaRS
         }
         otrasPreguntas.push(aux);
     }
     if(this.formTamizajeVIF.value.hijoFacil=='facil'){
-        let auxOtras1 = {clave: 'Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?', valor: 'facil', descripcion: "Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?"}
+        let auxOtras1 = {
+            clave: 'Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?',
+            valor: 'facil',
+            descripcion: "Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?"}
         otrasPreguntas.push(auxOtras1);
     }else{
-        let auxOtras1 = {clave: 'Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?', valor: 'dificil', descripcion: "Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?"}
+        let auxOtras1 = {
+            clave: 'Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?',
+            valor: 'dificil',
+            descripcion: "Piensa en la mayor parte del tiempo, diría que ¿Su hijo(a) es fácil o díficil?"}
         otrasPreguntas.push(auxOtras1);
     }
     if(this.formTamizajeVIF.value.valor=='si'){
-        let auxOtras2 = {clave: 'Alguna vez pierde el control?', valor: 'si', descripcion: "Alguna vez pierde el control?"}
+        let auxOtras2 = {
+            clave: 'Alguna vez pierde el control?',
+            valor: 'si',
+            descripcion: "Alguna vez pierde el control?"}
         otrasPreguntas.push(auxOtras2);
     }
     else{
-        let auxOtras2 = {clave: 'Alguna vez pierde el control?', valor: 'no', descripcion: "Alguna vez pierde el control?"}
+        let auxOtras2 = {
+            clave: 'Alguna vez pierde el control?',
+            valor: 'no',
+            descripcion: "Alguna vez pierde el control?"}
         otrasPreguntas.push(auxOtras2);
     }
     if(this.formTamizajeVIF.value.pega==true)
@@ -818,22 +1000,43 @@ export class TamizajesComponent implements OnInit {
        otrasPreguntas.push(auxOtras7);
    }
    if(this.formTamizajeVIF.value.esDesobediente=='si'){
-       let auxOtras8 = {clave: 'esDesobediente', valor: 'si', descripcion: "esDesobediente"}
+       let auxOtras8 = {
+           clave: 'esDesobediente',
+           valor: 'si',
+           descripcion: "esDesobediente"}
        otrasPreguntas.push(auxOtras8);
    }
    else{
-       let auxOtras8 = {clave: 'esDesobediente', valor: 'no', descripcion: "esDesobediente"}
+       let auxOtras8 = {
+           clave: 'esDesobediente',
+           valor: 'no',
+           descripcion: "esDesobediente"}
        otrasPreguntas.push(auxOtras8);
    }
-   let resultado ={clave:'RESULTADO TAMIZAJE VIF', valor:this.formTamizajeVIF.value.diagnosticoVIF,descripcion:this.formTamizajeVIF.value.tamizajeMental}
-   let observacionesAuditivo = {clave:'RESULTADO TAMIZAJE AUDITIVO', valor:this.formTamizajeVIF.value.diagnosticoAuditivo,descripcion:this.formTamizajeVIF.value.tamizajeAuditivo}
-   let alteracionVisual = {
-      ojoIzquierdo:this.formTamizajeVisual.value.ojoIzquierdo,
-      ojoDerecho:this.formTamizajeVisual.value.ojoDerecho,
-      descripcion:this.formTamizajeVisual.value.descripcionTamizajeOcular,
-      resultado :{clave:'RESULTADO TAMIZAJE VISUAL', valor:this.formTamizajeVisual.value.diagnosticoVisual,descripcion:this.formTamizajeVisual.value.alteracionVisual}
-
-   }
+   let resultado =
+       {
+           clave:'RESULTADO TAMIZAJE VIF',
+           valor:this.formTamizajeVIF.value.diagnosticoVIF,
+           descripcion:this.formTamizajeVIF.value.tamizajeMental
+       }
+   let observacionesAuditivo =
+       {
+           clave:'RESULTADO TAMIZAJE AUDITIVO',
+           valor:this.formTamizajeAuditivo.value.diagnosticoAuditivo,
+           descripcion:this.formTamizajeAuditivo.value.tamizajeAuditivo
+       }
+   let alteracionVisual =
+       {
+          ojoIzquierdo:this.formTamizajeVisual.value.ojoIzquierdo,
+          ojoDerecho:this.formTamizajeVisual.value.ojoDerecho,
+          descripcion:'TAMIZAJE VISUAL',
+          resultado :
+              {
+                  clave:'RESULTADO TAMIZAJE VISUAL',
+                  valor:this.formTamizajeVisual.value.diagnosticoVisual,
+                  descripcion:this.formTamizajeVisual.value.descripcionTamizajeOcular
+              }
+       }
     let auditivo:any[]=[];
     if(this.formTamizajeAuditivo.value.prematuro=='si'){
         let auditivoAux1 = {
@@ -852,66 +1055,96 @@ export class TamizajesComponent implements OnInit {
         auditivo.push(auditivoAux1);
     }
     if(this.formTamizajeAuditivo.value.uci=='si'){
-         let auditivoAux2 = {clave: '¿Permaneció en UCI?', valor: 'si', descripcion: "¿Permaneció en UCI?"}
+         let auditivoAux2 = {
+             clave: '¿Permaneció en UCI?',
+             valor: 'si',
+             descripcion: "¿Permaneció en UCI?"}
          auditivo.push(auditivoAux2);
      }
      else{
-         let auditivoAux2 = {clave: '¿Permaneció en UCI?', valor: 'no', descripcion: "¿Permaneció en UCI?"
+         let auditivoAux2 = {
+             clave: '¿Permaneció en UCI?',
+             valor: 'no', descripcion: "¿Permaneció en UCI?"
          }
          auditivo.push(auditivoAux2);
      }
      if(this.formTamizajeAuditivo.value.billirubina=='si'){
-         let auditivoAux3 = {clave: '¿Tuvo alta concentración de Billirubina y requirió transfusión sanguínea?', valor: 'si', descripcion: "¿Tuvo alta concentración de Billirubina y requirió transfusión sanguínea?"
+         let auditivoAux3 = {
+             clave: '¿Tuvo alta concentración de Billirubina y requirió transfusión sanguínea?',
+             valor: 'si',
+             descripcion: "¿Tuvo alta concentración de Billirubina y requirió transfusión sanguínea?"
          }
          auditivo.push(auditivoAux3);
      }
      else{
-         let auditivoAux3 = {clave: '¿Tuvo alta concentración de Billirubina y requirió transfusión sanguínea?', valor: 'no', descripcion: "¿Tuvo alta concentración de Billirubina y requirió transfusión sanguínea?"
+         let auditivoAux3 = {
+             clave: '¿Tuvo alta concentración de Billirubina y requirió transfusión sanguínea?',
+             valor: 'no',
+             descripcion: "¿Tuvo alta concentración de Billirubina y requirió transfusión sanguínea?"
          }
          auditivo.push(auditivoAux3);
      }
      if(this.formTamizajeAuditivo.value.perdidaAudicion=='si'){
-         let auditivoAux4 = {clave: '¿Tiene antecedentes familiares de pérdida de audición?', valor: 'si', descripcion: "¿Tiene antecedentes familiares de pérdida de audición?"
+         let auditivoAux4 = {
+             clave: '¿Tiene antecedentes familiares de pérdida de audición?',
+             valor: 'si',
+             descripcion: "¿Tiene antecedentes familiares de pérdida de audición?"
          }
          auditivo.push(auditivoAux4);
      }
      else{
-         let auditivoAux4 = {clave: '¿Tiene antecedentes familiares de pérdida de audición?', valor: 'no', descripcion: "¿Tiene antecedentes familiares de pérdida de audición?"
+         let auditivoAux4 = {
+             clave: '¿Tiene antecedentes familiares de pérdida de audición?',
+             valor: 'no',
+             descripcion: "¿Tiene antecedentes familiares de pérdida de audición?"
          }
          auditivo.push(auditivoAux4);
      }
      if(this.formTamizajeAuditivo.value.infeccionOido=='si'){
-         let auditivoAux5  = {clave: '¿Tuvo infecciones frecuentes en los oídos?', valor: 'si', descripcion: "¿Tuvo infecciones frecuentes en los oídos?"
+         let auditivoAux5  = {
+             clave: '¿Tuvo infecciones frecuentes en los oídos?',
+             valor: 'si',
+             descripcion: "¿Tuvo infecciones frecuentes en los oídos?"
          }
          auditivo.push(auditivoAux5);
      }
      else{
          let auditivoAux5  = {
-             clave: '¿Tuvo infecciones frecuentes en los oídos?', valor: 'no', descripcion: "¿Tuvo infecciones frecuentes en los oídos?"
+             clave: '¿Tuvo infecciones frecuentes en los oídos?',
+             valor: 'no',
+             descripcion: "¿Tuvo infecciones frecuentes en los oídos?"
          }
          auditivo.push(auditivoAux5);
      }
     if(this.formTamizajeAuditivo.value.meningitis=='si'){
         let auditivoAux6  = {
-            clave: '¿Tuvo infecciones como: meningitis o citomegalovirus?', valor: 'si', descripcion: "¿Tuvo infecciones como: meningitis o citomegalovirus?"
+            clave: '¿Tuvo infecciones como: meningitis o citomegalovirus?',
+            valor: 'si',
+            descripcion: "¿Tuvo infecciones como: meningitis o citomegalovirus?"
         }
         auditivo.push(auditivoAux6);
     }
     else{
         let auditivoAux6  = {
-            clave: '¿Tuvo infecciones como: meningitis o citomegalovirus?', valor: 'no', descripcion: "¿Tuvo infecciones como: meningitis o citomegalovirus?"
+            clave: '¿Tuvo infecciones como: meningitis o citomegalovirus?',
+            valor: 'no',
+            descripcion: "¿Tuvo infecciones como: meningitis o citomegalovirus?"
         }
         auditivo.push(auditivoAux6);
     }
     if(this.formTamizajeAuditivo.value.expuestoSonido=='si'){
         let auditivoAux7  = {
-            clave: '¿Estuvo expuesto a sonidos muy fuerte?(Incluso por poco tiempo?', valor: 'si', descripcion: "¿Estuvo expuesto a sonidos muy fuerte?(Incluso por poco tiempo?"
+            clave: '¿Estuvo expuesto a sonidos muy fuerte?(Incluso por poco tiempo?',
+            valor: 'si',
+            descripcion: "¿Estuvo expuesto a sonidos muy fuerte?(Incluso por poco tiempo?"
         }
         auditivo.push(auditivoAux7);
     }
     else{
         let auditivoAux7  = {
-            clave: '¿Estuvo expuesto a sonidos muy fuerte?(Incluso por poco tiempo?', valor: 'no', descripcion: "¿Estuvo expuesto a sonidos muy fuerte?(Incluso por poco tiempo?"
+            clave: '¿Estuvo expuesto a sonidos muy fuerte?(Incluso por poco tiempo?',
+            valor: 'no',
+            descripcion: "¿Estuvo expuesto a sonidos muy fuerte?(Incluso por poco tiempo?"
         }
         auditivo.push(auditivoAux7);
     }

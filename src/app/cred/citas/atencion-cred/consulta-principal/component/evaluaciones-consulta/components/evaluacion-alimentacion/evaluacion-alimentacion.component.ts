@@ -4,6 +4,7 @@ import {DatePipe} from "@angular/common";
 import {EvaluacionAlimentacionService} from "../../services/evaluacion-alimentacion.service";
 import Swal from "sweetalert2";
 import {dato} from "../../../../../../models/data";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-evaluacion-alimentacion',
@@ -24,7 +25,8 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   data:dato;
   listaTitulosPreguntas:TipoPregunta[]=[];
 
-  constructor(private evalAlimenService: EvaluacionAlimentacionService) {
+  constructor(private evalAlimenService: EvaluacionAlimentacionService,
+              private messageService: MessageService) {
     this.listaTitulosPreguntas=[{codigo:'FECHA',titulo:'Fecha'},
       {codigo:'PREG_1',titulo:'1. ¿El niño(a) esta recibiendo lactancia materna? (explorar)'},
       {codigo:'PREG_2',titulo:'2. ¿La tecnica de LM es adecuada? (explorar y observar)'},
@@ -51,7 +53,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     this.recuperarEdadNinio(); /*cuando recupere datos en consulta*/
     this.recuperarDataPlanAlimentaciaBD();
-    this.VerificarRegistroExistenteEnEsteMes(this.edadMeses);
+    // this.VerificarRegistroExistenteEnEsteMes(this.edadMeses);
     this.showDialogEdad('top');
   }
   llenarTabla(){
@@ -329,13 +331,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         }
       }
       else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Evaluacion Alimenticia',
-          text: 'No existe ningún registro de Evaluación',
-          showConfirmButton: false,
-          timer: 2000,
-        })
+        this.messageService.add({severity:'info', summary: 'Evaluacion Alimenticia', detail: 'No hay registros anteriores'});
       }
     });
   }
@@ -397,27 +393,29 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
-          console.log('se guardo correctamente ', res.object);
-          Swal.fire({
-            icon: 'success',
-            title: 'Evaluacion Alimenticia',
-            text: 'Se guardo existosamente la evaluacion para la edad ' + this.edadMeses,
-            showConfirmButton: false,
-            timer: 2000,
-          })
-          this.mostrarMensajeDiagnostico(dx);
-        },error=>{
+        try{
+          this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
+            console.log('se guardo correctamente ', res.object);
+            Swal.fire({
+              icon: 'success',
+              title: 'Evaluacion Alimenticia',
+              text: 'Se guardo existosamente la evaluacion para la edad ' + this.edadMeses,
+              showConfirmButton: false,
+              timer: 2000,
+            })
+            this.mostrarMensajeDiagnostico(dx);
+          },);
+          Swal.fire('Guardado!', '', 'success')
+        }
+        catch(e){
           Swal.fire({
             icon: 'error',
             title: 'Evaluacion Alimenticia',
-            text: '¡¡Error, ya existe un registro en esta edad. No puede ingresar otro!!',
+            text: '¡¡Error, ya existe un registro en esta edad. No puede ingresar otro!!' + e.message,
             showConfirmButton: false,
             timer: 2000,
           })
-        });
-        Swal.fire('Guardado!', '', 'success')
-
+        }
       } else if (result.isDenied) {
         Swal.fire('No se guardo este registro', '', 'info')
       }
@@ -450,7 +448,9 @@ export class EvaluacionAlimentacionComponent implements OnInit {
           return 'NINO CON LACTANCIA MATERNA CONTINUADA'
       }
       else return 'PROBLEMA NO ESPECIFICADO DE LA ALIMENTACION DEL RECIEN NACIDO'
-    }else{
+    }
+    else
+    {
       if(this.edadMeses>=7 && this.edadMeses <=22){
           if(preguntas[0]==true  && preguntas[3]==true && preguntas[4]==true && preguntas[5]==true && preguntas[6]==true && preguntas[7]==true && preguntas[8]==true && preguntas[9]==true && preguntas[10]==true && preguntas[11]==true && preguntas[12]==true && preguntas[13]==true){
             return 'NINO CON ALIMENTACION COMPLEMENTARIA ADECUADA'
@@ -546,7 +546,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   //     })
   //   });
   // }
-
   async VerificarRegistroExistenteEnEsteMes(indice){
     this.evalAlimenService.getEvaluacionAlimenticiaCred(this.data.idConsulta).subscribe((res: any) => {
       console.log('se edito correctamente ', res.object);
@@ -557,14 +556,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
         showConfirmButton: false,
         timer: 2000,
       })
-    },err=>{
-        Swal.fire({
-          icon: 'error',
-          title: 'Evaluacion Alimenticia',
-          text: 'No hay registro de evaluacion ',
-          showConfirmButton: false,
-          timer: 3000,
-        })
     });
 
   }
