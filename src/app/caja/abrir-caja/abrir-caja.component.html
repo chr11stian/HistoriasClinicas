@@ -1,0 +1,33 @@
+<div class="grid ">
+    <p-card styleClass="p-card-shadow" [style]="{width: '390px'}"
+        class="cardContenedor mt-5 text-center shadow-6">
+        
+        <ng-template pTemplate="header" class="p-4">
+            <br/>
+            <label class="text-5xl text-blue-700 text-center m-4"> CAJA</label>
+            <br/>
+            <img alt="Card" src="assets/images/caja7.png" class="mt-7" [style]="{width: '230px'}" class="imagen">
+        </ng-template>
+        <div class="grid text-left align-items-center">
+            <div class="col-1"></div>
+            <div class="col-3">
+                <label class="text-xl text-blue-700 pb-0" >DNI:</label>
+            </div>
+            <div class="col-7">
+                <input type="text" pInputText class="p-inputtext inputfield w-full">
+            </div>
+            <div class="col-1"></div>
+            <div class="col-1"></div>
+            <div class="col-3">
+                <label class="text-xl text-blue-700 pb-0">NOMBRE:</label>
+            </div>
+            <div class="col-7">
+                <input type="text" pInputText class="p-inputtext inputfield w-full">
+            </div>
+            <div class="col-1"></div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button label="ABRIR CAJA" icon="pi pi-check"></p-button>
+        </ng-template>
+    </p-card>
+</div>

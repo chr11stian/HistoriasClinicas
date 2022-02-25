@@ -257,7 +257,7 @@ const menu_ipress = [
             {
                 label: "Caja",
                 icon: "pi pi-pw pi-file",
-                routerLink: "caja/pagos",
+                routerLink: "caja/abrir-caja",
             },
             {
                 icon: "pi pi-file",

@@ -7,13 +7,17 @@ import {ToolbarModule} from "primeng/toolbar";
 import {PrimeModule} from "../shared/prime/prime.module";
 import { PagoProcedimientosComponent } from './pago-procedimientos/pago-procedimientos.component';
 import { PagosComponent } from './pagos/pagos.component';
+import { ResumenPagosComponent } from './resumen-pagos/resumen-pagos.component';
+import { AbrirCajaComponent } from './abrir-caja/abrir-caja.component';
 
 
 @NgModule({
     declarations: [
         PagosComponent,
         TipoComprobanteComponent,
-        PagoProcedimientosComponent
+        PagoProcedimientosComponent,
+        ResumenPagosComponent,
+        AbrirCajaComponent
     ],
     exports: [PagosComponent],
     imports: [
