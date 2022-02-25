@@ -69,18 +69,18 @@ export class TepsiComponent implements OnInit {
   constructor(private tepsiService:TepsiService,
               private messageService: MessageService) {
     this.buildForm();
-
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
-    // this.idConsulta='620bb9b786bca43e001f570f'
     this.idConsulta=this.data.idConsulta
+    this.anioEdad=this.data.anio;
+    this.mesEdad=this.data.mes;
+    this.diaEdad=this.data.dia
     // this.fechaNacimiento=this.data.fechaNacimiento;
-    this.fechaNacimiento='2017/08/17 05:00:00';
+    // this.fechaNacimiento='2017/08/17 05:00:00';
   }
   ngOnInit(): void {
-    this.calcularEdadDinamico(this.getFC('fechaSelected').value)
+    // this.calcularEdadDinamico(this.getFC('fechaSelected').value)
     this.determinarRango();
     this.getTablaPuntaje();
-
     this.getTestTepsi();
   }
   buildForm(){
@@ -91,7 +91,7 @@ export class TepsiComponent implements OnInit {
   }
   traerPuntaje(){
     const aux=this.resultadoA
-    console.log('a imprimir',aux[0].puntajeT,aux[1].puntajeT,aux[2].puntajeT,aux[3].puntajeT)
+    // console.log('a imprimir',aux[0].puntajeT,aux[1].puntajeT,aux[2].puntajeT,aux[3].puntajeT)
     return [aux[0].puntajeT,aux[1].puntajeT,aux[2].puntajeT,aux[3].puntajeT]
   }
   determinaColor(){
@@ -146,6 +146,8 @@ export class TepsiComponent implements OnInit {
         },
         y: {
           ticks: {
+            min: 0,
+            max: 90,
             color: 'black'
           },
           grid: {
@@ -171,7 +173,9 @@ export class TepsiComponent implements OnInit {
         this.messageService.add({key: 'myKey1', severity:'success', summary: 'Registro recuperado', detail: 'Registro recuperado satisfactoriamente'});
         const resultado=resp['object']['testTepsi'];
         this.getFC('fechaSelected').setValue(new Date(resultado['fechaAtencion']))
-        this.calcularEdadDinamico(new Date((resultado['fechaAtencion'])))
+        this.anioEdad=resultado['edad']['anio']
+        this.mesEdad=resultado['edad']['mes']
+        this.diaEdad=resultado['edad']['dia']
         this.getFC('nombreExaminador').setValue(resultado['docExaminador'])
         this.arregloSubtest[0]= this.reconstruirTest(resultado['subTestCoordinacion']['listItemTest']);
         this.calcularResultadoSubTest1(1)
@@ -250,55 +254,55 @@ export class TepsiComponent implements OnInit {
     }
     this.calcularResultadoSubTest1(2)
   }
-  calcularEdadDinamico(fechaInput:Date){
-    console.log('fecha nacimiento',this.fechaNacimiento)
-
-    let fechaNacimiento: Date = new Date(this.fechaNacimiento); //requeriremos la fecha de nacimiento//formato mes/dia/año
-    let dia = fechaNacimiento.getDate()
-    let mes = fechaNacimiento.getMonth() + 1
-    let ano = fechaNacimiento.getFullYear()
-
-    // cogemos los ingresados
-    let fecha_hoy:Date= fechaInput;
-    let ahora_ano = fecha_hoy.getFullYear()
-    let ahora_mes = fecha_hoy.getMonth() + 1;
-    let ahora_dia = fecha_hoy.getDate();
-
-    let edad = (ahora_ano + 1900) - ano;
-    if (ahora_mes < mes) {
-      edad--;
-    }
-    if ((mes == ahora_mes) && (ahora_dia < dia)) {
-      edad--;
-    }
-    if (edad >= 1900) {
-      edad -= 1900;
-    }
-
-    let meses = 0;
-    if (ahora_mes > mes && dia > ahora_dia)
-      meses = ahora_mes - mes - 1;
-    else if (ahora_mes > mes)
-      meses = ahora_mes - mes
-    if (ahora_mes < mes && dia < ahora_dia)
-      meses = 12 - (mes - ahora_mes);
-    else if (ahora_mes < mes)
-      meses = 12 - (mes - ahora_mes + 1);
-    if (ahora_mes == mes && dia > ahora_dia)
-      meses = 11;
-
-    // calculamos los dias
-    let dias = 0;
-    if (ahora_dia > dia)
-      dias = ahora_dia - dia;
-    if (ahora_dia < dia) {
-      let ultimoDiaMes: Date = new Date(ahora_ano, ahora_mes - 1, 0);
-      dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
-    }
-    this.anioEdad = edad
-    this.mesEdad = meses
-    this.diaEdad= dias
-  }
+  // calcularEdadDinamico(fechaInput:Date){
+  //   console.log('fecha nacimiento',this.fechaNacimiento)
+  //
+  //   let fechaNacimiento: Date = new Date(this.fechaNacimiento); //requeriremos la fecha de nacimiento//formato mes/dia/año
+  //   let dia = fechaNacimiento.getDate()
+  //   let mes = fechaNacimiento.getMonth() + 1
+  //   let ano = fechaNacimiento.getFullYear()
+  //
+  //   // cogemos los ingresados
+  //   let fecha_hoy:Date= fechaInput;
+  //   let ahora_ano = fecha_hoy.getFullYear()
+  //   let ahora_mes = fecha_hoy.getMonth() + 1;
+  //   let ahora_dia = fecha_hoy.getDate();
+  //
+  //   let edad = (ahora_ano + 1900) - ano;
+  //   if (ahora_mes < mes) {
+  //     edad--;
+  //   }
+  //   if ((mes == ahora_mes) && (ahora_dia < dia)) {
+  //     edad--;
+  //   }
+  //   if (edad >= 1900) {
+  //     edad -= 1900;
+  //   }
+  //
+  //   let meses = 0;
+  //   if (ahora_mes > mes && dia > ahora_dia)
+  //     meses = ahora_mes - mes - 1;
+  //   else if (ahora_mes > mes)
+  //     meses = ahora_mes - mes
+  //   if (ahora_mes < mes && dia < ahora_dia)
+  //     meses = 12 - (mes - ahora_mes);
+  //   else if (ahora_mes < mes)
+  //     meses = 12 - (mes - ahora_mes + 1);
+  //   if (ahora_mes == mes && dia > ahora_dia)
+  //     meses = 11;
+  //
+  //   // calculamos los dias
+  //   let dias = 0;
+  //   if (ahora_dia > dia)
+  //     dias = ahora_dia - dia;
+  //   if (ahora_dia < dia) {
+  //     let ultimoDiaMes: Date = new Date(ahora_ano, ahora_mes - 1, 0);
+  //     dias = ultimoDiaMes.getDate() - (dia - ahora_dia);
+  //   }
+  //   this.anioEdad = edad
+  //   this.mesEdad = meses
+  //   this.diaEdad= dias
+  // }
 
   async getTablaPuntaje(){
     Swal.fire({title: 'Cargando Datos' });
@@ -411,7 +415,7 @@ export class TepsiComponent implements OnInit {
       if(this.isUpdate){
         this.tepsiService.putConsultaTepsi(this.idConsulta,requestInput).subscribe((resp)=>{
           console.log(resp)
-          this.messageService.add({severity:'success', summary:'Test Guardado', detail:resp['mensaje']});
+          this.messageService.add({severity:'success', summary:'Test Guardado', detail:'Registro Actualizado'});
           },(error)=>{
           console.log('error!!!!!!!!!!')
           })
@@ -419,7 +423,7 @@ export class TepsiComponent implements OnInit {
       }
       else{
         this.tepsiService.postConsultaTepsi(this.idConsulta,requestInput).subscribe((resp)=>{
-          this.messageService.add({severity:'success', summary:'Test Guardado', detail:resp['mensaje']});
+          this.messageService.add({severity:'success', summary:'Test Guardado', detail:'Registro Agregado'});
         },(error)=>{
           console.log('error!!!!!!!!!!')
         })

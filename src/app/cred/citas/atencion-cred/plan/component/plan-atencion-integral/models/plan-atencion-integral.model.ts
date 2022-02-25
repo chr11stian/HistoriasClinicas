@@ -7,13 +7,15 @@
 //     fechaTentativa?: string
 // }
 
-export interface Inmunizaciones {
-  descripcionEdad?: string;
-  nombreVacuna: string;
-  nroDosis: number;
-  estado: boolean;
-  fecha: string;
-  fechaTentativa: string;
+export interface inmunizaciones {
+  nombre:string,
+  descripcion:string,
+  dosis:number,
+  estado:boolean,
+  fechaAdministracion:Date,
+  fechaTentativa:Date,
+  edadMes:number
+  descripcionEdad:string
 }
 export interface ControlCrecimiento {
   edadMes: number;

@@ -15,6 +15,13 @@ export class EvaluacionAlimentacionService {
     }
 
     /** SERVICIOS EVALUACION ALIMENTICIA**/
+    getTitulosEvaluacion() {
+        return this.http.get<any>('/assets/data/evaluacion-alimenticia.json')
+            .toPromise()
+            .then(res => <any[]>res.data)
+            .then(data => { return data; });
+    }
+
     getEvaluacionAlimenticiaCredPlan(nroDoc) {
         return this.http.get(`${this.base_url}/${this.bd}/cred/evaluacion/alimentacion/${nroDoc}`);
     }

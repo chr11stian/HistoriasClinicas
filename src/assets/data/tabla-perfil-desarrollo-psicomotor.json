@@ -1,0 +1,264 @@
+{
+    "data":[
+        {
+            "areaEvaluacion":"COORDINACION",
+            "preguntas":[
+                {
+                    "mes": 1,
+                    "nroPregunta":[4]
+                },
+                {
+                    "mes": 2,
+                    "nroPregunta":[8]
+                },
+                {
+                    "mes": 3,
+                    "nroPregunta":[12, 13]
+                },
+                {
+                    "mes": 4,
+                    "nroPregunta":[16, 17]
+                },
+                {
+                    "mes": 5,
+                    "nroPregunta":[22, 23]
+                },
+                {   
+                    "mes": 6,
+                    "nroPregunta":[27, 28, 29]
+                },
+                {
+                    "mes": 7,
+                    "nroPregunta":[32, 35]
+                },
+                {
+                    "mes": 8,
+                    "nroPregunta":[39]
+                },
+                {
+                    "mes": 9,
+                    "nroPregunta":[43, 44]
+                },
+                {
+                    "mes": 10,
+                    "nroPregunta":[46, 48, 49]
+                },
+                {
+                    "mes": 12,
+                    "nroPregunta":[52]
+                },
+                {
+                    "mes": 15,
+                    "nroPregunta":[57, 58, 59]
+                },
+                {
+                    "mes": 18,
+                    "nroPregunta":[64, 65]
+                },
+                {
+                    "mes": 21,
+                    "nroPregunta":[68]
+                },
+                {
+                    "mes": 24,
+                    "nroPregunta":[75]
+                }
+            ]
+        },
+        {
+            "areaEvaluacion":"SOCIAL",
+            "preguntas":[
+                {
+                    "mes": 1,
+                    "nroPregunta":[1]
+                },
+                {
+                    "mes": 2,
+                    "nroPregunta":[6, 7, 8]
+                },
+                {
+                    "mes": 3,
+                    "nroPregunta":[11]
+                },
+                {
+                    "mes": 4,
+                    "nroPregunta":[20]
+                },
+                {
+                    "mes": 5,
+                    "nroPregunta":[21]
+                },
+                {
+                    "mes": 6,
+                    "nroPregunta":[30]
+                },
+                {
+                    "mes": 7,
+                    "nroPregunta":[34]
+                },
+                {
+                    "mes": 8,
+                    "nroPregunta":[]
+                },
+                {
+                    "mes": 9,
+                    "nroPregunta":[45]
+                },
+                {
+                    "mes": 10,
+                    "nroPregunta":[47, 50]
+                },
+                {
+                    "mes": 12,
+                    "nroPregunta":[54]
+                },
+                {
+                    "mes": 15,
+                    "nroPregunta":[]
+                },
+                {
+                    "mes": 18,
+                    "nroPregunta":[61]
+                },
+                {
+                    "mes": 21,
+                    "nroPregunta":[70]
+                },
+                {
+                    "mes": 24,
+                    "nroPregunta":[73]
+                }
+            ]
+        },
+        {
+            "areaEvaluacion":"LENGUAJE",
+            "preguntas":[
+                {
+                    "mes": 1,
+                    "nroPregunta":[2]
+                },
+                {
+                    "mes": 2,
+                    "nroPregunta":[7, 10]
+                },
+                {
+                    "mes": 3,
+                    "nroPregunta":[12, 15]
+                },
+                {
+                    "mes": 4,
+                    "nroPregunta":[17, 20]
+                },
+                {
+                    "mes": 5,
+                    "nroPregunta":[21]
+                },
+                {
+                    "mes": 6,
+                    "nroPregunta":[30]
+                },
+                {
+                    "mes": 7,
+                    "nroPregunta":[33]
+                },
+                {
+                    "mes": 8,
+                    "nroPregunta":[40]
+                },
+                {
+                    "mes": 9,
+                    "nroPregunta":[45]
+                },
+                {
+                    "mes": 10,
+                    "nroPregunta":[50]
+                },
+                {
+                    "mes": 12,
+                    "nroPregunta":[54, 55]
+                },
+                {
+                    "mes": 15,
+                    "nroPregunta":[60]
+                },
+                {
+                    "mes": 18,
+                    "nroPregunta":[61]
+                },
+                {
+                    "mes": 21,
+                    "nroPregunta":[66, 69, 67, 70]
+                },
+                {
+                    "mes": 24,
+                    "nroPregunta":[72, 74]
+                }
+            ]
+        },
+        {
+            "areaEvaluacion":"MOTORA",
+            "preguntas":[
+                {
+                    "mes": 1,
+                    "nroPregunta":[3, 5]
+                },
+                {
+                    "mes": 2,
+                    "nroPregunta":[9]
+                },
+                {
+                    "mes": 3,
+                    "nroPregunta":[14]
+                },
+                {
+                    "mes": 4,
+                    "nroPregunta":[18, 19]
+                },
+                {
+                    "mes": 5,
+                    "nroPregunta":[24, 25]
+                },
+                {
+                    "mes": 6,
+                    "nroPregunta":[26]
+                },
+                {
+                    "mes": 7,
+                    "nroPregunta":[31]
+                },
+                {
+                    "mes": 8,
+                    "nroPregunta":[36, 37, 38]
+                },
+                {
+                    "mes": 9,
+                    "nroPregunta":[41, 42]
+                },
+                {
+                    "mes": 10,
+                    "nroPregunta":[]
+                },
+                {
+                    "mes": 12,
+                    "nroPregunta":[51, 53]
+                },
+                {
+                    "mes": 15,
+                    "nroPregunta":[56]
+                },
+                {
+                    "mes": 18,
+                    "nroPregunta":[62, 63]
+                },
+                {
+                    "mes": 21,
+                    "nroPregunta":[]
+                },
+                {
+                    "mes": 24,
+                    "nroPregunta":[71]
+                }
+            ]
+        }
+    ]
+}

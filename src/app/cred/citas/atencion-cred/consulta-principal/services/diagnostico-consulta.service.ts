@@ -15,6 +15,9 @@ export class DiagnosticoConsultaService {
 
     constructor(private http: HttpClient) {
     }
+    getResultadosResumen(id){
+        return this.http.get(`${this.urlServer}/${this.bd}/consulta/diagnostico/resumen/${id}`)
+    }
     addDiagnostico(id,data) {
         return this.http.put(`${this.urlServer}/${this.bd}/cred/consulta/diagnostico/${id}`, data)
     }
