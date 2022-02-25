@@ -289,10 +289,10 @@
                     <td style="width:120px; height: 40px" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-<!--                                <input type="datetime-local" style="width:120px" [(ngModel)]="datos.valorRN" *ngIf="edadMeses==0"   [ngClass]="{'llenado':edadMeses==0,'debellenar':edadMeses!=0}">-->
-                                                                <p-calendar class="style" [(ngModel)]="datos.valorRN" *ngIf="edadMeses==0"
-                                                                            [showIcon]="true" showTime="true" [hourFormat]="24" dateFormat="dd-MM-yy HH:mm:ss"
-                                                                            inputId="icon"></p-calendar>
+                                <input type="datetime-local" style="width:120px" [(ngModel)]="datos.valorRN" *ngIf="edadMeses==0"   [ngClass]="{'llenado':edadMeses==0,'debellenar':edadMeses!=0}">
+<!--                                                                <p-calendar class="style" [(ngModel)]="datos.valorRN" *ngIf="edadMeses==0"-->
+<!--                                                                            [showIcon]="true" showTime="true" [hourFormat]="24" dateFormat="dd-MM-yy HH:mm:ss"-->
+<!--                                                                            inputId="icon"></p-calendar>-->
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{datos.valorRN| date: 'dd-MM-yyyy HH:mm:ss'}}
@@ -899,359 +899,84 @@
                     </td>
                 </tr>
                 <tr *ngIf="datos.titulo ==='Diagnostico'" pFrozenColumn>
-                    <td *ngIf="datos.titulo !=='Diagnostico'" style="width:300px; height: 80px"
+                    <td *ngIf="datos.titulo !=='Diagnostico'" style="width:300px; height: 100px"
                         class="titulotabla" pFrozenColumn pFrozenColumn>{{datos.titulo}} </td>
-                    <td *ngIf="datos.titulo ==='Diagnostico'" style="width:300px; height: 80px"
+                    <td *ngIf="datos.titulo ==='Diagnostico'" style="width:300px; height: 100px"
                         class="titulotablaFecha" pFrozenColumn>{{datos.titulo}}</td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valorRN"  [disabled]="edadMeses!=0"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valorRN"  [disabled]="edadMeses!=0" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valorRN}}
-                            </ng-template>
-                        </p-cellEditor>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valorRN}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor1M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor2M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor3M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor4M}}
                     </td>
                     <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor1M"  [disabled]="edadMeses!=1"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input  style="width:120px" [(ngModel)]="datos.valor1M"  [disabled]="edadMeses!=1" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor1M}}
-                            </ng-template>
-                        </p-cellEditor>
+                        {{datos.valor5M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor6M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor7M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor8M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor9M}}
                     </td>
                     <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor2M"  [disabled]="edadMeses!=2"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor2M"  [disabled]="edadMeses!=2" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor2M}}
-                            </ng-template>
-                        </p-cellEditor>
+                        {{datos.valor10M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor11M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor12M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor14M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor16M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor18M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor20M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor22M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor24M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor27M}}
+                    </td>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor30M}}
                     </td>
                     <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown" [options]="diagnosticoList" [(ngModel)]="datos.valor3M"  [disabled]="edadMeses!=3"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor3M"  [disabled]="edadMeses!=3" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor3M}}
-                            </ng-template>
-                        </p-cellEditor>
+                        {{datos.valor33M}}
                     </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor4M"  [disabled]="edadMeses!=4"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor4M"  [disabled]="edadMeses!=4" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor4M}}
-                            </ng-template>
-                        </p-cellEditor>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor36M}}
                     </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor5M"  [disabled]="edadMeses!=5"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor5M"  [disabled]="edadMeses!=5" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor5M}}
-                            </ng-template>
-                        </p-cellEditor>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor39M}}
                     </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor6M"  [disabled]="edadMeses!=6"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor6M"  [disabled]="edadMeses!=6" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor6M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="diagnostico"  [disabled]="edadMeses!=7"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor7M"  [disabled]="edadMeses!=7" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor7M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown" [options]="diagnosticoList" [(ngModel)]="diagnostico"  [disabled]="edadMeses!=8"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor8M"  [disabled]="edadMeses!=8" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor8M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown" [options]="diagnosticoList" [(ngModel)]="diagnostico"  [disabled]="edadMeses!=9"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor9M"  [disabled]="edadMeses!=9" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor9M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="diagnostico"  [disabled]="edadMeses!=10"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor10M"  [disabled]="edadMeses!=10" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor10M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="diagnostico"  [disabled]="edadMeses!=11"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor11M"  [disabled]="edadMeses!=11" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor11M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor12M"  [disabled]="edadMeses!=12"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor12M"  [disabled]="edadMeses!=12" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor12M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor14M"  [disabled]="edadMeses!=14"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor14M"  [disabled]="edadMeses!=14" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor14M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown" [options]="diagnosticoList" [(ngModel)]="datos.valor16M"  [disabled]="edadMeses!=16"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor16M"  [disabled]="edadMeses!=16" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor16M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor18M"  [disabled]="edadMeses!=18"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor18M"  [disabled]="edadMeses!=18" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor18M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown" [options]="diagnosticoList" [(ngModel)]="datos.valor20M"  [disabled]="edadMeses!=20"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor20M"  [disabled]="edadMeses!=20" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor20M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor22M"  [disabled]="edadMeses!=22"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor22M"  [disabled]="edadMeses!=22" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor22M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor24M"  [disabled]="edadMeses!=24"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor24M"  [disabled]="edadMeses!=24" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor24M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor27M"  [disabled]="edadMeses!=27"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor27M"  [disabled]="edadMeses!=27" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor27M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown" [options]="diagnosticoList" [(ngModel)]="datos.valor30M"  [disabled]="edadMeses!=30"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor30M"  [disabled]="edadMeses!=30" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor30M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor33M"  [disabled]="edadMeses!=33"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor33M"  [disabled]="edadMeses!=33" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor33M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor36M"  [disabled]="edadMeses!=36"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor36M"  [disabled]="edadMeses!=36" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor36M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor39M"  [disabled]="edadMeses!=39"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor39M"  [disabled]="edadMeses!=39" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor39M}}
-                            </ng-template>
-                        </p-cellEditor>
-                    </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <p-dropdown  inputId="dropdown"  [options]="diagnosticoList" [(ngModel)]="datos.valor42M"  [disabled]="edadMeses!=42"
-                                             placeholder="seleccionar" optionLabel="name" optionValue="code"
-                                             defaultLabel="Seleccione:" >
-                                </p-dropdown>
-<!--                                <input style="width:120px" [(ngModel)]="datos.valor42M"  [disabled]="edadMeses!=42" pInputText>-->
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{datos.valor42M}}
-                            </ng-template>
-                        </p-cellEditor>
+                    <td style="width:120px; height: 100px" pEditableColumn>
+                        {{datos.valor42M}}
                     </td>
                 </tr>
             </ng-template>
@@ -1260,11 +985,13 @@
 </p-card>
 <p-dialog header="RECUERDA QUE:" [(visible)]="displayPosition" [position]="position" [modal]="true" [style]="{width: '50vw'}"
           [draggable]="false" [resizable]="false">
-    <h3> EL NIÑO(A) TIENE: {{edadMeses}} MESES. </h3>
+    <h3> EL NIÑO(A) TIENE: {{edadMeses}}  MESES. </h3>
     <h4>
         DEBES DE  REGISTRAR LA EVALUACIÓN DE LA ALIMENTACION DEL NIÑO(A)
         CORRESPONDIENTE A SU EDAD, RECUERDE QUE SOLO PUEDE GUARDAR Y EDITAR MIENTRAS ESTE EN ESTA EDAD.</h4>
+    <p>Recuerda que si tiene más de 42 meses de edad o se encuentra en una edad que no este en el cuadro de Evaluacion Alimenticia, no se podra registrar evaluaciones.</p>
     <h3 style="text-align: center">GRACIAS</h3>
+
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-check" (click)="displayPosition=false" label="Ok" styleClass="p-button-text"></p-button>
     </ng-template>

@@ -1,4 +1,4 @@
-/* .button-toolbar{
+.button-toolbar{
     margin: 5px;
 }
 .button-cancelar{
@@ -11,11 +11,12 @@
 }
 p-calendar >>> .p-button.p-button-icon-only {
     background-color: #0c3866;
+
 }
 p-calendar{
     position: absolute;
 }
-p-autocomplete{
+p-autoComplete{
     position: absolute;
 }
 p-dialog >>> .p-dropdown{
@@ -37,6 +38,9 @@ p-dialog>>> .p-dialog .p-dialog-header {
     font-size: 1.25rem;
     color:#ffffff;
 }
+.table-over{
+    overflow-x: auto;
+}
 .confirmation-content {
     display: flex;
     align-items: center;
@@ -51,7 +55,9 @@ p-dialog>>> .p-dialog .p-dialog-header {
     width: auto;
     background: #FFFFFF;
 }
-
+.p-table >>> .p-table{
+    overflow-x: auto;
+}
 p-panel>>>.p-panel .p-panel-header{
     background: #D32F2F;
     border: 1px solid #D32F2F;
@@ -71,4 +77,7 @@ p-panel>>>.p-panel .p-panel-content{
 }
 @media (min-width: 900px){
 
-} */
+}
+:host ::ng-deep .row-accessories {
+    background-color: rgba(208, 255, 206, 0.801) !important;
+}

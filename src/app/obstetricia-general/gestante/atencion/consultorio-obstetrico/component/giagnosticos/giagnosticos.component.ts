@@ -58,6 +58,8 @@ export class GiagnosticosComponent implements OnInit {
     private idConsulta: any;
     private encontradoDxTuberculosis: boolean = false;
 
+    hoy: any= (new Date()).getTime();
+
     constructor(private formBuilder: FormBuilder,
         private obstetriciaService: ObstetriciaGeneralService,
         private cieService: CieService,
@@ -97,6 +99,9 @@ export class GiagnosticosComponent implements OnInit {
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
 
+    }
+    funcionAuxiliar(fecha){
+        return new Date(fecha).getTime();
     }
     recuperarCronograma() {
         this.DxService.getCronogramaGestante(this.obstetriciaService.nroHcl).subscribe((res: any) => {
@@ -414,8 +419,7 @@ export class GiagnosticosComponent implements OnInit {
         });
     }
     mostrarCronograma() {
-        // this.cronogramaDialog=true;
-        this.testDialog = true;
+        this.cronogramaDialog=true;
     }
     salirCronograma() {
         this.cronogramaDialog = false;
