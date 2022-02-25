@@ -17,10 +17,10 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr [ngClass]="{'rojofondo': rowData.resultado === 'POSITIVO'}">
+                <tr [ngClass]="{'rojofondo': rowData.resultado === 'POSITIVO' || rowData.resultado =='RETRASO' || rowData.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'}">
                     <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.evaluacion }}</td>
-                    <td style="text-align: center" [ngClass]="{'rojo': rowData.resultado === 'POSITIVO'}">{{ rowData.resultado}}</td>
+                    <td style="text-align: center" [ngClass]="{'rojo': rowData.resultado === 'POSITIVO' || rowData.resultado =='RETRASO' || rowData.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'}">{{ rowData.evaluacion }}</td>
+                    <td style="text-align: center" [ngClass]="{'rojo': rowData.resultado === 'POSITIVO' || rowData.resultado =='RETRASO' || rowData.resultado =='NINO CON ALIMENTACION COMPLEMENTARIA INADECUADA'}">{{ rowData.resultado}}</td>
                 </tr>
             </ng-template>
         </p-table>
