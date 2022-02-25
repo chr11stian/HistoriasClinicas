@@ -216,24 +216,6 @@
     </ng-template> -->
     <ng-template pTemplate="body">
 
-        <!-- <p-table [value]="cronograma" [rows]="8" >
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Descripcion</th>
-                    <th>Tipo</th>
-                    <th>Fecha</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData>
-                <tr>
-                    <td>1</td>
-                    <td>{{ rowData.descripcion }}</td>
-                    <td>5</td>
-                </tr>
-            </ng-template>
-        </p-table> -->
-
-
 
         <p-table [value]="cronograma" #dt [rows]="8" styleClass="p-datatable-gridlines" [paginator]="true"
             [autoLayout]="true" class="m-3 tabla-datos"

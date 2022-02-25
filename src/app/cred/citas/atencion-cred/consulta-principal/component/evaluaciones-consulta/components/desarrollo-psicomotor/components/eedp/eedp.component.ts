@@ -152,13 +152,14 @@ export class EedpComponent implements OnInit {
     if (this.coeficienteDesarrollo <= 0.69)
       this.diagnostico = 'RETRASO'
     this.dataTestEEDP = {
-      codigoCIE10: "Z009",
-      codigoHIS: "Z009",
-      codigoPrestacion: "0001",
+      codigoCIE10: "",
+      codigoHIS: "",
+      codigoPrestacion: "",
       testEedp: {
         fechaAtencion: this.datePipe.transform(this.fechaEvaluacion, 'yyyy-MM-dd HH:mm:ss'),
         edadCronologica: this.chronologicalAge,
         edadMental: this.totalPoints,
+        edadMes: this.mesesTotal,
         diagnostico: this.diagnostico,
         coeficienteDesarrollo: parseFloat(this.coeficienteDesarrollo),
         docExaminador: "89685545",
@@ -181,17 +182,36 @@ export class EedpComponent implements OnInit {
       }
     }
     // console.log('data to save ', this.dataTestEEDP);
-    this.eedpService.postAgregarEEDP(this.idConsulta, this.dataTestEEDP).subscribe((res: any) => {
-      this.arrayRptas = res.object.testEedp.listaUltimasPreguntas;
-      console.log('datos recien recogidos ', this.arrayRptas);
+    // this.eedpService.postAgregarEEDP(this.idConsulta, this.dataTestEEDP).subscribe((res: any) => {
+    //   this.arrayRptas = res.object.testEedp.listaUltimasPreguntas;
+    //   console.log('datos recien recogidos ', this.arrayRptas);
+    //   Swal.fire({
+    //     icon: 'success',
+    //     title: 'Se Guardo el test EEDP Correctamente',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   });
+    // })
+
+    this.eedpService.postPromiseAddEEDP(this.idConsulta, this.dataTestEEDP).then(data => {
+      console.log('data before validation ', data);
+      if (data == undefined) {
+        Swal.fire({
+          icon: 'error',
+          title: 'No es posible guardar otra vez para el mes ' + this.mesesTotal,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        return
+      }
+      console.log('data to response save eedp ', data);
       Swal.fire({
         icon: 'success',
         title: 'Se Guardo el test EEDP Correctamente',
         showConfirmButton: false,
         timer: 1500
-      })
-      // this.searchLastRes();
-    })
+      });
+    });
   }
 
   calculateArea(lista: ItemEEDP[], area: string): number {
@@ -274,29 +294,6 @@ export class EedpComponent implements OnInit {
     this.eedpService.getDatosTablaEEDP().then(res => {
       this.dataTabla = res;
       console.log('data de tabla res eedp ', this.dataTabla);
-    });
-  }
-  searchLastRes() {
-    console.log('array to last res ', this.arrayRptas);
-    this.arrayRptas.forEach((item, i) => {
-      switch (item.clave) {
-        case 'C':
-          this.areaEvalu = 'COORDINACION'
-          break;
-        case 'S':
-          this.areaEvalu = 'SOCIAL'
-          break;
-        case 'L':
-          this.areaEvalu = 'LENGUAJE'
-          break;
-        case 'M':
-          this.areaEvalu = 'MOTORA'
-          break;
-        default:
-          break;
-      }
-      console.log('index value ', i);
-      console.log('area de evaluacion ', this.areaEvalu);
     });
   }
 }
