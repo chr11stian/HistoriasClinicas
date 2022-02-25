@@ -23,7 +23,7 @@ export class DialogPacienteComponent implements OnInit {
     peruvian: boolean = true;
     dataPaciente: any;
     nacionalidad: string;
-    auxipress: string = "615b30b37194ce03d782561c";
+    auxipress: string = "615b30b37194ce03d782561c";//logeo
     imagePath: string = image;
     dataDepartamentos: any;
     dataProvincia: any;

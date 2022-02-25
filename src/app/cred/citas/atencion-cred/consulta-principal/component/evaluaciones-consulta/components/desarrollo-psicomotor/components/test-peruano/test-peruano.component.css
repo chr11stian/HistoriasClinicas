@@ -1,3 +1,7 @@
+:host ::ng-deep .fondorojo {
+    background-color: #fcbfba !important;
+}
+
 p-card >>> .p-card .p-card-title{
     margin: 0.5rem 0rem 0.5rem 0.5rem;
 }

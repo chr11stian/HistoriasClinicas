@@ -17,6 +17,13 @@ export class EvalAlimenService {
 
   constructor(private http: HttpClient) { }
   /** SERVICIOS EVALUACION ALIMENTICIA**/
+  getTitulosEvaluacion() {
+    return this.http.get<any>('/assets/data/evaluacion-alimenticia.json')
+        .toPromise()
+        .then(res => <any[]>res.data)
+        .then(data => { return data; });
+  }
+
   getEvaluacionAlimenticiaCred(nroDoc) {
     return this.http.get(`${this.base_url}/${this.bd}/cred/evaluacion/alimentacion/${nroDoc}`);
   }
