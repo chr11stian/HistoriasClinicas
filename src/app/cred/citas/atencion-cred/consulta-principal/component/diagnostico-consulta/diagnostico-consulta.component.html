@@ -1,9 +1,6 @@
 <div class="grid">
     <div class="col-12">
-        <p-table [value]="resultadosTestEvaluaciones" [rowHover]="true"
-                 [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,15]"
-                 [paginator]="true" currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} entradas"
-                 [filterDelay]="0">
+        <p-table [value]="resultadosTestEvaluaciones" styleClass="p-datatable-gridlines" responsiveLayout="scroll">
             <ng-template pTemplate="caption">
                 <div class="flex justify-content-between">
                     <div class="table-header mt-2">
@@ -16,14 +13,14 @@
                     <th style="text-align: center" class="font-2">Nro</th>
                     <th style="text-align: center" class="font-2">TITULO TEST O EVALUACION</th>
                     <th style="text-align: center" class="font-2">DIAGNOSTICO</th>
-                    <th style="text-align: center" class="font-2">ACCIÓN</th>
+<!--                    <th style="text-align: center" class="font-2">ACCIÓN</th>-->
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                <tr>
+                <tr [ngClass]="{'rojofondo': rowData.resultado === 'POSITIVO'}">
                     <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData }}</td>
-                    <td style="text-align: center">{{ rowData }}</td>
+                    <td style="text-align: center">{{ rowData.evaluacion }}</td>
+                    <td style="text-align: center" [ngClass]="{'rojo': rowData.resultado === 'POSITIVO'}">{{ rowData.resultado}}</td>
                 </tr>
             </ng-template>
         </p-table>
