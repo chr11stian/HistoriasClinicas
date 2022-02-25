@@ -59,10 +59,12 @@ export class GiagnosticosComponent implements OnInit {
     private encontradoDxTuberculosis: boolean = false;
 
     hoy: any= (new Date()).getTime();
+    listaDeCIE: any;
 
     constructor(private formBuilder: FormBuilder,
         private obstetriciaService: ObstetriciaGeneralService,
-        private cieService: CieService,
+        //private cieService: CieService,
+        private CieService: CieService,
         private messageService: MessageService,
         private DxService: ConsultasService) {
         this.buildForm();
@@ -125,6 +127,13 @@ export class GiagnosticosComponent implements OnInit {
         this.form = this.formBuilder.group({
             diagnostico: ['', [Validators.required]],
             tipo: ['', [Validators.required]],
+            
+            autocompleteSIS: [''],
+            diagnosticoSIS: ['', [Validators.required]],
+            SISCIE: ['', [Validators.required]],
+            autocompleteHIS: [''],
+            diagnosticoHIS: ['', [Validators.required]],
+            HISCIE: ['', [Validators.required]],
         });
         this.form2 = this.formBuilder.group({
             orientaciones: ['', [Validators.required]],
@@ -188,7 +197,7 @@ export class GiagnosticosComponent implements OnInit {
         this.diagnosticoDialog = false;
     }
     /******EVENTO PARA BUSQUEDA SEGUN FILTRO*****/
-    filterDiagnostico(event) {
+    /*filterDiagnostico(event) {
 
         console.log('event ', event.query);
         this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
@@ -199,7 +208,7 @@ export class GiagnosticosComponent implements OnInit {
     }
     selectedOption(event) {
         console.log('seleccion de autocomplete ', this.Cie10)
-    }
+    }*/
     /*****FIN PARA BUSQUEDA SEGUN FILTRO*******/
     titulo() {
         if (this.isUpdate) return "EDITE DIAGNOSTICO";
@@ -423,5 +432,34 @@ export class GiagnosticosComponent implements OnInit {
     }
     salirCronograma() {
         this.cronogramaDialog = false;
+    }
+
+    filterCIE10(event) {
+        this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+            this.listaDeCIE = res.object
+        })
+    }
+
+    selectedOption(event, cieType) {
+        if (cieType == 0) {
+            this.form.patchValue({ diagnosticoHosp: event.descripcionItem });
+        }
+        if (cieType == 1) {
+            this.form.patchValue({ diagnosticoEmergenci: event.descripcionItem });
+        }
+    }
+
+    selectedOptionNameCIE(event, cieType) {
+        console.log('lista de cie ', this.listaDeCIE);
+        if (cieType == 0) {
+            this.form.patchValue({ diagnosticoHosp: event.descripcionItem });
+            this.form.patchValue({ autocompleteHosp: "" });
+            this.form.patchValue({ hospitalizacionCIE: event }, { emitEvent: false });
+        }
+        if (cieType == 1) {
+            this.form.patchValue({ diagnosticoEmergenci: event.descripcionItem });
+            this.form.patchValue({ autocompleteEmerg: "" });
+            this.form.patchValue({ emergenciaCIE: event }, { emitEvent: false });
+        }
     }
 }

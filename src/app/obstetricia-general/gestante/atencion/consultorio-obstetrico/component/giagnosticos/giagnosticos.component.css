@@ -78,6 +78,6 @@ p-panel>>>.p-panel .p-panel-content{
 @media (min-width: 900px){
 
 }
-:host ::ng-deep .row-accessories {
+:host ::ng-deep .row-faltantes {
     background-color: rgba(208, 255, 206, 0.801) !important;
 }

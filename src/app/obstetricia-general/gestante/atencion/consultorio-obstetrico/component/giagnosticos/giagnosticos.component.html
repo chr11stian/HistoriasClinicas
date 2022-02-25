@@ -151,7 +151,63 @@
 </div>
 <!--*************************DIALOGO AGREGAR DX***********************************-->
 <p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog" [modal]="true" [draggable]="false" [resizable]="false">
-    <div class="grid p-fluid">
+    <div class="grid">
+        <div class="col-6">
+            <p-fieldset legend="DIAGNOSTICO SIS">
+                <div class="col-12">
+                    <div class="grid flex flex-column mt-2">
+                        <label>Diagnóstico: </label>
+                        <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                            field="descripcionItem" [minLength]="1" class="areaText " formControlName="autocompleteSIS"
+                            (onSelect)="selectedOptionNameCIE($event,0)">
+                        </p-autoComplete>
+                        <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoSIS"
+                            pInputTextarea disabled></textarea>
+                    </div>
+                    <div class="grid mt-2 p-fluid">
+                        <div class="col-4">
+                            <label class=" mr-1">CIE 10: </label>
+                        </div>
+                        <div class="col-8 field">
+                            <p-autoComplete formControlName="SISCIE" [suggestions]="listaDeCIE"
+                                (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                                (onSelect)="selectedOption($event,0)" class="" [forceSelection]="true"
+                                dataKey="codigoItem">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+        <div class="col-6">
+            <p-fieldset legend="DIAGNOSTICO HIS">
+                <div class="col-12">
+                    <div class="grid flex flex-column mt-2">
+                        <label>Diagnóstico: </label>
+                        <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                            field="descripcionItem" [minLength]="1" class="areaText " formControlName="autocompleteHIS"
+                            (onSelect)="selectedOptionNameCIE($event,0)">
+                        </p-autoComplete>
+                        <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoHIS"
+                            pInputTextarea disabled></textarea>
+                    </div>
+                    <div class="grid mt-2 p-fluid">
+                        <div class="col-4">
+                            <label class=" mr-1">CIE 10: </label>
+                        </div>
+                        <div class="col-8 field">
+                            <p-autoComplete formControlName="HISCIE" [suggestions]="listaDeCIE"
+                                (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                                (onSelect)="selectedOption($event,0)" class="" [forceSelection]="true"
+                                dataKey="codigoItem">
+                            </p-autoComplete>
+                        </div>
+                    </div>
+                </div>
+            </p-fieldset>
+        </div>
+    </div>
+    <!-- <div class="grid p-fluid">
         <div class="col-6" p-fluid>
             <br>
             <div class="p-field-radiobutton">
@@ -198,7 +254,8 @@
                 </p-dropdown>
             </div>
         </div>
-    </form>
+    </form> -->
+
     <br>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
@@ -217,7 +274,7 @@
     </ng-template>
     <ng-template pTemplate="body">
         <div class="grid" class="m-3">
-            <p-table [value]="cronograma" >
+            <p-table [value]="cronograma">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="text-align: center">Nro</th>
@@ -227,7 +284,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
-                    <tr [ngClass]="{'row-accessories': funcionAuxiliar(data.fecha) > hoy}">
+                    <tr [ngClass]="{'row-faltantes': funcionAuxiliar(data.fecha) > hoy}">
                         <td style="text-align: center">{{ rowIndex + 1 }}</td>
                         <td style="text-align: center">{{ data.descripcion }}</td>
                         <td style="text-align: center">{{ data.tipo }}</td>
