@@ -1,33 +1,45 @@
-<div class="grid ">
-    <p-card styleClass="p-card-shadow" [style]="{width: '390px'}"
-        class="cardContenedor mt-5 text-center shadow-6">
-        
-        <ng-template pTemplate="header" class="p-4">
-            <br/>
-            <label class="text-5xl text-blue-700 text-center m-4"> CAJA</label>
-            <br/>
-            <img alt="Card" src="assets/images/caja7.png" class="mt-7" [style]="{width: '230px'}" class="imagen">
+<div class="grid">
+    <p-card styleClass="p-card-shadow" [style]="{width: '350px'}"
+        class="cardContenedor mt-7 text-center shadow-8">
+
+        <ng-template pTemplate="header" class="p-6 ">
+            <div class="cabecera">
+                <br/>
+                <label class="text-5xl text-50 text-center"> CAJA</label>
+                <br/>
+                <br/>
+            </div>
         </ng-template>
-        <div class="grid text-left align-items-center">
-            <div class="col-1"></div>
-            <div class="col-3">
-                <label class="text-xl text-blue-700 pb-0" >DNI:</label>
+        <div class="grid">
+            <div class="col-12 m-2">
+                <img alt="Card" src="assets/images/caja7.png" class="mt-7" [style]="{width: '160px'}" class="imagen">
+                <br/>
             </div>
-            <div class="col-7">
-                <input type="text" pInputText class="p-inputtext inputfield w-full">
+            <div class="col-12 imagen p-fluid">
+                <div class="grid text-left align-items-center">
+                    <div class="col-1"></div>
+                    <div class="col-10 md-4">
+                        <div class="p-inputgroup">
+                            <span class="p-inputgroup-addon"><i class="pi pi-id-card"></i></span>
+                            <input type="text" pInputText placeholder="DNI">
+                            <button type="button" pButton pRipple icon="pi pi-search" class="p-button-danger"></button> 
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-1"></div>
+                    <div class="col-10 md-4">
+                        <div class="p-inputgroup">
+                            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                            <input type="text" pInputText placeholder="NOMBRE" disabled> 
+                        </div>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
             </div>
-            <div class="col-1"></div>
-            <div class="col-1"></div>
-            <div class="col-3">
-                <label class="text-xl text-blue-700 pb-0">NOMBRE:</label>
-            </div>
-            <div class="col-7">
-                <input type="text" pInputText class="p-inputtext inputfield w-full">
-            </div>
-            <div class="col-1"></div>
         </div>
+
         <ng-template pTemplate="footer">
-            <p-button label="ABRIR CAJA" icon="pi pi-check"></p-button>
+            <p-button label="ABRIR CAJA" icon="pi pi-check-circle" styleClass="p-button-danger" (click)="clickAbrirCaja()"></p-button>
         </ng-template>
     </p-card>
 </div>

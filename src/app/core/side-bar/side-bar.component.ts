@@ -438,6 +438,11 @@ const menu_ipress = [
                 routerLink: "admision/ipress-horarios",
             },
             {
+                label: "Ipress Tarifario",
+                icon: "pi pi-pw pi-file",
+                routerLink: "admision/ipress-tarifario",
+            },
+            {
                 icon: "pi pi-file",
                 label: "Tipo Personal",
                 routerLink: "mantenimientos/tipo-personal",

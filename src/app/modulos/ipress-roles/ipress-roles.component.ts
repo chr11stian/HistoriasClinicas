@@ -151,6 +151,17 @@ export class IpressRolesComponent implements OnInit {
       }
     )
   }
+  canceled() {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Cancelado...',
+      text: '',
+      showConfirmButton: false,
+      timer: 1000
+    })
+    this.rolDialog = false;
+    this.formRol.reset();
+  }
   ngOnInit(): void {
   }
 

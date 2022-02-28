@@ -9,6 +9,7 @@ import { PagoProcedimientosComponent } from './pago-procedimientos/pago-procedim
 import { PagosComponent } from './pagos/pagos.component';
 import { ResumenPagosComponent } from './resumen-pagos/resumen-pagos.component';
 import { AbrirCajaComponent } from './abrir-caja/abrir-caja.component';
+import { TabsCajaComponent } from './tabs-caja/tabs-caja.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AbrirCajaComponent } from './abrir-caja/abrir-caja.component';
         TipoComprobanteComponent,
         PagoProcedimientosComponent,
         ResumenPagosComponent,
-        AbrirCajaComponent
+        AbrirCajaComponent,
+        TabsCajaComponent
     ],
     exports: [PagosComponent],
     imports: [

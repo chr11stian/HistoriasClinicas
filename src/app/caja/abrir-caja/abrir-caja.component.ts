@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-abrir-caja',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AbrirCajaComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {
+  clickAbrirCaja(){
+  //   let row: any = {
+  //     editar: false,
+  //     nroAtencion: 1,
+  // }
+  this.router.navigate(['/dashboard/caja/menu-caja'])
   }
+  ngOnInit(): void {
+
+  }
+
 
 }
