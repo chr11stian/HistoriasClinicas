@@ -1,10 +1,9 @@
 <ng-template #attachMe0></ng-template>
 <p-card class="mb-2 ">
-  <div class="flex justify-content-start">
-    <div style="font-weight: bold;font-size: 1rem">Descripcion:</div>
-    <div>
-      {{inmunizacion.descripcion}}
-    </div>
+  <div class="">
+    <span style="font-weight: bold">
+      Descripcion:
+    </span>{{inmunizacion.descripcion}}
   </div>
 </p-card>
 <div class="grid mt-2" [formGroup]="inmunizacionFC">
@@ -27,6 +26,14 @@
     <div class="col-8 p-fluid">
       <p-inputNumber formControlName="lote" mode="decimal" inputId="withoutgrouping" [useGrouping]="false">
       </p-inputNumber>
+    </div>
+  </div>
+  <div class="col-6 grid">
+    <div class="col-4">
+      Via Administracion:
+    </div>
+    <div class="col-8 p-fluid">
+      <p-dropdown [options]="viaAdministracion" formControlName="administracion" optionValue="code" optionLabel="name" placeholder="Seleccione"> </p-dropdown>
     </div>
 
   </div>
