@@ -108,25 +108,25 @@
                                     </div>
                                     <div class="col-5 p-fluid p-field p-fluid">
                                         <p-selectButton [options]="sino"  optionValue="value" formControlName="pierdeControl"
-                                                        optionLabel="label"></p-selectButton>
+                                                        optionLabel="label"  [(ngModel)]="eleccion2"></p-selectButton>
                                     </div>
                                 </div>
                                 <div class="grid">
                                     <div class="col-6 md:col-3 lg:col-3 field-checkbox p-fluid">
-                                        <p-checkbox  binary="true" inputId="binary" name='pega' [formControl]="formTamizajeVIF.controls['pega']" ></p-checkbox>
-                                        <label>¿Pega?</label>
+                                        <p-checkbox  binary="true" inputId="binary" name='pega' [formControl]="formTamizajeVIF.controls['pega']" *ngIf="eleccion2=='si'" ></p-checkbox>
+                                        <label *ngIf="eleccion2=='si'" >¿Pega?</label>
                                     </div>
                                     <div class="col-6 md:col-3 lg:col-3 field-checkbox p-fluid">
-                                        <p-checkbox  binary="true" inputId="binary" name='grita' [formControl]="formTamizajeVIF.controls['grita']" ></p-checkbox>
-                                        <label>¿Grita?</label>
+                                        <p-checkbox  binary="true" inputId="binary" name='grita' [formControl]="formTamizajeVIF.controls['grita']" *ngIf="eleccion2=='si'"></p-checkbox>
+                                        <label *ngIf="eleccion2=='si'" >¿Grita?</label>
                                     </div>
                                     <div class="col-6 md:col-3 lg:col-3 field-checkbox p-fluid">
-                                        <p-checkbox  binary="true" inputId="binary" name='empuja' [formControl]="formTamizajeVIF.controls['empuja']"  ></p-checkbox>
-                                        <label>¿Empuja o sacude?</label>
+                                        <p-checkbox  binary="true" inputId="binary" name='empuja' [formControl]="formTamizajeVIF.controls['empuja']"  *ngIf="eleccion2=='si'" ></p-checkbox>
+                                        <label *ngIf="eleccion2=='si'">¿Empuja o sacude?</label>
                                     </div>
                                     <div class="col-6 md:col-3 lg:col-3 field-checkbox p-fluid">
-                                        <p-checkbox  binary="true" inputId="binary" name='encierra' [formControl]="formTamizajeVIF.controls['encierra']"></p-checkbox>
-                                        <label>¿Encierra?</label>
+                                        <p-checkbox  binary="true" inputId="binary" name='encierra' [formControl]="formTamizajeVIF.controls['encierra']" *ngIf="eleccion2=='si'"></p-checkbox>
+                                        <label *ngIf="eleccion2=='si'">¿Encierra?</label>
                                     </div>
                                 </div>
                             </div>

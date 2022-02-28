@@ -17,10 +17,10 @@
 
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width:300px; height: 30px" pFrozenColumn>EDAD</th>
-                    <th style="width:120px; height: 30px">RN
-                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==0"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(0)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:300px; height: 30px;justify-content:center" pFrozenColumn>EDAD</th>
+                    <th style="width:120px; height: 30px;justify-content:center">RN
+                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==0"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(0)" class="p-button-rounded p-button-danger p-button-text" style="backgroud:#bf0d21"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==0"-->
 <!--                                (click)="eliminarEvaluacion(0)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -28,9 +28,9 @@
 <!--                                (click)="editarEvaluacion()"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
                     </th>
-                    <th style="width:120px; height: 30px">1m
-                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==1" pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(1)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">1m
+                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==1" pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(1)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==1"-->
 <!--                                (click)="eliminarEvaluacion(1)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -38,9 +38,9 @@
 <!--                                (click)="editarEvaluacion()"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
                     </th>
-                    <th style="width:120px; height: 30px">2m
-                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==2"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(2)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">2m
+                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==2"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(2)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==2"-->
 <!--                                (click)="eliminarEvaluacion(2)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -49,9 +49,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">3m
-                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==3"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(3)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">3m
+                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==3"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(3)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==3"-->
 <!--                                (click)="eliminarEvaluacion(3)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -59,9 +59,9 @@
 <!--                                (click)="editarEvaluacion()"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
                     </th>
-                    <th style="width:120px; height: 30px">4m
-                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==4"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(4)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">4m
+                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==4"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(4)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==4"-->
 <!--                                (click)="eliminarEvaluacion(4)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -69,9 +69,9 @@
 <!--                                (click)="editarEvaluacion()"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
                     </th>
-                    <th style="width:120px; height: 30px">5m
-                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==5"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(5)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">5m
+                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==5"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(5)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==5"-->
 <!--                                (click)="eliminarEvaluacion(5)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -79,9 +79,9 @@
 <!--                                (click)="editarEvaluacion()"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
                     </th>
-                    <th style="width:120px; height: 30px">6m
-                        <button pButton pRipple type="button"   icon="pi pi-save" *ngIf="edadMeses==6"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(6)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">6m
+                        <button pButton pRipple type="button"   icon="pi pi-save" *ngIf="edadMeses==6"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(6)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==6"-->
 <!--                                (click)="eliminarEvaluacion(6)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -89,9 +89,9 @@
 <!--                                (click)="editarEvaluacion()"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
                     </th>
-                    <th style="width:120px; height: 30px">7m
-                        <button pButton pRipple type="button"   icon="pi pi-save" *ngIf="edadMeses==7"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(7)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">7m
+                        <button pButton pRipple type="button"   icon="pi pi-save" *ngIf="edadMeses==7"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(7)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==7"-->
 <!--                                (click)="eliminarEvaluacion(7)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -100,9 +100,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">8m
-                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==8"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(8)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">8m
+                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==8"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(8)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==8"-->
 <!--                                (click)="eliminarEvaluacion(8)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -111,9 +111,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">9m
-                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==9"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(9)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">9m
+                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==9"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(9)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==9"-->
 <!--                                (click)="eliminarEvaluacion(9)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -122,9 +122,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">10m
-                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==10"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(10)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">10m
+                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==10"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(10)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==10"-->
 <!--                                (click)="eliminarEvaluacion(10)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -133,9 +133,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">11m
-                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==11"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(11)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">11m
+                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==11"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(11)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==11"-->
 <!--                                (click)="eliminarEvaluacion(11)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -144,9 +144,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">12m
-                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==12"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(12)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">12m
+                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==12"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(12)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==12"-->
 <!--                                (click)="eliminarEvaluacion(12)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -155,9 +155,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">14m
-                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==14"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(14)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">14m
+                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==14"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(14)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==14"-->
 <!--                                (click)="eliminarEvaluacion(14)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -166,9 +166,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">16m
-                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==16"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(16)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">16m
+                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==16"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(16)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==16"-->
 <!--                                (click)="eliminarEvaluacion(16)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -176,9 +176,9 @@
 <!--                                (click)="editarEvaluacion()"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
                     </th>
-                    <th style="width:120px; height: 30px">18m
-                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==18"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(18)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">18m
+                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==18"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(18)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==18"-->
 <!--                                (click)="eliminarEvaluacion(18)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -186,9 +186,9 @@
 <!--                                (click)="editarEvaluacion()"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
                     </th>
-                    <th style="width:120px; height: 30px">20m
-                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==20"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(20)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">20m
+                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==20"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(20)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==20"-->
 <!--                                (click)="eliminarEvaluacion(20)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -196,9 +196,9 @@
 <!--                                (click)="editarEvaluacion()"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
                     </th>
-                    <th style="width:120px; height: 30px">22m
-                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==22"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(22)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">22m
+                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==22"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(22)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==22"-->
 <!--                                (click)="eliminarEvaluacion(22)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -207,9 +207,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">24m
-                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==24"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(24)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">24m
+                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==24"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(24)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==24"-->
 <!--                                (click)="eliminarEvaluacion(24)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -218,9 +218,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">27m
-                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==27"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(27)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">27m
+                        <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==27"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(27)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==27"-->
 <!--                                (click)="eliminarEvaluacion(27)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -229,9 +229,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">30m
-                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==30"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(30)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">30m
+                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==30"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(30)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==30"-->
 <!--                                (click)="guardarEvaluacion(30)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -239,9 +239,9 @@
 <!--                                (click)="editarEvaluacion()"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
                     </th>
-                    <th style="width:120px; height: 30px">33m
-                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==33"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(33)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">33m
+                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==33"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(33)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==33"-->
 <!--                                (click)="eliminarEvaluacion(33)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -250,9 +250,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">36m
-                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==36"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(36)" class="p-button-rounded p-button-text"></button>
+                    <th style="width:120px; height: 30px;justify-content:center">36m
+                        <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==36"  pTooltip="Haga Click para Guardar"
+                                (click)="guardarEvaluacion(36)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==36"-->
 <!--                                (click)="eliminarEvaluacion(36)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -261,9 +261,9 @@
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
 
                     </th>
-                    <th style="width:120px; height: 30px">39m
+                    <th style="width:120px; height: 30px;justify-content:center">39m
                         <button pButton pRipple type="button"  icon="pi pi-save" *ngIf="edadMeses==39"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(39)" class="p-button-rounded p-button-text"></button>
+                                (click)="guardarEvaluacion(39)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==39"-->
 <!--                                (click)="eliminarEvaluacion(39)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -271,9 +271,9 @@
 <!--                                (click)="editarEvaluacion()"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
                     </th>
-                    <th style="width:120px; height: 30px">42m
+                    <th style="width:120px; height: 30px;justify-content:center">42m
                         <button pButton pRipple type="button" icon="pi pi-save" *ngIf="edadMeses==42"  pTooltip="Haga Click para Guardar o Actualizar"
-                                (click)="guardarEvaluacion(42)" class="p-button-rounded p-button-text"></button>
+                                (click)="guardarEvaluacion(42)" class="p-button-rounded p-button-danger p-button-text"></button>
 <!--                        <button pButton pRipple type="button" icon="pi pi-trash" *ngIf="edadEditable==42"-->
 <!--                                (click)="eliminarEvaluacion(42)"-->
 <!--                                class="p-button-rounded p-button-danger p-button-text"></button>-->
@@ -284,9 +284,9 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-datos>
-                <tr *ngIf="datos.titulo ==='Fecha'" pFrozenColumn >
+                <tr *ngIf="datos.titulo ==='FECHA'" pFrozenColumn >
                     <td style="width:300px; height: 40px" class="titulotablaFecha" pFrozenColumn>{{datos.titulo}}</td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:120px" [(ngModel)]="datos.valorRN" *ngIf="edadMeses==0"   [ngClass]="{'llenado':edadMeses==0,'debellenar':edadMeses!=0}">
@@ -299,7 +299,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor1M" *ngIf="edadMeses==1" [ngClass]="{'llenado':edadMeses==1,'debellenar':edadMeses!=1}">
@@ -311,7 +311,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor2M" *ngIf="edadMeses==2" [ngClass]="{'llenado':edadMeses==2,'debellenar':edadMeses!=2}">
@@ -323,7 +323,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor3M" *ngIf="edadMeses==3" [ngClass]="{'llenado':edadMeses==3,'debellenar':edadMeses!=3}">
@@ -336,7 +336,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor4M" *ngIf="edadMeses==4" [ngClass]="{'llenado':edadMeses==4,'debellenar':edadMeses!=4}">
@@ -348,7 +348,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor5M" *ngIf="edadMeses==5" [ngClass]="{'llenado':edadMeses==5,'debellenar':edadMeses!=5}">
@@ -360,7 +360,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor6M" *ngIf="edadMeses==6" [ngClass]="{'llenado':edadMeses==6,'debellenar':edadMeses!=6}" >
@@ -372,7 +372,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor7M" *ngIf="edadMeses==7" [ngClass]="{'llenado':edadMeses==7,'debellenar':edadMeses!=7}">
@@ -385,7 +385,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor8M" *ngIf="edadMeses==8" [ngClass]="{'llenado':edadMeses==8,'debellenar':edadMeses!=8}">
@@ -397,7 +397,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor9M" *ngIf="edadMeses==9" [ngClass]="{'llenado':edadMeses==9,'debellenar':edadMeses!=9}" >
@@ -409,7 +409,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor10M" *ngIf="edadMeses==10" [ngClass]="{'llenado':edadMeses==10,'debellenar':edadMeses!=10}">
@@ -422,7 +422,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor11M" *ngIf="edadMeses==11" [ngClass]="{'llenado':edadMeses==11,'debellenar':edadMeses!=11}">
@@ -434,7 +434,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor12M" *ngIf="edadMeses==12" [ngClass]="{'llenado':edadMeses==12,'debellenar':edadMeses!=12}" >
@@ -446,7 +446,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor14M" *ngIf="edadMeses==14" [ngClass]="{'llenado':edadMeses==14,'debellenar':edadMeses!=14}">
@@ -458,7 +458,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor16M" *ngIf="edadMeses==16" [ngClass]="{'llenado':edadMeses==16,'debellenar':edadMeses!=16}">
@@ -470,7 +470,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor18M" *ngIf="edadMeses==18" [ngClass]="{'llenado':edadMeses==18,'debellenar':edadMeses!=18}">
@@ -482,7 +482,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor20M" *ngIf="edadMeses==20" [ngClass]="{'llenado':edadMeses==20,'debellenar':edadMeses!=20}">
@@ -494,7 +494,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor22M" *ngIf="edadMeses==22" [ngClass]="{'llenado':edadMeses==22,'debellenar':edadMeses!=22}" >
@@ -506,7 +506,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor24M" *ngIf="edadMeses==24" [ngClass]="{'llenado':edadMeses==24,'debellenar':edadMeses!=24}" >
@@ -518,7 +518,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor27M" *ngIf="edadMeses==27" [ngClass]="{'llenado':edadMeses==27,'debellenar':edadMeses!=27}">
@@ -530,7 +530,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor30M" *ngIf="edadMeses==30" [ngClass]="{'llenado':edadMeses==30,'debellenar':edadMeses!=30}">
@@ -542,7 +542,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor33M" *ngIf="edadMeses==33" [ngClass]="{'llenado':edadMeses==33,'debellenar':edadMeses!=33}">
@@ -554,7 +554,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor36M" *ngIf="edadMeses==36" [ngClass]="{'llenado':edadMeses==36,'debellenar':edadMeses!=36}">
@@ -566,7 +566,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor39M" *ngIf="edadMeses==39" [ngClass]="{'llenado':edadMeses==39,'debellenar':edadMeses!=39}" >
@@ -578,7 +578,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn>
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <input type="datetime-local" style="width:110px" [(ngModel)]="datos.valor42M" *ngIf="edadMeses==42" [ngClass]="{'llenado':edadMeses==42,'debellenar':edadMeses!=42}" >
@@ -591,36 +591,36 @@
                         </p-cellEditor>
                     </td>
                 </tr>
-                <tr *ngIf="datos.titulo !=='Fecha' && datos.titulo !== 'Diagnostico'" pFrozenColumn>
+                <tr *ngIf="datos.titulo !=='FECHA' && datos.titulo !== 'Diagnostico'" pFrozenColumn>
                     <td *ngIf="datos.titulo !=='Observaciones'" style="width:300px; height: 40px"
                         class="titulotabla" pFrozenColumn>{{datos.titulo}}</td>
                     <td *ngIf="datos.titulo ==='Observaciones'" style="width:300px; height: 40px"
                         class="titulotablaFecha" pFrozenColumn>{{datos.titulo}}</td>
-                    <td style="width:120px; height: 40px;text-align: center" pEditableColumn>
-                        <p-cellEditor>
-                            <ng-template pTemplate="input" style="text-align: center">
+                    <td  style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==0}">
+                        <p-cellEditor style="text-align: center">
+                            <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valorRN" onIcon="pi pi-check" [disabled]="edadMeses!=0"  [ngClass]="{'debellenar':edadMeses==0,'llenado':edadMeses!=0}"
-                                                offIcon="pi pi-times"></p-toggleButton>
+                                                offIcon="pi pi-times" ></p-toggleButton>
                             </ng-template>
-                            <ng-template pTemplate="output" style="text-align: center">
+                            <ng-template pTemplate="output">
                                 <p-toggleButton [(ngModel)]="datos.valorRN"  onIcon="pi pi-check" [disabled]="edadMeses!=0" [ngClass]="{'debellenar':edadMeses==0,'llenado':edadMeses!=0}"
                                                 offIcon="pi pi-times" ></p-toggleButton>
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==1}">
                         <p-cellEditor>
-                            <ng-template pTemplate="input" style="text-align: center">
+                            <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor1M" onIcon="pi pi-check" [disabled]="edadMeses!=1" [ngClass]="{'debellenar':edadMeses==1,'llenado':edadMeses!=1}"
                                                 offIcon="pi pi-times" ></p-toggleButton>
                             </ng-template>
-                            <ng-template pTemplate="output" style="text-align: center">
+                            <ng-template pTemplate="output">
                                 <p-toggleButton [(ngModel)]="datos.valor1M" onIcon="pi pi-check" [disabled]="edadMeses!=1" [ngClass]="{'debellenar':edadMeses==1,'llenado':edadMeses!=1}"
                                                 offIcon="pi pi-times" ></p-toggleButton>
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==2}">
                         <p-cellEditor>
                             <ng-template pTemplate="input" >
                                 <p-toggleButton [(ngModel)]="datos.valor2M" onIcon="pi pi-check" [disabled]="edadMeses!=2" [ngClass]="{'debellenar':edadMeses==2,'llenado':edadMeses!=2}"
@@ -632,7 +632,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==3}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor3M" onIcon="pi pi-check"  [disabled]="edadMeses!=3" [ngClass]="{'debellenar':edadMeses==3,'llenado':edadMeses!=3}"
@@ -644,7 +644,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==4}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor4M" onIcon="pi pi-check" [disabled]="edadMeses!=4" [ngClass]="{'debellenar':edadMeses==4,'llenado':edadMeses!=4}"
@@ -656,7 +656,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==5}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor5M" onIcon="pi pi-check" [disabled]="edadMeses!=5" [ngClass]="{'debellenar':edadMeses==7,'llenado':edadMeses!=5}"
@@ -669,7 +669,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==6}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor6M" onIcon="pi pi-check" [disabled]="edadMeses!=6" [ngClass]="{'debellenar':edadMeses==6,'llenado':edadMeses!=6}"
@@ -681,7 +681,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==7}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor7M" onIcon="pi pi-check" [disabled]="edadMeses!=7"  [ngClass]="{'debellenar':edadMeses==7,'llenado':edadMeses!=7}"
@@ -693,7 +693,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==8}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor8M" onIcon="pi pi-check" [disabled]="edadMeses!=8" [ngClass]="{'debellenar':edadMeses==8,'llenado':edadMeses!=8}"
@@ -705,7 +705,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==9}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor9M" onIcon="pi pi-check" [disabled]="edadMeses!=9" [ngClass]="{'debellenar':edadMeses==9,'llenado':edadMeses!=9}"
@@ -717,7 +717,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==10}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor10M" onIcon="pi pi-check" [disabled]="edadMeses!=10" [ngClass]="{'debellenar':edadMeses==10,'llenado':edadMeses!=10}"
@@ -729,7 +729,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==11}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor11M" onIcon="pi pi-check" [disabled]="edadMeses!=11" [ngClass]="{'debellenar':edadMeses==11,'llenado':edadMeses!=11}"
@@ -741,7 +741,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==12}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor12M" onIcon="pi pi-check" [disabled]="edadMeses!=12" [ngClass]="{'debellenar':edadMeses==12,'llenado':edadMeses!=12}"
@@ -753,7 +753,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==14}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor14M" onIcon="pi pi-check" [disabled]="edadMeses!=14" [ngClass]="{'debellenar':edadMeses==14,'llenado':edadMeses!=14}"
@@ -765,7 +765,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==16}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor16M" onIcon="pi pi-check" [disabled]="edadMeses!=16" [ngClass]="{'debellenar':edadMeses==16,'llenado':edadMeses!=16}"
@@ -777,7 +777,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==18}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor18M" onIcon="pi pi-check" [disabled]="edadMeses!=18" [ngClass]="{'debellenar':edadMeses==18,'llenado':edadMeses!=18}"
@@ -789,7 +789,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==20}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor20M" onIcon="pi pi-check" [disabled]="edadMeses!=20" [ngClass]="{'debellenar':edadMeses==20,'llenado':edadMeses!=20}"
@@ -801,7 +801,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==22}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor22M" onIcon="pi pi-check" [disabled]="edadMeses!=22" [ngClass]="{'debellenar':edadMeses==22,'llenado':edadMeses!=22}"
@@ -813,7 +813,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==24}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor24M" onIcon="pi pi-check" [disabled]="edadMeses!=24" [ngClass]="{'debellenar':edadMeses==24,'llenado':edadMeses!=24}"
@@ -825,7 +825,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==27}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor27M" onIcon="pi pi-check" [disabled]="edadMeses!=27" [ngClass]="{'debellenar':edadMeses==27,'llenado':edadMeses!=27}"
@@ -837,7 +837,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==30}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor30M" onIcon="pi pi-check" [disabled]="edadMeses!=30" [ngClass]="{'debellenar':edadMeses==30,'llenado':edadMeses!=30}"
@@ -849,7 +849,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==33}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor33M" onIcon="pi pi-check" [disabled]="edadMeses!=33"   [ngClass]="{'debellenar':edadMeses==33,'llenado':edadMeses!=33}"
@@ -861,7 +861,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==36}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor36M" onIcon="pi pi-check" [disabled]="edadMeses!=36" [ngClass]="{'debellenar':edadMeses==36,'llenado':edadMeses!=36}"
@@ -873,7 +873,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==39}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor39M" onIcon="pi pi-check" [disabled]="edadMeses!=39" [ngClass]="{'debellenar':edadMeses==39,'llenado':edadMeses!=39}"
@@ -885,7 +885,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td style="width:120px; height: 40px" pEditableColumn>
+                    <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==42}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 <p-toggleButton [(ngModel)]="datos.valor42M" onIcon="pi pi-check" [disabled]="edadMeses!=42" [ngClass]="{'debellenar':edadMeses==42,'llenado':edadMeses!=42}"

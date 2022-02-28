@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TestPeruano} from "../../services/test-peruano/test-peruano.service";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
 import {DatePipe} from "@angular/common";
 import {dato} from "../../../../../../../../models/data";
@@ -22,7 +22,7 @@ export class TestPeruanoComponent implements OnInit {
   displayMaximizable: boolean;
   attributeLocalS = 'documento';
   evaluacionDesarrollo: any;
-  edadMeses: number = 0;
+  edadMeses: number = 2;
   displayPosition: boolean;
   position: string;
   datePipe = new DatePipe('en-US');
@@ -33,7 +33,7 @@ export class TestPeruanoComponent implements OnInit {
   estadoHayDatosPlan: boolean = false;
   data: dato;
   color: string = "";
-  preguntas: any[] = [{
+  preguntas: pregunta[] = [{
     codigo: 'A', descripcion: 'CONTROL DE CABEZA Y TRONCO SENTADO'
   },
     {codigo: 'B', descripcion: 'CONTROL DE CABEZA Y TRONCO ROTACIONES'},
@@ -71,7 +71,8 @@ export class TestPeruanoComponent implements OnInit {
     else{
       this.recuperarTestPlanCred();
       this.buscarTestPeruanoPorEdad();
-      this.getTestPerunoBDTestPorConsulta();    }
+      this.getTestPerunoBDTestPorConsulta();
+    }
   }
 
   /**Mostrar la edad del niño en alerta**/
@@ -327,23 +328,23 @@ export class TestPeruanoComponent implements OnInit {
       L_24: new FormControl({value: false, disabled: this.edadMeses < 24}),
       L_30: new FormControl({value: false, disabled: this.edadMeses < 30}),
       /*********fECHA**********/
-      f1: new FormControl({value: '', disabled: this.edadMeses != 1}),
-      f2: new FormControl({value: '', disabled: this.edadMeses != 2}),
-      f3: new FormControl({value: '', disabled: this.edadMeses != 3}),
-      f4: new FormControl({value: '', disabled: this.edadMeses != 4}),
-      f5: new FormControl({value: '', disabled: this.edadMeses != 5}),
-      f6: new FormControl({value: '', disabled: this.edadMeses != 6}),
-      f7: new FormControl({value: '', disabled: this.edadMeses != 7}),
-      f8: new FormControl({value: '', disabled: this.edadMeses != 8}),
-      f9: new FormControl({value: '', disabled: this.edadMeses != 9}),
-      f10: new FormControl({value: '', disabled: this.edadMeses != 10}),
-      f11: new FormControl({value: '', disabled: this.edadMeses != 11}),
-      f12: new FormControl({value: '', disabled: this.edadMeses != 12}),
-      f15: new FormControl({value: '', disabled: this.edadMeses != 15}),
-      f18: new FormControl({value: '', disabled: this.edadMeses != 18}),
-      f21: new FormControl({value: '', disabled: this.edadMeses != 21}),
-      f24: new FormControl({value: '', disabled: this.edadMeses != 24}),
-      f30: new FormControl({value: '', disabled: this.edadMeses != 30})
+      f1: new FormControl({value: false, disabled: this.edadMeses!=1}),
+      f2: new FormControl({value: false, disabled: this.edadMeses!=2}),
+      f3: new FormControl({value: false, disabled: this.edadMeses!=3}),
+      f4: new FormControl({value: false, disabled: this.edadMeses!=4}),
+      f5: new FormControl({value: false, disabled: this.edadMeses!=5}),
+      f6: new FormControl({value: false, disabled: this.edadMeses!=6}),
+      f7: new FormControl({value: false, disabled: this.edadMeses!=7}),
+      f8: new FormControl({value: false, disabled: this.edadMeses!=8}),
+      f9: new FormControl({value: false, disabled: this.edadMeses!=9}),
+      f10: new FormControl({value: false, disabled: this.edadMeses!=10}),
+      f11: new FormControl({value: false, disabled: this.edadMeses!=11}),
+      f12: new FormControl({value: false, disabled: this.edadMeses!=12}),
+      f15: new FormControl({value: false, disabled: this.edadMeses!=15}),
+      f18: new FormControl({value: false, disabled: this.edadMeses!=18}),
+      f21: new FormControl({value: false, disabled: this.edadMeses!=21}),
+      f24: new FormControl({value: false, disabled: this.edadMeses!=24}),
+      f30: new FormControl({value: false, disabled: this.edadMeses!=30}),
     })
   }
 
@@ -431,7 +432,6 @@ export class TestPeruanoComponent implements OnInit {
     this.formDatos_TestPeruano.disable();
 
   }
-
   // openEditar(row,data){
   //   this.formDatos_TestPeruano.enable();
   //   this.builForm();
@@ -694,6 +694,7 @@ export class TestPeruanoComponent implements OnInit {
   //   });
   //   this.codigosArr=[];
   // }
+
   guardarActualizar() {
     if (this.listaTestPeruano[0] != null) {
       this.enableAgregar = true;
@@ -726,11 +727,15 @@ export class TestPeruanoComponent implements OnInit {
     if(this.formDatos_TestPeruano.value[codigo]==true){ this.codigosArr.push(codigo);}
   }
   openNuevoTestPeruano(){
-    this.formDatos_TestPeruano.enable();
+    // this.formDatos_TestPeruano.enable();
     this.builForm();
     this.formDatos_TestPeruano.reset();
     this.recuperarTestPlanCred();
     this.estadoVisualizar=false;
     this.displayMaximizable =true;
   }
+}
+interface pregunta{
+  codigo?:string,
+  descripcion?:string,
 }
