@@ -29,8 +29,8 @@
       <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
          <tr>
             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-            <td style="text-align: center">{{ rowData.fecha }}</td>
-            <td style="text-align: center">{{ rowData.edad }}</td>
+            <td style="text-align: center">{{ rowData.fecha | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+            <td style="text-align: center">{{ rowData.edad }} (meses)</td>
             <td style="text-align: center">{{ rowData.diagnostico }}</td>
             <td style="text-align: center">
                <button pButton (click)="openTestPeruano(rowData.fecha,rowData.edad,rowData.calificacion)" pTooltip="Visualizar" pRipple type="button"

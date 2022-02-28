@@ -8,7 +8,13 @@ p-calendar >>> .p-button {
     border: 1px solid #0c3866;
     align-self: center;
 }
-
+.rojo{
+    font-weight: 700;
+    color: #bf0d21;
+}
+:host ::ng-deep .rojofondo {
+    background-color: #fcbfba !important;
+}
 .guardar {
     background: #0c3866;
     border-color: #0c3866;

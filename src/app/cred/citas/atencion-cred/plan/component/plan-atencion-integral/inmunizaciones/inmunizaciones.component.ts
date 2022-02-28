@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { InmunizacionesService } from "../services/inmunizaciones/inmunizaciones.service";
-import { Inmunizaciones } from "../models/plan-atencion-integral.model";
+// import { Inmunizaciones } from "../models/plan-atencion-integral.model";
 import { MessageService } from "primeng/api";
 import { ActivatedRoute } from "@angular/router";
 
@@ -13,7 +13,7 @@ export class InmunizacionesComponent implements OnInit {
   tipoDNI: string;
   nroDNI: string;
   stateOptions: any[];
-  listaInmunizaciones: Inmunizaciones[] = [
+  listaInmunizaciones: any[] = [
     {
       nombreVacuna: 'hvb1',
       nroDosis: 2,
@@ -33,9 +33,9 @@ export class InmunizacionesComponent implements OnInit {
       fecha: '2022/12/17',
       fechaTentativa: '2022/12/17',},
   ];
-  lista1: Inmunizaciones[] = [];
-  lista2: Inmunizaciones[] = [];
-  lista3: Inmunizaciones[] = [];
+  lista1: any[] = [];
+  lista2: any[] = [];
+  lista3: any[] = [];
   constructor(
     private servicio: InmunizacionesService,
     private messageService: MessageService,
