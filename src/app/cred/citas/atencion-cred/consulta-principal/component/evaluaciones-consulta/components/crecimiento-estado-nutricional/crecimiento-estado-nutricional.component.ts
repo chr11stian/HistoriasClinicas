@@ -157,9 +157,9 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.listar()
         this.datas()
-        this.evaluacion()
-
-
+        setTimeout(() => {
+            this.evaluacion()
+        }, 1000)
     }
 
     guardar() {
@@ -606,10 +606,15 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     }
 
 //
-    onWeightChart()
-        :
-        void {
+    onWeightChart(): void {
         // this.determinaEdadPesoTalla();
+        let mesPeso = [
+            [1,1.5],
+            [2,2],
+            [3,3],
+            [4,4,2],
+            [5,]
+        ]
         const isBoy = this.sexo
         this.ref = this.dialogService.open(WeightChartComponent, {
             data: {

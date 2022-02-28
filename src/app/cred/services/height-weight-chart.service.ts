@@ -9,6 +9,11 @@ export class HeightWeightChartService {
     constructor(private http: HttpClient) {
     }
 
+    getDataWeight() {
+        return this.http
+            .get<any>('assets/data/girlsW2.json')
+    }
+
     getDataWeightBoy() {
         return this.http
             .get<any>('assets/data/boy_weight.json')
@@ -30,22 +35,22 @@ export class HeightWeightChartService {
             .get<any>('assets/data/girl_height.json')
     }
 
-    getDataHeightWeightGirl(){
+    getDataHeightWeightGirl() {
         return this.http
             .get<any>('assets/data/girl_height_weight.json')
     }
 
-    getDataHeightWeightBoy(){
+    getDataHeightWeightBoy() {
         return this.http
             .get<any>('assets/data/boy_height_weight.json')
     }
 
-    getDataCircumferenceBoy(){
+    getDataCircumferenceBoy() {
         return this.http
             .get<any>('assets/data/circumference_boys.json')
     }
 
-    getDataCircumferenceGirl(){
+    getDataCircumferenceGirl() {
         return this.http
             .get<any>('assets/data/circumference_girls.json')
     }
