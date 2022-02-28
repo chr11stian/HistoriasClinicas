@@ -140,13 +140,22 @@ input[type="number"] {
 .cell_container {
   width: 100%;
   height: 100%;
+  text-align: center;
 }
 .nroResult {
   /* color:blue; */
-  background: #2b8be5;
-  font-size: 1.3rem;
+  /* text-align: center; */
+  background: #ce181e;
+  font-size: 1.1rem;
   border: 0.5px solid;
   font-weight: bold;
-  /* border-radius: 50% ;
-  width: 50%; */
+  border-radius: 50%;
+  width: 50%;
+  color: #fff;
+}
+
+::ng-deep .save .p-button {
+  background: #0c3866;
+  border-color: #0c3866;
+  align-items: center;
 }

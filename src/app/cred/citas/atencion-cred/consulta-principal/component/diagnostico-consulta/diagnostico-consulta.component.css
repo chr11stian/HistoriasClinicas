@@ -10,7 +10,7 @@ p-calendar >>> .p-button {
 }
 .rojo{
     font-weight: 700;
-    color: red;
+    color: #bf0d21;
 }
 :host ::ng-deep .rojofondo {
     background-color: #fcbfba !important;

@@ -63,7 +63,7 @@ export class TestPeruanoComponent implements OnInit {
     )
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     // this.encontrarDiagnostico();
-    // this.recuperarEdadNinio();
+    this.recuperarEdadNinio();
     this.showDialogEdad('top');
     if(isNaN(this.edadMeses)){
       this.showMessageErrorEdadNaN();
