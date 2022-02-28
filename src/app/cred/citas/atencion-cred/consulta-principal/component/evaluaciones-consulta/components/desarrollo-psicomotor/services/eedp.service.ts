@@ -35,6 +35,6 @@ export class EedpService {
       .toPromise()
       .then(res => <any>res.object)
       .then(data => { return data; })
-      .catch(error => { return error });
+      .catch(error => { return error.error });
   }
 }
