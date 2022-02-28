@@ -12,6 +12,7 @@ import { IpressAmbientesComponent } from './ipress-ambientes/ipress-ambientes.co
 import { IpressRolesComponent } from './ipress-roles/ipress-roles.component';
 import { TabViewComponent } from "./admision/tab-view/tab-view.component";
 import { IpressHorariosComponent } from './ipress-horarios/ipress-horarios.component';
+import { IpressTarifarioComponent } from './ipress-tarifario/ipress-tarifario.component';
 
 const routes: Routes = [
     {
@@ -68,6 +69,10 @@ const routes: Routes = [
     {
         path: "ipress-horarios",
         component: IpressHorariosComponent
+    },
+    {
+        path: "ipress-tarifario",
+        component: IpressTarifarioComponent
     },
 
 ];

@@ -1,6 +1,8 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {PagosComponent} from "./pagos/pagos.component";
+import { AbrirCajaComponent } from './abrir-caja/abrir-caja.component';
+import { PagosComponent } from './pagos/pagos.component';
+import { TabsCajaComponent } from './tabs-caja/tabs-caja.component';
 
 const routes: Routes = [
     {
@@ -11,6 +13,14 @@ const routes: Routes = [
     {
         path: 'dashboard',
         // component: DashboardComponent
+    },
+    {
+        path: "abrir-caja",
+        component: AbrirCajaComponent
+    },
+    {
+        path: "menu-caja",
+        component: TabsCajaComponent
     },
     {
         path: "pagos",

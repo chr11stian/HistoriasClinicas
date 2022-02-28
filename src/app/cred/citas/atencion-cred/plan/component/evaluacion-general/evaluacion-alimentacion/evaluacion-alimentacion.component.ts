@@ -29,7 +29,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
     constructor(private evalAlimenService: EvalAlimenService,
                 private messageService: MessageService) {
-        this.listaTitulosPreguntas=[{codigo:'FECHA',titulo:'Fecha'},
+        this.listaTitulosPreguntas=[{codigo:'FECHA',titulo:'FECHA'},
             {codigo:'PREG_1',titulo:'1. ¿El niño(a) esta recibiendo lactancia materna? (explorar)'},
             {codigo:'PREG_2',titulo:'2. ¿La tecnica de LM es adecuada? (explorar y observar)'},
             {codigo:'PREG_3',titulo:'3. ¿La frecuencia de LM es adecuada? (explorar y observar)'},

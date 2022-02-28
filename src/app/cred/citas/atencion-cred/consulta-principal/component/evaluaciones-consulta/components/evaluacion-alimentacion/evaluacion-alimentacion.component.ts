@@ -5,6 +5,7 @@ import {EvaluacionAlimentacionService} from "../../services/evaluacion-alimentac
 import Swal from "sweetalert2";
 import {dato} from "../../../../../../models/data";
 import {MessageService} from "primeng/api";
+import {catchError} from "rxjs/operators";
 
 @Component({
   selector: 'app-evaluacion-alimentacion',
@@ -27,7 +28,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
 
   constructor(private evalAlimenService: EvaluacionAlimentacionService,
               private messageService: MessageService) {
-    this.listaTitulosPreguntas=[{codigo:'FECHA',titulo:'Fecha'},
+    this.listaTitulosPreguntas=[{codigo:'FECHA',titulo:'FECHA'},
       {codigo:'PREG_1',titulo:'1. ¿El niño(a) esta recibiendo lactancia materna? (explorar)'},
       {codigo:'PREG_2',titulo:'2. ¿La tecnica de LM es adecuada? (explorar y observar)'},
       {codigo:'PREG_3',titulo:'3. ¿La frecuencia de LM es adecuada? (explorar y observar)'},
@@ -393,7 +394,6 @@ export class EvaluacionAlimentacionComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        try{
           this.evalAlimenService.addEvaluacionAlimenticiaCred(this.data.idConsulta,cadena).subscribe((res: any) => {
             console.log('se guardo correctamente ', res.object);
             Swal.fire({
@@ -404,18 +404,17 @@ export class EvaluacionAlimentacionComponent implements OnInit {
               timer: 2000,
             })
             this.mostrarMensajeDiagnostico(dx);
-          },);
-          Swal.fire('Guardado!', '', 'success')
-        }
-        catch(e){
-          Swal.fire({
-            icon: 'error',
-            title: 'Evaluacion Alimenticia',
-            text: '¡¡Error, ya existe un registro en esta edad. No puede ingresar otro!!' + e.message,
-            showConfirmButton: false,
-            timer: 2000,
-          })
-        }
+            Swal.fire('Guardado!', '', 'success')
+          },error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Evaluacion Alimenticia',
+              text: '¡¡Error, ya existe un registro en esta edad en alguna consulta actual o previa. No puede ingresar otro!!',
+              showConfirmButton: false,
+              timer: 2000,
+            })
+          });
+
       } else if (result.isDenied) {
         Swal.fire('No se guardo este registro', '', 'info')
       }

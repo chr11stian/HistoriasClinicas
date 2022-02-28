@@ -25,7 +25,8 @@ export class TamizajesComponent implements OnInit {
   tamizajesActualizar:tamizajeActualizar;
   estadoEditar:boolean=false;
   estadoAgregar:boolean=false;
-  eleccion: string='NO';
+  eleccion: string='no';
+  eleccion2: string='no';
   constructor(private formBuilder: FormBuilder,
               private evalAlimenService: EvaluacionAlimentacionService) {
     this.builForm();
@@ -128,19 +129,19 @@ export class TamizajesComponent implements OnInit {
     });
     this.formTamizajeVIF=this.formBuilder.group({
     /***otras preguntas***/
-    hayViolencia: new FormControl('no'),
-        alguienInsulta:new FormControl('no'),
-        alguienGolpea:new FormControl('no'),
-        alguienChantajea:new FormControl('no'),
+        hayViolencia: new FormControl(''),
+        alguienInsulta:new FormControl(''),
+        alguienGolpea:new FormControl(''),
+        alguienChantajea:new FormControl(''),
         obligaRS:new FormControl('no'),
         quienObligaRS:new FormControl(''),
-        hijoFacil:new FormControl('dificil'),
-        pierdeControl: new FormControl('no'),
+        hijoFacil:new FormControl(''),
+        pierdeControl: new FormControl(''),
         pega: new FormControl('no'),
         grita: new FormControl('no'),
         encierra: new FormControl('no'),
         empuja: new FormControl('no'),
-        esDesobediente:new FormControl('no'),
+        esDesobediente:new FormControl(''),
         /******fisico*****/
         tieneHematomas: new FormControl('no'),
         tieneCicatrices: new FormControl('no'),
