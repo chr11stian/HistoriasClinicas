@@ -109,7 +109,7 @@ export class CitasComponent implements OnInit {
     /**Lista de Cupos y citas sin importar el estado reservados por servicio **/
     getCuposXservicio() {
         let data = {
-            servicio: 'OBSTETRICIA',
+            servicio: 'ATENCION INTEGRAL DEL NINO',
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         console.log('DATA ', data);

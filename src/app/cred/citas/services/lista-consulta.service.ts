@@ -41,6 +41,5 @@ export class ListaConsultaService {
     getDatosGenerales(idConsulta){
         const url = `${this.base_url}/hce/cred/consulta/datos/generales/${idConsulta}`
         return this.http.get(url)
-
     }
 }

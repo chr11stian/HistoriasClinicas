@@ -28,6 +28,8 @@ export class TestPeruano {
     getTestPeruanoPlan(nroDoc){
         return this.http.get(`${this.base_url}/${this.bd}/cred/evaluacion/desarrollo/0/30/meses/listar/${nroDoc}`);
     }
-
+    getUltimoTestPeruanoPorEdad(edad,nroDoc){
+        return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/testperuano/esultimo/${edad}/${nroDoc}`);
+    }
 
 }

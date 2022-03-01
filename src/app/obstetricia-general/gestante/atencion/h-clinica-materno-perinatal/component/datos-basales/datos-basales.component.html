@@ -1,6 +1,6 @@
 <p-toolbar>
     <ng-template pTemplate="left">
-        <h3 class="mt-2">DATOS BASALES DEL EMBARAZO ACTUAL</h3>
+        <h3 class="mr-2">DATOS BASALES DEL EMBARAZO ACTUAL</h3>
     </ng-template>
     <ng-template pTemplate="right" class="button">
         <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
@@ -9,287 +9,314 @@
     </ng-template>
 </p-toolbar>
 <br>
-<div class="p-card">
+
+
+<div>
     <form [formGroup]='form'>
-        <div class="grid">
-            <div class="col-2">
-                <p-fieldset legend="Peso y Talla">
-                    <div class="grid">
-                        <div class="col-5 text-right">
-                            <label class="text-sm">Talla: </label>
+        <div class="grid m-2">
+            <div class="col-12 md:col-6 lg:col-2" style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Peso y Talla</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border" style="height: 168px">
+                    <div class="col m-2">
+                        <div class="grid">
+                            <div class="col-5 text-right">
+                                <label class="text-sm">Talla: </label>
+                            </div>
+                            <div class="col-5">
+                                <input type="number" pInputText formControlName='talla' placeholder=""
+                                       class="inputfield w-full p-inputtext-sm">
+                            </div>
+                            <div class="col-2">
+                                <span class="text-sm font-italic">cm</span>
+                            </div>
                         </div>
-                        <div class="col-5">
-                            <input type="number" pInputText formControlName='talla' placeholder=""
-                                class="inputfield w-full p-inputtext-sm">
+                        <div class="grid">
+                            <div class="col-5 text-right">
+                                <label class="text-sm">Peso Actual: </label>
+                            </div>
+                            <div class="col-5">
+                                <input type="number" pInputText formControlName='pesoActual' placeholder=""
+                                       class="inputfield w-full p-inputtext-sm">
+                            </div>
+                            <div class="col-1 text-sm font-italic">Kg</div>
                         </div>
-                        <div class="col-2">
-                            <span class="text-sm font-italic">cm</span>
+                        <div class="grid">
+                            <div class="col-5 text-right">
+                                <label class="text-sm">Peso Habitual: </label>
+                            </div>
+                            <div class="col-5">
+                                <input type="number" pInputText formControlName='pesoHabitual' placeholder=""
+                                       class="inputfield w-full p-inputtext-sm">
+                            </div>
+                            <div class="col-1 text-sm font-italic">Kg</div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-5 text-right">
+                                <label class="text-sm">IMC: </label>
+                            </div>
+                            <div class="col-5">
+                                <input type="number" pInputText formControlName='imc' placeholder=""
+                                       class="inputfield w-full p-inputtext-sm">
+                            </div>
                         </div>
                     </div>
-                    <div class="grid">
-                        <div class="col-5 text-right">
-                            <label class="text-sm">Peso Actual: </label>
-                        </div>
-                        <div class="col-5">
-                            <input type="number" pInputText formControlName='pesoActual' placeholder=""
-                                class="inputfield w-full p-inputtext-sm">
-                        </div>
-                        <div class="col-1 text-sm font-italic">Kg</div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-5 text-right">
-                            <label class="text-sm">Peso Habitual: </label>
-                        </div>
-                        <div class="col-5">
-                            <input type="number" pInputText formControlName='pesoHabitual' placeholder=""
-                                class="inputfield w-full p-inputtext-sm">
-                        </div>
-                        <div class="col-1 text-sm font-italic">Kg</div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-5 text-right">
-                            <label class="text-sm">IMC: </label>
-                        </div>
-                        <div class="col-5">
-                            <input type="number" pInputText formControlName='imc' placeholder=""
-                                class="inputfield w-full p-inputtext-sm">
-                        </div>
-                    </div>
-                </p-fieldset>
+                </div>
             </div>
-            <div class="col-6">
-                <p-fieldset legend="Antitetánica">
-                    <div class="grid">
-                        <div class="col-2 flex flex-column mt-4">
-                            <label class="text-sm">N° Dosis Previas: </label>
-                            <div class="col-8">
-                                <input type="number" pInputText formControlName='nroDosisPrevias' placeholder=""
-                                    class="inputfield w-full">
+            <div class="col-12 md:col-6 lg:col-5 " style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Antitetánica</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border" style="height: 168px">
+                    <div class="col m-2">
+                        <div class="grid">
+                            <div class="col-2 flex flex-column mt-4">
+                                <label class="text-sm">N° Dosis Previas: </label>
+                                <div class="col-8">
+                                    <input type="number" pInputText formControlName='nroDosisPrevias' placeholder=""
+                                           class="inputfield w-full">
+                                </div>
+                            </div>
+                            <div class="col-5 flex flex-column">
+                                <label>Dosis</label>
+                                <div class="p-field grid">
+                                    <div class="col-3">
+                                        <label>1ra: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <!-- <p-calendar formControlName="primeraDosis">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='primeraDosis' placeholder=""
+                                               class="inputfield w-full text-sm">
+                                    </div>
+                                </div>
+                                <div class="p-field grid">
+                                    <div class="col-3">
+                                        <label>2da: </label>
+                                    </div>
+                                    <div class="col-9">
+                                        <!-- <p-calendar formControlName="segundaDosis">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='segundaDosis' placeholder=""
+                                               class="inputfield w-full text-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2 flex flex-column ">
+                                <!-- <label>Sin</label> -->
+                                <span class="text-xs">Sin Dosis</span>
+                                <p-radioButton name="firstDosis" formControlName="firstDosis" value="0"
+                                               class="amarillo mb-4 mt-3"></p-radioButton>
+                                <p-radioButton name="secondDosis" formControlName="secondDosis" value="1"
+                                               class="amarillo mb-5">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-2 flex flex-column">
+                                <span class="text-xs">No Aplica</span>
+                                <p-radioButton name="firstDosis" formControlName="firstDosis" value="1"
+                                               inputId="city2"
+                                               class="default mb-4 mt-3"></p-radioButton>
+                                <p-radioButton name="secondDosis" formControlName="secondDosis" value="2"
+                                               inputId="city2"
+                                               class="default mb-5"></p-radioButton>
                             </div>
                         </div>
-                        <div class="col-5 flex flex-column">
-                            <label>Dosis</label>
-                            <div class="p-field grid">
-                                <div class="col-3">
-                                    <label>1ra: </label>
-                                </div>
-                                <div class="col-9">
-                                    <!-- <p-calendar formControlName="primeraDosis">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='primeraDosis' placeholder=""
-                                        class="inputfield w-full text-sm">
-                                </div>
+                        <div class="grid">
+                            <div class="col-5">
+
                             </div>
-                            <div class="p-field grid">
-                                <div class="col-3">
-                                    <label>2da: </label>
-                                </div>
-                                <div class="col-9">
-                                    <!-- <p-calendar formControlName="segundaDosis">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='segundaDosis' placeholder=""
-                                        class="inputfield w-full text-sm">
-                                </div>
-                            </div>
+                            <span class="text-xs">Mes de Gestación:</span>
                         </div>
-                        <div class="col-2 flex flex-column ">
-                            <!-- <label>Sin</label> -->
-                            <span class="text-xs">Sin Dosis</span>
-                            <p-radioButton name="firstDosis" formControlName="firstDosis" value="0"
-                                class="amarillo mb-4 mt-3"></p-radioButton>
-                            <p-radioButton name="secondDosis" formControlName="secondDosis" value="1"
-                                class="amarillo mb-5">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-5" style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Tipo de sangre</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border" style="height: 168px">
+                    <div class="col m-2">
+                        <div class="grid pt-5">
+                            <label>Grupo: </label>
+                            <span class="ml-2">A</span>
+                            <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="A"
+                                           class="default ml-2"></p-radioButton>
+                            <span class="ml-3">B </span>
+                            <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="B"
+                                           class="default ml-2"></p-radioButton>
+                            <span class="ml-3">AB </span>
+                            <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="AB"
+                                           class="default ml-2"></p-radioButton>
+                            <span class="ml-3">O </span>
+                            <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="O"
+                                           class="default ml-2"></p-radioButton>
+                        </div>
+                        <div class="grid pt-6 p-mb-4">
+                            <label>Rh: </label>
+                            <span class="ml-2 text-xs">Rh(+)</span>
+                            <p-radioButton name="rh" formControlName="rh" value="rh +" inputId="city2"
+                                           class="default ml-2">
+                            </p-radioButton>
+                            <div class="flex flex-column">
+                                <span class="ml-1 text-xs">Rh(-)Sen </span>
+                                <span class="ml-1 text-xs">Desc</span>
+                            </div>
+                            <p-radioButton name="rh" formControlName="rh" value="rh - sen desc" inputId="city2"
+                                           class="amarillo ml-2">
+                            </p-radioButton>
+                            <div class="flex flex-column">
+                                <span class="ml-1 text-xs">Rh(-)No</span>
+                                <span class="ml-1 text-xs">Sen</span>
+                            </div>
+                            <p-radioButton name="rh" formControlName="rh" value="rh - no sen" inputId="city2"
+                                           class="amarillo ml-2">
+                            </p-radioButton>
+                            <span class="ml-1 text-xs">Rh(-) Sen</span>
+                            <p-radioButton name="rh" formControlName="rh" value="rh - sen" inputId="city2"
+                                           class="rojo ml-2">
                             </p-radioButton>
                         </div>
-                        <div class="col-2 flex flex-column">
-                            <span class="text-xs">No Aplica</span>
-                            <p-radioButton name="firstDosis" formControlName="firstDosis" value="1" inputId="city2"
-                                class="default mb-4 mt-3"></p-radioButton>
-                            <p-radioButton name="secondDosis" formControlName="secondDosis" value="2" inputId="city2"
-                                class="default mb-5"></p-radioButton>
-                        </div>
                     </div>
-                    <div class="grid">
-                        <div class="col-5">
-
-                        </div>
-                        <span class="text-xs">Mes de Gestación:</span>
-                    </div>
-                </p-fieldset>
+                </div>
             </div>
-            <div class="col-4">
-                <p-fieldset legend="Tipo de Sangre">
-                    <div class="grid pt-5">
-                        <label>Grupo: </label>
-                        <span class="ml-2">A</span>
-                        <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="A"
-                            class="default ml-2"></p-radioButton>
-                        <span class="ml-3">B </span>
-                        <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="B"
-                            class="default ml-2"></p-radioButton>
-                        <span class="ml-3">AB </span>
-                        <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="AB"
-                            class="default ml-2"></p-radioButton>
-                        <span class="ml-3">O </span>
-                        <p-radioButton name="tipoSangreGrupo" formControlName="tipoSangreGrupo" value="O"
-                            class="default ml-2"></p-radioButton>
-                    </div>
-                    <div class="grid pt-6 p-mb-4">
-                        <label>Rh: </label>
-                        <span class="ml-2 text-xs">Rh(+)</span>
-                        <p-radioButton name="rh" formControlName="rh" value="rh +" inputId="city2" class="default ml-2">
-                        </p-radioButton>
-                        <div class="flex flex-column">
-                            <span class="ml-1 text-xs">Rh(-)Sen </span>
-                            <span class="ml-1 text-xs">Desc</span>
-                        </div>
-                        <p-radioButton name="rh" formControlName="rh" value="rh - sen desc" inputId="city2"
-                            class="amarillo ml-2">
-                        </p-radioButton>
-                        <div class="flex flex-column">
-                            <span class="ml-1 text-xs">Rh(-)No</span>
-                            <span class="ml-1 text-xs">Sen</span>
-                        </div>
-                        <p-radioButton name="rh" formControlName="rh" value="rh - no sen" inputId="city2"
-                            class="amarillo ml-2">
-                        </p-radioButton>
-                        <span class="ml-1 text-xs">Rh(-) Sen</span>
-                        <p-radioButton name="rh" formControlName="rh" value="rh - sen" inputId="city2"
-                            class="rojo ml-2">
-                        </p-radioButton>
-                    </div>
-                </p-fieldset>
-            </div>
-            <!-- <div class="col-2">
-                <p-fieldset legend="Fuma">
-                    <div class=" grid p-field flex flex-column">
-                        <label class="text-sm">N° Cigarrillos/Dia: </label>
-                        <input type="number" pInputText formControlName='cigarrillosDia' placeholder=""
-                            class="inputfield w-full">
-                    </div>
-                </p-fieldset>
-                <p-fieldset legend="Drogas" class="">
-                    <div class="p-field flex flex-column col-12">
-                        <p-selectButton class="selectBtn" [options]="sino" formControlName="drogas" optionValue="value"
-                            optionLabel="label"></p-selectButton>
-                    </div>
-                </p-fieldset>
-            </div> -->
         </div>
-        <div class="grid">
-            <div class="col-6">
-                <p-fieldset legend="Fecha Ultima Menstruación">
-                    <div class="grid">
-                        <div class="col-8">
-                            <label class="mr-1">FUM: </label>
-                            <!-- <p-calendar formControlName="dateFUM" [showIcon]="true" inputId="icon"></p-calendar> -->
-                            <input type="date" pInputText formControlName='dateFUM' placeholder=""
-                                class="inputfield w-full" (blur)="calcularIMC()">
+    </form>
+    <br>
+    <form [formGroup]='form'>
+        <div class="grid m-2">
+            <div class="col-12 md:col-6 lg:col-6" style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Fecha última menstruación</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border" style="height: 300px">
+                    <div class="col m-2">
+                        <div class="grid">
+                            <div class="col-8">
+                                <label class="mr-1">FUM: </label>
+                                <!-- <p-calendar formControlName="dateFUM" [showIcon]="true" inputId="icon"></p-calendar> -->
+                                <input type="date" pInputText formControlName='dateFUM' placeholder=""
+                                       class="inputfield w-full" (blur)="calcularIMC()">
+                            </div>
+                            <div class="col-4">
+                                <div class="grid">
+                                    <label class="ml-2 mr-1">Duda: </label>
+                                    <p-selectButton [options]="sino" formControlName="duda" optionValue="value"
+                                                    optionLabel="label"></p-selectButton>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <div class="grid">
-                                <label class="ml-2 mr-1">Duda: </label>
-                                <p-selectButton [options]="sino" formControlName="duda" optionValue="value"
-                                    optionLabel="label"></p-selectButton>
+                        <div class="grid mt-2">
+                            <div class="col-5">
+                                <label>Fecha Probable de Parto: </label>
+                            </div>
+                            <div class="col-7">
+                                <!-- <p-calendar formControlName="dateProbableParto" [showIcon]="true" inputId="icon"
+                                            class="ml-4 ">
+                                </p-calendar> -->
+                                <input type="date" pInputText formControlName='dateProbableParto' placeholder=""
+                                       class="inputfield w-full">
+                            </div>
+                        </div>
+                        <div class="grid mt-1">
+                            <div class="col-3">
+                                <label>1. EG(Ecografia)</label>
+                            </div>
+                            <div class="col-2">
+                                <input type="text" pInputText formControlName='ecografia1' placeholder=""
+                                       class="inputfield w-full">
+                            </div>
+                            <div class="col-1">
+                                <span>Sem</span>
+                            </div>
+                            <div class="col-1 text-right">
+                                <span>Fecha: </span>
+                            </div>
+                            <div class="col-4">
+                                <!-- <p-calendar formControlName="dateEco1" [showIcon]="true" inputId="icon"></p-calendar> -->
+                                <input type="date" pInputText formControlName='dateEco1' placeholder=""
+                                       class="inputfield w-full">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-3">
+                                <label>2. EG(Ecografia)</label>
+                            </div>
+                            <div class="col-2">
+                                <input type="text" pInputText formControlName='ecografia2' placeholder=""
+                                       class="inputfield w-full">
+                            </div>
+                            <div class="col-1">
+                                <span>Sem</span>
+                            </div>
+                            <div class="col-1 text-right">
+                                <span>Fecha: </span>
+                            </div>
+                            <div class="col-4">
+                                <!-- <p-calendar formControlName="dateEco2" [showIcon]="true" inputId="icon"></p-calendar> -->
+                                <input type="date" pInputText formControlName='dateEco2' placeholder=""
+                                       class="inputfield w-full">
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-3">
+                                <label>3. EG(Ecografia)</label>
+                            </div>
+                            <div class="col-2">
+                                <input type="text" pInputText formControlName='ecografia3' placeholder=""
+                                       class="inputfield w-full">
+                            </div>
+                            <div class="col-1">
+                                <span>Sem</span>
+                            </div>
+                            <div class="col-1 text-right">
+                                <span>Fecha: </span>
+                            </div>
+                            <div class="col-4">
+                                <!-- <p-calendar formControlName="dateEco3" [showIcon]="true" inputId="icon"></p-calendar> -->
+                                <input type="date" pInputText formControlName='dateEco3' placeholder=""
+                                       class="inputfield w-full">
+
                             </div>
                         </div>
                     </div>
-                    <div class="grid mt-2">
-                        <div class="col-5">
-                            <label>Fecha Probable de Parto: </label>
-                        </div>
-                        <div class="col-7">
-                            <!-- <p-calendar formControlName="dateProbableParto" [showIcon]="true" inputId="icon"
-                                        class="ml-4 ">
-                            </p-calendar> -->
-                            <input type="date" pInputText formControlName='dateProbableParto' placeholder=""
-                                class="inputfield w-full">
-                        </div>
-                    </div>
-                    <div class="grid mt-1">
-                        <div class="col-3">
-                            <label>1. EG(Ecografia)</label>
-                        </div>
-                        <div class="col-2">
-                            <input type="text" pInputText formControlName='ecografia1' placeholder=""
-                                class="inputfield w-full">
-                        </div>
-                        <div class="col-1">
-                            <span>Sem</span>
-                        </div>
-                        <div class="col-1 text-right">
-                            <span>Fecha: </span>
-                        </div>
-                        <div class="col-4">
-                            <!-- <p-calendar formControlName="dateEco1" [showIcon]="true" inputId="icon"></p-calendar> -->
-                            <input type="date" pInputText formControlName='dateEco1' placeholder=""
-                                class="inputfield w-full">
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-3">
-                            <label>2. EG(Ecografia)</label>
-                        </div>
-                        <div class="col-2">
-                            <input type="text" pInputText formControlName='ecografia2' placeholder=""
-                                class="inputfield w-full">
-                        </div>
-                        <div class="col-1">
-                            <span>Sem</span>
-                        </div>
-                        <div class="col-1 text-right">
-                            <span>Fecha: </span>
-                        </div>
-                        <div class="col-4">
-                            <!-- <p-calendar formControlName="dateEco2" [showIcon]="true" inputId="icon"></p-calendar> -->
-                            <input type="date" pInputText formControlName='dateEco2' placeholder=""
-                                class="inputfield w-full">
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-3">
-                            <label>3. EG(Ecografia)</label>
-                        </div>
-                        <div class="col-2">
-                            <input type="text" pInputText formControlName='ecografia3' placeholder=""
-                                class="inputfield w-full">
-                        </div>
-                        <div class="col-1">
-                            <span>Sem</span>
-                        </div>
-                        <div class="col-1 text-right">
-                            <span>Fecha: </span>
-                        </div>
-                        <div class="col-4">
-                            <!-- <p-calendar formControlName="dateEco3" [showIcon]="true" inputId="icon"></p-calendar> -->
-                            <input type="date" pInputText formControlName='dateEco3' placeholder=""
-                                class="inputfield w-full">
-
-                        </div>
-                    </div>
-                </p-fieldset>
+                </div>
             </div>
-            <div class="col-3">
-                <p-fieldset legend="Hospitalización">
-                    <div class="col-12">
+            <div class="col-12 md:col-6 lg:col-3" style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Hospitalización</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border" style="height: 300px">
+                    <div class="col m-2">
                         <div class="grid ">
                             <label class=" mr-1">Hospitalización: </label>
                             <p-selectButton [options]="sino" formControlName="hospitalizacion" optionValue="value"
-                                optionLabel="label"></p-selectButton>
+                                            optionLabel="label"></p-selectButton>
                         </div>
                         <div class="grid mt-3">
                             <label>Fecha: </label>
                             <input type="date" pInputText formControlName='dateHospitalizacion' placeholder=""
-                                class="inputfield w-full">
+                                   class="inputfield w-full">
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico: </label>
                             <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
-                                field="descripcionItem" [minLength]="1" class="areaText "
-                                formControlName="autocompleteHosp" (onSelect)="selectedOptionNameCIE($event,0)">
+                                            field="descripcionItem" [minLength]="1" class="areaText "
+                                            formControlName="autocompleteHosp"
+                                            (onSelect)="selectedOptionNameCIE($event,0)">
                             </p-autoComplete>
                             <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoHosp"
-                                pInputTextarea disabled></textarea>
+                                      pInputTextarea disabled></textarea>
                         </div>
                         <div class="grid mt-2 p-fluid">
                             <div class="col-4">
@@ -297,33 +324,42 @@
                             </div>
                             <div class="col-8 field">
                                 <p-autoComplete formControlName="hospitalizacionCIE" [suggestions]="listaDeCIE"
-                                    (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
-                                    (onSelect)="selectedOption($event,0)" class="" [forceSelection]="true"
-                                    dataKey="codigoItem">
+                                                (completeMethod)="filterCIE10($event)" field="codigoItem"
+                                                [minLength]="1"
+                                                (onSelect)="selectedOption($event,0)" class=""
+                                                [forceSelection]="true"
+                                                dataKey="codigoItem">
                                 </p-autoComplete>
                             </div>
                         </div>
                     </div>
-                </p-fieldset>
+                </div>
             </div>
-            <div class="col-3">
-                <p-fieldset legend="Emergencia">
-                    <div class="col-12">
+            <div class="col-12 md:col-6 lg:col-3" style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Emergencia</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border" style="height: 300px">
+                    <div class="col m-2">
                         <div class="grid">
                             <label>Fecha: </label>
                             <!-- <p-calendar formControlName="dateEmergencia" [showIcon]="true" inputId="icon"
                                 class="inputfield w-full"></p-calendar> -->
                             <input type="date" pInputText formControlName='dateEmergencia' placeholder=""
-                                class="inputfield w-full">
+                                   class="inputfield w-full">
                         </div>
                         <div class="grid flex flex-column mt-2">
                             <label>Diagnóstico</label>
                             <p-autoComplete formControlName="autocompleteEmerg" [suggestions]="listaDeCIE"
-                                (completeMethod)="filterCIE10($event)" field="descripcionItem" [minLength]="1"
-                                class="areaText" (onSelect)="selectedOptionNameCIE($event,1)">
+                                            (completeMethod)="filterCIE10($event)" field="descripcionItem"
+                                            [minLength]="1"
+                                            class="areaText" (onSelect)="selectedOptionNameCIE($event,1)">
                             </p-autoComplete>
-                            <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoEmergenci"
-                                pInputTextarea disabled></textarea>
+                            <textarea [rows]="3" class="inputfield w-full mt-2"
+                                      formControlName="diagnosticoEmergenci"
+                                      pInputTextarea disabled></textarea>
                         </div>
                         <div class="grid mt-2 p-fluid">
                             <div class="col-4">
@@ -331,1116 +367,1202 @@
                             </div>
                             <div class="col-8">
                                 <p-autoComplete formControlName="emergenciaCIE" [suggestions]="listaDeCIE"
-                                    (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
-                                    (onSelect)="selectedOption($event,1)" class="" [forceSelection]="true"
-                                    dataKey="codigoItem">
+                                                (completeMethod)="filterCIE10($event)" field="codigoItem"
+                                                [minLength]="1"
+                                                (onSelect)="selectedOption($event,1)" class=""
+                                                [forceSelection]="true"
+                                                dataKey="codigoItem">
                                 </p-autoComplete>
                             </div>
                         </div>
                     </div>
-                </p-fieldset>
+                </div>
             </div>
         </div>
-        <div class="grid">
-            <div class="col-3">
-                <p-fieldset legend="Vac. Previas">
-                    <div class="grid">
-                        <div class="col-6 text-right">
-                            <label class=" mr-1 ">Rubeola: </label>
+    </form>
+    <br>
+    <form [formGroup]='form'>
+        <div class="grid m-2">
+            <div class="col-12 md:col-4 md:col-6 lg:col-3" style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Vacunas Previas</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border" style="height: 220px">
+                    <div class="col m-2">
+                        <div class="grid">
+                            <div class="col-6 text-right">
+                                <label class=" mr-1 ">Rubeola: </label>
+                            </div>
+                            <div class="col-6">
+                                <p-selectButton [options]="sino" formControlName="rubeola" optionValue="value"
+                                                optionLabel="label"
+                                                class="inputfield w-full p-inputtext-sm"></p-selectButton>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="rubeola" optionValue="value"
-                                optionLabel="label"></p-selectButton>
+                        <div class="grid">
+                            <div class="col-6 text-right">
+                                <label class=" mr-1 ">Hepatitis B: </label>
+                            </div>
+                            <div class="col-6">
+                                <p-selectButton [options]="sino" formControlName="hepatitisB" optionValue="value"
+                                                optionLabel="label"
+                                                class="inputfield w-full p-inputtext-sm"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-6 text-right">
+                                <label class=" mr-1 ">Papiloma Virus: </label>
+                            </div>
+                            <div class="col-6">
+                                <p-selectButton [options]="sino" formControlName="papiloma" optionValue="value"
+                                                optionLabel="label"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-6 text-right">
+                                <label class=" mr-1 ">Influenza: </label>
+                            </div>
+                            <div class="col-6">
+                                <p-selectButton [options]="sino" formControlName="influenza" optionValue="value"
+                                                optionLabel="label"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-6 text-right">
+                                <label class=" mr-1 ">Covid 19: </label>
+                            </div>
+                            <div class="col-6">
+                                <p-selectButton [options]="sino" formControlName="covid" optionValue="value"
+                                                optionLabel="label"></p-selectButton>
+                            </div>
                         </div>
                     </div>
-                    <div class="grid">
-                        <div class="col-6 text-right">
-                            <label class=" mr-1 ">Hepatitis B: </label>
-                        </div>
-                        <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="hepatitisB" optionValue="value"
-                                optionLabel="label"></p-selectButton>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-6 text-right">
-                            <label class=" mr-1 ">Papiloma Virus: </label>
-                        </div>
-                        <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="papiloma" optionValue="value"
-                                optionLabel="label"></p-selectButton>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-6 text-right">
-                            <label class=" mr-1 ">Influenza: </label>
-                        </div>
-                        <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="influenza" optionValue="value"
-                                optionLabel="label"></p-selectButton>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-6 text-right">
-                            <label class=" mr-1 ">Covid 19: </label>
-                        </div>
-                        <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="covid" optionValue="value"
-                                optionLabel="label"></p-selectButton>
-                        </div>
-                    </div>
-                </p-fieldset>
+                </div>
             </div>
-            <div class="col-3">
-                <p-fieldset legend="Violencia/Género">
-                    <div class="grid">
-                        <div class="col-6 text-right">
-                            <label class=" mr-1 ">Ficha Tamizaje: </label>
+            <div class="col-12 md:col-4 md:col-6 lg:col-3" style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Violencia / Género</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border" style="height: 220px">
+                    <div class="col m-2">
+                        <div class="grid">
+                            <div class="col-6 text-right">
+                                <label class=" mr-1 ">Ficha Tamizaje: </label>
+                            </div>
+                            <div class="col-6">
+                                <p-selectButton [options]="sino" formControlName="tamizaje" optionValue="value"
+                                                optionLabel="label"></p-selectButton>
+                            </div>
                         </div>
-                        <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="tamizaje" optionValue="value"
-                                optionLabel="label"></p-selectButton>
+                        <div class="grid">
+                            <div class="col-6 text-right">
+                                <label class=" mr-1 ">Violencia: </label>
+                            </div>
+                            <div class="col-6">
+                                <p-selectButton [options]="sino" formControlName="violencia" optionValue="value"
+                                                optionLabel="label"></p-selectButton>
+                            </div>
+                        </div>
+                        <div class="grid mt-2">
+                            <label>Fecha: </label>
+                            <!-- <p-calendar formControlName="dateViolencia" [showIcon]="true" inputId="icon"></p-calendar> -->
+                            <input type="date" pInputText formControlName='dateViolencia' placeholder=""
+                                   class="inputfield w-full">
                         </div>
                     </div>
-                    <div class="grid">
-                        <div class="col-6 text-right">
-                            <label class=" mr-1 ">Violencia: </label>
-                        </div>
-                        <div class="col-6">
-                            <p-selectButton [options]="sino" formControlName="violencia" optionValue="value"
-                                optionLabel="label"></p-selectButton>
-                        </div>
-                    </div>
-                    <div class="grid mt-2">
-                        <label>Fecha: </label>
-                        <!-- <p-calendar formControlName="dateViolencia" [showIcon]="true" inputId="icon"></p-calendar> -->
-                        <input type="date" pInputText formControlName='dateViolencia' placeholder=""
-                            class="inputfield w-full">
-                    </div>
-                </p-fieldset>
+                </div>
             </div>
-            <div class="col-4">
-                <p-fieldset legend="Examen Físico">
-                    <div class="grid text-center">
-                        <div class="col-3">
-                            <label></label>
+            <div class="col-12 md:col-4 md:col-6 lg:col-4" style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Examen Físico</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border" style="height: 220px">
+                    <div class="col m-2">
+                        <div class="grid text-center">
+                            <div class="col-3">
+                                <label></label>
+                            </div>
+                            <div class="col-3 text-center">
+                                <span class="text-xs">Sin Examen</span>
+                            </div>
+                            <div class="col-3 text-center">
+                                <span class="text-xs">Normal</span>
+                            </div>
+                            <div class="col-3 text-center">
+                                <span class="text-xs">Patológico</span>
+                            </div>
                         </div>
-                        <div class="col-3">
-                            <span class="text-xs">Sin Examen</span>
+                        <div class="grid">
+                            <div class="col-3 text-right">
+                                <label>Clínico: </label>
+                            </div>
+                            <div class="col-3 text-center">
+                                <!--                                <p- name="clinico" formControlName="clinico" value="sin examen" class="amarillo"></p->-->
+                                <p-radioButton name="clinico" formControlName="clinico" value="sin examen"
+                                               class="amarillo">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="clinico" formControlName="clinico" value="normal" class="default">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="clinico" formControlName="clinico" value="patologico"
+                                               class="amarillo">
+                                </p-radioButton>
+                            </div>
                         </div>
-                        <div class="col-3">
-                            <span class="text-xs">Normal</span>
+                        <div class="grid">
+                            <div class="col-3 text-center">
+                                <label>Mamas: </label>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="mamas" formControlName="mamas" value="sin examen" class="amarillo">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="mamas" formControlName="mamas" value="normal" class="default">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="mamas" formControlName="mamas" value="patologico" class="amarillo">
+                                </p-radioButton>
+                            </div>
                         </div>
-                        <div class="col-3">
-                            <span class="text-xs">Patológico</span>
+                        <div class="grid">
+                            <div class="col-3 text-center">
+                                <label>Cuello Uterino: </label>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="sin examen"
+                                               class="amarillo"></p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="normal"
+                                               class="default"></p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="patologico"
+                                               class="amarillo"></p-radioButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-3 text-center">
+                                <label>Pelvis: </label>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="pelvis" formControlName="pelvis" value="sin examen"
+                                               class="amarillo">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="pelvis" formControlName="pelvis" value="normal" class="default">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="pelvis" formControlName="pelvis" value="patologico"
+                                               class="amarillo">
+                                </p-radioButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-3 text-center">
+                                <label>Odont(1): </label>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="odont1" formControlName="odont1" value="sin examen"
+                                               class="amarillo">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="odont1" formControlName="odont1" value="normal" class="default">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="odont1" formControlName="odont1" value="patologico"
+                                               class="amarillo">
+                                </p-radioButton>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-3 text-center">
+                                <label>Odont(2): </label>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="odont2" formControlName="odont2" value="sin examen"
+                                               class="amarillo">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="odont2" formControlName="odont2" value="normal" class="default">
+                                </p-radioButton>
+                            </div>
+                            <div class="col-3 text-center">
+                                <p-radioButton name="odont2" formControlName="odont2" value="patologico"
+                                               class="amarillo">
+                                </p-radioButton>
+                            </div>
                         </div>
                     </div>
-                    <div class="grid">
-                        <div class="col-3">
-                            <label>Clínico: </label>
-                        </div>
-                        <div class="col-3">
-                            <p- name="clinico" formControlName="clinico" value="sin examen" class="amarillo">
-                            </p->
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="clinico" formControlName="clinico" value="normal" class="default">
-                            </p-radioButton>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="clinico" formControlName="clinico" value="patologico" class="amarillo">
-                            </p-radioButton>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-3">
-                            <label>Mamas: </label>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="mamas" formControlName="mamas" value="sin examen" class="amarillo">
-                            </p-radioButton>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="mamas" formControlName="mamas" value="normal" class="default">
-                            </p-radioButton>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="mamas" formControlName="mamas" value="patologico" class="amarillo">
-                            </p-radioButton>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-3">
-                            <label>Cuello Uterino: </label>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="sin examen"
-                                class="amarillo"></p-radioButton>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="normal"
-                                class="default"></p-radioButton>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="cuelloUter" formControlName="cuelloUter" value="patologico"
-                                class="amarillo"></p-radioButton>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-3">
-                            <label>Pelvis: </label>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="pelvis" formControlName="pelvis" value="sin examen" class="amarillo">
-                            </p-radioButton>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="pelvis" formControlName="pelvis" value="normal" class="default">
-                            </p-radioButton>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="pelvis" formControlName="pelvis" value="patologico" class="amarillo">
-                            </p-radioButton>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-3">
-                            <label>Odont(1): </label>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="odont1" formControlName="odont1" value="sin examen" class="amarillo">
-                            </p-radioButton>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="odont1" formControlName="odont1" value="normal" class="default">
-                            </p-radioButton>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="odont1" formControlName="odont1" value="patologico" class="amarillo">
-                            </p-radioButton>
-                        </div>
-                    </div>
-                    <div class="grid">
-                        <div class="col-3">
-                            <label>Odont(2): </label>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="odont2" formControlName="odont2" value="sin examen" class="amarillo">
-                            </p-radioButton>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="odont2" formControlName="odont2" value="normal" class="default">
-                            </p-radioButton>
-                        </div>
-                        <div class="col-3">
-                            <p-radioButton name="odont2" formControlName="odont2" value="patologico" class="amarillo">
-                            </p-radioButton>
-                        </div>
-                    </div>
-                </p-fieldset>
+                </div>
             </div>
             <!-- CAMPO DE FUMAR Y DROGAS -->
-            <div class="col-2">
-                <p-fieldset legend="Fuma">
-                    <div class=" grid p-field flex flex-column">
+            <div class="col-12 md:col-4 md:col-6 lg:col-2" style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Fuma</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border" style="height: 85px">
+                    <div class="m-2 grid p-field flex flex-column">
                         <label class="text-sm">N° Cigarrillos/Dia: </label>
                         <input type="number" pInputText formControlName='cigarrillosDia' placeholder=""
-                            class="inputfield w-full">
+                               class="inputfield w-full">
                     </div>
-                </p-fieldset>
-                <p-fieldset legend="Drogas" class="">
-                    <div class="p-field flex flex-column col-12">
-                        <p-selectButton class="selectBtn" [options]="sino" formControlName="drogas" optionValue="value"
-                            optionLabel="label"></p-selectButton>
+                </div>
+                <br>
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Drogas</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border" style="height: 85px">
+                    <div class="m-2 p-field flex flex-column col-12">
+                        <p-selectButton class="selectBtn" [options]="sino" formControlName="drogas"
+                                        optionValue="value"
+                                        optionLabel="label"></p-selectButton>
                     </div>
-                </p-fieldset>
+                </div>
             </div>
             <!-- FIN CAMPO DE FUMAR Y DROGAS -->
         </div>
-        <div class="grid">
-            <div class="col-12">
-                <p-fieldset legend="Examen de Laboratorio">
-                    <div class="grid">
-                        <div class="col-6">
-                            <div class="grid">
-                                <div class="col-3"></div>
-                                <div class="col-2 text-center">
-                                    <label class="text-xs">Hg(%)</label>
-                                </div>
-                                <div class="col-2 text-center">
-                                    <label class="text-xs">Con factor </label>
-                                    <label class="text-xs">de correción</label>
-                                </div>
-                            </div>
-                            <div class="grid">
+    </form>
+    <br>
 
-                                <div class="col-3">
-                                    <div class="grid">
+    <form [formGroup]='form'>
+        <div class="grid m-2">
+            <div class="col-12 md:col-12 md:col-6 lg:col-12" style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Exámenes de Laboratorio</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border">
+                    <div class="grid m-2">
+                        <div class="col-12 md:col-12 md:col-6 lg:col-6" style="align-self: start">
+                            <div class="border">
+                                <div class="grid m-2">
+                                    <div class="col-3"></div>
+                                    <div class="col-2 text-center">
+                                        <label class="text-xs">Hg(%)</label>
+                                    </div>
+                                    <div class="col-2 text-center">
+                                        <label class="text-xs">Con factor </label>
+                                        <label class="text-xs">de correción</label>
+                                    </div>
+                                </div>
+                                <div class="grid m-2">
+                                    <div class="col-3 text-right">
                                         <span class="text-sm">Hemoglobina 1:</span>
                                     </div>
+                                    <div class="col-2">
+                                        <input type="text" pInputText formControlName='hg1' placeholder=""
+                                               class="inputfield w-full p-inputtext-sm">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" pInputText formControlName='conFactor1' placeholder=""
+                                               class="inputfield w-full p-inputtext-sm">
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="date" pInputText formControlName='hemo1' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-2">
-                                    <input type="text" pInputText formControlName='hg1' placeholder=""
-                                        class="inputfield w-full p-inputtext-sm">
-                                </div>
-                                <div class="col-2">
-                                    <input type="text" pInputText formControlName='conFactor1' placeholder=""
-                                        class="inputfield w-full p-inputtext-sm">
-                                </div>
-                                <div class="col-5">
-                                    <!-- <p-calendar formControlName="hemo1" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='hemo1' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3">
-                                    <div class="grid">
+                                <div class="grid m-2">
+                                    <div class="col-3 text-right">
                                         <span class="text-sm">Hemoglobina 2:</span>
                                     </div>
-                                </div>
-                                <div class="col-2">
-                                    <input type="text" pInputText formControlName='hg2' placeholder=""
-                                        class="inputfield w-full p-inputtext-sm">
-                                </div>
-                                <div class="col-2">
-                                    <input type="text" pInputText formControlName='conFactor2' placeholder=""
-                                        class="inputfield w-full p-inputtext-sm">
-                                </div>
-                                <div class="col-5">
-                                    <!-- <p-calendar formControlName="hemo2" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='hemo2' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3">
-                                    <div class="grid">
-                                        <span class="text-sm">Hemoglobina 3:</span>
+                                    <div class="col-2">
+                                        <input type="text" pInputText formControlName='hg2' placeholder=""
+                                               class="inputfield w-full p-inputtext-sm">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" pInputText formControlName='conFactor2' placeholder=""
+                                               class="inputfield w-full p-inputtext-sm">
+                                    </div>
+                                    <div class="col-4">
+                                        <!-- <p-calendar formControlName="hemo2" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='hemo2' placeholder=""
+                                               class="inputfield w-full">
                                     </div>
                                 </div>
-                                <div class="col-2">
-                                    <input type="text" pInputText formControlName='hg3' placeholder=""
-                                        class="inputfield w-full p-inputtext-sm">
+                                <div class="grid m-2">
+                                    <div class="col-3 text-right">
+                                        <span class="text-sm">Hemoglobina 3:</span>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" pInputText formControlName='hg3' placeholder=""
+                                               class="inputfield w-full p-inputtext-sm">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" pInputText formControlName='conFactor3' placeholder=""
+                                               class="inputfield w-full p-inputtext-sm">
+                                    </div>
+                                    <div class="col-4">
+                                        <!-- <p-calendar formControlName="hemo3" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='hemo3' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-2">
-                                    <input type="text" pInputText formControlName='conFactor3' placeholder=""
-                                        class="inputfield w-full p-inputtext-sm">
-                                </div>
-                                <div class="col-5">
-                                    <!-- <p-calendar formControlName="hemo3" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='hemo3' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-12 text-right ">
-                                    <button pButton pRipple label="Agregar Hemoglobina" icon="pi pi-plus"
-                                        class=" bg-blue-700 mr-2" (click)="openDialogHemoglobina()"></button>
-                                </div>
-                                <!-- <div class="col-2">
-                                    <input type="text" pInputText formControlName='hg4' placeholder=""
-                                        class="inputfield w-full p-inputtext-sm">
-                                </div>
-                                <div class="col-2">
-                                    <input type="text" pInputText formControlName='conFactor4' placeholder=""
-                                        class="inputfield w-full p-inputtext-sm">
-                                </div>
-                                <div class="col-5">
-                                    <p-calendar formControlName="hemo4" [showIcon]="true" inputId="icon">
-                                    </p-calendar>
-                                    <input type="date" pInputText formControlName='hemo4' placeholder=""
-                                        class="inputfield w-full">
-                                </div> -->
-                            </div>
-                            <div class="grid text-center">
-                                <div class="col-3"></div>
-                                <div class="col-1">
-                                    <span class="texto">No Reactivo</span>
-                                </div>
-                                <div class="col-1">
-                                    <span class="texto">Reactivo</span>
-                                </div>
-                                <div class="col-1">
-                                    <span class="texto">No se Hizo</span>
-                                </div>
-                                <div class="col-1">
-                                    <span class="texto">No Aplica</span>
-                                </div>
-                                <div class="col-4">
-                                    <span class="texto">Fecha</span>
+                                <div class="grid m-2">
+                                    <div class="col-5 text-right">
+                                        <button pButton pRipple label="Agregar Hemoglobina" icon="pi pi-plus"
+                                                class=" bg-blue-700 mr-2" (click)="openDialogHemoglobina()"></button>
+                                    </div>
+                                    <div class="col-7 text-left ">
+                                    </div>
+                                    <!-- <div class="col-2">
+                                        <input type="text" pInputText formControlName='hg4' placeholder=""
+                                            class="inputfield w-full p-inputtext-sm">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" pInputText formControlName='conFactor4' placeholder=""
+                                            class="inputfield w-full p-inputtext-sm">
+                                    </div>
+                                    <div class="col-5">
+                                        <p-calendar formControlName="hemo4" [showIcon]="true" inputId="icon">
+                                        </p-calendar>
+                                        <input type="date" pInputText formControlName='hemo4' placeholder=""
+                                            class="inputfield w-full">
+                                    </div> -->
                                 </div>
                             </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">VDRL/RPR 1:</span>
+                            <br>
+                            <div class="border">
+                                <div class="grid text-center">
+                                    <div class="col-3"></div>
+                                    <div class="col-1">
+                                        <span class="texto">No Reactivo</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">Reactivo</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">No se Hizo</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">No Aplica</span>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="texto">Fecha</span>
+                                    </div>
                                 </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="vdrl1" formControlName="vdrl1" value="no reactivo"
-                                        class="default"></p-radioButton>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">VDRL/RPR 1:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="vdrl1" formControlName="vdrl1" value="no reactivo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="vdrl1" formControlName="vdrl1" value="reactivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="vdrl1" formControlName="vdrl1" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="datevdrl1" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='datevdrl1' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <p-radioButton name="vdrl1" formControlName="vdrl1" value="reactivo"
-                                        class="amarillo"></p-radioButton>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">VDRL/RPR 2:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="vdrl2" formControlName="vdrl2" value="no reactivo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="vdrl2" formControlName="vdrl2" value="reactivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="vdrl2" formControlName="vdrl2" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateVdrl2' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <p-radioButton name="vdrl1" formControlName="vdrl1" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">TPHA/VDRL (RPR reactivo):</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="tpha" formControlName="tpha" value="no reactivo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="tpha" formControlName="tpha" value="reactivo"
+                                                       class="amarillo">
+                                        </p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="tpha" formControlName="tpha" value="no se hizo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="tpha" formControlName="tpha" value="no aplica"
+                                                       class="default">
+                                        </p-radioButton>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateTpha" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateTpha' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">VIH Prueba Rapida 1:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="vih1" formControlName="vih1" value="no reactivo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="vih1" formControlName="vih1" value="reactivo"
+                                                       class="amarillo">
+                                        </p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="vih1" formControlName="vih1" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateVih1" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateVih1' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="datevdrl1" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='datevdrl1' placeholder=""
-                                        class="inputfield w-full">
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">VIH Prueba Rapida 2:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="vih2" formControlName="vih2" value="no reactivo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="vih2" formControlName="vih2" value="reactivo"
+                                                       class="amarillo">
+                                        </p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="vih2" formControlName="vih2" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateVih2" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateVih2' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">VDRL/RPR 2:</span>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">PR Hepatitis:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="hepatitis" formControlName="hepatitis" value="no reactivo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="hepatitis" formControlName="hepatitis" value="reactivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="hepatitis" formControlName="hepatitis" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="hepatitis" formControlName="hepatitis" value="no aplica"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateHepatitis" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateHepatitis' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="vdrl2" formControlName="vdrl2" value="no reactivo"
-                                        class="default"></p-radioButton>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">ELISA 1:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="elisa1" formControlName="elisa1" value="no reactivo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="elisa1" formControlName="elisa1" value="reactivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="elisa1" formControlName="elisa1" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="elisa1" formControlName="elisa1" value="no aplica"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateElisa1" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateElisa1' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <p-radioButton name="vdrl2" formControlName="vdrl2" value="reactivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="vdrl2" formControlName="vdrl2" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateVdrl2" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateVdrl2' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">TPHA/VDRL (RPR reactivo):</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="tpha" formControlName="tpha" value="no reactivo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="tpha" formControlName="tpha" value="reactivo" class="amarillo">
-                                    </p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="tpha" formControlName="tpha" value="no se hizo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="tpha" formControlName="tpha" value="no aplica" class="default">
-                                    </p-radioButton>
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateTpha" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateTpha' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">VIH Prueba Rapida 1:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="vih1" formControlName="vih1" value="no reactivo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="vih1" formControlName="vih1" value="reactivo" class="amarillo">
-                                    </p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="vih1" formControlName="vih1" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateVih1" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateVih1' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">VIH Prueba Rapida 2:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="vih2" formControlName="vih2" value="no reactivo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="vih2" formControlName="vih2" value="reactivo" class="amarillo">
-                                    </p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="vih2" formControlName="vih2" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateVih2" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateVih2' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">PR Hepatitis:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="hepatitis" formControlName="hepatitis" value="no reactivo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="hepatitis" formControlName="hepatitis" value="reactivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="hepatitis" formControlName="hepatitis" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="hepatitis" formControlName="hepatitis" value="no aplica"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateHepatitis" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateHepatitis' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">ELISA 1:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="elisa1" formControlName="elisa1" value="no reactivo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="elisa1" formControlName="elisa1" value="reactivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="elisa1" formControlName="elisa1" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="elisa1" formControlName="elisa1" value="no aplica"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateElisa1" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateElisa1' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs text-right">ELISA 2:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="elisa2" formControlName="elisa2" value="no reactivo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="elisa2" formControlName="elisa2" value="reactivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="elisa2" formControlName="elisa2" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="elisa2" formControlName="elisa2" value="no aplica"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateElisa2" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateElisa2' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid text-center">
-                                <div class="col-3">
-                                </div>
-                                <div class="col-1 text-center">
-                                    <span class="texto">Normal</span>
-                                </div>
-                                <div class="col-1">
-                                    <span class="texto">Anormal</span>
-                                </div>
-                                <div class="col-1">
-                                    <span class="texto">No se Hizo</span>
-                                </div>
-                                <div class="col-1">
-                                    <span class="texto">No Aplica</span>
-                                </div>
-                                <div class="col-4 ml-3">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">Glicemia 1:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="glicemia1" formControlName="glicemia1" value="normal"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="glicemia1" formControlName="glicemia1" value="anormal"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="glicemia1" formControlName="glicemia1" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateGlicemia1" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateGlicemia1' placeholder=""
-                                        class="inputfield w-full">
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs text-right">ELISA 2:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="elisa2" formControlName="elisa2" value="no reactivo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="elisa2" formControlName="elisa2" value="reactivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="elisa2" formControlName="elisa2" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="elisa2" formControlName="elisa2" value="no aplica"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateElisa2" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateElisa2' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">Glicemia 2:</span>
+                            <br>
+                            <div class="border">
+                                <div class="grid text-center">
+                                    <div class="col-3">
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <span class="texto">Normal</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">Anormal</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">No se Hizo</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">No Aplica</span>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                    </div>
                                 </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="glicemia2" formControlName="glicemia2" value="normal"
-                                        class="default"></p-radioButton>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">Glicemia 1:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="glicemia1" formControlName="glicemia1" value="normal"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="glicemia1" formControlName="glicemia1" value="anormal"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="glicemia1" formControlName="glicemia1" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateGlicemia1" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateGlicemia1' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <p-radioButton name="glicemia2" formControlName="glicemia2" value="anormal"
-                                        class="amarillo"></p-radioButton>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">Glicemia 2:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="glicemia2" formControlName="glicemia2" value="normal"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="glicemia2" formControlName="glicemia2" value="anormal"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="glicemia2" formControlName="glicemia2" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateGlicemia2" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateGlicemia2' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <p-radioButton name="glicemia2" formControlName="glicemia2" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateGlicemia2" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateGlicemia2' placeholder=""
-                                        class="inputfield w-full">
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">Tolerancia Glucosa:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="glucosa" formControlName="glucosa" value="normal"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="glucosa" formControlName="glucosa" value="anormal"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="glucosa" formControlName="glucosa" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="glucosa" formControlName="glucosa" value="no aplica"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateGlucosa" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateGlucosa' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">Tolerancia Glucosa:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="glucosa" formControlName="glucosa" value="normal"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="glucosa" formControlName="glucosa" value="anormal"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="glucosa" formControlName="glucosa" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="glucosa" formControlName="glucosa" value="no aplica"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateGlucosa" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateGlucosa' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
+
                         </div>
-                        <div class="col-6">
-                            <div class="grid text-center">
-                                <div class="col-3">
+                        <div class="col-12 md:col-12 md:col-6 lg:col-6" style="align-self: start">
+                            <div class="border">
+                                <div class="grid text-center">
+                                    <div class="col-3">
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <span class="texto">Negativo</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">Positivo</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">No se Hizo</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">No Aplica</span>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <span class="texto">Fecha</span>
+                                    </div>
                                 </div>
-                                <div class="col-1 text-center">
-                                    <span class="texto">Negativo</span>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">Ex. Comp Orina 1:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="orina1" formControlName="orina1" value="negativo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="orina1" formControlName="orina1" value="positivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="orina1" formControlName="orina1" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateOrina1" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateOrina1' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <span class="texto">Positivo</span>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">Ex. Comp Orina 2:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="orina2" formControlName="orina2" value="negativo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="orina2" formControlName="orina2" value="positivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="orina2" formControlName="orina2" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateOrina2" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateOrina2' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <span class="texto">No se Hizo</span>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs text-right">Ex. Comp Orina 3:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="orina3" formControlName="orina3" value="negativo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="orina3" formControlName="orina3" value="positivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="orina3" formControlName="orina3" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateOrina3" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateOrina3' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <span class="texto">No Aplica</span>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs ">Bacteriuria:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="bacteriuria" formControlName="bacteriuria" value="negativo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="bacteriuria" formControlName="bacteriuria" value="positivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="bacteriuria" formControlName="bacteriuria" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateBacteriuria" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateBacteriuria' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-4 ml-3">
-                                    <span class="texto">Fecha</span>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs text-right">Nitritos:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="nitritos" formControlName="nitritos" value="negativo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="nitritos" formControlName="nitritos" value="positivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="nitritos" formControlName="nitritos" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateNitritos" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateNitritos' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">Urocultivo:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="urocultivo" formControlName="urocultivo" value="negativo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="urocultivo" formControlName="urocultivo" value="positivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="urocultivo" formControlName="urocultivo" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateUrocultivo" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateUrocultivo' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">BK en Esputo:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="esputo" formControlName="esputo" value="negativo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="esputo" formControlName="esputo" value="positivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="esputo" formControlName="esputo" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="esputo" formControlName="esputo" value="no aplica"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateEsputo" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateEsputo' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">Western Bolt/Ifi:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="western" formControlName="western" value="negativo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="western" formControlName="western" value="positivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="western" formControlName="western" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="western" formControlName="western" value="no aplica"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateWestern" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateWestern' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">THLV1:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="thlv1" formControlName="thlv1" value="negativo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="thlv1" formControlName="thlv1" value="positivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="thlv1" formControlName="thlv1" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="thlv1" formControlName="thlv1" value="no aplica"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateThlv1" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateThlv1' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">TORCH:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="torch" formControlName="torch" value="negativo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="torch" formControlName="torch" value="positivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="torch" formControlName="torch" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="torch" formControlName="torch" value="no aplica"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateTorch" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateTorch' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">Gota Gruesa:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" value="negativo"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" value="positivo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" value="no aplica"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateGotaGruesa" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateGotaGruesa' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">Ex. Comp Orina 1:</span>
+                            <br>
+                            <div class="border">
+                                <div class="grid text-center">
+                                    <div class="col-3">
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <span class="texto">Normal</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">Negativo</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">No se Hizo</span>
+                                    </div>
+                                    <div class="col-1">
+                                        <span class="texto">No Aplica</span>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                    </div>
                                 </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="orina1" formControlName="orina1" value="negativo"
-                                        class="default"></p-radioButton>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">Proteinuria Cuantitativa:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="proteinuriaCuanti" formControlName="proteinuriaCuanti"
+                                                       value="normal" class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="proteinuriaCuanti" formControlName="proteinuriaCuanti"
+                                                       value="negativo" class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="proteinuriaCuanti" formControlName="proteinuriaCuanti"
+                                                       class="amarillo" value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateProteinuriaCuanti" [showIcon]="true"
+                                            inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateProteinuriaCuanti'
+                                               placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <p-radioButton name="orina1" formControlName="orina1" value="positivo"
-                                        class="amarillo"></p-radioButton>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">Proteinuria Cualitativa:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
+                                                       value="normal" class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
+                                                       value="negativo" class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
+                                                       class="amarillo" value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
+                                                       value="no aplica" class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateProteinuriaCuali" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateProteinuriaCuali'
+                                               placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
-                                    <p-radioButton name="orina1" formControlName="orina1" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">Secreción Vaginal:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="secrecionVag" formControlName="secrecionVag" value="normal"
+                                                       class="default"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="secrecionVag" formControlName="secrecionVag"
+                                                       value="negativo"
+                                                       class="amarillo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="secrecionVag" formControlName="secrecionVag"
+                                                       class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateSecrecionVag" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateSecrecionVag' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-1">
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">PAP:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="pap" formControlName="pap" value="normal" class="default">
+                                        </p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="pap" formControlName="pap" value="negativo"
+                                                       class="amarillo">
+                                        </p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="pap" formControlName="pap" class="amarillo"
+                                                       value="no se hizo">
+                                        </p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="datePap" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='datePap' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateOrina1" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateOrina1' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">Ex. Comp Orina 2:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="orina2" formControlName="orina2" value="negativo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="orina2" formControlName="orina2" value="positivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="orina2" formControlName="orina2" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateOrina2" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateOrina2' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs text-right">Ex. Comp Orina 3:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="orina3" formControlName="orina3" value="negativo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="orina3" formControlName="orina3" value="positivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="orina3" formControlName="orina3" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateOrina3" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateOrina3' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs ">Bacteriuria:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="bacteriuria" formControlName="bacteriuria" value="negativo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="bacteriuria" formControlName="bacteriuria" value="positivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="bacteriuria" formControlName="bacteriuria" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateBacteriuria" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateBacteriuria' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs text-right">Nitritos:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="nitritos" formControlName="nitritos" value="negativo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="nitritos" formControlName="nitritos" value="positivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="nitritos" formControlName="nitritos" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateNitritos" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateNitritos' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">Urocultivo:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="urocultivo" formControlName="urocultivo" value="negativo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="urocultivo" formControlName="urocultivo" value="positivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="urocultivo" formControlName="urocultivo" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateUrocultivo" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateUrocultivo' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">BK en Esputo:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="esputo" formControlName="esputo" value="negativo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="esputo" formControlName="esputo" value="positivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="esputo" formControlName="esputo" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="esputo" formControlName="esputo" value="no aplica"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateEsputo" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateEsputo' placeholder=""
-                                        class="inputfield w-full">
+                                <div class="grid">
+                                    <div class="col-3 text-right">
+                                        <span class="text-xs">IVAA:</span>
+                                    </div>
+                                    <div class="col-1 text-center">
+                                        <p-radioButton name="ivaa" formControlName="ivaa" value="normal"
+                                                       class="default">
+                                        </p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="ivaa" formControlName="ivaa" value="negativo"
+                                                       class="amarillo">
+                                        </p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                        <p-radioButton name="ivaa" formControlName="ivaa" class="amarillo"
+                                                       value="no se hizo"></p-radioButton>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-4 ml-3">
+                                        <!-- <p-calendar formControlName="dateIvaa" [showIcon]="true" inputId="icon">
+                                        </p-calendar> -->
+                                        <input type="date" pInputText formControlName='dateIvaa' placeholder=""
+                                               class="inputfield w-full">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">Western Bolt/Ifi:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="western" formControlName="western" value="negativo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="western" formControlName="western" value="positivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="western" formControlName="western" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="western" formControlName="western" value="no aplica"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateWestern" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateWestern' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">THLV1:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="thlv1" formControlName="thlv1" value="negativo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="thlv1" formControlName="thlv1" value="positivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="thlv1" formControlName="thlv1" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="thlv1" formControlName="thlv1" value="no aplica"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateThlv1" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateThlv1' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">TORCH:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="torch" formControlName="torch" value="negativo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="torch" formControlName="torch" value="positivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="torch" formControlName="torch" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="torch" formControlName="torch" value="no aplica"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateTorch" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateTorch' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">Gota Gruesa:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" value="negativo"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" value="positivo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="gotaGruesa" formControlName="gotaGruesa" value="no aplica"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateGotaGruesa" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateGotaGruesa' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid text-center">
-                                <div class="col-3">
-                                </div>
-                                <div class="col-1 text-center">
-                                    <span class="texto">Normal</span>
-                                </div>
-                                <div class="col-1">
-                                    <span class="texto">Negativo</span>
-                                </div>
-                                <div class="col-1">
-                                    <span class="texto">No se Hizo</span>
-                                </div>
-                                <div class="col-1">
-                                    <span class="texto">No Aplica</span>
-                                </div>
-                                <div class="col-4 ml-3">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">Proteinuria Cuantitativa:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="proteinuriaCuanti" formControlName="proteinuriaCuanti"
-                                        value="normal" class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="proteinuriaCuanti" formControlName="proteinuriaCuanti"
-                                        value="negativo" class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="proteinuriaCuanti" formControlName="proteinuriaCuanti"
-                                        class="amarillo" value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateProteinuriaCuanti" [showIcon]="true"
-                                        inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateProteinuriaCuanti' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">Proteinuria Cualitativa:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
-                                        value="normal" class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
-                                        value="negativo" class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
-                                        class="amarillo" value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="proteinuriaCuali" formControlName="proteinuriaCuali"
-                                        value="no aplica" class="default"></p-radioButton>
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateProteinuriaCuali" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateProteinuriaCuali' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">Secreción Vaginal:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="secrecionVag" formControlName="secrecionVag" value="normal"
-                                        class="default"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="secrecionVag" formControlName="secrecionVag" value="negativo"
-                                        class="amarillo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="secrecionVag" formControlName="secrecionVag" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateSecrecionVag" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateSecrecionVag' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">PAP:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="pap" formControlName="pap" value="normal" class="default">
-                                    </p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="pap" formControlName="pap" value="negativo" class="amarillo">
-                                    </p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="pap" formControlName="pap" class="amarillo" value="no se hizo">
-                                    </p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="datePap" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='datePap' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
-                            <div class="grid">
-                                <div class="col-3 text-right">
-                                    <span class="text-xs">IVAA:</span>
-                                </div>
-                                <div class="col-1 text-center">
-                                    <p-radioButton name="ivaa" formControlName="ivaa" value="normal" class="default">
-                                    </p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="ivaa" formControlName="ivaa" value="negativo" class="amarillo">
-                                    </p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                    <p-radioButton name="ivaa" formControlName="ivaa" class="amarillo"
-                                        value="no se hizo"></p-radioButton>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                                <div class="col-4 ml-3">
-                                    <!-- <p-calendar formControlName="dateIvaa" [showIcon]="true" inputId="icon">
-                                    </p-calendar> -->
-                                    <input type="date" pInputText formControlName='dateIvaa' placeholder=""
-                                        class="inputfield w-full">
-                                </div>
-                            </div>
+
                         </div>
                     </div>
-                </p-fieldset>
+                </div>
             </div>
         </div>
-        <div class="grid">
-            <div class="col-12">
-                <p-fieldset legend="Patologias Maternas Diagnosticadas">
-                    <div class="grid">
+    </form>
+
+    <form [formGroup]='form'>
+        <div class="grid m-2">
+            <div class="col-12 md:col-4 md:col-6 lg:col-12" style="align-self: start">
+                <p-toolbar>
+                    <ng-template pTemplate="left">
+                        <label>Patologias Maternas Diagnosticadas</label>
+                    </ng-template>
+                </p-toolbar>
+                <div class="border">
+                    <div class="grid m-2">
                         <div class="col-12">
                             <button pButton pRipple icon="pi pi-plus" type="button" label="Patologias"
-                                class="p-button-raised mt-3" (click)="openDialogPatologias()"></button>
+                                    class="p-button-raised mt-3" (click)="openDialogPatologias()"></button>
                         </div>
                         <div class="col-12">
                             <p-table [value]="listaPatologiasMaternas" [showCurrentPageReport]="true" [filterDelay]="0">
@@ -1468,23 +1590,24 @@
                                         <td>{{patologias.fecha}}</td>
                                         <td style="display: flex;">
                                             <button pButton pRipple type="button" icon="pi pi-trash"
-                                                (click)="eliminarPatologia(i)"
-                                                class="p-button-rounded p-button-danger p-button-text"></button>
+                                                    (click)="eliminarPatologia(i)"
+                                                    class="p-button-rounded p-button-danger p-button-text"></button>
                                         </td>
                                     </tr>
                                 </ng-template>
                             </p-table>
                         </div>
                     </div>
-                </p-fieldset>
+                </div>
             </div>
         </div>
     </form>
 </div>
 
+
 <!-- DIALOG DE HEMOGLOBINA -->
 <p-dialog [(visible)]="hemoglobinaDialog" [style]="{width: '70%'}" [modal]="true" styleClass="p-fluid" autoZIndex
-    class="dialogo">
+          class="dialogo">
     <div class="grid">
         <form [formGroup]='formHemoglobina'>
             <div class="col-12">
@@ -1492,22 +1615,22 @@
                     <div class="col-4">
                         <label class="">Hg(%):</label>
                         <input type="text" pInputText formControlName='hg' placeholder=""
-                            class="funcionesBiologicas inputfield w-full">
+                               class="funcionesBiologicas inputfield w-full">
                     </div>
                     <div class="col-4">
                         <label class="">Con factor</label>
                         <label class="">de correción:</label>
                         <input type="text" pInputText formControlName='factorCorrec' placeholder=""
-                            class="funcionesBiologicas inputfield w-full">
+                               class="funcionesBiologicas inputfield w-full">
                     </div>
                     <div class="col-4">
                         <label class="">Movimiento Fetal:</label>
                         <input type="text" pInputText formControlName='fechaHemo' placeholder=""
-                            class="funcionesBiologicas inputfield w-full">
+                               class="funcionesBiologicas inputfield w-full">
                     </div>
                     <div class="col-3">
                         <button pButton pRipple label="Agregar" icon="pi pi-plus" class=" bg-blue-700"
-                            (click)="openDialogHemoglobina()"></button>
+                                (click)="openDialogHemoglobina()"></button>
                     </div>
                 </div>
             </div>

@@ -116,4 +116,17 @@ export class CuposService {
     updatePacienteExtras(data) {
         return this.http.put(`${this.base_url}/${this.bd}/paciente/actualizarDatos/`, data)
     }
+
+    buscarListaCuposPersonal(idIpres, data){
+        return this.http.post(`${this.base_url}/${this.bd}/cupo/listar/cupos/por/personal/${idIpres}`,data)
+            .toPromise()
+            .then((result: any) => {
+                return result;
+
+            })
+            .catch(error => {
+                console.log('No se encotro personal de salud');
+                return null;
+            })
+    }
 }

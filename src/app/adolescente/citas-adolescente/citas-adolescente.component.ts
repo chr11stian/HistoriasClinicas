@@ -53,7 +53,7 @@ export class CitasAdolescenteComponent implements OnInit {
             {
                 dni: 'DNI', /** no debe haber */
                 tipoDoc: 'DNI',
-                nroDoc: '89685520',
+                nroDoc: '73145986',
                 apellidos: 'OLAZABAL CALLER',
                 nombres: 'LETICIA GIULIANA',
                 consultorio: 'OBS01',

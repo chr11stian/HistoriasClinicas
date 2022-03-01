@@ -5,14 +5,14 @@
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Atras" icon="pi pi-angle-left" class="p-button-secondary mr-2"></button>
-            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right"
-                    class="guardar mr-2" style="background-color: #0c3866" (click)="guardarTodosDatos()"></button>
+            <button pButton pRipple label="Siguiente" iconPos="right" icon="pi pi-angle-right" class="guardar mr-2"
+                style="background-color: #0c3866" (click)="guardarTodosDatos()"></button>
         </ng-template>
     </p-toolbar>
-    <p-table class="table-over" [value]="tratamientosComunes" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-             [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-             currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-
+    <p-table class="table-over" [value]="tratamientosComunes" #dt styleClass="p-datatable-gridlines" [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        
         <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
             <tr>
                 <th style="text-align: center" class="font-2">Nro </th>
@@ -24,7 +24,6 @@
                 <th style="text-align: center" class="font-2">DURACION</th>
                 <th style="text-align: center" class="font-2">IND. ADICIONAL</th>
                 <th style="text-align: center" class="font-2">Acciones</th>
-
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -40,13 +39,13 @@
 
                 <td style="text-align: center">
                     <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                            (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Editar">
+                        (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Editar">
                     </button>
                     <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                            (click)="eliminarTratamientoComun(rowIndex)" pTooltip="Eliminar">
+                        (click)="eliminarTratamientoComun(rowIndex)" pTooltip="Eliminar">
                     </button>
-                    <button pButton (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
-                            icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                    <button pButton (click)="openDialogEditarTratamientoComun(rowData,rowIndex)" pTooltip="Visualizar"
+                        pRipple type="button" icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
                     </button>
 
                 </td>
@@ -56,8 +55,8 @@
     </p-table>
     <p-toolbar>
         <div class="p-toolbar-group-right">
-            <button pButton pRipple label="Agregar Tratamiento" icon="pi pi-plus" pButton type="button" class="button-agregar"
-                    (click)="openDialogTratamientoComun()"></button>
+            <button pButton pRipple label="Agregar Tratamiento" icon="pi pi-plus" pButton type="button"
+                class="button-agregar" (click)="openDialogTratamientoComun()"></button>
         </div>
     </p-toolbar>
     <br>
@@ -68,9 +67,10 @@
                 <h3 class="p-m-0">INMUNIZACIONES</h3>
             </ng-template>
         </p-toolbar>
-        <p-table class="table-over" [value]="tratamientoInmunizaciones" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-                 [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                 currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <p-table class="table-over" [value]="tratamientoInmunizaciones" #dt styleClass="p-datatable-gridlines"
+            [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
             <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                 <tr>
@@ -99,13 +99,14 @@
 
                     <td style="text-align: center">
                         <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                (click)="openDialogEditarTratamientoInmunizaciones(rowData,rowIndex)" pTooltip="Editar">
+                            (click)="openDialogEditarTratamientoInmunizaciones(rowData,rowIndex)" pTooltip="Editar">
                         </button>
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                (click)="eliminarInmunizaciones(rowIndex)" pTooltip="Eliminar">
+                            (click)="eliminarInmunizaciones(rowIndex)" pTooltip="Eliminar">
                         </button>
-                        <button pButton (click)="openDialogEditarTratamientoInmunizaciones(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
-                                icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                        <button pButton (click)="openDialogEditarTratamientoInmunizaciones(rowData,rowIndex)"
+                            pTooltip="Visualizar" pRipple type="button" icon="pi pi-eye"
+                            class="p-button-rounded p-button-help m-1">
                         </button>
 
                     </td>
@@ -115,8 +116,8 @@
         </p-table>
         <p-toolbar>
             <div class="p-toolbar-group-right">
-                <button pButton pRipple label="Agregar Inmunizaciones" icon="pi pi-plus" pButton type="button" class="button-agregar"
-                        (click)="openDialogTratamientoInmunizaciones()"></button>
+                <button pButton pRipple label="Agregar Inmunizaciones" icon="pi pi-plus" pButton type="button"
+                    class="button-agregar" (click)="openDialogTratamientoInmunizaciones()"></button>
             </div>
 
         </p-toolbar>
@@ -127,92 +128,84 @@
             <div class="grid p-fluid">
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Medicamentos:</label>
-                    <input type="text"  pInputText formControlName='descripciona' placeholder="medicamentos"
-                           required/>
+                    <input type="text" pInputText formControlName='descripciona' placeholder="medicamentos" required />
                 </div>
                 <div class="lg:col-1 md:col:4 col-12 p-field">
                     <label>Cantidad:</label>
-                    <input type="number"  pInputText formControlName='numeroa' placeholder="cantidad"
-                           required />
+                    <input type="number" pInputText formControlName='numeroa' placeholder="cantidad" required />
                 </div>
                 <div class="lg:col-1 md:col:4 col-12 p-field">
                     <label>Dosis:</label>
-                    <input type="text"  pInputText formControlName='dosisa' placeholder="dosis"
-                           required />
+                    <input type="text" pInputText formControlName='dosisa' placeholder="dosis" required />
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Intervalo</label>
                     <div class="p-field">
-                        <p-dropdown  inputId="dropdown" [options]="intervaloList" formControlName="intervaloa"
-                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                     defaultLabel="Seleccione:" >
+                        <p-dropdown inputId="dropdown" [options]="intervaloList" formControlName="intervaloa"
+                            placeholder="seleccionar" optionLabel="label" optionValue="value"
+                            defaultLabel="Seleccione:">
                         </p-dropdown>
                     </div>
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Via Admin.</label>
                     <div class="p-field">
-                        <p-dropdown  inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministraciona"
-                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                     defaultLabel="Seleccione:" >
+                        <p-dropdown inputId="dropdown" [options]="viaadministracionList"
+                            formControlName="viaAdministraciona" placeholder="seleccionar" optionLabel="label"
+                            optionValue="value" defaultLabel="Seleccione:">
                         </p-dropdown>
                     </div>
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Duración:</label>
-                    <input type="text" pInputText formControlName='duraciona' placeholder="duración"
-                           required />
+                    <input type="text" pInputText formControlName='duraciona' placeholder="duración" required />
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Ind. Adicional:</label>
-                    <input type="text" pInputText formControlName='observacionesa' placeholder="Ind. Adicional"/>
+                    <input type="text" pInputText formControlName='observacionesa' placeholder="Ind. Adicional" />
                 </div>
             </div>
-       </p-fieldset>
+        </p-fieldset>
         <br>
         <p-fieldset legend="HIERRO Y ACIDO FOLICO">
             <div class="grid p-fluid">
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Medicamentos:</label>
-                    <input type="text"  pInputText formControlName='descripcionf' placeholder="medicamentos"
-                           required/>
+                    <input type="text" pInputText formControlName='descripcionf' placeholder="medicamentos" required />
                 </div>
                 <div class="lg:col-1 md:col:4 col-12 p-field">
                     <label>Cantidad:</label>
-                    <input type="number"  pInputText formControlName='numerof' placeholder="cantidad"
-                           required />
+                    <input type="number" pInputText formControlName='numerof' placeholder="cantidad" required />
                 </div>
                 <div class="lg:col-1 md:col:4 col-12 p-field">
                     <label>Dosis:</label>
-                    <input type="text"  pInputText formControlName='dosisf' placeholder="dosis"
-                           required />
+                    <input type="text" pInputText formControlName='dosisf' placeholder="dosis" required />
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Intervalo</label>
                     <div class="p-field">
-                        <p-dropdown  inputId="dropdown" [options]="intervaloList" formControlName="intervalof"
-                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                     defaultLabel="Seleccione:" >
+                        <p-dropdown inputId="dropdown" [options]="intervaloList" formControlName="intervalof"
+                            placeholder="seleccionar" optionLabel="label" optionValue="value"
+                            defaultLabel="Seleccione:">
                         </p-dropdown>
                     </div>
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Via Admin.</label>
                     <div class="p-field">
-                        <p-dropdown  inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracionf"
-                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                     defaultLabel="Seleccione:" >
+                        <p-dropdown inputId="dropdown" [options]="viaadministracionList"
+                            formControlName="viaAdministracionf" placeholder="seleccionar" optionLabel="label"
+                            optionValue="value" defaultLabel="Seleccione:">
                         </p-dropdown>
                     </div>
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Duración:</label>
-                    <input type="text" pInputText formControlName='duracionf' placeholder="duración"
-                           required />
+                    <input type="text" pInputText formControlName='duracionf' placeholder="duración" required />
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Ind. Adicional:</label>
-                    <input type="text" pInputText  formControlName='observacionesf' placeholder="Ind. Adicional"/>
+                    <input type="text" pInputText formControlName='observacionesf' placeholder="Ind. Adicional" />
                 </div>
             </div>
         </p-fieldset>
@@ -221,45 +214,41 @@
             <div class="grid p-fluid">
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Medicamentos:</label>
-                    <input type="text"  pInputText formControlName='descripcionc' placeholder="medicamentos"
-                           required/>
+                    <input type="text" pInputText formControlName='descripcionc' placeholder="medicamentos" required />
                 </div>
                 <div class="lg:col-1 md:col:4 col-12 p-field">
                     <label>Cantidad:</label>
-                    <input type="number"  pInputText formControlName='numeroc' placeholder="cantidad"
-                           required />
+                    <input type="number" pInputText formControlName='numeroc' placeholder="cantidad" required />
                 </div>
                 <div class="lg:col-1 md:col:4 col-12 p-field">
                     <label>Dosis:</label>
-                    <input type="text"  pInputText formControlName='dosisc' placeholder="dosis"
-                           required />
+                    <input type="text" pInputText formControlName='dosisc' placeholder="dosis" required />
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Intervalo</label>
                     <div class="p-field">
-                        <p-dropdown  inputId="dropdown" [options]="intervaloList" formControlName="intervaloc"
-                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                     defaultLabel="Seleccione:" >
+                        <p-dropdown inputId="dropdown" [options]="intervaloList" formControlName="intervaloc"
+                            placeholder="seleccionar" optionLabel="label" optionValue="value"
+                            defaultLabel="Seleccione:">
                         </p-dropdown>
                     </div>
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Via Admin.</label>
                     <div class="p-field">
-                        <p-dropdown  inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracionc"
-                                     placeholder="seleccionar" optionLabel="label" optionValue="value"
-                                     defaultLabel="Seleccione:" >
+                        <p-dropdown inputId="dropdown" [options]="viaadministracionList"
+                            formControlName="viaAdministracionc" placeholder="seleccionar" optionLabel="label"
+                            optionValue="value" defaultLabel="Seleccione:">
                         </p-dropdown>
                     </div>
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Duración:</label>
-                    <input type="text" pInputText formControlName='duracionc' placeholder="duraciónc"
-                           required />
+                    <input type="text" pInputText formControlName='duracionc' placeholder="duraciónc" required />
                 </div>
                 <div class="lg:col-2 md:col:4 col-12 p-field">
                     <label>Ind. Adicional:</label>
-                    <input type="text" pInputText formControlName='observacionesc'  placeholder="Ind. Adicional"/>
+                    <input type="text" pInputText formControlName='observacionesc' placeholder="Ind. Adicional" />
                 </div>
             </div>
         </p-fieldset>
@@ -270,17 +259,17 @@
                     <div class=" grid p-fluid">
                         <div class="lg:col-6 md:col:6 col-12 p-field">
                             <label>Valor:</label>
-<!--                            <p-inputNumber [(ngModel)]="valor" inputId="kg"&ndash;&gt;-->
-<!--                                           suffix=" kg" mode="decimal" [minFractionDigits]="2">-->
-<!--                            </p-inputNumber>-->
-                            <p-inputNumber formControlName="valor" inputId="kg"
-                                           suffix=" kg" mode="decimal" [minFractionDigits]="2">
+                            <!--                            <p-inputNumber [(ngModel)]="valor" inputId="kg"&ndash;&gt;-->
+                            <!--                                           suffix=" kg" mode="decimal" [minFractionDigits]="2">-->
+                            <!--                            </p-inputNumber>-->
+                            <p-inputNumber formControlName="valor" inputId="kg" suffix=" kg" mode="decimal"
+                                [minFractionDigits]="2">
                             </p-inputNumber>
                         </div>
                         <div class="lg:col-6 md:col:6 col-12 p-field">
                             <label>Indicador:</label>
-                            <input type="text"  pInputText formControlName='indicador' placeholder="indicador"
-                                   required />
+                            <input type="text" pInputText formControlName='indicador' placeholder="indicador"
+                                required />
                         </div>
                     </div>
                 </p-fieldset>
@@ -289,7 +278,8 @@
             <div class="col-6 p-fluid">
                 <p-fieldset legend="PERSONAL RESPONSABLE DE LA ATENCION">
                     <div class="p-fluid">
-                        <input type="text" pInputText style="border-radius: 10px" class="mt-3" formControlName="encargado" /> <!-- Falta recuperar del login -->
+                        <input type="text" pInputText style="border-radius: 10px" class="mt-3"
+                            formControlName="encargado" /> <!-- Falta recuperar del login -->
                     </div>
                 </p-fieldset>
             </div>
@@ -304,56 +294,59 @@
                     <h3 class="p-m-0">INTERCONSULTAS</h3>
                 </ng-template>
             </p-toolbar>
-                <p-table class="table-over" [value]="interconsultas" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+            <p-table class="table-over" [value]="interconsultas" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
-                    <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
-                        <tr>
-                            <th style="text-align: center" class="font-2">Nro </th>
-                            <th style="text-align: center" class="font-1">CONSULTORIO</th>
-                            <th style="text-align: center" class="font-2">MOTIVO</th>
-                            <th style="text-align: center" class="font-2">FECHA</th>
-                            <th style="text-align: center" class="font-2">Acciones</th>
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center" class="font-2">Nro </th>
+                        <th style="text-align: center" class="font-1">CONSULTORIO</th>
+                        <th style="text-align: center" class="font-2">MOTIVO</th>
+                        <th style="text-align: center" class="font-2">FECHA</th>
+                        <th style="text-align: center" class="font-2">Acciones</th>
 
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
-                        <tr>
-                            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-                            <td style="text-align: center">{{ rowData.consultorio }}</td>
-                            <td style="text-align: center">{{ rowData.motivo }}</td>
-                            <td style="text-align: center">{{ rowData.fecha }}</td>
-                            <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                        (click)="openDialogEditarinterconsultas(rowData,rowIndex)" pTooltip="Editar">
-                                </button>
-                                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarInterconsulta(rowIndex)" pTooltip="Eliminar">
-                                </button>
-                                <button pButton (click)="openDialogEditarinterconsultas(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
-                                        icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
-                                </button>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.consultorio }}</td>
+                        <td style="text-align: center">{{ rowData.motivo }}</td>
+                        <td style="text-align: center">{{ rowData.fecha }}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                                (click)="openDialogEditarinterconsultas(rowData,rowIndex)" pTooltip="Editar">
+                            </button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                                (click)="eliminarInterconsulta(rowIndex)" pTooltip="Eliminar">
+                            </button>
+                            <button pButton (click)="openDialogEditarinterconsultas(rowData,rowIndex)"
+                                pTooltip="Visualizar" pRipple type="button" icon="pi pi-eye"
+                                class="p-button-rounded p-button-help m-1">
+                            </button>
 
-                            </td>
-                        </tr>
-                    </ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
 
-                </p-table>
-                <p-toolbar>
-                    <div class="p-toolbar-group-right">
-                        <button pButton pRipple label="Agregar Interconsulta" icon="pi pi-plus" pButton type="button" class="button-agregar"
-                                (click)="openDialogInterconsultas()"></button>
-                    </div>
-                </p-toolbar>
+            </p-table>
+            <p-toolbar>
+                <div class="p-toolbar-group-right">
+                    <button pButton pRipple label="Agregar Interconsulta" icon="pi pi-plus" pButton type="button"
+                        class="button-agregar" (click)="openDialogInterconsultas()"></button>
+                </div>
+            </p-toolbar>
         </div>
     </div>
     <div class="grid">
         <div class="lg:col-6  col-12">
             <p-fieldset legend="RECOMENDACIONES">
-                <p-table class="table-over" [value]="recomendaciones" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                <p-table class="table-over" [value]="recomendaciones" #dt styleClass="p-datatable-gridlines" [rows]="10"
+                    [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
                     <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                         <tr>
@@ -369,14 +362,16 @@
                             <td style="text-align: center">{{ rowData}}</td>
 
                             <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                        (click)="openDialogEditarRecomendaciones(rowData,rowIndex)" pTooltip="Editar">
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-primary m-1"
+                                    (click)="openDialogEditarRecomendaciones(rowData,rowIndex)" pTooltip="Editar">
                                 </button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarRecomendaciones(rowIndex)" pTooltip="Eliminar">
+                                    (click)="eliminarRecomendaciones(rowIndex)" pTooltip="Eliminar">
                                 </button>
-                                <button pButton (click)="openDialogEditarRecomendaciones(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
-                                        icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                                <button pButton (click)="openDialogEditarRecomendaciones(rowData,rowIndex)"
+                                    pTooltip="Visualizar" pRipple type="button" icon="pi pi-eye"
+                                    class="p-button-rounded p-button-help m-1">
                                 </button>
 
                             </td>
@@ -386,17 +381,18 @@
                 </p-table>
                 <p-toolbar>
                     <div class="p-toolbar-group-right">
-                        <button pButton pRipple label="Agregar Recomendaciones" icon="pi pi-plus" pButton type="button" class="button-agregar"
-                                (click)="openDialogRecomendaciones()"></button>
+                        <button pButton pRipple label="Agregar Recomendaciones" icon="pi pi-plus" pButton type="button"
+                            class="button-agregar" (click)="openDialogRecomendaciones()"></button>
                     </div>
                 </p-toolbar>
             </p-fieldset>
         </div>
         <div class="lg:col-6 col-12">
             <p-fieldset legend="EXAMENES AUXLIARES">
-                <p-table class="table-over" [value]="examenesAuxiliares" #dt styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
-                         [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
-                         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+                <p-table class="table-over" [value]="examenesAuxiliares" #dt styleClass="p-datatable-gridlines"
+                    [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
+                    [showCurrentPageReport]="true"
+                    currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
                     <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                         <tr>
@@ -412,14 +408,16 @@
                             <td style="text-align: center">{{ rowData}}</td>
 
                             <td style="text-align: center">
-                                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
-                                        (click)="openDialogEditarAuxiliares(rowData,rowIndex)" pTooltip="Editar">
+                                <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-primary m-1"
+                                    (click)="openDialogEditarAuxiliares(rowData,rowIndex)" pTooltip="Editar">
                                 </button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
-                                        (click)="eliminarExamenesAuxiliares(rowIndex)" pTooltip="Eliminar">
+                                    (click)="eliminarExamenesAuxiliares(rowIndex)" pTooltip="Eliminar">
                                 </button>
-                                <button pButton (click)="openDialogEditarAuxiliares(rowData,rowIndex)" pTooltip="Visualizar" pRipple type="button"
-                                        icon="pi pi-eye" class="p-button-rounded p-button-help m-1">
+                                <button pButton (click)="openDialogEditarAuxiliares(rowData,rowIndex)"
+                                    pTooltip="Visualizar" pRipple type="button" icon="pi pi-eye"
+                                    class="p-button-rounded p-button-help m-1">
                                 </button>
 
                             </td>
@@ -429,8 +427,8 @@
                 </p-table>
                 <p-toolbar>
                     <div class="p-toolbar-group-right">
-                        <button pButton pRipple label="Agregar Examenes" icon="pi pi-plus" pButton type="button" class="button-agregar"
-                                (click)="openDialogExamenesAuxiliares()"></button>
+                        <button pButton pRipple label="Agregar Examenes" icon="pi pi-plus" pButton type="button"
+                            class="button-agregar" (click)="openDialogExamenesAuxiliares()"></button>
                     </div>
                 </p-toolbar>
             </p-fieldset>

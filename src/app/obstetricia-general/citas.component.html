@@ -8,7 +8,6 @@
     <br>
     <p-toolbar styleClass="p-mb-4">
         <ng-template pTemplate="left">
-
         </ng-template>
 
         <ng-template pTemplate="right">
@@ -70,7 +69,7 @@
                     <button pButton pRipple routerLink="gestante" (click)="enviarData2(rowData)"
                             class="boton-azul" label="Atender"
                             icon="pi pi-check"></button>
-                    <button pButton pRipple routerLink="noControl" class="boton-mostaza" label="No Control"
+                    <button pButton pRipple  class="boton-mostaza" label="No Control"
                             icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>
                 </td>
             </tr>
@@ -116,7 +115,7 @@
                             <button pButton pRipple type="button" routerLink="gestante" label="Atender"
                                     class="p-button-secondary"
                                     (click)="enviarData(rowData)"></button>
-                            <button pButton pRipple type="button" routerLink="noControl" label="Triar"
+                            <button pButton pRipple type="button" (click)="openDialogTriaje(rowData)" label="Triar"
                                     class="p-button-help"></button>
                         </td>
                     </tr>

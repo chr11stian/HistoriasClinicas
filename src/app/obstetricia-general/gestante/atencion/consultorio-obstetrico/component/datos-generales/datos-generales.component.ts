@@ -234,7 +234,7 @@ export class DatosGeneralesComponent implements OnInit {
             Edema: new FormControl(''),
 
             /****ATENCION INTEGRAL******/
-            OrientaciónConsegeríaSignosAlarma: new FormControl(''),
+            OrientaciónConsejeríaSignosAlarma: new FormControl(''),
             ConsejeríaEnfermedadesComunes: new FormControl(''),
             SospechasTuberculosis: new FormControl(''),
             InfeccionesTransmisiónSexual: new FormControl(''),
@@ -363,7 +363,7 @@ export class DatosGeneralesComponent implements OnInit {
                 this.formDatos_Generales.get('Edema').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[12].valorSigno:null);
 
                 //RECUPERA DESCARTE ATENSION INTEGRAL
-                this.formDatos_Generales.get('OrientaciónConsegeríaSignosAlarma').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[0].valor:null);
+                this.formDatos_Generales.get('OrientaciónConsejeríaSignosAlarma').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[0].valor:null);
                 this.formDatos_Generales.get('ConsejeríaEnfermedadesComunes').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[1].valor:null);
                 this.formDatos_Generales.get('SospechasTuberculosis').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[2].valor:null);
                 this.formDatos_Generales.get('InfeccionesTransmisiónSexual').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[3].valor:null);
@@ -844,8 +844,8 @@ export class DatosGeneralesComponent implements OnInit {
             ],
             orientaciones: [
                 {
-                    consejeria: "Orientación y Consegería Signos de alarma",
-                    valor: this.formDatos_Generales.value.OrientaciónConsegeríaSignosAlarma,
+                    consejeria: "Orientación y Consejería Signos de alarma",
+                    valor: this.formDatos_Generales.value.OrientaciónConsejeríaSignosAlarma,
                     cie10: "3232"
                 },
                 {

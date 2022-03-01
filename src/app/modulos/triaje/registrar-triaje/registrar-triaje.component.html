@@ -5,28 +5,28 @@
                 <div class="grid mb-3 margen">
                     <div class="col-2">
                         <label>Nro Doc:</label>
-                        <span class="font-italic font-bold">{{' ' +datosPersonales.paciente.nroDoc}}</span>
+                        <span class="font-italic">{{' ' + datosPersonales.paciente.nroDoc}}</span>
                     </div>
                     <div class="col-4">
                         <label>NOMBRES:</label>
-                        <span class="font-italic font-bold">{{' ' + datosPersonales.paciente.nombre+ ' ' +
-                            datosPersonales.paciente.apellidos}}</span>
+                        <span class="font-italic">{{' ' + datosPersonales.paciente.nombre + ' ' +
+                        datosPersonales.paciente.apellidos}}</span>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <label>Servicio:</label>
-                        <span class="font-italic font-bold">{{' ' +datosPersonales.ipress.servicio}}</span>
+                        <span class="font-italic ">{{' ' + datosPersonales.ipress.servicio}}</span>
                     </div>
-                    
-                    <div class="col-3">
+
+                    <div class="col-2">
                         <label>Edad:</label>
-                        <span class="font-italic font-bold">{{' ' +ponerEdadEnLetras()}}</span>
+                        <span class="font-italic ">{{' ' + ponerEdadEnLetras()}}</span>
                     </div>
                 </div>
                 <div class="grid">
                     <!-- <div class="col-12 md:col-12 lg:col-3 imagen">
                     </div> -->
                     <div class="col-3">
-                        <img class="image" alt="Imagen" src="{{'data:image/jpg;base64,' + imagePath}}" />
+                        <img class="image" alt="Imagen" src="{{'data:image/jpg;base64,' + imagePath}}"/>
                     </div>
                     <div class="col-12 md:col-12 lg:col-9">
                         <p-fieldset legend="Funciones Vitales">
@@ -38,7 +38,7 @@
                                         </div>
                                         <div class="col-5">
                                             <input type="number" pInputText formControlName='temperatura'
-                                                placeholder="Temp." class="nputfield w-full">
+                                                   placeholder="Temp." class="nputfield w-full">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">C</span>
@@ -52,7 +52,7 @@
                                         </div>
                                         <div class="col-5">
                                             <input type="number" pInputText formControlName='presionSis'
-                                                placeholder="Sistolica" class="inputfield w-full">
+                                                   placeholder="Sistolica" class="inputfield w-full">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">mm.</span>
@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="col-5">
                                             <input type="number" pInputText formControlName='presionDias'
-                                                placeholder="Diastolica" class="inputfield w-full">
+                                                   placeholder="Diastolica" class="inputfield w-full">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">Hg.</span>
@@ -80,7 +80,7 @@
                                         </div>
                                         <div class="col-5">
                                             <input type="number" pInputText formControlName='fc'
-                                                placeholder="Frec. card." class="inputfield w-full">
+                                                   placeholder="Frec. card." class="inputfield w-full">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">por min.</span>
@@ -94,7 +94,7 @@
                                         </div>
                                         <div class="col-5">
                                             <input type="number" pInputText formControlName='fr'
-                                                placeholder="Frec. resp." class="inputfield w-full">
+                                                   placeholder="Frec. resp." class="inputfield w-full">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">por min.</span>
@@ -108,7 +108,7 @@
                                         </div>
                                         <div class="col-5">
                                             <input type="number" pInputText formControlName='peso' placeholder="Peso"
-                                                class="inputfield w-full" (blur)="calcularIMC()">
+                                                   class="inputfield w-full" (blur)="calcularIMC()">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">kg.</span>
@@ -122,7 +122,7 @@
                                         </div>
                                         <div class="col-5">
                                             <input type="number" pInputText formControlName='talla' placeholder="Talla"
-                                                class="inputfield w-full" (blur)="calcularIMC()">
+                                                   class="inputfield w-full" (blur)="calcularIMC()">
                                         </div>
                                         <div class="mt-2 col-4 text-left">
                                             <span class="font-italic">cm.</span>
@@ -148,7 +148,10 @@
     </div>
 </div>
 <div class="footer mt-4">
-    <button *ngIf="!ver" pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2" (click)="guardarTriaje()"></button>
-    <button *ngIf="ver" pButton type="button" label="Salir" class="p-button-primary mt-4 mr-2" (click)="closeDialog()"></button>
-    <button *ngIf="!ver"pButton type="button" label="Cancelar" class="p-button-danger mt-4" (click)="closeDialog()"></button>
+    <button *ngIf="!ver" pButton type="button" label="Guardar" class="p-button-primary mt-4 mr-2"
+            (click)="guardarTriaje()"></button>
+    <button *ngIf="ver" pButton type="button" label="Salir" class="p-button-primary mt-4 mr-2"
+            (click)="closeDialog()"></button>
+    <button *ngIf="!ver" pButton type="button" label="Cancelar" class="p-button-danger mt-4"
+            (click)="closeDialog()"></button>
 </div>
