@@ -1,0 +1,11 @@
+.imagen{
+    display:block;
+    margin:auto;
+}
+.cardContenedor{
+    display:block;
+    margin:auto;
+}
+.cabecera{
+ background-color: rgb(199, 49, 49);
+}

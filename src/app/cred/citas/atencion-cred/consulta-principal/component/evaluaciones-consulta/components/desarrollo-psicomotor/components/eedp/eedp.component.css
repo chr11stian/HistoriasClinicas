@@ -1,14 +1,14 @@
-p-table >>> .p-datatable table {
+::ng-deep .test-eedp .p-datatable table {
   width: auto;
 }
 
-p-table >>> .p-datatable .p-datatable-thead > tr > th {
+::ng-deep .test-eedp .p-datatable .p-datatable-thead > tr > th {
   text-align: center !important;
   border: 1px solid #b6b6b6;
   background-color: #dddddd;
   padding: 0.3rem;
 }
-p-table >>> .p-datatable .p-datatable-tbody > tr > td {
+::ng-deep .test-eedp .p-datatable .p-datatable-tbody > tr > td {
   text-align: center;
   font-size: medium;
   word-wrap: break-word;
@@ -122,4 +122,40 @@ input[type="number"] {
 .label_fecha {
   font-weight: bold;
   font-size: 14px;
+}
+
+::ng-deep .table-desarrollo .p-datatable table {
+  width: auto;
+}
+
+::ng-deep .table-desarrollo .p-datatable .p-datatable-thead > tr > th {
+  text-align: center !important;
+  border: 1px solid #b6b6b6;
+  background-color: #dddddd;
+  padding: 0.3rem;
+}
+::ng-deep .table-desarrollo .p-datatable .p-datatable-tbody > tr > td {
+  padding: 2px;
+}
+.cell_container {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.nroResult {
+  /* color:blue; */
+  /* text-align: center; */
+  background: #ce181e;
+  font-size: 1.1rem;
+  border: 0.5px solid;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 50%;
+  color: #fff;
+}
+
+::ng-deep .save .p-button {
+  background: #0c3866;
+  border-color: #0c3866;
+  align-items: center;
 }

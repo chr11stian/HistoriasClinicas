@@ -8,6 +8,9 @@
 /*    border-color: #0c3866;*/
 /*    color: #ffffff;*/
 /*}*/
+:host ::ng-deep .fondorojo {
+    background-color: #fcbfba !important;
+}
 p-dialog >>> .p-dialog .p-dialog-header {
     border-bottom: 0 none;
     background: #0c3866;
@@ -41,14 +44,14 @@ p-dialog >>> .p-dialog .p-dialog-footer button {
     z-index:89999;
 }
 ::ng-deep .debellenar .p-togglebutton.p-button.p-highlight{
-    background: red;
-    border-color: red;
+    background: #bf0d21;
+    border-color: #bf0d21;
     color: #ffffff;
 
 }
 ::ng-deep .debellenar .p-togglebutton.p-button.p-highlight:hover{
-    background: red;
-    border-color: red;
+    background: #bf0d21;
+    border-color: #bf0d21;
     color: #ffffff;
 
 }
