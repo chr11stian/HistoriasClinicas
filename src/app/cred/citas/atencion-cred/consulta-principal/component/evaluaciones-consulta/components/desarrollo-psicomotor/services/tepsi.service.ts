@@ -33,9 +33,9 @@ export class TepsiService {
       .catch(error => { return error })
   }
 
-  // getConsultaTepsi(idConsulta:string){
-  //   return this.http.get(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/tepsi/${idConsulta}`);
-  // }
+  getConsultaTepsiPorDNI(nroDNI:string){
+    return this.http.get(`${this.base_url}/${this.bd}/cred/tepsi/${nroDNI}`);
+  }
   postConsultaTepsi(idConsulta:string,requestInput){
     return this.http.post(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/tepsi/${idConsulta}`,requestInput);
   }

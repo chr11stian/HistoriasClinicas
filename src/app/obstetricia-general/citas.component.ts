@@ -10,6 +10,8 @@ import {MessageService} from "primeng/api";
 import {CuposService} from "../core/services/cupos.service";
 import {DocumentoIdentidadService} from "../mantenimientos/services/documento-identidad/documento-identidad.service";
 import Swal from "sweetalert2";
+import {RegistrarTriajeComponent} from "../modulos/triaje/registrar-triaje/registrar-triaje.component";
+import {CuposTriajeService} from "../modulos/triaje/services/cupos-triaje/cupos-triaje.service";
 
 @Component({
     selector: 'app-citas',
@@ -24,6 +26,7 @@ export class CitasComponent implements OnInit {
     selectedOption: data
     citas: any[]
     loading: boolean = true;
+    ref: DynamicDialogRef
 
 
     dataCitas: any;
@@ -38,16 +41,20 @@ export class CitasComponent implements OnInit {
     listaDocumentosIdentidad: any;
     TipoDoc: string = "DNI";
     DataCuposPaciente: any;
+    dataCuposTriados: any;
+    dialogTriaje: boolean = false;
 
 
     constructor(private obstetriciaGeneralService: ObstetriciaGeneralService,
                 private obstetriciaService: ObstetriciaGeneralService,
                 private citasService: CitasService,
                 private fb: FormBuilder,
+                private dialog: DialogService,
                 private pacienteService: PacienteService,
                 private messageService: MessageService,
                 private cuposService: CuposService,
                 private documentoIdentidadService: DocumentoIdentidadService,
+                private cuposTriajeService: CuposTriajeService
     ) {
         this.options = [
             {name: "DNI", code: 1},
@@ -74,7 +81,9 @@ export class CitasComponent implements OnInit {
         this.formCitas.get('tipoDoc').setValue(this.TipoDoc);
         this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
         this.getDocumentosIdentidad();
-        this.getCuposXservicio();
+        this.buscarCuposPorPersonal();
+        this.listCuposTriados();
+        // this.getCuposXservicio();
     }
 
     buildForm() {
@@ -159,21 +168,15 @@ export class CitasComponent implements OnInit {
     }
 
 
-
     enviarData2(event) {
-        this.obstetriciaGeneralService.tipoDoc = null;
-        this.obstetriciaGeneralService.nroDoc = null;
-        console.log("BUSQUEDA DNI SIN CUPO EVENTO", event);
-        this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
-        this.obstetriciaGeneralService.nroDoc = event.nroDoc;
+        localStorage.setItem('PacienteSinCupo', JSON.stringify(event));
+        localStorage.removeItem('datacupos');
     }
 
     enviarData(event) {
-        this.obstetriciaGeneralService.tipoDoc = null;
-        this.obstetriciaGeneralService.nroDoc = null;
-        console.log("LISTA DE CUPOS EVENTO", event);
-        this.obstetriciaGeneralService.tipoDoc = event.paciente.tipoDoc;
-        this.obstetriciaGeneralService.nroDoc = event.paciente.nroDoc;
+
+        localStorage.setItem('datacupos', JSON.stringify(event));
+        localStorage.removeItem('PacienteSinCupo');
     }
 
 
@@ -198,6 +201,48 @@ export class CitasComponent implements OnInit {
             severity: 'info',
             summary: 'Paciente',
             detail: 'No tiene un registro de cupo'
+        });
+    }
+
+    async buscarCuposPorPersonal() {
+        let data = {
+            tipoDoc: this.formCitas.value.tipoDoc,
+            // nroDoc: this.formCitas.value.nroDoc,
+            nroDoc: '25458545',
+            fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
+        }
+        console.log("DATA DNI", data)
+        await this.cuposService.buscarListaCuposPersonal(this.idIpressLapostaMedica, data)
+            .then((result: any) => {
+                this.DataCupos = result.object
+                this.loading = false;
+                console.log('LISTA DE CUPO DEL PACIENTE', result)
+            });
+    }
+
+    openDialogTriaje(data) {
+        let dataAux = {
+            data: data,
+            option: 1
+        }
+        this.ref = this.dialog.open(RegistrarTriajeComponent, {
+            header: " Registrar Triaje",
+            width: '70%',
+            data: dataAux
+        });
+        // this.ref.onClose.subscribe((data: any) => {
+        //     // this.DataCupos();
+        //     // this.listCuposTriados();
+        // });
+    }
+
+
+    listCuposTriados() {
+        let fechaAux = {fechaAtencion: this.datePipe.transform(new Date(), 'yyyy-MM-dd')}
+        console.log(fechaAux);
+        this.cuposTriajeService.getListarCuposTriados(this.idIpressLapostaMedica, fechaAux).subscribe((res: any) => {
+            console.log('data listar cupos ya triados', res.object)
+            this.dataCuposTriados = res.object;
         });
     }
 }
