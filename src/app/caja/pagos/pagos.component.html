@@ -79,7 +79,7 @@
     </p-accordion>
 </div>
 
-<p-dialog [(visible)]="Dialogpagos" [style]="{width: '780px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
+<p-dialog [(visible)]="Dialogpagos" [style]="{width: '880px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
     <div class="grid">
         <div class="col-5">
             <div class="grid">
@@ -173,52 +173,30 @@
         </div>
     </div>
     <div class="grid">
-        <div class="col-8">
-            <form [formGroup]='formCaja'>
-                <div class="grid recuadro mt-1 ml-1 p-1">
-                    <div class="col-6">
-                        <label class="text-pink-600">Detalle:</label>
-                    </div>
-                    <div class="col-6"></div>
-                    <div class="col-6 pt-0">
-                        <label>Estado:</label>
-                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full" formControlName="estado">
-                    </div>
-                    <div class="col-6 pt-0">
-                        <label>Fecha de atención:</label>
-                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
-                            formControlName="fechaAtencion">
-                    </div>
-                    <div class="col-6 pt-0">
-                        <label>Servicio:</label>
-                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
-                            formControlName="servicio">
-                    </div>
-                    <div class="col-6 pt-0">
-                        <label>Hora de atención:</label>
-                        <input type="text" pInputText class="p-inputtext-sm  w-full" formControlName="horaAtencion">
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-4">
-            <form [formGroup]='formCaja'>
-                <div class="grid recuadro mt-1 ml-1 p-1">
-                    <div class="col-12">
-                        <label class="text-pink-600">Pago:</label>
-                    </div>
-                    <div class="col-12 pt-0">
-                        <label>Precio del servicio:</label>
-                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
-                            formControlName="precioServicio">
-                    </div>
-                    <div class="col-12 pt-0">
-                        <label>Tipo de seguro:</label>
-                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
-                            formControlName="tipoSeguro">
-                    </div>
-                </div>
-            </form>
+        <div class="col-12">
+            <p-table [value]="listaProcedimientosApagar" #dt styleClass="p-datatable-gridlines" [scrollable]="true" scrollHeight="200px">
+                <ng-template pTemplate="caption">
+                    Detalle
+                </ng-template>
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr style="text-align: center">
+                        <th style="text-align: center">Codigo</th>
+                        <th style="text-align: center">Ups</th>
+                        <th style="text-align: center">Descripcion</th>
+                        <th style="text-align: center; width:8rem">Tipo</th>
+                        <th style="text-align: center; width:8rem">Precio</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr style="text-align: center">
+                        <td style="text-align: center">{{rowData.codigo}}</td>
+                        <td style="text-align: center">{{rowData.ups}}</td>
+                        <td >{{rowData.descripcion}}</td>
+                        <td style="text-align: center">{{rowData.tipo}}</td>
+                        <td style="text-align: center">{{rowData.precio}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
     </div>
     <ng-template pTemplate=footer>

@@ -38,6 +38,29 @@ export class PagosComponent implements OnInit {
         },
     ]
 
+    listaProcedimientosApagar: any[]=[
+        {
+            codigo: "PROC-MED-01",
+            ups: "MEDICINA GENERAL",
+            descripcion: "REVISION DE LA CABEZA",
+            precio: 12.00,
+            tipo: "PROCEDIMIENTO",
+        },
+        {
+            codigo: "CON-MED-01",
+            ups: "MEDICINA GENERAL",
+            descripcion: "CONSULTA DE MEDICINA GENERAL",
+            precio: 10.00,
+            tipo: "CONSULTA",
+        },
+        {
+            codigo: "PROC-MED-02",
+            ups: "MEDICINA GENERAL",
+            descripcion: "REVISION DEL ESTOMAGO",
+            precio: 5.00,
+            tipo: "PROCEDIMIENTO",
+        }
+    ]
     
 
     constructor(private servicesService: ServicesService,

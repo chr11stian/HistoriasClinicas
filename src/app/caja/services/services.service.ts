@@ -25,4 +25,9 @@ export class ServicesService {
     pagarCupo(idIpress,ambienteCaja,pago){
         return this.http.put(`${this.base_url}/${this.bd}/caja/guardarRecibo/${idIpress}/${ambienteCaja}`,pago) 
     }
+
+    listarAmbientesCaja(req){
+        return this.http.post(`${this.base_url}/${this.bd}/ipress/listarAmbientesXNombreUps`,req) 
+    }
+    
 }
