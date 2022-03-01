@@ -96,14 +96,29 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     MayorDosMilQuinientos: any;
     Multiple: any;
     MayorTrentaSemanas: any;
+    dataPaciente2: any;
+    Gestacion: any;
+    idGestacion: string;
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
                 private obstetriciaGeneralService: ObstetriciaGeneralService) {
+        this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
 
-        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
-        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        this.idRecuperado = this.obstetriciaGeneralService.idGestacion;
+
+        if (this.Gestacion == null) {
+            this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
+            this.nroDocRecuperado = this.dataPaciente2.nroDoc;
+            this.idRecuperado = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+            console.log("ID RESIEN", this.idRecuperado)
+
+        } else {
+            this.tipoDocRecuperado = this.Gestacion.tipoDoc;
+            this.nroDocRecuperado = this.Gestacion.nroDoc;
+            this.idRecuperado = this.Gestacion.id;
+        }
+
 
         this.opciones = [
             {booleano: true, name: "SI"},
@@ -148,28 +163,12 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.obstetriciaGeneralService.observable$.subscribe(id => {
-        //     this.idDocumento = id;
         console.log("ID RECUPERADo", this.idRecuperado);
         // })
         this.buildForm2();
         this.getpacienteFiiacionByID();
     }
 
-    calculargestas() {
-        this.viven = this.formAntecedentesObstetricos.value.viven;
-        this.muertoPrimeraSemana = this.formAntecedentesObstetricos.value.muertoPrimeraSemana;
-        this.despuesPrimeraSemana = this.formAntecedentesObstetricos.value.despuesPrimeraSemana;
-        this.nacidosVivos = (this.viven + this.muertoPrimeraSemana + this.despuesPrimeraSemana);
-        this.formAntecedentesObstetricos.get('NacidosVivos').setValue(this.nacidosVivos);
-        this.nacidosMuertos = this.formAntecedentesObstetricos.value.NacidosMuertos;
-        this.vaginales = this.formAntecedentesObstetricos.value.vaginales;
-        this.cesarias = this.formAntecedentesObstetricos.value.cesarias;
-        this.partos = (this.vaginales + this.cesarias);
-        this.formAntecedentesObstetricos.get('partos').setValue(this.partos);
-        this.abortos = this.formAntecedentesObstetricos.value.abortos;
-        this.gestas = (this.abortos + this.partos);
-    }
 
     SumaNacidosVivos() {
         this.nacidosVivos = ((this.viven * 1) + (this.muertoPrimeraSemana * 1) + (this.despuesPrimeraSemana * 1));
@@ -501,7 +500,6 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         // }
     }
 
-
     buildForm2() {
         this.formAntecedentesObstetricos = this.form.group({
             viven: new FormControl(''),
@@ -793,13 +791,12 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             result => {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Actualizo con exito',
-                    text: '',
+                    title: 'Registro',
+                    text: 'Fue creado con exito',
                     showConfirmButton: false,
                     timer: 1500,
-                }).then(
-
-                )
+                })
+                this.getpacienteFiiacionByID();
             }
         )
     }
@@ -810,113 +807,116 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
             this.dataAntecedentes = res.object;
             console.log('Antecedentes por ID ', this.dataAntecedentes)
 
+            if (this.dataAntecedentes == null) {
+                return
+            } else {
 
-            this.viven = Number(this.dataAntecedentes.antecedentesObstetricos[2].valor);
-            this.muertoPrimeraSemana = Number(this.dataAntecedentes.antecedentesObstetricos[1].valor);
-            this.despuesPrimeraSemana = Number(this.dataAntecedentes.antecedentesObstetricos[0].valor);
-            this.nacidosVivos = Number(this.dataAntecedentes.antecedentesObstetricos[3].valor);
-            this.nacidosMuertos = Number(this.dataAntecedentes.antecedentesObstetricos[4].valor);
-            this.vaginales = Number(this.dataAntecedentes.antecedentesObstetricos[5].valor);
-            this.cesarias = Number(this.dataAntecedentes.antecedentesObstetricos[6].valor);
-            this.partos = Number(this.dataAntecedentes.antecedentesObstetricos[8].valor);
-            this.abortos = Number(this.dataAntecedentes.antecedentesObstetricos[7].valor);
-            this.gestas = Number(this.dataAntecedentes.antecedentesObstetricos[9].valor);
-            this.RNmayorPeso = this.dataAntecedentes.rnMayorPeso;
-
-
-            this.formAntecedentes.get('fecha').setValue(this.dataAntecedentes.gestacionAnterior.fecha);
-            this.formAntecedentes.get('intergenesico').setValue(this.dataAntecedentes.gestacionAnterior.perIntergenesicoAdecuado);
-            this.formAntecedentes.get('terminacion').setValue(this.dataAntecedentes.gestacionAnterior.terminacion);
-            this.formAntecedentes.get('tipoAborto').setValue(this.dataAntecedentes.gestacionAnterior.tipoAborto);
-            this.formAntecedentes.get('lactaciaMaterna').setValue(this.dataAntecedentes.gestacionAnterior.lactanciaMaterna);
-            this.formAntecedentes.get('lugarParto').setValue(this.dataAntecedentes.gestacionAnterior.lugarParto);
+                this.viven = Number(this.dataAntecedentes.antecedentesObstetricos[2].valor);
+                this.muertoPrimeraSemana = Number(this.dataAntecedentes.antecedentesObstetricos[1].valor);
+                this.despuesPrimeraSemana = Number(this.dataAntecedentes.antecedentesObstetricos[0].valor);
+                this.nacidosVivos = Number(this.dataAntecedentes.antecedentesObstetricos[3].valor);
+                this.nacidosMuertos = Number(this.dataAntecedentes.antecedentesObstetricos[4].valor);
+                this.vaginales = Number(this.dataAntecedentes.antecedentesObstetricos[5].valor);
+                this.cesarias = Number(this.dataAntecedentes.antecedentesObstetricos[6].valor);
+                this.partos = Number(this.dataAntecedentes.antecedentesObstetricos[8].valor);
+                this.abortos = Number(this.dataAntecedentes.antecedentesObstetricos[7].valor);
+                this.gestas = Number(this.dataAntecedentes.antecedentesObstetricos[9].valor);
+                this.RNmayorPeso = this.dataAntecedentes.rnMayorPeso;
 
 
-            this.antecedentes1 = [this.dataAntecedentes.antecedentesFamiliares[0].nombre];
-
-            this.antecedentes2 = [this.dataAntecedentes.antecedentesFamiliares[1].nombre];
-            this.formAntecedentes.get('nombrefamiliar1').setValue(this.dataAntecedentes.antecedentesFamiliares[1].valor);
-
-            this.antecedentes3 = [this.dataAntecedentes.antecedentesFamiliares[2].nombre];
-            this.formAntecedentes.get('nombrefamiliar2').setValue(this.dataAntecedentes.antecedentesFamiliares[2].valor);
-
-            this.antecedentes4 = [this.dataAntecedentes.antecedentesFamiliares[3].nombre];
-            this.formAntecedentes.get('nombrefamiliar3').setValue(this.dataAntecedentes.antecedentesFamiliares[3].valor);
-
-            this.antecedentes5 = [this.dataAntecedentes.antecedentesFamiliares[4].nombre];
-            this.formAntecedentes.get('nombrefamiliar4').setValue(this.dataAntecedentes.antecedentesFamiliares[4].valor);
-
-            this.antecedentes6 = [this.dataAntecedentes.antecedentesFamiliares[5].nombre];
-            this.formAntecedentes.get('nombrefamiliar5').setValue(this.dataAntecedentes.antecedentesFamiliares[5].valor);
-
-            this.antecedentes7 = [this.dataAntecedentes.antecedentesFamiliares[6].nombre];
-            this.formAntecedentes.get('nombrefamiliar6').setValue(this.dataAntecedentes.antecedentesFamiliares[6].valor);
-
-            this.antecedentes8 = [this.dataAntecedentes.antecedentesFamiliares[7].nombre];
-            this.formAntecedentes.get('nombrefamiliar7').setValue(this.dataAntecedentes.antecedentesFamiliares[7].valor);
-
-            this.antecedentes9 = [this.dataAntecedentes.antecedentesFamiliares[8].nombre];
-            this.formAntecedentes.get('nombrefamiliar8').setValue(this.dataAntecedentes.antecedentesFamiliares[8].valor);
-
-            this.antecedentes10 = [this.dataAntecedentes.antecedentesFamiliares[9].nombre];
-            this.formAntecedentes.get('nombrefamiliar9').setValue(this.dataAntecedentes.antecedentesFamiliares[9].valor);
-
-            this.antecedentes11 = [this.dataAntecedentes.antecedentesFamiliares[10].nombre];
-            this.formAntecedentes.get('nombrefamiliar10').setValue(this.dataAntecedentes.antecedentesFamiliares[10].valor);
-
-            this.antecedentes12 = [this.dataAntecedentes.antecedentesFamiliares[11].nombre];
-            this.formAntecedentes.get('nombrefamiliar11').setValue(this.dataAntecedentes.antecedentesFamiliares[11].valor);
-            this.transtornMentales = [this.dataAntecedentes.antecedentesPersonales[27].nombre];
-            this.otrosAntecedentesFamiliares = this.dataAntecedentes.otroAntecendeteFamiliar;
-            if (this.otrosAntecedentesFamiliares !== '') {
-                this.otrosAntecedentesFamiliares2 = ["otros"]
-            } else this.otrosAntecedentesFamiliares2 = null
-
-            this.inicializarAregloAntfamiliares();
+                this.formAntecedentes.get('fecha').setValue(this.dataAntecedentes.gestacionAnterior.fecha);
+                this.formAntecedentes.get('intergenesico').setValue(this.dataAntecedentes.gestacionAnterior.perIntergenesicoAdecuado);
+                this.formAntecedentes.get('terminacion').setValue(this.dataAntecedentes.gestacionAnterior.terminacion);
+                this.formAntecedentes.get('tipoAborto').setValue(this.dataAntecedentes.gestacionAnterior.tipoAborto);
+                this.formAntecedentes.get('lactaciaMaterna').setValue(this.dataAntecedentes.gestacionAnterior.lactanciaMaterna);
+                this.formAntecedentes.get('lugarParto').setValue(this.dataAntecedentes.gestacionAnterior.lugarParto);
 
 
-            this.formAntecedentes.get('captada').setValue(this.dataAntecedentes.captada);
-            this.formAntecedentes.get('referidaporAgComuni').setValue(this.dataAntecedentes.referidaAgComunal);
+                this.antecedentes1 = [this.dataAntecedentes.antecedentesFamiliares[0].nombre];
+
+                this.antecedentes2 = [this.dataAntecedentes.antecedentesFamiliares[1].nombre];
+                this.formAntecedentes.get('nombrefamiliar1').setValue(this.dataAntecedentes.antecedentesFamiliares[1].valor);
+
+                this.antecedentes3 = [this.dataAntecedentes.antecedentesFamiliares[2].nombre];
+                this.formAntecedentes.get('nombrefamiliar2').setValue(this.dataAntecedentes.antecedentesFamiliares[2].valor);
+
+                this.antecedentes4 = [this.dataAntecedentes.antecedentesFamiliares[3].nombre];
+                this.formAntecedentes.get('nombrefamiliar3').setValue(this.dataAntecedentes.antecedentesFamiliares[3].valor);
+
+                this.antecedentes5 = [this.dataAntecedentes.antecedentesFamiliares[4].nombre];
+                this.formAntecedentes.get('nombrefamiliar4').setValue(this.dataAntecedentes.antecedentesFamiliares[4].valor);
+
+                this.antecedentes6 = [this.dataAntecedentes.antecedentesFamiliares[5].nombre];
+                this.formAntecedentes.get('nombrefamiliar5').setValue(this.dataAntecedentes.antecedentesFamiliares[5].valor);
+
+                this.antecedentes7 = [this.dataAntecedentes.antecedentesFamiliares[6].nombre];
+                this.formAntecedentes.get('nombrefamiliar6').setValue(this.dataAntecedentes.antecedentesFamiliares[6].valor);
+
+                this.antecedentes8 = [this.dataAntecedentes.antecedentesFamiliares[7].nombre];
+                this.formAntecedentes.get('nombrefamiliar7').setValue(this.dataAntecedentes.antecedentesFamiliares[7].valor);
+
+                this.antecedentes9 = [this.dataAntecedentes.antecedentesFamiliares[8].nombre];
+                this.formAntecedentes.get('nombrefamiliar8').setValue(this.dataAntecedentes.antecedentesFamiliares[8].valor);
+
+                this.antecedentes10 = [this.dataAntecedentes.antecedentesFamiliares[9].nombre];
+                this.formAntecedentes.get('nombrefamiliar9').setValue(this.dataAntecedentes.antecedentesFamiliares[9].valor);
+
+                this.antecedentes11 = [this.dataAntecedentes.antecedentesFamiliares[10].nombre];
+                this.formAntecedentes.get('nombrefamiliar10').setValue(this.dataAntecedentes.antecedentesFamiliares[10].valor);
+
+                this.antecedentes12 = [this.dataAntecedentes.antecedentesFamiliares[11].nombre];
+                this.formAntecedentes.get('nombrefamiliar11').setValue(this.dataAntecedentes.antecedentesFamiliares[11].valor);
+                this.transtornMentales = [this.dataAntecedentes.antecedentesPersonales[27].nombre];
+                this.otrosAntecedentesFamiliares = this.dataAntecedentes.otroAntecendeteFamiliar;
+                if (this.otrosAntecedentesFamiliares !== '') {
+                    this.otrosAntecedentesFamiliares2 = ["otros"]
+                } else this.otrosAntecedentesFamiliares2 = null
+
+                this.inicializarAregloAntfamiliares();
 
 
-            this.Ninguno = [this.dataAntecedentes.antecedentesPersonales[0].nombre];
-            console.log("ERRRR", this.Ninguno);
-            this.Abortohabitualrecurrente = [this.dataAntecedentes.antecedentesPersonales[1].nombre];
-            this.Violencia = [this.dataAntecedentes.antecedentesPersonales[2].nombre];
-            this.Cardiopatia = [this.dataAntecedentes.antecedentesPersonales[3].nombre];
-            this.cirugiaPelvicaUterina = [this.dataAntecedentes.antecedentesPersonales[4].nombre];
-            this.Eclampsia = [this.dataAntecedentes.antecedentesPersonales[5].nombre];
-            this.preEclampsia = [this.dataAntecedentes.antecedentesPersonales[6].nombre];
-            this.hemorraPostparto = [this.dataAntecedentes.antecedentesPersonales[7].nombre];
-            this.TBCPulmonar2 = [this.dataAntecedentes.antecedentesPersonales[8].nombre];
-            this.VIHSIDA = [this.dataAntecedentes.antecedentesPersonales[9].nombre];
-            this.Alcoholismo = [this.dataAntecedentes.antecedentesPersonales[10].nombre];
-            this.alergiaAmedicamentos = [this.dataAntecedentes.antecedentesPersonales[11].nombre];
-            this.asmaBronquial = [this.dataAntecedentes.antecedentesPersonales[12].nombre];
-            this.diabetes2 = [this.dataAntecedentes.antecedentesPersonales[13].nombre];
-            this.enfermCongenitas = [this.dataAntecedentes.antecedentesPersonales[14].nombre];
-            this.enfermInfecciosas = [this.dataAntecedentes.antecedentesPersonales[15].nombre];
-            this.epilepsia = [this.dataAntecedentes.antecedentesPersonales[16].nombre];
-            this.hipArterial = [this.dataAntecedentes.antecedentesPersonales[17].nombre];
-            this.consumoHojaDeCoca = [this.dataAntecedentes.antecedentesPersonales[18].nombre];
-            this.infertilidad = [this.dataAntecedentes.antecedentesPersonales[19].nombre];
-            this.neoplasias = [this.dataAntecedentes.antecedentesPersonales[20].nombre];
-            this.otrasDrogas = [this.dataAntecedentes.antecedentesPersonales[21].nombre];
-            this.partoProlong = [this.dataAntecedentes.antecedentesPersonales[22].nombre];
-            this.preeclampsia = [this.dataAntecedentes.antecedentesPersonales[23].nombre];
-            this.prematuridad = [this.dataAntecedentes.antecedentesPersonales[24].nombre];
-            this.retenPlacenta = [this.dataAntecedentes.antecedentesPersonales[25].nombre];
-            this.tabaco = [this.dataAntecedentes.antecedentesPersonales[26].nombre];
-            this.transtornMentales = [this.dataAntecedentes.antecedentesPersonales[27].nombre];
-            this.otros2 = this.dataAntecedentes.otroAncedentePersonal;
-            if (this.otros2 !== '') {
-                this.otros23 = ["otros"]
-            } else this.otros23 = null
+                this.formAntecedentes.get('captada').setValue(this.dataAntecedentes.captada);
+                this.formAntecedentes.get('referidaporAgComuni').setValue(this.dataAntecedentes.referidaAgComunal);
 
-            this.formAntecedentes.get('sesiones').setValue(this.dataAntecedentes.psicoprofilaxisNroSesiones);
-            this.formAntecedentes.get('PartosDomiciliarios').setValue(this.dataAntecedentes.antecedentesPartosPersonales);
-            this.inicializarArregloAntecedentes();
 
+                this.Ninguno = [this.dataAntecedentes.antecedentesPersonales[0].nombre];
+                console.log("ERRRR", this.Ninguno);
+                this.Abortohabitualrecurrente = [this.dataAntecedentes.antecedentesPersonales[1].nombre];
+                this.Violencia = [this.dataAntecedentes.antecedentesPersonales[2].nombre];
+                this.Cardiopatia = [this.dataAntecedentes.antecedentesPersonales[3].nombre];
+                this.cirugiaPelvicaUterina = [this.dataAntecedentes.antecedentesPersonales[4].nombre];
+                this.Eclampsia = [this.dataAntecedentes.antecedentesPersonales[5].nombre];
+                this.preEclampsia = [this.dataAntecedentes.antecedentesPersonales[6].nombre];
+                this.hemorraPostparto = [this.dataAntecedentes.antecedentesPersonales[7].nombre];
+                this.TBCPulmonar2 = [this.dataAntecedentes.antecedentesPersonales[8].nombre];
+                this.VIHSIDA = [this.dataAntecedentes.antecedentesPersonales[9].nombre];
+                this.Alcoholismo = [this.dataAntecedentes.antecedentesPersonales[10].nombre];
+                this.alergiaAmedicamentos = [this.dataAntecedentes.antecedentesPersonales[11].nombre];
+                this.asmaBronquial = [this.dataAntecedentes.antecedentesPersonales[12].nombre];
+                this.diabetes2 = [this.dataAntecedentes.antecedentesPersonales[13].nombre];
+                this.enfermCongenitas = [this.dataAntecedentes.antecedentesPersonales[14].nombre];
+                this.enfermInfecciosas = [this.dataAntecedentes.antecedentesPersonales[15].nombre];
+                this.epilepsia = [this.dataAntecedentes.antecedentesPersonales[16].nombre];
+                this.hipArterial = [this.dataAntecedentes.antecedentesPersonales[17].nombre];
+                this.consumoHojaDeCoca = [this.dataAntecedentes.antecedentesPersonales[18].nombre];
+                this.infertilidad = [this.dataAntecedentes.antecedentesPersonales[19].nombre];
+                this.neoplasias = [this.dataAntecedentes.antecedentesPersonales[20].nombre];
+                this.otrasDrogas = [this.dataAntecedentes.antecedentesPersonales[21].nombre];
+                this.partoProlong = [this.dataAntecedentes.antecedentesPersonales[22].nombre];
+                this.preeclampsia = [this.dataAntecedentes.antecedentesPersonales[23].nombre];
+                this.prematuridad = [this.dataAntecedentes.antecedentesPersonales[24].nombre];
+                this.retenPlacenta = [this.dataAntecedentes.antecedentesPersonales[25].nombre];
+                this.tabaco = [this.dataAntecedentes.antecedentesPersonales[26].nombre];
+                this.transtornMentales = [this.dataAntecedentes.antecedentesPersonales[27].nombre];
+                this.otros2 = this.dataAntecedentes.otroAncedentePersonal;
+                if (this.otros2 !== '') {
+                    this.otros23 = ["otros"]
+                } else this.otros23 = null
+
+                this.formAntecedentes.get('sesiones').setValue(this.dataAntecedentes.psicoprofilaxisNroSesiones);
+                this.formAntecedentes.get('PartosDomiciliarios').setValue(this.dataAntecedentes.antecedentesPartosPersonales);
+                this.inicializarArregloAntecedentes();
+            }
         });
     }
 
@@ -937,6 +937,4 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     fnCheckbox(value) {
         console.log(value);
     }
-
-
 }

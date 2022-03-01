@@ -1,184 +1,186 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ConsultasService } from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/services/consultas.service';
-import { ConsultaObstetriciaService } from 'src/app/obstetricia-general/gestante/consulta/services/consulta-obstetricia/consulta-obstetricia.service';
-import { CuposTriajeService } from '../services/cupos-triaje/cupos-triaje.service';
-import { image } from '../../../../assets/images/image.const';
-import { imageNina } from '../../../../assets/images/imageNina.const';
-import { imageNino } from '../../../../assets/images/imageNino.const';
-import { PersonalService } from 'src/app/core/services/personal-services/personal.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {MessageService} from 'primeng/api';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {ConsultasService} from 'src/app/obstetricia-general/gestante/atencion/consultorio-obstetrico/services/consultas.service';
+import {ConsultaObstetriciaService} from 'src/app/obstetricia-general/gestante/consulta/services/consulta-obstetricia/consulta-obstetricia.service';
+import {CuposTriajeService} from '../services/cupos-triaje/cupos-triaje.service';
+import {image} from '../../../../assets/images/image.const';
+import {imageNina} from '../../../../assets/images/imageNina.const';
+import {imageNino} from '../../../../assets/images/imageNino.const';
+import {PersonalService} from 'src/app/core/services/personal-services/personal.service';
+
 @Component({
-  selector: 'app-registrar-triaje',
-  templateUrl: './registrar-triaje.component.html',
-  styleUrls: ['./registrar-triaje.component.css']
+    selector: 'app-registrar-triaje',
+    templateUrl: './registrar-triaje.component.html',
+    styleUrls: ['./registrar-triaje.component.css']
 })
 export class RegistrarTriajeComponent implements OnInit {
-  formTriaje: FormGroup;
-  triaje: Triaje;
-  datosPersonales: any;
-  idCupo: string;
-  dataTriaje: any;
-  imcOption: number;
-  imagePath: string = image;
-  dataPIDE: any;
-  imc: any;
-  ver=false;
-  constructor(
-    private fb: FormBuilder,
-    private dialog: DialogService,
-    private triajeService: CuposTriajeService,
-    private personalService: PersonalService,
-    private config: DynamicDialogConfig,
-    private ref: DynamicDialogRef,
-    private messageService: MessageService,
-  ) {
-    this.inicializarForm();
-    console.log('data of listar ', config.data.data);
-    this.datosPersonales = config.data.data;
-    this.idCupo = this.datosPersonales.id;
-    if (this.datosPersonales.paciente.edadAnio < 18) {
-      if (this.datosPersonales.paciente.sexo == "FEMENINO")
-        this.imagePath = imageNina;
-      else
-        this.imagePath = imageNino;
-    }
-    else {
-      this.traerFoto();
-    }
-    if (config.data.option == 2) {
-      this.ver=true;
-      this.formTriaje.patchValue({ temperatura: this.datosPersonales.funcionesVitales.temperatura });
-      this.formTriaje.patchValue({ presionSis: this.datosPersonales.funcionesVitales.presionSistolica });
-      this.formTriaje.patchValue({ presionDias: this.datosPersonales.funcionesVitales.presionDiastolica });
-      this.formTriaje.patchValue({ fc: this.datosPersonales.funcionesVitales.fc });
-      this.formTriaje.patchValue({ fr: this.datosPersonales.funcionesVitales.fr });
-      this.formTriaje.patchValue({ peso: this.datosPersonales.funcionesVitales.peso });
-      this.formTriaje.patchValue({ talla: this.datosPersonales.funcionesVitales.talla });
-      this.calcularIMC();
-      this.formTriaje.get("temperatura").disable();
-      this.formTriaje.get("presionSis").disable();
-      this.formTriaje.get("presionDias").disable();
-      this.formTriaje.get("fc").disable();
-      this.formTriaje.get("fr").disable();
-      this.formTriaje.get("peso").disable();
-      this.formTriaje.get("talla").disable();
-    }
-  }
+    formTriaje: FormGroup;
+    triaje: Triaje;
+    datosPersonales: any;
+    idCupo: string;
+    dataTriaje: any;
+    imcOption: number;
+    imagePath: string = image;
+    dataPIDE: any;
+    imc: any;
+    ver = false;
 
-  traerFoto() {
-    this.personalService.getDatosReniec(this.datosPersonales.paciente.nroDoc).subscribe((res: any) => {
-      this.dataPIDE = res;
-      console.log(res);
-      this.imagePath = res.foto;
-    });
-  }
-  ngOnInit(): void {
-  }
+    constructor(
+        private fb: FormBuilder,
+        private dialog: DialogService,
+        private triajeService: CuposTriajeService,
+        private personalService: PersonalService,
+        private config: DynamicDialogConfig,
+        private ref: DynamicDialogRef,
+        private messageService: MessageService,
+    ) {
+        this.inicializarForm();
+        console.log('data of listar ', config.data.data);
+        this.datosPersonales = config.data.data;
+        this.idCupo = this.datosPersonales.id;
+        if (this.datosPersonales.paciente.edadAnio < 18) {
+            if (this.datosPersonales.paciente.sexo == "FEMENINO")
+                this.imagePath = imageNina;
+            else
+                this.imagePath = imageNino;
+        } else {
+            this.traerFoto();
+        }
+        if (config.data.option == 2) {
+            this.ver = true;
+            this.formTriaje.patchValue({temperatura: this.datosPersonales.funcionesVitales.temperatura});
+            this.formTriaje.patchValue({presionSis: this.datosPersonales.funcionesVitales.presionSistolica});
+            this.formTriaje.patchValue({presionDias: this.datosPersonales.funcionesVitales.presionDiastolica});
+            this.formTriaje.patchValue({fc: this.datosPersonales.funcionesVitales.fc});
+            this.formTriaje.patchValue({fr: this.datosPersonales.funcionesVitales.fr});
+            this.formTriaje.patchValue({peso: this.datosPersonales.funcionesVitales.peso});
+            this.formTriaje.patchValue({talla: this.datosPersonales.funcionesVitales.talla});
+            this.calcularIMC();
+            this.formTriaje.get("temperatura").disable();
+            this.formTriaje.get("presionSis").disable();
+            this.formTriaje.get("presionDias").disable();
+            this.formTriaje.get("fc").disable();
+            this.formTriaje.get("fr").disable();
+            this.formTriaje.get("peso").disable();
+            this.formTriaje.get("talla").disable();
+        }
+    }
 
-  inicializarForm() {
-    this.formTriaje = this.fb.group({
-      temperatura: new FormControl(""),
-      presionSis: new FormControl(""),//sistolica 
-      presionDias: new FormControl(""),//diastolica
-      fc: new FormControl(""),
-      fr: new FormControl(""),
-      peso: new FormControl(""),
-      talla: new FormControl(""),
-    });
-  }
+    traerFoto() {
+        this.personalService.getDatosReniec(this.datosPersonales.paciente.nroDoc).subscribe((res: any) => {
+            this.dataPIDE = res;
+            console.log(res);
+            this.imagePath = res.foto;
+        });
+    }
 
-  recuperarDatos() {
-    this.triaje = {
-      temperatura: parseFloat(this.formTriaje.value.temperatura),
-      presionSistolica: parseInt(this.formTriaje.value.presionSis),
-      presionDiastolica: parseInt(this.formTriaje.value.presionDias),
-      fc: parseInt(this.formTriaje.value.fc),
-      fr: parseInt(this.formTriaje.value.fr),
-      peso: parseFloat(this.formTriaje.value.peso),
-      talla: parseFloat(this.formTriaje.value.talla),
-      imc: this.imc
+    ngOnInit(): void {
     }
-  }
 
-  guardarTriaje() {
-    this.recuperarDatos();
-    console.log('data to show ', this.triaje);
-    this.triajeService.postTriaje(this.idCupo, this.triaje).subscribe((res: any) => {
-      this.messageService.add({ severity: 'success', summary: 'Exito', detail: 'Se guardo correctamente' });
-      this.ref.close(this.triaje);
+    inicializarForm() {
+        this.formTriaje = this.fb.group({
+            temperatura: new FormControl(""),
+            presionSis: new FormControl(""),//sistolica
+            presionDias: new FormControl(""),//diastolica
+            fc: new FormControl(""),
+            fr: new FormControl(""),
+            peso: new FormControl(""),
+            talla: new FormControl(""),
+        });
+    }
 
-    });
+    recuperarDatos() {
+        this.triaje = {
+            temperatura: parseFloat(this.formTriaje.value.temperatura),
+            presionSistolica: parseInt(this.formTriaje.value.presionSis),
+            presionDiastolica: parseInt(this.formTriaje.value.presionDias),
+            fc: parseInt(this.formTriaje.value.fc),
+            fr: parseInt(this.formTriaje.value.fr),
+            peso: parseFloat(this.formTriaje.value.peso),
+            talla: parseFloat(this.formTriaje.value.talla),
+            imc: this.imc
+        }
+    }
 
-  }
-  closeDialog() {
-    this.ref.close();
-  }
-  ponerEdadEnLetras() {
-    let anios = this.datosPersonales.paciente.edadAnio;
-    let meses = this.datosPersonales.paciente.edadMes;
-    let dias = this.datosPersonales.paciente.edadDia;
-    let cadena = ""
-    if (anios > 1) {
-      cadena += anios + " años,";
-    }
-    else {
-      if (anios != 0)
-        cadena += anios + " año,"
-    }
-    if (meses > 1) {
-      cadena += meses + " meses, ";
-    }
-    else {
-      cadena += meses + " mes, "
-    }
-    if (dias > 1) {
-      cadena += dias + " dias";
-    }
-    else {
-      cadena += dias + " dia"
-    }
-    return cadena;
-  }
-  loadData() {
-    this.formTriaje.patchValue({ temperatura: '' });
-    this.formTriaje.patchValue({ presionSis: '' });
-    this.formTriaje.patchValue({ presionDias: '' });
-    this.formTriaje.patchValue({ fc: '' });
-    this.formTriaje.patchValue({ fr: '' });
-    this.formTriaje.patchValue({ peso: '' });
-    this.formTriaje.patchValue({ talla: '' });
-  }
+    guardarTriaje() {
+        this.recuperarDatos();
+        console.log('data to show ', this.triaje);
+        this.triajeService.postTriaje(this.idCupo, this.triaje).subscribe((res: any) => {
+            this.messageService.add({severity: 'success', summary: 'Exito', detail: 'Se guardo correctamente'});
+            this.ref.close(this.triaje);
 
-  calcularIMC() {
-    let pesoAux: number = this.formTriaje.value.peso;
-    let tallaAux: number = (this.formTriaje.value.talla) * 0.01;
-    let imc = pesoAux / (tallaAux * tallaAux)
-    console.log('imc ', imc);
-    if (imc < 18.5) {
-      this.imcOption = 1
+        });
+
     }
-    if (imc >= 18.5 && imc <= 24.9) {
-      this.imcOption = 2
+
+    closeDialog() {
+        this.ref.close();
     }
-    if (imc >= 25.0 && imc <= 29.9) {
-      this.imcOption = 3
+
+    ponerEdadEnLetras() {
+        let anios = this.datosPersonales.paciente.edadAnio;
+        let meses = this.datosPersonales.paciente.edadMes;
+        let dias = this.datosPersonales.paciente.edadDia;
+        let cadena = ""
+        if (anios > 1) {
+            cadena += anios + " años,";
+        } else {
+            if (anios != 0)
+                cadena += anios + " año,"
+        }
+        if (meses > 1) {
+            cadena += meses + " meses, ";
+        } else {
+            cadena += meses + " mes, "
+        }
+        if (dias > 1) {
+            cadena += dias + " dias";
+        } else {
+            cadena += dias + " dia"
+        }
+        return cadena;
     }
-    if (imc > 30) {
-      this.imcOption = 4
+
+    loadData() {
+        this.formTriaje.patchValue({temperatura: ''});
+        this.formTriaje.patchValue({presionSis: ''});
+        this.formTriaje.patchValue({presionDias: ''});
+        this.formTriaje.patchValue({fc: ''});
+        this.formTriaje.patchValue({fr: ''});
+        this.formTriaje.patchValue({peso: ''});
+        this.formTriaje.patchValue({talla: ''});
     }
-    this.imc = imc;
-  }
+
+    calcularIMC() {
+        let pesoAux: number = this.formTriaje.value.peso;
+        let tallaAux: number = (this.formTriaje.value.talla) * 0.01;
+        let imc = pesoAux / (tallaAux * tallaAux)
+        console.log('imc ', imc);
+        if (imc < 18.5) {
+            this.imcOption = 1
+        }
+        if (imc >= 18.5 && imc <= 24.9) {
+            this.imcOption = 2
+        }
+        if (imc >= 25.0 && imc <= 29.9) {
+            this.imcOption = 3
+        }
+        if (imc > 30) {
+            this.imcOption = 4
+        }
+        this.imc = imc;
+    }
 }
 
 interface Triaje {
-  temperatura: number,
-  presionSistolica: number,
-  presionDiastolica: number,
-  fc: number,
-  fr: number,
-  peso: number,
-  talla: number,
-  imc: number
+    temperatura: number,
+    presionSistolica: number,
+    presionDiastolica: number,
+    fc: number,
+    fr: number,
+    peso: number,
+    talla: number,
+    imc: number
 }

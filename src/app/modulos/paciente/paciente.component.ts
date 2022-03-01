@@ -24,7 +24,9 @@ export class PacienteComponent implements OnInit {
     listaPacientes: any;
     dataDepartamentos: any;
     ref: DynamicDialogRef;
-    auxipress: string = "615b30b37194ce03d782561c";
+    // idIpressLapostaMedica = "616de45e0273042236434b51";
+    // iprees: string = "la posta medica";
+    auxipress: string = "616de45e0273042236434b51";
     dataPacienteEditar: any;
 
     constructor(
