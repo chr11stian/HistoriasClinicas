@@ -20,7 +20,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     options: any;
     familiares: any
     studies: any;
-    dataPacientes: any;
+    dataPacientes: any = null;
     id: any;
     fechanacimiento: string;
     edad: any;
@@ -30,7 +30,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     formDatos_Generales: FormGroup;
 
 
-    idRecuperado: string = "";
+    idRecuperado: string = null;
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
 
@@ -42,15 +42,31 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     DistritoIDSelct: any;
     dataCentroPoblado: any;
     DepartamentoIDSelct: any;
+    Gestacion: any;
+    dataPaciente2: any;
+    pacientesFiliacion: any;
 
     constructor(private fb: FormBuilder,
                 private filiancionService: FiliancionService,
                 private ubicacionService: UbicacionService,
                 private obstetriciaGeneralService: ObstetriciaGeneralService) {
 
-        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
-        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        this.idRecuperado = this.obstetriciaGeneralService.idGestacion;
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+        this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+
+        console.log("DATA PACIENTE 2", this.dataPaciente2);
+
+        if (this.Gestacion == null) {
+            this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
+            this.nroDocRecuperado = this.dataPaciente2.nroDoc;
+            this.idRecuperado = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+
+
+        } else {
+            this.tipoDocRecuperado = this.Gestacion.tipoDoc;
+            this.nroDocRecuperado = this.Gestacion.nroDoc;
+            this.idRecuperado = this.Gestacion.id;
+        }
 
 
         this.options = [
@@ -185,8 +201,13 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     }
 
     listarUbicacionPacienteProvincias() {
-        let Departamento = this.dataPacientes.domicilio.departamento;
-        console.log("Departamento XXX", this.dataDepartamentos)
+        let Departamento;
+        if (this.dataPacientes == null) {
+            Departamento = this.dataIDfiliacion.departamento;
+        } else {
+            Departamento = this.dataPacientes.domicilio.departamento;
+        }
+        console.log("Departamento XXX", this.dataPacientes)
 
         console.log("Departamento:", Departamento);
         this.dataDepartamentos.forEach(object => {
@@ -207,7 +228,12 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
 
     listarUbicacionPacientedistritos() {
 
-        let Provincia = this.dataPacientes.domicilio.provincia;
+        let Provincia;
+        if (this.dataPacientes == null) {
+            Provincia = this.dataIDfiliacion.provincia;
+        } else {
+            Provincia = this.dataPacientes.domicilio.provincia;
+        }
 
         this.dataProvincia.forEach(object => {
             if (object.provincia === Provincia) {
@@ -227,8 +253,12 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     }
 
     listarUbicacionPacienteCCPP() {
-
-        let Distrito = this.dataPacientes.domicilio.distrito;
+        let Distrito
+        if (this.dataPacientes == null) {
+            Distrito = this.dataIDfiliacion.distrito;
+        } else {
+            Distrito = this.dataPacientes.domicilio.distrito;
+        }
 
         this.dataDistrito.forEach(object => {
             if (object.distrito === Distrito) {
@@ -313,11 +343,12 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
                     console.log("RESPUESTA", result)
                     Swal.fire({
                         icon: 'success',
-                        title: 'Guardo con exito',
-                        text: '',
+                        title: 'Registro',
+                        text: 'Fue creado con exito',
                         showConfirmButton: false,
                         timer: 1500,
                     })
+                    this.getpacientesFiliadosGestacion();
                 }
             )
         } else
@@ -325,8 +356,8 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
                 result => {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Actualizo con exito',
-                        text: '',
+                        title: 'Registro',
+                        text: 'Fue actualizado con exito',
                         showConfirmButton: false,
                         timer: 1500,
                     })
@@ -380,6 +411,7 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     getpacienteFiiacionByID() {
         this.filiancionService.getPacienteFiliacionId(this.idRecuperado).subscribe((res: any) => {
             this.dataIDfiliacion = res.object;
+            this.listarUbicacionPacienteProvincias();
             this.traerDataReniec();
             console.log('fiilacion por ID ', this.dataIDfiliacion)
             this.formDatos_Generales.get('apePaterno').setValue(this.dataIDfiliacion.apePaterno);
@@ -418,8 +450,23 @@ export class DatosGeneralesFiliacionComponent implements OnInit {
     traerDataReniec() {
         this.filiancionService.getDatosReniec(this.nroDocRecuperado).subscribe((res: any) => {
             this.dataPacientesReniec = res;
-            console.log(res);
+            // console.log(res);
             this.imagePath = res.foto;
+        });
+    }
+
+    getpacientesFiliadosGestacion() {
+        this.obstetriciaGeneralService.getPacienteFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
+            this.pacientesFiliacion = res.object
+            console.log('paciente con nro de gestacion ', this.pacientesFiliacion)
+            let index = this.pacientesFiliacion.length - 1;
+            this.idRecuperado = this.pacientesFiliacion[index].id;
+            localStorage.setItem('idGestacionRegistro', JSON.stringify(this.idRecuperado));
+
+            console.log('ARREGLO ULTIMA POSICION', this.idRecuperado);
+
+            this.getpacienteFiiacionByID();
+
         });
     }
 }

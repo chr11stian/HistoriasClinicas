@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {GestanteComponent} from "../gestante.component";
 import {ObstetriciaGeneralService} from "../../services/obstetricia-general.service";
 import {Subscription} from "rxjs";
+import {FiliancionService} from "./h-clinica-materno-perinatal/services/filiancion-atenciones/filiancion.service";
 
 
 @Component({
@@ -25,19 +26,40 @@ export class AtencionComponent implements OnInit {
     nroDocRecuperado: string;
     nroEmbarazo: any;
     nroHcl: string;
+    Gestacion: any;
+    DataFiliacionPaciente: any;
 
     dataConsultorioObstetrico: any;
+    DataPaciente: any;
+    nombreDelGestante: string;
 
 
-    constructor(private obstetriciaGeneralService: ObstetriciaGeneralService) {
-        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
-        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        this.idRecuperado = this.obstetriciaGeneralService.idGestacion;
-        this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
-        this.nroHcl = this.obstetriciaGeneralService.nroHcl;
+    constructor(private obstetriciaGeneralService: ObstetriciaGeneralService,
+                private filiancionService: FiliancionService) {
+
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+        this.DataFiliacionPaciente = JSON.parse(localStorage.getItem('dataPaciente'));
+        console.log("GESTACION", this.Gestacion);
+
+
+        if (this.Gestacion == null) {
+            this.tipoDocRecuperado = this.DataFiliacionPaciente.tipoDoc;
+            this.nroDocRecuperado = this.DataFiliacionPaciente.nroDoc;
+            this.nroEmbarazo = this.DataFiliacionPaciente.nroEmbarazo;
+            this.nroHcl = this.DataFiliacionPaciente.nroHcl;
+        } else {
+            this.tipoDocRecuperado = this.Gestacion.tipoDoc;
+            this.nroDocRecuperado = this.Gestacion.nroDoc;
+            this.idRecuperado = this.Gestacion.id;
+            this.nroEmbarazo = this.Gestacion.nroEmbarazo;
+            this.nroHcl = this.Gestacion.nroHcl;
+        }
+
+
     }
 
     ngOnInit(): void {
+
         console.log("IdRecuperado", this.idRecuperado);
         console.log("TipoDocRecuperado", this.tipoDocRecuperado);
         console.log("NroDocRecuparado", this.nroDocRecuperado);
@@ -45,7 +67,18 @@ export class AtencionComponent implements OnInit {
         console.log("Nro Embarazo", this.nroEmbarazo);
 
         this.getConsultorioObstetrico();
+        this.pacienteByNroDoc();
 
+    }
+
+    pacienteByNroDoc() {
+        let tipoDoc = this.tipoDocRecuperado;
+        let nroDoc = this.nroDocRecuperado;
+        this.filiancionService.getPacienteNroDocFiliacion(tipoDoc, nroDoc).subscribe((res: any) => {
+            this.DataPaciente = res.object
+            this.nombreDelGestante = this.DataPaciente.apePaterno + ' ' + this.DataPaciente.apeMaterno + ' ' + this.DataPaciente.primerNombre + ' ' + this.DataPaciente.otrosNombres
+            console.log('paciente por doc 2 ', this.nombreDelGestante)
+        });
     }
 
     getConsultorioObstetrico() {
@@ -62,6 +95,8 @@ export class AtencionComponent implements OnInit {
         });
 
     }
+
     ngOnDestroy() {
+        localStorage.removeItem('idGestacionRegistro');
     }
 }
