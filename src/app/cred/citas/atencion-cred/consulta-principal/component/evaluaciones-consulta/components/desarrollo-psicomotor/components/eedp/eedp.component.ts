@@ -104,7 +104,7 @@ export class EedpComponent implements OnInit {
       return
     this.arrayRptas = dataEEDP.testEedp.listaUltimasPreguntas;
     this.evalResult = dataEEDP.testEedp.diagnostico;
-    this.chronologicalAge = dataEEDP.testEedp
+    // this.chronologicalAge = dataEEDP.testEedp
     this.fechaAtencion = this.datePipe.transform(dataEEDP.testEedp.fechaAtencion, 'dd/MM/yyyy');
     this.tableStatus = true;
   }
@@ -149,18 +149,17 @@ export class EedpComponent implements OnInit {
     }
     this.totalPoints = this.totalPoints + (this.mentalMonth - 1) * 30;
     this.standardPoints = parseFloat((this.totalPoints / this.chronologicalAge).toFixed(2));
-    console.log('puntos estandar ', this.standardPoints);
+    // console.log('puntos estandar ', this.standardPoints);
     await this.testService.getTablaComparativaMes(this.mesesTotal).then(data => {
       this.tablaPuntajeEstandar = data;
-      console.log('datos de la tabla puntaje estandar ', data);
+      // console.log('datos de la tabla puntaje estandar ', data);
       this.tablaPuntajeEstandar.forEach(item => {
         if (String(this.standardPoints) == item.em_ec) {
           this.coeficienteDesarrollo = item.pe;
-          console.log('item de tabla ', item, 'coef des ', this.coeficienteDesarrollo, typeof (this.coeficienteDesarrollo));
+          // console.log('item de tabla ', item, 'coef des ', this.coeficienteDesarrollo, typeof (this.coeficienteDesarrollo));
         }
       })
     });
-    console.log('coeficiente 2 ', this.coeficienteDesarrollo);
     if (this.coeficienteDesarrollo >= 0.85)
       this.diagnostico = 'NORMAL'
     if (this.coeficienteDesarrollo <= 0.84 && this.coeficienteDesarrollo >= 0.70)
