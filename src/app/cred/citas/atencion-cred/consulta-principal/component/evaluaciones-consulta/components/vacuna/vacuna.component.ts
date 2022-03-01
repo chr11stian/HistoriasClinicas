@@ -46,7 +46,9 @@ export class VacunaComponent implements OnInit {
       fechaTentativa: new FormControl('', Validators.required),
       fechaAplicacion: new FormControl('', Validators.required),
       lote: new FormControl(null, [Validators.required]),
+      fechaVencimiento: new FormControl('', [Validators.required]),
       administracion: new FormControl('', [Validators.required]),
+
 
     })
   }

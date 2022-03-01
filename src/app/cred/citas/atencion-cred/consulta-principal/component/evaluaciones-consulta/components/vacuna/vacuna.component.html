@@ -1,4 +1,6 @@
 <ng-template #attachMe0></ng-template>
+<ng-template #otroCalendar></ng-template>
+
 <p-card class="mb-2 ">
   <div class="">
     <span style="font-weight: bold">
@@ -27,6 +29,15 @@
       <p-inputNumber formControlName="lote" mode="decimal" inputId="withoutgrouping" [useGrouping]="false">
       </p-inputNumber>
     </div>
+  </div>
+  <div class="col-6 grid">
+    <div class="col-4">
+      fecha Vencimiento:
+    </div>
+    <div class="col-8 p-fluid">
+      <p-calendar formControlName="fechaVencimiento" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" appendTo="otroCalendar"></p-calendar>
+    </div>
+
   </div>
   <div class="col-6 grid">
     <div class="col-4">
