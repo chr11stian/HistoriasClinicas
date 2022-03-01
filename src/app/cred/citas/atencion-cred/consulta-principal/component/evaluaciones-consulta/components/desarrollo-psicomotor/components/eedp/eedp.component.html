@@ -1,6 +1,6 @@
 <div class="col-12" *ngIf="!tableStatus">
     <div class="border">
-        <div class="grid mt-3">
+        <div class="grid mb-3">
             <div class="col-4 mt-2">
                 <label class="titulo-1">Examinador: </label>
                 <span class="descp-1">{{examinador}}</span>
@@ -20,8 +20,14 @@
                 <span class="descp-1">{{chronologicalAge}} dias</span>
             </div>
             <div class="col-3">
-                <label class="titulo-1">Edad Mensual: </label>
-                <span class="descp-1">{{mesesTotal}}</span>
+                <label class="titulo-1">Edad(Meses): </label>
+                <span class="descp-1">{{mesesTotal}} meses</span>
+            </div>
+            <div class="col-4">
+                <label class="titulo-1">Edad actual: </label>
+                <span class="descp-1" *ngIf="dataConsulta.anio>0">{{dataConsulta.anio}} año(s) </span>
+                <span class="descp-1" *ngIf="dataConsulta.mes>0">{{dataConsulta.mes}} meses </span>
+                <span class="descp-1" *ngIf="dataConsulta.dia>0">y {{dataConsulta.dia}} dias </span>
             </div>
         </div>
     </div>
@@ -110,8 +116,8 @@
             <span class="descp-1">{{mesesTotal}}</span>
         </div>
         <div class="col-3">
-            <label class="titulo-1">Puntos Mensuales: </label>
-            <span class="descp-1">{{monthPoints}}</span>
+            <label class="titulo-1">Fecha de Evaluación: </label>
+            <span class="descp-1">{{fechaAtencion}}</span>
         </div>
         <div class="col-3">
             <label class="titulo-1">Diagnostico: </label>

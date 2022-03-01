@@ -97,3 +97,12 @@ export interface Tupla {
     clave: string,
     numeroPregunta: number
 }
+export interface DatosConsulta {
+    anio:number,
+    mes: number,
+    dia: number,
+    idConsulta: string,
+    sexo: string,
+    tipoDoc:string,
+    nroDocumento: string
+}
