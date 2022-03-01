@@ -32,7 +32,7 @@ export class InmunizacionesComponent implements OnInit {
   }
   getListaInmunizaciones() {
     this.inmunizacionesService.getListaInmunizaciones(this.nroDNI).subscribe((resp)=>{
-      this.inmunizacionesAgrupadas=[[],[],[],[]]
+      // this.inmunizacionesAgrupadas=[[],[],[],[]]
       this.listaInmunizaciones=resp['object'];
       this.toDate();
       this.clasificamos();
@@ -45,6 +45,13 @@ export class InmunizacionesComponent implements OnInit {
     return real?.completo || 'Otros'
   }
   toDate(){
+    this.listaInmunizaciones.sort((a,b)=>{
+      if (a.fechaTentativa>b.fechaTentativa)
+        return 1;
+      if (a.fechaTentativa<b.fechaTentativa)
+        return -1;
+      return 0;
+    })
     this.listaInmunizaciones.forEach((element)=>{
       element.fechaTentativa=new Date(`${element.fechaTentativa} 00:00:00` )
       element.fecha=element.fecha!=null?new Date(`${element.fecha} 00:00:00`):null

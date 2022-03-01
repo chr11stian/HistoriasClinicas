@@ -45,6 +45,13 @@ export class InmunizacionesCredComponent implements OnInit {
     this.getListaInmunizaciones();
   }
   toDate() {
+    this.listaInmunizaciones.sort((a,b)=>{
+      if (a.fechaTentativa>b.fechaTentativa)
+          return 1;
+      if (a.fechaTentativa<b.fechaTentativa)
+        return -1;
+      return 0;
+        })
     this.listaInmunizaciones.forEach((element) => {
       element.fechaTentativa = new Date(`${element.fechaTentativa} 00:00:00`);
       element.fecha =
