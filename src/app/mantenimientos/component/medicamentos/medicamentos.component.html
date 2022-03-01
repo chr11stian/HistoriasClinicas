@@ -1,0 +1,63 @@
+<div class="p-card">
+    <p-toolbar styleClass="p-mb-4">
+
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">MEDICAMENTOS</h3>
+        </ng-template>
+    </p-toolbar>
+    <br>
+    <p-toolbar styleClass="p-mb-4">
+        <div class="p-toolbar-group-left">
+            <h3 class="p-m-0">LISTA DE MEDICAMENTOS</h3>
+        </div>
+        <div class="p-toolbar-group-right">
+            <button pButton  pTooltip="Agregar" pRipple type="button"
+                    (click)="openDialogTratamientoComun()"
+                    label="Agregar"
+                    icon="pi pi-save">
+            </button>
+        </div>
+    </p-toolbar>
+
+    <p-table [value]="medicamentos" #dt
+             styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]"
+             [globalFilterFields]="['codigo','nombre','ff','viaAdministracion']"
+             [paginator]="true"
+             [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+             responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <span class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Codigo</th>
+                <th style="text-align: center">Descripción</th>
+                <th style="text-align: center">ff.</th>
+                <th style="text-align: center">Concentración</th>
+                <th style="text-align: center">Via de Administración</th>
+                <th style="text-align: center; width:8rem">Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.codigo }}</td>
+                <td style="text-align: center">{{ rowData.nombre}}</td>
+                <td style="text-align: center">{{ rowData.ff}}</td>
+                <td style="text-align: center">{{ rowData.concentracion}}</td>
+                <td style="text-align: center">{{ rowData.viaAdministracion}}</td>
+                <td>
+                    <button pButton (click)="editarMedicamento(rowData)" pTooltip="Editar" pRipple type="button"
+                            icon="pi pi-pencil" class="p-button-rounded m-1">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

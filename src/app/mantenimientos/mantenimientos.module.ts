@@ -33,6 +33,10 @@ import { DividerModule } from "primeng/divider";
 import { UnidadEjecutoraComponent } from './component/unidad-ejecutora/unidad-ejecutora.component';
 import { PrestacionComponent } from './component/prestacion/prestacion.component';
 import { DiagnosticoComponent } from './component/diagnostico/diagnostico.component';
+import {AntecedentesPacienteComponent} from "./component/antecedentes-paciente/antecedentes-paciente.component";
+import { MedicamentosComponent } from './component/medicamentos/medicamentos.component';
+import {FileUploadModule} from "primeng/fileupload";
+import { ModalMedicamentosComponent } from './component/medicamentos/modal-medicamentos/modal-medicamentos.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +65,9 @@ import { DiagnosticoComponent } from './component/diagnostico/diagnostico.compon
     UnidadEjecutoraComponent,
     PrestacionComponent,
     DiagnosticoComponent,
+    AntecedentesPacienteComponent,
+    MedicamentosComponent,
+    ModalMedicamentosComponent
   ],
 
   exports: [TipoPersonalComponent, UbicacionComponent],
@@ -76,6 +83,7 @@ import { DiagnosticoComponent } from './component/diagnostico/diagnostico.compon
     MultiSelectModule,
     ReactiveFormsModule,
     DividerModule,
+    FileUploadModule,
   ],
 })
 export class MantenimientosModule {}
