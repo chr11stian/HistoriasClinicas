@@ -149,63 +149,78 @@
         </div>
     </div>
 </div>
-<!--*************************DIALOGO AGREGAR DX***********************************-->
-<p-dialog header={{titulo()}} [(visible)]="diagnosticoDialog" [modal]="true" [draggable]="false" [resizable]="false">
-    <div class="grid p-fluid">
-        <div class="col-6" p-fluid>
-            <br>
-            <div class="p-field-radiobutton">
-                <p-radioButton name="descripcion" value="opcionBusqueda" [(ngModel)]="opcionBusqueda"
-                    value="porDescripcion" inputId="opcion1"></p-radioButton>
-                <label>Buscar por Descripcion</label>
+<!--*************************DIALOGO AGREGAR Diagnosticosss***********************************-->
+<p-dialog [(visible)]="diagnosticoDialog" [modal]="true" [style]="{width: '580px',heigth:'400px'}">
+    <ng-template pTemplate="header">
+        <h3>DIAGNOSTICOS</h3>
+    </ng-template>
+    <form [formGroup]='form'>
+        <div class="grid mt-2 ">
+            <div class="col-6 ">
+                <p-fieldset legend="DIAGNOSTICO SIS">
+                    <div class="grid mt-2">
+                        <label>Diagnóstico: </label>
+                        <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                            appendTo="body" field="descripcionItem" [minLength]="1" class="areaText "
+                            class="inputfield p-fluid w-full" formControlName="autocompleteSIS"
+                            (onSelect)="selectedOptionNameCIE($event,0)">
+                        </p-autoComplete>
+                        <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoSIS"
+                            pInputTextarea disabled></textarea>
+                    </div>
+                    <div class="grid mt-2 ">
+                        <label class="mr-2">CIE 10: </label>
+                        <p-autoComplete formControlName="SISCIE" [suggestions]="listaDeCIE"
+                            (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                            class="inputfield p-fluid w-full" (onSelect)="selectedOption($event,0)" class=""
+                            [forceSelection]="true" dataKey="codigoItem">
+                        </p-autoComplete>
+                    </div>
+                </p-fieldset>
             </div>
-        </div>
-        <div class="col-6 p-fluid">
-            <br>
-            <div class="p-field-radiobutton">
-                <p-radioButton name="cie10" value="opcionBusqueda" [(ngModel)]="opcionBusqueda" value="porcie10"
-                    inputId="opcion2"></p-radioButton>
-                <label>Buscar por Cie10</label>
+            <div class="col-6">
+                <p-fieldset legend="DIAGNOSTICO HIS">
+                    <div class="grid mt-2">
+                        <label>Diagnóstico: </label>
+                        <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
+                            appendTo="body" field="descripcionItem" [minLength]="1" class="areaText "
+                            class="inputfield p-fluid w-full" formControlName="autocompleteHIS"
+                            (onSelect)="selectedOptionNameCIE($event,1)">
+                        </p-autoComplete>
+                        <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoHIS"
+                            pInputTextarea disabled></textarea>
+                    </div>
+                    <div class="grid mt-2">
+                        <label class="mr-2">CIE 10: </label>
+                        <p-autoComplete formControlName="HISCIE" [suggestions]="listaDeCIE"
+                            (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
+                            class="inputfield p-fluid w-full" (onSelect)="selectedOption($event,1)" class=""
+                            [forceSelection]="true" dataKey="codigoItem">
+                        </p-autoComplete>
+                    </div>
+                </p-fieldset>
             </div>
-        </div>
-    </div>
-    <br>
-    <form [formGroup]='form' (ngSubmit)="save1(formTemplate)" #formTemplate="ngForm">
-        <div class="grid">
-            <div class="col-12" p-fluid>
-                <label *ngIf="opcionBusqueda=='porDescripcion'">Diagnóstico:</label>
-                <p-autoComplete *ngIf="opcionBusqueda=='porDescripcion'" formControlName="diagnostico"
-                    [suggestions]="Cie10" (completeMethod)="filterDiagnostico($event)" field="descripcionItem"
-                    [minLength]="1" placeholder="Descripcion" class="areaText">
-                </p-autoComplete>
-            </div>
-            <div class="col-12" p-fluid>
-                <label *ngIf="opcionBusqueda=='porcie10'">CIE 10:</label>
-                <p-autoComplete *ngIf="opcionBusqueda=='porcie10'" formControlName="diagnostico" [suggestions]="Cie10"
-                    (completeMethod)="filterDiagnostico($event)" field="codigoItem" [minLength]="1"
-                    placeholder="CIE 10">
-                </p-autoComplete>
-            </div>
-        </div>
-        <br>
-        <br>
-        <div class="grid">
-            <div class="col-12 p-fluid">
-
-                <label>Tipo:</label>
+            <div class="col-4">
+                <label>Tipo diagnostico:</label>
                 <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipo" placeholder="seleccionar"
-                    optionLabel="label" optionValue="value" defaultLabel="Seleccione:" required>
+                    optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"
+                    class="inputfield p-fluid w-full">
+                </p-dropdown>
+            </div>
+            <div class="col-8">
+                <label>Prestacion:</label>
+                <p-dropdown inputId="dropdown" [options]="prestacionList" formControlName="prestacion"
+                    placeholder="seleccionar" optionLabel="descripcion" defaultLabel="Seleccione:" appendTo="body"
+                    class="inputfield p-fluid w-full">
                 </p-dropdown>
             </div>
         </div>
     </form>
-    <br>
     <ng-template pTemplate="footer">
         <button pButton type="button" label="Cancelar" class="button-cancelar" icon="pi pi-times"
             (click)="canceled1()"></button>
         <button class="button-agregar" icon="pi pi-save" pButton type="button" label="Guardar"
             (click)="save1(formTemplate)"></button>
-
     </ng-template>
 
 </p-dialog>
@@ -217,7 +232,7 @@
     </ng-template>
     <ng-template pTemplate="body">
         <div class="grid" class="m-3">
-            <p-table [value]="cronograma" >
+            <p-table [value]="cronograma">
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="text-align: center">Nro</th>
@@ -227,7 +242,7 @@
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-data let-rowIndex="rowIndex">
-                    <tr [ngClass]="{'row-accessories': funcionAuxiliar(data.fecha) > hoy}">
+                    <tr [ngClass]="{'row-faltantes': funcionAuxiliar(data.fecha) > hoy}">
                         <td style="text-align: center">{{ rowIndex + 1 }}</td>
                         <td style="text-align: center">{{ data.descripcion }}</td>
                         <td style="text-align: center">{{ data.tipo }}</td>

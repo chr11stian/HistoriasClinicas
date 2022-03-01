@@ -262,7 +262,7 @@ const menu_ipress = [
             {
                 label: "Caja",
                 icon: "pi pi-pw pi-file",
-                routerLink: "caja/pagos",
+                routerLink: "caja/abrir-caja",
             },
             {
                 icon: "pi pi-file",
@@ -441,6 +441,11 @@ const menu_ipress = [
                 label: "Ipress Horarios",
                 icon: "pi pi-pw pi-file",
                 routerLink: "admision/ipress-horarios",
+            },
+            {
+                label: "Ipress Tarifario",
+                icon: "pi pi-pw pi-file",
+                routerLink: "admision/ipress-tarifario",
             },
             {
                 icon: "pi pi-file",

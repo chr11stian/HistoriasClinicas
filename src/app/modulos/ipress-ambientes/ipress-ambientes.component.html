@@ -93,7 +93,7 @@
     </ng-template>
 
     <ng-template pTemplate="footer">
-        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceled()"></button>
+        <button pButton type="button" label="Cancelar" class="p-button-danger m-1 w-9rem" (click)="canceled()"></button>
         <button *ngIf="!isUpdateAmbiente" [disabled]="!formAmbiente.valid" pButton type="button" label="Guardar"
             class="m-1 w-9rem" (click)="saveAmbiente()"></button>
         <button *ngIf="isUpdateAmbiente" [disabled]="!formAmbiente.valid" pButton type="button" label="Guardar"

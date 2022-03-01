@@ -59,10 +59,17 @@ export class GiagnosticosComponent implements OnInit {
     private encontradoDxTuberculosis: boolean = false;
 
     hoy: any= (new Date()).getTime();
+    listaDeCIE: any;
+
+    prestacionList: any[];
+    upsList: any[];
+
+    idIpress:String="616de45e0273042236434b51";
 
     constructor(private formBuilder: FormBuilder,
         private obstetriciaService: ObstetriciaGeneralService,
-        private cieService: CieService,
+        //private cieService: CieService,
+        private CieService: CieService,
         private messageService: MessageService,
         private DxService: ConsultasService) {
         this.buildForm();
@@ -96,9 +103,23 @@ export class GiagnosticosComponent implements OnInit {
         console.log("NroDocRecuparado", this.nroDocRecuperado);
         console.log("Nro de embarazo", this.nroEmbarazo);
         console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
+        this.recuperarPrestaciones();
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
+        // this.recuperarUPS();
 
+    }
+    // recuperarUPS(){
+    //     this.DxService.getServiciosPorIpress(this.idIpress).subscribe((res: any)=>{
+    //         this.upsList=res.object;
+    //         console.log("ups:",this.upsList);
+    //     })
+    // }
+    recuperarPrestaciones(){
+        this.DxService.getPrestaciones().subscribe((res: any)=>{
+            this.prestacionList=res.object;
+            console.log("prestaciones:",this.prestacionList);
+        })
     }
     funcionAuxiliar(fecha){
         return new Date(fecha).getTime();
@@ -125,6 +146,13 @@ export class GiagnosticosComponent implements OnInit {
         this.form = this.formBuilder.group({
             diagnostico: ['', [Validators.required]],
             tipo: ['', [Validators.required]],
+            prestacion: ['', [Validators.required]],
+            autocompleteSIS: [''],
+            diagnosticoSIS: ['', [Validators.required]],
+            SISCIE: ['', [Validators.required]],
+            autocompleteHIS: [''],
+            diagnosticoHIS: ['', [Validators.required]],
+            HISCIE: ['', [Validators.required]],
         });
         this.form2 = this.formBuilder.group({
             orientaciones: ['', [Validators.required]],
@@ -188,7 +216,7 @@ export class GiagnosticosComponent implements OnInit {
         this.diagnosticoDialog = false;
     }
     /******EVENTO PARA BUSQUEDA SEGUN FILTRO*****/
-    filterDiagnostico(event) {
+    /*filterDiagnostico(event) {
 
         console.log('event ', event.query);
         this.cieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
@@ -199,7 +227,7 @@ export class GiagnosticosComponent implements OnInit {
     }
     selectedOption(event) {
         console.log('seleccion de autocomplete ', this.Cie10)
-    }
+    }*/
     /*****FIN PARA BUSQUEDA SEGUN FILTRO*******/
     titulo() {
         if (this.isUpdate) return "EDITE DIAGNOSTICO";
@@ -389,7 +417,7 @@ export class GiagnosticosComponent implements OnInit {
                         this.edadGestacional = this.dataAux.edadGestacionalSemanas;
                     }
                     console.log(this.edadGestacional);
-                    this.guardarDiagnosticosEmbarazo();
+                    //this.guardarDiagnosticosEmbarazo();
                     /************************RECUPERAR DATOS EXTRA**************************/
                     if (this.dataAux.proxCita != null) {
                         this.formOtrosDatos.patchValue({ 'proxCita': this.dataAux.proxCita.fecha });
@@ -423,5 +451,34 @@ export class GiagnosticosComponent implements OnInit {
     }
     salirCronograma() {
         this.cronogramaDialog = false;
+    }
+
+    filterCIE10(event) {
+        this.CieService.getCIEByDescripcion(event.query).subscribe((res: any) => {
+            this.listaDeCIE = res.object
+        })
+    }
+
+    selectedOption(event, cieType) {
+        if (cieType == 0) {
+            this.form.patchValue({ diagnosticoSIS: event.descripcionItem });
+        }
+        if (cieType == 1) {
+            this.form.patchValue({ diagnosticoHIS: event.descripcionItem });
+        }
+    }
+
+    selectedOptionNameCIE(event, cieType) {
+        console.log('lista de cie ', this.listaDeCIE);
+        if (cieType == 0) {
+            this.form.patchValue({ diagnosticoSIS: event.descripcionItem });
+            this.form.patchValue({ autocompleteSIS: "" });
+            this.form.patchValue({ SISCIE: event }, { emitEvent: false });
+        }
+        if (cieType == 1) {
+            this.form.patchValue({ diagnosticoHIS: event.descripcionItem });
+            this.form.patchValue({ autocompleteHIS: "" });
+            this.form.patchValue({ HISCIE: event }, { emitEvent: false });
+        }
     }
 }

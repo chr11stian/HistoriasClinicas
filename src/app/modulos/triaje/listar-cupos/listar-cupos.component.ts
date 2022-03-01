@@ -102,7 +102,7 @@ export class ListarCuposComponent implements OnInit {
     }
     this.ref = this.dialog.open(RegistrarTriajeComponent, {
       header: " Registrar Triaje",
-      width: '60%',
+      width: '70%',
       data: dataAux
     });
     this.ref.onClose.subscribe((data: any) => {

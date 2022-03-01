@@ -90,6 +90,7 @@ export interface TestEEDP {
         docExaminador: string,
         listaUltimasPreguntas?: Tupla[],
         listaEvaluacionMesEDDP: ItemEEDP[]
+        edadMes: number,
     }
 }
 export interface Tupla {

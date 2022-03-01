@@ -8,14 +8,15 @@
 // }
 
 export interface inmunizaciones {
+  descripcionEdad:string
+  edadMes:number
   nombre:string,
   descripcion:string,
   dosis:number,
-  estado:boolean,
-  fechaAdministracion:Date,
+  tipoDosis:number,
+  estadoAdministrado:boolean,
   fechaTentativa:Date,
-  edadMes:number
-  descripcionEdad:string
+  fecha:Date,
 }
 export interface ControlCrecimiento {
   edadMes: number;

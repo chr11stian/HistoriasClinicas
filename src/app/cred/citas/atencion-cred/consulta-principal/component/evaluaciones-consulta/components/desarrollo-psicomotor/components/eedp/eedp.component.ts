@@ -16,16 +16,15 @@ export class EedpComponent implements OnInit {
   indexSelected: number = 0;
   edadNroSelected: number = 1;
   edadSelected: string = 'MES';
-  datos: {}[];
   escalaEEDP: datosEEDPTabla;
   evaluacionEEDP: escalaEval_EEDP_0_4_anios[];
   datosEvaluacion: escalaEval_EEDP_0_4_anios;
   arrayEdadEEDPSelected: datosEEDPTabla[];
-  puntaje: '';
+  puntaje: "";
   tablaComparativa: tablaComparativa[];
   examinador: string;
   fechaEvaluacion: string;
-  resultadoEvaluacion = "Resultado de la evalaucion";
+  evalResult: string = "";
   datePipe = new DatePipe('en-US');
   nroDoc: any;
   totalPoints: number = 0;
@@ -48,16 +47,17 @@ export class EedpComponent implements OnInit {
   diagnostico: any;
   idConsulta: any;
   dataTabla: any;
-  arrayRptas: any;
+  arrayRptas: any[] = [];
   mesesTotal: number;
   areaEvalu: string;
+  tableStatus: boolean = false;
 
   constructor(
     private evalAlimenService: EvalAlimenService,
     private testService: EvalAlimenService,
     private eedpService: EedpService,
   ) {
-    let dataDocument = JSON.parse(localStorage.getItem('documento'))
+    let dataDocument = JSON.parse(localStorage.getItem('documento'));
     this.idConsulta = dataDocument.idConsulta;
     console.log('id de consulta ', this.idConsulta);
     this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
@@ -67,6 +67,12 @@ export class EedpComponent implements OnInit {
     this.diaEdad = dataDocument.dia;
     this.chronologicalAge = this.anioEdad * 360 + this.mesEdad * 30 + this.diaEdad;
     this.mesesTotal = this.anioEdad * 12 + this.mesEdad;
+    this.arrayRptas = [
+      { clave: "C", numeroPregunta: 0 },
+      { clave: "S", numeroPregunta: 0 },
+      { clave: "L", numeroPregunta: 0 },
+      { clave: "M", numeroPregunta: 0 }
+    ]
   }
 
   ngOnInit(): void {
@@ -137,6 +143,7 @@ export class EedpComponent implements OnInit {
     console.log('puntos estandar ', this.standardPoints);
     await this.testService.getTablaComparativaMes(this.mesesTotal).then(data => {
       this.tablaPuntajeEstandar = data;
+      console.log('datos de la tabla puntaje estandar ', data);
       this.tablaPuntajeEstandar.forEach(item => {
         if (String(this.standardPoints) == item.em_ec) {
           this.coeficienteDesarrollo = item.pe;
@@ -152,13 +159,14 @@ export class EedpComponent implements OnInit {
     if (this.coeficienteDesarrollo <= 0.69)
       this.diagnostico = 'RETRASO'
     this.dataTestEEDP = {
-      codigoCIE10: "Z009",
-      codigoHIS: "Z009",
-      codigoPrestacion: "0001",
+      codigoCIE10: "",
+      codigoHIS: "",
+      codigoPrestacion: "",
       testEedp: {
         fechaAtencion: this.datePipe.transform(this.fechaEvaluacion, 'yyyy-MM-dd HH:mm:ss'),
         edadCronologica: this.chronologicalAge,
         edadMental: this.totalPoints,
+        edadMes: this.mesesTotal,
         diagnostico: this.diagnostico,
         coeficienteDesarrollo: parseFloat(this.coeficienteDesarrollo),
         docExaminador: "89685545",
@@ -180,18 +188,29 @@ export class EedpComponent implements OnInit {
         listaEvaluacionMesEDDP: this.listaPreguntas
       }
     }
-    // console.log('data to save ', this.dataTestEEDP);
-    this.eedpService.postAgregarEEDP(this.idConsulta, this.dataTestEEDP).subscribe((res: any) => {
-      this.arrayRptas = res.object.testEedp.listaUltimasPreguntas;
-      console.log('datos recien recogidos ', this.arrayRptas);
+
+    this.eedpService.postPromiseAddEEDP(this.idConsulta, this.dataTestEEDP).then(data => {
+
+      console.log('data before validation ', data);
+      if (data.cod == "2005") {
+        Swal.fire({
+          icon: 'error',
+          title: 'No es posible guardar otra vez para el mes ' + this.mesesTotal,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        return
+      }
+      this.arrayRptas = data.testEedp.listaUltimasPreguntas;
+      this.evalResult = data.testEedp.diagnostico;
       Swal.fire({
         icon: 'success',
         title: 'Se Guardo el test EEDP Correctamente',
         showConfirmButton: false,
         timer: 1500
-      })
-      // this.searchLastRes();
-    })
+      });
+      this.tableStatus = true;
+    });
   }
 
   calculateArea(lista: ItemEEDP[], area: string): number {
@@ -199,10 +218,8 @@ export class EedpComponent implements OnInit {
     lista.forEach(item => {
       item.listItemEedp.forEach(item2 => {
         let areas = item2.areaEvaluacion.split("_")
-        // console.log('areas ', areas, 'length', areas.length);
         for (let i = 0; i < areas.length; i++) {
           if (areas[i] == area && item2.puntajeEEDP) {
-            // console.log('se encontro ', area, item2.codigo);
             codArea = item2.pregunta;
           }
         }
@@ -274,29 +291,6 @@ export class EedpComponent implements OnInit {
     this.eedpService.getDatosTablaEEDP().then(res => {
       this.dataTabla = res;
       console.log('data de tabla res eedp ', this.dataTabla);
-    });
-  }
-  searchLastRes() {
-    console.log('array to last res ', this.arrayRptas);
-    this.arrayRptas.forEach((item, i) => {
-      switch (item.clave) {
-        case 'C':
-          this.areaEvalu = 'COORDINACION'
-          break;
-        case 'S':
-          this.areaEvalu = 'SOCIAL'
-          break;
-        case 'L':
-          this.areaEvalu = 'LENGUAJE'
-          break;
-        case 'M':
-          this.areaEvalu = 'MOTORA'
-          break;
-        default:
-          break;
-      }
-      console.log('index value ', i);
-      console.log('area de evaluacion ', this.areaEvalu);
     });
   }
 }
