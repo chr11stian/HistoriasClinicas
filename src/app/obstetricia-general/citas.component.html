@@ -86,7 +86,7 @@
                      [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true"
                      currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
 
-                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                <ng-template pTemplate="header">
                     <tr>
                         <th style="text-align: center">Nro</th>
                         <th style="text-align: center">DNI</th>
@@ -112,11 +112,13 @@
                         <td style="text-align: center">{{ rowData.paciente.nroTelefono}}</td>
 
                         <td style="text-align: center">
-                            <button pButton pRipple type="button" routerLink="gestante" label="Atender"
+                            <button pButton pRipple type="button"  label="Gestante"
                                     class="p-button-secondary"
                                     (click)="enviarData(rowData)"></button>
-                            <button pButton pRipple type="button" (click)="openDialogTriaje(rowData)" label="Triar"
+                            <button pButton pRipple type="button" (click)="openDialogTriaje(rowData)" label="Triaje"
                                     class="p-button-help"></button>
+                            <button pButton pRipple  class="boton-mostaza" label="Consulta externa"
+                                    icon="pi pi-book" (click)="irConsultaNoControl(rowData)"></button>
                         </td>
                     </tr>
                 </ng-template>
