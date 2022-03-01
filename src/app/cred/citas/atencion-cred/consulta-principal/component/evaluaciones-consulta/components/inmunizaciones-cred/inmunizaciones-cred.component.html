@@ -1,9 +1,19 @@
 <div class="grid">
+  <p-card class="col-7">
+    <div class="">
+    <span style="font-weight: bold">
+      Mes Actual:
+    </span>{{mesActual}} Meses
+    </div>
+  </p-card>
   <div *ngFor="let mes of inmunizacionesAgrupadas;let i=index" class="col-7">
     <div>
-      <p-fieldset *ngIf="edadMes[i]<=mesActual">
+      <p-fieldset *ngIf="edadMes[i]<=mesActual" [toggleable]="true" [collapsed]="edadMes[i]!=mesActual">
         <ng-template pTemplate="header">
-          Inmunizacion del mes {{ (edadMes[i])}} <span *ngIf="edadMes[i]==mesActual" style="color:#FBC02D;font-weight: bold;font-size: 1.5rem" >Mes en transcurso</span>
+          <div>
+            Inmunizacion del mes {{ (edadMes[i])}}
+          </div>
+          <div class="ml-3" *ngIf="edadMes[i]==mesActual" style="color:#FBC02D;font-weight: bold;font-size: 1.5rem">   Mes Correspondiente</div>
         </ng-template>
         <div class="grid">
           <div class="col-3 text-center" style="font-weight: bold">Nombre de la Vacuna</div>

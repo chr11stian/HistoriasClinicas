@@ -3,18 +3,23 @@
     <div>
       <p-fieldset>
         <ng-template pTemplate="header">
-          Inmunizacion de {{ nombreAgrupacionExtendido(edadMes[i])}}
+          <div>
+            Inmunizacion del mes {{ (edadMes[i])}}
+          </div>
         </ng-template>
         <div class="grid">
-          <div class="col-5 text-center">Nombre de la Vacuna</div>
-          <div class="col-1 text-center">Nro de dosis</div>
-          <div class="col text-center">Fecha Tentativa</div>
-          <div class="col text-center">Fecha Aplicacion</div>
-          <div class="col-2 text-center">Estado</div>
+          <div class="col-5 text-center" style="font-weight: bold">Nombre de la Vacuna</div>
+          <div class="col-1 text-center" style="font-weight: bold">Dosis</div>
+          <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+          <div class="col text-center" style="font-weight: bold">Fecha Aplicacion</div>
+          <div class="col-2 text-center" style="font-weight: bold">Estado</div>
         </div>
         <div class="grid" *ngFor="let inmunizacion of mes">
+<!--          <div class="col-3 text-center">-->
+<!--            {{nombreVacuna(inmunizacion.descripcion)}}-->
+<!--          </div>-->
           <div class="col-5 text-center">
-            {{nombreVacuna(inmunizacion.descripcion)}}
+            {{inmunizacion.descripcion}}
           </div>
           <div class="col-1 text-center">
             {{inmunizacion.dosis}}

@@ -39,11 +39,11 @@ export class InmunizacionesCredComponent implements OnInit {
     this.data = <dato>JSON.parse(localStorage.getItem('documento'));
     // this.mesActual=this.data.anio*12+this.data.mes;
     this.mesActual=18;
-    console.log(this.mesActual)
+    // console.log(this.mesActual)
   }
 
   ngOnInit() {
-    this.nroDNI = "12121212";
+    this.nroDNI = this.data.nroDocumento;
     this.getListaInmunizaciones();
   }
   toDate() {
