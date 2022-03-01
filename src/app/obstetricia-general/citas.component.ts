@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ObstetriciaGeneralService} from './services/obstetricia-general.service';
-import {Router} from '@angular/router'
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {CitasService} from "./services/citas.service";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
@@ -12,6 +11,8 @@ import {DocumentoIdentidadService} from "../mantenimientos/services/documento-id
 import Swal from "sweetalert2";
 import {RegistrarTriajeComponent} from "../modulos/triaje/registrar-triaje/registrar-triaje.component";
 import {CuposTriajeService} from "../modulos/triaje/services/cupos-triaje/cupos-triaje.service";
+import {Router} from '@angular/router';
+
 
 @Component({
     selector: 'app-citas',
@@ -54,7 +55,8 @@ export class CitasComponent implements OnInit {
                 private messageService: MessageService,
                 private cuposService: CuposService,
                 private documentoIdentidadService: DocumentoIdentidadService,
-                private cuposTriajeService: CuposTriajeService
+                private cuposTriajeService: CuposTriajeService,
+                private router: Router,
     ) {
         this.options = [
             {name: "DNI", code: 1},
@@ -82,7 +84,6 @@ export class CitasComponent implements OnInit {
         this.formCitas.get('fechaBusqueda').setValue(this.fechaActual);
         this.getDocumentosIdentidad();
         this.buscarCuposPorPersonal();
-        this.listCuposTriados();
         // this.getCuposXservicio();
     }
 
@@ -174,9 +175,22 @@ export class CitasComponent implements OnInit {
     }
 
     enviarData(event) {
-
-        localStorage.setItem('datacupos', JSON.stringify(event));
-        localStorage.removeItem('PacienteSinCupo');
+        // this.router.navigate(['/gestante']);
+        console.log("EVENTO", event)
+        if (event.funcionesVitales == null) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Paciente',
+                text: 'Necesita pasar por triaje',
+                showConfirmButton: false,
+                timer: 1500,
+            })
+            return
+        } else {
+            this.router.navigate(['dashboard/obstetricia-general/citas/gestante'], {queryParams: {id: null}})
+            localStorage.setItem('datacupos', JSON.stringify(event));
+            localStorage.removeItem('PacienteSinCupo');
+        }
     }
 
 
@@ -208,7 +222,7 @@ export class CitasComponent implements OnInit {
         let data = {
             tipoDoc: this.formCitas.value.tipoDoc,
             // nroDoc: this.formCitas.value.nroDoc,
-            nroDoc: '25458545',
+            nroDoc: '46538000',
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         console.log("DATA DNI", data)
@@ -221,29 +235,27 @@ export class CitasComponent implements OnInit {
     }
 
     openDialogTriaje(data) {
+        let opcion
+        if (data.funcionesVitales == null) {
+            opcion = 1
+        } else {
+            opcion = 3
+        }
+
         let dataAux = {
             data: data,
-            option: 1
+            option: opcion
         }
         this.ref = this.dialog.open(RegistrarTriajeComponent, {
             header: " Registrar Triaje",
             width: '70%',
             data: dataAux
         });
+        console.log("DATA TRIAJE", data)
         // this.ref.onClose.subscribe((data: any) => {
         //     // this.DataCupos();
         //     // this.listCuposTriados();
         // });
-    }
-
-
-    listCuposTriados() {
-        let fechaAux = {fechaAtencion: this.datePipe.transform(new Date(), 'yyyy-MM-dd')}
-        console.log(fechaAux);
-        this.cuposTriajeService.getListarCuposTriados(this.idIpressLapostaMedica, fechaAux).subscribe((res: any) => {
-            console.log('data listar cupos ya triados', res.object)
-            this.dataCuposTriados = res.object;
-        });
     }
 }
 

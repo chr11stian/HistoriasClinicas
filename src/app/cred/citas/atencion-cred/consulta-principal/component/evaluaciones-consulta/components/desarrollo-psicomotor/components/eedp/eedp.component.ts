@@ -23,6 +23,7 @@ export class EedpComponent implements OnInit {
   puntaje: "";
   tablaComparativa: tablaComparativa[];
   examinador: string;
+  dataExaminador: any;
   fechaEvaluacion: string;
   evalResult: string = "";
   datePipe = new DatePipe('en-US');
@@ -58,13 +59,15 @@ export class EedpComponent implements OnInit {
     private eedpService: EedpService,
   ) {
     let dataDocument = JSON.parse(localStorage.getItem('documento'));
+    this.dataExaminador = JSON.parse(localStorage.getItem('usuario'));
     this.idConsulta = dataDocument.idConsulta;
-    console.log('id de consulta ', this.idConsulta);
     this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.dataTableEEDP();
     this.anioEdad = dataDocument.anio;
     this.mesEdad = dataDocument.mes;
     this.diaEdad = dataDocument.dia;
+    // console.log('data of user ', this.dataExaminador);
+    this.examinador = this.dataExaminador.apellidos + ', ' + this.dataExaminador.nombres;
     this.chronologicalAge = this.anioEdad * 360 + this.mesEdad * 30 + this.diaEdad;
     this.mesesTotal = this.anioEdad * 12 + this.mesEdad;
     this.arrayRptas = [
@@ -72,7 +75,7 @@ export class EedpComponent implements OnInit {
       { clave: "S", numeroPregunta: 0 },
       { clave: "L", numeroPregunta: 0 },
       { clave: "M", numeroPregunta: 0 }
-    ]
+    ];
   }
 
   ngOnInit(): void {
@@ -85,6 +88,7 @@ export class EedpComponent implements OnInit {
       { edadNro: 3, edad: 'AÑOS' }, { edadNro: 4, edad: 'AÑOS' }
     ]
     this.getDatos();
+    this.getEEDP();
   }
 
   async getDatos() {
@@ -98,7 +102,17 @@ export class EedpComponent implements OnInit {
       this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
     });
   }
-
+  async getEEDP() {
+    let dataEEDP;
+    await this.eedpService.getPromiseEEDPxIdConsulta(this.idConsulta).then(data => {
+      dataEEDP = data;
+    });
+    if (dataEEDP == null)
+      return
+    this.arrayRptas = dataEEDP.testEedp.listaUltimasPreguntas;
+    this.evalResult = dataEEDP.testEedp.diagnostico;
+    this.tableStatus = true;
+  }
   async saveTest() {
     this.monthPoints = 0;
     let ansMonth = this.arrayEdadEEDPSelected.map(item => {
@@ -169,7 +183,7 @@ export class EedpComponent implements OnInit {
         edadMes: this.mesesTotal,
         diagnostico: this.diagnostico,
         coeficienteDesarrollo: parseFloat(this.coeficienteDesarrollo),
-        docExaminador: "89685545",
+        docExaminador: this.dataExaminador.docExaminador,
         listaUltimasPreguntas: [
           {
             clave: 'C',

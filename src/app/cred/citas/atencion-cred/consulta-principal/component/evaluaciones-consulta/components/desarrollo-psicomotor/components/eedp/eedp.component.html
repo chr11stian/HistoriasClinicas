@@ -1,4 +1,35 @@
 <div class="col-12" *ngIf="!tableStatus">
+    <div class="border">
+        <div class="grid">
+            <div class="col-3">
+                <label class="titulo-1">Edad Cronológica: </label>
+                <span class="descp-1">{{chronologicalAge}} dias</span>
+            </div>
+            <div class="col-3">
+                <label class="titulo-1">Edad Mensual: </label>
+                <span class="descp-1">{{mesesTotal}}</span>
+            </div>
+            <div class="col-3">
+                <label class="titulo-1">Puntos Mensuales: </label>
+                <span class="descp-1">{{monthPoints}}</span>
+            </div>
+        </div>
+        <div class="grid mt-3">
+            <div class="col-3 mt-2">
+                <label class="titulo-1">Examinador: </label>
+                <span class="descp-1">{{examinador}}</span>
+            </div>
+            <div class="col-3">
+                <div class="grid">
+                    <label class="titulo-1 mt-3">Fecha</label>
+                    <div class="col-8">
+                        <input type="date" [(ngModel)]="fechaEvaluacion" pInputText>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="container_steps">
         <div *ngFor="let item of items; index as indexItem">
             <div *ngIf="indexItem === indexSelected">
@@ -29,32 +60,12 @@
     <div class="div_line_Separate_card"></div>
     <div>
         <p-fieldset legend="{{edadNroSelected + ' ' + edadSelected}}">
-            <div class="grid">
-                <div class="col-3">
-                    <label>Edad Cronológica: </label>
-                    <span>{{chronologicalAge}} dias</span>
-                </div>
-                <div class="col-3">
-                    <label>Edad Mensual: </label>
-                    <span>{{mesesTotal}}</span>
-                </div>
-                <div class="col-3">
-                    <label>Puntos Mensuales: </label>
-                    <span>{{monthPoints}}</span>
-                </div>
-            </div>
+            
             <div class="container_input_datos">
                 <div class="col-3">
                     <input class="input_Evaluacion" id="Nvalue" width="" [(ngModel)]="resultadoEvaluacion" pInputText />
                 </div>
-                <div class="col-4">
-                    <div class="grid">
-                        <label class="mt-3">Fecha</label>
-                        <div class="col-8">
-                            <input type="date" [(ngModel)]="fechaEvaluacion" pInputText>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col-4">
                     <div class="grid">
                         <label class="mt-3">Examinador</label>
@@ -106,22 +117,22 @@
 </div>
 <!-- TABLA DE PERFIL DE DESARROLLO PSICOMOTOR - EEDP -->
 <div class="col-12" *ngIf="tableStatus">
-    <div class="grid">
+    <div class="grid mb-5">
         <div class="col-3">
-            <label>Edad Cronológica: </label>
-            <span>{{chronologicalAge}} dias</span>
+            <label class="titulo-1">Edad Cronológica: </label>
+            <span class="descp-1">{{chronologicalAge}} dias</span>
         </div>
         <div class="col-3">
-            <label>Edad Mensual: </label>
-            <span>{{mesesTotal}}</span>
+            <label class="titulo-1">Edad Mensual: </label>
+            <span class="descp-1">{{mesesTotal}}</span>
         </div>
         <div class="col-3">
-            <label>Puntos Mensuales: </label>
-            <span>{{monthPoints}}</span>
+            <label class="titulo-1">Puntos Mensuales: </label>
+            <span class="descp-1">{{monthPoints}}</span>
         </div>
         <div class="col-3">
-            <label>Diagnostico: </label>
-            <span>{{evalResult}}</span>
+            <label class="titulo-1">Diagnostico: </label>
+            <span class="descp-1">{{evalResult}}</span>
         </div>
     </div>
     <p-table dataKey="id" [value]="dataTabla" responsiveLayout="scroll" styleClass="p-datatable-gridlines"
@@ -546,19 +557,15 @@
                         </div>
                         <div *ngIf="dato.mes == 21 && dato.nroPregunta.length === 4">
                             <div style="display: flex; justify-content: space-evenly;">
-                                <div
-                                    [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
+                                <div [ngClass]="{'nroResult': dato.nroPregunta[0] == arrayRptas[i].numeroPregunta}">
                                     {{dato.nroPregunta[0]}}</div>
-                                <div 
-                                    [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
+                                <div [ngClass]="{'nroResult': dato.nroPregunta[1] == arrayRptas[i].numeroPregunta}">
                                     {{dato.nroPregunta[1]}}</div>
                             </div>
-                            <div  style="display: flex; justify-content: space-evenly;">
-                                <div 
-                                    [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
+                            <div style="display: flex; justify-content: space-evenly;">
+                                <div [ngClass]="{'nroResult': dato.nroPregunta[2] == arrayRptas[i].numeroPregunta}">
                                     {{dato.nroPregunta[2]}}</div>
-                                <div 
-                                    [ngClass]="{'nroResult': dato.nroPregunta[3] == arrayRptas[i].numeroPregunta}">
+                                <div [ngClass]="{'nroResult': dato.nroPregunta[3] == arrayRptas[i].numeroPregunta}">
                                     {{dato.nroPregunta[3]}}</div>
                             </div>
 
