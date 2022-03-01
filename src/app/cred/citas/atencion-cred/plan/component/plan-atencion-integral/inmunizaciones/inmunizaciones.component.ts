@@ -3,6 +3,7 @@ import { InmunizacionesService } from "../services/inmunizaciones/inmunizaciones
 // import { Inmunizaciones } from "../models/plan-atencion-integral.model";
 import { MessageService } from "primeng/api";
 import { ActivatedRoute } from "@angular/router";
+import {inmunizaciones} from "../models/plan-atencion-integral.model";
 
 @Component({
   selector: "app-inmunizaciones",
@@ -10,130 +11,67 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./inmunizaciones.component.css"],
 })
 export class InmunizacionesComponent implements OnInit {
+  valor: string = "";
   tipoDNI: string;
   nroDNI: string;
   stateOptions: any[];
-  listaInmunizaciones: any[] = [
-    {
-      nombreVacuna: 'hvb1',
-      nroDosis: 2,
-      estado: true,
-      fecha: '2022/12/17',
-      fechaTentativa: '2022/12/17',},
-    {
-      nombreVacuna: 'hvb2',
-      nroDosis: 2,
-      estado: true,
-      fecha: '2022/12/17',
-      fechaTentativa: '2022/12/17',},
-    {
-      nombreVacuna: 'hvb3',
-      nroDosis: 2,
-      estado: true,
-      fecha: '2022/12/17',
-      fechaTentativa: '2022/12/17',},
-  ];
-  lista1: any[] = [];
-  lista2: any[] = [];
-  lista3: any[] = [];
-  constructor(
-    private servicio: InmunizacionesService,
-    private messageService: MessageService,
-    private rutaActiva: ActivatedRoute
-  ) {}
-
-  ngOnInit() {
-    this.tipoDNI = this.rutaActiva.snapshot.queryParams.tipoDoc;
-    this.nroDNI = this.rutaActiva.snapshot.queryParams.nroDoc;
-    this.getLista();
+  listaInmunizaciones: inmunizaciones[] = [ ];
+  listaMeses:number[]=[1,2,3,4,5,6,12,18,24,48]
+  inmunizacionesAgrupadas=[[],[],[],[]]
+  edadMes:string[]=[]
+  agrupaciones:any[]=[
+    {abreviado:'RN',completo:'Recien Nacido'},
+    {abreviado:'Menor_1A',completo:'Menor de un Año'},
+    {abreviado:'1A',completo:'Un Año'},
+    {abreviado:'4A',completo:'Cuatro Años'},
+  ]
+  constructor(private inmunizacionesService:InmunizacionesService) {}
+  ngOnInit(){
+    this.nroDNI = "12121212";
+    this.getListaInmunizaciones();
   }
-
-  // async getLista(){
-  getLista() {
-    // this.servicio.getListaInmunizaciones(this.nroDNI)
-    this.servicio
-      .getListaInmunizaciones("47825757")
-      .toPromise()
-      .then((result) => {
-        this.listaInmunizaciones = result.object;
-        this.transform();
+  getListaInmunizaciones() {
+    this.inmunizacionesService.getListaInmunizaciones(this.nroDNI).subscribe((resp)=>{
+      this.inmunizacionesAgrupadas=[[],[],[],[]]
+      this.listaInmunizaciones=resp['object'];
+      this.toDate();
+      this.clasificamos();
+    })
+  }
+  nombreAgrupacionExtendido(vacuna:string):string{
+    const real=this.agrupaciones.find((element)=>{
+      return element.abreviado==vacuna;
+    })
+    return real?.completo || 'Otros'
+  }
+  toDate(){
+    this.listaInmunizaciones.forEach((element)=>{
+      element.fechaTentativa=new Date(`${element.fechaTentativa} 00:00:00` )
+      element.fecha=element.fecha!=null?new Date(`${element.fecha} 00:00:00`):null
+    })
+  }
+  nombreVacuna(nombre:string){
+    return nombre.split('-')[0]
+  }
+  clasificamos(){
+    //['RN', 'Menor_1A', '1A', '4A']
+    this.listaInmunizaciones.forEach((element)=>{
+      let isInclude=this.edadMes.find((elemento)=>{
+        return elemento==element.descripcionEdad
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-  transform() {
-    // transformacion a un solo formato que se usará
-    this.listaInmunizaciones.forEach((i) => {
-      if (i.fecha === null) {
-        i.fecha = "";
+
+      if(!isInclude){
+        this.edadMes.push(element.descripcionEdad)
       }
-      if (i.fechaTentativa === null) {
-        i.fechaTentativa = "";
-      } else {
-        i.fecha = i.fecha.split(" ")[0];
-        i.fechaTentativa = i.fechaTentativa.split(" ")[0];
-      }
+    })
+    // desglosamos/
+    this.listaInmunizaciones.forEach((element,index)=>{
+      let mes=element.descripcionEdad;
+      let posicion=this.edadMes.indexOf(mes);
+      this.inmunizacionesAgrupadas[posicion].push(element)
     });
-    this.separacion();
   }
-  separacion() {
-    // aqui la lista de inmunicaiones queda vacia
-    this.lista1 = this.listaInmunizaciones.splice(0, 8);
-    this.lista2 = this.listaInmunizaciones.splice(0, 8);
-    this.lista3 = this.listaInmunizaciones.splice(
-      0,
-      this.listaInmunizaciones.length
-    );
-  }
-  // save() {
-  //   //armamos la "
-  //   let objeto: string = "";
-  //   this.lista1.forEach((elemento) => {
-  //     objeto += `{"descripcionEdad":"${
-  //       elemento.descripcionEdad
-  //     }","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${
-  //       elemento.nroDosis
-  //     }
-  //           ,"estado":${elemento.estado},"fecha":"${
-  //       elemento.fecha ? this.getFecha(new Date(elemento.fecha)) : ""
-  //     }","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`;
-  //   });s
-  //   this.lista2.forEach((elemento) => {
-  //     objeto += `{"descripcionEdad":"${
-  //       elemento.descripcionEdad
-  //     }","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${
-  //       elemento.nroDosis
-  //     }
-  //           ,"estado":${elemento.estado},"fecha":"${
-  //       elemento.fecha ? this.getFecha(new Date(elemento.fecha)) : ""
-  //     }","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`;
-  //   });
-  //   this.lista3.forEach((elemento) => {
-  //     objeto += `{"descripcionEdad":"${
-  //       elemento.descripcionEdad
-  //     }","nombreVacuna":"${elemento.nombreVacuna}","nroDosis":${
-  //       elemento.nroDosis
-  //     }
-  //           ,"estado":${elemento.estado},"fecha":"${
-  //       elemento.fecha ? this.getFecha(new Date(elemento.fecha)) : ""
-  //     }","fechaTentativa":"${elemento.fechaTentativa} 00:00:00"},`;
-  //   });
-  //   const nueva = objeto.slice(0, objeto.length - 1);
-  //   const nueva1: string = `[${nueva}]`;
-  //   const json1 = JSON.parse(nueva1);
-  //   this.servicio
-  //     .updateListaInmunizaciones(this.nroDNI, json1)
-  //     .toPromise()
-  //     .then((result) => {
-  //       this.messageService.add({
-  //         severity: "success",
-  //         summary: "Exito",
-  //         detail: "registro actualizado",
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       console.log("E", err);
-  //     });
-  // }
+
+
+
 }
