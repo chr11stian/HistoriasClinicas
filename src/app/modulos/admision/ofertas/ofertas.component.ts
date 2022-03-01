@@ -90,7 +90,7 @@ export class OfertasComponent implements OnInit {
         this.formTransferirCupos2 = new FormGroup({
             apellidos2: new FormControl('', Validators.required),
             servicio2: new FormControl('', Validators.required),
-            nroDoc2: new FormControl(''),
+            nroDoc2: new FormControl('', ),
             dia: new FormControl(''),
             turnos: new FormControl(''),
             transferir: new FormControl(),

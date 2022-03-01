@@ -1,0 +1,123 @@
+<div class="p-card">
+    <p-toolbar styleClass="p-mb-4">
+
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">Lista de Tarifas de la IPRESS</h3>
+        </ng-template>
+
+        <ng-template pTemplate="right" class="button">
+            <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                (click)="openNew()"></button>
+            <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
+        </ng-template>
+
+    </p-toolbar>
+    <p-table [value]="tarifas" #dt [globalFilterFields]="['nombreUPS','codigo','descripcion','tipo']"
+        styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+        [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+        responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value,'contains')"
+                        placeholder="Buscar..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">UPS </th>
+                <th style="text-align: center">Código</th>
+                <th style="text-align: center">Descripcion</th>
+                <th style="text-align: center">Tipo</th>
+                <th style="text-align: center">Costo</th>
+                <th style="text-align: center">Activo</th>
+                <th style="text-align: center; width:8rem">Acción</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.ups }}</td>
+                <td style="text-align: center">{{ rowData.codigo }}</td>
+                <td style="text-align: center">{{ rowData.descripcion }}</td>
+                <td style="text-align: center">{{ rowData.tipo }}</td>
+                <td style="text-align: center">{{ rowData.costo }}</td>
+                <td style="text-align: center">
+                    <span class="p-column-title">Estado</span>
+                    <div *ngIf="rowData.activo; else noActivo">
+                        <p-tag value="Activo" rounded="true" severity="info" styleClass="text-sm px-3">
+                        </p-tag>
+                    </div>
+                    <ng-template #noActivo>
+                        <p-tag value="Inactivo" rounded="true" severity="danger" styleClass="text-sm">
+                        </p-tag>
+                    </ng-template>
+                <td>
+                    <button pButton (click)="editarTarifa(rowData)" pTooltip="Editar" pRipple type="button"
+                        icon="pi pi-pencil" class="p-button-rounded m-1">
+                    </button>
+                    <button pButton (click)="cambiarEstadoTarifa(rowData)" pTooltip="Activar/Desactivar" pRipple
+                        type="button" icon="pi pi-minus-circle" class="p-button-rounded p-button-warning m-1">
+                    </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<p-dialog [(visible)]="tarifaDialog" [style]="{width: '500px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
+    <ng-template pTemplate="header">
+        <h3 class="m-0">{{tituloTarifa()}}</h3>
+    </ng-template>
+
+    <ng-template pTemplate="body">
+        <form [formGroup]='formTarifa'>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label>Nombre UPS:</label>
+                    <p-dropdown *ngIf="!isUpdateTarifa" placeholder="Nombre UPS" class="inputRedondo"
+                        [showTransitionOptions]="'300ms'" dropdownIcon="pi pi-chevron-down" appendTo="body"
+                        inputId="dropdown" [options]="UPSList" formControlName="nombreUPS" optionLabel="nombreUPS"
+                        optionValue="nombreUPS" required>
+                    </p-dropdown>
+                    <p-dropdown *ngIf="isUpdateTarifa" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" inputId="dropdown" appendTo="body" optionValue="nombreUPS"
+                        [options]="UPSList" formControlName="nombreUPS" optionLabel="nombreUPS" required>
+                    </p-dropdown>
+                </div>
+                <div class="p-field col-12 md:col-12">
+                    <label id="nombreFuncion">Codigo:</label>
+                    <input type="text" pInputText formControlName='codigo' placeholder="Codigo" />
+                </div>
+                <div class="p-field col-12 md:col-12">
+                    <label id="descripcion">Descripcion:</label>
+                    <input type="text" pInputText formControlName='descripcion' placeholder="Descripcion" />
+                </div>
+                <div class="p-field col-6 md:col-6">
+                    <label>Tipo:</label>
+                    <p-dropdown placeholder="Tipo" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" appendTo="body" inputId="dropdown" [options]="tiposPagosCaja"
+                        formControlName="tipo" required>
+                    </p-dropdown>
+                </div>
+                <div class="p-field col-6 md:col-6">
+                    <label id="costo">Costo:</label>
+                    <p-inputNumber placeholder="Costo" formControlName='costo' suffix=" Soles" mode="decimal" [minFractionDigits]="2" required>
+                    </p-inputNumber>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton type="button" label="Cancelar" class="p-button-danger m-1 w-9rem" (click)="canceled()"></button>
+        <button *ngIf="!isUpdateTarifa" pButton type="button" label="Guardar" class="m-1 w-9rem"
+            (click)="saveTarifa()"></button>
+        <button *ngIf="isUpdateTarifa" pButton type="button" label="Guardar" class="m-1 w-9rem"
+            (click)="saveEdicionTarifa()"></button>
+    </ng-template>
+</p-dialog>

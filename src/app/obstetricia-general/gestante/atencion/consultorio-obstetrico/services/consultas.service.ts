@@ -51,4 +51,10 @@ export class ConsultasService {
     getCronogramaGestante(nroHcl){
         return this.http.get(`${this.base_url}/${this.bd}/obstetricia/cronograma/${nroHcl}`)
     }
+    getPrestaciones(){
+        return this.http.get(`${this.base_url}/${this.bd}/sis/prestacion/listar`)
+    }
+    getServiciosPorIpress(idIpress) {
+        return this.http.get(`${this.base_url}/${this.bd}/ipress/listarServicios/${idIpress}`);
+    }
 }
