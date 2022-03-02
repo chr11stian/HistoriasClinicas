@@ -26,6 +26,8 @@ import { CondicionPacienteDiscapacidadComponent } from "./component/condicion-pa
 import { TipoContratoComponent } from "./component/tipo-contrato/tipo-contrato.component";
 import { UnidadEjecutoraComponent } from "./component/unidad-ejecutora/unidad-ejecutora.component";
 import {PrestacionComponent} from "./component/prestacion/prestacion.component";
+import {AntecedentesPacienteComponent} from "./component/antecedentes-paciente/antecedentes-paciente.component";
+import {MedicamentosComponent} from "./component/medicamentos/medicamentos.component";
 
 const routes: Routes = [
   {
@@ -117,6 +119,14 @@ const routes: Routes = [
   {
     path: "unidad-ejecutora",
     component: UnidadEjecutoraComponent,
+  },
+  {
+    path: "antecedentes-paciente",
+    component: AntecedentesPacienteComponent,
+  },
+  {
+    path: "medicamentos",
+    component: MedicamentosComponent,
   },
   {
     path: "prestacion",

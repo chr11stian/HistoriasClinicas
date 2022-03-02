@@ -632,6 +632,7 @@ export class TestPeruanoComponent implements OnInit {
       codigoPrestacion: '0001',
       estadoEvaluacion:"",
       evaluacionDesarrolloMes: {
+        docExaminador:'24242424',
         edad: this.edadMeses,
         diagnostico: diagnostico,
         fecha: fecha,
