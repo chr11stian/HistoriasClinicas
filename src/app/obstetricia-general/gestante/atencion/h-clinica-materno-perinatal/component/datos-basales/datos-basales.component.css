@@ -46,13 +46,13 @@ p-checkbox >>> .p-checkbox .p-checkbox-box .pi-check:before {
   font-size: 3em;
 }
 
-.amarillo .p-checkbox .p-checkbox-box {
-  background: red !important;
-}
+/*.amarillo .p-checkbox .p-checkbox-box {*/
+/*  background: rgba(197, 0, 9, 0.63) !important;*/
+/*}*/
 
 ::ng-deep .amarillo .p-checkbox .p-checkbox-box {
-  background: rgb(242, 236, 56);
-  border-color: rgb(242, 236, 56);
+  background: rgb(234, 187, 38);
+  border-color: rgb(253, 94, 0);
 }
 
 p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
@@ -63,23 +63,23 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight:hover,
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon {
-  background: rgb(242, 236, 56);
-  border: rgb(242, 236, 56);
+  background: rgb(234, 187, 38);
+  border-color: rgb(253, 94, 0);
 }
 
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-box,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight:hover,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-icon {
-  border-color: red;
-  background: red;
+  border-color: rgba(197, 0, 9, 0.63);
+  background: rgba(197, 0, 9, 0.63);
 }
 
 ::ng-deep .default .p-radiobutton .p-radiobutton-icon,
 ::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight:hover {
-  background: #2196f3;
-  border: #2196f3;
+  background: #ffffff;
+  border-color: rgb(192, 192, 192);
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -128,3 +128,29 @@ p-toolbar >>> .p-toolbar {
   height: auto;
   border-radius: 3px;
 }
+
+p-checkbox >>> .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+  border-color: rgb(164, 164, 164);
+}
+
+
+p-checkbox >>> .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+  border: rgb(164, 164, 164);
+  background: rgb(164, 164, 164);
+
+}
+
+p-radiobutton >>> .p-radiobutton:not(.p-radiobutton-disabled).p-radiobutton-box.p-highlight:hover {
+  border: rgb(164, 164, 164);
+  background: rgb(164, 164, 164);
+}
+
+p-radiobutton >>> .p-radiobutton:not(.p-radiobutton-disabled) .p-radiobutton-box:hover {
+  border-color: rgb(164, 164, 164);
+}
+
+p-radiobutton >>> .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+  border: rgb(164, 164, 164);
+  background: rgb(164, 164, 164);
+}
+
