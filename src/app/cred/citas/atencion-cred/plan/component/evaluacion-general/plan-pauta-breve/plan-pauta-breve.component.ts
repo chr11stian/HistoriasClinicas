@@ -13,6 +13,10 @@ export class PlanPautaBreveComponent implements OnInit {
   resultListEEDP: any;
   dataPaciente: DatosConsulta;
   dataResPautaBreve: PautaBreveMes;
+  pautaBreveDialog: boolean = false;
+  varMes: string = 'Mes';
+  edadNroSelected: number = 0;
+  arrayPautaBreve: any;
 
   constructor(
     private pautaBreveService: PautaBreveService,
@@ -34,7 +38,11 @@ export class PlanPautaBreveComponent implements OnInit {
       return
     this.resultListEEDP = this.dataResPautaBreve;
   }
-  openShowPautaBreveDialog() {
-
+  openShowPautaBreveDialog(index) {
+    this.edadNroSelected = this.dataResPautaBreve[0].mesEdad;
+    this.edadNroSelected == 1 ? this.varMes = 'MES' : this.varMes = 'MESES';
+    this.arrayPautaBreve = this.dataResPautaBreve[index].listaItemPB;
+    this.pautaBreveDialog = true;
+    console.log('data de la tabla de pauta breve ', this.arrayPautaBreve);
   }
 }
