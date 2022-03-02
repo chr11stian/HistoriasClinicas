@@ -218,11 +218,12 @@ export class CitasComponent implements OnInit {
         });
     }
 
+    /**Buscar lista de cupos que pertenece a un personal de salud**/
     async buscarCuposPorPersonal() {
         let data = {
             tipoDoc: this.formCitas.value.tipoDoc,
             // nroDoc: this.formCitas.value.nroDoc,
-            nroDoc: '46538000',
+            nroDoc: '73145986',
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         console.log("DATA DNI", data)
