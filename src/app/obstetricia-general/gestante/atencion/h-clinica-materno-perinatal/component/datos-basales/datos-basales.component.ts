@@ -45,7 +45,8 @@ export class DatosBasalesComponent implements OnInit {
     tipoGananciaPeso: string;
     listaPatologiasMaternas: any[] = [];
     Gestacion: any;
-    dataPaciente2: any;
+    // dataPaciente2: any;
+    DataCupos: any;
 
     constructor(private filiancionService: FiliancionService,
                 private fb: FormBuilder,
@@ -58,15 +59,19 @@ export class DatosBasalesComponent implements OnInit {
     ) {
         this.inicalizarForm();
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
-        this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+        // this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+        this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
 
-        console.log("DATA PACIENTE 2", this.dataPaciente2);
+        console.log("DATA PACIENTE cupos", this.DataCupos);
 
         if (this.Gestacion == null) {
             this.idGestante = JSON.parse(localStorage.getItem('idGestacionRegistro'));
         } else {
             this.idGestante = this.Gestacion.id;
         }
+
+        this.form.get('pesoActual').setValue(this.DataCupos.funcionesVitales.peso);
+        this.form.get('talla').setValue(this.DataCupos.funcionesVitales.talla);
     }
 
     ngOnInit(): void {

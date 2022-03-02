@@ -9,6 +9,7 @@ import {image} from '../../../../assets/images/image.const';
 import {imageNina} from '../../../../assets/images/imageNina.const';
 import {imageNino} from '../../../../assets/images/imageNino.const';
 import {PersonalService} from 'src/app/core/services/personal-services/personal.service';
+import Swal from "sweetalert2";
 
 @Component({
     selector: 'app-registrar-triaje',
@@ -66,6 +67,16 @@ export class RegistrarTriajeComponent implements OnInit {
             this.formTriaje.get("peso").disable();
             this.formTriaje.get("talla").disable();
         }
+        if (config.data.option == 3) {
+            this.formTriaje.patchValue({temperatura: this.datosPersonales.funcionesVitales.temperatura});
+            this.formTriaje.patchValue({presionSis: this.datosPersonales.funcionesVitales.presionSistolica});
+            this.formTriaje.patchValue({presionDias: this.datosPersonales.funcionesVitales.presionDiastolica});
+            this.formTriaje.patchValue({fc: this.datosPersonales.funcionesVitales.fc});
+            this.formTriaje.patchValue({fr: this.datosPersonales.funcionesVitales.fr});
+            this.formTriaje.patchValue({peso: this.datosPersonales.funcionesVitales.peso});
+            this.formTriaje.patchValue({talla: this.datosPersonales.funcionesVitales.talla});
+            this.calcularIMC();
+        }
     }
 
     traerFoto() {
@@ -108,7 +119,13 @@ export class RegistrarTriajeComponent implements OnInit {
         this.recuperarDatos();
         console.log('data to show ', this.triaje);
         this.triajeService.postTriaje(this.idCupo, this.triaje).subscribe((res: any) => {
-            this.messageService.add({severity: 'success', summary: 'Exito', detail: 'Se guardo correctamente'});
+            Swal.fire({
+                icon: 'success',
+                title: 'Registro',
+                text: 'Fue creado con exito',
+                showConfirmButton: false,
+                timer: 1500,
+            })
             this.ref.close(this.triaje);
 
         });
