@@ -1,0 +1,173 @@
+<div class="p-card">
+    <p-toolbar styleClass="p-mb-4">
+
+        <ng-template pTemplate="left">
+            <h3 class="p-m-0">ANTECEDENTES PATOLOGICOS DEL PACIENTE</h3>
+        </ng-template>
+
+        <ng-template pTemplate="right" class="button">
+            <span class="">NRO DE HISTORIA CLINICA</span>
+            <div class="p-inputgroup">
+                <input type="text" pInputText [(ngModel)]="nroHcl"/>
+                <p-button icon="pi pi-search" (click)="buscarAntecedentePorHcl()"></p-button>
+                <button pButton pRipple label="Agregar"
+                        icon="pi pi-plus" class="p-button-danger p-mr-2"
+                        (click)="openNew()"></button>
+            </div>
+
+        </ng-template>
+    </p-toolbar>
+    <br>
+    <p-toolbar>
+        <ng-template pTemplate="left">
+            <label>DATOS PERSONALES</label>
+        </ng-template>
+    </p-toolbar>
+    <div class="border">
+        <div class="grid mt-2">
+            <div class="col-12 md:col-6 lg:col-3 p-field">
+                <div class="col-12 md:col-6 lg:col-12 ml-2">
+                    <img class="image" alt="Imagen" src="{{'data:image/jpg;base64,' + imagePath}}"/>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-4 p-field">
+                <form [formGroup]='formDatos'>
+                    <div class="grid">
+                        <div class="p-inputgroup">
+                            <div class="col-4" style="text-align: left">
+                                <label class="">Apellido Paterno:</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText class="inputfield w-full" formControlName="apePaterno"
+                                       style="text-transform:uppercase">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="p-inputgroup">
+                            <div class="col-4" style="text-align: left">
+                                <label class="">Apellido Materno:</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText class="inputfield w-full" formControlName="apeMaterno"
+                                       style="text-transform:uppercase">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="p-inputgroup">
+                            <div class="col-4" style="text-align: left">
+                                <label class="">Nombres:</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText class="inputfield w-full " formControlName="nombres"
+                                       style="text-transform:uppercase">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-12 md:col-6 lg:col-4 p-field">
+                <form [formGroup]='formDatos'>
+                    <div class="grid">
+                        <div class="p-inputgroup">
+                            <div class="col-4" style="text-align: left">
+                                <label class="">Doc. de Identidad:</label>
+                            </div>
+                            <div class="col-6">
+                                <input type="number" pInputText class="inputfield w-full"
+                                       formControlName="docIndentidad">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid">
+                        <div class="p-inputgroup">
+                            <div class="col-4" style="text-align: left">
+                                <label class="">HCL: </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" pInputText class="inputfield w-full " formControlName="hcl"
+                                       style="text-transform:uppercase">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <p-toolbar styleClass="p-mb-4">
+        <div class="p-toolbar-group-left">
+            <i class="pi pi-folder-open m-2"></i>
+            <h3 class="p-m-0">ANTECEDENTES PERSONALES DEL PACIENTE</h3>
+        </div>
+        <div class="p-toolbar-group-right">
+            <button pButton pRipple label="Agregar" icon="pi pi-plus"
+                    [disabled]="nroHcl==null"
+                    class="p-button-danger p-mr-2"
+                    (click)="openDialogAntecedentesPersonales()"></button>
+        </div>
+    </p-toolbar>
+
+    <p-table [value]="antecedentesPersonales" #dt
+             styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+             [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+             responsiveLayout="scroll">
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Descripcion Antecedente</th>
+                <th style="text-align: center">Fecha Diagnóstico</th>
+                <th style="text-align: center">Edad diagnósticada</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.nombre }}</td>
+                <td style="text-align: center">{{ rowData.fechaDiagnosticado | date: 'dd-MM-yyyy'}}</td>
+                <td style="text-align: center">{{ rowData.edadAnio }} año(s) {{rowData.edadMes}} meses {{rowData.edadDia}} dias</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <br>
+    <p-toolbar styleClass="p-mb-4">
+        <div class="p-toolbar-group-left">
+            <i class="pi pi-folder-open m-2"></i>
+            <h3 class="p-m-0">ANTECEDENTES FAMILIARES DEL PACIENTE</h3>
+        </div>
+        <div class="p-toolbar-group-right">
+            <button pButton pRipple label="Agregar"
+                    [disabled]="nroHcl==null"
+                    icon="pi pi-plus" class="p-button-danger p-mr-2"
+                    (click)="openDialogAntecedentesFamiliares()"></button>
+        </div>
+    </p-toolbar>
+
+    <p-table [value]="antecedentesFamiliares" #dt
+             styleClass="p-datatable-gridlines" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+             [autoLayout]="true" currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas"
+             responsiveLayout="scroll">
+        <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+            <tr>
+                <th style="text-align: center">Nro</th>
+                <th style="text-align: center">Descripcion Antecedente</th>
+                <th style="text-align: center">Fecha Diagnóstico</th>
+                <th style="text-align: center">Edad</th>
+                <th style="text-align: center; width:8rem">Pariente</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+            <tr style="text-align: center">
+                <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                <td style="text-align: center">{{ rowData.nombre }}</td>
+                <td style="text-align: center">{{ rowData.fechaDiagnosticado | date: 'dd-MM-yyyy'}}</td>
+                <td style="text-align: center">{{ rowData.edadAnio }} año(s) {{rowData.edadMes}} meses {{rowData.edadDia}} dias</td>
+                <td style="text-align: center">{{ rowData.pariente }}</td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+
+</div>
