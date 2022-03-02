@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { PautaBreveService } from '../../services/pauta-breve.service';
 import { datosEEDPTabla, tablaComparativa } from '../models/eedp';
 import { AnswerPB, EvaluationPB } from '../models/pautaBreve';
+import { DatosConsulta } from '../models/eedp';
 
 @Component({
   selector: 'app-pauta-breve',
@@ -29,14 +30,22 @@ export class PautaBreveComponent implements OnInit {
   dataPB: EvaluationPB;
   dataPautaBreve: any;
   datePipe = new DatePipe('en-US');
+  mesesTotal: number = 0;
+  dataExaminador: any;
+  dataConsulta: DatosConsulta;
 
   constructor(
     private testService: EvalAlimenService,
     private pautaBreveService: PautaBreveService,
   ) {
     this.getDatos();
+    this.dataConsulta = JSON.parse(localStorage.getItem('documento'));
+    this.dataExaminador = JSON.parse(localStorage.getItem('usuario'));
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
+    this.mesesTotal = this.dataConsulta.anio*12 + this.dataConsulta.mes
     this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.examinador = this.dataExaminador.apellidos + ', ' + this.dataExaminador.nombres;
+    console.log('data de la consulta desde pauta breve ', this.dataConsulta);
   }
 
   ngOnInit(): void {

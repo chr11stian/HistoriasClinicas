@@ -5,7 +5,8 @@ export interface dato {
     dia?: number,
     mes?: number,
     anio?: number
-    sexo: string
+    sexo: string,
+    fechaNacimiento?: string
 }
 
 export interface outputTriajeInterface {
@@ -110,5 +111,6 @@ export interface interfaceCrecimiento {
     estadoAplicado: boolean;
     fechaTentativa: string | Date;
     fecha: string | Date;
+    dias?: number
 }
 

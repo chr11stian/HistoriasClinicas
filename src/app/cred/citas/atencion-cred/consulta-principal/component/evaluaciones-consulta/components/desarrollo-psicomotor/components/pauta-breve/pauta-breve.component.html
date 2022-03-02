@@ -1,4 +1,28 @@
 <div class="col-12">
+    <div class="border grid mt-3">
+        <div class="col-3 mt-2">
+            <label class="titulo-1">Examinador: </label>
+            <span class="descp-1">{{examinador}}</span>
+        </div>
+        <div class="col-3">
+            <div class="grid">
+                <label class="titulo-1 mt-3">Fecha</label>
+                <div class="col-8">
+                    <input type="date" [(ngModel)]="fechaEvaluacion" pInputText>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 mt-2">
+            <label class="titulo-1">Edad (Meses): </label>
+            <span class="descp-1">{{mesesTotal}}</span>
+        </div>
+        <div class="col-4 mt-2">
+            <label class="titulo-1">Edad actual: </label>
+            <span class="descp-1" *ngIf="dataConsulta.anio>0">{{dataConsulta.anio}} año(s) </span>
+            <span class="descp-1" *ngIf="dataConsulta.mes>0">{{dataConsulta.mes}} meses </span>
+            <span class="descp-1" *ngIf="dataConsulta.dia>0">y {{dataConsulta.dia}} dias </span>
+        </div>
+    </div>
     <div class="container_steps">
         <div *ngFor="let item of items; index as indexItem">
             <div *ngIf="indexItem === indexSelected">
@@ -28,28 +52,6 @@
     <div class="div_line_Separate_card"></div>
     <div>
         <p-fieldset legend="{{edadNroSelected + ' ' + edadSelected}}">
-            <div class="container_input_datos">
-                <div class="col-3">
-                    <input class="input_Evaluacion" id="Nvalue" width="" [(ngModel)]="resultadoEvaluacion" pInputText />
-                </div>
-                <div class="col-4">
-                    <div class="grid">
-                        <label class="mt-3">Fecha</label>
-                        <div class="col-8">
-                            <input type="date" [(ngModel)]="fechaEvaluacion" pInputText>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="grid">
-                        <label class="mt-3">Examinador</label>
-                        <div class="col-8">
-                            <input class="input_examinador" pInputText placeholder="Ingrese Examinador"
-                                [(ngModel)]='examinador' />
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div style="margin-top: 20px;">
                 <p-table dataKey="id" [value]="arrayEdadPautaBreveSelected" responsiveLayout="scroll">
                     <ng-template pTemplate="header">
@@ -57,7 +59,6 @@
                             <th rowspan="2" colspan="8">ITEM</th>
                             <th colspan="4">PAUTA BREVE</th>
                         </tr>
-
                         <tr>
                             <th colspan="2">N</th>
                             <th colspan="2">D</th>

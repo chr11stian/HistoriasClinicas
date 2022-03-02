@@ -1,22 +1,3 @@
-p-table >>> .p-datatable table {
-    width: auto;
- }
- 
- p-table >>> .p-datatable .p-datatable-thead > tr > th {
-    text-align: center !important;
-    border: 1px solid #b6b6b6;
-    background-color: #DDDDDD;
-    padding: 0.3rem;
- }
- p-table >>> .p-datatable .p-datatable-tbody > tr > td {
-    text-align: center;
-    font-size:medium;
-    word-wrap: break-word;
-    
- }
- input {
-    text-align: center;
-}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -25,92 +6,30 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
-.container_steps {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
+.titulo-1 {
+  font-size: 1.1rem;
+  color: #1769aa;
 }
-.container_input_datos {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
+.descp-1 {
+  font-weight: 640;
 }
-.steps {
-    display: flex;
-    flex-direction: column;
-    width: 50px;
-    height: 60px;
-    border-radius: 21px;
-    border: 1px solid #CE181E;
-    background-color: #CE181E;
+.nroResult {
+  /* color:blue; */
+  /* text-align: center; */
+  background: #ce181e;
+  font-size: 1.1rem;
+  border: 0.5px solid;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 50%; 
+  color: #fff;
 }
-
-.steps_NoSelected {
-    display: flex;
-    flex-direction: column;
-    width: 50px;
-    height: 60px;
-    border-radius: 21px;
-    border: 1px solid #e29497;
-    background-color: #e29497;
-}
-
-.div-titulo-mes {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 30%;
-}
-.steps-titulo-edadMes {
-    color: #ffffff;
-    font-size: 10px;
-}
-
-.div-titulo-nro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 65%;
-}
-.steps-titulo-edadNro {
-    color: #ffffff;
-    font-size: 26px;
-}
-
-.div-line {
-    width: 100%;
-    height: 2%;
-    margin-bottom: 2px;
-    background-color: #ffffff;
-    border-color: 1px solid #ffffff;
-}
-
-.div_line_Separate_card {
-    width: 100%;
-    height: 2px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background-color: #4124aa;
-    border-color: 1px solid #4124aa
-}
-
-.input {
-    width: 150px;
-    margin-left: 8px;
-}
-.input_examinador {
-    width: 250px;
-    margin-left: 8px;
-}
-.label { 
-    font-weight: bold;
-    font-size: 20px;
-}
-.label_fecha {
-    font-weight: bold;
-    font-size: 14px;
+::ng-deep .table-desarrollo .p-datatable .p-datatable-thead > tr > th {
+  text-align: center !important;
+  border: 1px solid #b6b6b6;
+  background-color: #dddddd;
+  padding: 0.3rem;
 }
