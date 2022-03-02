@@ -10,7 +10,8 @@
             <div class="p-inputgroup">
                 <input type="text" pInputText [(ngModel)]="nroHcl"/>
                 <p-button icon="pi pi-search" (click)="buscarAntecedentePorHcl()"></p-button>
-                <button pButton pRipple label="Agregar" icon="pi pi-plus" class="p-button-danger p-mr-2"
+                <button pButton pRipple label="Agregar"
+                        icon="pi pi-plus" class="p-button-danger p-mr-2"
                         (click)="openNew()"></button>
             </div>
 
@@ -97,11 +98,16 @@
     </div>
     <br>
     <p-toolbar styleClass="p-mb-4">
-
-        <ng-template pTemplate="left">
+        <div class="p-toolbar-group-left">
+            <i class="pi pi-folder-open m-2"></i>
             <h3 class="p-m-0">ANTECEDENTES PERSONALES DEL PACIENTE</h3>
-        </ng-template>
-
+        </div>
+        <div class="p-toolbar-group-right">
+            <button pButton pRipple label="Agregar" icon="pi pi-plus"
+                    [disabled]="nroHcl==null"
+                    class="p-button-danger p-mr-2"
+                    (click)="openDialogAntecedentesPersonales()"></button>
+        </div>
     </p-toolbar>
 
     <p-table [value]="antecedentesPersonales" #dt
@@ -114,7 +120,6 @@
                 <th style="text-align: center">Descripcion Antecedente</th>
                 <th style="text-align: center">Fecha Diagnóstico</th>
                 <th style="text-align: center">Edad diagnósticada</th>
-                <th style="text-align: center; width:8rem">Acción</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
@@ -123,24 +128,21 @@
                 <td style="text-align: center">{{ rowData.nombre }}</td>
                 <td style="text-align: center">{{ rowData.fechaDiagnosticado | date: 'dd-MM-yyyy'}}</td>
                 <td style="text-align: center">{{ rowData.edadAnio }} año(s) {{rowData.edadMes}} meses {{rowData.edadDia}} dias</td>
-                <td>
-                    <button pButton (click)="editarAntecedenteP(rowData)" pTooltip="Editar" pRipple type="button"
-                            icon="pi pi-pencil" class="p-button-rounded m-1">
-                    </button>
-                    <button pButton (click)="eliminarAntecedenteP(rowData)" pTooltip="Eliminar" pRipple type="button"
-                            icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
-                    </button>
-                </td>
             </tr>
         </ng-template>
     </p-table>
     <br>
     <p-toolbar styleClass="p-mb-4">
-
-        <ng-template pTemplate="left">
+        <div class="p-toolbar-group-left">
+            <i class="pi pi-folder-open m-2"></i>
             <h3 class="p-m-0">ANTECEDENTES FAMILIARES DEL PACIENTE</h3>
-        </ng-template>
-
+        </div>
+        <div class="p-toolbar-group-right">
+            <button pButton pRipple label="Agregar"
+                    [disabled]="nroHcl==null"
+                    icon="pi pi-plus" class="p-button-danger p-mr-2"
+                    (click)="openDialogAntecedentesFamiliares()"></button>
+        </div>
     </p-toolbar>
 
     <p-table [value]="antecedentesFamiliares" #dt
@@ -163,14 +165,7 @@
                 <td style="text-align: center">{{ rowData.fechaDiagnosticado | date: 'dd-MM-yyyy'}}</td>
                 <td style="text-align: center">{{ rowData.edadAnio }} año(s) {{rowData.edadMes}} meses {{rowData.edadDia}} dias</td>
                 <td style="text-align: center">{{ rowData.pariente }}</td>
-                <td>
-                    <button pButton (click)="editarAntecedenteF(rowData)" pTooltip="Editar" pRipple type="button"
-                            icon="pi pi-pencil" class="p-button-rounded m-1">
-                    </button>
-                    <button pButton (click)="eliminarAntecedenteF(rowData)" pTooltip="Eliminar" pRipple type="button"
-                            icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
-                    </button>
-                </td>
+
             </tr>
         </ng-template>
     </p-table>

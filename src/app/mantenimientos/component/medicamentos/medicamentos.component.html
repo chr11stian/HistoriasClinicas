@@ -12,9 +12,10 @@
         </div>
         <div class="p-toolbar-group-right">
             <button pButton  pTooltip="Agregar" pRipple type="button"
-                    (click)="openDialogTratamientoComun()"
+                    style="background:#0c3866"
+                    (click)="openDialogMedicamento()"
                     label="Agregar"
-                    icon="pi pi-save">
+                    icon="pi pi-plus">
             </button>
         </div>
     </p-toolbar>
@@ -53,7 +54,10 @@
                 <td style="text-align: center">{{ rowData.concentracion}}</td>
                 <td style="text-align: center">{{ rowData.viaAdministracion}}</td>
                 <td>
-                    <button pButton (click)="editarMedicamento(rowData)" pTooltip="Editar" pRipple type="button"
+                    <button pButton
+                            (click)="editarMedicamento(rowData,rowIndex)"
+                            pTooltip="Editar" pRipple type="button"
+                            style="background:#0c3866"
                             icon="pi pi-pencil" class="p-button-rounded m-1">
                     </button>
                 </td>

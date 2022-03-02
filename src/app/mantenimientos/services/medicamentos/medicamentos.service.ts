@@ -28,7 +28,7 @@ export class MedicamentosService {
   }
 
   updateMedicamentos(codigo,data) {
-    return this.http.put(`${this.base_url}/${this.bd}/medicamento/codigo/`,data)
+    return this.http.put(`${this.base_url}/${this.bd}/medicamento/${codigo}/`,data)
   }
 
   addMedicamentos(data){

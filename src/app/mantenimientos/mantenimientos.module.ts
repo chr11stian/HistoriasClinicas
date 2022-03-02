@@ -37,6 +37,7 @@ import {AntecedentesPacienteComponent} from "./component/antecedentes-paciente/a
 import { MedicamentosComponent } from './component/medicamentos/medicamentos.component';
 import {FileUploadModule} from "primeng/fileupload";
 import { ModalMedicamentosComponent } from './component/medicamentos/modal-medicamentos/modal-medicamentos.component';
+import { ModalAntecedentesComponent } from './component/antecedentes-paciente/modal-antecedentes/modal-antecedentes.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ModalMedicamentosComponent } from './component/medicamentos/modal-medic
     DiagnosticoComponent,
     AntecedentesPacienteComponent,
     MedicamentosComponent,
-    ModalMedicamentosComponent
+    ModalMedicamentosComponent,
+    ModalAntecedentesComponent
   ],
 
   exports: [TipoPersonalComponent, UbicacionComponent],

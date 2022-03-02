@@ -1,41 +1,72 @@
-<form [formGroup]='formMedicamento'>
 
-    <div class="p-grid p-fluid">
-        <div class="grid">
-            <div class="col-6">
-                <label>Codigo:</label>
-                <input type="text" style="border-radius: 10px" pInputText formControlName='codigo' placeholder="Codigo del medicamento"
-                       required/>
+<div class="border">
+    <form [formGroup]='formMedicamento'>
+        <div class="p-grid p-fluid">
+            <div class="grid m-2">
+                <div class="col-12">
+                    <label>Codigo:</label>
+                    <input type="text" style="border-radius: 10px" pInputText formControlName='codigo' placeholder="Codigo del medicamento"
+                           required/>
+                </div>
+                <div class="col-12">
+                    <label>Nombre:</label>
+                    <textarea rows="5" cols="15" pInputTextarea autoResize="autoResize" formControlName='nombre' placeholder="Nombre del medicamento" required></textarea>
+                    <!--                <input type="text" style="border-radius: 10px" pInputText formControlName='nombre' placeholder="Nombre del medicamento"-->
+                    <!--                       required/>-->
+                </div>
             </div>
-            <div class="col-6">
-                <label>Nombre:</label>
-                <input type="text" style="border-radius: 10px" pInputText formControlName='nombre' placeholder="Nombre del medicamento"
-                       required/>
+            <div class="grid m-2">
+                <div class="col-12 md:col-4 mb-2">
+                    <label>ff:</label>
+                    <input type="text"  style="border-radius: 10px" pInputText formControlName='ff' placeholder="ff"
+                           required/>
+                </div>
+                <div class="col-12 md:col-4 mb-2">
+                    <label>Concentración:</label>
+                    <input type="text"  style="border-radius: 10px" pInputText formControlName='concentracion' placeholder="Concentracion" required/>
+
+                </div>
+                <div class="col-12 md:col-4 mb-2">
+                    <label>Vía de Administración:</label>
+                    <p-dropdown  inputId="dropdown" [options]="viaadministracionList"
+                                 formControlName="viaAdministracion"
+                                 placeholder="seleccionar"
+                                 optionLabel="label" optionValue="value"
+                                 defaultLabel="Seleccione:" >
+                    </p-dropdown>
+                </div>
             </div>
+
         </div>
-        <div class="grid">
-            <div class="col-4">
-                <label>ff:</label>
-                <input type="text"  style="border-radius: 10px" pInputText formControlName='ff' placeholder="ff"
-                       required/>
-            </div>
-            <div class="col-4">
-                <label>Concentración:</label>
-                <input type="text"  style="border-radius: 10px" pInputText formControlName='concentracion' placeholder="Concentracion" required/>
+    </form>
 
-            </div>
-            <div class="col-4">
-                <label>Vía de Administración:</label>
-                <p-dropdown  inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracion"
-                             placeholder="seleccionar" optionLabel="label" optionValue="value"
-                             defaultLabel="Seleccione:" >
-                </p-dropdown>
-            </div>
-        </div>
-
-    </div>
-</form>
-<div class="footer">
-    <button pButton type="button" label="Guardar" (click)="closeDialogGuardar()" class="p-button-danger mt-4"></button>
-    <button pButton type="button" label="Cancelar" (click)="closeDialog()"  class="p-button-danger mt-4"></button>
 </div>
+
+<p-toolbar>
+    <div class="p-toolbar-group-left">
+    </div>
+    <div class="p-toolbar-group-rigth">
+        <button pButton type="button"
+                label="Guardar"
+                icon="pi pi-save"
+                (click)="closeDialogGuardar()"
+                class="botonGuardar"></button>
+        <button pButton type="button"
+                label="Cancelar"
+                icon="pi pi-times-circle"
+                (click)="canceled()"
+                class="botonCancelar"></button>
+    </div>
+</p-toolbar>
+<!--<div class="footer">-->
+<!--    <button pButton type="button"-->
+<!--            label="Guardar"-->
+<!--            icon="pi pi-save"-->
+<!--            (click)="closeDialogGuardar()"-->
+<!--            class="botonGuardar"></button>-->
+<!--    <button pButton type="button"-->
+<!--            label="Cancelar"-->
+<!--            icon="pi pi-times-circle"-->
+<!--            (click)="canceled()"-->
+<!--            class="botonCancelar"></button>-->
+<!--</div>-->

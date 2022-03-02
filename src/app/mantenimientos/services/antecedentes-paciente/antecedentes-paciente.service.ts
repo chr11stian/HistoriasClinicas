@@ -12,13 +12,21 @@ export class AntecedentesPacienteService {
   getAntecedentes(nroHcl) {
     return this.http.get(`${this.base_url}/${this.bd}/antecedentes/${nroHcl}/`);
   }
+
   addAntecedentes(data) {
     return this.http.post<any>(`${this.base_url}/${this.bd}/antecedentes/`, data)
   }
-  updateAntecedentes(data) {
-    return this.http.delete(`${this.base_url}/${this.bd}/antecedentes/`,data)
+
+  updateAntecedentesPersonales(data) {
+    return this.http.put(`${this.base_url}/${this.bd}/antecedentes/actualizarPer`,data)
   }
+
+  updateAntecedentesFamiliares(data) {
+    return this.http.put(`${this.base_url}/${this.bd}/antecedentes/actualizarFam`,data)
+  }
+
   getDatosReniec(doc){
     return this.http.get(`${this.base_url}/${this.bd}/pide/datos-sis/${doc}`)
   }
+
 }

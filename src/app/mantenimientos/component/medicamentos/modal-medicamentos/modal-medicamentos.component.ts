@@ -54,15 +54,17 @@ export class ModalMedicamentosComponent implements OnInit {
     this.dialogMedicamento = true;
   }
   canceled() {
+    this.ref.close();
+    this.dialogMedicamento = false;
     Swal.fire({
       icon: 'warning',
       title: 'Cancelado...',
-      text: '',
+      text: 'No se guardo ningún registro',
       showConfirmButton: false,
       timer: 1000
     })
-    this.dialogMedicamento = false;
   }
+
   enviarMedicamentos(){
     var medicamentos = {
       id:this.formMedicamento.value.id,
