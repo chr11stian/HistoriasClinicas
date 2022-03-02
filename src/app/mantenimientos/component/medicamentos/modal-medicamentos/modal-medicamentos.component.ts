@@ -46,7 +46,6 @@ export class ModalMedicamentosComponent implements OnInit {
       viaAdministracion: new FormControl("", [Validators.required]),
       ff: new FormControl("", [Validators.required]),
       concentracion: new FormControl("", [Validators.required]),
-
     })
   }
   openNew(){

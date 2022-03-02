@@ -5,43 +5,74 @@
             <div class="grid m-2">
                 <div class="col-12">
                     <label>Descripcion del Antecedente:</label>
-                    <input type="text" pInputText formControlName='nombre' placeholder="Enfermedad o Patología"
-                           required/>
+                    <p-autoComplete formControlName="nombre" [virtualScroll]="true" [suggestions]="listaAntecedentes" [itemSize]="34" (completeMethod)="filterItems($event)" field="codigo" [dropdown]="true">
+                    </p-autoComplete>
+<!--                    <p-dropdown  inputId="dropdown" [options]="listaAntecedentes"-->
+<!--                                 formControlName="nombre"-->
+<!--                                 placeholder="seleccionar"-->
+<!--                                 optionLabel="codigo" optionValue="value"-->
+<!--                                 defaultLabel="Seleccione:" >-->
+<!--                    </p-dropdown>-->
                 </div>
             </div>
             <div class="grid m-2">
-                <div class="col-6">
-                    <label>Fecha de Diagnóstico:</label>
-                    <p-calendar formControlName='fechaDiagnosticado' [showIcon]="true" inputId="icon"></p-calendar>
-                </div>
-                <div class="col-2 md:col-2 mb-2">
-                    <label>Edad (años):</label>
-                    <input type="text"   pInputText formControlName='edadAnio' placeholder="A"
-                           required/>
-                </div>
-                <div class="col-2 md:col-2 mb-2">
-                    <label>Edad (meses):</label>
-                    <input type="text"  pInputText formControlName='edadMes' placeholder="M"
-                           required/>
-                </div>
-                <div class="col-2 md:col-2 mb-2">
-                    <label>Edad (dias):</label>
-                    <input type="text"   pInputText formControlName='edadDia' placeholder="D"
-                           required/>
+                    <div class="col-12 md:col-4 lg:col-4">
+                        <div class="grid">
+                            <div class="col-12 p-fluid">
+                                <label>Fecha de Diagnóstico:</label>
+                            </div>
+                            <div class="col-12 p-fluid">
+                                <p-calendar formControlName='fechaDiagnosticado' [showIcon]="true" inputId="icon"></p-calendar>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-8 lg:col-8">
+                        <div class="grid p-fluid">
+                            <div class="col-4 p-fluid">
+                                <label>Edad (años):</label>
+                            </div>
+                            <div class="col-4 p-fluid">
+                                <label>Edad (meses):</label>
+                            </div>
+                            <div class="col-4 p-fluid">
+                                <label>Edad (dias):</label>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="col-4 p-fluid">
+                                <input type="text"   pInputText formControlName='edadAnio' placeholder="A"
+                                       required/>
+                            </div>
+                            <div class="col-4 p-fluid">
+                                <input type="text"  pInputText formControlName='edadMes' placeholder="M"
+                                       required/>
+                            </div>
+                            <div class="col-4 p-fluid">
+                                <input type="text"   pInputText formControlName='edadDia' placeholder="D"
+                                       required/>
+                            </div>
+                        </div>
                 </div>
             </div>
             <div class="grid m-2" *ngIf="esFamiliar==true">
-                <div class="col-12 md:col-4 mb-2">
+                <div class="col-3 md:col-4 mb-2 p-fluid">
                     <label>Pariente:</label>
-                    <input type="text"   pInputText formControlName='pariente' placeholder="Pariente"
-                           required/>
+                </div>
+                <div class="col-8 md:col-8 mb-2 p-fluid">
+                    <p-dropdown  inputId="dropdown" [options]="listaPariente"
+                                 formControlName="pariente"
+                                 placeholder="seleccionar"
+                                 optionLabel="codigo" optionValue="value"
+                                 defaultLabel="Seleccione:" >
+                    </p-dropdown>
                 </div>
             </div>
         </div>
     </form>
 
 </div>
-
+<br>
+<br>
 <p-toolbar>
     <div class="p-toolbar-group-left">
     </div>

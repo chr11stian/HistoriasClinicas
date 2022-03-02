@@ -5,29 +5,28 @@
             <div class="grid m-2">
                 <div class="col-12">
                     <label>Codigo:</label>
-                    <input type="text" style="border-radius: 10px" pInputText formControlName='codigo' placeholder="Codigo del medicamento"
+                    <input type="text" pInputText formControlName='codigo' placeholder="Codigo del medicamento"
                            required/>
                 </div>
                 <div class="col-12">
                     <label>Nombre:</label>
                     <textarea rows="5" cols="15" pInputTextarea autoResize="autoResize" formControlName='nombre' placeholder="Nombre del medicamento" required></textarea>
-                    <!--                <input type="text" style="border-radius: 10px" pInputText formControlName='nombre' placeholder="Nombre del medicamento"-->
-                    <!--                       required/>-->
                 </div>
             </div>
             <div class="grid m-2">
                 <div class="col-12 md:col-4 mb-2">
                     <label>ff:</label>
-                    <input type="text"  style="border-radius: 10px" pInputText formControlName='ff' placeholder="ff"
+                    <input type="text" pInputText formControlName='ff' placeholder="ff"
                            required/>
                 </div>
                 <div class="col-12 md:col-4 mb-2">
                     <label>Concentración:</label>
-                    <input type="text"  style="border-radius: 10px" pInputText formControlName='concentracion' placeholder="Concentracion" required/>
+                    <input type="text" pInputText formControlName='concentracion' placeholder="Concentracion" required/>
 
                 </div>
                 <div class="col-12 md:col-4 mb-2">
                     <label>Vía de Administración:</label>
+                    <br>
                     <p-dropdown  inputId="dropdown" [options]="viaadministracionList"
                                  formControlName="viaAdministracion"
                                  placeholder="seleccionar"
@@ -41,7 +40,7 @@
     </form>
 
 </div>
-
+<br>
 <p-toolbar>
     <div class="p-toolbar-group-left">
     </div>

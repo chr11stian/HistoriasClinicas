@@ -14,14 +14,69 @@ export class ModalAntecedentesComponent implements OnInit {
   dialogAntecedente:boolean=false;
   esPersonal:boolean=false;
   esFamiliar:boolean=false;
-  // dataAntecedentesPersonales:antecedentesPer[]=[];
   dataAntecedentes:antecedentesFam[]=[];
+  listaAntecedentes:any[]=[];
+  listaPariente:any[]=[];
   dataPipe = new DatePipe('en-US');
 
   constructor(private form:FormBuilder,
               private ref:DynamicDialogRef,
               private config:DynamicDialogConfig) {
     console.log(config.data);
+    this.listaPariente=[
+      {codigo:'PADRE',value:'PADRE'},
+      {codigo:'MADRE',value:'MADRE'},
+      {codigo:'ABUELO(A)',value:'ABUELO(A)'},
+      {codigo:'HERMANO(A)',value:'HERMANO(A)'},
+      {codigo:'TIO(A)',value:'TIO(A)'},
+      {codigo:'OTROS',value:'OTROS'},
+
+    ]
+    this.listaAntecedentes=[{codigo:'ALERGIAS',value:'ALERGIAS'},
+      {codigo:'EPILEPSIA',value:'EPILEPSIA'},
+      {codigo:'DIABETES',value:'DIABETES'},
+      {codigo:'ENFERMEDADES CONGÉNITAS',value:'ENFERMEDADES CONGÉNITAS'},
+      {codigo:'EMBARAZO MÚLTIPLE',value:'EMBARAZO MÚLTIPLE'},
+      {codigo:'MALARIA',value:'MALARIA'},
+      {codigo:'HIPERTENSION ARTERIAL',value:'HIPERTENSION ARTERIAL'},
+      {codigo:'HIPOTIROIDISMO',value:'HIPOTIROIDISMO'},
+      {codigo:'NEOPLÁSICA',value:'NEOPLÁSICA'},
+      {codigo:'TBC PULMONAR',value:'TBC PULMONAR'},
+      {codigo:'SOBA/ASMA BRONQUIAL',value:'SOBA/ASMA BRONQUIAL'},
+      {codigo:'ANEMIA',value:'ANEMIA'},
+      {codigo:'ARTRITIS',value:'ARTRITIS'},
+      {codigo:'CÁNCER',value:'CÁNCER'},
+      {codigo:'CARDIOPATÍAS',value:'CARDIOPATÍAS'},
+      {codigo:'ARTERIOESCLEROSIS',value:'ARTERIOESCLEROSIS'},
+      {codigo:'SIFILIS',value:'SIFILIS'},
+      {codigo:'BLENORRAGIA',value:'BLENORRAGIA'},
+      {codigo:'VIH/SIDA',value:'VIH/SIDA'},
+      {codigo:'REUMATISMO',value:'REUMATISMO'},
+      {codigo:'DISLIPIDEMIAS',value:'DISLIPIDEMIAS'},
+      {codigo:'ALCOHOLISMO',value:'ALCOHOLISMO'},
+      {codigo:'ABORTO HABITUAL/RECURRENTE',value:'ABORTO HABITUAL/RECURRENTE'},
+      {codigo:'VIOLENCIA',value:'VIOLENCIA'},
+      {codigo:'CIRUGÍA PÉLVICA UTERINA',value:'CIRUGÍA PÉLVICA UTERINA'},
+      {codigo:'ECLAMPSIA',value:'ECLAMPSIA'},
+      {codigo:'PRE ECLAMPSIA',value:'PRE ECLAMPSIA'},
+      {codigo:'HEMORRAGIA POSTPARTO',value:'HEMORRAGIA POSTPARTO'},
+      {codigo:'ALERGIA A MEDICAMENTOS',value:'ALERGIA A MEDICAMENTOS'},
+      {codigo:'ENFERMEDADES CONGÉNITAS',value:'ENFERMEDADES CONGÉNITAS'},
+      {codigo:'ENFERMEDADES INFECCIOSAS',value:'ENFERMEDADES INFECCIOSAS'},
+      {codigo:'CONSUMO DE HOJA DE COCA',value:'CONSUMO DE HOJA DE COCA'},
+      {codigo:'CONSUMO DE DROGAS',value:'CONSUMO DE DROGAS'},
+      {codigo:'CONSUMO DE TABACO',value:'CONSUMO DE TABACO'},
+      {codigo:'INFERTILIDAD',value:'INFERTILIDAD'},
+      {codigo:'PARTO PROLONGADO',value:'PARTO PROLONGADO'},
+      {codigo:'PREMATURIDAD',value:'PREMATURIDAD'},
+      {codigo:'RETENCION DE PLACENTA',value:'RETENCION DE PLACENTA'},
+      {codigo:'TRANSTORNOS MENTALES',value:'TRANSTORNOS MENTALES'},
+      {codigo:'HOSPITALIZACIONES',value:'HOSPITALIZACIONES'},
+      {codigo:'TRANSFUSIONES SANGUINEAS',value:'TRANSFUSIONES SANGUINEAS'},
+      {codigo:'OTRAS CIRUGIAS',value:'OTRAS CIRUGIAS'},
+      {codigo:'CIRUGÍA PÉLVICA UTERINA',value:'CIRUGÍA PÉLVICA UTERINA'},
+      {codigo:'HEPATITIS B',value:'HEPATITIS B'},
+    ]
     this.buildForm();
     if(config.data){
       this.esFamiliar=this.config.data.esFamiliar;
@@ -63,8 +118,9 @@ export class ModalAntecedentesComponent implements OnInit {
   }
   enviarAntecedentes(){
     let antecedentes={}
+    console.log(this.formAntecedentes.value.nombre.value);
       antecedentes = {
-        nombre:this.formAntecedentes.value.nombre,
+        nombre:this.formAntecedentes.value.nombre.value,
         fechaDiagnosticado:this.formAntecedentes.value.fechaDiagnosticado,
         edadAnio:this.formAntecedentes.value.edadAnio,
         edadMes:this.formAntecedentes.value.edadMes,
@@ -96,6 +152,20 @@ export class ModalAntecedentesComponent implements OnInit {
   }
   closeDialog() {
     this.ref.close();
+  }
+
+  filterItems(event) {
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    let filtered : any[] = [];
+    let query = event.query;
+
+    for(let i = 0; i < this.listaAntecedentes.length; i++) {
+      let item = this.listaAntecedentes[i];
+      if (item.value.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(item);
+      }
+    }
+    this.listaAntecedentes = filtered;
   }
 }
 

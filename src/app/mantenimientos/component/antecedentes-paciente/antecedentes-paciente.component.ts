@@ -39,11 +39,11 @@ export class AntecedentesPacienteComponent implements OnInit {
 
   buildForm() {
     this.formDatos = this.fb.group({
-      hcl: new FormControl(''),
-      apePaterno: new FormControl(''),
-      apeMaterno: new FormControl(''),
-      nombres: new FormControl(''),
-      docIndentidad: new FormControl(''),
+      hcl: new FormControl({value:'',disabled:true}),
+      apePaterno: new FormControl({value:'',disabled:true}),
+      apeMaterno: new FormControl({value:'',disabled:true}),
+      nombres: new FormControl({value:'',disabled:true}),
+      docIndentidad: new FormControl({value:'',disabled:true}),
     })
   }
 

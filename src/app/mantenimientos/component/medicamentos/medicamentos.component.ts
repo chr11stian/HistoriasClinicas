@@ -39,9 +39,9 @@ export class MedicamentosComponent implements OnInit {
   openDialogMedicamento(){
     this.ref = this.dialog.open(ModalMedicamentosComponent, {
       header: "MEDICAMENTOS",
-      contentStyle:{
-        position:"relative",
-      },
+      // contentStyle:{
+      //   position:"relative",
+      // },
     })
     this.ref.onClose.subscribe((data:any)=>{
       console.log("data de modal tratamiento",data)

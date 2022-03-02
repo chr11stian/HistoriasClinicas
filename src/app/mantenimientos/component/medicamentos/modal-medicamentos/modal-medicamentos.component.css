@@ -5,6 +5,10 @@
     border-color: #bf0d21;
 }
 
+p-dropdown{
+    position: absolute;
+}
+
 .botonGuardar{
     background:#0c3866;
     height: 2.357rem;
