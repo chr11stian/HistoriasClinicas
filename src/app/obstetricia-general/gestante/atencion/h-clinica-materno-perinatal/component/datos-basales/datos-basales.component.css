@@ -52,7 +52,7 @@ p-checkbox >>> .p-checkbox .p-checkbox-box .pi-check:before {
 
 ::ng-deep .amarillo .p-checkbox .p-checkbox-box {
   background: rgb(234, 187, 38);
-  border-color: rgb(253, 94, 0);
+  border-color: rgb(164, 164, 164);
 }
 
 p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
@@ -64,14 +64,14 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .amarillo .p-radiobutton .p-radiobutton-icon {
   background: rgb(234, 187, 38);
-  border-color: rgb(253, 94, 0);
+  border-color: rgb(164, 164, 164);
 }
 
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-box,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-box.p-highlight:hover,
 ::ng-deep .rojo .p-radiobutton .p-radiobutton-icon {
-  border-color: rgba(197, 0, 9, 0.63);
+  border-color: rgb(150, 86, 86);
   background: rgba(197, 0, 9, 0.63);
 }
 
@@ -79,7 +79,7 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-icon {
 ::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight,
 ::ng-deep .default .p-radiobutton .p-radiobutton-box.p-highlight:hover {
   background: #ffffff;
-  border-color: rgb(192, 192, 192);
+  border-color: rgb(164, 164, 164);
 }
 
 input[type="number"]::-webkit-inner-spin-button,
