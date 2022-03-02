@@ -32,7 +32,6 @@ export class VacunaComponent implements OnInit {
     this.buildForm();
     this.getInmunizacion();
   }
-
   buildForm() {
     this.inmunizacionFC = new FormGroup({
       fechaTentativa: new FormControl('', Validators.required),
@@ -41,11 +40,9 @@ export class VacunaComponent implements OnInit {
       fechaVencimiento: new FormControl('', [Validators.required]),
     })
   }
-
   getFC(control: string): AbstractControl {
     return this.inmunizacionFC.get(control)
   }
-
   getInmunizacion() {
     this.getFC('fechaTentativa').setValue(this.inmunizacion.fechaTentativa)
     this.getFC('fechaAplicacion').setValue(new Date());//o seteamos con la fecha de consulta
@@ -66,30 +63,29 @@ export class VacunaComponent implements OnInit {
   save() {
     const requestInput = {
       nombre: this.inmunizacion.nombre,
+      nombreComercial:this.inmunizacion.nombre,
       dosis: this.inmunizacion.dosis,
       tipoDosis: this.inmunizacion.tipoDosis,
       codPrestacion: "099",
-      codigoProcedimientoHIS: "16546",
-      codigoProcedimientoSIS: "16546",
-      idIpressSolicitante: "616de45e0273042236434b51",//defecto posta medica
-      datosPaciente: {
-        tipoDoc: this.dataDocumento.tipoDoc,
-        nroDoc: this.dataDocumento.nroDocumento,
-      },
+      codProcedimientoHIS: "16546",
+      codProcedimientoSIS: "16546",
+      idIpressSolicitante: "616de45e0273042236434b51",//defecto posta medica 616de45e0273042236434b51
       viaAdministracion: "intravenosa",
       cantidad: "0.5cc",
       lote: this.getFC('lote').value,
-      fechaVencimiento: "2022-12-12",
+      fechaVencimiento: this.obtenerFecha(this.getFC('fechaVencimiento').value),
       fechaAdministracion: this.obtenerFecha(this.getFC('fechaAplicacion').value),
-      idConsulta:this.dataDocumento.idConsulta
-      // idConsulta: "6219054257621e0c1d5671f7"
+      idConsulta:this.dataDocumento.idConsulta,
+      pertenecePAICRED : true
     }
+    console.log('request->>>',requestInput)
     this.confirmationService.confirm({
       header: "Confirmación",
       message: "Esta Seguro que desea guardar inmunizacion",
       icon: "pi  pi-exclamation-triangle ",
       acceptLabel: "Si",
       rejectLabel: "No",
+      key:'claveDialog',
       accept: () => {
         this.inmunizacionesService.postInmunizaciones(requestInput).subscribe(() => {
           this.ref.close('agregado')

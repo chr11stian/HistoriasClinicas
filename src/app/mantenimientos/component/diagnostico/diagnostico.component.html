@@ -27,21 +27,13 @@
               <div class="col-9 p-fluid" >
                 <input type="text" pInputText formControlName="cie10" >
               </div>
-              <div class="col-3">
-                estado:
-              </div>
-              <div class="col-7 p-fluid">
-                <p-selectButton [options]="estado" optionLabel="name"  optionValue="code" formControlName="estado" ></p-selectButton>
-              </div>
-
-
             </div>
           </form>
 
           <ng-template pTemplate="footer">
             <div class="flex justify-content-end">
               <button [disabled]="diagnosticoFC.invalid" pButton type="button"
-                      label="Guardar" class="m-1 w-9rem" (click)="isUpdate=false;saveDiagnostico()"></button>
+                      label="Guardar" class="m-1 w-9rem" (click)="saveDiagnostico()"></button>
               <button pButton type="button" label="Cancelar" icon="pi pi-plus" (click)="cancelar()"
                       pTooltip="cancerlar" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
                       pRipple></button>
@@ -80,7 +72,9 @@
               <th style="text-align: center">cie10</th>
               <th style="text-align: center">Criterio</th>
               <th style="text-align: center; width:8rem">Estado</th>
-<!--              <th style="text-align: center; width:8rem">Accion</th>-->
+              <th style="text-align: center; width:8rem">Activar/Desactivar<br>Diagnostico
+              </th>
+              <th style="text-align: center; width:8rem">Accion</th>
 
             </tr>
           </ng-template>
@@ -92,24 +86,34 @@
               <td style="text-align: center">{{ rowData.cie10 }}</td>
               <td style="text-align: center">{{ rowData.criterio }}</td>
               <td style="text-align: center">
-                <p-tag *ngIf="rowData.estado=='ACTIVADO';else desactivado" styleClass="p-mr-2" severity="primary" value="Activado" [rounded]="true"></p-tag>
+                <p-tag *ngIf="rowData.estado=='ACTIVADO';else desactivado" styleClass="p-mr-2" severity="success" value="Activado" [rounded]="true"></p-tag>
                 <ng-template #desactivado>
                   <p-tag styleClass="p-mr-2" severity="danger" value="Desactivo" [rounded]="true"></p-tag>
                 </ng-template>
               </td>
-<!--              <td style="text-align: center">{{ rowData.estado }}</td>-->
-<!--              <td>-->
-<!--                <button pButton (click)="isUpdate=true;botonActualizar(rowIndex)" pTooltip="Editar" pRipple-->
-<!--                        type="button" icon="pi pi-pencil" class="p-button-rounded m-1">-->
-<!--                </button>-->
-<!--&lt;!&ndash;                <button pButton (click)="eliminarAmbiente(rowData)" pTooltip="Eliminar" pRipple&ndash;&gt;-->
-<!--&lt;!&ndash;                        type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">&ndash;&gt;-->
-<!--&lt;!&ndash;                </button>&ndash;&gt;-->
-<!--              </td>-->
+              <td class="text-center">
+                <button *ngIf="rowData.estado=='ACTIVADO';else botonDesactivar" pButton pTooltip="desactivar diagnostico" pRipple (click)="desactivarDiagnostico(rowIndex)"
+                        type="button" icon="pi pi-times" class="p-button-outlined p-button-rounded p-button-danger">
+                </button>
+                <ng-template #botonDesactivar>
+                  <button  pButton pTooltip="Activar Diagnostico" pRipple (click)="activarDiagnostico(rowIndex)"
+                          type="button" icon="pi pi-check" class="p-button-outlined p-button-rounded p-button-success">
+                  </button>
+                </ng-template>
+              </td>
+              <td class="text-center">
+                <button  pButton pTooltip="Editar Diagnostico" pRipple (click)="botonActualizar(rowIndex)"
+                         type="button" icon="pi pi-pencil" class="p-button-rounded p-button-help">
+                </button>
+              </td>
             </tr>
           </ng-template>
         </p-table>
       </div>
     </div>
     <p-toast key="myKey2"></p-toast>
+    <p-toast key="myKey1"></p-toast>
+    <p-confirmDialog [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '30vw'} " key="siNoDesactivar">
+      Content
+    </p-confirmDialog>
 

@@ -26,7 +26,13 @@ export class PrestacionService {
     return this.http.post(`${this.base_url}/${this.bd}/sis/prestacion/guardar/diagnostico/${codigo}`,inputRequest);
   }
   putDiagnosticoPorCodigo(codigo:string,cie10:string,inputRequest) {
-    return this.http.post(`${this.base_url}/${this.bd}/sis/prestacion/update/diagnostico/${codigo}/${cie10}`,inputRequest);
+    return this.http.put(`${this.base_url}/${this.bd}/sis/prestacion/update/diagnostico/${codigo}/${cie10}`,inputRequest);
+  }
+  desactivarDiagnostico(codigo:string,cie10:string){
+    return this.http.get(`${this.base_url}/${this.bd}/sis/prestacion/desactivar/${codigo}/${cie10}`);
+  }
+  activarDiagnostico(codigo:string,cie10:string){
+    return this.http.get(`${this.base_url}/${this.bd}/sis/activar/diagnostico/${codigo}/${cie10}`);
   }
 
 
