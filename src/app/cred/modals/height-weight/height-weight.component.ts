@@ -71,7 +71,7 @@ export class HeightWeightComponent implements OnInit {
         const valueSerie = this.fillDataGraphService.fillDataGraphV2(
             data,
             this.names,
-            (this.config.data.dataChild as Array<number[]>),
+            (this.config.data.dataChild as number[][]),
             {color: '#09fff9', name: this.config.data.isBoy ? 'niño' : 'niña'},
             this.colors,
             {xAxis: 'cm', yAxis: 'kg'}
@@ -79,9 +79,9 @@ export class HeightWeightComponent implements OnInit {
         this.data = {
             nameAxisX: 'LONGITUD (cm)',
             nameAxisY: 'PESO(KG)',
-            titleGraph: 'Puntuación Z',
+            titleGraph: 'Puntuación Z - DIAGNÓSTICO ' + (this.config.data.isBoy ? 'DEL NIÑO' : 'DE LA NIÑA') + ': ' + this.config.data.diagnostic.toUpperCase(),
             subTitleGraph: '(Nacimiento a 2 años)',
-            measurementUnits: ['kg', 'meses'],
+            measurementUnits: ['cm', 'kg'],
             series: valueSerie,
             typeAxisX: 'longitud'
         }

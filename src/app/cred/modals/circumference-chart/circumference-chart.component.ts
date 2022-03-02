@@ -77,7 +77,7 @@ export class CircumferenceChartComponent implements OnInit {
         this.data = {
             nameAxisY: 'Longitud/Circunferencia (cm)',
             nameAxisX: 'EDAD (EN MESES Y AÑOS CUMPLIDOS)',
-            titleGraph: 'Percentiles',
+            titleGraph: 'Percentiles - DIAGNÓSTICO ' + (this.config.data.isBoy ? 'DEL NIÑO' : 'DE LA NIÑA') + ': ' + this.config.data.diagnostic.toUpperCase(),
             subTitleGraph: '(Nacimiento a 5 años)',
             measurementUnits: ['cm', 'meses'],
             series: valueSerie,

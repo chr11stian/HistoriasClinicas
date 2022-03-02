@@ -155,6 +155,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         this.builForm();
         //this.calcularEdad();
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.sexo = !(this.data.sexo.toLowerCase() === 'femenino')
         this.listar()
         this.datas()
         setTimeout(() => {
@@ -175,7 +176,11 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             estadoAplicado: true,
             fechaTentativa: this.datePipe.transform(this.auxInterface.fechaTentativa, 'yyyy-MM-dd'),
             fecha: this.datePipe.transform(this.fc, 'yyyy-MM-dd'),
-            dias: this.dias
+            dias: this.dias,
+            diagnosticoPE: this.diagnosticoW,
+            diagnosticoTE: this.diagnosticoH,
+            diagnosticoPT: this.diagnosticoWH,
+            diagnosticoPC: this.diagnosticoC
         }
         let aux: inputCrecimiento = {
             nombreEvaluacion: '',
@@ -287,8 +292,8 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             this.dataGrafico(this.aux)
             this.data.anio = 0
             this.data.mes = 0
-            this.data.dia = 7
-            this.dias = 7
+            this.data.dia = 13
+            this.dias = 13
             this.returnDescription()
             console.log('datas', this.nroControl, this.descripcionEdad)
             this.listAux = this.aux.filter(item => item.descripcionEdad === this.descripcionEdad);
@@ -300,9 +305,9 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     dataGrafico(list: interfaceCrecimiento[]) {
         list.forEach((item, index) => {
             if (item.peso !== 0.0 && item.talla != 0.0 && item.perimetroCefalico !== 0.0) {
-                this.mesesPeso.push([item.dias/30, item.peso])
-                this.mesesAltura.push([item.dias/30, item.talla])
-                this.mesesCircunferencia.push([item.dias/30, item.perimetroCefalico])
+                this.mesesPeso.push([item.dias / 30, item.peso])
+                this.mesesAltura.push([item.dias / 30, item.talla])
+                this.mesesCircunferencia.push([item.dias / 30, item.perimetroCefalico])
                 this.mesesAlturaPeso.push([item.talla, item.peso])
             }
             console.log('list ', this.mesesPeso, this.mesesAlturaPeso, this.mesesAltura, this.mesesCircunferencia)
@@ -578,39 +583,14 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         console.log('lista general', this.listaControles);
     }
 
-// getFecha(date: Date) {
-//   if (date.toString() !== '') {
-//     let hora = date.toLocaleTimeString();
-//     let dd = date.getDate();
-//     let dd1:string=dd.toString();
-//     if(dd<10){
-//       dd1='0'+dd;
-//     }
-//     let mm = date.getMonth() + 1;
-//     let mm1:string=mm.toString();
-//     if(mm<10){
-//       mm1='0'+mm;
-//     }
-//     let yyyy = date.getFullYear();
-//     return yyyy + '-' + mm1 + '-' + dd1+' '+hora
-//   } else {
-//     return '';
-//   }
-// }
     agregarPesoTalla(elemento) {
         const fechaString = elemento.fechaTentativa
         console.log(fechaString)
         this.display = true;
         this.getFC('fecha').setValue(new Date(`${fechaString} 00:00:00`))
-
     }
 
-
-    getFC(control
-              :
-              string
-    ):
-        AbstractControl {
+    getFC(control: string): AbstractControl {
         return this.tallaPesoFG.get(control);
     }
 
@@ -621,22 +601,14 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     save() {
     }
 
-//
     onWeightChart(): void {
-        // this.determinaEdadPesoTalla();
-        let mesPeso = [
-            [1, 1.5],
-            [2, 2],
-            [3, 3],
-            [4, 4, 2],
-            [5,]
-        ]
         const isBoy = this.sexo
         this.ref = this.dialogService.open(WeightChartComponent, {
             data: {
                 dataChild: this.mesesPeso,
                 /* debe ser dataChild:[[mes,peso],..] ejem: dataChild:[[1,4.5],..]  */
-                isBoy: isBoy
+                isBoy: isBoy,
+                diagnostic: this.diagnosticoW
             },
             header: isBoy ? 'GRÁFICA DE PESO DE UN NIÑO' : 'GRÁFICA DE PESO DE UNA NIÑA',
             // width: '90%',
@@ -657,7 +629,8 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             data: {
                 dataChild: this.mesesAltura,
                 /* debe ser dataChild:[[mes,altura],..] ejem: dataChild:[[1,4.5],..]  */
-                isBoy: isBoy
+                isBoy: isBoy,
+                diagnostic: this.diagnosticoH
             },
             header: isBoy ? 'LONGITUD/ESTATURA PARA LOS NIÑOS' : 'LONGITUD/ESTATURA PARA LOS NIÑAS',
             // width: '90%',
@@ -678,7 +651,8 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             data: {
                 dataChild: this.mesesAlturaPeso,
                 /* debe ser dataChild:[[altura,peso],..] ejem: dataChild:[[1,4.5],..]  */
-                isBoy: isBoy
+                isBoy: isBoy,
+                diagnostic: this.diagnosticoWH
             },
             header: isBoy ? 'PESO PARA LA LONGITUD NIÑOS' : 'PESO PARA LA LONGITUD NIÑAS',
             // width: '90%',
@@ -686,7 +660,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             width: '70%',
             style: {
                 position: 'absolute',
-                top: '17px',
+                top: '17px'
             },
         })
     }
@@ -700,7 +674,8 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             data: {
                 dataChild: this.mesesCircunferencia,
                 /* debe ser dataChild:[[mes,peso],..] ejem: dataChild:[[1,4.5],..]  */
-                isBoy: isBoy
+                isBoy: isBoy,
+                diagnostic: this.diagnosticoC
             },
             header: isBoy ? 'GRÁFICO DEL PERIMETRO CEFÁLIC0 DE UN NIÑO' : 'GRÁFICO DEL PERIMETRO CEFÁLIC0 DE UNA NIÑA',
             // width: '90%',

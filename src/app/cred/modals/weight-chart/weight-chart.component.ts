@@ -44,14 +44,11 @@ export class WeightChartComponent implements OnInit {
     }
 
     getData(): void {
-        this.heightWeightChartService.getDataWeight().subscribe(res => {
-            this.fillData(res['data'])
-        })
-        /*if (this.config.data.isBoy) {
+        if (this.config.data.isBoy) {
             this.getDataBoy()
         } else {
             this.getDataGirl()
-        }*/
+        }
     }
 
     getDataGirl(): void {
@@ -81,7 +78,7 @@ export class WeightChartComponent implements OnInit {
         this.data = {
             nameAxisY: 'PESO(KG)',
             nameAxisX: 'EDAD (EN MESES Y AÑOS CUMPLIDOS)',
-            titleGraph: 'Puntuación Z ',
+            titleGraph: 'Puntuación Z - DIAGNÓSTICO ' + (this.config.data.isBoy ? 'DEL NIÑO' : 'DE LA NIÑA') + ': ' + this.config.data.diagnostic.toUpperCase(),
             subTitleGraph: '(Nacimiento a 5 años)',
             measurementUnits: ['kg', 'meses'],
             // measurementUnits: ['meses', 'kg'],
