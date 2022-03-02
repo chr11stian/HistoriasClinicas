@@ -111,5 +111,6 @@ export interface interfaceCrecimiento {
     estadoAplicado: boolean;
     fechaTentativa: string | Date;
     fecha: string | Date;
+    dias?: number
 }
 

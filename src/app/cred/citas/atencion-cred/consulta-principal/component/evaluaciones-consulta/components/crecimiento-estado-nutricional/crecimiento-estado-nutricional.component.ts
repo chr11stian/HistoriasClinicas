@@ -174,7 +174,8 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             nroControl: this.nroControl,
             estadoAplicado: true,
             fechaTentativa: this.datePipe.transform(this.auxInterface.fechaTentativa, 'yyyy-MM-dd'),
-            fecha: this.datePipe.transform(this.fc, 'yyyy-MM-dd')
+            fecha: this.datePipe.transform(this.fc, 'yyyy-MM-dd'),
+            dias: this.dias
         }
         let aux: inputCrecimiento = {
             nombreEvaluacion: '',
@@ -187,13 +188,13 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         console.log('We', this.diagnosticoW)
         console.log('Ce', this.diagnosticoC)
         console.log('WH', this.diagnosticoWH)
-        /*this.controlCrecimientoService.updateControlCrecimiento(this.data.idConsulta, aux).subscribe((r: any) => {
+        this.controlCrecimientoService.updateControlCrecimiento(this.data.idConsulta, aux).subscribe((r: any) => {
             console.log(r)
-        })*/
+        })
     }
 
     evaluacion() {
-        this.calcularDias()
+        //this.calcularDias()
         this.controlCrecimientoService.getDataEvaluationHeight(this.data.sexo).subscribe((r: any) => {
             let aux: evaluation | number = r.data[this.dias]
             this.auxEvaluacionH = aux[1]
@@ -281,15 +282,30 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     listar() {
         this.controlCrecimientoService.getControlCrecimiento(this.data.nroDocumento).subscribe((r: any) => {
             this.listaCrecimiento = r.object;
+            console.log('listaCrecimiento ', this.listaCrecimiento)
             this.aux = r.object
+            this.dataGrafico(this.aux)
             this.data.anio = 0
-            this.data.mes = 5
-            this.data.dia = 6
+            this.data.mes = 0
+            this.data.dia = 7
+            this.dias = 7
             this.returnDescription()
             console.log('datas', this.nroControl, this.descripcionEdad)
             this.listAux = this.aux.filter(item => item.descripcionEdad === this.descripcionEdad);
             this.auxInterface = this.listAux.filter(item => item.nroControl === this.nroControl)[0]
             console.log('lista RN', this.auxInterface);
+        })
+    }
+
+    dataGrafico(list: interfaceCrecimiento[]) {
+        list.forEach((item, index) => {
+            if (item.peso !== 0.0 && item.talla != 0.0 && item.perimetroCefalico !== 0.0) {
+                this.mesesPeso.push([item.dias/30, item.peso])
+                this.mesesAltura.push([item.dias/30, item.talla])
+                this.mesesCircunferencia.push([item.dias/30, item.perimetroCefalico])
+                this.mesesAlturaPeso.push([item.talla, item.peso])
+            }
+            console.log('list ', this.mesesPeso, this.mesesAlturaPeso, this.mesesAltura, this.mesesCircunferencia)
         })
     }
 
@@ -609,10 +625,10 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     onWeightChart(): void {
         // this.determinaEdadPesoTalla();
         let mesPeso = [
-            [1,1.5],
-            [2,2],
-            [3,3],
-            [4,4,2],
+            [1, 1.5],
+            [2, 2],
+            [3, 3],
+            [4, 4, 2],
             [5,]
         ]
         const isBoy = this.sexo

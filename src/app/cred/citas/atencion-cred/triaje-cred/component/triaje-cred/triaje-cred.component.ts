@@ -60,15 +60,15 @@ export class TriajeCredComponent implements OnInit {
     ]
 
     dataExamFisicos: formInterface[] = [
-        {pro: 'temperatura', label: 'T°', nameFC: 'TFC'},
-        {pro: 'presionSistolica', label: 'PS', nameFC: 'PSFC'},
-        {pro: 'presionDiastolica', label: 'PD', nameFC: 'PDFC'},
-        {pro: 'fc', label: 'FC:', nameFC: 'FC'},
+        {pro: 'temperatura', label: 'T (c°)', nameFC: 'TFC'},
+        {pro: 'presionSistolica', label: 'PS (pa)', nameFC: 'PSFC'},
+        {pro: 'presionDiastolica', label: 'PD (pa)', nameFC: 'PDFC'},
+        {pro: 'fc', label: 'FC (l*min):', nameFC: 'FC'},
         {pro: 'fr', label: 'FR', nameFC: 'FRFC'},
-        {pro: 'peso', label: 'Peso ', nameFC: 'PesoFC'},
-        {pro: 'talla', label: 'Talla ', nameFC: 'TallaFC'},
-        {pro: 'imc', label: 'imc ', nameFC: 'imcFC'},
-        {pro: 'perimetroCefalico', label: 'PC ', nameFC: 'PCFC'}
+        {pro: 'peso', label: 'Peso (kg)', nameFC: 'PesoFC'},
+        {pro: 'talla', label: 'Talla (m)', nameFC: 'TallaFC'},
+        {pro: 'imc', label: 'imc(kg/m2)', nameFC: 'imcFC'},
+        {pro: 'perimetroCefalico', label: 'PC (cm)', nameFC: 'PCFC'}
     ]
     list: formControlInterface[] = [
         {

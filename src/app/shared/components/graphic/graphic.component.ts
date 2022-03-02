@@ -264,6 +264,7 @@ export class GraphicComponent implements OnInit, OnChanges {
                 //    hoverLayerThreshold:5
                 // },
             }
+            console.log('chartOption ',this.chartOption)
         }
     }
 

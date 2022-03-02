@@ -79,7 +79,7 @@ export class HeightWeightComponent implements OnInit {
         this.data = {
             nameAxisX: 'LONGITUD (cm)',
             nameAxisY: 'PESO(KG)',
-            titleGraph: 'Puntuación Z ',
+            titleGraph: 'Puntuación Z',
             subTitleGraph: '(Nacimiento a 2 años)',
             measurementUnits: ['kg', 'meses'],
             series: valueSerie,
