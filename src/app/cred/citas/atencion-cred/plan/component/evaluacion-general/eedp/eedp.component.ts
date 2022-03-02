@@ -62,11 +62,11 @@ export class EEDPComponent implements OnInit {
         // })
     }
     openShowEEDPDialog(dataEEDP, index) {
-        this.ref = this.dialog.open(EscalaEvaluacionEEDPComponent,{
+        this.ref = this.dialog.open(EscalaEvaluacionEEDPComponent, {
             header: "PERFIL DESARROLLO PSICOMOTOR",
             width: "90%",
             height: "100%",
-            data: dataEEDP
+            data: dataEEDP,
         });
     }
-}
+}   
