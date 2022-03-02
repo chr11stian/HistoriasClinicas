@@ -1,29 +1,17 @@
 <p-card>
-    <div>
-        <div class="container_resultados">
-            <label class="label_titulo">RESULTADOS</label>
-            <div class="div_line_Separate_card"></div>
-        </div>
+    <div class="container_resultados mb-5">
+        <label class="label_titulo">RESULTADOS DE PAUTA BREVE</label>
+        <div class="div_line_Separate_card"></div>
     </div>
     <p-table class="table-over" [value]="resultListEEDP" #dt styleClass="p-datatable-gridlines" [rows]="10"
         [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
         currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
-        <ng-template pTemplate="caption">
-            <div class="grid">
-                <div class="col-10">
-                    <h3>RESULTADO DE EEDP</h3>
-                </div>
-            </div>
-        </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th style="text-align: center">Nro</th>
                 <th style="text-align: center">Fecha</th>
-                <th style="text-align: center">Edad Cronologica</th>
-                <th style="text-align: center">Edad Mental</th>
-                <th style="text-align: center">EM/EC</th>
-                <th style="text-align: center">Coeficiente Desarrollo</th>
-                <th style="text-align: center">Desarrollo Psicomotor</th>
+                <th style="text-align: center">Edad(Mes)</th>
+                <th style="text-align: center">Diagnostico</th>
                 <th style="text-align: center">Nombre del Examinador</th>
                 <th style="text-align: center">Acciones</th>
             </tr>
@@ -32,16 +20,13 @@
             <tr style="text-align: center">
                 <td style="text-align: center">{{ i + 1 }}</td>
                 <td style="text-align: center">{{ rowData.fechaAtencion | date:'dd/MM/yyyy'}}</td>
-                <td style="text-align: center">{{rowData.edadCronologica}}</td>
-                <td style="text-align: center">{{rowData.edadMental}}</td>
-                <td style="text-align: center">{{rowData.edadMental/rowData.edadCronologica | number:'.1-2'}}</td>
-                <td style="text-align: center">{{rowData.coeficienteDesarrollo}}</td>
+                <td style="text-align: center">{{rowData.mesEdad}}</td>
                 <td style="text-align: center">{{rowData.diagnostico}}</td>
                 <td style="text-align: center">{{rowData.docExaminador}}</td>
                 <td style="text-align: center">
                     <button pButton pRipple type="button" icon="pi pi-eye
                     " class="p-button-rounded p-button-text p-button-lg"
-                        (click)="openShowEEDPDialog(rowData, i)"></button>
+                        (click)="openShowPautaBreveDialog(rowData, i)"></button>
                 </td>
             </tr>
         </ng-template>

@@ -1,3 +1,4 @@
+<div #dropGeneral></div>
 <p-table
         [value]="data"
         #dt
@@ -102,7 +103,7 @@
 ></p-confirmDialog>
 <p-toast></p-toast>
 
-<p-dialog class="dialogo m-4" [(visible)]="openDialog" [style]="{width: '50vw',height:'325px'}" [modal]="true"
+<p-dialog class="dialogo m-4" [(visible)]="openDialog" [style]="{width: '50vw'}" [modal]="true"
           styleClass="p-fluid">
   <ng-template pTemplate="header">
     <h3>Agregar Prestacion</h3>
@@ -126,12 +127,12 @@
         <div class="col-1">
           sexo:
         </div>
-        <div class="col-2.5 p-fluid">
-          <p-dropdown [options]="sexo"  optionLabel="name" optionValue="code" formControlName="sexo"></p-dropdown>
+        <div class="col p-fluid">
+          <p-dropdown [options]="sexo"  optionLabel="name" optionValue="code" formControlName="sexo" placeholder="Seleccione" [appendTo]="dropGeneral"></p-dropdown>
         </div>
         <div class="col-2">Denominacion:</div>
-        <div class="col-2 p-fluid">
-          <p-dropdown [options]="denominacion"  optionLabel="name" optionValue="code" formControlName="denominacion"></p-dropdown>
+        <div class="col p-fluid">
+          <p-dropdown [options]="denominacion"  optionLabel="name" optionValue="code" formControlName="denominacion" placeholder="Seleccione"  [appendTo]="dropGeneral"></p-dropdown>
         </div>
         <div class="col-1">Edad Minima:</div>
         <div class="col-1 p-fluid">

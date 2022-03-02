@@ -1,6 +1,4 @@
-<ng-template #attachMe0></ng-template>
-<ng-template #otroCalendar></ng-template>
-
+<div >
 <p-card class="mb-2 ">
   <div class="">
     <span style="font-weight: bold">
@@ -11,21 +9,19 @@
 <div class="grid mt-2" [formGroup]="inmunizacionFC">
   <div class="col-6 grid">
     <div class="col-4">Fecha Programa:</div>
-    <div class="col-8 p-fluid">
-      <p-calendar  disabled="true" formControlName="fechaTentativa" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" appendTo="attachMe0"></p-calendar>
+    <div class="col-4 p-fluid">
+      <p-calendar  disabled="true" formControlName="fechaTentativa" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" ></p-calendar>
     </div>
   </div>
   <div class="col-6 grid">
     <div class="col-4">Fecha Aplicacion:</div>
-    <div class="col-8 p-fluid">
-      <p-calendar  disabled="true" formControlName="fechaAplicacion" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" appendTo="attachMe0"></p-calendar>
+    <div class="col-4 p-fluid">
+      <p-calendar  disabled="true" formControlName="fechaAplicacion" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" ></p-calendar>
     </div>
   </div>
   <div class="col-6 grid">
-    <div class="col-4">
-      Lote:
-    </div>
-    <div class="col-8 p-fluid">
+    <div class="col-4">Lote:</div>
+    <div class="col-4 p-fluid">
       <p-inputNumber formControlName="lote" mode="decimal" inputId="withoutgrouping" [useGrouping]="false">
       </p-inputNumber>
     </div>
@@ -34,8 +30,8 @@
     <div class="col-4">
       fecha Vencimiento:
     </div>
-    <div class="col-8 p-fluid">
-      <p-calendar formControlName="fechaVencimiento" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" appendTo="otroCalendar"></p-calendar>
+    <div class="col-4 p-fluid">
+      <p-calendar formControlName="fechaVencimiento" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" [style]="{'position': 'fixed', 'overflow': 'visible', 'z-index': '999'}" ></p-calendar>
     </div>
   </div>
 </div>
@@ -60,3 +56,7 @@
           (click)="save()"
   ></button>
 </div>
+</div>
+<p-confirmDialog [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '25vw'}" key="claveDialog">
+  Content
+</p-confirmDialog>

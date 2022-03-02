@@ -37,8 +37,8 @@ export class InmunizacionesCredComponent implements OnInit {
     public dialogService: DialogService
   ) {
     this.data = <dato>JSON.parse(localStorage.getItem('documento'));
-    // this.mesActual=this.data.anio*12+this.data.mes;
-    this.mesActual=18;
+    this.mesActual=this.data.anio*12+this.data.mes;
+    // this.mesActual=18;
     // console.log(this.mesActual)
   }
 
@@ -98,7 +98,9 @@ export class InmunizacionesCredComponent implements OnInit {
     const ref = this.dialogService.open(VacunaComponent, {
       data: vacuna,
       header: `Agregar Vacuna ${nombre} Dosis numero (${vacuna.dosis})`,
-      width: "45%",
+      width: "50%",
+      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      baseZIndex:10000,
     });
     ref.onClose.subscribe((mensaje) => {
       if (mensaje == "agregado") {

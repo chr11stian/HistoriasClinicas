@@ -11,7 +11,9 @@
       </ng-template>
     </p-tabPanel>
     <p-tabPanel header="PAUTA BREVE">
-      <app-pauta-breve></app-pauta-breve>
+      <ng-template pTemplate="content">
+        <app-pauta-breve></app-pauta-breve>
+      </ng-template>
     </p-tabPanel>
     <p-tabPanel header="PROTOCOLO TEST DE DESARROLLO PSICOMOTOR TEPSI">
       <ng-template pTemplate="content">
