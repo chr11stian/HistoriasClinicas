@@ -4,7 +4,7 @@ import { PacienteService } from 'src/app/core/services/paciente/paciente.service
 import { EvalAlimenService } from 'src/app/cred/citas/atencion-cred/plan/component/evaluacion-general/service/eval-alimen.service';
 import Swal from 'sweetalert2';
 import { EedpService } from '../../services/eedp.service';
-import { AnswerEEDP, datosEEDPTabla, escalaEval_EEDP_0_4_anios, ItemEEDP, tablaComparativa, TestEEDP } from '../models/eedp';
+import { AnswerEEDP, DatosConsulta, datosEEDPTabla, escalaEval_EEDP_0_4_anios, ItemEEDP, tablaComparativa, TestEEDP } from '../models/eedp';
 
 @Component({
   selector: 'app-eedp',
@@ -23,6 +23,7 @@ export class EedpComponent implements OnInit {
   puntaje: "";
   tablaComparativa: tablaComparativa[];
   examinador: string;
+  dataExaminador: any;
   fechaEvaluacion: string;
   evalResult: string = "";
   datePipe = new DatePipe('en-US');
@@ -33,10 +34,6 @@ export class EedpComponent implements OnInit {
   listaPreguntas: ItemEEDP[] = [];
   dataTestEEDP: TestEEDP;
   escaleEEDP: datosEEDPTabla;
-  inputDay: any = new Date();
-  anioEdad: number = 0;
-  mesEdad: number = 0;
-  diaEdad: number = 0;
   chronologicalAge: any;
   dataPatient: any;
   mentalAge: any;
@@ -51,28 +48,28 @@ export class EedpComponent implements OnInit {
   mesesTotal: number;
   areaEvalu: string;
   tableStatus: boolean = false;
+  fechaAtencion: string;
+  dataConsulta: DatosConsulta;
 
   constructor(
     private evalAlimenService: EvalAlimenService,
     private testService: EvalAlimenService,
     private eedpService: EedpService,
   ) {
-    let dataDocument = JSON.parse(localStorage.getItem('documento'));
-    this.idConsulta = dataDocument.idConsulta;
-    console.log('id de consulta ', this.idConsulta);
+    this.dataConsulta = JSON.parse(localStorage.getItem('documento'));
+    this.dataExaminador = JSON.parse(localStorage.getItem('usuario'));
+    this.idConsulta = this.dataConsulta.idConsulta;
     this.fechaEvaluacion = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.dataTableEEDP();
-    this.anioEdad = dataDocument.anio;
-    this.mesEdad = dataDocument.mes;
-    this.diaEdad = dataDocument.dia;
-    this.chronologicalAge = this.anioEdad * 360 + this.mesEdad * 30 + this.diaEdad;
-    this.mesesTotal = this.anioEdad * 12 + this.mesEdad;
+    this.examinador = this.dataExaminador.apellidos + this.dataExaminador.nombres;
+    this.chronologicalAge = this.dataConsulta.anio * 360 + this.dataConsulta.mes * 30 + this.dataConsulta.dia;
+    this.mesesTotal = this.dataConsulta.anio * 12 + this.dataConsulta.mes;
     this.arrayRptas = [
       { clave: "C", numeroPregunta: 0 },
       { clave: "S", numeroPregunta: 0 },
       { clave: "L", numeroPregunta: 0 },
       { clave: "M", numeroPregunta: 0 }
-    ]
+    ];
   }
 
   ngOnInit(): void {
@@ -81,10 +78,10 @@ export class EedpComponent implements OnInit {
       { edadNro: 4, edad: 'MESES' }, { edadNro: 5, edad: 'MESES' }, { edadNro: 6, edad: 'MESES' },
       { edadNro: 7, edad: 'MESES' }, { edadNro: 8, edad: 'MESES' }, { edadNro: 9, edad: 'MESES' },
       { edadNro: 10, edad: 'MESES' }, { edadNro: 12, edad: 'MESES' }, { edadNro: 15, edad: 'MESES' },
-      { edadNro: 18, edad: 'MESES' }, { edadNro: 21, edad: 'MESES' }, { edadNro: 24, edad: 'MESES' },
-      { edadNro: 3, edad: 'AÑOS' }, { edadNro: 4, edad: 'AÑOS' }
+      { edadNro: 18, edad: 'MESES' }, { edadNro: 21, edad: 'MESES' }, { edadNro: 24, edad: 'MESES' }
     ]
     this.getDatos();
+    this.getEEDP();
   }
 
   async getDatos() {
@@ -98,7 +95,19 @@ export class EedpComponent implements OnInit {
       this.puntaje = this.escalaEEDP[this.indexSelected][0].puntajeMaximo;
     });
   }
-
+  async getEEDP() {
+    let dataEEDP;
+    await this.eedpService.getPromiseEEDPxIdConsulta(this.idConsulta).then(data => {
+      dataEEDP = data;
+    });
+    if (dataEEDP == null)
+      return
+    this.arrayRptas = dataEEDP.testEedp.listaUltimasPreguntas;
+    this.evalResult = dataEEDP.testEedp.diagnostico;
+    // this.chronologicalAge = dataEEDP.testEedp
+    this.fechaAtencion = this.datePipe.transform(dataEEDP.testEedp.fechaAtencion, 'dd/MM/yyyy');
+    this.tableStatus = true;
+  }
   async saveTest() {
     this.monthPoints = 0;
     let ansMonth = this.arrayEdadEEDPSelected.map(item => {
@@ -140,18 +149,17 @@ export class EedpComponent implements OnInit {
     }
     this.totalPoints = this.totalPoints + (this.mentalMonth - 1) * 30;
     this.standardPoints = parseFloat((this.totalPoints / this.chronologicalAge).toFixed(2));
-    console.log('puntos estandar ', this.standardPoints);
+    // console.log('puntos estandar ', this.standardPoints);
     await this.testService.getTablaComparativaMes(this.mesesTotal).then(data => {
       this.tablaPuntajeEstandar = data;
-      console.log('datos de la tabla puntaje estandar ', data);
+      // console.log('datos de la tabla puntaje estandar ', data);
       this.tablaPuntajeEstandar.forEach(item => {
         if (String(this.standardPoints) == item.em_ec) {
           this.coeficienteDesarrollo = item.pe;
-          console.log('item de tabla ', item, 'coef des ', this.coeficienteDesarrollo, typeof (this.coeficienteDesarrollo));
+          // console.log('item de tabla ', item, 'coef des ', this.coeficienteDesarrollo, typeof (this.coeficienteDesarrollo));
         }
       })
     });
-    console.log('coeficiente 2 ', this.coeficienteDesarrollo);
     if (this.coeficienteDesarrollo >= 0.85)
       this.diagnostico = 'NORMAL'
     if (this.coeficienteDesarrollo <= 0.84 && this.coeficienteDesarrollo >= 0.70)
@@ -169,7 +177,7 @@ export class EedpComponent implements OnInit {
         edadMes: this.mesesTotal,
         diagnostico: this.diagnostico,
         coeficienteDesarrollo: parseFloat(this.coeficienteDesarrollo),
-        docExaminador: "89685545",
+        docExaminador: this.dataExaminador.docExaminador,
         listaUltimasPreguntas: [
           {
             clave: 'C',

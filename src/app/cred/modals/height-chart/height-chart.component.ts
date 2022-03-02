@@ -68,7 +68,7 @@ export class HeightChartComponent implements OnInit {
         this.data = {
             nameAxisY: 'Longitud/Estatura (cm)',
             nameAxisX: 'EDAD (EN MESES Y AÑOS CUMPLIDOS)',
-            titleGraph: 'Puntuación Z ',
+            titleGraph: 'Puntuación Z - ESTATURA NORMAL',
             subTitleGraph: '(Nacimiento a 5 años)',
             measurementUnits: ['cm', 'meses'],
             series: valueSerie,

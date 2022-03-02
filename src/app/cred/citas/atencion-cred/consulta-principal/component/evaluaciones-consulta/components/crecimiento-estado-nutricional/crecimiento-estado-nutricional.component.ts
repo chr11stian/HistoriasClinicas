@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {ControlCrecimiento} from "../../../../../plan/component/plan-atencion-integral/models/plan-atencion-integral.model";
+import {
+    ControlCrecimiento
+} from "../../../../../plan/component/plan-atencion-integral/models/plan-atencion-integral.model";
 import {DatePipe} from "@angular/common";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ControlCrecimientoService} from "../../services/control-crecimiento/control-crecimiento.service"
@@ -9,7 +11,9 @@ import {ActivatedRoute} from "@angular/router";
 import {WeightChartComponent} from "../../../../../../../modals/weight-chart/weight-chart.component";
 import {HeightChartComponent} from "../../../../../../../modals/height-chart/height-chart.component";
 import {HeightWeightComponent} from "../../../../../../../modals/height-weight/height-weight.component";
-import {CircumferenceChartComponent} from "../../../../../../../modals/circumference-chart/circumference-chart.component";
+import {
+    CircumferenceChartComponent
+} from "../../../../../../../modals/circumference-chart/circumference-chart.component";
 import {
     dato,
     controlCrecimiento,
@@ -19,6 +23,33 @@ import {
 } from "../../../../../../models/data";
 import {ListaConsultaService} from "../../../../../../services/lista-consulta.service";
 
+export interface evaluation {
+    "0": number;
+    "1": number;
+    "2": number;
+    "-2": number;
+    "-1": number;
+}
+
+export interface evaluation1 {
+    "0": number;
+    "1": number;
+    "2": number;
+    "3": number;
+    "-3": number;
+    "-2": number;
+    "-1": number;
+}
+
+export interface evaluation2 {
+    "3": number;
+    "10": number;
+    "25": number;
+    "50": number;
+    "75": number;
+    "90": number;
+    "97": number;
+}
 
 @Component({
     selector: 'app-crecimiento-estado-nutricional',
@@ -69,6 +100,15 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     sv: SignosVitales
     fc: string
     auxInterface: interfaceCrecimiento
+    dias: number
+    auxEvaluacionH: evaluation
+    auxEvaluacionW: evaluation
+    auxEvaluacionWH: evaluation1
+    auxEvaluacionC: evaluation2
+    diagnosticoH: string
+    diagnosticoW: string
+    diagnosticoWH: string
+    diagnosticoC: string
 
     constructor(private fb: FormBuilder,
                 public dialogService: DialogService,
@@ -116,10 +156,10 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         //this.calcularEdad();
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
         this.listar()
+        this.datas()
         setTimeout(() => {
-            this.datas()
+            this.evaluacion()
         }, 1000)
-        this.guardar()
     }
 
     guardar() {
@@ -134,7 +174,8 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             nroControl: this.nroControl,
             estadoAplicado: true,
             fechaTentativa: this.datePipe.transform(this.auxInterface.fechaTentativa, 'yyyy-MM-dd'),
-            fecha: this.datePipe.transform(this.fc, 'yyyy-MM-dd')
+            fecha: this.datePipe.transform(this.fc, 'yyyy-MM-dd'),
+            dias: this.dias
         }
         let aux: inputCrecimiento = {
             nombreEvaluacion: '',
@@ -143,24 +184,128 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             codigoPrestacion: '',
             controlCrecimientoDesaMes: aux1
         }
+        console.log('He', this.diagnosticoH)
+        console.log('We', this.diagnosticoW)
+        console.log('Ce', this.diagnosticoC)
+        console.log('WH', this.diagnosticoWH)
         this.controlCrecimientoService.updateControlCrecimiento(this.data.idConsulta, aux).subscribe((r: any) => {
             console.log(r)
         })
     }
 
+    evaluacion() {
+        //this.calcularDias()
+        this.controlCrecimientoService.getDataEvaluationHeight(this.data.sexo).subscribe((r: any) => {
+            let aux: evaluation | number = r.data[this.dias]
+            this.auxEvaluacionH = aux[1]
+            if (this.sv.talla * 100 < this.auxEvaluacionH['-2']) {
+                this.diagnosticoH = 'Talla baja'
+                console.log('talla baja')
+            }
+            if (this.sv.talla * 100 >= this.auxEvaluacionH['-2'] && this.sv.talla * 100 <= this.auxEvaluacionH['2']) {
+                this.diagnosticoH = 'Normal'
+                console.log('Normal')
+            }
+            if (this.sv.talla * 100 > this.auxEvaluacionH['2']) {
+                this.diagnosticoH = 'Alto'
+                console.log('talla alta')
+            }
+        })
+        this.controlCrecimientoService.getDataEvaluationWeight(this.data.sexo).subscribe((r: any) => {
+            let aux: evaluation | number = r.data[this.dias]
+            this.auxEvaluacionW = aux[1]
+            if (this.sv.peso < this.auxEvaluacionW['-2']) {
+                this.diagnosticoW = 'Desnutrición'
+                console.log('talla baja')
+            }
+            if (this.sv.peso >= this.auxEvaluacionW['-2'] && this.sv.peso <= this.auxEvaluacionW['2']) {
+                this.diagnosticoW = 'Normal'
+                console.log('talla normal')
+            }
+            if (this.sv.peso > this.auxEvaluacionW['2']) {
+                this.diagnosticoW = 'Sobrepeso'
+                console.log('talla alta')
+            }
+        })
+        this.controlCrecimientoService.getDataEvaluationWeightHeight(this.data.sexo).subscribe((r: any) => {
+            let aux: evaluation1[] = r.data
+            let a: evaluation1[] = aux.filter(item => item[0] === Number.parseInt(this.precise(this.sv.talla * 100)))
+            let b: evaluation1 = a[0]
+            let aux_b = b[1]
+            if (this.sv.peso < aux_b['-3']) {
+                this.diagnosticoWH = 'Desnutrición Severa'
+                console.log('talla baja')
+            }
+            if (this.sv.peso >= aux_b['-3'] && this.sv.peso <= aux_b['-2']) {
+                this.diagnosticoWH = 'Desnutricion Aguda'
+                console.log('talla normal')
+            }
+            if (this.sv.peso >= aux_b['-2'] && this.sv.peso <= aux_b['2']) {
+                this.diagnosticoWH = 'Normal'
+                console.log('talla normal')
+            }
+            if (this.sv.peso >= aux_b['2'] && this.sv.peso <= aux_b['3']) {
+                this.diagnosticoWH = 'Sobrepeso'
+                console.log('talla normal')
+            }
+            if (this.sv.peso > aux_b['3']) {
+                this.diagnosticoWH = 'Obesidad'
+                console.log('talla alta')
+            }
+        })
+        this.controlCrecimientoService.getDataEvaluationCircunference(this.data.sexo).subscribe((r: any) => {
+            let aux: evaluation2 | number = r.data[this.dias]
+            this.auxEvaluacionC = aux[1]
+            if (this.sv.perimetroCefalico < this.auxEvaluacionC['3']) {
+                this.diagnosticoC = 'Riesgo microcefalia'
+                console.log('talla baja')
+            }
+            if (this.sv.perimetroCefalico >= this.auxEvaluacionC['3'] && this.sv.perimetroCefalico <= this.auxEvaluacionC['97']) {
+                this.diagnosticoC = 'Normal'
+                console.log('talla normal')
+            }
+            if (this.sv.perimetroCefalico > this.auxEvaluacionC['97']) {
+                this.diagnosticoC = 'Riesgo macrocefalia'
+                console.log('talla alta')
+            }
+        })
+    }
+
+    precise(int: number) {
+        return (int < 100) ? int.toPrecision(3) : int.toPrecision(4)
+    }
+
+    calcularDias() {
+        this.dias = Math.round(((new Date()).getTime() - (new Date(this.data.fechaNacimiento)).getTime()) / (1000 * 60 * 60 * 24));
+    }
 
     listar() {
         this.controlCrecimientoService.getControlCrecimiento(this.data.nroDocumento).subscribe((r: any) => {
             this.listaCrecimiento = r.object;
+            console.log('listaCrecimiento ', this.listaCrecimiento)
             this.aux = r.object
+            this.dataGrafico(this.aux)
             this.data.anio = 0
-            this.data.mes = 5
-            this.data.dia = 6
+            this.data.mes = 0
+            this.data.dia = 7
+            this.dias = 7
             this.returnDescription()
             console.log('datas', this.nroControl, this.descripcionEdad)
             this.listAux = this.aux.filter(item => item.descripcionEdad === this.descripcionEdad);
             this.auxInterface = this.listAux.filter(item => item.nroControl === this.nroControl)[0]
             console.log('lista RN', this.auxInterface);
+        })
+    }
+
+    dataGrafico(list: interfaceCrecimiento[]) {
+        list.forEach((item, index) => {
+            if (item.peso !== 0.0 && item.talla != 0.0 && item.perimetroCefalico !== 0.0) {
+                this.mesesPeso.push([item.dias/30, item.peso])
+                this.mesesAltura.push([item.dias/30, item.talla])
+                this.mesesCircunferencia.push([item.dias/30, item.perimetroCefalico])
+                this.mesesAlturaPeso.push([item.talla, item.peso])
+            }
+            console.log('list ', this.mesesPeso, this.mesesAlturaPeso, this.mesesAltura, this.mesesCircunferencia)
         })
     }
 
@@ -176,167 +321,167 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         if (this.data.anio === 9 && this.data.mes >= 6) {
             this.nroControl = 2
             this.descripcionEdad = '9A'
-            this.descripcion= '9 años'
+            this.descripcion = '9 años'
         }
         if (this.data.anio === 9 && this.data.mes < 6) {
             this.nroControl = 1
             this.descripcionEdad = '9A'
-            this.descripcion= '9 años'
+            this.descripcion = '9 años'
         }
         if (this.data.anio === 8 && this.data.mes >= 6) {
             this.nroControl = 2
             this.descripcionEdad = '8A'
-            this.descripcion= '8 años'
+            this.descripcion = '8 años'
         }
         if (this.data.anio === 8 && this.data.mes < 6) {
             this.nroControl = 1
             this.descripcionEdad = '8A'
-            this.descripcion= '8 años'
+            this.descripcion = '8 años'
         }
         if (this.data.anio === 7 && this.data.mes >= 6) {
             this.nroControl = 2
             this.descripcionEdad = '7A'
-            this.descripcion= '7 años'
+            this.descripcion = '7 años'
         }
         if (this.data.anio === 7 && this.data.mes < 6) {
             this.nroControl = 1
             this.descripcionEdad = '7A'
-            this.descripcion= '7 años'
+            this.descripcion = '7 años'
         }
         if (this.data.anio === 6 && this.data.mes >= 6) {
             this.nroControl = 2
             this.descripcionEdad = '6A'
-            this.descripcion= '6 años'
+            this.descripcion = '6 años'
         }
         if (this.data.anio === 6 && this.data.mes < 6) {
             this.nroControl = 1
             this.descripcionEdad = '6A'
-            this.descripcion= '6 años'
+            this.descripcion = '6 años'
         }
         if (this.data.anio === 5 && this.data.mes >= 6) {
             this.nroControl = 2
             this.descripcionEdad = '5A'
-            this.descripcion= '5 años'
+            this.descripcion = '5 años'
         }
         if (this.data.anio === 5 && this.data.mes < 6) {
             this.nroControl = 1
             this.descripcionEdad = '5A'
-            this.descripcion= '5 años'
+            this.descripcion = '5 años'
         }
         if (this.data.anio === 4 && this.data.mes >= 9) {
             this.nroControl = 4
             this.descripcionEdad = '4A'
-            this.descripcion= '4 años'
+            this.descripcion = '4 años'
         }
         if (this.data.anio === 4 && (this.data.mes >= 6 && this.data.mes < 9)) {
             this.nroControl = 3
             this.descripcionEdad = '4A'
-            this.descripcion= '4 años'
+            this.descripcion = '4 años'
         }
         if (this.data.anio === 4 && (this.data.mes >= 3 && this.data.mes < 6)) {
             this.nroControl = 2
             this.descripcionEdad = '4A'
-            this.descripcion= '4 años'
+            this.descripcion = '4 años'
         }
         if (this.data.anio === 4 && this.data.mes < 3) {
             this.nroControl = 1
             this.descripcionEdad = '4A'
-            this.descripcion= '4 años'
+            this.descripcion = '4 años'
         }
         if (this.data.anio === 3 && this.data.mes >= 9) {
             this.nroControl = 4
             this.descripcionEdad = '3A'
-            this.descripcion= '3 años'
+            this.descripcion = '3 años'
         }
         if (this.data.anio === 3 && (this.data.mes >= 6 && this.data.mes < 9)) {
             this.nroControl = 3
             this.descripcionEdad = '3A'
-            this.descripcion= '3 años'
+            this.descripcion = '3 años'
         }
         if (this.data.anio === 3 && (this.data.mes >= 3 && this.data.mes < 6)) {
             this.nroControl = 2
             this.descripcionEdad = '3A'
-            this.descripcion= '3 años'
+            this.descripcion = '3 años'
         }
         if (this.data.anio === 3 && this.data.mes < 3) {
             this.nroControl = 1
             this.descripcionEdad = '3A'
-            this.descripcion= '3 años'
+            this.descripcion = '3 años'
         }
         if (this.data.anio === 2 && this.data.mes >= 9) {
             this.nroControl = 4
             this.descripcionEdad = '2A'
-            this.descripcion= '2 años'
+            this.descripcion = '2 años'
         }
         if (this.data.anio === 2 && (this.data.mes >= 6 && this.data.mes < 9)) {
             this.nroControl = 3
             this.descripcionEdad = '2A'
-            this.descripcion= '2 años'
+            this.descripcion = '2 años'
         }
         if (this.data.anio === 2 && (this.data.mes >= 3 && this.data.mes < 6)) {
             this.nroControl = 2
             this.descripcionEdad = '2A'
-            this.descripcion= '2 años'
+            this.descripcion = '2 años'
         }
         if (this.data.anio === 2 && this.data.mes < 3) {
             this.nroControl = 1
             this.descripcionEdad = '2A'
-            this.descripcion= '2 años'
+            this.descripcion = '2 años'
         }
         if (this.data.anio === 1 && this.data.mes >= 10) {
             this.nroControl = 6
             this.descripcionEdad = '1A'
-            this.descripcion= '1 año'
+            this.descripcion = '1 año'
         }
         if (this.data.anio === 1 && (this.data.mes >= 8 && this.data.mes < 10)) {
             this.nroControl = 5
             this.descripcionEdad = '1A'
-            this.descripcion= '1 año'
+            this.descripcion = '1 año'
         }
         if (this.data.anio === 1 && (this.data.mes >= 6 && this.data.mes < 8)) {
             this.nroControl = 4
             this.descripcionEdad = '1A'
-            this.descripcion= '1 año'
+            this.descripcion = '1 año'
         }
         if (this.data.anio === 1 && (this.data.mes >= 4 && this.data.mes < 6)) {
             this.nroControl = 3
             this.descripcionEdad = '1A'
-            this.descripcion= '1 año'
+            this.descripcion = '1 año'
         }
         if (this.data.anio === 1 && (this.data.mes >= 2 && this.data.mes < 4)) {
             this.nroControl = 2
             this.descripcionEdad = '1A'
-            this.descripcion= '1 año'
+            this.descripcion = '1 año'
         }
         if (this.data.anio === 1 && this.data.mes < 2) {
             this.nroControl = 1
             this.descripcionEdad = '1A'
-            this.descripcion= '1 año'
+            this.descripcion = '1 año'
         }
         if (this.data.anio === 0 && this.data.mes > 0) {
             this.nroControl = this.data.mes
             this.descripcionEdad = 'Menor_1A'
-            this.descripcion= 'Menor de 1 año'
+            this.descripcion = 'Menor de 1 año'
         }
         if (this.data.anio === 0 && this.data.mes === 0 && this.data.dia < 7) {
             this.nroControl = 1
             this.descripcionEdad = 'RN'
-            this.descripcion= 'Recien nacido'
+            this.descripcion = 'Recien nacido'
         }
         if (this.data.anio === 0 && this.data.mes === 0 && (this.data.dia >= 7 && this.data.dia < 14)) {
             this.nroControl = 2
             this.descripcionEdad = 'RN'
-            this.descripcion= 'Recien nacido'
+            this.descripcion = 'Recien nacido'
         }
         if (this.data.anio === 0 && this.data.mes === 0 && (this.data.dia >= 14 && this.data.dia < 21)) {
             this.nroControl = 3
             this.descripcionEdad = 'RN'
-            this.descripcion= 'Recien nacido'
+            this.descripcion = 'Recien nacido'
         }
         if (this.data.anio === 0 && this.data.mes === 0 && this.data.dia >= 21) {
             this.nroControl = 4
             this.descripcionEdad = 'RN'
-            this.descripcion= 'Recien nacido'
+            this.descripcion = 'Recien nacido'
         }
     }
 
@@ -477,10 +622,15 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     }
 
 //
-    onWeightChart()
-        :
-        void {
+    onWeightChart(): void {
         // this.determinaEdadPesoTalla();
+        let mesPeso = [
+            [1, 1.5],
+            [2, 2],
+            [3, 3],
+            [4, 4, 2],
+            [5,]
+        ]
         const isBoy = this.sexo
         this.ref = this.dialogService.open(WeightChartComponent, {
             data: {
@@ -562,5 +712,4 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             },
         })
     }
-
 }

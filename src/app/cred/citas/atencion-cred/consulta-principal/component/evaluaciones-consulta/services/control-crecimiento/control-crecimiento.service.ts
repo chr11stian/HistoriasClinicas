@@ -41,4 +41,32 @@ export class ControlCrecimientoService {
         const url = `${this.base_url}/hce/cred/consulta/datos/generales/${idConsulta}`
         return this.http.get(url)
     }
+
+    getDataEvaluationHeight(genero: string) {
+        if (genero.toLowerCase() === 'femenino')
+            return this.http.get<any>('assets/data/girlsH.json')
+        else
+            return this.http.get<any>('assets/data/boysH.json')
+    }
+
+    getDataEvaluationWeight(genero: string) {
+        if (genero.toLowerCase() === 'femenino')
+            return this.http.get<any>('assets/data/girlsW.json')
+        else
+            return this.http.get<any>('assets/data/boysW.json')
+    }
+
+    getDataEvaluationCircunference(genero: string) {
+        if (genero.toLowerCase() === 'femenino')
+            return this.http.get<any>('assets/data/girlsC.json')
+        else
+            return this.http.get<any>('assets/data/boysC.json')
+    }
+
+    getDataEvaluationWeightHeight(genero: string) {
+        if (genero.toLowerCase() === 'femenino')
+            return this.http.get<any>('assets/data/girlsWH.json')
+        else
+            return this.http.get<any>('assets/data/boysWH.json')
+    }
 }

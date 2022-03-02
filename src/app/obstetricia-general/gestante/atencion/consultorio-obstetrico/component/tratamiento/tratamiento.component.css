@@ -40,7 +40,6 @@ p {
 :host >>> .p-dialog  {
     z-index: 5;
     width: 50vw;
-
     background: #FFFFFF;
 }
 .p-table >>> .p-table{

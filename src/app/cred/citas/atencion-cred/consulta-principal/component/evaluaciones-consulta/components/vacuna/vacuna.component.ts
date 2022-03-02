@@ -13,14 +13,6 @@ import {ConfirmationService, MessageService} from "primeng/api";
 })
 export class VacunaComponent implements OnInit {
   inmunizacionFC: FormGroup
-  twoOption = [
-    {code: 'si', name: 'Si'},
-    {code: 'no', name: 'No'}
-  ]
-  viaAdministracion: any[] = [
-    {name: 'Intramuscular', code: 'Intramuscular'},
-    {name: 'Subcutaneas', code: 'subcutaneas'},
-  ]
   fechaTentativaDisabled: boolean = true;
   inmunizacion: inmunizaciones
   fechaTentativa = new Date();
@@ -40,21 +32,17 @@ export class VacunaComponent implements OnInit {
     this.buildForm();
     this.getInmunizacion();
   }
-
   buildForm() {
     this.inmunizacionFC = new FormGroup({
       fechaTentativa: new FormControl('', Validators.required),
       fechaAplicacion: new FormControl('', Validators.required),
       lote: new FormControl(null, [Validators.required]),
-      administracion: new FormControl('', [Validators.required]),
-
+      fechaVencimiento: new FormControl('', [Validators.required]),
     })
   }
-
   getFC(control: string): AbstractControl {
     return this.inmunizacionFC.get(control)
   }
-
   getInmunizacion() {
     this.getFC('fechaTentativa').setValue(this.inmunizacion.fechaTentativa)
     this.getFC('fechaAplicacion').setValue(new Date());//o seteamos con la fecha de consulta
@@ -75,59 +63,29 @@ export class VacunaComponent implements OnInit {
   save() {
     const requestInput = {
       nombre: this.inmunizacion.nombre,
+      nombreComercial:this.inmunizacion.nombre,
       dosis: this.inmunizacion.dosis,
       tipoDosis: this.inmunizacion.tipoDosis,
       codPrestacion: "099",
-      codigoProcedimientoHIS: "16546",
-      codigoProcedimientoSIS: "16546",
-      idIpressSolicitante: "616de45e0273042236434b51",//defecto posta medica
-      datosPaciente: {
-        tipoDoc: "DNI",
-        nroDoc: "12121212",
-        nroHcl: "12121212",
-        edad: {
-          anio: this.dataDocumento.anio,
-          mes: this.dataDocumento.mes,
-          dia: this.dataDocumento.dia
-        },
-        domicilio: {
-          departamento: "CUsCO",
-          provincia: "CUsCO",
-          distrito: "WANCHAQ",
-          direccion: "fideranda Nro 101",
-          ccpp: "centro poblado tal cual",
-          ubigeo: "121212"
-        },
-        fechaNacimiento: "2000-05-04 12:12:12",
-        sexo: "FEMENINO"
-      },
-      viaAdministracion: this.getFC('administracion').value,//input<<<---
-      cantidad: "1",//input<<<---
-      lote: this.getFC('lote').value,//input<<<---
-      fechaVencimiento: "2022-12-12",
-      fechaAdministracion: this.obtenerFecha(this.getFC('fechaAplicacion').value),//<----
-      fechaProxDosis: "2022-03-01",//?
-      lugarAdministracion: {
-        RENIPRESS: "codigo de la ipress",
-        nombreIpress: "belencity",
-        ambiente: "nombre del consultorio"
-      },
-      encargado: {
-        tipoDoc: "DNI",
-        nroDoc: "10101099",
-        profesion: "LEVANTA MUERTOs",
-        colegiatura: "123456"
-      },
-      pertenecePAICRED: true,
-      // idConsulta:this.dataDocumento.idConsulta
-      idConsulta: "6219054257621e0c1d5671f7"
+      codProcedimientoHIS: "16546",
+      codProcedimientoSIS: "16546",
+      idIpressSolicitante: "616de45e0273042236434b51",//defecto posta medica 616de45e0273042236434b51
+      viaAdministracion: "intravenosa",
+      cantidad: "0.5cc",
+      lote: this.getFC('lote').value,
+      fechaVencimiento: this.obtenerFecha(this.getFC('fechaVencimiento').value),
+      fechaAdministracion: this.obtenerFecha(this.getFC('fechaAplicacion').value),
+      idConsulta:this.dataDocumento.idConsulta,
+      pertenecePAICRED : true
     }
+    console.log('request->>>',requestInput)
     this.confirmationService.confirm({
       header: "Confirmación",
       message: "Esta Seguro que desea guardar inmunizacion",
       icon: "pi  pi-exclamation-triangle ",
       acceptLabel: "Si",
       rejectLabel: "No",
+      key:'claveDialog',
       accept: () => {
         this.inmunizacionesService.postInmunizaciones(requestInput).subscribe(() => {
           this.ref.close('agregado')

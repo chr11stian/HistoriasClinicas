@@ -379,6 +379,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
       codigoPrestacion:'0001',
       evaluacionAlimentacionMes:
           {
+            docExaminador:'24242424',
             fechaRegistro: this.convertirFecha(this.evaluacionAlimenticia[0][prefijo]),
             edad:indice,
             listaPreguntas:listaAux,
@@ -560,6 +561,7 @@ export class EvaluacionAlimentacionComponent implements OnInit {
   }
 }
 export interface Evaluacion{
+  docExaminador?:string,
   fechaRegistro?: string;
   edad?:number;
   listaPreguntas?:Preguntas[];
