@@ -100,16 +100,34 @@ export class DatosGeneralesComponent implements OnInit {
     nroDocRecuperado: string;
     nroEmbarazo: string;
 
+    Gestacion: any;
+    dataPaciente2: any;
     constructor(private form: FormBuilder,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
         private consultasService: ConsultasService,
         private filiancionService: FiliancionService,
         private messageService: MessageService,) {
 
-        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
-        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
-        this.idConsultoriObstetrico = this.obstetriciaGeneralService.idConsultoriObstetrico;
+            this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+        this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+
+        console.log("DATA PACIENTE 2", this.dataPaciente2);
+
+        if (this.Gestacion == null) {
+            this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
+            this.nroDocRecuperado = this.dataPaciente2.nroDoc;
+            this.idConsultoriObstetrico = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+
+
+        } else {
+            this.tipoDocRecuperado = this.Gestacion.tipoDoc;
+            this.nroDocRecuperado = this.Gestacion.nroDoc;
+            this.idConsultoriObstetrico = this.Gestacion.id;
+        }
+        // this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
+        // this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
+        // this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
+        // this.idConsultoriObstetrico = this.obstetriciaGeneralService.idConsultoriObstetrico;
 
         /** OTRAS OPCIONES**/
         this.opciones = [
