@@ -22,8 +22,12 @@ export class ConsultaComponent implements OnInit {
 
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
+    idRecuperado: string;
     nroEmbarazo: string;
     nroHcl: string;
+
+    Gestacion: any;
+    DataFiliacionPaciente: any;
 
     constructor(
         private fb: FormBuilder,
@@ -34,10 +38,29 @@ export class ConsultaComponent implements OnInit {
         private router: Router
     ) {
         this.inicializarForm();
-        this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
-        this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
-        this.nroHcl = this.obstetriciaGeneralService.nroHcl;
+
+        //localstorage datos
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+        this.DataFiliacionPaciente = JSON.parse(localStorage.getItem('dataPaciente'));
+        console.log("GESTACION desde lista consultas", this.Gestacion);
+
+
+        if (this.Gestacion == null) {
+            this.tipoDocRecuperado = this.DataFiliacionPaciente.tipoDoc;
+            this.nroDocRecuperado = this.DataFiliacionPaciente.nroDoc;
+            this.nroEmbarazo = this.DataFiliacionPaciente.nroEmbarazo;
+            this.nroHcl = this.DataFiliacionPaciente.nroHcl;
+        } else {
+            this.tipoDocRecuperado = this.Gestacion.tipoDoc;
+            this.nroDocRecuperado = this.Gestacion.nroDoc;
+            this.idRecuperado = this.Gestacion.id;
+            this.nroEmbarazo = this.Gestacion.nroEmbarazo;
+            this.nroHcl = this.Gestacion.nroHcl;
+        }
+        // this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
+        // this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
+        // this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
+        // this.nroHcl = this.obstetriciaGeneralService.nroHcl;
         this.recuperarConsultas();
     }
 
@@ -60,45 +83,46 @@ export class ConsultaComponent implements OnInit {
         this.location.back();
     }
 
-    openDialogConsultaNuevo() {
-        this.ref = this.dialog.open(DialogConsultaComponent, {
-            header: "CONSULTA",
-            width: "95%",
-            contentStyle: {
-                "max-height": "700px",
-            },
-            autoZIndex: false,
-        })
-        this.ref.onClose.subscribe((data: any) => {
-            console.log('data de otro dialog ', data)
-            if (data !== undefined) this.recuperarConsultas();
-        })
-    }
+    // openDialogConsultaNuevo() {
+    //     this.ref = this.dialog.open(DialogConsultaComponent, {
+    //         header: "CONSULTA",
+    //         width: "95%",
+    //         contentStyle: {
+    //             "max-height": "700px",
+    //         },
+    //         autoZIndex: false,
+    //     })
+    //     this.ref.onClose.subscribe((data: any) => {
+    //         console.log('data de otro dialog ', data)
+    //         if (data !== undefined) this.recuperarConsultas();
+    //     })
+    // }
 
-    openDialogConsultaEditar(row, index) {
-        let aux = {
-            index: index,
-            row: row
-        }
-        this.ref = this.dialog.open(DialogConsultaComponent, {
-            header: "CONSULTA",
-            width: "95%",
-            autoZIndex: false,
-            contentStyle: {
-                "max-height": "800px",
-                overflow: "auto",
-            },
-            data: aux
-        })
-        this.ref.onClose.subscribe((data: any) => {
-            console.log('data de otro dialog ', data)
-            if (data !== undefined) {
-                this.recuperarConsultas();
-            }
-            ;
-        })
-    }
+    // openDialogConsultaEditar(row, index) {
+    //     let aux = {
+    //         index: index,
+    //         row: row
+    //     }
+    //     this.ref = this.dialog.open(DialogConsultaComponent, {
+    //         header: "CONSULTA",
+    //         width: "95%",
+    //         autoZIndex: false,
+    //         contentStyle: {
+    //             "max-height": "800px",
+    //             overflow: "auto",
+    //         },
+    //         data: aux
+    //     })
+    //     this.ref.onClose.subscribe((data: any) => {
+    //         console.log('data de otro dialog ', data)
+    //         if (data !== undefined) {
+    //             this.recuperarConsultas();
+    //         }
+    //         ;
+    //     })
+    // }
 
+    //recupera la lista de todas las atenciones prenatales
     recuperarConsultas() {
         let data = {
             "nroHcl": this.obstetriciaGeneralService.nroHcl,
@@ -110,6 +134,7 @@ export class ConsultaComponent implements OnInit {
         })
     }
 
+    //crear una nueva consulta, no mandamos ningun dato
     irConsultaNew(){
         this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'])
     } 

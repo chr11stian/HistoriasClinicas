@@ -25,33 +25,7 @@ export class PagosComponent implements OnInit {
     idPagoCaja: any;
 
     tarifas: any[];
-
-
-    listaProcedimientosApagar: any[] = [
-        {
-            codigo: "PROC-MED-01",
-            ups: "MEDICINA GENERAL",
-            descripcion: "REVISION DE LA CABEZA",
-            precio: 12.00,
-            tipo: "PROCEDIMIENTO",
-        },
-        {
-            codigo: "CON-MED-01",
-            ups: "MEDICINA GENERAL",
-            descripcion: "CONSULTA DE MEDICINA GENERAL",
-            precio: 10.00,
-            tipo: "CONSULTA",
-        },
-        {
-            codigo: "PROC-MED-02",
-            ups: "MEDICINA GENERAL",
-            descripcion: "REVISION DEL ESTOMAGO",
-            precio: 5.00,
-            tipo: "PROCEDIMIENTO",
-        }
-    ]
-
-
+    nroCaja: String = "01";
     constructor(
         private servicesService: ServicesService,
         private tarifarioService: TarifarioService,
@@ -69,7 +43,7 @@ export class PagosComponent implements OnInit {
         this.formCaja = this.fb.group({
             fechaBusqueda: new FormControl(''),
             nroCaja: new FormControl(''),
-            nroBoleta: new FormControl('0013'),
+            nroBoleta: new FormControl(''),
             nroDoc: new FormControl(''),
             apePaterno: new FormControl(''),
             nombres: new FormControl(''),
@@ -90,12 +64,17 @@ export class PagosComponent implements OnInit {
     }
 
     getTarifaUps() {
-        this.tarifarioService.listarTarifasIpress(this.idIpressLapostaMedica).subscribe((res: any) => {
+        let data = {
+            idIpress: this.idIpressLapostaMedica,
+            ups: this.formCaja.value.servicio,
+            tipo: "CONSULTA"
+        }
+        this.tarifarioService.filtrarTarifasXServicioTipo(data).subscribe((res: any) => {
             this.tarifas = res.object;
             console.log('LISTA DE TARIFAS', this.tarifas);
         })
     }
-    onChangeTarifa(){
+    onChangeTarifa() {
         this.formCaja.get('codigoPago').setValue(this.formCaja.value.descripcionPago.codigo);
         this.formCaja.get('tipoPago').setValue(this.formCaja.value.descripcionPago.tipo);
         this.formCaja.get('precioServicio').setValue(this.formCaja.value.descripcionPago.costo);
@@ -158,20 +137,8 @@ export class PagosComponent implements OnInit {
             importeTotal: this.formCaja.value.precioServicio,
         }
 
-        // let pago = {
-        //     tipo: "C",
-        //     tipoDocReceptor: "DNI",
-        //     nroDocReceptor: "73145986",
-        //     apellidos: this.formCaja.value.apePaterno,
-        //     nombres: this.formCaja.value.nombres,
-        //     servicio: this.formCaja.value.servicio,
-        //     nroCupo: 0,
-        //     fechaAtencion: this.formCaja.value.fechaAtencion,
-        //     horaAtencion: this.formCaja.value.horaAtencion.split("-")[0],
-        //     importeTotal: this.formCaja.value.precioServicio
-        // }
 
-        this.servicesService.pagarRecibo(this.idIpressLapostaMedica, "01", pago1).subscribe((res: any) => {
+        this.servicesService.pagarRecibo(this.idIpressLapostaMedica, this.nroCaja, pago1).subscribe((res: any) => {
             this.servicesService.UpdateCupoCAja(this.idPagoCaja).subscribe((res: any) => {
             });
             Swal.fire({
@@ -181,8 +148,7 @@ export class PagosComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500,
             })
-            this.Dialogpagos = false;
-            this.getListaCuposConfirmados();
+            this.close();
         });
     }
 
@@ -197,17 +163,24 @@ export class PagosComponent implements OnInit {
         this.formCaja.get('edad').setValue(this.ponerEdadEnLetras(event.paciente.edadAnio, event.paciente.edadMes, event.paciente.edadDia));
         this.formCaja.get('estado').setValue(event.detallePago);
         this.formCaja.get('servicio').setValue(event.ipress.servicio);
-        this.formCaja.get('nroCaja').setValue("01");
+        this.formCaja.get('nroCaja').setValue(this.nroCaja);
         this.formCaja.get('fechaRecibo').setValue(new Date().toLocaleString());
-        this.formCaja.get('nroBoleta').setValue("00013");
+        
         this.formCaja.get('fechaAtencion').setValue(event.fechaAtencion);
         this.formCaja.get('horaAtencion').setValue(event.horaAtencion + "-" + event.horaAtencionFin);
-        
+
         this.getTarifaUps();
+        this.servicesService.obtenerNumeracionCaja(this.idIpressLapostaMedica,this.nroCaja).subscribe((res: any) => {
+            this.formCaja.get('nroBoleta').setValue(res.object.contadorRecibos+1);
+        })
     }
 
     close() {
         this.Dialogpagos = false;
         this.getListaCuposConfirmados();
+        this.formCaja.get('codigoPago').setValue("");
+        this.formCaja.get('tipoPago').setValue("");
+        this.formCaja.get('precioServicio').setValue(0);
+        this.tarifas=[];
     }
 }

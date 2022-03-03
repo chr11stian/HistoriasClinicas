@@ -41,6 +41,7 @@ export class PagoProcedimientosComponent implements OnInit {
     "CONSULTA",
     "PROCEDIMIENTO"
   ];
+  nroCaja: String = "01";
   constructor(
     private servicesService: ServicesService,
     private pacienteService: PacienteService,
@@ -71,7 +72,7 @@ export class PagoProcedimientosComponent implements OnInit {
     this.formCaja = this.fb.group({
       fechaBusqueda: new FormControl(''),
       nroCaja: new FormControl(''),
-      nroBoleta: new FormControl('0013'),
+      nroBoleta: new FormControl(''),
       nroDoc: new FormControl(''),
       apePaterno: new FormControl(''),
       nombres: new FormControl(''),
@@ -136,7 +137,7 @@ export class PagoProcedimientosComponent implements OnInit {
       importeTotal: this.formCaja.value.precioTotal
     }
 
-    this.servicesService.pagarRecibo(this.idIpressLapostaMedica, "01", datos).subscribe((res: any) => {
+    this.servicesService.pagarRecibo(this.idIpressLapostaMedica, this.nroCaja, datos).subscribe((res: any) => {
       Swal.fire({
         icon: 'success',
         title: 'Registro',
@@ -237,14 +238,25 @@ export class PagoProcedimientosComponent implements OnInit {
   }
   openModal() {
     this.Dialogpagos = true;
-    this.formCaja.get('nroCaja').setValue("CAJA1");
+    this.formCaja.get('nroCaja').setValue(this.nroCaja);
     this.formCaja.get('fechaRecibo').setValue(new Date().toLocaleString());
-    this.formCaja.get('nroBoleta').setValue("00013");
+    this.servicesService.obtenerNumeracionCaja(this.idIpressLapostaMedica,this.nroCaja).subscribe((res: any) => {
+      this.formCaja.get('nroBoleta').setValue(res.object.contadorRecibos+1);
+  })
   }
 
   close() {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Cancelado...',
+      text: '',
+      showConfirmButton: false,
+      timer: 1000
+    })
     this.Dialogpagos = false;
     this.getListaEcografiasPendientes();
+    this.formCaja.reset();
+    this.procedimientosPagar=[];
   }
 
   getUPS() {
@@ -287,13 +299,7 @@ export class PagoProcedimientosComponent implements OnInit {
   }
 
   canceledProcedimiento() {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Cancelado...',
-      text: '',
-      showConfirmButton: false,
-      timer: 1000
-    })
+    
     this.Dialogprocedimientos = false;
   }
   eliminarProcedimiento(rowIndex) {
@@ -332,7 +338,6 @@ export class PagoProcedimientosComponent implements OnInit {
     this.formProcedimiento.get("precio").setValue(this.formProcedimiento.value.descripcion.costo);
   }
 
-  
   ngOnInit(): void {
   }
 

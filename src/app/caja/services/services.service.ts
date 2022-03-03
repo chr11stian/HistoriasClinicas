@@ -35,7 +35,14 @@ export class ServicesService {
     }
 
     listarPagosRealizados(idIpress,ambienteCaja,request){
-        return this.http.post(`${this.base_url}/${this.bd}/caja/listarPeriodo/${idIpress}/${ambienteCaja}`,request)
+        return this.http.post(`${this.base_url}/${this.bd}/caja/listarRecibosPeriodo/${idIpress}/${ambienteCaja}`,request)
+    }
+    anularRecibo(idIpress,ambienteCaja,nroRecibo){
+        let request={ nro: nroRecibo}
+        return this.http.put(`${this.base_url}/${this.bd}/caja/anularRecibo/${idIpress}/${ambienteCaja}`,request)
+    }
+    obtenerNumeracionCaja(idIpress,ambienteCaja){
+        return this.http.get(`${this.base_url}/${this.bd}/caja/contador/${idIpress}/${ambienteCaja}`)
     }
     
 }
