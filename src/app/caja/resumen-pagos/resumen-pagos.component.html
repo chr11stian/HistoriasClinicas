@@ -1,1 +1,79 @@
-<p>resumen-pagos works!</p>
+<div class="p-card">
+    <p-card>
+        <div class="grid">
+            <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
+                <span style="font-size: 20px;">RESUMEN DE PAGOS REALIZADOS</span>
+            </div>
+        </div>
+        <br>
+        <form [formGroup]="form">
+            <div class="grid align-items-end m-1 p-fluid">
+                <div class="col-6 md:col-4 lg:col-2 p-field">
+                    <span class="">Fecha desde:</span>
+                    <div class="p-inputgroup">
+                        <p-calendar dateFormat="yy-mm-dd" formControlName="fechaFiltroInicio" [readonlyInput]="true"
+                            (onSelect)="getListaPagosRealizados()">
+                        </p-calendar>
+                    </div>
+                </div>
+                <div class="col-6 md:col-4 lg:col-2 p-field">
+                    <span class="">Fecha hasta:</span>
+                    <div class="p-inputgroup">
+                        <p-calendar dateFormat="yy-mm-dd" formControlName="fechaFiltroFin" [readonlyInput]="true"
+                            (onSelect)="getListaPagosRealizados()">
+                        </p-calendar>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </p-card>
+
+    <p-accordion>
+        <p-accordionTab header="LISTA DE PAGOS REALIZADOS" [selected]="true">
+            <p-table #dt [value]="DataPagos" [rows]="10" [paginator]="true" [globalFilterFields]="['DNI']"
+                [rowHover]="true" dataKey="id"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Filtrar por dni" />
+                        </span>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
+                    <tr>
+                        <th style="text-align: center">Nro</th>
+                        <th pSortableColumn="DNI">DNI</th>
+                        <th style="text-align: center">APELLIDOS</th>
+                        <th style="text-align: center">NOMBRES</th>
+                        <th style="text-align: center">HORA ATENCION</th>
+                        <th style="text-align: center">FECHA ATENCION</th>
+                        <th style="text-align: center">SERVICIO</th>
+                        <th style="text-align: center">ESTADO</th>
+                        <th style="text-align: center">ACCION</th>
+
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="text-align: center">{{ rowIndex + 1 }}</td>
+                        <td style="text-align: center">{{ rowData.paciente.nroDoc }}</td>
+                        <td style="text-align: center">{{ rowData.paciente.apellidos }}</td>
+                        <td style="text-align: center">{{ rowData.paciente.nombre}}</td>
+                        <td style="text-align: center">{{ rowData.horaAtencion}}</td>
+                        <td style="text-align: center">{{ rowData.fechaAtencion}}</td>
+                        <td style="text-align: center">{{ rowData.ipress.servicio}}</td>
+                        <td style="text-align: center">{{ rowData.detallePago}}</td>
+                        <td style="text-align: center">
+                            <button pButton pRipple type="button" label="Pagar" class="p-button-raised p-button-success"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-accordionTab>
+    </p-accordion>
+</div>

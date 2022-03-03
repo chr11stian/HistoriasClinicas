@@ -110,29 +110,7 @@ export class ConsultaComponent implements OnInit {
         })
     }
 
-    irConsulta(){
-        let row: any = {
-            editar: false,
-            nroAtencion: 1,
-        }
-        this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'],row)
+    irConsultaNew(){
+        this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'])
     } 
-
-    // openDialogConsultaUniversal() {
-    //   this.ref = this.dialog.open(DialogConsultaUniversalComponent, {
-    //     header: "CONSULTA UNIVERSAL",
-    //     width: "95%",
-    //     contentStyle: {
-    //       "max-height": "500px",
-    //       overflow: "auto",
-    //     },
-    //     data: {
-    //       texto: 'datossss'
-    //     }
-    //   });
-
-    //   this.ref.onClose.subscribe((data: any) => {
-    //     console.log('data de otro dialog ', data)
-    //   });
-    // }
 }

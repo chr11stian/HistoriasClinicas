@@ -4,31 +4,14 @@
             <div class="col-12 md:col-6 lg:col-12 p-field" style="text-align:center;">
                 <span style="font-size: 20px;">PAGO POR PROCEDIMIENTOS FUERA DE CONSULTORIO</span>
             </div>
+            <div class="col-12 md:col-6 lg:col-10 p-field" style="text-align:center;"></div>
+            <div class="col-12 md:col-6 lg:col-2 p-field" style="text-align:center;">
+                <button pButton pRipple label="Crear pago" icon="pi pi-plus" class="p-button-primary"
+                    (click)="openModal()"></button>
+            </div>
         </div>
         <br>
-        <div class="grid">
-            <div class="col-12 md:col-6 lg:col-8 p-field">
-                <form [formGroup]="formCaja">
-                    <div class="grid">
-                        <div class="col-12 md:col-6 lg:col-4 p-field">
-                            <label class="">BUSCAR POR FECHA</label>
-                            <div class="p-inputgroup">
-                                <p-calendar dateFormat="yy-mm-dd" placeholder="Fecha" formControlName="fechaBusqueda"
-                                    [readonlyInput]="true">
-                                </p-calendar>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
 
-            <div class="col-12 md:col-6 lg:col-2 p-field" style="text-align:center;">
-                <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
-            </div>
-            <div class="col-12 md:col-6 lg:col-2 p-field" style="text-align:center;">
-                <button pButton pRipple label="Crear pago" icon="pi pi-plus" class="p-button-primary"></button>
-            </div>
-        </div>
     </p-card>
 
     <p-accordion>
@@ -82,9 +65,9 @@
     </p-accordion>
 </div>
 
-<p-dialog [(visible)]="Dialogpagos" [style]="{width: '780px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
+<p-dialog [(visible)]="Dialogpagos" [style]="{width: '980px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
     <div class="grid">
-        <div class="col-5">
+        <div class="col-4">
             <div class="grid">
                 <div class="col-6 image1">
                 </div>
@@ -118,10 +101,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-7">
+        <div class="col-8">
             <p-panel>
                 <ng-template pTemplate="header" class="text-center">
-                    <h3 class="m-2 text-pink-600">PAGAR SERVICIO</h3>
+                    <h3 class="m-2 text-pink-600">PAGO POR PROCEDIMIENTOS</h3>
                 </ng-template>
                 <ng-template pTemplate>
                     <form [formGroup]='formCaja'>
@@ -141,7 +124,12 @@
                             <div class="col-6 md:col-6 lg:col-6 p-field pt-0">
                                 <div class="">
                                     <label class="">Documento de identidad: </label>
-                                    <input type="text" pInputText class="inputfield w-full" formControlName="nroDoc">
+                                    <div class="p-inputgroup">
+                                        <input type="text" class="inputfield w-full" pInputText placeholder="DNI"
+                                            formControlName="nroDoc">
+                                        <button type="button" pButton pRipple icon="pi pi-search"
+                                            (click)="buscarPacienteDatos()" class="p-button-danger"></button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-6 md:col-6 lg:col-6 p-field pt-0">
@@ -163,69 +151,128 @@
                                     <input type="text" pInputText class="inputfield w-full" formControlName="edad">
                                 </div>
                             </div>
-                            <!-- <div class="col-12 p-field pt-0">
-                                <div class="">
-                                    <label class="">Dirección: </label>
-                                    <input type="text" pInputText class="inputfield w-full" formControlName="direccion">
-                                </div>
-                            </div> -->
                         </div>
                     </form>
                 </ng-template>
             </p-panel>
         </div>
     </div>
-    <div class="grid">
-        <div class="col-8">
-            <form [formGroup]='formCaja'>
-                <div class="grid recuadro mt-1 ml-1 p-1">
-                    <div class="col-6">
-                        <label class="text-pink-600">Detalle:</label>
+    <div class="grid align-items-center">
+        <div class="col-12">
+            <p-table [value]="procedimientosPagar" styleClass="p-datatable-sm" responsiveLayout="scroll" [scrollable]="true" scrollHeight="160px">
+                <ng-template pTemplate="caption">
+                    <div class="grid align-items-center">
+                        <div class="col-10 align-items-center">
+                            <label>Detalle:</label>
+                        </div>
+                        <div class="col-2">
+                            <button pButton pRipple label="Proced." icon="pi pi-plus" class="h-2rem p-button-help"
+                                (click)="openModalProcedimiento()" styleClass="p-button-sm"></button>
+                        </div>
                     </div>
-                    <div class="col-6"></div>
-                    <div class="col-6 pt-0">
-                        <label>Estado:</label>
-                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full" formControlName="estado">
-                    </div>
-                    <div class="col-6 pt-0">
-                        <label>Fecha de atención:</label>
-                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
-                            formControlName="fechaAtencion">
-                    </div>
-                    <div class="col-6 pt-0">
-                        <label>Servicio:</label>
-                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
-                            formControlName="servicio">
-                    </div>
-                    <div class="col-6 pt-0">
-                        <label>Hora de atención:</label>
-                        <input type="text" pInputText class="p-inputtext-sm  w-full" formControlName="horaAtencion">
-                    </div>
-                </div>
-            </form>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Nro</th>
+                        <th>UPS</th>
+                        <th>Codigo</th>
+                        <th>Descripcion</th>
+                        <th>Tipo</th>
+                        <th>Cantidad</th>
+                        <th>Precio unitario</th>
+                        <th>Importe</th>
+                        <th>Accion</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                    <tr>
+                        <td>{{rowIndex + 1}}</td>
+                        <td>{{rowData.ups}}</td>
+                        <td>{{rowData.codigo}}</td>
+                        <td>{{rowData.descripcion}}</td>
+                        <td>{{rowData.tipo}}</td>
+                        <td>{{rowData.cantidad}}</td>
+                        <td>{{rowData.precioUnitario}}</td>
+                        <td>{{rowData.importe}}</td>
+                        <td style="text-align: center;width: 5rem; display: flex">
+                            <button pButton (click)="eliminarProcedimiento(rowData)" pTooltip="Eliminar" pRipple
+                                type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger m-1">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
         </div>
-        <div class="col-4">
+        <div class="col-10 text-right">
+            <label>Importe total:</label>
+        </div>
+        <div class="col-2 p-0" >
             <form [formGroup]='formCaja'>
-                <div class="grid recuadro mt-1 ml-1 p-1">
-                    <div class="col-12">
-                        <label class="text-pink-600">Pago:</label>
-                    </div>
-                    <div class="col-12 pt-0">
-                        <label>Precio del servicio:</label>
-                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
-                            formControlName="precioServicio">
-                    </div>
-                    <div class="col-12 pt-0">
-                        <label>Tipo de seguro:</label>
-                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
-                            formControlName="tipoSeguro">
-                    </div>
-                </div>
+                <p-inputNumber placeholder="Precio" formControlName='precioTotal' suffix=" Soles" mode="decimal"
+                    [minFractionDigits]="2" required>
+                </p-inputNumber>
             </form>
         </div>
     </div>
     <ng-template pTemplate=footer>
         <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="close()"></button>
         <button pButton type="button" label="Guardar" (click)="pagar()"></button>
+    </ng-template>
+</p-dialog>
+<p-dialog [(visible)]="Dialogprocedimientos" [style]="{width: '680px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
+    <ng-template pTemplate="header">
+        <h3>Agregar procedimiento</h3>
+    </ng-template>
+
+    <ng-template pTemplate="body">
+        <form [formGroup]='formProcedimiento'>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-8">
+                    <label id="codigo">Servicio:</label>
+                    <p-dropdown placeholder="Nombre UPS" class="inputRedondo"
+                        dropdownIcon="pi pi-chevron-down" appendTo="body"
+                        inputId="dropdown" [options]="UPSList" formControlName="ups" optionLabel="nombreUPS"
+                        optionValue="nombreUPS" required autofocus>
+                    </p-dropdown>
+                </div>
+                <div class="p-field col-12 md:col-4">
+                    <label id="nombre">Tipo de servicio:</label>
+                    <p-dropdown placeholder="Tipo" class="inputRedondo" [showTransitionOptions]="'300ms'"
+                        dropdownIcon="pi pi-chevron-down" appendTo="body" inputId="dropdown" [options]="tiposPagosCaja"
+                        formControlName="tipo" (onChange)="onChangeTarifa()" required>
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-12 md:col-12">
+                    <label id="nombre">Descripcion:</label>
+                    <p-dropdown placeholder="Descripcion" class="inputRedondo"
+                        dropdownIcon="pi pi-chevron-down" appendTo="body"
+                        inputId="dropdown" [options]="procedimientos" formControlName="descripcion" optionLabel="descripcion"
+                        required (onChange)="onChangeDescripcion()" >
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="p-fluid grid flex justify-content-center">
+                <div class="p-field col-6 md:col-4">
+                    <label id="nombre">Codigo:</label>
+                    <input type="text" pInputText formControlName='codigo' required />
+                </div>
+                <div class="p-field col-6 md:col-4">
+                    <label id="nombre">Cantidad:</label>
+                    <input type="text" pInputText formControlName='cantidad' required />
+                </div>
+                <div class="p-field col-6 md:col-4">
+                    <label id="nombre">Precio:</label>
+                    <p-inputNumber placeholder="Costo" formControlName='precio' suffix=" Soles" mode="decimal"
+                        [minFractionDigits]="2" required>
+                    </p-inputNumber>
+                </div>
+            </div>
+        </form>
+    </ng-template>
+    <ng-template pTemplate=footer>
+        <button pButton type="button" label="Cancelar" class="p-button-danger" (click)="canceledProcedimiento()"></button>
+        <button pButton type="button" label="Guardar" (click)="enviarProcedimientoLista()"></button>
     </ng-template>
 </p-dialog>

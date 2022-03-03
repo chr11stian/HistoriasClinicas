@@ -22,9 +22,9 @@
                 </form>
             </div>
 
-            <div class="col-12 md:col-6 lg:col-3 p-field" style="text-align:center;">
+            <!-- <div class="col-12 md:col-6 lg:col-3 p-field" style="text-align:center;">
                 <button pButton pRipple label="Exportar" icon="pi pi-upload" class="p-button-primary"></button>
-            </div>
+            </div> -->
         </div>
     </p-card>
 
@@ -79,7 +79,7 @@
     </p-accordion>
 </div>
 
-<p-dialog [(visible)]="Dialogpagos" [style]="{width: '880px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
+<p-dialog [(visible)]="Dialogpagos" [style]="{width: '780px'}" [modal]="true" styleClass="p-fluid" autoZIndex>
     <div class="grid">
         <div class="col-5">
             <div class="grid">
@@ -160,12 +160,6 @@
                                     <input type="text" pInputText class="inputfield w-full" formControlName="edad">
                                 </div>
                             </div>
-                            <!-- <div class="col-12 p-field pt-0">
-                                <div class="">
-                                    <label class="">Dirección: </label>
-                                    <input type="text" pInputText class="inputfield w-full" formControlName="direccion">
-                                </div>
-                            </div> -->
                         </div>
                     </form>
                 </ng-template>
@@ -173,8 +167,8 @@
         </div>
     </div>
     <div class="grid">
-        <div class="col-12">
-            <p-table [value]="listaProcedimientosApagar" #dt styleClass="p-datatable-gridlines" [scrollable]="true" scrollHeight="200px">
+        <div class="col-8">
+            <!-- <p-table [value]="listaProcedimientosApagar" #dt styleClass="p-datatable-gridlines" [scrollable]="true" scrollHeight="200px">
                 <ng-template pTemplate="caption">
                     Detalle
                 </ng-template>
@@ -191,12 +185,70 @@
                     <tr style="text-align: center">
                         <td style="text-align: center">{{rowData.codigo}}</td>
                         <td style="text-align: center">{{rowData.ups}}</td>
-                        <td >{{rowData.descripcion}}</td>
+                        <td style="text-align: center">{{rowData.descripcion}}</td>
                         <td style="text-align: center">{{rowData.tipo}}</td>
                         <td style="text-align: center">{{rowData.precio}}</td>
                     </tr>
                 </ng-template>
-            </p-table>
+            </p-table> -->
+            <form [formGroup]='formCaja'>
+                <div class="grid recuadro mt-1 ml-1 p-1">
+                    <div class="col-6">
+                        <label class="text-pink-600">Detalle:</label>
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="col-6 pt-0">
+                        <label>Estado:</label>
+                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full" formControlName="estado">
+                    </div>
+                    <div class="col-6 pt-0">
+                        <label>Fecha de atención:</label>
+                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
+                            formControlName="fechaAtencion">
+                    </div>
+                    <div class="col-6 pt-0">
+                        <label>Servicio:</label>
+                        <input type="text" pInputText class="p-inputtext-sm inputfield w-full"
+                            formControlName="servicio">
+                    </div>
+                    <div class="col-6 pt-0">
+                        <label>Hora de atención:</label>
+                        <input type="text" pInputText class="p-inputtext-sm  w-full" formControlName="horaAtencion">
+                    </div>
+                    <div class="col-12 pt-0">
+                        <label>Descripcion pago:</label>
+                        <p-dropdown [options]="tarifas" formControlName="descripcionPago" appendTo="body"
+                            placeholder="Selecciona pago" optionLabel="descripcion" 
+                            (onChange)="onChangeTarifa()">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-4">
+            <form [formGroup]='formCaja'>
+                <div class="grid recuadro mt-1 ml-1 p-1">
+                    <div class="col-12">
+                        <label class="text-pink-600">Pago:</label>
+                    </div>
+                    <div class="col-12 pt-0">
+                        <label>Codigo pago:</label>
+                        <input type="text" placeholder="Codigo" pInputText class="p-inputtext-sm inputfield w-full" 
+                            formControlName="codigoPago">
+                    </div>
+                    <div class="col-12 pt-0">
+                        <label>Tipo pago:</label>
+                        <input type="text" placeholder="Tipo" pInputText class="p-inputtext-sm inputfield w-full" 
+                            formControlName="tipoPago">
+                    </div>
+                    <div class="col-12 pt-0">
+                        <label>Precio:</label>
+                        <p-inputNumber placeholder="Precio" formControlName='precioServicio' suffix=" Soles" mode="decimal" [minFractionDigits]="2" required>
+                        </p-inputNumber>
+                    </div>
+
+                </div>
+            </form>
         </div>
     </div>
     <ng-template pTemplate=footer>

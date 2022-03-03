@@ -22,12 +22,20 @@ export class ServicesService {
         return this.http.get(`${this.base_url}/${this.bd}/cupo/actualizar/caja/${idCupo}`)
     }
 
-    pagarCupo(idIpress,ambienteCaja,pago){
+    pagarRecibo(idIpress,ambienteCaja,pago){
         return this.http.put(`${this.base_url}/${this.bd}/caja/guardarRecibo/${idIpress}/${ambienteCaja}`,pago) 
     }
 
     listarAmbientesCaja(req){
         return this.http.post(`${this.base_url}/${this.bd}/ipress/listarAmbientesXNombreUps`,req) 
+    }
+
+    getListaPendientesEcografias(idIpress){
+        return this.http.get(`${this.base_url}/${this.bd}/examenesAuxiliares/listarPendientesPago/${idIpress}`)
+    }
+
+    listarPagosRealizados(idIpress,ambienteCaja,request){
+        return this.http.post(`${this.base_url}/${this.bd}/caja/listarPeriodo/${idIpress}/${ambienteCaja}`,request)
     }
     
 }
