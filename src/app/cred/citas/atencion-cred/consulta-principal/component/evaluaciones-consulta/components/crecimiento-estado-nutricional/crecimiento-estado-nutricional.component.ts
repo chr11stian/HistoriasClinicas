@@ -22,6 +22,7 @@ import {
     inputCrecimiento
 } from "../../../../../../models/data";
 import {ListaConsultaService} from "../../../../../../services/lista-consulta.service";
+import Swal from "sweetalert2";
 
 export interface evaluation {
     "0": number;
@@ -189,17 +190,24 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             codigoPrestacion: '',
             controlCrecimientoDesaMes: aux1
         }
-        console.log('He', this.diagnosticoH)
-        console.log('We', this.diagnosticoW)
-        console.log('Ce', this.diagnosticoC)
-        console.log('WH', this.diagnosticoWH)
-        this.controlCrecimientoService.updateControlCrecimiento(this.data.idConsulta, aux).subscribe((r: any) => {
-            console.log(r)
-        })
+        //console.log('He', this.diagnosticoH)
+        //console.log('We', this.diagnosticoW)
+        //console.log('Ce', this.diagnosticoC)
+        //console.log('WH', this.diagnosticoWH)
+        this.controlCrecimientoService.updateControlCrecimiento(this.data.idConsulta, aux).subscribe(
+            (r) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Actualizado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            })
     }
 
     evaluacion() {
-        //this.calcularDias()
+        this.calcularDias()
         this.controlCrecimientoService.getDataEvaluationHeight(this.data.sexo).subscribe((r: any) => {
             let aux: evaluation | number = r.data[this.dias]
             this.auxEvaluacionH = aux[1]
@@ -287,13 +295,13 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     listar() {
         this.controlCrecimientoService.getControlCrecimiento(this.data.nroDocumento).subscribe((r: any) => {
             this.listaCrecimiento = r.object;
-            console.log('listaCrecimiento ', this.listaCrecimiento)
+            //console.log('listaCrecimiento ', this.listaCrecimiento)
             this.aux = r.object
             this.dataGrafico(this.aux)
-            this.data.anio = 0
-            this.data.mes = 3
-            this.data.dia = 6
-            this.dias = 96
+            //this.data.anio = 0
+            //this.data.mes = 3
+            //this.data.dia = 6
+            //this.dias = 96
             this.returnDescription()
             console.log('datas', this.nroControl, this.descripcionEdad)
             this.listAux = this.aux.filter(item => item.descripcionEdad === this.descripcionEdad);
@@ -303,6 +311,10 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     }
 
     dataGrafico(list: interfaceCrecimiento[]) {
+        this.mesesCircunferencia = []
+        this.mesesPeso = []
+        this.mesesAltura = []
+        this.mesesAlturaPeso = []
         list.forEach((item, index) => {
             if (item.peso !== 0.0 && item.talla != 0.0 && item.perimetroCefalico !== 0.0) {
                 this.mesesPeso.push([item.dias / 30, item.peso])
@@ -310,7 +322,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                 this.mesesCircunferencia.push([item.dias / 30, item.perimetroCefalico])
                 this.mesesAlturaPeso.push([item.talla * 100, item.peso])
             }
-            console.log('list ', this.mesesPeso, this.mesesAlturaPeso, this.mesesAltura, this.mesesCircunferencia)
+            //console.log('list ', this.mesesPeso, this.mesesAlturaPeso, this.mesesAltura, this.mesesCircunferencia)
         })
     }
 
@@ -490,118 +502,8 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         }
     }
 
-    calcularEdad() {
-        //calculamos en k periodo de vacunacion se encuentra
-        this.edad = -1;
-    }
-
-    cambioEstado(valor) {
-        console.log('----------------')
-        const recojido = valor.value;
-        this.fechaTentativaDisabled = recojido === 'si' ? true : false
-    }
-
-    /*getPaciente() {
-        this.servicio.getPaciente(this.nroDNI)
-            .toPromise().then((result) => {
-            this.sexo = result.object.formatoFiliacion.datosGeneralesFiliacion.sexo
-        }).catch((err) => {
-            console.log(err)
-        })
-    }*/
-
-    /*getLista() {
-        // this.servicio.getListaControles('47825757')
-        this.servicio.getListaControles(this.nroDNI)
-            .toPromise().then((result) => {
-            this.listaControles = result.object
-            this.paralosGraficos()
-            // console.log('la lista',this.listaControles)
-            this.transform()
-        }).catch((err) => {
-            console.log(err)
-        })
-    }*/
-
-    paralosGraficos() {
-        this.listaControles.forEach((item, index) => {
-            if (item.peso !== 0.0 && item.talla != 0) {
-                if (item.edadMes <= 33) {
-                    this.mesesAlturaPeso.push([item.talla, item.peso])
-                }
-                if (item.edadMes >= 1 && item.edadMes <= 60) {
-                    this.mesesAltura.push([item.edadMes, item.talla]);
-                    this.mesesPeso.push([item.edadMes, item.peso])
-                    this.mesesCircunferencia.push([item.edadMes, item.peso])
-                }
-            }
-        });
-    }
-
-    transform() {
-        //transformacion a un solo formato que se usará
-        this.listaControles.forEach(i => {
-            if (i.fecha === null) {
-                i.fecha = '';
-            }
-            if (i.fechaTentativa === null) {
-                i.fechaTentativa = '';
-            } else {
-                i.fecha = i.fecha.split(' ')[0];
-                i.fechaTentativa = i.fechaTentativa.split(' ')[0];
-                // i.fechaTentativa = this.datePipe.transform(i.fechaTentativa, 'dd-MM-yyyy HH:mm:ss');
-            }
-        })
-        console.log("lista conversa", this.listaControles);
-        this.separacion()
-        // this.determinaEdadPesoTalla();
-    }
-
-    separacion() {
-        //this.RN = this.listaControles.filter(item => item.descripcionEdad === 'RN');
-        // console.log('lista RN',this.RN);
-        this.Menor_1A = this.listaControles.filter(item => item.descripcionEdad === 'Menor_1A')
-        // console.log('lista Menor_1A',this.Menor_1A);
-        this.A1 = this.listaControles.filter(item => item.descripcionEdad === '1A')
-        // console.log('lista A1',this.A1);
-        this.A2 = this.listaControles.filter(item => item.descripcionEdad === '2A')
-        // console.log('lista A2',this.A2);
-        this.A3 = this.listaControles.filter(item => item.descripcionEdad === '3A')
-        // console.log('lista A3',this.A3);
-        this.A4 = this.listaControles.filter(item => item.descripcionEdad === '4A')
-        // console.log('lista A4',this.A4);
-        this.A5 = this.listaControles.filter(item => item.descripcionEdad === '5A')
-        // console.log('lista A5',this.A5);
-        this.A6 = this.listaControles.filter(item => item.descripcionEdad === '6A')
-        // console.log('lista A6',this.A6);
-        this.A7 = this.listaControles.filter(item => item.descripcionEdad === '7A')
-        // console.log('lista A7',this.A7);
-        this.A8 = this.listaControles.filter(item => item.descripcionEdad === '8A')
-        // console.log('lista A8',this.A8);
-        this.A9 = this.listaControles.filter(item => item.descripcionEdad === '9A')
-        // console.log('lista A9',this.A9);
-        console.log('lista general', this.listaControles);
-    }
-
-    agregarPesoTalla(elemento) {
-        const fechaString = elemento.fechaTentativa
-        console.log(fechaString)
-        this.display = true;
-        this.getFC('fecha').setValue(new Date(`${fechaString} 00:00:00`))
-    }
-
-    getFC(control: string): AbstractControl {
-        return this.tallaPesoFG.get(control);
-    }
-
-    cancelar() {
-        this.display = false;
-    }
-
-    save() {
-    }
-
     onWeightChart(): void {
+        this.listar()
         const isBoy = this.sexo
         this.ref = this.dialogService.open(WeightChartComponent, {
             data: {
@@ -621,9 +523,8 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         })
     }
 
-    onHeightChart()
-        :
-        void {
+    onHeightChart(): void {
+        this.listar()
         const isBoy = this.sexo
         this.ref = this.dialogService.open(HeightChartComponent, {
             data: {
@@ -643,9 +544,8 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         })
     }
 
-    onHeightWeightChart()
-        :
-        void {
+    onHeightWeightChart(): void {
+        this.listar()
         const isBoy = this.sexo
         this.ref = this.dialogService.open(HeightWeightComponent, {
             data: {
@@ -665,10 +565,8 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         })
     }
 
-    onCircumferenceChart()
-        :
-        void {
-        // this.determinaEdadPesoTalla();
+    onCircumferenceChart(): void {
+        this.listar()
         const isBoy = this.sexo
         this.ref = this.dialogService.open(CircumferenceChartComponent, {
             data: {
