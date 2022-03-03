@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ExamenAuxiliar, Laboratorio, ResultadoLaboratorio } from '../../models/examenesAuxiliares';
 
 @Component({
   selector: 'app-examenes-auxiliares-consulta',
@@ -11,20 +12,27 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   addExamDialog: boolean = false;
   formExamenAux: FormGroup;
   isUpdate: boolean = false;
-  listaExamenes:string[] = [
+  listaExamenes: string[] = [
     'TEST DE GRAHAM',
-    'DOSAJE DE HENOGLOBINA',
+    'DOSAJE DE HEMOGLOBINA',
     'PARASITO SERIADO',
   ];
-  listaLugares: string[]=[
+  listaLugares: string[] = [
     'CONSULTORIO',
     'LABORATORIO'
   ]
+  dataExamenesAuxiliares: Laboratorio;
+  isLabo: boolean = false;
+  laboResults: ResultadoLaboratorio = {};
+  examFFF: string;
 
   constructor(
     private fb: FormBuilder,
   ) {
     this.inicializarForm();
+    // this.laboResults = {
+    //   hemoglobina: ''
+    // }
   }
 
   ngOnInit(): void {
@@ -32,8 +40,9 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
   inicializarForm() {
     this.formExamenAux = this.fb.group({
-      examen: new FormControl('', { validators: [Validators.required] }),
-      descripcion: new FormControl('', { validators: [Validators.required] }),
+      nombreExamen: new FormControl('', { validators: [Validators.required] }),
+      lugarExam: new FormControl('', { validators: [Validators.required] }),
+      resultados: new FormControl('', { validators: [Validators.required] }),
     });
   }
   save() {
@@ -46,12 +55,14 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
 
   agreeAddExamDialog() {
     let dataExam = {
-      nombre: this.formExamenAux.value.examen,
-      valor: this.formExamenAux.value.descripcion
+      nombreExam: this.formExamenAux.value.nombreExamen,
+      lugarExam: this.formExamenAux.value.lugarExam,
+      resultado: this.formExamenAux.value.resultados
     }
     this.listaExamenesAux.push(dataExam);
     this.listaExamenesAux = [...this.listaExamenesAux];
     this.addExamDialog = false;
+    console.log('objeto de resultados ', this.laboResults);
   }
 
   deleteExamItem(index) {
@@ -61,5 +72,28 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
 
   closeExamDialog() {
     this.addExamDialog = false;
+  }
+  clasificarInf() {
+    let newData = {
+      tipoLaboratorio: "EXAMEN_LABORATORIO",
+      subTipo: 'falta',
+      nombreExamen: this.formExamenAux.value.examen,
+      codigo: '',
+      codPrestacion: '',
+      cie10: '',
+      codigoHIS: '',
+      labExterno: ''
+    }
+  }
+  recoverData() {
+    this.dataExamenesAuxiliares = {
+      servicio: 'CRED',
+      nroCama: '',
+      dxPresuntivo: '',
+      observaciones: ''
+    }
+  }
+  saveAuxiliars() {
+    console.log('data to send ', this.listaExamenesAux)
   }
 }

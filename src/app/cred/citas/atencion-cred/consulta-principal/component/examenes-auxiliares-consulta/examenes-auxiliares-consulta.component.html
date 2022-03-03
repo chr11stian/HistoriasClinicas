@@ -1,7 +1,7 @@
 <div class="grid">
     <div class="col-12 md:col-12 mt-2">
         <p-table #dt [value]="listaExamenesAux" [rows]="3" [paginator]="true" [rowHover]="true"
-            styleClass="p-datatable-sm" dataKey="id"
+            styleClass="p-datatable-gridlines" dataKey="id"
             currentPageReportTemplate="Mostrando de {first} a {last} de {totalRecords} Entradas"
             [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
@@ -17,17 +17,17 @@
             </ng-template>
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="text-align: center;">Nro</th>
-                    <th style="text-align: center;">Examen</th>
-                    <th style="text-align: center;">Resultado</th>
-                    <th style="text-align: center;">Acción</th>
+                    <th style="text-align: center; flex: 5%;">Nro</th>
+                    <th style="text-align: center; flex: 45%;">Examen</th>
+                    <th style="text-align: center; flex: 45%;">Resultado</th>
+                    <th style="text-align: center; flex: 5%;">Acción</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr style="text-align: center">
                     <td style="text-align: center">{{ rowIndex + 1 }}</td>
-                    <td style="text-align: center">{{ rowData.nombre }}</td>
-                    <td style="text-align: center">{{ rowData.valor }}</td>
+                    <td style="text-align: center">{{ rowData.nombreExam }}</td>
+                    <td style="text-align: center">{{ rowData.resultado }}</td>
                     <td style="text-align: center; display: flex;">
                         <button pButton pRipple type="button" icon="pi pi-pencil"
                             (click)="openDialogEditarMedicacionFrecuente(rowData, rowIndex)"
@@ -38,10 +38,12 @@
                 </tr>
             </ng-template>
         </p-table>
+        <button pButton pRipple type="button" icon="pi pi-trash" (click)="saveAuxiliars()"
+            class="p-button-rounded p-button-text"></button>
     </div>
 </div>
 
-<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '50%'}" [modal]="true" styleClass="p-fluid">
+<p-dialog class="dialogo m-4" [(visible)]="addExamDialog" [style]="{width: '70%'}" [modal]="true" styleClass="p-fluid">
     <ng-template pTemplate="header">
         <h3>NUEVO EXAMEN AUXILIAR</h3>
     </ng-template>
@@ -50,25 +52,154 @@
             <div class="grid">
                 <div class="p-fluid col-5">
                     <label>Examen:</label>
-                    <p-dropdown [options]="listaExamenes" formControlName="examen" placeholder="SELECCIONA UN EXAMEN"
-                        [showClear]="false" appendTo="body">
+                    <p-dropdown [options]="listaExamenes" formControlName="nombreExamen"
+                        placeholder="SELECCIONA UN EXAMEN" [showClear]="false" appendTo="body">
                     </p-dropdown>
                 </div>
                 <div class="p-fluid col-5">
                     <label>Lugar:</label>
-                    <p-dropdown [options]="listaLugares" formControlName="examen" placeholder="SELECCIONA UN EXAMEN"
+                    <p-dropdown [options]="listaLugares" formControlName="lugarExam" placeholder="SELECCIONA UN EXAMEN"
                         [showClear]="false" appendTo="body">
                     </p-dropdown>
                 </div>
                 <div class="col-12">
                     <label>Resultados:</label>
-                    <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="descripcion" pInputTextarea
+                    <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="resultados" pInputTextarea
                         oninput="this.value=this.value.toUpperCase()"></textarea>
                 </div>
             </div>
         </form>
-    </ng-template>
+        <div class="grid">
+            <div class="p-fluid col-12">
+                <h2>RESULTADOS:</h2>
+                <p-divider></p-divider>
+            </div>
+            <div class="p-fluid col-2">
+                <label>Hemoglobina:</label>
+                <div class="col-8 p-0">
+                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                        [(ngModel)]="laboResults.hemoglobina">
+                </div>
+            </div>
+            <div class="p-fluid col-2">
+                <label>Hematocrito:</label>
+                <div class="col-8 p-0">
+                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                        [(ngModel)]="laboResults.hematocrito">
+                </div>
+            </div>
+            <div class="p-fluid col-2">
+                <label>Grupo Sanguineo:</label>
+                <div class="col-8 p-0">
+                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                        [(ngModel)]="laboResults.grupoSanguineo">
+                </div>
 
+            </div>
+            <div class="p-fluid col-2">
+                <label>Factor Rh:</label>
+                <div class="col-8 p-0">
+                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                        [(ngModel)]="laboResults.factorRH">
+                </div>
+            </div>
+            <div class="p-fluid col-2">
+                <label>Tiempo Sangria:</label>
+                <div class="col-8 p-0">
+                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                        [(ngModel)]="laboResults.tiempoSangria">
+                </div>
+
+            </div>
+            <div class="p-fluid col-2">
+                <label>Tiempo Coagulacion:</label>
+                <div class="col-8 p-0">
+                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                        [(ngModel)]="laboResults.tiempoCoagulacion">
+                </div>
+
+            </div>
+            <div class="p-fluid col-2">
+                <label>Tiempo Protrombina:</label>
+                <div class="col-8 p-0">
+                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                        [(ngModel)]="laboResults.tiempoProtrombina">
+                </div>
+            </div>
+            <div class="p-fluid col-2">
+                <label>Tiempo Tromboplastina:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.tiempoTromboplastina">
+            </div>
+            <div class="p-fluid col-2">
+                <label>Reticulocitos:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.reticulocitos">
+            </div>
+            <div class="p-fluid col-2">
+                <label>Compatibilidad Sanguinea:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.compatibilidadSanguinea">
+            </div>
+            <div class="p-fluid col-2">
+                <label>Rcto. Globulos Rojos:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.rctoGlobulosRojos">
+            </div>
+            <div class="p-fluid col-2">
+                <label>Rcto. Plaquetas:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.rctoPlaquetas">
+            </div>
+            <div class="p-fluid col-2">
+                <label>Rcto. Globulos Blancos:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.rctoGlobulosBlancos">
+            </div>
+            <div class="p-fluid col-2">
+                <label>Blastos:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.blastos">
+            </div>
+            <div class="p-fluid col-2">
+                <label>Juveniles:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.juveniles">
+            </div>
+            <div class="p-fluid col-2">
+                <label>Neutrofilos:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.neutrofilos">
+            </div>
+            <div class="p-fluid col-2">
+                <label>N. Abastonados:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.nAbastonados">
+            </div>
+            <div class="p-fluid col-2">
+                <label>N. Segmentados:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.nSegmentados">
+            </div>
+            <div class="p-fluid col-2">
+                <label>VSG (mm/1 hora):</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.vsg1hora">
+            </div>
+            <div class="p-fluid col-2">
+                <label>VSG (mm/2 rask):</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.vsg2hora">
+            </div>
+            <div class="p-fluid col-2">
+                <label>csg2 hira:</label>
+                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                    [(ngModel)]="laboResults.csg2hira">
+            </div>
+
+        </div>
+
+    </ng-template>
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="guardarEdicionDiagnostico()"></button>
         <button *ngIf="!isUpdate" pButton type="button" label="Guardar" (click)="agreeAddExamDialog()"></button>
