@@ -11,19 +11,20 @@ import {FillDataGraphService} from '../../services/fill-data-graph.service'
 })
 export class HeightWeightComponent implements OnInit {
     data: GraphInterface
-
-    colorNegro = 'rgba(33,32,32,0.91)'
-    colorNaranja = 'rgba(220,90,34,0.93)'
+    colorMarron = '#654b3d'
+    colorNaranja = 'rgba(245,93,25,0.85)'
+    colorVerde = 'rgba(62,199,47,0.8)'
+    colorAzul = '#0c3866'
+    colorRojo = 'rgba(255,0,0,0.86)'
     colorNaranjaClaro = 'rgba(236,134,90,0.93)'
-    colorVerde = 'rgba(64,218,113,0.93)'
     colors = [
-        this.colorNegro,
+        this.colorMarron,
+        this.colorRojo,
         this.colorNaranja,
-        this.colorNaranjaClaro,
         this.colorVerde,
-        this.colorNaranjaClaro,
         this.colorNaranja,
-        this.colorNegro,
+        this.colorRojo,
+        this.colorMarron,
     ]
     names = [
         '3',
@@ -72,7 +73,7 @@ export class HeightWeightComponent implements OnInit {
             data,
             this.names,
             (this.config.data.dataChild as number[][]),
-            {color: '#09fff9', name: this.config.data.isBoy ? 'niño' : 'niña'},
+            {color: this.colorAzul, name: this.config.data.isBoy ? 'niño' : 'niña'},
             this.colors,
             {xAxis: 'cm', yAxis: 'kg'}
         )
@@ -81,7 +82,7 @@ export class HeightWeightComponent implements OnInit {
             nameAxisY: 'PESO(KG)',
             titleGraph: 'Puntuación Z - DIAGNÓSTICO ' + (this.config.data.isBoy ? 'DEL NIÑO' : 'DE LA NIÑA') + ': ' + this.config.data.diagnostic.toUpperCase(),
             subTitleGraph: '(Nacimiento a 2 años)',
-            measurementUnits: ['cm', 'kg'],
+            measurementUnits: ['kg', 'cm'],
             series: valueSerie,
             typeAxisX: 'longitud'
         }

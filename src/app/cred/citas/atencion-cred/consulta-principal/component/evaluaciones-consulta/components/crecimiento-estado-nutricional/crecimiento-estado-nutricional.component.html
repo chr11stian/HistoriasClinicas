@@ -385,7 +385,7 @@
                     <div class="lg:col-2 text-center">Fecha</div>
                 </div>
                 <div class="field grid" *ngFor="let item of listAux">
-                    <div class="justify-content-center field grid" *ngIf="item.nroControl === nroControl"
+                    <div class="col-12 justify-content-center field grid" *ngIf="item.nroControl === nroControl"
                          style="background-color:rgba(175,0,23,0.4)">
                         <span class="lg:col-1 text-center">{{item.nroControl}}°:</span>
                         <div class="lg:col-2">
@@ -409,7 +409,7 @@
                                         [(ngModel)]="fc"></p-calendar>
                         </div>
                     </div>
-                    <div class="justify-content-center field grid" *ngIf="item.nroControl !== nroControl">
+                    <div class="col-12 justify-content-center field grid" *ngIf="item.nroControl !== nroControl">
                         <span class="lg:col-1 text-center">{{item.nroControl}}°:</span>
                         <div class="lg:col-2">
                             <input type="number" [disabled]=true pInputText style="width:120px" class="text-center" placeholder="Peso"

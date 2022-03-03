@@ -10,19 +10,24 @@ import {HeightWeightChartService} from '../../services/height-weight-chart.servi
     styleUrls: ['./height-chart.component.css']
 })
 export class HeightChartComponent implements OnInit {
+    colorAzul = '#0c3866'
+    colorVerde = 'rgba(62,199,47,0.8)'
+    colorNaranja = 'rgba(245,93,25,0.85)'
+    colorNegro = '#0e0e0e'
+    colorRojo = 'rgba(255,0,0,0.86)'
     data: GraphInterface
     colors = [
-        'rgba(62,199,47,0.8)',
-        'rgba(245,93,25,0.85)',
-        'rgba(245,93,25,0.85)',
-        'rgba(255,0,0,0.86)',
-        '#0e0e0e',
+        this.colorRojo,
+        this.colorNaranja,
+        this.colorVerde,
+        this.colorNaranja,
+        this.colorRojo,
     ]
     names = [
-        '0',
-        '-2',
-        '2',
         '-3',
+        '-2',
+        '0',
+        '2',
         '3',
     ]
 
@@ -61,7 +66,7 @@ export class HeightChartComponent implements OnInit {
             data,
             this.names,
             (this.config.data.dataChild as Array<number[]>),
-            {color: '#09fff9', name: this.config.data.isBoy ? 'niño' : 'niña'},
+            {color: this.colorAzul, name: this.config.data.isBoy ? 'niño' : 'niña'},
             this.colors,
             {xAxis: 'meses', yAxis: 'cm'}
         )
@@ -72,7 +77,7 @@ export class HeightChartComponent implements OnInit {
             subTitleGraph: '(Nacimiento a 5 años)',
             measurementUnits: ['cm', 'meses'],
             series: valueSerie,
-            typeAxisX:'altura'
+            typeAxisX: 'altura'
         }
     }
 

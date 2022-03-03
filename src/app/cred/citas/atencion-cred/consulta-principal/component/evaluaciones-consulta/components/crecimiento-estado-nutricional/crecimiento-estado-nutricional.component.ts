@@ -291,9 +291,9 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             this.aux = r.object
             this.dataGrafico(this.aux)
             this.data.anio = 0
-            this.data.mes = 0
-            this.data.dia = 13
-            this.dias = 13
+            this.data.mes = 3
+            this.data.dia = 6
+            this.dias = 96
             this.returnDescription()
             console.log('datas', this.nroControl, this.descripcionEdad)
             this.listAux = this.aux.filter(item => item.descripcionEdad === this.descripcionEdad);
@@ -306,9 +306,9 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         list.forEach((item, index) => {
             if (item.peso !== 0.0 && item.talla != 0.0 && item.perimetroCefalico !== 0.0) {
                 this.mesesPeso.push([item.dias / 30, item.peso])
-                this.mesesAltura.push([item.dias / 30, item.talla])
+                this.mesesAltura.push([item.dias / 30, item.talla * 100])
                 this.mesesCircunferencia.push([item.dias / 30, item.perimetroCefalico])
-                this.mesesAlturaPeso.push([item.talla, item.peso])
+                this.mesesAlturaPeso.push([item.talla * 100, item.peso])
             }
             console.log('list ', this.mesesPeso, this.mesesAlturaPeso, this.mesesAltura, this.mesesCircunferencia)
         })
