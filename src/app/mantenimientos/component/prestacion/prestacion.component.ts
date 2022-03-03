@@ -82,18 +82,37 @@ export class PrestacionComponent implements OnInit {
     }
     if (!this.isUpdate){
       this.prestacionService.postPrestacion(inputRequest).subscribe((resp)=>{
-        this.messageService.add({severity:'success', summary:'Exitoso', detail:'Registro Agregado'});
-        this.getPrestacion();
-        this.openDialog=false;
-        this.prestacionFC.reset();
+        if(resp['cod']=='200'){
+          this.messageService.add({severity:'success', summary:'Exitoso', detail:'Registro Agregado'});
+          this.getPrestacion();
+          this.openDialog=false;
+          this.prestacionFC.reset();
+        }
+        else{
+          this.messageService.add({severity:'warn', summary:'Error', detail:'Ya existe un registro con dicho codigo'});
+          // this.getPrestacion();
+          this.openDialog=false;
+          this.prestacionFC.reset();
+
+        }
+
       })
     }
     else{
       this.prestacionService.putPrestacion(this.prestacion.codigo,inputRequest).subscribe((resp)=>{
-        this.messageService.add({severity:'success', summary:'Exitoso', detail:'Registro Actualizado'});
-        this.getPrestacion();
-        this.openDialog=false;
-        this.prestacionFC.reset();
+        if (resp['cod']=='200'){
+          this.messageService.add({severity:'success', summary:'Exitoso', detail:'Registro Actualizado'});
+          this.getPrestacion();
+          this.openDialog=false;
+          this.prestacionFC.reset();
+        }
+        else{
+          this.messageService.add({severity:'warn', summary:'Error', detail:'Ya existe un registro con dicho codigo'});
+          // this.getPrestacion();
+          this.openDialog=false;
+          this.prestacionFC.reset();
+
+        }
       })
 
     }

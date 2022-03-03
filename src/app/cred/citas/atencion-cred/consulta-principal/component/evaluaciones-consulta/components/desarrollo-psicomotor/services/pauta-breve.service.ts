@@ -26,4 +26,12 @@ export class PautaBreveService {
   putActualizarPBByIdConsulta(idConsulta, dataPB) {
     return this.http.put(`${this.base_url}/${this.bd}/cred/consulta/evaluacion/pautabreve/${idConsulta}`, dataPB);
   }
+  /** PROMISES DE PAUTA BREVE  */
+  getPromisePautaBreveByNroHcl(nroHcl) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/evaluacion/pautabreve/${nroHcl}`)
+      .toPromise()
+      .then(res => <any>res.object)
+      .then(data => { return data; })
+      .catch(error => { return error });
+  }
 }

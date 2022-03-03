@@ -51,7 +51,7 @@ export class FillDataGraphService {
         } else if (measurementUnits.xAxis === 'trimestre') {
             valueSeriesEcharts[0]['markLine'] = this.getMarkLineTrimestre()
         }
-        console.log('data ', valueSeriesEcharts)
+        console.log('valueSeriesEcharts ', valueSeriesEcharts)
         return valueSeriesEcharts
     }
 

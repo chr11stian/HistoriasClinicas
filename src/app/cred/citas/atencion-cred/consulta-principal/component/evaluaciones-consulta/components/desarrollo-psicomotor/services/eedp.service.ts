@@ -44,4 +44,11 @@ export class EedpService {
       .then(data => { return data; })
       .catch(error => { return error.error });
   }
+  getPromiseEEDPxNroHcl(nroHcl: string) {
+    return this.http.get<any>(`${this.base_url}/${this.bd}/cred/planintegral/evaluacion/eedp/${nroHcl}`)
+      .toPromise()
+      .then(res => <any>res.object)
+      .then(data => { return data; })
+      .catch(error => { return error.error });
+  }
 }

@@ -99,6 +99,10 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
     dataPaciente2: any;
     Gestacion: any;
     idGestacion: string;
+    DetalleParto: string;
+    DetalleParto2: string;
+    DetalleParto3: string;
+    DetalleParto4: string;
 
     constructor(private form: FormBuilder,
                 private filiancionService: FiliancionService,
@@ -348,20 +352,54 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         }
     }
 
+    limpiarDetalleParto() {
+        this.CeroOTres = '';
+        this.MayorDosMilQuinientos = '';
+        this.Multiple = '';
+        this.MayorTrentaSemanas = '';
+    }
+
     ceroOmmas() {
-        this.CeroOTres = 'X';
+        this.CeroOTres = '✓';
     }
 
     ceroMayorDosMil() {
-        this.MayorDosMilQuinientos = 'X';
+        this.MayorDosMilQuinientos = '✓';
     }
 
     Multiple1() {
-        this.Multiple = 'X';
+        this.Multiple = '✓';
     }
 
     TrentaSiete() {
-        this.MayorTrentaSemanas = 'X';
+        this.MayorTrentaSemanas = '✓';
+    }
+
+    detalleParto() {
+        if (this.CeroOTres == '✓') {
+            this.DetalleParto = '0 ó + 3';
+        } else {
+            this.DetalleParto = '';
+        }
+
+        if (this.MayorDosMilQuinientos == '✓') {
+            this.DetalleParto2 = '< 2500g';
+        } else {
+            this.DetalleParto2 = '';
+        }
+        if (this.Multiple == '✓') {
+            this.DetalleParto3 = 'Múltiple';
+        } else {
+            this.DetalleParto3 = '';
+        }
+        if (this.MayorTrentaSemanas == '✓') {
+            this.DetalleParto4 = '< 37 sem';
+        } else {
+            this.DetalleParto4 = '';
+
+        }
+
+        console.log("DETALLE PARTO", this.DetalleParto)
     }
 
     inicializarAregloAntfamiliares(): void {
@@ -557,6 +595,7 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
         console.log("ZZZZZZZz", this.Ninguno);
         console.log("ZZZZZZZz", this.Abortohabitualrecurrente);
         console.log("annnn", this.antecedentes1);
+        this.detalleParto();
         const req = {
             gestacionAnterior: {
                 fecha: this.formAntecedentes.value.fecha,
@@ -784,14 +823,21 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                     nombre: 'Gestas',
                     valor: this.gestas,
                 },
+            ],
+            detalleParto: [
+                this.DetalleParto,
+                this.DetalleParto2,
+                this.DetalleParto3,
+                this.DetalleParto4,
             ]
+
         }
         console.log("DATA ANTECEDENTES", req)
         this.filiancionService.UpdateAntecedentesFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado, req).subscribe(
             result => {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Registro',
+                    title: 'Registro ',
                     text: 'Fue creado con exito',
                     showConfirmButton: false,
                     timer: 1500,
@@ -823,6 +869,30 @@ export class DatosGeneralesObtetriciaComponent implements OnInit {
                 this.gestas = Number(this.dataAntecedentes.antecedentesObstetricos[9].valor);
                 this.RNmayorPeso = this.dataAntecedentes.rnMayorPeso;
 
+                let detallePart1 = this.dataAntecedentes.detalleParto[0];
+                let detallePart2 = this.dataAntecedentes.detalleParto[1];
+                let detallePart3 = this.dataAntecedentes.detalleParto[2];
+                let detallePart4 = this.dataAntecedentes.detalleParto[3];
+                if (detallePart1 !== '') {
+                    this.CeroOTres = '✓';
+                } else {
+                    this.CeroOTres = '';
+                }
+                if (detallePart2 !== '') {
+                    this.MayorDosMilQuinientos = '✓';
+                } else {
+                    this.MayorDosMilQuinientos = '';
+                }
+                if (detallePart3 !== '') {
+                    this.Multiple = '✓';
+                } else {
+                    this.Multiple = '';
+                }
+                if (detallePart4 !== '') {
+                    this.MayorTrentaSemanas = '✓';
+                } else {
+                    this.MayorTrentaSemanas = '';
+                }
 
                 this.formAntecedentes.get('fecha').setValue(this.dataAntecedentes.gestacionAnterior.fecha);
                 this.formAntecedentes.get('intergenesico').setValue(this.dataAntecedentes.gestacionAnterior.perIntergenesicoAdecuado);

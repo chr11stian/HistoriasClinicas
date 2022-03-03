@@ -1,20 +1,30 @@
 <div class="grid">
+  <p-card class="col-12">
+    <div class="">
+    <span style="font-weight: bold">
+      Mes Actual:
+    </span>{{mesActual}} Meses
+    </div>
+  </p-card>
   <div *ngFor="let mes of inmunizacionesAgrupadas;let i=index" class="col-12">
     <div>
-      <p-fieldset>
-        <ng-template pTemplate="header">
-          Inmunizacion de {{ nombreAgrupacionExtendido(edadMes[i])}}
+      <p-fieldset *ngIf="edadMes[i]<=mesActual" [toggleable]="true" [collapsed]="(collapse[i] && edadMes[i]!=mesActual )" (onBeforeToggle)="collapse[i]=!collapse[i]">
+        <ng-template pTemplate="header" >
+          <div>
+            Inmunizacion del mes {{ (edadMes[i])}}
+          </div>
+          <div class="ml-3" *ngIf="edadMes[i]==mesActual" style="color:#FBC02D;font-weight: bold;font-size: 1.5rem">   Mes Correspondiente</div>
         </ng-template>
         <div class="grid">
-          <div class="col-5 text-center">Nombre de la Vacuna</div>
-          <div class="col-1 text-center">Nro de dosis</div>
-          <div class="col text-center">Fecha Tentativa</div>
-          <div class="col text-center">Fecha Aplicacion</div>
-          <div class="col-2 text-center">Estado</div>
-          <div class="col-1 text-center">Accion</div>
+          <div class="col-3 text-center" style="font-weight: bold">Nombre de la Vacuna</div>
+          <div class="col-1 text-center" style="font-weight: bold">Dosis</div>
+          <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+          <div class="col text-center" style="font-weight: bold">Fecha Aplicacion</div>
+          <div class="col-2 text-center" style="font-weight: bold">Estado</div>
+          <div class="col-1 text-center" style="font-weight: bold">Accion</div>
         </div>
         <div class="grid" *ngFor="let inmunizacion of mes">
-          <div class="col-5 text-center">
+          <div class="col-3 text-center">
             {{nombreVacuna(inmunizacion.descripcion)}}
           </div>
           <div class="col-1 text-center">

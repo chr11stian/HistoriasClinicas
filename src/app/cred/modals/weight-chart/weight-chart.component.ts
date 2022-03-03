@@ -44,11 +44,14 @@ export class WeightChartComponent implements OnInit {
     }
 
     getData(): void {
-        if (this.config.data.isBoy) {
+        this.heightWeightChartService.getDataWeight().subscribe(res => {
+            this.fillData(res['data'])
+        })
+        /*if (this.config.data.isBoy) {
             this.getDataBoy()
         } else {
             this.getDataGirl()
-        }
+        }*/
     }
 
     getDataGirl(): void {

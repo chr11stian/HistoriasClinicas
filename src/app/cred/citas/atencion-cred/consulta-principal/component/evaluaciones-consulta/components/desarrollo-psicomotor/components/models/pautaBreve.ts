@@ -9,11 +9,12 @@ export interface EvaluationPB {
     codigoCIE10: string,
     codigoHIS: string,
     codigoPrestacion: string,
-    evaluacionPautaBreveMes?: {
-        fechaAtencion: string,
-        mesEdad: number,
-        diagnostico: string,
-        docExaminador: string,
-        listaItemPB: AnswerPB[]
-    }
+    evaluacionPautaBreveMes?: PautaBreveMes
+}
+export interface PautaBreveMes {
+    fechaAtencion: string,
+    mesEdad: number,
+    diagnostico: string,
+    docExaminador: string,
+    listaItemPB: AnswerPB[]
 }

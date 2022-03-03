@@ -120,6 +120,11 @@ const menu_geresa = [
             },
             {
                 icon: "pi pi-pw pi-file",
+                label: "Condicion Paciente Discapacidad  ",
+                routerLink: "mantenimientos/antecedentes-paciente",
+            },
+            {
+                icon: "pi pi-pw pi-file",
                 label: "Tipo Contrato",
                 routerLink: "mantenimientos/tipo-contrato",
             },
@@ -451,6 +456,16 @@ const menu_ipress = [
                 icon: "pi pi-file",
                 label: "Unidad ejecutora",
                 routerLink: "mantenimientos/unidad-ejecutora",
+            },
+            {
+                icon: "pi pi-file",
+                label: "Antecedentes Pacientes",
+                routerLink: "mantenimientos/antecedentes-paciente",
+            },
+            {
+                icon: "pi pi-file",
+                label: "Medicamentos",
+                routerLink: "mantenimientos/medicamentos",
             },
         ],
     },
