@@ -25,4 +25,7 @@ export class TarifarioService {
   listarTarifasIpress(idIpress){
     return this.http.get<any>(`${this.base_url}/${this.bd}/tarifa/ipress/${idIpress}`)
   }
+  filtrarTarifasXServicioTipo(request){
+    return this.http.post<any>(`${this.base_url}/${this.bd}/tarifa/ipress/tipo/ups`, request)
+  }
 }

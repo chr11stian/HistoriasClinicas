@@ -19,9 +19,9 @@ export class AtencionesComponent implements OnInit {
 
     form: FormGroup
     atenciones: any[] = [];
-    datosGrafico: any[]=[];
-    datosGraficoAltura: any[]=[];
-    datosGraficoY: any[]=[];
+    datosGrafico: any[] = [];
+    datosGraficoAltura: any[] = [];
+    datosGraficoY: any[] = [];
 
     // isUpdate: boolean = false;
     /**Datos del modal atenciones***/
@@ -30,53 +30,67 @@ export class AtencionesComponent implements OnInit {
     /**Datos a recuperar de la coleccion filiacion**/
     idObstetricia = "";
 
-    cols:any[];
+    cols: any[];
+    Gestacion: any;
 
     constructor(
         private formBuilder: FormBuilder,
         private dialogService: DialogService,
         private messageService: MessageService,
-        private obstetriciaService:ObstetriciaGeneralService,
+        private obstetriciaService: ObstetriciaGeneralService,
         private atencionesService: AtencionesService
     ) {
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
 
-        this.idObstetricia = this.obstetriciaService.idGestacion;
-
+        // this.idObstetricia = this.obstetriciaService.idGestacion;
+        if (this.Gestacion == null) {
+            this.idObstetricia = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+        } else {
+            this.idObstetricia = this.Gestacion.id;
+        }
     }
 
     buildForm() {
-        this.form = this.formBuilder.group({
-
-        })
+        this.form = this.formBuilder.group({})
     }
+
     /***************Recuperar Datos de Atenciones*********************/
-    recuperarDatosAtenciones(){
-        this.atencionesService.getAtencionService(this.idObstetricia).subscribe((res:any)=>{
+    recuperarDatosAtenciones() {
+        this.atencionesService.getAtencionService(this.idObstetricia).subscribe((res: any) => {
             this.atenciones = res.object;
             console.log("atenciones", this.atenciones);
-            if(this.atenciones!=null || this.atenciones!=undefined){
-                this.messageService.add({severity:'info', summary:'Recuperado', detail:'registro recuperado satisfactoriamente'});
-            }
-            else{
-                this.messageService.add({severity:'info', summary:'Recuperado', detail:'no existe registro atenciones'});
+            if (this.atenciones != null || this.atenciones != undefined) {
+                this.messageService.add({
+                    severity: 'info',
+                    summary: 'Recuperado',
+                    detail: 'registro recuperado satisfactoriamente'
+                });
+            } else {
+                this.messageService.add({
+                    severity: 'info',
+                    summary: 'Recuperado',
+                    detail: 'no existe registro atenciones'
+                });
             }
 
         })
     }
+
     /*********Recuperar Datos  para el gráfico Peso Madre*************/
-    recuperarDatosGraficoPesoMadre(){
-        this.atencionesService.getDatosGrafico(this.idObstetricia).subscribe((res:any)=>{
-            this.datosGrafico  =res.obj;
+    recuperarDatosGraficoPesoMadre() {
+        this.atencionesService.getDatosGrafico(this.idObstetricia).subscribe((res: any) => {
+            this.datosGrafico = res.obj;
             console.log(this.datosGrafico);
         })
     }
+
     /*********Recuperar Datos  para el gráfico Peso Madre*************/
-    recuperarDatosGraficoAlturaUterina(){
-        this.atencionesService.getDatosGraficoAlturaUterina(this.idObstetricia).subscribe((res:any)=>{
+    recuperarDatosGraficoAlturaUterina() {
+        this.atencionesService.getDatosGraficoAlturaUterina(this.idObstetricia).subscribe((res: any) => {
             let tamanio = res.object.length;
             let i = 0;
-            while(i<tamanio){
-                this.datosGraficoAltura.push([res.object[i].edadGestacional,res.object[i].alturaUterina]);
+            while (i < tamanio) {
+                this.datosGraficoAltura.push([res.object[i].edadGestacional, res.object[i].alturaUterina]);
                 // this.datosGraficoY.push(res.object[i].alturaUterina)
                 i++;
             }
@@ -86,8 +100,8 @@ export class AtencionesComponent implements OnInit {
     }
 
     /****abrir modal que muestre las atenciones de la paciente  gestante*****/
-    openDialogMostrarAtenciones(row,index){
-        let aux={
+    openDialogMostrarAtenciones(row, index) {
+        let aux = {
             index: index,
             row: row
         }
@@ -102,13 +116,14 @@ export class AtencionesComponent implements OnInit {
         })
         this.ref.onClose.subscribe((data: any) => {
             console.log('datos de modal atenciones ', data)
-            if(data!==undefined) {
-                this.atenciones.splice(data.index, 1,data.row);
-            };
+            if (data !== undefined) {
+                this.atenciones.splice(data.index, 1, data.row);
+            }
+            ;
         })
     }
 
-        // /** grafica segun el tipo de grafico que se le manda tipoGrafico -> opciones: sobrepeso | normal | bajo_peso | obesidad */
+    // /** grafica segun el tipo de grafico que se le manda tipoGrafico -> opciones: sobrepeso | normal | bajo_peso | obesidad */
     graficar(tipoGrafico: string) {
         tipoGrafico = 'sobrepeso'
         let titleModal = ''
@@ -128,8 +143,9 @@ export class AtencionesComponent implements OnInit {
         }
         /* data  tipo de dato:Array<number[]>; ejemplo: [[semana,peso],...] ejmpl2: [[1,1.45],[2,1.46]]*/
         this.openModal([], tipoGrafico, titleModal)
- //** peso - edad gestacional*/
+        //** peso - edad gestacional*/
     }
+
     openModal(data: Array<number[]>, tipoGrafico: string, titleModal: string): void {
         this.ref = this.dialogService.open(PesoEmbarazoUnicoMultipleComponent, {
             data: {
@@ -146,14 +162,15 @@ export class AtencionesComponent implements OnInit {
             },
         })
     }
+
     /************+****grafico grafico Altura uterina********************/
-    graficarAltura(){
+    graficarAltura() {
         let titleModal = 'Grafico Altura Uterina';
-        this.openModalGraficoAltura(this.datosGraficoAltura,titleModal);
+        this.openModalGraficoAltura(this.datosGraficoAltura, titleModal);
 
     }
-    openModalGraficoAltura(data: Array<number[]>, titleModal: string): void
-    {
+
+    openModalGraficoAltura(data: Array<number[]>, titleModal: string): void {
         this.ref = this.dialogService.open(AlturaUterinaComponent, {
             data: {
                 dataPregmant: data
@@ -168,6 +185,7 @@ export class AtencionesComponent implements OnInit {
             },
         })
     }
+
     ///******************************************/
     ngOnInit(): void {
         this.recuperarDatosAtenciones();

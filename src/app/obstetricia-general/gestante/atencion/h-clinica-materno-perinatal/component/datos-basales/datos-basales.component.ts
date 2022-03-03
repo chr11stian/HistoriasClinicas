@@ -59,7 +59,7 @@ export class DatosBasalesComponent implements OnInit {
     ) {
         this.inicalizarForm();
         this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
-        // this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+        /**Data cupos nos permite visualizar funciones vitales del paciente**/
         this.DataCupos = JSON.parse(localStorage.getItem('datacupos'));
 
         console.log("DATA PACIENTE cupos", this.DataCupos);

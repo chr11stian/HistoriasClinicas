@@ -4,17 +4,17 @@
     text-align: center
 }
 p-tabView >>> .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background: #0c3866;
-    border-color: #3b99ff;
+    background: #971919;
+    border-color: #971919;
     color: rgb(255 255 255);
 }
 
 p-tabView >>> .p-tabview .p-tabview-nav li .p-tabview-nav-link {
     border: solid rgb(222 226 230);
     border-width: 0 0 2px 0;
-    border-color: rgb(0 0 0 / 0%) rgb(0 0 0 / 0%) rgb(222 226 230) rgb(0 0 0 / 0%);
+    border-color: rgba(17, 1, 1, 0) rgb(0 0 0 / 0%) rgb(222 226 230) rgba(100, 11, 11, 0);
     background: #ebebeb;
-    color: #0c3866;
+    color: #971919;
     padding: 1rem;
     font-weight: 600;
     border-top-right-radius: 3px;

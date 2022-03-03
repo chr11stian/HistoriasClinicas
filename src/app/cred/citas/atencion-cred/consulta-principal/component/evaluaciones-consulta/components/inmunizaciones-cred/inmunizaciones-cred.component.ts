@@ -22,6 +22,7 @@ export class InmunizacionesCredComponent implements OnInit {
   listaInmunizaciones: inmunizaciones[] = [];
   // listaMeses: number[] = [1, 2, 3, 4, 5, 6, 12, 18, 24, 48];
   inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], [], []];
+  collapse:boolean[] = [true,true,true,true,true,true,true,true,true,true];
   agrupaciones: any[] = [
     { abreviado: "RN", completo: "Recien Nacido" },
     { abreviado: "Menor_1A", completo: "Menor de un Año" },
@@ -37,8 +38,8 @@ export class InmunizacionesCredComponent implements OnInit {
     public dialogService: DialogService
   ) {
     this.data = <dato>JSON.parse(localStorage.getItem('documento'));
-    // this.mesActual=this.data.anio*12+this.data.mes;
-    this.mesActual=18;
+    this.mesActual=this.data.anio*12+this.data.mes;
+    // this.mesActual=96;
     // console.log(this.mesActual)
   }
 
@@ -98,7 +99,9 @@ export class InmunizacionesCredComponent implements OnInit {
     const ref = this.dialogService.open(VacunaComponent, {
       data: vacuna,
       header: `Agregar Vacuna ${nombre} Dosis numero (${vacuna.dosis})`,
-      width: "45%",
+      width: "50%",
+      contentStyle: {"max-height": "500px", "overflow": "auto"},
+      baseZIndex:10000,
     });
     ref.onClose.subscribe((mensaje) => {
       if (mensaje == "agregado") {
