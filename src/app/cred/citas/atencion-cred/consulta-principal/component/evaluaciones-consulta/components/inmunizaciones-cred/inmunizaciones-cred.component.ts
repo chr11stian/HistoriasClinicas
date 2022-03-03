@@ -22,6 +22,7 @@ export class InmunizacionesCredComponent implements OnInit {
   listaInmunizaciones: inmunizaciones[] = [];
   // listaMeses: number[] = [1, 2, 3, 4, 5, 6, 12, 18, 24, 48];
   inmunizacionesAgrupadas = [[], [], [], [], [], [], [], [], [], []];
+  collapse:boolean[] = [true,true,true,true,true,true,true,true,true,true];
   agrupaciones: any[] = [
     { abreviado: "RN", completo: "Recien Nacido" },
     { abreviado: "Menor_1A", completo: "Menor de un Año" },
@@ -38,7 +39,7 @@ export class InmunizacionesCredComponent implements OnInit {
   ) {
     this.data = <dato>JSON.parse(localStorage.getItem('documento'));
     this.mesActual=this.data.anio*12+this.data.mes;
-    // this.mesActual=18;
+    // this.mesActual=96;
     // console.log(this.mesActual)
   }
 
