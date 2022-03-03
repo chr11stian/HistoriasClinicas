@@ -13,7 +13,7 @@
 <div>
     <p-toolbar>
         <ng-template pTemplate="left">
-            <label>ANTECEDENTES OBSTETRICOS</label>
+            <label class="labelBlanco">ANTECEDENTES OBSTETRICOS</label>
         </ng-template>
     </p-toolbar>
     <div class="border">
@@ -242,7 +242,7 @@
                         <rect (click)="inputRNmayorPeso()" x="395" y="245" width="220" height="30" r="5" rx="5" ry="5"
                               fill="none"
                               stroke="#000"
-                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></rect>
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);fill: rgb(255,255,255)"></rect>
                         <text (click)="inputRNmayorPeso()" x="500" y="260" text-anchor="middle"
                               font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
@@ -251,6 +251,21 @@
                             <tspan (click)="inputRNmayorPeso()"
                                    style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="6">R.N
                                 Mayor peso : {{RNmayorPeso}} gr
+                            </tspan>
+                        </text>
+
+                        <rect (click)="limpiarDetalleParto()" x="50" y="230" width="70" height="25" r="5" rx="5" ry="5"
+                              fill="none"
+                              stroke="#000"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); fill: rgb(245,246,250)"></rect>
+                        <text (click)="limpiarDetalleParto()" x="85" y="240" text-anchor="middle"
+                              font="10px &quot;Arial&quot;"
+                              stroke="none" fill="#000000"
+                              style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
+                              font-size="12px">
+                            <tspan (click)="limpiarDetalleParto()"
+                                   style="cursor: pointer; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="6">
+                                Limpiar
                             </tspan>
                         </text>
 
@@ -288,9 +303,7 @@
                               stroke="none" fill="#000000"
                               style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font: 12px Arial;"
                               font-size="12px">
-                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4">0 ó +
-                                3
-                            </tspan>
+                            <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4">0 ó + 3</tspan>
                         </text>
                         <text (click)="ceroOmmas()" x="110" y="110" text-anchor="middle" font="10px &quot;Arial&quot;"
                               stroke="none" fill="#000000"
@@ -369,12 +382,13 @@
                                    style="cursor: pointer;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"
                                    dy="4">{{MayorTrentaSemanas}}</tspan>
                         </text>
+
                     </svg>
                 </div>
             </div>
         </form>
     </div>
-
+    <br>
     <div class="border ">
         <div class="grid m-2">
             <div class="col-12 md:col-6 lg:col-6">
@@ -455,10 +469,10 @@
         <div class="col-12 md:col-6 lg:col-6 p-field">
             <p-toolbar>
                 <ng-template pTemplate="left">
-                    <label>GESTACIÓN ANTERIOR</label>
+                    <label class="labelBlanco">GESTACIÓN ANTERIOR</label>
                 </ng-template>
             </p-toolbar>
-            <div class="border">
+            <div class="border" style="height: 90%">
                 <form [formGroup]='formAntecedentes'>
                     <div class="grid m-2 border">
                         <div class="col-12 md:col-6 lg:col-6 p-field">
@@ -490,6 +504,7 @@
                                                             optionLabel="name"
                                                             optionValue="booleano"
                                                             formControlName="intergenesico"
+                                                            class="amarillo"
                                             ></p-selectButton>
                                         </div>
 
@@ -498,7 +513,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grid m-2 border">
+                    <div class="grid m-2">
                         <div class="col-12 md:col-6 lg:col-4 p-field" style="align-self: start">
                             <div class="border3">
                                 <div class="col-12" style="text-align: right">
@@ -701,11 +716,11 @@
         <div class="col-12 md:col-6 lg:col-6 p-field">
             <p-toolbar>
                 <ng-template pTemplate="left">
-                    <label>ANTECEDENTES FAMILIARES</label>
+                    <label class="labelBlanco">ANTECEDENTES FAMILIARES</label>
                 </ng-template>
             </p-toolbar>
-            <div class="border">
-                <div class="grid m-2 border">
+            <div class="border" style="height: 90%">
+                <div class="grid m-2">
                     <div class="col-12 md:col-6 lg:col-6 p-field" style="align-self: start">
                         <div class="grid ">
                             <div class="col-5" style="text-align: right">
@@ -856,7 +871,6 @@
                             <div class="col-5" style="text-align: right">
                             </div>
                             <div class="col-2">
-
                             </div>
                             <div class="col-5" style="text-align: right">
                                 <label style="color: rgb(77 77 77); text-decoration: underline;">Quien: </label>
@@ -978,7 +992,7 @@
                             </div>
                             <div class="col-2">
                                 <p-checkbox [(ngModel)]="otrosAntecedentesFamiliares2" value="otros"
-                                            class="mt-1"></p-checkbox>
+                                            class="mt-1 default p-radiobuttonColor "></p-checkbox>
                             </div>
                             <div class="col-5">
                                 <input type="text" pInputText [(ngModel)]="otrosAntecedentesFamiliares"
@@ -998,7 +1012,7 @@
         <div class="col-12 md:col-6 lg:col-12 p-field">
             <p-toolbar>
                 <ng-template pTemplate="left">
-                    <label>ANTECEDENTES PERSONALES</label>
+                    <label class="labelBlanco">ANTECEDENTES PERSONALES</label>
                 </ng-template>
             </p-toolbar>
             <div class="border">
@@ -1182,8 +1196,8 @@
                                 <label>Otros: </label>
                             </div>
                             <div class="col-1">
-                                <p-checkbox class="amarillo" [(ngModel)]="otros23" value="otros"
-                                            class="mt-1"></p-checkbox>
+                                <p-checkbox [(ngModel)]="otros23" value="otros"
+                                            class="mt-1 default"></p-checkbox>
                             </div>
                             <div class="col-7">
                                 <input type="text" pInputText [(ngModel)]="otros2"
