@@ -2,6 +2,7 @@ import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder, AbstractControl} from '@angular/forms';
 import {AntecedentesViviendaFormType, AntecedentesViviendaType} from '../../models/antecedentes.interface';
 import {AntecedenteViviendaService} from '../../../../../../services/antecedentes/antecedente-vivienda.service';
+import {dato} from "../../../../../models/data";
 
 @Component({
     selector: 'app-vivienda',
@@ -11,7 +12,9 @@ import {AntecedenteViviendaService} from '../../../../../../services/antecedente
 export class ViviendaComponent implements OnInit {
     @Output() viviendaEmit: EventEmitter<AntecedentesViviendaFormType> = new EventEmitter<AntecedentesViviendaFormType>();
     viviendaFG: FormGroup;
-
+    nroDoc: string = ''
+    attributeLocalS = 'documento'
+    data: dato
     stateOptions: any[];
     datosVivienda: AntecedentesViviendaType[];
 
@@ -22,10 +25,12 @@ export class ViviendaComponent implements OnInit {
         this.buildForm();
         this.stateOptions = [{label: 'SI', value: true},
             {label: 'NO', value: false}];
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.nroDoc = this.data.nroDocumento
     }
 
     async getTablaDatos() {
-        await this.servicioVivienda.getDatosGenerales('11111111')
+        await this.servicioVivienda.getDatosGenerales(this.nroDoc)
             .toPromise().then(res => <AntecedentesViviendaType[]>res['object'])
             .then(data => {
                 this.datosVivienda = data;

@@ -10,6 +10,7 @@
                             class="guardar mr-2" (click)="openTratamiento()" style="background-color: #0c3866"></button>
                 </ng-template>
             </p-toolbar>
+
             <p-table class="table-over" [value]="tratamientos" #dt styleClass="p-datatable-gridlines" [rows]="10"
                      [rowsPerPageOptions]="[10, 25, 50]"
                      [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
@@ -49,101 +50,10 @@
 
             </p-table>
         </div>
-<!--        <div class="col-6 md-4 lg-3">-->
-<!--            <p-toolbar>-->
-<!--                <ng-template pTemplate="left">-->
-<!--                    <span class="p-m-0">Acuerdos y compromisos con la madre y/o cuidador del niño</span>-->
-<!--                </ng-template>-->
-<!--                <ng-template pTemplate="right" class="button">-->
-<!--                    <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"-->
-<!--                            class="guardar mr-2" style="background-color: #0c3866" (click)="openAcuerdo()"></button>-->
-<!--                </ng-template>-->
-<!--            </p-toolbar>-->
-
-<!--            <p-table class="table-over" [value]="acuerdos" #dt styleClass="p-datatable-gridlines" [rows]="10"-->
-<!--                     [rowsPerPageOptions]="[10, 25, 50]"-->
-<!--                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"-->
-<!--                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">-->
-<!--                <ng-template pTemplate="header">-->
-<!--                    <tr>-->
-<!--                        <th style="text-align: center" class="font-2">Nro</th>-->
-<!--                        <th style="text-align: center" class="font-2">ACUERDO</th>-->
-<!--                        <th style="text-align: center" class="font-2">ACCIÓN</th>-->
-<!--                    </tr>-->
-<!--                </ng-template>-->
-<!--                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
-<!--                    <tr>-->
-<!--                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>-->
-<!--                        <td style="text-align: center">{{ rowData.descripcion }}</td>-->
-<!--                        <td style="text-align: center">-->
-<!--                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"-->
-<!--                                    (click)="editarAcuerdo(rowData,rowIndex)" pTooltip="Editar"></button>-->
-<!--                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"-->
-<!--                                    (click)="eliminarAcuerdo(rowIndex)" pTooltip="Eliminar">-->
-<!--                            </button>-->
-<!--                        </td>-->
-<!--                    </tr>-->
-<!--                </ng-template>-->
-<!--            </p-table>-->
-<!--        </div>-->
     </div>
-<!--    <form [formGroup]="form">-->
-<!--        <div class="grid">-->
 
-<!--            <div class="col-6 md-4 lg-3">-->
-<!--                <p-toolbar>-->
-<!--                    <ng-template pTemplate="left">-->
-<!--                        <span class="p-m-0">Evaluación de ojos y presión</span>-->
-<!--                    </ng-template>-->
-<!--                </p-toolbar>-->
-<!--                <div class="grid">-->
-<!--                    <div class="flex col-6 md-4 lg-3 align-items-center">-->
-<!--                        <div class="col-2 md-4 lg-3">-->
-<!--                            <span>OD: </span>-->
-<!--                        </div>-->
-<!--                        <div class="col-10 md-4 lg-3">-->
-<!--                            <p-inputNumber-->
-<!--                                    mode="decimal"-->
-<!--                                    formControlName="OD"-->
-<!--                                    [minFractionDigits]="4" [maxFractionDigits]="4"-->
-<!--                                    class="inputfield w-full"-->
-<!--                                    placeholder="Otros">-->
-<!--                            </p-inputNumber>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="flex col-6 md-4 lg-3 align-items-center">-->
-<!--                        <div class="col-2 md-4 lg-3">-->
-<!--                            <span>OI: </span>-->
-<!--                        </div>-->
-<!--                        <div class="col-10 md-4 lg-3">-->
-<!--                            <p-inputNumber-->
-<!--                                    formControlName="OI"-->
-<!--                                    mode="decimal"-->
-<!--                                    [minFractionDigits]="4" [maxFractionDigits]="4"-->
-<!--                                    class="inputfield w-full"-->
-<!--                                    placeholder="Otros">-->
-<!--                            </p-inputNumber>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-6 md-4 lg-3">-->
-<!--                <p-toolbar>-->
-<!--                    <ng-template pTemplate="left">-->
-<!--                        <span class="p-m-0">Tamisaje en salud mental (VIF)</span>-->
-<!--                    </ng-template>-->
-<!--                </p-toolbar>-->
-<!--                <div class="col-12 justify-content-center">-->
-<!--                    <textarea class="w-full" style="border-radius: 10px" rows="5" pInputTextarea-->
-<!--                              formControlName="textoForm"> </textarea>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </form>-->
     <p-toolbar>
         <ng-template pTemplate="left" >
-<!--            <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-print"-->
-<!--                    class="guardar mr-2" (click)="imprimirReceta()" style="background-color: #0c3866"></button>-->
         </ng-template>
         <ng-template pTemplate="right" class="button">
             <button pButton pRipple label="Imprimir Receta" iconPos="right" icon="pi pi-print"
