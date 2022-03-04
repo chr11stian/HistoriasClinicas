@@ -9,11 +9,6 @@ export class HeightWeightChartService {
     constructor(private http: HttpClient) {
     }
 
-    getDataWeight() {
-        return this.http
-            .get<any>('assets/data/girlsW2.json')
-    }
-
     getDataWeightBoy() {
         return this.http
             .get<any>('assets/data/boy_weight.json')
