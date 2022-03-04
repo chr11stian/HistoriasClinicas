@@ -6,7 +6,7 @@ import {
 import {DatePipe} from "@angular/common";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ControlCrecimientoService} from "../../services/control-crecimiento/control-crecimiento.service"
-import {MessageService} from "primeng/api";
+import {Message, MessageService} from "primeng/api";
 import {ActivatedRoute} from "@angular/router";
 import {WeightChartComponent} from "../../../../../../../modals/weight-chart/weight-chart.component";
 import {HeightChartComponent} from "../../../../../../../modals/height-chart/height-chart.component";
@@ -22,6 +22,7 @@ import {
     inputCrecimiento
 } from "../../../../../../models/data";
 import {ListaConsultaService} from "../../../../../../services/lista-consulta.service";
+import Swal from "sweetalert2";
 
 export interface evaluation {
     "0": number;
@@ -59,6 +60,7 @@ export interface evaluation2 {
 })
 export class CrecimientoEstadoNutricionalComponent implements OnInit {
     edad: number//toma valores -1,0,1,2,3,4,5,6,7,8,9
+    myDisable: boolean = true
     fechaTentativaDisabled: boolean = true
     tallaPesoFG: FormGroup
     display: boolean = false;
@@ -155,6 +157,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         this.builForm();
         //this.calcularEdad();
         this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.sexo = !(this.data.sexo.toLowerCase() === 'femenino')
         this.listar()
         this.datas()
         setTimeout(() => {
@@ -163,6 +166,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     }
 
     guardar() {
+        this.myDisable = false
         let aux1: interfaceCrecimiento = {
             peso: this.sv?.peso,
             talla: this.sv?.talla,
@@ -175,7 +179,11 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             estadoAplicado: true,
             fechaTentativa: this.datePipe.transform(this.auxInterface.fechaTentativa, 'yyyy-MM-dd'),
             fecha: this.datePipe.transform(this.fc, 'yyyy-MM-dd'),
-            dias: this.dias
+            dias: this.dias,
+            diagnosticoPE: this.diagnosticoW,
+            diagnosticoTE: this.diagnosticoH,
+            diagnosticoPT: this.diagnosticoWH,
+            diagnosticoPC: this.diagnosticoC
         }
         let aux: inputCrecimiento = {
             nombreEvaluacion: '',
@@ -184,17 +192,24 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             codigoPrestacion: '',
             controlCrecimientoDesaMes: aux1
         }
-        console.log('He', this.diagnosticoH)
-        console.log('We', this.diagnosticoW)
-        console.log('Ce', this.diagnosticoC)
-        console.log('WH', this.diagnosticoWH)
-        this.controlCrecimientoService.updateControlCrecimiento(this.data.idConsulta, aux).subscribe((r: any) => {
-            console.log(r)
-        })
+        //console.log('He', this.diagnosticoH)
+        //console.log('We', this.diagnosticoW)
+        //console.log('Ce', this.diagnosticoC)
+        //console.log('WH', this.diagnosticoWH)
+        this.controlCrecimientoService.updateControlCrecimiento(this.data.idConsulta, aux).subscribe(
+            (r) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Actualizado correctamente',
+                    text: '',
+                    showConfirmButton: false,
+                    timer: 1500,
+                })
+            })
     }
 
     evaluacion() {
-        //this.calcularDias()
+        this.calcularDias()
         this.controlCrecimientoService.getDataEvaluationHeight(this.data.sexo).subscribe((r: any) => {
             let aux: evaluation | number = r.data[this.dias]
             this.auxEvaluacionH = aux[1]
@@ -282,30 +297,34 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     listar() {
         this.controlCrecimientoService.getControlCrecimiento(this.data.nroDocumento).subscribe((r: any) => {
             this.listaCrecimiento = r.object;
-            console.log('listaCrecimiento ', this.listaCrecimiento)
+            //console.log('listaCrecimiento ', this.listaCrecimiento)
             this.aux = r.object
             this.dataGrafico(this.aux)
-            this.data.anio = 0
-            this.data.mes = 0
-            this.data.dia = 7
-            this.dias = 7
+            //this.data.anio = 0
+            //this.data.mes = 3
+            //this.data.dia = 6
+            //this.dias = 96
             this.returnDescription()
-            console.log('datas', this.nroControl, this.descripcionEdad)
+            //console.log('datas', this.nroControl, this.descripcionEdad)
             this.listAux = this.aux.filter(item => item.descripcionEdad === this.descripcionEdad);
             this.auxInterface = this.listAux.filter(item => item.nroControl === this.nroControl)[0]
-            console.log('lista RN', this.auxInterface);
+            //console.log('lista RN', this.auxInterface);
         })
     }
 
     dataGrafico(list: interfaceCrecimiento[]) {
+        this.mesesCircunferencia = []
+        this.mesesPeso = []
+        this.mesesAltura = []
+        this.mesesAlturaPeso = []
         list.forEach((item, index) => {
             if (item.peso !== 0.0 && item.talla != 0.0 && item.perimetroCefalico !== 0.0) {
-                this.mesesPeso.push([item.dias/30, item.peso])
-                this.mesesAltura.push([item.dias/30, item.talla])
-                this.mesesCircunferencia.push([item.dias/30, item.perimetroCefalico])
-                this.mesesAlturaPeso.push([item.talla, item.peso])
+                this.mesesPeso.push([item.dias / 30, item.peso])
+                this.mesesAltura.push([item.dias / 30, item.talla * 100])
+                this.mesesCircunferencia.push([item.dias / 30, item.perimetroCefalico])
+                this.mesesAlturaPeso.push([item.talla * 100, item.peso])
             }
-            console.log('list ', this.mesesPeso, this.mesesAlturaPeso, this.mesesAltura, this.mesesCircunferencia)
+            //console.log('list ', this.mesesPeso, this.mesesAlturaPeso, this.mesesAltura, this.mesesCircunferencia)
         })
     }
 
@@ -485,158 +504,15 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         }
     }
 
-    calcularEdad() {
-        //calculamos en k periodo de vacunacion se encuentra
-        this.edad = -1;
-    }
-
-    cambioEstado(valor) {
-        console.log('----------------')
-        const recojido = valor.value;
-        this.fechaTentativaDisabled = recojido === 'si' ? true : false
-    }
-
-    /*getPaciente() {
-        this.servicio.getPaciente(this.nroDNI)
-            .toPromise().then((result) => {
-            this.sexo = result.object.formatoFiliacion.datosGeneralesFiliacion.sexo
-        }).catch((err) => {
-            console.log(err)
-        })
-    }*/
-
-    /*getLista() {
-        // this.servicio.getListaControles('47825757')
-        this.servicio.getListaControles(this.nroDNI)
-            .toPromise().then((result) => {
-            this.listaControles = result.object
-            this.paralosGraficos()
-            // console.log('la lista',this.listaControles)
-            this.transform()
-        }).catch((err) => {
-            console.log(err)
-        })
-    }*/
-
-    paralosGraficos() {
-        this.listaControles.forEach((item, index) => {
-            if (item.peso !== 0.0 && item.talla != 0) {
-                if (item.edadMes <= 33) {
-                    this.mesesAlturaPeso.push([item.talla, item.peso])
-                }
-                if (item.edadMes >= 1 && item.edadMes <= 60) {
-                    this.mesesAltura.push([item.edadMes, item.talla]);
-                    this.mesesPeso.push([item.edadMes, item.peso])
-                    this.mesesCircunferencia.push([item.edadMes, item.peso])
-                }
-            }
-        });
-    }
-
-    transform() {
-        //transformacion a un solo formato que se usará
-        this.listaControles.forEach(i => {
-            if (i.fecha === null) {
-                i.fecha = '';
-            }
-            if (i.fechaTentativa === null) {
-                i.fechaTentativa = '';
-            } else {
-                i.fecha = i.fecha.split(' ')[0];
-                i.fechaTentativa = i.fechaTentativa.split(' ')[0];
-                // i.fechaTentativa = this.datePipe.transform(i.fechaTentativa, 'dd-MM-yyyy HH:mm:ss');
-            }
-        })
-        console.log("lista conversa", this.listaControles);
-        this.separacion()
-        // this.determinaEdadPesoTalla();
-    }
-
-    separacion() {
-        //this.RN = this.listaControles.filter(item => item.descripcionEdad === 'RN');
-        // console.log('lista RN',this.RN);
-        this.Menor_1A = this.listaControles.filter(item => item.descripcionEdad === 'Menor_1A')
-        // console.log('lista Menor_1A',this.Menor_1A);
-        this.A1 = this.listaControles.filter(item => item.descripcionEdad === '1A')
-        // console.log('lista A1',this.A1);
-        this.A2 = this.listaControles.filter(item => item.descripcionEdad === '2A')
-        // console.log('lista A2',this.A2);
-        this.A3 = this.listaControles.filter(item => item.descripcionEdad === '3A')
-        // console.log('lista A3',this.A3);
-        this.A4 = this.listaControles.filter(item => item.descripcionEdad === '4A')
-        // console.log('lista A4',this.A4);
-        this.A5 = this.listaControles.filter(item => item.descripcionEdad === '5A')
-        // console.log('lista A5',this.A5);
-        this.A6 = this.listaControles.filter(item => item.descripcionEdad === '6A')
-        // console.log('lista A6',this.A6);
-        this.A7 = this.listaControles.filter(item => item.descripcionEdad === '7A')
-        // console.log('lista A7',this.A7);
-        this.A8 = this.listaControles.filter(item => item.descripcionEdad === '8A')
-        // console.log('lista A8',this.A8);
-        this.A9 = this.listaControles.filter(item => item.descripcionEdad === '9A')
-        // console.log('lista A9',this.A9);
-        console.log('lista general', this.listaControles);
-    }
-
-// getFecha(date: Date) {
-//   if (date.toString() !== '') {
-//     let hora = date.toLocaleTimeString();
-//     let dd = date.getDate();
-//     let dd1:string=dd.toString();
-//     if(dd<10){
-//       dd1='0'+dd;
-//     }
-//     let mm = date.getMonth() + 1;
-//     let mm1:string=mm.toString();
-//     if(mm<10){
-//       mm1='0'+mm;
-//     }
-//     let yyyy = date.getFullYear();
-//     return yyyy + '-' + mm1 + '-' + dd1+' '+hora
-//   } else {
-//     return '';
-//   }
-// }
-    agregarPesoTalla(elemento) {
-        const fechaString = elemento.fechaTentativa
-        console.log(fechaString)
-        this.display = true;
-        this.getFC('fecha').setValue(new Date(`${fechaString} 00:00:00`))
-
-    }
-
-
-    getFC(control
-              :
-              string
-    ):
-        AbstractControl {
-        return this.tallaPesoFG.get(control);
-    }
-
-    cancelar() {
-        this.display = false;
-    }
-
-    save() {
-    }
-
-//
     onWeightChart(): void {
-        // this.determinaEdadPesoTalla();
-        let mesPeso = [
-            [1, 1.5],
-            [2, 2],
-            [3, 3],
-            [4, 4, 2],
-            [5,]
-        ]
+        this.listar()
         const isBoy = this.sexo
         this.ref = this.dialogService.open(WeightChartComponent, {
             data: {
                 dataChild: this.mesesPeso,
                 /* debe ser dataChild:[[mes,peso],..] ejem: dataChild:[[1,4.5],..]  */
-                isBoy: isBoy
+                isBoy: isBoy,
+                diagnostic: this.diagnosticoW
             },
             header: isBoy ? 'GRÁFICA DE PESO DE UN NIÑO' : 'GRÁFICA DE PESO DE UNA NIÑA',
             // width: '90%',
@@ -649,15 +525,15 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         })
     }
 
-    onHeightChart()
-        :
-        void {
+    onHeightChart(): void {
+        this.listar()
         const isBoy = this.sexo
         this.ref = this.dialogService.open(HeightChartComponent, {
             data: {
                 dataChild: this.mesesAltura,
                 /* debe ser dataChild:[[mes,altura],..] ejem: dataChild:[[1,4.5],..]  */
-                isBoy: isBoy
+                isBoy: isBoy,
+                diagnostic: this.diagnosticoH
             },
             header: isBoy ? 'LONGITUD/ESTATURA PARA LOS NIÑOS' : 'LONGITUD/ESTATURA PARA LOS NIÑAS',
             // width: '90%',
@@ -670,15 +546,15 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
         })
     }
 
-    onHeightWeightChart()
-        :
-        void {
+    onHeightWeightChart(): void {
+        this.listar()
         const isBoy = this.sexo
         this.ref = this.dialogService.open(HeightWeightComponent, {
             data: {
                 dataChild: this.mesesAlturaPeso,
                 /* debe ser dataChild:[[altura,peso],..] ejem: dataChild:[[1,4.5],..]  */
-                isBoy: isBoy
+                isBoy: isBoy,
+                diagnostic: this.diagnosticoWH
             },
             header: isBoy ? 'PESO PARA LA LONGITUD NIÑOS' : 'PESO PARA LA LONGITUD NIÑAS',
             // width: '90%',
@@ -686,21 +562,25 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             width: '70%',
             style: {
                 position: 'absolute',
-                top: '17px',
+                top: '17px'
             },
         })
     }
 
-    onCircumferenceChart()
-        :
-        void {
-        // this.determinaEdadPesoTalla();
+    ver() {
+        if (this.myDisable)
+            this.messageService.add({severity: 'error', summary: 'Falta Guardar', detail: 'Guardar la información del Peso, Talla y P. Cefálico'});
+    }
+
+    onCircumferenceChart(): void {
+        this.listar()
         const isBoy = this.sexo
         this.ref = this.dialogService.open(CircumferenceChartComponent, {
             data: {
                 dataChild: this.mesesCircunferencia,
                 /* debe ser dataChild:[[mes,peso],..] ejem: dataChild:[[1,4.5],..]  */
-                isBoy: isBoy
+                isBoy: isBoy,
+                diagnostic: this.diagnosticoC
             },
             header: isBoy ? 'GRÁFICO DEL PERIMETRO CEFÁLIC0 DE UN NIÑO' : 'GRÁFICO DEL PERIMETRO CEFÁLIC0 DE UNA NIÑA',
             // width: '90%',

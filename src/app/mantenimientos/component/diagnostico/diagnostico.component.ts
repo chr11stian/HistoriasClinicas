@@ -21,6 +21,11 @@ export class DiagnosticoComponent implements OnInit {
     {name:"Activado",code:"activado"},
     {name:"Desactivo",code:"desactivado"},
   ]
+  grupo2=[
+    {name:"GRUPO A",code:'GRUPO A'},
+    {name:"GRUPO B",code:'GRUPO B'},
+    {name:"GRUPO C",code:'GRUPO C'}
+  ]
   constructor(private prestacionService:PrestacionService
               ,private ref: DynamicDialogRef
               ,private config: DynamicDialogConfig
