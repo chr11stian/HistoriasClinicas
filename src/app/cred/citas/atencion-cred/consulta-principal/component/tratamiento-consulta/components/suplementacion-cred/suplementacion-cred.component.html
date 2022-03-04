@@ -11,6 +11,8 @@
     <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
     <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
     <div class="col-2 text-center" style="font-weight: bold">Estado</div>
+    <div class="col-1 text-center" style="font-weight: bold">Accion</div>
+
   </div>
   <div class="grid" *ngFor="let sf of SF">
     <div class="col-1 text-center">
@@ -58,6 +60,13 @@
               </span>
       </ng-template>
     </div>
+    <div class="col-1 text-center">
+      <button *ngIf="!sf.estadoAdministrado;" (click)="agregarSuplementacion(sf)" pButton pRipple
+              type="button" icon="pi pi-pencil"
+              pTooltip="Agregar Suplementacion"
+              tooltipPosition="bottom"
+              class="p-button-rounded p-button-warning p-button-outlined"></button>
+    </div>
   </div>
 </p-fieldset>
 <p-fieldset>
@@ -73,6 +82,7 @@
     <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
     <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
     <div class="col-2 text-center" style="font-weight: bold">Estado</div>
+    <div class="col-1 text-center" style="font-weight: bold">Accion</div>
   </div>
   <div class="grid" *ngFor="let mnm of MNM">
     <div class="col-1 text-center">
@@ -119,6 +129,13 @@
                 <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>
               </span>
       </ng-template>
+    </div>
+    <div class="col-1 text-center">
+      <button *ngIf="!mnm.estadoAdministrado;" (click)="agregarSuplementacion(mnm)" pButton pRipple
+              type="button" icon="pi pi-pencil"
+              pTooltip="Agregar Suplementacion"
+              tooltipPosition="bottom"
+              class="p-button-rounded p-button-warning p-button-outlined"></button>
     </div>
   </div>
 </p-fieldset>

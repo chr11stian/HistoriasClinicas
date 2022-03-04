@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { SuplementacionesMicronutrientesService } from '../services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service'
-import { SuplementacionMicronutrientes } from 'src/app/cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model'
-import { DatePipe } from '@angular/common';
-import { MessageService } from 'primeng/api';
+import {SuplementacionMicronutrientes} from "../../../../../plan/component/plan-atencion-integral/models/plan-atencion-integral.model";
+import {DatePipe} from "@angular/common";
+import {SuplementacionesMicronutrientesService} from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
+import {MessageService} from "primeng/api";
+import {SuplementoComponent} from "../suplemento/suplemento.component";
+import { DialogService } from "primeng/dynamicdialog";
 
 @Component({
-  selector: 'app-suplementaciones-micronutrientes',
-  templateUrl: './suplementaciones-micronutrientes.component.html',
-  styleUrls: ['./suplementaciones-micronutrientes.component.css']
+  selector: 'app-suplementacion-cred',
+  templateUrl: './suplementacion-cred.component.html',
+  styleUrls: ['./suplementacion-cred.component.css'],
+  providers: [DialogService],
 })
-export class SuplementacionesMicronutrientesComponent implements OnInit {
+export class SuplementacionCredComponent implements OnInit {
+
   stateOptions: any[];
   expandir: boolean = true;
   listaMicronutrientes: SuplementacionMicronutrientes[] = []
@@ -19,12 +23,13 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
   datePipe = new DatePipe('en-US');
 
   constructor(private servicio: SuplementacionesMicronutrientesService,
-    private messageService: MessageService,) {
+              private messageService: MessageService,
+              public dialogService: DialogService) {
     this.stateOptions = [
       { label: 'SI', optionValue: true },
       { label: 'NO', optionValue: false }
     ];
-    
+
   }
 
   ngOnInit(): void {
@@ -35,11 +40,11 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
   getLista() {
     this.servicio.getListaMicronutrientes('14141414')
       .toPromise().then((result) => {
-        this.listaMicronutrientes = result.object
-        this.transform()
-      }).catch((err) => {
-        console.log(err)
-      })
+      this.listaMicronutrientes = result.object
+      this.transform()
+    }).catch((err) => {
+      console.log(err)
+    })
   }
   transform() {
     //transformacion a un solo formato que se usará
@@ -72,20 +77,27 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
     console.log('lista MMN', this.MNM);
   }
 
-  // saveData() {
-  //   console.log('info before ', this.SF, this.MNM)
-  //   this.SF.forEach(i => {
-  //     i.fecha === null ? i.fecha = '' : i.fecha = this.datePipe.transform(i.fecha, 'yyyy-MM-dd HH:mm:ss');
-  //
-  //   })
-  //   this.MNM.forEach(i => {
-  //     i.fecha === null ? i.fecha = '' : i.fecha = this.datePipe.transform(i.fecha, 'yyyy-MM-dd HH:mm:ss');
-  //   })
-  //   let dataArray = this.SF.concat(this.MNM);
-  //   console.log('data to save ', dataArray);
-  //   this.servicio.putSuplementacionMicronutrientes('47825757', dataArray).subscribe((res: any) => {
-  //     console.log('se guardo');
-  //     this.messageService.add({ severity: 'success', summary: 'Exito', detail: res.mensaje });
-  //   });
-  // }
+  agregarSuplementacion(inmunizacion:SuplementacionMicronutrientes) {
+    const ref = this.dialogService.open(SuplementoComponent, {
+      data: inmunizacion,
+      header: `Agregar Suplementacion ${inmunizacion.descripcion} Dosis numero (${inmunizacion.dosis})`,
+      width: "50%",
+      contentStyle: { "max-height": "500px", overflow: "auto" },
+      baseZIndex: 10000,
+    });
+    ref.onClose.subscribe((mensaje) => {
+      if (mensaje == "agregado") {
+        this.getLista();
+        this.messageService.add({
+          severity: "success",
+          summary: "Exito",
+          detail: "suplementacion Registrada satisfactoriamente",
+        });
+      } else {
+        // this.messageService.add({severity:'error', summary: 'warn', detail:'NO SE registro ninguna inmunizacion'});
+      }
+    });
+  }
+
+
 }
