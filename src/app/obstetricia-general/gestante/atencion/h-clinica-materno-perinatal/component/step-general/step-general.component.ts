@@ -11,7 +11,7 @@ export class StepGeneralComponent implements OnInit {
     selectedOption: data
     items: MenuItem[]
     indiceActivo: number = 0
-    stepName = "datosgeneralesfiliacion"
+    stepName = "nacidos"
 
     constructor() {
         this.options = [
