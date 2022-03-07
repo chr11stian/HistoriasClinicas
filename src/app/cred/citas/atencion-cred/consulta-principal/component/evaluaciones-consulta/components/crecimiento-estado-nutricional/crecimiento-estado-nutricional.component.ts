@@ -6,7 +6,7 @@ import {
 import {DatePipe} from "@angular/common";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ControlCrecimientoService} from "../../services/control-crecimiento/control-crecimiento.service"
-import {MessageService} from "primeng/api";
+import {Message, MessageService} from "primeng/api";
 import {ActivatedRoute} from "@angular/router";
 import {WeightChartComponent} from "../../../../../../../modals/weight-chart/weight-chart.component";
 import {HeightChartComponent} from "../../../../../../../modals/height-chart/height-chart.component";
@@ -60,6 +60,7 @@ export interface evaluation2 {
 })
 export class CrecimientoEstadoNutricionalComponent implements OnInit {
     edad: number//toma valores -1,0,1,2,3,4,5,6,7,8,9
+    myDisable: boolean = true
     fechaTentativaDisabled: boolean = true
     tallaPesoFG: FormGroup
     display: boolean = false;
@@ -165,6 +166,7 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     }
 
     guardar() {
+        this.myDisable = false
         let aux1: interfaceCrecimiento = {
             peso: this.sv?.peso,
             talla: this.sv?.talla,
@@ -303,10 +305,10 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
             //this.data.dia = 6
             //this.dias = 96
             this.returnDescription()
-            console.log('datas', this.nroControl, this.descripcionEdad)
+            //console.log('datas', this.nroControl, this.descripcionEdad)
             this.listAux = this.aux.filter(item => item.descripcionEdad === this.descripcionEdad);
             this.auxInterface = this.listAux.filter(item => item.nroControl === this.nroControl)[0]
-            console.log('lista RN', this.auxInterface);
+            //console.log('lista RN', this.auxInterface);
         })
     }
 
@@ -563,6 +565,11 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
                 top: '17px'
             },
         })
+    }
+
+    ver() {
+        if (this.myDisable)
+            this.messageService.add({severity: 'error', summary: 'Falta Guardar', detail: 'Guardar la información del Peso, Talla y P. Cefálico'});
     }
 
     onCircumferenceChart(): void {

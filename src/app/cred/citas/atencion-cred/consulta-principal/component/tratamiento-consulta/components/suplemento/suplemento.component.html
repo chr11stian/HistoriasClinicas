@@ -1,0 +1,59 @@
+<div >
+  <p-card class="mb-2 ">
+    <div>Descripcion:<strong>{{suplemento.descripcion}}</strong></div>
+    <div>Dosis(Via Oral)<strong>2 mg/kg/dia</strong></div>
+    <div>Frecuencia:<strong>Consumo diario durante 2 meses</strong> </div>
+  </p-card>
+  <div class="grid mt-2" [formGroup]="suplemetancionFG">
+    <div class="col-6 grid">
+      <div class="col-4">Fecha Programa:</div>
+      <div class="col-4 p-fluid">
+        <p-calendar  disabled="true" formControlName="fechaTentativa" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" ></p-calendar>
+      </div>
+    </div>
+    <div class="col-6 grid">
+      <div class="col-4">Fecha Entragada:</div>
+      <div class="col-4 p-fluid">
+        <p-calendar  disabled="true" formControlName="fechaAplicacion" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" ></p-calendar>
+      </div>
+    </div>
+    <div class="col-6 grid">
+      <div class="col-4">Tipo hierro:</div>
+      <div class="col-4 p-fluid">
+        <p-dropdown [options]="tipoHierro" formControlName="hierro" optionLabel="name" optionValue="code" placeholder="Seleccione"></p-dropdown>
+      </div>
+    </div>
+<!--    <div class="col-6 grid">-->
+<!--      <div class="col-4">-->
+<!--        fecha Vencimiento:-->
+<!--      </div>-->
+<!--      <div class="col-4 p-fluid">-->
+<!--        <p-calendar formControlName="fechaVencimiento" [showIcon]="true" inputId="icon" dateFormat="dd/mm/yy" [style]="{'position': 'fixed', 'overflow': 'visible', 'z-index': '999'}" ></p-calendar>-->
+<!--      </div>-->
+<!--    </div>-->
+  </div>
+  <div class="flex justify-content-end mt-5">
+    <button
+            pButton
+            type="button"
+            label="Cerrar"
+            class="p-button-danger p-button px-5 mx-1 text-center p-button-danger "
+            icon="pi pi-times-circle"
+            style="border-radius: 0.5rem"
+            (click)="cancel()"
+    ></button>
+    <button
+            pButton
+              [disabled]="suplemetancionFG.invalid"
+              type="button"
+            label="Guardar"
+            class="p-button-info p-button px-5 mx-1 text-center"
+            icon="pi pi-save"
+            style="border-radius: 0.5rem"
+            (click)="save()"
+    ></button>
+  </div>
+</div>
+<p-confirmDialog [breakpoints]="{'960px': '75vw', '640px': '100vw'}" [style]="{width: '25vw'}" key="claveDialog">
+  Content
+</p-confirmDialog>

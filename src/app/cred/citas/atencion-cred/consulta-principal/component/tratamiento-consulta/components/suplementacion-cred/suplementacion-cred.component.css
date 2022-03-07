@@ -1,6 +1,6 @@
 p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
-  background: #0c3866;
-  border-color: #0c3866;
+    background: #0c3866;
+    border-color: #0c3866;
 }
 /*p-calendar >>> .p-button {*/
 /*  background: #0c3866;*/
@@ -8,12 +8,12 @@ p-selectbutton >>> .p-selectbutton .p-button.p-highlight {
 /*  align-self: center;*/
 /*}*/
 :host::ng-deep .vacunado .p-calendar .p-button {
-  background: #689F38;
-  border: 1px solid #689F38;
-  align-self: center;
+    background: #689F38;
+    border: 1px solid #689F38;
+    align-self: center;
 }
 :host::ng-deep .noVacunado .p-calendar .p-button {
-  background: #FBC02D;
-  border: 1px solid #FBC02D;
-  align-self: center;
+    background: #FBC02D;
+    border: 1px solid #FBC02D;
+    align-self: center;
 }

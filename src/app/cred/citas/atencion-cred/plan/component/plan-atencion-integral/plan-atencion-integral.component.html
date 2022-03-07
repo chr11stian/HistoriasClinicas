@@ -1,21 +1,33 @@
 <p-tabView>
     <p-tabPanel header="INMUNIZACIONES">
-        <app-inmunizaciones></app-inmunizaciones>
+        <ng-template pTemplate="content">
+            <app-inmunizaciones></app-inmunizaciones>
+        </ng-template>
     </p-tabPanel>
     <p-tabPanel header="CONTROL DE CRECIMIENTO">
-        <app-control-crecimiento></app-control-crecimiento>
+        <ng-template pTemplate="content">
+            <app-control-crecimiento></app-control-crecimiento>
+        </ng-template>
     </p-tabPanel>
-    <p-tabPanel header="SUPLEMENTACIONES CON SF MICRONUTRIENTES">
-        <app-suplementaciones-micronutrientes></app-suplementaciones-micronutrientes>
+    <p-tabPanel header="SUPLEMENTACIONES">
+        <ng-template pTemplate="content">
+            <app-suplementaciones-micronutrientes></app-suplementaciones-micronutrientes>
+        </ng-template>
     </p-tabPanel>
     <p-tabPanel header="TRATAMIENTO Y SEGUIMIENTO DE ANEMIA">
-        <app-tratamiento-seguimiento-anemia></app-tratamiento-seguimiento-anemia>
+        <ng-template pTemplate="content">
+            <app-tratamiento-seguimiento-anemia></app-tratamiento-seguimiento-anemia>
+        </ng-template>
     </p-tabPanel>
     <p-tabPanel header="SESIONES DE ATENCION TEMPRANA">
-        <app-sesiones-atencion-temprana></app-sesiones-atencion-temprana>
+        <ng-template pTemplate="content">
+            <app-sesiones-atencion-temprana></app-sesiones-atencion-temprana>
+        </ng-template>
     </p-tabPanel>
     <p-tabPanel header="MAS DESCARTES">
-        <app-descartes></app-descartes>
+        <ng-template pTemplate="content">
+            <app-descartes></app-descartes>
+        </ng-template>
     </p-tabPanel>
 </p-tabView>
 

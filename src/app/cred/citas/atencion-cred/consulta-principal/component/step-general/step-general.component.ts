@@ -192,7 +192,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                 this.indiceActivo = 5;
                 break;
             case 'tratamiento':
-                this.tratamientoConsulta.save()
+                // this.tratamientoConsulta.save()
                 this.stepName = 'finalizar';
                 this.indiceActivo = 6;
                 break;
@@ -241,7 +241,7 @@ export class StepGeneralComponent implements OnInit, DoCheck {
                     this.finalizarConsulta.save()
                     break
                 case 5:
-                    this.tratamientoConsulta.save()
+                    //this.tratamientoConsulta.save()
                     break
                 case 4:
                     // this.diagnosticoConsulta.save()
