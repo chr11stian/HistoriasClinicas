@@ -12,27 +12,38 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   addExamDialog: boolean = false;
   formExamenAux: FormGroup;
   isUpdate: boolean = false;
-  listaExamenes: string[] = [
-    'TEST DE GRAHAM',
-    'DOSAJE DE HEMOGLOBINA',
-    'PARASITO SERIADO',
+  listaExamenes: Examen[] = [
+    { tipoExam: 1, nombreExam: 'TEST DE GRAHAM' },
+    { tipoExam: 2, nombreExam: 'DOSAJE DE HEMOGLOBINA' },
+    { tipoExam: 1, nombreExam: 'PARASITO SERIADO' },
   ];
-  listaLugares: string[] = [
-    'CONSULTORIO',
-    'LABORATORIO'
+  listaLugares: Lugar[] = [
+    { index: 1, lugarLab: 'CONSULTORIO' },
+    { index: 2, lugarLab: 'LABORATORIO' }
   ]
   dataExamenesAuxiliares: Laboratorio;
   isLabo: boolean = false;
-  laboResults: ResultadoLaboratorio = {};
+  laboResults: ResultadoLaboratorio = {
+    examenMacroscopico: {},
+    examenMicroscopico: {
+      huevosDe: {},
+      quistesDe: {},
+      trofozoitosDe: {},
+      larvasDe: {}
+    },
+  };
   examFFF: string;
+  /**ngModels */
+  resultado: string;
+  examLab: Examen = {};
+  lugarLab: Lugar = {};
 
   constructor(
     private fb: FormBuilder,
   ) {
     this.inicializarForm();
-    // this.laboResults = {
-    //   hemoglobina: ''
-    // }
+    console.log('lista de examenes ', this.listaExamenes);
+    console.log('lista de lugares ', this.listaLugares);
   }
 
   ngOnInit(): void {
@@ -49,20 +60,37 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
 
   }
   openAddExamDialog() {
+    this.listaExamenes = [];
+    this.listaLugares = [];
     this.formExamenAux.reset();
     this.addExamDialog = true;
+    this.laboResults = {
+      examenMacroscopico: {},
+      examenMicroscopico: {
+        huevosDe: {},
+        quistesDe: {},
+        trofozoitosDe: {},
+        larvasDe: {}
+      },
+    };;
   }
 
   agreeAddExamDialog() {
-    let dataExam = {
-      nombreExam: this.formExamenAux.value.nombreExamen,
-      lugarExam: this.formExamenAux.value.lugarExam,
-      resultado: this.formExamenAux.value.resultados
-    }
-    this.listaExamenesAux.push(dataExam);
+    console.log('data de models ', this.examLab.nombreExam, 'lugar lab ', this.lugarLab);
+    this.listaExamenesAux.push(this.laboResults);
     this.listaExamenesAux = [...this.listaExamenesAux];
     this.addExamDialog = false;
-    console.log('objeto de resultados ', this.laboResults);
+    let auxExamAux = {
+      tipoLaboratorio: "EXAMEN_LABORATORIO",
+      subTipo: '',
+      nombreExamen: '',
+      codigo: '',
+      codPrestacion: '',
+      cie10: '',
+      codigoHIS: '',
+      resultado: []
+    }
+    console.log('objeto de resultados ', this.laboResults, 'lista de examenes aux ', this.listaExamenesAux);
   }
 
   deleteExamItem(index) {
@@ -90,10 +118,21 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       servicio: 'CRED',
       nroCama: '',
       dxPresuntivo: '',
-      observaciones: ''
+      examenesAuxiliares: this.listaExamenesAux,
+      observaciones: '',
+      // CIE10:
     }
   }
   saveAuxiliars() {
-    console.log('data to send ', this.listaExamenesAux)
+    console.log('data to send ', this.listaExamenesAux);
   }
+}
+
+interface Examen {
+  tipoExam?: number,
+  nombreExam?: string
+}
+interface Lugar {
+  index?: number,
+  lugarLab?: string
 }
