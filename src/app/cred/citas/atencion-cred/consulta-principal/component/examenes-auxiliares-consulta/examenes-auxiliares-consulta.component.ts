@@ -60,8 +60,10 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
 
   }
   openAddExamDialog() {
-    this.listaExamenes = [];
-    this.listaLugares = [];
+    // this.listaExamenes = [];
+    // this.listaLugares = [];
+    this.examLab = {};
+    this.lugarLab = {};
     this.formExamenAux.reset();
     this.addExamDialog = true;
     this.laboResults = {
