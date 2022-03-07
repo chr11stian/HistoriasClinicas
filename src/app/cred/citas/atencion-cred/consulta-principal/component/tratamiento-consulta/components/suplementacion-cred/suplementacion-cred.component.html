@@ -14,7 +14,7 @@
     <div class="col-1 text-center" style="font-weight: bold">Accion</div>
 
   </div>
-  <div class="grid" *ngFor="let sf of SF">
+  <div class="grid" *ngFor="let sf of SF" [ngStyle]="{'background-color':sf.edadMes==edadMes? 'rgba(175,0,23,0.4)' : 'white' }">
     <div class="col-1 text-center">
       {{sf.edadMes}}
     </div>
@@ -84,7 +84,7 @@
     <div class="col-2 text-center" style="font-weight: bold">Estado</div>
     <div class="col-1 text-center" style="font-weight: bold">Accion</div>
   </div>
-  <div class="grid" *ngFor="let mnm of MNM">
+  <div class="grid" *ngFor="let mnm of MNM" [ngStyle]="{'background-color':mnm.edadMes==edadMes? 'rgba(175,0,23,0.4)' : 'white' }">
     <div class="col-1 text-center">
       {{mnm.edadMes}}
     </div>

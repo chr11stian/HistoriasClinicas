@@ -9,6 +9,7 @@ import {
 } from "@angular/forms";
 import { SuplementacionesMicronutrientesService } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
 import {dato} from "../../../../../../models/data";
+import {ConfirmationService} from "primeng/api";
 
 @Component({
   selector: "app-suplemento",
@@ -39,6 +40,7 @@ export class SuplementoComponent implements OnInit {
   // dosis: string = " 2mg/kg/dia";
   consumoDiario: string = "Consumo diario";
   constructor(
+    public confirmationService:ConfirmationService,
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private SuplementacionService: SuplementacionesMicronutrientesService) {
@@ -87,9 +89,22 @@ export class SuplementoComponent implements OnInit {
         edadMes: this.suplemento.edadMes,
       },
     };
-    this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
-    ).subscribe(() => {
-      this.ref.close("agregado");
+    this.confirmationService.confirm({
+      header: "Confirmación",
+      message: "Esta Seguro que desea guardar suplementacion",
+      icon: "pi  pi-exclamation-triangle ",
+      acceptLabel: "Si",
+      rejectLabel: "No",
+      key:'claveDialog',
+      accept: () => {
+        this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
+        ).subscribe(() => {
+          this.ref.close("agregado");
+        });
+      },
+      reject: () => {
+        // console.log("no se borro");
+      },
     });
   }
   obtenerFecha(fecha: Date) {

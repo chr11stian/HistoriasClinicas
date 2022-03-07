@@ -20,21 +20,24 @@ export class SuplementacionCredComponent implements OnInit {
   SF: SuplementacionMicronutrientes[] = []
   MNM: SuplementacionMicronutrientes[] = []
   valueO: boolean = true;
+  edadMes:number;
 
   dataDocumento:dato
   constructor(private servicio: SuplementacionesMicronutrientesService,
               private messageService: MessageService,
               public dialogService: DialogService) {
+    this.dataDocumento=JSON.parse(localStorage.getItem('documento'))
+    this.edadMes=this.dataDocumento.anio*12+this.dataDocumento.mes
+    this.dni=this.dataDocumento.nroDocumento
+
     this.stateOptions = [
       { label: 'SI', optionValue: true },
       { label: 'NO', optionValue: false }
     ];
-
   }
 
   ngOnInit(): void {
-    this.dataDocumento=JSON.parse(localStorage.getItem('documento'))
-    this.dni=this.dataDocumento.nroDocumento
+
     this.getLista()
 
     console.log('data SF ', this.SF);
@@ -80,6 +83,7 @@ export class SuplementacionCredComponent implements OnInit {
   }
 
   agregarSuplementacion(inmunizacion:SuplementacionMicronutrientes) {
+
     const ref = this.dialogService.open(SuplementoComponent, {
       data: inmunizacion,
       header: `Agregar Suplementacion ${inmunizacion.descripcion} Dosis numero (${inmunizacion.dosis})`,
