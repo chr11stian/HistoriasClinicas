@@ -223,7 +223,7 @@ export class CitasComponent implements OnInit {
         let data = {
             tipoDoc: this.formCitas.value.tipoDoc,
             // nroDoc: this.formCitas.value.nroDoc,
-            nroDoc: '73145986',
+            nroDoc: '46538000',
             fecha: this.datePipe.transform(this.formCitas.value.fechaBusqueda, 'yyyy-MM-dd')
         }
         console.log("DATA DNI", data)

@@ -659,12 +659,12 @@
                     <td style="width:120px; height: 40px;justify-content:center" pEditableColumn [ngClass]="{'fondorojo':edadMeses==5}">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                <p-toggleButton [(ngModel)]="datos.valor5M" onIcon="pi pi-check" [disabled]="edadMeses!=5" [ngClass]="{'debellenar':edadMeses==7,'llenado':edadMeses!=5}"
+                                <p-toggleButton [(ngModel)]="datos.valor5M" onIcon="pi pi-check" [disabled]="edadMeses!=5" [ngClass]="{'debellenar':edadMeses==5,'llenado':edadMeses!=5}"
                                                 offIcon="pi pi-times" ></p-toggleButton>
 
                             </ng-template>
                             <ng-template pTemplate="output">
-                                <p-toggleButton [(ngModel)]="datos.valor5M" onIcon="pi pi-check" [disabled]="edadMeses!=5" [ngClass]="{'debellenar':edadMeses==7,'llenado':edadMeses!=5}"
+                                <p-toggleButton [(ngModel)]="datos.valor5M" onIcon="pi pi-check" [disabled]="edadMeses!=5" [ngClass]="{'debellenar':edadMeses==5,'llenado':edadMeses!=5}"
                                                 offIcon="pi pi-times" ></p-toggleButton>
                             </ng-template>
                         </p-cellEditor>
@@ -918,7 +918,7 @@
                     <td style="width:120px; height: 100px" pEditableColumn>
                         {{datos.valor4M}}
                     </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
+                    <td style="width:120px; height: 100px" pEditableColumn>
                         {{datos.valor5M}}
                     </td>
                     <td style="width:120px; height: 100px" pEditableColumn>
@@ -933,7 +933,7 @@
                     <td style="width:120px; height: 100px" pEditableColumn>
                         {{datos.valor9M}}
                     </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
+                    <td style="width:120px; height: 100px" pEditableColumn>
                         {{datos.valor10M}}
                     </td>
                     <td style="width:120px; height: 100px" pEditableColumn>
@@ -966,7 +966,7 @@
                     <td style="width:120px; height: 100px" pEditableColumn>
                         {{datos.valor30M}}
                     </td>
-                    <td style="width:120px; height: 80px" pEditableColumn>
+                    <td style="width:120px; height: 100px" pEditableColumn>
                         {{datos.valor33M}}
                     </td>
                     <td style="width:120px; height: 100px" pEditableColumn>

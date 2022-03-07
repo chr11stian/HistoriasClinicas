@@ -21,34 +21,22 @@
     </div>
 
 
-    <div class="stepsdemo-content" *ngIf="stepName === 'basales'">
-        <p-card>
-            <ng-template pTemplate="content">
-                <app-datos-basales></app-datos-basales>
-            </ng-template>
-        </p-card>
+    <div class="stepsdemo-conten m-4" *ngIf="stepName === 'basales'">
+        <app-datos-basales></app-datos-basales>
     </div>
 
 
-    <div class="stepsdemo-content" *ngIf="stepName === 'atenciones'">
-        <p-card>
-            <ng-template pTemplate="content">
-                <app-atenciones></app-atenciones>
-            </ng-template>
-        </p-card>
+    <div class="stepsdemo-content m-4" *ngIf="stepName === 'atenciones'">
+        <app-atenciones></app-atenciones>
     </div>
 
 
-    <div class="stepsdemo-content" *ngIf="stepName === 'partos'">
-        <p-card>
-            <ng-template pTemplate="content">
-                <app-partos></app-partos>
-            </ng-template>
-        </p-card>
+    <div class="stepsdemo-content m-4" *ngIf="stepName === 'partos'">
+        <app-partos></app-partos>
     </div>
 
 
-    <div class="stepsdemo-content" *ngIf="stepName === 'nacidos'">
+    <div class="stepsdemo-content m-4" *ngIf="stepName === 'nacidos'">
         <p-card>
             <ng-template pTemplate="content">
                 <app-recien-nacido></app-recien-nacido>
@@ -56,7 +44,7 @@
         </p-card>
     </div>
 
-    <div class="stepsdemo-content" *ngIf="stepName === 'puerperio'">
+    <div class="stepsdemo-content m-4" *ngIf="stepName === 'puerperio'">
         <p-card>
             <ng-template pTemplate="content">
                 <app-puerperio></app-puerperio>
