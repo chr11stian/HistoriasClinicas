@@ -13,6 +13,7 @@ import { IpressRolesComponent } from './ipress-roles/ipress-roles.component';
 import { TabViewComponent } from "./admision/tab-view/tab-view.component";
 import { IpressHorariosComponent } from './ipress-horarios/ipress-horarios.component';
 import { IpressTarifarioComponent } from './ipress-tarifario/ipress-tarifario.component';
+import {IpressFarmaciaComponent} from "./ipress-farmacia/component/ipress-farmacia.component";
 
 const routes: Routes = [
     {
@@ -74,6 +75,11 @@ const routes: Routes = [
         path: "ipress-tarifario",
         component: IpressTarifarioComponent
     },
+    {
+        path: "ipress-farmacia",
+        component: IpressFarmaciaComponent
+    },
+
 
 ];
 

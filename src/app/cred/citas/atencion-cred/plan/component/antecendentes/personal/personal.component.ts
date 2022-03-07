@@ -4,6 +4,7 @@ import {AntecedentesService} from '../../../services/antecedentes/antecedentes.s
 import {AntecedentesPersonalesFormType} from '../../models/antecedentes.interface';
 import Swal from "sweetalert2";
 import {ActivatedRoute, Router} from "@angular/router";
+import {dato} from "../../../../../models/data";
 
 @Component({
     selector: 'app-personal',
@@ -15,10 +16,12 @@ export class PersonalComponent implements OnInit {
 
     stateOptions: any[];
     stateOptions1: any[];
-
     personalFG: FormGroup;
     nroDoc: string = ''
+    attributeLocalS = 'documento'
+    data: dato
     antecedentes: Antecedentes;
+    hayDatos:boolean=false;
 
     constructor(private formBuilder: FormBuilder,
                 private antecedentesService: AntecedentesService,
@@ -30,6 +33,7 @@ export class PersonalComponent implements OnInit {
 
         this.stateOptions1 = [{label: '1m', value: 1},
             {label: '5m', value: 5}];
+
 
     }
 
@@ -97,14 +101,17 @@ export class PersonalComponent implements OnInit {
             this.antecedentes = r.object;
             console.log('object', r.object);
             console.log('antecedentes', this.antecedentes)
+            if(this.antecedentes!=null){this.hayDatos=true}
         })
     }
 
     getQueryParams(): void {
-        this.route.queryParams
-            .subscribe(params => {
-                this.nroDoc = params['nroDoc']
-            })
+        this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+        this.nroDoc = this.data.nroDocumento
+        // this.route.queryParams
+        //     .subscribe(params => {
+        //         this.nroDoc = params['nroDoc']
+        //     })
     }
 
     ngOnInit(): void {
@@ -240,19 +247,33 @@ export class PersonalComponent implements OnInit {
             ],
             otroAntecedentes: this.getFC('detalleOtrosAntP').value
         }
-        this.antecedentesService.updateAntecedentesPersonales(this.nroDoc, aux).subscribe(
-            (resp) => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Actualizado correctamente',
-                    text: '',
-                    showConfirmButton: false,
-                    timer: 1500,
-                })
-            }
-        )
+        if(this.hayDatos==false){
+            this.antecedentesService.addAntecedentesPersonales(this.nroDoc, aux).subscribe(
+                (resp) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Guardo el registro con correctamente',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+            )
+        }
+        else{
+            this.antecedentesService.updateAntecedentesPersonales(this.nroDoc, aux).subscribe(
+                (resp) => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Actualizado correctamente',
+                        text: '',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                }
+            )
+        }
     }
-
     limpiar() {
         this.personalFG.reset();
     }

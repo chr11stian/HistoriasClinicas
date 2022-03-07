@@ -9,10 +9,6 @@ export class AntecedentesService {
     base_url = environment.baseUrl;
     bd = environment.bd;
 
-    //--id
-    tipoDoc: string = "";
-    nroDoc: string = "";
-
     constructor(private http: HttpClient) {
     }
 
@@ -21,6 +17,10 @@ export class AntecedentesService {
     }
 
     updateAntecedentesPersonales(nroDoc, data) {
+        return this.http.put(`${this.base_url}/${this.bd}/cred/antecedentes/personales/${nroDoc}`, data)
+    }
+
+    addAntecedentesPersonales(nroDoc, data) {
         return this.http.post(`${this.base_url}/${this.bd}/cred/antecedentes/personales/${nroDoc}`, data)
     }
 }
