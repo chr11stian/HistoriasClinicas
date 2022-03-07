@@ -23,7 +23,7 @@ export class IpressFarmaciaService {
   }
 
   updateMedicamentoFarmaciaXIpress(idIpress, data) {
-    return this.http.post(`${this.base_url}/${this.bd}/farmacia/actualizar/${idIpress}`,data);
+    return this.http.put(`${this.base_url}/${this.bd}/farmacia/actualizar/${idIpress}`,data);
   }
 
 }

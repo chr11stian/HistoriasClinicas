@@ -83,7 +83,7 @@
                     </td>
                     <td>
                         <span class="p-column-title">Name</span>
-                        {{farmaciaMedicamento.fechaVenc | date: 'dd-MM-yyyy'}}
+                        {{farmaciaMedicamento.fechaVenc | date: 'd-MM-yyyy'}}
                     </td>
                     <td>
                         <span class="p-column-title">Name</span>
@@ -114,10 +114,10 @@
     <form [formGroup]='formDatos'>
         <div class="grid m-2 p-fluid">
             <div class="col-12 p-fluid">
-                <label>Seleccione un Medicamento:</label>
+                <label *ngIf="!estadoEditar">Seleccione un Medicamento:</label>
             </div>
             <div class="col-12 p-fluid">
-                <p-autoComplete  formControlName="medicamento" [virtualScroll]="true" [suggestions]="medicamentosConDatos" [itemSize]="34" (completeMethod)="filterItems($event)" field="medicamento" [dropdown]="true">
+                <p-autoComplete  formControlName="medicamento" *ngIf="!estadoEditar" [virtualScroll]="true" [suggestions]="medicamentosConDatos" [itemSize]="34" (completeMethod)="filterItems($event)" field="medicamento" [dropdown]="true">
                 </p-autoComplete>
             </div>
         </div>
@@ -154,7 +154,7 @@
             </div>
             <div class="col-6">
                 <label class="">Fecha Vencimiento: </label><br>
-                <p-calendar formControlName="fechaVenc" [showIcon]="true" inputId="icon"></p-calendar>
+                <p-calendar formControlName="fechaVenc" [showIcon]="true" inputId="icon" ></p-calendar>
 <!--                <input type="text" pInputText class="inputfield w-full " formControlName="fechaVenc"-->
 <!--                       style="text-transform:uppercase">-->
             </div>
@@ -172,8 +172,15 @@
     <ng-template pTemplate="footer">
         <button pButton type="button"
                 label="Guardar"
+                *ngIf="!estadoEditar"
                 icon="pi pi-save"
                 (click)="closeDialogGuardar()"
+                class="botonGuardar"></button>
+        <button pButton type="button"
+                *ngIf="estadoEditar"
+                label="Editar"
+                icon="pi pi-pencil"
+                (click)="closeEditar()"
                 class="botonGuardar"></button>
         <button pButton type="button"
                 label="Cancelar"

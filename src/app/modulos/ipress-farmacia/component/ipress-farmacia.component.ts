@@ -15,18 +15,18 @@ import Swal from "sweetalert2";
 export class IpressFarmaciaComponent implements OnInit {
   formDatos: FormGroup;
 
-  renipress: "123456";
+  renipress: "";
   idIpress:string="616de45e0273042236434b51";
   nombreRenipress:string;
 
   medicamento:medicamento;
-  itemsFarmacia:items[]=[];
+  itemsFarmacia:itemMedicamentos[]=[];
   items:itemMedicamentos[]=[];
-  medicamentosConDatos:any[]=[];
-  selectedCustomer1: items;
-
+  medicamentosConDatos:cadenaMedicamentos[]=[];
+  selectedCustomer1: itemMedicamentos;
+  estadoEditar:boolean=false;
   datePipe = new DatePipe('en-US');
-
+  idUpdate:string="";
   dialogFarmaciaAdd: boolean=false;
   dialogMedicamentosAdd: boolean=false;
   listaMedicamentos: any;
@@ -91,6 +91,7 @@ export class IpressFarmaciaComponent implements OnInit {
 
   OpenFarmacia() {
     this.formDatos.reset();
+    this.estadoEditar=false;
     this.dialogFarmaciaAdd=true;
   }
 
@@ -107,6 +108,7 @@ export class IpressFarmaciaComponent implements OnInit {
 
   closeDialogGuardar() {
     console.log(this.medicamento);
+    console.log(this.datePipe.transform(this.formDatos.value.fechaVenc, 'dd-MM-yyyy'));
     let cadena:any = {
       medicamento: {
         id: this.formDatos.value.id,
@@ -117,7 +119,8 @@ export class IpressFarmaciaComponent implements OnInit {
         viaAdministracion: this.medicamento.viaAdministracion,
       },
       stock: this.formDatos.value.stock,
-      fechaVenc: this.datePipe.transform(this.formDatos.value.fechaVenc, 'yyyy-MM-dd'),
+      // fechaVenc: this.datePipe.transform(this.formDatos.value.fechaVenc, 'yyyy-MM-dd'),
+      fechaVenc:this.formDatos.value.fechaVenc,
       lote: this.formDatos.value.lote
     }
 
@@ -138,6 +141,7 @@ export class IpressFarmaciaComponent implements OnInit {
       })
     })
     this.dialogFarmaciaAdd=false;
+    this.medicamento={};
   }
 
   filterItems(event: any) {
@@ -153,9 +157,12 @@ export class IpressFarmaciaComponent implements OnInit {
       }
 
     this.medicamentosConDatos = filtered;
-      if(filtered!=null){
-        console.log(filtered[0])
-        this.AutoCompleteDatos(filtered[0].id);
+      if(filtered===null || filtered===undefined || filtered===[]){
+        console.log('no encontrado');
+      }
+      else{
+          console.log(filtered[0])
+          this.AutoCompleteDatos(filtered[0].id);
       }
 
   }
@@ -196,49 +203,58 @@ export class IpressFarmaciaComponent implements OnInit {
   }
 
   editar(farmaciaMedicamento: any,rowIndex) {
+    this.estadoEditar=true;
     console.log("entrando a editar medicamentos",farmaciaMedicamento,rowIndex);
     this.formDatos.reset();
     this.dialogFarmaciaAdd=true;
     this.llenarDatosForm(farmaciaMedicamento);
-    this.items.splice(rowIndex, 1)
+    console.log(farmaciaMedicamento);
+    this.medicamento=farmaciaMedicamento.medicamento;
+  }
+  closeEditar()
+  {
     let cadena:any = {
-      medicamento: {
-        id: this.formDatos.value.id,
-        codigo: this.medicamento.codigo,
-        nombre: this.medicamento.nombre,
-        ff: this.medicamento.ff,
-        concentracion: this.medicamento.concentracion,
-        viaAdministracion: this.medicamento.viaAdministracion,
-      },
+      medicamento: this.medicamento,
       stock: this.formDatos.value.stock,
-      fechaVenc: this.datePipe.transform(this.formDatos.value.fechaVenc, 'yyyy-MM-dd'),
+      fechaVenc:this.formDatos.value.fechaVenc,
       lote: this.formDatos.value.lote
     }
-
-    console.log(cadena);
+    console.log(this.medicamento);
+    var AuxItem = this.items.filter(element=>element.medicamento!=this.medicamento);
+    console.log(AuxItem);
+    this.items=AuxItem;
     this.items.push(cadena);
     let items = {items:this.items}
     this.farmaciaService.updateMedicamentoFarmaciaXIpress(this.renipress,items).subscribe((data:any)=>{
+
       Swal.fire({
         icon: 'success',
-        title: 'Eliminado correctamente',
-        text: '',
-        showConfirmButton: false,
-        timer: 1500
+        title: 'Medicamentos a Farmacia',
+        text: 'Se edito un medicamento!',
+      })
+    },error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Medicamentos a Farmacia',
+        text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
       })
     })
+    this.dialogFarmaciaAdd=false;
+    this.medicamento={};
   }
   llenarDatosForm(rowData){
-    // this.formDatos.get("id").setValue(rowData.id);
-    this.formDatos.get("nombre").setValue(rowData.nombre);
-    this.formDatos.get("codigo").setValue(rowData.codigo);
-    this.formDatos.get("concentracion").setValue(rowData.concentracion);
-    this.formDatos.get("viaAdministracion").setValue(rowData.viaAdministracion);
-    this.formDatos.get("ff").setValue(rowData.ff);
-    this.formDatos.get("fechaVenc").setValue(rowData.fechaVenc);
+    console.log(rowData);
+    this.formDatos.get("nombre").setValue(rowData.medicamento.nombre);
+    this.formDatos.get("codigo").setValue(rowData.medicamento.codigo);
+    this.formDatos.get("concentracion").setValue(rowData.medicamento.concentracion);
+    this.formDatos.get("viaAdministracion").setValue(rowData.medicamento.viaAdministracion);
+    this.formDatos.get("ff").setValue(rowData.medicamento.ff);
     this.formDatos.get("stock").setValue(rowData.stock);
     this.formDatos.get("lote").setValue(rowData.lote);
-
+    let date: Date = new Date(rowData.fechaVenc);
+    date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+    console.log(date)
+    this.formDatos.get("fechaVenc").setValue(date);
   }
   eliminar(farmaciaMedicamento: any,rowIndex) {
     console.log("entrando a editar medicamentos",farmaciaMedicamento,rowIndex);
@@ -268,11 +284,6 @@ export class IpressFarmaciaComponent implements OnInit {
 }
 
 interface medicamento{
-  created_at?:string,
-  created_by?:string,
-  modified_at?:string,
-  modified_by?:string,
-  deleted?:boolean,
   id?:string,
   codigo?:string,
   nombre?:string,
@@ -282,9 +293,7 @@ interface medicamento{
 }
 
 interface items{
-  created_at?:string,
-  created_by?:string,
-  deleted?:boolean,
+
   medicamento?:medicamento,
   stock?:number,
   fechaVenc?:string,
@@ -295,4 +304,8 @@ interface itemMedicamentos{
   stock?:number,
   fechaVenc?:string,
   lote?:string
+}
+interface cadenaMedicamentos{
+  id?:string,
+  medicamento?:string
 }
