@@ -16,4 +16,15 @@ export class AntecedenteViviendaService {
   getDatosGenerales(dni:string){
     return this.http.get(`${this.base_url}/${this.bd}/cred/antecedentes/vivienda/saneamiento/listar/${dni}`);
   }
+
+  addAntecedentesVivienda(dni:string,data){
+    return this.http.post(`${this.base_url}/${this.bd}/cred/antecedentes/vivienda/saneamiento/agregar/${dni}`,data);
+  }
+
+  updateAntecedentesVivienda(dni:string,data){
+    return this.http.put(`${this.base_url}/${this.bd}/cred/antecedentes/vivienda/saneamiento/modificar/${dni}`,data);
+  }
+
+
+
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, AbstractControl } from '@angular/forms';
 import { AntecedenteFamiliarService } from 'src/app/cred/services/antecedentes/antecedente-familiar.service';
 import { AntecedentesFamiliaresFormType, AntecedentesFamiliaresType } from '../../models/antecedentes.interface';
+import {dato} from "../../../../../models/data";
 
 @Component({
   selector: 'app-familiar',
@@ -11,7 +12,9 @@ import { AntecedentesFamiliaresFormType, AntecedentesFamiliaresType } from '../.
 export class FamiliarComponent implements OnInit {
   @Output() familiarEmit: EventEmitter<AntecedentesFamiliaresFormType> = new EventEmitter<AntecedentesFamiliaresFormType>();
   familiarFG: FormGroup;
-
+  nroDoc: string = ''
+  attributeLocalS = 'documento'
+  data: dato
   familiares: any[];
   stateOptions: any[];
 
@@ -29,10 +32,12 @@ export class FamiliarComponent implements OnInit {
                             {name: 'Abuelo', code: 'A'},
                             {name: 'Otro', code: 'T'}
                         ];
+    this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
+    this.nroDoc = this.data.nroDocumento
   }
 
   async getTablaDatos() {
-    await this.familiarServicio.getDatosGenerales('11111111')
+    await this.familiarServicio.getDatosGenerales(this.nroDoc)
     .toPromise().then(res => <AntecedentesFamiliaresType[]> res['object'])
     .then(data => {
         this.datosFamiliares = data;

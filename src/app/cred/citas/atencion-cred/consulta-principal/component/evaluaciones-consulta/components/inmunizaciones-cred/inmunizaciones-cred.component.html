@@ -1,15 +1,15 @@
 <div class="grid">
-  <p-card class="col-7">
+  <p-card class="col-12">
     <div class="">
     <span style="font-weight: bold">
       Mes Actual:
     </span>{{mesActual}} Meses
     </div>
   </p-card>
-  <div *ngFor="let mes of inmunizacionesAgrupadas;let i=index" class="col-7">
+  <div *ngFor="let mes of inmunizacionesAgrupadas;let i=index" class="col-12">
     <div>
-      <p-fieldset *ngIf="edadMes[i]<=mesActual" [toggleable]="true" [collapsed]="edadMes[i]!=mesActual">
-        <ng-template pTemplate="header">
+      <p-fieldset *ngIf="edadMes[i]<=mesActual" [toggleable]="true" [collapsed]="(collapse[i] && edadMes[i]!=mesActual )" (onBeforeToggle)="collapse[i]=!collapse[i]">
+        <ng-template pTemplate="header" >
           <div>
             Inmunizacion del mes {{ (edadMes[i])}}
           </div>

@@ -1,0 +1,146 @@
+<div class="p-card">
+  <div class="grid">
+    <div class="col-12 md-12 lg-12">
+      <p-toolbar>
+        <ng-template pTemplate="left">
+          <span class="p-m-0">TRATAMIENTO</span>
+        </ng-template>
+        <ng-template pTemplate="right" class="button">
+          <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"
+                  class="guardar mr-2" (click)="openTratamiento()" style="background-color: #0c3866"></button>
+        </ng-template>
+      </p-toolbar>
+      <p-table class="table-over" [value]="tratamientos" #dt styleClass="p-datatable-gridlines" [rows]="10"
+               [rowsPerPageOptions]="[10, 25, 50]"
+               [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"
+               currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="text-align: center" class="font-2">Nro</th>
+            <th style="text-align: center" class="font-2">COD.</th>
+            <th style="text-align: center" class="font-2">NOMBRE</th>
+            <th style="text-align: center" class="font-2">FF</th>
+            <th style="text-align: center" class="font-2">CONCENTRACION</th>
+            <th style="text-align: center" class="font-2">VIA ADMINISTRACION</th>
+            <th style="text-align: center" class="font-2">CANTIDAD</th>
+            <th style="text-align: center" class="font-2">DOSIS</th>
+            <th style="text-align: center" class="font-2">INTERVALO</th>
+            <th style="text-align: center" class="font-2">DURACION</th>
+            <th style="text-align: center" class="font-2">FECHA VENCIMIENTO</th>
+            <th style="text-align: center" class="font-2">INDICACIONES</th>
+            <th style="text-align: center" class="font-2">DX RELACIONADO</th>
+
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+          <tr>
+            <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+            <td style="text-align: center">{{ rowData.medicamento.codigo }}</td>
+            <td style="text-align: center">{{ rowData.medicamento.nombre }}</td>
+            <td style="text-align: center">{{ rowData.medicamento.ff }}</td>
+            <td style="text-align: center">{{ rowData.medicamento.concentracion  }}</td>
+            <td style="text-align: center">{{ rowData.medicamento.viaAdministracion }}</td>
+            <td style="text-align: center">{{ rowData.cantidad }}</td>
+            <td style="text-align: center">{{ rowData.dosis }}</td>
+            <td style="text-align: center">{{ rowData.intervalo }}</td>
+            <td style="text-align: center">{{ rowData.duracion }}</td>
+            <td style="text-align: center">{{ rowData.fechaVenc }}</td>
+            <td style="text-align: center">Efectos Medicamento: + " " +{{ rowData.indicaciones.efectosMedicameto}}<br>
+                      + " " +Intrucciones: + " " +{{ rowData.indicaciones.intrucciones}}<br>
+                      + " " +Advertencias: + " " +{{ rowData.indicaciones.advertencias}}<br>
+                      + " " +Otras indicaciones: + " " +{{ rowData.indicaciones.otrasIndicaciones}}</td>
+            <td style="text-align: center">
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
+                      (click)="editarTratamiento(rowData,rowIndex)" pTooltip="Editar"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
+                      (click)="eliminarTratamiento(rowIndex)" pTooltip="Eliminar">
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+
+  <p-toolbar>
+    <ng-template pTemplate="left" >
+
+    </ng-template>
+    <ng-template pTemplate="right" class="button">
+      <button pButton pRipple label="Imprimir Receta" iconPos="right" icon="pi pi-print"
+              class="guardar mr-2" (click)="imprimirReceta()" style="background-color: #0c3866"></button>
+    </ng-template>
+  </p-toolbar>
+</div>
+
+<!-- Dialog Tratamiento --->
+<p-dialog header="TRATAMIENTO" [(visible)]="dialogTratamiento" [modal]="true" [style]="{width: '40%'}"
+          [draggable]="false" [resizable]="false">
+
+  <form [formGroup]='formTratamiento'>
+    <div class="p-grid p-fluid">
+      <div class="p-col-6 p-md-4 p-lg-3">
+        <label>Codigo:</label>
+        <input type="text" style="border-radius: 10px" pInputText placeholder="codigo"
+               required/>
+      </div>
+      <div class="p-col-6 p-md-4 p-lg-3">
+        <label>Descripción:</label>
+        <input type="text"  style="border-radius: 10px" pInputText placeholder="descripcion"
+               required />
+      </div>
+      <div class="p-col-6 p-md-4 p-lg-3">
+        <label>Dosis:</label>
+        <input type="text" style="border-radius: 10px" pInputText  placeholder="dosis"
+               required />
+      </div>
+      <div class="p-col-6 p-md-4 p-lg-3">
+        <label>Via Admin.</label>
+        <div class="p-field">
+          <p-dropdown  inputId="dropdown" [options]="viaadministracionList"   placeholder="seleccionar" optionLabel="label" optionValue="value"
+                       defaultLabel="Seleccione:" >
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="p-col-6 p-md-4 p-lg-3">
+        <label>Frecuencia</label>
+        <div class="p-field">
+          <p-dropdown  inputId="dropdown" [options]="intervaloList"
+                       placeholder="seleccionar" optionLabel="label" optionValue="value"
+                       defaultLabel="Seleccione:" >
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="p-col-6 p-md-4 p-lg-3">
+        <label>Lote:</label>
+        <input type="text" style="border-radius: 10px" pInputText  placeholder="lote"
+               required />
+      </div>
+      <div class="p-col-6 p-md-4 p-lg-3">
+        <label>Fecha Vencimiento</label>
+        <div class="p-field">
+          <input type="date" style="border-radius: 10px" pInputText
+                 required />
+        </div>
+      </div>
+      <br>
+
+      <div class="p-col-6 p-md-4 p-lg-3">
+                 <span class="p-float-label">
+<!--                 <label>Ind. Adicional:</label>-->
+                <textarea style="border-radius: 10px" id="indAdicional" rows="5" cols="30" pInputTextarea formControlName="textoTratamiento"> </textarea>
+                <label for="indAdicional">Ind. Adicional:</label>
+                </span>
+      </div>
+    </div>
+  </form>
+  <ng-template pTemplate="footer">
+    <button pButton type="button" label="Cancelar" class="button-cancelar"
+            icon="pi pi-times" (click)="cancelTratamiento()"></button>
+    <button class="button-agregar" icon="pi pi-save" pButton type="button"
+            label="Guardar" (click)="saveTratamiento()"></button>
+
+  </ng-template>
+
+</p-dialog>
