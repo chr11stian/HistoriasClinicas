@@ -18,25 +18,38 @@
           <tr>
             <th style="text-align: center" class="font-2">Nro</th>
             <th style="text-align: center" class="font-2">COD.</th>
-            <th style="text-align: center" class="font-2">DESCRIPCION</th>
-            <th style="text-align: center" class="font-2">PRESENTACIÓN</th>
-            <th style="text-align: center" class="font-2">VIA ADMINISTRACIÓN</th>
+            <th style="text-align: center" class="font-2">NOMBRE</th>
+            <th style="text-align: center" class="font-2">FF</th>
+            <th style="text-align: center" class="font-2">CONCENTRACION</th>
+            <th style="text-align: center" class="font-2">VIA ADMINISTRACION</th>
+            <th style="text-align: center" class="font-2">CANTIDAD</th>
             <th style="text-align: center" class="font-2">DOSIS</th>
-            <th style="text-align: center" class="font-2">LOTE</th>
-            <th style="text-align: center" class="font-2">FECHA VENC.</th>
-            <th style="text-align: center" class="font-2">ACCIÓN</th>
+            <th style="text-align: center" class="font-2">INTERVALO</th>
+            <th style="text-align: center" class="font-2">DURACION</th>
+            <th style="text-align: center" class="font-2">FECHA VENCIMIENTO</th>
+            <th style="text-align: center" class="font-2">INDICACIONES</th>
+            <th style="text-align: center" class="font-2">DX RELACIONADO</th>
+
+
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
           <tr>
             <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
-            <td style="text-align: center">{{ rowData.codigoItem }}</td>
-            <td style="text-align: center">{{ rowData.descripcion }}</td>
-            <td style="text-align: center">{{ rowData.nroDosis }}</td>
-            <td style="text-align: center">{{ rowData.viaAdministracion }}</td>
-            <td style="text-align: center">{{ rowData.frecuencia }}</td>
-            <td style="text-align: center">{{ rowData.Lote }}</td>
-            <td style="text-align: center">{{ rowData.fechaVencimiento }}</td>
+            <td style="text-align: center">{{ rowData.medicamento.codigo }}</td>
+            <td style="text-align: center">{{ rowData.medicamento.nombre }}</td>
+            <td style="text-align: center">{{ rowData.medicamento.ff }}</td>
+            <td style="text-align: center">{{ rowData.medicamento.concentracion  }}</td>
+            <td style="text-align: center">{{ rowData.medicamento.viaAdministracion }}</td>
+            <td style="text-align: center">{{ rowData.cantidad }}</td>
+            <td style="text-align: center">{{ rowData.dosis }}</td>
+            <td style="text-align: center">{{ rowData.intervalo }}</td>
+            <td style="text-align: center">{{ rowData.duracion }}</td>
+            <td style="text-align: center">{{ rowData.fechaVenc }}</td>
+            <td style="text-align: center">Efectos Medicamento: + " " +{{ rowData.indicaciones.efectosMedicameto}}<br>
+                      + " " +Intrucciones: + " " +{{ rowData.indicaciones.intrucciones}}<br>
+                      + " " +Advertencias: + " " +{{ rowData.indicaciones.advertencias}}<br>
+                      + " " +Otras indicaciones: + " " +{{ rowData.indicaciones.otrasIndicaciones}}</td>
             <td style="text-align: center">
               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"
                       (click)="editarTratamiento(rowData,rowIndex)" pTooltip="Editar"></button>
@@ -49,101 +62,10 @@
 
       </p-table>
     </div>
-    <!--        <div class="col-6 md-4 lg-3">-->
-    <!--            <p-toolbar>-->
-    <!--                <ng-template pTemplate="left">-->
-    <!--                    <span class="p-m-0">Acuerdos y compromisos con la madre y/o cuidador del niño</span>-->
-    <!--                </ng-template>-->
-    <!--                <ng-template pTemplate="right" class="button">-->
-    <!--                    <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-circle"-->
-    <!--                            class="guardar mr-2" style="background-color: #0c3866" (click)="openAcuerdo()"></button>-->
-    <!--                </ng-template>-->
-    <!--            </p-toolbar>-->
 
-    <!--            <p-table class="table-over" [value]="acuerdos" #dt styleClass="p-datatable-gridlines" [rows]="10"-->
-    <!--                     [rowsPerPageOptions]="[10, 25, 50]"-->
-    <!--                     [paginator]="true" [autoLayout]="true" [showCurrentPageReport]="true"-->
-    <!--                     currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} entradas">-->
-    <!--                <ng-template pTemplate="header">-->
-    <!--                    <tr>-->
-    <!--                        <th style="text-align: center" class="font-2">Nro</th>-->
-    <!--                        <th style="text-align: center" class="font-2">ACUERDO</th>-->
-    <!--                        <th style="text-align: center" class="font-2">ACCIÓN</th>-->
-    <!--                    </tr>-->
-    <!--                </ng-template>-->
-    <!--                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">-->
-    <!--                    <tr>-->
-    <!--                        <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>-->
-    <!--                        <td style="text-align: center">{{ rowData.descripcion }}</td>-->
-    <!--                        <td style="text-align: center">-->
-    <!--                            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary m-1"-->
-    <!--                                    (click)="editarAcuerdo(rowData,rowIndex)" pTooltip="Editar"></button>-->
-    <!--                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"-->
-    <!--                                    (click)="eliminarAcuerdo(rowIndex)" pTooltip="Eliminar">-->
-    <!--                            </button>-->
-    <!--                        </td>-->
-    <!--                    </tr>-->
-    <!--                </ng-template>-->
-    <!--            </p-table>-->
-    <!--        </div>-->
-  </div>
-  <!--    <form [formGroup]="form">-->
-  <!--        <div class="grid">-->
-
-  <!--            <div class="col-6 md-4 lg-3">-->
-  <!--                <p-toolbar>-->
-  <!--                    <ng-template pTemplate="left">-->
-  <!--                        <span class="p-m-0">Evaluación de ojos y presión</span>-->
-  <!--                    </ng-template>-->
-  <!--                </p-toolbar>-->
-  <!--                <div class="grid">-->
-  <!--                    <div class="flex col-6 md-4 lg-3 align-items-center">-->
-  <!--                        <div class="col-2 md-4 lg-3">-->
-  <!--                            <span>OD: </span>-->
-  <!--                        </div>-->
-  <!--                        <div class="col-10 md-4 lg-3">-->
-  <!--                            <p-inputNumber-->
-  <!--                                    mode="decimal"-->
-  <!--                                    formControlName="OD"-->
-  <!--                                    [minFractionDigits]="4" [maxFractionDigits]="4"-->
-  <!--                                    class="inputfield w-full"-->
-  <!--                                    placeholder="Otros">-->
-  <!--                            </p-inputNumber>-->
-  <!--                        </div>-->
-  <!--                    </div>-->
-  <!--                    <div class="flex col-6 md-4 lg-3 align-items-center">-->
-  <!--                        <div class="col-2 md-4 lg-3">-->
-  <!--                            <span>OI: </span>-->
-  <!--                        </div>-->
-  <!--                        <div class="col-10 md-4 lg-3">-->
-  <!--                            <p-inputNumber-->
-  <!--                                    formControlName="OI"-->
-  <!--                                    mode="decimal"-->
-  <!--                                    [minFractionDigits]="4" [maxFractionDigits]="4"-->
-  <!--                                    class="inputfield w-full"-->
-  <!--                                    placeholder="Otros">-->
-  <!--                            </p-inputNumber>-->
-  <!--                        </div>-->
-  <!--                    </div>-->
-  <!--                </div>-->
-  <!--            </div>-->
-  <!--            <div class="col-6 md-4 lg-3">-->
-  <!--                <p-toolbar>-->
-  <!--                    <ng-template pTemplate="left">-->
-  <!--                        <span class="p-m-0">Tamisaje en salud mental (VIF)</span>-->
-  <!--                    </ng-template>-->
-  <!--                </p-toolbar>-->
-  <!--                <div class="col-12 justify-content-center">-->
-  <!--                    <textarea class="w-full" style="border-radius: 10px" rows="5" pInputTextarea-->
-  <!--                              formControlName="textoForm"> </textarea>-->
-  <!--                </div>-->
-  <!--            </div>-->
-  <!--        </div>-->
-  <!--    </form>-->
   <p-toolbar>
     <ng-template pTemplate="left" >
-      <!--            <button pButton pRipple label="Agregar" iconPos="right" icon="pi pi-plus-print"-->
-      <!--                    class="guardar mr-2" (click)="imprimirReceta()" style="background-color: #0c3866"></button>-->
+
     </ng-template>
     <ng-template pTemplate="right" class="button">
       <button pButton pRipple label="Imprimir Receta" iconPos="right" icon="pi pi-print"
@@ -160,24 +82,23 @@
     <div class="p-grid p-fluid">
       <div class="p-col-6 p-md-4 p-lg-3">
         <label>Codigo:</label>
-        <input type="text" style="border-radius: 10px" pInputText formControlName='codigoItem' placeholder="codigo"
+        <input type="text" style="border-radius: 10px" pInputText placeholder="codigo"
                required/>
       </div>
       <div class="p-col-6 p-md-4 p-lg-3">
         <label>Descripción:</label>
-        <input type="text"  style="border-radius: 10px" pInputText formControlName='descripcion' placeholder="descripcion"
+        <input type="text"  style="border-radius: 10px" pInputText placeholder="descripcion"
                required />
       </div>
       <div class="p-col-6 p-md-4 p-lg-3">
         <label>Dosis:</label>
-        <input type="text" style="border-radius: 10px" pInputText formControlName='dosis' placeholder="dosis"
+        <input type="text" style="border-radius: 10px" pInputText  placeholder="dosis"
                required />
       </div>
       <div class="p-col-6 p-md-4 p-lg-3">
         <label>Via Admin.</label>
         <div class="p-field">
-          <p-dropdown  inputId="dropdown" [options]="viaadministracionList" formControlName="viaAdministracion"
-                       placeholder="seleccionar" optionLabel="label" optionValue="value"
+          <p-dropdown  inputId="dropdown" [options]="viaadministracionList"   placeholder="seleccionar" optionLabel="label" optionValue="value"
                        defaultLabel="Seleccione:" >
           </p-dropdown>
         </div>
@@ -185,7 +106,7 @@
       <div class="p-col-6 p-md-4 p-lg-3">
         <label>Frecuencia</label>
         <div class="p-field">
-          <p-dropdown  inputId="dropdown" [options]="intervaloList" formControlName="frecuencia"
+          <p-dropdown  inputId="dropdown" [options]="intervaloList"
                        placeholder="seleccionar" optionLabel="label" optionValue="value"
                        defaultLabel="Seleccione:" >
           </p-dropdown>
@@ -193,13 +114,13 @@
       </div>
       <div class="p-col-6 p-md-4 p-lg-3">
         <label>Lote:</label>
-        <input type="text" style="border-radius: 10px" pInputText formControlName='lote' placeholder="lote"
+        <input type="text" style="border-radius: 10px" pInputText  placeholder="lote"
                required />
       </div>
       <div class="p-col-6 p-md-4 p-lg-3">
         <label>Fecha Vencimiento</label>
         <div class="p-field">
-          <input type="date" style="border-radius: 10px" pInputText formControlName='fechaVencimiento'
+          <input type="date" style="border-radius: 10px" pInputText
                  required />
         </div>
       </div>
@@ -219,28 +140,6 @@
             icon="pi pi-times" (click)="cancelTratamiento()"></button>
     <button class="button-agregar" icon="pi pi-save" pButton type="button"
             label="Guardar" (click)="saveTratamiento()"></button>
-
-  </ng-template>
-</p-dialog>
-
-<!-- Dialog Acuerdo --->
-<p-dialog header="ACUERDO" [(visible)]="dialogAcuerdos" [modal]="true" [style]="{width: '40%'}"
-          [draggable]="false" [resizable]="false">
-
-  <form [formGroup]='formAcuerdos'>
-    <div class="grid">
-      <div class="col-12 justify-content-center">
-                    <textarea style="border-radius: 10px" id="indAdicionala" rows="5" cols="90" pInputTextarea
-                              formControlName="textoAcuerdo"> </textarea>
-
-      </div>
-    </div>
-  </form>
-  <ng-template pTemplate="footer">
-    <button pButton type="button" label="Cancelar" class="button-cancelar"
-            icon="pi pi-times" (click)="cancelAcuerdo()"></button>
-    <button class="button-agregar" icon="pi pi-save" pButton type="button"
-            label="Guardar" (click)="saveAcuerdo()"></button>
 
   </ng-template>
 

@@ -155,3 +155,8 @@ p-radiobutton >>> .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled)
 }
 
 
+label {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-weight: bold;*/
+  color: rgb(135 135 135);
+}
