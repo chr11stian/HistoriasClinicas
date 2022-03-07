@@ -8,6 +8,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { SuplementacionesMicronutrientesService } from "../../../../../plan/component/plan-atencion-integral/services/suplementaciones-micronutrientes/suplementaciones-micronutrientes.service";
+import {dato} from "../../../../../../models/data";
 
 @Component({
   selector: "app-suplemento",
@@ -15,6 +16,8 @@ import { SuplementacionesMicronutrientesService } from "../../../../../plan/comp
   styleUrls: ["./suplemento.component.css"],
 })
 export class SuplementoComponent implements OnInit {
+  idConsulta:string
+  dataDocumento:dato;
   suplemento: SuplementacionMicronutrientes;
   suplemetancionFG: FormGroup;
   repositorioSF: any[] = [
@@ -38,13 +41,15 @@ export class SuplementoComponent implements OnInit {
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    private SuplementacionService: SuplementacionesMicronutrientesService
-  ) {
+    private SuplementacionService: SuplementacionesMicronutrientesService) {
+    this.dataDocumento=JSON.parse(localStorage.getItem('documento'))
     this.build();
     this.suplemento = this.config.data;
     this.getSuplemtancion();
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.idConsulta=this.dataDocumento.idConsulta;
+  }
   build() {
     this.suplemetancionFG = new FormGroup({
       fechaTentativa: new FormControl("", Validators.required),
@@ -82,9 +87,7 @@ export class SuplementoComponent implements OnInit {
         edadMes: this.suplemento.edadMes,
       },
     };
-    this.SuplementacionService.PostSuplementacion(
-      "6220faa7de66de66da819c08",
-      requestInput
+    this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
     ).subscribe(() => {
       this.ref.close("agregado");
     });

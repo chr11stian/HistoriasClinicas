@@ -5,7 +5,7 @@ import {SuplementacionesMicronutrientesService} from "../../../../../plan/compon
 import {MessageService} from "primeng/api";
 import {SuplementoComponent} from "../suplemento/suplemento.component";
 import { DialogService } from "primeng/dynamicdialog";
-
+import {dato} from "../../../../../../models/data";
 @Component({
   selector: 'app-suplementacion-cred',
   templateUrl: './suplementacion-cred.component.html',
@@ -13,15 +13,15 @@ import { DialogService } from "primeng/dynamicdialog";
   providers: [DialogService],
 })
 export class SuplementacionCredComponent implements OnInit {
-
+  dni:string
   stateOptions: any[];
   expandir: boolean = true;
   listaMicronutrientes: SuplementacionMicronutrientes[] = []
   SF: SuplementacionMicronutrientes[] = []
   MNM: SuplementacionMicronutrientes[] = []
   valueO: boolean = true;
-  datePipe = new DatePipe('en-US');
 
+  dataDocumento:dato
   constructor(private servicio: SuplementacionesMicronutrientesService,
               private messageService: MessageService,
               public dialogService: DialogService) {
@@ -33,12 +33,14 @@ export class SuplementacionCredComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dataDocumento=JSON.parse(localStorage.getItem('documento'))
+    this.dni=this.dataDocumento.nroDocumento
     this.getLista()
 
     console.log('data SF ', this.SF);
   }
   getLista() {
-    this.servicio.getListaMicronutrientes('14141414')
+    this.servicio.getListaMicronutrientes(this.dni)
       .toPromise().then((result) => {
       this.listaMicronutrientes = result.object
       this.transform()

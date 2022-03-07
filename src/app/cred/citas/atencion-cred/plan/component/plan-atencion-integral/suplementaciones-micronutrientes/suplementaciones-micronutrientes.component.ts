@@ -3,6 +3,7 @@ import { SuplementacionesMicronutrientesService } from '../services/suplementaci
 import { SuplementacionMicronutrientes } from 'src/app/cred/citas/atencion-cred/plan/component/plan-atencion-integral/models/plan-atencion-integral.model'
 import { DatePipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
+import {dato} from "../../../../../models/data";
 
 @Component({
   selector: 'app-suplementaciones-micronutrientes',
@@ -17,9 +18,12 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
   MNM: SuplementacionMicronutrientes[] = []
   valueO: boolean = true;
   datePipe = new DatePipe('en-US');
-
+  dataDocumento:dato
+  nroDni:string;
   constructor(private servicio: SuplementacionesMicronutrientesService,
     private messageService: MessageService,) {
+    this.dataDocumento=JSON.parse(localStorage.getItem('documento'))
+    this.nroDni=this.dataDocumento.nroDocumento;
     this.stateOptions = [
       { label: 'SI', optionValue: true },
       { label: 'NO', optionValue: false }
@@ -33,7 +37,7 @@ export class SuplementacionesMicronutrientesComponent implements OnInit {
     console.log('data SF ', this.SF);
   }
   getLista() {
-    this.servicio.getListaMicronutrientes('14141414')
+    this.servicio.getListaMicronutrientes(this.nroDni)
       .toPromise().then((result) => {
         this.listaMicronutrientes = result.object
         this.transform()
