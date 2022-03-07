@@ -38,81 +38,82 @@ export class TamizajesComponent implements OnInit {
   ngOnInit(): void {
     this.data = <dato>JSON.parse(localStorage.getItem(this.attributeLocalS));
     this.recuperarTamizajeBD();
+
   }
   builForm() {
     this.formTamizajeAuditivo=this.formBuilder.group({
-      prematuro:new FormControl(false),
-      uci:new FormControl(false),
-      billirubina: new FormControl(false),
-      perdidaAudicion:new FormControl(false),
-      infeccionOido:new FormControl(false),
-      meningitis:new FormControl(false),
-      expuestoSonido:new FormControl(false),
-      diagnosticoAuditivo:new FormControl(''),
-      tamizajeAuditivo:new FormControl('')
+      prematuro:new FormControl({value:"", disabled: true}),
+      uci:new FormControl({value:"", disabled: true}),
+      billirubina: new FormControl({value:"", disabled: true}),
+      perdidaAudicion:new FormControl({value:"", disabled: true}),
+      infeccionOido:new FormControl({value:"", disabled: true}),
+      meningitis:new FormControl({value:"", disabled: true}),
+      expuestoSonido:new FormControl({value:"", disabled: true}),
+      diagnosticoAuditivo:new FormControl({value:"", disabled: true}),
+      tamizajeAuditivo:new FormControl({value:"", disabled: true})
     });
     this.formTamizajeVIF=this.formBuilder.group({
       /***otras preguntas***/
-      hayViolencia: new FormControl('no'),
-      alguienInsulta:new FormControl('no'),
-      alguienGolpea:new FormControl('no'),
-      alguienChantajea:new FormControl('no'),
-      obligaRS:new FormControl('no'),
-      quienObligaRS:new FormControl(''),
-      hijoFacil:new FormControl('dificil'),
-      pierdeControl: new FormControl('no'),
-      pega: new FormControl('no'),
-      grita: new FormControl('no'),
-      encierra: new FormControl('no'),
-      empuja: new FormControl('no'),
-      esDesobediente:new FormControl('no'),
+      hayViolencia: new FormControl({value:"", disabled: true}),
+      alguienInsulta:new FormControl({value:"", disabled: true}),
+      alguienGolpea:new FormControl({value:"", disabled: true}),
+      alguienChantajea:new FormControl({value:"", disabled: true}),
+      obligaRS:new FormControl({value:"", disabled: true}),
+      quienObligaRS:new FormControl({value:"", disabled: true}),
+      hijoFacil:new FormControl({value:"", disabled: true}),
+      pierdeControl: new FormControl({value:"", disabled: true}),
+      pega: new FormControl({value:"", disabled: true}),
+      grita: new FormControl({value:"", disabled: true}),
+      encierra: new FormControl({value:"", disabled: true}),
+      empuja: new FormControl({value:"", disabled: true}),
+      esDesobediente:new FormControl({value:"", disabled: true}),
       /******fisico*****/
-      tieneHematomas: new FormControl('no'),
-      tieneCicatrices: new FormControl('no'),
-      tieneFacturas: new FormControl('no'),
-      tieneMarcas: new FormControl('no'),
-      tieneLesiones: new FormControl('no'),
-      tieneLaceraciones: new FormControl('no'),
-      tieneQuejasCronicas: new FormControl('no'),
-      tieneProblemasApetito: new FormControl('no'),
-      tieneEnuresis: new FormControl('no'),
+      tieneHematomas: new FormControl({value:"", disabled: true}),
+      tieneCicatrices: new FormControl({value:"", disabled: true}),
+      tieneFacturas: new FormControl({value:"", disabled: true}),
+      tieneMarcas: new FormControl({value:"", disabled: true}),
+      tieneLesiones: new FormControl({value:"", disabled: true}),
+      tieneLaceraciones: new FormControl({value:"", disabled: true}),
+      tieneQuejasCronicas: new FormControl({value:"", disabled: true}),
+      tieneProblemasApetito: new FormControl({value:"", disabled: true}),
+      tieneEnuresis: new FormControl({value:"", disabled: true}),
       /***psicologico***/
-      tieneFalta: new FormControl('no'),
-      tieneTristeza: new FormControl('no'),
-      tieneRetraimiento: new FormControl('no'),
-      tieneLlanto: new FormControl('no'),
-      tieneNecesidad: new FormControl('no'),
-      tieneDemanda: new FormControl('no'),
-      tieneAgresividad: new FormControl('no'),
-      tieneTartamudeo: new FormControl('no'),
-      tieneTemor: new FormControl('no'),
-      Roba: new FormControl('no'),
-      tieneAutismo: new FormControl('no'),
-      llegaTarde: new FormControl('no'),
-      bajoRendimiento: new FormControl('no'),
-      seAisla: new FormControl('no'),
-      intentaSuicidio: new FormControl('no'),
+      tieneFalta: new FormControl({value:"", disabled: true}),
+      tieneTristeza: new FormControl({value:"", disabled: true}),
+      tieneRetraimiento: new FormControl({value:"", disabled: true}),
+      tieneLlanto: new FormControl({value:"", disabled: true}),
+      tieneNecesidad: new FormControl({value:"", disabled: true}),
+      tieneDemanda: new FormControl({value:"", disabled: true}),
+      tieneAgresividad: new FormControl({value:"", disabled: true}),
+      tieneTartamudeo: new FormControl({value:"", disabled: true}),
+      tieneTemor: new FormControl({value:"", disabled: true}),
+      Roba: new FormControl({value:"", disabled: true}),
+      tieneAutismo: new FormControl({value:"", disabled: true}),
+      llegaTarde: new FormControl({value:"", disabled: true}),
+      bajoRendimiento: new FormControl({value:"", disabled: true}),
+      seAisla: new FormControl({value:"", disabled: true}),
+      intentaSuicidio: new FormControl({value:"", disabled: true}),
       /***negligencia***/
-      faltaPeso: new FormControl('no'),
-      noVacunado: new FormControl('no'),
-      tieneAccidentes: new FormControl('no'),
-      esDescuidado: new FormControl('no'),
-      faltaEstimulacion: new FormControl('no'),
-      tieneFatiga:new FormControl('no'),
+      faltaPeso: new FormControl({value:"", disabled: true}),
+      noVacunado: new FormControl({value:"", disabled: true}),
+      tieneAccidentes: new FormControl({value:"", disabled: true}),
+      esDescuidado: new FormControl({value:"", disabled: true}),
+      faltaEstimulacion: new FormControl({value:"", disabled: true}),
+      tieneFatiga:new FormControl({value:"", disabled: true}),
 
       /****sexuales*****/
-      conductaInapropiada: new FormControl('no'),
-      tieneIrritacion: new FormControl('no'),
-      tieneEnfermedad: new FormControl('no'),
+      conductaInapropiada: new FormControl({value:"", disabled: true}),
+      tieneIrritacion: new FormControl({value:"", disabled: true}),
+      tieneEnfermedad: new FormControl({value:"", disabled: true}),
       /**diagnostico vif**/
-      diagnosticoVIF:new FormControl('no'),
-      tamizajeMental: new FormControl(''),
+      diagnosticoVIF:new FormControl({value:"", disabled: true}),
+      tamizajeMental: new FormControl({value:"", disabled: true}),
     });
     this.formTamizajeVisual=this.formBuilder.group({
-      ojoDerecho: new FormControl(0),
-      ojoIzquierdo: new FormControl(0),
-      descripcionTamizajeOcular: new FormControl(''),
-      diagnosticoVisual:new FormControl('')
+      ojoDerecho: new FormControl({value:0, disabled: true}),
+      ojoIzquierdo: new FormControl({value:0, disabled: true}),
+      descripcionTamizajeOcular: new FormControl({value:"", disabled: true}),
+      diagnosticoVisual:new FormControl({value:"", disabled: true})
     })
   }
   async recuperarTamizajeBD(){
@@ -127,9 +128,9 @@ export class TamizajesComponent implements OnInit {
       this.formTamizajeVisual.reset();
       this.formTamizajeVIF.reset();
       this.formTamizajeAuditivo.reset();
-      this.formTamizajeVIF.disabled;
-      this.formTamizajeVisual.disabled;
-      this.formTamizajeAuditivo.disabled;
+      this.formTamizajeVIF.disable();
+      this.formTamizajeVisual.disable();
+      this.formTamizajeAuditivo.disable();
       this.displayMaximizable=true;
       this.tamizajeService.searchTamizaje(id).subscribe((res: any) => {
         console.log(res.object);

@@ -47,7 +47,7 @@ export class PartosComponent implements OnInit {
             this.idGestacion = this.Gestacion.id;
         }
 
-        this.idGestacion = obstetriciaGeneralService.idGestacion;
+        // this.idGestacion = obstetriciaGeneralService.idGestacion;
 
 
         console.log('id paciente parto:', this.idGestacion);
@@ -257,7 +257,7 @@ export class PartosComponent implements OnInit {
             },
             proceso: 'parto'
         }
-
+        console.log("PARTOS o ABORTOS", partoAbortoInput)
         this.partoAbortoService.addUpdatePartoAborto(this.idGestacion, partoAbortoInput).subscribe((resp) => {
             if (resp['cod'] == '2007') {
                 this.messageService.add({

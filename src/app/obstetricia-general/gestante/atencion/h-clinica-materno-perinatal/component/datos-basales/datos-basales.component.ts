@@ -661,21 +661,24 @@ export class DatosBasalesComponent implements OnInit {
     }
 
     calcularIMC() {
+        // this.fecha = this.datePipe.transform(this.formCuposListar.value.fechaBusqueda, 'yyyy-MM-dd')
         let today = new Date().getTime();
         let auxFUM = new Date(this.form.value.dateFUM).getTime();
+        console.log("FECHA", auxFUM);
         auxFUM = auxFUM + 0;
         console.log('auxFUM ', auxFUM, 'today ', today);
         let auxWeek = today - auxFUM;
         this.edadGestacional = auxWeek / (1000 * 60 * 60 * 24);
         let semanasGestacional = Math.trunc(this.edadGestacional / 7);
-        let alturaMetros = (this.form.value.talla) / 100;
+        let redondearDecimal = Math.round(this.form.value.talla)
+        let alturaMetros = redondearDecimal / 100;
         let diasGestacional = Math.trunc(this.edadGestacional % 7);
         let rptaClasific: any;
         let pesoActual = this.form.value.pesoActual;
         let rptaRecomendaciones: any;
         let pesoHabitual;
         let imcAux;
-
+        console.log("METROS", alturaMetros)
         if (semanasGestacional < 13) {
             this.imcService.getClasificacionEstadoNutricionalByTalla(alturaMetros).subscribe((res: any) => {
                 // rptaClasific = res;
@@ -745,6 +748,8 @@ export class DatosBasalesComponent implements OnInit {
             console.log('es mayor a 13 semanas ', semanasGestacional);
             this.imcService.getClasificacionEstadoNutricionalByTallaSemanas(semanasGestacional, alturaMetros * 100).subscribe((res: any) => {
                 rptaClasific = res.object.edadGestacionalP10P90[0];
+                console.log('es mddsdsds ', rptaClasific);
+
                 if (pesoActual < rptaClasific.p10) {
 
                     this.imcService.getGananciaBajoPeso(semanasGestacional).subscribe((res: any) => {
