@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { ObstetriciaGeneralService } from "../../../../../services/obstetricia-general.service";
 import { ConsultasService } from "../../services/consultas.service";
@@ -13,6 +13,7 @@ import { MessageService } from "primeng/api";
     styleUrls: ['./datos-generales.component.css']
 })
 export class DatosGeneralesComponent implements OnInit {
+
     formDatos_Generales: FormGroup;
     formAntecedentes: FormGroup;
 
@@ -99,35 +100,43 @@ export class DatosGeneralesComponent implements OnInit {
     tipoDocRecuperado: string;
     nroDocRecuperado: string;
     nroEmbarazo: string;
+    nroHcl: string;
 
     Gestacion: any;
     dataPaciente2: any;
+    estadoEdicion: Boolean;
+
+    nroAtencion:any;
+
     constructor(private form: FormBuilder,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
         private consultasService: ConsultasService,
         private filiancionService: FiliancionService,
         private messageService: MessageService,) {
 
-            this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
         this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
 
-        console.log("DATA PACIENTE 2", this.dataPaciente2);
+        //estado para saber que estado usar en consultas
+        this.estadoEdicion=JSON.parse(localStorage.getItem('consultaEditarEstado'));
+
+        console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+        console.log("gestacion desde datos generales", this.Gestacion);
 
         if (this.Gestacion == null) {
             this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
             this.nroDocRecuperado = this.dataPaciente2.nroDoc;
             this.idConsultoriObstetrico = JSON.parse(localStorage.getItem('idGestacionRegistro'));
-
+            this.nroEmbarazo = this.dataPaciente2.nroEmbarazo;
+            this.nroHcl = this.dataPaciente2.nroHcl;
 
         } else {
             this.tipoDocRecuperado = this.Gestacion.tipoDoc;
             this.nroDocRecuperado = this.Gestacion.nroDoc;
             this.idConsultoriObstetrico = this.Gestacion.id;
+            this.nroEmbarazo = this.Gestacion.nroEmbarazo;
+            this.nroHcl = this.Gestacion.nroHcl;
         }
-        // this.tipoDocRecuperado = this.obstetriciaGeneralService.tipoDoc;
-        // this.nroDocRecuperado = this.obstetriciaGeneralService.nroDoc;
-        // this.nroEmbarazo = this.obstetriciaGeneralService.nroEmbarazo;
-        // this.idConsultoriObstetrico = this.obstetriciaGeneralService.idConsultoriObstetrico;
 
         /** OTRAS OPCIONES**/
         this.opciones = [
@@ -135,31 +144,6 @@ export class DatosGeneralesComponent implements OnInit {
             { name: 'NO', boleano: false }
         ];
 
-        //opciones de vacunas previas///
-        this.opciones1 = [
-            { name: 'SI', decripcion: 'SI, V. Antitetánica 1° Dosis' },
-            { name: 'NO', decripcion: 'No, V. Antitetánica 1° Dosis' }
-        ];
-        this.opciones2 = [
-            { name: 'SI', decripcion: 'SI, V. Antitetánica 2° Dosis' },
-            { name: 'NO', decripcion: 'No, V. Antitetánica 2° Dosis' }
-        ];
-        this.opciones3 = [
-            { name: 'SI', decripcion: 'SI, Rubeola' },
-            { name: 'NO', decripcion: 'No, Rubeola' }
-        ];
-        this.opciones4 = [
-            { name: 'SI', decripcion: 'SI, Hepatites B' },
-            { name: 'NO', decripcion: 'No, Hepatites B' }
-        ];
-        this.opciones5 = [
-            { name: 'SI', decripcion: 'SI, Papiloma V' },
-            { name: 'NO', decripcion: 'No, Papiloma V' }
-        ];
-        this.opciones6 = [
-            { name: 'SI', decripcion: 'SI, Covid-19' },
-            { name: 'NO', decripcion: 'No, Covid-19' }
-        ];
         //opciones de vacunas previas///
 
         this.familiares = [
@@ -287,112 +271,79 @@ export class DatosGeneralesComponent implements OnInit {
         this.buildForm();
         this.obternerFechaActual();
 
-        console.log("TipoDocRecuperado", this.tipoDocRecuperado);
-        console.log("NroDocRecuparado", this.nroDocRecuperado);
-        console.log("Nro de embarazo", this.nroEmbarazo);
-        console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
+        console.log("TipoDocRecuperado desde datos generales", this.tipoDocRecuperado);
+        console.log("NroDocRecuparado desde datos generales", this.nroDocRecuperado);
+        console.log("Nro de embarazo desde datos generales", this.nroEmbarazo);
+        console.log("Id Consultorio Obstetrico desde datos generales", this.idConsultoriObstetrico);
 
         /**Si la datos de consultorio esta en vacio recupera los datos del paciente***/
         /**Caso contrario recupera los datos de Consultorio***/
         if (this.dataConsultas == null) {
             this.getpacienteByNroDoc();
-        } else {
-            this.getConsultas();
+            
         }
     }
 
-    /***Recupera la cunsulta por HCL y Numero de embarazo***/
+    /***Recupera la consulta por HCL y Numero de embarazo***/
     getConsultas() {
         let data = {
             nroHcl: this.dataPacientes.nroHcl,
             nroEmbarazo: this.nroEmbarazo,
-            nroAtencion: 1
+            nroAtencion: this.nroAtencion
         }
-        console.log("data", data);
         this.consultasService.getConsultas(data).subscribe((res: any) => {
             this.dataConsultas = res.object
-            console.log('DATA CONSULTAS ', this.dataConsultas)
 
             if (this.dataConsultas !== null) {
                 this.showSuccess();
                 this.formDatos_Generales.get('nroDoc').setValue(this.dataPacientes.nroDoc);
-                //this.formDatos_Generales.get('telefono').setValue(this.dataConsultas.datosPersonales.telefono);
-                //this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataConsultas.datosPersonales.gradoInstitucional);
                 this.formDatos_Generales.get('ocupacion').setValue(this.dataConsultas.ocupacion);
                 this.formDatos_Generales.get('edad').setValue(this.dataConsultas.anioEdad);
                 this.formDatos_Generales.get('direccion').setValue(this.dataConsultas.direccion);
                 this.formDatos_Generales.get('fecha').setValue(this.dataConsultas.fecha);
 
                 //recuperar datos del acompañante
-                this.formDatos_Generales.get('nroDocAcompaniante').setValue(this.dataConsultas.acompanante?this.dataConsultas.acompanante.nroDoc:null);
-                this.formDatos_Generales.get('apellidosAcompaniante').setValue(this.dataConsultas.acompanante?this.dataConsultas.acompanante.apellidos:null);
-                this.formDatos_Generales.get('nombresAcompaniante').setValue(this.dataConsultas.acompanante?this.dataConsultas.acompanante.nombre:null);
-                this.formDatos_Generales.get('edadAcompaniante').setValue(this.dataConsultas.acompanante?this.dataConsultas.acompanante.edad:null);
-                this.formDatos_Generales.get('telefonoAcompaniante').setValue(this.dataConsultas.acompanante?this.dataConsultas.acompanante.telefono:null);
-                this.formDatos_Generales.get('direccionAcompaniante').setValue(this.dataConsultas.acompanante?this.dataConsultas.acompanante.direccion:null);
-                this.formDatos_Generales.get('lazoParentesco').setValue(this.dataConsultas.acompanante?this.dataConsultas.acompanante.lazoParentesco:null);
+                this.formDatos_Generales.get('nroDocAcompaniante').setValue(this.dataConsultas.acompanante ? this.dataConsultas.acompanante.nroDoc : null);
+                this.formDatos_Generales.get('apellidosAcompaniante').setValue(this.dataConsultas.acompanante ? this.dataConsultas.acompanante.apellidos : null);
+                this.formDatos_Generales.get('nombresAcompaniante').setValue(this.dataConsultas.acompanante ? this.dataConsultas.acompanante.nombre : null);
+                this.formDatos_Generales.get('edadAcompaniante').setValue(this.dataConsultas.acompanante ? this.dataConsultas.acompanante.edad : null);
+                this.formDatos_Generales.get('telefonoAcompaniante').setValue(this.dataConsultas.acompanante ? this.dataConsultas.acompanante.telefono : null);
+                this.formDatos_Generales.get('direccionAcompaniante').setValue(this.dataConsultas.acompanante ? this.dataConsultas.acompanante.direccion : null);
+                this.formDatos_Generales.get('lazoParentesco').setValue(this.dataConsultas.acompanante ? this.dataConsultas.acompanante.lazoParentesco : null);
 
-                //Recuperar Vacunas previas
-                /*this.formDatos_Generales.get('vAntitetánica1Dosis').setValue(this.dataConsultas.vacunasPrevias[0].descripcion);
-                this.formDatos_Generales.get('fecha1').setValue(this.dataConsultas.vacunasPrevias[0].fecha);
-                this.formDatos_Generales.get('vAntitetánica2Dosis').setValue(this.dataConsultas.vacunasPrevias[1].descripcion);
-                this.formDatos_Generales.get('fecha2').setValue(this.dataConsultas.vacunasPrevias[1].fecha);
-                this.formDatos_Generales.get('rubeola').setValue(this.dataConsultas.vacunasPrevias[2].descripcion);
-                this.formDatos_Generales.get('fecha3').setValue(this.dataConsultas.vacunasPrevias[2].fecha);
-                this.formDatos_Generales.get('HepatitesB').setValue(this.dataConsultas.vacunasPrevias[3].descripcion);
-                this.formDatos_Generales.get('fecha4').setValue(this.dataConsultas.vacunasPrevias[3].fecha);
-                this.formDatos_Generales.get('PapilomaV').setValue(this.dataConsultas.vacunasPrevias[4].descripcion);
-                this.formDatos_Generales.get('fecha5').setValue(this.dataConsultas.vacunasPrevias[4].fecha);
-                this.formDatos_Generales.get('Covid19').setValue(this.dataConsultas.vacunasPrevias[5].descripcion);
-                this.formDatos_Generales.get('fecha6').setValue(this.dataConsultas.vacunasPrevias[5].fecha);
-                */
-                //recuperar Antecedentes Gineco Obstetrico
-                /*this.formDatos_Generales.get('FUR').setValue(this.dataConsultas.antecedentesGinObs[0].fechaUltRegla);
-                this.formDatos_Generales.get('FPP').setValue(this.dataConsultas.antecedentesGinObs[0].fechaPosiParto);
-                this.formDatos_Generales.get('RCAT').setValue(this.dataConsultas.antecedentesGinObs[0].rcat);
-                this.formDatos_Generales.get('G').setValue(this.dataConsultas.antecedentesGinObs[0].g);
-                this.formDatos_Generales.get('P1').setValue(this.dataConsultas.antecedentesGinObs[0].p1);
-                this.formDatos_Generales.get('P2').setValue(this.dataConsultas.antecedentesGinObs[0].p2);
-                this.formDatos_Generales.get('P3').setValue(this.dataConsultas.antecedentesGinObs[0].p3);
-                this.formDatos_Generales.get('P4').setValue(this.dataConsultas.antecedentesGinObs[0].p4);
-                this.formDatos_Generales.get('gesAnterior').setValue(this.dataConsultas.antecedentesGinObs[0].gestAnterior);
-                this.formDatos_Generales.get('RNpesoMayor').setValue(this.dataConsultas.antecedentesGinObs[0].rnMayorPeso);
-                */
+                this.formDatos_Generales.get('RCAT').setValue(this.dataConsultas.rcat);
+
                 //RECUPERA LOS ANTECEDENTES
-                //this.formDatos_Generales.get('AntecedentesFamiliares').setValue(this.dataConsultas.antecedentesFamiliares[0]);
-                //this.formDatos_Generales.get('AntecedentesPersonales').setValue(this.dataConsultas.antecedentesPersonales[0]);
-                this.formDatos_Generales.get('FumaCigarros').setValue(this.dataConsultas.fumaCigarros);
-                this.formDatos_Generales.get('Drogas').setValue(this.dataConsultas.drogas);
                 this.formDatos_Generales.get('Psicoprofilaxis').setValue(this.dataConsultas.psicoprofilaxis.estado);
 
                 //RECUPERA DESCARTE SIGNOS DE ALARMA
-                this.formDatos_Generales.get('DificultadRespiratoria').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[0].valorSigno:null);
-                this.formDatos_Generales.get('HipertenciónArterial').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[1].valorSigno:null);
-                this.formDatos_Generales.get('SangradoNasal').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[2].valorSigno:null);
-                this.formDatos_Generales.get('DeshidrataciónAguda').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[3].valorSigno:null);
-                this.formDatos_Generales.get('CompromisoDelSensorio').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[4].valorSigno:null);
-                this.formDatos_Generales.get('TraumatismoQuemadura').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[5].valorSigno:null);
-                this.formDatos_Generales.get('AbdomenAgudo').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[6].valorSigno:null);
-                this.formDatos_Generales.get('IntoxicaciónEnvenenamiento').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[7].valorSigno:null);
-                this.formDatos_Generales.get('FiebreAlta').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[8].valorSigno:null);
-                this.formDatos_Generales.get('Convulciones').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[9].valorSigno:null);
-                this.formDatos_Generales.get('SangradoGenital').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[10].valorSigno:null);
-                this.formDatos_Generales.get('DolorDeCabeza').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[11].valorSigno:null);
-                this.formDatos_Generales.get('Edema').setValue(this.dataConsultas.listaSignosAlarma?this.dataConsultas.listaSignosAlarma[12].valorSigno:null);
+                this.formDatos_Generales.get('DificultadRespiratoria').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[0].valorSigno : null);
+                this.formDatos_Generales.get('HipertenciónArterial').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[1].valorSigno : null);
+                this.formDatos_Generales.get('SangradoNasal').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[2].valorSigno : null);
+                this.formDatos_Generales.get('DeshidrataciónAguda').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[3].valorSigno : null);
+                this.formDatos_Generales.get('CompromisoDelSensorio').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[4].valorSigno : null);
+                this.formDatos_Generales.get('TraumatismoQuemadura').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[5].valorSigno : null);
+                this.formDatos_Generales.get('AbdomenAgudo').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[6].valorSigno : null);
+                this.formDatos_Generales.get('IntoxicaciónEnvenenamiento').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[7].valorSigno : null);
+                this.formDatos_Generales.get('FiebreAlta').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[8].valorSigno : null);
+                this.formDatos_Generales.get('Convulciones').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[9].valorSigno : null);
+                this.formDatos_Generales.get('SangradoGenital').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[10].valorSigno : null);
+                this.formDatos_Generales.get('DolorDeCabeza').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[11].valorSigno : null);
+                this.formDatos_Generales.get('Edema').setValue(this.dataConsultas.listaSignosAlarma ? this.dataConsultas.listaSignosAlarma[12].valorSigno : null);
 
-                //RECUPERA DESCARTE ATENSION INTEGRAL
-                this.formDatos_Generales.get('OrientaciónConsejeríaSignosAlarma').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[0].valor:null);
-                this.formDatos_Generales.get('ConsejeríaEnfermedadesComunes').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[1].valor:null);
-                this.formDatos_Generales.get('SospechasTuberculosis').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[2].valor:null);
-                this.formDatos_Generales.get('InfeccionesTransmisiónSexual').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[3].valor:null);
-                this.formDatos_Generales.get('OrientaciónNutricional').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[4].valor:null);
-                this.formDatos_Generales.get('OrientaciónPlanificaiónFamiliar').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[5].valor:null);
-                this.formDatos_Generales.get('OrientaciónPrevenciónDeCancerGinecológico').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[6].valor:null);
-                this.formDatos_Generales.get('OrientaciónConsejeriaPretestVIH').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[7].valor:null);
-                this.formDatos_Generales.get('OrientaciónEnEstilosDeVidaSaludable').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[8].valor:null);
-                this.formDatos_Generales.get('OrientaciónAcompañante').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[9].valor:null);
-                this.formDatos_Generales.get('ViolenciaFamiliar').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[10].valor:null);
-                this.formDatos_Generales.get('PlanDeParto').setValue(this.dataConsultas.orientaciones?this.dataConsultas.orientaciones[11].valor:null);
+                //RECUPERA DESCARTE ATENCION INTEGRAL
+                this.formDatos_Generales.get('OrientaciónConsejeríaSignosAlarma').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[0].valor : null);
+                this.formDatos_Generales.get('ConsejeríaEnfermedadesComunes').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[1].valor : null);
+                this.formDatos_Generales.get('SospechasTuberculosis').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[2].valor : null);
+                this.formDatos_Generales.get('InfeccionesTransmisiónSexual').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[3].valor : null);
+                this.formDatos_Generales.get('OrientaciónNutricional').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[4].valor : null);
+                this.formDatos_Generales.get('OrientaciónPlanificaiónFamiliar').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[5].valor : null);
+                this.formDatos_Generales.get('OrientaciónPrevenciónDeCancerGinecológico').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[6].valor : null);
+                this.formDatos_Generales.get('OrientaciónConsejeriaPretestVIH').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[7].valor : null);
+                this.formDatos_Generales.get('OrientaciónEnEstilosDeVidaSaludable').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[8].valor : null);
+                this.formDatos_Generales.get('OrientaciónAcompañante').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[9].valor : null);
+                this.formDatos_Generales.get('ViolenciaFamiliar').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[10].valor : null);
+                this.formDatos_Generales.get('PlanDeParto').setValue(this.dataConsultas.orientaciones ? this.dataConsultas.orientaciones[11].valor : null);
             } else {
                 this.showInfo();
             }
@@ -437,10 +388,6 @@ export class DatosGeneralesComponent implements OnInit {
         if (this.antecedentes12[0] == null) {
             this.antecedentes12 = [];
         }
-
-        // if (this.otrosAntecedentesFamiliares == null) {
-        //     this.otrosAntecedentesFamiliares = null;
-        // }
     }
 
     /**Inicializa datos del antecedentes personales en vacio**/
@@ -543,7 +490,6 @@ export class DatosGeneralesComponent implements OnInit {
         let mm = this.fecha.getMonth() + 1;
         let yy = this.fecha.getFullYear();
         this.fechaConvertido = dd + '-' + mm + '-' + yy;
-        console.log("FECHAS ACTUAL", this.fechaConvertido);
     }
 
     /***Calcular el año desde la fecha de nacimiento**/
@@ -552,7 +498,6 @@ export class DatosGeneralesComponent implements OnInit {
             const convertAge = new Date(this.fechaConvertido);
             const timeDiff = Math.abs(Date.now() - convertAge.getTime());
             this.edad = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-            console.log("edad", this.edad);
         }
     }
 
@@ -566,14 +511,21 @@ export class DatosGeneralesComponent implements OnInit {
         let p33 = Number(p3);
         this.sumagestas = p11 + p22 + p33;
         this.formDatos_Generales.get('G').setValue(this.sumagestas);
-        console.log("GESTAS", this.sumagestas);
     }
 
+    determinarUltimaGesta(cadena){
+        if (cadena=="aborto" || cadena=="abortoMolar" || cadena=="ectopico"){
+            return "aborto";
+        }
+        if (cadena=="cesaria" || cadena=="partoVaginal"){
+            return "parto";
+        }
+        else return "";
+    }
     //Recuperar datos de un paciendo por su documento de identidad
     getpacienteByNroDoc() {
         this.filiancionService.getPacienteNroDocFiliacion(this.tipoDocRecuperado, this.nroDocRecuperado).subscribe((res: any) => {
-            this.dataPacientes = res.object
-            console.log('PACIENTES POR DOC ', this.dataPacientes)
+            this.dataPacientes = res.object;
             this.formDatos_Generales.get('apePaterno').setValue(this.dataPacientes.apePaterno);
             this.formDatos_Generales.get('apeMaterno').setValue(this.dataPacientes.apeMaterno);
             this.formDatos_Generales.get('nombres').setValue(this.dataPacientes.primerNombre);
@@ -582,33 +534,52 @@ export class DatosGeneralesComponent implements OnInit {
             this.formDatos_Generales.get('gradoInstruccion').setValue(this.dataPacientes.gradoInstruccion);
             this.formDatos_Generales.get('direccion').setValue(this.dataPacientes.domicilio.direccion + "," + this.dataPacientes.domicilio.departamento);
             this.fechaConvertido = this.dataPacientes.nacimiento.fechaNacimiento;
-            console.log("nacimiento", this.fechaConvertido)
             this.ageCalculator();//calcula la edad desde la fecha de nacimiento
             this.formDatos_Generales.get('edad').setValue(this.edad);
             this.formDatos_Generales.get('fecha').setValue(new Date());
-            this.getConsultas();//Recupera la cunsulta por HCL y Numero de embarazo
+            this.getConsultas();//Recupera la consulta por HCL y Numero de embarazo
             let data = {
                 nroHcl: this.dataPacientes.nroHcl
             }
             this.consultasService.getUltimaConsultaControl(data).subscribe((res: any) => {
-                console.log("datos ultima consulta", res.object)
                 let informacion = res.object;
+
+                if (!this.estadoEdicion){
+                    //guardar en el ls el nroAtencion
+                    localStorage.setItem("nroConsultaNueva",informacion.nroUltimaAtencion + 1);
+                    this.formDatos_Generales.get('nroAtencion').setValue(informacion.nroUltimaAtencion + 1);
+                    this.formDatos_Generales.get('nroControl').setValue(informacion.nroUltimaAtencion + 1);
+                    this.nroAtencion=informacion.nroUltimaAtencion + 1;
+                }
+                else{
+                    let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
+                    this.formDatos_Generales.get('nroAtencion').setValue(nroAtencion);
+                    this.formDatos_Generales.get('nroControl').setValue(nroAtencion);
+                    this.nroAtencion=nroAtencion;
+                }
+                this.getConsultas();
+                
                 this.formDatos_Generales.get('ocupacion').setValue(informacion.ocupacion);
-                this.formDatos_Generales.get('nroAtencion').setValue(informacion.nroUltimaAtencion + 1);
-                this.formDatos_Generales.get('nroControl').setValue(informacion.nroUltimaAtencion + 1);
+                
                 this.formDatos_Generales.get('nroHcl').setValue(informacion.nroHcl);
                 this.formDatos_Generales.get('FUR').setValue(informacion.fum);
                 this.formDatos_Generales.get('FPP').setValue(informacion.fechaProbableParto);
+                this.formDatos_Generales.get('P1').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[8].valor:null);
+                this.formDatos_Generales.get('P3').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[7].valor:null);
+                this.formDatos_Generales.get('P4').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[3].valor:null);
+                this.formDatos_Generales.get('G').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[9].valor:null);
+                this.formDatos_Generales.get('RNpesoMayor').setValue(informacion.rnMayorPeso);
+                this.formDatos_Generales.get('gesAnterior').setValue(this.determinarUltimaGesta(informacion.terminacion));
+
                 this.formDatos_Generales.get('FumaCigarros').setValue(informacion.nroCigarrosAlDia > 0 ? true : false);
                 this.formDatos_Generales.get('Drogas').setValue(informacion.drogas !== true ? false : true);
-                this.formDatos_Generales.get('RNpesoMayor').setValue(informacion.rnMayorPeso);
 
                 //vacunas previas
-                this.formDatos_Generales.get('rubeola').setValue(informacion.vacunasPrevias.find(item => item == "rubeola") ? true : false );
-                this.formDatos_Generales.get('HepatitesB').setValue( informacion.vacunasPrevias.find(item => item == "hepatitis B") ? true : false );
-                this.formDatos_Generales.get('PapilomaV').setValue(informacion.vacunasPrevias.find(item => item == "papiloma") ? true : false );
-                this.formDatos_Generales.get('influenza').setValue(informacion.vacunasPrevias.find(item => item == "influenza") ? true : false );
-                this.formDatos_Generales.get('Covid19').setValue(informacion.vacunasPrevias.find(item => item == "covid") ? true : false );
+                this.formDatos_Generales.get('rubeola').setValue(informacion.vacunasPrevias.find(item => item == "rubeola") ? true : false);
+                this.formDatos_Generales.get('HepatitesB').setValue(informacion.vacunasPrevias.find(item => item == "hepatitis B") ? true : false);
+                this.formDatos_Generales.get('PapilomaV').setValue(informacion.vacunasPrevias.find(item => item == "papiloma") ? true : false);
+                this.formDatos_Generales.get('influenza').setValue(informacion.vacunasPrevias.find(item => item == "influenza") ? true : false);
+                this.formDatos_Generales.get('Covid19').setValue(informacion.vacunasPrevias.find(item => item == "covid") ? true : false);
 
                 //antecedentes familiares
                 this.antecedentes1 = [informacion.antecedentesFamiliares[0].nombre];
@@ -645,6 +616,7 @@ export class DatosGeneralesComponent implements OnInit {
 
                 this.antecedentes12 = [informacion.antecedentesFamiliares[11].nombre];
                 this.formAntecedentes.get('nombrefamiliar11').setValue(informacion.antecedentesFamiliares[11].valor);
+
                 this.transtornMentales = [informacion.antecedentesPersonales[27].nombre];
                 this.otrosAntecedentesFamiliares = informacion.otroAntecendeteFamiliar;
                 if (this.otrosAntecedentesFamiliares !== '') {
@@ -655,7 +627,6 @@ export class DatosGeneralesComponent implements OnInit {
 
                 //antecedentes personales
                 this.Ninguno = [informacion.antecedentesPersonales[0].nombre];
-                console.log("ERRRR", this.Ninguno);
                 this.Abortohabitualrecurrente = [informacion.antecedentesPersonales[1].nombre];
                 this.Violencia = [informacion.antecedentesPersonales[2].nombre];
                 this.Cardiopatia = [informacion.antecedentesPersonales[3].nombre];
@@ -694,7 +665,7 @@ export class DatosGeneralesComponent implements OnInit {
 
     }
 
-    
+
 
     eventoKeyupAntecedentesPersonales() {
         if (this.otros2.length > 0) {
@@ -736,55 +707,7 @@ export class DatosGeneralesComponent implements OnInit {
             nroAtencion: parseInt(this.formDatos_Generales.value.nroAtencion),
             nroControlSis: this.formDatos_Generales.value.nroControlSis,
 
-            /////----------------------------
-            /*vacunasPrevias: [
-                {
-                    descripcion: this.formDatos_Generales.value.vAntitetánica1Dosis,
-                    fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha1, 'yyyy-MM-dd HH:mm:ss'),
-                },
-                {
-                    descripcion: this.formDatos_Generales.value.vAntitetánica2Dosis,
-                    fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha2, 'yyyy-MM-dd HH:mm:ss'),
-                },
-                {
-                    descripcion: this.formDatos_Generales.value.rubeola,
-                    fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha3, 'yyyy-MM-dd HH:mm:ss'),
-                },
-                {
-                    descripcion: this.formDatos_Generales.value.HepatitesB,
-                    fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha4, 'yyyy-MM-dd HH:mm:ss'),
-                },
-                {
-                    descripcion: this.formDatos_Generales.value.PapilomaV,
-                    fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha5, 'yyyy-MM-dd HH:mm:ss'),
-                },
-                {
-                    descripcion: this.formDatos_Generales.value.Covid19,
-                    fecha: this.datePipe.transform(this.formDatos_Generales.value.fecha6, 'yyyy-MM-dd HH:mm:ss'),
-                },
-            ],*/
-
-            /*antecedentesGinObs: [{
-                fechaUltRegla: this.formDatos_Generales.value.FUR,
-                fechaPosiParto: this.formDatos_Generales.value.FPP,
-                rcat: this.formDatos_Generales.value.RCAT,
-                g: this.formDatos_Generales.value.G,
-                p1: this.formDatos_Generales.value.P1,
-                p2: this.formDatos_Generales.value.P2,
-                p3: this.formDatos_Generales.value.P3,
-                p4: this.formDatos_Generales.value.P4,
-                gestAnterior: this.formDatos_Generales.value.gesAnterior,
-                rnMayorPeso: this.formDatos_Generales.value.RNpesoMayor,
-
-            }],
-            antecedentesFamiliares: [
-                this.formDatos_Generales.value.AntecedentesFamiliares,
-            ],
-            antecedentesPersonales: [
-                this.formDatos_Generales.value.AntecedentesPersonales,
-            ],*/
-            //fumaCigarros: this.formDatos_Generales.value.FumaCigarros,
-            //drogas: this.formDatos_Generales.value.Drogas,
+            rcat: this.formDatos_Generales.value.RCAT,
 
             psicoprofilaxis: {
                 estado: this.formDatos_Generales.value.Psicoprofilaxis,
@@ -840,7 +763,7 @@ export class DatosGeneralesComponent implements OnInit {
                 },
                 {
                     tipoEdad: null,
-                    nombreSigno: "Convulciones",
+                    nombreSigno: "Convulsiones",
                     valorSigno: this.formDatos_Generales.value.Convulciones,
                 },
                 {
@@ -929,10 +852,8 @@ export class DatosGeneralesComponent implements OnInit {
             //     colegiatura:"456789"
             // },
         }
-        console.log("DATA UPDATE Y ADD CONSULTAS", this.data);
         if (this.dataConsultas == null) {
             this.consultasService.addConsultas(this.nroFetos, this.data).subscribe(result => {
-                console.log(result);
                 Swal.fire({
                     icon: 'success',
                     title: 'Se guardo con exito',
@@ -951,7 +872,6 @@ export class DatosGeneralesComponent implements OnInit {
                     showConfirmButton: false,
                     timer: 1500,
                 });
-                console.log('rpta', result);
             }
             );
         }

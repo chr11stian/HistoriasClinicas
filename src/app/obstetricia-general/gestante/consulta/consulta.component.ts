@@ -125,8 +125,8 @@ export class ConsultaComponent implements OnInit {
     //recupera la lista de todas las atenciones prenatales
     recuperarConsultas() {
         let data = {
-            "nroHcl": this.obstetriciaGeneralService.nroHcl,
-            "nroEmbarazo": this.obstetriciaGeneralService.nroEmbarazo
+            "nroHcl": this.nroHcl,
+            "nroEmbarazo": this.nroEmbarazo
         }
         this.consultaObstetriciaService.getDatosConsultasObstetricasListar(data).subscribe((res: any) => {
             console.log('trajo datos exito ', res)
@@ -135,7 +135,15 @@ export class ConsultaComponent implements OnInit {
     }
 
     //crear una nueva consulta, no mandamos ningun dato
-    irConsultaNew(){
-        this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'])
+    irConsultaNew(edicion){
+        this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico']);
+        localStorage.setItem("consultaEditarEstado", edicion);
     } 
+
+    //editar consulta o visualizar na ma, mandamos la data de la fila
+    irConsultaVisualizar(nroAtencion,edicion){
+        this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'])
+        localStorage.setItem("nroConsultaEditar", nroAtencion);
+        localStorage.setItem("consultaEditarEstado", edicion);
+    }
 }

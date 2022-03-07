@@ -47,39 +47,76 @@ export class GiagnosticosComponent implements OnInit {
     /****** Data recuperada********/
     private edadGestacional: any;
     private planPartoReenfocada: any;
-    private tipoDocRecuperado: any;
-    private nroDocRecuperado: any;
-    private nroEmbarazo: any;
-    private nroHclRecuperado: any;
     /********Lista tipo Dx*****/
     tipoList: any[] = [];
     eleccion: any;
     private nroFetos = 0;
-    private idConsulta: any;
     private encontradoDxTuberculosis: boolean = false;
 
-    hoy: any= (new Date()).getTime();
+    hoy: any = (new Date()).getTime();
     listaDeCIE: any;
 
     prestacionList: any[];
     upsList: any[];
 
-    idIpress:String="616de45e0273042236434b51";
+    idIpress: String = "616de45e0273042236434b51";
 
+    idConsulta: string;
+    tipoDocRecuperado: string;
+    nroDocRecuperado: string;
+    nroEmbarazo: string;
+    nroHcl: string;
+
+    Gestacion: any;
+    dataPaciente2: any;
+    estadoEdicion: Boolean;
+
+    nroAtencion: any;
     constructor(private formBuilder: FormBuilder,
-        private obstetriciaService: ObstetriciaGeneralService,
+        //private obstetriciaService: ObstetriciaGeneralService,
         //private cieService: CieService,
         private CieService: CieService,
         private messageService: MessageService,
         private DxService: ConsultasService) {
         this.buildForm();
+        
         /*********RECUPERAR DATOS*********/
-        this.tipoDocRecuperado = this.obstetriciaService.tipoDoc;
-        this.nroDocRecuperado = this.obstetriciaService.nroDoc;
-        this.nroEmbarazo = this.obstetriciaService.nroEmbarazo;
-        this.idConsultoriObstetrico = this.obstetriciaService.idConsultoriObstetrico;
-        this.idConsulta = this.obstetriciaService.idGestacion;
-        this.nroHclRecuperado = this.obstetriciaService.nroHcl;
+        /*usando local storage*/
+        this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+        this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+
+        //estado para saber que estado usar en consultas
+        this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
+
+        console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+        console.log("gestacion desde datos generales", this.Gestacion);
+
+        if (this.Gestacion == null) {
+            this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
+            this.nroDocRecuperado = this.dataPaciente2.nroDoc;
+            this.idConsulta = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+            this.nroEmbarazo = this.dataPaciente2.nroEmbarazo;
+            this.nroHcl = this.dataPaciente2.nroHcl;
+
+        } else {
+            this.tipoDocRecuperado = this.Gestacion.tipoDoc;
+            this.nroDocRecuperado = this.Gestacion.nroDoc;
+            this.idConsulta = this.Gestacion.id;
+            this.nroEmbarazo = this.Gestacion.nroEmbarazo;
+            this.nroHcl = this.Gestacion.nroHcl;
+        }
+        if (!this.estadoEdicion) {
+            //guardar en el ls el nroAtencion
+            let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
+            this.nroAtencion = nroAtencion;
+            console.log("entre a nueva consulta", this.nroAtencion)
+        }
+        else {
+            let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
+            this.nroAtencion = nroAtencion;
+            console.log("entre a edicion consulta", this.nroAtencion)
+        }
+
         /***************DATOS DE LOS DROPDOWNS*******************/
         /*LLENADO DE LISTAS - VALORES QUE PUEDEN TOMAR TIPO DX*/
         this.tipoList = [{ label: 'DEFINITIVO', value: 'D' },
@@ -99,10 +136,11 @@ export class GiagnosticosComponent implements OnInit {
         this.recuperarCronograma();
     }
     ngOnInit() {
-        console.log("TipoDocRecuperado", this.tipoDocRecuperado);
-        console.log("NroDocRecuparado", this.nroDocRecuperado);
-        console.log("Nro de embarazo", this.nroEmbarazo);
-        console.log("Id Consultorio Obstetrico", this.idConsultoriObstetrico);
+        console.log("TipoDocRecuperado desde diagnostico", this.tipoDocRecuperado);
+        console.log("NroDocRecuparado desde diagnostico", this.nroDocRecuperado);
+        console.log("Nro de embarazo desde diagnostico", this.nroEmbarazo);
+        console.log("Id Consultorio Obstetrico desde diagnostico", this.idConsultoriObstetrico);
+        console.log("nroHcl desde diagnostico", this.nroHcl);
         this.recuperarPrestaciones();
         this.recuperarNroFetos();
         this.recuperarDatosGuardados();
@@ -115,17 +153,17 @@ export class GiagnosticosComponent implements OnInit {
     //         console.log("ups:",this.upsList);
     //     })
     // }
-    recuperarPrestaciones(){
-        this.DxService.getPrestaciones().subscribe((res: any)=>{
-            this.prestacionList=res.object;
-            console.log("prestaciones:",this.prestacionList);
+    recuperarPrestaciones() {
+        this.DxService.getPrestaciones().subscribe((res: any) => {
+            this.prestacionList = res.object;
+            console.log("prestaciones:", this.prestacionList);
         })
     }
-    funcionAuxiliar(fecha){
+    funcionAuxiliar(fecha) {
         return new Date(fecha).getTime();
     }
     recuperarCronograma() {
-        this.DxService.getCronogramaGestante(this.obstetriciaService.nroHcl).subscribe((res: any) => {
+        this.DxService.getCronogramaGestante(this.nroHcl).subscribe((res: any) => {
             this.cronograma = res.object;
             console.log("cronograma:", this.cronograma)
         })
@@ -316,9 +354,9 @@ export class GiagnosticosComponent implements OnInit {
 
         const req = {
             id: this.idConsultoriObstetrico,
-            nroHcl: this.nroHclRecuperado,
+            nroHcl: this.nroHcl,
             nroEmbarazo: this.nroEmbarazo,
-            nroAtencion: 1,
+            nroAtencion: this.nroAtencion,
             // nroControlSis: 1,
             tipoDoc: this.tipoDocRecuperado,
             nroDoc: this.nroDocRecuperado,
@@ -334,10 +372,9 @@ export class GiagnosticosComponent implements OnInit {
         this.enviarDatosRefProxCita();
         const req = {
             id: this.idConsultoriObstetrico,
-            nroHcl: this.nroHclRecuperado,
+            nroHcl: this.nroHcl,
             nroEmbarazo: this.nroEmbarazo,
-            nroAtencion: 1,
-            // nroControlSis: 1,
+            nroAtencion: this.nroAtencion,
             tipoDoc: this.tipoDocRecuperado,
             nroDoc: this.nroDocRecuperado,
             referencia: this.referencia,
@@ -346,7 +383,7 @@ export class GiagnosticosComponent implements OnInit {
             diagnosticos: this.diagnosticos,
             citas: [
                 {
-                    fecha: this.proxCita,
+                    fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd HH:mm:ss'),
                     motivo: "próxima cita",
                     servicio: "OBSTETRICIA",
                     estado: "TENTATIVO",
@@ -374,9 +411,9 @@ export class GiagnosticosComponent implements OnInit {
     recuperarDatosGuardados() {
         let aux = {
             id: this.idConsultoriObstetrico,
-            nroHcl: this.nroHclRecuperado,
+            nroHcl: this.nroHcl,
             nroEmbarazo: this.nroEmbarazo,
-            nroAtencion: 1
+            nroAtencion: this.nroAtencion
         }
         this.DxService.getConsultaPrenatalByEmbarazo(aux).subscribe((res: any) => {
             this.dataAux = res.object;
@@ -447,7 +484,7 @@ export class GiagnosticosComponent implements OnInit {
         });
     }
     mostrarCronograma() {
-        this.cronogramaDialog=true;
+        this.cronogramaDialog = true;
     }
     salirCronograma() {
         this.cronogramaDialog = false;
