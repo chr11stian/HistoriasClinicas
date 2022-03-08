@@ -71,7 +71,7 @@
                 <div class="flex flex-row">
                     <div class="col-9 p-0">
                         <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.hemoglobina">
+                            [(ngModel)]="resultsHematologia.hemoglobina">
                     </div>
                     <div class="infoInput">
                         g/dl
@@ -79,131 +79,32 @@
                 </div>
             </div>
         </div>
-        <div class="grid" *ngIf="examLab.tipoExam == 2 && lugarLab.index == 2">
-            <div class="p-fluid col-12">
-                <h2>RESULTADOS HEMATOLOGIA:</h2>
-                <p-divider></p-divider>
-            </div>
-            <div class="grid">
-                <div class="p-fluid col-2">
-                    <label>Hemoglobina:</label>
-                    <div class="flex flex-row">
-                        <div class="col-9 p-0">
-                            <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.hemoglobina">
-                        </div>
-                        <div class="infoInput">
-                            g/dl
-                        </div>
-                    </div>
+        <!-- FORM HEMATOLOGIA -->
+        <form [formGroup]="formHematologia">
+            <div class="grid" *ngIf="examLab.tipoExam == 2 && lugarLab.index == 2">
+                <div class="p-fluid col-12">
+                    <h2>RESULTADOS HEMATOLOGIA:</h2>
+                    <p-divider></p-divider>
                 </div>
-                <div class="p-fluid col-2">
-                    <label>Hematocrito:</label>
-                    <div class="flex flex-row">
-                        <div class="col-9 p-0">
-                            <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.hematocrito">
-                        </div>
-                        <div class="infoInput">
-                            %
-                        </div>
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Grupo Sanguineo:</label>
-                    <div class="col-12 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.grupoSanguineo">
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Factor Rh:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.factorRH">
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Tiempo Sangria:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.tiempoSangria">
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Tiempo Coagulacion:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.tiempoCoagulacion">
-                    </div>
-                </div>
-                <div class="p-fluid col-2 mt-3">
-                    <label>Tiempo Protrombina:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.tiempoProtrombina">
-                    </div>
-                </div>
-                <div class="p-fluid col-2 p-1">
-                    <label>Tiempo Tromboplastina:</label>
-                    <input type="text" pInputText placeholder="" class="inputfield w-full"
-                        [(ngModel)]="laboResults.tiempoTromboplastina">
-                </div>
-                <div class="p-fluid col-2 mt-3">
-                    <label>Reticulocitos:</label>
-                    <input type="text" pInputText placeholder="" class="inputfield w-full"
-                        [(ngModel)]="laboResults.reticulocitos">
-                </div>
-                <div class="p-fluid col-2 p-1">
-                    <label>Compatibilidad Sanguinea:</label>
-                    <input type="text" pInputText placeholder="" class="inputfield w-full"
-                        [(ngModel)]="laboResults.compatibilidadSanguinea">
-                </div>
-                <div class="p-fluid col-2 mt-3">
-                    <label>Rcto. Globulos Rojos:</label>
-                    <div class="flex flex-row">
-                        <div class="col-9 p-0">
-                            <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.rctoGlobulosRojos">
-                        </div>
-                        <div class="infoInput">
-                            /mm
-                        </div>
-                    </div>
-                </div>
-                <div class="p-fluid col-2 mt-3">
-                    <label>Rcto. Plaquetas:</label>
-                    <div class="flex flex-row">
-                        <div class="col-9 p-0">
-                            <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.rctoPlaquetas">
-                        </div>
-                        <div class="infoInput">
-                            /mm
-                        </div>
-                    </div>
-                </div>
-                <div class="p-fluid col-2 pt-1">
-                    <label>Rcto. Globulos Blancos:</label>
-                    <div class="flex flex-row">
-                        <div class="col-9 p-0">
-                            <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.rctoGlobulosBlancos">
-                        </div>
-                        <div class="infoInput">
-                            /mm
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p-fieldset legend="FÓRMULA LEUCOCITARIA">
                 <div class="grid">
                     <div class="p-fluid col-2">
-                        <label>Blastos:</label>
+                        <label>Hemoglobina:</label>
                         <div class="flex flex-row">
                             <div class="col-9 p-0">
                                 <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                    [(ngModel)]="laboResults.blastos">
+                                    formControlName="hemoglobina">
+                            </div>
+                            <div class="infoInput">
+                                g/dl
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Hematocrito:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                    formControlName="hematocrito">
                             </div>
                             <div class="infoInput">
                                 %
@@ -211,348 +112,452 @@
                         </div>
                     </div>
                     <div class="p-fluid col-2">
-                        <label>Juveniles:</label>
-                        <div class="flex flex-row">
-                            <div class="col-9 p-0">
-                                <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                    [(ngModel)]="laboResults.juveniles">
-                            </div>
-                            <div class="infoInput">
-                                %
-                            </div>
+                        <label>Grupo Sanguineo:</label>
+                        <div class="col-12 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="grupoSanguineo">
                         </div>
                     </div>
                     <div class="p-fluid col-2">
-                        <label>Neutrófilos:</label>
+                        <label>Factor Rh:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="factorRH">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Tiempo Sangria:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="tiempoSangria">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Tiempo Coagulacion:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="tiempoCoagulacion">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2 mt-3">
+                        <label>Tiempo Protrombina:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="tiempoProtrombina">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2 p-1">
+                        <label>Tiempo Tromboplastina:</label>
+                        <input type="text" pInputText placeholder="" class="inputfield w-full"
+                            formControlName="tiempoTromboplastina">
+                    </div>
+                    <div class="p-fluid col-2 mt-3">
+                        <label>Reticulocitos:</label>
+                        <input type="text" pInputText placeholder="" class="inputfield w-full"
+                            formControlName="reticulocitos">
+                    </div>
+                    <div class="p-fluid col-2 p-1">
+                        <label>Compatibilidad Sanguinea:</label>
+                        <input type="text" pInputText placeholder="" class="inputfield w-full"
+                            formControlName="compatibilidadSanguinea">
+                    </div>
+                    <div class="p-fluid col-2 mt-3">
+                        <label>Rcto. Globulos Rojos:</label>
                         <div class="flex flex-row">
                             <div class="col-9 p-0">
                                 <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                    [(ngModel)]="laboResults.neutrofilos">
+                                    formControlName="rctoGlobulosRojos">
+                            </div>
+                            <div class="infoInput">
+                                /mm
                             </div>
                         </div>
+                    </div>
+                    <div class="p-fluid col-2 mt-3">
+                        <label>Rcto. Plaquetas:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                    formControlName="rctoPlaquetas">
+                            </div>
+                            <div class="infoInput">
+                                /mm
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2 pt-1">
+                        <label>Rcto. Globulos Blancos:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                    formControlName="rctoGlobulosBlancos">
+                            </div>
+                            <div class="infoInput">
+                                /mm
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p-fieldset legend="FÓRMULA LEUCOCITARIA">
+                    <div class="grid">
+                        <div class="p-fluid col-2">
+                            <label>Blastos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                        formControlName="blastos">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Juveniles:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                        formControlName="juveniles">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Neutrófilos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                        formControlName="neutrofilos">
+                                </div>
+                            </div>
 
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>N. Abastonados:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                        formControlName="nAbastonados">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>N. Segmentados:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                        formControlName="nSegmentados">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Linfocitos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                        formControlName="linfocitos">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Monocitos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                        formControlName="monocitos">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Eosinofilos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                        formControlName="eosinofilos">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-fluid col-2">
+                            <label>Basofilos:</label>
+                            <div class="flex flex-row">
+                                <div class="col-9 p-0">
+                                    <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                        formControlName="basofilos">
+                                </div>
+                                <div class="infoInput">
+                                    %
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="p-fluid col-2">
-                        <label>N. Abastonados:</label>
-                        <div class="flex flex-row">
+                </p-fieldset>
+                <p-fieldset legend="CONSTANTES CORPUSCULARES" class="my-3">
+                    <div class="grid">
+                        <div class="p-fluid col-2">
+                            <label>V.C.M.:</label>
                             <div class="col-9 p-0">
                                 <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                    [(ngModel)]="laboResults.nAbastonados">
-                            </div>
-                            <div class="infoInput">
-                                %
+                                    formControlName="vcm">
                             </div>
                         </div>
-                    </div>
-                    <div class="p-fluid col-2">
-                        <label>N. Segmentados:</label>
-                        <div class="flex flex-row">
+                        <div class="p-fluid col-2">
+                            <label>V.R.:</label>
                             <div class="col-9 p-0">
                                 <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                    [(ngModel)]="laboResults.nSegmentados">
-                            </div>
-                            <div class="infoInput">
-                                %
+                                    formControlName="vrVcm">
                             </div>
                         </div>
-                    </div>
-                    <div class="p-fluid col-2">
-                        <label>Linfocitos:</label>
-                        <div class="flex flex-row">
+                        <div class="p-fluid col-2">
+                            <label>C.H.C.M.:</label>
                             <div class="col-9 p-0">
                                 <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                    [(ngModel)]="laboResults.linfocitos">
-                            </div>
-                            <div class="infoInput">
-                                %
+                                    formControlName="chcm">
                             </div>
                         </div>
-                    </div>
-                    <div class="p-fluid col-2">
-                        <label>Monocitos:</label>
-                        <div class="flex flex-row">
+                        <div class="p-fluid col-2">
+                            <label>V.R.:</label>
                             <div class="col-9 p-0">
                                 <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                    [(ngModel)]="laboResults.monocitos">
-                            </div>
-                            <div class="infoInput">
-                                %
+                                    formControlName="vrChcm">
                             </div>
                         </div>
-                    </div>
-                    <div class="p-fluid col-2">
-                        <label>Eosinofilos:</label>
-                        <div class="flex flex-row">
+                        <div class="p-fluid col-2">
+                            <label>H.C.M.:</label>
                             <div class="col-9 p-0">
                                 <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                    [(ngModel)]="laboResults.eosinofilos">
-                            </div>
-                            <div class="infoInput">
-                                %
+                                    formControlName="hcm">
                             </div>
                         </div>
-                    </div>
-                    <div class="p-fluid col-2">
-                        <label>Basofilos:</label>
-                        <div class="flex flex-row">
+                        <div class="p-fluid col-2">
+                            <label>V.R.:</label>
                             <div class="col-9 p-0">
                                 <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                    [(ngModel)]="laboResults.basofilos">
-                            </div>
-                            <div class="infoInput">
-                                %
+                                    formControlName="vrHcm">
                             </div>
                         </div>
                     </div>
+                </p-fieldset>
+                <div class="p-fluid col-2 mt-2">
+                    <label>Velocidad de Sedimentación Globular (VSG):</label>
                 </div>
-            </p-fieldset>
-            <p-fieldset legend="CONSTANTES CORPUSCULARES" class="my-3">
-                <div class="grid">
-                    <div class="p-fluid col-2">
-                        <label>V.C.M.:</label>
-                        <div class="col-9 p-0">
-                            <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.vcm">
-                        </div>
-                    </div>
-                    <div class="p-fluid col-2">
-                        <label>V.R.:</label>
-                        <div class="col-9 p-0">
-                            <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.vrVcm">
-                        </div>
-                    </div>
-                    <div class="p-fluid col-2">
-                        <label>C.H.C.M.:</label>
-                        <div class="col-9 p-0">
-                            <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.chcm">
-                        </div>
-                    </div>
-                    <div class="p-fluid col-2">
-                        <label>V.R.:</label>
-                        <div class="col-9 p-0">
-                            <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.vrChcm">
-                        </div>
-                    </div>
-                    <div class="p-fluid col-2">
-                        <label>H.C.M.:</label>
-                        <div class="col-9 p-0">
-                            <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.hcm">
-                        </div>
-                    </div>
-                    <div class="p-fluid col-2">
-                        <label>V.R.:</label>
-                        <div class="col-9 p-0">
-                            <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.vrHcm">
-                        </div>
-                    </div>
-                </div>
-            </p-fieldset>
-            <div class="p-fluid col-2 mt-2">
-                <label>Velocidad de Sedimentación Globular (VSG):</label>
-            </div>
-            <div class="col-2">
-                <div class="flex flex-row">
-                    <div class="col-8 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.vsg1hora">
-                    </div>
-                    <div class="infoInput">
-                        mm/1ra hora
-                    </div>
-                </div>
-                <div class="flex flex-row">
-                    <div class="col-8 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.vsg2hora">
-                    </div>
-                    <div class="infoInput">
-                        mm/2da hora
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="grid" *ngIf="examLab.tipoExam == 1 && lugarLab.index == 2">
-            <div class="p-fluid col-12">
-                <h3>RESULTADOS:</h3>
-                <p-divider></p-divider>
-            </div>
-            <div class="grid">
-                <div class="p-fluid col-2">
-                    <label>Color:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMacroscopico.color">
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Consistencia:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMacroscopico.consistencia">
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>pH:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMacroscopico.pH">
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Reaccion:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMacroscopico.reaccion">
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Mucus:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMacroscopico.mucus">
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Sangre:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMacroscopico.sangre">
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Restos Alimenticios:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMacroscopico.restosAlimenticios">
-                    </div>
-                </div>
-            </div>
-            <div class="grid">
-                <div class="p-fluid col-2">
-                    <label>Reaccón Inflamatorio:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.reaccionInflamatorio">
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Filamentos Mucoides:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.filamentosMucoides">
-                    </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Leucocitos:</label>
+                <div class="col-2">
                     <div class="flex flex-row">
-                        <div class="col-9 p-0">
+                        <div class="col-8 p-0">
                             <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.examenMicroscopico.leucocitos">
+                                formControlName="vsg1hora">
                         </div>
                         <div class="infoInput">
-                            x c.m.
+                            mm/1ra hora
                         </div>
                     </div>
-
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Hematíes:</label>
                     <div class="flex flex-row">
-                        <div class="col-9 p-0">
+                        <div class="col-8 p-0">
                             <input type="text" pInputText placeholder="" class="inputfield w-full"
-                                [(ngModel)]="laboResults.examenMicroscopico.hematies">
+                                formControlName="vsg2hora">
+                        </div>
+                        <div class="infoInput">
+                            mm/2da hora
                         </div>
                     </div>
                 </div>
-                <div class="p-fluid col-2">
-                    <label>Cuerpos Grasos:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.cuerposGrasos">
+
+            </div>
+        </form>
+        <!-- FORM PARACITARIO -->
+        <form [formGroup]="formParasitario">
+            <div class="grid" *ngIf="examLab.tipoExam == 1 && lugarLab.index == 2">
+                <div class="p-fluid col-12">
+                    <h3>RESULTADOS:</h3>
+                    <p-divider></p-divider>
+                </div>
+                <div class="grid">
+                    <div class="p-fluid col-2">
+                        <label>Color:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="color">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Consistencia:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="consistencia">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>pH:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full" formControlName="pH">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Reaccion:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="reaccion">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Mucus:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="mucus">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Sangre:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="sangre">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Restos Alimenticios:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="restosAlimenticios">
+                        </div>
                     </div>
                 </div>
-                <div class="p-fluid col-2">
-                    <label>Levaduras:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.levaduras">
+                <div class="grid">
+                    <div class="p-fluid col-2">
+                        <label>Reaccón Inflamatorio:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="reaccionInflamatorio">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Filamentos Mucoides:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="filamentosMucoides">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Leucocitos:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                    formControlName="leucocitos">
+                            </div>
+                            <div class="infoInput">
+                                x c.m.
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Hematíes:</label>
+                        <div class="flex flex-row">
+                            <div class="col-9 p-0">
+                                <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                    formControlName="hematies">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Cuerpos Grasos:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="cuerposGrasos">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Levaduras:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="levaduras">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Bacterias:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="bacterias">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Cocos Bacilos:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="cocosBacilos">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-2">
+                        <label>Formas Parasitarias:</label>
+                        <div class="col-11 p-0">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="formasParasitarias">
+                        </div>
                     </div>
                 </div>
-                <div class="p-fluid col-2">
-                    <label>Bacterias:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.bacterias">
+                <div class="grid">
+                    <div class="p-fluid col-3 campo">
+                        <div class="tittle1 mt-5 mr-2">
+                            <label>Huevos De:</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="huevosDeValor1">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="huevosDeValor2">
+                        </div>
                     </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Cocos Bacilos:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.leucocitos">
+                    <div class="p-fluid col-3 campo">
+                        <div class="tittle1 mt-5 mr-1">
+                            <label>Quistes De:</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="quistesDeValor1">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="quistesDeValor2">
+                        </div>
                     </div>
-                </div>
-                <div class="p-fluid col-2">
-                    <label>Formas Parasitarias:</label>
-                    <div class="col-11 p-0">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.formasParasitarias">
+                    <div class="p-fluid col-3 campo">
+                        <div class="tittle1 mt-5">
+                            <label>Trofozoitos De:</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="trofozoitosDeValor1">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="trofozoitosDeValor2">
+                        </div>
+                    </div>
+                    <div class="p-fluid col-3 campo">
+                        <div class="tittle1 mt-5">
+                            <label>Larvas De:</label>
+                        </div>
+                        <div class="col-11 p-0 value">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="larvasDeValor1">
+                            <input type="text" pInputText placeholder="" class="inputfield w-full"
+                                formControlName="larvasDeValor2">
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="grid">
-                <div class="p-fluid col-3 campo">
-                    <div class="tittle1 mt-5 mr-2">
-                        <label>Huevos De:</label>
-                    </div>
-                    <div class="col-11 p-0 value">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.huevosDe.valor1">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.huevosDe.valor2">
-                    </div>
-                </div>
-                <div class="p-fluid col-3 campo">
-                    <div class="tittle1 mt-5 mr-1">
-                        <label>Quistes De:</label>
-                    </div>
-                    <div class="col-11 p-0 value">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.quistesDe.valor1">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.quistesDe.valor2">
-                    </div>
-                </div>
-                <div class="p-fluid col-3 campo">
-                    <div class="tittle1 mt-5">
-                        <label>Trofozoitos De:</label>
-                    </div>
-                    <div class="col-11 p-0 value">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.trofozoitosDe.valor1">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.trofozoitosDe.valor2">
-                    </div>
-                </div>
-                <div class="p-fluid col-3 campo">
-                    <div class="tittle1 mt-5">
-                        <label>Larvas De:</label>
-                    </div>
-                    <div class="col-11 p-0 value">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.larvasDe.valor1">
-                        <input type="text" pInputText placeholder="" class="inputfield w-full"
-                            [(ngModel)]="laboResults.examenMicroscopico.larvasDe.valor2">
-                    </div>
-                </div>
-            </div>
-        </div>
+        </form>
     </ng-template>
     <ng-template pTemplate="footer" class="text-right">
         <button *ngIf="isUpdate" pButton type="button" label="Guardar" (click)="guardarEdicionDiagnostico()"></button>
