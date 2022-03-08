@@ -63,6 +63,11 @@ export class PersonalSaludComponent implements OnInit {
     datePipe = new DatePipe("en-US");
     idIpress = "616de45e0273042236434b51";
     iprees: string = "la posta medica";
+
+    nombreRolOpciones: any[] = [
+        "ASISTENCIAL",
+        "ADMINISTRATIVO"
+    ]
     constructor(
         private personalservice: PersonalService,
         private documentoservice: DocumentoIdentidadService,

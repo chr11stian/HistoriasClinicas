@@ -35,6 +35,7 @@ import {TimelineModule} from "primeng/timeline";
 import { SuplementacionCredComponent } from './component/tratamiento-consulta/components/suplementacion-cred/suplementacion-cred.component';
 import { TratamientoCredComponent } from './component/tratamiento-consulta/components/tratamiento-cred/tratamiento-cred.component';
 import { SuplementoComponent } from './component/tratamiento-consulta/components/suplemento/suplemento.component';
+import { DialogVerExamenesAuxiliaresComponent } from './component/examenes-auxiliares-consulta/dialog-ver-examenes-auxiliares/dialog-ver-examenes-auxiliares.component';
 @NgModule({
     declarations: [
         DatosGeneralesConsultaComponent,
@@ -59,6 +60,7 @@ import { SuplementoComponent } from './component/tratamiento-consulta/components
         SuplementacionCredComponent,
         TratamientoCredComponent,
         SuplementoComponent,
+        DialogVerExamenesAuxiliaresComponent,
     ],
     imports: [
         EvaluacionGeneralModule,

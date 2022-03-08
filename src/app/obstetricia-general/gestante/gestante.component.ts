@@ -80,13 +80,6 @@ export class GestanteComponent implements OnInit {
         }
     }
 
-    consultas(event) {
-        this.obstetriciaGeneralService.idGestacion = event.id;
-        this.obstetriciaGeneralService.tipoDoc = event.tipoDoc;
-        this.obstetriciaGeneralService.nroDoc = event.nroDoc;
-        this.obstetriciaGeneralService.nroEmbarazo = event.nroEmbarazo;
-        this.obstetriciaGeneralService.nroHcl = event.nroHcl;
-    }
 
     pacienteByNroDoc() {
         let tipoDoc = this.tipoDocRecuperado;
