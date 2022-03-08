@@ -9,7 +9,7 @@
             <ng-template pTemplate="right" class="button">
                 <button pButton pRipple label="Regresar" icon="pi pi-arrow-left" class="p-button-primary mr-2"
                     (click)="regresar()"></button>
-                <button pButton pRipple label="Agregar Consulta" icon="pi pi-save" (click)="irConsultaNew()"
+                <button pButton pRipple label="Agregar Consulta" icon="pi pi-save" (click)="irConsultaNew(false)"
                     class="p-button-raised p-button-primary mr-2"></button>
             </ng-template>
         </p-toolbar>
@@ -37,19 +37,13 @@
                             <td class="text-center">{{row.nroAtencion}}</td>
                             <td class="text-center">
                                 <button pButton pTooltip="Editar" icon="pi pi-pencil" pRipple type="button"
-                                    label="Editar" class="p-button-rounded p-button-info"
-                                    ></button>
+                                    label="Editar" class="p-button-rounded p-button-info" (click)="irConsultaVisualizar(row.nroAtencion,true)"
+                                ></button>
                             </td>
                         </tr>
                     </ng-template>
                 </p-table>
             </div>
-            <!-- <div class="col-12 text-right">
-                <button pButton type="button" label="Agregar" class="m-1 w-5rem pButton btnAdd text-center "
-                    (click)="openDialogConsulta()"></button>
-                <button pButton type="button" label="Salir" class="m-1 w-5rem p-button-danger"
-                    (click)="close()"></button>
-            </div> -->
         </div>
     </form>
 </p-card>

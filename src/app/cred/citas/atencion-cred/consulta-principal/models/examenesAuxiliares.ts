@@ -17,6 +17,10 @@ export interface ExamenAuxiliar {
     labExterno: string
 }
 export interface ResultadoLaboratorio {
+    hematologia?: Hematologia,
+    parasitologia?: Parasitologia,
+}
+export interface Hematologia {
     hemoglobina?: string,
     hematocrito?: string,
     grupoSanguineo?: string,
@@ -37,7 +41,7 @@ export interface ResultadoLaboratorio {
     nSegmentados?: string,
     linfocitos?: string,
     monocitos?: string,
-    eosinofilos?:string,
+    eosinofilos?: string,
     basofilos?: string,
     vsg1hora?: string,
     vsg2hora?: string,
@@ -47,12 +51,13 @@ export interface ResultadoLaboratorio {
     vrChcm?: string,
     hcm?: string,
     vrHcm?: string,
-    /**PARASITOLOGIA */
-    examenMacroscopico?: ExamenMacroscopico,
-    examenMicroscopico?: ExamenMicroscopico,
-    sangreOcultaHeces?: string,
-    gotaGruesa?: string,
-    frotisLesion?: string
+}
+export interface Parasitologia {
+    examenMacroscopico: ExamenMacroscopico,
+    examenMicroscopico: ExamenMicroscopico,
+    sangreOcultaHeces: string,
+    gotaGruesa: string,
+    frotisLesion: string,
 }
 export interface ExamenMacroscopico {
     color?: string,
@@ -67,7 +72,7 @@ export interface ExamenMicroscopico {
     reaccionInflamatorio?: string,
     filamentosMucoides?: string,
     leucocitos?: string,
-    hematies?: string,  
+    hematies?: string,
     cuerposGrasos?: string,
     levaduras?: string,
     bacterias?: string,
