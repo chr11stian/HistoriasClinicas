@@ -51,7 +51,8 @@ export class ListaConsultaComponent implements OnInit {
                 mes: r.object.mesEdad,
                 dia: r.object.diaEdad,
                 sexo: this.sexo,
-                fechaNacimiento: this.fechaNacimiento
+                fechaNacimiento: this.fechaNacimiento,
+                hidden: true
             }
             localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
         })
@@ -64,7 +65,8 @@ export class ListaConsultaComponent implements OnInit {
             tipoDoc: this.data.tipoDoc,
             idConsulta: '',
             sexo: this.sexo,
-            fechaNacimiento: this.fechaNacimiento
+            fechaNacimiento: this.fechaNacimiento,
+            hidden: true
         }
         localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
     }

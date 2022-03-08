@@ -3,6 +3,7 @@ import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
 // import { LoginService } from 'src/app/core/services/login/login.service';
 import {Router} from '@angular/router';
 import {LoginService} from '../services/login-service/login.service'
+import {dato} from "../../cred/citas/models/data";
 
 @Component({
     selector: "app-top-menu",
@@ -10,7 +11,8 @@ import {LoginService} from '../services/login-service/login.service'
     styleUrls: ["./top-menu.component.css"],
 })
 export class TopMenuComponent implements OnInit {
-    hiddenMenu: Boolean = false;
+    data: dato
+    hiddenMenu: boolean = false;
     style: number = 12;
     items: MenuItem[];
     @Output() hiddenMenu1 = new EventEmitter<boolean>();
@@ -26,7 +28,20 @@ export class TopMenuComponent implements OnInit {
 
     hidden() {
         this.hiddenMenu = !this.hiddenMenu;
-        console.log(this.hiddenMenu)
+        this.data = <dato>JSON.parse(localStorage.getItem('documento'));
+        let data: dato = {
+            nroDocumento: this.data.nroDocumento,
+            tipoDoc: this.data.tipoDoc,
+            idConsulta: this.data.idConsulta,
+            anio: this.data.anio,
+            mes: this.data.mes,
+            dia: this.data.dia,
+            sexo: this.data.sexo,
+            fechaNacimiento: this.data.fechaNacimiento,
+            hidden: !this.hiddenMenu
+        }
+
+        localStorage.setItem('documento', JSON.stringify(data));
         if (this.hiddenMenu == false) {
             this.style = 9;
             this.style1.emit(this.style)
@@ -38,10 +53,9 @@ export class TopMenuComponent implements OnInit {
     }
 
 
-
     ngOnInit(): void {
         let user = JSON.parse(localStorage.getItem('usuario'));
-        this.NombreUsuario = user.email+" "+user.estado;
+        this.NombreUsuario = user.email + " " + user.estado;
         this.items = [
             {
                 label: 'Mi Perfil',
