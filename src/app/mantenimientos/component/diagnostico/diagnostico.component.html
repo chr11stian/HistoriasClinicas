@@ -21,7 +21,7 @@
                 Criterio:
               </div>
               <div class="col-10 p-fluid">
-                <input type="text" pInputText formControlName="criterio" >
+                <p-dropdown [options]="grupo3" formControlName="criterio" optionLabel="name" optionValue="code"></p-dropdown>
               </div>
               <div class="col-3">
                 cie10:
@@ -34,7 +34,7 @@
 
           <ng-template pTemplate="footer">
             <div class="flex justify-content-end">
-              <button [disabled]="diagnosticoFC.invalid" pButton type="button"
+              <button pButton type="button"
                       label="Guardar" class="m-1 w-9rem" (click)="saveDiagnostico()"></button>
               <button pButton type="button" label="Cancelar" icon="pi pi-plus" (click)="cancelar()"
                       pTooltip="cancerlar" tooltipPosition="right" class="p-button-danger m-1 w-9rem"
