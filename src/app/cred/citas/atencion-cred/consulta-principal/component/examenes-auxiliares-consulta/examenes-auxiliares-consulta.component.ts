@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ExamenAuxiliar, Laboratorio, ResultadoLaboratorio } from '../../models/examenesAuxiliares';
+import { ExamenAuxiliar, Hematologia, Laboratorio, Parasitologia, ResultadoLaboratorio } from '../../models/examenesAuxiliares';
 
 @Component({
   selector: 'app-examenes-auxiliares-consulta',
@@ -10,7 +10,8 @@ import { ExamenAuxiliar, Laboratorio, ResultadoLaboratorio } from '../../models/
 export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   listaExamenesAux: any[] = [];
   addExamDialog: boolean = false;
-  formExamenAux: FormGroup;
+  formHematologia: FormGroup;
+  formParasitario: FormGroup;
   isUpdate: boolean = false;
   listaExamenes: Examen[] = [
     { tipoExam: 1, nombreExam: 'TEST DE GRAHAM' },
@@ -24,13 +25,13 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   dataExamenesAuxiliares: Laboratorio;
   isLabo: boolean = false;
   laboResults: ResultadoLaboratorio = {
-    examenMacroscopico: {},
-    examenMicroscopico: {
-      huevosDe: {},
-      quistesDe: {},
-      trofozoitosDe: {},
-      larvasDe: {}
-    },
+    // examenMacroscopico: {},
+    // examenMicroscopico: {
+    //   huevosDe: {},
+    //   quistesDe: {},
+    //   trofozoitosDe: {},
+    //   larvasDe: {}
+    // },
   };
   examFFF: string;
   /**ngModels */
@@ -42,39 +43,88 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     private fb: FormBuilder,
   ) {
     this.inicializarForm();
-    console.log('lista de examenes ', this.listaExamenes);
-    console.log('lista de lugares ', this.listaLugares);
   }
 
   ngOnInit(): void {
 
   }
   inicializarForm() {
-    this.formExamenAux = this.fb.group({
-      nombreExamen: new FormControl('', { validators: [Validators.required] }),
-      lugarExam: new FormControl('', { validators: [Validators.required] }),
-      resultados: new FormControl('', { validators: [Validators.required] }),
+    this.formHematologia = this.fb.group({
+      hemoglobina: new FormControl('', { validators: [Validators.required] }),
+      hematocrito: new FormControl(''),
+      grupoSanguineo: new FormControl(''),
+      factorRH: new FormControl(''),
+      tiempoSangria: new FormControl(''),
+      tiempoCoagulacion: new FormControl(''),
+      tiempoProtrombina: new FormControl(''),
+      tiempoTromboplastina: new FormControl(''),
+      reticulocitos: new FormControl(''),
+      compatibilidadSanguinea: new FormControl(''),
+      rctoGlobulosRojos: new FormControl(''),
+      rctoPlaquetas: new FormControl(''),
+      rctoGlobulosBlancos: new FormControl(''),
+      blastos: new FormControl(''),
+      juveniles: new FormControl(''),
+      neutrofilos: new FormControl(''),
+      nAbastonados: new FormControl(''),
+      nSegmentados: new FormControl(''),
+      linfocitos: new FormControl(''),
+      monocitos: new FormControl(''),
+      eosinofilos: new FormControl(''),
+      basofilos: new FormControl(''),
+      vcm: new FormControl(''),
+      vrVcm: new FormControl(''),
+      chcm: new FormControl(''),
+      vrChcm: new FormControl(''),
+      hcm: new FormControl(''),
+      vrHcm: new FormControl(''),
+      vsg1hora: new FormControl(''),
+      vsg2hora: new FormControl(''),
+    });
+    this.formParasitario = this.fb.group({
+      color: new FormControl('', { validators: [Validators.required] }),
+      consistencia: new FormControl('', { validators: [Validators.required] }),
+      pH: new FormControl('', { validators: [Validators.required] }),
+      reaccion: new FormControl(''),
+      mucus: new FormControl(''),
+      sangre: new FormControl(''),
+      restosAlimenticios: new FormControl(''),
+      reaccionInflamatorio: new FormControl(''),
+      filamentosMucoides: new FormControl(''),
+      leucocitos: new FormControl(''),
+      hematies: new FormControl(''),
+      cuerposGrasos: new FormControl(''),
+      levaduras: new FormControl(''),
+      bacterias: new FormControl(''),
+      cocosBacilos: new FormControl(''),
+      formasParasitarias: new FormControl(''),
+      huevosDeValor1: new FormControl(''),
+      huevosDeValor2: new FormControl(''),
+      quistesDeValor1: new FormControl(''),
+      quistesDeValor2: new FormControl(''),
+      trofozoitosDeValor1: new FormControl(''),
+      trofozoitosDeValor2: new FormControl(''),
+      larvasDeValor1: new FormControl(''),
+      larvasDeValor2: new FormControl(''),
     });
   }
   save() {
 
   }
   openAddExamDialog() {
-    // this.listaExamenes = [];
-    // this.listaLugares = [];
     this.examLab = {};
     this.lugarLab = {};
-    this.formExamenAux.reset();
+    this.formHematologia.reset();
     this.addExamDialog = true;
     this.laboResults = {
-      examenMacroscopico: {},
-      examenMicroscopico: {
-        huevosDe: {},
-        quistesDe: {},
-        trofozoitosDe: {},
-        larvasDe: {}
-      },
-    };;
+      // examenMacroscopico: {},
+      // examenMicroscopico: {
+      //   huevosDe: {},
+      //   quistesDe: {},
+      //   trofozoitosDe: {},
+      //   larvasDe: {}
+      // },
+    };
   }
 
   agreeAddExamDialog() {
@@ -107,7 +157,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     let newData = {
       tipoLaboratorio: "EXAMEN_LABORATORIO",
       subTipo: 'falta',
-      nombreExamen: this.formExamenAux.value.examen,
+      nombreExamen: this.formHematologia.value.examen,
       codigo: '',
       codPrestacion: '',
       cie10: '',
