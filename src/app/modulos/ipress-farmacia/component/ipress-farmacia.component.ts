@@ -28,7 +28,6 @@ export class IpressFarmaciaComponent implements OnInit {
   datePipe = new DatePipe('en-US');
   idUpdate:string="";
   dialogFarmaciaAdd: boolean=false;
-  dialogMedicamentosAdd: boolean=false;
   listaMedicamentos: any;
 
   constructor(private ipressServices:IpressService,
@@ -211,8 +210,7 @@ export class IpressFarmaciaComponent implements OnInit {
     console.log(farmaciaMedicamento);
     this.medicamento=farmaciaMedicamento.medicamento;
   }
-  closeEditar()
-  {
+  closeEditar(){
     let cadena:any = {
       medicamento: this.medicamento,
       stock: this.formDatos.value.stock,
@@ -293,7 +291,6 @@ interface medicamento{
 }
 
 interface items{
-
   medicamento?:medicamento,
   stock?:number,
   fechaVenc?:string,
