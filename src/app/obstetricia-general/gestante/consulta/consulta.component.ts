@@ -1,12 +1,13 @@
-import {Location} from "@angular/common";
-import {Component, OnInit} from "@angular/core";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {DialogConsultaUniversalComponent} from "../../historia-consultas/dialog-consulta-universal/dialog-consulta-universal.component";
-import {DialogConsultaComponent} from "./dialog-consulta/dialog-consulta.component";
-import {ConsultaObstetriciaService} from "./services/consulta-obstetricia/consulta-obstetricia.service";
-import {ObstetriciaGeneralService} from "../../services/obstetricia-general.service";
-import {Router} from "@angular/router";
+import { Location } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { DialogConsultaUniversalComponent } from "../../historia-consultas/dialog-consulta-universal/dialog-consulta-universal.component";
+import { DialogConsultaComponent } from "./dialog-consulta/dialog-consulta.component";
+import { ConsultaObstetriciaService } from "./services/consulta-obstetricia/consulta-obstetricia.service";
+import { ObstetriciaGeneralService } from "../../services/obstetricia-general.service";
+import { Router } from "@angular/router";
+import { ConsultasService } from "../atencion/consultorio-obstetrico/services/consultas.service";
 
 @Component({
     selector: "app-consulta",
@@ -35,6 +36,7 @@ export class ConsultaComponent implements OnInit {
         private dialog: DialogService,
         private consultaObstetriciaService: ConsultaObstetriciaService,
         private obstetriciaGeneralService: ObstetriciaGeneralService,
+        private consultasService: ConsultasService,
         private router: Router
     ) {
         this.inicializarForm();
@@ -135,13 +137,21 @@ export class ConsultaComponent implements OnInit {
     }
 
     //crear una nueva consulta, no mandamos ningun dato
-    irConsultaNew(edicion){
+    irConsultaNew(edicion) {
         this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico']);
         localStorage.setItem("consultaEditarEstado", edicion);
-    } 
+        let data = {
+            nroHcl: this.nroHcl
+        }
+        this.consultasService.getUltimaConsultaControl(data).subscribe((res: any) => {
+            let informacion = res.object;
+            //guardar en el ls el nroAtencion
+            localStorage.setItem("nroConsultaNueva", informacion.nroUltimaAtencion + 1);
+        })
+    }
 
     //editar consulta o visualizar na ma, mandamos la data de la fila
-    irConsultaVisualizar(nroAtencion,edicion){
+    irConsultaVisualizar(nroAtencion, edicion) {
         this.router.navigate(['/dashboard/obstetricia-general/citas/gestante/obstetricia/consultorio-obstetrico'])
         localStorage.setItem("nroConsultaEditar", nroAtencion);
         localStorage.setItem("consultaEditarEstado", edicion);

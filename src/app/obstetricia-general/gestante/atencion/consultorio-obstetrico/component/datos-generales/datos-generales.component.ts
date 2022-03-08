@@ -546,10 +546,10 @@ export class DatosGeneralesComponent implements OnInit {
 
                 if (!this.estadoEdicion){
                     //guardar en el ls el nroAtencion
-                    localStorage.setItem("nroConsultaNueva",informacion.nroUltimaAtencion + 1);
-                    this.formDatos_Generales.get('nroAtencion').setValue(informacion.nroUltimaAtencion + 1);
-                    this.formDatos_Generales.get('nroControl').setValue(informacion.nroUltimaAtencion + 1);
-                    this.nroAtencion=informacion.nroUltimaAtencion + 1;
+                    let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
+                    this.formDatos_Generales.get('nroAtencion').setValue(nroAtencion);
+                    this.formDatos_Generales.get('nroControl').setValue(nroAtencion);
+                    this.nroAtencion=nroAtencion;
                 }
                 else{
                     let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
@@ -565,16 +565,19 @@ export class DatosGeneralesComponent implements OnInit {
                 this.formDatos_Generales.get('FUR').setValue(informacion.fum);
                 this.formDatos_Generales.get('FPP').setValue(informacion.fechaProbableParto);
                 this.formDatos_Generales.get('P1').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[8].valor:null);
+                this.formDatos_Generales.get('P2').setValue(informacion.nroPartosPrematuros);
                 this.formDatos_Generales.get('P3').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[7].valor:null);
                 this.formDatos_Generales.get('P4').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[3].valor:null);
                 this.formDatos_Generales.get('G').setValue(informacion.antecedentesObstetricos?informacion.antecedentesObstetricos[9].valor:null);
                 this.formDatos_Generales.get('RNpesoMayor').setValue(informacion.rnMayorPeso);
                 this.formDatos_Generales.get('gesAnterior').setValue(this.determinarUltimaGesta(informacion.terminacion));
-
+                this.formDatos_Generales.get('RCAT').setValue(informacion.rcat);
                 this.formDatos_Generales.get('FumaCigarros').setValue(informacion.nroCigarrosAlDia > 0 ? true : false);
                 this.formDatos_Generales.get('Drogas').setValue(informacion.drogas !== true ? false : true);
 
                 //vacunas previas
+                this.formDatos_Generales.get('vAntitetánica1Dosis').setValue(informacion.antitetanica.nroDosisPrevia>0||informacion.antitetanica.dosis[0].dosis!==null? true : false);
+                this.formDatos_Generales.get('vAntitetánica2Dosis').setValue(informacion.antitetanica.nroDosisPrevia>1||informacion.antitetanica.dosis[1].dosis!==null? true : false);
                 this.formDatos_Generales.get('rubeola').setValue(informacion.vacunasPrevias.find(item => item == "rubeola") ? true : false);
                 this.formDatos_Generales.get('HepatitesB').setValue(informacion.vacunasPrevias.find(item => item == "hepatitis B") ? true : false);
                 this.formDatos_Generales.get('PapilomaV').setValue(informacion.vacunasPrevias.find(item => item == "papiloma") ? true : false);

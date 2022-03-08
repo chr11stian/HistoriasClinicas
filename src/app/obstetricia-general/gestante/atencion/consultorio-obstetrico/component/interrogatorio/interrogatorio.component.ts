@@ -81,6 +81,9 @@ export class InterrogatorioComponent implements OnInit {
     private router: Router,
   ) {
     this.inicializarForm();
+
+    console.log("triaje traer a interrogatorio",);
+
     //this.idConsulta = this.obstetriciaService.idGestacion;
     //console.log('consulta ', this.obstetriciaService);
 
@@ -111,7 +114,15 @@ export class InterrogatorioComponent implements OnInit {
       //guardar en el ls el nroAtencion
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
       this.nroAtencion = nroAtencion;
-      console.log("entre a nueva consulta", this.nroAtencion)
+      console.log("entre a nueva consulta", this.nroAtencion);
+      let triaje = JSON.parse(localStorage.getItem('datacupos'));
+      this.form.get("temperatura").setValue(triaje.funcionesVitales.temperatura);
+      this.form.get("presionSisto").setValue(triaje.funcionesVitales.presionSistolica);
+      this.form.get("presionDisto").setValue(triaje.funcionesVitales.presionDiastolica);
+      this.form.get("fc").setValue(triaje.funcionesVitales.fc);
+      this.form.get("fr").setValue(triaje.funcionesVitales.fr);
+      this.form.get("peso").setValue(triaje.funcionesVitales.peso);
+      this.form.get("talla").setValue(triaje.funcionesVitales.talla);
     }
     else {
       let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));

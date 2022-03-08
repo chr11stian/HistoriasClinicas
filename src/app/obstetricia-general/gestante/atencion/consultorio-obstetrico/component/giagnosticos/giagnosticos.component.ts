@@ -297,16 +297,16 @@ export class GiagnosticosComponent implements OnInit {
         })
     }
     enviarDatosRefProxCita() {
-        this.referencia = {
-            consultorio: this.formOtrosDatos.value.consultorio,
-            motivoReferencia: this.formOtrosDatos.value.motivo,
-            renipress: this.formOtrosDatos.value.codRENAES,
-            nombreIPRESS: null,
-            idRef: null,
-            DISA: null,
-            lote: null,
-            nroFormato: null
-        }
+        // this.referencia = {
+        //     consultorio: this.formOtrosDatos.value.consultorio,
+        //     motivoReferencia: this.formOtrosDatos.value.motivo,
+        //     renipress: this.formOtrosDatos.value.codRENAES,
+        //     nombreIPRESS: null,
+        //     idRef: null,
+        //     DISA: null,
+        //     lote: null,
+        //     nroFormato: null
+        // }
         this.proxCita = { fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd') }
         this.visitaDomiciliaria = {
             estado: this.formOtrosDatos.value.visita,
@@ -377,19 +377,18 @@ export class GiagnosticosComponent implements OnInit {
             nroAtencion: this.nroAtencion,
             tipoDoc: this.tipoDocRecuperado,
             nroDoc: this.nroDocRecuperado,
-            referencia: this.referencia,
+            // referencia: this.referencia,
             visitaDomiciliaria: this.visitaDomiciliaria,
             planParto: this.planPartoReenfocada,
             diagnosticos: this.diagnosticos,
-            citas: [
+            proxCita: 
                 {
-                    fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd HH:mm:ss'),
+                    fecha: this.datePipe.transform(this.formOtrosDatos.value.proxCita, 'yyyy-MM-dd'),
                     motivo: "próxima cita",
                     servicio: "OBSTETRICIA",
                     estado: "TENTATIVO",
                     nivelUrgencia: "4"
-                }
-            ],
+                },
 
         }
 
