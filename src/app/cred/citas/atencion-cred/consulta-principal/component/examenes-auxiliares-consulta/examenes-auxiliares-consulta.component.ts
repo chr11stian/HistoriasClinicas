@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ExamenAuxiliar, Hematologia, Laboratorio, Parasitologia, ResultadoLaboratorio } from '../../models/examenesAuxiliares';
 import { ExamenesAuxiliaresService } from '../../services/examenes-auxiliares.service';
+import { DialogVerExamenesAuxiliaresComponent } from './dialog-ver-examenes-auxiliares/dialog-ver-examenes-auxiliares.component';
 
 @Component({
   selector: 'app-examenes-auxiliares-consulta',
   templateUrl: './examenes-auxiliares-consulta.component.html',
-  styleUrls: ['./examenes-auxiliares-consulta.component.css']
+  styleUrls: ['./examenes-auxiliares-consulta.component.css'],
+  providers: [DialogService],
 })
 export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   listaExamenesAux: any[] = [];
@@ -33,15 +36,19 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   examLab: Examen = {};
   lugarLab: Lugar = {};
   idConsulta: string;
+  listaDataLaboRes: any;
+  ref: DynamicDialogRef;
 
   constructor(
     private fb: FormBuilder,
     private auxExamService: ExamenesAuxiliaresService,
+    private dialog: DialogService,
   ) {
     this.inicializarForm();
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
     this.auxExamService.getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta).then(data => {
       console.log('data de examenes auxiliares de consulta ', data);
+      this.listaDataLaboRes = data;
     })
   }
 
@@ -253,6 +260,12 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     this.auxExamService.postExamenesAuxiliares(this.idConsulta, this.dataExamenesAuxiliares).subscribe((res: any) => {
       console.log('se guardo la wea ', res)
     })
+  }
+  openDialogShowAuxiliarExam(data, index) {
+    this.ref = this.dialog.open(DialogVerExamenesAuxiliaresComponent, {
+
+    });
+    console.log('data del ver ', data, 'index del ver ', index);
   }
 }
 interface Examen {
