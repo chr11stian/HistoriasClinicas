@@ -222,23 +222,27 @@ export class TratamientoCredComponent implements OnInit {
        },
        nroDiagnostico: this.formTratamiento.value.nroDiagnostico
      }
-
+     var duplicado:boolean=false;
+     this.tratamientos.forEach(elemento=>elemento.medicamento?cadena.medicamento:duplicado=true)
+     console.log(duplicado);
      console.log("cadena" , cadena)
-    this.tratamientos.push(cadena);
-    this.tratamientoService.addTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
+    if(!duplicado){
+      this.tratamientos.push(cadena);
+      this.tratamientoService.addTratamiento(this.data.idConsulta,this.tratamientos).subscribe((data:any)=>{
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Tratamientos',
-        text: 'Se guardo un medicamento!',
+        Swal.fire({
+          icon: 'success',
+          title: 'Tratamientos',
+          text: 'Se guardo un medicamento!',
+        })
+      },error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Tratamientos',
+          text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
+        })
       })
-    },error => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Tratamientos',
-        text: 'Ocurrio un error al ingresar, vuelva a intentarlo!',
-      })
-    })
+    }
     this.dialogTratamiento=false;
   }
 

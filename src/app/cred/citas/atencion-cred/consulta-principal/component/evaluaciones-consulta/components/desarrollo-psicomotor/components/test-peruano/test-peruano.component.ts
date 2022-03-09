@@ -22,7 +22,7 @@ export class TestPeruanoComponent implements OnInit {
   displayMaximizable: boolean;
   attributeLocalS = 'documento';
   evaluacionDesarrollo: any;
-  edadMeses: number = 2;
+  edadEvaluar: number;
   displayPosition: boolean;
   position: string;
   datePipe = new DatePipe('en-US');
@@ -32,6 +32,7 @@ export class TestPeruanoComponent implements OnInit {
   enableAgregar: boolean = false;
   estadoHayDatosPlan: boolean = false;
   data: dato;
+  edadMeses:number;
   color: string = "";
   preguntas: pregunta[] = [{
     codigo: 'A', descripcion: 'CONTROL DE CABEZA Y TRONCO SENTADO'
@@ -93,17 +94,13 @@ export class TestPeruanoComponent implements OnInit {
   }
   recuperarEdadNinio() {
 
-    this.edadMeses = this.data.anio * 12 + this.data.mes
-    if(isNaN(this.edadMeses)){
+    this.edadEvaluar = this.data.anio * 12 + this.data.mes
+    this.edadMeses=this.edadEvaluar;
+    if(isNaN(this.edadEvaluar)){
       this.enableAgregar = true;
     }
     if (
-        this.edadMeses === 0||
-        this.edadMeses == 13 || this.edadMeses == 14 || this.edadMeses == 16 ||
-        this.edadMeses == 17 || this.edadMeses == 19 || this.edadMeses == 22 ||
-        this.edadMeses == 23 || this.edadMeses == 25 || this.edadMeses == 26 ||
-        this.edadMeses == 27 || this.edadMeses == 28 || this.edadMeses == 29 ||
-        this.edadMeses >= 31) {
+        this.edadMeses === 0) {
         this.enableAgregar = true;
     }
   }
@@ -430,7 +427,6 @@ export class TestPeruanoComponent implements OnInit {
     this.estadoVisualizar = true;
     this.displayMaximizable = true;
     this.formDatos_TestPeruano.disable();
-
   }
   // openEditar(row,data){
   //   this.formDatos_TestPeruano.enable();
@@ -697,6 +693,7 @@ export class TestPeruanoComponent implements OnInit {
   // }
 
   guardarActualizar() {
+    this.formDatos_TestPeruano.enabled;
     if (this.listaTestPeruano[0] != null) {
       this.enableAgregar = true;
       this.displayMaximizable = false;
@@ -728,7 +725,7 @@ export class TestPeruanoComponent implements OnInit {
     if(this.formDatos_TestPeruano.value[codigo]==true){ this.codigosArr.push(codigo);}
   }
   openNuevoTestPeruano(){
-    // this.formDatos_TestPeruano.enable();
+    this.formDatos_TestPeruano.enable();
     this.builForm();
     this.formDatos_TestPeruano.reset();
     this.recuperarTestPlanCred();

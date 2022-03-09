@@ -95,7 +95,7 @@
             <h3>MEDICAMENTO:</h3>
           </div>
           <div class="p-toolbar-group-right">
-            <label class="" *ngIf="!estadoEditar">Stock: </label>
+            <label class="" *ngIf="!estadoEditar">STOCK: </label>
             <input type="text" pInputText  *ngIf="!estadoEditar" placeholder="Stock" class="inputfield w-full " formControlName="stock"
                    style="text-transform:uppercase">
           </div>
@@ -103,29 +103,29 @@
         <div class="border">
           <div class="grid m-2">
               <div class="col-3 p-fluid">
-                <label class="">Codigo: </label>
+                <label class="">CODIGO: </label>
                 <input type="text" pInputText placeholder="Codigo" class="inputfield w-full " formControlName="codigo"
                        style="text-transform:uppercase">
               </div>
               <div class="col-7 p-fluid">
-                <label class="">Nombre: </label>
+                <label class="">NOMBRE: </label>
                 <input type="text" pInputText placeholder="Nombre" class="inputfield w-full " formControlName="nombre"
                        style="text-transform:uppercase">
               </div>
               <div class="col-2 p-fluid">
-                <label class="">Presentación: </label>
+                <label class="">PRESENTACIÓN: </label>
                 <input type="text" pInputText placeholder="Presentación" class="inputfield w-full " formControlName="ff"
                        style="text-transform:uppercase">
               </div>
           </div>
           <div class="grid m-2">
             <div class="col-3 p-fluid">
-              <label class="">Concentración: </label>
+              <label class="">CONCENTRACIÓN: </label>
               <input type="text" pInputText placeholder="Concentración" class="inputfield w-full " formControlName="concentracion"
                      style="text-transform:uppercase">
             </div>
             <div class="col-3 p-fluid">
-              <label class="">Via Administración: </label>
+              <label class="">VIA ADMINISTRACIÓN: </label>
               <p-dropdown  inputId="dropdown" [options]="viaadministracionList"
                            formControlName="viaAdministracion"
                            placeholder="seleccionar"
@@ -134,11 +134,11 @@
               </p-dropdown>
             </div>
             <div class="col-3 p-fluid">
-              <label class="">Fecha Vencimiento: </label><br>
+              <label class="">FECHA VENCIMIENTO: </label><br>
               <p-calendar formControlName="fechaVenc" class="inputfield w-full"  [showIcon]="true" inputId="icon" ></p-calendar>
             </div>
             <div class="col-3 p-fluid">
-              <label class="">Cantidad: </label>
+              <label class="">CANTIDAD: </label>
               <input type="number" pInputText  placeholder="Cantidad" class="inputfield w-full " formControlName="cantidad"
                      style="text-transform:uppercase">
              </div>
@@ -146,12 +146,12 @@
           <hr style="background:#0c3866 ">
           <div class="grid  m-2">
             <div class="col-3 p-fluid">
-              <label class="">Dosis: </label>
+              <label class="">DOSIS: </label>
               <input type="text" pInputText placeholder="Dosis" class="inputfield w-full " formControlName="dosis"
                      style="text-transform:uppercase">
             </div>
             <div class="col-3 p-fluid">
-              <label class="">Intervalo: </label>
+              <label class="">INTERVALO: </label>
               <p-dropdown  inputId="dropdown" [options]="intervaloList"
                            formControlName="intervalo"
                            placeholder="seleccionar"
@@ -160,12 +160,12 @@
               </p-dropdown>
             </div>
             <div class="col-3 p-fluid">
-              <label class="">Duracion: </label>
+              <label class="">DURACIÓN: </label>
               <input type="text" pInputText placeholder="Duracion" class="inputfield w-full " formControlName="duracion"
                      style="text-transform:uppercase">
             </div>
             <div class="col-3 p-fluid">
-              <label class="">Nro Diagnótico: </label>
+              <label class="">NRO. DIAGNÓSTICO: </label>
               <input type="number" pInputText placeholder="Nro. Diagnóstico" class="inputfield w-full " formControlName="nroDiagnostico"
                      style="text-transform:uppercase">
             </div>
@@ -177,19 +177,19 @@
         <div class="border">
           <div class="grid m-2">
             <div class="col-6 p-fluid">
-              <label class="">Efectos Medicamentos: </label>
+              <label class="">EFECTOS A MEDICAMENTOS: </label>
               <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Efectos Medicamentos" pInputTextarea  autoResize="autoResize" formControlName="efectosMedicamento"></textarea>
             </div>
             <div class="col-6 p-fluid">
-              <label class="">Instrucciones: </label>
+              <label class="">INSTRUCCIONES: </label>
               <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Instrucciones" pInputTextarea  autoResize="autoResize" formControlName="instrucciones"></textarea>
             </div>
             <div class="col-6 p-fluid">
-              <label class="">Advertencias: </label>
+              <label class="">ADVERTENCIA: </label>
               <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Advertencias" pInputTextarea  autoResize="autoResize" formControlName="advertencias"></textarea>
             </div>
             <div class="col-6 p-fluid">
-              <label class="">Otras Indicaciones: </label>
+              <label class="">OTRAS INDICACIONES: </label>
               <textarea [rows]="2" [cols]="30"  style="text-transform:uppercase" placeholder="Otras Indicaciones" pInputTextarea  autoResize="autoResize" formControlName="otrasIndicaciones"></textarea>
             </div>
           </div>
