@@ -12,7 +12,6 @@
     <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
     <div class="col-2 text-center" style="font-weight: bold">Estado</div>
     <div class="col-1 text-center" style="font-weight: bold">Accion</div>
-
   </div>
   <div class="grid" *ngFor="let sf of SF" [ngStyle]="{'background-color':sf.edadMes==edadMes? 'rgba(175,0,23,0.4)' : 'white' }">
     <div class="col-1 text-center">
@@ -31,10 +30,6 @@
               [disabled]="true"
               dateFormat="dd/mm/yy"
               [(ngModel)]="sf.fechaTentativa"
-              [ngClass]="{
-                        vacunado: sf.estadoAdministrado,
-                        noVacunado: !sf.estadoAdministrado
-                      }"
       ></p-calendar>
     </div>
     <div class="col text-center">
@@ -44,10 +39,6 @@
               [disabled]="true"
               dateFormat="dd/mm/yy"
               [(ngModel)]="sf.fecha"
-              [ngClass]="{
-                        vacunado: sf.estadoAdministrado,
-                        noVacunado: !sf.estadoAdministrado
-                      }"
       ></p-calendar>
     </div>
     <div class="col-2 text-center">
@@ -101,10 +92,6 @@
               [disabled]="true"
               dateFormat="dd/mm/yy"
               [(ngModel)]="mnm.fechaTentativa"
-              [ngClass]="{
-                        vacunado: mnm.estadoAdministrado,
-                        noVacunado: !mnm.estadoAdministrado
-                      }"
       ></p-calendar>
     </div>
     <div class="col text-center">
@@ -114,10 +101,6 @@
               [disabled]="true"
               dateFormat="dd/mm/yy"
               [(ngModel)]="mnm.fecha"
-              [ngClass]="{
-                        vacunado: mnm.estadoAdministrado,
-                        noVacunado: !mnm.estadoAdministrado
-                      }"
       ></p-calendar>
     </div>
     <div class="col-2 text-center">
@@ -132,6 +115,68 @@
     </div>
     <div class="col-1 text-center">
       <button *ngIf="!mnm.estadoAdministrado;" (click)="agregarSuplementacion(mnm)" pButton pRipple
+              type="button" icon="pi pi-pencil"
+              pTooltip="Agregar Suplementacion"
+              tooltipPosition="bottom"
+              class="p-button-rounded p-button-warning p-button-outlined"></button>
+    </div>
+  </div>
+</p-fieldset>
+<p-fieldset>
+  <ng-template pTemplate="header">
+    <div>
+      Suplementacion con Vitamina A
+    </div>
+  </ng-template>
+  <div class="grid">
+    <div class="col-1 text-center" style="font-weight: bold">Edad Mes</div>
+    <div class="col-2 text-center" style="font-weight: bold">Nombre</div>
+    <div class="col-1 text-center" style="font-weight: bold">Nro Dosis</div>
+    <div class="col text-center" style="font-weight: bold">Fecha Tentativa</div>
+    <div class="col text-center" style="font-weight: bold">Fecha Administracion</div>
+    <div class="col-2 text-center" style="font-weight: bold">Estado</div>
+    <div class="col-1 text-center" style="font-weight: bold">Accion</div>
+  </div>
+  <div class="grid" *ngFor="let va of vitaA" [ngStyle]="{'background-color':sf.edadMes==edadMes? 'rgba(175,0,23,0.4)' : 'white' }">
+    <div class="col-1 text-center">
+      {{va.edadMes}}
+    </div>
+    <div class="col-2 text-center">
+      {{va.descripcion}}
+    </div>
+    <div class="col-1 text-center">
+      {{va.dosis}}
+    </div>
+    <div class="col text-center">
+      <p-calendar
+              [showIcon]="true"
+              placeholder="Fecha"
+              [disabled]="true"
+              dateFormat="dd/mm/yy"
+              [(ngModel)]="va.fechaTentativa"
+      ></p-calendar>
+    </div>
+    <div class="col text-center">
+      <p-calendar
+              [showIcon]="true"
+              placeholder="Fecha"
+              [disabled]="true"
+              dateFormat="dd/mm/yy"
+              [(ngModel)]="va.fecha"
+      ></p-calendar>
+    </div>
+    <div class="col-2 text-center">
+            <span *ngIf="va.estadoAdministrado;else noVacunado;">
+              <p-tag severity="success" value="Administrado" [rounded]="true"></p-tag>
+            </span>
+      <ng-template #noVacunado>
+              <span>
+                <p-tag severity="warning" value="No Administrado" [rounded]="true"></p-tag>
+              </span>
+      </ng-template>
+    </div>
+    <div class="col-1 text-center">
+      <button *ngIf="!va.estadoAdministrado;" (click)="agregarSuplementacion(va)" pButton pRipple
               type="button" icon="pi pi-pencil"
               pTooltip="Agregar Suplementacion"
               tooltipPosition="bottom"

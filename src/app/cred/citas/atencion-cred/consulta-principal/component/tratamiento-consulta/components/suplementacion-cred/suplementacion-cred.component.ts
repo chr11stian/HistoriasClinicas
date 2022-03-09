@@ -19,7 +19,7 @@ export class SuplementacionCredComponent implements OnInit {
   listaMicronutrientes: SuplementacionMicronutrientes[] = []
   SF: SuplementacionMicronutrientes[] = []
   MNM: SuplementacionMicronutrientes[] = []
-  valueO: boolean = true;
+  vitaA:SuplementacionMicronutrientes[]=[]
   edadMes:number;
 
   dataDocumento:dato
@@ -80,6 +80,8 @@ export class SuplementacionCredComponent implements OnInit {
     console.log('lista SF', this.SF);
     this.MNM = this.listaMicronutrientes.filter(item => item.nombre === 'MNM')
     console.log('lista MMN', this.MNM);
+    this.vitaA = this.listaMicronutrientes.filter(item => item.nombre === 'vitaA')
+    console.log('lista vita A', this.MNM);
   }
 
   agregarSuplementacion(inmunizacion:SuplementacionMicronutrientes) {

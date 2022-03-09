@@ -2,6 +2,7 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 
 import {RolGuardiaGeneralComponent} from "./rol-guardia-general/rol-guardia-general.component";
+import {RolGuardiaComponent} from "./rol-guardia/rol-guardia.component";
 
 const routes: Routes = [
     {
@@ -15,7 +16,7 @@ const routes: Routes = [
     },
     {
         path: "rol-guardia",
-        component: RolGuardiaGeneralComponent,
+        component: RolGuardiaComponent,
     },
 ];
 
