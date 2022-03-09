@@ -107,10 +107,10 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
     auxEvaluacionW: evaluation
     auxEvaluacionWH: evaluation1
     auxEvaluacionC: evaluation2
-    diagnosticoH: string
-    diagnosticoW: string
-    diagnosticoWH: string
-    diagnosticoC: string
+    diagnosticoH: string = ''
+    diagnosticoW: string = ''
+    diagnosticoWH: string = ''
+    diagnosticoC: string = ''
 
     constructor(private fb: FormBuilder,
                 public dialogService: DialogService,
@@ -569,7 +569,11 @@ export class CrecimientoEstadoNutricionalComponent implements OnInit {
 
     ver() {
         if (this.myDisable)
-            this.messageService.add({severity: 'error', summary: 'Falta Guardar', detail: 'Guardar la información del Peso, Talla y P. Cefálico'});
+            this.messageService.add({
+                severity: 'error',
+                summary: 'Falta Guardar',
+                detail: 'Guardar la información del Peso, Talla y P. Cefálico'
+            });
     }
 
     onCircumferenceChart(): void {
