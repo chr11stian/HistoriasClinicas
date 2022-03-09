@@ -44,9 +44,9 @@ export class InterrogatorioComponent implements OnInit {
     { name: "+++" },
     { name: "No aplica" }
   ];
-  listaFuncionesBiologicas=[
-    { name:"Conservado"},
-    { name:"Alterado"}
+  listaFuncionesBiologicas = [
+    { name: "Conservado" },
+    { name: "Alterado" }
   ];
   interrogatorioData: any;
   ref: DynamicDialogRef;
@@ -57,9 +57,20 @@ export class InterrogatorioComponent implements OnInit {
   examenesFisicosDialog: boolean = false;
   indexEdit: number = 0;
   update: boolean = false;
-  idConsulta: string;
   ultimaConsulta: ultimaConsulta;
   edadGestacional: number;
+
+  idConsulta: string;
+  tipoDocRecuperado: string;
+  nroDocRecuperado: string;
+  nroEmbarazo: string;
+  nroHcl: string;
+
+  Gestacion: any;
+  dataPaciente2: any;
+  estadoEdicion: Boolean;
+
+  nroAtencion: any;
 
   constructor(
     private fb: FormBuilder,
@@ -70,15 +81,62 @@ export class InterrogatorioComponent implements OnInit {
     private router: Router,
   ) {
     this.inicializarForm();
-    this.idConsulta = this.obstetriciaService.idGestacion;
-    console.log('consulta ', this.obstetriciaService);
+
+    console.log("triaje traer a interrogatorio",);
+
+    //this.idConsulta = this.obstetriciaService.idGestacion;
+    //console.log('consulta ', this.obstetriciaService);
+
+    this.Gestacion = JSON.parse(localStorage.getItem('gestacion'));
+    this.dataPaciente2 = JSON.parse(localStorage.getItem('dataPaciente'));
+
+    //estado para saber que estado usar en consultas
+    this.estadoEdicion = JSON.parse(localStorage.getItem('consultaEditarEstado'));
+
+    console.log("DATA PACIENTE 2 desde datos generales", this.dataPaciente2);
+    console.log("gestacion desde datos generales", this.Gestacion);
+
+    if (this.Gestacion == null) {
+      this.tipoDocRecuperado = this.dataPaciente2.tipoDoc;
+      this.nroDocRecuperado = this.dataPaciente2.nroDoc;
+      this.idConsulta = JSON.parse(localStorage.getItem('idGestacionRegistro'));
+      this.nroEmbarazo = this.dataPaciente2.nroEmbarazo;
+      this.nroHcl = this.dataPaciente2.nroHcl;
+
+    } else {
+      this.tipoDocRecuperado = this.Gestacion.tipoDoc;
+      this.nroDocRecuperado = this.Gestacion.nroDoc;
+      this.idConsulta = this.Gestacion.id;
+      this.nroEmbarazo = this.Gestacion.nroEmbarazo;
+      this.nroHcl = this.Gestacion.nroHcl;
+    }
+    if (!this.estadoEdicion) {
+      //guardar en el ls el nroAtencion
+      let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaNueva'));
+      this.nroAtencion = nroAtencion;
+      console.log("entre a nueva consulta", this.nroAtencion);
+      let triaje = JSON.parse(localStorage.getItem('datacupos'));
+      this.form.get("temperatura").setValue(triaje.funcionesVitales.temperatura);
+      this.form.get("presionSisto").setValue(triaje.funcionesVitales.presionSistolica);
+      this.form.get("presionDisto").setValue(triaje.funcionesVitales.presionDiastolica);
+      this.form.get("fc").setValue(triaje.funcionesVitales.fc);
+      this.form.get("fr").setValue(triaje.funcionesVitales.fr);
+      this.form.get("peso").setValue(triaje.funcionesVitales.peso);
+      this.form.get("talla").setValue(triaje.funcionesVitales.talla);
+    }
+    else {
+      let nroAtencion = JSON.parse(localStorage.getItem('nroConsultaEditar'));
+      this.nroAtencion = nroAtencion;
+      console.log("entre a edicion consulta", this.nroAtencion)
+    }
     this.getUltimaConsulta();
-    // if (this.idConsulta == '') {
-    //   this.router.navigate(['dashboard/obstetricia-general/citas'])
-    // }
   }
 
   ngOnInit(): void {
+    console.log("TipoDocRecuperado desde interrogatorio", this.tipoDocRecuperado);
+    console.log("NroDocRecuparado desde interrogatorio", this.nroDocRecuperado);
+    console.log("Nro de embarazo desde interrogatorio", this.nroEmbarazo);
+    console.log("Id Consultorio Obstetrico desde interrogatorio", this.idConsulta);
     this.loadData();
   }
 
@@ -93,6 +151,8 @@ export class InterrogatorioComponent implements OnInit {
     this.ultimaConsulta = response.object;
     console.log('ultima consulta', this.ultimaConsulta);
     this.form.get("imc").setValue(this.ultimaConsulta.imc);
+
+    
   }
 
   inicializarForm() {
@@ -200,12 +260,12 @@ export class InterrogatorioComponent implements OnInit {
     }
 
     this.interrogatorioData = {
-      nroHcl: this.ultimaConsulta.nroHcl,
-      nroAtencion: 1,
+      nroHcl: this.nroHcl,
+      nroAtencion: this.nroAtencion,
       nroControlSis: this.ultimaConsulta.nroMayorControlSis,
-      nroEmbarazo: this.ultimaConsulta.nroEmbarazo,
-      tipoDoc: this.ultimaConsulta.tipoDoc,
-      nroDoc: this.ultimaConsulta.nroDoc,
+      nroEmbarazo: this.nroEmbarazo,
+      tipoDoc: this.tipoDocRecuperado,
+      nroDoc: this.nroDocRecuperado,
       signosVitales: {
         temperatura: this.form.value.temperatura,
         presionSistolica: this.form.value.presionSisto,
@@ -219,11 +279,11 @@ export class InterrogatorioComponent implements OnInit {
       },
       funcionesBiologicas: [
         { funcion: 'Apetito', valor: this.form.value.apetito, detalle: this.form.value.apetitoDetalle },
-        { funcion: 'Sed', valor: this.form.value.sed, detalle: this.form.value.sedDetalle},
-        { funcion: 'Sueños', valor: this.form.value.suenos, detalle: this.form.value.suenosDetalle},
-        { funcion: 'Estado Animo', valor: this.form.value.estadoAnimo, detalle: this.form.value.estadoAnimoDetalle},
+        { funcion: 'Sed', valor: this.form.value.sed, detalle: this.form.value.sedDetalle },
+        { funcion: 'Sueños', valor: this.form.value.suenos, detalle: this.form.value.suenosDetalle },
+        { funcion: 'Estado Animo', valor: this.form.value.estadoAnimo, detalle: this.form.value.estadoAnimoDetalle },
         { funcion: 'Orina', valor: this.form.value.orina, detalle: this.form.value.orinaDetalle },
-        { funcion: 'Deposiciones', valor: this.form.value.deposiciones, detalle: this.form.value.deposicionesDetalle},
+        { funcion: 'Deposiciones', valor: this.form.value.deposiciones, detalle: this.form.value.deposicionesDetalle },
       ],
       anamnesis: this.form.value.anamnesis,
       motivoConsulta: this.form.value.motivoConsulta,
@@ -231,7 +291,7 @@ export class InterrogatorioComponent implements OnInit {
       {
         tiempoEnfermedad: this.form.value.tiempoEnfermedad,
         formaInicio: this.form.value.formaInicio,
-        curso:this.form.value.curso,
+        curso: this.form.value.curso,
         observacion: this.form.value.observacion
       },
       examenesFisicos: auxPhysicalExam,
@@ -248,7 +308,7 @@ export class InterrogatorioComponent implements OnInit {
         dias: this.form.value.dias,
       },
       examenesFetos: this.listaExamenesFetos,
-      
+
     }
 
     // FIN RECUPERAR DATOS
@@ -315,15 +375,15 @@ export class InterrogatorioComponent implements OnInit {
   loadData() {
     let auxData = {
       // id: this.idConsulta,
-      nroHcl: this.obstetriciaService.nroHcl,
-      nroEmbarazo: this.obstetriciaService.nroEmbarazo,
-      nroAtencion: 1
+      nroHcl: this.nroHcl,
+      nroEmbarazo: this.nroEmbarazo,
+      nroAtencion: this.nroAtencion
     }
     let Rpta;
     console.log('to recuperar ', auxData);
     this.consultaObstetricaService.getInterrogatorioByEmbarazo(auxData).subscribe((res: any) => {
       Rpta = res.object[0];
-      console.log("desde interrogatorio ",Rpta);
+      console.log("desde interrogatorio ", Rpta);
       if (Rpta.signosVitales == null) {
         return
       }
@@ -335,6 +395,7 @@ export class InterrogatorioComponent implements OnInit {
       this.form.patchValue({ fr: Rpta.signosVitales.fr });
       this.form.patchValue({ peso: Rpta.signosVitales.peso });
       this.form.patchValue({ talla: Rpta.signosVitales.talla });
+      this.form.patchValue({ imc: Rpta.signosVitales.imc });
       //funciones biologicas
       this.form.patchValue({ apetito: Rpta.funcionesBiologicas[0].valor });
       this.form.patchValue({ sed: Rpta.funcionesBiologicas[1].valor });
@@ -381,7 +442,7 @@ export class InterrogatorioComponent implements OnInit {
       }
       this.form.patchValue({ obsExamFisico: Rpta.obsExamenFisico });
       //examene obstetricos
-      console.log("exam",Rpta.examenesObstetricos);
+      console.log("exam", Rpta.examenesObstetricos);
       this.form.patchValue({ miembrosInferiores: Rpta.examenesObstetricos.miembrosInferiores });
       this.form.patchValue({ alturaUterina: Rpta.examenesObstetricos.alturaUterina });
       this.form.patchValue({ edema: Rpta.examenesObstetricos.edema });

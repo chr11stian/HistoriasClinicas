@@ -485,7 +485,8 @@ export class TriajeCredComponent implements OnInit {
                         mes: r.object.mesEdad,
                         dia: r.object.diaEdad,
                         sexo: this.data.sexo,
-                        fechaNacimiento: this.data.fechaNacimiento
+                        fechaNacimiento: this.data.fechaNacimiento,
+                        hidden: true
                     }
                     this.consultaService.idConsulta = r.object.id
                     localStorage.setItem(this.attributeLocalS, JSON.stringify(data));
