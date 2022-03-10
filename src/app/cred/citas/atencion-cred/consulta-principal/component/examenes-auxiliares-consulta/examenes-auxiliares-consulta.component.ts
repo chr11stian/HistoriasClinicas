@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import Swal from 'sweetalert2';
 import { ExamenAuxiliar, Hematologia, Laboratorio, Parasitologia, ResultadoLaboratorio } from '../../models/examenesAuxiliares';
 import { ExamenesAuxiliaresService } from '../../services/examenes-auxiliares.service';
 
 @Component({
   selector: 'app-examenes-auxiliares-consulta',
   templateUrl: './examenes-auxiliares-consulta.component.html',
-  styleUrls: ['./examenes-auxiliares-consulta.component.css']
+  styleUrls: ['./examenes-auxiliares-consulta.component.css'],
+  providers: [DialogService],
 })
 export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   listaExamenesAux: any[] = [];
@@ -33,16 +36,19 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   examLab: Examen = {};
   lugarLab: Lugar = {};
   idConsulta: string;
+  listaDataLaboRes: any;
+  ref: DynamicDialogRef;
+  toShow: boolean = false;
+  indexEdit: number;
 
   constructor(
     private fb: FormBuilder,
     private auxExamService: ExamenesAuxiliaresService,
+    private dialog: DialogService,
   ) {
-    this.inicializarForm();
+
     this.idConsulta = JSON.parse(localStorage.getItem('documento')).idConsulta;
-    this.auxExamService.getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta).then(data => {
-      console.log('data de examenes auxiliares de consulta ', data);
-    })
+    this.recoverDataAuxialsExams();
   }
 
   ngOnInit(): void {
@@ -50,74 +56,83 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
   }
   inicializarForm() {
     this.formHematologia = new FormGroup({
-      hemoglobina: new FormControl('', { validators: [Validators.required] }),
-      hematocrito: new FormControl(''),
-      grupoSanguineo: new FormControl(''),
-      factorRH: new FormControl(''),
-      tiempoSangria: new FormControl(''),
-      tiempoCoagulacion: new FormControl(''),
-      tiempoProtrombina: new FormControl(''),
-      tiempoTromboplastina: new FormControl(''),
-      reticulocitos: new FormControl(''),
-      compatibilidadSanguinea: new FormControl(''),
-      rctoGlobulosRojos: new FormControl(''),
-      rctoPlaquetas: new FormControl(''),
-      rctoGlobulosBlancos: new FormControl(''),
-      blastos: new FormControl(''),
-      juveniles: new FormControl(''),
-      neutrofilos: new FormControl(''),
-      nAbastonados: new FormControl(''),
-      nSegmentados: new FormControl(''),
-      linfocitos: new FormControl(''),
-      monocitos: new FormControl(''),
-      eosinofilos: new FormControl(''),
-      basofilos: new FormControl(''),
-      vcm: new FormControl(''),
-      vrVcm: new FormControl(''),
-      chcm: new FormControl(''),
-      vrChcm: new FormControl(''),
-      hcm: new FormControl(''),
-      vrHcm: new FormControl(''),
-      vsg1hora: new FormControl(''),
-      vsg2hora: new FormControl(''),
+      hemoglobina: new FormControl({ value: '', disabled: this.toShow }, { validators: [Validators.required] }),
+      hematocrito: new FormControl({ value: '', disabled: this.toShow }),
+      grupoSanguineo: new FormControl({ value: '', disabled: this.toShow }),
+      factorRH: new FormControl({ value: '', disabled: this.toShow }),
+      tiempoSangria: new FormControl({ value: '', disabled: this.toShow }),
+      tiempoCoagulacion: new FormControl({ value: '', disabled: this.toShow }),
+      tiempoProtrombina: new FormControl({ value: '', disabled: this.toShow }),
+      tiempoTromboplastina: new FormControl({ value: '', disabled: this.toShow }),
+      reticulocitos: new FormControl({ value: '', disabled: this.toShow }),
+      compatibilidadSanguinea: new FormControl({ value: '', disabled: this.toShow }),
+      rctoGlobulosRojos: new FormControl({ value: '', disabled: this.toShow }),
+      rctoPlaquetas: new FormControl({ value: '', disabled: this.toShow }),
+      rctoGlobulosBlancos: new FormControl({ value: '', disabled: this.toShow }),
+      blastos: new FormControl({ value: '', disabled: this.toShow }),
+      juveniles: new FormControl({ value: '', disabled: this.toShow }),
+      neutrofilos: new FormControl({ value: '', disabled: this.toShow }),
+      nAbastonados: new FormControl({ value: '', disabled: this.toShow }),
+      nSegmentados: new FormControl({ value: '', disabled: this.toShow }),
+      linfocitos: new FormControl({ value: '', disabled: this.toShow }),
+      monocitos: new FormControl({ value: '', disabled: this.toShow }),
+      eosinofilos: new FormControl({ value: '', disabled: this.toShow }),
+      basofilos: new FormControl({ value: '', disabled: this.toShow }),
+      vcm: new FormControl({ value: '', disabled: this.toShow }),
+      vrVcm: new FormControl({ value: '', disabled: this.toShow }),
+      chcm: new FormControl({ value: '', disabled: this.toShow }),
+      vrChcm: new FormControl({ value: '', disabled: this.toShow }),
+      hcm: new FormControl({ value: '', disabled: this.toShow }),
+      vrHcm: new FormControl({ value: '', disabled: this.toShow }),
+      vsg1hora: new FormControl({ value: '', disabled: this.toShow }),
+      vsg2hora: new FormControl({ value: '', disabled: this.toShow }),
     });
     this.formParasitario = this.fb.group({
       /**EXAMEN MACROSCOPICO */
-      color: new FormControl('', { validators: [Validators.required] }),
-      consistencia: new FormControl('', { validators: [Validators.required] }),
-      pH: new FormControl('', { validators: [Validators.required] }),
-      reaccion: new FormControl(''),
-      mucus: new FormControl(''),
-      sangre: new FormControl(''),
-      restosAlimenticios: new FormControl(''),
+      color: new FormControl({ value: '', disabled: this.toShow }, { validators: [Validators.required] }),
+      consistencia: new FormControl({ value: '', disabled: this.toShow }, { validators: [Validators.required] }),
+      pH: new FormControl({ value: '', disabled: this.toShow }, { validators: [Validators.required] }),
+      reaccion: new FormControl({ value: '', disabled: this.toShow }),
+      mucus: new FormControl({ value: '', disabled: this.toShow }),
+      sangre: new FormControl({ value: '', disabled: this.toShow }),
+      restosAlimenticios: new FormControl({ value: '', disabled: this.toShow }),
       /**EXAMEN MICROSCOPICO */
-      reaccionInflamatorio: new FormControl(''),
-      filamentosMucoides: new FormControl(''),
-      leucocitos: new FormControl(''),
-      hematies: new FormControl(''),
-      cuerposGrasos: new FormControl(''),
-      levaduras: new FormControl(''),
-      bacterias: new FormControl(''),
-      cocosBacilos: new FormControl(''),
-      formasParasitarias: new FormControl(''),
-      huevosDeValor1: new FormControl(''),
-      huevosDeValor2: new FormControl(''),
-      quistesDeValor1: new FormControl(''),
-      quistesDeValor2: new FormControl(''),
-      trofozoitosDeValor1: new FormControl(''),
-      trofozoitosDeValor2: new FormControl(''),
-      larvasDeValor1: new FormControl(''),
-      larvasDeValor2: new FormControl(''),
+      reaccionInflamatorio: new FormControl({ value: '', disabled: this.toShow }),
+      filamentosMucoides: new FormControl({ value: '', disabled: this.toShow }),
+      leucocitos: new FormControl({ value: '', disabled: this.toShow }),
+      hematies: new FormControl({ value: '', disabled: this.toShow }),
+      cuerposGrasos: new FormControl({ value: '', disabled: this.toShow }),
+      levaduras: new FormControl({ value: '', disabled: this.toShow }),
+      bacterias: new FormControl({ value: '', disabled: this.toShow }),
+      cocosBacilos: new FormControl({ value: '', disabled: this.toShow }),
+      formasParasitarias: new FormControl({ value: '', disabled: this.toShow }),
+      huevosDeValor1: new FormControl({ value: '', disabled: this.toShow }),
+      huevosDeValor2: new FormControl({ value: '', disabled: this.toShow }),
+      quistesDeValor1: new FormControl({ value: '', disabled: this.toShow }),
+      quistesDeValor2: new FormControl({ value: '', disabled: this.toShow }),
+      trofozoitosDeValor1: new FormControl({ value: '', disabled: this.toShow }),
+      trofozoitosDeValor2: new FormControl({ value: '', disabled: this.toShow }),
+      larvasDeValor1: new FormControl({ value: '', disabled: this.toShow }),
+      larvasDeValor2: new FormControl({ value: '', disabled: this.toShow }),
       /**CAMPOS EXTRA*/
-      sangreOcultaHeces: new FormControl(''),
-      gotaGruesa: new FormControl(''),
-      frotisLesion: new FormControl(''),
+      sangreOcultaHeces: new FormControl({ value: '', disabled: this.toShow }),
+      gotaGruesa: new FormControl({ value: '', disabled: this.toShow }),
+      frotisLesion: new FormControl({ value: '', disabled: this.toShow }),
     });
   }
-  save() {
-
+  async recoverDataAuxialsExams() {
+    await this.auxExamService.getPromiseListarResultadosLaboratorioByIdConsulta(this.idConsulta).then(data => {
+      // console.log('data de examenes auxiliares de consulta ', data);
+      this.listaDataLaboRes = data;
+      if (data.length > 0) {
+        this.toShow = true;
+      }
+    })
+    console.log('to show ', this.toShow)
+    this.inicializarForm();
   }
   openAddExamDialog() {
+    this.isUpdate = false;
     this.examLab = {};
     this.lugarLab = {};
     this.inicializarForm();
@@ -161,7 +176,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
     if (auxDataExam != undefined) {
       this.listaExamenesAux.push(auxDataExam);
     }
-    console.log('lista de examenes ', this.listaExamenesAux);
+    // console.log('lista de examenes ', this.listaExamenesAux);
     this.listaExamenesAux = [...this.listaExamenesAux];
     this.addExamDialog = false;
   }
@@ -214,7 +229,7 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
       examenMacroscopico: {
         color: this.formParasitario.value.color,
         consistencia: this.formParasitario.value.consistencia,
-        pH: this.formParasitario.value.pH,
+        ph: this.formParasitario.value.pH,
         reaccion: this.formParasitario.value.reaccion,
         mucus: this.formParasitario.value.mucus,
         sangre: this.formParasitario.value.sangre,
@@ -242,17 +257,129 @@ export class ExamenesAuxiliaresConsultaComponent implements OnInit {
 
   }
   saveAuxiliarsExams() {
-    this.dataExamenesAuxiliares = {
-      servicio: 'SERVICIO',
-      nroCama: '',
-      dxPresuntivo: '',
-      examenesAuxiliares: this.listaExamenesAux,
-      observaciones: ''
+    if (this.listaExamenesAux.length == 0) {
+      // console.log('no hay datos para guardar');
+      return
     }
-    console.log('data to send ', this.dataExamenesAuxiliares);
-    this.auxExamService.postExamenesAuxiliares(this.idConsulta, this.dataExamenesAuxiliares).subscribe((res: any) => {
-      console.log('se guardo la wea ', res)
-    })
+    if (!this.toShow) {
+      this.dataExamenesAuxiliares = {
+        servicio: 'SERVICIO',
+        nroCama: '',
+        dxPresuntivo: '',
+        examenesAuxiliares: this.listaExamenesAux,
+        observaciones: ''
+      }
+      // console.log('data to send ', this.dataExamenesAuxiliares);
+      this.auxExamService.postExamenesAuxiliares(this.idConsulta, this.dataExamenesAuxiliares).subscribe((res: any) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Se guardo correctamente el examen',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      });
+    }
+  }
+  showDataAuxiliarsExams(data, index) {
+    console.log('data del ver ', data);
+    this.addExamDialog = true;
+    if (data.datosLaboratorio.subTipo == 'HEMATOLOGIA') {
+      this.examLab.tipoExam = 2;
+      this.lugarLab.index = 2;
+      this.setdataHematologia(data);
+    }
+    if (data.datosLaboratorio.subTipo == 'PARASITOLOGIA') {
+      this.examLab.tipoExam = 1;
+      this.lugarLab.index = 2;
+      this.setDataParasitologia(data);
+    }
+  }
+
+  openEditAuxiliarExam(data, index) {
+    this.isUpdate = true;
+    this.indexEdit = index;
+    this.addExamDialog = true;
+    if (data.subTipo == 'HEMATOLOGIA') {
+      this.examLab.tipoExam = 2;
+      this.lugarLab.index = 2;
+      this.setdataHematologia(data.resultado.hematologia);
+    }
+    if (data.subTipo == 'PARASITOLOGIA') {
+      this.examLab.tipoExam = 1;
+      this.lugarLab.index = 2;
+      this.setDataParasitologia(data.resultado.parasitologia);
+    }
+  }
+  agreeExamEdit() {
+    if (this.examLab.tipoExam == 2) {
+      this.recoverDataHematologia();
+      this.listaExamenesAux[this.indexEdit].resultado.hematologia = this.dataHematologia;
+    }
+    if (this.examLab.tipoExam == 1) {
+      this.recoverDataParasitologia();
+      this.listaExamenesAux[this.indexEdit].resultado.parasitologia = this.dataParasitologia;
+    }
+    this.addExamDialog = false;
+  }
+  setdataHematologia(data) {
+    this.formHematologia.patchValue({ hemoglobina: data.hemoglobina });
+    this.formHematologia.patchValue({ hematocrito: data.hematocrito });
+    this.formHematologia.patchValue({ grupoSanguineo: data.grupoSanguineo });
+    this.formHematologia.patchValue({ factorRH: data.factorRH });
+    this.formHematologia.patchValue({ tiempoSangria: data.tiempoSangria });
+    this.formHematologia.patchValue({ tiempoCoagulacion: data.tiempoCoagulacion });
+    this.formHematologia.patchValue({ tiempoProtrombina: data.tiempoProtrombina });
+    this.formHematologia.patchValue({ tiempoTromboplastina: data.tiempoTromboplastina });
+    this.formHematologia.patchValue({ reticulocitos: data.reticulocitos });
+    this.formHematologia.patchValue({ compatibilidadSanguinea: data.compatibilidadSanguinea });
+    this.formHematologia.patchValue({ rctoGlobulosRojos: data.rctoGlobulosRojos });
+    this.formHematologia.patchValue({ rctoPlaquetas: data.rctoPlaquetas });
+    this.formHematologia.patchValue({ rctoGlobulosBlancos: data.rctoGlobulosBlancos });
+    this.formHematologia.patchValue({ blastos: data.blastos });
+    this.formHematologia.patchValue({ juveniles: data.juveniles });
+    this.formHematologia.patchValue({ neutrofilos: data.neutrofilos });
+    this.formHematologia.patchValue({ nAbastonados: data.nAbastonados });
+    this.formHematologia.patchValue({ nSegmentados: data.nSegmentados });
+    this.formHematologia.patchValue({ linfocitos: data.linfocitos });
+    this.formHematologia.patchValue({ monocitos: data.monocitos });
+    this.formHematologia.patchValue({ eosinofilos: data.eosinofilos });
+    this.formHematologia.patchValue({ basofilos: data.basofilos });
+    this.formHematologia.patchValue({ vsg1hora: data.vsg1hora });
+    this.formHematologia.patchValue({ vsg2hora: data.vsg2hora });
+    this.formHematologia.patchValue({ vcm: data.vcm });
+    this.formHematologia.patchValue({ vrVcm: data.vrVcm });
+    this.formHematologia.patchValue({ chcm: data.chcm });
+    this.formHematologia.patchValue({ vrChcm: data.vrChcm });
+    this.formHematologia.patchValue({ hcm: data.hcm });
+    this.formHematologia.patchValue({ vrHcm: data.vrHcm });
+  }
+  setDataParasitologia(data) {
+    this.formParasitario.patchValue({ color: data.examenMacroscopico.color });
+    this.formParasitario.patchValue({ consistencia: data.examenMacroscopico.consistencia });
+    this.formParasitario.patchValue({ pH: data.examenMacroscopico.ph });
+    this.formParasitario.patchValue({ reaccion: data.examenMacroscopico.reaccion });
+    this.formParasitario.patchValue({ mucus: data.examenMacroscopico.mucus });
+    this.formParasitario.patchValue({ sangre: data.examenMacroscopico.sangre });
+    this.formParasitario.patchValue({ restosAlimenticios: data.examenMacroscopico.restosAlimenticios });
+    this.formParasitario.patchValue({ filamentosMucoides: data.examenMicroscopico.filamentosMucoides });
+    this.formParasitario.patchValue({ leucocitos: data.examenMicroscopico.leucocitos });
+    this.formParasitario.patchValue({ hematies: data.examenMicroscopico.hematies });
+    this.formParasitario.patchValue({ cuerposGrasos: data.examenMicroscopico.cuerposGrasos });
+    this.formParasitario.patchValue({ levaduras: data.examenMicroscopico.levaduras });
+    this.formParasitario.patchValue({ bacterias: data.examenMicroscopico.bacterias });
+    this.formParasitario.patchValue({ cocosBacilos: data.examenMicroscopico.cocosBacilos });
+    this.formParasitario.patchValue({ formasParasitarias: data.examenMicroscopico.formasParasitarias });
+    this.formParasitario.patchValue({ huevosDeValor1: data.examenMicroscopico.huevosDe[0] });
+    this.formParasitario.patchValue({ huevosDeValor2: data.examenMicroscopico.huevosDe[1] });
+    this.formParasitario.patchValue({ quistesDeValor1: data.examenMicroscopico.quistesDe[0] });
+    this.formParasitario.patchValue({ quistesDeValor2: data.examenMicroscopico.quistesDe[1] });
+    this.formParasitario.patchValue({ trofozoitosDeValor1: data.examenMicroscopico.trofozoitosDe[0] });
+    this.formParasitario.patchValue({ trofozoitosDeValor2: data.examenMicroscopico.trofozoitosDe[1] });
+    this.formParasitario.patchValue({ larvasDeValor1: data.examenMicroscopico.larvasDe[0] });
+    this.formParasitario.patchValue({ larvasDeValor2: data.examenMicroscopico.larvasDe[1] });
+    this.formParasitario.patchValue({ sangreOcultaHeces: data.sangreOcultaHeces });
+    this.formParasitario.patchValue({ gotaGruesa: data.gotaGruesa });
+    this.formParasitario.patchValue({ frotisLesion: data.frotisLesion });
   }
 }
 interface Examen {
