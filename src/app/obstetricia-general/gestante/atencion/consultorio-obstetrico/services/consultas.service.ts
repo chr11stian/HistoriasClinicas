@@ -57,4 +57,12 @@ export class ConsultasService {
     getServiciosPorIpress(idIpress) {
         return this.http.get(`${this.base_url}/${this.bd}/ipress/listarServicios/${idIpress}`);
     }
+
+    guardarDiagnosticoDeGestante(nroHcl,nroEmbarazo,nroAtencion,data){
+        return this.http.post(`${this.base_url}/${this.bd}/obstetricia/consulta/agregarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}`, data)
+    }
+
+    eliminarDiagnosticoGestante(nroHcl,nroEmbarazo,nroAtencion,cie10SIS){
+        return this.http.delete(`${this.base_url}/${this.bd}/obstetricia/consulta/eliminiarDiagnostico/${nroHcl}/${nroEmbarazo}/${nroAtencion}/${cie10SIS}`)
+    }
 }

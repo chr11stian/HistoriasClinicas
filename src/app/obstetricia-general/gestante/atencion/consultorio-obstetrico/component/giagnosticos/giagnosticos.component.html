@@ -22,8 +22,11 @@
             <ng-template pTemplate="header" styleClass="p-datatable-gridlines">
                 <tr>
                     <th style="text-align: center" class="font-2">Nro </th>
+                    <th style="text-align: center" class="font-1">COD. PRESTACION</th>
                     <th style="text-align: center" class="font-1">CIE 10 SIS</th>
                     <th style="text-align: center" class="font-2">DIAGNOSTICOS SIS</th>
+                    <th style="text-align: center" class="font-1">CIE 10 HIS</th>
+                    <th style="text-align: center" class="font-2">DIAGNOSTICOS HIS</th>
                     <th style="text-align: center" class="font-2">TIPO</th>
                     <th style="text-align: center" class="font-2">ACCIÓN</th>
                 </tr>
@@ -31,8 +34,11 @@
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
                 <tr>
                     <td style="text-align: center" class="font-2">{{ rowIndex + 1 }}</td>
+                    <td style="text-align: center">{{ rowData.codPrestacion }}</td>
                     <td style="text-align: center">{{ rowData.cie10SIS }}</td>
                     <td style="text-align: center">{{ rowData.diagnosticoSIS }}</td>
+                    <td style="text-align: center">{{ rowData.cie10HIS }}</td>
+                    <td style="text-align: center">{{ rowData.diagnosticoHIS }}</td>
                     <td style="text-align: center">{{ rowData.tipo }}</td>
                     <td style="text-align: center">
                         <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger m-1"
@@ -150,31 +156,46 @@
     </div>
 </div>
 <!--*************************DIALOGO AGREGAR Diagnosticosss***********************************-->
-<p-dialog [(visible)]="diagnosticoDialog" [modal]="true" [style]="{width: '580px',heigth:'400px'}">
+<p-dialog [(visible)]="diagnosticoDialog" [modal]="true" [style]="{width: '780px',heigth:'400px'}">
     <ng-template pTemplate="header">
         <h3>DIAGNOSTICOS</h3>
     </ng-template>
     <form [formGroup]='form'>
         <div class="grid mt-2 ">
+            <div class="col-12">
+                <label>Prestacion:</label>
+                <p-dropdown inputId="dropdown" [options]="prestacionList" formControlName="prestacion"
+                    placeholder="Seleccionar" optionLabel="descripcion" defaultLabel="Seleccione:" appendTo="body"
+                    class="inputfield p-fluid w-full" (onChange)="onChangePrestacion()">
+                </p-dropdown>
+            </div>
+            <!-- materno -->
+            <div class="col-6">
+                <label>Subtitulo UPS:</label>
+                <input type="text" pInputText class="inputfield p-fluid w-full" formControlName="subtitulo" disabled />
+            </div>
+            <div class="col-6">
+                <label>Tipo diagnostico:</label>
+                <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipo" placeholder="Seleccione"
+                    optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"
+                    class="inputfield p-fluid w-full">
+                </p-dropdown>
+            </div>
             <div class="col-6 ">
                 <p-fieldset legend="DIAGNOSTICO SIS">
                     <div class="grid mt-2">
                         <label>Diagnóstico: </label>
-                        <p-autoComplete [suggestions]="listaDeCIE" (completeMethod)="filterCIE10($event)"
-                            appendTo="body" field="descripcionItem" [minLength]="1" class="areaText "
-                            class="inputfield p-fluid w-full" formControlName="autocompleteSIS"
-                            (onSelect)="selectedOptionNameCIE($event,0)">
-                        </p-autoComplete>
+                        <p-dropdown [options]="listaDeCIESIS" formControlName="autocompleteSIS" appendTo="body"
+                            optionLabel="diagnostico" class="inputfield p-fluid w-full" placeholder="Seleccione"
+                            (onChange)="selectedOptionNameCIE($event,0)"></p-dropdown>
                         <textarea [rows]="3" class="inputfield w-full mt-2" formControlName="diagnosticoSIS"
                             pInputTextarea disabled></textarea>
                     </div>
                     <div class="grid mt-2 ">
                         <label class="mr-2">CIE 10: </label>
-                        <p-autoComplete formControlName="SISCIE" [suggestions]="listaDeCIE"
-                            (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
-                            class="inputfield p-fluid w-full" (onSelect)="selectedOption($event,0)" class=""
-                            [forceSelection]="true" dataKey="codigoItem">
-                        </p-autoComplete>
+                        <p-dropdown [options]="listaDeCIESIS" formControlName="SISCIE" appendTo="body"
+                            optionLabel="cie10" class="inputfield p-fluid w-full" placeholder="Seleccione"
+                            (onChange)="selectedOption($event,0)"></p-dropdown>
                     </div>
                 </p-fieldset>
             </div>
@@ -194,25 +215,11 @@
                         <label class="mr-2">CIE 10: </label>
                         <p-autoComplete formControlName="HISCIE" [suggestions]="listaDeCIE"
                             (completeMethod)="filterCIE10($event)" field="codigoItem" [minLength]="1"
-                            class="inputfield p-fluid w-full" (onSelect)="selectedOption($event,1)" class=""
-                            [forceSelection]="true" dataKey="codigoItem">
+                            class="inputfield p-fluid w-full" (onSelect)="selectedOption($event,1)"
+                            class="inputfield p-fluid w-full" [forceSelection]="true" dataKey="codigoItem">
                         </p-autoComplete>
                     </div>
                 </p-fieldset>
-            </div>
-            <div class="col-4">
-                <label>Tipo diagnostico:</label>
-                <p-dropdown inputId="dropdown" [options]="tipoList" formControlName="tipo" placeholder="seleccionar"
-                    optionLabel="label" optionValue="value" defaultLabel="Seleccione:" appendTo="body"
-                    class="inputfield p-fluid w-full">
-                </p-dropdown>
-            </div>
-            <div class="col-8">
-                <label>Prestacion:</label>
-                <p-dropdown inputId="dropdown" [options]="prestacionList" formControlName="prestacion"
-                    placeholder="seleccionar" optionLabel="descripcion" defaultLabel="Seleccione:" appendTo="body"
-                    class="inputfield p-fluid w-full">
-                </p-dropdown>
             </div>
         </div>
     </form>
@@ -224,6 +231,7 @@
     </ng-template>
 
 </p-dialog>
+
 <!-- dialogo para cronograma citas -->
 
 <p-dialog [(visible)]="cronogramaDialog" [style]="{width: '580px',heigth:'400px'}" [modal]="true">
