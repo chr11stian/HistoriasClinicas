@@ -499,6 +499,17 @@ export class DatosBasalesComponent implements OnInit {
             console.log('datos de embarazo', this.rptaDatosBasales)
             if (this.rptaDatosBasales == null)
                 return
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
+            this.form.patchValue({'rubeola': auxVac == undefined ? false : true});
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "hepatitis B")
+            this.form.patchValue({'hepatitisB': auxVac == undefined ? false : true});
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "papiloma")
+            this.form.patchValue({'papiloma': auxVac == undefined ? false : true});
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "influenza")
+            this.form.patchValue({'influenza': auxVac == undefined ? false : true});
+            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "covid")
+            this.form.patchValue({'covid': auxVac == undefined ? false : true});
+
             this.form.patchValue({'imc': this.rptaDatosBasales.pesoTalla.imc});
             this.form.patchValue({'pesoHabitual': this.rptaDatosBasales.pesoTalla.pesoHabitual});
             this.form.patchValue({'talla': this.rptaDatosBasales.pesoTalla.talla});
@@ -551,16 +562,7 @@ export class DatosBasalesComponent implements OnInit {
             this.CieService.getCIEByCod(this.rptaDatosBasales.emergencia.cie10).subscribe((resCIE: any) => {
                 this.form.patchValue({'emergenciaCIE': resCIE.object});
             });
-            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "rubeola")
-            this.form.patchValue({'rubeola': auxVac == undefined ? false : true});
-            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "hepatitis B")
-            this.form.patchValue({'hepatitisB': auxVac == undefined ? false : true});
-            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "papiloma")
-            this.form.patchValue({'papiloma': auxVac == undefined ? false : true});
-            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "influenza")
-            this.form.patchValue({'influenza': auxVac == undefined ? false : true});
-            auxVac = this.rptaDatosBasales.vacunasPrevias.find(item => item == "covid")
-            this.form.patchValue({'covid': auxVac == undefined ? false : true});
+
             this.form.patchValue({'tamizaje': this.rptaDatosBasales.violenciaGenero.fichaTamizaje});
             this.form.patchValue({'violencia': this.rptaDatosBasales.violenciaGenero.violencia});
             this.form.patchValue({'dateViolencia': this.rptaDatosBasales.violenciaGenero.fecha});
