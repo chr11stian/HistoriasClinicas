@@ -8,9 +8,9 @@
     </div>
     <div>
       <span style="font-weight: bold;font-size: 1.2rem">
-        Dosis(Via Oral) :
+        Dosis:
       </span>
-      <span>{{suplemento.nombre=='SF'?'2mg/kg/dia':'1 Sobre Diario'}}</span>
+      <span>{{suplemento.nombre=='SF'?'2mg/kg/dia':suplemento.nombre=='MNM'?'1 Sobre Diario':'100,000UI'}}</span>
     </div>
     <div>
       <span style="font-weight: bold;font-size: 1.2rem">
@@ -95,6 +95,6 @@
 </div>
 <p-confirmDialog
   [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
-  [style]="{ width: '50vw'}"
+  [style]="{ width: '25vw'}"
   key="claveDialog">
 </p-confirmDialog>

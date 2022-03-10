@@ -49,7 +49,7 @@ export class RolGuardiaService {
     getAmbientesPorIpres(inputRequest){
         return this.http.post(`${this.base_url}/${this.bd}/ipress/listarAmbientesXIpress`,inputRequest);
     }
-    getListaPrimeraPantalla(inputRequest){
-        return this.http.post(`${this.base_url}/${this.bd}/ipress/??????`,inputRequest);
+    getListaPrimeraPantalla(codIpress:string,inputRequest:any){
+        return this.http.post(`${this.base_url}/${this.bd}/rolguardia/personal/asignado/${codIpress}`,inputRequest);
     }
 }

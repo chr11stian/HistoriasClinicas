@@ -38,6 +38,7 @@ export class SuplementoComponent implements OnInit {
     {name:'Micronutriente 1 gramo en Polvo',code:'Micronutriente 1 gramo en Polvo'},
   ]
   // dosis: string = " 2mg/kg/dia";
+  isSuplementacion:boolean
   consumoDiario: string = "Consumo diario";
   constructor(
     public confirmationService:ConfirmationService,
@@ -46,7 +47,8 @@ export class SuplementoComponent implements OnInit {
     private SuplementacionService: SuplementacionesMicronutrientesService) {
     this.dataDocumento=JSON.parse(localStorage.getItem('documento'))
     this.build();
-    this.suplemento = this.config.data;
+    this.suplemento = this.config.data.suplementacion;
+    this.isSuplementacion = this.config.data.isSuplementacion;
     this.getSuplemtancion();
   }
   ngOnInit(): void {
@@ -69,13 +71,12 @@ export class SuplementoComponent implements OnInit {
   }
   save() {
     const requestInput = {
-      suplementacionMes: {
         codPrestacion: "21312", //duro
         codSISMED: "123322", //duro
         nroDiagnostico: 0, //duro
         codProcedimientoHIS: "32323", //duro
         codUPS: "324231", //duro
-        tipoSuplementacion: "Preventiva",
+        // tipoSuplementacion: "Preventiva",
         nombre: this.suplemento.nombre,
         descripcion: this.suplemento.descripcion,
         dosisIndicacion: this.getFC('tipo').value,//para el tipo
@@ -87,7 +88,7 @@ export class SuplementoComponent implements OnInit {
         fecha: this.obtenerFecha(this.getFC("fechaAplicacion").value),
         estadoAdministrado: true,
         edadMes: this.suplemento.edadMes,
-      },
+        fechaTentativa: "2021-10-25"
     };
     this.confirmationService.confirm({
       header: "Confirmación",
@@ -97,10 +98,18 @@ export class SuplementoComponent implements OnInit {
       rejectLabel: "No",
       key:'claveDialog',
       accept: () => {
-        this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
-        ).subscribe(() => {
-          this.ref.close("agregado");
-        });
+        if (this.isSuplementacion){
+          this.SuplementacionService.PostSuplementacion(this.idConsulta,requestInput
+          ).subscribe(() => {
+            this.ref.close("agregado");
+          });
+        }
+        else{
+          this.SuplementacionService.PostVitaminaA(this.idConsulta,requestInput
+          ).subscribe(() => {
+            this.ref.close("agregado");
+          });
+        }
       },
       reject: () => {
         // console.log("no se borro");

@@ -30,6 +30,10 @@
               [disabled]="true"
               dateFormat="dd/mm/yy"
               [(ngModel)]="sf.fechaTentativa"
+              [ngClass]="{
+                        vacunado: sf.estadoAdministrado,
+                        noVacunado: !sf.estadoAdministrado
+                      }"
       ></p-calendar>
     </div>
     <div class="col text-center">
@@ -39,6 +43,10 @@
               [disabled]="true"
               dateFormat="dd/mm/yy"
               [(ngModel)]="sf.fecha"
+              [ngClass]="{
+                        vacunado: sf.estadoAdministrado,
+                        noVacunado: !sf.estadoAdministrado
+                      }"
       ></p-calendar>
     </div>
     <div class="col-2 text-center">
@@ -52,7 +60,7 @@
       </ng-template>
     </div>
     <div class="col-1 text-center">
-      <button *ngIf="!sf.estadoAdministrado;" (click)="agregarSuplementacion(sf)" pButton pRipple
+      <button *ngIf="!sf.estadoAdministrado;" (click)="isSuplementacion=true;agregarSuplementacion(sf)" pButton pRipple
               type="button" icon="pi pi-pencil"
               pTooltip="Agregar Suplementacion"
               tooltipPosition="bottom"
@@ -60,7 +68,7 @@
     </div>
   </div>
 </p-fieldset>
-<p-fieldset>
+<p-fieldset styleClass="mt-3">
   <ng-template pTemplate="header">
     <div>
       Suplementacion con MICRONUTRIENTES
@@ -92,6 +100,10 @@
               [disabled]="true"
               dateFormat="dd/mm/yy"
               [(ngModel)]="mnm.fechaTentativa"
+              [ngClass]="{
+                        vacunado: mnm.estadoAdministrado,
+                        noVacunado: !mnm.estadoAdministrado
+                      }"
       ></p-calendar>
     </div>
     <div class="col text-center">
@@ -101,6 +113,10 @@
               [disabled]="true"
               dateFormat="dd/mm/yy"
               [(ngModel)]="mnm.fecha"
+              [ngClass]="{
+                        vacunado: mnm.estadoAdministrado,
+                        noVacunado: !mnm.estadoAdministrado
+                      }"
       ></p-calendar>
     </div>
     <div class="col-2 text-center">
@@ -114,7 +130,7 @@
       </ng-template>
     </div>
     <div class="col-1 text-center">
-      <button *ngIf="!mnm.estadoAdministrado;" (click)="agregarSuplementacion(mnm)" pButton pRipple
+      <button *ngIf="!mnm.estadoAdministrado;" (click)="isSuplementacion=true; agregarSuplementacion(mnm)" pButton pRipple
               type="button" icon="pi pi-pencil"
               pTooltip="Agregar Suplementacion"
               tooltipPosition="bottom"
@@ -122,7 +138,7 @@
     </div>
   </div>
 </p-fieldset>
-<p-fieldset>
+<p-fieldset styleClass="mt-3">
   <ng-template pTemplate="header">
     <div>
       Suplementacion con Vitamina A
@@ -137,7 +153,7 @@
     <div class="col-2 text-center" style="font-weight: bold">Estado</div>
     <div class="col-1 text-center" style="font-weight: bold">Accion</div>
   </div>
-  <div class="grid" *ngFor="let va of vitaA" [ngStyle]="{'background-color':sf.edadMes==edadMes? 'rgba(175,0,23,0.4)' : 'white' }">
+  <div class="grid" *ngFor="let va of vitaminaA" [ngStyle]="{'background-color':va.edadMes==edadMes? 'rgba(175,0,23,0.4)' : 'white' }">
     <div class="col-1 text-center">
       {{va.edadMes}}
     </div>
@@ -154,6 +170,10 @@
               [disabled]="true"
               dateFormat="dd/mm/yy"
               [(ngModel)]="va.fechaTentativa"
+              [ngClass]="{
+                        vacunado: va.estadoAdministrado,
+                        noVacunado: !va.estadoAdministrado
+                      }"
       ></p-calendar>
     </div>
     <div class="col text-center">
@@ -163,6 +183,10 @@
               [disabled]="true"
               dateFormat="dd/mm/yy"
               [(ngModel)]="va.fecha"
+              [ngClass]="{
+                        vacunado: va.fecha,
+                        noVacunado: !va.fecha
+                      }"
       ></p-calendar>
     </div>
     <div class="col-2 text-center">
@@ -176,7 +200,7 @@
       </ng-template>
     </div>
     <div class="col-1 text-center">
-      <button *ngIf="!va.estadoAdministrado;" (click)="agregarSuplementacion(va)" pButton pRipple
+      <button *ngIf="!va.estadoAdministrado;" (click)="isSuplementacion=false;agregarSuplementacion(va)" pButton pRipple
               type="button" icon="pi pi-pencil"
               pTooltip="Agregar Suplementacion"
               tooltipPosition="bottom"

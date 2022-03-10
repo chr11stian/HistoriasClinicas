@@ -50,6 +50,10 @@ export class VacunaComponent implements OnInit {
 
   cambioEstado(valor) {
     this.fechaAplicacionDisabled=!this.fechaAplicacionDisabled
+    if(this.fechaAplicacionDisabled){
+      this.getFC('fechaAplicacion').setValue(new Date())
+    }
+
     console.log('cambio',valor)
   }
 

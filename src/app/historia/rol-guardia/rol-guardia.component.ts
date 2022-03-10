@@ -39,7 +39,7 @@ export class RolGuardiaComponent implements OnInit {
     this.displayAsignado=true;
   }
   fecha = new Date();
-  idIpressZarzuela = "616de45e0273042236434b51";//la posta medica x defecto
+    idIpressZarzuela = "616de45e0273042236434b51";//la posta medica x defecto
   loading: boolean = true;
   loadingUps: boolean = true;
   listaTurno: any[] = [];
@@ -85,11 +85,10 @@ export class RolGuardiaComponent implements OnInit {
   }
   getPrimeraPantalla(){
     const inputRequest={
-      idIpress:this.idIpressZarzuela,
-      anio:'dawd',
-      mes:'awdwa'
+      anio:this.fecha1.getFullYear(),
+      mes:this.fecha1.getMonth()+1,
     }
-    this.rolGuardiaService.getListaPrimeraPantalla(inputRequest).subscribe((resp)=>{
+    this.rolGuardiaService.getListaPrimeraPantalla(this.idIpressZarzuela,inputRequest).subscribe((resp)=>{
       this.listaPersonalEstado=resp['object']
     })
   }
