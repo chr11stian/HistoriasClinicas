@@ -2,27 +2,22 @@ import {Component, OnInit} from "@angular/core";
 import {PersonalService} from "src/app/core/services/personal-services/personal.service";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {RolGuardiaService} from "src/app/core/services/rol-guardia/rol-guardia.service";
+interface personalEstado{
+  nroDoc:string,
+  nombre:string,
+  servicio:string,
+  estadoRol:boolean
+}
+
 @Component({
   selector: "app-rol-guardia",
   templateUrl: "./rol-guardia.component.html",
   styleUrls: ["./rol-guardia.component.css"],
 })
 export class RolGuardiaComponent implements OnInit {
-  listaPersonalEstado:personalEstado[]=[
-    {nroDni:'2564585',apellidos:'huaman vargas',nombres:'jose',servicio:'medicina general',estado:true},
-    {nroDni:'2564585',apellidos:'huaman vargas',nombres:'jose',servicio:'medicina general',estado:false},
-    {nroDni:'2564585',apellidos:'huaman vargas',nombres:'jose',servicio:'medicina general',estado:false},
-    {nroDni:'2564585',apellidos:'huaman vargas',nombres:'jose',servicio:'medicina general',estado:false},
-    {nroDni:'2564585',apellidos:'huaman vargas',nombres:'jose',servicio:'medicina general',estado:false},
-    {nroDni:'2564585',apellidos:'huaman vargas',nombres:'jose',servicio:'medicina general',estado:false},
-    {nroDni:'2564585',apellidos:'huaman vargas',nombres:'jose',servicio:'medicina general',estado:true},
-    {nroDni:'2564585',apellidos:'huaman vargas',nombres:'jose',servicio:'medicina general',estado:true},
-    {nroDni:'2564585',apellidos:'huaman vargas',nombres:'jose',servicio:'medicina general',estado:true},
-  ]
-  //para el modal
-  displayAsignado:boolean=false
-  meses = [
-    {mesNro: 1, mes: 'ENERO'},
+  listaPersonalEstado:personalEstado[]=[]
+  displayAsignadoRol:boolean=false
+  meses = [{mesNro: 1, mes: 'ENERO'},
     {mesNro: 2, mes: 'FEBRERO'},
     {mesNro: 3, mes: 'MARZO'},
     {mesNro: 4, mes: 'ABRIL'},
@@ -33,13 +28,9 @@ export class RolGuardiaComponent implements OnInit {
     {mesNro: 9, mes: 'SETIEMBRE'},
     {mesNro: 10, mes: 'OCTUBRE'},
     {mesNro: 11, mes: 'NOVIEMBRE'},
-    {mesNro: 12, mes: 'DICIEMBRE'}
-  ]
-  openModal(){
-    this.displayAsignado=true;
-  }
+    {mesNro: 12, mes: 'DICIEMBRE'} ]
   fecha = new Date();
-    idIpressZarzuela = "616de45e0273042236434b51";//la posta medica x defecto
+  idIpressZarzuela = "616de45e0273042236434b51";//la posta medica x defecto
   loading: boolean = true;
   loadingUps: boolean = true;
   listaTurno: any[] = [];
@@ -63,13 +54,15 @@ export class RolGuardiaComponent implements OnInit {
     private personalService: PersonalService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService){
-    this.numeroDiasMes();
-    this.generarCabecera();
-    this.colorearCabecera();
+    this.getPrimeraPantalla();
 
-    this.getListaUpsXipress();
-    this.getListaTurnoXipress();
-    this.getListaAmbienteXipress()
+    // this.numeroDiasMes();
+    // this.generarCabecera();
+    // this.colorearCabecera();
+    //
+    // this.getListaUpsXipress();
+    // this.getListaTurnoXipress();
+    // this.getListaAmbienteXipress()
   }
   ngOnInit(): void {
   }
@@ -89,7 +82,13 @@ export class RolGuardiaComponent implements OnInit {
       mes:this.fecha1.getMonth()+1,
     }
     this.rolGuardiaService.getListaPrimeraPantalla(this.idIpressZarzuela,inputRequest).subscribe((resp)=>{
-      this.listaPersonalEstado=resp['object']
+      if (resp['cod']!=null){
+        this.listaPersonalEstado=resp['object']['personal']
+      }
+      else{
+        this.listaPersonalEstado=[];
+      }
+      console.log('--------------------------------',resp)
     })
   }
   getListaTurnoXipress() {
@@ -190,11 +189,11 @@ export class RolGuardiaComponent implements OnInit {
     if(this.isAdelante1){
       console.log(this.fecha)
       this.fecha1=new Date(this.fecha1.setMonth(this.fecha1.getMonth()+1))
-      console.log(this.fecha)
     }
     else{
       this.fecha1=new Date(this.fecha1.setMonth(this.fecha1.getMonth()-1))
     }
+    this.getPrimeraPantalla();
   }
   cambiarFecha() {
     //agregando
@@ -453,8 +452,18 @@ export class RolGuardiaComponent implements OnInit {
         return true
   }
 
+  openModal(){
+    this.displayAsignadoRol=true;
+    this.numeroDiasMes();
+    this.generarCabecera();
+    this.colorearCabecera();
+
+    this.getListaUpsXipress();
+    this.getListaTurnoXipress();
+    this.getListaAmbienteXipress()
+  }
   close() {
-    this.displayAsignado=false;
+    this.displayAsignadoRol=false;
   }
   isSelected:boolean=false;
   indexSelected:number;
@@ -462,11 +471,4 @@ export class RolGuardiaComponent implements OnInit {
     this.isSelected=true;
     this.indexSelected=index
   }
-}
-interface personalEstado{
-  nroDni:string,
-  apellidos:string,
-  nombres:string,
-  servicio:string,
-  estado:boolean
 }
