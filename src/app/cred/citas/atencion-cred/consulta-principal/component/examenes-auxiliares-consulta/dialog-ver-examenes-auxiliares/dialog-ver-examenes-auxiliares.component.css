@@ -1,0 +1,17 @@
+.tittle {
+  font-weight: bold;
+  font-size: 1.1rem;
+  word-wrap: break-word;
+}
+.text {
+  color: rgb(12, 99, 192);
+  padding-left: 0.2rem;
+  font-weight: 600;
+}
+.space-grouping {
+  width: 100%;
+}
+.border {
+  border: 1px solid #b6b6b6;
+  border-radius: 7px;
+}
