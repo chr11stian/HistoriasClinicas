@@ -31,7 +31,7 @@
                     <td style="text-align: center;">{{ rowData.subTipo }}</td>
                     <td style="text-align: center;">
                         <button pButton pRipple type="button" icon="pi pi-pencil"
-                            (click)="openDialogEditarMedicacionFrecuente(rowData, i)"
+                            (click)="showDataAuxiliarsExams(rowData, i)"
                             class="p-button-rounded p-button-text"></button>
                         <button pButton pRipple type="button" icon="pi pi-trash" (click)="deleteExamItem(i)"
                             class="p-button-rounded p-button-danger p-button-text"></button>
@@ -72,7 +72,7 @@
                     <td style="text-align: center; padding: 0.7rem;">{{ rowData.datosLaboratorio.subTipo }}</td>
                     <td style="text-align: center; padding: 0.7rem;">
                         <button pButton pRipple type="button" icon="pi pi-eye"
-                            (click)="openDialogShowAuxiliarExam(rowData, i)"
+                            (click)="showDataAuxiliarsExams(rowData, i)"
                             class="p-button-rounded p-button-text"></button>
                         <!-- <button pButton pRipple type="button" icon="pi pi-pencil"
                             (click)="openDialogEditarMedicacionFrecuente(rowData, i)"
